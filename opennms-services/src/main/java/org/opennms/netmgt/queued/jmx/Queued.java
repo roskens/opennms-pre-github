@@ -17,6 +17,11 @@ QueuedMBean {
 		return "queuedContext";
 	}
 
+	private QueuingRrdStrategy getRrdStrategy() {
+		return (QueuingRrdStrategy) RrdUtils.getStrategy();
+	}
+
+
 	public boolean getStatsStatus() {
 		if (RrdUtils.getStrategy() instanceof QueuingRrdStrategy) {
 			return true;
@@ -24,11 +29,15 @@ QueuedMBean {
 			return false;
 		}
 	}
+	
+	public long getElapsedTime() {
+		return System.currentTimeMillis() - getStartTime();
+	}
+
 
 	public long getCreatesCompleted() {
 		if (getStatsStatus()) {
-			QueuingRrdStrategy strategy = (QueuingRrdStrategy) RrdUtils.getStrategy();
-			return strategy.getCreatesCompleted();
+			return getRrdStrategy().getCreatesCompleted();
 		} else {
 			return 0;
 		}
@@ -36,17 +45,7 @@ QueuedMBean {
 
 	public long getTotalOperationsPending() {
 		if (getStatsStatus()) {
-			QueuingRrdStrategy strategy = (QueuingRrdStrategy) RrdUtils.getStrategy();
-			return strategy.getTotalOperationsPending();
-		} else {
-			return 0;
-		}
-	}
-
-	public long getSignificantOpsPending() {
-		if (getStatsStatus()) {
-			QueuingRrdStrategy strategy = (QueuingRrdStrategy) RrdUtils.getStrategy();
-			return strategy.getSignificantOpsEnqueued() - strategy.getSignificantOpsCompleted();
+			return getRrdStrategy().getTotalOperationsPending();
 		} else {
 			return 0;
 		}
@@ -54,8 +53,7 @@ QueuedMBean {
 
 	public long getErrors() {
 		if (getStatsStatus()) {
-			QueuingRrdStrategy strategy = (QueuingRrdStrategy) RrdUtils.getStrategy();
-			return strategy.getErrors();
+			return getRrdStrategy().getErrors();
 		} else {
 			return 0;
 		}
@@ -63,8 +61,7 @@ QueuedMBean {
 
 	public long getUpdatesCompleted() {
 		if (getStatsStatus()) {
-			QueuingRrdStrategy strategy = (QueuingRrdStrategy) RrdUtils.getStrategy();
-			return strategy.getUpdatesCompleted();
+			return getRrdStrategy().getUpdatesCompleted();
 		} else {
 			return 0;
 		}
@@ -72,8 +69,7 @@ QueuedMBean {
 
 	public long getPromotionCount() {
 		if (getStatsStatus()) {
-			QueuingRrdStrategy strategy = (QueuingRrdStrategy) RrdUtils.getStrategy();
-			return strategy.getPromotionCount();
+			return getRrdStrategy().getPromotionCount();
 		} else {
 			return 0;
 		}
@@ -81,8 +77,7 @@ QueuedMBean {
 	
 	public long getDequeuedItems() {
 		if (getStatsStatus()) {
-			QueuingRrdStrategy strategy = (QueuingRrdStrategy) RrdUtils.getStrategy();
-			return strategy.getDequeuedItems();
+			return getRrdStrategy().getDequeuedItems();
 		} else {
 			return 0;
 		}
@@ -90,8 +85,7 @@ QueuedMBean {
 
 	public long getDequeuedOperations() {
 		if (getStatsStatus()) {
-			QueuingRrdStrategy strategy = (QueuingRrdStrategy) RrdUtils.getStrategy();
-			return strategy.getDequeuedOperations();
+			return getRrdStrategy().getDequeuedOperations();
 		} else {
 			return 0;
 		}
@@ -99,8 +93,7 @@ QueuedMBean {
 
 	public long getEnqueuedOperations() {
 		if (getStatsStatus()) {
-			QueuingRrdStrategy strategy = (QueuingRrdStrategy) RrdUtils.getStrategy();
-			return strategy.getEnqueuedOperations();
+			return getRrdStrategy().getEnqueuedOperations();
 		} else {
 			return 0;
 		}
@@ -108,8 +101,7 @@ QueuedMBean {
 
 	public long getSignificantOpsDequeued() {
 		if (getStatsStatus()) {
-			QueuingRrdStrategy strategy = (QueuingRrdStrategy) RrdUtils.getStrategy();
-			return strategy.getSignificantOpsDequeued();
+			return getRrdStrategy().getSignificantOpsDequeued();
 		} else {
 			return 0;
 		}
@@ -117,8 +109,7 @@ QueuedMBean {
 
 	public long getSignificantOpsEnqueued() {
 		if (getStatsStatus()) {
-			QueuingRrdStrategy strategy = (QueuingRrdStrategy) RrdUtils.getStrategy();
-			return strategy.getSignificantOpsEnqueued();
+			return getRrdStrategy().getSignificantOpsEnqueued();
 		} else {
 			return 0;
 		}
@@ -126,11 +117,19 @@ QueuedMBean {
 
 	public long getSignificantOpsCompleted() {
 		if (getStatsStatus()) {
-			QueuingRrdStrategy strategy = (QueuingRrdStrategy) RrdUtils.getStrategy();
-			return strategy.getSignificantOpsCompleted();
+			return getRrdStrategy().getSignificantOpsCompleted();
 		} else {
 			return 0;
 		}
 	}
+
+	public long getStartTime() {
+		if (getStatsStatus()) {
+			return getRrdStrategy().getStartTime();
+		} else {
+			return 0;
+		}
+	}
+	
 		
 }

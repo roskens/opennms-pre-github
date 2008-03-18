@@ -178,7 +178,7 @@ public class QueuingRrdStrategy implements RrdStrategy, Runnable {
 
     int threadsRunning = 0;
 
-    long updateStart = 0;
+    private long m_startTime = 0;
 
     private long m_promotionCount = 0;
 
@@ -538,8 +538,8 @@ public class QueuingRrdStrategy implements RrdStrategy, Runnable {
             }
 
             // initialize start time for stats
-            if (updateStart == 0)
-                updateStart = System.currentTimeMillis();
+            if (getStartTime() == 0)
+                setStartTime(System.currentTimeMillis());
 
             // reserve the assignment and take work items
             ops = takeAssignment(newAssignment);
@@ -612,7 +612,7 @@ public class QueuingRrdStrategy implements RrdStrategy, Runnable {
 
         // calculate the elapsed time we first queued updates
         long now = System.currentTimeMillis();
-        long elapsedMillis = Math.max(now - updateStart, 1);
+        long elapsedMillis = Math.max(now - getStartTime(), 1);
 
         // calculate the milliseconds between promotions necessary to age
         // insignificant files into
@@ -899,7 +899,7 @@ public class QueuingRrdStrategy implements RrdStrategy, Runnable {
         long now = System.currentTimeMillis();
 
         long currentElapsedMillis = Math.max(now - lastStatsTime, 1);
-        long totalElapsedMillis = Math.max(now - updateStart, 1);
+        long totalElapsedMillis = Math.max(now - getStartTime(), 1);
 
         long currentEnqueuedOps = (getEnqueuedOperations() - lastEnqueued);
         long currentDequeuedOps = (getDequeuedOperations() - lastDequeued);
@@ -1087,6 +1087,14 @@ public class QueuingRrdStrategy implements RrdStrategy, Runnable {
 
 	public void setSignificantOpsCompleted(long significantOpsCompleted) {
 		m_significantOpsCompleted = significantOpsCompleted;
+	}
+
+	public long getStartTime() {
+		return m_startTime;
+	}
+
+	public void setStartTime(long updateStart) {
+		m_startTime = updateStart;
 	}
 
 

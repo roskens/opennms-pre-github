@@ -3,10 +3,9 @@ package org.opennms.netmgt.queued.jmx;
 import org.opennms.netmgt.daemon.BaseOnmsMBean;
 
 public interface QueuedMBean extends BaseOnmsMBean {
+	public long getElapsedTime();
 	public long getTotalOperationsPending();
 	public long getSignificantOpsCompleted();
-//	public long getFilesWithSignificantWork();
-//	public long getFilesWithInsignificantWork();
 	public long getCreatesCompleted();
 	public long getUpdatesCompleted();
 	public long getErrors();
@@ -16,5 +15,6 @@ public interface QueuedMBean extends BaseOnmsMBean {
 	public long getEnqueuedOperations();
 	public long getDequeuedOperations();
 	public long getDequeuedItems();
+	public long getStartTime();
 
 }
