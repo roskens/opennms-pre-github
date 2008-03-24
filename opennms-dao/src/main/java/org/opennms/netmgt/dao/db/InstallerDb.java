@@ -10,6 +10,7 @@
 //
 // Modifications:
 //
+// 2008 Mar 05: Avoid catching a database exception in checkIndexUniqueness, do pre-query checks instead to make sure all columns exist. - dj@opennms.org
 // 2007 Jul 03: Remove non-functional (i.e.: empty) setupPgPlSqlIplike
 //              method and make setupPlPgsqlIplike public. - dj@opennms.org
 // 2007 Jun 10: Rearrange the iplike code a bit and add better error
@@ -43,7 +44,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.File;
 import java.io.FileFilter;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
@@ -70,7 +70,6 @@ import java.util.regex.Pattern;
 
 import javax.sql.DataSource;
 
-import org.opennms.core.utils.ProcessExec;
 import org.springframework.util.StringUtils;
 
 public class InstallerDb {
@@ -107,8 +106,6 @@ public class InstallerDb {
     private String m_databaseName = null;
     
     private String m_pass = null;
-    
-    private String m_pg_bindir = null;
     
     private String m_pg_iplike = null;
     
@@ -344,7 +341,7 @@ public class InstallerDb {
                 m_out.print("    - creating sequence \"" + sequence + "\"... ");
                 st.execute("CREATE SEQUENCE " + sequence + " minvalue "
                            + minvalue);
-//                st.execute("GRANT ALL on " + sequence + " TO " + m_user);
+                st.execute("GRANT ALL on " + sequence + " TO " + m_user);
                 m_out.println("OK");
             }
         }
@@ -746,12 +743,9 @@ public class InstallerDb {
                 addIndexesForTable(tableName);
                 addTriggersForTable(tableName);
 
-                /*
-                m_out.print("  - giving \"" + m_user + "\" permissions on \""
-                        + tableName + "\"... ");
+                m_out.print("  - giving \"" + m_user + "\" permissions on \"" + tableName + "\"... ");
                 st.execute("GRANT ALL ON " + tableName + " TO " + m_user);
                 m_out.println("GRANTED");
-                 */
             } else {
                 m_out.println("  - checking table \"" + tableName + "\"... ");
 
@@ -774,12 +768,8 @@ public class InstallerDb {
                         
                         addIndexesForTable(tableName);
                         addTriggersForTable(tableName);
-                        /*
-                        st.execute("GRANT ALL ON " + tableName + " TO "
-                                + m_user);
-                                */
-                        m_out.println("  - checking table \"" + tableName
-                                      + "\"... CREATED");
+                        st.execute("GRANT ALL ON " + tableName + " TO " + m_user);
+                        m_out.println("  - checking table \"" + tableName + "\"... CREATED");
                     } else {
                         try {
                             changeTable(tableName, oldTable, newTable);
@@ -1275,7 +1265,7 @@ public class InstallerDb {
 
             transformData(table, tmpTable, columnChanges, oldColumnNames);
 
-//            st.execute("GRANT ALL ON " + table + " TO " + m_user);
+            st.execute("GRANT ALL ON " + table + " TO " + m_user);
 
             m_out.print("    - optimizing table " + table + "... ");
             st.execute("VACUUM ANALYZE " + table);
@@ -1934,8 +1924,7 @@ public class InstallerDb {
         Statement st = getAdminConnection().createStatement();
         st.execute("CREATE DATABASE " + m_databaseName
                    + " WITH ENCODING='UNICODE'");
-        st.execute("GRANT ALL ON DATABASE " + m_databaseName
-                   + " TO " + m_user);
+        st.execute("GRANT ALL ON DATABASE " + m_databaseName + " TO " + m_user);
         
         st.close();
     }
@@ -2036,87 +2025,11 @@ public class InstallerDb {
             return;
         }
 
-        m_out.println("NOT UNICODE, CONVERTING");
-
+        m_out.println("NOT UNICODE");
         closeConnection();
         closeAdminConnection();
-
-        String dumpFile = "/tmp/pg_dump-" + m_databaseName;
-        String logFile = "/tmp/unicode-convert.log";
-        PrintStream log = new PrintStream(new FileOutputStream(logFile, true));
-        ProcessExec e = new ProcessExec(log, log);
-
-        int exitVal;
-
-        log.println("------------------------------------------------------"
-                + "------------------------");
-
-        m_out.print("  - dumping data to " + dumpFile + "... ");
-        String[] cmd1 = { m_pg_bindir + File.separator + "pg_dump", "-U",
-                m_pg_user, "-a", m_databaseName, "-f", dumpFile };
-        if ((exitVal = e.exec(cmd1)) != 0) {
-            throw new Exception("Dumping database returned non-zero exit "
-                    + "value " + exitVal + " while executing " + "command '"
-                    + StringUtils.arrayToDelimitedString(cmd1, " ")
-                    + "', check " + logFile);
-        }
-        m_out.println("OK");
-
-        m_out.print("  - waiting 3s for PostgreSQL to notice "
-                + "that pg_dump has disconnected.");
-        Thread.sleep(1000);
-        m_out.print(".");
-        Thread.sleep(1000);
-        m_out.print(".");
-        Thread.sleep(1000);
-        m_out.println(" OK");
-
-        m_out.print("  - dropping old database... ");
-        String[] cmd2 = { m_pg_bindir + File.separator + "dropdb", "-U",
-                m_pg_user, m_databaseName };
-        if ((exitVal = e.exec(cmd2)) != 0) {
-            throw new Exception("Dropping database returned non-zero exit "
-                    + "value " + exitVal + " while executing " + "command '"
-                    + StringUtils.arrayToDelimitedString(cmd2, " ")
-                    + "', check " + logFile);
-        }
-        m_out.println("OK");
-
-        m_out.print("  - creating new unicode database... ");
-        String[] cmd3 = { m_pg_bindir + File.separator + "createdb", "-U",
-                m_pg_user, "-E", "UNICODE", m_databaseName };
-        if ((exitVal = e.exec(cmd3)) != 0) {
-            throw new Exception("Creating database returned non-zero exit "
-                    + "value " + exitVal + " while executing " + "command '"
-                    + StringUtils.arrayToDelimitedString(cmd3, " ")
-                    + "', check " + logFile);
-        }
-        m_out.println("OK");
-
-        m_out.print("  - recreating tables... ");
-        String[] cmd4 = { m_pg_bindir + File.separator + "psql", "-U",
-                m_pg_user, "-f", getCreateSqlLocation(),
-                m_databaseName };
-        if ((exitVal = e.exec(cmd4)) != 0) {
-            throw new Exception("Recreating tables returned non-zero exit "
-                    + "value " + exitVal + " while executing " + "command '"
-                    + StringUtils.arrayToDelimitedString(cmd4, " ")
-                    + "', check " + logFile);
-        }
-        m_out.println("OK");
-
-        m_out.print("  - restoring data... ");
-        String[] cmd5 = { m_pg_bindir + File.separator + "psql", "-U",
-                m_pg_user, "-f", dumpFile, m_databaseName };
-        if ((exitVal = e.exec(cmd5)) != 0) {
-            throw new Exception("Restoring data returned non-zero exit "
-                    + "value " + exitVal + " while executing " + "command '"
-                    + StringUtils.arrayToDelimitedString(cmd5, " ")
-                    + "', check " + logFile);
-        }
-        m_out.println("OK");
-
-        log.close();
+        
+        throw new Exception("OpenNMS requires a Unicode database.  Please delete and recreate your\ndatabase and try again.");
     }
 
 
@@ -2125,11 +2038,20 @@ public class InstallerDb {
 
         Statement st = getConnection().createStatement();
 
-        for (Index index: indexes) {
+        for (Index index : indexes) {
             if (!index.isUnique()) {
                 continue;
             }
             if (!tableExists(index.getTable())) {
+                continue;
+            }
+            boolean missingColumn = false;
+            for (String column : index.getColumns()) {
+                if (!tableColumnExists(index.getTable(), column)) {
+                    missingColumn = true;
+                }
+            }
+            if (missingColumn) {
                 continue;
             }
             
@@ -2362,10 +2284,6 @@ public class InstallerDb {
 
     public String getPostgresOpennmsPassword() {
         return m_pass;
-    }
-
-    public void setPostgresBinaryDirectory(String directory) {
-        m_pg_bindir = directory;
     }
 
     public void setPostgresAdminUser(String postgresAdminUser) {
