@@ -363,13 +363,15 @@
       <artifactId>jsp-2.1</artifactId> 
       <scope>provided</scope> 
     </dependency> 
-<!--
+
+      <!--
     <dependency>
       <groupId>postgresql</groupId>
       <artifactId>postgresql</artifactId>
       <scope>test</scope>
     </dependency>
--->
+    -->
+
     <dependency>
       <groupId>rome</groupId>
       <artifactId>rome</artifactId>
