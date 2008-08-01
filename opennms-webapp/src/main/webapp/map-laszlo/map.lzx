@@ -33,12 +33,13 @@
         <attribute name="style" value="0x00ff00"/>
         <attribute name="myWidth" value="2"/>
         <attribute name="mc"/>
+        <attribute name="linkedNodePair" value="${new Object()}"/>
 
         <handler name="oninit">
             this.mc = this.getMCRef().createEmptyMovieClip("myLine", 10);
         </handler>
         
-        <method name="drawline" args="x1,y1,x2,y2">
+        <method name="drawline" args="x1,y1,x2,y2,node1,node2">
             Debug.write("Moving line");
             Debug.write(this);
 
@@ -47,8 +48,9 @@
             mc.lineStyle(this.myWidth, this.style,100);
             mc.moveTo(x1,y1);
             mc.lineTo(x2,y2);
+            this.linkedNodePair.node1 = node1;
+            this.linkedNodePair.node2 = node2;
             Debug.write(this);
-
         </method>
 
         <method name="alarm">
@@ -59,8 +61,9 @@
     </class>
 
     <class name="subMap" extends="view">
-        // Map reference, contains a MAP id and a list of nodes we can call.
-
+        <!--
+        Map reference, contains a MAP id and a list of nodes we can call.
+        -->
     </class>
 
     <class name="nodeLabel" extends="text">
@@ -73,6 +76,8 @@
 
     <class name="nodeGroup" extends="view" resource="group" visible="false">
         <attribute name="nodes"/>
+        <attribute name="openLinks" value="${new Array()}"/>
+        <attribute name="connected" value="${new Array()}"/>
        
         <handler name="onmouseover">
             this.info.bringToFront();
@@ -131,21 +136,27 @@
              for (l in links ) {
                  var firstHit = false;
                  var secondHit = false;
-
+                 var nodeToAttach;
                  for (n in nodes) {
                      for (c in nodes[n].connected) {
                          if (nodes[n].connected[c].l == links[l]){
                              if (firstHit) {
                                 secondHit = true;
+                                nodeToAttach = nodes[n].connected[c];
                              }
                              firstHit = true;
                          }
                      }
-
-                 }
+                  }
                   if (!(firstHit && secondHit)) {
                          links[l].setVisible(true);
-                     }
+                         openLinks.push(links[l]);
+
+                         //links[l].moveTemporary(this.x+(this.width/2),this.y+(this.height/2));
+                         // Use this to steal the X/Y of the attached line.
+                         
+                         Debug.write(openLinks);
+                  }
 
              }
 
@@ -157,12 +168,12 @@
             for (n in nodes) {
                 nodes[n].show()
             }
-
+  
             this.setVisible(false);
             this.destroy();
 
         </handler>
-
+       
     </class>
 
     <class name="onmsNode" extends="view"
@@ -191,11 +202,15 @@
         </handler>
         <method name="move">
             for(a in connected) {
-            connected[a].l.drawline(this.x+(this.width/2),this.y+(this.height/2),
-            connected[a].n.x + (connected[a].n.width/2),connected[a].n.y + (connected[a].n.height/2));
+                connected[a].l.drawline(this.x+(this.width/2),this.y+(this.height/2),
+                connected[a].n.x + (connected[a].n.width/2),connected[a].n.y + (connected[a].n.height/2),this,connected[a].n);
+                // Assign the link to the positioning nodes.
+                // We do this to be able to redo the line at a later point...
             }
+
             this.myLabel.setX(this.x);
             this.myLabel.setY(this.y+this.height+2);
+
         </method>
 
         <method event="ony">

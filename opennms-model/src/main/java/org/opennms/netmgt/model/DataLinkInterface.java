@@ -39,6 +39,9 @@ package org.opennms.netmgt.model;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.GeneratedValue;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -66,6 +69,10 @@ public class DataLinkInterface  implements Serializable {
      *
      * @return the nodeId (type Integer) of this DataLinkInterface object.
      */
+
+    @Id
+    @SequenceGenerator(name="opennmsSequence", sequenceName="opennmsNxtId")
+    @GeneratedValue(generator="opennmsSequence")
     public Integer getNodeId() {
         return nodeId;
     }
