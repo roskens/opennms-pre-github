@@ -213,7 +213,7 @@ public final class DatabaseSchemaConfigFactory {
         Enumeration<Table> e = getDatabaseSchema().enumerateTable();
         while (e.hasMoreElements()) {
             Table t = e.nextElement();
-            if (t.getVisable() == null || t.getVisable().equalsIgnoreCase("true")) {
+            if (t.getVisible() == null || t.getVisible().equalsIgnoreCase("true")) {
                 if (t.getKey() != null && t.getKey().equals("primary")) {
                     return t;
                 }
@@ -233,7 +233,7 @@ public final class DatabaseSchemaConfigFactory {
         Enumeration<Table> e = getDatabaseSchema().enumerateTable();
         while (e.hasMoreElements()) {
             Table t = e.nextElement();
-            if (t.getVisable() == null || t.getVisable().equalsIgnoreCase("true")) {
+            if (t.getVisible() == null || t.getVisible().equalsIgnoreCase("true")) {
                 if (t.getName() != null && t.getName().equals(name)) {
                     return t;
                 }
@@ -261,7 +261,7 @@ public final class DatabaseSchemaConfigFactory {
             Enumeration<Column> ecol = t.enumerateColumn();
             while (ecol.hasMoreElements()) {
                 Column col = ecol.nextElement();
-                if (col.getVisable() == null || col.getVisable().equalsIgnoreCase("true")) {
+                if (col.getVisible() == null || col.getVisible().equalsIgnoreCase("true")) {
                     if (col.getName().equalsIgnoreCase(colName)) {
                         table = t;
                         break OUTER;
@@ -373,7 +373,7 @@ public final class DatabaseSchemaConfigFactory {
             // for each table not already in the set
             while (e.hasMoreElements()) {
                 Table t = e.nextElement();
-                if (!joinableSet.contains(t.getName()) && (t.getVisable() == null || t.getVisable().equalsIgnoreCase("true"))) {
+                if (!joinableSet.contains(t.getName()) && (t.getVisible() == null || t.getVisible().equalsIgnoreCase("true"))) {
                     Enumeration<Join> ejoin = t.enumerateJoin();
                     // for each join does it join a table in the set?
                     while (ejoin.hasMoreElements()) {

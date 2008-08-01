@@ -1,0 +1,133 @@
+<library>
+
+    <include href="incubator/baseedittext.lzx" />
+    <include href="lz/vscrollbar.lzx"/>
+
+    <!--- Implements visual baseedittext with scrollbar. -->
+    <class name="scrolledittext" extends="baseedittext" 
+           multiline="true" clip="true" height="100">
+
+        <attribute name="border" value="0" />
+        
+        <view name="_face" bgcolor="0xffffff" 
+              width="${parent.width-parent.border*2}" 
+              height="${parent.height-parent.border*2}" 
+              x="${parent.border}" y="${parent.border}"/>
+
+        <_newinternalinputtext name="inp" x="${parent.border}" 
+            y="${parent.border}" 
+            height="${parent.height-parent.border*2}"
+            width="${parent.width - parent.vscrollwidth - parent.border*2 }">
+            <attribute name="lineheight"
+                       value="${this.getTextHeight()/this.getMaxScroll()}"/>
+            <attribute name="maxtextheight"
+                       value="${this.getTextHeight() - (this.getTextHeight()/this.getMaxScroll())}"/>
+            <attribute name="maxheight" 
+                       value="${this.height + this.maxtextheight}"/>
+            <event name="onpos" />
+            <attribute name="pos" value="0" setter="this.setPos(pos)"/>
+            
+            <method name="setPos" args="p">
+                if (this.isinited) {
+                    this.setScroll(1 - (p / this.lineheight));
+                    this.pos = p;
+                    if (this.onpos) this.onpos.sendEvent(p);
+                }
+            </method>
+            <handler name="onscroll">
+                this.setPos(-this.lineheight * (this.scroll - 1), true);
+            </handler>
+        </_newinternalinputtext>
+
+        <!--- Width to give for scrollbar
+              @keywords private -->
+        <attribute name="vscrollwidth" value="0"/>
+        
+        <method name="setvscrollwidthfromvisibility" args="v">
+            this.setAttribute("vscrollwidth", (v ? this._vs.width : 0));
+        </method>
+        
+<!--
+        <vscrollbar name="_vs" axis="y" scrollattr="pos"
+            scrolltarget="parent.inp"
+            x="${parent.width - this.width - parent.border + 1}" 
+            stepsize="${parent.inp.lineheight}" 
+            scrollmax="${parent.inp.maxheight}">
+        </vscrollbar>
+-->
+
+        <!--- Name of class to instantiate for vertical scroll bar.
+              @keywords public -->
+        <attribute name="vscrollbarclassname" type="string" value="vscrollbar"/>
+        
+        <!--- Our vertical scrollbar
+              @keywords private -->
+        <attribute name="_vs" value="null"/>
+        
+        <!--- @keywords private -->
+        <method name="ensurevscrollbar">
+            if (this._vs == null) {
+                var classname = this.vscrollbarclassname;
+                if (classname == "") {
+                    classname = "vscrollbar";
+                }
+                if ($debug) {
+                    if (typeof(global[classname]) == "undefined") {
+                        Debug.write("scrollbarclassname undefined", this);
+                    }
+                }
+                var vsinit = function () {
+                    var p = this.parent;
+                    // (_vs) x="${parent.width - this.width - parent.border + 1}" 
+                    this.applyConstraint("x", 
+                        function() { this.setAttribute("x", this.parent.width - this.width ); },
+                        [p, "width", this, "width", p, "border"]);
+                    
+                    // (_vs) stepsize="${scrolltarget.lineheight}" 
+                    this.applyConstraint("stepsize", 
+                        function() { this.setAttribute("stepsize", this.scrolltarget.lineheight); }, 
+                        [p.inp, "lineheight"]);
+                    
+                    // (_vs) scrollmax="${scrolltarget.maxheight}" />
+                    this.applyConstraint("scrollmax", 
+                        function() { this.setAttribute("scrollmax", this.scrolltarget.maxheight); }, 
+                        [p.inp, "maxheight"]);
+                        
+                    #pragma "methodName=init"
+                    super.init();
+                }
+                this._vs = new global[classname](this, 
+                                                 { axis: "y",
+                                                   scrollattr: "pos",
+                                                   scrolltarget: this.inp,
+                                                   init: vsinit});
+
+            }
+        </method>
+        
+        <method name="init">
+            super.init();
+            this.ensurevscrollbar();
+            setvscrollwidthfromvisibility(_vs.visible);
+            this.myDel = new LzDelegate(this, "setvscrollwidthfromvisibility", this._vs, "onvisible");
+        </method>
+
+ <!--- Overrides a parent method which calculates y position for text
+            in a way that doesn't make sense for this class. We just trap the 
+            call and do nothing. This field is positioned in y by the constraint
+            y=${parent.border}
+            Note: although this method is a no-op, it still has to be declared,
+            so the parent class's method does not get called on instances of 
+            this class. 
+        -->
+        <method name="_placeTextY">
+        </method>
+
+    </class>
+
+</library>
+<!-- * X_LZ_COPYRIGHT_BEGIN ***************************************************
+* Copyright 2006-2007 Laszlo Systems, Inc. All Rights Reserved.               *
+* Use is subject to license terms.                                            *
+* X_LZ_COPYRIGHT_END ****************************************************** -->
+<!-- @LZX_VERSION@                                                         -->
