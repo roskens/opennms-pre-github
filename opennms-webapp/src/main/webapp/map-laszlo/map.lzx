@@ -251,7 +251,7 @@
         <method event="oninit">
             this.connected = new Array();
             this.myLabel = new nodeLabel();
-            this.myLabel.setLabel("Nodeinfo");
+
         </method>
 
         <handler name="onload">
@@ -344,6 +344,8 @@
                 getElementsByTagName("ipHostName")[0].childNodes[0]);
                 info.addItem(nodeTimeStamp);
 
+                this.myLabel.setLabel(nodeRequest.getElementsByTagName("onmsNode")[0].getElementsByTagName("OnmsIpInterface")[0].
+                getElementsByTagName("ipHostName")[0].childNodes[0]);
 
            ]]></method>
         <handler name="oninit">
