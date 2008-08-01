@@ -25,20 +25,34 @@
     </resource>
 
 
-    <dataset name="nodeData" src="http:/rest/node/1"/>
+     <class name="NodeLoader">
+        <dataset
+                name="nodeRequest" querytype="GET" type="http" onerror="classroot.loadError()"
+                src="/rest/node/" ondata="classroot.loadSuccess()"/>
+                <method name="getNode" args="nodeId"><![CDATA[
 
+                    var ds = nodeRequest;
+                    ds.setAttribute('src','/opennms-webapp/rest/node/' + nodeId);
+              
+                    ds.setQueryString(p);
+                    ds.doRequest();
 
-    <view datapath="nodeData:/onmsNode/OnmsIpInterface" x="0" y="0" bgcolor="red">
-    <simplelayout axis="y"/>
-    <view name="list" onclick="parent.updateContact.setVisible(!parent.updateContact.visible);">
-      <simplelayout axis="x"/>
-      <text datapath="@ipAddress"/>
-      <text datapath="@ipLastCapsdPoll"/>
-      <text datapath="@node"/>
-      <text datapath="@label"/>
-    </view>
+                    super.open();
+           ]]></method>
+        <method name="loadError"><![CDATA[
+               Debug.write('Error loading the data');
+               ]]></method>
+        <method name="loadSuccess"><![CDATA[
+               var nodeTimeStamp =
+	           nodeRequest.getElementsByTagName("onmsNode")[0].getElementsByTagName("createTime")[0].childNodes[0];
+               Debug.write("Creation time Stamp: " + nodeTimeStamp);
 
-   </view>
+           ]]></method>
+        <handler name="oninit">
+            getNode(1);
+        </handler>
+    </class>
+    <NodeLoader name="nodeLoader"/>
 
     <!--
     <onmsNode>
@@ -289,12 +303,52 @@
         </handler>
 
         <!-- A list of the existing attributes -->
-        <floatinglist name="info" width="80" attach="right" visible="false">
-            <textlistitem text="NodeId"/>
-            <textlistitem text="NodeName"/>
-            <textlistitem text="Bla"/>
-            <textlistitem text="Bla"/>
+        <floatinglist name="info" attach="right" visible="false">
+            
         </floatinglist>
+
+
+        <dataset
+                name="nodeRequest" querytype="GET" type="http" onerror="classroot.loadError()"
+                src="/rest/node/" ondata="classroot.loadSuccess()"/>
+                <method name="getNode" args="nodeId"><![CDATA[
+
+                    var ds = nodeRequest;
+                    ds.setAttribute('src','/opennms-webapp/rest/node/' + nodeId);
+
+                    ds.setQueryString(p);
+                    ds.doRequest();
+
+                    super.open();
+           ]]></method>
+        <method name="loadError"><![CDATA[
+               Debug.write('Error loading the data');
+               ]]></method>
+        <method name="loadSuccess"><![CDATA[
+               var nodeTimeStamp =
+	           nodeRequest.getElementsByTagName("onmsNode")[0].getElementsByTagName("createTime")[0].childNodes[0];
+               Debug.write("Creation time Stamp: " + nodeTimeStamp);
+
+                //var nodeData = new textlistitem(nodeTimeStamp);
+                //OnmsIpInterface , OnmsIpInterface, ipAddress
+
+                // Population from the node REST service.
+                
+                info.addItem(nodeRequest.getElementsByTagName("onmsNode")[0].getElementsByTagName("OnmsIpInterface")[0].
+                getElementsByTagName("node")[0].childNodes[0]);
+                info.addItem(nodeRequest.getElementsByTagName("onmsNode")[0].getElementsByTagName("OnmsIpInterface")[0].
+                getElementsByTagName("ipAddress")[0].childNodes[0]);
+                info.addItem(nodeRequest.getElementsByTagName("onmsNode")[0].getElementsByTagName("OnmsIpInterface")[0].
+                getElementsByTagName("label")[0].childNodes[0]);
+                info.addItem(nodeRequest.getElementsByTagName("onmsNode")[0].getElementsByTagName("OnmsIpInterface")[0].
+                getElementsByTagName("ipHostName")[0].childNodes[0]);
+                info.addItem(nodeTimeStamp);
+
+
+           ]]></method>
+        <handler name="oninit">
+            getNode(1);
+        </handler>
 
         <handler name="ondblclick">
             // Provide edit behaviour of the node.
