@@ -1488,6 +1488,7 @@ create index atinterface_atphysaddr_idx on atinterface(atphysaddr);
 --########################################################################
 
 create table vlan (
+    id			 integer default nextval('opennmsNxtId') not null,
     nodeid		 integer not null,
     vlanid	     integer not null,
     vlanname     varchar(64) not null,
@@ -1548,7 +1549,8 @@ create index vlan_vlanname_idx on vlan(vlanname);
 --########################################################################
 
 create table stpnode (
-    nodeid		     integer not null,
+    id			             integer default nextval('opennmsNxtId') not null,
+    nodeid		             integer not null,
     baseBridgeAddress	     varchar(12) not null,
     baseNumPorts             integer,
     basetype                 integer,
@@ -1616,7 +1618,8 @@ create index stpnode_stpdesignatedroot_idx on stpnode(stpdesignatedroot);
 --########################################################################
 
 create table stpinterface (
-    nodeid	            integer not null,
+    id			            integer default nextval('opennmsNxtId') not null,
+    nodeid	                integer not null,
     bridgeport              integer not null,
     ifindex                 integer not null,
     stpportstate            integer,
@@ -1701,7 +1704,8 @@ create index stpinterface_stpdesbridge_idx on stpinterface(stpportdesignatedbrid
 --########################################################################
 
 create table iprouteinterface (
-    nodeid		    integer not null,
+    id			            integer default nextval('opennmsNxtId') not null,
+    nodeid		            integer not null,
     routeDest               varchar(16) not null,
     routeMask               varchar(16) not null,
     routeNextHop            varchar(16) not null,
@@ -1747,7 +1751,8 @@ create index iprouteinterface_rnh_idx on iprouteinterface(routenexthop);
 --########################################################################
 
 create table datalinkinterface (
-    nodeid	     integer not null,
+    id			     integer default nextval('opennmsNxtId') not null,
+    nodeid	         integer not null,
     ifindex          integer not null,
     nodeparentid     integer not null,
 	parentIfIndex    integer not null,
@@ -1784,6 +1789,7 @@ create index dlint_nodeparent_paifindex_idx on datalinkinterface(nodeparentid,pa
 --########################################################################
 
 create table inventory (
+        id			integer default nextval('opennmsNxtId') not null,
         nodeid		integer not null,
         name 	varchar(30) not null,
         createtime   timestamp not null,
@@ -1825,6 +1831,7 @@ create index inventory_status_idx on inventory(status);
 --########################################################################
 
 create table map (
+    id			     integer default nextval('opennmsNxtId') not null,
     mapId	   		 integer not null,
     mapName	   		 varchar(40) not null,
     mapBackGround	 varchar(256),
@@ -1862,6 +1869,7 @@ create table map (
 --########################################################################
 
 create table element (
+    id			     integer default nextval('opennmsNxtId') not null,
     mapId	   		 integer not null,
     elementId		 integer not null,
 	elementType      char(1) not null,
