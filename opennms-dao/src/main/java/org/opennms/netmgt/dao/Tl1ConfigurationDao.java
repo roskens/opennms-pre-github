@@ -8,11 +8,7 @@
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
- * Modifications:
- * 
- * Created August 1, 2008
- *
- * Copyright (C) 2008 The OpenNMS Group, Inc.  All rights reserved.
+ * Original code base Copyright (C) 1999-2001 Oculan Corp.  All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,14 +25,23 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
  * For more information contact:
- *      OpenNMS Licensing       <license@opennms.org>
- *      http://www.opennms.org/
- *      http://www.opennms.com/
+ * OpenNMS Licensing       <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
  */
-package org.opennms.netmgt.tl1d;
+package org.opennms.netmgt.dao;
 
-public interface Tl1MessageProcessor {
+import java.util.List;
 
-    Tl1Message proccessMessage(String message);
+import org.opennms.netmgt.config.tl1d.Tl1Element;
+
+/**
+ * Tl1ConfigurationDao
+ *
+ * @author brozow
+ */
+public interface Tl1ConfigurationDao {
+    
+    List<Tl1Element> getElements();
 
 }

@@ -56,31 +56,6 @@
     </class>
     <NodeLoader name="nodeLoader"/>
 
-    <!--
-    <onmsNode>
-<createTime>2008-08-01T09:06:03.334-06:00</createTime>
-−
-<OnmsIpInterface>
-<interfaceId>2</interfaceId>
-<ipAddress>69.94.200.1</ipAddress>
-<ipHostName>69.94.200.1</ipHostName>
-<ipLastCapsdPoll>2008-08-01T09:06:03.470-06:00</ipLastCapsdPoll>
-<isManaged>M</isManaged>
-−
-<isSnmpPrimary>
-<charCode>78</charCode>
-</isSnmpPrimary>
-<node>1</node>
-</OnmsIpInterface>
-<label>69.94.200.1</label>
-<labelSource>A</labelSource>
-<lastCapsdPoll>2008-08-01T09:06:03.334-06:00</lastCapsdPoll>
-<nodeId>1</nodeId>
-<type>A</type>
-</onmsNode>
-
-    -->
-
     <!-- All nodes attach to this view, that way we can iterate over
      nodes and nodes only.... -->
 
