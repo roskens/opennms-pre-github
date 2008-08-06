@@ -42,37 +42,41 @@ import java.net.Socket;
 import java.util.concurrent.BlockingQueue;
 
 import org.apache.log4j.Category;
+import org.opennms.netmgt.config.tl1d.Tl1Element;
 
+/**
+ * Default Implementation of the Tl1Client API.
+ * 
+ * @author <a href=mailto:david@opennms.org>David Hustace</a>
+ */
 public class Tl1ClientImpl implements Tl1Client {
 
-    public class TimeoutSleeper {
-
-        public void sleep() throws InterruptedException {
-            Thread.sleep(3000);
-        }
-
-    }
-
-    String m_host = "127.0.0.1";
-    int m_port = 502;
+    String m_host;
+    int m_port;
     boolean m_started = false;
 
     private Socket m_tl1Socket;
     private Thread m_socketReader;
-    private BlockingQueue<Tl1GenericMessage> m_tl1Queue;
+    private BlockingQueue<Tl1AutonomousMessage> m_tl1Queue;
     private BufferedReader m_reader;
     private TimeoutSleeper m_sleeper;
     private Category m_log;
-
-
-    public Tl1ClientImpl(BlockingQueue<Tl1GenericMessage> queue, Category log) {
-        this(queue, "localhost", 15000, log);
+    private Tl1AutonomousMessageProcessor m_messageProcessor;
+    private long m_reconnectionDelay;
+    
+    
+    public Tl1ClientImpl() {
     }
     
-    public Tl1ClientImpl(BlockingQueue<Tl1GenericMessage> queue, String host, int port, Category log) {
-	m_host = host;
-	m_port = port;
-	m_tl1Queue = queue;
+    public Tl1ClientImpl(BlockingQueue<Tl1AutonomousMessage> queue, Tl1Element element, Category log) 
+        throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+        
+        m_host = element.getHost();
+        m_port = element.getPort();
+        
+        m_tl1Queue = queue;
+        m_messageProcessor = (Tl1AutonomousMessageProcessor) Class.forName(element.getTl1MessageParser()).newInstance();
+        m_reconnectionDelay = element.getReconnectDelay();
         m_log = log;
     }
 
@@ -140,21 +144,22 @@ public class Tl1ClientImpl implements Tl1Client {
     }
 
     private void readMessages() {
-        StringBuilder rawMessage = new StringBuilder();
-        m_log.debug("readMessages: Begin reading off socket...");
+        StringBuilder rawMessageBuilder = new StringBuilder();
+        
+        m_log.info("readMessages: Begin reading off socket...");
         while(m_started) {
             try {
                 m_log.info("readMessages: reading line from TL1 socket...");
                 BufferedReader reader = getReader();
+                
                 if (reader != null) {
                     int ch;
                     while((ch = reader.read()) != -1) {
-                        rawMessage.append((char)ch);
+                        rawMessageBuilder.append((char)ch);
+                        
                         if((char)ch == ';') {
-                            m_log.debug("readMessages: offering message to queue: "+rawMessage.toString());
-                            m_tl1Queue.offer(Tl1GenericMessage.create(rawMessage.toString()));
-                            m_log.debug("readMessages: successfully offered to queue.");
-                            rawMessage.setLength(0);
+                            createAndQueueTl1Message(rawMessageBuilder);
+                            rawMessageBuilder.setLength(0);
                         }
                     }
                     m_log.warn("readMessages: resetting socket reader to client: "+m_host+":"+m_port);
@@ -167,9 +172,38 @@ public class Tl1ClientImpl implements Tl1Client {
         m_log.info("Stopping TL1 client: "+m_host+":"+String.valueOf(m_port));
     }
 
+    private void createAndQueueTl1Message(StringBuilder rawMessageBuilder) {
+        m_log.debug("readMessages: offering message to queue: "+rawMessageBuilder.toString());
+        Tl1AutonomousMessage message = detectMessageType(rawMessageBuilder);
+        if (message != null) {
+            m_tl1Queue.offer(message);
+            m_log.debug("readMessages: successfully offered to queue.");
+        } else {
+            m_log.debug("readMessages: message was null, not offered to queue.");
+        }
+    }
+
+    //TODO: Lots of work to do here
+    private Tl1AutonomousMessage detectMessageType(StringBuilder rawMessage) {
+        
+        //check token 5 to see if this is a reply message.  This implies that the Tl1Client must
+        //track message TAGs (Correlation TAGs (CTAG) vs. Autonomous TAGs (ATAG))
+        
+        if(isAutonomousMessage(rawMessage)) {
+            return m_messageProcessor.process(rawMessage.toString(), Tl1Message.AUTONOMOUS);
+        }
+        
+        return null;
+    }
+
+    //TODO: Lots of work to do here
+    private boolean isAutonomousMessage(StringBuilder rawMessage) {
+        return true;
+    }
+
     private void resetReader(IOException ex) {
         if (ex != null) {
-            ex.printStackTrace();
+            m_log.error("resetReader: connection failure.", ex);
         }
         try {
             m_reader.close();
@@ -212,32 +246,30 @@ public class Tl1ClientImpl implements Tl1Client {
         m_port = port;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.tl1d.Tl1Client#getTl1Socket()
-     */
-    public Socket getTl1Socket() {
-        return m_tl1Socket;
+    public BlockingQueue<Tl1AutonomousMessage> getTl1Queue() {
+        return m_tl1Queue;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.tl1d.Tl1Client#setTl1Socket(java.net.Socket)
-     */
-    public void setTl1Socket(Socket tl1Socket) {
-        m_tl1Socket = tl1Socket;
+    public void setTl1Queue(BlockingQueue<Tl1AutonomousMessage> tl1Queue) {
+        m_tl1Queue = tl1Queue;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.tl1d.Tl1Client#getSocketReader()
-     */
-    public Thread getSocketReader() {
-        return m_socketReader;
+    public Tl1AutonomousMessageProcessor getMessageProcessor() {
+        return m_messageProcessor;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.tl1d.Tl1Client#setSocketReader(java.lang.Thread)
-     */
-    public void setSocketReader(Thread socketReader) {
-        m_socketReader = socketReader;
+    public void setMessageProcessor(Tl1AutonomousMessageProcessor messageProcessor) {
+        m_messageProcessor = messageProcessor;
     }
 
+    public void setLog(Category log) {
+        m_log = log;
+    }
+
+    private class TimeoutSleeper {
+
+        public void sleep() throws InterruptedException {
+            Thread.sleep(m_reconnectionDelay);
+        }
+    }
 }

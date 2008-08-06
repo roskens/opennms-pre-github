@@ -45,22 +45,23 @@ import org.opennms.netmgt.config.tl1d.Tl1Element;
 import org.opennms.netmgt.daemon.AbstractServiceDaemon;
 import org.opennms.netmgt.dao.Tl1ConfigurationDao;
 import org.opennms.netmgt.eventd.EventIpcManager;
+import org.opennms.netmgt.eventd.EventListener;
 import org.opennms.netmgt.utils.EventBuilder;
+import org.opennms.netmgt.xml.event.Event;
 import org.springframework.beans.factory.InitializingBean;
 
 /**
+ * OpenNMS TL1 Daemon!
  * 
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
- *
  */
-public class Tl1d extends AbstractServiceDaemon implements PausableFiber, InitializingBean {
+public class Tl1d extends AbstractServiceDaemon implements PausableFiber, InitializingBean, EventListener {
 
-    private static final String TL1_UEI = "uei.opennms.org/api/tl1d/message";
     /*
      * The last status sent to the service control manager.
      */
     private int m_status = START_PENDING;
-    private BlockingQueue<Tl1GenericMessage> m_tl1Queue;
+    private BlockingQueue<Tl1AutonomousMessage> m_tl1Queue;
     private Thread m_tl1MesssageProcessor;
     private ArrayList<Tl1Client> m_tl1Clients;
     private EventIpcManager m_eventManager;
@@ -81,29 +82,44 @@ public class Tl1d extends AbstractServiceDaemon implements PausableFiber, Initia
 
     public synchronized void onInit() {
         log().info("onInit: Initializing Tl1d connections." );
-        m_tl1Queue = new LinkedBlockingQueue<Tl1GenericMessage>();
+        m_tl1Queue = new LinkedBlockingQueue<Tl1AutonomousMessage>();
     
         //initialize a factory of configuration
     
         List<Tl1Element> configElements = m_configurationDao.getElements();
     
         m_tl1Clients = new ArrayList<Tl1Client>();
-    
+        
         for(Tl1Element element : configElements) {
-            m_tl1Clients.add(new Tl1ClientImpl(m_tl1Queue, element.getHost(), element.getPort(), log()));
+            try {
+                Tl1Client client = (Tl1Client) Class.forName(element.getTl1ClientApi()).newInstance();
+                client.setHost(element.getHost());
+                client.setPort(element.getPort());
+                client.setTl1Queue(m_tl1Queue);
+                client.setMessageProcessor((Tl1AutonomousMessageProcessor) Class.forName(element.getTl1MessageParser()).newInstance());
+                client.setLog(log());
+                m_tl1Clients.add(client);
+            } catch (InstantiationException e) {
+                log().error("onInit: could not instantiate specified class.", e);
+            } catch (IllegalAccessException e) {
+                log().error("onInit: could not access specified class.", e);
+            } catch (ClassNotFoundException e) {
+                log().error("onInit: could not find specified class.", e);
+            }
         }
-    
-    
+
         log().info("onInit: Finished Initializing Tl1d connections.");  
     }
 
     public synchronized void onStart() {
-        log().info("onStart: Initializing Tl1d connections." );
+        log().info("onStart: Initializing Tl1d message processing." );
         m_tl1MesssageProcessor = new Thread("Tl1-Message-Processor") {
             public void run() {
                 doMessageProcessing();
             }
         };
+
+        m_tl1MesssageProcessor.start();
 
         for (Tl1Client client : m_tl1Clients) {
             client.start();
@@ -119,15 +135,18 @@ public class Tl1d extends AbstractServiceDaemon implements PausableFiber, Initia
 	}
 
 
-    private void processMessage(Tl1Message message) {
+    private void processMessage(Tl1AutonomousMessage message) {
         log().debug("processMessage: Processing message: "+message);
 
-        EventBuilder bldr = new EventBuilder(TL1_UEI, "Tl1d");
+        EventBuilder bldr = new EventBuilder(Tl1AutonomousMessage.UEI, "Tl1d");
         bldr.setHost(message.getHost());
-        bldr.setTime(message.getTimeStamp());
-        bldr.setSeverity(message.getSeverity());
-        bldr.setLogMessage(message.getMessage());
-        bldr.addParam("tl1message", message.getRawMessage());
+        bldr.setTime(message.getTimestamp());
+        bldr.addParam("raw-message", message.getRawMessage());
+        bldr.addParam("alarm-code", message.getId().getAlarmCode());
+        bldr.addParam("atag", message.getId().getAlarmTag());
+        bldr.addParam("verb", message.getId().getVerb());
+        bldr.addParam("autoblock", message.getAutoBlock().getBlock());
+        
         m_eventManager.sendNow(bldr.getEvent());
         log().debug("processMessage: Message processed: "+message);
     }
@@ -153,13 +172,16 @@ public class Tl1d extends AbstractServiceDaemon implements PausableFiber, Initia
         boolean cont = true;
         while (cont ) {
             try {
-                Tl1GenericMessage message = m_tl1Queue.take();
+                Tl1AutonomousMessage message = m_tl1Queue.take();
                 processMessage(message);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
         log().debug("doMessageProcessing: Exiting processing messages.");
+    }
+
+    public void onEvent(Event e) {
     }
 
 }

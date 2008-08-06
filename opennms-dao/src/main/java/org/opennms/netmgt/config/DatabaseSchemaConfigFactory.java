@@ -392,4 +392,90 @@ public final class DatabaseSchemaConfigFactory {
         m_primaryJoins = Collections.synchronizedMap(primaryJoins);
     }
 
+    /**
+     * Return the sequence of tables necessary to join the primary table to the
+     * given tables.
+     *
+     * @param tables
+     *            list of Tables to join
+     * @return a list of table names, starting with the primary table, going
+     *         to each of the given tables, or a zero-length array if no join
+     *         exists or only the primary table was specified
+     */
+    public List<String> getJoinTables(List<Table> tables) {
+        List<String> joinedTables = new ArrayList<String>();
+
+        for (int i = 0; i < tables.size(); i++) {
+            int insertPosition = joinedTables.size();
+            String currentTable = tables.get(i).getName();
+            while (currentTable != null && !joinedTables.contains(currentTable)) {
+                joinedTables.add(insertPosition, currentTable);
+                Join next = m_primaryJoins.get(currentTable);
+                if (next != null) {
+                    currentTable = next.getTable();
+                } else {
+                    currentTable = null;
+                }
+            }
+        }
+
+        return joinedTables;
+    }
+
+    /**
+     * Construct a SQL FROM clause joining the given tables to the primary table.
+     *
+     * @param tables
+     *            list of Tables to join
+     * @return an SQL FROM clause or "" if no expression is found
+     */
+    public String constructJoinExprForTables(List<Table> tables) {
+        StringBuffer joinExpr = new StringBuffer();
+
+        List<String> joinTables = getJoinTables(tables);
+        joinExpr.append(joinTables.get(0));
+        for (int i = 1; i < joinTables.size(); i++) {
+            Join currentJoin = m_primaryJoins.get(joinTables.get(i));
+            if (currentJoin.getType() != null && !currentJoin.getType().equalsIgnoreCase("inner")) {
+              joinExpr.append(" " + currentJoin.getType().toUpperCase());
+            }
+            joinExpr.append(" JOIN " + joinTables.get(i) + " ON (");
+            joinExpr.append(currentJoin.getTable() + "." + currentJoin.getTableColumn() + " = ");
+            joinExpr.append(joinTables.get(i) + "." + currentJoin.getColumn() + ")");
+        }
+
+        if (joinExpr.length() > 0)
+            return "FROM " + joinExpr.toString();
+        return "";
+    }
+
+      /**
+     * Find the table which has a visible column named 'colName'
+     *
+     * @param the
+     *            name of the column to search for
+     * @return the table containing column 'colName', null if colName is not a
+     *         valid column or if is not visible.
+     *
+     */
+    public Table findTableByVisibleColumn(String colName) {
+        Table table = null;
+
+        Enumeration<Table> etbl = getDatabaseSchema().enumerateTable();
+        OUTER: while (etbl.hasMoreElements()) {
+            Table t = etbl.nextElement();
+            Enumeration<Column> ecol = t.enumerateColumn();
+            while (ecol.hasMoreElements()) {
+                Column col = ecol.nextElement();
+                if (col.getVisible() == null || col.getVisible().equalsIgnoreCase("true")) {
+                    if (col.getName().equalsIgnoreCase(colName)) {
+                        table = t;
+                        break OUTER;
+                    }
+                }
+            }
+        }
+
+        return table;
+    }
 }
