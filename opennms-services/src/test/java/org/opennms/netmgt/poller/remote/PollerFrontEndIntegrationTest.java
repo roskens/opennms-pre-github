@@ -67,12 +67,12 @@ public class PollerFrontEndIntegrationTest extends AbstractTransactionalTemporar
     @Override
     protected String[] getConfigLocations() {
         return new String[] {
+                "classpath:/META-INF/opennms/mockEventIpcManager.xml",
                 "classpath:/META-INF/opennms/applicationContext-dao.xml",
                 "classpath:/META-INF/opennms/applicationContext-daemon.xml",
                 "classpath:/META-INF/opennms/applicationContext-pollerBackEnd.xml",
                 "classpath:/META-INF/opennms/applicationContext-exportedPollerBackEnd.xml",
                 "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
-                "classpath:/META-INF/opennms/mockEventIpcManager.xml",
                 "classpath:/org/opennms/netmgt/poller/remote/applicationContext-configOverride.xml",
         };
     }
@@ -152,7 +152,7 @@ public class PollerFrontEndIntegrationTest extends AbstractTransactionalTemporar
 
         assertEquals(System.getProperty("os.name"), getSimpleJdbcTemplate().queryForObject("select propertyValue from location_monitor_details where locationMonitorId = ? and property = ?", String.class, monitorId, "os.name"));
         
-        Thread.sleep(15000);
+        Thread.sleep(60000);
         
         assertEquals(0, getSimpleJdbcTemplate().queryForInt("select count(*) from location_monitors where status='DISCONNECTED' and id=?", monitorId));
         

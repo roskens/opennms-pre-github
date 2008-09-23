@@ -93,6 +93,7 @@ import org.opennms.netmgt.config.surveillanceViews.SurveillanceViewConfiguration
 import org.opennms.netmgt.config.syslogd.SyslogdConfiguration;
 import org.opennms.netmgt.config.threshd.ThreshdConfiguration;
 import org.opennms.netmgt.config.threshd.ThresholdingConfig;
+import org.opennms.netmgt.config.tl1d.Tl1dConfiguration;
 import org.opennms.netmgt.config.translator.EventTranslatorConfiguration;
 import org.opennms.netmgt.config.trapd.TrapdConfiguration;
 import org.opennms.netmgt.config.users.Userinfo;
@@ -287,6 +288,9 @@ public class WillItUnmarshalTest extends TestCase {
     public void testNotificationCommands() throws Exception {
         unmarshal("notificationCommands.xml", NotificationCommands.class);
     }
+    public void testExampleNotificationCommands() throws Exception {
+        unmarshalExample("notificationCommands.xml", NotificationCommands.class);
+    }
     public void testNotifications() throws Exception {
         unmarshal("notifications.xml", Notifications.class);
     }
@@ -371,6 +375,9 @@ public class WillItUnmarshalTest extends TestCase {
     public void testExampleThresholds() throws Exception {
         unmarshalExample("thresholds.xml", ThresholdingConfig.class);
     }
+    public void testTl1dConfiguration() throws Exception {
+        unmarshal("tl1d-configuration.xml", Tl1dConfiguration.class);
+    }
     public void testTranslatorConfiguration() throws Exception {
         unmarshal("translator-configuration.xml", EventTranslatorConfiguration.class);
     }
@@ -410,6 +417,9 @@ public class WillItUnmarshalTest extends TestCase {
     public void testExampleViewsDisplay() throws Exception {
         unmarshalExample("viewsdisplay.xml", Viewinfo.class);
     }
+    public void testExampleTl1dConfiguration() throws Exception {
+        unmarshalExample("tl1d-configuration.xml", Tl1dConfiguration.class);
+    }
     
     public void testCheckAllDaemonXmlConfigFilesTested() {
         File someConfigFile = ConfigurationTestUtils.getFileForConfigFile("discovery-configuration.xml");
@@ -441,7 +451,9 @@ public class WillItUnmarshalTest extends TestCase {
         findConfigurationFilesInDirectory(examplesDir, null, allXml);
         
         allXml.removeAll(m_exampleFilesTested);
-        
+        allXml.remove("correlation-engine.xml");
+        allXml.remove("drools-engine.xml");
+        allXml.remove("nodeParentRules-context.xml");
         if (allXml.size() > 0) {
             List<String> files = new ArrayList<String>(allXml);
             Collections.sort(files);

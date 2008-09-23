@@ -10,6 +10,7 @@
  * 
  * Modifications:
  *
+ * 2008 Aug 29: collect() can now throw CollectionException. - dj@opennms.org
  * 2008 Feb 09: Fix warnings. - dj@opennms.org
  * 2008 Jan 24: Fix testOneMatchingSpec test. - dj@opennms.org
  * 2007 Jun 30: Make tests work again. - dj@opennms.org
@@ -70,15 +71,15 @@ import org.opennms.netmgt.dao.FilterDao;
 import org.opennms.netmgt.dao.IpInterfaceDao;
 import org.opennms.netmgt.dao.NodeDao;
 import org.opennms.netmgt.eventd.EventIpcManager;
-import org.opennms.netmgt.eventd.EventListener;
 import org.opennms.netmgt.filter.FilterDaoFactory;
 import org.opennms.netmgt.model.OnmsIpInterface;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.RrdRepository;
+import org.opennms.netmgt.model.events.EventListener;
+import org.opennms.netmgt.model.events.EventProxy;
 import org.opennms.netmgt.poller.mock.MockScheduler;
 import org.opennms.netmgt.scheduler.ReadyRunnable;
 import org.opennms.netmgt.scheduler.Scheduler;
-import org.opennms.netmgt.utils.EventProxy;
 import org.opennms.test.ConfigurationTestUtils;
 import org.opennms.test.mock.EasyMockUtils;
 import org.opennms.test.mock.MockLogAppender;
@@ -329,7 +330,7 @@ public class CollectdTest extends TestCase {
         m_easyMockUtils.verifyAll();
     }
 
-    public void testOneMatchingSpec() {
+    public void testOneMatchingSpec() throws CollectionException {
         String svcName = "SNMP";
         OnmsIpInterface iface = getInterface();
 
@@ -379,10 +380,12 @@ public class CollectdTest extends TestCase {
         return isA(Collection.class);
     }
 
+    /*
     @SuppressWarnings("unchecked")
     private <K> List<K> isAList(Class<K> innerClass) {
         return isA(List.class);
     }
+    */
 
     @SuppressWarnings("unchecked")
     private static <K, V> Map<K, V> isAMap(Class<K> keyClass, Class<V> valueClass) {
@@ -434,7 +437,7 @@ public class CollectdTest extends TestCase {
             s_delegate = delegate;
         }
         
-        public CollectionSet collect(CollectionAgent agent, EventProxy eproxy, Map<String, String> parameters) {
+        public CollectionSet collect(CollectionAgent agent, EventProxy eproxy, Map<String, String> parameters) throws CollectionException {
             return s_delegate.collect(agent, eproxy, parameters);
         }
 

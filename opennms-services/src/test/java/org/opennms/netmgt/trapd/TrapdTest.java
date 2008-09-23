@@ -43,10 +43,10 @@ import java.net.InetAddress;
 import org.opennms.netmgt.config.TrapdConfigFactory;
 import org.opennms.netmgt.dao.db.AbstractTransactionalTemporaryDatabaseSpringContextTests;
 import org.opennms.netmgt.mock.MockEventIpcManager;
+import org.opennms.netmgt.model.events.EventBuilder;
 import org.opennms.netmgt.snmp.SnmpObjId;
 import org.opennms.netmgt.snmp.SnmpUtils;
 import org.opennms.netmgt.snmp.SnmpV1TrapBuilder;
-import org.opennms.netmgt.utils.EventBuilder;
 import org.opennms.test.ConfigurationTestUtils;
 import org.opennms.test.DaoTestConfigBean;
 
@@ -71,9 +71,9 @@ public class TrapdTest extends AbstractTransactionalTemporaryDatabaseSpringConte
         return new String[] {
                 "classpath:META-INF/opennms/applicationContext-dao.xml",
                 "classpath:META-INF/opennms/applicationContext-daemon.xml",
+                "classpath:META-INF/opennms/mockEventIpcManager.xml",
                 "classpath:META-INF/opennms/applicationContext-commonConfigs.xml",
                 "classpath:META-INF/opennms/applicationContext-trapDaemon.xml",
-                "classpath:META-INF/opennms/mockEventIpcManager.xml",
                 "classpath:META-INF/opennms/smallEventConfDao.xml"
         };
     }

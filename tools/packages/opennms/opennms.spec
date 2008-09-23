@@ -191,6 +191,11 @@ echo "=== RUNNING INSTALL ==="
 sh ./build.sh -Dinstall.version="%{version}-%{release}" -Ddist.name=$RPM_BUILD_ROOT \
     -Dopennms.home=%{instprefix} install assembly:attached
 
+pushd opennms-tools
+    sh ../build.sh -N -Dinstall.version="%{version}-%{release}" -Ddist.name=$RPM_BUILD_ROOT \
+        -Dopennms.home=%{instprefix} install
+popd
+
 pushd opennms-remote-poller
     sh ../build.sh -Dinstall.version="%{version}-%{release}" -Ddist.name=$RPM_BUILD_ROOT \
         -Dopennms.home=%{instprefix} package
@@ -224,7 +229,7 @@ END
 
 ### install the remote poller jar
 
-install -c -m 644 opennms-remote-poller/target/opennms-remote-poller*-jar-with-dependencies.jar $RPM_BUILD_ROOT%{instprefix}/lib/opennms-remote-poller.jar
+install -c -m 644 opennms-remote-poller/target/opennms-remote-poller*-jar-with-dependencies.jar $RPM_BUILD_ROOT%{instprefix}/bin/remote-poller.jar
 
 %if %{with_docs}
 
@@ -254,10 +259,10 @@ find $RPM_BUILD_ROOT%{instprefix}/etc ! -type d | \
 find $RPM_BUILD_ROOT%{instprefix}/bin ! -type d | \
     sed -e "s|^$RPM_BUILD_ROOT|%attr(755,root,root) |" | \
     grep -v '/remote-poller.sh' | \
+    grep -v '/remote-poller.jar' | \
     sort >> %{_tmppath}/files.main
 find $RPM_BUILD_ROOT%{instprefix}/lib ! -type d | \
     sed -e "s|^$RPM_BUILD_ROOT|%attr(755,root,root) |" | \
-    grep -v '/opennms-remote-poller.jar' | \
     sort >> %{_tmppath}/files.main
 find $RPM_BUILD_ROOT%{instprefix}/etc -type d | \
     sed -e "s,^$RPM_BUILD_ROOT,%dir ," | \
@@ -313,7 +318,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files remote-poller
 %attr(755,root,root) %{bindir}/remote-poller.sh
-%{instprefix}/lib/opennms-remote-poller.jar
+%{instprefix}/bin/remote-poller.jar
 
 %files webapp-jetty -f %{_tmppath}/files.jetty
 %defattr(644 root root 755)
