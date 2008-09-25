@@ -990,7 +990,8 @@ public class DBManager extends Manager {
 		}
 	}
 
-	public Map getMap(int id) throws MapsException {
+    // TODO replaced by OnmsMapDao.findMapById
+    public Map getMap(int id) throws MapsException {
 		try {
 			final String sqlQuery = "SELECT * FROM " + mapTable
 					+ " WHERE mapId = ?";
@@ -1040,7 +1041,8 @@ public class DBManager extends Manager {
 		}
 	}
 
-	public Map[] getAllMaps() throws MapsException {
+    // TODO replaced with OnmsMapDaoHibernate.findAll()
+    public Map[] getAllMaps() throws MapsException {
 		try {
 			final String sqlQuery = "SELECT * FROM " + mapTable;
 			createConnection();
@@ -1064,7 +1066,8 @@ public class DBManager extends Manager {
 		}
 	}
 
-	public Map[] getMapsLike(String mapLabel) throws MapsException {
+    // TODO this is replaced by OnmsMapDaoHibernate.findMapsLike
+    public Map[] getMapsLike(String mapLabel) throws MapsException {
 		try {
 			final String sqlQuery = "SELECT * FROM " + mapTable
 					+ " WHERE mapname LIKE ?";
@@ -1093,7 +1096,8 @@ public class DBManager extends Manager {
 		}
 	}
 
-	public Map[] getMapsByName(String mapLabel) throws MapsException {
+    // TODO this is replaced by OnmsMapDaoHibernate.findMapsByName
+    public Map[] getMapsByName(String mapLabel) throws MapsException {
 		try {
 			final String sqlQuery = "SELECT * FROM " + mapTable
 					+ " WHERE mapname = ?";
@@ -1123,7 +1127,8 @@ public class DBManager extends Manager {
 		}
 	}
 
-	public Map[] getContainerMaps(int id, String type) throws MapsException {
+    // TODO figure out how to do this in OnmsMapDao
+    public Map[] getContainerMaps(int id, String type) throws MapsException {
 		try {
 			final String sqlQuery = "SELECT " + mapTable + ".* FROM "
 					+ mapTable + " INNER JOIN " + elementTable + " ON "
@@ -1153,7 +1158,8 @@ public class DBManager extends Manager {
 		}
 	}
 
-	public VMapInfo[] getAllMapMenus() throws MapsException {
+    // TODO figure out how to do this in OnmsMapDao
+    public VMapInfo[] getAllMapMenus() throws MapsException {
 		try {
 			final String sqlQuery = "SELECT mapid,mapname,mapowner FROM "
 					+ mapTable + " order by mapname";
@@ -1180,7 +1186,8 @@ public class DBManager extends Manager {
 		}
 	}
 
-	public VMapInfo getMapMenu(int mapId) throws MapsException {
+    // TODO figure out how to do this in OnmsMapDao
+    public VMapInfo getMapMenu(int mapId) throws MapsException {
 		try {
 			final String sqlQuery = "SELECT mapid,mapname,mapowner FROM "
 					+ mapTable + " where mapId= ?";
@@ -1205,7 +1212,8 @@ public class DBManager extends Manager {
 		}
 	}
 
-	public VMapInfo[] getMapsMenuByName(String mapLabel) throws MapsException {
+    // TODO figure out how to do this in OnmsMapDao
+    public VMapInfo[] getMapsMenuByName(String mapLabel) throws MapsException {
 		try {
 			final String sqlQuery = "SELECT mapid,mapname,mapowner FROM "
 					+ mapTable + " WHERE upper( mapname ) = upper( ? )";
@@ -1234,7 +1242,8 @@ public class DBManager extends Manager {
 		}
 	}
 
-	public VMapInfo[] getMapsMenuByOwner(String owner) throws MapsException {
+    // TODO figure out how to do this in OnmsMapDao
+    public VMapInfo[] getMapsMenuByOwner(String owner) throws MapsException {
 		try {
 			final String sqlQuery = "SELECT mapid,mapname,mapowner FROM "
 					+ mapTable + " WHERE upper( mapowner ) = upper( ? )";
