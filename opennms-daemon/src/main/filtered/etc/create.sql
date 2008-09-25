@@ -1830,9 +1830,8 @@ create index inventory_status_idx on inventory(status);
 --#  mapHeight		   : Height of the map
 --########################################################################
 
-create table map (
-    id			     integer default nextval('opennmsNxtId') not null,
-    mapId	   		 integer not null,
+create table map ( 
+    mapId	   		 integer default nextval('opennmsNxtId') not null,,
     mapName	   		 varchar(40) not null,
     mapBackGround	 varchar(256),
     mapOwner   		 varchar(64) not null,
@@ -1869,20 +1868,19 @@ create table map (
 --########################################################################
 
 create table element (
-    id			     integer default nextval('opennmsNxtId') not null,
+    elementId		 integer default nextval('opennmsNxtId') not null,
     mapId	   		 integer not null,
-    elementId		 integer not null,
 	elementType      char(1) not null,
     elementLabel 	 varchar(256) not null,
     elementIcon 	 varchar(256),
     elementX         integer,
 	elementY         integer,
 	
-	constraint pk_element primary key (mapId,elementId,elementType),
+	constraint pk_element primary key (elementId,mapId,elementType),
 	constraint fk_mapID foreign key (mapId) references map on delete cascade
 );
 
-create index element_mapid_elementid on element(mapId,elementId);
+create index element_mapid_elementid on element(elementId,mapId);
 
 --# These don't work with installer
 
