@@ -31,8 +31,15 @@
 //
 package org.opennms.netmgt.dao;
 
-import org.opennms.netmgt.model.OnmsEvent;
+import org.opennms.netmgt.model.OnmsMap;
 
-public interface OnmsMapDao extends OnmsDao<OnmsEvent, Integer> {
+import java.util.Collection;
+
+public interface OnmsMapDao extends OnmsDao<OnmsMap, Integer> {
+    public abstract Collection<OnmsMap> findAll(Integer offset, Integer limit);
+    public abstract Collection<OnmsMap> findMapsLike(String mapLabel);
+    public abstract Collection<OnmsMap> findMapsByName(String mapLabel);
+    public abstract OnmsMap findMapByIp(int id);
+    public abstract Collection<OnmsMap> findMapsByNameAndType(String mapName, String mapType);
 
 }
