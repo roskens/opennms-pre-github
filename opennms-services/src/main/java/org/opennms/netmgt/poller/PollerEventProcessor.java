@@ -57,7 +57,7 @@ import org.opennms.netmgt.capsd.InsufficientInformationException;
 import org.opennms.netmgt.config.PollerConfig;
 import org.opennms.netmgt.dao.DemandPollDao;
 import org.opennms.netmgt.eventd.EventIpcManager;
-import org.opennms.netmgt.eventd.EventListener;
+import org.opennms.netmgt.model.events.EventListener;
 import org.opennms.netmgt.poller.pollables.PollableInterface;
 import org.opennms.netmgt.poller.pollables.PollableNetwork;
 import org.opennms.netmgt.poller.pollables.PollableNode;
@@ -208,7 +208,7 @@ final class PollerEventProcessor implements EventListener {
         String nodeLabel = EventUtils.getParm(event, EventConstants.PARM_NODE_LABEL);
         
         try {
-            nodeLabel = getPoller().getQueryMgr().getNodeLabel(nodeId);
+            nodeLabel = getPoller().getQueryManager().getNodeLabel(nodeId);
         } catch (Exception e) {
             log.error("Unable to retrieve nodeLabel for node "+nodeId, e);
         }

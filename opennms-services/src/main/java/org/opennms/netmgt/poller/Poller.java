@@ -40,29 +40,20 @@
 
 package org.opennms.netmgt.poller;
 
-import java.io.IOException;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.sql.DataSource;
 
 import org.apache.log4j.Category;
 import org.apache.log4j.Level;
 import org.opennms.core.utils.ThreadCategory;
-import org.opennms.netmgt.EventConstants;
-import org.opennms.netmgt.capsd.plugins.IcmpPlugin;
-import org.opennms.netmgt.config.DataSourceFactory;
-import org.opennms.netmgt.config.OpennmsServerConfigFactory;
 import org.opennms.netmgt.config.PollOutagesConfig;
 import org.opennms.netmgt.config.PollerConfig;
 import org.opennms.netmgt.config.poller.Package;
@@ -71,7 +62,6 @@ import org.opennms.netmgt.eventd.EventIpcManager;
 import org.opennms.netmgt.model.PollStatus;
 import org.opennms.netmgt.poller.pollables.DbPollEvent;
 import org.opennms.netmgt.poller.pollables.PollEvent;
-import org.opennms.netmgt.poller.pollables.PollableElement;
 import org.opennms.netmgt.poller.pollables.PollableNetwork;
 import org.opennms.netmgt.poller.pollables.PollableNode;
 import org.opennms.netmgt.poller.pollables.PollableService;
@@ -83,10 +73,6 @@ import org.opennms.netmgt.scheduler.Schedule;
 import org.opennms.netmgt.scheduler.Scheduler;
 import org.opennms.netmgt.utils.Querier;
 import org.opennms.netmgt.utils.Updater;
-import org.opennms.netmgt.xml.event.Event;
-import org.opennms.netmgt.xml.event.Parm;
-import org.opennms.netmgt.xml.event.Parms;
-import org.opennms.netmgt.xml.event.Value;
 
 public class Poller extends AbstractServiceDaemon {
 
@@ -96,11 +82,11 @@ public class Poller extends AbstractServiceDaemon {
 
     private LegacyScheduler m_scheduler = null;
 
-    private PollerEventProcessor m_receiver;
+    private PollerEventProcessor m_eventProcessor;
 
-    private PollableNetwork m_network = new PollableNetwork(new DefaultPollContext(this));
+    private PollableNetwork m_network;
 
-    private QueryManager m_queryMgr = new DefaultQueryManager();
+    private QueryManager m_queryManager;
 
     private PollerConfig m_pollerConfig;
 
@@ -108,18 +94,75 @@ public class Poller extends AbstractServiceDaemon {
 
     private EventIpcManager m_eventMgr;
 
-    private DataSource m_dbConnectionFactory;
+    private DataSource m_dataSource;
 
     public Poller() {
     	super("OpenNMS.Poller");
     }
 
+    /* Getters/Setters used for dependency injection */
+    public void setDataSource(DataSource dataSource) {
+        m_dataSource = dataSource;
+    }
+
+    public EventIpcManager getEventManager() {
+        return m_eventMgr;
+    }
+
+    public void setEventManager(EventIpcManager eventMgr) {
+        m_eventMgr = eventMgr;
+    }
+
+    public PollerEventProcessor getEventProcessor() {
+        return m_eventProcessor;
+    }
+
+    public void setEventProcessor(PollerEventProcessor eventProcessor) {
+        m_eventProcessor = eventProcessor;
+    }
+
+    public PollableNetwork getNetwork() {
+        return m_network;
+    }
+
+    public void setNetwork(PollableNetwork network) {
+        m_network = network;
+    }
+    
+    public void setQueryManager(QueryManager queryManager) {
+        m_queryManager = queryManager;
+    }
+
+    public QueryManager getQueryManager() {
+        return m_queryManager;
+    }
+    
+    public PollerConfig getPollerConfig() {
+        return m_pollerConfig;
+    }
+
+    public void setPollerConfig(PollerConfig pollerConfig) {
+        m_pollerConfig = pollerConfig;
+    }
+
+    public PollOutagesConfig getPollOutagesConfig() {
+        return m_pollOutagesConfig;
+    }
+
+    public void setPollOutagesConfig(PollOutagesConfig pollOutagesConfig) {
+        m_pollOutagesConfig = pollOutagesConfig;
+    }
+
+    public Scheduler getScheduler() {
+        return m_scheduler;
+    }
+
+    public void setScheduler(LegacyScheduler scheduler) {
+        m_scheduler = scheduler;
+    }
+
     protected void onInit() {
-
-        // get the category logger
-        // set the DbConnectionFactory in the QueryManager
-        m_queryMgr.setDbConnectionFactory(m_dbConnectionFactory);
-
+        
         // serviceUnresponsive behavior enabled/disabled?
         log().debug("init: serviceUnresponsive behavior: " + (getPollerConfig().serviceUnresponsiveEnabled() ? "enabled" : "disabled"));
 
@@ -151,7 +194,7 @@ public class Poller extends AbstractServiceDaemon {
         try {
             log().debug("start: Creating event broadcast event processor");
 
-            m_receiver = new PollerEventProcessor(this);
+            setEventProcessor(new PollerEventProcessor(this));
         } catch (Throwable t) {
             log().fatal("start: Failed to initialized the broadcast event receiver", t);
 
@@ -169,11 +212,11 @@ public class Poller extends AbstractServiceDaemon {
         Timestamp closeTime = new Timestamp((new java.util.Date()).getTime());
 
         final String DB_CLOSE_OUTAGES_FOR_UNMANAGED_SERVICES = "UPDATE outages set ifregainedservice = ? where outageid in (select outages.outageid from outages, ifservices where ((outages.nodeid = ifservices.nodeid) AND (outages.ipaddr = ifservices.ipaddr) AND (outages.serviceid = ifservices.serviceid) AND ((ifservices.status = 'D') OR (ifservices.status = 'F') OR (ifservices.status = 'U')) AND (outages.ifregainedservice IS NULL)))";
-        Updater svcUpdater = new Updater(m_dbConnectionFactory, DB_CLOSE_OUTAGES_FOR_UNMANAGED_SERVICES);
+        Updater svcUpdater = new Updater(m_dataSource, DB_CLOSE_OUTAGES_FOR_UNMANAGED_SERVICES);
         svcUpdater.execute(closeTime);
         
         final String DB_CLOSE_OUTAGES_FOR_UNMANAGED_INTERFACES = "UPDATE outages set ifregainedservice = ? where outageid in (select outages.outageid from outages, ipinterface where ((outages.nodeid = ipinterface.nodeid) AND (outages.ipaddr = ipinterface.ipaddr) AND ((ipinterface.ismanaged = 'F') OR (ipinterface.ismanaged = 'U')) AND (outages.ifregainedservice IS NULL)))";
-        Updater ifUpdater = new Updater(m_dbConnectionFactory, DB_CLOSE_OUTAGES_FOR_UNMANAGED_INTERFACES);
+        Updater ifUpdater = new Updater(m_dataSource, DB_CLOSE_OUTAGES_FOR_UNMANAGED_INTERFACES);
         ifUpdater.execute(closeTime);
         
 
@@ -183,21 +226,21 @@ public class Poller extends AbstractServiceDaemon {
     public void closeOutagesForNode(Date closeDate, int eventId, int nodeId) {
         Timestamp closeTime = new Timestamp(closeDate.getTime());
         final String DB_CLOSE_OUTAGES_FOR_NODE = "UPDATE outages set ifregainedservice = ?, svcRegainedEventId = ? where outages.nodeId = ? AND (outages.ifregainedservice IS NULL)";
-        Updater svcUpdater = new Updater(m_dbConnectionFactory, DB_CLOSE_OUTAGES_FOR_NODE);
+        Updater svcUpdater = new Updater(m_dataSource, DB_CLOSE_OUTAGES_FOR_NODE);
         svcUpdater.execute(closeTime, new Integer(eventId), new Integer(nodeId));
     }
     
     public void closeOutagesForInterface(Date closeDate, int eventId, int nodeId, String ipAddr) {
         Timestamp closeTime = new Timestamp(closeDate.getTime());
         final String DB_CLOSE_OUTAGES_FOR_IFACE = "UPDATE outages set ifregainedservice = ?, svcRegainedEventId = ? where outages.nodeId = ? AND outages.ipAddr = ? AND (outages.ifregainedservice IS NULL)";
-        Updater svcUpdater = new Updater(m_dbConnectionFactory, DB_CLOSE_OUTAGES_FOR_IFACE);
+        Updater svcUpdater = new Updater(m_dataSource, DB_CLOSE_OUTAGES_FOR_IFACE);
         svcUpdater.execute(closeTime, new Integer(eventId), new Integer(nodeId), ipAddr);
     }
     
     public void closeOutagesForService(Date closeDate, int eventId, int nodeId, String ipAddr, String serviceName) {
         Timestamp closeTime = new Timestamp(closeDate.getTime());
         final String DB_CLOSE_OUTAGES_FOR_SERVICE = "UPDATE outages set ifregainedservice = ?, svcRegainedEventId = ? where outageid in (select outages.outageid from outages, service where outages.nodeid = ? AND outages.ipaddr = ? AND outages.serviceid = service.serviceId AND service.servicename = ? AND outages.ifregainedservice IS NULL)";
-        Updater svcUpdater = new Updater(m_dbConnectionFactory, DB_CLOSE_OUTAGES_FOR_SERVICE);
+        Updater svcUpdater = new Updater(m_dataSource, DB_CLOSE_OUTAGES_FOR_SERVICE);
         svcUpdater.execute(closeTime, new Integer(eventId), new Integer(nodeId), ipAddr, serviceName);
     }
 
@@ -209,7 +252,7 @@ public class Poller extends AbstractServiceDaemon {
         try {
             log.debug("init: Creating poller scheduler");
 
-            m_scheduler = new LegacyScheduler("Poller", getPollerConfig().getThreads());
+            setScheduler(new LegacyScheduler("Poller", getPollerConfig().getThreads()));
         } catch (RuntimeException e) {
             log.fatal("init: Failed to create poller scheduler", e);
             throw e;
@@ -224,7 +267,7 @@ public class Poller extends AbstractServiceDaemon {
             if (log().isDebugEnabled())
                 log().debug("start: Starting poller scheduler");
 
-            m_scheduler.start();
+            getScheduler().start();
         } catch (RuntimeException e) {
             if (log().isEnabledFor(Level.FATAL))
                 log().fatal("start: Failed to start scheduler", e);
@@ -233,15 +276,15 @@ public class Poller extends AbstractServiceDaemon {
 	}
 
     protected void onStop() {
-        if(m_scheduler!=null) {
-            m_scheduler.stop();
+        if(getScheduler()!=null) {
+            getScheduler().stop();
         }
-        if(m_receiver!=null) {
-            m_receiver.close();
+        if(getEventProcessor()!=null) {
+            getEventProcessor().close();
         }
 
         releaseServiceMonitors();
-        m_scheduler = null;
+        setScheduler(null);
 	}
 
 	private void releaseServiceMonitors() {
@@ -249,40 +292,19 @@ public class Poller extends AbstractServiceDaemon {
 	}
 
 	protected void onPause() {
-		m_scheduler.pause();
+		getScheduler().pause();
 	}
 
     protected void onResume() {
-		m_scheduler.resume();
+		getScheduler().resume();
 	}
 
     public static Poller getInstance() {
         return m_singleton;
     }
 
-    public Scheduler getScheduler() {
-        return m_scheduler;
-    }
-
     public ServiceMonitor getServiceMonitor(String svcName) {
         return getPollerConfig().getServiceMonitor(svcName);
-    }
-
-    public PollableNetwork getNetwork() {
-        return m_network;
-    }
-
-    static private class InitCause extends PollableVisitorAdaptor {
-        private PollEvent m_cause;
-
-        public void setCause(PollEvent cause) {
-            m_cause = cause;
-        }
-        
-        public void visitElement(PollableElement element) {
-            if (!element.hasOpenOutage())
-                element.setCause(m_cause);
-        }
     }
 
     private void scheduleExistingServices() throws Exception {
@@ -290,14 +312,16 @@ public class Poller extends AbstractServiceDaemon {
         
         scheduleMatchingServices(null);
         
-        m_network.recalculateStatus();
-        m_network.resetStatusChanged();
+        getNetwork().recalculateStatus();
+        getNetwork().propagateInitialCause();
+        getNetwork().resetStatusChanged();
+        
         
         // Debug dump pollable network
         //
         if (log.isDebugEnabled()) {
             log.debug("scheduleExistingServices: dumping content of pollable network: ");
-            m_network.dump();
+            getNetwork().dump();
         }
         
 
@@ -311,10 +335,10 @@ public class Poller extends AbstractServiceDaemon {
              * add its service and schedule it
              */
             PollableNode node;
-            synchronized (m_network) {
-                node = m_network.getNode(nodeId);
+            synchronized (getNetwork()) {
+                node = getNetwork().getNode(nodeId);
                 if (node == null) {
-                    node = m_network.createNode(nodeId, nodeLabel);
+                    node = getNetwork().createNode(nodeId, nodeLabel);
                 }
             }
 
@@ -324,7 +348,7 @@ public class Poller extends AbstractServiceDaemon {
                     int matchCount = scheduleMatchingServices("ifServices.nodeId = "+nodeId+" AND ifServices.ipAddr = '"+ipAddr+"' AND service.serviceName = '"+svcName+"'");
                     if (matchCount > 0) {
                         svcNode.recalculateStatus();
-                        svcNode.resetStatusChanged();
+                        svcNode.processStatusChange(new Date());
                     } else {
                         log.warn("Attempt to schedule service "+nodeId+"/"+ipAddr+"/"+svcName+" found no active service");
                     }
@@ -356,7 +380,7 @@ public class Poller extends AbstractServiceDaemon {
        
         
         
-        Querier querier = new Querier(m_dbConnectionFactory, sql) {
+        Querier querier = new Querier(m_dataSource, sql) {
             public void processRow(ResultSet rs) throws SQLException {
                 scheduleService(rs.getInt("nodeId"), rs.getString("nodeLabel"), rs.getString("ipAddr"), rs.getString("serviceName"), 
                                 (Number)rs.getObject("svcLostEventId"), rs.getTimestamp("ifLostService"), 
@@ -393,33 +417,30 @@ public class Poller extends AbstractServiceDaemon {
             return;
         }
         
-        PollableService svc = m_network.createService(nodeId, nodeLabel, addr, serviceName);
-        PollableServiceConfig pollConfig = new PollableServiceConfig(svc, m_pollerConfig, m_pollOutagesConfig, pkg, m_scheduler);
+        PollableService svc = getNetwork().createService(nodeId, nodeLabel, addr, serviceName);
+        PollableServiceConfig pollConfig = new PollableServiceConfig(svc, m_pollerConfig, m_pollOutagesConfig, pkg, getScheduler());
         svc.setPollConfig(pollConfig);
         synchronized(svc) {
             if (svc.getSchedule() == null) {
-                Schedule schedule = new Schedule(svc, pollConfig, m_scheduler);
+                Schedule schedule = new Schedule(svc, pollConfig, getScheduler());
                 svc.setSchedule(schedule);
             }
         }
         
         
         if (svcLostEventId == null) 
-            svc.updateStatus(PollStatus.up());
+            if (svc.getParent().getStatus().isUnknown()) {
+                svc.updateStatus(PollStatus.up());
+            } else {
+                svc.updateStatus(svc.getParent().getStatus());
+            }
         else {
             svc.updateStatus(PollStatus.down());
             
-            InitCause causeSetter = new InitCause();
-            PollEvent cause = new DbPollEvent(svcLostEventId.intValue(), date);
-            causeSetter.setCause(cause);
-            
-            if (EventConstants.NODE_LOST_SERVICE_EVENT_UEI.equals(svcLostUei)) {
-                svc.visit(causeSetter);
-            } else if (EventConstants.INTERFACE_DOWN_EVENT_UEI.equals(svcLostUei)) {
-                svc.getInterface().visit(causeSetter);
-            } else if (EventConstants.NODE_DOWN_EVENT_UEI.equals(svcLostUei)) {
-                svc.getNode().visit(causeSetter);
-            }
+            PollEvent cause = new DbPollEvent(svcLostEventId.intValue(), svcLostUei, date);
+
+            svc.setCause(cause);
+
         }
         
         svc.schedule();
@@ -427,7 +448,7 @@ public class Poller extends AbstractServiceDaemon {
     }
 
     private Package findPackageForService(String ipAddr, String serviceName) {
-        Enumeration en = m_pollerConfig.enumeratePackage();
+        Enumeration<Package> en = m_pollerConfig.enumeratePackage();
         Package lastPkg = null;
         
         while (en.hasMoreElements()) {
@@ -488,235 +509,13 @@ public class Poller extends AbstractServiceDaemon {
         return true;
     }
 
-    /**
-     * @return
-     */
-    PollerConfig getPollerConfig() {
-        return m_pollerConfig;
-    }
-
-    /**
-     * @param instance
-     */
-    public void setPollerConfig(PollerConfig pollerConfig) {
-        m_pollerConfig = pollerConfig;
-    }
-
-    PollOutagesConfig getPollOutagesConfig() {
-        return m_pollOutagesConfig;
-    }
-
-    public void setPollOutagesConfig(PollOutagesConfig pollOutagesConfig) {
-        m_pollOutagesConfig = pollOutagesConfig;
-    }
-
-    public EventIpcManager getEventManager() {
-        return m_eventMgr;
-    }
-
-    public void setEventManager(EventIpcManager eventMgr) {
-        m_eventMgr = eventMgr;
-    }
-
-    /**
-     * @param queryMgr
-     *            The queryMgr to set.
-     */
-    void setQueryMgr(QueryManager queryMgr) {
-        m_queryMgr = queryMgr;
-    }
-
-    /**
-     * @return Returns the queryMgr.
-     */
-    QueryManager getQueryMgr() {
-        return m_queryMgr;
-    }
-
-    /**
-     * @param instance
-     */
-    public void setDbConnectionFactory(DataSource dbConnectionFactory) {
-        m_dbConnectionFactory = dbConnectionFactory;
-    }
-
-    public Event createEvent(String uei, int nodeId, InetAddress address, String svcName, java.util.Date date, String reason) {
-        Category log = ThreadCategory.getInstance(getClass());
-    
-        if (log.isDebugEnabled())
-            log.debug("createEvent: uei = " + uei + " nodeid = " + nodeId);
-    
-        // create the event to be sent
-        Event newEvent = new Event();
-        newEvent.setUei(uei);
-        newEvent.setSource(getName());
-        newEvent.setNodeid((long) nodeId);
-        if (address != null)
-            newEvent.setInterface(address.getHostAddress());
-    
-        if (svcName != null)
-            newEvent.setService(svcName);
-    
-        try {
-            newEvent.setHost(InetAddress.getLocalHost().getHostName());
-        } catch (UnknownHostException uhE) {
-            newEvent.setHost("unresolved.host");
-            log.warn("Failed to resolve local hostname", uhE);
-        }
-    
-        // Set event time
-        newEvent.setTime(EventConstants.formatToString(date));
-    
-        // For service lost events (nodeLostService) retrieve the 
-        // reason parameter
-        Parms eventParms = new Parms();
-        Parm eventParm = new Parm();
-        Value parmValue = new Value();
-
-        if (uei.equals(EventConstants.NODE_DOWN_EVENT_UEI) && getPollerConfig().pathOutageEnabled()) {
-            String[] criticalPath = getCriticalPath(nodeId);
-            if(criticalPath[0] != null && !criticalPath[0].equals("")) {
-                if(!testCriticalPath(criticalPath)) {
-                    log.debug("Critical path test failed for node " + nodeId);
-                    // add eventReason, criticalPathIp, criticalPathService parms
-                    eventParm = new Parm();
-                    eventParm.setParmName(EventConstants.PARM_LOSTSERVICE_REASON);
-                    parmValue = new Value();
-                    parmValue.setContent(EventConstants.PARM_VALUE_PATHOUTAGE);
-                    eventParm.setValue(parmValue);
-                    eventParms.addParm(eventParm);
-
-                    eventParm = new Parm();
-                    eventParm.setParmName(EventConstants.PARM_CRITICAL_PATH_IP);
-                    parmValue = new Value();
-                    parmValue.setContent(criticalPath[0]);
-                    eventParm.setValue(parmValue);
-                    eventParms.addParm(eventParm);
-
-                    eventParm = new Parm();
-                    eventParm.setParmName(EventConstants.PARM_CRITICAL_PATH_SVC);
-                    parmValue = new Value();
-                    parmValue.setContent(criticalPath[1]);
-                    eventParm.setValue(parmValue);
-                    eventParms.addParm(eventParm);
-                } else {
-                    log.debug("Critical path test passed for node " + nodeId);
-                }
-            } else {
-                log.debug("No Critical path to test for node " + nodeId);
-            }
-        }
-
-        
-        if (uei.equals(EventConstants.NODE_LOST_SERVICE_EVENT_UEI)) {
-            eventParm = new Parm();
-            eventParm.setParmName(EventConstants.PARM_LOSTSERVICE_REASON);
-            parmValue = new Value();
-            parmValue.setContent(reason == null ? "Unknown" : reason);
-            eventParm.setValue(parmValue);
-            eventParms.addParm(eventParm);
-        }
-        
-        // For node level events (nodeUp/nodeDown) retrieve the
-        // node's nodeLabel value and add it as a parm
-        if (uei.equals(EventConstants.NODE_UP_EVENT_UEI) || uei.equals(EventConstants.NODE_DOWN_EVENT_UEI)) {
-            String nodeLabel = null;
-            try {
-                nodeLabel = getQueryMgr().getNodeLabel(nodeId);
-            } catch (SQLException sqlE) {
-                // Log a warning
-                log.warn("Failed to retrieve node label for nodeid " + nodeId, sqlE);
-            }
-    
-            if (nodeLabel == null) {
-                // This should never happen but if it does just
-                // use nodeId for the nodeLabel so that the
-                // event description has something to display.
-                nodeLabel = String.valueOf(nodeId);
-            }
-    
-            // Add nodelabel parm
-            eventParm = new Parm();
-            eventParm.setParmName(EventConstants.PARM_NODE_LABEL);
-            parmValue = new Value();
-            parmValue.setContent(nodeLabel);
-            eventParm.setValue(parmValue);
-            eventParms.addParm(eventParm);    
-        }
-        // Add Parms to the event
-        if (eventParms.getParmCount() > 0)
-            newEvent.setParms(eventParms);
-    
-        return newEvent;
-    }
-
     public void refreshServicePackages() {
 	PollableVisitor visitor = new PollableVisitorAdaptor() {
 		public void visitService(PollableService service) {
 			service.refreshConfig();
 		}
 	};
-	m_network.visit(visitor);
-    }
-
-    private String[] getCriticalPath(int nodeId) {
-        Category log = ThreadCategory.getInstance(getClass());
-        String SQL_DB_RETRIEVE_PATHOUTAGE = "SELECT criticalpathip, criticalpathservicename FROM pathoutage where nodeid=?";
-        String[] cpath = new String[2];
-	Connection dbc = null;
-        try {
-            dbc = DataSourceFactory.getInstance().getConnection();
-            PreparedStatement stmt = dbc.prepareStatement(SQL_DB_RETRIEVE_PATHOUTAGE);
-            stmt.setLong(1, nodeId);
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                cpath[0] = rs.getString(1);
-                cpath[1] = rs.getString(2);
-            }
-            rs.close();
-            stmt.close();
-        } catch (SQLException sqlE) {
-            log.error("getCriticalPath: SQLException " + sqlE);
-        } finally {
-            try {
-                dbc.close();
-            } catch (Exception e) {
-                log.error("getCriticalPath: Exception on close" + e);
-            }
-        }
-
-        if (cpath[0] == null || cpath[0].equals("")) {
-            cpath[0] = OpennmsServerConfigFactory.getInstance().getDefaultCriticalPathIp();
-            cpath[1] = "ICMP";
-        }
-        if (cpath[1] == null || cpath[1].equals("")) {
-            cpath[1] = "ICMP";
-        }
-        return cpath;
-    }
-
-    private boolean testCriticalPath(String[] criticalPath) {
-        //TODO: Generalize the service
-        InetAddress addr = null;
-        boolean result = true;
-        log().debug("Test critical path IP " + criticalPath[0]);
-        try {
-            addr = InetAddress.getByName(criticalPath[0]);
-        } catch (UnknownHostException e ) {
-            log().error("failed to convert string address to InetAddress " + criticalPath[0]);
-            return true;
-        }
-        try {
-            IcmpPlugin p = new IcmpPlugin();
-            Map<String, Object> map = new HashMap<String, Object>();
-            map.put("retry", new Long(OpennmsServerConfigFactory.getInstance().getDefaultCriticalPathRetries()));
-            map.put("timeout", new Long(OpennmsServerConfigFactory.getInstance().getDefaultCriticalPathTimeout()));
-
-            result = p.isProtocolSupported(addr, map);
-        } catch (IOException e) {
-            log().error("IOException when testing critical path " + e);
-        }
-        return result;
+	getNetwork().visit(visitor);
     }
 
 }

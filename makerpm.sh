@@ -24,7 +24,7 @@ else
 	RELEASE=$RELEASE_MAJOR
 fi
 
-VERSION=`grep '<version>' pom.xml | sed -e 's,^[^>]*>,,' -e 's,<.*$,,' -e 's,-SNAPSHOT$,,' | head -n 1`
+VERSION=`grep '<version>' pom.xml | sed -e 's,^[^>]*>,,' -e 's,<.*$,,' -e 's,-SNAPSHOT$,,' -e 's,-testing$,,' | head -n 1`
 
 if [ -z $JAVA_HOME ]; then
 	# hehe
@@ -41,11 +41,11 @@ if [ -z $JAVA_HOME ]; then
 	exit
 fi
 
-export PATH="$JAVA_HOME/bin:$PATH"
 TAR=`which gtar 2>/dev/null || which tar 2>/dev/null`
 RSYNC=`which rsync 2>/dev/null`
 GPG=`which gpg 2>/dev/null`
 WORKDIR="$TOPDIR/target/rpm"
+export PATH="$TOPDIR/maven/bin:$JAVA_HOME/bin:$PATH"
 
 if [ -z "$TAR" ]; then
 	echo "*** could not find tar ***"
@@ -80,11 +80,13 @@ if [ -z "$SKIP_SETUP" ]; then
 	echo "=== Creating a tar.gz archive of the Source in /usr/src/redhat/SOURCES ==="
 
 	$TAR zcvf "$WORKDIR/SOURCES/opennms-source-$VERSION-$RELEASE.tar.gz" -C "$WORKDIR/tmp" "opennms-$VERSION-$RELEASE"
+	$TAR zcvf "$WORKDIR/SOURCES/centric-troubleticketer.tar.gz" -C "$WORKDIR/tmp/opennms-$VERSION-$RELEASE/source/opennms-tools" "centric-troubleticketer"
 fi
 
 echo "=== Building RPMs ==="
 
 rpmbuild -bb --define "_topdir $WORKDIR" --define "_tmppath $WORKDIR/tmp" --define "version $VERSION" --define "releasenumber $RELEASE" tools/packages/opennms/opennms.spec
+rpmbuild -bb --define "_topdir $WORKDIR" --define "_tmppath $WORKDIR/tmp" --define "version $VERSION" --define "releasenumber $RELEASE" opennms-tools/centric-troubleticketer/src/main/rpm/opennms-plugin-ticketer-centric.spec
 
 if [ -n "$GPG" ]; then
 	if [ `$GPG $GPGOPTS --list-keys opennms@opennms.org 2>/dev/null | grep -c '^sub'` -gt 0 ]; then

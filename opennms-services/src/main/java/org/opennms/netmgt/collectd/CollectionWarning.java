@@ -8,6 +8,10 @@
 //
 // OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
 //
+// Modifications:
+//
+// 2008 Aug 29: CollectionException is now our parent and indent. - dj@opennms.org
+//
 // Original code base Copyright (C) 1999-2001 Oculan Corp.  All rights reserved.
 //
 // This program is free software; you can redistribute it and/or modify
@@ -31,7 +35,7 @@
 //
 package org.opennms.netmgt.collectd;
 
-public class CollectionWarning extends CollectionError {
+public class CollectionWarning extends CollectionException {
     private static final long serialVersionUID = 1L;
 
     public CollectionWarning() {
@@ -52,10 +56,9 @@ public class CollectionWarning extends CollectionError {
 
     protected void logError() {
         if (getCause() == null) {
-    		log().warn(getMessage());
-    	} else {
-    		log().warn(getMessage(), getCause());
-    	}
+            log().warn(getMessage());
+        } else {
+            log().warn(getMessage(), getCause());
+        }
     }
-
 }

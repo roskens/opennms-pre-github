@@ -91,7 +91,7 @@ import org.opennms.netmgt.config.DataSourceFactory;
 import org.opennms.netmgt.config.PollerConfig;
 import org.opennms.netmgt.config.PollerConfigFactory;
 import org.opennms.netmgt.eventd.EventIpcManagerFactory;
-import org.opennms.netmgt.utils.EventBuilder;
+import org.opennms.netmgt.model.events.EventBuilder;
 import org.opennms.netmgt.xml.event.Event;
 import org.springframework.util.Assert;
 
@@ -931,11 +931,26 @@ final class SuspectEventProcessor implements Runnable {
             }
 
             // physical address
-            final String physAddr = ifte.getPhysAddr();
-            if (log().isDebugEnabled()) {
-                log().debug("SuspectEventProcessor: "
-                        + aaddrs[0].getHostAddress()
-                        + " has physical address: -" + physAddr + "-");
+            String physAddr = null;
+            try {
+                physAddr = ifte.getPhysAddr();
+                if (log().isDebugEnabled()) {
+                    log().debug("SuspectEventProcessor: "
+                            + aaddrs[0].getHostAddress()
+                            + " has physical address: -" + physAddr + "-");
+                }
+            } catch (IllegalArgumentException iae) {
+                physAddr = null;
+                if (log().isDebugEnabled()) {
+                    log().debug("ifPhysAddress." + ifte.getIfIndex() + " on node "
+                               + nodeId + " / " + aaddrs[0].getHostAddress()
+                               + " could not be converted to a hex string (not a PhysAddr / OCTET STRING?), setting to null.");
+                }
+                StringBuffer errMsg = new StringBuffer("SNMP agent bug on node ");
+                errMsg.append(nodeId).append(" / ").append(ifaddr.getHostAddress());
+                errMsg.append(": wrong type for physical address (see bug 2740). ");
+                errMsg.append("Working around, but expect trouble with this node.");
+                log().warn(errMsg.toString());
             }
             if (physAddr != null && physAddr.length() == 12) {
                 snmpEntry.setPhysicalAddress(physAddr);

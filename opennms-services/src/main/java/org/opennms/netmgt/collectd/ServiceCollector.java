@@ -8,6 +8,11 @@
 //
 // OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
 //
+// Modifications:
+//
+// 2008 Aug 29: collect() can now throw CollectionException and is
+//              encouraged to do so for better error reporting. - dj@opennms.org
+//
 // Copyright (C) 1999-2001 Oculan Corp.  All rights reserved.
 //
 // This program is free software; you can redistribute it and/or modify
@@ -35,7 +40,7 @@ package org.opennms.netmgt.collectd;
 import java.util.Map;
 
 import org.opennms.netmgt.model.RrdRepository;
-import org.opennms.netmgt.utils.EventProxy;
+import org.opennms.netmgt.model.events.EventProxy;
 
 /**
  * The Collector class.
@@ -71,7 +76,7 @@ public interface ServiceCollector {
     /**
      * Invokes a collection on the object.
      */
-    public CollectionSet collect(CollectionAgent agent, EventProxy eproxy, Map<String, String> parameters);
+    public CollectionSet collect(CollectionAgent agent, EventProxy eproxy, Map<String, String> parameters) throws CollectionException;
 
     public RrdRepository getRrdRepository(String collectionName);
 }

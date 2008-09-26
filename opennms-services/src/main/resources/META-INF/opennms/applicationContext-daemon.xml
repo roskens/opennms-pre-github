@@ -9,13 +9,16 @@
     <property name="staticMethod"><value>org.opennms.netmgt.daemon.DaemonUtils.getLocalHostAddress</value></property>
   </bean>
   
+  <bean id="localHostName" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+    <property name="staticMethod"><value>org.opennms.netmgt.daemon.DaemonUtils.getLocalHostName</value></property>
+  </bean>
+  
   <!--  Instead of doing all of the work to create an EventIpcManagerDefaultImpl class
         here including all of its dependencies, we create a late-initializing proxy here
         and let eventd do the setup for the EventIpcManagerDefaultImpl and initialize
         the proxy with a pointer to the "real" eventIpcManager. -->
-  <bean id="eventIpcManager" class="org.opennms.netmgt.eventd.EventIpcManagerProxy"/>
-  
-  <!-- FIXME: This should go away once we can use dependency injection for all of the daemons. -->
+  <bean id="eventIpcManager" name="eventSubscriptionService" class="org.opennms.netmgt.eventd.EventIpcManagerProxy"/>
+
   <bean id="eventIpcManagerFactory-setInstance" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
     <property name="staticMethod"><value>org.opennms.netmgt.eventd.EventIpcManagerFactory.setIpcManager</value></property>
     <property name="arguments">

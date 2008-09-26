@@ -82,7 +82,7 @@ public class PollableService extends PollableElement implements ReadyRunnable, M
      * 
      */
     public PollableService(PollableInterface iface, String svcName) {
-        super(iface);
+        super(iface, Scope.SERVICE);
         m_svcName = svcName;
         m_netInterface = new IPv4NetworkInterface(iface.getAddress());
     }
@@ -145,7 +145,9 @@ public class PollableService extends PollableElement implements ReadyRunnable, M
      */
     public PollStatus poll() {
         PollStatus newStatus = m_pollConfig.poll();
-        updateStatus(newStatus);
+        if (!newStatus.isUnknown()) { 
+            updateStatus(newStatus);
+        }
         return getStatus();
     }
 
@@ -177,6 +179,8 @@ public class PollableService extends PollableElement implements ReadyRunnable, M
         }
     }
     
+
+    
     public Event createDownEvent(Date date) {
         return getContext().createEvent(EventConstants.NODE_LOST_SERVICE_EVENT_UEI, getNodeId(), getAddress(), getSvcName(), date, getStatus().getReason());
     }
@@ -206,6 +210,7 @@ public class PollableService extends PollableElement implements ReadyRunnable, M
     public String toString() { return getInterface()+":"+getSvcName(); }
 
     public void processStatusChange(Date date) {
+        
         if (getContext().isServiceUnresponsiveEnabled()) {
             if (isStatusChanged() && getStatus().equals(PollStatus.unresponsive())) {
                 getContext().sendEvent(createUnresponsiveEvent(date));

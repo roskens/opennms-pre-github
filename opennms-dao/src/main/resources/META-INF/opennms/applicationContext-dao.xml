@@ -235,4 +235,6 @@
   
   <bean id="onmsMapDao" class="org.opennms.netmgt.dao.hibernate.OnmsMapDaoHibernate" />
   
+  <bean id="snmpConfigDao" class="org.opennms.netmgt.dao.FactoryBasedSnmpConfigDao" />
+  
 </beans>

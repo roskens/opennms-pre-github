@@ -47,13 +47,11 @@ import javax.sql.DataSource;
 
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
-import org.opennms.netmgt.config.NotifdConfigManager;
-import org.opennms.netmgt.config.NotificationManager;
 import org.opennms.netmgt.config.notifications.Notification;
 import org.opennms.netmgt.dao.db.AbstractTransactionalTemporaryDatabaseSpringContextTests;
 import org.opennms.netmgt.filter.FilterDaoFactory;
+import org.opennms.netmgt.model.events.EventBuilder;
 import org.opennms.netmgt.notifd.mock.MockNotifdConfigManager;
-import org.opennms.netmgt.utils.EventBuilder;
 import org.opennms.test.ConfigurationTestUtils;
 import org.opennms.test.DaoTestConfigBean;
 
@@ -61,16 +59,16 @@ public class NotificationManagerTest extends AbstractTransactionalTemporaryDatab
     private NotificationManagerImpl m_notificationManager;
     private NotifdConfigManager m_configManager;
     
-    public NotificationManagerTest() {
-        super();
-        
-        DaoTestConfigBean configBean = new DaoTestConfigBean();
-        configBean.afterPropertiesSet();
+    @Override
+    protected void setUpConfiguration() {
+        DaoTestConfigBean bean = new DaoTestConfigBean();
+        bean.afterPropertiesSet();
     }
 
     @Override
     protected String[] getConfigLocations() {
         return new String[] {
+            "classpath:/META-INF/opennms/applicationContext-dao.xml"
         };
     }
     

@@ -46,9 +46,9 @@ import org.opennms.test.DaoTestConfigBean;
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class StatsdTest extends AbstractTransactionalTemporaryDatabaseSpringContextTests {
-    public StatsdTest() {
-        super();
-
+    
+    @Override
+    protected void setUpConfiguration() throws Exception {
         DaoTestConfigBean daoTestConfig = new DaoTestConfigBean();
         daoTestConfig.afterPropertiesSet();
     }
@@ -56,8 +56,8 @@ public class StatsdTest extends AbstractTransactionalTemporaryDatabaseSpringCont
     @Override
     protected String[] getConfigLocations() {
         return new String[] {
-                "classpath:META-INF/opennms/mockEventIpcManager.xml",
-                "classpath:META-INF/opennms/eventIpcManager-factoryInit.xml"
+                "classpath:META-INF/opennms/applicationContext-daemon.xml",
+                "classpath:META-INF/opennms/mockEventIpcManager.xml"
         };
     }
     
@@ -67,7 +67,7 @@ public class StatsdTest extends AbstractTransactionalTemporaryDatabaseSpringCont
         mbean.init();
         mbean.start();
         
-        Thread.sleep(3000);
+        Thread.sleep(2000);
         
         mbean.stop();
     }

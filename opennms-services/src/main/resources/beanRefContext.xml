@@ -3,14 +3,6 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd" default-lazy-init="true">
         
-   <bean id="daoContext" class="org.springframework.context.support.ClassPathXmlApplicationContext">
-     <constructor-arg>
-       <list>
-         <value>META-INF/opennms/applicationContext-dao.xml</value>
-       </list>
-     </constructor-arg>
-   </bean>
-   
    <bean id="daemonContext" class="org.springframework.context.support.ClassPathXmlApplicationContext">
      <constructor-arg>
        <list>
@@ -47,6 +39,15 @@
      <constructor-arg ref="commonContext" />
    </bean>
    
+   <bean id="pollerdContext" class="org.springframework.context.support.ClassPathXmlApplicationContext">
+     <constructor-arg>
+       <list>
+         <value>META-INF/opennms/applicationContext-pollerd.xml</value>
+       </list>
+     </constructor-arg>
+     <constructor-arg ref="commonContext" />
+   </bean>
+   
    <bean id="provisionerContext" class="org.springframework.context.support.ClassPathXmlApplicationContext">
      <constructor-arg>
        <list>
@@ -55,7 +56,6 @@
      </constructor-arg>
      <constructor-arg ref="commonContext" />
    </bean>
-   
    
    <bean id="pollerBackEndContext" class="org.springframework.context.support.ClassPathXmlApplicationContext">
      <constructor-arg>

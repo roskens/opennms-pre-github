@@ -65,11 +65,14 @@ public class AbstractTransactionalDaoTestCase extends AbstractTransactionalTempo
     
     private boolean m_populate = true;
     
-    public AbstractTransactionalDaoTestCase() {
+    
+    
+    @Override
+    protected void setUpConfiguration() {
         DaoTestConfigBean daoTestConfig = new DaoTestConfigBean();
         daoTestConfig.afterPropertiesSet();
     }
-    
+
     @Override
     protected String[] getConfigLocations() {
         return new String[] {
@@ -94,9 +97,6 @@ public class AbstractTransactionalDaoTestCase extends AbstractTransactionalTempo
         return m_alarmDao;
     }
 
-
-    public void testNothing() {
-    }
 
     public void setAlarmDao(AlarmDao alarmDao) {
         m_alarmDao = alarmDao;

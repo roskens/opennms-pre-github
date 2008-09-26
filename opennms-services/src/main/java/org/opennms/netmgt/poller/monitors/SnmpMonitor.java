@@ -1,7 +1,7 @@
 //
 // This file is part of the OpenNMS(R) Application.
 //
-// OpenNMS(R) is Copyright (C) 2002-2003 The OpenNMS Group, Inc.  All rights reserved.
+// OpenNMS(R) is Copyright (C) 2002-2008 The OpenNMS Group, Inc.  All rights reserved.
 // OpenNMS(R) is a derivative work, containing both original code, included code and modified
 // code that was published under the GNU General Public License. Copyrights for modified 
 // and included code are below.
@@ -210,6 +210,9 @@ public class SnmpMonitor extends SnmpMonitorStrategy {
         String operator = ParameterMap.getKeyedString(parameters, "operator", null);
         String operand = ParameterMap.getKeyedString(parameters, "operand", null);
         String walkstr = ParameterMap.getKeyedString(parameters, "walk", "false");
+        String matchstr = ParameterMap.getKeyedString(parameters, "match-all", "true");
+        int countMin = ParameterMap.getKeyedInteger(parameters, "minimum", 0);
+        int countMax = ParameterMap.getKeyedInteger(parameters, "maximum", 0);
 
         // set timeout and retries on SNMP peer object
         //
@@ -235,12 +238,38 @@ public class SnmpMonitor extends SnmpMonitorStrategy {
                         log().debug("poll: SNMPwalk poll succeeded, addr=" + ipaddr.getHostAddress() + " oid=" + oid + " value=" + result);
                         if (meetsCriteria(result, operator, operand)) {
                             status = PollStatus.available();
+                            if ("false".equals(matchstr)) {
+                               return status;
+                            }
+                        } else if ("true".equals(matchstr)) {
+                            status = logDown(Level.DEBUG, "SNMP poll failed, addr=" + ipaddr.getHostAddress() + " oid=" + oid);
+                            return status;
                         }
-                    } else {
-                        status = logDown(Level.DEBUG, "SNMP poll failed, addr=" + ipaddr.getHostAddress() + " oid=" + oid);
-                        return status;
                     }
                 }
+
+            // This if block will count the number of matches within a walk and mark the service
+            // as up if it is between the minimum and maximum number, down if otherwise. Setting
+            // the parameter "matchall" to "count" will act as if "walk" has been set to "true".
+            } else if ("count".equals(matchstr)) {
+		int matchCount = 0;
+                List<SnmpValue> results = SnmpUtils.getColumns(agentConfig, "snmpPoller", snmpObjectId);
+                for(SnmpValue result : results) {
+
+                    if (result != null) {
+                        log().debug("poll: SNMPwalk poll succeeded, addr=" + ipaddr.getHostAddress() + " oid=" + oid + " value=" + result);
+                        if (meetsCriteria(result, operator, operand)) {
+				matchCount++;
+                        }
+                    }
+                }
+                log().debug("poll: SNMPwalk count succeeded, total=" + matchCount + " min=" + countMin + " max=" + countMax);
+                if ((matchCount < countMax) && (matchCount > countMin)) {
+                    status = PollStatus.available();
+                } else {
+                    status = logDown(Level.DEBUG, "Value: " + matchCount + " outside of range Min: " + countMin + " to Max: " + countMax);
+                    return status;
+		}
 
             } else {
 

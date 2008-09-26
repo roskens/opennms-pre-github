@@ -8,6 +8,11 @@
 //
 // OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
 //
+// Modifications:
+//
+// 2008 Aug 31: Make makeQueryString work when the query string it produces is empty. - dj@opennms.org
+// 2008 Aug 29: Update to new TcpEventProxy constructors. - dj@opennms.org
+//
 // Copyright (C) 1999-2001 Oculan Corp.  All rights reserved.
 //
 // This program is free software; you can redistribute it and/or modify
@@ -29,14 +34,12 @@
 //      http://www.opennms.org/
 //      http://www.opennms.com/
 //
-// Tab Size = 8
-//
-
 package org.opennms.web;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.net.UnknownHostException;
@@ -53,7 +56,7 @@ import java.util.TreeMap;
 import javax.servlet.http.HttpServletRequest;
 
 import org.opennms.core.resource.Vault;
-import org.opennms.netmgt.utils.EventProxy;
+import org.opennms.netmgt.model.events.EventProxy;
 import org.opennms.netmgt.utils.TcpEventProxy;
 import org.opennms.web.element.NetworkElementFactory;
 
@@ -488,9 +491,11 @@ public abstract class Util extends Object {
         }
 
         // removes the first & from the buffer
-        buffer.deleteCharAt(0);
+        if (buffer.length() > 0 && buffer.charAt(0) == '&') {
+            buffer.deleteCharAt(0);
+        }
 
-        return (buffer.toString());
+        return buffer.toString();
     }
 
     public static class IgnoreType extends Object {
@@ -533,10 +538,11 @@ public abstract class Util extends Object {
     
     public static EventProxy createEventProxy() {
         /*
-         * Rather than defaulting to localhost all the time, give an option in web.xml
+         * Rather than defaulting to localhost all the time, give an option in properties
          */
-        String proxyHostName = Vault.getProperty("opennms.rtc.event.proxy.host") == null ? "localhost" : Vault.getProperty("opennms.rtc.event.proxy.host");
-        String proxyHostPort = Vault.getProperty("opennms.rtc.event.proxy.port") == null ? "5817" : Vault.getProperty("opennms.rtc.event.proxy.port");
+        String proxyHostName = Vault.getProperty("opennms.rtc.event.proxy.host") == null ? "127.0.0.1" : Vault.getProperty("opennms.rtc.event.proxy.host");
+        String proxyHostPort = Vault.getProperty("opennms.rtc.event.proxy.port") == null ? Integer.toString(TcpEventProxy.DEFAULT_PORT) : Vault.getProperty("opennms.rtc.event.proxy.port");
+        String proxyHostTimeout = Vault.getProperty("opennms.rtc.event.proxy.timeout") == null ? Integer.toString(TcpEventProxy.DEFAULT_TIMEOUT) : Vault.getProperty("opennms.rtc.event.proxy.timeout");
         InetAddress proxyAddr = null;
         EventProxy proxy = null;
 
@@ -547,9 +553,14 @@ public abstract class Util extends Object {
         }
 
         if (proxyAddr == null) {
-            proxy = new TcpEventProxy();
+            try {
+                proxy = new TcpEventProxy();
+            } catch (UnknownHostException e) {
+                // XXX Ewwww!  We should just let the first UnknownException bubble up. 
+                throw new UndeclaredThrowableException(e);
+            }
         } else {
-            proxy = new TcpEventProxy(proxyAddr, Integer.parseInt(proxyHostPort));
+            proxy = new TcpEventProxy(new InetSocketAddress(proxyAddr, Integer.parseInt(proxyHostPort)), Integer.parseInt(proxyHostTimeout));
         }
         return proxy;
     }

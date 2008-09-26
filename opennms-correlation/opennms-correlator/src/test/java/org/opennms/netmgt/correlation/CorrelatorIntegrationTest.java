@@ -39,7 +39,7 @@ package org.opennms.netmgt.correlation;
 
 import org.opennms.netmgt.dao.db.AbstractTransactionalTemporaryDatabaseSpringContextTests;
 import org.opennms.netmgt.mock.MockEventIpcManager;
-import org.opennms.netmgt.utils.EventBuilder;
+import org.opennms.netmgt.model.events.EventBuilder;
 import org.opennms.netmgt.xml.event.Event;
 import org.opennms.test.DaoTestConfigBean;
 
@@ -50,8 +50,11 @@ import org.opennms.test.DaoTestConfigBean;
 public class CorrelatorIntegrationTest extends AbstractTransactionalTemporaryDatabaseSpringContextTests {
 
     private MockEventIpcManager m_eventIpcMgr;
+    
+    
 
-    public CorrelatorIntegrationTest() {
+    @Override
+    protected void setUpConfiguration() {
         DaoTestConfigBean bean = new DaoTestConfigBean();
         bean.setRelativeHomeDirectory("src/test/opennms-home");
         bean.afterPropertiesSet();
@@ -60,10 +63,11 @@ public class CorrelatorIntegrationTest extends AbstractTransactionalTemporaryDat
     @Override
     protected String[] getConfigLocations() {
         return new String[] {
-                "META-INF/opennms/applicationContext-dao.xml",
-                "META-INF/opennms/applicationContext-correlator.xml",
+                "classpath:META-INF/opennms/applicationContext-dao.xml",
+                "classpath:META-INF/opennms/applicationContext-daemon.xml",
+                "classpath:META-INF/opennms/mockEventIpcManager.xml",
+                "classpath:META-INF/opennms/applicationContext-correlator.xml",
                 "classpath*:META-INF/opennms/correlation-engine.xml",
-                "classpath:META-INF/opennms/mockEventIpcManager.xml"
         };
     }
 

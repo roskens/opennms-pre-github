@@ -44,8 +44,6 @@ import java.util.Map;
 
 import org.hibernate.SessionFactory;
 import org.opennms.netmgt.dao.db.AbstractTransactionalTemporaryDatabaseSpringContextTests;
-import org.opennms.netmgt.eventd.EventIpcManagerFactory;
-import org.opennms.netmgt.mock.MockEventIpcManager;
 import org.opennms.netmgt.model.OnmsMonitoringLocationDefinition;
 import org.opennms.netmgt.model.PollStatus;
 import org.opennms.netmgt.poller.DistributionContext;
@@ -57,16 +55,16 @@ public class PollerBackEndIntegrationTest extends AbstractTransactionalTemporary
     private PollerBackEnd m_backEnd;
     private SessionFactory m_sessionFactory;
     
-    public PollerBackEndIntegrationTest() {
-        EventIpcManagerFactory.setIpcManager(new MockEventIpcManager());
-        
-        DaoTestConfigBean daoTestConfig = new DaoTestConfigBean();
-        daoTestConfig.afterPropertiesSet();
+    @Override
+    protected void setUpConfiguration() {
+        DaoTestConfigBean bean = new DaoTestConfigBean();
+        bean.afterPropertiesSet();
     }
     
     @Override
     protected String[] getConfigLocations() {
         return new String[] {
+                "classpath:/META-INF/opennms/mockEventIpcManager.xml",
                 "classpath:/META-INF/opennms/applicationContext-dao.xml",
                 "classpath:/META-INF/opennms/applicationContext-daemon.xml",
                 "classpath:/META-INF/opennms/applicationContext-pollerBackEnd.xml",
@@ -83,10 +81,6 @@ public class PollerBackEndIntegrationTest extends AbstractTransactionalTemporary
         m_sessionFactory = sessionFactory;
     }
     
-//    public void testWait() throws InterruptedException {
-//        Thread.sleep(6000000);
-//    }
-   
     public void testRegister() {
         
         Collection<OnmsMonitoringLocationDefinition> locations = m_backEnd.getMonitoringLocations();

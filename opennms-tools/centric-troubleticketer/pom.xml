@@ -26,12 +26,23 @@
     <dependency>
       <groupId>org.aspcfs</groupId>
       <artifactId>centric_crm_tools</artifactId>
-      <version>4.1.1</version>
+      <version>5.0</version>
       <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.opennms.api.integration</groupId>
+      <artifactId>opennms-ticketing</artifactId>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.opennms</groupId>
       <artifactId>opennms-services</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <version>2.3</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>
