@@ -14,44 +14,9 @@
     <resources>
       <resource>
         <directory>src/main/webstart</directory>
-        <filtering>true</filtering>
-      </resource>
-      <resource>
-        <directory>src/main/resources</directory>
       </resource>
     </resources>
     <plugins>
-      <plugin>
-        <groupId>org.codehaus.groovy.maven</groupId>
-        <artifactId>gmaven-plugin</artifactId>
-        <executions>
-          <execution>
-            <phase>generate-resources</phase>
-            <goals>
-              <goal>execute</goal>
-            </goals>
-            <configuration>
-              <source>
-                def keystore = new File(project.properties['webstart.keystore'])
-                if (!keystore.exists()) {
-                  keystore.parentFile.mkdirs();
-                  println "keystore is missing, generating for alias '${project.properties['webstart.keyalias']}'"
-                  def args = [
-                    keystore: project.properties['webstart.keystore'],
-                    alias: project.properties['webstart.keyalias'],
-                    storepass: project.properties['webstart.storepass'],
-                    dname: "cn=${project.properties['webstart.dnameCn']}"
-                  ]
-                  if (project.properties['webstart.keypass']) {
-                    args.put('keypass', project.properties['webstart.keypass'])
-                  }
-                  ant.genkey(args)
-                }
-              </source>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
       <plugin>
         <groupId>org.codehaus.mojo.webstart</groupId>
         <artifactId>webstart-maven-plugin</artifactId>
@@ -60,12 +25,12 @@
           <execution>
             <phase>package</phase>
             <goals>
-              <goal>jnlp-single</goal>
+              <goal>jnlp</goal>
             </goals>
           </execution>
         </executions>
         <configuration>
-          <resourcesDirectory>target/classes/webstart</resourcesDirectory>
+          <resourcesDirectory>src/main/webstart</resourcesDirectory>
           <jnlp>
             <inputTemplate>src/main/jnlp/remote-poller.vm</inputTemplate>
             <outputFile>remote-poller.jnlp</outputFile>
@@ -77,9 +42,9 @@
             <storepass>${webstart.storepass}</storepass>
             <alias>${webstart.keyalias}</alias>
             <dnameCn>${webstart.dnameCn}</dnameCn>
-            <!-- <dnameL>${webstart.dnameL}</dnameL>
+            <dnameL>${webstart.dnameL}</dnameL>
             <dnameSt>${webstart.dnameSt}</dnameSt>
-            <dnameC>${webstart.dnameC}</dnameC> -->
+            <dnameC>${webstart.dnameC}</dnameC>
             <verify>true</verify>
           </sign>
           <keystoreConfig>
@@ -139,6 +104,22 @@
             </sources>
           </configuration>
         </execution>
+        <execution>
+          <id>attach-artifacts</id>
+          <phase>package</phase>
+          <goals>
+            <goal>attach-artifact</goal>
+          </goals>
+          <configuration>
+            <artifacts>
+              <artifact>
+                <file>${project.build.directory}/${project.build.finalName}.zip</file>
+                <type>zip</type>
+                <classifier>webstart</classifier>
+              </artifact>
+            </artifacts>
+          </configuration>
+        </execution>
       </executions>
     </plugin>
     <plugin>
@@ -166,15 +147,11 @@
     <artifactId>commons-cli</artifactId>
   </dependency>
   <dependency>
-    <groupId>org.apache.ant</groupId>
-    <artifactId>ant</artifactId>
-  </dependency>
-  <dependency>
     <groupId>org.opennms</groupId>
     <artifactId>opennms-services</artifactId>
   </dependency>
   <dependency>
-    <groupId>org.codehaus.groovy</groupId>
+    <groupId>groovy</groupId>
     <artifactId>groovy</artifactId>
   </dependency>
 </dependencies>
