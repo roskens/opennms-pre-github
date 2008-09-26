@@ -40,6 +40,7 @@ import java.util.Date;
 import junit.framework.Assert;
 
 import org.opennms.netmgt.dao.hibernate.LocationMonitorDaoHibernate;
+import org.opennms.netmgt.dao.hibernate.OnmsMapDaoHibernate;
 import org.opennms.netmgt.model.NetworkBuilder;
 import org.opennms.netmgt.model.OnmsAlarm;
 import org.opennms.netmgt.model.OnmsCategory;
@@ -93,6 +94,7 @@ public class DatabasePopulator {
     private UserNotificationDao m_userNotificationDao;
     private AvailabilityReportLocatorDao m_availabilityReportLocatorDao;
     private LocationMonitorDaoHibernate m_locationMonitorDao;
+    private OnmsMapDaoHibernate m_onmsMapDao;
     
     private OnmsNode m_node1;
 
@@ -414,6 +416,14 @@ public class DatabasePopulator {
 
     public void setLocationMonitorDao(LocationMonitorDaoHibernate locationMonitorDao) {
         m_locationMonitorDao = locationMonitorDao;
+    }
+
+    public OnmsMapDaoHibernate getOnmsMapDao() {
+        return m_onmsMapDao;
+    }
+
+    public void setOnmsMapDao(OnmsMapDaoHibernate onmsMapDao) {
+        this.m_onmsMapDao = onmsMapDao;
     }
 
 }

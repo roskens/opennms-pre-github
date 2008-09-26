@@ -91,16 +91,14 @@ public class OnmsMap implements Serializable {
         this.isNew = true;
     }
 
-    public OnmsMap(int id, String name, String owner) {
-        this.id = id;
+    public OnmsMap(String name, String owner) {
         this.name = name;
         this.owner = owner;
     }
 
-    public OnmsMap(int id, String name, String background, String owner,
+    public OnmsMap(String name, String background, String owner,
                String accessMode, String userLastModifies, float scale,
-               int offsetX, int offsetY, String type, int width, int height) {
-        this.id = id;
+               int offsetX, int offsetY, String type, int width, int height) {        
         this.name = name;
         this.background = background;
         this.owner = owner;

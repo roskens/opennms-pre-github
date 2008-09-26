@@ -50,6 +50,7 @@
         <value>org.opennms.netmgt.model.ResourceReference</value>
         <value>org.opennms.netmgt.model.StatisticsReportData</value>
         <value>org.opennms.netmgt.model.StatisticsReport</value>
+        <value>org.opennms.netmgt.model.OnmsMap</value>
       </list>
     </property>
     <!--  property name="schemaUpdate" value="true">
@@ -233,5 +234,7 @@
   </bean>
   
   <bean id="snmpConfigDao" class="org.opennms.netmgt.dao.FactoryBasedSnmpConfigDao" />
+
+  <bean id="onmsMapDao" class="org.opennms.netmgt.dao.hibernate.OnmsMapDaoHibernate" />
   
 </beans>

@@ -19,6 +19,7 @@
      <property name="availabilityReportLocatorDao" ref="availabilityReportLocatorDao" />
      <property name="locationMonitorDao" ref="locationMonitorDao" />
      <property name="serviceTypeDao" ref="serviceTypeDao" />
+     <property name="onmsMapDao" ref="onmsMapDao" />
    </bean>
 
 </beans>
