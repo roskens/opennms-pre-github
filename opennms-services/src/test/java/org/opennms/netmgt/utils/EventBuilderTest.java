@@ -1,12 +1,14 @@
 //
 // This file is part of the OpenNMS(R) Application.
 //
-// OpenNMS(R) is Copyright (C) 2008 The OpenNMS Group, Inc.  All rights reserved.
+// OpenNMS(R) is Copyright (C) 2007 The OpenNMS Group, Inc.  All rights reserved.
 // OpenNMS(R) is a derivative work, containing both original code, included code and modified
 // code that was published under the GNU General Public License. Copyrights for modified
 // and included code are below.
 //
 // OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+//
+// Original code base Copyright (C) 1999-2001 Oculan Corp.  All rights reserved.
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -27,19 +29,25 @@
 //      http://www.opennms.org/
 //      http://www.opennms.com/
 //
-package org.opennms.netmgt.config;
+package org.opennms.netmgt.utils;
 
-import org.opennms.netmgt.snmp.SnmpAgentConfig;
+import junit.framework.TestCase;
 
-public interface StorageStrategyService {
+/**
+ * @author <a href="mailto:david@opennms.org">David Hustace</a>
+ */
+public class EventBuilderTest extends TestCase {
 
-    public SnmpAgentConfig getAgentConfig();
+	/**
+	 * Test method for {@link org.opennms.netmgt.utils.EventBuilder#getEvent()}.
+	 */
+	public final void testGetEvent() {
+		EventBuilder builder = new EventBuilder("uei.opennms.org/test", "test");
+		builder.setSeverity("Warning");
+		assertEquals("Warning", builder.getEvent().getSeverity());
+		
+		builder.setSeverity("Waning");
+		assertEquals("Indeterminate", builder.getEvent().getSeverity());
+	}
 
-    /*
-     * This method is used on StorageStrategy implementation when the resource index is associated to a
-     * physical interface like frame relay resources. OpenNMS always track changes on ifTable so, make SNMP
-     * queries on this table is redundant, and implementations of CollectionAgent know ifTable content always.
-     * This method give interface information from a specific ifIndex.
-     */
-    public String getSnmpInterfaceLabel(int ifIndex);
 }

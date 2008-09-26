@@ -36,7 +36,6 @@
 package org.opennms.netmgt.eventd;
 
 import org.easymock.EasyMock;
-import org.opennms.netmgt.model.events.EventListener;
 import org.opennms.test.ThrowableAnticipator;
 import org.opennms.test.mock.EasyMockUtils;
 

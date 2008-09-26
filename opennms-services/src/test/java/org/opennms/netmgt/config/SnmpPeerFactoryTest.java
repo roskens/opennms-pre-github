@@ -69,7 +69,6 @@ public class SnmpPeerFactoryTest extends TestCase {
                 " read-community=\"public\"" +
                 " write-community=\"private\"\n" + 
                 " port=\"161\"\n" +
-                " max-vars-per-pdu = \"23\" " +
                 " version=\"v1\">\n" +
                 "\n" +
                 "   <definition port=\"9161\" version=\""+myVersion()+"\" " +
@@ -83,7 +82,7 @@ public class SnmpPeerFactoryTest extends TestCase {
                 "       <specific>10.0.0.1</specific>\n" +
                 "   </definition>\n" + 
                 "\n" + 
-                "   <definition version=\"v1\" read-community=\"specificv1\" max-request-size=\"484\">\n" + 
+                "   <definition version=\"v1\" read-community=\"specificv1\" max-request-size=\"434\">\n" + 
                 "       <specific>10.0.0.2</specific>\n" +
                 "   </definition>\n" + 
                 "\n" + 
@@ -167,12 +166,12 @@ public class SnmpPeerFactoryTest extends TestCase {
         assertEquals(SnmpAgentConfig.DEFAULT_MAX_REQUEST_SIZE, agentConfig.getMaxRequestSize());
         
         agentConfig = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName("10.0.0.2"));
-        assertEquals(484, agentConfig.getMaxRequestSize());
+        assertEquals(434, agentConfig.getMaxRequestSize());
     }
     
     public void testDefaultMaxVarsPerPdu() throws UnknownHostException {
         SnmpAgentConfig agentConfig = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(myLocalHost()));
-        assertEquals(23, agentConfig.getMaxVarsPerPdu());
+        assertEquals(10, agentConfig.getMaxVarsPerPdu());
     }
     
     public void testConfigureDefaultMaxVarsPerPdu() throws UnknownHostException {
@@ -234,6 +233,7 @@ public class SnmpPeerFactoryTest extends TestCase {
     public void testGetTargetFromPatterns() throws UnknownHostException {
         SnmpAgentConfig agentConfig = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName("77.5.5.255"));
         assertEquals("ipmatch", agentConfig.getReadCommunity());
+        assertFalse(10 == agentConfig.getMaxVarsPerPdu());
         assertEquals(128, agentConfig.getMaxVarsPerPdu());
         
         agentConfig = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName("77.15.80.255"));

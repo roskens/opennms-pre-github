@@ -51,16 +51,12 @@ import javax.sql.DataSource;
 import org.opennms.netmgt.config.EventdConfigManager;
 import org.opennms.netmgt.eventd.EventIpcBroadcaster;
 import org.opennms.netmgt.eventd.EventIpcManager;
-import org.opennms.netmgt.eventd.EventIpcManagerProxy;
-import org.opennms.netmgt.model.events.EventListener;
-import org.opennms.netmgt.model.events.EventProxyException;
+import org.opennms.netmgt.eventd.EventListener;
 import org.opennms.netmgt.xml.event.Event;
 import org.opennms.netmgt.xml.event.Log;
 import org.opennms.test.mock.MockUtil;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.util.Assert;
 
-public class MockEventIpcManager implements EventIpcManager, EventIpcBroadcaster, InitializingBean {
+public class MockEventIpcManager implements EventIpcManager, EventIpcBroadcaster {
 
     static class ListenerKeeper {
         EventListener m_listener;
@@ -111,8 +107,6 @@ public class MockEventIpcManager implements EventIpcManager, EventIpcBroadcaster
     
     private ScheduledExecutorService m_scheduler = null;
 
-    private EventIpcManagerProxy m_proxy;
-
     public MockEventIpcManager() {
         m_anticipator = new EventAnticipator();
     }
@@ -131,8 +125,7 @@ public class MockEventIpcManager implements EventIpcManager, EventIpcBroadcaster
 
     public void broadcastNow(Event event) {
         MockUtil.println("Sending: " + new EventWrapper(event));
-        List<ListenerKeeper> listeners = new ArrayList<ListenerKeeper>(m_listeners);
-        for (ListenerKeeper k : listeners) {
+        for (ListenerKeeper k : m_listeners) {
             k.sendEventIfAppropriate(event);
         }
     }
@@ -247,34 +240,14 @@ public class MockEventIpcManager implements EventIpcManager, EventIpcBroadcaster
         
     }
 
-    public void setDataSource(DataSource instance) {
+    public void setDbConnectionFactory(DataSource instance) {
         // TODO Auto-generated method stub
         
     }
-    
-    
-    
 
     public void reset() {
         m_listeners = new ArrayList<ListenerKeeper>();
         m_anticipator.reset();
-    }
-
-    public void setEventIpcManagerProxy(EventIpcManagerProxy proxy) {
-        m_proxy = proxy;
-    }
-
-    public void afterPropertiesSet() throws Exception {
-        Assert.notNull(m_proxy, "expected to have proxy set");
-        m_proxy.setDelegate(this);
-    }
-
-    public void send(Event event) throws EventProxyException {
-        sendNow(event);
-    }
-
-    public void send(Log eventLog) throws EventProxyException {
-        sendNow(eventLog);
     }
 
 }

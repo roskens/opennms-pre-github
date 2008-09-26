@@ -33,12 +33,10 @@ package org.opennms.netmgt.dao.support;
 
 import java.io.File;
 
-import org.opennms.netmgt.config.StorageStrategyService;
 import org.opennms.netmgt.config.StorageStrategy;
 
 public class IndexStorageStrategy implements StorageStrategy {
     private String m_resourceTypeName;
-    protected StorageStrategyService m_storageStrategyService;
 
     public String getRelativePathForAttribute(String resourceParent, String resource,
             String attribute) {
@@ -48,11 +46,9 @@ public class IndexStorageStrategy implements StorageStrategy {
         buffer.append(m_resourceTypeName);
         buffer.append(File.separator);
         buffer.append(resource);
-        if (attribute != null) {
-            buffer.append(File.separator);
-            buffer.append(attribute);
-            buffer.append(RrdFileConstants.getRrdSuffix());
-        }
+        buffer.append(File.separator);
+        buffer.append(attribute);
+        buffer.append(RrdFileConstants.getRrdSuffix());
         return buffer.toString();
     }
 
@@ -62,13 +58,5 @@ public class IndexStorageStrategy implements StorageStrategy {
 
     public String getResourceTypeName() {
         return m_resourceTypeName;
-    }
-
-    public String getResourceNameFromIndex(String resourceParent, String resourceIndex) {
-        return resourceIndex;
-    }
-
-    public void setStorageStrategyService(StorageStrategyService agent) {
-        m_storageStrategyService = agent;
     }
 }

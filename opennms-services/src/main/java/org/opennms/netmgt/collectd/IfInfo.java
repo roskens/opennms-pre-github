@@ -55,7 +55,7 @@ import org.opennms.netmgt.model.OnmsIpInterface.CollectionType;
  * @author <a href="mailto:mike@opennms.org">Mike Davidson </a>
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
  */
-public final class IfInfo extends SnmpCollectionResource {
+final class IfInfo extends SnmpCollectionResource {
 
     private CollectionType m_collType;
     private SNMPCollectorEntry m_entry;

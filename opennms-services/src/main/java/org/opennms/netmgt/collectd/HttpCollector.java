@@ -675,10 +675,6 @@ public class HttpCollector implements ServiceCollector {
         public String getInstance() {
             return null;
         }
-
-        public String getLabel() {
-            return null;
-        }
     }
     
     class HttpCollectionAttributeType implements CollectionAttributeType {

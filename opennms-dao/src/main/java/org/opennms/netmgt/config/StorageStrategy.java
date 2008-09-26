@@ -35,21 +35,4 @@ public interface StorageStrategy {
     public String getRelativePathForAttribute(String resourceParent, String resource, String attribute);
 
     public void setResourceTypeName(String name);
-
-    /*
-     * This functions translate resourceIndex into a "unique" and "non-variable" name that could be identify
-     * a resource, as described earlier.
-     * 
-     * This method could be expensive because it could require send SNMP queries and make complicated functions to
-     * build the name. So you must try to call it only when is necessary.
-     */
-    public String getResourceNameFromIndex(String resourceParent, String resourceIndex);
-    
-    /*
-     * Add to a strategy the possibility to get additional information using SNMP when is necessary.
-     * There are complex tables on some MIBs where indexes depends on indexes from other tables (indirect indexing).
-     * For this kind of resources we must send some additional SNMP queries to build a unique name.
-     */ 
-    public void setStorageStrategyService(StorageStrategyService agent);
-
 }

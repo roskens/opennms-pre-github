@@ -8,10 +8,6 @@
 //
 // OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
 //
-// Modifications:
-//
-// 2008 Aug 31: Use InputStream in parseXML. - dj@opennms.org
-//
 // Original code base Copyright (C) 1999-2001 Oculan Corp.  All rights reserved.
 //
 // This program is free software; you can redistribute it and/or modify
@@ -35,10 +31,10 @@
 //
 package org.opennms.netmgt.notifd.mock;
 
-import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.Reader;
+import java.io.StringReader;
 
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
@@ -68,8 +64,8 @@ public class MockUserManager extends UserManager {
     }
 
     private void parseXML() throws MarshalException, ValidationException {
-        InputStream in = new ByteArrayInputStream(m_xmlString.getBytes());
-        parseXML(in);
+        Reader reader = new StringReader(m_xmlString);
+        parseXML(reader);
         updateNeeded = false;
     }
 

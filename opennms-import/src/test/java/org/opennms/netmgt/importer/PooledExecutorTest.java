@@ -59,7 +59,7 @@ public class PooledExecutorTest extends TestCase {
 			Runnable r = new Runnable() {
 				public void run() {
 					System.err.println(Thread.currentThread()+": "+new Date()+": "+index);
-					sleep(500);
+					sleep(1000);
 				}
 			};
 			threadPool.execute(r);

@@ -133,7 +133,6 @@
     <dependency>
       <groupId>com.jcraft</groupId>
       <artifactId>jsch</artifactId>
-      <version>0.1.39</version>
     </dependency>
     <dependency>
       <groupId>commons-httpclient</groupId>
@@ -157,12 +156,6 @@
     <dependency>
       <groupId>jivesoftware</groupId>
       <artifactId>smackx</artifactId>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>net.sf.sshtools</groupId>
-      <artifactId>j2ssh-core</artifactId>
-      <version>0.2.9.1-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>

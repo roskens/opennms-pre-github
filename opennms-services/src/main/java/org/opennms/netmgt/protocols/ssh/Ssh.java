@@ -10,8 +10,7 @@
  *
  * Modifications:
  * 
- * 2008 Aug 11: Converted to Trilead SSH client
- * 2007 Oct 03: Initial version
+ * Created: October 3, 2007
  *
  * Copyright (C) 2007 The OpenNMS Group, Inc.  All rights reserved.
  *
@@ -36,29 +35,42 @@
  */
 package org.opennms.netmgt.protocols.ssh;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InterruptedIOException;
+import java.net.ConnectException;
 import java.net.InetAddress;
+import java.net.NoRouteToHostException;
 
-import org.opennms.netmgt.model.PollStatus;
-import org.opennms.netmgt.poller.monitors.TimeoutTracker;
+import org.apache.log4j.Category;
+import org.opennms.core.utils.ThreadCategory;
 import org.opennms.netmgt.protocols.InsufficientParametersException;
+
+import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.JSchException;
+import com.jcraft.jsch.Session;
 
 /**
  * 
  * @author <a href="mailto:ranger@opennms.org">Benjamin Reed</a>
  */
-public abstract class Ssh extends org.opennms.netmgt.protocols.AbstractPoll {
+public class Ssh {
+    // 30 second timeout
+    public static final int DEFAULT_TIMEOUT = 30000;
     
     // SSH port is 22
     public static final int DEFAULT_PORT = 22;
-
-    protected static String m_banner = "SSH-1.99-OpenNMS_1.5";
-
-    protected int m_port = DEFAULT_PORT;
-    protected String m_username;
-    protected String m_password;
-    protected String m_serverBanner = "";
-    protected InetAddress m_address;
-    protected Throwable m_error;
+    
+    JSch m_jsch = new JSch();
+    private Session m_session;
+    private Throwable m_exception;
+    private String m_serverVersion;
+    private InetAddress m_address;
+    private int m_port = DEFAULT_PORT;
+    private int m_timeout = DEFAULT_TIMEOUT;
+    private File m_keydir;
+    private String m_username;
+    private String m_password;
 
     /**
      * Set the address to connect to.
@@ -90,10 +102,39 @@ public abstract class Ssh extends org.opennms.netmgt.protocols.AbstractPoll {
      * @return the port
      */
     public int getPort() {
-        if (m_port == 0) {
-            return 22;
-        }
         return m_port;
+    }
+    
+    /**
+     * Set the timeout in milliseconds. 
+     * @param milliseconds the timeout
+     */
+    public void setTimeout(int milliseconds) {
+        m_timeout = milliseconds;
+    }
+
+    /**
+     * Get the timeout in milliseconds.
+     * @return the timeout
+     */
+    public int getTimeout() {
+        return m_timeout;
+    }
+    
+    /**
+     * Set the directory to search for SSH keys.
+     * @param directory the directory
+     */
+    public void setKeyDirectory(File directory) {
+        m_keydir = directory;
+    }
+    
+    /**
+     * Get the directory to search for SSH keys.
+     * @return the directory
+     */
+    public File getKeyDirectory() {
+        return m_keydir;
     }
     
     /**
@@ -132,18 +173,18 @@ public abstract class Ssh extends org.opennms.netmgt.protocols.AbstractPoll {
      * Get the SSH server version banner.
      * @return the version string
      */
-    public String getServerBanner() {
-        return m_serverBanner;
+    public String getServerVersion() {
+        return m_serverVersion;
     }
 
-    protected void setError(Throwable t) {
-        m_error = t;
+    /**
+     * Get the Jsch session object.
+     * @return the session
+     */
+    protected Session getSession() {
+        return m_session;
     }
     
-    protected Throwable getError() {
-        return m_error;
-    }
-
     /**
      * Attempt to connect, based on the parameters which have been set in
      * the object.
@@ -151,38 +192,61 @@ public abstract class Ssh extends org.opennms.netmgt.protocols.AbstractPoll {
      * @return true if it is able to connect
      * @throws InsufficientParametersException
      */
-    protected abstract boolean tryConnect() throws InsufficientParametersException;
-
-    public PollStatus poll(TimeoutTracker tracker) throws InsufficientParametersException {
-        tracker.startAttempt();
-        boolean isAvailable = tryConnect();
-        double responseTime = tracker.elapsedTimeInMillis();
-
-        PollStatus ps = PollStatus.unavailable();
-        
-        String errorMessage = "";
-        if (getError() != null) {
-            errorMessage = getError().getMessage();
-            ps.setReason(errorMessage);
-        }
-
-        if (isAvailable) {
-            ps = PollStatus.available(responseTime);
-        } else if (errorMessage.matches("^.*Authentication:.*$")) {
-            ps = PollStatus.unavailable("authentication failed");
-        } else if (errorMessage.matches("^.*java.net.NoRouteToHostException.*$")) {
-            ps = PollStatus.unavailable("no route to host");
-        } else if (errorMessage.matches("^.*(timeout: socket is not established|java.io.InterruptedIOException|java.net.SocketTimeoutException).*$")) {
-            ps = PollStatus.unavailable("connection timed out");
-        } else if (errorMessage.matches("^.*(connection is closed by foreign host|java.net.ConnectException).*$")) {
-            ps = PollStatus.unavailable("connection exception");
-        } else if (errorMessage.matches("^.*NumberFormatException.*$")) {
-            ps = PollStatus.unavailable("an error occurred parsing the server version number");
-        } else if (errorMessage.matches("^.*java.io.IOException.*$")) {
-            ps = PollStatus.unavailable("I/O exception");
+    protected boolean connect() throws InsufficientParametersException {
+        if (getAddress() == null) {
+            throw new InsufficientParametersException("you must specify an address");
         }
         
-        return ps;
+        m_exception = null;
+        m_serverVersion = null;
+        m_session = null;
+        try {
+            m_session = m_jsch.getSession("opennms", getAddress().getHostAddress(), getPort());
+            m_session.connect(getTimeout());
+            m_serverVersion = m_session.getServerVersion();
+            return true;
+        } catch (JSchException e) {
+            m_exception = e;
+            if (e.getCause() != null) {
+                Class cause = e.getCause().getClass();
+                if (cause == ConnectException.class) {
+                    log().debug("connection refused", e);
+                    return false;
+                } else if (cause == NoRouteToHostException.class) {
+                    log().debug("no route to host", e);
+                    return false;
+                } else if (cause == InterruptedIOException.class) {
+                    log().debug("connection timeout", e);
+                    return false;
+                } else if (cause == IOException.class) {
+                    log().debug("An I/O exception occurred", e);
+                    return false;
+                } else if (e.getMessage().matches("^.*(connection is closed by foreign host).*$")) {
+                    log().debug("JSCH failed", e);
+                    return false;
+                }
+            } else {
+                // ugh, string parse, maybe we can get him to fix this in a newer jsch release
+                if (e.getMessage().matches("^.*(socket is not established|connection is closed by foreign host|java.io.(IOException|InterruptedIOException)|java.net.(ConnectException|NoRouteToHostException)).*$")) {
+                    log().debug("did not connect enough to verify SSH server", e);
+                    return false;
+                }
+            }
+            if (m_session != null) {
+                if (m_session.isConnected()) {
+                    m_serverVersion = m_session.getServerVersion();
+                }
+            }
+            log().debug("valid SSH server is listening: " + e.getMessage());
+            return true;
+        }
     }
-    
+
+    protected Throwable getError() {
+        return m_exception;
+    }
+
+    private Category log() {
+        return ThreadCategory.getInstance(getClass());
+    }
 }

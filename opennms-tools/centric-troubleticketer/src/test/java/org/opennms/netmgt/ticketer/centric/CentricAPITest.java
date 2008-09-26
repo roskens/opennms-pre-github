@@ -92,7 +92,7 @@ public class CentricAPITest extends TestCase {
         
         CRMConnection crm = createConnection();
         
-        ArrayList<String> sucky = new ArrayList<String>();
+        ArrayList sucky = new ArrayList();
         sucky.add("id");
         crm.setTransactionMeta(sucky);
         
@@ -114,11 +114,11 @@ public class CentricAPITest extends TestCase {
         
         assertEquals(1, crm.getRecordCount());
         
-        List<RecordLocator> results = crm.getRecords(RecordLocator.class.getName());
+        List results = crm.getRecords(RecordLocator.class.getName());
         
         assertEquals(1, results.size());
         
-        RecordLocator record = results.get(0);
+        RecordLocator record = (RecordLocator)results.get(0);
         assertTrue(0 < record.getIdAsInt());
         
 
@@ -193,7 +193,7 @@ public class CentricAPITest extends TestCase {
         crm.setClientId(clientId);
         
         
-        ArrayList<String> returnFields = new ArrayList<String>();
+        ArrayList returnFields = new ArrayList();
         returnFields.add("id");
         returnFields.add("modified");
         crm.setTransactionMeta(returnFields);

@@ -73,7 +73,7 @@ public final class ThreshdConfigFactory extends ThreshdConfigManager {
     private static boolean m_loaded = false;
 
     /**
-     * Public constructor
+     * Private constructor
      * 
      * @exception java.io.IOException
      *                Thrown if the specified config file cannot be read
@@ -82,11 +82,10 @@ public final class ThreshdConfigFactory extends ThreshdConfigManager {
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
      */
-    // Changed scope to public to simplify tests
-    public ThreshdConfigFactory(Reader rdr, String localServer, boolean verifyServer) throws IOException, MarshalException, ValidationException {
+    private ThreshdConfigFactory(Reader rdr, String localServer, boolean verifyServer) throws IOException, MarshalException, ValidationException {
         super(rdr, localServer, verifyServer);
 
-    }
+}
 
     /**
      * Load the config from the default config file and create the singleton
@@ -170,10 +169,5 @@ public final class ThreshdConfigFactory extends ThreshdConfigManager {
             throw new IllegalStateException("The factory has not been initialized");
 
         return m_singleton;
-    }
-    
-    public static void setInstance(ThreshdConfigFactory configFactory) {
-    	m_loaded = true;
-    	m_singleton = configFactory;
     }
 }

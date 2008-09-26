@@ -54,7 +54,7 @@ import org.opennms.netmgt.mock.OpenNMSTestCase;
 import org.opennms.netmgt.model.OnmsDistPoller;
 import org.opennms.netmgt.model.OnmsIpInterface;
 import org.opennms.netmgt.model.OnmsNode;
-import org.opennms.netmgt.model.events.EventProxy;
+import org.opennms.netmgt.utils.EventProxy;
 import org.opennms.test.ConfigurationTestUtils;
 
 /**
@@ -100,11 +100,10 @@ public class HttpCollectorTest extends OpenNMSTestCase {
                 "    </rrd>\n" + 
                 "    <uris>\n" + 
                 "      <uri name=\"test-document-count\">\n" + 
-                "        <url path=\"/index.php/HttpCollector_UnitTest_${ipaddr}\"\n" + 
+                "        <url path=\"/test/resources/httpcolltest.html\"\n" + 
                 "             user-agent=\"Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en) " +
                 "AppleWebKit/412 (KHTML, like Gecko) Safari/412\" \n" + 
-                "             matches=\"(?s).*Document Count:\\s+([0-9,]+(\\.[0-9]*)?).*\" " +
-                "             response-range=\"100-399\" virtual-host=\"www.opennms.org\">\n" + 
+                "             matches=\"(?s).*Document Count:\\s+([0-9,]+(\\.[0-9]*)?).*\" response-range=\"100-399\" virtual-host=\"www.opennms.org\">\n" + 
                 "        </url>\n" + 
                 "        <attributes>\n" + 
                 "          <attrib alias=\"documentCount\" match-group=\"1\" type=\"counter32\"/>\n" + 
@@ -125,7 +124,7 @@ public class HttpCollectorTest extends OpenNMSTestCase {
 
     /**
      * Test method for {@link org.opennms.netmgt.collectd.HttpCollector#collect(
-     *   org.opennms.netmgt.collectd.CollectionAgent, org.opennms.netmgt.model.events.EventProxy, java.util.Map)}.
+     *   org.opennms.netmgt.collectd.CollectionAgent, org.opennms.netmgt.utils.EventProxy, java.util.Map)}.
      */
     public final void testCollect() throws Exception {
         

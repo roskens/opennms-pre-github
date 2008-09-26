@@ -50,8 +50,7 @@ public class FtpPluginTest extends TestCase {
     private FtpPlugin m_plugin = new FtpPlugin();
     private ServerSocket m_serverSocket = null;
     private Thread m_serverThread = null;
-    private static int TIMEOUT = 2000;
-    
+
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -156,7 +155,7 @@ public class FtpPluginTest extends TestCase {
                 try {
                     m_serverSocket.setSoTimeout(1000);
                     m_serverSocket.accept();
-                    Thread.sleep(TIMEOUT);
+                    Thread.sleep(3000);
                 } catch (Exception e) {
                     throw new UndeclaredThrowableException(e);
                 }
@@ -177,8 +176,6 @@ public class FtpPluginTest extends TestCase {
     private boolean  doCheck() {
         Map<String, Object> m = new HashMap<String, Object>();
         m.put("port", m_serverSocket.getLocalPort());
-        m.put("retries", 0);
-        m.put("timeout", TIMEOUT);
         return m_plugin.isProtocolSupported(m_serverSocket.getInetAddress(), m);
     }
 }

@@ -69,8 +69,8 @@ import org.opennms.netmgt.model.OnmsServiceType;
 import org.opennms.netmgt.model.RrdRepository;
 import org.opennms.netmgt.model.NetworkBuilder.InterfaceBuilder;
 import org.opennms.netmgt.model.NetworkBuilder.NodeBuilder;
-import org.opennms.netmgt.model.events.EventBuilder;
-import org.opennms.netmgt.model.events.EventProxy;
+import org.opennms.netmgt.utils.EventBuilder;
+import org.opennms.netmgt.utils.EventProxy;
 import org.opennms.test.mock.EasyMockUtils;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -214,7 +214,7 @@ public class CollectdIntegrationTest extends TestCase {
 
         m_collectd.onEvent(bldr.getEvent());
         
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         
         assertNotNull(m_serviceCollector);
         assertEquals(1, m_serviceCollector.getCollectCount());

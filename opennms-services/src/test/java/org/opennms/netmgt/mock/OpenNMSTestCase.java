@@ -79,9 +79,12 @@ import org.opennms.netmgt.eventd.processor.EventIpcBroadcastProcessor;
 import org.opennms.netmgt.eventd.processor.EventProcessor;
 import org.opennms.netmgt.eventd.processor.JdbcAlarmWriter;
 import org.opennms.netmgt.eventd.processor.JdbcEventWriter;
-import org.opennms.netmgt.model.events.EventProxy;
 import org.opennms.netmgt.snmp.SnmpAgentConfig;
 import org.opennms.netmgt.snmp.SnmpUtils;
+import org.opennms.netmgt.utils.EventProxy;
+import org.opennms.netmgt.utils.EventProxyException;
+import org.opennms.netmgt.xml.event.Event;
+import org.opennms.netmgt.xml.event.Log;
 import org.opennms.test.ConfigurationTestUtils;
 import org.opennms.test.mock.MockLogAppender;
 import org.opennms.test.mock.MockUtil;
@@ -219,7 +222,17 @@ public class OpenNMSTestCase extends TestCase {
                 m_eventdIpcMgr.setEventHandler(eventHandler);
                 m_eventdIpcMgr.afterPropertiesSet();
                 
-                m_eventProxy = m_eventdIpcMgr;
+                m_eventProxy = new EventProxy() {
+
+                    public void send(Event event) throws EventProxyException {
+                        m_eventdIpcMgr.sendNow(event);
+                    }
+
+                    public void send(Log eventLog) throws EventProxyException {
+                        m_eventdIpcMgr.sendNow(eventLog);
+                    }
+                    
+                };
                 
                 EventIpcManagerFactory.setIpcManager(m_eventdIpcMgr);
                 

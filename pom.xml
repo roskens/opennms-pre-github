@@ -17,8 +17,8 @@
     <url>http://bugs.opennms.org/</url>
   </issueManagement>  
   <ciManagement>
-    <system>Bamboo</system>
-    <url>http://bamboo.internal.opennms.com:8085/</url>
+    <system>Hudson</system>
+    <url>http://internal.opennms.com:8081/</url>
     <notifiers>
       <notifier>
         <type>htmlmail</type>
@@ -283,10 +283,6 @@
             <property>
               <name>opennms.library.jrrd</name>
               <value>${opennms.library.jrrd}</value>
-            </property>
-            <property>
-              <name>runOtrsTests</name>
-              <value>${runOtrsTests}</value>
             </property>
             <property>
               <name>runPingTests</name>
@@ -700,7 +696,7 @@
       <dependency>
         <groupId>org.opennms.api.integration</groupId>
         <artifactId>opennms-ticketing</artifactId>
-        <version>1.0.1</version>
+        <version>1.0-SNAPSHOT</version>
       </dependency>
 
       <!--  opennms dependencies -->
@@ -797,11 +793,6 @@
       <dependency>
         <groupId>org.opennms</groupId>
         <artifactId>opennms-install</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.opennms</groupId>
-        <artifactId>opennms-jersey</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
@@ -919,28 +910,8 @@
         <version>1.0</version>
       </dependency>
       <dependency>
-        <groupId>org.apache.ant</groupId>
-        <artifactId>ant</artifactId>
-        <version>1.7.1</version>
-      </dependency>
-      <dependency>
-        <groupId>antlr</groupId>
-        <artifactId>antlr</artifactId>
-        <version>2.7.6</version>
-      </dependency>
-      <dependency>
         <groupId>axis</groupId>
         <artifactId>axis</artifactId>
-        <version>1.4</version>
-      </dependency>
-      <dependency>
-        <groupId>axis</groupId>
-        <artifactId>axis-jaxrpc</artifactId>
-        <version>1.4</version>
-      </dependency>
-      <dependency>
-        <groupId>axis</groupId>
-        <artifactId>axis-saaj</artifactId>
         <version>1.4</version>
       </dependency>
       <dependency>
@@ -971,12 +942,12 @@
         <dependency>
           <groupId>bsf</groupId>
           <artifactId>bsf</artifactId>
-          <version>2.4.0</version>
+          <version>2.2</version>
       </dependency>
       <dependency>
         <groupId>bsh</groupId>
         <artifactId>bsh</artifactId>
-        <version>1.3.0</version>
+        <version>1.2b7</version>
       </dependency>
       <dependency>
         <groupId>cglib</groupId>
@@ -1009,11 +980,6 @@
         <groupId>commons-cli</groupId>
         <artifactId>commons-cli</artifactId>
         <version>1.1</version>
-      </dependency>
-      <dependency>
-        <groupId>commons-collections</groupId>
-        <artifactId>commons-collections</artifactId>
-        <version>3.2</version>
       </dependency>
       <dependency>
         <groupId>commons-configuration</groupId>
@@ -1051,11 +1017,6 @@
         <version>1.3.4</version>
       </dependency>
       <dependency>
-        <groupId>net.sf.opencsv</groupId>
-        <artifactId>opencsv</artifactId>
-        <version>1.8</version>
-      </dependency>
-      <dependency>
         <groupId>net.sf.json-lib</groupId>
         <artifactId>json-lib</artifactId>
         <version>1.0.1</version>
@@ -1086,17 +1047,13 @@
         <version>0.1.2</version>
       </dependency>
       <dependency>
-        <groupId>org.codehaus.groovy</groupId>
+        <groupId>groovy</groupId>
         <artifactId>groovy</artifactId>
-        <version>1.5.6</version>    
+        <version>1.0-jsr-06</version>    
         <exclusions>
           <exclusion>
             <groupId>cglib</groupId>
             <artifactId>cglib</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>commons-cli</groupId>
-            <artifactId>commons-cli</artifactId>
           </exclusion>
         </exclusions>
       </dependency>
@@ -1148,11 +1105,6 @@
         <scope>provided</scope>
       </dependency>
       <dependency>
-        <groupId>javax.xml.bind</groupId>
-        <artifactId>jaxb-api</artifactId>
-        <version>2.1</version>
-      </dependency>
-      <dependency>
         <groupId>org.mortbay.jetty</groupId>
         <artifactId>jetty</artifactId>
         <version>6.1.9</version>
@@ -1171,6 +1123,11 @@
         <groupId>org.mortbay.jetty</groupId>
         <artifactId>servlet-api-2.5</artifactId>
         <version>6.1.9</version>
+      </dependency>
+      <dependency>
+        <groupId>com.jcraft</groupId>
+        <artifactId>jsch</artifactId>
+        <version>0.1.39</version>
       </dependency>
       <dependency>
         <groupId>org.mortbay.jetty</groupId>
@@ -1195,12 +1152,12 @@
       <dependency>
         <groupId>jmock</groupId>
         <artifactId>jmock</artifactId>
-        <version>1.2.0</version>
+        <version>1.0.1</version>
       </dependency>
       <dependency>
         <groupId>jmock</groupId>
         <artifactId>jmock-cglib</artifactId>
-        <version>1.2.0</version>
+        <version>1.0.1</version>
         <exclusions>
           <exclusion>
             <groupId>cglib</groupId>
@@ -1213,29 +1170,14 @@
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>net.sf.jradius</groupId>
-        <artifactId>jradius-client</artifactId>
-        <version>20040211</version>
-      </dependency>
-      <dependency>
-        <groupId>net.jradius</groupId>
-        <artifactId>jradius-core</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>net.jradius</groupId>
-        <artifactId>jradius-dictionary</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
         <groupId>org.jrobin</groupId>
         <artifactId>jrobin</artifactId>
-        <version>1.5.9</version>
+        <version>1.5.9-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
-        <version>4.5</version>
+        <version>3.8.1</version>
       </dependency>
       <dependency>
         <groupId>jwebunit</groupId>
@@ -1277,6 +1219,11 @@
         <version>3.0.1</version>
       </dependency>
       <dependency>
+        <groupId>net.sf.jradius</groupId>
+        <artifactId>jradius-client</artifactId>
+        <version>20040211</version>
+      </dependency>
+      <dependency>
         <groupId>openldap</groupId>
         <artifactId>jldap</artifactId>
         <version>2005.10.03</version>
@@ -1309,13 +1256,12 @@
       <dependency>
         <groupId>org.snmp4j</groupId>
         <artifactId>snmp4j</artifactId>
-        <version>1.9.3c</version>
+        <version>1.9.2-npefix</version>
       </dependency>
       <dependency>
         <groupId>org.snmp4j</groupId>
         <artifactId>snmp4j-agent</artifactId>
-        <version>1.2.1d</version>
-        <scope>test</scope>
+        <version>1.2c</version>
       </dependency>
       <dependency>
         <groupId>oro</groupId>

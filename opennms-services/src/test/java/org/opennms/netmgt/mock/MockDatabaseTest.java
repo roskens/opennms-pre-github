@@ -42,7 +42,6 @@ import java.sql.SQLException;
 
 import junit.framework.TestCase;
 
-import org.opennms.netmgt.mock.MockService.SvcMgmtStatus;
 import org.opennms.netmgt.utils.Querier;
 import org.opennms.netmgt.xml.event.Event;
 
@@ -70,8 +69,7 @@ public class MockDatabaseTest extends TestCase {
         m_network.addNode(2, "Server");
         m_network.addInterface("192.168.1.3");
         m_network.addService("ICMP");
-        // set the initial status to N as a test
-        m_network.addService("HTTP").setMgmtStatus(SvcMgmtStatus.NOT_POLLED);
+        m_network.addService("HTTP");
         m_network.addInterface("192.168.1.2");
         
         m_db = new MockDatabase();
@@ -148,7 +146,7 @@ public class MockDatabaseTest extends TestCase {
                 assertEquals(svc.getIpAddr(), ipAddr);
                 assertEquals(svc.getSvcName(), serviceName);
                 assertEquals(svc.getId(), serviceId);
-                assertEquals(svc.getMgmtStatus().toDbString(), status);
+                assertEquals("A", status);
             }
         };
         querier.execute();

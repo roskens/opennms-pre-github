@@ -466,9 +466,6 @@ class EventQueueProcessor implements Runnable, PausableFiber {
                     log().error("Unexpected error processing event: " + t, t);
                 }
             }
-            if (event != null && !statusOK()) {
-            	log().error("EventQueueProcessor not OK, exiting with status:" + m_status);
-            }
         }
     }
 }

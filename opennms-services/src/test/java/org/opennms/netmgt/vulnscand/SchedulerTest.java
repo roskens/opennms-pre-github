@@ -46,13 +46,14 @@ import org.opennms.test.DaoTestConfigBean;
  */
 public class SchedulerTest extends TestCase {
 
-    @Override
-    protected void setUp() throws Exception {
-        
+    public SchedulerTest() {
         DaoTestConfigBean bean = new DaoTestConfigBean();
         bean.setRelativeHomeDirectory("src/test/test-configurations/vulnscand");
         bean.afterPropertiesSet();
-        
+    }
+
+    @Override
+    protected void setUp() throws Exception {
         super.setUp();
 
         VulnscandConfigFactory.init();

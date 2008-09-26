@@ -41,7 +41,7 @@ package org.opennms.netmgt.importer;
 import org.opennms.netmgt.EventConstants;
 import org.opennms.netmgt.dao.db.AbstractTransactionalTemporaryDatabaseSpringContextTests;
 import org.opennms.netmgt.mock.MockEventIpcManager;
-import org.opennms.netmgt.model.events.EventBuilder;
+import org.opennms.netmgt.utils.EventBuilder;
 import org.opennms.netmgt.xml.event.Event;
 import org.opennms.test.DaoTestConfigBean;
 import org.opennms.test.mock.MockLogAppender;
@@ -60,8 +60,9 @@ public class ImporterServiceTest extends AbstractTransactionalTemporaryDatabaseS
         return new String[] {
                 "classpath:/META-INF/opennms/applicationContext-dao.xml",
                 "classpath:/META-INF/opennms/applicationContext-daemon.xml",
-                "classpath:/META-INF/opennms/mockEventIpcManager.xml",
                 "classpath:/META-INF/opennms/applicationContext-importer.xml",
+                "classpath:/META-INF/opennms/mockEventIpcManager.xml",
+                "classpath:/META-INF/opennms/eventIpcManager-factoryInit.xml",
                 "classpath:/META-INF/opennms/smallEventConfDao.xml",
                 "classpath:/importerServiceTest.xml"
         };

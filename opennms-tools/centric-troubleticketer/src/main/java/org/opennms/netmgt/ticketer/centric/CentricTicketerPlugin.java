@@ -45,13 +45,12 @@ import org.aspcfs.apps.transfer.DataRecord;
 import org.aspcfs.utils.CRMConnection;
 import org.aspcfs.utils.XMLUtils;
 import org.opennms.core.utils.ThreadCategory;
+import org.opennms.netmgt.ticketd.Ticket;
+import org.opennms.netmgt.ticketd.TicketerPlugin;
+import org.opennms.netmgt.ticketd.Ticket.State;
 import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.util.Assert;
 import org.w3c.dom.Element;
-
-import org.opennms.api.integration.ticketing.Plugin;
-import org.opennms.api.integration.ticketing.Ticket;
-import org.opennms.api.integration.ticketing.Ticket.State;
 
 /**
  * OpenNMS Trouble Ticket Plugin API implementation for CentricCRM (c) Darkhorse Ventures.
@@ -60,10 +59,10 @@ import org.opennms.api.integration.ticketing.Ticket.State;
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  *
  */
-public class CentricTicketerPlugin implements Plugin {
+public class CentricTicketerPlugin implements TicketerPlugin {
     
     /**
-     * This class extends Centric Class that is responsible for transferring data
+     * This class extends Centric Class that is responsible for transfering data
      * to/from the Centric server via their HTTP-XML API.
      * 
      * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
@@ -150,7 +149,7 @@ public class CentricTicketerPlugin implements Plugin {
     }
     
     /**
-     * Convenience method of determining a "close" state of a ticket.
+     * Convenience method of determing a "close" state of a ticket.
      * @param newState
      * @return true if canceled or closed state
      */
@@ -172,7 +171,7 @@ public class CentricTicketerPlugin implements Plugin {
      * the OpenNMS enumerated ticket states.
      * 
      * @param stateIdString
-     * @return the converted <code>org.opennms.api.integration.ticketing.Ticket.State</code> 
+     * @return the converted <code>org.opennms.netmgt.ticketd.Ticket.State</code> 
      */
     private State getStateFromId(String stateIdString) {
     	if (stateIdString == null) {
@@ -253,7 +252,7 @@ public class CentricTicketerPlugin implements Plugin {
     }
 
     /**
-     * Convenience logging.
+     * Covenience logging.
      * @return a log4j Category for this class
      */
     private Category log() {
@@ -263,7 +262,7 @@ public class CentricTicketerPlugin implements Plugin {
 
     /*
      * (non-Javadoc)
-     * @see org.opennms.api.integration.ticketing.Plugin#saveOrUpdate(org.opennms.api.integration.ticketing.Ticket)
+     * @see org.opennms.netmgt.ticketd.TicketerPlugin#saveOrUpdate(org.opennms.netmgt.ticketd.Ticket)
      */
     public void saveOrUpdate(Ticket ticket) {
         CentricConnection crm = createConnection();

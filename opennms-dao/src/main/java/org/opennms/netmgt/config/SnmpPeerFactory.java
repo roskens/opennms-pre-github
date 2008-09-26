@@ -40,8 +40,11 @@
 package org.opennms.netmgt.config;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.net.InetAddress;
@@ -52,17 +55,15 @@ import java.util.Iterator;
 import org.apache.log4j.Category;
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.Marshaller;
+import org.exolab.castor.xml.Unmarshaller;
 import org.exolab.castor.xml.ValidationException;
 import org.opennms.core.utils.ThreadCategory;
 import org.opennms.netmgt.ConfigFileConstants;
 import org.opennms.netmgt.config.common.Range;
 import org.opennms.netmgt.config.snmp.Definition;
 import org.opennms.netmgt.config.snmp.SnmpConfig;
-import org.opennms.netmgt.dao.castor.CastorUtils;
 import org.opennms.netmgt.snmp.SnmpAgentConfig;
 import org.opennms.protocols.ip.IPv4Address;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.Resource;
 
 /**
  * This class is the main respository for SNMP configuration information used by
@@ -92,8 +93,6 @@ public final class SnmpPeerFactory extends PeerFactory {
      * The config class loaded from the config file
      */
     private static SnmpConfig m_config;
-    
-    private static File m_configFile;
 
     /**
      * This member is set to true if the configuration file has been loaded.
@@ -112,16 +111,16 @@ public final class SnmpPeerFactory extends PeerFactory {
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
      */
-    private SnmpPeerFactory(File configFile) throws IOException, MarshalException, ValidationException {
-        this(new FileSystemResource(configFile));
-    }
-    
-    public SnmpPeerFactory(Resource resource) {
-        m_config = CastorUtils.unmarshalWithTranslatedExceptions(SnmpConfig.class, resource);
+    private SnmpPeerFactory(String configFile) throws IOException, MarshalException, ValidationException {
+        InputStream cfgIn = new FileInputStream(configFile);
+
+        m_config = (SnmpConfig) Unmarshaller.unmarshal(SnmpConfig.class, new InputStreamReader(cfgIn));
+        cfgIn.close();
+
     }
     
     public SnmpPeerFactory(Reader rdr) throws IOException, MarshalException, ValidationException {
-        m_config = CastorUtils.unmarshalWithTranslatedExceptions(SnmpConfig.class, rdr);
+        m_config = (SnmpConfig) Unmarshaller.unmarshal(SnmpConfig.class, rdr);
     }
     
     /**
@@ -142,11 +141,11 @@ public final class SnmpPeerFactory extends PeerFactory {
             return;
         }
 
-        File cfgFile = getFile();
+        File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.SNMP_CONF_FILE_NAME);
 
         log().debug("init: config file path: " + cfgFile.getPath());
 
-        m_singleton = new SnmpPeerFactory(cfgFile);
+        m_singleton = new SnmpPeerFactory(cfgFile.getPath());
 
         m_loaded = true;
     }
@@ -175,14 +174,14 @@ public final class SnmpPeerFactory extends PeerFactory {
     /**
      * Saves the current settings to disk
      */
-    public static synchronized void saveCurrent() throws IOException, MarshalException, ValidationException {
+    public static synchronized void saveCurrent() throws Exception {
 
         // Marshall to a string first, then write the string to the file. This
         // way the original config
         // isn't lost if the XML from the marshall is hosed.
         String marshalledConfig = marshallConfig();
         if (marshalledConfig != null) {
-            FileWriter fileWriter = new FileWriter(getFile());
+            FileWriter fileWriter = new FileWriter(ConfigFileConstants.getFile(ConfigFileConstants.SNMP_CONF_FILE_NAME));
             fileWriter.write(marshalledConfig);
             fileWriter.flush();
             fileWriter.close();
@@ -205,25 +204,6 @@ public final class SnmpPeerFactory extends PeerFactory {
             throw new IllegalStateException("The factory has not been initialized");
 
         return m_singleton;
-    }
-    
-    public static synchronized void setFile(File configFile) {
-        File oldFile = m_configFile;
-        m_configFile = configFile;
-        
-        // if the file changed then we need to reload the config
-        if (oldFile == null || m_configFile == null || !oldFile.equals(m_configFile)) {
-            m_singleton = null;
-            m_loaded = false;
-        }
-    }
-    
-    public static synchronized File getFile() throws IOException {
-        if (m_configFile == null) {
-            m_configFile = ConfigFileConstants.getFile(ConfigFileConstants.SNMP_CONF_FILE_NAME);
-        }
-        return m_configFile;
-        
     }
     
     public static synchronized void setInstance(SnmpPeerFactory singleton) {
@@ -465,8 +445,8 @@ public final class SnmpPeerFactory extends PeerFactory {
     }
 
     private int determineMaxRepetitions(Definition def) {
-        return (!def.hasMaxRepetitions() ? 
-                (!m_config.hasMaxRepetitions() ?
+        return (def.getMaxRepetitions() == 0 ? 
+                (m_config.getMaxRepetitions() == 0 ?
                   SnmpAgentConfig.DEFAULT_MAX_REPETITIONS : m_config.getMaxRepetitions()) : def.getMaxRepetitions());
     }
 
@@ -485,8 +465,8 @@ public final class SnmpPeerFactory extends PeerFactory {
     }
 
     private int determineMaxVarsPerPdu(Definition def) {
-        return (!def.hasMaxVarsPerPdu() ? 
-                (!m_config.hasMaxVarsPerPdu() ?
+        return (def.getMaxVarsPerPdu() == 0 ? 
+                (m_config.getMaxVarsPerPdu() == 0 ?
                   SnmpAgentConfig.DEFAULT_MAX_VARS_PER_PDU : m_config.getMaxVarsPerPdu()) : def.getMaxVarsPerPdu());
     }
     /**
@@ -516,7 +496,7 @@ public final class SnmpPeerFactory extends PeerFactory {
      * @return
      */
     private int determineMaxRequestSize(Definition def) {
-        return (!def.hasMaxRequestSize() ? (!m_config.hasMaxRequestSize() ? SnmpAgentConfig.DEFAULT_MAX_REQUEST_SIZE : m_config.getMaxRequestSize()) : def.getMaxRequestSize());
+        return (def.getMaxRequestSize() == 0 ? (m_config.getMaxRequestSize() == 0 ? SnmpAgentConfig.DEFAULT_MAX_REQUEST_SIZE : m_config.getMaxRequestSize()) : def.getMaxRequestSize());
     }
 
     /**
@@ -605,18 +585,7 @@ public final class SnmpPeerFactory extends PeerFactory {
      * @return
      */
     private int determineSecurityLevel(Definition def) {
-        
-        // use the def security level first
-        if (def.hasSecurityLevel()) {
-            return def.getSecurityLevel();
-        }
-        
-        // use a configured default security level next
-        if (m_config.hasSecurityLevel()) {
-            return m_config.getSecurityLevel();
-        }
 
-        // if no security level configuration exists use
         int securityLevel = SnmpAgentConfig.NOAUTH_NOPRIV;
 
         String authPassPhrase = (def.getAuthPassphrase() == null ? m_config.getAuthPassphrase() : def.getAuthPassphrase());
@@ -734,7 +703,7 @@ public final class SnmpPeerFactory extends PeerFactory {
      * Puts a specific IP address with associated read-community string into
      * the currently loaded snmp-config.xml.
      */
-    public synchronized void define(SnmpEventInfo info) {
+    public synchronized void define(SnmpEventInfo info) throws UnknownHostException {
         SnmpConfigManager mgr = new SnmpConfigManager(getSnmpConfig());
         mgr.mergeIntoConfig(info.createDef());
     }

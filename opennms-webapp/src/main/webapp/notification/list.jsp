@@ -3,7 +3,7 @@
 //
 // This file is part of the OpenNMS(R) Application.
 //
-// OpenNMS(R) is Copyright (C) 2002-2008 The OpenNMS Group, Inc.  All rights reserved.
+// OpenNMS(R) is Copyright (C) 2002-2003 The OpenNMS Group, Inc.  All rights reserved.
 // OpenNMS(R) is a derivative work, containing both original code, included code and modified
 // code that was published under the GNU General Public License. Copyrights for modified 
 // and included code are below.
@@ -12,7 +12,6 @@
 //
 // Modifications:
 //
-// 2008 Aug 14: Sanitize username (bug #2633) - ranger@opennms.org
 // 2006 Aug 25: End <td> tags with </td> instead of </th>. - dj@opennms.org
 // 2003 Feb 07: Fixed URLEncoder issues.
 // 2002 Nov 26: Fixed breadcrumbs issue.
@@ -41,23 +40,24 @@
 
 --%>
 
-<%@page language="java" contentType="text/html" session="true"
+<%@page language="java"
+	contentType="text/html"
+	session="true"
 	import="org.opennms.web.notification.*,
 		org.opennms.web.event.*,
-       	org.opennms.web.MissingParameterException,
-		org.opennms.web.acegisecurity.Authentication,
-		org.opennms.web.XssRequestWrapper
-	"%>
+        	org.opennms.web.MissingParameterException,
+		org.opennms.web.acegisecurity.Authentication
+	"
+%>
 
 <%!
     NotificationModel model = new NotificationModel();
 %>
 
 <%
-	XssRequestWrapper req = new XssRequestWrapper(request);
-
-    String username = req.getParameter( "username" );
-
+    String username = request.getParameter( "username" );
+    
+    
     if( username == null ) {
         throw new MissingParameterException( "username" );
     }
@@ -135,7 +135,7 @@
        String eventSeverity = EventUtil.getSeverityLabel(event.getSeverity());%>
 
     <tr class="<%=eventSeverity%>">
-      <!--all users can acknowledge any notice -->          
+      <!--all users can acknowlege any notice -->          
       <% if( !(request.isUserInRole( Authentication.READONLY_ROLE )) ) { %>
         <td>
           <input type="checkbox" name="notices" value="<%=notices[i].getId()%>" />

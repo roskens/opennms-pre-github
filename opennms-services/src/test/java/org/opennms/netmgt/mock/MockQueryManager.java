@@ -46,12 +46,8 @@ import org.opennms.netmgt.poller.QueryManager;
 
 public class MockQueryManager implements QueryManager {
 
-    public void setDataSource(DataSource dataSource) {
+    public void setDbConnectionFactory(DataSource dbConnectionFactory) {
         // Don't do anything because this one doesn't use the database.
-    }
-    
-    public DataSource getDataSource() {
-        return null;
     }
 
     /**
@@ -139,9 +135,5 @@ public class MockQueryManager implements QueryManager {
     public void reparentOutages(String ipAddr, int oldNodeId, int newNodeId) {
         // TODO Auto-generated method stub
 
-    }
-
-    public String[] getCriticalPath(int nodeId) {
-        throw new UnsupportedOperationException("MockQueryManager.getCriticalPath is not yet implemented");
     }
 }

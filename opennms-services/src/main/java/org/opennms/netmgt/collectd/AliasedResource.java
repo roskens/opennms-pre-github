@@ -123,8 +123,4 @@ public class AliasedResource extends SnmpCollectionResource {
     public String getInstance() {
         return null; //For node and interface type resources, use the default instance
     }
-
-    public String getLabel() {
-        return getDomain() + '/' + getAliasDir();
-    }
 }

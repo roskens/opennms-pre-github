@@ -56,8 +56,8 @@ public class StatsdTest extends AbstractTransactionalTemporaryDatabaseSpringCont
     @Override
     protected String[] getConfigLocations() {
         return new String[] {
-                "classpath:META-INF/opennms/applicationContext-daemon.xml",
-                "classpath:META-INF/opennms/mockEventIpcManager.xml"
+                "classpath:META-INF/opennms/mockEventIpcManager.xml",
+                "classpath:META-INF/opennms/eventIpcManager-factoryInit.xml"
         };
     }
     
@@ -67,7 +67,7 @@ public class StatsdTest extends AbstractTransactionalTemporaryDatabaseSpringCont
         mbean.init();
         mbean.start();
         
-        Thread.sleep(2000);
+        Thread.sleep(3000);
         
         mbean.stop();
     }

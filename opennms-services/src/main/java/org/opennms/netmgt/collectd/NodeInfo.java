@@ -47,7 +47,7 @@ import org.opennms.netmgt.model.RrdRepository;
  * @author <a href="mailto:mike@opennms.org">Mike Davidson </a>
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
  */
-public final class NodeInfo extends SnmpCollectionResource {
+final class NodeInfo extends SnmpCollectionResource {
 
 	private SNMPCollectorEntry m_entry;
     private int m_nodeId;
@@ -91,9 +91,4 @@ public final class NodeInfo extends SnmpCollectionResource {
     public String getInstance() {
         return null; //For node type resources, use the default instance
     }
-
-    public String getLabel() {
-        return null;
-    }
-
 } // end class

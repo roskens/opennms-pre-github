@@ -43,7 +43,7 @@ import java.util.List;
 import org.easymock.EasyMock;
 import org.opennms.core.fiber.Fiber;
 import org.opennms.netmgt.eventd.EventIpcManager;
-import org.opennms.netmgt.model.events.EventListener;
+import org.opennms.netmgt.eventd.EventListener;
 
 import static org.easymock.EasyMock.*;
 

@@ -3,7 +3,7 @@
 //
 // This file is part of the OpenNMS(R) Application.
 //
-// OpenNMS(R) is Copyright (C) 2002-2008 The OpenNMS Group, Inc.  All rights reserved.
+// OpenNMS(R) is Copyright (C) 2002-2003 The OpenNMS Group, Inc.  All rights reserved.
 // OpenNMS(R) is a derivative work, containing both original code, included code and modified
 // code that was published under the GNU General Public License. Copyrights for modified 
 // and included code are below.
@@ -12,7 +12,6 @@
 //
 // Modifications:
 //
-// 2008 Aug 14: Sanitize input
 // 2004 Nov 18: Added "Acknowledge Notices" and "Select All" buttons at the top of the table
 //              So it isn't necessary to scroll all the way to the bottom. Bill Ayres.
 // 2003 Feb 07: Fixed URLEncoder issues.
@@ -52,9 +51,7 @@
 		java.util.*,
 		java.sql.SQLException,
 		org.opennms.web.event.*,
-		org.opennms.web.event.filter.*,
-		org.opennms.web.XssRequestWrapper,
-		org.opennms.web.SafeHtmlUtil
+		org.opennms.web.event.filter.*
 	"
 %>
 
@@ -79,11 +76,9 @@
 %>
 
 <%
-	XssRequestWrapper req = new XssRequestWrapper(request);
-
     //required attributes
-    Notification[] notices = (Notification[])req.getAttribute( "notices" );
-    NoticeQueryParms parms = (NoticeQueryParms)req.getAttribute( "parms" );
+    Notification[] notices = (Notification[])request.getAttribute( "notices" );
+    NoticeQueryParms parms = (NoticeQueryParms)request.getAttribute( "parms" );
 
     if( notices == null || parms == null ) {
         throw new ServletException( "Missing either the notices or parms request attribute." );
@@ -214,16 +209,16 @@
     Applied filters:
       <% for( int i = 0; i < length; i++ ) { %>
 		<span class="filter"><% NoticeFactory.Filter filter = (NoticeFactory.Filter)parms.filters.get(i); %>
-				<%=SafeHtmlUtil.sanitize(filter.getTextDescription())%> <a href="<%=this.makeLink( parms, filter, false)%>" title="Remove filter">[-]</a></span> &nbsp; 
+				<%=filter.getTextDescription()%> <a href="<%=this.makeLink( parms, filter, false)%>" title="Remove filter">[-]</a></span> &nbsp; 
       <% } %>
     &mdash; <a href="<%=this.makeLink( parms, new ArrayList())%>" title="Remove all filters">[Remove all]</a>
   </p>
 <% } %>
 	<jsp:include page="/includes/key.jsp" flush="false" />
         <form action="notification/acknowledge" method="post" name="acknowledge_form">
-          <input type="hidden" name="redirectParms" value="<%=req.getQueryString()%>" />
-          <%=org.opennms.web.Util.makeHiddenTags(req)%>        
-	<!--			<% if( parms.ackType == NoticeFactory.AcknowledgeType.UNACKNOWLEDGED &&  !(req.isUserInRole( Authentication.READONLY_ROLE ))) { %>
+          <input type="hidden" name="redirectParms" value="<%=request.getQueryString()%>" />
+          <%=org.opennms.web.Util.makeHiddenTags(request)%>        
+	<!--			<% if( parms.ackType == NoticeFactory.AcknowledgeType.UNACKNOWLEDGED &&  !(request.isUserInRole( Authentication.READONLY_ROLE ))) { %>
           <p><input TYPE="reset" />
 						<input TYPE="button" VALUE="Select All" onClick="checkAllCheckboxes()"/>
 						<input type="button" value="Acknowledge Notices" onClick="submitAcknowledge()"/>
@@ -246,12 +241,10 @@
 
       <% for( int i=0; i < notices.length; i++ ) { 
         Event event = EventFactory.getEvent( notices[i].getEventId() );
-        int severity = (event == null? 0 : event.getSeverity());
-        String eventSeverity = EventUtil.getSeverityLabel(severity);
-        %>
+        String eventSeverity = EventUtil.getSeverityLabel(event.getSeverity());%>
         <tr class="<%=eventSeverity%>">
           <td class="divider noWrap" rowspan="2"><% if((parms.ackType == NoticeFactory.AcknowledgeType.UNACKNOWLEDGED ) && 
-		!(req.isUserInRole( Authentication.READONLY_ROLE ))) { %>
+		!(request.isUserInRole( Authentication.READONLY_ROLE ))) { %>
             <input type="checkbox" name="notices" value="<%=notices[i].getId()%>" />
           <% } %> 
 						<a href="notification/detail.jsp?notice=<%=notices[i].getId()%>"><%=notices[i].getId()%></a></td>
@@ -319,7 +312,7 @@
       </table>
       <p><%=notices.length%> notices &nbsp;
 
-        <% if( parms.ackType == NoticeFactory.AcknowledgeType.UNACKNOWLEDGED &&  !(req.isUserInRole( Authentication.READONLY_ROLE ))) { %>
+        <% if( parms.ackType == NoticeFactory.AcknowledgeType.UNACKNOWLEDGED &&  !(request.isUserInRole( Authentication.READONLY_ROLE ))) { %>
             <input TYPE="reset" />
             <input TYPE="button" VALUE="Select All" onClick="checkAllCheckboxes()"/>
             <input type="button" value="Acknowledge Notices" onClick="submitAcknowledge()"/>
