@@ -36,7 +36,7 @@
 package org.opennms.netmgt.model;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Id;
@@ -57,6 +57,9 @@ public class OnmsMap implements Serializable {
 
     public static final String DELETED_MAP = "D"; //for future use
 
+    public static final String ACCESS_MODE_ADMIN = "RW";
+    public static final String ACCESS_MODE_USER = "RO";
+
     private int id;
 
     private String name;
@@ -69,9 +72,11 @@ public class OnmsMap implements Serializable {
 
     private String userLastModifies;
 
-    private Timestamp createTime;
+    private Date createTime;
 
-    private Timestamp lastModifiedTime;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "lastModifiedTime")
+    private Date lastModifiedTime;
 
     private float scale;
 
@@ -89,11 +94,17 @@ public class OnmsMap implements Serializable {
 
     public OnmsMap() {
         this.isNew = true;
+        this.createTime = new Date();
+        this.lastModifiedTime = new Date();
     }
 
     public OnmsMap(String name, String owner) {
         this.name = name;
         this.owner = owner;
+        this.userLastModifies = owner;
+        this.createTime = new Date();
+        this.lastModifiedTime = new Date();
+        this.accessMode = ACCESS_MODE_USER;
     }
 
     public OnmsMap(String name, String background, String owner,
@@ -102,7 +113,7 @@ public class OnmsMap implements Serializable {
         this.name = name;
         this.background = background;
         this.owner = owner;
-        this.accessMode = accessMode;
+        setAccessMode(accessMode);
         this.userLastModifies = userLastModifies;
         this.scale = scale;
         this.offsetX = offsetX;
@@ -110,6 +121,9 @@ public class OnmsMap implements Serializable {
         this.type = type;
         this.width = width;
         this.height = height;
+        this.createTime = new Date();
+        this.lastModifiedTime = new Date();
+
     }
 
     @Id
@@ -157,10 +171,11 @@ public class OnmsMap implements Serializable {
     }
 
     public void setAccessMode(String accessMode) {
-        this.accessMode = accessMode;
+        if(accessMode.equals(ACCESS_MODE_USER) || accessMode.equals(ACCESS_MODE_ADMIN))
+            this.accessMode = accessMode;
+        this.accessMode = ACCESS_MODE_USER;
     }
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "userLastModifies")
     public String getUserLastModifies() {
         return userLastModifies;
@@ -172,21 +187,19 @@ public class OnmsMap implements Serializable {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "mapCreateTime")
-    public Timestamp getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Timestamp createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "lastModifiedTime")
-    public Timestamp getLastModifiedTime() {
+    public Date getLastModifiedTime() {
         return lastModifiedTime;
     }
 
-    public void setLastModifiedTime(Timestamp lastModifiedTime) {
+    public void setLastModifiedTime(Date lastModifiedTime) {
         this.lastModifiedTime = lastModifiedTime;
     }
 

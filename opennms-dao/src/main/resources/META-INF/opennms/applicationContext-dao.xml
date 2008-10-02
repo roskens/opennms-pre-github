@@ -233,7 +233,9 @@
     <property name="configResource" ref="statsdConfigResourceLocation" />
   </bean>
   
-  <bean id="onmsMapDao" class="org.opennms.netmgt.dao.hibernate.OnmsMapDaoHibernate" />
+  <bean id="onmsMapDao" class="org.opennms.netmgt.dao.hibernate.OnmsMapDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
   
   <bean id="snmpConfigDao" class="org.opennms.netmgt.dao.FactoryBasedSnmpConfigDao" />
   

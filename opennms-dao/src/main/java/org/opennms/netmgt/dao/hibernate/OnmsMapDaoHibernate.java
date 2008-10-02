@@ -36,7 +36,7 @@ public class OnmsMapDaoHibernate extends AbstractDaoHibernate<OnmsMap, Integer> 
         return find("from OnmsMap as map where map.name = ?", mapLabel);
     }
 
-    public OnmsMap findMapByIp(int id) {
+    public OnmsMap findMapById(int id) {
         return findUnique("from OnmsMap as map where map.id = ?", id);
     }
 

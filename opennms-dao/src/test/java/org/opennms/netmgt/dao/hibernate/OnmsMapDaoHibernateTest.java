@@ -16,10 +16,10 @@ public class OnmsMapDaoHibernateTest  extends AbstractTransactionalDaoTestCase {
     	getOnmsMapDao().clear();
 
         // Now pull it back up and make sure it saved.
-        Object[] args = { map.getId() };
+        Object [] args = { new Integer(map.getId()) };
         assertEquals(1, getJdbcTemplate().queryForInt("select count(*) from map where mapId = ?", args));
 
-        OnmsMap map2 = getOnmsMapDao().get(map.getId());
+        OnmsMap map2 = getOnmsMapDao().findMapById(map.getId());
     	assertNotSame(map, map2);
         assertEquals(map.getName(), map2.getName());
         assertEquals(map.getOwner(), map2.getOwner());      

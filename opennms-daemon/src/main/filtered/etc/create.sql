@@ -1831,7 +1831,7 @@ create index inventory_status_idx on inventory(status);
 --########################################################################
 
 create table map ( 
-    mapId	   		 integer default nextval('opennmsNxtId') not null,,
+    mapId	   		 integer default nextval('opennmsNxtId') not null,
     mapName	   		 varchar(40) not null,
     mapBackGround	 varchar(256),
     mapOwner   		 varchar(64) not null,

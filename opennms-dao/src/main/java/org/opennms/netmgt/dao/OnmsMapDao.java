@@ -39,7 +39,7 @@ public interface OnmsMapDao extends OnmsDao<OnmsMap, Integer> {
     public abstract Collection<OnmsMap> findAll(Integer offset, Integer limit);
     public abstract Collection<OnmsMap> findMapsLike(String mapLabel);
     public abstract Collection<OnmsMap> findMapsByName(String mapLabel);
-    public abstract OnmsMap findMapByIp(int id);
+    public abstract OnmsMap findMapById(int id);
     public abstract Collection<OnmsMap> findMapsByNameAndType(String mapName, String mapType);
 
 }
