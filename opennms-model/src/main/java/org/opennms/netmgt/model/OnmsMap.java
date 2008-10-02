@@ -173,7 +173,8 @@ public class OnmsMap implements Serializable {
     public void setAccessMode(String accessMode) {
         if(accessMode.equals(ACCESS_MODE_USER) || accessMode.equals(ACCESS_MODE_ADMIN))
             this.accessMode = accessMode;
-        this.accessMode = ACCESS_MODE_USER;
+        else            
+            this.accessMode = ACCESS_MODE_USER;
     }
 
     @Column(name = "userLastModifies")

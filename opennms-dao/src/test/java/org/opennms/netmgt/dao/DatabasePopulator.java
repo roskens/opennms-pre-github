@@ -41,15 +41,7 @@ import junit.framework.Assert;
 
 import org.opennms.netmgt.dao.hibernate.LocationMonitorDaoHibernate;
 import org.opennms.netmgt.dao.hibernate.OnmsMapDaoHibernate;
-import org.opennms.netmgt.model.NetworkBuilder;
-import org.opennms.netmgt.model.OnmsAlarm;
-import org.opennms.netmgt.model.OnmsCategory;
-import org.opennms.netmgt.model.OnmsDistPoller;
-import org.opennms.netmgt.model.OnmsEvent;
-import org.opennms.netmgt.model.OnmsMonitoredService;
-import org.opennms.netmgt.model.OnmsNode;
-import org.opennms.netmgt.model.OnmsOutage;
-import org.opennms.netmgt.model.OnmsServiceType;
+import org.opennms.netmgt.model.*;
 
 /**
  * Populates a test database with some entities (nodes, interfaces, services).
@@ -238,6 +230,13 @@ public class DatabasePopulator {
         alarm.setLastEvent(event);
         getAlarmDao().save(alarm);
         getAlarmDao().flush();
+
+        OnmsMap map = new OnmsMap("DB_Pop_Test_Map", "admin");
+        map.setBackground("fake_background.jpg");
+        map.setAccessMode(OnmsMap.ACCESS_MODE_ADMIN);
+        map.setType(OnmsMap.USER_GENERATED_MAP);
+        getOnmsMapDao().save(map);
+        getOnmsMapDao().flush();
     }
 
 
