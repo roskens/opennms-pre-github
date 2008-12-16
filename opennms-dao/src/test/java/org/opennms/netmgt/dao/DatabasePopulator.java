@@ -42,6 +42,7 @@ import junit.framework.Assert;
 import org.opennms.netmgt.dao.hibernate.LocationMonitorDaoHibernate;
 import org.opennms.netmgt.dao.hibernate.OnmsMapDaoHibernate;
 import org.opennms.netmgt.dao.hibernate.OnmsMapElementDaoHibernate;
+import org.opennms.netmgt.dao.hibernate.DataLinkInterfaceDaoHibernate;
 import org.opennms.netmgt.model.*;
 
 /**
@@ -89,6 +90,7 @@ public class DatabasePopulator {
     private LocationMonitorDaoHibernate m_locationMonitorDao;
     private OnmsMapDaoHibernate m_onmsMapDao;
     private OnmsMapElementDaoHibernate m_onmsMapElementDao;
+    private DataLinkInterfaceDaoHibernate m_dataLinkInterfaceDao;
     
     private OnmsNode m_node1;
 
@@ -248,6 +250,18 @@ public class DatabasePopulator {
                 10);
         getOnmsMapElementDao().save(mapElement);
         getOnmsMapElementDao().flush();
+
+        DataLinkInterface dli = new DataLinkInterface(1, 1, 1, 1, "A", new Date());
+        getDataLinkInterfaceDao().save(dli);
+        getDataLinkInterfaceDao().flush();
+
+        DataLinkInterface dli2 = new DataLinkInterface(1, 2, 1, 1, "A", new Date());
+        getDataLinkInterfaceDao().save(dli2);
+        getDataLinkInterfaceDao().flush();
+
+        DataLinkInterface dli3 = new DataLinkInterface(2, 1, 1, 1, "A", new Date());
+        getDataLinkInterfaceDao().save(dli3);
+        getDataLinkInterfaceDao().flush();
     }
 
 
@@ -444,4 +458,11 @@ public class DatabasePopulator {
         this.m_onmsMapElementDao = onmsMapElementDao;
     }
 
+    public DataLinkInterfaceDaoHibernate getDataLinkInterfaceDao() {
+        return m_dataLinkInterfaceDao;
+    }
+
+    public void setDataLinkInterfaceDao(DataLinkInterfaceDaoHibernate dataLinkInterfaceDao) {
+        this.m_dataLinkInterfaceDao = dataLinkInterfaceDao;
+    }
 }

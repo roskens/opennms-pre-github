@@ -52,6 +52,7 @@
         <value>org.opennms.netmgt.model.StatisticsReport</value>
         <value>org.opennms.netmgt.model.OnmsMap</value>
         <value>org.opennms.netmgt.model.OnmsMapElement</value>
+        <value>org.opennms.netmgt.model.DataLinkInterface</value>
       </list>
     </property>
     <!--  property name="schemaUpdate" value="true">
@@ -239,6 +240,10 @@
   </bean>
 
   <bean id="onmsMapElementDao" class="org.opennms.netmgt.dao.hibernate.OnmsMapElementDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="dataLinkInterfaceDao" class="org.opennms.netmgt.dao.hibernate.DataLinkInterfaceDaoHibernate">
     <property name="sessionFactory" ref="sessionFactory" />
   </bean>
   

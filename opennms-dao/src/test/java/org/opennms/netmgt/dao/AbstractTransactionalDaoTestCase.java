@@ -62,6 +62,7 @@ public class AbstractTransactionalDaoTestCase extends AbstractTransactionalTempo
     private LocationMonitorDaoHibernate m_locationMonitorDao;
     private OnmsMapDaoHibernate m_onmsMapDao;
     private OnmsMapElementDaoHibernate m_onmsMapElementDao;
+    private DataLinkInterfaceDao m_dataLinkInterfaceDao;
     
     private DatabasePopulator m_populator;
     
@@ -261,6 +262,14 @@ public class AbstractTransactionalDaoTestCase extends AbstractTransactionalTempo
 
     public void setLocationMonitorDao(LocationMonitorDaoHibernate locationMonitorDao) {
         m_locationMonitorDao = locationMonitorDao;
+    }
+
+    public DataLinkInterfaceDao getDataLinkInterfaceDao() {
+        return m_dataLinkInterfaceDao;
+    }
+
+    public void setDataLinkInterfaceDao(DataLinkInterfaceDao dataLinkInterfaceDao) {
+        this.m_dataLinkInterfaceDao = dataLinkInterfaceDao;
     }
 
     public boolean isPopulate() {

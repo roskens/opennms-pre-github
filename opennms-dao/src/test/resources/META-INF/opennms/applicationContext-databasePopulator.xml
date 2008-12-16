@@ -21,6 +21,7 @@
      <property name="serviceTypeDao" ref="serviceTypeDao" />
      <property name="onmsMapDao" ref="onmsMapDao" />
      <property name="onmsMapElementDao" ref="onmsMapElementDao" />
+     <property name="dataLinkInterfaceDao" ref="dataLinkInterfaceDao" />
    </bean>
 
 </beans>

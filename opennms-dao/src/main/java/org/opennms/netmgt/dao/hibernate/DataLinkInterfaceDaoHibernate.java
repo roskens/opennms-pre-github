@@ -58,8 +58,12 @@ public class DataLinkInterfaceDaoHibernate extends AbstractDaoHibernate<DataLink
         });
     }
 
-    public DataLinkInterface findByNodeId(Integer nodeId) {
-        return findUnique("from DataLinkInterface as dli where dli.nodeId = ?", nodeId);
+    public DataLinkInterface findById(Integer id) {
+        return findUnique("from DataLinkInterface as dli where dli.id = ?", id);
+    }
+    
+    public Collection<DataLinkInterface> findByNodeId(Integer nodeId) {
+        return find("from DataLinkInterface as dli where dli.nodeId = ?", nodeId);
     }
 
     public Collection<DataLinkInterface> findByNodeParentId(Integer nodeParentId) {

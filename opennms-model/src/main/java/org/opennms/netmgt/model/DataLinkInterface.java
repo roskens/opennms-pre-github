@@ -42,13 +42,18 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.GeneratedValue;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
+@Entity
+@Table(name = "datalinkinterface")
 public class DataLinkInterface  implements Serializable {
 
     private static final long serialVersionUID = -1940209159462647862L;
 
+    private Integer id;
     @Column(name="nodeid", nullable=false)
     private Integer nodeId;
     @Column(name="ifindex", nullable=false)
@@ -63,6 +68,18 @@ public class DataLinkInterface  implements Serializable {
 	@Column(name="lastpolltime", nullable=false)
     private Date lastPollTime;
 
+    public DataLinkInterface() {
+        // not sure what to do here, but Hibernate wants it.
+    }
+    
+    public DataLinkInterface(int nodeId, int ifIndex, int nodeParentId, int parentIfIndex, String status, Date lastPollTime) {
+        this.nodeId = nodeId;
+        this.ifIndex = ifIndex;
+        this.nodeParentId = nodeParentId;
+        this.parentIfIndex = parentIfIndex;
+        this.status = status;
+        this.lastPollTime = lastPollTime;
+    }
 
     /**
      * Method getNodeId returns the nodeId of this DataLinkInterface object.
@@ -73,10 +90,22 @@ public class DataLinkInterface  implements Serializable {
     @Id
     @SequenceGenerator(name="opennmsSequence", sequenceName="opennmsNxtId")
     @GeneratedValue(generator="opennmsSequence")
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public Integer getNodeId() {
         return nodeId;
     }
 
+    public void setNodeId(int nodeId) {
+        this.nodeId = nodeId;
+    }
+    
     /**
      * Method getIfIndex returns the ifIndex of this DataLinkInterface object.
      *
@@ -84,6 +113,10 @@ public class DataLinkInterface  implements Serializable {
      */
     public Integer getIfIndex() {
         return ifIndex;
+    }
+
+    public void setIfIndex(int ifIndex) {
+        this.ifIndex = ifIndex;
     }
 
     /**
@@ -95,6 +128,10 @@ public class DataLinkInterface  implements Serializable {
         return nodeParentId;
     }
 
+    public void setNodeParentId(int nodeParentId) {
+        this.nodeParentId = nodeParentId;
+    }
+
     /**
      * Method getParentIfIndex returns the parentIfIndex of this DataLinkInterface object.
      *
@@ -102,6 +139,10 @@ public class DataLinkInterface  implements Serializable {
      */
     public Integer getParentIfIndex() {
         return parentIfIndex;
+    }
+
+    public void setParentIfIndex(int parentIfIndex) {
+        this.parentIfIndex = parentIfIndex;
     }
 
     /**
@@ -113,6 +154,10 @@ public class DataLinkInterface  implements Serializable {
         return status;
     }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     /**
      * Method getLastPollTime returns the lastPollTime of this DataLinkInterface object.
      *
@@ -120,6 +165,10 @@ public class DataLinkInterface  implements Serializable {
      */
     public Date getLastPollTime() {
         return lastPollTime;
+    }
+
+    public void setLastPollTime(Date lastPollTime) {
+        this.lastPollTime = lastPollTime;
     }
 
 }

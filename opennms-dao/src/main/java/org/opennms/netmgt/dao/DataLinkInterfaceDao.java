@@ -37,6 +37,7 @@ import java.util.Collection;
 
 public interface DataLinkInterfaceDao extends OnmsDao<DataLinkInterface, Integer>{
     public abstract Collection<DataLinkInterface> findAll(Integer offset, Integer limit);
-    public abstract DataLinkInterface findByNodeId(Integer nodeId);
+    public abstract DataLinkInterface findById(Integer id);
+    public abstract Collection<DataLinkInterface> findByNodeId(Integer nodeId);
     public abstract Collection<DataLinkInterface> findByNodeParentId(Integer nodeParentId);
 }
