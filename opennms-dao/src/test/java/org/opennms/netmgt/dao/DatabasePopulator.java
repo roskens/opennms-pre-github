@@ -41,6 +41,7 @@ import junit.framework.Assert;
 
 import org.opennms.netmgt.dao.hibernate.LocationMonitorDaoHibernate;
 import org.opennms.netmgt.dao.hibernate.OnmsMapDaoHibernate;
+import org.opennms.netmgt.dao.hibernate.OnmsMapElementDaoHibernate;
 import org.opennms.netmgt.model.*;
 
 /**
@@ -87,6 +88,7 @@ public class DatabasePopulator {
     private AvailabilityReportLocatorDao m_availabilityReportLocatorDao;
     private LocationMonitorDaoHibernate m_locationMonitorDao;
     private OnmsMapDaoHibernate m_onmsMapDao;
+    private OnmsMapElementDaoHibernate m_onmsMapElementDao;
     
     private OnmsNode m_node1;
 
@@ -237,6 +239,15 @@ public class DatabasePopulator {
         map.setType(OnmsMap.USER_GENERATED_MAP);
         getOnmsMapDao().save(map);
         getOnmsMapDao().flush();
+
+        OnmsMapElement mapElement = new OnmsMapElement(1, 1,
+                OnmsMapElement.NODE_TYPE,
+                "Test Node",
+                OnmsMapElement.defaultNodeIcon,
+                0,
+                10);
+        getOnmsMapElementDao().save(mapElement);
+        getOnmsMapElementDao().flush();
     }
 
 
@@ -423,6 +434,14 @@ public class DatabasePopulator {
 
     public void setOnmsMapDao(OnmsMapDaoHibernate onmsMapDao) {
         this.m_onmsMapDao = onmsMapDao;
+    }
+
+    public OnmsMapElementDaoHibernate getOnmsMapElementDao() {
+        return m_onmsMapElementDao;
+    }
+
+    public void setOnmsMapElementDao(OnmsMapElementDaoHibernate onmsMapElementDao) {
+        this.m_onmsMapElementDao = onmsMapElementDao;
     }
 
 }

@@ -18,7 +18,7 @@ public class OnmsMapDaoHibernateTest  extends AbstractTransactionalDaoTestCase {
     	getOnmsMapDao().clear();
 
         // Now pull it back up and make sure it saved.
-        Object [] args = { new Integer(map.getId()) };
+        Object [] args = { map.getId() };
         assertEquals(1, getJdbcTemplate().queryForInt("select count(*) from map where mapId = ?", args));
 
         OnmsMap map2 = getOnmsMapDao().findMapById(map.getId());

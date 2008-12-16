@@ -39,6 +39,7 @@ package org.opennms.netmgt.dao;
 import org.opennms.netmgt.dao.db.AbstractTransactionalTemporaryDatabaseSpringContextTests;
 import org.opennms.netmgt.dao.hibernate.LocationMonitorDaoHibernate;
 import org.opennms.netmgt.dao.hibernate.OnmsMapDaoHibernate;
+import org.opennms.netmgt.dao.hibernate.OnmsMapElementDaoHibernate;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.test.DaoTestConfigBean;
 
@@ -60,6 +61,7 @@ public class AbstractTransactionalDaoTestCase extends AbstractTransactionalTempo
     private AvailabilityReportLocatorDao m_availabilityReportLocatorDao;
     private LocationMonitorDaoHibernate m_locationMonitorDao;
     private OnmsMapDaoHibernate m_onmsMapDao;
+    private OnmsMapElementDaoHibernate m_onmsMapElementDao;
     
     private DatabasePopulator m_populator;
     
@@ -239,6 +241,14 @@ public class AbstractTransactionalDaoTestCase extends AbstractTransactionalTempo
 
     public void setOnmsMapDao(OnmsMapDaoHibernate onmsMapDao) {
         this.m_onmsMapDao = onmsMapDao;
+    }
+
+    public OnmsMapElementDaoHibernate getOnmsMapElementDao() {
+        return m_onmsMapElementDao;
+    }
+
+    public void setOnmsElementMapDao(OnmsMapElementDaoHibernate onmsMapElementDao) {
+        this.m_onmsMapElementDao = onmsMapElementDao;
     }
     
     public OnmsNode getNode1() {

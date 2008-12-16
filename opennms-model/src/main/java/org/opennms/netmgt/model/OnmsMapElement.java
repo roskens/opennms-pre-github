@@ -18,6 +18,8 @@ public class OnmsMapElement implements Serializable {
 
     private int id;
 
+    private int elementId;
+
     private int mapId;
 
     protected String type;
@@ -35,13 +37,25 @@ public class OnmsMapElement implements Serializable {
     }
 
     public OnmsMapElement(OnmsMapElement e) {
-        this(e.mapId, e.id, e.type, e.label, e.iconName, e.x, e.y);
+        this(e.mapId, e.elementId, e.type, e.label, e.iconName, e.x, e.y, e.id);
     }
 
-    public OnmsMapElement(int mapId, int id, String type, String label,
-            String iconName, int x, int y) {
+    public OnmsMapElement(int mapId, int elementId, String type, String label,
+            String iconName, int x, int y, int id) {
         this.mapId = mapId;
         this.id = id;
+        this.elementId = elementId;
+        setType(type);
+        this.label = label;
+        setIconName(iconName);
+        this.x = x;
+        this.y = y;
+    }
+
+    public OnmsMapElement(int mapId, int elementId, String type, String label,
+            String iconName, int x, int y) {
+        this.mapId = mapId;
+        this.elementId = elementId;
         setType(type);
         this.label = label;
         setIconName(iconName);
@@ -50,7 +64,7 @@ public class OnmsMapElement implements Serializable {
     }
 
     @Id
-    @Column(name="elementId")
+    @Column(name="id")
     @SequenceGenerator(name = "opennmsSequence", sequenceName = "opennmsNxtId")
     @GeneratedValue(generator = "opennmsSequence")
     public int getId() {
@@ -59,6 +73,15 @@ public class OnmsMapElement implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Column(name = "elementId")
+    public int getElementId() {
+        return elementId;
+    }
+
+    public void setElementId(int elementId) {
+        this.elementId = elementId;
     }
 
     @Column(name = "mapId")

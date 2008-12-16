@@ -1868,7 +1868,8 @@ create table map (
 --########################################################################
 
 create table element (
-    elementId		 integer default nextval('opennmsNxtId') not null,
+    id               integer default nextval('opennmsNxtId') not null,
+    elementId		 integer not null,
     mapId	   		 integer not null,
 	elementType      char(1) not null,
     elementLabel 	 varchar(256) not null,
