@@ -41,8 +41,6 @@ import org.opennms.netmgt.dao.OnmsMapDao;
 import org.opennms.netmgt.model.OnmsCriteria;
 import org.opennms.netmgt.model.OnmsMapList;
 import org.opennms.netmgt.model.OnmsMap;
-import org.opennms.netmgt.model.events.EventProxyException;
-import org.opennms.netmgt.EventConstants;
 import com.sun.jersey.spi.resource.PerRequest;
 import com.sun.jersey.api.core.ResourceContext;
 
@@ -96,11 +94,6 @@ public class OnmsMapRestService extends OnmsRestService {
     public Response addMap(OnmsMap map) {
         log().debug("addMap: Adding map " + map);
         m_mapDao.save(map);
-        //try {
-        //    sendEvent(EventConstants.NODE_ADDED_EVENT_UEI, node.getId());
-        //} catch (EventProxyException ex) {
-        //    throwException(Response.Status.BAD_REQUEST, ex.getMessage());
-        //}
         return Response.ok(map).build();
     }
 
@@ -112,11 +105,6 @@ public class OnmsMapRestService extends OnmsRestService {
             throwException(Response.Status.BAD_REQUEST, "deleteMap: Can't find map with id " + mapId);
         log().debug("deleteMap: deleting map " + mapId);
         m_mapDao.delete(map);
-        //try {
-        //    sendEvent(EventConstants.NODE_DELETED_EVENT_UEI, nodeId);
-        //} catch (EventProxyException ex) {
-        //    throwException(Response.Status.BAD_REQUEST, ex.getMessage());
-        //}
         return Response.ok().build();
     }
 
