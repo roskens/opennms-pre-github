@@ -1,3 +1,34 @@
+//
+// This file is part of the OpenNMS(R) Application.
+//
+// OpenNMS(R) is Copyright (C) 2006 The OpenNMS Group, Inc.  All rights reserved.
+// OpenNMS(R) is a derivative work, containing both original code, included code and modified
+// code that was published under the GNU General Public License. Copyrights for modified
+// and included code are below.
+//
+// OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+//
+// Original code base Copyright (C) 1999-2001 Oculan Corp.  All rights reserved.
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+//
+// For more information contact:
+// OpenNMS Licensing       <license@opennms.org>
+//     http://www.opennms.org/
+//     http://www.opennms.com/
+//
 package org.opennms.netmgt.model;
 
 import javax.persistence.Id;
@@ -6,6 +37,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
 import java.io.Serializable;
 
 @Entity
@@ -16,20 +49,35 @@ public class OnmsMapElement implements Serializable {
     public static final String defaultNodeIcon = "unspecified";
     public static final String defaultMapIcon = "map";
 
+    @Id
+    @Column(name="id")
+    @SequenceGenerator(name = "opennmsSequence", sequenceName = "opennmsNxtId")
+    @GeneratedValue(generator = "opennmsSequence")
     private int id;
 
+    @Column(name = "elementId")
     private int elementId;
 
-    private int mapId;
+    //@Column(name = "mapId")
+    //private int mapId;
 
+    @ManyToOne
+    @JoinColumn(name = "mapId")
+    private OnmsMap map;
+
+    @Column(name = "elementType")
     protected String type;
 
+    @Column(name = "elementLabel")
     private String label;
 
+    @Column(name = "elementIcon")
     private String iconName;
 
+    @Column(name = "elementX")
     private int x;
 
+    @Column(name = "elementY")
     private int y;
 
     protected OnmsMapElement() {
@@ -37,12 +85,12 @@ public class OnmsMapElement implements Serializable {
     }
 
     public OnmsMapElement(OnmsMapElement e) {
-        this(e.mapId, e.elementId, e.type, e.label, e.iconName, e.x, e.y, e.id);
+        this(e.map, e.elementId, e.type, e.label, e.iconName, e.x, e.y, e.id);
     }
 
-    public OnmsMapElement(int mapId, int elementId, String type, String label,
+    public OnmsMapElement(OnmsMap map, int elementId, String type, String label,
             String iconName, int x, int y, int id) {
-        this.mapId = mapId;
+        this.map = map;
         this.id = id;
         this.elementId = elementId;
         setType(type);
@@ -52,9 +100,9 @@ public class OnmsMapElement implements Serializable {
         this.y = y;
     }
 
-    public OnmsMapElement(int mapId, int elementId, String type, String label,
+    public OnmsMapElement(OnmsMap map, int elementId, String type, String label,
             String iconName, int x, int y) {
-        this.mapId = mapId;
+        this.map = map;
         this.elementId = elementId;
         setType(type);
         this.label = label;
@@ -63,10 +111,6 @@ public class OnmsMapElement implements Serializable {
         this.y = y;
     }
 
-    @Id
-    @Column(name="id")
-    @SequenceGenerator(name = "opennmsSequence", sequenceName = "opennmsNxtId")
-    @GeneratedValue(generator = "opennmsSequence")
     public int getId() {
         return id;
     }
@@ -75,7 +119,6 @@ public class OnmsMapElement implements Serializable {
         this.id = id;
     }
 
-    @Column(name = "elementId")
     public int getElementId() {
         return elementId;
     }
@@ -84,16 +127,14 @@ public class OnmsMapElement implements Serializable {
         this.elementId = elementId;
     }
 
-    @Column(name = "mapId")
     public int getMapId() {
-        return mapId;
+        return map.getId();
     }
 
-    public void setMapId(int mapId) {
-        this.mapId = mapId;
-    }
+    //public void setMapId(int mapId) {
+    //    this.mapId = mapId;
+    //}
 
-    @Column(name = "elementType")
     public String getType() {
         return type;
     }
@@ -104,7 +145,6 @@ public class OnmsMapElement implements Serializable {
             this.type = type;
     }
 
-    @Column(name = "elementLabel")
     public String getLabel() {
         return label;
     }
@@ -113,7 +153,6 @@ public class OnmsMapElement implements Serializable {
         this.label = label;
     }
 
-    @Column(name = "elementIcon")
     public String getIconName() {
         return iconName;
     }
@@ -125,7 +164,6 @@ public class OnmsMapElement implements Serializable {
         this.iconName = iconName;
     }
 
-    @Column(name = "elementX")
     public int getX() {
         return x;
     }
@@ -133,13 +171,20 @@ public class OnmsMapElement implements Serializable {
     public void setX(int x) {
         this.x = x;
     }
-
-    @Column(name = "elementY")
+   
     public int getY() {
         return y;
     }
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public OnmsMap getMap() {
+        return map;
+    }
+
+    public void setMap(OnmsMap map) {
+        this.map = map;
     }
 }

@@ -41,7 +41,7 @@ public class OnmsMapElementDaoHibernateTest extends AbstractTransactionalDaoTest
 
     public void testSaveOnmsMapElement() {
         // Create a new map and save it.
-        OnmsMapElement mapElement = new OnmsMapElement(1, 2,
+        OnmsMapElement mapElement = new OnmsMapElement(null, 2,
                 OnmsMapElement.NODE_TYPE,
                 "Test Node Two",
                 OnmsMapElement.defaultNodeIcon,

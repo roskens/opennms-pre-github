@@ -242,7 +242,7 @@ public class DatabasePopulator {
         getOnmsMapDao().save(map);
         getOnmsMapDao().flush();
 
-        OnmsMapElement mapElement = new OnmsMapElement(1, 1,
+        OnmsMapElement mapElement = new OnmsMapElement(map, 1,
                 OnmsMapElement.NODE_TYPE,
                 "Test Node",
                 OnmsMapElement.defaultNodeIcon,
