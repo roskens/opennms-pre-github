@@ -51,8 +51,11 @@ import javax.persistence.Transient;
 import javax.persistence.OneToMany;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlID;
 
-
+@XmlRootElement(name = "map")
 @Entity
 @Table(name = "map")
 public class OnmsMap implements Serializable {
@@ -69,6 +72,7 @@ public class OnmsMap implements Serializable {
     @Column(name="mapId")
     @SequenceGenerator(name="mapSequence", sequenceName="mapNxtId")
     @GeneratedValue(generator="mapSequence")
+    @XmlTransient
     private int id;
 
     @Column(name = "mapName")
@@ -112,11 +116,13 @@ public class OnmsMap implements Serializable {
     @Column(name = "mapHeight")
     private int height;
 
+    @XmlTransient
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "mapId")
     private List<OnmsMapElement> mapElements = new ArrayList<OnmsMapElement>();
 
     @Transient
+    @XmlTransient
     private boolean isNew = false;
 
 
@@ -157,6 +163,12 @@ public class OnmsMap implements Serializable {
 
     public int getId() {
         return id;
+    }
+
+    @XmlID
+    @Transient
+    public String getMapId() {
+        return Integer.toString(id);
     }
 
     public void setId(int id) {

@@ -39,8 +39,13 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.ManyToOne;
 import javax.persistence.JoinColumn;
+import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlID;
 import java.io.Serializable;
 
+@XmlRootElement(name = "mapElement")
 @Entity
 @Table(name = "element")
 public class OnmsMapElement implements Serializable {
@@ -53,16 +58,15 @@ public class OnmsMapElement implements Serializable {
     @Column(name="id")
     @SequenceGenerator(name = "opennmsSequence", sequenceName = "opennmsNxtId")
     @GeneratedValue(generator = "opennmsSequence")
+    @XmlTransient
     private int id;
 
     @Column(name = "elementId")
     private int elementId;
 
-    //@Column(name = "mapId")
-    //private int mapId;
-
     @ManyToOne
     @JoinColumn(name = "mapId")
+    @XmlTransient
     private OnmsMap map;
 
     @Column(name = "elementType")
@@ -113,6 +117,12 @@ public class OnmsMapElement implements Serializable {
 
     public int getId() {
         return id;
+    }
+
+    @XmlID
+    @Transient
+    public String getMapElementId() {
+        return Integer.toString(id);
     }
 
     public void setId(int id) {
