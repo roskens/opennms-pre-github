@@ -37,7 +37,7 @@ import java.util.LinkedList;
 import java.util.Collection;
 import java.util.List;
 
-@XmlRootElement(name = "nodes")
+@XmlRootElement(name = "maps")
 public class OnmsMapList extends LinkedList<OnmsMap> {
     private static final long serialVersionUID = -6071472722900233605L;
 

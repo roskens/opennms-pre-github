@@ -32,11 +32,15 @@
 package org.opennms.netmgt.model;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.LinkedList;
 import java.util.Collection;
 import java.util.List;
 
+@XmlRootElement(name = "mapElements")
 public class OnmsMapElementList extends LinkedList<OnmsMapElement> {
+    private static final long serialVersionUID = 474241792322520294L;
+
     public OnmsMapElementList() {
         super();
     }
