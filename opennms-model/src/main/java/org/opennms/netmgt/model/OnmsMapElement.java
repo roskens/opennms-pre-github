@@ -64,9 +64,9 @@ public class OnmsMapElement implements Serializable {
     @Column(name = "elementId")
     private int elementId;
 
+    @XmlTransient
     @ManyToOne
     @JoinColumn(name = "mapId")
-    @XmlTransient
     private OnmsMap map;
 
     @Column(name = "elementType")
@@ -190,6 +190,7 @@ public class OnmsMapElement implements Serializable {
         this.y = y;
     }
 
+    @XmlTransient
     public OnmsMap getMap() {
         return map;
     }

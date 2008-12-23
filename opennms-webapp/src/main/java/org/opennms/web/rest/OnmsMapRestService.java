@@ -129,8 +129,8 @@ public class OnmsMapRestService extends OnmsRestService {
         return Response.ok(map).build();
     }
 
-    @Path("{mapId}/elements")
-    public OnmsMapElementResource getCategoryResource() {
+    @Path("{mapId}/mapElements")
+    public OnmsMapElementResource getMapElementResource() {
         return m_context.getResource(OnmsMapElementResource.class);
     }
 

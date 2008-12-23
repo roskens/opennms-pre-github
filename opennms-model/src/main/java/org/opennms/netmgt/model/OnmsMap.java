@@ -59,6 +59,7 @@ import javax.xml.bind.annotation.XmlID;
 @Entity
 @Table(name = "map")
 public class OnmsMap implements Serializable {
+
     public static final String USER_GENERATED_MAP = "U";
 
     public static final String AUTOMATICALLY_GENERATED_MAP = "A";
@@ -124,8 +125,8 @@ public class OnmsMap implements Serializable {
     @Transient
     @XmlTransient
     private boolean isNew = false;
-
-
+        
+    private static final long serialVersionUID = 3885485728813867167L;
 
     public OnmsMap() {
         this.isNew = true;
