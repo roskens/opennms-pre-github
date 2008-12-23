@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE canvas SYSTEM "http://www.openlaszlo.org/lps4/tools/lzx.xsd">
+
+<canvas>
+    <include href="incubator/autocompletecombobox.lzx"/>
+    <include href="incubator/tooltip/tooltip.lzx" />
+    
+    <resource name="node1">
+        <frame src="resources/CS2-Standard-48x48.png"/>
+    </resource>
+    
+    <!-- A dataset that points at the OnmsMapRestService -->
+    <dataset name="mapRestService" request="true" type="http" src="http://10.10.150.98:8980/opennms/rest/maps">
+        <attribute name="mapBaseRestServiceUrl"/>
+        <attribute name="currentMapRestServiceUrl"/>
+        <attribute name="currentRestMap"/>
+        <attribute name="mapRestServiceStatus"/>
+        <handler name="oninit">
+            this.mapBaseRestServiceUrl = "http://10.10.150.98:8980/opennms/rest/maps";
+            this.currentMapRestServiceUrl = this.mapBaseRestServiceUrl;
+            this.currentRestMap=0;
+            this.setAttribute("mapRestServiceStatus", "getting");
+            //this.mapRestServiceStatus = "getting";
+        </handler>
+        <handler name="onerror">
+            alert("There has been an error with the connection to OpenNMS.  Please check your query. The follow error was reported - \n" + this.getDataset().getErrorString());
+        </handler>
+        <handler name="ontimeout">
+            alert('The OpenNMS backend did not respond before the timeout expired.');
+        </handler>
+        <handler name="ondata">
+            //Debug.write("setting map rest service status to: fetched");
+            this.setAttribute("mapRestServiceStatus", "fetched");
+        </handler>
+        
+        <method name="resetRestService">
+            <![CDATA[
+            //Debug.write("resetting the map rest service now.");
+            var ds = mapRestService;
+            ds.setAttribute('src', currentMapRestServiceUrl);
+            ds.setQueryString();
+            //Debug.write("MapRestService is requesting: " + ds.getAttribute("src"));
+            this.setAttribute("mapRestServiceStatus", "getting");
+            ds.doRequest();            
+            ]]>
+        </method>
+        
+        <method name="setOnmsMap" args="mapId">
+            //Debug.write("setting map id to: " + mapId);
+            this.currentRestMap=mapId;
+            this.currentMapRestServiceUrl = this.mapBaseRestServiceUrl + "/" + mapId;
+            //Debug.write("reseting service");
+            resetRestService();
+            //Debug.write("done reseting service");
+        </method>
+
+        <method name="getOnmsMap">
+            return currentRestMap;
+        </method>
+
+        <method name="clearOnmsMap">
+            this.currentRestMap=0;
+            this.currentMapRestServiceUrl=this.mapBaseRestServiceUrl;
+        </method>
+
+
+    </dataset>
+    
+    <!-- A dataset that points at the OnmsMapRestService -->
+    <dataset name="nodeRestService" request="true" type="http" src="http://10.10.150.98:8980/opennms/rest/nodes">
+        <attribute name="nodeBaseRestServiceUrl"/>
+        <attribute name="currentNodeRestServiceUrl"/>
+        <attribute name="currentRestNode"/>
+        <handler name="oninit">
+            this.nodeBaseRestServiceUrl = "http://10.10.150.98:8980/opennms/rest/nodes";
+            this.currentNodeRestServiceUrl = this.nodeBaseRestServiceUrl;
+            this.currentRestNode=0;
+        </handler>
+        <handler name="onerror">
+            alert("There has been an error with the connection to OpenNMS.  Please check your query. The follow error was reported - \n" + this.getDataset().getErrorString());
+        </handler>
+        <handler name="ontimeout">
+            alert('The OpenNMS backend did not respond before the timeout expired.');        
+        </handler> 
+        
+        <method name="setOnmsNode" args="nodeId">
+            Debug.write("setting node id to: " + nodeId);
+            this.currentRestNode=nodeId;
+            this.currentNodeRestServiceUrl = this.nodeBaseRestServiceUrl + "/" + nodeId;
+            this.resetRestService();
+        </method>
+        
+        <method name="getOnmsNode">
+            return currentRestNode;
+        </method>
+        
+        <method name="clearOnmsNode">
+            this.currentRestNode=0;
+            this.currentNodeRestServiceUrl=this.nodeBaseRestServiceUrl;
+        </method>
+        
+        <method name="resetRestService">
+            <![CDATA[
+            var ds = nodeRestService;
+            ds.setAttribute('src', currentNodeRestServiceUrl);
+            ds.setQueryString();
+            ds.doRequest();
+            super.open();
+            ]]>
+        </method>                   
+    </dataset>
+    
+    <!-- This represents the top level map and all of the elements and links in it. -->
+    <class name="onmsMap">
+        <attribute name="mapElements"/>
+        <attribute name="mapLinks"/>
+        
+        <handler name="oninit">
+            this.mapElements = new Array();
+            this.mapLinks = new Array();
+        </handler>
+        
+        <method name="addMapElement" args="tmpElement">
+            this.mapElements.push(tmpElement);
+        </method>
+        
+        <method name="addDataLink" args="tmpDataLink">
+            this.mapLinks.push(tmpDataLink);
+        </method>
+        
+        <method name="mapRefresh">
+            Debug.write("Refreshing maps.");
+            if(this.mapLinks.length > 0) {
+                for(mapLink in tmpMap.mapLinks) {
+                    this.mapLinks[mapLink].drawline();
+                }
+            }
+        </method>
+
+        <method name="clearMap">
+            Debug.write("Clearing map of all entries.");
+            // Iterate through all of the links, delete their nodes and then reset the array.
+            if(this.mapLinks.length > 0) {
+                for(mapLink in tmpMap.mapLinks) {
+                    this.mapLinks[mapLink].destroy();
+                }
+            }
+            this.mapLinks.length=0;
+
+            // Iterate through all of the elements, delete their nodes and then reset the array.
+            if(this.mapElements.length > 0) {
+                for(mapElement in tmpMap.mapElements) {
+                    this.mapElements[mapElement].destroy();
+                }
+            }
+            this.mapElements.length=0;
+
+            // Finally refresh the map.
+            this.mapRefresh();
+        </method>
+    </class>
+    
+    <!-- This represents a map element (could be a node or could be a link to another map. -->
+    <class name="onmsMapElement" resource="node1" onmousedown="dragger.apply()" onmouseup="dragger.remove()">
+        <attribute name="parentMap" />
+        <attribute name="mapElementLabel"/>
+        <dragstate name="dragger"/>
+        <!-- A list of the existing attributes -->
+        <floatinglist name="infoPopup" attach="right" visible="false">
+            <textlistitem name="nodeLabel" text="Node: default"/>
+        </floatinglist>
+        <handler name="oninit">
+            var cm = new LzContextMenu();
+            var item = cm.makeMenuItem("View Node", new LzDelegate(this,"contextViewNode"));
+            var item2 = cm.makeMenuItem("Remove From Map", new LzDelegate(this,"contextRemoveNode"));
+            var item3 = cm.makeMenuItem("Select Root Link", new LzDelegate(this,"contextSelectRootNode"));
+
+            var tooltip1 = new lz.tooltip();
+            tooltip1.text = "Click to select as a root node for map links.";
+            item3.subnodes.push(tooltip1);
+            
+            cm.addItem(item);
+            cm.addItem(item2);
+            cm.addItem(item3);
+            this.setContextMenu(cm);
+        </handler>
+
+        <method name="contextViewNode">
+            Debug.write("View Node context was clicked.");
+        </method>
+        <method name="contextRemoveNode">
+            Debug.write("Remove Node context was clicked.");
+        </method>
+        <method name="contextSelectRootNode">
+            Debug.write("Selected Root Node for linking.");
+        </method>
+
+        <handler name="onmouseover">
+            this.infoPopup.bringToFront();
+            this.infoPopup.setAttribute("visible",true);
+        </handler>
+        
+        <handler name="onmouseout">
+            this.infoPopup.setAttribute("visible",false);
+        </handler>
+        
+        <handler name="ony" method="mapElementMoves" />
+            
+        <handler name="onx" method="mapElementMoves" />
+        
+        <method name="mapElementMoves" args="x">
+            Debug.write("mapElement is being moved: " + typeof this.parentMap);
+            tmpMap.mapRefresh();
+        </method>
+        
+        <method name="setMapElementLabel" args="labelStr">
+            this.mapElementLabel = labelStr;
+            //this.infoPopup.getItem("nodeLabel").setText("Node: " + labelStr);
+        </method>
+    </class>
+    
+    <!-- This represents the link between two nodes and facilitates drawing the line between nodes. -->
+    <class name="onmsDataLink">
+        <attribute name="linkWidth" value="2"/>
+        <attribute name="style" value="0x00ff00"/>
+        <attribute name="mc"/>
+        <attribute name="nodeA" />
+        <attribute name="nodeB" />
+        
+        
+        <handler name="oninit">
+            this.mc = this.getMCRef().createEmptyMovieClip("myLine", 10);
+        </handler>
+        
+        <method name="connectNodes" args="aNode,bNode">
+            this.nodeA = aNode;
+            this.nodeB = bNode;
+        </method>
+                
+        <method name="drawline">
+            Debug.write("Moving line");
+            Debug.write(this);
+
+            this.sendToBack();
+            mc.clear();
+            mc.lineStyle(this.linkWidth, this.style, 100);
+            mc.moveTo(nodeA.x+(nodeA.width/2),nodeA.y+(nodeA.height/2));
+            mc.lineTo(nodeB.x+(nodeB.width/2),nodeB.y+(nodeB.height/2));
+            Debug.write(this);
+        </method>
+    </class>
+    
+    <!-- The plan is that this class will load maps upon request. -->
+    <class name="onmsMapLoader">                         
+        <handler name="oninit">
+            Debug.write("onms map loader initialized!");
+        </handler>
+    
+        <method name="loadError">
+            alert("Error! There was a problem loading map information from the OpenNMS backend.");
+        </method>
+        
+        <method name="loadSuccess">
+            Debug.write("Successfully loaded map information from OpenNMS backend.");
+        </method>
+        
+        <method name="getMapList">
+            Debug.write("map list: ");
+            //Debug.write("map id text: " + todp.xpathQuery("mapRestService:/maps/map/id/text()"));        
+        </method>            
+    </class>
+    
+    <onmsMap name="tmpMap"/>
+    <onmsMapLoader name="tmpMapLoader"/>
+    
+    <!-- This is the controls window for manipulating maps. -->
+    <window name="mapControls" resizable="true" width="300" height="200" title="Map Controls" x="${parent.width-300}">
+        <simplelayout axis="y"/>
+        <combobox name="mapChoice" x="5" y="5" width="175" shownitems="3" defaulttext="choose one..." editable="false">
+            <textlistitem datapath="mapRestService:/maps/map" text="$path{'name/text()'}" value="$path{'id/text()'}"/>
+        </combobox>
+        <button name="mapChoose" onclick="parent.chooseMap()">Choose Map</button>
+
+        <autocompletecombobox x="5" y="5" width="200" datapath="nodeRestService:/nodes"
+                    contentpath="node/label/text()"
+                    defaulttext="choose one..."  >
+        </autocompletecombobox>
+        <button name="addNodeBtn" onclick="parent.addNodeToMap()">Add To Map</button>
+        <method name="addNodeToMap">
+            // There's nothing to do yet.
+        </method>                        
+
+        <method name="chooseMap">
+            var mapId = this.mapChoice.value;
+            if(mapId != null) {
+                Debug.write("chose map: '" + mapId + "'");
+
+                var dset = canvas.mapRestService;
+                // First set the filter to the map ID.
+                dset.setOnmsMap(mapId);
+                dset.resetRestService();
+
+                // Now we'll have to wait for the ondata to get called.
+                Debug.write("Registering onmapRestServiceStatus delegate.");
+                this.del = new LzDelegate(this, "generateMap");
+                this.del.register(canvas.mapRestService, "onmapRestServiceStatus");
+            }
+        </method>
+        
+        <method name="generateMap" args="serviceStatus">
+            var dset = canvas.mapRestService;
+
+            // Next get a datapointer.
+            var dp = dset.getPointer();
+
+            if(serviceStatus == "fetched") {
+                // Lets start the map generation process.
+
+                // Skip the root node, which is the dataset.
+                dp.selectChild();
+
+                Debug.write("node name: " + dp.getNodeName());
+                Debug.write("node count: " + dp.getNodeCount());
+
+                // Go to the attribute nodes.
+                dp.selectChild();
+
+                while(dp.selectNext()) {
+                    Debug.write("*** next child ***");
+
+            
+                    switch(dp.getNodeName()) {
+                        case "id":
+                            Debug.write("found id: " + dp.getNodeText());
+                            break;
+                        case "name":
+                            Debug.write("found name: " + dp.getNodeText());
+                            break;
+                        case "lastModifiedTime":
+                            Debug.write("found lastModifiedTime: " + dp.getNodeText());
+                            break;
+                        case "userLastModifies":
+                            Debug.write("found userLastModifies: " + dp.getNodeText());
+                            break;
+                        case "owner":
+                            Debug.write("found owner: " + dp.getNodeText());
+                            break;
+                        case "accessMode":
+                            Debug.write("found accessMode: " + dp.getNodeText());
+                            break;
+                        case "background":
+                            Debug.write("found background: " + dp.getNodeText());
+                            break;
+                        case "createTime":
+                            Debug.write("found createTime: " + dp.getNodeText());
+                            break;
+                        case "height":
+                            Debug.write("found height: " + dp.getNodeText());
+                            break;
+                        case "width":
+                            Debug.write("found width: " + dp.getNodeText());
+                            break;
+                        case "mapElements":
+                            dp.selectChild();
+
+                        default:
+                            // we'll need to add scale, offsetX, offsetY and type.
+                            // we can ignore the child "new"
+                            Debug.write("node name: " + dp.getNodeName());
+                            //Debug.write("node text: " + dp.getNodeText());                       
+                    }
+                }
+
+                //dp.selectChild();
+                //Debug.write("*** next child ***");
+                //Debug.write("node name: " + dp.getNodeName());
+                //Debug.write("node count: " + dp.getNodeCount());
+                //Debug.write("map id: " + dp.getNodeAttribute("id"));
+
+                Debug.write("Resetting the root map.");
+                tmpMap.clearMap();
+            }
+
+            // Now unregister the delegate we created.
+            Debug.write("Unregistering onmapRestServiceStatus delegate.");
+            this.del.unregisterAll();
+
+
+        </method>
+
+        
+
+
+    </window>
+    
+    <!-- Hopefully in the future you can ignore this. I just pre-create canned nodes and links here.
+         My plan is that this will be accomplished by either mapControls oronmsMapLoader.
+      -->
+    <handler name="oninit">
+        Debug.write("starting graph demo application.");
+        
+        // Create a base node.
+        var mapNode1 = new lz.onmsMapElement();
+        mapNode1.parentMap=tmpMap;
+        mapNode1.setMapElementLabel("node1");
+        mapNode1.setAttribute("x", 250);
+        mapNode1.setAttribute("y", 100);
+        tmpMap.addMapElement(mapNode1);
+        
+        // Create a new node. (node 2)
+        var mapNode2 = new lz.onmsMapElement();
+        mapNode2.parentMap=tmpMap;
+        mapNode2.setAttribute("x", 100);
+        mapNode2.setAttribute("y", 200);
+        tmpMap.addMapElement(mapNode2);
+        
+        // Create a link between this (node 2) and the base node (node 1).
+        var mapLink1 = new lz.onmsDataLink();
+        mapLink1.connectNodes(mapNode1, mapNode2);
+        tmpMap.addDataLink(mapLink1);
+        
+        // Create a new node. (node 3)
+        var mapNode3 = new lz.onmsMapElement();
+        mapNode3.parentMap=tmpMap;
+        mapNode3.setAttribute("x", 200);
+        mapNode3.setAttribute("y", 200);
+        tmpMap.addMapElement(mapNode3);
+        
+        // Create a link between this (node 3) and the base node (node 1).
+        var mapLink2 = new lz.onmsDataLink();
+        mapLink2.connectNodes(mapNode1, mapNode3);
+        tmpMap.addDataLink(mapLink2);
+        
+        // Create a new node. (node 4)
+        var mapNode4 = new lz.onmsMapElement();
+        mapNode4.parentMap=tmpMap;
+        mapNode4.setAttribute("x", 300);
+        mapNode4.setAttribute("y", 200);
+        tmpMap.addMapElement(mapNode4);
+        
+        // Create a link between this (node 4) and the base node (node 1).
+        var mapLink3 = new lz.onmsDataLink();
+        mapLink3.connectNodes(mapNode1, mapNode4);
+        tmpMap.addDataLink(mapLink3);
+        
+        // Create a new node. (node 5)
+        var mapNode5 = new lz.onmsMapElement();
+        mapNode5.parentMap=tmpMap;
+        mapNode5.setAttribute("x", 400);
+        mapNode5.setAttribute("y", 200);
+        tmpMap.addMapElement(mapNode5);
+        
+        // Create a link between this (node 5) and the base node (node 1).
+        var mapLink4 = new lz.onmsDataLink();
+        mapLink4.connectNodes(mapNode1, mapNode5);
+        tmpMap.addDataLink(mapLink4);
+        
+        // Create a link between this (node 5) and the another node (node 4).
+        var mapLink5 = new lz.onmsDataLink();
+        mapLink5.connectNodes(mapNode4, mapNode5);
+        tmpMap.addDataLink(mapLink5);
+        
+        tmpMap.mapRefresh();
+        
+        mapControls.bringToFront();
+        
+        var tmpMapObj = tmpMapLoader.getMapList();
+        
+    </handler>
+</canvas>
