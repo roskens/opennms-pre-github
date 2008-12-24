@@ -12,6 +12,7 @@
 //
 // Modifications:
 //
+// 2008 Sep 26: Use new Severity enum. - dj@opennms.org
 // 2008 Aug 31: Copied from /alarm/list.jsp, merged in /alarm/list-long.jsp,
 //              cleaned up imports, and added support for the display
 //              parameter. - dj@opennms.org
@@ -56,7 +57,6 @@
                 org.opennms.web.alarm.AlarmSeverityChangeServlet,
                 org.opennms.web.alarm.Alarm,
                 org.opennms.web.alarm.AlarmQueryParms,
-                org.opennms.web.alarm.AlarmFactory,
                 org.opennms.web.alarm.AlarmFactory.SortStyle,
                 org.opennms.web.alarm.AlarmFactory.AcknowledgeType,
                 org.opennms.web.alarm.AlarmUtil,
@@ -76,7 +76,7 @@
                 org.opennms.web.alarm.filter.AfterFirstEventTimeFilter,
                 org.opennms.web.alarm.filter.BeforeFirstEventTimeFilter,
 		org.opennms.web.acegisecurity.Authentication,
-		org.opennms.web.SafeHtmlUtil,
+		org.opennms.web.WebSecurityUtils,
 		org.opennms.web.XssRequestWrapper,
                 org.opennms.web.Util
 		"
@@ -102,6 +102,7 @@
     //required attributes
     Alarm[] alarms = (Alarm[])req.getAttribute( "alarms" );
     AlarmQueryParms parms = (AlarmQueryParms)req.getAttribute( "parms" );
+    int alarmCount = (Integer) req.getAttribute("alarmCount");
 
     if( alarms == null || parms == null ) {
 	throw new ServletException( "Missing either the alarms or parms request attribute." );
@@ -122,9 +123,6 @@
     } 
     
     pageContext.setAttribute("action", action);
-
-    int alarmCount = AlarmFactory.getAlarmCount( parms.ackType, parms.getFilters() );  
-    
     pageContext.setAttribute("alarmCount", new Integer(alarmCount));
  
     //useful constant strings
@@ -298,7 +296,7 @@
                 
                   <% for( int i=0; i < length; i++ ) { %>
                     <% Filter filter = parms.filters.get(i); %>
-                    &nbsp; <span class="filter"><%=SafeHtmlUtil.sanitize(filter.getTextDescription())%> <a href="<%=this.makeLink( parms, filter, false)%>" title="Remove filter">[-]</a></span>
+                    &nbsp; <span class="filter"><%=WebSecurityUtils.sanitizeString(filter.getTextDescription())%> <a href="<%=this.makeLink( parms, filter, false)%>" title="Remove filter">[-]</a></span>
                   <% } %>
               </p>           
             <% } %>
@@ -358,7 +356,7 @@
       	pageContext.setAttribute("alarm", alarm);
       %> 
 
-        <tr class="<%=AlarmUtil.getSeverityLabel(alarms[i].getSeverity())%>">
+        <tr class="<%=alarms[i].getSeverity().getLabel()%>">
           <% if( !(req.isUserInRole( Authentication.READONLY_ROLE ))) { %>
               <td class="divider" valign="middle" rowspan="1">
                 <nobr>
@@ -482,12 +480,12 @@
           <input TYPE="reset" />
           <input TYPE="button" VALUE="Select All" onClick="checkAllCheckboxes()"/>
           <select name="alarmAction">
-          <option value="clear">Clear Alarms</option>
         <% if( parms.ackType == AcknowledgeType.UNACKNOWLEDGED ) { %>
           <option value="acknowledge">Acknowledge Alarms</option>
         <% } else if( parms.ackType == AcknowledgeType.ACKNOWLEDGED ) { %>
           <option value="unacknowledge">Unacknowledge Alarms</option>
         <% } %>
+          <option value="clear">Clear Alarms</option>
           <option value="escalate">Escalate Alarms</option>
           </select>
           <input type="button" value="Go" onClick="submitForm(document.alarm_action_form.alarmAction.value)" />
@@ -572,9 +570,9 @@
     public String makeLink( SortStyle sortStyle, AcknowledgeType ackType, List<Filter> filters, int limit, String display ) {
       StringBuffer buffer = new StringBuffer( this.urlBase );
       buffer.append( "?sortby=" );
-      buffer.append( AlarmUtil.getSortStyleString(sortStyle) );
+      buffer.append( sortStyle.getShortName() );
       buffer.append( "&acktype=" );
-      buffer.append( AlarmUtil.getAcknowledgeTypeString(ackType) );
+      buffer.append( ackType.getShortName() );
       if (limit > 0) {
           buffer.append( "&limit=" ).append(limit);
       }
@@ -596,9 +594,9 @@
       }
       StringBuffer buffer = new StringBuffer( "event/list" );
       buffer.append( "?sortby=" );
-      buffer.append( AlarmUtil.getSortStyleString(parms.sortStyle) );
+      buffer.append( parms.sortStyle.getShortName() );
       buffer.append( "&acktype=" );
-      buffer.append( AlarmUtil.getAcknowledgeTypeString(parms.ackType) );
+      buffer.append( parms.ackType.getShortName() );
       buffer.append( this.getFiltersAsString(filters) );
 
       return( buffer.toString() );

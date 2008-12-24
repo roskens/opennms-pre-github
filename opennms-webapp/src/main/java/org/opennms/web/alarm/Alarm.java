@@ -8,6 +8,9 @@
 //
 // OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
 //
+// 2008 Oct 04: Move Severity inner class into sharable OnmsSeverity model class. - dj@opennms.org
+// 2008 Sep 27: Move Severity-related code here in a Java 5 enum class
+//              from AlarmUtil and use new class internally. - dj@opennms.org
 // 2005 Apr 18: This file was created from Event.java
 //
 // Original code base Copyright (C) 1999-2001 Oculan Corp.  All rights reserved.
@@ -34,8 +37,13 @@
 
 package org.opennms.web.alarm;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import org.opennms.netmgt.model.OnmsSeverity;
 import org.opennms.netmgt.model.TroubleTicketState;
 
 /**
@@ -46,20 +54,6 @@ import org.opennms.netmgt.model.TroubleTicketState;
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
 public class Alarm extends Object {
-    public static final int INDETERMINATE_SEVERITY = 1;
-
-    public static final int CLEARED_SEVERITY = 2;
-
-    public static final int NORMAL_SEVERITY = 3;
-
-    public static final int WARNING_SEVERITY = 4;
-
-    public static final int MINOR_SEVERITY = 5;
-
-    public static final int MAJOR_SEVERITY = 6;
-
-    public static final int CRITICAL_SEVERITY = 7;
-    
     public static final int PROBLEM_TYPE = 1;
     
     public static final int RESOLUTION_TYPE = 2;
@@ -102,7 +96,7 @@ public class Alarm extends Object {
      *  
      * </pre>
      */
-    protected int severity;
+    protected OnmsSeverity severity;
 
     /** The last event to be reduced by this alarm */
     protected int lastEventID;
@@ -183,7 +177,7 @@ public class Alarm extends Object {
      * Create an alarm that represents a real network alarm with only the
      * required parameters.
      */
-    public Alarm(int id, String uei, String dpName, Date lasteventtime, Date firsteventtime, int count, int severity) {
+    public Alarm(int id, String uei, String dpName, Date lasteventtime, Date firsteventtime, int count, int severityId) {
         if (uei == null || dpName == null || lasteventtime == null || firsteventtime == null ) {
             throw new IllegalArgumentException("Cannot take null parameters.");
         }
@@ -194,7 +188,7 @@ public class Alarm extends Object {
         this.lasteventtime = lasteventtime;
         this.firsteventtime = firsteventtime;
         this.count = count;
-        this.severity = severity;
+        this.severity = OnmsSeverity.get(severityId);
     }
 
     /**
@@ -209,7 +203,7 @@ public class Alarm extends Object {
      * Create an alarm that represents a real network alarm with all the
      * parameters.
      */
-    public Alarm(int id, String uei, String dpName, Integer nodeID, String ipAddr, Integer serviceID, String reductionKey, int count, int severity, int lastEventID, Date firsteventtime, Date lasteventtime, String description, String logMessage, String operatorInstruction, String troubleTicket, TroubleTicketState troubleTicketState, String mouseOverText, Date suppressedUntil, String suppressedUser, Date suppressedTime, String acknowledgeUser, Date acknowledgeTime, String parms, String nodeLabel, String serviceName) {
+    public Alarm(int id, String uei, String dpName, Integer nodeID, String ipAddr, Integer serviceID, String reductionKey, int count, int severityId, int lastEventID, Date firsteventtime, Date lasteventtime, String description, String logMessage, String operatorInstruction, String troubleTicket, TroubleTicketState troubleTicketState, String mouseOverText, Date suppressedUntil, String suppressedUser, Date suppressedTime, String acknowledgeUser, Date acknowledgeTime, String parms, String nodeLabel, String serviceName) {
 
         if (uei == null || dpName == null || lasteventtime == null || firsteventtime == null ) {
             throw new IllegalArgumentException("Cannot take null values for the following parameters: uei, dpName, firsteventtime, lasteventtime.");
@@ -222,14 +216,13 @@ public class Alarm extends Object {
         this.lasteventtime = lasteventtime;
         this.firsteventtime = firsteventtime;
 	this.count = count;
-        this.severity = severity;
+        this.severity = OnmsSeverity.get(severityId);
 
         // optional fields
     	this.nodeID = nodeID;
 	this.ipAddr = ipAddr;
 	this.serviceID = serviceID;
 	this.reductionKey = reductionKey;
-	this.severity = severity;
 	this.lastEventID = lastEventID;
 	this.description = description;
 	this.logMessage = logMessage;
@@ -272,10 +265,10 @@ public class Alarm extends Object {
         return (this.count);
     }
 
-    public int getSeverity() {
-        return (this.severity);
+    public OnmsSeverity getSeverity() {
+        return severity;
     }
-
+    
     public int getNodeId() {
         return (this.nodeID.intValue());
     }

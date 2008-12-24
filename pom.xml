@@ -100,6 +100,7 @@
     <module>opennms-rrd</module>
     <module>opennms-snmp</module>
     <module>opennms-config</module>
+    <module>opennms-provision</module>
     <module>opennms-services</module>
     <module>opennms-remote-poller</module>
     <module>opennms-integration-otrs</module>
@@ -233,6 +234,10 @@
         <configuration>
           <systemProperties>
             <property>
+              <name>java.awt.headless</name>
+              <value>true</value>
+            </property>
+            <property>
               <name>mock.logLevel</name>
               <value>${mock.logLevel}</value>
             </property>
@@ -285,8 +290,16 @@
               <value>${opennms.library.jrrd}</value>
             </property>
             <property>
+              <name>install.rrdtool.bin</name>
+              <value>${install.rrdtool.bin}</value>
+            </property>
+            <property>
               <name>runOtrsTests</name>
               <value>${runOtrsTests}</value>
+            </property>
+            <property>
+              <name>runMailTests</name>
+              <value>${runMailTests}</value>
             </property>
             <property>
               <name>runPingTests</name>
@@ -538,6 +551,8 @@
     <install.database.bindir>/usr/bin</install.database.bindir>
     <install.rrdtool.bin>/usr/bin/rrdtool</install.rrdtool.bin>
     <install.perl.bin>/usr/bin/perl</install.perl.bin>
+
+    <runMailTests>true</runMailTests>
   
     <!-- rpm specific -->
     <rpm.install.dir>/opt/OpenNMS</rpm.install.dir>
@@ -1047,11 +1062,6 @@
         <version>1.0.4</version>
       </dependency>
       <dependency>
-        <groupId>concurrent</groupId>
-        <artifactId>concurrent</artifactId>
-        <version>1.3.4</version>
-      </dependency>
-      <dependency>
         <groupId>net.sf.opencsv</groupId>
         <artifactId>opencsv</artifactId>
         <version>1.8</version>
@@ -1236,7 +1246,7 @@
       <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
-        <version>4.5</version>
+        <version>4.4</version>
       </dependency>
       <dependency>
         <groupId>jwebunit</groupId>

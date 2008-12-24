@@ -10,6 +10,8 @@
  *
  * Modifications:
  *
+ * 2008 Oct 04: Severity -> OnmsSeverity name change. - dj@opennms.org
+ * 2008 Sep 27: Use new Severity enum. - dj@opennms.org
  * 2008 Aug 31: Update alarm list URL. - dj@opennms.org
  * 
  * Created: September 16, 2007
@@ -39,18 +41,16 @@ package org.opennms.web.rss;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
+import org.opennms.netmgt.model.OnmsSeverity;
 import org.opennms.web.WebSecurityUtils;
 import org.opennms.web.alarm.Alarm;
 import org.opennms.web.alarm.AlarmFactory;
-import org.opennms.web.alarm.AlarmUtil;
 import org.opennms.web.alarm.AlarmFactory.AcknowledgeType;
 import org.opennms.web.alarm.AlarmFactory.SortStyle;
 import org.opennms.web.alarm.filter.Filter;
 import org.opennms.web.alarm.filter.NodeFilter;
 import org.opennms.web.alarm.filter.SeverityFilter;
-import org.opennms.web.event.EventUtil;
 
 import com.sun.syndication.feed.synd.SyndEntry;
 import com.sun.syndication.feed.synd.SyndEntryImpl;
@@ -83,9 +83,8 @@ public class AlarmFeed extends AbstractFeed {
             }
             if (this.getRequest().getParameter("severity") != null) {
                 String sev = this.getRequest().getParameter("severity");
-                List<Integer> severities = AlarmUtil.getSeverityList();
-                for (Integer severity : severities) {
-                    if (EventUtil.getSeverityLabel(severity).toLowerCase().equals(sev)) {
+                for (OnmsSeverity severity : OnmsSeverity.values()) {
+                    if (severity.getLabel().toLowerCase().equals(sev)) {
                         filters.add(new SeverityFilter(severity));
                     }
                 }

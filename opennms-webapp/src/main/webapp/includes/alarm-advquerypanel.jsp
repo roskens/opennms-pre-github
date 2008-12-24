@@ -12,6 +12,8 @@
 //
 // Modifications:
 //
+// 2008 Oct 04: Severity -> OnmsSeverity name change, eliminate severities variable. - dj@opennms.org
+// 2008 Sep 27: Use new Severity enum. - dj@opennms.org
 // 2006 Aug 15: HTML fixes from bug #1558. - dj@opennms.org
 //
 // Copyright (C) 1999-2001 Oculan Corp.  All rights reserved.
@@ -43,7 +45,8 @@
 	import="java.util.*,
 		java.text.DecimalFormat,
 		org.opennms.web.element.NetworkElementFactory,
-		org.opennms.web.alarm.*
+		org.opennms.web.alarm.*,
+                org.opennms.netmgt.model.OnmsSeverity
 		"
 %>
 <%!
@@ -54,11 +57,7 @@
     Map serviceNameMap = new TreeMap(NetworkElementFactory.getServiceNameToIdMap());
     Set serviceNameSet = serviceNameMap.keySet();
     Iterator serviceNameIterator = serviceNameSet.iterator();
-
-    //get the severity names, in severity order
-    List severities = AlarmUtil.getSeverityList();
-    Iterator severityIterator = severities.iterator();
-
+ 
     //get the current time values
     Calendar now = Calendar.getInstance();
     int nowHour = now.get(Calendar.HOUR); //gets the hour as a value between 1-12
@@ -92,10 +91,9 @@
               <select name="severity" size="1">
                 <option selected="selected"><%=AlarmUtil.ANY_SEVERITIES_OPTION%></option>
 
-                <% while( severityIterator.hasNext() ) { %>
-                  <% int severity = ((Integer)severityIterator.next()).intValue(); %>
-                  <option value="<%=severity%>">
-                    <%=AlarmUtil.getSeverityLabel(severity)%>
+                <% for (OnmsSeverity severity : OnmsSeverity.values()) { %>
+                  <option value="<%=severity.getId()%>">
+                    <%=severity.getLabel()%>
                   </option>
                 <% } %>
               </select>

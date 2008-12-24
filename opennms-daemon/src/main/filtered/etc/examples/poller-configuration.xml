@@ -34,7 +34,7 @@
 			<parameter key="version" value="3"/>
 			<parameter key="searchbase" value="DC=example,DC=org,OU=users"/>
 			<parameter key="searchfilter" value="CN=testuser"/>
-			<parameter key="dn" value="DC=example,DC=org,OU=users,CN=opennms"/>
+			<parameter key="dn" value="DN=example,DN=org,OU=users,CN=opennms"/>
 			<parameter key="password" value="passwordforopennmsuser"/>
             <parameter key="retry" value="2"/>
 			<parameter key="timeout" value="3000"/>
@@ -275,6 +275,13 @@
              		<parameter key="disk" value="Label:Boot Disk"/>
              		<parameter key="match-type" value="regex" /><!-- For finding a Windows drive with a given label regardless of letter -->
              		<parameter key="free" value="15"/><!-- At least 15% of space must be free -->
+		</service>
+		<service name="UnixTime" interval="300000" user-defined="false" status="on">
+             		<parameter key="timeout" value="3000"/>
+             		<parameter key="retry" value="1"/>
+             		<parameter key="protocol" value="tcp"/><!-- UDP also supported -->
+             		<parameter key="port" value="37"/>
+             		<parameter key="allowed-skew" value="300"/><!-- Seconds, i.e. 5 minutes -->
 		</service>
 		<!--
 		Use this monitor when testing.  Set the is-supported parm to control "Up/Down" status during the poll.
@@ -563,6 +570,7 @@
 	<monitor service="DbTestExample" class-name="org.opennms.netmgt.poller.monitors.JDBCStoredProcedureMonitor"/>
 	<monitor service="DiskUsage-root" class-name="org.opennms.netmgt.poller.monitors.DiskUsageMonitor"/>
 	<monitor service="DiskUsage-home" class-name="org.opennms.netmgt.poller.monitors.DiskUsageMonitor"/>
+	<monitor service="UnixTime" 	class-name="org.opennms.netmgt.poller.monitors.TrivialTimeMonitor"/>
 	<!-- 
 	<monitor service="LOOP-BACK" class-name="org.opennms.netmgt.poller.monitors.LooMonitor" />
 	 -->

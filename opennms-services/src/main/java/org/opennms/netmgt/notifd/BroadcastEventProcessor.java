@@ -65,7 +65,6 @@ import org.exolab.castor.xml.ValidationException;
 import org.opennms.core.utils.ThreadCategory;
 import org.opennms.core.utils.TimeConverter;
 import org.opennms.netmgt.EventConstants;
-import org.opennms.netmgt.capsd.EventUtils;
 import org.opennms.netmgt.config.DestinationPathManager;
 import org.opennms.netmgt.config.GroupManager;
 import org.opennms.netmgt.config.NotifdConfigManager;
@@ -86,6 +85,7 @@ import org.opennms.netmgt.eventd.EventIpcManager;
 import org.opennms.netmgt.eventd.EventIpcManagerFactory;
 import org.opennms.netmgt.eventd.EventUtil;
 import org.opennms.netmgt.model.events.EventListener;
+import org.opennms.netmgt.model.events.EventUtils;
 import org.opennms.netmgt.utils.RowProcessor;
 import org.opennms.netmgt.xml.event.Event;
 import org.opennms.netmgt.xml.event.Logmsg;
@@ -101,15 +101,15 @@ import org.opennms.netmgt.xml.event.Value;
 public final class BroadcastEventProcessor implements EventListener {
     /**
      */
-    private Map<String, NoticeQueue> m_noticeQueues;
-    private EventIpcManager m_eventManager;
-    private PollOutagesConfigManager m_pollOutagesConfigManager;
-    private NotificationManager m_notificationManager;
-    private NotifdConfigManager m_notifdConfigManager;
-    private DestinationPathManager m_destinationPathManager;
-    private UserManager m_userManager;
-    private GroupManager m_groupManager;
-    private NotificationCommandManager m_notificationCommandManager;
+    private volatile Map<String, NoticeQueue> m_noticeQueues;
+    private volatile EventIpcManager m_eventManager;
+    private volatile PollOutagesConfigManager m_pollOutagesConfigManager;
+    private volatile NotificationManager m_notificationManager;
+    private volatile NotifdConfigManager m_notifdConfigManager;
+    private volatile DestinationPathManager m_destinationPathManager;
+    private volatile UserManager m_userManager;
+    private volatile GroupManager m_groupManager;
+    private volatile NotificationCommandManager m_notificationCommandManager;
 
     /**
      * A regular expression for matching an expansion parameter delimited by
