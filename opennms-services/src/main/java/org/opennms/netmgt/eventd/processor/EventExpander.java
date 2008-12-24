@@ -47,6 +47,8 @@
 package org.opennms.netmgt.eventd.processor;
 
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.opennms.netmgt.config.EventConfDao;
 import org.opennms.netmgt.eventd.EventUtil;
@@ -57,6 +59,9 @@ import org.opennms.netmgt.xml.event.Header;
 import org.opennms.netmgt.xml.event.Logmsg;
 import org.opennms.netmgt.xml.event.Operaction;
 import org.opennms.netmgt.xml.event.Tticket;
+import org.opennms.netmgt.xml.eventconf.Decode;
+import org.opennms.netmgt.xml.eventconf.Maskelement;
+import org.opennms.netmgt.xml.eventconf.Varbindsdecode;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 
@@ -156,9 +161,9 @@ public final class EventExpander implements EventProcessor, InitializingBean {
     private org.opennms.netmgt.xml.event.Mask transform(org.opennms.netmgt.xml.eventconf.Mask src) {
         org.opennms.netmgt.xml.event.Mask dest = new org.opennms.netmgt.xml.event.Mask();
 
-        Enumeration en = src.enumerateMaskelement();
+        Enumeration<Maskelement> en = src.enumerateMaskelement();
         while (en.hasMoreElements()) {
-            org.opennms.netmgt.xml.eventconf.Maskelement confme = (org.opennms.netmgt.xml.eventconf.Maskelement) en.nextElement();
+            org.opennms.netmgt.xml.eventconf.Maskelement confme = en.nextElement();
 
             // create new mask element
             org.opennms.netmgt.xml.event.Maskelement me = new org.opennms.netmgt.xml.event.Maskelement();
@@ -166,8 +171,8 @@ public final class EventExpander implements EventProcessor, InitializingBean {
             me.setMename(confme.getMename());
             // set values
             String[] confmevalues = confme.getMevalue();
-            for (int index = 0; index < confmevalues.length; index++) {
-                me.addMevalue(confmevalues[index]);
+            for (String confmevalue : confmevalues) {
+                me.addMevalue(confmevalue);
             }
 
             dest.addMaskelement(me);
@@ -196,10 +201,12 @@ public final class EventExpander implements EventProcessor, InitializingBean {
         dest.setVersion(src.getVersion());
         dest.setCommunity(src.getCommunity());
 
-        if (src.hasGeneric())
+        if (src.hasGeneric()) {
             dest.setGeneric(src.getGeneric());
-        if (src.hasSpecific())
+        }
+        if (src.hasSpecific()) {
             dest.setSpecific(src.getSpecific());
+        }
 
         return dest;
     }
@@ -221,6 +228,7 @@ public final class EventExpander implements EventProcessor, InitializingBean {
 
         dest.setContent(src.getContent());
         dest.setDest(src.getDest());
+        dest.setNotify(src.getNotify());
 
         return dest;
     }
@@ -398,8 +406,9 @@ public final class EventExpander implements EventProcessor, InitializingBean {
      * 
      */
     private org.opennms.netmgt.xml.eventconf.Event lookup(Event event) {
-        if (event == null)
+        if (event == null) {
             throw new NullPointerException("Invalid argument, the event parameter must not be null");
+        }
 
         //
         // The event configuration that matches the lookup
@@ -426,8 +435,8 @@ public final class EventExpander implements EventProcessor, InitializingBean {
     /**
      * Expand parms in the event logmsg
      */
-    private void expandParms(Logmsg logmsg, Event event) {
-        String strRet = EventUtil.expandParms(logmsg.getContent(), event);
+    private void expandParms(Logmsg logmsg, Event event, Map<String, Map<String, String>> decode) {
+        String strRet = EventUtil.expandParms(logmsg.getContent(), event, decode);
         if (strRet != null) {
             logmsg.setContent(strRet);
         }
@@ -439,9 +448,7 @@ public final class EventExpander implements EventProcessor, InitializingBean {
     private void expandParms(Autoaction[] autoactions, Event event) {
         boolean expanded = false;
 
-        for (int index = 0; index < autoactions.length; index++) {
-            Autoaction action = autoactions[index];
-
+        for (Autoaction action : autoactions) {
             String strRet = EventUtil.expandParms(action.getContent(), event);
             if (strRet != null) {
                 action.setContent(strRet);
@@ -449,8 +456,9 @@ public final class EventExpander implements EventProcessor, InitializingBean {
             }
         }
 
-        if (expanded)
+        if (expanded) {
             event.setAutoaction(autoactions);
+        }
     }
 
     /**
@@ -459,9 +467,7 @@ public final class EventExpander implements EventProcessor, InitializingBean {
     private void expandParms(Operaction[] operactions, Event event) {
         boolean expanded = false;
 
-        for (int index = 0; index < operactions.length; index++) {
-            Operaction action = operactions[index];
-
+        for (Operaction action : operactions) {
             String strRet = EventUtil.expandParms(action.getContent(), event);
             if (strRet != null) {
                 action.setContent(strRet);
@@ -469,8 +475,9 @@ public final class EventExpander implements EventProcessor, InitializingBean {
             }
         }
 
-        if (expanded)
+        if (expanded) {
             event.setOperaction(operactions);
+        }
     }
 
     /**
@@ -495,7 +502,7 @@ public final class EventExpander implements EventProcessor, InitializingBean {
      * value of the parameter number 'num', if present - %parm[##]% is replaced
      * by the number of parameters
      */
-    private void expandParms(Event event) {
+    private void expandParms(Event event, Map<String, Map<String, String>> decode) {
         String strRet = null;
 
         // description
@@ -509,7 +516,7 @@ public final class EventExpander implements EventProcessor, InitializingBean {
 
         // logmsg
         if (event.getLogmsg() != null) {
-            expandParms(event.getLogmsg(), event);
+            expandParms(event.getLogmsg(), event, decode);
         }
 
         // operinstr
@@ -573,138 +580,164 @@ public final class EventExpander implements EventProcessor, InitializingBean {
         org.opennms.netmgt.xml.eventconf.Event econf = lookup(e);
 
         if (econf != null) {
-            if (m_eventConfDao.isSecureTag("mask"))
+            if (m_eventConfDao.isSecureTag("mask")) {
                 e.setMask(null);
+            }
             if (e.getMask() == null && econf.getMask() != null) {
                 e.setMask(transform(econf.getMask()));
             }
 
             // Copy the UEI
             //
-            if (e.getUei() == null)
+            if (e.getUei() == null) {
                 e.setUei(econf.getUei());
+            }
 
             // Copy the Snmp Information
             //
-            if (e.getSnmp() == null && econf.getSnmp() != null)
+            if (e.getSnmp() == null && econf.getSnmp() != null) {
                 e.setSnmp(transform(econf.getSnmp()));
+            }
 
             // Copy the description
             //
-            if (m_eventConfDao.isSecureTag("descr"))
+            if (m_eventConfDao.isSecureTag("descr")) {
                 e.setDescr(null);
-            if (e.getDescr() == null && econf.getDescr() != null)
+            }
+            if (e.getDescr() == null && econf.getDescr() != null) {
                 e.setDescr(econf.getDescr());
+            }
 
             // Copy the log message if any
             //
-            if (m_eventConfDao.isSecureTag("logmsg"))
+            if (m_eventConfDao.isSecureTag("logmsg")) {
                 e.setLogmsg(null);
-            if (e.getLogmsg() == null && econf.getLogmsg() != null)
+            }
+            if (e.getLogmsg() == null && econf.getLogmsg() != null) {
                 e.setLogmsg(transform(econf.getLogmsg()));
+            }
 
             // Copy the severity
             //
-            if (m_eventConfDao.isSecureTag("severity"))
+            if (m_eventConfDao.isSecureTag("severity")) {
                 e.setSeverity(null);
-            if (e.getSeverity() == null && econf.getSeverity() != null)
+            }
+            if (e.getSeverity() == null && econf.getSeverity() != null) {
                 e.setSeverity(econf.getSeverity());
+            }
 
             // Set the correlation information
             //
-            if (m_eventConfDao.isSecureTag("correlation"))
+            if (m_eventConfDao.isSecureTag("correlation")) {
                 e.setCorrelation(null);
-            if (e.getCorrelation() == null && econf.getCorrelation() != null)
+            }
+            if (e.getCorrelation() == null && econf.getCorrelation() != null) {
                 e.setCorrelation(transform(econf.getCorrelation()));
+            }
 
             // Copy the operator instruction
             //
-            if (m_eventConfDao.isSecureTag("operinstruct"))
+            if (m_eventConfDao.isSecureTag("operinstruct")) {
                 e.setOperinstruct(null);
-            if (e.getOperinstruct() == null && econf.getOperinstruct() != null)
+            }
+            if (e.getOperinstruct() == null && econf.getOperinstruct() != null) {
                 e.setOperinstruct(econf.getOperinstruct());
+            }
 
             // Copy the auto actions.
             //
-            if (m_eventConfDao.isSecureTag("autoaction"))
+            if (m_eventConfDao.isSecureTag("autoaction")) {
                 e.removeAllAutoaction();
+            }
             if (e.getAutoactionCount() == 0 && econf.getAutoactionCount() > 0) {
-                Enumeration eter = econf.enumerateAutoaction();
+                Enumeration<org.opennms.netmgt.xml.eventconf.Autoaction> eter = econf.enumerateAutoaction();
                 while (eter.hasMoreElements()) {
-                    org.opennms.netmgt.xml.eventconf.Autoaction src = (org.opennms.netmgt.xml.eventconf.Autoaction) eter.nextElement();
+                    org.opennms.netmgt.xml.eventconf.Autoaction src = eter.nextElement();
                     e.addAutoaction(transform(src));
                 }
             }
 
             // Convert the operator actions
             //
-            if (m_eventConfDao.isSecureTag("operaction"))
+            if (m_eventConfDao.isSecureTag("operaction")) {
                 e.removeAllOperaction();
+            }
             if (e.getOperactionCount() == 0 && econf.getOperactionCount() > 0) {
-                Enumeration eter = econf.enumerateOperaction();
+                Enumeration<org.opennms.netmgt.xml.eventconf.Operaction> eter = econf.enumerateOperaction();
                 while (eter.hasMoreElements()) {
-                    org.opennms.netmgt.xml.eventconf.Operaction src = (org.opennms.netmgt.xml.eventconf.Operaction) eter.nextElement();
+                    org.opennms.netmgt.xml.eventconf.Operaction src = eter.nextElement();
                     e.addOperaction(transform(src));
                 }
             }
 
             // Convert the auto acknowledgement
             //
-            if (m_eventConfDao.isSecureTag("autoacknowledge"))
+            if (m_eventConfDao.isSecureTag("autoacknowledge")) {
                 e.setAutoacknowledge(null);
-            if (e.getAutoacknowledge() == null && econf.getAutoacknowledge() != null)
+            }
+            if (e.getAutoacknowledge() == null && econf.getAutoacknowledge() != null) {
                 e.setAutoacknowledge(transform(econf.getAutoacknowledge()));
+            }
 
             // Convert the log group information
             //
-            if (m_eventConfDao.isSecureTag("loggroup"))
+            if (m_eventConfDao.isSecureTag("loggroup")) {
                 e.removeAllLoggroup();
-            if (e.getLoggroupCount() == 0 && econf.getLoggroupCount() > 0)
+            }
+            if (e.getLoggroupCount() == 0 && econf.getLoggroupCount() > 0) {
                 e.setLoggroup(econf.getLoggroup());
+            }
 
             // Convert the trouble tickets.
             //
-            if (m_eventConfDao.isSecureTag("tticket"))
+            if (m_eventConfDao.isSecureTag("tticket")) {
                 e.setTticket(null);
-            if (e.getTticket() == null && econf.getTticket() != null)
+            }
+            if (e.getTticket() == null && econf.getTticket() != null) {
                 e.setTticket(transform(econf.getTticket()));
+            }
 
             // Convert the forward entry
             //
-            if (m_eventConfDao.isSecureTag("forward"))
+            if (m_eventConfDao.isSecureTag("forward")) {
                 e.removeAllForward();
+            }
             if (e.getForwardCount() == 0 && econf.getForwardCount() > 0) {
-                Enumeration eter = econf.enumerateForward();
+                Enumeration<org.opennms.netmgt.xml.eventconf.Forward> eter = econf.enumerateForward();
                 while (eter.hasMoreElements()) {
-                    org.opennms.netmgt.xml.eventconf.Forward src = (org.opennms.netmgt.xml.eventconf.Forward) eter.nextElement();
+                    org.opennms.netmgt.xml.eventconf.Forward src = eter.nextElement();
                     e.addForward(transform(src));
                 }
             }
 
             // Convert the script entry
             //
-            if (m_eventConfDao.isSecureTag("script"))
+            if (m_eventConfDao.isSecureTag("script")) {
                 e.removeAllScript();
+            }
             if (e.getScriptCount() == 0 && econf.getScriptCount() > 0) {
-                Enumeration eter = econf.enumerateScript();
+                Enumeration<org.opennms.netmgt.xml.eventconf.Script> eter = econf.enumerateScript();
                 while (eter.hasMoreElements()) {
-                    org.opennms.netmgt.xml.eventconf.Script src = (org.opennms.netmgt.xml.eventconf.Script) eter.nextElement();
+                    org.opennms.netmgt.xml.eventconf.Script src = eter.nextElement();
                     e.addScript(transform(src));
                 }
             }
 
             // Copy the mouse over text
             //
-            if (m_eventConfDao.isSecureTag("mouseovertext"))
+            if (m_eventConfDao.isSecureTag("mouseovertext")) {
                 e.setMouseovertext(null);
-            if (e.getMouseovertext() == null && econf.getMouseovertext() != null)
+            }
+            if (e.getMouseovertext() == null && econf.getMouseovertext() != null) {
                 e.setMouseovertext(econf.getMouseovertext());
+            }
 
             // Copy the reductionKey
             // TODO:  This isSecureTag call needs some research.  "You keep using that word.  I don't think it means what you think it means."
             //        It looks to me like there should be an else here.  I could be wrong.
-            if (m_eventConfDao.isSecureTag("reduction-key") && m_eventConfDao.isSecureTag("alarm-type") && m_eventConfDao.isSecureTag("clear-uei"))
+            if (m_eventConfDao.isSecureTag("reduction-key") && m_eventConfDao.isSecureTag("alarm-type") && m_eventConfDao.isSecureTag("clear-uei")) {
                 e.setAlarmData(null);
+            }
             
             if (e.getAlarmData() == null && econf.getAlarmData() != null) {
                 AlarmData alarmData = new AlarmData();
@@ -718,10 +751,23 @@ public final class EventExpander implements EventProcessor, InitializingBean {
                 e.setAlarmData(alarmData);
             }
 
-        } // end fill of event using econf
+        } 
+        
+        Map<String, Map<String, String>> decode = new HashMap<String, Map<String,String>>();
+        if (econf != null && econf.getVarbindsdecode() != null) {
+           Varbindsdecode[] vardecodeArray = econf.getVarbindsdecode();
+           for (Varbindsdecode element : vardecodeArray) {
+               Decode[] decodeArray = element.getDecode();
+               Map<String, String> valueMap = new HashMap<String, String>();
+               for (Decode element2 : decodeArray) {
+                   valueMap.put(element2.getVarbindvalue(), element2.getVarbinddecodedstring());
+               }
+               decode.put(element.getParmid(), valueMap);
+           }
+        }// end fill of event using econf
 
         // do the event parm expansion
-        expandParms(e);
+        expandParms(e, decode);
 
     } // end expandEvent()
 

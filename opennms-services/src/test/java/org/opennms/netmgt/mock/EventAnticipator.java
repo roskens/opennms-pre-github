@@ -52,6 +52,8 @@ import org.opennms.netmgt.xml.event.Event;
  * @author brozow
  */
 public class EventAnticipator implements EventListener {
+    
+    boolean m_discardUnanticipated = false;
 
     List<EventWrapper> m_anticipatedEvents = new ArrayList<EventWrapper>();
     
@@ -63,6 +65,23 @@ public class EventAnticipator implements EventListener {
      */
     public EventAnticipator() {
     }
+    
+
+    /**
+     * @return the discardUnanticipated
+     */
+    public boolean isDiscardUnanticipated() {
+        return m_discardUnanticipated;
+    }
+
+
+    /**
+     * @param discardUnanticipated the discardUnanticipated to set
+     */
+    public void setDiscardUnanticipated(boolean discardUnanticipated) {
+        m_discardUnanticipated = discardUnanticipated;
+    }
+
 
     /**
      * @param event
@@ -99,6 +118,12 @@ public class EventAnticipator implements EventListener {
             m_anticipatedEventsReceived.add(event);
             notifyAll();
         } else {
+            saveUnanticipatedEvent(event);
+        }
+    }
+
+    private void saveUnanticipatedEvent(Event event) {
+        if (!m_discardUnanticipated) {
             m_unanticipatedEvents.add(event);
         }
     }
@@ -197,6 +222,10 @@ public class EventAnticipator implements EventListener {
             problems.deleteCharAt(problems.length() - 1);
             Assert.fail(problems.toString());
         }
+    }
+    
+    public void verifyAnticipated() {
+        verifyAnticipated(0, 0, 0, 0, 0);
     }
 
     private static String listEvents(String prefix, Collection<Event> events) {

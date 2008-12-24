@@ -277,8 +277,8 @@
       <statement>
         DELETE FROM alarms
          WHERE severity &lt;= 3
-           AND COALESCE(lastautomationtime, lasteventtime) &lt; now() - interval '2 minutes'
-           AND (alarmacktime IS NULL OR tticketState = 3)
+           AND COALESCE(lastautomationtime, lasteventtime) &gt; now() - interval '2 minutes'
+           AND (alarmacktime IS NULL AND (tticketState IS NULL OR tticketState = 3))
       </statement>
     </action>
 
@@ -288,8 +288,8 @@
       <statement>
         DELETE from alarms
          WHERE severity &lt;= 3
-           AND COALESCE(lastautomationtime, lasteventtime) &lt; now() - interval '24 hours'
-           AND (alarmacktime IS NULL OR tticketState = 3)
+           AND COALESCE(lastautomationtime, lasteventtime) &gt; now() - interval '24 hours'
+           AND (tticketState IS NULL OR tticketState = 3)
       </statement>
     </action>
   
@@ -338,6 +338,15 @@
       </statement>
     </action>
 
+    <!-- Does nothing while still meeting the requirements of all actions -->
+    <action name="doNothingAction" >
+      <statement>
+        UPDATE node
+           SET nodeid = -1
+         WHERE nodeid = -1
+      </statement>
+    </action>
+
   </actions>
 
   <!--  Deprecating this element... see the new <action-events> element -->    
@@ -347,7 +356,7 @@
     </auto-event>
   </auto-events>
 
-  <!-- Note: action events that have ${} tokens require the for-each-result attribute to be set to true -->
+  <!-- Note: action events that have tokens require the for-each-result attribute to be set to true -->
   <action-events>
   
     <action-event name="createTicket" for-each-result="true" >

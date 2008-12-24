@@ -133,6 +133,10 @@ public class MockEventUtil {
         return createInterfaceEvent(source, EventConstants.INTERFACE_UP_EVENT_UEI, iface);
     }
     
+    public static Event createNodeGainedInterfaceEvent(String source, MockInterface iface) {
+        return createInterfaceEvent(source, EventConstants.NODE_GAINED_INTERFACE_EVENT_UEI, iface);
+    }
+    
     public static Event createInterfaceDeletedEvent(String source, MockInterface iface) {
         return createInterfaceEvent(source, EventConstants.INTERFACE_DELETED_EVENT_UEI, iface);
     }
@@ -145,8 +149,16 @@ public class MockEventUtil {
         return createNodeEvent(source, EventConstants.NODE_DOWN_EVENT_UEI, node);
     }
     
+    public static Event createNodeDownEventWithReason(String source, MockNode node, String reason) {
+        return createNodeEventWithReason(source, EventConstants.NODE_DOWN_EVENT_UEI, node, reason);
+    }
+    
     public static Event createNodeUpEvent(String source, MockNode node) {
         return createNodeEvent(source, EventConstants.NODE_UP_EVENT_UEI, node);
+    }
+    
+    public static Event createNodeAddedEvent(String source, MockNode node) {
+        return createNodeEvent(source, EventConstants.NODE_ADDED_EVENT_UEI, node);
     }
     
     public static Event createNodeDeletedEvent(String source, MockNode node) {
@@ -155,6 +167,10 @@ public class MockEventUtil {
     
     public static Event createNodeEvent(String source, String uei, MockNode node) {
         return createEvent(source, uei, node.getNodeId(), null, null, null);
+    }
+    
+    public static Event createNodeEventWithReason(String source, String uei, MockNode node, String reason) {
+        return createEvent(source, uei, node.getNodeId(), null, null, reason);
     }
     
     public static Event createNewSuspectEvent(String source, String uei, String ipAddr) {
@@ -300,8 +316,7 @@ public class MockEventUtil {
         if (prefix == null) {
             prefix = "Event";
         }
-        // FIXME: Do we need to spit something out to stderr?
-        System.err.println(prefix + ": " + event.getUei() + "/" + event.getNodeid() + "/" + event.getInterface() + "/" + event.getService());
+        ThreadCategory.getInstance(MockEventUtil.class).info(prefix + ": " + event.getUei() + "/" + event.getNodeid() + "/" + event.getInterface() + "/" + event.getService());
     }
 
     public static void printEvents(String prefix, Collection<Event> events) {

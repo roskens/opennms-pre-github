@@ -101,7 +101,7 @@
     </dependency>
     <dependency>
       <groupId>org.opennms</groupId>
-      <artifactId>opennms-provision-service</artifactId>
+      <artifactId>opennms-provisiond</artifactId>
     </dependency>
     <dependency>
       <groupId>org.opennms</groupId>
