@@ -74,7 +74,6 @@ public class OnmsMapElementResource extends OnmsRestService {
         OnmsMap map = m_mapDao.get(mapId);
         if (map == null)
             throwException(Response.Status.BAD_REQUEST, "getMapElements: can't find map " + mapId);
-        else
-            return new OnmsMapElementList(map.getMapElements());
+        return new OnmsMapElementList(map.getMapElements());
     }
 }
