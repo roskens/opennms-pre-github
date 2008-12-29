@@ -225,7 +225,7 @@
             </goals>
             <configuration>
               <generatedClasses>${basedir}/target/jsp-classes</generatedClasses>
-	      <jspFileExcludes>*/lps/*.jsp</jspFileExcludes>
+	      <excludes>*/lps/*.jsp</excludes>
             </configuration>
           </execution>
         </executions>
