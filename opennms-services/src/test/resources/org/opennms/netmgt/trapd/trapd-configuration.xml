@@ -1,2 +1,0 @@
-<?xml version="1.0"?>
-<trapd-configuration snmp-trap-port="@snmp-trap-port@" new-suspect-on-trap="true"/>
