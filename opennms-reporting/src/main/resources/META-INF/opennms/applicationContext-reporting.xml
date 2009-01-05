@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="availabilityReportScheduler"
+		class="org.opennms.report.availability.AvailabilityReportSchedulerService"
+		lazy-init="true">
+		<property name="availabilityReportLocatorDao" ref="availabilityReportLocatorDao" />
+	</bean>
+
+	<bean id="availabilityReportLocator"
+		class="org.opennms.report.availability.AvailabilityReportLocatorService"
+		lazy-init="true">
+		<property name="availabilityReportLocatorDao" ref="availabilityReportLocatorDao" />
+	</bean>
+
+	<bean id="calendarAvailabilityCalculator"
+		class="org.opennms.report.availability.AvailabilityCalculator">
+		<property name="monthFormat">
+			<value>calendar</value>
+		</property>
+		<property name="baseDir">
+			<value>${opennms.report.dir}/</value>
+		</property>
+		<property name="locatorService" ref="availabilityReportLocator" />
+	</bean>
+
+	<bean id="classicAvailabilityCalculator"
+		class="org.opennms.report.availability.AvailabilityCalculator">
+		<property name="monthFormat">
+			<value>classic</value>
+		</property>
+		<property name="baseDir">
+			<value>${opennms.report.dir}/</value>
+		</property>
+		<property name="locatorService" ref="availabilityReportLocator" />
+	</bean>
+
+	<!-- <bean id="adhocCalendarAvailabilityCalculator"
+		class="org.opennms.report.availability.AvailabilityCalculator">
+		<property name="reportLocatorService">
+		<ref local="simpleReportStore" />
+		</property>
+		<property name="monthFormat">
+		<value>calendar</value>
+		</property>
+		</bean>
+		
+		<bean id="adhocClassicAvailabilityCalculator"
+		class="org.opennms.report.availability.AvailabilityCalculator">
+		<property name="reportStore">
+		<ref local="simpleReportStore" />
+		</property>
+		<property name="monthFormat">
+		<value>classic</value>
+		</property>
+		</bean>
+	-->
+
+
+	<bean id="pdfReportRenderer"
+		class="org.opennms.report.availability.render.PDFReportRenderer">
+		<property name="inputFileName">
+			<value>AvailReport.xml</value>
+		</property>
+		<property name="outputFileName">
+			<value>PDFAvailReport.pdf</value>
+		</property>
+		<property name="baseDir">
+			<value>${opennms.report.dir}/</value>
+		</property>
+		<property name="xsltResource"
+			value="file:${opennms.home}/etc/PDFAvailReport.xsl" />
+	</bean>
+
+	<bean id="svgReportRenderer"
+		class="org.opennms.report.availability.render.PDFReportRenderer">
+		<property name="inputFileName">
+			<value>AvailReport.xml</value>
+		</property>
+		<property name="outputFileName">
+			<value>SVGAvailReport.pdf</value>
+		</property>
+		<property name="baseDir">
+			<value>${opennms.report.dir}/</value>
+		</property>
+		<property name="xsltResource"
+			value="file:${opennms.home}/etc/SVGAvailReport.xsl" />
+	</bean>
+
+	<bean id="htmlReportRenderer"
+		class="org.opennms.report.availability.render.HTMLReportRenderer">
+		<property name="inputFileName">
+			<value>AvailReport.xml</value>
+		</property>
+		<property name="outputFileName">
+			<value>AvailReport.html</value>
+		</property>
+		<property name="baseDir">
+			<value>${opennms.report.dir}/</value>
+		</property>
+		<property name="xsltResource"
+			value="file:${opennms.home}/etc/AvailabilityReports.xsl" />
+	</bean>
+
+	<bean id="availabilityReportRunner"
+		class="org.opennms.report.availability.AvailabilityReportRunner">
+		<property name="calendarCalculator">
+			<ref local="calendarAvailabilityCalculator" />
+		</property>
+		<property name="classicCalculator">
+			<ref local="classicAvailabilityCalculator" />
+		</property>
+		<property name="svgReportRenderer">
+			<ref local="svgReportRenderer" />
+		</property>
+		<property name="pdfReportRenderer">
+			<ref local="pdfReportRenderer" />
+		</property>
+		<property name="htmlReportRenderer">
+			<ref local="htmlReportRenderer" />
+		</property>
+	</bean>
+
+	<bean id="availabilityReportViewerService"
+		class="org.opennms.report.availability.AvailabilityReportViewerService"
+		lazy-init="true">
+		<property name="reportLocatorService">
+			<ref local="availabilityReportLocator" />
+		</property>
+		<property name="baseDir">
+			<value>${opennms.report.dir}/</value>
+		</property>
+	</bean>
+
+	<bean id="availabilityReportService"
+		class="org.opennms.report.availability.svclayer.DefaultAvailabilityReportService">
+		<property name="reportRunner" ref="availabilityReportRunner" />
+	</bean>
+
+</beans>
