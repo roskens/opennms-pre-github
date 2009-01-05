@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE canvas SYSTEM "http://www.openlaszlo.org/lps4/tools/lzx.xsd">
+
+<canvas width="100%" height="100%">
+
+    <include href="OnmsNode.lzx"/>
+
+    <attribute name="allNodes" value="${new Array()}"/>
+
+    <attribute name="nodeGroups" value="${new Array()}"/>
+
+    <resource name="node1">
+        <frame src="CS2-Standard-48x48.png"/>
+    </resource>
+
+    <resource name="node2">
+        <frame src="InDesign-48x48.png"/>
+    </resource>
+
+    <resource name="node3">
+        <frame src="CS2-Premium-48x48.png"/>
+
+    </resource>
+
+    <resource name="group">
+        <frame src="Illustrator-128x128.png"/>
+    </resource>
+
+
+     <class name="NodeLoader">
+        <dataset
+                name="nodeRequest" querytype="GET" type="http" onerror="classroot.loadError()"
+                src="/rest/node/" ondata="classroot.loadSuccess()"/>
+                <method name="getNode" args="nodeId"><![CDATA[
+
+                    var ds = nodeRequest;
+                    ds.setAttribute('src','/opennms-webapp/rest/node/' + nodeId);
+              
+                    ds.setQueryString(p);
+                    ds.doRequest();
+
+                    super.open();
+           ]]></method>
+        <method name="loadError"><![CDATA[
+               Debug.write('Error loading the data');
+               ]]></method>
+        <method name="loadSuccess"><![CDATA[
+               var nodeTimeStamp =
+	           nodeRequest.getElementsByTagName("onmsNode")[0].getElementsByTagName("createTime")[0].childNodes[0];
+               Debug.write("Creation time Stamp: " + nodeTimeStamp);
+
+           ]]></method>
+        <handler name="oninit">
+            getNode(1);
+        </handler>
+    </class>
+    <NodeLoader name="nodeLoader"/>
+
+    <!-- All nodes attach to this view, that way we can iterate over
+     nodes and nodes only.... -->
+
+    
+
+    <view name="nodeCanvas"/>
+
+    <class name="linkedLine">
+
+        <attribute name="style" value="0x00ff00"/>
+        <attribute name="myWidth" value="2"/>
+        <attribute name="mc"/>
+        <attribute name="linkedNodePair" value="${new Object()}"/>
+
+        <handler name="oninit">
+            this.mc = this.getMCRef().createEmptyMovieClip("myLine", 10);
+        </handler>
+        
+        <method name="drawline" args="x1,y1,x2,y2,node1,node2">
+            Debug.write("Moving line");
+            Debug.write(this);
+
+            this.sendToBack();
+            mc.clear();
+            mc.lineStyle(this.myWidth, this.style,100);
+            mc.moveTo(x1,y1);
+            mc.lineTo(x2,y2);
+            this.linkedNodePair.node1 = node1;
+            this.linkedNodePair.node2 = node2;
+            Debug.write(this);
+        </method>
+
+        <method name="alarm">
+            // Alarm behaviour.
+
+        </method>
+
+    </class>
+
+    <class name="subMap" extends="view">
+        <!--
+        Map reference, contains a MAP id and a list of nodes we can call.
+        -->
+    </class>
+
+    <class name="nodeLabel" extends="text">
+        <method name="setLabel" args="labelText">
+            this.setText(labelText);
+        </method>
+    </class>
+
+    <class name="nodeStatus"/>
+
+    <class name="nodeGroup" extends="view" resource="group" visible="false">
+        <attribute name="nodes"/>
+        <attribute name="openLinks" value="${new Array()}"/>
+        <attribute name="connected" value="${new Array()}"/>
+       
+        <handler name="onmouseover">
+            this.info.bringToFront();
+            this.info.setVisible(true);
+        </handler>
+
+        <method name="alarm">
+
+        </method>
+
+        <handler name="onmouseout">
+            this.info.setVisible(false);
+        </handler>
+
+        <!-- A list of the existing attributes -->
+        <floatinglist name="info" width="80" attach="right" visible="false">
+            <textlistitem text="Grouping"/>
+            <textlistitem text="This is a group...."/>
+            <textlistitem text="Bla"/>
+            <textlistitem text="Bla"/>
+        </floatinglist>
+
+        <!-- Hide the nodes below this node-group, assume the
+            position of the first node, move it around, add even if
+            we move to the underlaying nodes the x/y coords so we can
+            uncover as quickly as possible and revert them back to visible
+            state on the canvas. This includes unhiding lines as well.
+            This class should self destruct when unraveling the nodes in question.
+        -->
+
+        <method name="addNodes" args="nodes"><![CDATA[
+             this.nodes = nodes //Save a reference....
+             this.setX(nodes[nodes.length-1].x - this.width/2);
+             this.setY(nodes[nodes.length-1].y - this.height/2);
+
+            for (n in nodes) {
+                nodes[n].hide();
+            }
+
+            this.setVisible(true);
+
+            var linkList = new Array();
+
+                Debug.write("Current nodes" )
+                for (n in nodes) {
+                   for (c in nodes[n].connected) {
+                       linkList.push(nodes[n].connected[c].l);
+                   }
+                }
+
+             var links = linkList.unique(true);
+             Debug.write(linkList);
+             Debug.write(links);
+             Debug.write(nodes);
+
+             for (l in links ) {
+                 var firstHit = false;
+                 var secondHit = false;
+                 var nodeToAttach;
+                 for (n in nodes) {
+                     for (c in nodes[n].connected) {
+                         if (nodes[n].connected[c].l == links[l]){
+                             if (firstHit) {
+                                secondHit = true;
+                                nodeToAttach = nodes[n].connected[c];
+                             }
+                             firstHit = true;
+                         }
+                     }
+                  }
+                  if (!(firstHit && secondHit)) {
+                         links[l].setVisible(true);
+                         openLinks.push(links[l]);
+
+                         //links[l].moveTemporary(this.x+(this.width/2),this.y+(this.height/2));
+                         // Use this to steal the X/Y of the attached line.
+                         
+                         Debug.write(openLinks);
+                  }
+
+             }
+
+
+        ]]>
+        </method>
+
+        <handler name="onclick">
+            for (n in nodes) {
+                nodes[n].show()
+            }
+  
+            this.setVisible(false);
+            this.destroy();
+
+        </handler>
+       
+    </class>
+
+    
+
+    <method event="oninit"> <![CDATA[
+
+    var baseNodes = new Array();
+    for(var ii = 0; ii <=3 ; ii++ ) {
+
+        var baseNode = new onmsNode(nodeCanvas);
+
+        baseNodes.push(baseNode);
+        if (ii < 10 ) {
+            baseNode.setX( Math.round(600 + Math.cos(ii * (Math.PI/5)) * 400));
+            baseNode.setY(Math.round(500 + Math.sin(ii * (Math.PI/5)) * 400));
+            baseNode.setAttribute('resource', 'node2');
+
+        } else {
+            baseNode.setX( Math.round(600 + Math.cos(ii * (Math.PI/5)) * 150));
+            baseNode.setY(Math.round(500 + Math.sin(ii * (Math.PI/5)) * 150));
+            baseNode.setAttribute('resource', 'node3');
+        }
+
+
+        var linkColor = randomColor();
+        var myWidth = Math.random()*3+1
+        var y = baseNode.y;
+        var x = baseNode.x;
+        var intervalCount = 0;
+        if (ii > 0) {
+           var l2 = new linkedLine();
+           l2.style = 0xaaaaaa;
+           l2.myWidth = 5;
+           baseNodes[ii].link(baseNodes[ii-1],l2);
+           baseNodes[ii-1].link(baseNodes[ii],l2);
+        }
+
+       for (var i = 0; i <= 3 ; i++) {
+            var l = new linkedLine();
+            l.style = linkColor;
+            l.myWidth = myWidth;
+            var n = new onmsNode(nodeCanvas);
+            x = Math.round(baseNode.x + Math.cos(intervalCount * (Math.PI/(15/2))) * 100);
+            y = Math.round(baseNode.y + Math.sin(intervalCount * (Math.PI/(15/2))) * 100);
+            intervalCount++
+
+            n.setX(x);
+            n.setY(y);
+            Debug.write(n);
+            Debug.write(l);
+
+            baseNode.link(n,l);
+            n.link(baseNode,l);
+            canvas.allNodes.push(n);
+
+       }
+
+       canvas.allNodes.push(baseNode);
+
+      oldnode = baseNode;
+
+
+    }
+
+   ]]>
+    </method>
+
+    <!-- GLobal mouse tracker -->
+
+    <text name="globalText" resize="true">
+
+        <attribute name="x1"/>
+
+        <attribute name="y1"/>
+
+        <attribute name="x2"/>
+
+        <attribute name="y2"/>
+
+        <handler name="onmousedown" reference="LzGlobalMouse">
+          //  this.setText("Mousedown " + getMouse('x') + " " + getMouse('y'));
+            this.x1 = getMouse('x');
+            this.y1 = getMouse('y');
+        </handler>
+
+        <handler name="onmouseup" reference="LzGlobalMouse">
+            <![CDATA[
+        //this.setText("Mouseup " + getMouse('x') + " " + getMouse('y'));
+        this.x2 = getMouse('x');
+        this.y2 = getMouse('y');
+
+        var blurThese = new Array();
+
+        for (n in canvas.nodeCanvas.subviews) {
+                //Debug.write(x1,y1,x2,y2);
+                //Debug.write(canvas.nodeCanvas.subviews[n].x,canvas.nodeCanvas.subviews[n].width,canvas.nodeCanvas.subviews[n].y,canvas.nodeCanvas.subviews[n].height);
+
+            if (canvas.nodeCanvas.subviews[n].x > this.x1
+                && canvas.nodeCanvas.subviews[n].x + canvas.nodeCanvas.subviews[n].width < this.x2
+                && canvas.nodeCanvas.subviews[n].y > this.y1
+                && canvas.nodeCanvas.subviews[n].y + canvas.nodeCanvas.subviews[n].height < this.y2
+                ){
+                    blurThese.push(canvas.nodeCanvas.subviews[n]);
+                }
+           }
+
+           // Finish up and mark these as a group.....
+           if (blurThese.length > 1) {
+                var hide = new nodeGroup();
+                hide.addNodes(blurThese);
+           }
+      ]]>
+        </handler>
+
+    </text>
+
+    <method name="gheyBlur" args="view">
+        // Get the filter list for this view
+        var myTempFilters = [];
+
+        var aColorMatrix =
+        [0.309612,0.255948,0.03444,0,25.4,0.129612,0.435948,0.03444,0,25.4,0.129612,0.255948,0.21444,0,25.4,0,0,0,1,0];
+        //[0.253204,0.085316,0.01148,0,13.275,0.043204,0.295316,0.01148,0,13.275,0.043204,0.085316,0.22148,0,13.275,0,0,0,1,0];
+        //[0.253204,0.085316,0.01148,0,13.275,0.043204,0.295316,0.01148,0,13.275,0.043204,0.085316,0.22148,0,13.275,0,0,0,1,0];
+
+        var myBlur = new flash.filters.ColorMatrixFilter(aColorMatrix);
+        myTempFilters.push(myBlur); ;
+
+        // Set the filter for this view
+        view.sprite.__LZmovieClipRef.filters = myTempFilters;
+
+    </method>
+
+    <script>
+        <![CDATA[
+
+        function randomColor ( ) {
+
+        var array = new Array ( "f", "e", "d", "c", "b", "a", "9", "8", "7", "6", "5", "4", "3", "2", "1" );
+        var endHex = "0x";
+        for ( var i = 0; i < 6; i++ ) {
+
+        endHex += array[Math.round ( Math.random ( ) * array.length )]; // and each time add a new character to the returned color.
+
+        }
+
+        return endHex;
+
+        }
+
+        // Find things in Arrays...
+
+        Array.prototype.find = function(searchStr) {
+            var returnArray = false;
+            for (i=0; i<this.length; i++) {
+                if (typeof(searchStr) == 'function') {
+                    if (searchStr.test(this[i])) {
+                        if (!returnArray) { returnArray = [] }
+                    returnArray.push(i);
+                }
+            } else {
+                if (this[i]===searchStr) {
+                    if (!returnArray) { returnArray = [] }
+                returnArray.push(i);
+                }
+            }
+        }
+            return returnArray;
+        }
+
+        // Array.unique( strict ) - Remove duplicate values
+            Array.prototype.unique = function( b ) {
+            var a = [], i, l = this.length;
+            for( i=0; i<l; i++ ) {
+                if( a.indexOf( this[i], 0, b ) < 0 ) { a.push( this[i] ); }
+            }
+        return a;
+        };
+
+        // Array.indexOf( value, begin, strict ) - Return index of the first element that matches value
+        Array.prototype.indexOf = function( v, b, s ) {
+        for( var i = +b || 0, l = this.length; i < l; i++ ) {
+            if( this[i]===v || s && this[i]==v ) { return i; }
+        }
+        return -1;
+        };
+        ]]>
+
+    </script>
+
+</canvas>

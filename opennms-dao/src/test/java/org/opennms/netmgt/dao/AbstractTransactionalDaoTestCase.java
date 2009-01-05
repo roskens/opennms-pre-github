@@ -38,6 +38,8 @@ package org.opennms.netmgt.dao;
 
 import org.opennms.netmgt.dao.db.AbstractTransactionalTemporaryDatabaseSpringContextTests;
 import org.opennms.netmgt.dao.hibernate.LocationMonitorDaoHibernate;
+import org.opennms.netmgt.dao.hibernate.OnmsMapDaoHibernate;
+import org.opennms.netmgt.dao.hibernate.OnmsMapElementDaoHibernate;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.test.DaoTestConfigBean;
 
@@ -58,6 +60,9 @@ public class AbstractTransactionalDaoTestCase extends AbstractTransactionalTempo
     private UserNotificationDao m_userNotificationDao;
     private AvailabilityReportLocatorDao m_availabilityReportLocatorDao;
     private LocationMonitorDaoHibernate m_locationMonitorDao;
+    private OnmsMapDaoHibernate m_onmsMapDao;
+    private OnmsMapElementDaoHibernate m_onmsMapElementDao;
+    private DataLinkInterfaceDao m_dataLinkInterfaceDao;
     
     private DatabasePopulator m_populator;
     
@@ -230,6 +235,22 @@ public class AbstractTransactionalDaoTestCase extends AbstractTransactionalTempo
     public void setUserNotificationDao(UserNotificationDao userNotificationDao) {
         m_userNotificationDao = userNotificationDao;
     }
+
+    public OnmsMapDaoHibernate getOnmsMapDao() {
+        return m_onmsMapDao;
+    }
+
+    public void setOnmsMapDao(OnmsMapDaoHibernate onmsMapDao) {
+        this.m_onmsMapDao = onmsMapDao;
+    }
+
+    public OnmsMapElementDaoHibernate getOnmsMapElementDao() {
+        return m_onmsMapElementDao;
+    }
+
+    public void setOnmsElementMapDao(OnmsMapElementDaoHibernate onmsMapElementDao) {
+        this.m_onmsMapElementDao = onmsMapElementDao;
+    }
     
     public OnmsNode getNode1() {
         return m_populator.getNode1();
@@ -241,6 +262,14 @@ public class AbstractTransactionalDaoTestCase extends AbstractTransactionalTempo
 
     public void setLocationMonitorDao(LocationMonitorDaoHibernate locationMonitorDao) {
         m_locationMonitorDao = locationMonitorDao;
+    }
+
+    public DataLinkInterfaceDao getDataLinkInterfaceDao() {
+        return m_dataLinkInterfaceDao;
+    }
+
+    public void setDataLinkInterfaceDao(DataLinkInterfaceDao dataLinkInterfaceDao) {
+        this.m_dataLinkInterfaceDao = dataLinkInterfaceDao;
     }
 
     public boolean isPopulate() {

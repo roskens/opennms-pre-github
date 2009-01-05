@@ -50,6 +50,9 @@
         <value>org.opennms.netmgt.model.ResourceReference</value>
         <value>org.opennms.netmgt.model.StatisticsReportData</value>
         <value>org.opennms.netmgt.model.StatisticsReport</value>
+        <value>org.opennms.netmgt.model.OnmsMap</value>
+        <value>org.opennms.netmgt.model.OnmsMapElement</value>
+        <value>org.opennms.netmgt.model.DataLinkInterface</value>
       </list>
     </property>
     <!--  property name="schemaUpdate" value="true">
@@ -230,6 +233,18 @@
 
   <bean id="statsdConfigDao" class="org.opennms.netmgt.dao.castor.DefaultStatisticsDaemonConfigDao">
     <property name="configResource" ref="statsdConfigResourceLocation" />
+  </bean>
+  
+  <bean id="onmsMapDao" class="org.opennms.netmgt.dao.hibernate.OnmsMapDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="onmsMapElementDao" class="org.opennms.netmgt.dao.hibernate.OnmsMapElementDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="dataLinkInterfaceDao" class="org.opennms.netmgt.dao.hibernate.DataLinkInterfaceDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
   </bean>
   
   <bean id="snmpConfigDao" class="org.opennms.netmgt.dao.FactoryBasedSnmpConfigDao" />

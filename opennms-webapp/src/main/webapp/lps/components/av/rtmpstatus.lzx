@@ -1,0 +1,56 @@
+<!-- X_LZ_COPYRIGHT_BEGIN ************************************************
+* Copyright 2006-2007 Laszlo Systems, Inc.  All Rights Reserved.              *
+* Use is subject to license terms.                                       *
+* X_LZ_COPYRIGHT_END ************************************************** -->
+
+<library>
+
+
+    <resource name="light_rsc">
+        <frame src="resources/red-orb.swf"/>
+        <frame src="resources/yellow-orb.swf"/>
+        <frame src="resources/green-orb.swf"/>
+    </resource>
+
+
+    <class name="rtmpstatus" 
+           resource="light_rsc" 
+           width="16" 
+           height="16" 
+           stretches="both"
+           >
+
+        <!--- rtmpconnection to monitor -->
+        <attribute name="rtmpc" value="null" />
+
+        <attribute name="_updateStageDelegate" value="null"/>
+
+        <handler name="oninit"><![CDATA[
+        // This class should have an rtmp attribute to use a particular 
+        // rtmpconnection, but default to the global one, and it should
+        // also clean up properly.
+        if (!this.rtmpc) 
+            this.rtmpc = rtmpconnection.prototype._default;
+
+        this._updateStageDelegate = 
+            new LzDelegate(this, "_updateStage", this.rtmpc, "onstage");
+        ]]>
+        </handler>
+
+        <method event="ondestroy"><![CDATA[
+        this._updateStageDelegate.unregisterAll();
+        ]]>
+        </method>
+
+
+        <!--- @access private -->
+        <method name="_updateStage"><![CDATA[
+        this.setAttribute('frame', this.rtmpc.stage + 1);
+        ]]>
+        </method>
+
+
+    </class>
+
+
+</library>

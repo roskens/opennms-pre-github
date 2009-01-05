@@ -1,0 +1,369 @@
+<library>
+
+    <include href="base/baselist.lzx" />
+    <include href="base/basetrackgroup.lzx" />
+    <include href="lz/vscrollbar.lzx" />
+    <include href="utils/layouts/simplelayout.lzx" />
+
+     <!--- A list containing listitems and providing selection capabilities. -->
+     <class name="list"  extends="baselist"
+         width="100" >
+
+        <!--- used to adjust the width of the content when a scrollbar is present
+              @keywords private -->
+        <attribute name="rightinset" value="0" />
+
+        <!--- @keywords private -->
+        <attribute name="defaultplacement" value="content" type="string"/>
+
+        <!--- The size in pixels for this list. -->
+        <attribute name="bordersize"  value="1" />
+
+        <!--- The size of the top border which defaults to bordersize. -->
+        <attribute name="border_top"     value="${this.bordersize}" />
+        <!--- The size of the left border which defaults to bordersize. -->
+        <attribute name="border_left"    value="${this.bordersize}" />
+        <!--- The size of the right border which defaults to bordersize. -->
+        <attribute name="border_right"   value="${this.bordersize}" />
+        <!--- The size of the bottom border which defaults to bordersize. -->
+        <attribute name="border_bottom"  value="${this.bordersize}" />
+
+        <!--- Toggles the mousedown tracking. -->
+        <attribute name="tracking" value="false" />
+
+        <!--- The number of pixels that items should be spaced from one another. -->
+        <attribute name="spacing" value="0"/>
+
+         <!--- minumum height of the list, default: 24 -->
+         <attribute name="minheight" value="24" type="number"/>
+
+        <!--- The number of items that are displayed. This value will ignored if
+              this view attempts to draw past the canvas boundary. -->
+        <attribute name="shownitems" value="-1" setter="this._setShownItems(shownitems)" />
+
+        <!--- @keywords private -->
+        <event name="onshownitems" />
+
+        <!--- @keywords readonly -->
+        <attribute name="scrollable" value="false" />
+
+        <!--- If true, a scrollbar will show up automatically when there are
+              more items than shownitems. -->
+        <attribute name="autoscrollbar" value="true"/>
+
+        <!--- The name of the class to instantiate as our scrollbar.
+              @keywords public -->
+        <attribute name="scrollbarclassname" type="string" value="vscrollbar"/>
+        
+        <!--- @keywords private -->
+        <method name="init">
+            super.init();
+            if (this._hasSetHeight) setHeight(this.height);
+            adjustmyheight();
+        </method>
+
+        <!-- VIEWS -->
+        <view name="interior"
+              x="${classroot.border_left}"
+              y="${classroot.border_top}"
+              width="${classroot.width
+                        - classroot.border_right - classroot.border_left}"
+              bgcolor="${classroot._bgcolor}"
+              clip="true">
+            <!-- height of this view is set in class' adjustheight method -->
+
+            <!--- declared to remove debugger warnings
+                  @keywords private -->
+            <attribute name="_sbar" value="null" />
+            <!--- event not used - declared to remove debugger warnings -->
+            <event name="onmousetrackoutleft" />
+            <!--- event not used - declared to remove debugger warnings -->
+            <event name="onmousetrackoutright" />
+            <!-- height for content is determined by subviews and should not be set,
+                 so that scrolling will turn on and off when needed -->
+            <basetrackgroup name="content" width="100%"
+                            tracking="${classroot.tracking}"
+                            boundsref="${parent}"
+                            deactivateevents="['onmouseup','onselect']">
+               <simplelayout axis="y" >
+                    <attribute name="spacing" value="${classroot.spacing}"/>
+               </simplelayout>
+
+               <handler name="onaddsubview" args="v"> <![CDATA[
+                    if ( classroot.itemclassname == "" ){
+                        classroot.itemclassname = v.constructor.classname;
+                    }
+                    if ( ( classroot.dataoption == "lazy" ||
+                           classroot.dataoption == "resize" ) &&
+                            !classroot._itemheight  ){
+                        classroot._itemheight = v.height;
+                    }
+                   classroot.adjustmyheight();
+                ]]></handler>
+
+               <handler name="onheight">
+                   classroot.adjustmyheight();
+               </handler>
+
+            </basetrackgroup> <!-- end content -->
+
+            <!--- Make a vscrollbar if necessary
+                  @keywords private -->
+            <method name="ensurevscrollbar">
+                if (this._sbar == null) {
+                    var classname = classroot.scrollbarclassname;
+                    if (classname == "") {
+                        classname = "vscrollbar";
+                    }
+                    if ($debug) {
+                        if (typeof(global[classname]) == "undefined") {
+                            Debug.write("scrollbarclassname undefined", this);
+                        }
+                    }
+                    this._sbar = new global[classname](this, { stepsize: "20" });
+                }
+            </method>
+            
+            <method name="showvscrollbar">
+                if (this._sbar == null) {
+                    this.ensurevscrollbar();
+                }
+                this._sbar.setAttribute('visible', true);
+                classroot.setAttribute('rightinset', this._sbar.width);
+            </method>
+            
+            <method name="hidevscrollbar">
+                if (this._sbar != null) {
+                    this._sbar.setAttribute('visible', false);
+                }
+                classroot.setAttribute('rightinset', 0);
+            </method>
+            
+            <method name="vscrollbarisvisible"><![CDATA[
+                return (this._sbar != null && this._sbar.visible);
+            ]]></method>
+            
+            <handler name="onmousetrackoutbottom" args="y" >
+                if ( this.vscrollbarisvisible() ) _sbar.step(1);
+            </handler>
+
+            <handler name="onmousetrackouttop" args="y" >
+                if ( this.vscrollbarisvisible() ) _sbar.step(-1);
+            </handler>
+
+        </view> <!-- end interior -->
+
+         <!--- @keywords private -->
+        <method name="_setShownItems" args="n">
+            this.shownitems = n;
+            if ( onshownitems ) this.onshownitems.sendEvent();
+            if ( this._initcomplete ) this.adjustmyheight();
+        </method>
+
+         <!--- Select an item. Scrolls list so that it appears, if not in view.
+               @param LzView v: the view to select (may be an array, when
+               multiselect == true) -->
+        <method name="select"  args="v" > <![CDATA[
+            // ensure selected is scrolled to visible
+            var sel = v;
+            if (sel && sel['length'] > 0) {
+                sel = sel[0];
+            }
+            ensureItemInView(sel);
+            super.select(v);
+            ]]>
+        </method>
+
+         <!--- @keywords private -->
+         <method name="_doFocus">
+             <![CDATA[
+                 super._doFocus();
+                 var sel = getSelection();
+                 if (this.multiselect) {
+                     sel = (sel.length == 0) ? null : sel[0];
+                 }
+                 ensureItemInView(sel);
+             ]]>
+         </method>
+
+         <!--- If the item is not in view, the list is auto-scrolled so that the
+               specified item appears at the top of the list. -->
+        <method name="ensureItemInView" args="item">
+            if (!item) return;
+            if (_initcomplete) {
+                _selector.ensureItemInView(item);
+            }
+        </method>
+
+         <!--- @keywords private -->
+         <attribute name="_itemheight" value="null"/>
+        <!--- @keywords private -->
+        <method name="calcMyHeight"  > <![CDATA[
+            var len = getNumItems();
+            if (len == 0) {
+                return this.minheight;
+            }
+            var hgt;
+            if ((( shownitems > -1 ) && ( shownitems < len )) ||
+                dataoption == "lazy" || dataoption == "resize"
+                ) { // lazy always has shownitems > -1  (if no set height)
+                var iheight;
+                if (this.dataoption == "lazy" || dataoption == "resize") {
+                    iheight = this._itemheight;
+                    if (shownitems < len) len = shownitems;
+                } else {
+                    len = shownitems;
+                    iheight = this.interior.content.subviews[0].height;
+                }
+                hgt = iheight*len + spacing*(len-1);
+
+            } else {
+                hgt = this.interior.content.height;
+            }
+            return hgt;
+        ]]></method>
+
+         <!--- @keywords private -->
+        <attribute name="_hasSetHeight" value="false"/>
+
+        <!--- this should not be called internally -->
+        <!--- TODO: [2005-02-25 ptw] (Bug 5036) When setters are
+             called from __LZapplyArgs they get a second argument that
+             is the name of the slot being set.  Ignore that.  If Bug
+             5036 gets addressed, update this method. -->
+        <!--- @keywords private -->
+        <method name="setHeight" args="h, prop, internal"> <![CDATA[
+            if (h != null && !internal) {
+                this._hasSetHeight = true;
+            } else {
+                this._hasSetHeight = false;
+                if (!internal) {
+                    var hgt = this.calcMyHeight();
+                    h = hgt + border_top + border_bottom;
+                }
+            }
+            super.setHeight(h);
+            if ( this._initcomplete ) {
+                interior.setHeight( h - border_top - border_bottom );
+                checkscrollbar();
+            }
+            ]]>
+        </method>
+
+         <!--- @keywords private -->
+         <method name="checkscrollbar"> <![CDATA[
+             if (this.autoscrollbar) {
+                 if ( this._contentview.height > this.interior.height ) {
+                     this.interior.showvscrollbar();
+                 } else {
+                     this.interior.hidevscrollbar();
+                 }
+             }
+            ]]>
+         </method>
+
+        <!--- @keywords private -->
+        <method name="adjustmyheight"  > <![CDATA[
+            if ( !this._initcomplete ) return;
+            if (this._hasSetHeight) {
+                checkscrollbar();
+            } else {
+                var hgt = this.calcMyHeight();
+                // TODO: [2005-02-25 ptw] (Bug 5036) See comment on setHeight
+                this.setHeight( hgt + border_top + border_bottom, 'height', true);
+            }
+        ]]></method>
+
+        <!--- Add the specified item to the end of the list.
+              @param String txt: the text for the item.
+              @param Object val: the value for the item. -->
+        <method name="addItem" args="txt, val" >
+            if (this.itemclassname == "") {
+                this.itemclassname = "textlistitem";
+            }
+            super.addItem(txt,val);
+            this.adjustmyheight();
+        </method>
+
+         <!--- @keywords private -->
+         <attribute name="_bgcolor" value="null"/>
+
+         <!--- border == true : call super to set border color
+               else set _bgcolor for "interior" view
+               @keywords private -->
+         <method name="setBGColor" args="c, border">
+             if (border) {
+
+                super.setBGColor(c);
+             } else {
+                 // don't actually set the bgcolor,  'interior' view
+                 // sets its bgcolor from this attribute
+                this._bgcolor = c;
+                 if (this['on_bgcolor']) {
+                     this.on_bgcolor.sendEvent(c);
+                 }
+             }
+         </method>
+
+         <!--- @keywords private -->
+        <method name="_applystyle" args="s">
+            if (this.style != null) {
+                super._applystyle(s);
+                setBGColor(s.bordercolor, true);
+                if (this._bgcolor == null) interior.setBGColor(s.bgcolor);
+            }
+        </method>
+
+        <!--- @keywords private -->
+        <method name="destroy" ><![CDATA[
+            if (this.autoscrollbar)
+                this.setAttribute("autoscrollbar", false);
+            if (this.shownitems != -1)
+                this.setAttribute("shownitems", -1);
+                    
+            super.destroy.apply(this, arguments);
+        ]]></method> 
+        <doc>
+          <tag name="shortdesc"><text>
+              contains listitems and provides selection capabilities.
+          </text></tag>
+          <text>
+            <p>The <tagname>list</tagname> tag creates a list which may contain
+              <tagname>listitem</tagname>s.  Subclasses of
+              <classname>listitem</classname>, such as
+              <classname>textlistitem</classname>, may be used as well.
+              <tagname>list</tagname> provides basic layout and a selection API
+              <!--link-->.  If there are more items than specified in the
+              <attribute>shownitems</attribute> attribute, a
+              <classname>scrollbar</classname> will be provided.</p>
+
+            <example>
+              &lt;canvas width="200" height="100"&gt;
+              &lt;list x="10" y="10"&gt;
+              &lt;textlistitem text="item 1" value="1" selected="true"/&gt;
+              &lt;textlistitem text="item 2" value="2"/&gt;
+              &lt;textlistitem text="item 3" value="3"/&gt;
+              &lt;/list&gt;
+              &lt;/canvas&gt;
+            </example>
+
+            <h2>Optimizing performance with lazy replication and data pooling</h2>
+
+            <p>When you have more items on your list than appear to the user, or if you are creating a list from data and then changing 
+              the data that is represented by the list, you should use "lazy replication" and data pooling, respectively, to 
+              optimize performance of your lists. See <a href="${dguide}performance-tuning.html">Performance Tuning</a> for a discussion.</p>
+
+            <p>See the <a
+                          href="${examples}components/list_example.lzx">list_example.lzx</a> for
+              more list use cases.</p>
+          </text>
+        </doc>
+
+    </class> <!-- end list -->
+
+</library>
+<!-- * X_LZ_COPYRIGHT_BEGIN ***************************************************
+* Copyright 2001-2007 Laszlo Systems, Inc.  All Rights Reserved.              *
+* Use is subject to license terms.                                            *
+* X_LZ_COPYRIGHT_END ****************************************************** -->
+<!-- @LZX_VERSION@                                                         -->

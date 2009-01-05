@@ -9,6 +9,7 @@ package org.opennms.web.map.db;
 import java.sql.Timestamp;
 
 // FIXME: We really need to rename this class so that it doesn't have the same class name as java.util.Map
+// TODO replace this with org.opennms.netmgt.model.OnmsMap
 public class Map {
 
     private int id;

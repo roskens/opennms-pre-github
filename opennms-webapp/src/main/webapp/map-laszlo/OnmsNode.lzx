@@ -1,0 +1,146 @@
+<library>
+    <class name="onmsNode" extends="view"
+        resource="node1"
+        onmousedown="dragger.apply()" onmouseup="dragger.remove()">
+        <attribute name="connected"/>
+        <attribute name="myLabel"/>
+        <!-- myStatus
+            A bunch of resources where we set it based on
+            response number value from the service - i.e are we going
+            all is good or bleat like mad sheep...
+        -->
+
+        <attribute name="myStatus"/>
+        <dragstate name="dragger"/>
+
+        <method event="oninit">
+            this.connected = new Array();
+            this.myLabel = new nodeLabel();
+
+        </method>
+
+        <handler name="onload">
+            Debug.write(this.myLabel);
+
+        </handler>
+        <method name="move">
+            for(a in connected) {
+                connected[a].l.drawline(this.x+(this.width/2),this.y+(this.height/2),
+                connected[a].n.x + (connected[a].n.width/2),connected[a].n.y + (connected[a].n.height/2),this,connected[a].n);
+                // Assign the link to the positioning nodes.
+                // We do this to be able to redo the line at a later point...
+            }
+
+            this.myLabel.setX(this.x);
+            this.myLabel.setY(this.y+this.height+2);
+
+        </method>
+
+        <method event="ony">
+            move();
+        </method>
+
+         <method event="onx">
+            move();
+        </method>
+
+        <method event="onload">
+            move();
+        </method>
+
+        <method name="link" args="n,l">
+            var nodeAff = new Object();
+            nodeAff.n = n;
+            nodeAff.l = l;
+            this.connected.push(nodeAff);
+            move();
+            Debug.write(this.connected);
+
+        </method>
+
+        <handler name="onmouseover">
+            this.info.bringToFront();
+            this.info.setVisible(true);
+        </handler>
+
+        <method name="alarm">
+
+        </method>
+
+        <handler name="onmouseout">
+            this.info.setVisible(false);
+        </handler>
+
+        <!-- A list of the existing attributes -->
+        <floatinglist name="info" attach="right" visible="false">
+
+        </floatinglist>
+
+
+        <dataset
+                name="nodeRequest" querytype="GET" type="http" onerror="classroot.loadError()"
+                src="/rest/node/" ondata="classroot.loadSuccess()"/>
+                <method name="getNode" args="nodeId"><![CDATA[
+
+                    var ds = nodeRequest;
+                    ds.setAttribute('src','/opennms-webapp/rest/node/' + nodeId);
+
+                    ds.setQueryString(p);
+                    ds.doRequest();
+
+                    super.open();
+           ]]></method>
+        <method name="loadError"><![CDATA[
+               Debug.write('Error loading the data');
+               ]]></method>
+        <method name="loadSuccess"><![CDATA[
+               var nodeTimeStamp =
+	           nodeRequest.getElementsByTagName("onmsNode")[0].getElementsByTagName("createTime")[0].childNodes[0];
+               Debug.write("Creation time Stamp: " + nodeTimeStamp);
+
+                // Population from the node REST service.
+
+                info.addItem(nodeRequest.getElementsByTagName("onmsNode")[0].getElementsByTagName("OnmsIpInterface")[0].
+                getElementsByTagName("node")[0].childNodes[0]);
+                info.addItem(nodeRequest.getElementsByTagName("onmsNode")[0].getElementsByTagName("OnmsIpInterface")[0].
+                getElementsByTagName("ipAddress")[0].childNodes[0]);
+                info.addItem(nodeRequest.getElementsByTagName("onmsNode")[0].getElementsByTagName("OnmsIpInterface")[0].
+                getElementsByTagName("label")[0].childNodes[0]);
+                info.addItem(nodeRequest.getElementsByTagName("onmsNode")[0].getElementsByTagName("OnmsIpInterface")[0].
+                getElementsByTagName("ipHostName")[0].childNodes[0]);
+                info.addItem(nodeTimeStamp);
+
+                this.myLabel.setLabel(nodeRequest.getElementsByTagName("onmsNode")[0].getElementsByTagName("OnmsIpInterface")[0].
+                getElementsByTagName("ipHostName")[0].childNodes[0]);
+
+           ]]></method>
+        <handler name="oninit">
+            getNode(1);
+        </handler>
+
+        <handler name="ondblclick">
+            // Provide edit behaviour of the node.
+
+        </handler>
+
+        <method name="hide">
+            this.setVisible(false);
+            this.myLabel.setVisible(false);
+            for (c in this.connected) {
+                connected[c].l.setVisible(false)
+            }
+
+        </method>
+
+        <method name="show">
+            this.setVisible(true);
+            this.myLabel.setVisible(true);
+            for (c in connected) {
+            connected[c].l.setVisible(true)
+            }
+
+        </method>
+
+    </class>
+
+</library>

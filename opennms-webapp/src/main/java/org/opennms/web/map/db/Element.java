@@ -44,6 +44,7 @@ import org.opennms.web.map.MapsException;
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * 
  * TODO To change the template for this generated type comment go to Window -
+ * TODO Replace this with org.opennms.netmgt.model.OnmsMapElement
  * Preferences - Java - Code Style - Code Templates
  */
 public class Element implements Cloneable {

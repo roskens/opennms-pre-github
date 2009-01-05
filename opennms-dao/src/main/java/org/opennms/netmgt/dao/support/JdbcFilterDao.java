@@ -526,7 +526,7 @@ public class JdbcFilterDao implements FilterDao, InitializingBean {
             where.append(" AND " + addColumn(tables, "serviceName") + " = '" + service + "'");
 
         String from = m_databaseSchemaConfigFactory.constructJoinExprForTables(tables);
-
+                                                    
         return "SELECT DISTINCT " + columns.toString() + " " + from + " " + where;
     }
 
@@ -705,5 +705,7 @@ public class JdbcFilterDao implements FilterDao, InitializingBean {
             tables.add(table);
         return table.getName() + "." + column;
     }
+
+    
 
 }
