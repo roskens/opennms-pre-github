@@ -40,7 +40,7 @@ public interface AsyncServiceDetector {
     
     public void init();
     
-    public DetectFuture isServiceDetected(InetAddress address, DetectorMonitor monitor);
+    public DetectFuture isServiceDetected(InetAddress address, DetectorMonitor monitor) throws Exception;
     
     
 }
