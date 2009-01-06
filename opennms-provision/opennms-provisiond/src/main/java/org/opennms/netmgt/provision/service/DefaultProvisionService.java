@@ -33,9 +33,11 @@ package org.opennms.netmgt.provision.service;
 
 import static org.springframework.util.ObjectUtils.nullSafeEquals;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -55,6 +57,8 @@ import org.opennms.netmgt.model.OnmsServiceType;
 import org.opennms.netmgt.model.OnmsSnmpInterface;
 import org.opennms.netmgt.model.PathElement;
 import org.opennms.netmgt.model.events.EventForwarder;
+import org.opennms.netmgt.provision.persist.ForeignSourceRepository;
+import org.opennms.netmgt.provision.persist.OnmsForeignSource;
 import org.opennms.netmgt.provision.service.operations.AddEventVisitor;
 import org.opennms.netmgt.provision.service.operations.DeleteEventVisitor;
 import org.springframework.transaction.annotation.Transactional;
@@ -378,6 +382,8 @@ public class DefaultProvisionService implements ProvisionService {
     
     private EventForwarder m_eventForwarder;
     
+    private ForeignSourceRepository m_foreignSourceRepository;
+    
     
     private ThreadLocal<HashMap<String, OnmsServiceType>> m_typeCache = new ThreadLocal<HashMap<String, OnmsServiceType>>();
     private ThreadLocal<HashMap<String, OnmsCategory>> m_categoryCache = new ThreadLocal<HashMap<String, OnmsCategory>>();
@@ -543,6 +549,8 @@ public class DefaultProvisionService implements ProvisionService {
         return type;
     }
     
+    
+    
 
     @Transactional
     public OnmsCategory createCategoryIfNecessary(String name) {
@@ -685,7 +693,36 @@ public class DefaultProvisionService implements ProvisionService {
         getNodeDao().update(node);
     }
 
+    public List<NodeScanSchedule> getScheduleForNodes() {
+        List<OnmsNode> nodes = m_nodeDao.findAll();
+        List<NodeScanSchedule> scheduledNodes = new ArrayList<NodeScanSchedule>();
+        
+        long now = System.currentTimeMillis();
+        for(OnmsNode node : nodes) {
+            OnmsForeignSource fs = m_foreignSourceRepository.get(node.getForeignSource());
+            
+            long lastPoll = (node.getLastCapsdPoll() == null ? 0 : node.getLastCapsdPoll().getTime());
+            long nextPoll = lastPoll + fs.getScanInterval();
+            long initialDelay = Math.max(0, nextPoll - now);
+            
+            NodeScanSchedule nSchedule = new NodeScanSchedule();
+            nSchedule.setForeignSource(node.getForeignSource());
+            nSchedule.setInitialDelay(initialDelay);
+            nSchedule.setNodeId(node.getId());
+            nSchedule.setScanInterval(fs == null ? 1000 : fs.getScanInterval());
+            
+            scheduledNodes.add(nSchedule);
+        }
+        
+        return scheduledNodes;
+    }
 
-    
+    public void setForeignSourceRepository(ForeignSourceRepository foriengSourceRepository) {
+        m_foreignSourceRepository = foriengSourceRepository;
+    }
+
+    public ForeignSourceRepository getForeignSourceRepository() {
+        return m_foreignSourceRepository;
+    }   
 
 }

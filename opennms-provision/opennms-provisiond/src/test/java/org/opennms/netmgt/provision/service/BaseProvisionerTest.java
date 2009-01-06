@@ -40,6 +40,7 @@ package org.opennms.netmgt.provision.service;
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
+import java.util.List;
 import java.util.Properties;
 
 import org.junit.Before;
@@ -100,9 +101,9 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 @ContextConfiguration(locations={
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-daemon.xml",
+        "classpath:/META-INF/opennms/mockEventIpcManager.xml",
         "classpath:/META-INF/opennms/applicationContext-setupIpLike-enabled.xml",
         "classpath:/modelImporterTest.xml",
-        "classpath:/META-INF/opennms/mockEventIpcManager.xml"
 })
 @JUnitTemporaryDatabase()
 public class BaseProvisionerTest {
@@ -111,7 +112,7 @@ public class BaseProvisionerTest {
     private MockEventIpcManager m_mockEventIpcManager;
     
     @Autowired
-    private BaseProvisioner m_provisioner;
+    private Provisioner m_provisioner;
     
     @Autowired
     private ServiceTypeDao m_serviceTypeDao;
@@ -136,6 +137,9 @@ public class BaseProvisionerTest {
     
     @Autowired
     private ResourceLoader m_resourceLoader;
+    
+    @Autowired
+    private ProvisionService m_provisionService;
     
     private EventAnticipator m_eventAnticipator;
     
@@ -163,7 +167,7 @@ public class BaseProvisionerTest {
     }
     
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
         Properties props = new Properties();
         props.setProperty("log4j.logger.org.hibernate", "INFO");
         props.setProperty("log4j.logger.org.springframework", "INFO");
@@ -174,6 +178,8 @@ public class BaseProvisionerTest {
         //System.setProperty("mock.debug", "false");
         
         m_eventAnticipator = m_mockEventIpcManager.getEventAnticipator();
+        
+        m_provisioner.start();
     }
 
 
@@ -361,6 +367,20 @@ public class BaseProvisionerTest {
         
 
     }
+    
+    //Scheduler tests
+    @Test
+    public void testProvisionServiceGetScheduleForNodes() throws Exception {
+       importFromResource("classpath:/tec_dump.xml.smalltest");
+       
+       List<NodeScanSchedule> schedulesForNode = m_provisionService.getScheduleForNodes();
+       
+       assertEquals(m_nodeDao.countAll(), schedulesForNode.size());
+    }
+    
+    //public void test
+    
+    //Scheduler Tests
     
     private void verifyCounts(CountingVisitor visitor) {
         //System.err.println(visitor);
