@@ -50,6 +50,7 @@ import javax.mail.search.SubjectTerm;
 
 import org.apache.log4j.Category;
 import org.opennms.core.utils.ThreadCategory;
+import org.opennms.core.utils.TimeoutTracker;
 import org.opennms.netmgt.config.mailtransporttest.JavamailProperty;
 import org.opennms.netmgt.model.PollStatus;
 import org.opennms.netmgt.poller.Distributable;
@@ -266,18 +267,19 @@ public class MailTransportMonitor extends IPv4Monitor {
                     log().debug("searchMailSubject: retrieved message subject:"+mailMessage.getSubject());
                     
                     if (!found && mailMessage.match(searchTerm)) {
+                        found = true;
                         log().debug("searchMailSubject: message with subject: '"+subject+"' found.");
                         
                         if (mailParms.isEnd2EndTestInProgress()) {
                             mailMessage.setFlag(Flag.DELETED, true);
                             log().debug("searchMailSubject: flagging message: "+subject+" for deletion for end2end test.");
                         }
-                        found = true;
-                        if (found && !mailParms.getReadTest().isDeleteAllMail()) {
-                            break;
-                        } else {
-                            mailMessage.setFlag(Flag.DELETED, true);
-                        }
+                    }
+                    
+                    if (found && !mailParms.getReadTest().isDeleteAllMail()) {
+                        break;
+                    } else {
+                        mailMessage.setFlag(Flag.DELETED, true);
                     }
                 }
                 

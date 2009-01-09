@@ -78,7 +78,7 @@ public class InterfacePolicyTest {
         MatchingInterfacePolicy p = new MatchingInterfacePolicy();
         p.setParameter("ipaddress", "~^10\\..*$");
 
-        List<OnmsIpInterface> tenInterfaces = new ArrayList<OnmsIpInterface>();
+        List<OnmsIpInterface> populatedInterfaces = new ArrayList<OnmsIpInterface>();
         List<OnmsIpInterface> matchedInterfaces = new ArrayList<OnmsIpInterface>();
         
         for (OnmsIpInterface iface : m_interfaces) {
@@ -88,11 +88,11 @@ public class InterfacePolicyTest {
                 matchedInterfaces.add(o);
             }
             if (iface.getIpAddress().startsWith("10.")) {
-                tenInterfaces.add(iface);
+                populatedInterfaces.add(iface);
             }
         }
         
-        assertEquals(tenInterfaces, matchedInterfaces);
+        assertEquals(populatedInterfaces, matchedInterfaces);
     }
 
 }

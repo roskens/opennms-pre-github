@@ -59,7 +59,7 @@ public class JAXBTest {
 
         List<PluginConfig> policies = new ArrayList<PluginConfig>();
         PluginConfig policy = new PluginConfig("lower-case-node", "org.opennms.netmgt.provision.persist.policies.NodeCategoryPolicy");
-        policy.addParameter("nodelabel", "~^[a-z]$");
+        policy.addParameter("label", "~^[a-z]$");
         policy.addParameter("category", "Lower-Case-Nodes");
         policies.add(policy);
         policy = new PluginConfig("all-ipinterfaces", "org.opennms.netmgt.provision.persist.policies.InclusiveInterfacePolicy");
@@ -67,8 +67,8 @@ public class JAXBTest {
         policy = new PluginConfig("10-ipinterfaces", "org.opennms.netmgt.provision.persist.policies.MatchingInterfacePolicy");
         policy.addParameter("ipaddress", "~^10\\..*$");
         policies.add(policy);
-        policy = new PluginConfig("cisco-snmp-interfaces", "org.opennms.netmgt.provision.persist.policies.IfDescrSnmpInterfacePolicy");
-        policy.addParameter("ifdescr", "~(?i:cisco)");
+        policy = new PluginConfig("cisco-snmp-interfaces", "org.opennms.netmgt.provision.persist.policies.MatchingSnmpInterfacePolicy");
+        policy.addParameter("ifdescr", "~^(?i:LEC).*$");
         policies.add(policy);
         fs.setPolicies(policies);
 

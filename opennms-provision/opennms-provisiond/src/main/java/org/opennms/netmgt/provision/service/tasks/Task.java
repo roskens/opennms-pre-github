@@ -53,7 +53,7 @@ public abstract class Task {
         SUBMITTED,
         COMPLETED
     }
-
+    
     private final DefaultTaskCoordinator m_coordinator;
     private final AtomicReference<State> m_state = new AtomicReference<State>(State.NEW);
     
@@ -81,7 +81,9 @@ public abstract class Task {
     }
     
     final void doAddDependent(Task dependent) {
-        m_dependents.add(dependent);
+        if (!isFinished()) {
+            m_dependents.add(dependent);
+        }
     }
     
     /**
@@ -102,7 +104,11 @@ public abstract class Task {
         m_prerequisites.remove(prereq);
     }
     
-    
+    final void clearDependents() {
+        m_dependents.clear();
+    }
+
+ 
     final void scheduled() {
         setState(State.NEW, State.SCHEDULED);
     }
@@ -231,6 +237,10 @@ public abstract class Task {
      */
     public void waitFor(long timeout, TimeUnit unit) throws InterruptedException {
         m_latch.await(timeout, unit);
+    }
+    
+    protected void markTaskAsCompleted() {
+        getCoordinator().markTaskAsCompleted(this);
     }
 
     protected void submitRunnable(Runnable runnable, String preferredExecutor) {
