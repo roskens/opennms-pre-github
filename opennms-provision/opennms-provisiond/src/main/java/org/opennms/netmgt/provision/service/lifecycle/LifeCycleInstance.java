@@ -51,6 +51,8 @@ public interface LifeCycleInstance {
 
     Object getAttribute(String key);
 
+    <T> T findAttributeByType(Class<T> clazz);
+
     <T> T getAttribute(String key, Class<T> type);
 
     <T> T getAttribute(String key, T defaultValue);
@@ -62,6 +64,7 @@ public interface LifeCycleInstance {
     void waitFor() throws InterruptedException, ExecutionException;
 
     DefaultTaskCoordinator getCoordinator();
+
     
 
 }

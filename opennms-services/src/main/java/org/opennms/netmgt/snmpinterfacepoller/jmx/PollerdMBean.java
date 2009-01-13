@@ -1,7 +1,7 @@
 /*
  * This file is part of the OpenNMS(R) Application.
  *
- * OpenNMS(R) is Copyright (C) 2008 The OpenNMS Group, Inc.  All rights reserved.
+ * OpenNMS(R) is Copyright (C) 2007 The OpenNMS Group, Inc.  All rights reserved.
  * OpenNMS(R) is a derivative work, containing both original code, included code and modified
  * code that was published under the GNU General Public License. Copyrights for modified
  * and included code are below.
@@ -10,9 +10,9 @@
  *
  * Modifications:
  * 
- * January 7, 2008 - formatting changes + GPL and copyright notices added
+ * Created January 31, 2007
  *
- * Copyright (C) 2008 The OpenNMS Group, Inc.  All rights reserved.
+ * Copyright (C) 2007 The OpenNMS Group, Inc.  All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,37 +32,20 @@
  *      OpenNMS Licensing       <license@opennms.org>
  *      http://www.opennms.org/
  *      http://www.opennms.com/
- *
- *
- * Created on Sep 16, 2004
- *
  */
-package org.opennms.netmgt.utils;
 
-/**
- * Exception used to create proper return code
- * 
- * @author <a href="mailto:david@opennms.org">David Hustace </a>
- * 
- */
-public class JavaMailerException extends Exception {
+package org.opennms.netmgt.snmpinterfacepoller.jmx;
 
-    private static final long serialVersionUID = 1L;
+public interface PollerdMBean {
+    public void init();
 
-    public JavaMailerException() {
-        super();
-    }
+    public void start();
 
-    public JavaMailerException(String message) {
-        super(message);
-    }
+    public void stop();
 
-    public JavaMailerException(String message, Throwable cause) {
-        super(message, cause);
-    }
+    public int getStatus();
 
-    public JavaMailerException(Throwable cause) {
-        super(cause);
-    }
+    public String status();
 
+    public String getStatusText();
 }

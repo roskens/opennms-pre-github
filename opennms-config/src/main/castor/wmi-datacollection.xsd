@@ -66,14 +66,14 @@
 					</documentation>
 				</annotation>
 			</attribute>
-            <attribute name="wmiClass" type="string" use="required">
+			<attribute name="wmiClass" type="string" use="required">
 				<annotation>
 					<documentation>
 						This is the WMI object class that we'll be checking.
 					</documentation>
 				</annotation>
 			</attribute>
-            <attribute name="keyvalue" type="string" use="required">
+			<attribute name="keyvalue" type="string" use="required">
 				<annotation>
 					<documentation>
 						The Key value which, if present, indicates that the rest of this group should be collected
@@ -88,14 +88,25 @@
 					</documentation>
 				</annotation>
 			</attribute>
-            <attribute name="ifType" type="string" use="required">
+			<attribute name="ifType" type="string" use="required">
 				<annotation>
 					<documentation>
 						Specifies the interface collection type.
 					</documentation>
 				</annotation>
 			</attribute>
-        </complexType>
+			<attribute name="resourceType" type="string" use="required">
+				<annotation>
+					<documentation>
+						Specifies the name of the resource type that pertains to the attributes
+						in this group. For scalar attributes (those occurring once per node,
+						such as available system memory) this should be "node".  For
+						multi-instanced attributes, this should be the name of a custom
+						resource type declared in datacollection-config.xml.
+					</documentation>
+				</annotation>
+			</attribute>
+		</complexType>
 	</element>
 	<element name="attrib">
 		<annotation>
@@ -108,7 +119,7 @@
 			<attribute name="type" use="required">
 				<simpleType>
 					<restriction base="string">
-						<pattern value="^([Cc](ounter|OUNTER)|[Gg](auge|AUGE))$"/>
+						<pattern value="^([Cc](ounter|OUNTER)|[Gg](auge|AUGE)|[Ss](tring|TRING))$"/>
 					</restriction>
 				</simpleType>
 			</attribute>
