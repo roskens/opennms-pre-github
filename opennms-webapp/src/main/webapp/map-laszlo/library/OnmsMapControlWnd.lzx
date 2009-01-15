@@ -1,0 +1,125 @@
+<library>
+    <class name="onmsMapControlWnd" extends="window">
+        <simplelayout axis="y"/>
+        <combobox name="mapChoice" x="5" y="5" width="175" shownitems="3" defaulttext="choose one..." editable="false">
+            <textlistitem datapath="mapRestService:/maps/map" text="$path{'name/text()'}" value="$path{'id/text()'}"/>
+        </combobox>
+        <button name="mapChoose" onclick="parent.chooseMap()">Choose Map</button>
+
+        <!-- <autocompletecombobox x="5" y="5" width="200" datapath="nodeRestService:/nodes"
+                    contentpath="node/label/text()"
+                    defaulttext="choose one..."  >
+        </autocompletecombobox> -->
+        <combobox name="nodeChoice" x="5" y="5" width="175" shownitems="3" defaulttext="choose one..." editable="false">
+            <textlistitem datapath="nodeRestService:/nodes/node" text="$path{'label/text()'}" value="$path{'nodeId/text()'}"/>
+        </combobox>
+        <button name="addNodeBtn" onclick="parent.addNodeToMap()">Add To Map</button>
+        <method name="addNodeToMap">
+            Debug.write("Adding node: " + this.nodeChoice.value + " to map.");
+            var mapNode1 = new lz.onmsMapElement();
+            mapNode1.parentMap=tmpMap;
+            mapNode1.setMapElementLabel("node1");
+            mapNode1.setAttribute("x", 250);
+            mapNode1.setAttribute("y", 100);
+            tmpMap.addMapElement(mapNode1);
+        </method>
+
+        <method name="chooseMap">
+            var mapId = this.mapChoice.value;
+            if(mapId != null) {
+                Debug.write("chose map: '" + mapId + "'");
+
+                var dset = canvas.mapRestService;
+                // First set the filter to the map ID.
+                dset.setOnmsMap(mapId);
+                dset.resetRestService();
+
+                // Now we'll have to wait for the ondata to get called.
+                Debug.write("Registering onmapRestServiceStatus delegate.");
+                this.del = new LzDelegate(this, "generateMap");
+                this.del.register(canvas.mapRestService, "onmapRestServiceStatus");
+            }
+        </method>
+
+        <method name="generateMap" args="serviceStatus">
+            var dset = canvas.mapRestService;
+
+            // Next get a datapointer.
+            var dp = dset.getPointer();
+
+            if(serviceStatus == "fetched") {
+                // Lets start the map generation process.
+
+                // Skip the root node, which is the dataset.
+                dp.selectChild();
+
+                Debug.write("node name: " + dp.getNodeName());
+                Debug.write("node count: " + dp.getNodeCount());
+
+                // Go to the attribute nodes.
+                dp.selectChild();
+
+                while(dp.selectNext()) {
+                    Debug.write("*** next child ***");
+
+
+                    switch(dp.getNodeName()) {
+                        case "id":
+                            Debug.write("found id: " + dp.getNodeText());
+                            break;
+                        case "name":
+                            Debug.write("found name: " + dp.getNodeText());
+                            break;
+                        case "lastModifiedTime":
+                            Debug.write("found lastModifiedTime: " + dp.getNodeText());
+                            break;
+                        case "userLastModifies":
+                            Debug.write("found userLastModifies: " + dp.getNodeText());
+                            break;
+                        case "owner":
+                            Debug.write("found owner: " + dp.getNodeText());
+                            break;
+                        case "accessMode":
+                            Debug.write("found accessMode: " + dp.getNodeText());
+                            break;
+                        case "background":
+                            Debug.write("found background: " + dp.getNodeText());
+                            break;
+                        case "createTime":
+                            Debug.write("found createTime: " + dp.getNodeText());
+                            break;
+                        case "height":
+                            Debug.write("found height: " + dp.getNodeText());
+                            break;
+                        case "width":
+                            Debug.write("found width: " + dp.getNodeText());
+                            break;
+                        case "mapElements":
+                            dp.selectChild();
+
+                        default:
+                            // we'll need to add scale, offsetX, offsetY and type.
+                            // we can ignore the child "new"
+                            Debug.write("node name: " + dp.getNodeName());
+                            //Debug.write("node text: " + dp.getNodeText());
+                    }
+                }
+
+                //dp.selectChild();
+                //Debug.write("*** next child ***");
+                //Debug.write("node name: " + dp.getNodeName());
+                //Debug.write("node count: " + dp.getNodeCount());
+                //Debug.write("map id: " + dp.getNodeAttribute("id"));
+
+                Debug.write("Resetting the root map.");
+                tmpMap.clearMap();
+            }
+
+            // Now unregister the delegate we created.
+            Debug.write("Unregistering onmapRestServiceStatus delegate.");
+            this.del.unregisterAll();
+
+
+        </method>
+    </class>
+</library>

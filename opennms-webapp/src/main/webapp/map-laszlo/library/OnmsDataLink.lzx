@@ -1,0 +1,32 @@
+<library>
+    <!-- This represents the link between two nodes and facilitates drawing the line between nodes. -->
+    <class name="onmsDataLink">
+        <attribute name="linkWidth" value="2"/>
+        <attribute name="style" value="0x00ff00"/>
+        <attribute name="mc"/>
+        <attribute name="nodeA" />
+        <attribute name="nodeB" />
+
+
+        <handler name="oninit">
+            this.mc = this.getMCRef().createEmptyMovieClip("myLine", 10);
+        </handler>
+
+        <method name="connectNodes" args="aNode,bNode">
+            this.nodeA = aNode;
+            this.nodeB = bNode;
+        </method>
+
+        <method name="drawline">
+            Debug.write("Moving line");
+            Debug.write(this);
+
+            this.sendToBack();
+            mc.clear();
+            mc.lineStyle(this.linkWidth, this.style, 100);
+            mc.moveTo(nodeA.x+(nodeA.width/2),nodeA.y+(nodeA.height/2));
+            mc.lineTo(nodeB.x+(nodeB.width/2),nodeB.y+(nodeB.height/2));
+            Debug.write(this);
+        </method>
+    </class>
+</library>

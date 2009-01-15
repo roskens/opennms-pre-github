@@ -1,0 +1,21 @@
+<library>
+    <!-- The plan is that this class will load maps upon request. -->
+    <class name="onmsMapLoader">
+        <handler name="oninit">
+            Debug.write("onms map loader initialized!");
+        </handler>
+
+        <method name="loadError">
+            alert("Error! There was a problem loading map information from the OpenNMS backend.");
+        </method>
+
+        <method name="loadSuccess">
+            Debug.write("Successfully loaded map information from OpenNMS backend.");
+        </method>
+
+        <method name="getMapList">
+            Debug.write("map list: ");
+            //Debug.write("map id text: " + todp.xpathQuery("mapRestService:/maps/map/id/text()"));
+        </method>
+    </class>
+</library>

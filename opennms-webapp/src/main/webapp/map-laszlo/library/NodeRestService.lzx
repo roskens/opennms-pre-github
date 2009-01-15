@@ -1,0 +1,45 @@
+<library>
+    <!-- A dataset that points at the OnmsMapRestService -->
+    <dataset name="nodeRestService" request="true" type="http" src="http://10.10.150.98:8980/opennms/rest/nodes">
+        <attribute name="nodeBaseRestServiceUrl"/>
+        <attribute name="currentNodeRestServiceUrl"/>
+        <attribute name="currentRestNode"/>
+        <handler name="oninit">
+            this.nodeBaseRestServiceUrl = "http://10.10.150.98:8980/opennms/rest/nodes";
+            this.currentNodeRestServiceUrl = this.nodeBaseRestServiceUrl;
+            this.currentRestNode=0;
+        </handler>
+        <handler name="onerror">
+            alert("There has been an error with the connection to OpenNMS.  Please check your query. The follow error was reported - \n" + this.getDataset().getErrorString());
+        </handler>
+        <handler name="ontimeout">
+            alert('The OpenNMS backend did not respond before the timeout expired.');
+        </handler>
+
+        <method name="setOnmsNode" args="nodeId">
+            Debug.write("setting node id to: " + nodeId);
+            this.currentRestNode=nodeId;
+            this.currentNodeRestServiceUrl = this.nodeBaseRestServiceUrl + "/" + nodeId;
+            this.resetRestService();
+        </method>
+
+        <method name="getOnmsNode">
+            return currentRestNode;
+        </method>
+
+        <method name="clearOnmsNode">
+            this.currentRestNode=0;
+            this.currentNodeRestServiceUrl=this.nodeBaseRestServiceUrl;
+        </method>
+
+        <method name="resetRestService">
+            <![CDATA[
+            var ds = nodeRestService;
+            ds.setAttribute('src', currentNodeRestServiceUrl);
+            ds.setQueryString();
+            ds.doRequest();
+            super.open();
+            ]]>
+        </method>
+    </dataset>
+</library>

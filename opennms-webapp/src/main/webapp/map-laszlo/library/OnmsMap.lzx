@@ -1,0 +1,66 @@
+<library>
+    <!-- This represents the top level map and all of the elements and links in it. -->
+    <class name="onmsMap">
+        <attribute name="mapElements"/>
+        <attribute name="mapLinks"/>
+
+        <handler name="oninit">
+            this.mapElements = new Array();
+            this.mapLinks = new Array();
+        </handler>
+
+        <method name="addMapElement" args="tmpElement">
+            this.mapElements.push(tmpElement);
+        </method>
+
+        <method name="addDataLink" args="tmpDataLink">
+            this.mapLinks.push(tmpDataLink);
+        </method>
+
+        <method name="mapRefresh">
+            Debug.write("Refreshing maps.");
+            if(this.mapLinks.length > 0) {
+                for(mapLink in tmpMap.mapLinks) {
+                    this.mapLinks[mapLink].drawline();
+                }
+            }
+        </method>
+
+        <method name="clearMap">
+            Debug.write("Clearing map of all entries.");
+            // Iterate through all of the links, delete their nodes and then reset the array.
+            if(this.mapLinks.length > 0) {
+                for(mapLink in tmpMap.mapLinks) {
+                    this.mapLinks[mapLink].destroy();
+                }
+            }
+            this.mapLinks.length=0;
+
+            // Iterate through all of the elements, delete their nodes and then reset the array.
+            if(this.mapElements.length > 0) {
+                for(mapElement in tmpMap.mapElements) {
+                    this.mapElements[mapElement].destroy();
+                }
+            }
+            this.mapElements.length=0;
+
+            // Finally refresh the map.
+            this.mapRefresh();
+        </method>
+        
+        <method name="getElementByNodeId" args="lookupId">
+            Debug.write("Looking up element by node ID: " + lookupId);
+            if(this.mapElements.length > 0) {
+                // Go through each map element.                
+                for(mapElement in tmpMap.mapElements) {
+                    if(this.mapElements[mapElement].nodeId == lookupId) {
+                        Debug.write("Found map element with node ID: " + lookupId);
+                        return this.mapElements[mapElement];
+                    }
+                }
+            }
+            Debug.write("The node ID specified is not an element on this map!");
+            return null;
+        </method>
+    </class>
+</library>

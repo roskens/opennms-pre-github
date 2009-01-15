@@ -1,0 +1,115 @@
+<library>
+    <!-- This represents a map element (could be a node or could be a link to another map. -->
+    <class name="onmsMapElement" resource="node1" onmousedown="dragger.apply()" onmouseup="dragger.remove()">
+        <attribute name="parentMap" />
+        <attribute name="mapElementLabel"/>
+        <attribute name="nodeId"/>
+        <attribute name="ctxMnSelRootNode"/>
+        <attribute name="ctxMnConnectNode"/>
+        <dragstate name="dragger"/>
+        
+        <!-- A list of the existing attributes -->
+        <floatinglist name="infoPopup" attach="right" visible="false">
+            <textlistitem name="nodeLabel" text="Node: default"/>
+        </floatinglist>
+        
+        <handler name="oninit">
+            var cm = new LzContextMenu();
+            var item = cm.makeMenuItem("View Node", new LzDelegate(this,"contextViewNode"));
+            var item2 = cm.makeMenuItem("Remove From Map", new LzDelegate(this,"contextRemoveNode"));
+            this.ctxMnSelRootNode = cm.makeMenuItem("Select Root Link", new LzDelegate(this,"contextSelectRootNode"));
+
+            // Hide this node until we need it.
+            this.ctxMnConnectNode = cm.makeMenuItem("Create Link", new LzDelegate(this,"contextConnectNode"));
+            this.ctxMnConnectNode.setEnabled(false);
+
+            cm.addItem(item);
+            cm.addItem(item2);
+            cm.addItem(this.ctxMnSelRootNode);
+            cm.addItem(this.ctxMnConnectNode);
+            this.setContextMenu(cm);
+
+            // Create a delegate to link all nodes to changes in the global link status.
+            Debug.write("Registering onmapRestServiceStatus delegate.");
+            this.rootLinkDelegate = new LzDelegate(this, "rootLinkChosen");
+            this.rootLinkDelegate.register(canvas, "onlinkRootNode");
+        </handler>
+
+        <!-- Context menu methods -->
+        <method name="contextViewNode">
+            Debug.write("View Node context was clicked.");
+        </method>
+        <method name="contextRemoveNode">
+            Debug.write("Remove Node context was clicked.");
+        </method>
+        <method name="contextSelectRootNode">
+            Debug.write("Selected Root Node for linking.");
+            
+            // Check and see if we're already trying to link nodes.
+            if(canvas['linkCreateStatus'] != "on") {
+                canvas.setAttribute("linkCreateStatus", "on");
+                canvas.setAttribute("linkRootNode", this.nodeId);
+                this.ctxMnSelRootNode.setCaption("Cancel Linking");
+            } else {
+                // Otherwise cancel linking is what this menu item means.
+                this.ctxMnSelRootNode.setCaption("Select Root Link");
+                canvas.setAttribute("linkCreateStatus", "off");
+                canvas.setAttribute("linkRootNode", 0);
+            }
+        </method>
+        <method name="contextConnectNode">
+            Debug.write("Attempting to connect to this node.");
+            // Link the two map elements.                                                
+            var mapElementRoot = tmpMap.getElementByNodeId(canvas['linkRootNode']);
+            Debug.write("mapElementRoot: " + mapElementRoot['nodeId']);
+            Debug.write("mapElementDest: " + this['nodeId']);
+            
+            var mapLink = new lz.onmsDataLink();
+            mapLink.connectNodes(mapElementRoot, this);
+            tmpMap.addDataLink(mapLink);
+            
+            // Now disable linking.
+            canvas.setAttribute("linkCreateStatus", "off");
+            canvas.setAttribute("linkRootNode", 0);
+            
+            tmpMap.mapRefresh();
+        </method>
+        <method name="rootLinkChosen" args="linkId">
+            Debug.write("Root Link has been chosen: " + linkId);
+            if(linkId == 0) {
+                // We're done connecting or we're canceling.
+                this.ctxMnSelRootNode.setEnabled(true);
+                this.ctxMnConnectNode.setEnabled(false);
+            } else if(linkId != this.nodeId) {
+                // We're connecting a node and we're not the root, so disable that option.
+                Debug.write("I'm not the source node.");
+                this.ctxMnSelRootNode.setEnabled(false);
+                this.ctxMnConnectNode.setEnabled(true);
+            }            
+        </method>
+
+        <!-- This handler shows the floating info box. -->
+        <handler name="onmouseover">
+            this.infoPopup.bringToFront();
+            this.infoPopup.setAttribute("visible",true);
+        </handler>
+
+        <!-- This handler hides the floating info box. -->
+        <handler name="onmouseout">
+            this.infoPopup.setAttribute("visible",false);
+        </handler>
+
+        <!-- Handles moving of the element on the map canvas -->
+        <handler name="ony" method="mapElementMoves" />
+        <handler name="onx" method="mapElementMoves" />
+        <method name="mapElementMoves" args="x">
+            Debug.write("mapElement is being moved: " + typeof this.parentMap);
+            tmpMap.mapRefresh();
+        </method>
+
+        <method name="setMapElementLabel" args="labelStr">
+            this.mapElementLabel = labelStr;
+            this.infoPopup.getItem("nodeLabel").setText("Node: " + labelStr);
+        </method>
+    </class>
+</library>

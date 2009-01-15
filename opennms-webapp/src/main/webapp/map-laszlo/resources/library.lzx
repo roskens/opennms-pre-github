@@ -1,0 +1,93 @@
+<library>
+    <resource name="node1">
+        <frame src="CS2-Standard-48x48.png"/>
+    </resource>
+
+    <resource name="node2">
+        <frame src="InDesign-48x48.png"/>
+    </resource>
+
+    <resource name="node3">
+        <frame src="CS2-Premium-48x48.png"/>
+    </resource>
+
+    <resource name="group">
+        <frame src="Illustrator-128x128.png"/>
+    </resource>
+    
+    <resource name="logo">
+        <frame src="logo.png"/>
+    </resource>
+    
+    <resource name="vax">
+        <frame src="vax.png"/>
+    </resource>
+    
+    <resource name="unspecified">
+        <frame src="unspecified.png"/>
+    </resource>
+    
+    <resource name="telephony">
+        <frame src="telephony.png"/>
+    </resource>
+    
+    <resource name="switch">
+        <frame src="switch.png"/>
+    </resource>
+    
+    <resource name="server">
+        <frame src="server.png"/>
+    </resource>
+    
+    <resource name="router">
+        <frame src="router.png"/>
+    </resource>
+    
+    <resource name="printer">
+        <frame src="printer.png"/>
+    </resource>
+    
+    <resource name="pix">
+        <frame src="pix.png"/>
+    </resource>
+    
+    <resource name="other">
+        <frame src="other.png"/>
+    </resource>
+    
+    <resource name="opennms">
+        <frame src="opennms.png"/>
+    </resource>
+    
+    <resource name="multilayerswitch">
+        <frame src="multilayerswitch.png"/>
+    </resource>
+    
+    <resource name="map">
+        <frame src="map.png"/>
+    </resource>
+    
+    <resource name="mainframe">
+        <frame src="mainframe.png"/>
+    </resource>
+    
+    <resource name="laptop">
+        <frame src="laptop.png"/>
+    </resource>
+    
+    <resource name="infrastructure">
+        <frame src="infrastructure.png"/>
+    </resource>
+    
+    <resource name="firewall">
+        <frame src="firewall.png"/>
+    </resource>
+    
+    <resource name="fileserver">
+        <frame src="fileserver.png"/>
+    </resource>
+    
+    <resource name="destkop">
+        <frame src="destkop.png"/>
+    </resource>   
+</library>

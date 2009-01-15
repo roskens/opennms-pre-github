@@ -1,0 +1,58 @@
+<library>
+    <!-- A dataset that points at the OnmsMapRestService -->
+    <dataset name="mapRestService" request="true" type="http" src="http://10.10.150.98:8980/opennms/rest/maps">
+        <attribute name="mapBaseRestServiceUrl"/>
+        <attribute name="currentMapRestServiceUrl"/>
+        <attribute name="currentRestMap"/>
+        <attribute name="mapRestServiceStatus"/>
+        <handler name="oninit">
+            this.mapBaseRestServiceUrl = "http://10.10.150.98:8980/opennms/rest/maps";
+            this.currentMapRestServiceUrl = this.mapBaseRestServiceUrl;
+            this.currentRestMap=0;
+            this.setAttribute("mapRestServiceStatus", "getting");
+            //this.mapRestServiceStatus = "getting";
+        </handler>
+        <handler name="onerror">
+            alert("There has been an error with the connection to OpenNMS.  Please check your query. The follow error was reported - \n" + this.getDataset().getErrorString());
+        </handler>
+        <handler name="ontimeout">
+            alert('The OpenNMS backend did not respond before the timeout expired.');
+        </handler>
+        <handler name="ondata">
+            //Debug.write("setting map rest service status to: fetched");
+            this.setAttribute("mapRestServiceStatus", "fetched");
+        </handler>
+
+        <method name="resetRestService">
+            <![CDATA[
+            //Debug.write("resetting the map rest service now.");
+            var ds = mapRestService;
+            ds.setAttribute('src', currentMapRestServiceUrl);
+            ds.setQueryString();
+            //Debug.write("MapRestService is requesting: " + ds.getAttribute("src"));
+            this.setAttribute("mapRestServiceStatus", "getting");
+            ds.doRequest();
+            ]]>
+        </method>
+
+        <method name="setOnmsMap" args="mapId">
+            //Debug.write("setting map id to: " + mapId);
+            this.currentRestMap=mapId;
+            this.currentMapRestServiceUrl = this.mapBaseRestServiceUrl + "/" + mapId;
+            //Debug.write("reseting service");
+            resetRestService();
+            //Debug.write("done reseting service");
+        </method>
+
+        <method name="getOnmsMap">
+            return currentRestMap;
+        </method>
+
+        <method name="clearOnmsMap">
+            this.currentRestMap=0;
+            this.currentMapRestServiceUrl=this.mapBaseRestServiceUrl;
+        </method>
+
+
+    </dataset>
+</library>
