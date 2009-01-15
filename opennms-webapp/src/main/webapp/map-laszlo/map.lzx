@@ -30,11 +30,11 @@
      <class name="NodeLoader">
         <dataset
                 name="nodeRequest" querytype="GET" type="http" onerror="classroot.loadError()"
-                src="/rest/node/" ondata="classroot.loadSuccess()"/>
+                src="/rest/nodes/" ondata="classroot.loadSuccess()"/>
                 <method name="getNode" args="nodeId"><![CDATA[
 
                     var ds = nodeRequest;
-                    ds.setAttribute('src','/opennms-webapp/rest/node/' + nodeId);
+                    ds.setAttribute('src','/opennms/rest/nodes/' + nodeId);
               
                     ds.setQueryString(p);
                     ds.doRequest();
