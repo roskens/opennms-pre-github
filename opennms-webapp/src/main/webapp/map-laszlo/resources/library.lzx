@@ -31,7 +31,7 @@
         <frame src="telephony.png"/>
     </resource>
     
-    <resource name="switch">
+    <resource name="switchpng">
         <frame src="switch.png"/>
     </resource>
     
@@ -87,7 +87,7 @@
         <frame src="fileserver.png"/>
     </resource>
     
-    <resource name="destkop">
-        <frame src="destkop.png"/>
+    <resource name="desktop">
+        <frame src="desktop.png"/>
     </resource>   
 </library>

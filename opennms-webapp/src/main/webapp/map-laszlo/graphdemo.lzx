@@ -2,6 +2,8 @@
 <!DOCTYPE canvas SYSTEM "http://www.openlaszlo.org/lps4/tools/lzx.xsd">
 
 <canvas title="OpenNMS Web Console - Maps">
+    <splash/>
+
     <!-- OpenLaszlo Incubator Includes -->
     <include href="incubator/autocompletecombobox.lzx"/>
     <include href="incubator/tooltip/tooltip.lzx" />
@@ -17,6 +19,7 @@
 
     <onmsMap name="tmpMap"/>
     <onmsMapLoader name="tmpMapLoader"/>
+    <mapProperties name="tmpMapProps" resizable="true" width="300" height="200" title="Map Properties"/>
     
     <!-- This is the controls window for manipulating maps. -->
     <onmsMapControlWnd name="mapControls" resizable="true" width="300" height="200" title="Map Controls" x="${parent.width-300}">
@@ -27,6 +30,9 @@
       -->
     <handler name="oninit">
         Debug.write("starting graph demo application.");
+
+        // Turn off windows we don't want to see by default.
+        tmpMapProps.setAttribute("visible", false);
 
         // Reset global node linking status.
         this.setAttribute("linkCreateStatus", "off");

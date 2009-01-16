@@ -1,0 +1,20 @@
+<library>
+    <class name="mapProperties" extends="window">
+        <attribute name="tgtOnmsMap"/>
+        <button name="closeBtn" onclick="parent.hideMapProps()">Close</button>
+
+        <handler name="oninit">
+            Debug.write("onms map loader initialized!");
+        </handler>
+
+        <method name="hideMapProps">
+            Debug.write("Hiding map properties window.");
+            this.setAttribute("visible", false);
+        </method>
+
+        <method name="refreshWindow">
+            Debug.write("Refreshing map properties window.");
+        </method>
+
+    </class>
+</library>

@@ -14,6 +14,8 @@
             <textlistitem datapath="nodeRestService:/nodes/node" text="$path{'label/text()'}" value="$path{'nodeId/text()'}"/>
         </combobox>
         <button name="addNodeBtn" onclick="parent.addNodeToMap()">Add To Map</button>
+        <button name="mapProps" onclick="parent.activateMapProps()">Map Properties</button>
+        <button name="saveMap" onclick="tmpMap.saveMap()">Save Map</button>
         <method name="addNodeToMap">
             Debug.write("Adding node: " + this.nodeChoice.value + " to map.");
             var mapNode1 = new lz.onmsMapElement();
@@ -39,6 +41,13 @@
                 this.del = new LzDelegate(this, "generateMap");
                 this.del.register(canvas.mapRestService, "onmapRestServiceStatus");
             }
+        </method>
+
+        <method name="activateMapProps">
+            Debug.write("Activating map properties window.");
+            tmpMapProps.setAttribute('tgtOnmsMap', tmpMap);
+            tmpMapProps.refreshWindow();
+            tmpMapProps.setAttribute("visible",true);
         </method>
 
         <method name="generateMap" args="serviceStatus">

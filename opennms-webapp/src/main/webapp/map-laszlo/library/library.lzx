@@ -1,6 +1,7 @@
 <library>
     <include href="MapRestService.lzx" />
     <include href="NodeRestService.lzx" />
+    <include href="MapProperties.lzx" />
     <include href="OnmsMap.lzx" />
     <include href="OnmsMapElement.lzx" />
     <include href="OnmsDataLink.lzx" />

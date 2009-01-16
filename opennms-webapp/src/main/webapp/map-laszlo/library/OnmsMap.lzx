@@ -62,5 +62,8 @@
             Debug.write("The node ID specified is not an element on this map!");
             return null;
         </method>
+        <method name="saveMap">
+            Debug.write("Saving map...");
+        </method>
     </class>
 </library>
