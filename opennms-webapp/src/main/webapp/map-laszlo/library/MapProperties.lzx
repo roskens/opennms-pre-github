@@ -1,11 +1,23 @@
 <library>
+    <include href="incubator/colorpicker.lzx" />
+
     <class name="mapProperties" extends="window">
         <attribute name="tgtOnmsMap"/>
+        <simplelayout axis="y" spacing="50" />
+        <text>Choose Map Background</text>
+        <colorpicker title="Select Your Favorite Color" allowdrag="false" width="275"/>
+        <button name="bgChooseBtn" onclick="parent.bgChooseColor()">Select Color</button>
+
         <button name="closeBtn" onclick="parent.hideMapProps()">Close</button>
 
         <handler name="oninit">
             Debug.write("onms map loader initialized!");
         </handler>
+
+        <method name="bgChooseColor">
+            Debug.write("selected color: " + this.selectedColor);
+            tgtOnmsMap.setAttribute("bgcolor", this.selectedColor);
+        </method>
 
         <method name="hideMapProps">
             Debug.write("Hiding map properties window.");
