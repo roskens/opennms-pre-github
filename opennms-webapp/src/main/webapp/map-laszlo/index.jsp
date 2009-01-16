@@ -48,15 +48,10 @@
 		  <jsp:param name="breadcrumb" value="<%=breadcrumb1%>" />
 		</jsp:include>
 <p>
-<object type="application/x-shockwave-flash"
-        data="graphdemo.lzx?lzt=swf&lzr=swf8"
-        width="100%" height="100%">
-  <param name="movie" value="graphdemo.lzx?lzt=swf&lzr=swf8" />
-  <param name="quality" value="best" />
-  <param name="scale" value="noscale" />
-  <param name="salign" value="LT" />
-  <param name="menu" value="false" />
-</object>
+<script src="/opennms/lps/includes/embed-compressed.js" type="text/javascript"></script>
+<script type="text/javascript">
+          Lz.swfEmbed({url: '/opennms/map-laszlo/graphdemo.lzx?lzt=swf&debug=false&lzr=swf7&lzbacktrace=false', bgcolor: '#ffffff', width: '100%', height: '100%', id: 'lzapp', accessible: 'false'});
+</script>
 </p>
     <jsp:include page="/includes/footer.jsp" flush="false" >
       <jsp:param name="location" value="map" />
