@@ -36,6 +36,10 @@
 //
 package org.opennms.netmgt.provision.persist;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.opennms.netmgt.config.modelimport.Asset;
 import org.opennms.netmgt.config.modelimport.Category;
 import org.opennms.netmgt.config.modelimport.Interface;
 import org.opennms.netmgt.config.modelimport.ModelImport;
@@ -50,6 +54,10 @@ public class OnmsRequisition {
 
     public void loadResource(Resource resource) {
         m_mi = CastorUtils.unmarshalWithTranslatedExceptions(ModelImport.class, resource);
+    }
+
+    public void saveResource(Resource resource) {
+        CastorUtils.marshalWithTranslatedExceptionsViaString(m_mi, resource);
     }
 
     public void visitImport(ImportVisitor visitor) {
@@ -76,7 +84,19 @@ public class OnmsRequisition {
         for (Interface iface : node.getInterfaceCollection()) {
             visitInterface(visitor, iface);
         }
+        for (Asset asset : node.getAssetCollection()) {
+            visitAsset(visitor, asset);
+        }
         visitor.completeNode(node);
+    }
+
+    private void visitAsset(ImportVisitor visitor, Asset asset) {
+        doVisitAsset(visitor, asset);
+    }
+
+    private void doVisitAsset(ImportVisitor visitor, Asset asset) {
+        visitor.visitAsset(asset);
+        visitor.completeAsset(asset);
     }
 
     private void visitCategory(ImportVisitor visitor, Category category) {
@@ -116,5 +136,31 @@ public class OnmsRequisition {
     public void setForeignSource(String foreignSource) {
         m_mi.setForeignSource(foreignSource);
     }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+            .append("foreign-source", getForeignSource())
+            .toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof OnmsRequisition) {
+            OnmsRequisition other = (OnmsRequisition) obj;
+            return new EqualsBuilder()
+                .append(getForeignSource(), other.getForeignSource())
+                .isEquals();
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder()
+            .append(getForeignSource())
+            .append(m_mi)
+            .toHashCode();
+      }
 
 }

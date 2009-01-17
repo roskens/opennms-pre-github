@@ -35,11 +35,11 @@
 
 package org.opennms.netmgt.provision.persist;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
-import org.springframework.core.io.Resource;
 import org.springframework.util.Assert;
 
 /**
@@ -47,61 +47,36 @@ import org.springframework.util.Assert;
  * @author <a href="mailto:brozow@opennms.org">Matt Brozowski</a>
  *
  */
-public class MockForeignSourceRepository implements ForeignSourceRepository {
+public class MockForeignSourceRepository extends AbstractForeignSourceRepository {
     private final Map<String,OnmsRequisition> m_requisitions = new HashMap<String,OnmsRequisition>();
     private final Map<String,OnmsForeignSource> m_foreignSources = new HashMap<String,OnmsForeignSource>();
     
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#createRequisition(org.springframework.core.io.Resource)
-     */
-    public OnmsRequisition createRequisition(Resource resource) {
-        Assert.notNull(resource);
-        OnmsRequisition r = new OnmsRequisition();
-        r.loadResource(resource);
-        return r;
-    }
-
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#get(java.lang.String)
-     */
     public OnmsForeignSource get(String foreignSourceName) {
         Assert.notNull(foreignSourceName);
         return m_foreignSources.get(foreignSourceName);
     }
 
-    public Collection<OnmsForeignSource> getAll() {
-        return m_foreignSources.values();
+    public Set<OnmsForeignSource> getAll() {
+        return new TreeSet<OnmsForeignSource>(m_foreignSources.values());
     }
     
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#getRequisition(java.lang.String)
-     */
     public OnmsRequisition getRequisition(String foreignSourceName) {
         Assert.notNull(foreignSourceName);
         return m_requisitions.get(foreignSourceName);
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#getRequisition(org.opennms.netmgt.provision.persist.OnmsForeignSource)
-     */
     public OnmsRequisition getRequisition(OnmsForeignSource foreignSource) {
         Assert.notNull(foreignSource);
         Assert.notNull(foreignSource.getName());
         return getRequisition(foreignSource.getName());
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#save(org.opennms.netmgt.provision.persist.OnmsForeignSource)
-     */
     public void save(OnmsForeignSource foreignSource) {
         Assert.notNull(foreignSource);
         Assert.notNull(foreignSource.getName());
         m_foreignSources.put(foreignSource.getName(), foreignSource);
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#save(org.opennms.netmgt.provision.persist.OnmsRequisition)
-     */
     public void save(OnmsRequisition requisition) {
         Assert.notNull(requisition);
         Assert.notNull(requisition.getForeignSource());

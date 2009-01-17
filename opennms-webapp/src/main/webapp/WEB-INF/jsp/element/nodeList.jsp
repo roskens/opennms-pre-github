@@ -59,7 +59,14 @@
   <jsp:param name="breadcrumb" value="Node List"/>
 </jsp:include>
 
-<c:choose>
+<link rel="stylesheet" type="text/css" href="extJS/resources/css/ext-all.css"/>
+<link rel="stylesheet" type="text/css" href="extJS/resources/css/opennmsGridTheme.css" />
+<script type="text/javascript" src="extJS/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="extJS/ext-all.js"></script>
+<script type="text/javascript" src="js/nodeGrid.js"></script>
+
+<div id="node-grid"></div>
+<%--<c:choose>
   <c:when test="${command.listInterfaces}">
     <h3>Nodes and their interfaces</h3>
   </c:when>
@@ -90,7 +97,6 @@
     </c:otherwise>
   </c:choose>
 </div>
-
 <p>
   <c:choose>
     <c:when test="${model.nodeCount == 1}">
@@ -178,6 +184,6 @@
     <a href="${thisURL}">Hide interfaces</a>
     </c:otherwise>
   </c:choose>
-</p>
+</p>--%>
 
 <jsp:include page="/includes/footer.jsp" flush="false"/>

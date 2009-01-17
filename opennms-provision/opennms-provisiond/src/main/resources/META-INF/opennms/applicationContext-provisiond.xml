@@ -44,7 +44,7 @@
   </bean>
   
 
-  <bean id="scheduledExecutor" class="java.util.concurrent.ScheduledThreadPoolExecutor">
+  <bean id="scheduledExecutor" class="org.opennms.core.concurrent.PausibleScheduledThreadPoolExecutor">
     <constructor-arg ref="rescanThreads" />
   </bean>
   
@@ -62,6 +62,10 @@
   			<entry key="scan" value-ref="writeExecutor" />
   		</map>
   	</property>
+  </bean>
+  
+  <bean id="foreignSourceRepository" class="org.opennms.netmgt.provision.persist.FilesystemForeignSourceRepository">
+  	<property name="repositoryPath" value="${importer.cacheDir}/foreign-sources" />
   </bean>
   
   <bean id="lifeCycleRepository" class="org.opennms.netmgt.provision.service.lifecycle.DefaultLifeCycleRepository">
@@ -82,15 +86,28 @@
   					</list>
   				</constructor-arg>
   			</bean>
-  			<bean class="org.opennms.netmgt.provision.service.lifecycle.LifeCycle">
-  				<constructor-arg value="nodeScan" />
-  				<constructor-arg>
-  					<list>
-						<value>scan</value>
-						<value>persist</value>
-  					</list>
-  				</constructor-arg>
-  			</bean>
+            <bean class="org.opennms.netmgt.provision.service.lifecycle.LifeCycle">
+                <constructor-arg value="nodeImport" />
+                <constructor-arg>
+                    <list>
+                        <value>scan</value>
+                        <value>persist</value>
+                    </list>
+                </constructor-arg>
+            </bean>
+            <bean class="org.opennms.netmgt.provision.service.lifecycle.LifeCycle">
+                <constructor-arg value="nodeScan" />
+                <constructor-arg>
+                    <list>
+                      <value>collectNodeInfo</value>
+                      <value>persistNodeInfo</value>
+                      <value>detectPhysicalInterfaces</value>
+                      <value>persistPhysicalInterfaces</value>
+                      <value>detectIpInterfaces</value>
+                      <value>persistIpInterfaces</value>
+                    </list>
+                </constructor-arg>
+            </bean>
   		</list>
   	</property>
   </bean> 
@@ -104,7 +121,11 @@
   </bean>
 
   <bean id="coreImportActivities" class="org.opennms.netmgt.provision.service.CoreImportActivities">
-  	<constructor-arg ref="provisionService" />
+    <constructor-arg ref="provisionService" />
+  </bean>
+  
+  <bean id="coreScanActivities" class="org.opennms.netmgt.provision.service.CoreScanActivities">
+    <constructor-arg ref="provisionService" />
   </bean>
   
   <bean id="daemon" class="org.opennms.netmgt.provision.service.Provisioner" depends-on="snmpPeerFactory-init">
@@ -116,10 +137,17 @@
     <property name="scheduledExecutor" ref="scheduledExecutor" />
     <property name="providers">
     	<list>
-    		<ref bean="coreImportActivities" />
+            <ref bean="coreImportActivities" />
+            <ref bean="coreScanActivities" />
     	</list>
     </property>
   </bean>
+  
+     <bean class="org.opennms.netmgt.model.events.AnnotationBasedEventListenerAdapter">
+        <property name="annotatedListener" ref="daemon" />
+        <property name="eventSubscriptionService" ref="eventSubscriptionService" />
+    </bean>
+ 
 
   <bean id="modelImportingJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
     <property name="targetObject">

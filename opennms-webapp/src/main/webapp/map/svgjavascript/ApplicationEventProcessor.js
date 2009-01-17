@@ -19,7 +19,7 @@ function onClickMapElement(evt)
 		
 	// view info node
 	clearDownInfo();			
-	writeTopInfo(mapElement.getInfo());
+	writeTopInfoText(mapElement.getInfo());
 
 	setContextMenuForElement(evt, mapElement);
 
@@ -28,7 +28,15 @@ function onClickMapElement(evt)
 
 		if(mapElement.isNode())
 		{
-			openLink('element/node.jsp?node='+mapElement.getNodeId(),'','left=0,top=0, width='+screen.width+',height='+screen.height+',toolbar=no,menubar=no,location=no,scrollbars=1,resize=1,minimize=1')
+			//create new window instance and add it to the Windows array with the windowId as a key
+			//var transx = mapElement.getX() + mapElemDimension;
+			//var transy = mapElement.getY() ;
+			//myMapApp.Windows[mapElement.getNodeId()] = 
+			//new Window(mapElement.getNodeId(),"Windows",winwidth,winheight,transx,transy,true,winconstrXmin,winconstrYmin,winconstrXmax,winconstrYmax,true,winPlaceholderStyles,windowStyles,3,true,true,mapElement.getLabel(),"Select Link",true,true,true,wintitlebarStyles,wintitlebarHeight,winstatusbarStyles,winstatusbarHeight,wintitletextStyles,winstatustextStyles,winbuttonStyles,testsomethink);
+ 			//var nodelink = createSVGLinkText(mapElement.getNodeId());
+			//myMapApp.Windows[mapElement.getNodeId()].appendContent(nodelink,false);
+			openLink('element/node.jsp?node='+mapElement.getNodeId(),'','left=0,top=0, width='+screen.width+',height='+screen.height+',toolbar=no,menubar=no,location=no,scrollbars=1,resize=1,minimize=1');
+			
 		}
 	
 		if(mapElement.isMap())
@@ -38,9 +46,30 @@ function onClickMapElement(evt)
 			
 	}
 }
+/*
+function testsomethink(id, evtType) {
+	if (evtType == "open" )
+  alert("window with id " + id + "and event" + evtType);
+}
 
-
-
+function createSVGLinkText(id) {
+	var textEl = document.createElementNS(svgNS,"text");
+	textEl.setAttributeNS(null, "x","10");
+	textEl.setAttributeNS(null, "y","50");
+	textEl.setAttributeNS(null, "id",id+"elementlink");
+//	text.setAttributeNS(null, "font-size",titleFontSize);
+//	text.setAttributeNS(null,"font-family",textFamily);
+	textEl.setAttributeNS(null, "cursor","pointer");
+//	text.appendChild(document.createTextNode());
+	text.addEventListener("click", "openLink('element/node.jsp?node='"+id+",'','left=0,top=0, width='"+screen.width+"',height='"+screen.height+"',toolbar=no,menubar=no,location=no,scrollbars=1,resize=1,minimize=1');", false);
+	var tspan = document.createElementNS(svgNS,"tspan");
+	tspan.setAttributeNS(null, "dy","12");
+	var tspanContent = document.createTextNode("Node Page");
+	tspan.appendChild(tspanContent);
+	textEl.appendChild(tspan);
+	return textEl
+}
+*/
 function onMouseDownOnMapElement(evt)
 {	
 	if ((typeof map) == "object")
@@ -76,7 +105,7 @@ function onMouseDownOnMapElement(evt)
 		if(map.selectedObjects.length==1){
 			// view info node
 			clearDownInfo();			
-			writeTopInfo(mapElement.getInfo());
+			writeTopInfoText(mapElement.getInfo());
 		}
 		map.draggableObject =  evt.target.parentNode;
 		// get the relative position
@@ -91,6 +120,7 @@ function onMouseDownOnMapElement(evt)
 		//delete the element if flag 'deletingMapElem' is true
 		if(deletingMapElem==true){
 			deleteMapElement(mapElement);
+			deleteMapElementSetUp();
 		}
 		
 		//add the element neighbors if flag 'addingMapElemNeighbors' is true
@@ -99,7 +129,7 @@ function onMouseDownOnMapElement(evt)
 			if(elemMap.isMap()){
 				writeDownInfo("Cannot add neighbors to a map");
 			} else {
-				addMapElemNeigh(elemMap.getNodeId());
+				addMapElemNeighSetUp(elemMap.getNodeId());
 			}
 		}
 
@@ -108,7 +138,7 @@ function onMouseDownOnMapElement(evt)
 			mapElement.icon=selectedMEIconInList;
 			mapElement.image.setAttributeNS(xlinkNS, "xlink:href", MEIconsSortAss[selectedMEIconInList]);
 			map.render();
-			writeDownInfo("Icon setting ok.");
+			setIconSetUp();
 		}
 	}
 }
@@ -159,8 +189,7 @@ function onMouseDownOnMap(evt)
 	clearDownInfo();
 	
 	//close the menu
-	hideAll(evt);
-	menuOpenFlag=false;
+	closeAllMenu();
 	
 	//clear the actions started
 	clearActionsStarted();	
@@ -204,7 +233,7 @@ function onMouseDownOnLink(evt)
 		clearActionsStarted();
 		
 		var mapLink = map.mapLinks[evt.target.getAttributeNS(null,"id")];
-		writeTopInfo(mapLink.getInfo());
+		writeTopInfoText(mapLink.getInfo());
 		
 	}		
 }

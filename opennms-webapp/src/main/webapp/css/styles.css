@@ -77,9 +77,10 @@ h2 {
 	font-size: 80%;
 }
 p h2, td h2 {
-	/* 70% * 114% = 80% */
+	///* 70% * 114% = 80% */
 	font-size: 114%;
 }
+
 h3 {
 	background-image: url(../images/headingbg.png);
 	background-repeat: repeat-x;
@@ -142,6 +143,7 @@ td div.clip {
 	height:1.5em; 
 	overflow:hidden;
 }
+
 /* Layouts */
 div.TwoColLeft {
 	width: 40%;
@@ -197,7 +199,6 @@ div.TwoColRAdmin {
 {
 	background: #999999; 
 }
-
 
 #nav, #nav ul	/* all lists */
 {
@@ -354,6 +355,7 @@ th a {
 th a:hover {
 	color: #CCC;
 }
+/*Conflicting style*/
 td {
 	border: 1px solid #999;
 	padding: 4px 5px;
@@ -363,6 +365,7 @@ td {
 td td, td p {
 	font-size: 100%;
 	margin: 0;
+	padding: 0px;
 }
 
 table.wdth600 { 
@@ -386,7 +389,7 @@ td.standardwarning
 
 td.status1 {
 	background-color: #C7DBAF;
-}
+}*/
 
 
 #nodelist table
