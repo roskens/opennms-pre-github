@@ -1,17 +1,24 @@
 <library>
-    <include href="incubator/colorpicker.lzx" />
+    <include href="colorslider.lzx" />
 
     <class name="mapProperties" extends="window">
         <attribute name="tgtOnmsMap"/>
-        <simplelayout axis="y" spacing="50" />
-        <text>Choose Map Background</text>
-        <colorpicker title="Select Your Favorite Color" allowdrag="false" width="275"/>
-        <button name="bgChooseBtn" onclick="parent.bgChooseColor()">Select Color</button>
-
-        <button name="closeBtn" onclick="parent.hideMapProps()">Close</button>
+        <view name="scrollingView" width="${parent.width-parent.scrollBar.width}">
+            <simplelayout axis="y" spacing="10" />
+            <text>Choose Map Background</text>
+            <colorslider>
+                <handler name="oncurrentColor" args="clr">
+                    Debug.write("changing current color MTR: " + clr);
+                    classroot.tgtOnmsMap.setAttribute("mapBackground", clr);
+                </handler>
+            </colorslider>
+            <button name="closeBtn" onclick="classroot.hideMapProps()">Close</button>
+        </view> <!-- scrollingView -->
+        <vscrollbar name="scrollBar"/>
 
         <handler name="oninit">
             Debug.write("onms map loader initialized!");
+            //this.setAttribute("clip", true);
         </handler>
 
         <method name="bgChooseColor">

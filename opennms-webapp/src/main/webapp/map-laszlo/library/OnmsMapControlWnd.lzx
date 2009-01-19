@@ -45,7 +45,7 @@
 
         <method name="activateMapProps">
             Debug.write("Activating map properties window.");
-            tmpMapProps.setAttribute('tgtOnmsMap', tmpMap);
+            tmpMapProps.setAttribute("tgtOnmsMap", tmpMap);
             tmpMapProps.refreshWindow();
             tmpMapProps.setAttribute("visible",true);
         </method>

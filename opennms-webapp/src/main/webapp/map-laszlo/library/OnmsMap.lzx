@@ -1,12 +1,21 @@
 <library>
     <!-- This represents the top level map and all of the elements and links in it. -->
     <class name="onmsMap">
+        <!-- Attributes loaded from REST. -->
+        <attribute name="mapBackground" value="0xFFFFFF"/>
+
+        <!-- Graph attributes for drinking the map on the cavnas. -->
         <attribute name="mapElements"/>
         <attribute name="mapLinks"/>
 
         <handler name="oninit">
             this.mapElements = new Array();
             this.mapLinks = new Array();
+        </handler>
+
+        <handler name="onmapBackground" args="clr">
+            Debug.write("Changing map background color: "+clr+" .");
+            this.setAttribute("bgcolor", clr);
         </handler>
 
         <method name="addMapElement" args="tmpElement">
@@ -21,7 +30,11 @@
             Debug.write("Refreshing maps.");
             if(this.mapLinks.length > 0) {
                 for(mapLink in tmpMap.mapLinks) {
-                    this.mapLinks[mapLink].drawline();
+                    var link = this.mapLinks[mapLink];
+                    link.drawline();
+                    link.bringToFront();
+                    link['nodeA'].bringToFront();
+                    link['nodeB'].bringToFront();
                 }
             }
         </method>

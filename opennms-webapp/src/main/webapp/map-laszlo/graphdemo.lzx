@@ -17,7 +17,7 @@
     <attribute name="linkCreateStatus"/>
     <attribute name="linkRootNode"/>
 
-    <onmsMap name="tmpMap"/>
+    <onmsMap name="tmpMap" width="${canvas.width}" height="${canvas.height}"/>
     <onmsMapLoader name="tmpMapLoader"/>
     <mapProperties name="tmpMapProps" resizable="true" width="300" height="200" title="Map Properties"/>
     
