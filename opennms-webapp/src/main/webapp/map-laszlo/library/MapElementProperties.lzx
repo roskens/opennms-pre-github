@@ -1,0 +1,53 @@
+<library>
+    <class name="mapElementProperties" extends="view">
+        <attribute name="tgtOnmsMapElement"/>
+        
+        <simplelayout axis="y" spacing="4" />
+        <view name="infoVw">
+            <simplelayout axis="x" spacing="4"/>
+            <text>Element Label</text>
+            <text name="elemPropLabel">No Element Label Defined</text>
+        </view>
+        <text>Choose Element Icon</text>                                
+        <combobox name="elemIconChoice" width="${immediateparent.width-15}" shownitems="3" defaulttext="choose one..." editable="false" onselect="classroot.selectElemIcon()">
+            <textlistitem text="vax" value="vax"/>
+            <textlistitem text="unspecified" value="unspecified"/>
+            <textlistitem text="telephony" value="telephony"/>
+            <textlistitem text="server" value="server"/>
+            <textlistitem text="router" value="router"/>
+            <textlistitem text="printer" value="printer"/>
+            <textlistitem text="pix" value="pix"/>
+            <textlistitem text="other" value="other"/>
+            <textlistitem text="opennms" value="opennms"/>
+            <textlistitem text="multilayerswitch" value="multilayerswitch"/>
+            <textlistitem text="mainframe" value="mainframe"/>
+            <textlistitem text="laptop" value="laptop"/>
+            <textlistitem text="infrastructure" value="infrastructure"/>
+            <textlistitem text="firewall" value="firewall"/>
+            <textlistitem text="fileserver" value="fileserver"/>
+            <textlistitem text="desktop" value="desktop"/>
+        </combobox>
+        
+    
+        <handler name="oninit">
+            Debug.write("onms map element properties window initialized!");
+            
+        </handler>
+        
+        <handler name="ontgtOnmsMapElement">
+            Debug.write("A new map element has been selected.");
+            this.setAttribute("visible", true);
+            parent.defaultElemPropsText.setAttribute("visible", false);
+            Debug.write("Setting choice to: " + tgtOnmsMapElement['mapElementIcon']);
+            this.elemIconChoice.selectItem(tgtOnmsMapElement['mapElementIcon']);
+            this.infoVw.elemPropLabel.setText(tgtOnmsMapElement['mapElementLabel']);
+        </handler>
+        
+        <method name="selectElemIcon">
+            Debug.write("Choosing element icon: " + this.elemIconChoice.value);
+            var elemIconName = this.elemIconChoice.value;
+            tgtOnmsMapElement.setAttribute("mapElementIcon",elemIconName);
+            
+        </method>
+    </class>
+</library>

@@ -4,10 +4,12 @@
         <attribute name="nodeBaseRestServiceUrl"/>
         <attribute name="currentNodeRestServiceUrl"/>
         <attribute name="currentRestNode"/>
+        <attribute name="nodeRestServiceStatus"/>
         <handler name="oninit">
             this.nodeBaseRestServiceUrl = "http://10.10.150.98:8980/opennms/rest/nodes";
             this.currentNodeRestServiceUrl = this.nodeBaseRestServiceUrl;
             this.currentRestNode=0;
+            this.setAttribute("nodeRestServiceStatus", "getting");
         </handler>
         <handler name="onerror">
             alert("There has been an error with the connection to OpenNMS.  Please check your query. The follow error was reported - \n" + this.getDataset().getErrorString());
@@ -15,7 +17,11 @@
         <handler name="ontimeout">
             alert('The OpenNMS backend did not respond before the timeout expired.');
         </handler>
-
+        <handler name="ondata">
+            //Debug.write("setting node rest service status to: fetched");
+            this.setAttribute("nodeRestServiceStatus", "fetched");
+        </handler>
+        
         <method name="setOnmsNode" args="nodeId">
             Debug.write("setting node id to: " + nodeId);
             this.currentRestNode=nodeId;

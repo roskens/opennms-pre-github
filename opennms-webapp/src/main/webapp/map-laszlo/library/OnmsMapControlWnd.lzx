@@ -1,33 +1,57 @@
 <library>
     <class name="onmsMapControlWnd" extends="window">
-        <simplelayout axis="y"/>
-        <combobox name="mapChoice" x="5" y="5" width="175" shownitems="3" defaulttext="choose one..." editable="false">
-            <textlistitem datapath="mapRestService:/maps/map" text="$path{'name/text()'}" value="$path{'id/text()'}"/>
-        </combobox>
-        <button name="mapChoose" onclick="parent.chooseMap()">Choose Map</button>
+        <tabslider name="mapControlTabSlider" width="${parent.width}" height="${parent.height-40}">
+            <tabelement name="tabMapCtrls" text="Map Controls" selected="true">
+                <simplelayout axis="y" spacing="4"/>
+                <combobox name="mapChoice" width="${immediateparent.width-15}" shownitems="3" defaulttext="load a map..." editable="false">
+                    <textlistitem datapath="mapRestService:/maps/map" text="$path{'name/text()'}" value="$path{'id/text()'}"/>
+                </combobox>
+                <button name="mapChoose" onclick="classroot.chooseMap()">Choose Map</button>
+        
+                <combobox name="nodeChoice" width="${immediateparent.width-15}" shownitems="3" defaulttext="add a node..." editable="false">
+                    <textlistitem datapath="nodeRestService:/nodes/node" text="$path{'label/text()'}" value="$path{'nodeId/text()'}"/>
+                </combobox>
+                <button name="addNodeBtn" onclick="classroot.addNodeToMap()">Add To Map</button>
+                <!-- <button name="mapProps" onclick="parent.activateMapProps()">Map Properties</button> -->
+                <button name="saveMap" onclick="tmpMap.saveMap()">Save Map</button>
+            </tabelement>
+            <tabelement name="tabMapProperties" text="Map Properties">
+                 <mapProperties name="tmpMapProps" width="${immediateparent.width-15}"/>
+            </tabelement>
+            <tabelement name="tabElementProperties" text="Element Properties">
+                <text name="defaultElemPropsText" width="${immediateparent.width-15}">No map element has been selected.</text>
+                <mapElementProperties name="tmpMapElemProps" visible="false"/>
+            </tabelement>
+            <tabelement text="About OpenNMS Maps">
+                <text multiline="true" width="${immediateparent.width-15}">
+                    Fabricate some lies in here about how awesome OpenNMS is. Work based on work by so-and-so and thank you to God for making this possible.
+                </text>
+            </tabelement>
+        </tabslider>
+            
+        <handler name="oninit">
+            Debug.write("Initializing map control window.");
+            this.mapControlTabSlider.tabMapProperties.tmpMapProps.setAttribute("tgtOnmsMap", canvas.tmpMap);
+        </handler>    
 
-        <!-- <autocompletecombobox x="5" y="5" width="200" datapath="nodeRestService:/nodes"
-                    contentpath="node/label/text()"
-                    defaulttext="choose one..."  >
-        </autocompletecombobox> -->
-        <combobox name="nodeChoice" x="5" y="5" width="175" shownitems="3" defaulttext="choose one..." editable="false">
-            <textlistitem datapath="nodeRestService:/nodes/node" text="$path{'label/text()'}" value="$path{'nodeId/text()'}"/>
-        </combobox>
-        <button name="addNodeBtn" onclick="parent.addNodeToMap()">Add To Map</button>
-        <button name="mapProps" onclick="parent.activateMapProps()">Map Properties</button>
-        <button name="saveMap" onclick="tmpMap.saveMap()">Save Map</button>
         <method name="addNodeToMap">
-            Debug.write("Adding node: " + this.nodeChoice.value + " to map.");
-            var mapNode1 = new lz.onmsMapElement();
-            mapNode1.parentMap=tmpMap;
-            mapNode1.setMapElementLabel("node1");
-            mapNode1.setAttribute("x", 250);
-            mapNode1.setAttribute("y", 100);
-            tmpMap.addMapElement(mapNode1);
+            var nodeId = this.mapControlTabSlider.tabMapCtrls.nodeChoice.value;
+            if(nodeId != null) {
+                Debug.write("Adding node: " + nodeId + " to map.");
+                var dset = canvas.nodeRestService;
+                // First set the filter to the node ID.
+                dset.setOnmsNode(nodeId);
+                dset.resetRestService();
+                
+                // Now we'll have to wait for the ondata to get called.
+                Debug.write("Registering onnodeRestServiceStatus delegate.");
+                this.nodeDel = new LzDelegate(this, "generateElement");
+                this.nodeDel.register(canvas.nodeRestService, "onnodeRestServiceStatus");                          
+            }
         </method>
 
         <method name="chooseMap">
-            var mapId = this.mapChoice.value;
+            var mapId = this.mapControlTabSlider.tabMapCtrls.mapChoice.value;
             if(mapId != null) {
                 Debug.write("chose map: '" + mapId + "'");
 
@@ -127,6 +151,63 @@
             // Now unregister the delegate we created.
             Debug.write("Unregistering onmapRestServiceStatus delegate.");
             this.del.unregisterAll();
+
+
+        </method>
+        
+        <method name="generateElement" args="serviceStatus">
+            var dset = canvas.nodeRestService;
+
+            // Next get a datapointer.
+            var dp = dset.getPointer();
+            
+            if(serviceStatus == "fetched") {
+                // Lets start the node element generation process.
+                var mapNode1 = new lz.onmsMapElement();
+                mapNode1.parentMap=tmpMap;
+                mapNode1.setMapElementLabel("node1");
+                mapNode1.setAttribute("mapElementIcon", "unspecified"); 
+                mapNode1.setAttribute("x", 250);
+                mapNode1.setAttribute("y", 100);
+                
+            
+                // Skip the root node, which is the dataset.
+                dp.selectChild();
+
+                Debug.write("node name: " + dp.getNodeName());
+                Debug.write("node count: " + dp.getNodeCount());
+
+                // Go to the attribute nodes.
+                dp.selectChild();
+
+                while(dp.selectNext()) {
+                    Debug.write("*** next child ***");
+
+                    switch(dp.getNodeName()) {
+                        case "label":
+                            Debug.write("found label: " + dp.getNodeText());
+                            mapNode1.setMapElementLabel(dp.getNodeText())
+                            break;                        
+                        default:
+                            // we'll need to add scale, offsetX, offsetY and type.
+                            // we can ignore the child "new"
+                            Debug.write("node name: " + dp.getNodeName());
+                            //Debug.write("node text: " + dp.getNodeText());
+                    }
+                }
+
+                //dp.selectChild();
+                //Debug.write("*** next child ***");
+                //Debug.write("node name: " + dp.getNodeName());
+                //Debug.write("node count: " + dp.getNodeCount());
+                //Debug.write("map id: " + dp.getNodeAttribute("id"));
+                
+                tmpMap.addMapElement(mapNode1);
+            }
+
+            // Now unregister the delegate we created.
+            Debug.write("Unregistering onmapRestServiceStatus delegate.");
+            this.nodeDel.unregisterAll();
 
 
         </method>

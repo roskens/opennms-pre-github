@@ -1,6 +1,6 @@
 <library>
     <!-- This represents a map element (could be a node or could be a link to another map. -->
-    <class name="onmsMapElement" resource="node1" onmousedown="dragger.apply()" onmouseup="dragger.remove()">
+    <class name="onmsMapElement" resource="unspecified" onmousedown="dragger.apply()" onmouseup="dragger.remove()">
         <attribute name="parentMap" />
 	<attribute name="mapElementLabel"/>
         <attribute name="mapElementIcon"/>
@@ -43,7 +43,15 @@
         </handler>
 
         <handler name="ondblclick">
-
+            Debug.write("map element was double clicked.");
+            // Activate the proper slider on the control window.
+            canvas.mapControls.mapControlTabSlider.tabElementProperties.setAttribute("selected", true);
+            canvas.mapControls.mapControlTabSlider.tabElementProperties.tmpMapElemProps.setAttribute("tgtOnmsMapElement", this);
+        </handler>
+        
+        <handler name="onclick">
+            Debug.write("map element has been selected.");
+            canvas.mapControls.mapControlTabSlider.tabElementProperties.tmpMapElemProps.setAttribute("tgtOnmsMapElement", this);
         </handler>
 
         <!-- Context menu methods -->
@@ -120,7 +128,8 @@
 
         <method name="setMapElementLabel" args="labelStr">
             this.mapElementLabel = labelStr;
-            this.infoPopup.getItem("nodeLabel").setText("Node: " + labelStr);
+            var nodeLabelItem = this.infoPopup.selectItem("nodeLabel");
+            nodeLabelItem.setText("Node: " + labelStr);
         </method>
     </class>
 </library>
