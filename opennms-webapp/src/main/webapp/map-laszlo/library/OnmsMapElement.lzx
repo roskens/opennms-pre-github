@@ -2,7 +2,8 @@
     <!-- This represents a map element (could be a node or could be a link to another map. -->
     <class name="onmsMapElement" resource="node1" onmousedown="dragger.apply()" onmouseup="dragger.remove()">
         <attribute name="parentMap" />
-        <attribute name="mapElementLabel"/>
+	<attribute name="mapElementLabel"/>
+        <attribute name="mapElementIcon"/>
         <attribute name="nodeId"/>
         <attribute name="ctxMnSelRootNode"/>
         <attribute name="ctxMnConnectNode"/>
@@ -14,9 +15,11 @@
         </floatinglist>
         
         <handler name="oninit">
+            Debug.write("Initializing new map element.");
             var cm = new LzContextMenu();
             var item = cm.makeMenuItem("View Node", new LzDelegate(this,"contextViewNode"));
             var item2 = cm.makeMenuItem("Remove From Map", new LzDelegate(this,"contextRemoveNode"));
+            //var item3 = cm.makeMenuItem("View Node", new LzDelegate(this,"contextViewNode"));
             this.ctxMnSelRootNode = cm.makeMenuItem("Select Root Link", new LzDelegate(this,"contextSelectRootNode"));
 
             // Hide this node until we need it.
@@ -33,6 +36,14 @@
             Debug.write("Registering onmapRestServiceStatus delegate.");
             this.rootLinkDelegate = new LzDelegate(this, "rootLinkChosen");
             this.rootLinkDelegate.register(canvas, "onlinkRootNode");
+        </handler>
+
+        <handler name="onmapElementIcon" args="iconName">
+            this.setAttribute("resource", iconName);
+        </handler>
+
+        <handler name="ondblclick">
+
         </handler>
 
         <!-- Context menu methods -->
