@@ -45,6 +45,7 @@
         mapNode1.setAttribute("nodeId", 1);
         mapNode1.setAttribute("x", 250);
         mapNode1.setAttribute("y", 100);
+        mapNode1.setAttribute("mapElementIcon", "router");
         tmpMap.addMapElement(mapNode1);
         
         // Create a new node. (node 2)
@@ -54,6 +55,7 @@
         mapNode2.setAttribute("nodeId", 2);
         mapNode2.setAttribute("x", 100);
         mapNode2.setAttribute("y", 200);
+        mapNode2.setAttribute("mapElementIcon", "pix");
         tmpMap.addMapElement(mapNode2);
         
         // Create a link between this (node 2) and the base node (node 1).
@@ -68,6 +70,7 @@
         mapNode3.setAttribute("nodeId", 3);
         mapNode3.setAttribute("x", 200);
         mapNode3.setAttribute("y", 200);
+        mapNode3.setAttribute("mapElementIcon", "opennms");
         tmpMap.addMapElement(mapNode3);
         
         // Create a link between this (node 3) and the base node (node 1).
@@ -82,6 +85,7 @@
         mapNode4.setAttribute("nodeId", 4);
         mapNode4.setAttribute("x", 300);
         mapNode4.setAttribute("y", 200);
+        mapNode4.setAttribute("mapElementIcon", "server");
         tmpMap.addMapElement(mapNode4);
         
         // Create a link between this (node 4) and the base node (node 1).
@@ -96,6 +100,7 @@
         mapNode5.setAttribute("nodeId", 5);
         mapNode5.setAttribute("x", 400);
         mapNode5.setAttribute("y", 200);
+        mapNode5.setAttribute("mapElementIcon", "server");
         tmpMap.addMapElement(mapNode5);
         
         // Create a link between this (node 5) and the base node (node 1).
