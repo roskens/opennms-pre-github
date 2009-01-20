@@ -82,7 +82,9 @@
 
             if(serviceStatus == "fetched") {
                 // Lets start the map generation process.
-
+                Debug.write("Resetting the root map.");
+                tmpMap.clearMap();
+                
                 // Skip the root node, which is the dataset.
                 dp.selectChild();
 
@@ -102,9 +104,11 @@
                             break;
                         case "name":
                             Debug.write("found name: " + dp.getNodeText());
+                            tmpMap.setAttribute("mapName", dp.getNodeText());
                             break;
                         case "lastModifiedTime":
                             Debug.write("found lastModifiedTime: " + dp.getNodeText());
+                            tmpMap.setAttribute("lastModifiedTime", dp.getNodeText());
                             break;
                         case "userLastModifies":
                             Debug.write("found userLastModifies: " + dp.getNodeText());
@@ -114,12 +118,15 @@
                             break;
                         case "accessMode":
                             Debug.write("found accessMode: " + dp.getNodeText());
+                            tmpMap.setAttribute("accessMode", dp.getNodeText());
                             break;
                         case "background":
                             Debug.write("found background: " + dp.getNodeText());
+                            tmpMap.setAttribute("mapBackground", "0x"+dp.getNodeText());
                             break;
                         case "createTime":
                             Debug.write("found createTime: " + dp.getNodeText());
+                            tmpMap.setAttribute("createTime", dp.getNodeText());
                             break;
                         case "height":
                             Debug.write("found height: " + dp.getNodeText());
@@ -129,7 +136,33 @@
                             break;
                         case "mapElements":
                             dp.selectChild();
-
+                            var mapNode1 = new lz.onmsMapElement();
+                            mapNode1.parentMap=tmpMap;
+                            mapNode1.setMapElementLabel("node1");
+                            mapNode1.setAttribute("mapElementIcon", "unspecified"); 
+                            mapNode1.setAttribute("x", 250);
+                            mapNode1.setAttribute("y", 100); 
+                            while(dp.selectNext()) {
+                                Debug.write("*** next child ***");
+                                switch(dp.getNodeName()) { 
+                                    case "x":
+                                        mapNode1.setAttribute("x", dp.getNodeText());
+                                        break;
+                                    case "y":
+                                        mapNode1.setAttribute("y", dp.getNodeText());
+                                        break;
+                                    case "iconName":
+                                        mapNode1.setAttribute("mapElementIcon", dp.getNodeText());
+                                        break;
+                                    case "label":
+                                        mapNode1.setMapElementLabel(dp.getNodeText());
+                                        break;
+                                    default: // id, mapElementId
+                                        Debug.write("Unknown attribute: " + dp.getNodeName() + " found in mapElements.");                                        
+                                }
+                            }
+                            tmpMap.addMapElement(mapNode1);
+                            dp.selectParent();
                         default:
                             // we'll need to add scale, offsetX, offsetY and type.
                             // we can ignore the child "new"
@@ -144,8 +177,7 @@
                 //Debug.write("node count: " + dp.getNodeCount());
                 //Debug.write("map id: " + dp.getNodeAttribute("id"));
 
-                Debug.write("Resetting the root map.");
-                tmpMap.clearMap();
+                
             }
 
             // Now unregister the delegate we created.

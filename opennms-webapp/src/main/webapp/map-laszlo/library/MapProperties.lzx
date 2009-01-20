@@ -1,24 +1,31 @@
 <library>
     <include href="colorslider.lzx" />
-
+    
     <class name="mapProperties" extends="view">
         <attribute name="tgtOnmsMap"/>
-        <!-- <view name="scrollingView" width="${parent.width-parent.scrollBar.width}"> -->
-            <simplelayout axis="y" spacing="10" />
-            <text>Choose Map Background</text>
-            <colorslider>
-                <handler name="oncurrentColor" args="clr">
-                    Debug.write("changing current color MTR: " + clr);
-                    classroot.tgtOnmsMap.setAttribute("mapBackground", clr);
-                </handler>
-            </colorslider>
-            <!-- <button name="closeBtn" onclick="classroot.hideMapProps()">Close</button>
-        </view>  scrollingView
-        <vscrollbar name="scrollBar"/> -->
-
+        
+        <view name="infoVw">        
+            <simplelayout axis="x" spacing="4"/>            
+            <text>Map Name</text><inputtext name="mapNameTxt" resizable="false" text="untitled" />
+        </view>
+        
+        <simplelayout axis="y" spacing="10" />
+        <text>Choose Map Background</text>
+        <colorslider>
+            <handler name="oncurrentColor" args="clr">
+                Debug.write("changing current color MTR: " + clr);
+                classroot.tgtOnmsMap.setAttribute("mapBackground", clr);
+            </handler>
+        </colorslider>
+        
         <handler name="oninit">
             Debug.write("onms map loader initialized!");
             //this.setAttribute("clip", true);
+        </handler>
+        
+        <handler name="ontgtOnmsMap">
+            Debug.write("New map assigned for properties.");
+            this.infoVw.mapNameTxt.setText(tgtOnmsMap['mapName']);
         </handler>
 
         <method name="bgChooseColor">
@@ -34,6 +41,9 @@
         <method name="refreshWindow">
             Debug.write("Refreshing map properties window.");
         </method>
-
+        <method name="processNameChange">
+            Debug.write("Processing the change of a map name.");
+            this.tgtOnmsMap.setAttribute("mapName", this.infoVw.mapNameTxt.getText());
+        </method>
     </class>
 </library>

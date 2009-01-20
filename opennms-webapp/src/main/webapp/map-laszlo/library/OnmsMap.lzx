@@ -3,7 +3,11 @@
     <class name="onmsMap">
         <!-- Attributes loaded from REST. -->
         <attribute name="mapBackground" value="0xFFFFFF"/>
-
+        <attribute name="accessMode" value="RW"/>
+        <attribute name="createTime"/>
+        <attribute name="lastModifiedTime"/>
+        <attribute name="mapName" value="untitled"/>
+        
         <!-- Graph attributes for drinking the map on the cavnas. -->
         <attribute name="mapElements"/>
         <attribute name="mapLinks"/>

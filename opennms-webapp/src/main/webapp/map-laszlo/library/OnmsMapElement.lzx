@@ -1,20 +1,48 @@
 <library>
     <!-- This represents a map element (could be a node or could be a link to another map. -->
-    <class name="onmsMapElement" resource="unspecified" onmousedown="dragger.apply()" onmouseup="dragger.remove()">
+    <class name="onmsMapElement" onmousedown="dragger.apply()" onmouseup="dragger.remove()"  showhandcursor="true">
+        <view name="mapElementIconVw" resource="unspecified">
+        <handler name="oninit">
+            Debug.write("Initializing new map element.");
+            var cm = new LzContextMenu();
+            var item = cm.makeMenuItem("View Node", new LzDelegate(parent,"contextViewNode"));
+            var item2 = cm.makeMenuItem("Remove From Map", new LzDelegate(parent,"contextRemoveNode"));
+            //var item3 = cm.makeMenuItem("View Node", new LzDelegate(this,"contextViewNode"));
+            parent.ctxMnSelRootNode = cm.makeMenuItem("Select Root Link", new LzDelegate(parent,"contextSelectRootNode"));
+
+            // Hide this node until we need it.
+            parent.ctxMnConnectNode = cm.makeMenuItem("Create Link", new LzDelegate(parent,"contextConnectNode"));
+            parent.ctxMnConnectNode.setEnabled(false);
+
+            cm.addItem(item);
+            cm.addItem(item2);
+            cm.addItem(parent.ctxMnSelRootNode);
+            cm.addItem(parent.ctxMnConnectNode);
+            this.setContextMenu(cm);
+
+            // Create a delegate to link all nodes to changes in the global link status.
+            Debug.write("Registering onmapRestServiceStatus delegate.");
+            parent.rootLinkDelegate = new LzDelegate(parent, "rootLinkChosen");
+            parent.rootLinkDelegate.register(canvas, "onlinkRootNode");
+        </handler>
+        </view>
+        
         <attribute name="parentMap" />
 	<attribute name="mapElementLabel"/>
         <attribute name="mapElementIcon"/>
+        <attribute name="elementType" value="N"/>
         <attribute name="nodeId"/>
         <attribute name="ctxMnSelRootNode"/>
         <attribute name="ctxMnConnectNode"/>
+        <attribute name="elemSelected" value="false"/>
         <dragstate name="dragger"/>
         
         <!-- A list of the existing attributes -->
         <floatinglist name="infoPopup" attach="right" visible="false">
-            <textlistitem name="nodeLabel" text="Node: default"/>
+            <textlistitem value="nodeLabel" text="Node: default"/>
         </floatinglist>
         
-        <handler name="oninit">
+        <!-- <handler name="oninit">
             Debug.write("Initializing new map element.");
             var cm = new LzContextMenu();
             var item = cm.makeMenuItem("View Node", new LzDelegate(this,"contextViewNode"));
@@ -36,21 +64,33 @@
             Debug.write("Registering onmapRestServiceStatus delegate.");
             this.rootLinkDelegate = new LzDelegate(this, "rootLinkChosen");
             this.rootLinkDelegate.register(canvas, "onlinkRootNode");
-        </handler>
+        </handler> -->
 
         <handler name="onmapElementIcon" args="iconName">
-            this.setAttribute("resource", iconName);
+            this.mapElementIconVw.setAttribute("resource", iconName);
+        </handler>
+        
+        <handler name="onelemSelected" args="selectStatus">
+            Debug.write("element selected: " + selectStatus);
+            if(selectStatus == true) {
+                Debug.write("selected map element...");
+                //this.setAttribute("opacity", 0.8);
+            } else {
+                //this.setAttribute("opacity", 1.0);
+            }
         </handler>
 
         <handler name="ondblclick">
             Debug.write("map element was double clicked.");
             // Activate the proper slider on the control window.
+            this.setAttribute("elemSelected", true);
             canvas.mapControls.mapControlTabSlider.tabElementProperties.setAttribute("selected", true);
             canvas.mapControls.mapControlTabSlider.tabElementProperties.tmpMapElemProps.setAttribute("tgtOnmsMapElement", this);
         </handler>
         
         <handler name="onclick">
             Debug.write("map element has been selected.");
+            this.setAttribute("elemSelected", true);
             canvas.mapControls.mapControlTabSlider.tabElementProperties.tmpMapElemProps.setAttribute("tgtOnmsMapElement", this);
         </handler>
 
@@ -127,9 +167,12 @@
         </method>
 
         <method name="setMapElementLabel" args="labelStr">
+            Debug.write("Setting map element label.");
             this.mapElementLabel = labelStr;
-            var nodeLabelItem = this.infoPopup.selectItem("nodeLabel");
-            nodeLabelItem.setText("Node: " + labelStr);
+            Debug.write("info popup is: " + this.infoPopup);
+            this.infoPopup.nodeLabel
+            Debug.write("Selected item: " + this.infoPopup.nodeLabel);
+            this.infoPopup.nodeLabel.setText("Node: " + labelStr);
         </method>
     </class>
 </library>

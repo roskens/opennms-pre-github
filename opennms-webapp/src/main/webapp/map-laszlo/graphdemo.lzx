@@ -22,7 +22,7 @@
     <!-- <mapProperties name="tmpMapProps" resizable="true" width="300" height="200" title="Map Properties"/> -->
     
     <!-- This is the controls window for manipulating maps. -->
-    <onmsMapControlWnd name="mapControls" resizable="false" width="275" height="${parent.height-30}" title="Map Controls" x="${parent.width-275}"/>    
+    <onmsMapControlWnd allowdrag="false" name="mapControls" resizable="false" width="275" height="${parent.height-30}" title="Map Controls" x="${parent.width-275}"/>    
     
     <!-- Hopefully in the future you can ignore this. I just pre-create canned nodes and links here.
          My plan is that this will be accomplished by either mapControls oronmsMapLoader.
