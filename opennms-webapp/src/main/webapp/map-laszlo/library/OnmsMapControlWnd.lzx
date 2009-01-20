@@ -234,6 +234,9 @@
                 //Debug.write("node count: " + dp.getNodeCount());
                 //Debug.write("map id: " + dp.getNodeAttribute("id"));
                 
+                mapNode1.setAttribute("elemSelected", true);
+                canvas.mapControls.mapControlTabSlider.tabElementProperties.setAttribute("selected", true);
+                canvas.mapControls.mapControlTabSlider.tabElementProperties.tmpMapElemProps.setAttribute("tgtOnmsMapElement", mapNode1);
                 tmpMap.addMapElement(mapNode1);
             }
 
