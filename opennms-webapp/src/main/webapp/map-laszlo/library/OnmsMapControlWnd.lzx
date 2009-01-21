@@ -46,7 +46,9 @@
                 // Now we'll have to wait for the ondata to get called.
                 Debug.write("Registering onnodeRestServiceStatus delegate.");
                 this.nodeDel = new LzDelegate(this, "generateElement");
-                this.nodeDel.register(canvas.nodeRestService, "onnodeRestServiceStatus");                          
+                this.nodeDel.register(canvas.nodeRestService, "onnodeRestServiceStatus");
+                
+                canvas.mouseBusyIcon.show();                          
             }
         </method>
 
@@ -64,6 +66,8 @@
                 Debug.write("Registering onmapRestServiceStatus delegate.");
                 this.del = new LzDelegate(this, "generateMap");
                 this.del.register(canvas.mapRestService, "onmapRestServiceStatus");
+                
+                canvas.mouseBusyIcon.show();
             }
         </method>
 
@@ -183,7 +187,7 @@
             // Now unregister the delegate we created.
             Debug.write("Unregistering onmapRestServiceStatus delegate.");
             this.del.unregisterAll();
-
+            canvas.mouseBusyIcon.hide();
 
         </method>
         
@@ -243,7 +247,7 @@
             // Now unregister the delegate we created.
             Debug.write("Unregistering onmapRestServiceStatus delegate.");
             this.nodeDel.unregisterAll();
-
+            canvas.mouseBusyIcon.hide();
 
         </method>
     </class>

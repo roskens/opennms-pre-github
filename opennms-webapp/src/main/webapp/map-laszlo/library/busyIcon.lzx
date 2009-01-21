@@ -1,0 +1,19 @@
+<library>
+   <class name="busyIcon" extends="view" 
+          x="${canvas.getMouse('x') + 4}" y="${canvas.getMouse('y') + 8}" 
+          resource="loadingIcon">
+      
+      <method name="show" args="x, y">
+         <![CDATA[         
+         this.setVisible(true);
+         this.bringToFront();         
+         ]]>
+      </method>
+      
+      <method name="hide">
+         <![CDATA[
+         this.setVisible(false);
+         ]]>
+      </method>
+   </class>
+</library>

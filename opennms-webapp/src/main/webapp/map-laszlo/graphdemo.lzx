@@ -17,6 +17,9 @@
     <attribute name="linkCreateStatus"/>
     <attribute name="linkRootNode"/>
 
+    <!-- Used to show that the application is busy loading REST data. -->
+    <busyIcon name="mouseBusyIcon"/>
+    
     <onmsMap name="tmpMap" width="${canvas.width}" height="${canvas.height}"/>
     <onmsMapLoader name="tmpMapLoader"/>
     <!-- <mapProperties name="tmpMapProps" resizable="true" width="300" height="200" title="Map Properties"/> -->
@@ -117,6 +120,6 @@
         mapControls.bringToFront();
         
         var tmpMapObj = tmpMapLoader.getMapList();
-        
+        this.mouseBusyIcon.hide();
     </handler>
 </canvas>

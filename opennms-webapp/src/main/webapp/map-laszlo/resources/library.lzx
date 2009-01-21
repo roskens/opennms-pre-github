@@ -89,5 +89,7 @@
     
     <resource name="desktop">
         <frame src="desktop.png"/>
-    </resource>   
+    </resource>
+    
+    <resource name="loadingIcon" src="loadingIcon.swf"/>
 </library>

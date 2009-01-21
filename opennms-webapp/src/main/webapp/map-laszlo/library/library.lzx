@@ -7,5 +7,8 @@
     <include href="OnmsMapElement.lzx" />
     <include href="OnmsDataLink.lzx" />
     <include href="OnmsMapLoader.lzx" />
-    <include href="OnmsMapControlWnd.lzx" />    
+    <include href="OnmsMapControlWnd.lzx" />
+    
+    <!-- UI components -->
+    <include href="busyIcon.lzx" />   
 </library>
