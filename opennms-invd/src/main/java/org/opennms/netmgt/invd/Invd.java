@@ -1,28 +1,9 @@
 package org.opennms.netmgt.invd;
 
-import org.opennms.netmgt.daemon.SpringServiceDaemon;
 import org.opennms.netmgt.daemon.AbstractServiceDaemon;
-import org.opennms.netmgt.scheduler.Scheduler;
-import org.opennms.netmgt.scheduler.LegacyScheduler;
-import org.opennms.netmgt.scheduler.ReadyRunnable;
 import org.opennms.netmgt.dao.IpInterfaceDao;
 import org.opennms.netmgt.dao.InvdConfigDao;
-import org.opennms.netmgt.model.OnmsIpInterface;
-import org.opennms.netmgt.config.invd.Scanner;
-import org.opennms.core.utils.ThreadCategory;
-import org.springframework.beans.factory.DisposableBean;
 import org.springframework.util.Assert;
-import org.springframework.transaction.support.TransactionCallback;
-import org.springframework.transaction.support.TransactionTemplate;
-import org.springframework.transaction.TransactionStatus;
-
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Collection;
-import java.util.Set;
-import java.util.Collections;
-import java.sql.SQLException;
 
 public class Invd extends AbstractServiceDaemon {
     /**
@@ -37,7 +18,8 @@ public class Invd extends AbstractServiceDaemon {
     /**
      * List of all CollectableService objects.
      */
-    //private final List<ScannableService> m_collectableServices;
+    //private final List<ScanableService> m_scanableServices;
+    private volatile ScanableServices m_scanableServices;
 
     /**
      * Reference to the collection scheduler
@@ -71,7 +53,7 @@ public class Invd extends AbstractServiceDaemon {
      */
     public Invd() {
         super(LOG4J_CATEGORY);
-        //m_collectableServices = Collections.synchronizedList(new LinkedList<CollectableService>());
+        //m_scanableServices = Collections.synchronizedList(new LinkedList<CollectableService>());
     }
 
     protected void onInit() {
@@ -269,5 +251,13 @@ public class Invd extends AbstractServiceDaemon {
 
     private InventoryScheduler getInventoryScheduler() {
         return m_inventoryScheduler;
+    }
+
+    public void setScanableServices(ScanableServices scanableService) {
+        m_scanableServices = scanableService;
+    }
+
+    private ScanableServices getScanableServices() {
+        return m_scanableServices;
     }
 }

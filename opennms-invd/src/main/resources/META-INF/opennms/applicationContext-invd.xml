@@ -10,6 +10,10 @@
     <!-- Inventory Configuration DAO -->
     <bean name="inventoryConfigDao" class="org.opennms.netmgt.dao.castor.InvdConfigDaoCastorImpl"/>
 
+    <bean name="scanableServices" class="org.opennms.netmgt.invd.ScanableServices">
+        
+    </bean>
+
     <bean name="scannerCollection" class="org.opennms.netmgt.invd.ScannerCollection">
         <property name="invdConfigDao" ref="inventoryConfigDao"/>
     </bean>
@@ -19,6 +23,7 @@
         <property name="transactionTemplate" ref="transactionTemplate"/>
         <property name="ipInterfaceDao" ref="ipInterfaceDao"/>
         <property name="scannerCollection" ref="scannerCollection"/>
+        <property name="scanableServices" ref="scanableServices" />
     </bean>
 
     <bean id="daemon" class="org.opennms.netmgt.invd.Invd">
@@ -28,6 +33,7 @@
         <property name="ipInterfaceDao" ref="ipInterfaceDao"/>
         <property name="scannerCollection" ref="scannerCollection"/>
         <property name="inventoryScheduler" ref="inventoryScheduler" />
+        <property name="scanableServices" ref="scanableServices" />
 
     </bean>
 

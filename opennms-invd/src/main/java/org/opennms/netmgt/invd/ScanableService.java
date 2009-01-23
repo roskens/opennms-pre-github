@@ -18,7 +18,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.io.File;
 
-public class ScannableService implements ReadyRunnable {
+public class ScanableService implements ReadyRunnable {
     /**
      * Interface's parent node identifier
      */
@@ -68,7 +68,7 @@ public class ScannableService implements ReadyRunnable {
      * @param spec    The package containing parms for this collectable service.
      * @param address InetAddress of the interface to collect from
      */
-    protected ScannableService(OnmsIpInterface
+    protected ScanableService(OnmsIpInterface
             iface, IpInterfaceDao
             ifaceDao, CollectionSpecification spec, Scheduler
             scheduler, SchedulingCompletedFlag schedulingCompletedFlag, PlatformTransactionManager

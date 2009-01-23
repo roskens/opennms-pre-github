@@ -35,6 +35,8 @@ public class InventoryScheduler {
 
     private volatile ScannerCollection m_scannerCollection;
 
+    private volatile ScanableServices m_scanableServices;
+    
     /**
      * Reference to the collection scheduler
      */
@@ -292,19 +294,19 @@ public class InventoryScheduler {
                     sb.append(svcName);
                     log().debug(sb.toString());
                 }
-                CollectableService cSvc = null;
+                ScanableService cSvc = null;
 
                 /*
                  * Create a new SnmpCollector object representing this node,
                  * interface, service and package pairing
                  */
 
-                cSvc = new CollectableService(iface, m_ifaceDao, spec, getScheduler(),
+                cSvc = new ScanableService(iface, m_ifaceDao, spec, getScheduler(),
                                               m_schedulingCompletedFlag,
                                               m_transTemplate.getTransactionManager());
 
                 // Add new collectable service to the colleable service list.
-                m_collectableServices.add(cSvc);
+                m_scanableServices.add(cSvc);
 
                 // Schedule the collectable service for immediate collection
                 getScheduler().schedule(0, cSvc.getReadyRunnable());
@@ -378,5 +380,13 @@ public class InventoryScheduler {
 
     private ScannerCollection getScannerCollection() {
         return m_scannerCollection;
+    }
+
+    public void setScanableServices(ScanableServices scanableService) {
+        m_scanableServices = scanableService;
+    }
+
+    private ScanableServices getScanableServices() {
+        return m_scanableServices;
     }
 }
