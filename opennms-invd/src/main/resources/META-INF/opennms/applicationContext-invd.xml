@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+
+    <tx:annotation-driven/>
+
+    <!-- Inventory Configuration DAO -->
+    <bean name="inventoryConfigDao" class="org.opennms.netmgt.dao.castor.InvdConfigDaoCastorImpl"/>
+
+    <bean name="scannerCollection" class="org.opennms.netmgt.invd.ScannerCollection">
+        <property name="invdConfigDao" ref="inventoryConfigDao"/>
+    </bean>
+
+    <bean name="inventoryScheduler" class="org.opennms.netmgt.invd.InventoryScheduler">
+        <property name="invdConfigDao" ref="inventoryConfigDao"/>
+        <property name="transactionTemplate" ref="transactionTemplate"/>
+        <property name="ipInterfaceDao" ref="ipInterfaceDao"/>
+        <property name="scannerCollection" ref="scannerCollection"/>
+    </bean>
+
+    <bean id="daemon" class="org.opennms.netmgt.invd.Invd">
+        <!-- <property name="eventSubscriptionService" ref="eventSubscriptionService"/>
+     <property name="eventForwarder" ref="eventForwarder"/> -->
+        <property name="invdConfigDao" ref="inventoryConfigDao"/>
+        <property name="ipInterfaceDao" ref="ipInterfaceDao"/>
+        <property name="scannerCollection" ref="scannerCollection"/>
+        <property name="inventoryScheduler" ref="inventoryScheduler" />
+
+    </bean>
+
+</beans>

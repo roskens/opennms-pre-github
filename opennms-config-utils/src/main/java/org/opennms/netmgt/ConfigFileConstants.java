@@ -469,6 +469,11 @@ public final class ConfigFileConstants {
      * The AMI agent configuration file
      */
     public static final int AMI_CONFIG_FILE_NAME;
+    
+    /**
+     * The inventory daemon configuration file
+     */
+    public static final int INVD_CONFIG_FILE_NAME;
 
     //
     // Initialize the class data. This section is used to initialize the
@@ -593,9 +598,11 @@ public final class ConfigFileConstants {
         
         AMI_CONFIG_FILE_NAME = 75;
         
+        INVD_CONFIG_FILE_NAME = 76;
+        
         // Allocate and build the mapping of identifiers to names
         //
-        FILE_ID_TO_NAME = new String[76];
+        FILE_ID_TO_NAME = new String[77];
 
         FILE_ID_TO_NAME[DB_CONFIG_FILE_NAME] = "opennms-database.xml";
         FILE_ID_TO_NAME[JMS_CONFIG_FILE_NAME] = "opennms-jms.xml";
@@ -688,6 +695,7 @@ public final class ConfigFileConstants {
         FILE_ID_TO_NAME[SNMP_INTERFACE_POLLER_CONFIG_FILE_NAME] = "snmp-interface-poller-configuration.xml";
         FILE_ID_TO_NAME[ASTERISK_CONFIG_FILE_NAME] = "asterisk-configuration.properties";
         FILE_ID_TO_NAME[AMI_CONFIG_FILE_NAME] = "ami-config.xml";
+        FILE_ID_TO_NAME[INVD_CONFIG_FILE_NAME] = "invd-configuration.xml";
     }
 
     /**

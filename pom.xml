@@ -114,6 +114,7 @@
     <module>opennms-qosdaemon</module>
     <module>opennms-webapp</module>
     <module>opennms-wmi</module>
+    <module>opennms-invd</module>
     <module>opennms-asterisk</module>
     <module>opennms-base-assembly</module>
   </modules>
@@ -987,6 +988,11 @@
       <dependency>
         <groupId>org.opennms</groupId>
         <artifactId>opennms-wmi</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms</groupId>
+        <artifactId>opennms-invd</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
