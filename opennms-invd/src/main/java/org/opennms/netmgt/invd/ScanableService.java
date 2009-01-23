@@ -52,9 +52,9 @@ public class ScanableService implements ReadyRunnable {
 
     private final ScannerSpecification m_spec;
 
-    private final SchedulingCompletedFlag m_schedulingCompletedFlag;
+    private final InventoryScheduler.SchedulingCompletedFlag m_schedulingCompletedFlag;
 
-    //private volatile CollectionAgent m_agent;
+    private volatile ScanningClient m_agent;
 
     private final PlatformTransactionManager m_transMgr;
 
@@ -72,9 +72,9 @@ public class ScanableService implements ReadyRunnable {
                               IpInterfaceDao ifaceDao,
                               ScannerSpecification spec,
                               InventoryScheduler scheduler,
-                              SchedulingCompletedFlag schedulingCompletedFlag,
+                              InventoryScheduler.SchedulingCompletedFlag schedulingCompletedFlag,
                               PlatformTransactionManager transMgr) {
-        //m_agent = DefaultCollectionAgent.create(iface.getId(), ifaceDao, transMgr);
+        m_agent = new ScanningClient(iface.getId(), ifaceDao);//DefaultCollectionAgent.create(iface.getId(), ifaceDao, transMgr);
         m_spec = spec;
         m_inventoryScheduler = scheduler;
         m_schedulingCompletedFlag = schedulingCompletedFlag;
@@ -84,14 +84,15 @@ public class ScanableService implements ReadyRunnable {
         m_nodeId = iface.getNode().getId().intValue();
         m_status = InventoryScanner.SCAN_SUCCEEDED;
 
-        m_updates = new CollectorUpdates();
+        //m_updates = new CollectorUpdates();
 
         m_lastScheduledCollectionTime = 0L;
 
-        m_spec.initialize(m_agent);
+        // TODO FIX THIS, SHOULD INITIALIZE FROM SOMETHING.
+        //m_spec.initialize(m_agent);
 
         Map<String, String> roProps = m_spec.getReadOnlyPropertyMap();
-        m_params = new ServiceParameters(roProps);
+        //m_params = new ServiceParameters(roProps);
         //m_repository = m_spec.getRrdRepository(m_params.getCollectionName());
 
         //m_thresholdVisitor = ThresholdingVisitor.createThresholdingVisitor(m_nodeId, getHostAddress(), m_spec.getServiceName(), m_repository, roProps);
@@ -102,7 +103,7 @@ public class ScanableService implements ReadyRunnable {
         return m_agent.getAddress();
     }
 
-    public CollectionSpecification getSpecification() {
+    public ScannerSpecification getSpecification() {
         return m_spec;
     }
 
@@ -129,10 +130,11 @@ public class ScanableService implements ReadyRunnable {
 
     /**
      * Returns updates object
-     */
-    public CollectorUpdates getCollectorUpdates() {
-        return m_updates;
-    }
+     * TODO DO WE NEED THIS?
+     * /
+    //public CollectorUpdates getCollectorUpdates() {
+    //    return m_updates;
+    //}
 
     /**
      * Uses the existing package name to try and re-obtain the package from the collectd config factory.
@@ -146,7 +148,7 @@ public class ScanableService implements ReadyRunnable {
 
     @Override
     public String toString() {
-        return "ScanableService for service " + m_nodeId + ':' + getAddress() + ':' + getServiceName();
+        return "ScanableService for service " + m_nodeId + ':' /*+ getAddress()*/ + ':' + getServiceName();
     }
 
 
@@ -299,37 +301,37 @@ public class ScanableService implements ReadyRunnable {
      */
     private void doCollection() throws InventoryException {
         log().info("run: starting new collection for " + getHostAddress() + "/" + m_spec.getServiceName());
-        CollectionSet result = null;
+        InventorySet result = null;
         try {
             result = m_spec.collect(m_agent);
             if (result != null) {
-                Collectd.instrumentation().beginPersistingServiceData(m_nodeId, getHostAddress(), m_spec.getServiceName());
+                //Collectd.instrumentation().beginPersistingServiceData(m_nodeId, getHostAddress(), m_spec.getServiceName());
                 try {
-                    BasePersister persister = createPersister(m_params, m_repository);
-                    persister.setIgnorePersist(result.ignorePersist());
-                    result.visit(persister);
+                    // TODO WE WILL NEED A WAY TO SAVE THIS
+                    //BasePersister persister = createPersister(m_params, m_repository);
+                    //persister.setIgnorePersist(result.ignorePersist());
+                    //result.visit(persister);
                 } finally {
-                    Collectd.instrumentation().endPersistingServiceData(m_nodeId, getHostAddress(), m_spec.getServiceName());
+                    //Collectd.instrumentation().endPersistingServiceData(m_nodeId, getHostAddress(), m_spec.getServiceName());
                 }
 
                 /*
                 * Do the thresholding; this could be made more generic (listeners being passed the collectionset), but frankly, why bother?
                 * The first person who actually needs to configure that sort of thing on the fly can code it up.
                 */
-                if (m_thresholdVisitor != null) {
-                    result.visit(m_thresholdVisitor);
-                }
+                //if (m_thresholdVisitor != null) {
+                //    result.visit(m_thresholdVisitor);
+                //}
 
-                if (result.getStatus() == ServiceCollector.COLLECTION_SUCCEEDED) {
-                    return;
-                } else {
-                    throw new CollectionFailed(result.getStatus());
+                if (result.getStatus() != InventoryScanner.SCAN_SUCCEEDED) {                    
+                    // TODO change to InventoryFailed later.
+                    //throw new CollectionFailed(result.getStatus());
                 }
             }
-        } catch (CollectionException e) {
+        } catch (InventoryException e) {
             throw e;
         } catch (Throwable t) {
-            throw new CollectionException("An undeclared throwable was caught during data collection for interface " + getHostAddress() + "/" + m_spec.getServiceName(), t);
+            throw new InventoryException("An undeclared throwable was caught during data collection for interface " + getHostAddress() + "/" + m_spec.getServiceName(), t);
         }
     }
 
@@ -343,155 +345,158 @@ public class ScanableService implements ReadyRunnable {
         // All update processing takes place within synchronized block
         // to ensure that no updates are missed.
         //
-        synchronized (this) {
-            if (!m_updates.hasUpdates())
-                return !ABORT_COLLECTION;
-
-            // Update: deletion flag
-            //
-            if (m_updates.isDeletionFlagSet()) {
-                // Deletion flag is set, simply return without polling
-                // or rescheduling this collector.
-                //
-                if (log().isDebugEnabled())
-                    log().debug("Collector for  " + getHostAddress() + " is marked for deletion...skipping collection, will not reschedule.");
-
-                return ABORT_COLLECTION;
-            }
-
-            OnmsIpInterface newIface = m_updates.isReinitializationNeeded();
-            // Update: reinitialization flag
-            //
-            if (newIface != null) {
-                // Reinitialization flag is set, call initialize() to
-                // reinit the collector for this interface
-                //
-                if (log().isDebugEnabled())
-                    log().debug("ReinitializationFlag set for " + getHostAddress());
-
-                try {
-                    reinitialize(newIface);
-                    if (log().isDebugEnabled())
-                        log().debug("Completed reinitializing " + this.getServiceName() + " collector for " + getHostAddress() + "/" + m_spec.getServiceName());
-                } catch (RuntimeException rE) {
-                    log().warn("Unable to initialize " + getHostAddress() + " for " + m_spec.getServiceName() + " collection, reason: " + rE.getMessage());
-                } catch (Throwable t) {
-                    log().error("Uncaught exception, failed to intialize interface " + getHostAddress() + " for " + m_spec.getServiceName() + " data collection", t);
-                }
-            }
-
-            // Update: reparenting flag
-            //
-            if (m_updates.isReparentingFlagSet()) {
-                if (log().isDebugEnabled())
-                    log().debug("ReparentingFlag set for " + getHostAddress());
-
-                // The interface has been reparented under a different node
-                // (with
-                // a different nodeId).
-                //
-                // If the new directory doesn't already exist simply need to
-                // rename the old
-                // directory:
-                // /opt/OpenNMS/share/rrd/snmp/<oldNodeId>
-                // to the new directory:
-                // /opt/OpenNMS/share/rrd/snmp/<newNodeId>
-                //
-                // Otherwise must iterate over each of the files/dirs in the
-                // <oldNodeId>
-                // directory and move/rename them under the <newNodeId>
-                // directory.
-
-                // Get path to RRD repository
-                //
-                String rrdPath = DataCollectionConfigFactory.getInstance().getRrdPath();
-
-                // Does the <newNodeId> directory already exist?
-                File newNodeDir = new File(rrdPath + File.separator + m_updates.getReparentNewNodeId());
-                if (!newNodeDir.isDirectory()) {
-                    // New directory does not exist yet so simply rename the old
-                    // directory to
-                    // the new directory.
-                    //
-
-                    // <oldNodeId> directory
-                    File oldNodeDir = new File(rrdPath + File.separator + m_updates.getReparentOldNodeId());
-
-                    try {
-                        // Rename <oldNodeId> dir to <newNodeId> dir.
-                        if (log().isDebugEnabled())
-                            log().debug("Attempting to rename " + oldNodeDir + " to " + newNodeDir);
-                        oldNodeDir.renameTo(newNodeDir);
-                        if (log().isDebugEnabled())
-                            log().debug("Rename successful!!");
-                    } catch (SecurityException se) {
-                        log().error("Insufficient authority to rename RRD directory.", se);
-                    } catch (Throwable t) {
-                        log().error("Unexpected exception while attempting to rename RRD directory.", t);
-                    }
-                } else {
-                    // New node directory already exists so we must move/rename
-                    // each of the
-                    // old node directory contents under the new node directory.
-                    //
-
-                    // Get list of files to be renamed/moved
-                    File oldNodeDir = new File(rrdPath + File.separator + m_updates.getReparentOldNodeId());
-                    String[] filesToMove = oldNodeDir.list();
-
-                    if (filesToMove != null) {
-                        // Iterate over the file list and rename/move each one
-                        for (int i = 0; i < filesToMove.length; i++) {
-                            File srcFile = new File(oldNodeDir.toString() + File.separator + filesToMove[i]);
-                            File destFile = new File(newNodeDir.toString() + File.separator + filesToMove[i]);
-                            try {
-                                if (log().isDebugEnabled())
-                                    log().debug("Attempting to move " + srcFile + " to " + destFile);
-                                srcFile.renameTo(destFile);
-                            } catch (SecurityException se) {
-                                log().error("Insufficient authority to move RRD files.", se);
-                                break;
-                            } catch (Throwable t) {
-                                log().warn("Unexpected exception while attempting to move " + srcFile + " to " + destFile, t);
-                            }
-                        }
-                    }
-                }
-
-                // Convert new nodeId to integer value
-                int newNodeId = -1;
-                try {
-                    newNodeId = Integer.parseInt(m_updates.getReparentNewNodeId());
-                } catch (NumberFormatException nfE) {
-                    log().warn("Unable to convert new nodeId value to an int while processing reparenting update: " + m_updates.getReparentNewNodeId());
-                }
-
-                // Set this collector's nodeId to the value of the interface's
-                // new parent nodeid.
-                m_nodeId = newNodeId;
-
-                // We must now reinitialize the collector for this interface,
-                // in order to update the NodeInfo object to reflect changes
-                // to the interface's parent node among other things.
-                //
-                try {
-                    if (log().isDebugEnabled())
-                        log().debug("Reinitializing collector for " + getHostAddress() + "/" + m_spec.getServiceName());
-                    reinitialize(m_updates.getUpdatedInterface());
-                    if (log().isDebugEnabled())
-                        log().debug("Completed reinitializing collector for " + getHostAddress() + "/" + m_spec.getServiceName());
-                } catch (RuntimeException rE) {
-                    log().warn("Unable to initialize " + getHostAddress() + " for " + m_spec.getServiceName() + " collection, reason: " + rE.getMessage());
-                } catch (Throwable t) {
-                    log().error("Uncaught exception, failed to initialize interface " + getHostAddress() + " for " + m_spec.getServiceName() + " data collection", t);
-                }
-            }
-
-            // Updates have been applied. Reset CollectorUpdates object.
-            // .
-            m_updates.reset();
-        } // end synchronized
-
+//        synchronized (this) {
+//            // TODO we'll probably want to handle updates.
+//            if (!m_updates.hasUpdates())
+//                return !ABORT_COLLECTION;
+//
+//            // Update: deletion flag
+//            //
+//            if (m_updates.isDeletionFlagSet()) {
+//                // Deletion flag is set, simply return without polling
+//                // or rescheduling this collector.
+//                //
+//                if (log().isDebugEnabled())
+//                    log().debug("Collector for  " + getHostAddress() + " is marked for deletion...skipping collection, will not reschedule.");
+//
+//                return ABORT_COLLECTION;
+//            }
+//
+//            OnmsIpInterface newIface = m_updates.isReinitializationNeeded();
+//            // Update: reinitialization flag
+//            //
+//            if (newIface != null) {
+//                // Reinitialization flag is set, call initialize() to
+//                // reinit the collector for this interface
+//                //
+//                if (log().isDebugEnabled())
+//                    log().debug("ReinitializationFlag set for " + getHostAddress());
+//
+//                try {
+//                    reinitialize(newIface);
+//                    if (log().isDebugEnabled())
+//                        log().debug("Completed reinitializing " + this.getServiceName() + " collector for " + getHostAddress() + "/" + m_spec.getServiceName());
+//                } catch (RuntimeException rE) {
+//                    log().warn("Unable to initialize " + getHostAddress() + " for " + m_spec.getServiceName() + " collection, reason: " + rE.getMessage());
+//                } catch (Throwable t) {
+//                    log().error("Uncaught exception, failed to intialize interface " + getHostAddress() + " for " + m_spec.getServiceName() + " data collection", t);
+//                }
+//            }
+//
+//            // Update: reparenting flag
+//            //
+//            if (m_updates.isReparentingFlagSet()) {
+//                if (log().isDebugEnabled())
+//                    log().debug("ReparentingFlag set for " + getHostAddress());
+//
+//                // The interface has been reparented under a different node
+//                // (with
+//                // a different nodeId).
+//                //
+//                // If the new directory doesn't already exist simply need to
+//                // rename the old
+//                // directory:
+//                // /opt/OpenNMS/share/rrd/snmp/<oldNodeId>
+//                // to the new directory:
+//                // /opt/OpenNMS/share/rrd/snmp/<newNodeId>
+//                //
+//                // Otherwise must iterate over each of the files/dirs in the
+//                // <oldNodeId>
+//                // directory and move/rename them under the <newNodeId>
+//                // directory.
+//
+//                // Get path to RRD repository
+//                //
+//                String rrdPath = DataCollectionConfigFactory.getInstance().getRrdPath();
+//
+//                // Does the <newNodeId> directory already exist?
+//                File newNodeDir = new File(rrdPath + File.separator + m_updates.getReparentNewNodeId());
+//                if (!newNodeDir.isDirectory()) {
+//                    // New directory does not exist yet so simply rename the old
+//                    // directory to
+//                    // the new directory.
+//                    //
+//
+//                    // <oldNodeId> directory
+//                    File oldNodeDir = new File(rrdPath + File.separator + m_updates.getReparentOldNodeId());
+//
+//                    try {
+//                        // Rename <oldNodeId> dir to <newNodeId> dir.
+//                        if (log().isDebugEnabled())
+//                            log().debug("Attempting to rename " + oldNodeDir + " to " + newNodeDir);
+//                        oldNodeDir.renameTo(newNodeDir);
+//                        if (log().isDebugEnabled())
+//                            log().debug("Rename successful!!");
+//                    } catch (SecurityException se) {
+//                        log().error("Insufficient authority to rename RRD directory.", se);
+//                    } catch (Throwable t) {
+//                        log().error("Unexpected exception while attempting to rename RRD directory.", t);
+//                    }
+//                } else {
+//                    // New node directory already exists so we must move/rename
+//                    // each of the
+//                    // old node directory contents under the new node directory.
+//                    //
+//
+//                    // Get list of files to be renamed/moved
+//                    File oldNodeDir = new File(rrdPath + File.separator + m_updates.getReparentOldNodeId());
+//                    String[] filesToMove = oldNodeDir.list();
+//
+//                    if (filesToMove != null) {
+//                        // Iterate over the file list and rename/move each one
+//                        for (int i = 0; i < filesToMove.length; i++) {
+//                            File srcFile = new File(oldNodeDir.toString() + File.separator + filesToMove[i]);
+//                            File destFile = new File(newNodeDir.toString() + File.separator + filesToMove[i]);
+//                            try {
+//                                if (log().isDebugEnabled())
+//                                    log().debug("Attempting to move " + srcFile + " to " + destFile);
+//                                srcFile.renameTo(destFile);
+//                            } catch (SecurityException se) {
+//                                log().error("Insufficient authority to move RRD files.", se);
+//                                break;
+//                            } catch (Throwable t) {
+//                                log().warn("Unexpected exception while attempting to move " + srcFile + " to " + destFile, t);
+//                            }
+//                        }
+//                    }
+//                }
+//
+//                // Convert new nodeId to integer value
+//                int newNodeId = -1;
+//                try {
+//                    // TODO HOW DO WE FIX THIS?
+//                    //newNodeId = Integer.parseInt(m_updates.getReparentNewNodeId());
+//                } catch (NumberFormatException nfE) {
+//                    log().warn("Unable to convert new nodeId value to an int while processing reparenting update: " /*+ m_updates.getReparentNewNodeId()*/);
+//                }
+//
+//                // Set this collector's nodeId to the value of the interface's
+//                // new parent nodeid.
+//                m_nodeId = newNodeId;
+//
+//                // We must now reinitialize the collector for this interface,
+//                // in order to update the NodeInfo object to reflect changes
+//                // to the interface's parent node among other things.
+//                //
+//                try {
+//                    if (log().isDebugEnabled())
+//                        log().debug("Reinitializing collector for " + getHostAddress() + "/" + m_spec.getServiceName());
+//                    // TODO DO WE NEED THIS?
+//                    //reinitialize(m_updates.getUpdatedInterface());
+//                    if (log().isDebugEnabled())
+//                        log().debug("Completed reinitializing collector for " + getHostAddress() + "/" + m_spec.getServiceName());
+//                } catch (RuntimeException rE) {
+//                    log().warn("Unable to initialize " + getHostAddress() + " for " + m_spec.getServiceName() + " collection, reason: " + rE.getMessage());
+//                } catch (Throwable t) {
+//                    log().error("Uncaught exception, failed to initialize interface " + getHostAddress() + " for " + m_spec.getServiceName() + " data collection", t);
+//                }
+//            }
+//
+//            // Updates have been applied. Reset CollectorUpdates object.
+//            // TODO DO WE NEED THIS?.
+//            //m_updates.reset();
+//        } // end synchronized
+//
         return !ABORT_COLLECTION;
     }
 
@@ -499,20 +504,20 @@ public class ScanableService implements ReadyRunnable {
         return ThreadCategory.getInstance(getClass());
     }
 
-    private void reinitialize(OnmsIpInterface
-            newIface) {
-        m_spec.release(m_agent);
-        m_agent = DefaultCollectionAgent.create(newIface.getId(), m_ifaceDao,
-                m_transMgr);
-        m_spec.initialize(m_agent);
+    private void reinitialize(OnmsIpInterface newIface) {
+        // TODO FIX WHEN YOU HAVE A NON-AGENT WAY TO DO THIS.
+        // m_spec.release(m_agent);
+       // m_agent = DefaultCollectionAgent.create(newIface.getId(), m_ifaceDao,
+       //         m_transMgr);
+       // m_spec.initialize(m_agent);
     }
 
-    public void reinitializeThresholding() {
-        if (m_thresholdVisitor != null) {
-            log().debug("reinitializeThresholding on " + this);
-            m_thresholdVisitor.reload();
-        }
-    }
+    //public void reinitializeThresholding() {
+    //    if (m_thresholdVisitor != null) {
+    //        log().debug("reinitializeThresholding on " + this);
+    //        m_thresholdVisitor.reload();
+    //    }
+    //}
 
     public ReadyRunnable getReadyRunnable() {
 	return this;

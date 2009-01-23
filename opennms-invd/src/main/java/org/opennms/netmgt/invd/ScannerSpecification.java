@@ -1,8 +1,14 @@
 package org.opennms.netmgt.invd;
 
 import org.opennms.netmgt.config.InvdPackage;
+import org.opennms.netmgt.config.PollOutagesConfigFactory;
 import org.opennms.netmgt.config.invd.Service;
 import org.opennms.netmgt.config.invd.Parameter;
+import org.opennms.netmgt.dao.InvdConfigDao;
+import org.opennms.netmgt.model.events.EventProxy;
+import org.opennms.netmgt.xml.event.Event;
+import org.opennms.netmgt.xml.event.Log;
+import org.opennms.netmgt.eventd.EventIpcManagerFactory;
 import org.opennms.core.utils.ThreadCategory;
 import org.apache.log4j.Category;
 
@@ -99,5 +105,65 @@ public class ScannerSpecification {
         }
         
         m_parameters = m;
+    }
+
+    public void refresh(InvdConfigDao invdConfigDao) {
+        InvdPackage refreshedPackage = invdConfigDao.getPackage(getPackageName());
+        if (refreshedPackage != null) {
+            setPackage(refreshedPackage);
+        }
+    }
+
+    public InventorySet collect(ScanningClient agent) throws InventoryException {
+        //Collectd.instrumentation().beginCollectorCollect(agent.getNodeId(), agent.getHostAddress(), m_svcName);
+        try {
+            return getScanner().collect(agent, eventProxy(), getPropertyMap());
+        } finally {
+            ;
+            //Collectd.instrumentation().endCollectorCollect(agent.getNodeId(), agent.getHostAddress(), m_svcName);
+        }
+    }
+
+    private EventProxy eventProxy() {
+        return new EventProxy() {
+            public void send(Event e) {
+                EventIpcManagerFactory.getIpcManager().sendNow(e);
+            }
+
+            public void send(Log log) {
+                EventIpcManagerFactory.getIpcManager().sendNow(log);
+            }
+        };
+    }
+
+    public boolean scheduledOutage(ScanningClient agent) {
+        boolean outageFound = false;
+
+        PollOutagesConfigFactory outageFactory = PollOutagesConfigFactory.getInstance();
+
+        /*
+         * Iterate over the outage names defined in the interface's package.
+         * For each outage...if the outage contains a calendar entry which
+         * applies to the current time and the outage applies to this
+         * interface then break and return true. Otherwise process the
+         * next outage.
+         */
+        for (String outageName : m_package.getPackage().getOutageCalendarCollection()) {
+            // Does the outage apply to the current time?
+            if (outageFactory.isCurTimeInOutage(outageName)) {
+                // Does the outage apply to this interface?
+                if ((outageFactory.isNodeIdInOutage(agent.getNodeId(), outageName)) ||
+                        (outageFactory.isInterfaceInOutage(agent.getHostAddress(), outageName)))
+                {
+                    if (log().isDebugEnabled()) {
+                        log().debug("scheduledOutage: configured outage '" + outageName + "' applies, interface " + agent.getHostAddress() + " will not be collected for " + this);
+                    }
+                    outageFound = true;
+                    break;
+                }
+            }
+        }
+
+        return outageFound;
     }
 }

@@ -93,7 +93,7 @@ public class InventoryScheduler {
         m_scheduler = scheduler;
     }
 
-    private Scheduler getScheduler() {
+    public Scheduler getScheduler() {
         if (m_scheduler == null) {
             createScheduler();
         }
