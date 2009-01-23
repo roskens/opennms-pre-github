@@ -9,6 +9,7 @@ import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.dao.InvdConfigDao;
 import org.opennms.netmgt.dao.IpInterfaceDao;
 import org.opennms.netmgt.dao.NodeDao;
+import org.opennms.netmgt.config.InvdPackage;
 import org.opennms.core.utils.ThreadCategory;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
@@ -18,6 +19,8 @@ import org.apache.log4j.Category;
 
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.LinkedList;
+import java.net.InetAddress;
 
 public class InventoryScheduler {
     /**
@@ -245,7 +248,7 @@ public class InventoryScheduler {
         //instrumentation().beginScheduleInterface(iface.getNode().getId(), iface.getIpAddress(), svcName);
         try {
 
-        Collection<CollectionSpecification> matchingSpecs = getSpecificationsForInterface(iface, svcName);
+        Collection<ScannerSpecification> matchingSpecs = getSpecificationsForInterface(iface, svcName);
         StringBuffer sb;
 
         if (log().isDebugEnabled()) {
@@ -257,7 +260,7 @@ public class InventoryScheduler {
             log().debug(sb.toString());
         }
 
-        for (CollectionSpecification spec : matchingSpecs) {
+        for (ScannerSpecification spec : matchingSpecs) {
 
             if (existing == false) {
                 /*
@@ -301,9 +304,7 @@ public class InventoryScheduler {
                  * interface, service and package pairing
                  */
 
-                cSvc = new ScanableService(iface, m_ifaceDao, spec, getScheduler(),
-                                              m_schedulingCompletedFlag,
-                                              m_transTemplate.getTransactionManager());
+                cSvc = new ScanableService(iface, m_ifaceDao, spec, this, m_schedulingCompletedFlag, m_transTemplate.getTransactionManager());
 
                 // Add new collectable service to the colleable service list.
                 m_scanableServices.add(cSvc);
@@ -346,8 +347,114 @@ public class InventoryScheduler {
         } // end while more specifications  exist
 
         } finally {
+            ;
             //instrumentation().endScheduleInterface(iface.getNode().getId(), iface.getIpAddress(), svcName);
         }
+    }
+
+    public Collection<ScannerSpecification> getSpecificationsForInterface(OnmsIpInterface iface, String svcName) {
+        Collection<ScannerSpecification> matchingPkgs = new LinkedList<ScannerSpecification>();
+
+
+        /*
+         * Compare interface/service pair against each collectd package
+         * For each match, create new SnmpCollector object and
+         * schedule it for collection
+         */
+        for(InvdPackage wpkg : getInvdConfigDao().getPackages()) {
+            /*
+             * Make certain the the current service is in the package
+             * and enabled!
+             */
+            if (!wpkg.serviceInPackageAndEnabled(svcName)) {
+                if (log().isDebugEnabled()) {
+                    StringBuffer sb = new StringBuffer();
+                    sb.append("getSpecificationsForInterface: address/service: ");
+                    sb.append(iface);
+                    sb.append("/");
+                    sb.append(svcName);
+                    sb.append(" not scheduled, service is not enabled or does not exist in package: ");
+                    sb.append(wpkg.getName());
+                    log().debug(sb.toString());
+                }
+                continue;
+            }
+
+            // Is the interface in the package?
+            if (!wpkg.interfaceInPackage(iface.getIpAddress())) {
+                if (log().isDebugEnabled()) {
+                    StringBuffer sb = new StringBuffer();
+                    sb.append("getSpecificationsForInterface: address/service: ");
+                    sb.append(iface);
+                    sb.append("/");
+                    sb.append(svcName);
+                    sb.append(" not scheduled, interface does not belong to package: ");
+                    sb.append(wpkg.getName());
+                    log().debug(sb.toString());
+                }
+                continue;
+            }
+
+            if (log().isDebugEnabled()) {
+                StringBuffer sb = new StringBuffer();
+                sb.append("getSpecificationsForInterface: address/service: ");
+                sb.append(iface);
+                sb.append("/");
+                sb.append(svcName);
+                sb.append(" scheduled, interface does belong to package: ");
+                sb.append(wpkg.getName());
+                log().debug(sb.toString());
+            }
+
+            matchingPkgs.add(new ScannerSpecification(wpkg, svcName, getScannerCollection().getInventoryScanner(svcName)));
+        }
+        return matchingPkgs;
+    }
+
+    /**
+     * Returns true if specified address/pkg pair is already represented in
+     * the collectable services list. False otherwise.
+     *
+     * @param iface
+     *            TODO
+     * @param spec
+     *            TODO
+     */
+    private boolean alreadyScheduled(OnmsIpInterface iface,
+            ScannerSpecification spec) {
+        String ipAddress = iface.getIpAddress();
+        String svcName = spec.getServiceName();
+        String pkgName = spec.getPackageName();
+        StringBuffer sb;
+        boolean isScheduled = false;
+
+        if (log().isDebugEnabled()) {
+            sb = new StringBuffer();
+            sb.append("alreadyScheduled: determining if interface: ");
+            sb.append(iface);
+            sb.append(" is already scheduled.");
+        }
+
+        synchronized (getScanableServices().getScanableServices()) {
+        	for (ScanableService cSvc : getScanableServices().getScanableServices()) {
+                InetAddress addr = (InetAddress) cSvc.getAddress();
+                if (addr.getHostAddress().equals(ipAddress)
+                        && cSvc.getPackageName().equals(pkgName)
+                        && cSvc.getServiceName().equals(svcName)) {
+                    isScheduled = true;
+                    break;
+                }
+            }
+        }
+
+        if (log().isDebugEnabled()) {
+            sb = new StringBuffer();
+            sb.append("alreadyScheduled: interface ");
+            sb.append(iface);
+            sb.append("already scheduled check: ");
+            sb.append(isScheduled);
+        }
+        return isScheduled;
     }
 
     public void setInvdConfigDao(InvdConfigDao inventoryConfigDao) {

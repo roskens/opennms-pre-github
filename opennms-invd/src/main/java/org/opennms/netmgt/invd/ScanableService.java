@@ -4,6 +4,7 @@ import org.opennms.netmgt.scheduler.ReadyRunnable;
 import org.opennms.netmgt.scheduler.Scheduler;
 import org.opennms.netmgt.threshd.ThresholdingVisitor;
 import org.opennms.netmgt.dao.IpInterfaceDao;
+import org.opennms.netmgt.dao.InvdConfigDao;
 import org.opennms.netmgt.model.RrdRepository;
 import org.opennms.netmgt.model.OnmsIpInterface;
 import org.opennms.netmgt.model.events.EventBuilder;
@@ -35,53 +36,53 @@ public class ScanableService implements ReadyRunnable {
     private volatile long m_lastScheduledCollectionTime;
 
     /**
-     * The scheduler for collectd
+     * The scheduler for invd
      */
-    private final Scheduler m_scheduler;
+    private volatile InventoryScheduler m_inventoryScheduler;
 
     /**
      * Service updates
      */
-    private final CollectorUpdates m_updates;
+    //private final CollectorUpdates m_updates;
 
     /**
      *
      */
     private static final boolean ABORT_COLLECTION = true;
 
-    private final CollectionSpecification m_spec;
+    private final ScannerSpecification m_spec;
 
     private final SchedulingCompletedFlag m_schedulingCompletedFlag;
 
-    private volatile CollectionAgent m_agent;
+    //private volatile CollectionAgent m_agent;
 
     private final PlatformTransactionManager m_transMgr;
 
     private final IpInterfaceDao m_ifaceDao;
 
-    private final ServiceParameters m_params;
+    //private final ServiceParameters m_params;
 
     /**
      * Constructs a new instance of a CollectableService object.
      *
      * @param iface   The interface on which to collect data
      * @param spec    The package containing parms for this collectable service.
-     * @param address InetAddress of the interface to collect from
      */
-    protected ScanableService(OnmsIpInterface
-            iface, IpInterfaceDao
-            ifaceDao, CollectionSpecification spec, Scheduler
-            scheduler, SchedulingCompletedFlag schedulingCompletedFlag, PlatformTransactionManager
-            transMgr) {
-        m_agent = DefaultCollectionAgent.create(iface.getId(), ifaceDao, transMgr);
+    protected ScanableService(OnmsIpInterface iface,
+                              IpInterfaceDao ifaceDao,
+                              ScannerSpecification spec,
+                              InventoryScheduler scheduler,
+                              SchedulingCompletedFlag schedulingCompletedFlag,
+                              PlatformTransactionManager transMgr) {
+        //m_agent = DefaultCollectionAgent.create(iface.getId(), ifaceDao, transMgr);
         m_spec = spec;
-        m_scheduler = scheduler;
+        m_inventoryScheduler = scheduler;
         m_schedulingCompletedFlag = schedulingCompletedFlag;
         m_ifaceDao = ifaceDao;
         m_transMgr = transMgr;
 
         m_nodeId = iface.getNode().getId().intValue();
-        m_status = ServiceCollector.COLLECTION_SUCCEEDED;
+        m_status = InventoryScanner.SCAN_SUCCEEDED;
 
         m_updates = new CollectorUpdates();
 
@@ -137,15 +138,15 @@ public class ScanableService implements ReadyRunnable {
      * Uses the existing package name to try and re-obtain the package from the collectd config factory.
      * Should be called when the collect config has been reloaded.
      *
-     * @param collectorConfigDao
+     * @param invdConfigDao
      */
-    public void refreshPackage(CollectorConfigDao collectorConfigDao) {
-        m_spec.refresh(collectorConfigDao);
+    public void refreshPackage(InvdConfigDao invdConfigDao) {
+        m_spec.refresh(invdConfigDao);
     }
 
     @Override
     public String toString() {
-        return "CollectableService for service " + m_nodeId + ':' + getAddress() + ':' + getServiceName();
+        return "ScanableService for service " + m_nodeId + ':' + getAddress() + ':' + getServiceName();
     }
 
 
@@ -234,22 +235,22 @@ public class ScanableService implements ReadyRunnable {
         if (!m_spec.scheduledOutage(m_agent)) {
             try {
                 doCollection();
-                updateStatus(ServiceCollector.COLLECTION_SUCCEEDED, null);
-            } catch (CollectionException e) {
-                if (e instanceof CollectionWarning) {
-                    log().warn(e, e);
-                } else {
+                updateStatus(InventoryScanner.SCAN_SUCCEEDED, null);
+            } catch (InventoryException e) {
+                //if (e instanceof CollectionWarning) {
+                //    log().warn(e, e);
+                //} else {
                     log().error(e, e);
-                }
-                updateStatus(ServiceCollector.COLLECTION_FAILED, e);
+                //}
+                updateStatus(InventoryScanner.SCAN_FAILED, e);
             }
         }
 
         // Reschedule the service
-        m_scheduler.schedule(m_spec.getInterval(), getReadyRunnable());
+        m_inventoryScheduler.getScheduler().schedule(m_spec.getInterval(), getReadyRunnable());
     }
 
-    private void updateStatus(int status, CollectionException e) {
+    private void updateStatus(int status, InventoryException e) {
         // Any change in status?
         if (status != m_status) {
             // Generate data collection transition events
@@ -264,12 +265,14 @@ public class ScanableService implements ReadyRunnable {
 
             // Send the appropriate event
             switch (status) {
-                case ServiceCollector.COLLECTION_SUCCEEDED:
-                    sendEvent(EventConstants.DATA_COLLECTION_SUCCEEDED_EVENT_UEI, null);
+                case InventoryScanner.SCAN_SUCCEEDED:
+                    // TODO Add the new scan succeeded event UEI
+                    //sendEvent(EventConstants.DATA_COLLECTION_SUCCEEDED_EVENT_UEI, null);
                     break;
 
-                case ServiceCollector.COLLECTION_FAILED:
-                    sendEvent(EventConstants.DATA_COLLECTION_FAILED_EVENT_UEI, reason);
+                case InventoryScanner.SCAN_FAILED:
+                    // TODO Add the new scan succeeded event UEI
+                    //sendEvent(EventConstants.DATA_COLLECTION_FAILED_EVENT_UEI, reason);
                     break;
 
                 default:
@@ -281,19 +284,20 @@ public class ScanableService implements ReadyRunnable {
         m_status = status;
     }
 
-    private BasePersister createPersister(ServiceParameters params, RrdRepository
-            repository) {
-        if (Boolean.getBoolean("org.opennms.rrd.storeByGroup")) {
-            return new GroupPersister(params, repository);
-        } else {
-            return new OneToOnePersister(params, repository);
-        }
-    }
+    // TODO we'll need something similar to write to the DB
+    //private BasePersister createPersister(ServiceParameters params, RrdRepository
+    //        repository) {
+    //    if (Boolean.getBoolean("org.opennms.rrd.storeByGroup")) {
+    //        return new GroupPersister(params, repository);
+    //    } else {
+    //        return new OneToOnePersister(params, repository);
+    //    }
+    //}
 
     /**
      * Perform data collection.
      */
-    private void doCollection() throws CollectionException {
+    private void doCollection() throws InventoryException {
         log().info("run: starting new collection for " + getHostAddress() + "/" + m_spec.getServiceName());
         CollectionSet result = null;
         try {
