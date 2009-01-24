@@ -114,6 +114,7 @@
     <module>opennms-qosdaemon</module>
     <module>opennms-webapp</module>
     <module>opennms-wmi</module>
+    <module>opennms-asterisk</module>
     <module>opennms-base-assembly</module>
   </modules>
   <build>
@@ -214,6 +215,7 @@
                   <property name="java.version" value="${java.version}" />
                   <property name="java.home" value="${java.home}" />
                 </ant>
+                <echo message="update policy is ${updatePolicy}" />
               </tasks>
             </configuration>
             <goals>
@@ -596,6 +598,8 @@
    <webstart.dnameSt />
    <webstart.dnameC />
 
+   <updatePolicy>daily</updatePolicy>
+
   </properties>
 
   <profiles>
@@ -884,6 +888,11 @@
       </dependency>
       <dependency>
         <groupId>org.opennms</groupId>
+        <artifactId>opennms-provision-persistence</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms</groupId>
         <artifactId>opennms-provisiond</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -988,6 +997,11 @@
         <artifactId>rancid-api</artifactId>
         <version>0.2-SNAPSHOT</version>
       </dependency>
+      <dependency>
+        <groupId>org.opennms</groupId>
+        <artifactId>opennms-asterisk</artifactId>
+        <version>${project.version}</version>
+      </dependency>
 
       <!--  external dependencies -->
       <!--  PLEASE KEEP THESE IN ALPHABETICAL ORDER -->
@@ -1005,6 +1019,11 @@
         <groupId>antlr</groupId>
         <artifactId>antlr</artifactId>
         <version>2.7.6</version>
+      </dependency>
+      <dependency>
+        <groupId>org.asteriskjava</groupId>
+        <artifactId>asterisk-java</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>axis</groupId>
@@ -1121,7 +1140,7 @@
       <dependency>
         <groupId>commons-lang</groupId>
         <artifactId>commons-lang</artifactId>
-        <version>2.3</version>
+        <version>2.4</version>
       </dependency>
       <dependency>
         <groupId>commons-logging</groupId>
@@ -1532,6 +1551,7 @@
     <repository>
      <snapshots>
         <enabled>true</enabled>
+        <updatePolicy>${updatePolicy}</updatePolicy>
       </snapshots>
       <releases>
         <enabled>true</enabled>
@@ -1556,6 +1576,7 @@
     <pluginRepository>
       <snapshots>
         <enabled>true</enabled>
+        <updatePolicy>${updatePolicy}</updatePolicy>
       </snapshots>
       <releases>
         <enabled>false</enabled>
@@ -1578,6 +1599,7 @@
     <pluginRepository>
       <snapshots>
         <enabled>true</enabled>
+        <updatePolicy>${updatePolicy}</updatePolicy>
       </snapshots>
       <releases>
         <enabled>false</enabled>

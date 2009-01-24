@@ -35,10 +35,12 @@
  */
 package org.opennms.netmgt.ackd;
 
+import java.text.ParseException;
 import java.util.List;
 
+import org.opennms.netmgt.config.ackd.AckdConfiguration;
 import org.opennms.netmgt.daemon.SpringServiceDaemon;
-import org.opennms.netmgt.model.Acknowledgment;
+import org.opennms.netmgt.model.OnmsAcknowledgment;
 import org.opennms.netmgt.model.events.EventForwarder;
 import org.opennms.netmgt.model.events.EventSubscriptionService;
 import org.opennms.netmgt.model.events.annotations.EventHandler;
@@ -60,6 +62,8 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
     //TODO: add a queue for processing acknowledgements from the reads, ReST, Events
     
 	public static final String NAME = "Ackd";
+	
+	public AckdConfiguration m_config;
 
 	private volatile EventSubscriptionService m_eventSubscriptionService;
 	private volatile EventForwarder m_eventForwarder;
@@ -84,6 +88,7 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
 	}
 
 	public void afterPropertiesSet() throws Exception {
+	    m_ackService.setEventForwarder(m_eventForwarder);
 	}
 
 	public void destroy() throws Exception {
@@ -95,7 +100,7 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
 
     public void start() throws Exception {
         for (AckReader reader : m_ackReaders) {
-            reader.start();
+            reader.start(m_config);
         }
     }
     
@@ -107,10 +112,26 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
         return m_ackReaders;
     }
     
-    @EventHandler(uei="uei.opennms.org/internal/ackd/Acknowledgment")
-    public void handleAckEvent(Event e) {
-        Acknowledgment ack = new Acknowledgment(e);
-        m_ackService.processAck(ack);
+    public AckService getAckService() {
+        return m_ackService;
+    }
+
+    public void setAckService(AckService ackService) {
+        m_ackService = ackService;
+    }
+
+    //TODO: make event conf def for this uei
+    @EventHandler(uei="uei.opennms.org/internal/ackd/Acknowledge")
+    public void handleAckEvent(Event event) {
+        OnmsAcknowledgment ack;
+        
+        try {
+            ack = new OnmsAcknowledgment(event);
+            m_ackService.processAck(ack);
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
 }

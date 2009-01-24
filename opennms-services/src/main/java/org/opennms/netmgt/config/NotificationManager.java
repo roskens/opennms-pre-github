@@ -57,7 +57,6 @@ import javax.sql.DataSource;
 import org.apache.log4j.Category;
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.Marshaller;
-import org.exolab.castor.xml.Unmarshaller;
 import org.exolab.castor.xml.ValidationException;
 import org.opennms.core.utils.ThreadCategory;
 import org.opennms.netmgt.EventConstants;
@@ -65,6 +64,7 @@ import org.opennms.netmgt.config.common.Header;
 import org.opennms.netmgt.config.notifications.Notification;
 import org.opennms.netmgt.config.notifications.Notifications;
 import org.opennms.netmgt.config.notifications.Parameter;
+import org.opennms.netmgt.dao.castor.CastorUtils;
 import org.opennms.netmgt.eventd.EventUtil;
 import org.opennms.netmgt.filter.FilterDaoFactory;
 import org.opennms.netmgt.filter.FilterParseException;
@@ -104,6 +104,10 @@ public abstract class NotificationManager {
     public static final String PARAM_XMPP_ADDRESS = "-xmpp";
     public static final String PARAM_TEXT_PAGER_PIN = "-tp";
     public static final String PARAM_NUM_PAGER_PIN = "-np";
+    public static final String PARAM_WORK_PHONE = "-wphone";
+    public static final String PARAM_HOME_PHONE = "-hphone";
+    public static final String PARAM_MOBILE_PHONE = "-mphone";
+    public static final String PARAM_TUI_PIN = "-tuipin";
     
     NotifdConfigManager m_configManager;
     private DataSource m_dataSource;
@@ -120,7 +124,7 @@ public abstract class NotificationManager {
     }
 
     public synchronized void parseXML(final Reader reader) throws MarshalException, ValidationException {
-        m_notifications = (Notifications) Unmarshaller.unmarshal(Notifications.class, reader);
+        m_notifications = CastorUtils.unmarshal(Notifications.class, reader);
         oldHeader = m_notifications.getHeader();
     }
 
@@ -533,7 +537,7 @@ public abstract class NotificationManager {
         if (noticeId < 0) return;
         int userNotifId = getUserNotifId();
         if (log.isDebugEnabled()) {
-            log.debug("updating usersnotified: ID = " + userNotifId+ " User = " + userId + ", notice ID = " + noticeId + ", conctactinfo = " + contactInfo + ", media = " + media + ", autoNotify = " + autoNotify);
+            log.debug("updating usersnotified: ID = " + userNotifId+ " User = " + userId + ", notice ID = " + noticeId + ", contactinfo = " + contactInfo + ", media = " + media + ", autoNotify = " + autoNotify);
         }
         Connection connection = null;
         try {

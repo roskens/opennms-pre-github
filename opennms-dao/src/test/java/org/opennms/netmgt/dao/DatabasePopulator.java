@@ -46,6 +46,17 @@ import org.opennms.netmgt.dao.hibernate.OnmsMapDaoHibernate;
 import org.opennms.netmgt.dao.hibernate.OnmsMapElementDaoHibernate;
 import org.opennms.netmgt.dao.hibernate.DataLinkInterfaceDaoHibernate;
 import org.opennms.netmgt.model.*;
+import org.opennms.netmgt.model.AckType;
+import org.opennms.netmgt.model.OnmsAcknowledgment;
+import org.opennms.netmgt.model.NetworkBuilder;
+import org.opennms.netmgt.model.OnmsAlarm;
+import org.opennms.netmgt.model.OnmsCategory;
+import org.opennms.netmgt.model.OnmsDistPoller;
+import org.opennms.netmgt.model.OnmsEvent;
+import org.opennms.netmgt.model.OnmsMonitoredService;
+import org.opennms.netmgt.model.OnmsNode;
+import org.opennms.netmgt.model.OnmsOutage;
+import org.opennms.netmgt.model.OnmsServiceType;
 import org.opennms.netmgt.model.OnmsSeverity;
 
 /**
@@ -94,6 +105,7 @@ public class DatabasePopulator {
     private OnmsMapDaoHibernate m_onmsMapDao;
     private OnmsMapElementDaoHibernate m_onmsMapElementDao;
     private DataLinkInterfaceDaoHibernate m_dataLinkInterfaceDao;
+    private AcknowledgmentDao m_acknowledgmentDao;
     
     private OnmsNode m_node1;
 
@@ -269,6 +281,15 @@ public class DatabasePopulator {
         DataLinkInterface dli3 = new DataLinkInterface(2, 1, 1, 1, "A", new Date());
         getDataLinkInterfaceDao().save(dli3);
         getDataLinkInterfaceDao().flush();
+        
+        
+        OnmsAcknowledgment ack = new OnmsAcknowledgment();
+        ack.setAckTime(new Date());
+        ack.setAckType(AckType.Unspecified);
+        ack.setAckUser("admin");
+        getAcknowledgmentDao().save(ack);
+        getAcknowledgmentDao().flush();
+        
     }
 
     private OnmsCategory getCategory(String categoryName) {
@@ -481,4 +502,12 @@ public class DatabasePopulator {
     public void setDataLinkInterfaceDao(DataLinkInterfaceDaoHibernate dataLinkInterfaceDao) {
         this.m_dataLinkInterfaceDao = dataLinkInterfaceDao;
     }
+    public AcknowledgmentDao getAcknowledgmentDao() {
+        return m_acknowledgmentDao;
+    }
+
+    public void setAcknowledgmentDao(AcknowledgmentDao acknowledgmentDao) {
+        m_acknowledgmentDao = acknowledgmentDao;
+    }
+
 }

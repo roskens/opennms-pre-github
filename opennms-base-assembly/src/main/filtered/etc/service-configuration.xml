@@ -156,7 +156,7 @@ maintained
   </service>
   <service>
      <name>OpenNMS:Name=SnmpPoller</name>
-     <class-name>org.opennms.netmgt.snmpinterfacepoller.jmx.Pollerd</class-name>
+     <class-name>org.opennms.netmgt.snmpinterfacepoller.jmx.SnmpPollerd</class-name>
      <invoke at="start" pass="0" method="init"/>
      <invoke at="start" pass="1" method="start"/>
      <invoke at="status" pass="0" method="status"/>
@@ -319,6 +319,14 @@ maintained
       <name>SpringContext</name>
       <value type="java.lang.String">alarmdContext</value>
     </attribute>
+    <invoke at="start" pass="0" method="init"/>
+    <invoke at="start" pass="1" method="start"/>
+    <invoke at="status" pass="0" method="status"/>
+    <invoke at="stop" pass="0" method="stop"/>
+  </service>
+  <service>
+    <name>OpenNMS:Name=AsteriskGateway</name>
+    <class-name>org.opennms.netmgt.asterisk.agi.jmx.AsteriskGateway</class-name>
     <invoke at="start" pass="0" method="init"/>
     <invoke at="start" pass="1" method="start"/>
     <invoke at="status" pass="0" method="status"/>

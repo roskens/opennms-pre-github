@@ -9,6 +9,11 @@
 
   <bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
     <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+    <property name="locations">
+      <list>
+        <value>file:${opennms.home}/etc/model-importer.properties</value>
+      </list>
+    </property>
   </bean>
 
   <!-- 
@@ -53,6 +58,7 @@
         <value>org.opennms.netmgt.model.OnmsMap</value>
         <value>org.opennms.netmgt.model.OnmsMapElement</value>
         <value>org.opennms.netmgt.model.DataLinkInterface</value>
+        <value>org.opennms.netmgt.model.OnmsAcknowledgment</value>
       </list>
     </property>
     <!--  property name="schemaUpdate" value="true">
@@ -165,6 +171,10 @@
   <bean id="locationMonitorDao" class="org.opennms.netmgt.dao.hibernate.LocationMonitorDaoHibernate">
     <property name="sessionFactory" ref="sessionFactory" />
     <property name="monitoringLocationConfigResource" ref="locationMonitorConfigResourceLocation" />
+  </bean>
+  
+  <bean id="acknowledgmentDao" class="org.opennms.netmgt.dao.hibernate.AcknowledgmentDaoHibernate" >
+    <property name="sessionFactory" ref="sessionFactory" />
   </bean>
 
   <bean id="surveillanceViewConfigResourceLocation" class="java.lang.String">

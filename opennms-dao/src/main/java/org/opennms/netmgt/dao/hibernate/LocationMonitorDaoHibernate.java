@@ -8,8 +8,6 @@
 //
 // OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
 //
-// Original code base Copyright (C) 1999-2001 Oculan Corp.  All rights reserved.
-//
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation; either version 2 of the License, or
@@ -34,8 +32,6 @@ package org.opennms.netmgt.dao.hibernate;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.io.StringWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -47,15 +43,14 @@ import java.util.List;
 
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.Marshaller;
-import org.exolab.castor.xml.Unmarshaller;
 import org.exolab.castor.xml.ValidationException;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.opennms.netmgt.config.monitoringLocations.LocationDef;
 import org.opennms.netmgt.config.monitoringLocations.MonitoringLocationsConfiguration;
 import org.opennms.netmgt.dao.CastorDataAccessFailureException;
-import org.opennms.netmgt.dao.CastorObjectRetrievalFailureException;
 import org.opennms.netmgt.dao.LocationMonitorDao;
+import org.opennms.netmgt.dao.castor.CastorUtils;
 import org.opennms.netmgt.model.LocationMonitorIpInterface;
 import org.opennms.netmgt.model.OnmsIpInterface;
 import org.opennms.netmgt.model.OnmsLocationMonitor;
@@ -207,28 +202,7 @@ public class LocationMonitorDaoHibernate extends AbstractDaoHibernate<OnmsLocati
      * @throws ValidationException
      */
     private void initializeMonitoringLocationDefinition() {
-        Reader rdr = null;
-        try {
-            rdr = new InputStreamReader(m_monitoringLocationConfigResource.getInputStream());
-            m_monitoringLocationsConfiguration = (MonitoringLocationsConfiguration) 
-            Unmarshaller.unmarshal(MonitoringLocationsConfiguration.class, rdr);
-        } catch (IOException e) {
-            throw new CastorDataAccessFailureException("initializeMonitoringLocationDefinition: " +
-                                                       "Could not marshal configuration", e);
-        } catch (MarshalException e) {
-            throw new CastorDataAccessFailureException("initializeMonitoringLocationDefinition: " +
-                                                       "Could not marshal configuration", e);
-        } catch (ValidationException e) {
-            throw new CastorObjectRetrievalFailureException("initializeMonitoringLocationDefinition: " +
-                    "Could not marshal configuration", e);
-        } finally {
-            try {
-                if (rdr != null) rdr.close();
-            } catch (IOException e) {
-                throw new CastorDataAccessFailureException("initializeMonitoringLocatinDefintion: " +
-                        "Could not close XML stream", e);
-            }
-        }
+        m_monitoringLocationsConfiguration = CastorUtils.unmarshalWithTranslatedExceptions(MonitoringLocationsConfiguration.class, m_monitoringLocationConfigResource);
     }
     
     public Collection<OnmsMonitoringLocationDefinition> findAllLocationDefinitions() {

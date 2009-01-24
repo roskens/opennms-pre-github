@@ -29,28 +29,27 @@
 //     http://www.opennms.org/
 //     http://www.opennms.com/
 //
-package org.opennms.netmgt.provision.persist;
+package org.opennms.netmgt.dao;
 
-import org.opennms.netmgt.config.modelimport.Asset;
-import org.opennms.netmgt.config.modelimport.Category;
-import org.opennms.netmgt.config.modelimport.Interface;
-import org.opennms.netmgt.config.modelimport.ModelImport;
-import org.opennms.netmgt.config.modelimport.MonitoredService;
-import org.opennms.netmgt.config.modelimport.Node;
+import java.util.List;
 
-public interface ImportVisitor {
+import org.opennms.netmgt.provision.persist.OnmsForeignSource;
+import org.opennms.netmgt.provision.persist.OnmsRequisition;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface RequisitionDao {
+	
+    public abstract List<OnmsRequisition> findAll();
     
-    public void visitModelImport(ModelImport mi);
-    public void completeModelImport(ModelImport modelImport);
-    public void visitNode(Node node);
-    public void completeNode(Node node);
-    public void visitInterface(Interface iface);
-    public void completeInterface(Interface iface);
-    public void visitMonitoredService(MonitoredService svc);
-    public void completeMonitoredService(MonitoredService svc);
-    public void visitCategory(Category category);
-    public void completeCategory(Category category);
-    public void visitAsset(Asset asset);
-    public void completeAsset(Asset asset);
+    public abstract int countAll();
 
+    public abstract OnmsRequisition get(String foreignSource);
+    
+    public abstract OnmsRequisition get(OnmsForeignSource foreignSource);
+    
+    public abstract void save(OnmsRequisition requisition);
+    
+    public abstract void delete(OnmsRequisition requisition);
+    
 }

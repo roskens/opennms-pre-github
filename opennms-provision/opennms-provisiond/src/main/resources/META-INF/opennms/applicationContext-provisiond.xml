@@ -65,7 +65,8 @@
   </bean>
   
   <bean id="foreignSourceRepository" class="org.opennms.netmgt.provision.persist.FilesystemForeignSourceRepository">
-  	<property name="repositoryPath" value="${importer.cacheDir}/foreign-sources" />
+  	<property name="requisitionPath" value="${importer.cacheDir}/requisition" />
+  	<property name="foreignSourcePath" value="${importer.cacheDir}/foreign-sources" />
   </bean>
   
   <bean id="lifeCycleRepository" class="org.opennms.netmgt.provision.service.lifecycle.DefaultLifeCycleRepository">
@@ -119,14 +120,12 @@
     <property name="serviceTypeDao" ref="serviceTypeDao" />
     <property name="categoryDao" ref="categoryDao" />
   </bean>
-
+  
   <bean id="coreImportActivities" class="org.opennms.netmgt.provision.service.CoreImportActivities">
     <constructor-arg ref="provisionService" />
   </bean>
   
-  <bean id="coreScanActivities" class="org.opennms.netmgt.provision.service.CoreScanActivities">
-    <constructor-arg ref="provisionService" />
-  </bean>
+  <bean id="coreScanActivities" class="org.opennms.netmgt.provision.service.CoreScanActivities" />
   
   <bean id="daemon" class="org.opennms.netmgt.provision.service.Provisioner" depends-on="snmpPeerFactory-init">
     <property name="provisionService" ref="provisionService" />

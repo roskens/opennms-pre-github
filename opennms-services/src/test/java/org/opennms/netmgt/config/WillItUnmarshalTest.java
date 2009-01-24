@@ -62,6 +62,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.opennms.netmgt.config.actiond.ActiondConfiguration;
+import org.opennms.netmgt.config.ami.AmiConfig;
 import org.opennms.netmgt.config.archiver.events.EventsArchiverConfiguration;
 import org.opennms.netmgt.config.capsd.CapsdConfiguration;
 import org.opennms.netmgt.config.categories.Catinfo;
@@ -72,6 +73,7 @@ import org.opennms.netmgt.config.datacollection.DatacollectionConfig;
 import org.opennms.netmgt.config.destinationPaths.DestinationPaths;
 import org.opennms.netmgt.config.dhcpd.DhcpdConfiguration;
 import org.opennms.netmgt.config.discovery.DiscoveryConfiguration;
+import org.opennms.netmgt.config.eventd.EventdConfiguration;
 import org.opennms.netmgt.config.filter.DatabaseSchema;
 import org.opennms.netmgt.config.groups.Groupinfo;
 import org.opennms.netmgt.config.httpdatacollection.HttpDatacollectionConfig;
@@ -182,29 +184,26 @@ public class WillItUnmarshalTest {
     public void testLenientOrderingDisabled() throws Exception {
         LocalConfiguration.getInstance().getProperties().remove(CASTOR_LENIENT_SEQUENCE_ORDERING_PROPERTY);
 
-        String exceptionText = "Element with name event passed to type events in incorrect order";
-        boolean gotException = false;
+        unmarshalAndAnticipateException("eventconf-bad-ordering.xml", "Element with name event passed to type events in incorrect order");
+    }
+    
+    @Test
+    public void testNotIgnoreExtraAttributeAsDefault() throws Exception {
+        unmarshalAndAnticipateException("eventconf-bad-attribute.xml", "The attribute 'bad-attribute' appears illegally on element 'event'");
+    }
 
-        try {
-            CastorUtils.unmarshal(Events.class, ConfigurationTestUtils.getSpringResourceForResource(this, "eventconf-bad-ordering.xml"));
-        } catch (MarshalException e) {
-            if (e.getMessage().contains(exceptionText)) {
-                gotException = true;
-            } else {
-                AssertionFailedError newE = new AssertionFailedError("unmarshal threw MarshalException but did not contain expected text: " + exceptionText);
-                newE.initCause(e);
-                throw newE;
-            }
-        }
-
-        if (!gotException) {
-            fail("unmarshal did not throw MarshalException containing expected text: " + exceptionText);
-        }
+    @Test
+    public void testNotIgnoreExtraElementAsDefault() throws Exception {
+        unmarshalAndAnticipateException("eventconf-bad-element.xml", "unable to find FieldDescriptor for 'bad-element' in ClassDescriptor of events");
     }
 
     @Test
     public void testActiondConfiguration() throws Exception {
         unmarshal("actiond-configuration.xml", ActiondConfiguration.class);
+    }
+    @Test
+    public void testAmiConfig() throws Exception {
+        unmarshal("ami-config.xml", AmiConfig.class);
     }
     @Test
     public void testCapsdConfiguration() throws Exception {
@@ -500,7 +499,7 @@ public class WillItUnmarshalTest {
     }
     @Test
     public void testEventdConfiguration() throws Exception {
-        unmarshal("eventd-configuration.xml", Viewinfo.class);
+        unmarshal("eventd-configuration.xml", EventdConfiguration.class);
     }
     @Test
     public void testServiceConfiguration() throws Exception {
@@ -626,12 +625,31 @@ public class WillItUnmarshalTest {
     private static <T>T unmarshal(File file, Class<T> clazz, Set<String> testedSet, String fileName) throws MarshalException, ValidationException, IOException {
         // Be conservative about what we ship, so don't be lenient
         LocalConfiguration.getInstance().getProperties().remove(CASTOR_LENIENT_SEQUENCE_ORDERING_PROPERTY);
-
+        
         T config = CastorUtils.unmarshal(clazz, new FileSystemResource(file));
         
         assertNotNull("unmarshalled object should not be null after unmarshalling from " + file.getAbsolutePath(), config);
         testedSet.add(fileName);
         
         return config;
+    }
+
+    private void unmarshalAndAnticipateException(String file, String exceptionText) throws ValidationException, IOException, AssertionFailedError {
+        boolean gotException = false;
+        try {
+            CastorUtils.unmarshal(Events.class, ConfigurationTestUtils.getSpringResourceForResource(this, file));
+        } catch (MarshalException e) {
+            if (e.getMessage().contains(exceptionText)) {
+                gotException = true;
+            } else {
+                AssertionFailedError newE = new AssertionFailedError("unmarshal threw MarshalException but did not contain expected text: " + exceptionText);
+                newE.initCause(e);
+                throw newE;
+            }
+        }
+
+        if (!gotException) {
+            fail("unmarshal did not throw MarshalException containing expected text: " + exceptionText);
+        }
     }
 }

@@ -37,20 +37,20 @@ public class WorkEffort {
 	private String m_name;
 	private long m_totalTime;
 	private long m_sectionCount;
-	private ThreadLocal<Duration> m_pendingSection = new ThreadLocal<Duration>();
+	private ThreadLocal<WorkDuration> m_pendingSection = new ThreadLocal<WorkDuration>();
 	
 	public WorkEffort(String name) {
 		m_name = name;
 	}
 
 	public void begin() {
-		Duration pending = new Duration();
+		WorkDuration pending = new WorkDuration();
 		pending.start();
 		m_pendingSection.set(pending);
 	}
 
 	public void end() {
-		Duration pending = m_pendingSection.get();
+		WorkDuration pending = m_pendingSection.get();
 		m_sectionCount++;
 		m_totalTime += pending.getLength();
 	}

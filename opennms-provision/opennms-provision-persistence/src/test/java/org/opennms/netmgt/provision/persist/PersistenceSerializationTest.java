@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.SchemaOutputResolver;
 import javax.xml.transform.Result;
@@ -21,35 +20,44 @@ import javax.xml.transform.stream.StreamResult;
 import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Difference;
 import org.custommonkey.xmlunit.XMLUnit;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.opennms.test.FileAnticipator;
 import org.xml.sax.SAXException;
 
-public class JAXBTest {
+public class PersistenceSerializationTest {
     private ForeignSourceWrapper fsw;
-    private MockForeignSourceRepository fsr;
+    private AbstractForeignSourceRepository fsr;
     private Marshaller m;
 //    private Unmarshaller u;
     private JAXBContext c;
     private OnmsForeignSource fs;
-    
-    File schemaFile = new File("/tmp/foreign-sources.xsd");
-    
+    private FileAnticipator fa;
+
     private class TestOutputResolver extends SchemaOutputResolver {
+        private final File m_schemaFile;
+        
+        public TestOutputResolver(File schemaFile) {
+            m_schemaFile = schemaFile;
+        }
+        
         public Result createOutput(String namespaceUri, String suggestedFileName) throws IOException {
-            return new StreamResult(schemaFile);
+            return new StreamResult(m_schemaFile);
         }
     }
 
     @Before
-    public void setUp() throws JAXBException {
+    public void setUp() throws Exception {
+        fa = new FileAnticipator();
+
         fsr = new MockForeignSourceRepository();
         fsr.save(new OnmsForeignSource("cheese"));
 
-        fs = fsr.get("cheese");
+        fs = fsr.getForeignSource("cheese");
 //        fs.setScanInterval(scanInterval)
 
-        List<PluginConfig> detectors = new ArrayList<PluginConfig>();
+        ArrayList<PluginConfig> detectors = new ArrayList<PluginConfig>();
         final PluginConfig detector = new PluginConfig("food", "org.opennms.netmgt.provision.persist.detectors.FoodDetector");
         detector.addParameter("type", "cheese");
         detector.addParameter("density", "soft");
@@ -57,7 +65,7 @@ public class JAXBTest {
         detectors.add(detector);
         fs.setDetectors(detectors);
 
-        List<PluginConfig> policies = new ArrayList<PluginConfig>();
+        ArrayList<PluginConfig> policies = new ArrayList<PluginConfig>();
         PluginConfig policy = new PluginConfig("lower-case-node", "org.opennms.netmgt.provision.persist.policies.NodeCategoryPolicy");
         policy.addParameter("label", "~^[a-z]$");
         policy.addParameter("category", "Lower-Case-Nodes");
@@ -72,7 +80,7 @@ public class JAXBTest {
         policies.add(policy);
         fs.setPolicies(policies);
 
-        fsw = new ForeignSourceWrapper(fsr.getAll());
+        fsw = new ForeignSourceWrapper(fsr.getForeignSources());
         c = JAXBContext.newInstance(ForeignSourceWrapper.class, OnmsForeignSource.class);
 
         m = c.createMarshaller();
@@ -83,10 +91,18 @@ public class JAXBTest {
         XMLUnit.setNormalize(true);
     }
 
+    @After
+    public void tearDown() throws Exception {
+        fa.tearDown();
+    }
+
     @Test
     public void generateSchema() throws Exception {
-        c.generateSchema(new TestOutputResolver());
-        assertTrue("schema file exists", schemaFile.exists());
+        File schemaFile = fa.expecting("foreign-sources.xsd");
+        c.generateSchema(new TestOutputResolver(schemaFile));
+        if (fa.isInitialized()) {
+            fa.deleteExpected();
+        }
     }
     
     @Test

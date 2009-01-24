@@ -48,6 +48,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.springframework.core.style.ToStringCreator;
@@ -303,6 +304,26 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
             m_answeredBy = ackUser;
             m_respondTime = ackDate;
         }
+    }
+    
+    @Transient
+    public AckType getType() {
+        return AckType.Notification;
+    }
+    
+    @Transient
+    public Integer getAckId() {
+        return m_notifyId;
+    }
+    
+    @Transient
+    public String getAckUser() {
+        return m_answeredBy;
+    }
+    
+    @Transient
+    public Date getAckTime() {
+        return m_respondTime;
     }
 
 }

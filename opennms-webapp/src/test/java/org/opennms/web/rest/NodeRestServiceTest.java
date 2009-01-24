@@ -1,13 +1,8 @@
 package org.opennms.web.rest;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import javax.ws.rs.core.MediaType;
-
 import org.junit.Test;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockHttpServletResponse;
 
 /*
  * TODO
@@ -92,34 +87,6 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
         sendRequest(GET, url, 204);
     }
 
-    private void sendPost(String url, String xml) throws Exception {
-        sendData(POST, MediaType.APPLICATION_XML, url, xml);
-    }
-
-    private void sendPut(String url, String formData) throws Exception {
-        sendData(PUT, MediaType.APPLICATION_FORM_URLENCODED, url, formData);
-    }
-    
-    private void sendData(String requestType, String contentType, String url, String data) throws Exception {
-        MockHttpServletRequest request = createRequest(requestType, url);
-        request.setContentType(contentType);
-        request.setContent(data.getBytes());
-        MockHttpServletResponse response = createResponse();        
-        dispatch(request, response);
-        assertEquals(200, response.getStatus());
-    }
-
-    private String sendRequest(String requestType, String url, int spectedStatus) throws Exception {
-        MockHttpServletRequest request = createRequest(requestType, url);
-        MockHttpServletResponse response = createResponse();
-        dispatch(request, response);
-        assertEquals(spectedStatus, response.getStatus());
-        String xml = response.getContentAsString();
-        if (xml != null)
-            System.err.println(xml);
-        return xml;
-    }
-    
     private void createNode() throws Exception {
         String node = "<node>" +            
         "<label>TestMachine</label>" +

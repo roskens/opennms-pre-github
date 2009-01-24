@@ -63,6 +63,7 @@ public class AbstractTransactionalDaoTestCase extends AbstractTransactionalTempo
     private OnmsMapDaoHibernate m_onmsMapDao;
     private OnmsMapElementDaoHibernate m_onmsMapElementDao;
     private DataLinkInterfaceDao m_dataLinkInterfaceDao;
+    private AcknowledgmentDao m_acknowledgmentDao;
     
     private DatabasePopulator m_populator;
     
@@ -270,6 +271,14 @@ public class AbstractTransactionalDaoTestCase extends AbstractTransactionalTempo
 
     public void setDataLinkInterfaceDao(DataLinkInterfaceDao dataLinkInterfaceDao) {
         this.m_dataLinkInterfaceDao = dataLinkInterfaceDao;
+    }
+
+    public AcknowledgmentDao getAcknowledgmentDao() {
+        return m_acknowledgmentDao;
+    }
+
+    public void setAcknowledgmentDao(AcknowledgmentDao acknowledgmentDao) {
+        m_acknowledgmentDao = acknowledgmentDao;
     }
 
     public boolean isPopulate() {

@@ -35,42 +35,57 @@
  */
 package org.opennms.netmgt.ackd;
 
+import java.util.Collection;
 import java.util.List;
 
-import org.opennms.netmgt.dao.AcknowledgementDao;
+import org.opennms.netmgt.dao.AcknowledgmentDao;
 import org.opennms.netmgt.model.Acknowledgeable;
-import org.opennms.netmgt.model.Acknowledgment;
+import org.opennms.netmgt.model.OnmsAcknowledgment;
+import org.opennms.netmgt.model.events.EventBuilder;
+import org.opennms.netmgt.model.events.EventForwarder;
 
+/**
+ * TODO: Needs IOC work
+ * TODO: Create eventconf acknowledgment verb entries (acknowledge and acknowledged)
+ * 
+ * @author <a href="mailto:david@opennms.org">David Hustace</a>
+ *
+ */
 public class DefaultAckService implements AckService {
     
-    private AcknowledgementDao m_ackDao;
+    private AcknowledgmentDao m_ackDao;
+    private EventForwarder m_eventForwarder;
 
-    public void proccessAck(List<Acknowledgment> acks) {
-        for (Acknowledgment ack : acks) {
+    public void processAcks(Collection<OnmsAcknowledgment> acks) {
+        for (OnmsAcknowledgment ack : acks) {
             processAck(ack);
         }
     }
 
-    public void processAck(Acknowledgment ack) {
-        boolean hasAcknowledged = false;
-        List<Acknowledgeable> ackables = m_ackDao.findAcknowledgable(ack);
+    public void processAck(OnmsAcknowledgment ack) {
+        
+        List<Acknowledgeable> ackables = m_ackDao.findAcknowledgables(ack);
+        EventBuilder ebuilder;
         for (Acknowledgeable ackable : ackables) {
             ackable.acknowledge(ack.getAckTime(), ack.getAckUser());
             m_ackDao.updateAckable(ackable);
-            hasAcknowledged = true;
-        }
-        
-        if (hasAcknowledged) {
             m_ackDao.save(ack);
+            m_ackDao.flush();
+            ebuilder = new EventBuilder("uei.opennms.org/internal/ackd/acknowledgment", "Ackd");
+            m_eventForwarder.sendNow(ebuilder.getEvent());
         }
     }
 
-    public void setAckDao(AcknowledgementDao ackDao) {
+    public void setAckDao(AcknowledgmentDao ackDao) {
         m_ackDao = ackDao;
     }
 
-    public AcknowledgementDao getAckDao() {
+    public AcknowledgmentDao getAckDao() {
         return m_ackDao;
+    }
+
+    public void setEventForwarder(EventForwarder eventForwarder) {
+        m_eventForwarder = eventForwarder;
     }
 
 }

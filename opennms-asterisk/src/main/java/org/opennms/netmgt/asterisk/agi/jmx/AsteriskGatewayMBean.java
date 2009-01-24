@@ -1,7 +1,7 @@
-/*
+/**
  * This file is part of the OpenNMS(R) Application.
  *
- * OpenNMS(R) is Copyright (C) 2007 The OpenNMS Group, Inc.  All rights reserved.
+ * OpenNMS(R) is Copyright (C) 2009 The OpenNMS Group, Inc.  All rights reserved.
  * OpenNMS(R) is a derivative work, containing both original code, included code and modified
  * code that was published under the GNU General Public License. Copyrights for modified
  * and included code are below.
@@ -10,9 +10,9 @@
  *
  * Modifications:
  * 
- * Created January 31, 2007
+ * 2009 Jan 19: Created file - jeffg@opennms.org
  *
- * Copyright (C) 2007 The OpenNMS Group, Inc.  All rights reserved.
+ * Copyright (C) 2009 The OpenNMS Group, Inc.  All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,19 +33,10 @@
  *      http://www.opennms.org/
  *      http://www.opennms.com/
  */
+package org.opennms.netmgt.asterisk.agi.jmx;
 
-package org.opennms.netmgt.snmpinterfacepoller.jmx;
+import org.opennms.netmgt.daemon.BaseOnmsMBean;
 
-public interface PollerdMBean {
-    public void init();
+public interface AsteriskGatewayMBean extends BaseOnmsMBean {
 
-    public void start();
-
-    public void stop();
-
-    public int getStatus();
-
-    public String status();
-
-    public String getStatusText();
 }
