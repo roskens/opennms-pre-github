@@ -34,7 +34,6 @@
         <property name="scannerCollection" ref="scannerCollection"/>
         <property name="inventoryScheduler" ref="inventoryScheduler" />
         <property name="scanableServices" ref="scanableServices" />
-
     </bean>
 
 </beans>

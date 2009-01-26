@@ -42,6 +42,7 @@ import org.opennms.test.ConfigurationTestUtils;
 import org.opennms.netmgt.dao.InvdConfigDao;
 import org.opennms.netmgt.dao.NodeDao;
 import org.opennms.netmgt.dao.IpInterfaceDao;
+import org.opennms.netmgt.dao.FilterDao;
 import org.opennms.netmgt.eventd.EventIpcManager;
 import org.opennms.netmgt.poller.mock.MockScheduler;
 import org.opennms.netmgt.config.InvdPackage;
@@ -66,9 +67,11 @@ import static org.easymock.EasyMock.isA;
 import static org.easymock.EasyMock.expectLastCall;
 import static org.easymock.EasyMock.eq;
 import static org.easymock.EasyMock.expect;
+import org.easymock.EasyMock;
 import org.opennms.netmgt.model.events.EventProxy;
 import org.opennms.netmgt.model.OnmsIpInterface;
 import org.opennms.netmgt.model.OnmsNode;
+import org.opennms.netmgt.filter.FilterDaoFactory;
 
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -77,6 +80,7 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Inventory tests
@@ -88,6 +92,7 @@ public class InvdTest extends TestCase {
 
     private Invd m_invd;
 
+    private FilterDao m_filterDao;
     private InvdConfigDao m_invdConfigDao;
     private EventIpcManager m_eventIpcManager;
     private NodeDao m_nodeDao;
@@ -108,7 +113,7 @@ public class InvdTest extends TestCase {
     protected void setUp() throws Exception {
         MockLogAppender.setupLogging();
 
-        Resource threshdResource = new ClassPathResource("/etc/thresholds.xml");
+        Resource threshdResource = new ClassPathResource("/etc/placeholder.xml");
         File homeDir = threshdResource.getFile().getParentFile().getParentFile();
         System.setProperty("opennms.home", homeDir.getAbsolutePath());
 
@@ -127,6 +132,18 @@ public class InvdTest extends TestCase {
         expectLastCall().anyTimes();
         m_eventIpcManager.removeEventListener(isA(EventListener.class));
         expectLastCall().anyTimes();
+
+        m_filterDao = EasyMock.createMock(FilterDao.class);
+        List<String> allIps = new ArrayList<String>();
+        allIps.add("192.168.1.1");
+        allIps.add("192.168.1.2");
+        allIps.add("192.168.1.3");
+        allIps.add("192.168.1.4");
+        allIps.add("192.168.1.5");
+        expect(m_filterDao.getIPList("IPADDR IPLIKE *.*.*.*")).andReturn(allIps).atLeastOnce();
+        expect(m_filterDao.getIPList("IPADDR IPLIKE 1.1.1.1")).andReturn(new ArrayList<String>(0)).atLeastOnce();
+        EasyMock.replay(m_filterDao);
+        FilterDaoFactory.setInstance(m_filterDao);
 
         Resource resource = new ClassPathResource("etc/poll-outages.xml");
         InputStreamReader pollOutagesRdr = new InputStreamReader(resource.getInputStream());
@@ -148,6 +165,8 @@ public class InvdTest extends TestCase {
         m_inventoryScheduler.setScannerCollection(m_scannerCollection);
         m_inventoryScheduler.setScanableServices(m_scanableServices);
 
+
+        
         m_invd = new Invd();
         //m_invd.setEventIpcManager(getEventIpcManager());
         m_invd.setInvdConfigDao(getInvdConfigDao());
@@ -156,6 +175,7 @@ public class InvdTest extends TestCase {
         m_invd.setInventoryScheduler(m_inventoryScheduler);
         m_invd.setScannerCollection(m_scannerCollection);
 
+
         Package pkg = new Package();
         pkg.setName("pkg");
         Filter filter = new Filter();
@@ -163,15 +183,11 @@ public class InvdTest extends TestCase {
         pkg.setFilter(filter);
         Service svc = new Service();
         pkg.addService(svc);
-        svc.setName("SNMP");
+        svc.setName("WMI");
         svc.setStatus("on");
         Parameter parm = new Parameter();
         parm.setKey("collection");
         parm.setValue("default");
-        svc.addParameter(parm);
-        parm = new Parameter();
-        parm.setKey("thresholding-enabled");
-        parm.setValue("true");
         svc.addParameter(parm);
         svc.setStatus("on");
         m_invdPackage = new InvdPackage(pkg);
@@ -181,6 +197,7 @@ public class InvdTest extends TestCase {
     @Override
     public void runTest() throws Throwable {
         super.runTest();
+        EasyMock.verify(m_filterDao);
     }
 
     @Override
@@ -211,13 +228,36 @@ public class InvdTest extends TestCase {
 
         m_easyMockUtils.verifyAll();
     }
+
+    public void testNoMatchingSpecs() {
+        String svcName = "WMI";
+
+        setupScanner(svcName);
+        expect(m_ipIfDao.findByServiceType(svcName)).andReturn(new ArrayList<OnmsIpInterface>(0));
+
+        setupTransactionManager();
+
+        m_easyMockUtils.replayAll();
+
+        m_invd.init();
+        m_invd.start();
+
+        m_scheduler.next();
+
+        assertEquals(0, m_scheduler.getEntryCount());
+
+        m_invd.stop();
+
+        m_easyMockUtils.verifyAll();
+    }
+
     public void testOneMatchingSpec() throws InventoryException {
         String svcName = "WMI";
         OnmsIpInterface iface = getInterface();
 
         setupScanner(svcName);
 
-        m_scanner.initialize(isA(ScanningClient.class), isA(Map.class));
+        //m_scanner.initialize(Collections.<String, String>emptyMap());
         InventorySet collectionSetResult=new InventorySet() {
 
             public int getStatus() {
@@ -305,7 +345,7 @@ public class InvdTest extends TestCase {
 
     private void setupInterface(OnmsIpInterface iface) {
         expect(m_ipIfDao.findByServiceType("WMI")).andReturn(Collections.singleton(iface));
-        expect(m_ipIfDao.load(iface.getId())).andReturn(iface).atLeastOnce();
+        //expect(m_ipIfDao.load(iface.getId())).andReturn(iface).atLeastOnce();
     }
 
     private OnmsIpInterface getInterface() {

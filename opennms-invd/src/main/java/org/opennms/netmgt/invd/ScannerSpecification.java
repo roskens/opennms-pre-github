@@ -166,4 +166,24 @@ public class ScannerSpecification {
 
         return outageFound;
     }
+
+    public void initialize(ScanningClient agent) {
+        //Collectd.instrumentation().beginCollectorInitialize(agent.getNodeId(), agent.getHostAddress(), m_svcName);
+        try {
+            m_scanner.initialize(agent, getPropertyMap());
+        } finally {
+            ; // nothing here yet.
+            //Collectd.instrumentation().endCollectorInitialize(agent.getNodeId(), agent.getHostAddress(), m_svcName);
+        }
+    }
+
+    public void release(ScanningClient agent) {
+        //Collectd.instrumentation().beginCollectorRelease(agent.getNodeId(), agent.getHostAddress(), m_svcName);
+        try {
+            m_scanner.release(agent);
+        } finally {
+            ; // nothing here yet
+            //Collectd.instrumentation().endCollectorRelease(agent.getNodeId(), agent.getHostAddress(), m_svcName);
+        }
+    }
 }

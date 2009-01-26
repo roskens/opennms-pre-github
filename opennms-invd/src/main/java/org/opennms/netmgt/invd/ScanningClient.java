@@ -2,56 +2,59 @@ package org.opennms.netmgt.invd;
 
 import org.opennms.netmgt.dao.IpInterfaceDao;
 import org.opennms.netmgt.poller.NetworkInterface;
+import org.opennms.netmgt.poller.IPv4NetworkInterface;
+import org.opennms.netmgt.model.OnmsIpInterface;
 
 import java.util.Set;
 import java.net.InetAddress;
 
-public class ScanningClient implements NetworkInterface {
+public class ScanningClient extends IPv4NetworkInterface {
+
     private int m_nodeId = -1;
     private InetAddress m_inetAddress = null;
-    private int m_ifIndex = -1;
 
-    private String m_sysObjId = null;
-
-    public int getType() {
-        return 0;  //To change body of implemented methods use File | Settings | File Templates.
-    }
+    private Integer m_ifaceId;
+    private IpInterfaceDao m_ifaceDao;
 
     public Object getAddress() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return getInetAddress();
     }
 
-    public Object getAttribute(String property) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    public Object setAttribute(String property, Object value) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    ScanningClient(Integer ifaceId, IpInterfaceDao ifaceDao) {
+    public ScanningClient(Integer ifaceId, IpInterfaceDao ifaceDao) {
+        super(null);
+        
+        m_ifaceDao = ifaceDao;
+        m_ifaceId = ifaceId;
 
     }
-
 
     public String getHostAddress() {
-        return "";
+        return getInetAddress().getHostAddress();
     }
 
     public int getNodeId() {
-        return 0;
+        if (m_nodeId == -1) {
+            m_nodeId = getIpInterface().getNode().getId() == null ? -1 : getIpInterface().getNode().getId().intValue();;
+        }
+        return m_nodeId;
     }
 
-
     public void validateAgent() {
-
+        // Not sure if there is anything to do here.
     }
 
     public String toString() {
-        return "";
+        return "Agent[nodeid = "+getNodeId()+" ipaddr= "+getHostAddress()+']';
     }
 
     public InetAddress getInetAddress() {
-              return null;
+        if (m_inetAddress == null) {
+            m_inetAddress = getIpInterface().getInetAddress();
+        }
+        return m_inetAddress;
+    }
+
+    OnmsIpInterface getIpInterface() {
+        return m_ifaceDao.load(m_ifaceId);
     }
 }

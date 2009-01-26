@@ -370,9 +370,7 @@ public class InventoryScheduler {
          * For each match, create new SnmpCollector object and
          * schedule it for collection
          */
-        for(InvdPackage wpkg : getInvdConfigDao().getPackages()) {
-
-            log().debug("MTR MTR wpkg name: " + wpkg.toString());
+        for(InvdPackage wpkg : getInvdConfigDao().getPackages()) {            
             /*
              * Make certain the the current service is in the package
              * and enabled!

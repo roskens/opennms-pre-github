@@ -89,7 +89,7 @@ public class ScanableService implements ReadyRunnable {
         m_lastScheduledCollectionTime = 0L;
 
         // TODO FIX THIS, SHOULD INITIALIZE FROM SOMETHING.
-        //m_spec.initialize(m_agent);
+        m_spec.initialize(m_agent);
 
         Map<String, String> roProps = m_spec.getReadOnlyPropertyMap();
         //m_params = new ServiceParameters(roProps);
