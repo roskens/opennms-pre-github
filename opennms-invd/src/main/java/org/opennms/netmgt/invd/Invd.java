@@ -62,6 +62,8 @@ public class Invd extends AbstractServiceDaemon {
 //        Assert.notNull(m_transTemplate, "transTemplate must not be null");
         Assert.notNull(m_ifaceDao, "ifaceDao must not be null");
         //Assert.notNull(m_nodeDao, "nodeDao must not be null");
+        Assert.notNull(m_scannerCollection, "scannerCollection must not be null");
+        Assert.notNull(m_inventoryScheduler, "inventoryScheduler must not be null");
 
         log().debug("init: Initializing inventory daemon.");
 

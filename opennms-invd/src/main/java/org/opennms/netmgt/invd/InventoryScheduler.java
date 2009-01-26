@@ -246,6 +246,7 @@ public class InventoryScheduler {
     private void scheduleInterface(OnmsIpInterface iface, String svcName, boolean existing) {
 
         //instrumentation().beginScheduleInterface(iface.getNode().getId(), iface.getIpAddress(), svcName);
+        log().debug("scheduleInterfaceWithService: begin: "+iface.getNode().getId()+"/"+iface.getIpAddress()+"/"+svcName);
         try {
 
         Collection<ScannerSpecification> matchingSpecs = getSpecificationsForInterface(iface, svcName);
@@ -259,6 +260,14 @@ public class InventoryScheduler {
             sb.append(iface);
             log().debug(sb.toString());
         }
+
+            sb = new StringBuffer();
+            sb.append("scheduleInterface: found ");
+            sb.append(Integer.toString(matchingSpecs.size()));
+            sb.append(" matching specs for interface: ");
+            sb.append(iface);
+            log().debug(sb.toString());
+
 
         for (ScannerSpecification spec : matchingSpecs) {
 
@@ -362,6 +371,8 @@ public class InventoryScheduler {
          * schedule it for collection
          */
         for(InvdPackage wpkg : getInvdConfigDao().getPackages()) {
+
+            log().debug("MTR MTR wpkg name: " + wpkg.toString());
             /*
              * Make certain the the current service is in the package
              * and enabled!

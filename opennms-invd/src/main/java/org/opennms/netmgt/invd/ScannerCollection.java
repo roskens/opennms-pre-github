@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.Collection;
-
+import java.util.Collections;
 public class ScannerCollection {
     /**
      * Instantiated service collectors specified in config file
@@ -54,8 +54,8 @@ public class ScannerCollection {
                 Class<?> cc = Class.forName(scanner.getClassName());
                 InventoryScanner sc = (InventoryScanner) cc.newInstance();
 
-                // TODO do this when we figure out what the scanner API looks like.
-                //sc.initialize(Collections.<String, String>emptyMap());
+
+                sc.initialize(Collections.<String, String>emptyMap());
 
                 setInventoryScanner(svcName, sc);
             } catch (Throwable t) {
