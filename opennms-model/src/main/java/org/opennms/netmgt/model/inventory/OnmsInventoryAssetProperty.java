@@ -10,11 +10,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
+@XmlRootElement(name = "inventoryAssetProperty")
+@Entity
+@Table(name = "inventoryassetproperty")
 public class OnmsInventoryAssetProperty {
     @Id
     @Column(name="id")
@@ -38,11 +44,10 @@ public class OnmsInventoryAssetProperty {
     @Column(name = "dateAdded")
     private Date dateAdded;
 
-    @ManyToOne(optional=false, fetch=FetchType.LAZY)
-    @JoinColumn(name="id")
-    @XmlIDREF
-    private OnmsInventoryAsset asset;
-
+    public OnmsInventoryAssetProperty() {
+        // do nothing.
+    }
+    
     public int getId() {
         return id;
     }
@@ -89,11 +94,11 @@ public class OnmsInventoryAssetProperty {
         this.dateAdded = dateAdded;
     }
 
-    public OnmsInventoryAsset getAsset() {
-        return asset;
-    }
+    //public OnmsInventoryAsset getAsset() {
+    //    return asset;
+    //}
 
-    public void setAsset(OnmsInventoryAsset asset) {
-        this.asset = asset;
-    }
+    //public void setAsset(OnmsInventoryAsset asset) {
+    //    this.asset = asset;
+    //}
 }

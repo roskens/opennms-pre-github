@@ -101,6 +101,7 @@ public class DatabasePopulator {
     private LocationMonitorDaoHibernate m_locationMonitorDao;
     private AcknowledgmentDao m_acknowledgmentDao;
     private InventoryCategoryDao m_inventoryCategoryDao;
+    private InventoryAssetDao m_inventoryAssetDao;
     
     private OnmsNode m_node1;
 
@@ -464,5 +465,13 @@ public class DatabasePopulator {
 
     public void setInventoryCategoryDao(InventoryCategoryDao inventoryCategoryDao) {
         this.m_inventoryCategoryDao = inventoryCategoryDao;
+    }
+
+    public InventoryAssetDao getInventoryAssetDao() {
+        return m_inventoryAssetDao;
+    }
+
+    public void setInventoryAssetDao(InventoryAssetDao inventoryAssetDao) {
+        this.m_inventoryAssetDao = inventoryAssetDao;
     }
 }

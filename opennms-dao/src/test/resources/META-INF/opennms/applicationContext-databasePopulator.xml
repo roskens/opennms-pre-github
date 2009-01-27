@@ -21,6 +21,7 @@
      <property name="acknowledgmentDao" ref="acknowledgmentDao" />
      <property name="serviceTypeDao" ref="serviceTypeDao" />
      <property name="inventoryCategoryDao" ref="inventoryCategoryDao" />
+     <property name="inventoryAssetDao" ref="inventoryAssetDao" />
    </bean>
 
 </beans>

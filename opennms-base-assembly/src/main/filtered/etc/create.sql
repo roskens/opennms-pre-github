@@ -68,6 +68,8 @@ drop table resourceReference cascade;
 drop table statisticsReport cascade;
 drop table acks cascade;
 drop table inventorycategory cascade;
+drop table inventoryasset cascade;
+drop table inventoryassetproperty cascade;
 
 drop sequence catNxtId;
 drop sequence nodeNxtId;
@@ -2055,6 +2057,28 @@ CREATE TABLE inventorycategory (
     categoryname  varchar(64) not null,
 
     constraint pk_inventorycategory_id primary key (id)
+);
+
+CREATE TABLE inventoryasset (
+    id          integer default nextval('opennmsnxtid') not null,
+    category    integer not null,
+    assetName   varchar(64),
+    assetSource varchar(64),
+    ownerNode   integer not null,
+    dateAdded   timestamp with time zone not null,
+
+
+    constraint pk_inventoryasset_id primary key (id)
+);
+
+CREATE TABLE inventoryassetproperty (
+    id              integer default nextval('opennmsnxtid') not null,
+    inventoryAsset  integer not null,
+    assetKey        varchar(64) not null,
+    assetValue      varchar(64) not null,
+    dateAdded       timestamp with time zone not null,
+
+    constraint pk_inventoryassetproperty_id primary key (id)
 );
 
 --# Begin Quartz persistence tables

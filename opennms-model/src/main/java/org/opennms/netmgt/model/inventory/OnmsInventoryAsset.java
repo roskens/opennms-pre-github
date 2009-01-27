@@ -39,6 +39,9 @@ public class OnmsInventoryAsset {
     @JoinColumn(name="category")
     private OnmsInventoryCategory category;
 
+    @Column(name = "assetName")
+    private String assetName;
+
     @Column(name = "assetSource")
     private String assetSource;
 
@@ -58,6 +61,18 @@ public class OnmsInventoryAsset {
         org.hibernate.annotations.CascadeType.DELETE_ORPHAN })
     private Set<OnmsInventoryAssetProperty> properties = new LinkedHashSet<OnmsInventoryAssetProperty>();
 
+    public OnmsInventoryAsset() {
+        // do nothing.
+    }
+    
+    public OnmsInventoryAsset(String assetName, OnmsInventoryCategory category, OnmsNode ownerNode) {
+        this.assetName = assetName;
+        this.category = category;
+        this.ownerNode = ownerNode;
+        this.dateAdded = new Date();
+        this.assetSource = "Invd";
+    }
+    
     public int getId() {
         return id;
     }
@@ -102,5 +117,21 @@ public class OnmsInventoryAsset {
 
     public void setDateAdded(Date dateAdded) {
         this.dateAdded = dateAdded;
+    }
+
+    public Set<OnmsInventoryAssetProperty> getProperties() {
+        return properties;
+    }
+
+    public void setProperties(Set<OnmsInventoryAssetProperty> properties) {
+        this.properties = properties;
+    }
+
+    public String getAssetName() {
+        return assetName;
+    }
+
+    public void setAssetName(String assetName) {
+        this.assetName = assetName;
     }
 }

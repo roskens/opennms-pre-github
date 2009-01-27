@@ -60,6 +60,7 @@ public class AbstractTransactionalDaoTestCase extends AbstractTransactionalTempo
     private LocationMonitorDaoHibernate m_locationMonitorDao;
     private AcknowledgmentDao m_acknowledgmentDao;
     private InventoryCategoryDao m_inventoryCategoryDao;
+    private InventoryAssetDao m_inventoryAssetDao;
     
     private DatabasePopulator m_populator;
     
@@ -275,5 +276,13 @@ public class AbstractTransactionalDaoTestCase extends AbstractTransactionalTempo
 
     public void setInventoryCategoryDao(InventoryCategoryDao inventoryCategoryDao) {
         this.m_inventoryCategoryDao = inventoryCategoryDao;
+    }
+
+    public InventoryAssetDao getInventoryAssetDao() {
+        return m_inventoryAssetDao;
+    }
+
+    public void setInventoryAssetDao(InventoryAssetDao inventoryAssetDao) {
+        this.m_inventoryAssetDao = inventoryAssetDao;
     }
 }
