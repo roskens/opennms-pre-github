@@ -67,6 +67,7 @@ drop table statisticsReportData cascade;
 drop table resourceReference cascade;
 drop table statisticsReport cascade;
 drop table acks cascade;
+drop table inventorycategory cascade;
 
 drop sequence catNxtId;
 drop sequence nodeNxtId;
@@ -2039,6 +2040,22 @@ CREATE TABLE acks (
 create index ack_time_idx on acks(ackTime);
 create index ack_user_idx on acks(ackUser);
 
+--# Begin Inventory persistence table structures
+
+--########################################################################
+--#
+--# inventorycategory table -- This table contains inventory categories
+--#
+--#  id                 : Unique ID
+--#  categoryname       : The name of an available inventory category.
+--########################################################################
+
+CREATE TABLE inventorycategory (
+    id       integer default nextval('opennmsnxtid') not null,
+    categoryname  varchar(64) not null,
+
+    constraint pk_inventorycategory_id primary key (id)
+);
 
 --# Begin Quartz persistence tables
 

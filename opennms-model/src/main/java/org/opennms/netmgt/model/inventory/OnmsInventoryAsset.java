@@ -2,13 +2,16 @@ package org.opennms.netmgt.model.inventory;
 
 import org.opennms.netmgt.model.OnmsNode;
 
-public class InventoryAsset {
+import java.util.Date;
+
+public class OnmsInventoryAsset {
     private int id;
-    private InventoryCategory category;
+    private OnmsInventoryCategory categoryOnms;
     private String assetSource;
     private String assetKey;
     private String assetValue;
     private OnmsNode ownerNode;
+    private Date dateAdded;
 
     public int getId() {
         return id;
@@ -18,12 +21,12 @@ public class InventoryAsset {
         this.id = id;
     }
 
-    public InventoryCategory getCategory() {
-        return category;
+    public OnmsInventoryCategory getCategory() {
+        return categoryOnms;
     }
 
-    public void setCategory(InventoryCategory category) {
-        this.category = category;
+    public void setCategory(OnmsInventoryCategory categoryOnms) {
+        this.categoryOnms = categoryOnms;
     }
 
     public String getAssetSource() {
@@ -56,5 +59,13 @@ public class InventoryAsset {
 
     public void setOwnerNode(OnmsNode ownerNode) {
         this.ownerNode = ownerNode;
+    }
+
+    public Date getDateAdded() {
+        return dateAdded;
+    }
+
+    public void setDateAdded(Date dateAdded) {
+        this.dateAdded = dateAdded;
     }
 }

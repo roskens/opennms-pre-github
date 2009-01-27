@@ -59,6 +59,7 @@ public class AbstractTransactionalDaoTestCase extends AbstractTransactionalTempo
     private AvailabilityReportLocatorDao m_availabilityReportLocatorDao;
     private LocationMonitorDaoHibernate m_locationMonitorDao;
     private AcknowledgmentDao m_acknowledgmentDao;
+    private InventoryCategoryDao m_inventoryCategoryDao;
     
     private DatabasePopulator m_populator;
     
@@ -266,5 +267,13 @@ public class AbstractTransactionalDaoTestCase extends AbstractTransactionalTempo
 
     public void setPopulator(DatabasePopulator populator) {
         m_populator = populator;
+    }
+
+    public InventoryCategoryDao getInventoryCategoryDao() {
+        return m_inventoryCategoryDao;
+    }
+
+    public void setInventoryCategoryDao(InventoryCategoryDao inventoryCategoryDao) {
+        this.m_inventoryCategoryDao = inventoryCategoryDao;
     }
 }

@@ -99,6 +99,7 @@ public class DatabasePopulator {
     private AvailabilityReportLocatorDao m_availabilityReportLocatorDao;
     private LocationMonitorDaoHibernate m_locationMonitorDao;
     private AcknowledgmentDao m_acknowledgmentDao;
+    private InventoryCategoryDao m_inventoryCategoryDao;
     
     private OnmsNode m_node1;
 
@@ -452,4 +453,11 @@ public class DatabasePopulator {
         m_acknowledgmentDao = acknowledgmentDao;
     }
 
+    public InventoryCategoryDao getInventoryCategoryDao() {
+        return m_inventoryCategoryDao;
+    }
+
+    public void setInventoryCategoryDao(InventoryCategoryDao inventoryCategoryDao) {
+        this.m_inventoryCategoryDao = inventoryCategoryDao;
+    }
 }

@@ -20,6 +20,7 @@
      <property name="locationMonitorDao" ref="locationMonitorDao" />
      <property name="acknowledgmentDao" ref="acknowledgmentDao" />
      <property name="serviceTypeDao" ref="serviceTypeDao" />
+     <property name="inventoryCategoryDao" ref="inventoryCategoryDao" />
    </bean>
 
 </beans>

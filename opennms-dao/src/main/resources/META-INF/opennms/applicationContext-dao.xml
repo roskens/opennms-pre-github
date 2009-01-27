@@ -56,6 +56,7 @@
         <value>org.opennms.netmgt.model.StatisticsReportData</value>
         <value>org.opennms.netmgt.model.StatisticsReport</value>
         <value>org.opennms.netmgt.model.Acknowledgment</value>
+        <value>org.opennms.netmgt.model.inventory.OnmsInventoryCategory</value>
       </list>
     </property>
     <!--  property name="schemaUpdate" value="true">
@@ -243,5 +244,8 @@
   </bean>
   
   <bean id="snmpConfigDao" class="org.opennms.netmgt.dao.FactoryBasedSnmpConfigDao" />
-  
+
+  <bean id="inventoryCategoryDao" class="org.opennms.netmgt.dao.hibernate.InventoryCategoryDaoHibernate" >
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
 </beans>
