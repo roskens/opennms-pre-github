@@ -20,6 +20,19 @@ public class OnmsInventoryCategory {
     @Column(name = "categoryname")
     private String categoryName;
 
+    protected OnmsInventoryCategory() {
+        // blank
+    }
+
+    public OnmsInventoryCategory(OnmsInventoryCategory cat) {
+        this(cat.categoryName, cat.id);
+    }
+
+    public OnmsInventoryCategory(String categoryName, int  id) {
+        this.categoryName = categoryName;
+        this.id = id;        
+    }
+
     public OnmsInventoryCategory(String categoryName) {
         this.categoryName = categoryName;
     }

@@ -54,6 +54,7 @@ import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.OnmsOutage;
 import org.opennms.netmgt.model.OnmsServiceType;
 import org.opennms.netmgt.model.OnmsSeverity;
+import org.opennms.netmgt.model.inventory.OnmsInventoryCategory;
 
 /**
  * Populates a test database with some entities (nodes, interfaces, services).
@@ -255,6 +256,10 @@ public class DatabasePopulator {
         ack.setAckUser("admin");
         getAcknowledgmentDao().save(ack);
         getAcknowledgmentDao().flush();
+
+        OnmsInventoryCategory invCat = new OnmsInventoryCategory("Test Category");
+        getInventoryCategoryDao().save(invCat);
+        getInventoryCategoryDao().flush();
         
     }
 

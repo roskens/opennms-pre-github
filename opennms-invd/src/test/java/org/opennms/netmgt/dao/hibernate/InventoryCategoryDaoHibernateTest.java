@@ -56,4 +56,9 @@ public class InventoryCategoryDaoHibernateTest extends AbstractTransactionalDaoT
         assertEquals(invCat.getCategoryId(), invCat2.getCategoryId());
         assertEquals(invCat.getCategoryName(), invCat2.getCategoryName());
     }
+
+    public void testFindByName() {
+        OnmsInventoryCategory invCat = getInventoryCategoryDao().findByName("Test Category");
+        assertEquals("Test Category", invCat.getCategoryName());
+    }
 }

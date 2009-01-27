@@ -35,7 +35,7 @@ public class InventoryCategoryDaoHibernate extends AbstractDaoHibernate<OnmsInve
     }
 
     public OnmsInventoryCategory findByName(String name) {
-        return findUnique("from OnmsInventoryCategory as category where category.categoryname = ?", name);
+        return findUnique("from OnmsInventoryCategory as category where category.categoryName = ?", name);
     }
 
 }
