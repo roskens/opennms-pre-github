@@ -45,8 +45,8 @@ public class WmiScanner implements InventoryScanner {
     }
 
     public void initialize(ScanningClient client, Map<String, String> parameters) {
-        log().debug("initialize: Initializing WMI collection for agent: " + agent);
-        Integer scheduledNodeKey = new Integer(agent.getNodeId());
+        log().debug("initialize: Initializing WMI collection for agent: " + client);
+        Integer scheduledNodeKey = new Integer(client.getNodeId());
         WmiClientState nodeState = m_scheduledNodes.get(scheduledNodeKey);
 
         if (nodeState != null) {
@@ -57,11 +57,11 @@ public class WmiScanner implements InventoryScanner {
             sb.append(" for address: ");
             sb.append(nodeState.getAddress());
             sb.append(" already scheduled for collection on node: ");
-            sb.append(agent);
+            sb.append(client);
             log().debug(sb.toString());
             throw new IllegalStateException(sb.toString());
         } else {
-            nodeState = new WmiClientState(agent.getInetAddress(), parameters);
+            nodeState = new WmiClientState(client.getInetAddress(), parameters);
             log().info("initialize: Scheduling interface for collection: " + nodeState.getAddress());
             m_scheduledNodes.put(scheduledNodeKey, nodeState);
         }
@@ -71,9 +71,9 @@ public class WmiScanner implements InventoryScanner {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    public void initialize(ScanningClient agent, Map<String, String> parameters) {
-        //To change body of implemented methods use File | Settings | File Templates.
-    }
+    //public void initialize(ScanningClient agent, Map<String, String> parameters) {
+    //    //To change body of implemented methods use File | Settings | File Templates.
+    //}
 
     public void release(ScanningClient agent) {
         //To change body of implemented methods use File | Settings | File Templates.
