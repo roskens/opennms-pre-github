@@ -2,19 +2,70 @@ package org.opennms.netmgt.model.inventory;
 
 import org.opennms.netmgt.model.OnmsNode;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlID;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.Column;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.JoinColumn;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
+import javax.persistence.OneToMany;
 import java.util.Date;
+import java.util.Set;
+import java.util.LinkedHashSet;
 
+@XmlRootElement(name = "inventoryAsset")
+@Entity
+@Table(name = "inventoryasset")
 public class OnmsInventoryAsset {
+
+    @Id
+    @Column(name="id")
+    @SequenceGenerator(name = "opennmsSequence", sequenceName = "opennmsNxtId")
+    @GeneratedValue(generator = "opennmsSequence")
+    @XmlTransient
     private int id;
-    private OnmsInventoryCategory categoryOnms;
+
+    @XmlTransient
+    @ManyToOne(fetch= FetchType.LAZY)
+    @JoinColumn(name="category")
+    private OnmsInventoryCategory category;
+
+    @Column(name = "assetSource")
     private String assetSource;
-    private String assetKey;
-    private String assetValue;
+
+    @XmlTransient
+    @ManyToOne(fetch= FetchType.LAZY)
+    @JoinColumn(name="ownerNode")
     private OnmsNode ownerNode;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "dateAdded")
     private Date dateAdded;
+
+    @XmlTransient
+    @OneToMany(mappedBy="inventoryAsset")
+    @org.hibernate.annotations.Cascade( {
+        org.hibernate.annotations.CascadeType.ALL,
+        org.hibernate.annotations.CascadeType.DELETE_ORPHAN })
+    private Set<OnmsInventoryAssetProperty> properties = new LinkedHashSet<OnmsInventoryAssetProperty>();
 
     public int getId() {
         return id;
+    }
+
+    @XmlID
+    @Transient
+    public String getAssetId() {
+        return Integer.toString(id);
     }
 
     public void setId(int id) {
@@ -22,11 +73,11 @@ public class OnmsInventoryAsset {
     }
 
     public OnmsInventoryCategory getCategory() {
-        return categoryOnms;
+        return category;
     }
 
-    public void setCategory(OnmsInventoryCategory categoryOnms) {
-        this.categoryOnms = categoryOnms;
+    public void setCategory(OnmsInventoryCategory category) {
+        this.category = category;
     }
 
     public String getAssetSource() {
@@ -35,22 +86,6 @@ public class OnmsInventoryAsset {
 
     public void setAssetSource(String assetSource) {
         this.assetSource = assetSource;
-    }
-
-    public String getAssetKey() {
-        return assetKey;
-    }
-
-    public void setAssetKey(String assetKey) {
-        this.assetKey = assetKey;
-    }
-
-    public String getAssetValue() {
-        return assetValue;
-    }
-
-    public void setAssetValue(String assetValue) {
-        this.assetValue = assetValue;
     }
 
     public OnmsNode getOwnerNode() {
