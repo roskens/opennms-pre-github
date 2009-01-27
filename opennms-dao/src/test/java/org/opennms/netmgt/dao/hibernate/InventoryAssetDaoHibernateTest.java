@@ -28,5 +28,7 @@ public class InventoryAssetDaoHibernateTest extends AbstractTransactionalDaoTest
         assertNotSame(invAsset, invAsset2);
         assertEquals(invAsset.getAssetId(), invAsset2.getAssetId());
         assertEquals(invAsset.getAssetName(), invAsset2.getAssetName());
+        assertEquals(invCat.getId(), invAsset2.getCategory().getId());
+        assertEquals(node.getNodeId(), invAsset2.getOwnerNode().getNodeId());
     }
 }
