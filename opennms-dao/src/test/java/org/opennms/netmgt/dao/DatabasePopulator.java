@@ -55,6 +55,8 @@ import org.opennms.netmgt.model.OnmsOutage;
 import org.opennms.netmgt.model.OnmsServiceType;
 import org.opennms.netmgt.model.OnmsSeverity;
 import org.opennms.netmgt.model.inventory.OnmsInventoryCategory;
+import org.opennms.netmgt.model.inventory.OnmsInventoryAsset;
+import org.opennms.netmgt.model.inventory.OnmsInventoryAssetProperty;
 
 /**
  * Populates a test database with some entities (nodes, interfaces, services).
@@ -102,8 +104,11 @@ public class DatabasePopulator {
     private AcknowledgmentDao m_acknowledgmentDao;
     private InventoryCategoryDao m_inventoryCategoryDao;
     private InventoryAssetDao m_inventoryAssetDao;
+    private InventoryAssetPropertyDao m_inventoryAssetPropertyDao;
     
     private OnmsNode m_node1;
+
+    private OnmsInventoryAsset m_invAsset1;
 
     public void populateDatabase() {
         OnmsDistPoller distPoller = getDistPoller("localhost", "127.0.0.1");
@@ -258,10 +263,20 @@ public class DatabasePopulator {
         getAcknowledgmentDao().save(ack);
         getAcknowledgmentDao().flush();
 
-        OnmsInventoryCategory invCat = new OnmsInventoryCategory("Test Category");
+        OnmsInventoryCategory invCat = new OnmsInventoryCategory("Network Equipment");
         getInventoryCategoryDao().save(invCat);
         getInventoryCategoryDao().flush();
-        
+
+        OnmsInventoryAsset invAsset = new OnmsInventoryAsset(invCat, "Network Card", getNode1());
+        getInventoryAssetDao().save(invAsset);
+        getInventoryAssetDao().flush();
+
+        OnmsInventoryAssetProperty invAssetProp = new OnmsInventoryAssetProperty(
+                invAsset,
+                "manufacturer",
+                "Intel");
+        getInventoryAssetPropertyDao().save(invAssetProp);
+        getInventoryAssetPropertyDao().flush();
     }
 
     private OnmsCategory getCategory(String categoryName) {
@@ -473,5 +488,21 @@ public class DatabasePopulator {
 
     public void setInventoryAssetDao(InventoryAssetDao inventoryAssetDao) {
         this.m_inventoryAssetDao = inventoryAssetDao;
+    }
+
+    public OnmsInventoryAsset getInvAsset1() {
+        return m_invAsset1;
+    }
+
+    public void setInvAsset1(OnmsInventoryAsset invAsset1) {
+        this.m_invAsset1 = invAsset1;
+    }
+
+    public InventoryAssetPropertyDao getInventoryAssetPropertyDao() {
+        return m_inventoryAssetPropertyDao;
+    }
+
+    public void setInventoryAssetPropertyDao(InventoryAssetPropertyDao inventoryAssetPropertyDao) {
+        this.m_inventoryAssetPropertyDao = inventoryAssetPropertyDao;
     }
 }

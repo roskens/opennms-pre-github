@@ -39,6 +39,7 @@ package org.opennms.netmgt.dao;
 import org.opennms.netmgt.dao.db.AbstractTransactionalTemporaryDatabaseSpringContextTests;
 import org.opennms.netmgt.dao.hibernate.LocationMonitorDaoHibernate;
 import org.opennms.netmgt.model.OnmsNode;
+import org.opennms.netmgt.model.inventory.OnmsInventoryAsset;
 import org.opennms.test.DaoTestConfigBean;
 
 public class AbstractTransactionalDaoTestCase extends AbstractTransactionalTemporaryDatabaseSpringContextTests {
@@ -61,6 +62,7 @@ public class AbstractTransactionalDaoTestCase extends AbstractTransactionalTempo
     private AcknowledgmentDao m_acknowledgmentDao;
     private InventoryCategoryDao m_inventoryCategoryDao;
     private InventoryAssetDao m_inventoryAssetDao;
+    private InventoryAssetPropertyDao m_inventoryAssetPropertyDao;
     
     private DatabasePopulator m_populator;
     
@@ -238,6 +240,10 @@ public class AbstractTransactionalDaoTestCase extends AbstractTransactionalTempo
         return m_populator.getNode1();
     }
 
+    public OnmsInventoryAsset getInvAsset1() {
+        return m_populator.getInvAsset1();
+    }
+
     public LocationMonitorDaoHibernate getLocationMonitorDao() {
         return m_locationMonitorDao;
     }
@@ -284,5 +290,13 @@ public class AbstractTransactionalDaoTestCase extends AbstractTransactionalTempo
 
     public void setInventoryAssetDao(InventoryAssetDao inventoryAssetDao) {
         this.m_inventoryAssetDao = inventoryAssetDao;
+    }
+
+    public InventoryAssetPropertyDao getInventoryAssetPropertyDao() {
+        return m_inventoryAssetPropertyDao;
+    }
+
+    public void setInventoryAssetPropertyDao(InventoryAssetPropertyDao inventoryAssetPropertyDao) {
+        this.m_inventoryAssetPropertyDao = inventoryAssetPropertyDao;
     }
 }

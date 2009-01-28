@@ -1,6 +1,7 @@
 package org.opennms.netmgt.model.inventory;
 
 import org.opennms.netmgt.model.OnmsNode;
+import org.springframework.core.style.ToStringCreator;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -61,16 +62,56 @@ public class OnmsInventoryAsset {
         org.hibernate.annotations.CascadeType.DELETE_ORPHAN })
     private Set<OnmsInventoryAssetProperty> properties = new LinkedHashSet<OnmsInventoryAssetProperty>();
 
+    /**
+     * Default constructor.
+     */
     public OnmsInventoryAsset() {
         // do nothing.
     }
-    
-    public OnmsInventoryAsset(String assetName, OnmsInventoryCategory category, OnmsNode ownerNode) {
+
+    /**
+     * Constructor.
+     *
+     * This constructor defaults dateAdded to the current time and
+     * assetSource to "Invd."
+     *
+     * @param category The inventory category this asset belongs to.
+     * @param assetName The name of this asset.
+     * @param ownerNode The node this asset belongs to.
+     */
+    public OnmsInventoryAsset(OnmsInventoryCategory category,
+                              String assetName,
+                              OnmsNode ownerNode) {
         this.assetName = assetName;
         this.category = category;
         this.ownerNode = ownerNode;
         this.dateAdded = new Date();
         this.assetSource = "Invd";
+    }
+
+    /**
+     * Constructor.
+     *
+     * This constructor requires all members except asset properties.
+     * No member values are defaulted.
+     *
+     * @param category The inventory category this asset belongs to.
+     * @param assetName The name of this asset.
+     * @param assetSource The source of this asset, e.g "Invd" or "User"
+     * @param ownerNode The node this asset belongs to.
+     * @param dateAdded The date that this asset was added or changed.
+     */     
+    public OnmsInventoryAsset(OnmsInventoryCategory category,
+                              String assetName,
+                              String assetSource,
+                              OnmsNode ownerNode,
+                              Date dateAdded) {
+        this.category = category;
+        this.assetName = assetName;
+        this.assetSource = assetSource;
+        this.ownerNode = ownerNode;
+        this.dateAdded = dateAdded;
+
     }
     
     public int getId() {
@@ -127,11 +168,26 @@ public class OnmsInventoryAsset {
         this.properties = properties;
     }
 
+    public boolean addCategory(OnmsInventoryAssetProperty prop) {
+        return getProperties().add(prop);
+    }
+
+    public boolean removeCategory(OnmsInventoryAssetProperty prop) {
+        return getProperties().remove(prop);
+    }
+
     public String getAssetName() {
         return assetName;
     }
 
     public void setAssetName(String assetName) {
         this.assetName = assetName;
+    }
+
+    public String toString() {
+        return new ToStringCreator(this)
+            .append("id", getId())
+            .append("name", getAssetName())
+            .toString();
     }
 }

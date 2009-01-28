@@ -2073,7 +2073,7 @@ CREATE TABLE inventoryasset (
 
 CREATE TABLE inventoryassetproperty (
     id              integer default nextval('opennmsnxtid') not null,
-    inventoryAsset  integer not null,
+    inventoryAsset  integer,
     assetKey        varchar(64) not null,
     assetValue      varchar(64) not null,
     dateAdded       timestamp with time zone not null,

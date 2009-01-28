@@ -12,9 +12,10 @@ public class InventoryAssetDaoHibernateTest extends AbstractTransactionalDaoTest
 
     public void testSaveOnmsInventoryAsset() {
         // Create a new inventory category.
-        OnmsInventoryCategory invCat = getInventoryCategoryDao().findByName("Test Category");
-        OnmsNode node = getNodeDao().findByForeignId("imported:", "1");
-        OnmsInventoryAsset invAsset = new OnmsInventoryAsset("Network Stuff", invCat, node);
+        OnmsInventoryCategory invCat = getInventoryCategoryDao().findByName("Network Equipment");
+        OnmsNode node = getNode1();
+
+        OnmsInventoryAsset invAsset = new OnmsInventoryAsset( invCat, "Network Stuff", node);
 
         getInventoryAssetDao().save(invAsset);
         getInventoryAssetDao().flush();

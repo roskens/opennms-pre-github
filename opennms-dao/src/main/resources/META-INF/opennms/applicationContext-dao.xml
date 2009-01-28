@@ -255,4 +255,8 @@
   <bean id="inventoryAssetDao" class="org.opennms.netmgt.dao.hibernate.InventoryAssetDaoHibernate" >
     <property name="sessionFactory" ref="sessionFactory" />
   </bean>
+
+  <bean id="inventoryAssetPropertyDao" class="org.opennms.netmgt.dao.hibernate.InventoryAssetPropertyDaoHibernate" >
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
 </beans>

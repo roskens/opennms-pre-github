@@ -47,6 +47,25 @@ public class OnmsInventoryAssetProperty {
     public OnmsInventoryAssetProperty() {
         // do nothing.
     }
+
+    public OnmsInventoryAssetProperty(OnmsInventoryAsset inventoryAsset,
+                                      String assetKey,
+                                      String assetValue) {
+        this.inventoryAsset = inventoryAsset;
+        this.assetKey = assetKey;
+        this.assetValue = assetValue;
+        this.dateAdded = new Date();
+    }
+
+    public OnmsInventoryAssetProperty(OnmsInventoryAsset inventoryAsset,
+                                      String assetKey,
+                                      String assetValue,
+                                      Date dateAdded) {
+        this.inventoryAsset = inventoryAsset;
+        this.assetKey = assetKey;
+        this.assetValue = assetValue;
+        this.dateAdded = dateAdded;
+    }
     
     public int getId() {
         return id;
@@ -93,12 +112,4 @@ public class OnmsInventoryAssetProperty {
     public void setDateAdded(Date dateAdded) {
         this.dateAdded = dateAdded;
     }
-
-    //public OnmsInventoryAsset getAsset() {
-    //    return asset;
-    //}
-
-    //public void setAsset(OnmsInventoryAsset asset) {
-    //    this.asset = asset;
-    //}
 }
