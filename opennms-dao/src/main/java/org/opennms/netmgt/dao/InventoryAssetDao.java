@@ -38,5 +38,5 @@ import java.util.Collection;
 public interface InventoryAssetDao extends OnmsDao<OnmsInventoryAsset, Integer> {
     public abstract OnmsInventoryAsset findByAssetId(int id);
     public abstract Collection<OnmsInventoryAsset> findAll(final Integer offset, final Integer limit);
-    //public abstract OnmsInventoryAsset findByName(String name);
+    public abstract Collection<OnmsInventoryAsset> findByName(String name);
 }

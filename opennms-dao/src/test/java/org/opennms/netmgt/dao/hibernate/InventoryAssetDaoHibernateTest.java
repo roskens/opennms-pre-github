@@ -34,7 +34,10 @@ package org.opennms.netmgt.dao.hibernate;
 import org.opennms.netmgt.dao.AbstractTransactionalDaoTestCase;
 import org.opennms.netmgt.model.inventory.OnmsInventoryAsset;
 import org.opennms.netmgt.model.inventory.OnmsInventoryCategory;
+import org.opennms.netmgt.model.inventory.OnmsInventoryAssetProperty;
 import org.opennms.netmgt.model.OnmsNode;
+
+import java.util.Collection;
 
 public class InventoryAssetDaoHibernateTest extends AbstractTransactionalDaoTestCase {
     public void testInitialize() {
@@ -62,5 +65,38 @@ public class InventoryAssetDaoHibernateTest extends AbstractTransactionalDaoTest
         assertEquals(invAsset.getAssetName(), invAsset2.getAssetName());
         assertEquals(invCat.getId(), invAsset2.getCategory().getId());
         assertEquals(node.getNodeId(), invAsset2.getOwnerNode().getNodeId());
+    }
+
+    public void testFindByAssetName() {
+        Collection<OnmsInventoryAsset> assets = getInventoryAssetDao().findByName("Network Card");
+        assertEquals("number of assets found", 1, assets.size());
+        
+        //OnmsInventoryAsset invAsset = getInventoryAssetDao().findByAssetId(invAsset.getId());
+        //assertNotSame(invAsset, invAsset2);
+        //assertEquals(invAsset.getAssetId(), invAsset2.getAssetId());
+        //assertEquals(invAsset.getAssetName(), invAsset2.getAssetName());
+        //assertEquals(invCat.getId(), invAsset2.getCategory().getId());
+        //assertEquals(node.getNodeId(), invAsset2.getOwnerNode().getNodeId());
+    }
+
+    public void testFindByAssetId() {
+        // Fetch the one we create in DatabasePopulator
+        OnmsInventoryAsset invAsset1 = getInvAsset1();
+        
+        // Now use the DAO to fetch the inventory asset.
+        OnmsInventoryAsset invAsset2 = getInventoryAssetDao().findByAssetId(invAsset1.getId());
+        assertEquals(invAsset1.getAssetId(), invAsset2.getAssetId());
+        assertEquals(invAsset1.getAssetName(), invAsset2.getAssetName());
+        assertEquals(invAsset1.getCategory().getId(), invAsset2.getCategory().getId());
+        assertEquals(invAsset1.getOwnerNode().getNodeId(), invAsset2.getOwnerNode().getNodeId());
+    }
+
+    public void testGetAssetProperties() {
+        // Retrieve an asset from the populator
+        OnmsInventoryAsset invAsset = getInventoryAssetDao().findByAssetId(getInvAsset1().getId());
+
+        // Now retrieve a property.
+        Collection<OnmsInventoryAssetProperty> props = invAsset.getProperties();
+        assertEquals("number of asset properties found", 2, props.size());
     }
 }

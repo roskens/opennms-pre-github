@@ -51,6 +51,10 @@ public class InventoryAssetDaoHibernate extends AbstractDaoHibernate<OnmsInvento
         return findUnique("from OnmsInventoryAsset as asset where asset.id = ?", id);
     }
 
+    public Collection<OnmsInventoryAsset> findByName(String name) {
+        return find("from OnmsInventoryAsset as asset where asset.assetName = ?", name);
+    }
+
     @SuppressWarnings("unchecked")
     public Collection<OnmsInventoryAsset> findAll(final Integer offset, final Integer limit) {
         return (Collection<OnmsInventoryAsset>)getHibernateTemplate().execute(new HibernateCallback() {
@@ -61,7 +65,6 @@ public class InventoryAssetDaoHibernate extends AbstractDaoHibernate<OnmsInvento
                 .setMaxResults(limit)
                 .list();
             }
-
         });
     }
 }

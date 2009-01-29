@@ -263,19 +263,30 @@ public class DatabasePopulator {
         getAcknowledgmentDao().save(ack);
         getAcknowledgmentDao().flush();
 
+        // Create an inventory category.
         OnmsInventoryCategory invCat = new OnmsInventoryCategory("Network Equipment");
         getInventoryCategoryDao().save(invCat);
         getInventoryCategoryDao().flush();
 
+        // Create an inventory asset within the previous inventory category, associated with node1.
         OnmsInventoryAsset invAsset = new OnmsInventoryAsset(invCat, "Network Card", getNode1());
         getInventoryAssetDao().save(invAsset);
         getInventoryAssetDao().flush();
+        setInvAsset1(invAsset);
 
+        // Create an inventory asset properties and assign it to the previous asset.
         OnmsInventoryAssetProperty invAssetProp = new OnmsInventoryAssetProperty(
                 invAsset,
                 "manufacturer",
                 "Intel");
         getInventoryAssetPropertyDao().save(invAssetProp);
+        getInventoryAssetPropertyDao().flush();
+
+        OnmsInventoryAssetProperty invAssetProp2 = new OnmsInventoryAssetProperty(
+                invAsset,
+                "serialnum",
+                "3235488862NB92");
+        getInventoryAssetPropertyDao().save(invAssetProp2);
         getInventoryAssetPropertyDao().flush();
     }
 
