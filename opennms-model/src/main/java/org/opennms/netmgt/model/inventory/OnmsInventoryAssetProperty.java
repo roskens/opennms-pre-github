@@ -79,6 +79,14 @@ public class OnmsInventoryAssetProperty {
         // do nothing.
     }
 
+    public OnmsInventoryAssetProperty(String assetKey,
+                                      String assetValue) {
+        this.inventoryAsset = null;
+        this.assetKey = assetKey;
+        this.assetValue = assetValue;
+        this.dateAdded = new Date();
+    }
+
     public OnmsInventoryAssetProperty(OnmsInventoryAsset inventoryAsset,
                                       String assetKey,
                                       String assetValue) {

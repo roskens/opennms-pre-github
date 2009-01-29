@@ -199,11 +199,11 @@ public class OnmsInventoryAsset {
         this.properties = properties;
     }
 
-    public boolean addCategory(OnmsInventoryAssetProperty prop) {
+    public boolean addProperty(OnmsInventoryAssetProperty prop) {
         return getProperties().add(prop);
     }
 
-    public boolean removeCategory(OnmsInventoryAssetProperty prop) {
+    public boolean removeProperty(OnmsInventoryAssetProperty prop) {
         return getProperties().remove(prop);
     }
 

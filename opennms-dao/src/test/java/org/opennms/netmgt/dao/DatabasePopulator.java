@@ -276,18 +276,18 @@ public class DatabasePopulator {
 
         // Create an inventory asset properties and assign it to the previous asset.
         OnmsInventoryAssetProperty invAssetProp = new OnmsInventoryAssetProperty(
-                invAsset,
                 "manufacturer",
                 "Intel");
-        getInventoryAssetPropertyDao().save(invAssetProp);
-        getInventoryAssetPropertyDao().flush();
+        //getInventoryAssetPropertyDao().save(invAssetProp);
+        //getInventoryAssetPropertyDao().flush();
+        invAsset.addProperty(invAssetProp);
 
         OnmsInventoryAssetProperty invAssetProp2 = new OnmsInventoryAssetProperty(
-                invAsset,
                 "serialnum",
                 "3235488862NB92");
-        getInventoryAssetPropertyDao().save(invAssetProp2);
-        getInventoryAssetPropertyDao().flush();
+        //getInventoryAssetPropertyDao().save(invAssetProp2);
+        //getInventoryAssetPropertyDao().flush();
+        invAsset.addProperty(invAssetProp2);
     }
 
     private OnmsCategory getCategory(String categoryName) {
