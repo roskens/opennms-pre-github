@@ -459,7 +459,7 @@ public final class ConfigFileConstants {
      * The WMI collection configuration file
      */
     public static final int WMI_COLLECTION_CONFIG_FILE_NAME;
-    
+
     /**
      * The Asterisk global configuration file (for notifications, etc.)
      */
@@ -474,6 +474,11 @@ public final class ConfigFileConstants {
      * The inventory daemon configuration file
      */
     public static final int INVD_CONFIG_FILE_NAME;
+
+    /**
+     * The WMI inventory scanner configuration file
+     */
+    public static final int WMI_INV_SCAN_CONFIG_FILE_NAME;
 
     //
     // Initialize the class data. This section is used to initialize the
@@ -599,10 +604,12 @@ public final class ConfigFileConstants {
         AMI_CONFIG_FILE_NAME = 75;
         
         INVD_CONFIG_FILE_NAME = 76;
+
+        WMI_INV_SCAN_CONFIG_FILE_NAME = 77;
         
         // Allocate and build the mapping of identifiers to names
         //
-        FILE_ID_TO_NAME = new String[77];
+        FILE_ID_TO_NAME = new String[78];
 
         FILE_ID_TO_NAME[DB_CONFIG_FILE_NAME] = "opennms-database.xml";
         FILE_ID_TO_NAME[JMS_CONFIG_FILE_NAME] = "opennms-jms.xml";
@@ -696,6 +703,7 @@ public final class ConfigFileConstants {
         FILE_ID_TO_NAME[ASTERISK_CONFIG_FILE_NAME] = "asterisk-configuration.properties";
         FILE_ID_TO_NAME[AMI_CONFIG_FILE_NAME] = "ami-config.xml";
         FILE_ID_TO_NAME[INVD_CONFIG_FILE_NAME] = "invd-configuration.xml";
+        FILE_ID_TO_NAME[WMI_INV_SCAN_CONFIG_FILE_NAME] = "wmi-invscan-config.xml";
     }
 
     /**

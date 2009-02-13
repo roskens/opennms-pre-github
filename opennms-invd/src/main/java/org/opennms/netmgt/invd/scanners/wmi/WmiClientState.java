@@ -51,7 +51,7 @@ public class WmiClientState {
 
     private WmiAgentConfig m_agentConfig;
     private String m_address;
-    //private HashMap<String, WmiGroupState> m_groupStates = new HashMap<String, WmiGroupState>();
+    private HashMap<String, WmiAssetState> m_assetStates = new HashMap<String, WmiAssetState>();
 
     public WmiClientState(InetAddress address, Map parameters) {
         m_address = address.getHostAddress();
@@ -78,40 +78,40 @@ public class WmiClientState {
         return m_address;
     }
 
-//    public WmiManager getManager() {
-//        return m_manager;
-//    }
-//
-//    public boolean groupIsAvailable(String groupName) {
-//        WmiGroupState groupState = m_groupStates.get(groupName);
-//        if (groupState == null) {
-//            return false; // If the group availability hasn't been set
-//            // yet, it's not available.
-//        }
-//        return groupState.isAvailable();
-//    }
-//
-//    public void setGroupIsAvailable(String groupName, boolean available) {
-//        WmiGroupState groupState = m_groupStates.get(groupName);
-//        if (groupState == null) {
-//            groupState = new WmiGroupState(available);
-//        }
-//        groupState.setAvailable(available);
-//        m_groupStates.put(groupName, groupState);
-//    }
-//
-//    public boolean shouldCheckAvailability(String groupName, int recheckInterval) {
-//        WmiGroupState groupState = m_groupStates.get(groupName);
-//        if (groupState == null) {
-//            // If the group hasn't got a status yet, then it should be
-//            // checked regardless (and setGroupIsAvailable will
-//            // be called soon to create the status object)
-//            return true;
-//        }
-//        Date lastchecked = groupState.getLastChecked();
-//        Date now = new Date();
-//        return (now.getTime() - lastchecked.getTime() > recheckInterval);
-//    }
+    public WmiManager getManager() {
+        return m_manager;
+    }
+
+    public boolean assetIsAvailable(String assetName) {
+        WmiAssetState assetState = m_assetStates.get(assetName);
+        if (assetState == null) {
+            return false; // If the group availability hasn't been set
+            // yet, it's not available.
+        }
+        return assetState.isAvailable();
+    }
+
+    public void setAssetIsAvailable(String assetName, boolean available) {
+        WmiAssetState groupState = m_assetStates.get(assetName);
+        if (groupState == null) {
+            groupState = new WmiAssetState(available);
+        }
+        groupState.setAvailable(available);
+        m_assetStates.put(assetName, groupState);
+    }
+
+    public boolean shouldCheckAvailability(String assetName, int recheckInterval) {
+        WmiAssetState assetState = m_assetStates.get(assetName);
+        if (assetState == null) {
+            // If the asset hasn't got a status yet, then it should be
+            // checked regardless (and setGroupIsAvailable will
+            // be called soon to create the status object)
+            return true;
+        }
+        Date lastchecked = assetState.getLastChecked();
+        Date now = new Date();
+        return (now.getTime() - lastchecked.getTime() > recheckInterval);
+    }
 //
 //    public void didCheckGroupAvailability(String groupName) {
 //        WmiGroupState groupState = m_groupStates.get(groupName);

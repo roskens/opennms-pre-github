@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:typ="http://xmlns.opennms.org/xsd/types" xmlns:ns="http://xmlns.opennms.org/xsd/config/wmi-invscan" targetNamespace="http://xmlns.opennms.org/xsd/config/wmi-invscan">
+	<annotation>
+		<documentation>
+			XML Schema for the wmi-datacollection configuration file
+		</documentation>
+	</annotation>
+	<import namespace="http://xmlns.opennms.org/xsd/types" schemaLocation="types.xsd"/>
+	<element name="wmi-invscan-config">
+		<complexType>
+			<sequence>
+				<!-- Nsclient data collection element -->
+				<element ref="ns:wmi-inventory" maxOccurs="unbounded"/>
+			</sequence>
+		</complexType>
+	</element>
+
+
+
+    
+    <element name="wmi-inventory">
+		<annotation>
+			<documentation>Defines an inventory scanning group.</documentation>
+		</annotation>
+		<complexType>
+			<sequence>
+				<element ref="ns:wmi-category" maxOccurs="unbounded"/>
+			</sequence>
+			<attribute name="name" type="string" use="required"/>
+			<!-- scanner name -->
+		</complexType>
+	</element>
+
+
+    <element name="wmi-category">
+		<annotation>
+			<documentation>WMI object groups</documentation>
+		</annotation>
+		<complexType>
+			<sequence>
+				<element ref="ns:wmi-asset" maxOccurs="unbounded">
+					<annotation>
+						<documentation>
+							A WMI Object Group
+						</documentation>
+					</annotation>
+				</element>
+			</sequence>
+		</complexType>
+	</element>
+    
+    <element name="wmi-asset">
+		<annotation>
+			<documentation>An WMI Object Group</documentation>
+		</annotation>
+		<complexType>
+			<sequence>
+				<element ref="ns:wmi-asset-property" minOccurs="0" maxOccurs="unbounded">
+					<annotation>
+						<documentation>
+							An WMI Object
+						</documentation>
+					</annotation>
+				</element>
+			</sequence>
+			<attribute name="name" type="string" use="required">
+				<annotation>
+					<documentation>
+						The name of this group, for user id purposes
+					</documentation>
+				</annotation>
+			</attribute>
+			<attribute name="wmiClass" type="string" use="required">
+				<annotation>
+					<documentation>
+						This is the WMI object class that we'll be checking.
+					</documentation>
+				</annotation>
+			</attribute>
+			<attribute name="nameProperty" type="string" use="required">
+				<annotation>
+					<documentation>
+						The Key value which, if present, indicates that the rest of this group should be collected
+					</documentation>
+				</annotation>
+			</attribute>
+			<attribute name="recheckInterval" type="int" use="required">
+				<annotation>
+					<documentation>
+						Specifies how often the key value of this group
+						should be rechecked for existence.  In milliseconds
+					</documentation>
+				</annotation>
+			</attribute>		
+		</complexType>
+	</element>
+	<element name="wmi-asset-property">
+		<annotation>
+			<documentation>An Attribute Object</documentation>
+		</annotation>
+		<complexType>
+			<attribute name="name" type="string" use="required"/>
+			<attribute name="wmi-property" type="string" use="required"/>
+		</complexType>
+	</element>
+</schema>

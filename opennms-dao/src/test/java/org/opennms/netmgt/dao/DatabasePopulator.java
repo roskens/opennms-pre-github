@@ -278,15 +278,11 @@ public class DatabasePopulator {
         OnmsInventoryAssetProperty invAssetProp = new OnmsInventoryAssetProperty(
                 "manufacturer",
                 "Intel");
-        //getInventoryAssetPropertyDao().save(invAssetProp);
-        //getInventoryAssetPropertyDao().flush();
         invAsset.addProperty(invAssetProp);
 
         OnmsInventoryAssetProperty invAssetProp2 = new OnmsInventoryAssetProperty(
                 "serialnum",
-                "3235488862NB92");
-        //getInventoryAssetPropertyDao().save(invAssetProp2);
-        //getInventoryAssetPropertyDao().flush();
+                "3235488862NB92");     
         invAsset.addProperty(invAssetProp2);
     }
 

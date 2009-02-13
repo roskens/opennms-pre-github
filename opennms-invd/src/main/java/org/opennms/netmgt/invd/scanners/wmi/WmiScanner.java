@@ -36,9 +36,21 @@ import org.opennms.netmgt.invd.ScanningClient;
 import org.opennms.netmgt.invd.InventorySet;
 import org.opennms.netmgt.invd.InventoryException;
 import org.opennms.netmgt.model.events.EventProxy;
+import org.opennms.netmgt.model.inventory.OnmsInventoryAsset;
 import org.opennms.netmgt.config.DataSourceFactory;
+import org.opennms.netmgt.config.WmiPeerFactory;
+import org.opennms.netmgt.config.WmiInvScanConfigFactory;
+import org.opennms.netmgt.config.wmi.WmiInventory;
+import org.opennms.netmgt.config.wmi.WmiCategory;
+import org.opennms.netmgt.config.wmi.WmiAsset;
 import org.opennms.protocols.wmi.WmiClient;
 import org.opennms.protocols.wmi.WmiException;
+import org.opennms.protocols.wmi.WmiManager;
+import org.opennms.protocols.wmi.WmiParams;
+import org.opennms.protocols.wmi.WmiResult;
+import org.opennms.protocols.wmi.wbem.OnmsWbemObjectSet;
+import org.opennms.protocols.wmi.wbem.OnmsWbemObject;
+import org.opennms.protocols.wmi.wbem.OnmsWbemProperty;
 import org.opennms.core.utils.ThreadCategory;
 import org.apache.log4j.Category;
 import org.exolab.castor.xml.MarshalException;
@@ -46,7 +58,9 @@ import org.exolab.castor.xml.ValidationException;
 
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Date;
 import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.sql.SQLException;
 import java.beans.PropertyVetoException;
@@ -69,49 +83,195 @@ public class WmiScanner implements InventoryScanner {
     public void initialize(Map<String, String> parameters) {
         log().debug("initialize: Initializing WmiCollector.");
         m_scheduledNodes.clear();
-        //initWMIPeerFactory();
-        //initWMICollectionConfig();
+        initWMIPeerFactory();
+        initWMIScannerConfig();
         initDatabaseConnectionFactory();
         //initializeRrdRepository();
     }
 
     public void initialize(ScanningClient client, Map<String, String> parameters) {
-        log().debug("initialize: Initializing WMI collection for agent: " + client);
+        log().debug("initialize: Initializing WMI scanning for client: " + client);
         Integer scheduledNodeKey = new Integer(client.getNodeId());
         WmiClientState nodeState = m_scheduledNodes.get(scheduledNodeKey);
 
         if (nodeState != null) {
-            log().info("initialize: Not scheduling interface for WMI collection: " + nodeState.getAddress());
+            log().info("initialize: Not scheduling interface for WMI inventory scanning: " + nodeState.getAddress());
             final StringBuffer sb = new StringBuffer();
             sb.append("initialize service: ");
 
             sb.append(" for address: ");
             sb.append(nodeState.getAddress());
-            sb.append(" already scheduled for collection on node: ");
+            sb.append(" already scheduled for scanning on node: ");
             sb.append(client);
             log().debug(sb.toString());
             throw new IllegalStateException(sb.toString());
         } else {
             nodeState = new WmiClientState(client.getInetAddress(), parameters);
-            log().info("initialize: Scheduling interface for collection: " + nodeState.getAddress());
+            log().info("initialize: Scheduling interface for inventory scan: " + nodeState.getAddress());
             m_scheduledNodes.put(scheduledNodeKey, nodeState);
         }
     }
 
     public void release() {
-        //To change body of implemented methods use File | Settings | File Templates.
+        m_scheduledNodes.clear();
     }
 
-    //public void initialize(ScanningClient agent, Map<String, String> parameters) {
-    //    //To change body of implemented methods use File | Settings | File Templates.
-    //}
-
     public void release(ScanningClient agent) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        WmiClientState nodeState = m_scheduledNodes.get(agent.getNodeId());
+        if (nodeState != null) {
+            m_scheduledNodes.remove(agent.getNodeId());
+        }
     }
 
     public InventorySet collect(ScanningClient client, EventProxy eproxy, Map<String, String> parameters) throws InventoryException {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        String inventoryName = parameters.get("collection");
+        if (inventoryName == null) {
+            //Look for the old configuration style:
+            inventoryName = parameters.get("wmi-inventory");
+        }
+        // Find attributes to collect - check groups in configuration. For each,
+        // check scheduled nodes to see if that group should be collected
+        WmiInventory inventory = WmiInvScanConfigFactory.getInstance().getWmiInventory(inventoryName);
+        WmiClientState clientState = m_scheduledNodes.get(client.getNodeId());
+
+        // Load the attribute group types.
+        //loadAttributeGroupList(collection);
+
+        // Load the attribute types.
+        //loadAttributeTypeList(collection);
+
+        // Create a new collection set.
+        WmiInventorySet inventorySet = new WmiInventorySet(/*agent*/);
+
+        // Iterate through the WMI inventory categories.
+        for (WmiCategory category : inventory.getWmiCategory()) {
+            // Iterate through each asset in the category.
+            for(WmiAsset asset : category.getWmiAsset()) {
+                // Check to see if we should use WMI to verify the existance of this asset on the
+                // client.
+                if(clientState.shouldCheckAvailability(asset.getName(), asset.getRecheckInterval())) {
+                    // And if the check shows it's not available, skip to the next asset.
+                    if (!isGroupAvailable(clientState, asset)) continue;
+                }
+
+                if (clientState.assetIsAvailable(asset.getName())) {
+                    try {
+                        clientState.connect();
+
+                        WmiClient wmiClient = (WmiClient) clientState.getWmiClient();
+
+                        OnmsWbemObjectSet wOS;
+                        wOS = wmiClient.performInstanceOf(asset.getWmiClass());
+
+                        if(wOS != null) {
+                            //  Go through each object (class instance) in the object set.
+                            for (int i = 0; i < wOS.count(); i++) {
+                                OnmsInventoryAsset invAsset = new OnmsInventoryAsset();
+
+                                // Fetch our WBEM Object
+                                OnmsWbemObject obj = wOS.get(i);
+
+                                OnmsWbemProperty prop = obj.getWmiProperties().getByName(asset.getNameProperty());
+                                Object propVal = prop.getWmiValue();
+                                String instance = null;
+                                if(propVal instanceof String) {
+                                    instance = (String)propVal;
+                                } else {
+                                    instance = propVal.toString();
+                                }
+                                invAsset.setAssetName(instance);
+                                invAsset.setAssetSource("WMI");
+                                //invAsset.setCategory(); // TODO wire this up.
+                                //invAsset.setOwnerNode(client.getNodeId()); // TODO wire this up.
+                                invAsset.setDateAdded(new Date());
+                            }
+                        }
+                    } catch (WmiException e) {
+                        // TODO replace with rethrow of WmiScannerException
+                    }
+                }
+            }
+        }
+
+//                    // If we received a WbemObjectSet result, lets go through it and collect it.
+//                    if (wOS != null) {
+//                        //  Go through each object (class instance) in the object set.
+//                        for (int i = 0; i < wOS.count(); i++) {
+//                            // Create a new collection resource.
+//                            WmiCollectionResource resource = null;
+//
+//                            // Fetch our WBEM Object
+//                            OnmsWbemObject obj = wOS.get(i);
+//
+//                            // If this is multi-instance, fetch the instance name and store it.
+//                            if(wOS.count()>1) {
+//                                // Fetch the value of the key value. e.g. Name.
+//                                OnmsWbemProperty prop = obj.getWmiProperties().getByName(wpm.getKeyvalue());
+//                                Object propVal = prop.getWmiValue();
+//                                String instance = null;
+//                                if(propVal instanceof String) {
+//                                    instance = (String)propVal;
+//                                } else {
+//                                    instance = propVal.toString();
+//                                }
+//                                resource = new WmiMultiInstanceCollectionResource(agent,instance,wpm.getResourceType());
+//                            } else {
+//                                resource = new WmiSingleInstanceCollectionResource(agent);
+//                            }
+//
+//
+//                            for (Attrib attrib : wpm.getAttrib()) {
+//                                OnmsWbemProperty prop = obj.getWmiProperties().getByName(attrib.getWmiObject());
+//                                WmiCollectionAttributeType attribType = m_attribTypeList.get(attrib.getName());
+//                                resource.setAttributeValue(attribType, prop.getWmiValue().toString());
+//                            }
+//                            collectionSet.getResources().add(resource);
+//                        }
+//                    }
+//                    client.disconnect();
+//                } catch (WmiException e) {
+//                    log().info("unable to collect params for wpm '" + wpm.getName() + "'", e);
+//                }
+//            }
+//        }
+//        collectionSet.setStatus(ServiceCollector.COLLECTION_SUCCEEDED);
+        return inventorySet;
+
+    }
+
+    private boolean isGroupAvailable(WmiClientState clientState, WmiAsset asset) {
+        log().debug("Checking availability of group " + asset.getName());
+        WmiManager manager;
+
+        /*
+         * We provide a bogus comparison value and use an operator of "NOOP"
+         * to ensure that, regardless of results, we receive a result and perform
+         * no logic. We're only validating that the agent is reachable and gathering
+         * the result objects.
+         */
+        try {
+            // Get and initialize the WmiManager
+            manager = clientState.getManager();
+            manager.init();
+
+            WmiParams params = new WmiParams(WmiParams.WMI_OPERATION_INSTANCEOF, "not-applicable", "NOOP",
+                    asset.getWmiClass(), asset.getNameProperty());
+
+            WmiResult result = manager.performOp(params);
+            manager.close();
+            boolean isAvailable = (result.getResultCode() == WmiResult.RES_STATE_OK);
+            clientState.setAssetIsAvailable(asset.getName(), isAvailable);
+            log().debug("Group " + asset.getName() + " is " + (isAvailable ? "" : "not") + "available ");
+        } catch (WmiException e) {
+            //throw new WmiCollectorException("Error checking group (" + wpm.getName() + ") availability", e);
+            // Log a warning signifying that this group is unavailable.
+            log().warn("Error checking group (" + asset.getName() + ") availability", e);
+            // Set the group as unavailable.
+            clientState.setAssetIsAvailable(asset.getName(), false);
+            // And then continue on to check the next wpm entry.
+            return false;
+        }
+        return true;
     }
 
     private void initDatabaseConnectionFactory() {
@@ -134,6 +294,41 @@ public class WmiScanner implements InventoryScanner {
             throw new UndeclaredThrowableException(e);
         } catch (ClassNotFoundException e) {
             log().fatal("initDatabaseConnectionFactory: Failed loading database driver.", e);
+            throw new UndeclaredThrowableException(e);
+        }
+    }
+
+    private void initWMIPeerFactory() {
+        log().debug("initialize: Initializing WmiPeerFactory");
+        try {
+            WmiPeerFactory.init();
+        } catch (MarshalException e) {
+            log().fatal("initialize: Error marshalling configuration.", e);
+            throw new UndeclaredThrowableException(e);
+        } catch (ValidationException e) {
+            log().fatal("initialize: Error validating configuration.", e);
+            throw new UndeclaredThrowableException(e);
+        } catch (IOException e) {
+            log().fatal("initialize: Error reading configuration", e);
+            throw new UndeclaredThrowableException(e);
+        }
+    }
+
+    private void initWMIScannerConfig() {
+        log().debug("initialize: Initializing collector: " + getClass());
+        try {
+            WmiInvScanConfigFactory.init();
+        } catch (MarshalException e) {
+            log().fatal("initialize: Error marshalling configuration.", e);
+            throw new UndeclaredThrowableException(e);
+        } catch (ValidationException e) {
+            log().fatal("initialize: Error validating configuration.", e);
+            throw new UndeclaredThrowableException(e);
+        } catch (FileNotFoundException e) {
+            log().fatal("initialize: Error locating configuration.", e);
+            throw new UndeclaredThrowableException(e);
+        } catch (IOException e) {
+            log().fatal("initialize: Error reading configuration", e);
             throw new UndeclaredThrowableException(e);
         }
     }
