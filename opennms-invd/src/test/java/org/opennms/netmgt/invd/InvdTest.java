@@ -254,7 +254,7 @@ public class InvdTest extends TestCase {
 
         setupScanner(svcName);
 
-        //m_scanner.initialize(Collections.<String, String>emptyMap());
+        m_scanner.initialize(Collections.<String, String>emptyMap());
         InventorySet collectionSetResult=new InventorySet() {
 
             public int getStatus() {
@@ -269,6 +269,10 @@ public class InvdTest extends TestCase {
 			public boolean ignorePersist() {
 				return false;
 			}
+
+            public List<InventoryResource> getInventoryResources() {
+                return new ArrayList<InventoryResource>();
+            }
         };
         expect(m_scanner.collect(isA(ScanningClient.class), isA(EventProxy.class), isAMap(String.class, String.class))).andReturn(collectionSetResult);
         setupInterface(iface);
@@ -342,7 +346,7 @@ public class InvdTest extends TestCase {
 
     private void setupInterface(OnmsIpInterface iface) {
         expect(m_ipIfDao.findByServiceType("WMI")).andReturn(Collections.singleton(iface));
-        //expect(m_ipIfDao.load(iface.getId())).andReturn(iface).atLeastOnce();
+        expect(m_ipIfDao.load(iface.getId())).andReturn(iface).atLeastOnce();
     }
 
     private OnmsIpInterface getInterface() {
