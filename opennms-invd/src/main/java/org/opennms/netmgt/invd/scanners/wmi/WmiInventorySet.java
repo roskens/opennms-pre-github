@@ -31,14 +31,21 @@
 package org.opennms.netmgt.invd.scanners.wmi;
 
 import org.opennms.netmgt.invd.InventorySet;
+import org.opennms.netmgt.invd.InventoryResource;
 import org.opennms.netmgt.model.inventory.OnmsInventoryCategory;
 import org.opennms.netmgt.model.inventory.OnmsInventoryAsset;
+import org.opennms.netmgt.config.wmi.WmiAsset;
+import org.opennms.protocols.wmi.wbem.OnmsWbemObject;
+import org.opennms.protocols.wmi.wbem.OnmsWbemProperty;
+import org.opennms.protocols.wmi.WmiException;
 
 import java.util.List;
+import java.util.Date;
+import java.util.ArrayList;
 
 public class WmiInventorySet implements InventorySet {
     private int m_status;
-    private List<OnmsInventoryAsset> m_inventoryAssets;
+    private List<InventoryResource> m_inventoryResources = new ArrayList<InventoryResource>();
 
     public int getStatus() {
         return m_status;
@@ -48,7 +55,11 @@ public class WmiInventorySet implements InventorySet {
         m_status = status;
     }
 
-    public List<OnmsInventoryAsset> getInventoryAssets() {
-        return m_inventoryAssets;
+    public List<InventoryResource> getInventoryResources() {
+        return m_inventoryResources;
+    }
+
+    public void collect(WmiAsset asset, OnmsWbemObject wmiObject) {
+
     }
 }

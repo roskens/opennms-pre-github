@@ -31,6 +31,9 @@
 //
 package org.opennms.netmgt.invd;
 
+import java.util.List;
+
 public interface InventorySet {
     public int getStatus();
+    public List<InventoryResource> getInventoryResources();
 }

@@ -36,13 +36,13 @@ import org.opennms.netmgt.invd.ScanningClient;
 import org.opennms.netmgt.invd.InventorySet;
 import org.opennms.netmgt.invd.InventoryException;
 import org.opennms.netmgt.model.events.EventProxy;
-import org.opennms.netmgt.model.inventory.OnmsInventoryAsset;
 import org.opennms.netmgt.config.DataSourceFactory;
 import org.opennms.netmgt.config.WmiPeerFactory;
 import org.opennms.netmgt.config.WmiInvScanConfigFactory;
 import org.opennms.netmgt.config.wmi.WmiInventory;
 import org.opennms.netmgt.config.wmi.WmiCategory;
 import org.opennms.netmgt.config.wmi.WmiAsset;
+import org.opennms.netmgt.config.wmi.WmiAssetProperty;
 import org.opennms.protocols.wmi.WmiClient;
 import org.opennms.protocols.wmi.WmiException;
 import org.opennms.protocols.wmi.WmiManager;
@@ -140,16 +140,19 @@ public class WmiScanner implements InventoryScanner {
         // Load the attribute types.
         //loadAttributeTypeList(collection);
 
+        // Load the category objects.
+        //loadCategoryObjectList(collection);
+
         // Create a new collection set.
         WmiInventorySet inventorySet = new WmiInventorySet(/*agent*/);
 
         // Iterate through the WMI inventory categories.
         for (WmiCategory category : inventory.getWmiCategory()) {
             // Iterate through each asset in the category.
-            for(WmiAsset asset : category.getWmiAsset()) {
+            for (WmiAsset asset : category.getWmiAsset()) {
                 // Check to see if we should use WMI to verify the existance of this asset on the
                 // client.
-                if(clientState.shouldCheckAvailability(asset.getName(), asset.getRecheckInterval())) {
+                if (clientState.shouldCheckAvailability(asset.getName(), asset.getRecheckInterval())) {
                     // And if the check shows it's not available, skip to the next asset.
                     if (!isGroupAvailable(clientState, asset)) continue;
                 }
@@ -163,10 +166,11 @@ public class WmiScanner implements InventoryScanner {
                         OnmsWbemObjectSet wOS;
                         wOS = wmiClient.performInstanceOf(asset.getWmiClass());
 
-                        if(wOS != null) {
+                        if (wOS != null) {
                             //  Go through each object (class instance) in the object set.
                             for (int i = 0; i < wOS.count(); i++) {
-                                OnmsInventoryAsset invAsset = new OnmsInventoryAsset();
+                                //OnmsInventoryAsset invAsset = new OnmsInventoryAsset();
+                                WmiInventoryResource resource = new WmiInventoryResource();
 
                                 // Fetch our WBEM Object
                                 OnmsWbemObject obj = wOS.get(i);
@@ -174,67 +178,45 @@ public class WmiScanner implements InventoryScanner {
                                 OnmsWbemProperty prop = obj.getWmiProperties().getByName(asset.getNameProperty());
                                 Object propVal = prop.getWmiValue();
                                 String instance = null;
-                                if(propVal instanceof String) {
-                                    instance = (String)propVal;
+                                if (propVal instanceof String) {
+                                    instance = (String) propVal;
                                 } else {
                                     instance = propVal.toString();
                                 }
-                                invAsset.setAssetName(instance);
-                                invAsset.setAssetSource("WMI");
-                                //invAsset.setCategory(); // TODO wire this up.
-                                //invAsset.setOwnerNode(client.getNodeId()); // TODO wire this up.
-                                invAsset.setDateAdded(new Date());
+                                resource.setResourceName(instance);
+                                resource.setResourceSource("WMI");
+                                // TODO fix WmiCategory
+                                //resource.setResourceCategory(category.getName());
+                                resource.setOwnerNodeId(client.getNodeId());
+                                resource.setResourceDate(new Date());
+
+                                for(WmiAssetProperty assetProp : asset.getWmiAssetProperty()) {
+                                    String assetName = assetProp.getName();
+                                    String assetPropName = assetProp.getWmiProperty();
+                                    String assetPropValue;
+
+                                    OnmsWbemProperty wobjProp = obj.getWmiProperties().getByName(assetPropName);
+                                    Object objPropVal = wobjProp.getWmiValue();
+                                    if (objPropVal instanceof String) {
+                                        assetPropValue = (String) objPropVal;
+                                    } else {
+                                        assetPropValue = objPropVal.toString();
+                                    }
+                                    resource.getResourceProperties().put(assetName, assetPropValue);
+                                }
+                                inventorySet.getInventoryResources().add(resource);
                             }
                         }
+
+                        wmiClient.disconnect();
                     } catch (WmiException e) {
-                        // TODO replace with rethrow of WmiScannerException
+                        log().info("unable to collect inventory for asset '" + asset.getName() + "'", e);
                     }
                 }
             }
         }
 
-//                    // If we received a WbemObjectSet result, lets go through it and collect it.
-//                    if (wOS != null) {
-//                        //  Go through each object (class instance) in the object set.
-//                        for (int i = 0; i < wOS.count(); i++) {
-//                            // Create a new collection resource.
-//                            WmiCollectionResource resource = null;
-//
-//                            // Fetch our WBEM Object
-//                            OnmsWbemObject obj = wOS.get(i);
-//
-//                            // If this is multi-instance, fetch the instance name and store it.
-//                            if(wOS.count()>1) {
-//                                // Fetch the value of the key value. e.g. Name.
-//                                OnmsWbemProperty prop = obj.getWmiProperties().getByName(wpm.getKeyvalue());
-//                                Object propVal = prop.getWmiValue();
-//                                String instance = null;
-//                                if(propVal instanceof String) {
-//                                    instance = (String)propVal;
-//                                } else {
-//                                    instance = propVal.toString();
-//                                }
-//                                resource = new WmiMultiInstanceCollectionResource(agent,instance,wpm.getResourceType());
-//                            } else {
-//                                resource = new WmiSingleInstanceCollectionResource(agent);
-//                            }
-//
-//
-//                            for (Attrib attrib : wpm.getAttrib()) {
-//                                OnmsWbemProperty prop = obj.getWmiProperties().getByName(attrib.getWmiObject());
-//                                WmiCollectionAttributeType attribType = m_attribTypeList.get(attrib.getName());
-//                                resource.setAttributeValue(attribType, prop.getWmiValue().toString());
-//                            }
-//                            collectionSet.getResources().add(resource);
-//                        }
-//                    }
-//                    client.disconnect();
-//                } catch (WmiException e) {
-//                    log().info("unable to collect params for wpm '" + wpm.getName() + "'", e);
-//                }
-//            }
-//        }
-//        collectionSet.setStatus(ServiceCollector.COLLECTION_SUCCEEDED);
+        inventorySet.setStatus(InventoryScanner.SCAN_SUCCEEDED);
         return inventorySet;
 
     }

@@ -214,7 +214,7 @@ public class ScanableService implements ReadyRunnable {
      * uei Universal event identifier of event to generate.
      */
     private void sendEvent(String uei, String reason) {
-        EventBuilder builder = new EventBuilder(uei, "OpenNMS.Collectd");
+        EventBuilder builder = new EventBuilder(uei, "OpenNMS.Invd");
         builder.setNodeid(m_nodeId);
         builder.setInterface(getHostAddress());
         builder.setService(m_spec.getServiceName());
@@ -342,6 +342,11 @@ public class ScanableService implements ReadyRunnable {
                     //BasePersister persister = createPersister(m_params, m_repository);
                     //persister.setIgnorePersist(result.ignorePersist());
                     //result.visit(persister);
+
+                    log().info("collected inventory.");
+                    for(InventoryResource res : result.getInventoryResources()) {
+                        log().info("collected asset: " + res.getResourceName());
+                    }
                 } finally {
                     //Collectd.instrumentation().endPersistingServiceData(m_nodeId, getHostAddress(), m_spec.getServiceName());
                 }
