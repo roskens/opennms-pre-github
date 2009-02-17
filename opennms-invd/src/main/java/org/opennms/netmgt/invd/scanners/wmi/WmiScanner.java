@@ -193,10 +193,19 @@ public class WmiScanner implements InventoryScanner {
 
                                     OnmsWbemProperty wobjProp = obj.getWmiProperties().getByName(assetPropName);
                                     Object objPropVal = wobjProp.getWmiValue();
-                                    if (objPropVal instanceof String) {
-                                        assetPropValue = (String) objPropVal;
+
+                                    // We have to check this because some asset properties may be null.
+                                    // If it's null, default the value, otherwise we ened to check the type
+                                    // of the object to determine how to convert it to a string.
+                                    if (objPropVal == null) {
+                                        assetPropValue = "";
                                     } else {
-                                        assetPropValue = objPropVal.toString();
+
+                                        if (objPropVal instanceof String) {
+                                            assetPropValue = (String) objPropVal;
+                                        } else {
+                                            assetPropValue = objPropVal.toString();
+                                        }
                                     }
                                     resource.getResourceProperties().put(assetName, assetPropValue);
                                 }
