@@ -188,7 +188,7 @@ public class InventoryScheduler {
      */
     private void scheduleExistingInterfaces() throws SQLException {
 
-        //instrumentation().beginScheduleExistingInterfaces();
+        log().debug("scheduleExistingInterfaces: begin");
         try {
 
             m_transTemplate.execute(new TransactionCallback() {
@@ -205,33 +205,33 @@ public class InventoryScheduler {
             });
 
         } finally {
-            //instrumentation().endScheduleExistingInterfaces();
+            log().debug("scheduleExistingInterfaces: end");
         }
     }
 
     private void scheduleInterfacesWithService(String svcName) {
-        //instrumentation().beginScheduleInterfacesWithService(svcName);
+        log().debug("scheduleInterfacesWithService: begin: "+svcName);
         try {
-        log().info("scheduleInterfacesWithService: svcName = " + svcName);
+            log().info("scheduleInterfacesWithService: svcName = " + svcName);
 
-        Collection<OnmsIpInterface> ifsWithServices = findInterfacesWithService(svcName);
-        for (OnmsIpInterface iface : ifsWithServices) {
-            scheduleInterface(iface, svcName, true);
-        }
+            Collection<OnmsIpInterface> ifsWithServices = findInterfacesWithService(svcName);
+            for (OnmsIpInterface iface : ifsWithServices) {
+                scheduleInterface(iface, svcName, true);
+            }
         } finally {
-            //instrumentation().endScheduleInterfacesWithService(svcName);
+            log().debug("scheduleInterfacesWithService: end: " + svcName);
         }
     }
 
     private Collection<OnmsIpInterface> findInterfacesWithService(String svcName) {
-        //instrumentation().beginFindInterfacesWithService(svcName);
+        log().debug("scheduleFindInterfacesWithService: begin: "+svcName);
         int count = -1;
         try {
            Collection<OnmsIpInterface> ifaces = getIpInterfaceDao().findByServiceType(svcName);
            count = ifaces.size();
            return ifaces;
         } finally {
-            //instrumentation().endFindInterfacesWithService(svcName, count);
+            log().debug("scheduleFindInterfacesWithService: end: "+svcName+". found "+count+" interfaces.");
         }
 
     }
@@ -250,7 +250,7 @@ public class InventoryScheduler {
      *            True if called by scheduleExistingInterfaces(), false
      *            otheriwse
      */
-    private void scheduleInterface(int nodeId, String ipAddress,
+    public void scheduleInterface(int nodeId, String ipAddress,
             String svcName, boolean existing) {
 
         OnmsIpInterface iface = getIpInterface(nodeId, ipAddress);
@@ -275,7 +275,6 @@ public class InventoryScheduler {
 	}
 
     private void scheduleInterface(OnmsIpInterface iface, String svcName, boolean existing) {
-
         //instrumentation().beginScheduleInterface(iface.getNode().getId(), iface.getIpAddress(), svcName);
         log().debug("scheduleInterfaceWithService: begin: "+iface.getNode().getId()+"/"+iface.getIpAddress()+"/"+svcName);
         try {
@@ -387,7 +386,7 @@ public class InventoryScheduler {
         } // end while more specifications  exist
 
         } finally {
-            ;
+            log().debug("scheduleInterfaceWithService: end: "+iface.getNode().getId()+"/"+iface.getIpAddress()+"/"+svcName);
             //instrumentation().endScheduleInterface(iface.getNode().getId(), iface.getIpAddress(), svcName);
         }
     }

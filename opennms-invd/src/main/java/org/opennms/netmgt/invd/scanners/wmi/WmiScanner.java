@@ -125,10 +125,7 @@ public class WmiScanner implements InventoryScanner {
 
     public InventorySet collect(ScanningClient client, EventProxy eproxy, Map<String, String> parameters) throws InventoryException {
         String inventoryName = parameters.get("collection");
-        if (inventoryName == null) {
-            //Look for the old configuration style:
-            inventoryName = parameters.get("wmi-inventory");
-        }
+
         // Find attributes to collect - check groups in configuration. For each,
         // check scheduled nodes to see if that group should be collected
         WmiInventory inventory = WmiInvScanConfigFactory.getInstance().getWmiInventory(inventoryName);
@@ -185,8 +182,7 @@ public class WmiScanner implements InventoryScanner {
                                 }
                                 resource.setResourceName(instance);
                                 resource.setResourceSource("WMI");
-                                // TODO fix WmiCategory
-                                //resource.setResourceCategory(category.getName());
+                                resource.setResourceCategory(category.getName());
                                 resource.setOwnerNodeId(client.getNodeId());
                                 resource.setResourceDate(new Date());
 
