@@ -65,15 +65,15 @@ public class InvdConfigDaoCastorImpl implements InvdConfigDao {
         // Load collectd configuration file
         try {
             // XXX was reload(); this doesn't work well from unit tests, however
-            CollectdConfigFactory.init();
+            InvdConfigFactory.init();
         } catch (MarshalException ex) {
-            log().fatal("loadConfigFactory: Failed to load collectd configuration", ex);
+            log().fatal("loadConfigFactory: Failed to load invd configuration", ex);
             throw new UndeclaredThrowableException(ex);
         } catch (ValidationException ex) {
-            log().fatal("loadConfigFactory: Failed to load collectd configuration", ex);
+            log().fatal("loadConfigFactory: Failed to load invd configuration", ex);
             throw new UndeclaredThrowableException(ex);
         } catch (IOException ex) {
-            log().fatal("loadConfigFactory: Failed to load collectd configuration", ex);
+            log().fatal("loadConfigFactory: Failed to load invd configuration", ex);
             throw new UndeclaredThrowableException(ex);
         }
     }
