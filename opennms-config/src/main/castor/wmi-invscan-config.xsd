@@ -46,7 +46,14 @@
 					</annotation>
 				</element>
 			</sequence>
-		</complexType>
+            <attribute name="name" type="string" use="required">
+				<annotation>
+					<documentation>
+						The name of this category
+					</documentation>
+				</annotation>
+			</attribute>
+        </complexType>
 	</element>
     
     <element name="wmi-asset">
