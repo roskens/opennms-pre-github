@@ -86,6 +86,9 @@ public class OnmsInventoryAsset {
     @Column(name = "dateAdded")
     private Date dateAdded;
 
+    @Column(name = "eff_status")
+    private Boolean effStatus;
+
     @XmlTransient
     @OneToMany(mappedBy="inventoryAsset")
     @org.hibernate.annotations.Cascade( {
@@ -118,6 +121,7 @@ public class OnmsInventoryAsset {
         this.ownerNode = ownerNode;
         this.dateAdded = new Date();
         this.assetSource = "Invd";
+        this.effStatus = true;
     }
 
     /**
@@ -142,6 +146,35 @@ public class OnmsInventoryAsset {
         this.assetSource = assetSource;
         this.ownerNode = ownerNode;
         this.dateAdded = dateAdded;
+        this.effStatus = true;
+
+    }
+
+    /**
+     * Constructor.
+     *
+     * This constructor requires all members except asset properties.
+     * No member values are defaulted.
+     *
+     * @param category The inventory category this asset belongs to.
+     * @param assetName The name of this asset.
+     * @param assetSource The source of this asset, e.g "Invd" or "User"
+     * @param ownerNode The node this asset belongs to.
+     * @param dateAdded The date that this asset was added or changed.
+     * @param effStatus Whether this asset is effective (active) or not.
+     */
+    public OnmsInventoryAsset(OnmsInventoryCategory category,
+                              String assetName,
+                              String assetSource,
+                              OnmsNode ownerNode,
+                              Date dateAdded,
+                              Boolean effStatus) {
+        this.category = category;
+        this.assetName = assetName;
+        this.assetSource = assetSource;
+        this.ownerNode = ownerNode;
+        this.dateAdded = dateAdded;
+        this.effStatus = effStatus;
 
     }
     
@@ -213,6 +246,14 @@ public class OnmsInventoryAsset {
 
     public void setAssetName(String assetName) {
         this.assetName = assetName;
+    }
+
+    public Boolean getEffStatus() {
+        return effStatus;
+    }
+
+    public void setEffStatus(Boolean effStatus) {
+        this.effStatus = effStatus;
     }
 
     public String toString() {

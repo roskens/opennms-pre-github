@@ -2066,6 +2066,7 @@ CREATE TABLE inventoryasset (
     assetSource varchar(64),
     ownerNode   integer not null,
     dateAdded   timestamp with time zone not null,
+    eff_status  boolean default TRUE not null,
 
 
     constraint pk_inventoryasset_id primary key (id)
@@ -2077,6 +2078,7 @@ CREATE TABLE inventoryassetproperty (
     assetKey        varchar(64) not null,
     assetValue      varchar(64) not null,
     dateAdded       timestamp with time zone not null,
+    eff_status      boolean default TRUE not null,
 
     constraint pk_inventoryassetproperty_id primary key (id)
 );

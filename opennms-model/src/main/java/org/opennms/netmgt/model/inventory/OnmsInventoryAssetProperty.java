@@ -75,6 +75,9 @@ public class OnmsInventoryAssetProperty {
     @Column(name = "dateAdded")
     private Date dateAdded;
 
+    @Column(name = "eff_status")
+    private Boolean effStatus;
+
     public OnmsInventoryAssetProperty() {
         // do nothing.
     }
@@ -85,6 +88,7 @@ public class OnmsInventoryAssetProperty {
         this.assetKey = assetKey;
         this.assetValue = assetValue;
         this.dateAdded = new Date();
+        this.effStatus = true;
     }
 
     public OnmsInventoryAssetProperty(OnmsInventoryAsset inventoryAsset,
@@ -94,6 +98,7 @@ public class OnmsInventoryAssetProperty {
         this.assetKey = assetKey;
         this.assetValue = assetValue;
         this.dateAdded = new Date();
+        this.effStatus = true;
     }
 
     public OnmsInventoryAssetProperty(OnmsInventoryAsset inventoryAsset,
@@ -104,6 +109,19 @@ public class OnmsInventoryAssetProperty {
         this.assetKey = assetKey;
         this.assetValue = assetValue;
         this.dateAdded = dateAdded;
+        this.effStatus = true;
+    }
+
+    public OnmsInventoryAssetProperty(OnmsInventoryAsset inventoryAsset,
+                                      String assetKey,
+                                      String assetValue,
+                                      Date dateAdded,
+                                      Boolean effStatus) {
+        this.inventoryAsset = inventoryAsset;
+        this.assetKey = assetKey;
+        this.assetValue = assetValue;
+        this.dateAdded = dateAdded;
+        this.effStatus = effStatus;
     }
     
     public int getId() {
@@ -150,5 +168,13 @@ public class OnmsInventoryAssetProperty {
 
     public void setDateAdded(Date dateAdded) {
         this.dateAdded = dateAdded;
+    }
+
+    public Boolean getEffStatus() {
+        return effStatus;
+    }
+
+    public void setEffStatus(Boolean effStatus) {
+        this.effStatus = effStatus;
     }
 }
