@@ -2,6 +2,7 @@
 --#
 --# Modifications:
 --#
+--# 2009 Jan 28: Added Acks tables - david@opennms.org
 --# 2007 Apr 10: Added statistics report tables - dj@opennms.org
 --# 2006 Apr 17: Added pathOutage table
 --# 2005 Mar 11: Added alarms table
@@ -371,7 +372,7 @@ create table snmpInterface (
 	nodeID			integer not null,
 	ipAddr			varchar(16) not null,
 	snmpIpAdEntNetMask	varchar(16),
-	snmpPhysAddr		char(12),
+	snmpPhysAddr		varchar(16),
 	snmpIfIndex		integer not null,
 	snmpIfDescr		varchar(256),
 	snmpIfType		integer,
@@ -380,6 +381,7 @@ create table snmpInterface (
 	snmpIfAdminStatus	integer,
 	snmpIfOperStatus	integer,
 	snmpIfAlias		varchar(256),
+    snmpLastCapsdPoll timestamp with time zone,
 
     CONSTRAINT snmpinterface_pkey primary key (id),
 	constraint fk_nodeID2 foreign key (nodeID) references node ON DELETE CASCADE
@@ -437,7 +439,7 @@ create table ipInterface (
 	ipHostname		varchar(256),
 	isManaged		char(1),
 	ipStatus		integer,
-	ipLastCapsdPoll timestamp with time zone,
+    ipLastCapsdPoll timestamp with time zone,
 	isSnmpPrimary   char(1),
 	snmpInterfaceId	integer,
 
@@ -1071,6 +1073,13 @@ CREATE UNIQUE INDEX alarm_attributes_aan_idx ON alarm_attributes(alarmID, attrib
 --# room             : The room where this asset resides.
 --# vendorPhone      : A contact number for the vendor.
 --# vendorFax        : A fax number for the vendor.
+--# vendorAssetNumber: The vendor asset number.
+--# username		 : A Username to access the node
+--# password		 : The password to access the node
+--# enable			 : The privilege password to access the node
+--# autoenable		 : If username has privileged access
+--#                    - 'A' autoenable true
+--# connection		 : Connection protocol used to access the node (telnet, ssh, rsh, ...)
 --# userCreated      : The username who created this record.
 --# userLastModified : The last user who modified this record.
 --# lastModifiedDate : The last time this record was modified.
@@ -1111,6 +1120,11 @@ create table assets (
         vendorPhone     varchar(64),
         vendorFax       varchar(64),
         vendorAssetNumber varchar(64),
+        username		varchar(32),
+        password		varchar(32),
+        enable			varchar(32),
+        autoenable		char(1),
+        connection		varchar(32),
         userLastModified char(20) not null,
         lastModifiedDate timestamp with time zone not null,
         dateInstalled   varchar(64),
@@ -1758,6 +1772,7 @@ create index iprouteinterface_rnh_idx on iprouteinterface(routenexthop);
 --########################################################################
 
 create table datalinkinterface (
+    id           integer default nextval('opennmsNxtId') not null,
     nodeid	     integer not null,
     ifindex          integer not null,
     nodeparentid     integer not null,
@@ -1770,6 +1785,7 @@ create table datalinkinterface (
 	constraint fk_ia_nodeID6 foreign key (nodeparentid) references node (nodeid) ON DELETE CASCADE
 );
 
+create index dlint_id_idx on datalinkinterface(id);
 create index dlint_node_idx on datalinkinterface(nodeid);
 create index dlint_nodeparent_idx on datalinkinterface(nodeparentid);
 create index dlint_nodeparent_paifindex_idx on datalinkinterface(nodeparentid,parentifindex);
@@ -1820,8 +1836,9 @@ create index inventory_status_idx on inventory(status);
 --#  mapName           : Identifier of the map
 --#  mapBackGround     : bakground image assocated with map
 --#  mapOwner          : user who has the ownership of the map (also the user that created the map)
+--#  mapGroup          : group who has the access to the map
 --#  mapCreateTime     : The time the map was created
---#  mapAccess         : a 6 character sequence rwrwrw to access the map owner/group/all permission
+--#  mapAccess         : a 2/4 character sequence rw,ro, rwro to access the map owner/group/all permission
 --#  userLastModifies  : the user who last modified the map
 --#  lastModifiedTime  : The last time the map was modified
 --#  mapScale          : A float scale factor for the map
@@ -1836,10 +1853,11 @@ create index inventory_status_idx on inventory(status);
 --########################################################################
 
 create table map (
-    mapId	   		 integer not null,
+    mapId	   		 integer default nextval('opennmsNxtId') not null,
     mapName	   		 varchar(40) not null,
     mapBackGround	 varchar(256),
     mapOwner   		 varchar(64) not null,
+    mapGroup   		 varchar(64),
     mapCreateTime	 timestamp not null,
     mapAccess		 char(6) not null,
     userLastModifies varchar(64) not null,
@@ -1861,7 +1879,7 @@ create table map (
 --# This table provides the following information:
 --#
 --#  mapId             : Identifier of the parent map
---#  elementId         : Identifier of the elemen map
+--#  elementId         : Identifier of the element map
 --#  elemenType        : Flag indicating the type of the element.
 --#                      'M' - Element is a Map 
 --#                      'N' - Element is a Node
@@ -1873,6 +1891,7 @@ create table map (
 --########################################################################
 
 create table element (
+    id               integer default nextval('opennmsNxtId') not null,
     mapId	   		 integer not null,
     elementId		 integer not null,
 	elementType      char(1) not null,
@@ -2026,15 +2045,18 @@ create unique index statsData_unique on statisticsReportData(reportId, resourceI
 --#  ackUser            : User ID of the Acknowledgment
 --#  ackType            : Enum of Acknowlegable Types in the system (i.e
 --#                     : notifications/alarms
+--#  ackAction          : Enum of Acknowlegable Actions in the system (i.e.
+--#                     : ack,unack,clear,escalate
 --#  refId              : Acknowledgable's ID
 --########################################################################
 
 CREATE TABLE acks (
-    id       integer default nextval('opennmsnxtid') not null,
-    ackTime  timestamp with time zone not null,
-    ackUser  varchar(64) not null,
-    ackType  integer not null,
-    refId    integer,
+    id        integer default nextval('opennmsnxtid') not null,
+    ackTime   timestamp with time zone not null default now(),
+    ackUser   varchar(64) not null default 'admin',
+    ackType   integer not null default 1,
+    ackAction integer not null default 1,
+    refId     integer,
     
     constraint pk_acks_id primary key (id)
 );

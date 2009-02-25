@@ -36,27 +36,17 @@
 	session="true"
 	import="org.opennms.web.element.*,
 		java.util.*,
-		java.net.*,
-        java.sql.SQLException,
-        org.opennms.core.utils.IPSorter,
-        org.opennms.web.acegisecurity.Authentication,
         org.opennms.web.svclayer.ResourceService,
-        org.opennms.web.asset.Asset,
-        org.opennms.web.asset.AssetModel,
         org.opennms.web.inventory.InventoryLayer,
         org.springframework.web.context.WebApplicationContext,
-        org.springframework.web.context.support.WebApplicationContextUtils"
+        org.springframework.web.context.support.WebApplicationContextUtils,
+        org.opennms.web.element.ElementUtil"
 %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 
 <%!
-    private int m_telnetServiceId;
-    private int m_httpServiceId;
-    private int m_dellServiceId;
-    private int m_snmpServiceId;
     private ResourceService m_resourceService;
-	private AssetModel m_model = new AssetModel();
 
     public void init() throws ServletException {
 
@@ -66,26 +56,39 @@
 		InventoryLayer.init();
     }
 
+	public static String getStatusStringWithDefault(Node node_db) {
+	    String status = ElementUtil.getNodeStatusString(node_db);
+	    if (status != null) {
+	        return status;
+	    } else {
+	        return "Unknown";
+	    }
+	}
 %>
 
 <%
 
-    String elementID = request.getParameter("rancidnode");
-    String groupID = request.getParameter("group");
+	Node node_db = ElementUtil.getNodeByParams(request);
+	int nodeId = node_db.getNodeId();
+
+	String elementID = node_db.getLabel();
+	
 	Map<String, Object> nodeModel = new TreeMap<String, Object>();
-	String url = "http://www.rionero.com/rws-current";
+
 	try {	
-
-		nodeModel = InventoryLayer.getRancidNode(url,groupID, elementID);
-
+	    nodeModel = InventoryLayer.getRancidNode(elementID,request);
 
 	} catch (Exception e) {
 		//throw new ServletException("Could node get Rancid Node ", e);
 	}
     nodeModel.put("id", elementID);
-    nodeModel.put("group", groupID);
-    nodeModel.put("url", url);
+    nodeModel.put("status_general", getStatusStringWithDefault(node_db));
     pageContext.setAttribute("model", nodeModel);
+    
+%>
+
+<%
+String nodeBreadCrumb = "<a href='element/node.jsp?node=" + nodeId  + "'>Node</a>";
 %>
 
 <jsp:include page="/includes/header.jsp" flush="false" >
@@ -93,68 +96,66 @@
   <jsp:param name="headTitle" value="${model.id}" />
   <jsp:param name="headTitle" value="Rancid" />
   <jsp:param name="breadcrumb" value="<a href='element/index.jsp'>Search</a>" />
+  <jsp:param name="breadcrumb" value="<%= nodeBreadCrumb %>" />
   <jsp:param name="breadcrumb" value="Rancid" />
 </jsp:include>
 
-<h2>Element: ${model.id}</h2>
-
+<h2>Node: ${model.id} </h2>
 
 <div class="TwoColLeft">
-  <!-- general info box -->
-  <h3>General (Status: ${model.status})</h3>
+	<!-- general info box -->
+	<h3>General (Status: ${model.status_general})</h3>
+  	<table>
+  		<tr>
+	  		<th>Node</th>
+	  		<th><a href="element/node.jsp?node=<%=nodeId%>"><%=elementID%></a></th>
+	  	</tr>
+	</table>
 
-  <h3>Rancid info</h3>
+	<h3>Rancid info</h3>
+	<table>
+		<tr>
+			<th>Device Name</th>
+			<th>${model.id}</th>
+		</tr>	
+		<tr>
+			<th>Device Type</th>
+			<th>${model.devicetype}</th>
+		</tr>
+		<tr>
+			<th>Comment</th>
+			<th>${model.comment}</th>
+		</tr>
+		<tr>
+			<th>Status</th>
+			<th>${model.status}</th>
+		</tr>
+	</table>
 
-  <table>
-	<tr>
-		<th>RWS Url</th>
-		<th>${model.url}</th>
-		</tr>
-	<tr>
-		<th>Group Name</th>
-		<th>${model.group}</th>
-	</tr>
-	<tr>
-		<th>Rancid Name</th>
-		<th>${model.id}</th>
-    </tr>
-	<tr>
-		<th>Device Name</th>
-		<th>${model.devicename}</th>
-	</tr>	
-	<tr>
-		<th>Device Type</th>
-		<th>${model.devicetype}</th>
-	</tr>
-	<tr>
-		<th>Comment</th>
-		<th>${model.comment}</th>
-	</tr>
-	<tr>
-	<th>Inventory Node</th>
-		<th>
-			<c:url var="viewInvNode" value="inventory/invnode.jsp">
-			<c:param name="rancidnode" value="${model.id}"/>
-			<c:param name="group" value="${model.group}"/>
-			</c:url>
-			<li>
-			<a href="${viewInvNode}">Inventory Node</a>
-			</li>
-		</th>
-		</tr>
-	<tr>
-	<th>Inventory Element</th>
-		<th>
-			<c:url var="viewInvNode" value="inventory/invelement.jsp">
-			<c:param name="rancidnode" value="${model.id}"/>
-			<c:param name="group" value="${model.group}"/>
-			</c:url>
-			<li>
-			<a href="${viewInvNode}">Inventory Element</a>
-			</li>
-		</th>
-		<tr
-</table>
 </div>
 
+<div class="TwoColRight">
+<!-- general info box -->
+	<h3>Associated Elements</h3>
+	
+	<table>
+	<tr>
+		<th>Group</th>
+		<th>CVS Root repository</th>
+		<th>Total revisions</th>
+		<th>Head version</th>
+		<th>Last Update</th>
+	</tr>
+	<c:forEach items="${model.grouptable}" var="groupelm" begin ="0" end="9">
+		<tr>
+			<th>${groupelm.group}</th>
+			<th><a href="${groupelm.rootConfigurationUrl}">${model.id}</th>
+			<th>${groupelm.totalRevisions} <a href="inventory/rancidList.jsp?node=<%=nodeId%>&groupname=${groupelm.group}">(list)</a></th>
+			<th><a href="inventory/invnode.jsp?node=<%=nodeId%>&groupname=${groupelm.group}&version=${groupelm.headRevision}">${groupelm.headRevision}</th>
+			<th>${groupelm.creationDate}</th>
+		</tr>
+	</c:forEach>
+		<th colspan="5" ><a href="inventory/rancidList.jsp?node=<%=nodeId%>&groupname=*">entire group list...</a></th>
+	</table>
+</div>
 <jsp:include page="/includes/footer.jsp" flush="false" />

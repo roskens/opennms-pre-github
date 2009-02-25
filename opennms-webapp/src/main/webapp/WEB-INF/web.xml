@@ -815,6 +815,15 @@
     <servlet-class>org.opennms.web.outage.OutageFilterServlet</servlet-class>
   </servlet>
 
+  <servlet>
+    <servlet-name>invClogin</servlet-name>
+    <servlet-class>org.opennms.web.inventory.InvCloginServlet</servlet-class>
+  </servlet>
+  
+    <servlet>
+    <servlet-name>rancidStatus</servlet-name>
+    <servlet-class>org.opennms.web.inventory.RancidStatusServlet</servlet-class>
+  </servlet>
 
   <servlet>
   	<servlet-name>scheduleEditor</servlet-name>
@@ -1179,6 +1188,16 @@
   <servlet-mapping>
     <servlet-name>filterOutage</servlet-name>
     <url-pattern>/outage/list</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>invClogin</servlet-name>
+    <url-pattern>/inventory/invClogin</url-pattern>
+  </servlet-mapping>
+ 
+    <servlet-mapping>
+    <servlet-name>rancidStatus</servlet-name>
+    <url-pattern>/inventory/rancidStatus</url-pattern>
   </servlet-mapping>
   
   <servlet-mapping>

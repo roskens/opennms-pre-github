@@ -59,8 +59,13 @@ public class SnmpInterfaceBuilder {
         return this;
     }
 
-    public OnmsSnmpInterface getSnmpInterface() {
+    public OnmsEntity getSnmpInterface() {
         return m_snmpIf;
+    }
+    
+    public SnmpInterfaceBuilder setIfOperStatus(Integer ifOperStatus) {
+        m_snmpIf.setIfOperStatus(ifOperStatus);
+        return this;
     }
 
 }

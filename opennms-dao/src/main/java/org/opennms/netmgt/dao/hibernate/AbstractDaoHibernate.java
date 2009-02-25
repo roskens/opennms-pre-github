@@ -41,6 +41,7 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Projections;
 import org.opennms.netmgt.dao.OnmsDao;
 import org.opennms.netmgt.model.OnmsCriteria;
 import org.springframework.dao.DataAccessException;
@@ -145,7 +146,9 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
 
         };
         Object result = getHibernateTemplate().execute(callback);
-        return type.cast(result);
+//        logger.debug(String.format("findUnique(%s, %s, %s) = %s", type, queryString, Arrays.toString(args), result));
+//        Assert.isTrue(result == null || type.isInstance(result), "Expected "+result+" to an instance of "+type+" but is "+(result == null ? null : result.getClass()));
+        return result == null ? null : type.cast(result);
     }
 
 
@@ -157,7 +160,7 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
         getHibernateTemplate().delete(entity);
     }
     
-    public void delete(Collection<T> entities) throws DataAccessException {
+    public void deleteAll(Collection<T> entities) throws DataAccessException {
         getHibernateTemplate().deleteAll(entities);
     }
 
@@ -176,19 +179,34 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
             public Object doInHibernate(Session session) throws HibernateException, SQLException {
                 Criteria attachedCrit = onmsCrit.getDetachedCriteria().getExecutableCriteria(session);
                 if (onmsCrit.getFirstResult() != null) {
-                	attachedCrit.setFirstResult(onmsCrit.getFirstResult());
+                    attachedCrit.setFirstResult(onmsCrit.getFirstResult());
                 }
                 
                 if (onmsCrit.getMaxResults() != null) {
-                	attachedCrit.setMaxResults(onmsCrit.getMaxResults());
+                    attachedCrit.setMaxResults(onmsCrit.getMaxResults());
                 }
                 
-				return attachedCrit.list();
+                return attachedCrit.list();
                 
             }
             
         };
         return getHibernateTemplate().executeFind(callback);
+    }
+    
+    public int countMatching(final OnmsCriteria onmsCrit) throws DataAccessException {
+        HibernateCallback callback = new HibernateCallback() {
+
+            public Object doInHibernate(Session session) throws HibernateException, SQLException {
+                Criteria attachedCrit = onmsCrit.getDetachedCriteria().getExecutableCriteria(session)
+                    .setProjection(Projections.rowCount());
+                
+                return attachedCrit.uniqueResult();
+                
+            }
+            
+        };
+        return ((Integer)getHibernateTemplate().execute(callback)).intValue();
     }
     
     public int bulkDelete(String hql, Object[] values ) throws DataAccessException {

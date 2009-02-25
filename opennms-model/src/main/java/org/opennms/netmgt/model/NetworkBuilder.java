@@ -35,11 +35,16 @@
 //
 package org.opennms.netmgt.model;
 
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.BeanWrapperImpl;
+
 public class NetworkBuilder {
 
 	OnmsDistPoller m_distPoller;
 
 	OnmsNode m_currentNode;
+	
+	BeanWrapper m_assetBean;
 
 	OnmsIpInterface m_currentIf;
 
@@ -53,9 +58,17 @@ public class NetworkBuilder {
 	    m_distPoller = new OnmsDistPoller(name, ipAddress);
 	}
 
-	public NodeBuilder addNode(String label) {
+    /**
+     * Totally bogus
+     */
+    public NetworkBuilder() {
+        this("localhost", "127.0.0.1");
+    }
+
+    public NodeBuilder addNode(String label) {
 		m_currentNode = new OnmsNode(m_distPoller);
 		m_currentNode.setLabel(label);
+		m_assetBean = new BeanWrapperImpl(m_currentNode.getAssetRecord());
 		return new NodeBuilder(m_currentNode);
 	}
     
@@ -87,6 +100,17 @@ public class NetworkBuilder {
         
         public OnmsAssetRecord getAssetRecord() {
             return m_node.getAssetRecord();
+        }
+
+        public NodeBuilder setLabelSource(String labelSource) {
+            m_node.setLabelSource(labelSource);
+            return this;
+            
+        }
+
+        public NodeBuilder setType(String type) {
+            m_node.setType(type);
+            return this;
         }
         
         
@@ -120,11 +144,6 @@ public class NetworkBuilder {
 			return m_iface;
 		}
 
-		public InterfaceBuilder setIpStatus(int ipStatus) {
-			m_iface.setIpStatus(new Integer(ipStatus));
-			return this;
-		}
-
 		public SnmpInterfaceBuilder addSnmpInterface(String ipAddr, int ifIndex) {
 		    OnmsSnmpInterface snmpIf = new OnmsSnmpInterface(ipAddr, ifIndex, m_currentNode);
 		    m_iface.setSnmpInterface(snmpIf);
@@ -154,8 +173,13 @@ public class NetworkBuilder {
 	}
 
 	public OnmsMonitoredService addService(OnmsServiceType serviceType) {
-		m_currentMonSvc = new OnmsMonitoredService(m_currentIf, serviceType);
-		return m_currentMonSvc;
+	    if (m_currentIf != null) {
+	        m_currentMonSvc = new OnmsMonitoredService(m_currentIf, serviceType);
+	        return m_currentMonSvc;
+	    } else {
+	        m_currentMonSvc = null;
+	        return null;
+	    }
 	}
 
 	public void setDisplayCategory(String displayCategory) {
@@ -172,6 +196,27 @@ public class NetworkBuilder {
 
     public void addCategory(OnmsCategory cat) {
         m_currentNode.addCategory(cat);
+    }
+    
+    public void addCategory(String categoryName) {
+        addCategory(new OnmsCategory(categoryName));
+    }
+
+    public void clearInterface() {
+        m_currentIf = null;
+        m_currentMonSvc = null;
+    }
+
+    public OnmsMonitoredService addService(String serviceName) {
+        return addService(new OnmsServiceType(serviceName));
+    }
+
+    /**
+     * @param name
+     * @param value
+     */
+    public void setAssetAttribute(String name, String value) {
+        m_assetBean.setPropertyValue(name, value);
     }
 
 }

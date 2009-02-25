@@ -83,10 +83,12 @@ public class EditProvisioningGroupController extends SimpleFormController {
             m_currentNode = node;
         }
         public String getDataPath() {
-            return m_formPath.substring("formData.".length());
+            //added nodeEditForm. to the formData. because somehow we are getting that attached a prefix as well. 
+            return m_formPath.substring("nodeEditForm.formData.".length());
         }
         public void setDataPath(String path) {
-            m_formPath = "formData."+path;
+            //added nodeEditForm. to the formData. because somehow we are getting that attached a prefix as well.
+            m_formPath = "nodeEditForm.formData."+path;
         }
     }
 
@@ -115,6 +117,8 @@ public class EditProvisioningGroupController extends SimpleFormController {
             return doAddService(request, response, treeCmd, errors);
         } else if ("addCategory".equalsIgnoreCase(action)) {
             return doAddCategory(request, response, treeCmd, errors);
+        } else if ("addAssetField".equalsIgnoreCase(action)) {
+            return doAddAssetField(request, response, treeCmd, errors);
         } else if ("save".equalsIgnoreCase(action)) {
             return doSave(request, response, treeCmd, errors);
         } else if ("edit".equalsIgnoreCase(action)) {
@@ -178,6 +182,15 @@ public class EditProvisioningGroupController extends SimpleFormController {
         return showForm(request, response, errors);
     }
 
+    private ModelAndView doAddAssetField(HttpServletRequest request, HttpServletResponse response, TreeCommand treeCmd, BindException errors) throws Exception {
+        ModelImport formData = m_provisioningService.addAssetFieldToNode(treeCmd.getGroupName(), treeCmd.getDataPath(), "key", "value");
+        treeCmd.setFormData(formData);
+        
+        treeCmd.setCurrentNode(treeCmd.getFormPath()+".asset[0]");
+        
+        return showForm(request, response, errors);
+    }
+    
     private ModelAndView doEdit(HttpServletRequest request, HttpServletResponse response, TreeCommand treeCmd, BindException errors) throws Exception {
         
         treeCmd.setCurrentNode(treeCmd.getFormPath());
@@ -219,7 +232,7 @@ public class EditProvisioningGroupController extends SimpleFormController {
 
         treeCmd.setFormData(m_provisioningService.addNewNodeToGroup(treeCmd.getGroupName(), "New Node"));
         
-        treeCmd.setCurrentNode("formData.node[0]");
+        treeCmd.setCurrentNode(treeCmd.getFormPath()+".node[0]");
 
         return showForm(request, response, errors);
     }
@@ -245,6 +258,7 @@ public class EditProvisioningGroupController extends SimpleFormController {
         formCommand.setFormData(formData);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     protected Map referenceData(HttpServletRequest request) throws Exception {
         Map<String, Object> map = new HashMap<String, Object>();
@@ -253,6 +267,7 @@ public class EditProvisioningGroupController extends SimpleFormController {
         map.put("snmpPrimaryChoices", choices);
         
         map.put("categories", m_provisioningService.getNodeCategoryNames());
+        map.put("assetFields", m_provisioningService.getAssetFieldNames());
         map.put("services",  m_provisioningService.getServiceTypeNames());
         
         

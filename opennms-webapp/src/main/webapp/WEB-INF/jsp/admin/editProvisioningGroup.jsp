@@ -9,11 +9,9 @@
 <jsp:include page="/includes/header.jsp" flush="false">
 	<jsp:param name="title" value="Provisioning Groups" /> 
 	<jsp:param name="headTitle" value="Provisioning Groups" />
-	<jsp:param name="breadcrumb"
-               value="<a href='admin/index.jsp'>Admin</a>" />
-	<jsp:param name="breadcrumb"
-	           value="<a href='admin/provisioningGroups.htm'>Provisioning Groups</a>" />
-	<jsp:param name="breadcrumb" value="Edit" />
+	<jsp:param name="breadcrumb" value="<a href='admin/index.jsp'>Admin</a>" />
+	<jsp:param name="breadcrumb" value="<a href='admin/provisioningGroups.htm'>Provisioning Groups</a>" />
+	<jsp:param name="breadcrumb" value="Edit Requisition" />
 </jsp:include>
 
 <h3>Manually Provisioned Nodes for Group: ${nodeEditForm.groupName}</h3>
@@ -22,10 +20,8 @@
 
   <input type="hidden" id="groupName" name="groupName" value="${nodeEditForm.groupName}"/> 
  
- <div align="right">
-   <tree:actionButton label="Add Node" action="addNode"/> 
-   <tree:actionButton label="Done" action="done" />
- </div>
+ <tree:actionButton label="Done" action="done" />
+ <tree:actionButton label="Add Node" action="addNode"/> 
 
  <tree:tree root="${nodeEditForm.formData}" childProperty="node" var="node" varStatus="nodeIter">
     <!-- Form for editing node fields -->
@@ -33,8 +29,9 @@
       <tree:field label="Node" property="nodeLabel" />
       <tree:field label="ForeignId" property="foreignId" />
       <tree:field label="Site" property="building" />
-      <tree:action label="Add Interface" action="addInterface" />
-      <tree:action label="Add Node Category" action="addCategory" />
+      <tree:action label="[Add Interface]" action="addInterface" />
+      <tree:action label="[Add Node Category]" action="addCategory" />
+      <tree:action label="[Add Node Asset]" action="addAssetField" />
     </tree:nodeForm> 
     
     <!--  Tree of interface under the node -->
@@ -69,6 +66,18 @@
       </tree:nodeForm>
       
     </tree:tree>
+    
+    <!--  Tree of assets for a node -->
+    <tree:tree root="${node}" childProperty="asset" var="asset" varStatus="assetIter">
+    
+      <!--  Form for editing a category -->
+      <tree:nodeForm>
+      	<tree:select label="asset" property="name" items="${assetFields}"/>
+        <tree:field label="" property="value" />
+      </tree:nodeForm>
+      
+    </tree:tree>
+    
  </tree:tree>
 
 </tree:form> 

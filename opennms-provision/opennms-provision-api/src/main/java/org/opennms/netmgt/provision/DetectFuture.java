@@ -42,6 +42,8 @@ public interface DetectFuture extends IoFuture {
     
     public boolean isServiceDetected();
     
+    public Throwable getException();
+    
     public void setServiceDetected(boolean serviceDetected);
     
     public void setException(Throwable throwable);

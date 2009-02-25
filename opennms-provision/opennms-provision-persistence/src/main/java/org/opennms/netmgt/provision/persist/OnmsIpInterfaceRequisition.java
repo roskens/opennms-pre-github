@@ -34,8 +34,8 @@ package org.opennms.netmgt.provision.persist;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.opennms.netmgt.config.modelimport.Interface;
-import org.opennms.netmgt.config.modelimport.MonitoredService;
+import org.opennms.netmgt.provision.persist.requisition.RequisitionInterface;
+import org.opennms.netmgt.provision.persist.requisition.RequisitionMonitoredService;
 
 /**
  * OnmsIpInterfaceRequisition
@@ -44,29 +44,27 @@ import org.opennms.netmgt.config.modelimport.MonitoredService;
  */
 public class OnmsIpInterfaceRequisition {
     
-    private Interface m_iface;
-    
-    private List<OnmsMonitoredServiceRequisition> m_svcReqs;
+    private RequisitionInterface m_iface;
+    private final List<OnmsMonitoredServiceRequisition> m_svcReqs;
 
-    public OnmsIpInterfaceRequisition(Interface iface) {
+    public OnmsIpInterfaceRequisition(RequisitionInterface iface) {
         m_iface = iface;
         m_svcReqs = constructSvcReqs();
     }
     
-    Interface getInterface() {
+    RequisitionInterface getInterface() {
         return m_iface;
     }
     
     private List<OnmsMonitoredServiceRequisition> constructSvcReqs() {
-        List<OnmsMonitoredServiceRequisition> reqs = new ArrayList<OnmsMonitoredServiceRequisition>(m_iface.getMonitoredServiceCount());
-        for (MonitoredService svc : m_iface.getMonitoredServiceCollection()) {
+        List<OnmsMonitoredServiceRequisition> reqs = new ArrayList<OnmsMonitoredServiceRequisition>(m_iface.getMonitoredServices().size());
+        for (RequisitionMonitoredService svc : m_iface.getMonitoredServices()) {
             reqs.add(new OnmsMonitoredServiceRequisition(svc));
         }
         return reqs;
-
     }
 
-    void visit(RequisitionVisitor visitor) {
+    public void visit(RequisitionVisitor visitor) {
         visitor.visitInterface(this);
         for(OnmsMonitoredServiceRequisition svcReq : m_svcReqs) {
             svcReq.visit(visitor);
@@ -83,7 +81,7 @@ public class OnmsIpInterfaceRequisition {
     }
 
     public boolean getManaged() {
-        return m_iface.getManaged();
+        return m_iface.isManaged();
     }
 
     public String getSnmpPrimary() {

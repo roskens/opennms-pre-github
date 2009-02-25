@@ -10,76 +10,83 @@
 <jsp:include page="/includes/header.jsp" flush="false">
 	<jsp:param name="title" value="Provisioning Groups" /> 
 	<jsp:param name="headTitle" value="Provisioning Groups" />
-	<jsp:param name="breadcrumb"
-               value="<a href='admin/index.jsp'>Admin</a>" />
-	<jsp:param name="breadcrumb"
-	           value="<a href='admin/provisioningGroups.htm'>Provisioning Groups</a>" />
+	<jsp:param name="breadcrumb" value="<a href='admin/index.jsp'>Admin</a>" />
+	<jsp:param name="breadcrumb" value="<a href='admin/provisioningGroups.htm'>Provisioning Groups</a>" />
+	<jsp:param name="script" value="<script type='text/javascript' src='js/provisioningGroups.js'></script>" />
 </jsp:include>
 
-<h3>Provisioning Groups</h3>
-
-<script language="Javascript" type="text/javascript" >
-	function takeAction(group, action) {
-	    document.takeAction.groupName.value = group;
-	    document.takeAction.action.value = action;
-		document.takeAction.submit();
-	}
-	
-   function edit(group) {
-	    document.edit.groupName.value = group;
-		document.edit.submit();
-	}
-	
-	function deleteNodes(group) {
-	   alert("Are you sure you want to delete all the nodes from the group?  This CANNOT be undone.");
-	}
-	
-</script>
-
-
-
-<c:url var="editUrl" value="admin/editProvisioningGroup.htm" />
-
-<form action="${editUrl}" name="edit" method="post">
+<c:url var="editRequisitionUrl" value="admin/editProvisioningGroup.htm" />
+<form action="${editRequisitionUrl}" name="editRequisitionForm" method="post">
   <input name="groupName" type="hidden"/>
 </form>
 
-<table>
+<c:url var="editForeignSourceUrl" value="admin/editForeignSource.htm" />
+<form action="${editForeignSourceUrl}" name="editForeignSourceForm" method="post">
+  <input name="foreignSourceName" type="hidden"/>
+</form>
 
-<tr>
-  <th>Delete</th>
-  <th>Import</th>
-  <th>Group Name</th>
-  <th>Nodes in Group/Nodes in DB</th>
-  <th>Last Import Request</th>
-  <th>Last Changed</th>
-</tr>
+<br />
+<form action="${relativeRequestPath}" name="takeAction" method="post"><input type="text" name="groupName" size="20"/><input type="hidden" name="action" value="addGroup" /><input type="submit" value="Add New Group"/></form>
 
 <c:forEach var="group" items="${groups}">
-<tr>
-  <td>
-    <c:choose>
-      <c:when test="${dbNodeCounts[group.foreignSource] > 0}">
-        <a href="javascript:takeAction('${group.foreignSource}', 'deleteNodes')" onclick="return confirm('Are you sure you want to delete all the nodes from group ${group.foreignSource}. This CANNOT be undone.')">Delete Nodes</a>
-      </c:when>
-      <c:otherwise>
-        <a href="javascript:takeAction('${group.foreignSource}', 'deleteGroup')">Delete Group</a>
-      </c:otherwise>
-    </c:choose>
-  </td> 
+  <br />
+  <h3 style="vertical-align: middle; margin: 0px; padding: 0px 20px 4px 20px">
+    <span style="font-size: large; text-align: right">
+      <input type="button" value="Import" onclick="javascript:doAction('${group.foreignSource}', 'import')" />
+      <c:choose>
+        <c:when test="${dbNodeCounts[group.foreignSource] > 0}">
+          <input type="button" value="Delete Nodes" onclick="javascript:confirmAction('${group.foreignSource}', 'deleteNodes', 'Are you sure you want to delete all the nodes from group ${group.foreignSource}. This CANNOT be undone.')" />
+        </c:when>
+        <c:otherwise>
+          <input type="button" value="Delete Group" onclick="javascript:doAction('${group.foreignSource}', 'deleteGroup')" />
+        </c:otherwise>
+      </c:choose>
+    </span>
+    <span style="font-size: larger; padding-left: 20px;"><c:out value="${group.foreignSource}" /></span>
+  </h3>
   
-  
-  <td><a href="javascript:takeAction('${group.foreignSource}', 'import')">Import</a></td>
-  <td><a href="javascript:edit('${group.foreignSource}')">${group.foreignSource}</a></td>
-  <td>${group.nodeCount}/${dbNodeCounts[group.foreignSource]}</td>
-  <td>${group.lastImport}</td>
-  <td>${group.dateStamp}</td>
-</tr>
+  <table class="top" border="0">
+  	<tr>
+  	  <td>
+  	  	Requisition (Provisioning Group):<br />
+  	  	<span style="font-size: smaller">Define node and interface data for import.</span>
+  	  </td>
+  	  <td>
+  	  	<a href="javascript:editRequisition('${group.foreignSource}')">EDIT</a><br />
+  	  	<span style="font-size: smaller">
+          ${group.nodeCount} nodes defined,
+  	      ${dbNodeCounts[group.foreignSource]} nodes in database<br />
+  	      last modified:
+  	      <c:choose>
+  	        <c:when test="${empty group.dateStamp}">never</c:when>
+  	        <c:otherwise>${group.dateStamp}</c:otherwise>
+  	      </c:choose><br />
+          last import requested:
+          <c:choose>
+            <c:when test="${empty group.lastImport}">never</c:when>
+            <c:otherwise>${group.lastImport}</c:otherwise>
+          </c:choose>
+  	  	</span>
+  	  </td>
+  	</tr>
+  	<tr>
+  	  <td>
+  	    Foreign Source:<br />
+  	    <span style="font-size: smaller">Define scanning behavior for import.</span>
+  	  </td>
+  	  <td>
+  	  	<a href="javascript:editForeignSource('${group.foreignSource}')">EDIT</a><br />
+  	  	<span style="font-size: smaller">
+  	  	  last modified:
+  	  	  <!-- don't forget to make this use whatever the foreign source object is eventually  ;) -->
+  	      <c:choose>
+  	        <c:when test="${empty group.dateStamp}">never</c:when>
+  	        <c:otherwise>${group.dateStamp}</c:otherwise>
+  	      </c:choose>
+  	  </td>
+  	</tr>
+  </table>
+
 </c:forEach>
-<tr>
-   <td></td>
-   <td colspan="7"><form action="${relativeRequestPath}" name="takeAction" method="post"><input type="text" name="groupName" size="20"/><input type="hidden" name="action" value="addGroup" /><input type="submit" value="Add New Group"/></form></td>
-</tr>
-</table>
 
 <jsp:include page="/includes/footer.jsp" flush="false"/>

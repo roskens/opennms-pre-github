@@ -23,6 +23,9 @@
      <property name="inventoryCategoryDao" ref="inventoryCategoryDao" />
      <property name="inventoryAssetDao" ref="inventoryAssetDao" />
      <property name="inventoryAssetPropertyDao" ref="inventoryAssetPropertyDao" />
+     <property name="onmsMapDao" ref="onmsMapDao" />
+     <property name="onmsMapElementDao" ref="onmsMapElementDao" />
+     <property name="dataLinkInterfaceDao" ref="dataLinkInterfaceDao" />
    </bean>
 
 </beans>

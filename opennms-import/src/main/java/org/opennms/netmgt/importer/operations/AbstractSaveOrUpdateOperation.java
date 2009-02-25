@@ -44,6 +44,7 @@ import java.util.Map;
 import org.apache.log4j.Category;
 import org.opennms.core.utils.ThreadCategory;
 import org.opennms.netmgt.capsd.IfSnmpCollector;
+import org.opennms.netmgt.capsd.snmp.IfTableEntry;
 import org.opennms.netmgt.dao.CategoryDao;
 import org.opennms.netmgt.dao.DistPollerDao;
 import org.opennms.netmgt.dao.NodeDao;
@@ -100,7 +101,7 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
         m_currentInterface = new OnmsIpInterface(ipAddr, m_node);
         m_currentInterface.setIsManaged(status == 3 ? "U" : "M");
         m_currentInterface.setIsSnmpPrimary(CollectionType.get(snmpPrimary));
-        m_currentInterface.setIpStatus(status == 3 ? new Integer(3) : new Integer(1));
+        //m_currentInterface.setIpStatus(status == 3 ? new Integer(3) : new Integer(1));
         
         if ("P".equals(snmpPrimary)) {
         	try {
@@ -132,10 +133,45 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
 		
 		updateSnmpDataForNode();
 		
+		updateSnmpDataForSnmpInterfaces();
+		
 		for (OnmsIpInterface ipIf : m_node.getIpInterfaces()) {
             resolveIpHostname(ipIf);
             updateSnmpDataForInterface(ipIf);
 		}
+	}
+	
+	private void updateSnmpDataForSnmpInterfaces() {
+	    if (m_collector != null && m_collector.hasIfTable()) {
+            String ipAddress = m_node.getPrimaryInterface().getIpAddress();
+
+            for(IfTableEntry entry : m_collector.getIfTable().getEntries()) {
+	            
+	            Integer ifIndex = entry.getIfIndex();
+	            
+	            if (ifIndex == null) continue;
+	            
+                log().debug("Updating SNMP Interface with ifIndex "+ifIndex);
+                
+	            // first look to see if an snmpIf was created already
+	            OnmsSnmpInterface snmpIf = m_node.getSnmpInterfaceWithIfIndex(ifIndex);
+	            
+	            if (snmpIf == null) {
+	                // if not then create one
+                    snmpIf = new OnmsSnmpInterface(ipAddress, ifIndex, m_node);
+	            }
+	            
+	            snmpIf.setIfAlias(m_collector.getIfAlias(ifIndex));
+	            snmpIf.setIfName(m_collector.getIfName(ifIndex));
+	            snmpIf.setIfType(getIfType(ifIndex));
+	            snmpIf.setNetMask(getNetMask(ifIndex));
+	            snmpIf.setIfAdminStatus(getAdminStatus(ifIndex));
+	            snmpIf.setIfDescr(m_collector.getIfDescr(ifIndex));
+	            snmpIf.setIfSpeed(m_collector.getIfSpeed(ifIndex));
+	            snmpIf.setPhysAddr(m_collector.getPhysAddr(ifIndex));
+	            
+	        }
+	    }
 	}
 
 	private void updateSnmpDataForNode() {

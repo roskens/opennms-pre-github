@@ -230,6 +230,11 @@ public class EventConstants {
      */
     public final static String NODE_ADDED_EVENT_UEI = "uei.opennms.org/nodes/nodeAdded";
     
+    /**
+     * The node updated event UEI (added for the ProvisioningAdapter integration)
+     */
+    public final static String NODE_UPDATED_EVENT_UEI = "uei.opennms.org/nodes/nodeUpdated";
+    
 	/**
 	 * The node category membership changed UEI
 	 */
@@ -588,6 +593,9 @@ public class EventConstants {
     
     public final static String TL1_AUTONOMOUS_MESSAGE_UEI = "uei.opennms.org/api/tl1d/message/autonomous";
 
+    public final static String RANCID_DOWNLOAD_SUCCESS_UEI="uei.opennms.org/rancid/configuration/DownloadSuccess";
+    public final static String RANCID_DOWNLOAD_FAILURE_UEI="uei.opennms.org/rancid/configuration/DownloadFailure";
+
     //
     // end eventUEIs
     //
@@ -894,43 +902,50 @@ public class EventConstants {
 
     /**
      * Enumerated values for severity being indeterminate
+     * @deprecated see OnmsSeverity.class
      */
     public static final int SEV_INDETERMINATE = 1;
 
     /**
      * Enumerated values for severity being unimplemented at this time
+     * @deprecated see OnmsSeverity.class
      */
     public static final int SEV_CLEARED = 2;
 
     /**
      * Enumerated values for severity indicates a warning
+     * @deprecated see OnmsSeverity.class
      */
     public static final int SEV_NORMAL = 3;
 
     /**
      * Enumerated values for severity indicates a warning
+     * @deprecated see OnmsSeverity.class
      */
     public static final int SEV_WARNING = 4;
 
     /**
      * Enumerated values for severity is minor
+     * @deprecated see OnmsSeverity.class
      */
     public static final int SEV_MINOR = 5;
 
     /**
      * Enumerated values for severity is major
+     * @deprecated see OnmsSeverity.class
      */
     public static final int SEV_MAJOR = 6;
 
     /**
      * Enumerated values for severity is critical
+     * @deprecated see OnmsSeverity.class
      */
     public static final int SEV_CRITICAL = 7;
 
     /**
      * Enumerated value for the state(tticket and forward) when entry is active
      */
-    static final int STATE_ON = 1;
+    public static final int STATE_ON = 1;
 
     /**
      * Enumerated value for the state(tticket and forward) when entry is not
@@ -938,6 +953,20 @@ public class EventConstants {
      */
     static final int STATE_OFF = 0;
 
+    /**
+     * UEI used for requesting an acknowledgment of an OnmsAcknowledgeable
+     */
+    public static final String ACKNOWLEDGE_EVENT_UEI = "uei.opennms.org/ackd/acknowledge";
+
+    /**
+     * UEI used for indicating an OnmsAcknowledgeable has been acknowledged
+     */
+    public static final String EVENT_ACKNOWLEDGED_UEI = "uei.opennms.org/ackd/acknowledgment";
+
+    /**
+     * UEI used for indicating a change management event
+     */
+    public static final String NODE_CONFIG_CHANGE_UEI = "uei.opennms.org/internal/translator/entityConfigChanged";
 
 
     /**

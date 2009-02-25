@@ -31,7 +31,7 @@
  */
 package org.opennms.netmgt.provision.persist;
 
-import org.opennms.netmgt.config.modelimport.Asset;
+import org.opennms.netmgt.provision.persist.requisition.RequisitionAsset;
 
 /**
  * OnmsAssetRequisition
@@ -40,17 +40,17 @@ import org.opennms.netmgt.config.modelimport.Asset;
  */
 public class OnmsAssetRequisition {
 
-    private Asset m_asset;
+    private RequisitionAsset m_asset;
     
-    public OnmsAssetRequisition(Asset asset) {
+    public OnmsAssetRequisition(RequisitionAsset asset) {
         m_asset = asset;
     }
     
-    Asset getAsset() {
+    RequisitionAsset getAsset() {
         return m_asset;
     }
 
-    void visit(RequisitionVisitor visitor) {
+    public void visit(RequisitionVisitor visitor) {
         visitor.visitAsset(this);
         visitor.completeAsset(this);
     }

@@ -37,8 +37,8 @@ public class SequenceTask extends ContainerTask {
     
     private AtomicReference<Task> m_lastChild = new AtomicReference<Task>(null);
 
-    public SequenceTask(DefaultTaskCoordinator coordinator) {
-        super(coordinator);
+    public SequenceTask(DefaultTaskCoordinator coordinator, ContainerTask parent) {
+        super(coordinator, parent);
         m_lastChild.set(getTriggerTask());
     }
     

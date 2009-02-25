@@ -38,9 +38,11 @@ package org.opennms.netmgt.ackd;
 import java.text.ParseException;
 import java.util.List;
 
+import org.opennms.netmgt.EventConstants;
 import org.opennms.netmgt.config.ackd.AckdConfiguration;
 import org.opennms.netmgt.daemon.SpringServiceDaemon;
-import org.opennms.netmgt.model.Acknowledgment;
+import org.opennms.netmgt.dao.AckdConfigurationDao;
+import org.opennms.netmgt.model.OnmsAcknowledgment;
 import org.opennms.netmgt.model.events.EventForwarder;
 import org.opennms.netmgt.model.events.EventSubscriptionService;
 import org.opennms.netmgt.model.events.annotations.EventHandler;
@@ -63,9 +65,9 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
     
 	public static final String NAME = "Ackd";
 	
-	public AckdConfiguration m_config;
+	public AckdConfigurationDao m_configDao;
 
-	private volatile EventSubscriptionService m_eventSubscriptionService;
+    private volatile EventSubscriptionService m_eventSubscriptionService;
 	private volatile EventForwarder m_eventForwarder;
 	
 	private List<AckReader> m_ackReaders;
@@ -100,7 +102,7 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
 
     public void start() throws Exception {
         for (AckReader reader : m_ackReaders) {
-            reader.start(m_config);
+            reader.start(m_configDao);
         }
     }
     
@@ -120,16 +122,26 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
         m_ackService = ackService;
     }
 
-    @EventHandler(uei="uei.opennms.org/internal/ackd/Acknowledge")
-    public void handleAckEvent(Event e) {
-        Acknowledgment ack;
+    
+    @EventHandler(uei=EventConstants.ACKNOWLEDGE_EVENT_UEI)
+    public void handleAckEvent(Event event) {
+        OnmsAcknowledgment ack;
+        
         try {
-            ack = new Acknowledgment(e);
+            ack = new OnmsAcknowledgment(event);
             m_ackService.processAck(ack);
-        } catch (ParseException e1) {
+        } catch (ParseException e) {
             // TODO Auto-generated catch block
-            e1.printStackTrace();
+            e.printStackTrace();
         }
+    }
+    
+    public AckdConfigurationDao getConfigDao() {
+        return m_configDao;
+    }
+
+    public void setConfigDao(AckdConfigurationDao config) {
+        m_configDao = config;
     }
 
 }

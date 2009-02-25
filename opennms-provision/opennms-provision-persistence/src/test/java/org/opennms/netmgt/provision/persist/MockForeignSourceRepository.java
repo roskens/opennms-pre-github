@@ -35,11 +35,14 @@
 
 package org.opennms.netmgt.provision.persist;
 
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.opennms.netmgt.provision.persist.foreignsource.ForeignSource;
+import org.opennms.netmgt.provision.persist.requisition.Requisition;
 import org.springframework.util.Assert;
 
 /**
@@ -48,56 +51,63 @@ import org.springframework.util.Assert;
  *
  */
 public class MockForeignSourceRepository extends AbstractForeignSourceRepository {
-    private final Map<String,OnmsRequisition> m_requisitions = new HashMap<String,OnmsRequisition>();
-    private final Map<String,OnmsForeignSource> m_foreignSources = new HashMap<String,OnmsForeignSource>();
+    private final Map<String,Requisition> m_requisitions = new HashMap<String,Requisition>();
+    private final Map<String,ForeignSource> m_foreignSources = new HashMap<String,ForeignSource>();
     
     public int getForeignSourceCount() {
         return m_foreignSources.size();
     }
     
-    public Set<OnmsForeignSource> getForeignSources() {
-        return new TreeSet<OnmsForeignSource>(m_foreignSources.values());
+    public Set<ForeignSource> getForeignSources() {
+        return new TreeSet<ForeignSource>(m_foreignSources.values());
     }
     
-    public OnmsForeignSource getForeignSource(String foreignSourceName) {
+    public ForeignSource getForeignSource(String foreignSourceName) {
         Assert.notNull(foreignSourceName);
-        return m_foreignSources.get(foreignSourceName);
+        ForeignSource foreignSource = m_foreignSources.get(foreignSourceName);
+        if (foreignSource == null) {
+            foreignSource = getDefaultForeignSource();
+        }
+        return foreignSource;
     }
 
-    public void save(OnmsForeignSource foreignSource) {
+    public void save(ForeignSource foreignSource) {
         Assert.notNull(foreignSource);
         Assert.notNull(foreignSource.getName());
         m_foreignSources.put(foreignSource.getName(), foreignSource);
     }
 
-    public void delete(OnmsForeignSource foreignSource) throws ForeignSourceRepositoryException {
-        m_foreignSources.remove(foreignSource);
+    public void delete(ForeignSource foreignSource) throws ForeignSourceRepositoryException {
+        m_foreignSources.remove(foreignSource.getName());
     }
 
-    public Set<OnmsRequisition> getRequisitions() throws ForeignSourceRepositoryException {
-        return new TreeSet<OnmsRequisition>(m_requisitions.values());
+    public Set<Requisition> getRequisitions() throws ForeignSourceRepositoryException {
+        return new TreeSet<Requisition>(m_requisitions.values());
     }
 
-    public OnmsRequisition getRequisition(String foreignSourceName) {
+    public Requisition getRequisition(String foreignSourceName) {
         Assert.notNull(foreignSourceName);
         return m_requisitions.get(foreignSourceName);
     }
 
-    public OnmsRequisition getRequisition(OnmsForeignSource foreignSource) {
+    public Requisition getRequisition(ForeignSource foreignSource) {
         Assert.notNull(foreignSource);
         Assert.notNull(foreignSource.getName());
         return getRequisition(foreignSource.getName());
     }
 
-    public void save(OnmsRequisition requisition) {
+    public void save(Requisition requisition) {
         Assert.notNull(requisition);
         Assert.notNull(requisition.getForeignSource());
         m_requisitions.put(requisition.getForeignSource(), requisition);
     }
 
-    public void delete(OnmsRequisition requisition) throws ForeignSourceRepositoryException {
-        m_requisitions.remove(requisition);
+    public void delete(Requisition requisition) throws ForeignSourceRepositoryException {
+        m_requisitions.remove(requisition.getForeignSource());
     }
 
+    public URL getRequisitionURL(String foreignSource) {
+        throw new UnsupportedOperationException("no URL in the mock repository");
+    }
 
 }

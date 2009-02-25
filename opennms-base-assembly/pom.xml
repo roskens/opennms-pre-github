@@ -29,16 +29,64 @@
             <goals>
               <goal>unpack</goal>
             </goals>
-	        <configuration>
-	          <artifactItems>
-	           <artifactItem>
-	             <groupId>org.opennms</groupId>
-	             <artifactId>opennms-webapp</artifactId>
-	             <version>${project.version}</version>
-	             <type>war</type>
-	           </artifactItem>
-	          </artifactItems>
-	        </configuration>
+	         <configuration>
+	           <artifactItems>
+	             <artifactItem>
+	               <groupId>org.opennms</groupId>
+	               <artifactId>drools-correlation-engine</artifactId>
+                  <version>${project.version}</version>
+                  <classifier>xsds</classifier>
+	             </artifactItem>
+	             <artifactItem>
+	               <groupId>org.opennms</groupId>
+	               <artifactId>opennms-config</artifactId>
+                  <version>${project.version}</version>
+                  <classifier>xsds</classifier>
+	             </artifactItem>
+	             <artifactItem>
+	               <groupId>org.opennms</groupId>
+	               <artifactId>opennms-dao</artifactId>
+                  <version>${project.version}</version>
+                  <classifier>xsds</classifier>
+	             </artifactItem>
+	             <artifactItem>
+	               <groupId>org.opennms</groupId>
+	               <artifactId>opennms-model</artifactId>
+                  <version>${project.version}</version>
+                  <classifier>xsds</classifier>
+	             </artifactItem>
+	             <artifactItem>
+	               <groupId>org.opennms</groupId>
+	               <artifactId>opennms-qosdaemon</artifactId>
+                  <version>${project.version}</version>
+                  <classifier>xsds</classifier>
+	             </artifactItem>
+	             <artifactItem>
+	               <groupId>org.opennms</groupId>
+	               <artifactId>opennms-reporting</artifactId>
+                  <version>${project.version}</version>
+                  <classifier>xsds</classifier>
+	             </artifactItem>
+	             <artifactItem>
+	               <groupId>org.opennms</groupId>
+	               <artifactId>opennms-services</artifactId>
+                  <version>${project.version}</version>
+                  <classifier>xsds</classifier>
+	             </artifactItem>
+	             <artifactItem>
+	               <groupId>org.opennms</groupId>
+	               <artifactId>opennms-webapp</artifactId>
+                  <version>${project.version}</version>
+                  <classifier>xsds</classifier>
+	             </artifactItem>
+	             <artifactItem>
+	               <groupId>org.opennms</groupId>
+	               <artifactId>opennms-webapp</artifactId>
+                  <version>${project.version}</version>
+	               <type>war</type>
+	             </artifactItem>
+	           </artifactItems>
+	         </configuration>
           </execution>
         </executions>
       </plugin>
@@ -107,10 +155,52 @@
       <groupId>org.opennms</groupId>
       <artifactId>opennms-import</artifactId>
     </dependency>
+    <!-- begin provisiond dependencies -->
+    <dependency>
+      <groupId>org.opennms</groupId>
+      <artifactId>opennms-provision-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.opennms</groupId>
+      <artifactId>opennms-provision-persistence</artifactId>
+    </dependency>
     <dependency>
       <groupId>org.opennms</groupId>
       <artifactId>opennms-provisiond</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.opennms</groupId>
+      <artifactId>opennms-detector-datagram</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.opennms</groupId>
+      <artifactId>opennms-detector-dhcp</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.opennms</groupId>
+      <artifactId>opennms-detector-jdbc</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.opennms</groupId>
+      <artifactId>opennms-detector-jmx</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.opennms</groupId>
+      <artifactId>opennms-detector-lineoriented</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.opennms</groupId>
+      <artifactId>opennms-detector-radius</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.opennms</groupId>
+      <artifactId>opennms-detector-simple</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.opennms</groupId>
+      <artifactId>opennms-detector-ssh</artifactId>
+    </dependency>
+    <!-- end provisiond dependencies -->
     <dependency>
       <groupId>org.opennms</groupId>
       <artifactId>opennms-jetty</artifactId>
@@ -161,6 +251,11 @@
     <dependency>
       <groupId>org.opennms</groupId>
       <artifactId>opennms-invd</artifactId>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.opennms</groupId>
+      <artifactId>opennms-xmp</artifactId>
       <scope>compile</scope>
     </dependency>
 

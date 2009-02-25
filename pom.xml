@@ -100,6 +100,7 @@
     <module>opennms-dao</module>
     <module>opennms-daemon</module>
     <module>opennms-icmp</module>
+    <module>opennms-javamail</module>
     <module>opennms-rrd</module>
     <module>opennms-snmp</module>
     <module>opennms-config</module>
@@ -116,6 +117,7 @@
     <module>opennms-wmi</module>
     <module>opennms-invd</module>
     <module>opennms-asterisk</module>
+    <module>opennms-xmp</module>
     <module>opennms-base-assembly</module>
   </modules>
   <build>
@@ -216,6 +218,7 @@
                   <property name="java.version" value="${java.version}" />
                   <property name="java.home" value="${java.home}" />
                 </ant>
+                <echo message="update policy is ${updatePolicy}" />
               </tasks>
             </configuration>
             <goals>
@@ -598,6 +601,8 @@
    <webstart.dnameSt />
    <webstart.dnameC />
 
+   <updatePolicy>daily</updatePolicy>
+
   </properties>
 
   <profiles>
@@ -826,6 +831,46 @@
       </dependency>
       <dependency>
         <groupId>org.opennms</groupId>
+        <artifactId>opennms-detector-datagram</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms</groupId>
+        <artifactId>opennms-detector-dhcp</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms</groupId>
+        <artifactId>opennms-detector-jdbc</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms</groupId>
+        <artifactId>opennms-detector-jmx</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms</groupId>
+        <artifactId>opennms-detector-lineoriented</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms</groupId>
+        <artifactId>opennms-detector-radius</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms</groupId>
+        <artifactId>opennms-detector-simple</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms</groupId>
+        <artifactId>opennms-detector-ssh</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms</groupId>
         <artifactId>opennms-drools</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -837,6 +882,11 @@
       <dependency>
         <groupId>org.opennms</groupId>
         <artifactId>opennms-icmp-api</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms</groupId>
+        <artifactId>opennms-javamail-api</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
@@ -872,6 +922,11 @@
       <dependency>
         <groupId>org.opennms</groupId>
         <artifactId>opennms-joesnmp</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms</groupId>
+        <artifactId>opennms-mina</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
@@ -1005,6 +1060,11 @@
         <artifactId>opennms-asterisk</artifactId>
         <version>${project.version}</version>
       </dependency>
+      <dependency>
+        <groupId>org.opennms</groupId>
+        <artifactId>opennms-xmp</artifactId>
+        <version>${project.version}</version>
+      </dependency>
 
       <!--  external dependencies -->
       <!--  PLEASE KEEP THESE IN ALPHABETICAL ORDER -->
@@ -1103,7 +1163,7 @@
       <dependency>
         <groupId>commons-beanutils</groupId>
         <artifactId>commons-beanutils-core</artifactId>
-        <version>1.7.0</version>
+        <version>1.8.0</version>
       </dependency>
       <dependency>
         <groupId>commons-chain</groupId>
@@ -1211,6 +1271,11 @@
         <version>1.4</version>
       </dependency>
       <dependency>
+        <groupId>javax.annotation</groupId>
+        <artifactId>jsr250-api</artifactId>
+        <version>1.0</version>
+      </dependency>
+      <dependency>
         <groupId>javax.activation</groupId>
         <artifactId>activation</artifactId>
         <version>1.1</version>
@@ -1223,7 +1288,7 @@
       <dependency>
         <groupId>javax.mail</groupId>
         <artifactId>mail</artifactId>
-        <version>1.4</version>
+        <version>1.4.1</version>
       </dependency>
       <dependency>
         <groupId>javax.persistence</groupId>
@@ -1399,12 +1464,12 @@
       <dependency>
         <groupId>org.snmp4j</groupId>
         <artifactId>snmp4j</artifactId>
-        <version>1.9.3c</version>
+        <version>1.9.3d</version>
       </dependency>
       <dependency>
         <groupId>org.snmp4j</groupId>
         <artifactId>snmp4j-agent</artifactId>
-        <version>1.2.1d</version>
+        <version>1.2.2</version>
         <scope>test</scope>
       </dependency>
       <dependency>
@@ -1458,6 +1523,11 @@
         <groupId>xmlrpc</groupId>
         <artifactId>xmlrpc</artifactId>
         <version>2.0.1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.krupczak</groupId>
+        <artifactId>Xmp</artifactId>
+        <version>0.1-39</version>
       </dependency>
       <dependency>
         <groupId>xmlunit</groupId>
@@ -1518,6 +1588,7 @@
     <repository>
      <snapshots>
         <enabled>true</enabled>
+        <updatePolicy>${updatePolicy}</updatePolicy>
       </snapshots>
       <releases>
         <enabled>true</enabled>
@@ -1541,6 +1612,7 @@
     <pluginRepository>
       <snapshots>
         <enabled>true</enabled>
+        <updatePolicy>${updatePolicy}</updatePolicy>
       </snapshots>
       <releases>
         <enabled>false</enabled>
@@ -1563,6 +1635,7 @@
     <pluginRepository>
       <snapshots>
         <enabled>true</enabled>
+        <updatePolicy>${updatePolicy}</updatePolicy>
       </snapshots>
       <releases>
         <enabled>false</enabled>

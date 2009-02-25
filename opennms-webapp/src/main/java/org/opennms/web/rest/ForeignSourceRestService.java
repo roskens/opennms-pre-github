@@ -33,6 +33,7 @@
 package org.opennms.web.rest;
 
 import java.text.ParseException;
+import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -50,13 +51,19 @@ import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
 
 import org.joda.time.Duration;
-import org.opennms.netmgt.model.OnmsForeignSourceCollection;
 import org.opennms.netmgt.provision.persist.ForeignSourceRepository;
-import org.opennms.netmgt.provision.persist.OnmsForeignSource;
 import org.opennms.netmgt.provision.persist.StringIntervalPropertyEditor;
+import org.opennms.netmgt.provision.persist.foreignsource.DetectorCollection;
+import org.opennms.netmgt.provision.persist.foreignsource.DetectorWrapper;
+import org.opennms.netmgt.provision.persist.foreignsource.ForeignSource;
+import org.opennms.netmgt.provision.persist.foreignsource.ForeignSourceCollection;
+import org.opennms.netmgt.provision.persist.foreignsource.PluginConfig;
+import org.opennms.netmgt.provision.persist.foreignsource.PolicyCollection;
+import org.opennms.netmgt.provision.persist.foreignsource.PolicyWrapper;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -70,7 +77,12 @@ import com.sun.jersey.spi.resource.PerRequest;
 public class ForeignSourceRestService extends OnmsRestService {
     
     @Autowired
-    private ForeignSourceRepository m_foreignSourceRepository;
+    @Qualifier("pending")
+    private ForeignSourceRepository m_pendingForeignSourceRepository;
+    
+    @Autowired
+    @Qualifier("deployed")
+    private ForeignSourceRepository m_deployedForeignSourceRepository;
     
     @Context
     UriInfo m_uriInfo;
@@ -82,51 +94,172 @@ public class ForeignSourceRestService extends OnmsRestService {
     SecurityContext m_securityContext;
 
     @GET
+    @Path("default")
     @Produces( { MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    @Path("{name}")
-    @Transactional
-    public OnmsForeignSource getForeignSource(@PathParam("name") String foreignSource) {
-        return m_foreignSourceRepository.getForeignSource(foreignSource);
+    public ForeignSource getDefaultForeignSource() throws ParseException {
+        return m_deployedForeignSourceRepository.getDefaultForeignSource();
     }
 
     /**
-     * returns a plaintext string being the number of foreign sources
-     * @return
-     */
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    @Path("count")
-    @Transactional
-    public String getCount() {
-        return Integer.toString(m_foreignSourceRepository.getForeignSourceCount());
-    }
-
-    /**
-     * Returns all the foreign sources
+     * Returns all the deployed foreign sources
      * 
      * @return Collection of OnmsForeignSources (ready to be XML-ified)
      * @throws ParseException
      */
     @GET
+    @Path("deployed")
     @Produces( { MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    @Transactional
-    public OnmsForeignSourceCollection getForeignSources() throws ParseException {
-        return new OnmsForeignSourceCollection(m_foreignSourceRepository.getForeignSources());
+    public ForeignSourceCollection getDeployedForeignSources() throws ParseException {
+        return new ForeignSourceCollection(m_deployedForeignSourceRepository.getForeignSources());
+    }
+    
+    /**
+     * Returns all the pending foreign sources
+     * 
+     * @return Collection of OnmsForeignSources (ready to be XML-ified)
+     * @throws ParseException
+     */
+    @GET
+    @Path("pending")
+    @Produces( { MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    public ForeignSourceCollection getPendingForeignSources() throws ParseException {
+        return new ForeignSourceCollection(m_pendingForeignSourceRepository.getForeignSources());
+    }
+
+    /**
+     * Returns the requested deployed {@link ForeignSource}
+     * @param foreignSource the foreign source name
+     * @return the foreign source
+     */
+    @GET
+    @Path("deployed/{foreignSource}")
+    @Produces( { MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    public ForeignSource getDeployedForeignSource(@PathParam("foreignSource") String foreignSource) {
+        return m_deployedForeignSourceRepository.getForeignSource(foreignSource);
+    }
+
+    /**
+     * Returns the requested {@link ForeignSource}
+     * @param foreignSource the foreign source name
+     * @return the foreign source
+     */
+    @GET
+    @Path("pending/{foreignSource}")
+    @Produces( { MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    public ForeignSource getPendingForeignSource(@PathParam("foreignSource") String foreignSource) {
+        return m_pendingForeignSourceRepository.getForeignSource(foreignSource);
+    }
+
+    /**
+     * returns a plaintext string being the number of deployed foreign sources
+     * @return
+     */
+    @GET
+    @Path("deployed/count")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getDeployedCount() {
+        return Integer.toString(m_deployedForeignSourceRepository.getForeignSourceCount());
+    }
+
+    /**
+     * returns a plaintext string being the number of pending foreign sources
+     * @return
+     */
+    @GET
+    @Path("pending/count")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getPendingCount() {
+        return Integer.toString(m_pendingForeignSourceRepository.getForeignSourceCount());
+    }
+
+    @GET
+    @Path("pending/{foreignSource}/detectors")
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    public DetectorCollection getDetectors(@PathParam("foreignSource") String foreignSource) {
+        return new DetectorCollection(m_pendingForeignSourceRepository.getForeignSource(foreignSource).getDetectors());
+    }
+
+    @GET
+    @Path("pending/{foreignSource}/detectors/{detector}")
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    public DetectorWrapper getDetector(@PathParam("foreignSource") String foreignSource, @PathParam("detector") String detector) {
+        for (PluginConfig pc : m_pendingForeignSourceRepository.getForeignSource(foreignSource).getDetectors()) {
+            if (pc.getName().equals(detector)) {
+                return new DetectorWrapper(pc);
+            }
+        }
+        return null;
+    }
+
+    @GET
+    @Path("pending/{foreignSource}/policies")
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    public PolicyCollection getPolicies(@PathParam("foreignSource") String foreignSource) {
+        return new PolicyCollection(m_pendingForeignSourceRepository.getForeignSource(foreignSource).getPolicies());
+    }
+
+    @GET
+    @Path("pending/{foreignSource}/policies/{policy}")
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    public PolicyWrapper getPolicy(@PathParam("foreignSource") String foreignSource, @PathParam("policy") String policy) {
+        for (PluginConfig pc : m_pendingForeignSourceRepository.getForeignSource(foreignSource).getPolicies()) {
+            if (pc.getName().equals(policy)) {
+                return new PolicyWrapper(pc);
+            }
+        }
+        return null;
     }
 
     @POST
+    @Path("pending")
     @Consumes(MediaType.APPLICATION_XML)
-    public Response addForeignSource(OnmsForeignSource foreignSource) {
+    @Transactional
+    public Response addForeignSource(ForeignSource foreignSource) {
         log().debug("addForeignSource: Adding foreignSource " + foreignSource.getName());
-        m_foreignSourceRepository.save(foreignSource);
+        m_pendingForeignSourceRepository.save(foreignSource);
         return Response.ok(foreignSource).build();
     }
-    
+
+    @POST
+    @Path("pending/{foreignSource}/detectors")
+    @Consumes(MediaType.APPLICATION_XML)
+    @Transactional
+    public Response addDetector(@PathParam("foreignSource") String foreignSource, DetectorWrapper detector) {
+        log().debug("addDetector: Adding detector " + detector.getName());
+        ForeignSource fs = m_pendingForeignSourceRepository.getForeignSource(foreignSource);
+        fs.addDetector(detector);
+        m_pendingForeignSourceRepository.save(fs);
+        return Response.ok(detector).build();
+    }
+
+    @POST
+    @Path("pending/{foreignSource}/policies")
+    @Consumes(MediaType.APPLICATION_XML)
+    @Transactional
+    public Response addPolicy(@PathParam("foreignSource") String foreignSource, PolicyWrapper policy) {
+        log().debug("addPolicy: Adding policy " + policy.getName());
+        ForeignSource fs = m_pendingForeignSourceRepository.getForeignSource(foreignSource);
+        fs.addPolicy(policy);
+        m_pendingForeignSourceRepository.save(fs);
+        return Response.ok(policy).build();
+    }
+
     @PUT
+    @Path("pending/{foreignSource}/deploy")
+    @Transactional
+    public Response deployForeignSource(@PathParam("foreignSource") String foreignSource) {
+        log().debug("deploy foreign source " + foreignSource);
+        ForeignSource fs = m_pendingForeignSourceRepository.getForeignSource(foreignSource);
+        m_deployedForeignSourceRepository.save(fs);
+        return Response.ok(fs).build();
+    }
+
+    @PUT
+    @Path("pending/{foreignSource}")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @Path("{name}")
-    public Response updateForeignSource(@PathParam("name") String foreignSource, MultivaluedMapImpl params) {
-        OnmsForeignSource fs = m_foreignSourceRepository.getForeignSource(foreignSource);
+    @Transactional
+    public Response updateForeignSource(@PathParam("foreignSource") String foreignSource, MultivaluedMapImpl params) {
+        ForeignSource fs = m_pendingForeignSourceRepository.getForeignSource(foreignSource);
         log().debug("updateForeignSource: updating foreign source " + foreignSource);
         BeanWrapper wrapper = new BeanWrapperImpl(fs);
         wrapper.registerCustomEditor(Duration.class, new StringIntervalPropertyEditor());
@@ -139,18 +272,72 @@ public class ForeignSourceRestService extends OnmsRestService {
             }
         }
         log().debug("updateForeignSource: foreign source " + foreignSource + " updated");
-        m_foreignSourceRepository.save(fs);
+        m_pendingForeignSourceRepository.save(fs);
         return Response.ok(fs).build();
     }
-    
+
     @DELETE
-    @Path("{name}")
-    public Response deleteForeignSource(@PathParam("name") String foreignSource) {
-        OnmsForeignSource fs = m_foreignSourceRepository.getForeignSource(foreignSource);
-        log().debug("deleteForeignSource: deleting foreign source " + foreignSource);
-        m_foreignSourceRepository.delete(fs);
-        return Response.ok().build();
+    @Path("deployed/{foreignSource}")
+    @Transactional
+    public Response deleteDeployedForeignSource(@PathParam("foreignSource") String foreignSource) {
+        ForeignSource fs = m_deployedForeignSourceRepository.getForeignSource(foreignSource);
+        log().debug("deleteDeployedForeignSource: deleting foreign source " + foreignSource);
+        m_deployedForeignSourceRepository.delete(fs);
+        return Response.ok(fs).build();
     }
 
+    @DELETE
+    @Path("pending/{foreignSource}")
+    @Transactional
+    public Response deletePendingForeignSource(@PathParam("foreignSource") String foreignSource) {
+        ForeignSource fs = m_pendingForeignSourceRepository.getForeignSource(foreignSource);
+        log().debug("deletePendingForeignSource: deleting foreign source " + foreignSource);
+        m_pendingForeignSourceRepository.delete(fs);
+        return Response.ok(fs).build();
+    }
+
+    @DELETE
+    @Path("pending/{foreignSource}/detectors/{detector}")
+    @Transactional
+    public Response deleteDetector(@PathParam("foreignSource") String foreignSource, @PathParam("detector") String detector) {
+        ForeignSource fs = m_pendingForeignSourceRepository.getForeignSource(foreignSource);
+        List<PluginConfig> detectors = fs.getDetectors();
+        PluginConfig removed = removeEntry(detectors, detector);
+        if (removed != null) {
+            fs.setDetectors(detectors);
+            m_pendingForeignSourceRepository.save(fs);
+            return Response.ok(removed).build();
+        }
+        return Response.notModified().build();
+    }
+
+    @DELETE
+    @Path("pending/{foreignSource}/policies/{policy}")
+    @Transactional
+    public Response deletePolicy(@PathParam("foreignSource") String foreignSource, @PathParam("policy") String policy) {
+        ForeignSource fs = m_pendingForeignSourceRepository.getForeignSource(foreignSource);
+        List<PluginConfig> policies = fs.getPolicies();
+        PluginConfig removed = removeEntry(policies, policy);
+        if (removed != null) {
+            fs.setPolicies(policies);
+            m_pendingForeignSourceRepository.save(fs);
+            return Response.ok(removed).build();
+        }
+        return Response.notModified().build();
+    }
+
+    private PluginConfig removeEntry(List<PluginConfig> plugins, String name) {
+        PluginConfig removed = null;
+        java.util.Iterator<PluginConfig> i = plugins.iterator();
+        while (i.hasNext()) {
+            PluginConfig pc = i.next();
+            if (pc.getName().equals(name)) {
+                removed = pc;
+                i.remove();
+                break;
+            }
+        }
+        return removed;
+    }
 
 }

@@ -23,19 +23,21 @@ import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.opennms.netmgt.provision.persist.foreignsource.ForeignSource;
+import org.opennms.netmgt.provision.persist.foreignsource.ForeignSourceCollection;
+import org.opennms.netmgt.provision.persist.foreignsource.PluginConfig;
 import org.opennms.test.FileAnticipator;
 import org.xml.sax.SAXException;
 
 public class PersistenceSerializationTest {
-    private ForeignSourceWrapper fsw;
+    private ForeignSourceCollection fsw;
     private AbstractForeignSourceRepository fsr;
     private Marshaller m;
-//    private Unmarshaller u;
     private JAXBContext c;
-    private OnmsForeignSource fs;
+    private ForeignSource fs;
     private FileAnticipator fa;
 
-    private class TestOutputResolver extends SchemaOutputResolver {
+    static private class TestOutputResolver extends SchemaOutputResolver {
         private final File m_schemaFile;
         
         public TestOutputResolver(File schemaFile) {
@@ -52,7 +54,7 @@ public class PersistenceSerializationTest {
         fa = new FileAnticipator();
 
         fsr = new MockForeignSourceRepository();
-        fsr.save(new OnmsForeignSource("cheese"));
+        fsr.save(new ForeignSource("cheese"));
 
         fs = fsr.getForeignSource("cheese");
 //        fs.setScanInterval(scanInterval)
@@ -80,11 +82,9 @@ public class PersistenceSerializationTest {
         policies.add(policy);
         fs.setPolicies(policies);
 
-        fsw = new ForeignSourceWrapper(fsr.getForeignSources());
-        c = JAXBContext.newInstance(ForeignSourceWrapper.class, OnmsForeignSource.class);
-
+        fsw = new ForeignSourceCollection(fsr.getForeignSources());
+        c = JAXBContext.newInstance(ForeignSourceCollection.class, ForeignSource.class);
         m = c.createMarshaller();
-        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         
         XMLUnit.setIgnoreWhitespace(true);
         XMLUnit.setIgnoreAttributeOrder(true);

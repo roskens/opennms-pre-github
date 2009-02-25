@@ -2,6 +2,7 @@
 <%@ attribute name="property" required="true" %>
 <%@ attribute name="items" type="java.lang.Object" rtexprvalue="true" required="true" %>
 <%@ attribute name="itemLabel" required="false" %>
+<%@ attribute name="fieldSize" required="false" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -23,12 +24,7 @@
     </c:choose>
   </c:when>
   <c:otherwise>
-    <c:set var="maxLen" value="0" />
-    <c:forEach var="item" items="${items}">
-       <c:set var="currLen" value="${fn:length(item)}"/>
-       <c:set var="maxLen" value="${maxLen < currLen ? currLen : maxLen}"/>
-    </c:forEach>
-    <form:input cssStyle="border:0; background: lightgrey" size="${maxLen > 0 ? maxLen : 10}" path="${property}" readonly="true" /> 
+    <form:input cssStyle="border:0; background: lightgrey" size="${!(empty fieldSize)? fieldSize : 10}" path="${property}" readonly="true" /> 
   </c:otherwise>
 </c:choose>
 

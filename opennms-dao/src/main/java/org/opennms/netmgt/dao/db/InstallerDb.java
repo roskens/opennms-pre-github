@@ -66,6 +66,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -1003,7 +1004,9 @@ public class InstallerDb {
                 + "    AND "
                 + "        attr.atthasdef = 't' "
                 + "    AND "
-                + "        attr.attrelid = def.adrelid";
+                + "        attr.attrelid = def.adrelid"
+                + "    AND "
+                + "        attr.attnum = def.adnum";
 
 
         if (m_pg_version >= 7.3) {
@@ -2362,9 +2365,11 @@ public class InstallerDb {
         addColumnReplacement("snmpinterface.id", new DoNotAddColumn());
         addColumnReplacement("ipinterface.id", new DoNotAddColumn());
         addColumnReplacement("ifservices.id", new DoNotAddColumn());
+        addColumnReplacement("acks.id", new DoNotAddColumn());
         addColumnReplacement("assets.id", new DoNotAddColumn());
-
         addColumnReplacement("atinterface.id", new DoNotAddColumn());
+        addColumnReplacement("datalinkinterface.id", new DoNotAddColumn());
+        addColumnReplacement("element.id", new DoNotAddColumn());
 
         // Triggers will take care of these surrogate foreign keys
         addColumnReplacement("ipinterface.snmpinterfaceid", new DoNotAddColumn());
@@ -2598,6 +2603,44 @@ public class InstallerDb {
         private final Integer m_replacement;
         
         public FixedIntegerReplacement(int value) {
+            m_replacement = value;
+        }
+
+        public Object getColumnReplacement(ResultSet rs, Map<String, ColumnChange> columnChanges) throws SQLException {
+            return m_replacement;
+        }
+        
+        public boolean addColumnIfColumnIsNew() {
+            return true;
+        }
+        
+        public void close() {
+        }
+    }
+    
+    public class TimeStampReplacement implements ColumnChangeReplacement {
+        private final Date m_replacement;
+        
+        public TimeStampReplacement(Date value) {
+            m_replacement = value;
+        }
+
+        public Object getColumnReplacement(ResultSet rs, Map<String, ColumnChange> columnChanges) throws SQLException {
+            return m_replacement;
+        }
+        
+        public boolean addColumnIfColumnIsNew() {
+            return true;
+        }
+        
+        public void close() {
+        }
+    }
+
+    public class VarCharReplacement implements ColumnChangeReplacement {
+        private final String m_replacement;
+        
+        public VarCharReplacement(String value) {
             m_replacement = value;
         }
 

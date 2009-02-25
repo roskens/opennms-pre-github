@@ -148,17 +148,21 @@ public abstract class Manager {
 	public abstract VMapInfo[] getMapsMenuByName(String mapLabel) throws MapsException ;
 
 	public abstract VMapInfo[] getMapsMenuByOwner(String owner) throws MapsException ;
+
+	public abstract VMapInfo[] getMapsMenuByGroup(String group) throws MapsException ;
 	
-	public abstract VMapInfo[] getVisibleMapsMenu(String user) throws MapsException;
-	
+    public abstract VMapInfo[] getMapsMenuByOther() throws MapsException ;	
+
 	public abstract boolean isElementInMap(int elementId, int mapId, String type) throws MapsException ;
+	
+	public abstract boolean isElementNotDeleted(int elementId, String type) throws MapsException;
 	  
 
 	public abstract VElementInfo[] getAllElementInfo() throws MapsException ;
 	
 	public abstract VElementInfo[] getElementInfoLike(String like) throws MapsException;
 
-	public abstract List<VElementInfo> getOutagedElements() throws MapsException;
+	public abstract List<VElementInfo> getAlarmedElements() throws MapsException;
 
 	public abstract Vector<Integer> getDeletedNodes() throws MapsException;
 
@@ -168,7 +172,7 @@ public abstract class Manager {
 	
 	public abstract Set<Integer> getNodeidsOnElement(Element elem) throws MapsException;
 	
-	public abstract Set getNodeIdsBySource(String query)throws MapsException;
+	public abstract Set<Integer> getNodeIdsBySource(String query)throws MapsException;
 	
     public abstract Set<LinkInfo> getLinksOnElements(Set<Integer> allnodes) throws MapsException;
 }

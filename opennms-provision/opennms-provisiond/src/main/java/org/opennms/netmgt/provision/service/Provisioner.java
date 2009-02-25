@@ -44,7 +44,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Category;
 import org.opennms.core.utils.ThreadCategory;
@@ -78,10 +77,9 @@ public class Provisioner implements SpringServiceDaemon {
     private volatile Resource m_importResource;
     private volatile EventSubscriptionService m_eventSubscriptionService;
     private volatile EventForwarder m_eventForwarder;
-
-    private volatile TimeTrackingMonitor m_stats;
     
-	
+    private volatile TimeTrackingMonitor m_stats;
+
     public void setProvisionService(ProvisionService provisionService) {
 	    m_provisionService = provisionService;
 	}
@@ -94,7 +92,7 @@ public class Provisioner implements SpringServiceDaemon {
 	    m_scheduledExecutor = scheduledExecutor;
 	}
 
-	public void setLifeCycleRepository(LifeCycleRepository lifeCycleRepository) {
+    public void setLifeCycleRepository(LifeCycleRepository lifeCycleRepository) {
 	    m_lifeCycleRepository = lifeCycleRepository;
 	}
 
@@ -130,53 +128,9 @@ public class Provisioner implements SpringServiceDaemon {
     public void doNodeScan(int nodeId) throws InterruptedException, ExecutionException {
     }
     
-    public static class NodeScan implements Runnable {
-        private String m_foreignSource;
-        private String m_foreignId;
-        private LifeCycleRepository m_lifeCycleRepository;
-        private List<Object> m_providers;
-
-        public NodeScan(String foreignSource, String foreignId, LifeCycleRepository lifeCycleRepository, List<Object> providers) {
-            m_foreignSource = foreignSource;
-            m_foreignId = foreignId;
-            m_lifeCycleRepository = lifeCycleRepository;
-            m_providers = providers;
-        }
-        
-        private void doNodeScan() throws InterruptedException, ExecutionException {
-            LifeCycleInstance doNodeScan = m_lifeCycleRepository.createLifeCycleInstance("nodeScan", m_providers.toArray());
-            doNodeScan.setAttribute("foreignSource", m_foreignSource);
-            doNodeScan.setAttribute("foreignId", m_foreignId);
-            
-            doNodeScan.trigger();
-            
-            doNodeScan.waitFor();
-        }
-        
-        public void run() {
-            try {
-                doNodeScan();
-                System.err.println(String.format("Finished Scanning Node %s / %s", m_foreignSource, m_foreignId));
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-
-        
-    }
-    
     public NodeScan createNodeScan(String foreignSource, String foreignId) {
-        return new NodeScan(foreignSource, foreignId, m_lifeCycleRepository, m_providers);
+        return new NodeScan(foreignSource, foreignId, m_provisionService, m_lifeCycleRepository, m_providers);
     }
-
-    protected Runnable nodeScanner(final NodeScanSchedule schedule) {
-        return createNodeScan(schedule.getForeignSource(), schedule.getForeignId());
-    }
-    
 
     //Helper functions for the schedule
     protected void addToScheduleQueue(NodeScanSchedule schedule) {
@@ -196,9 +150,8 @@ public class Provisioner implements SpringServiceDaemon {
     }
 
     private ScheduledFuture<?> scheduleNodeScan(NodeScanSchedule schedule) {
-        ScheduledFuture<?> future = m_scheduledExecutor.scheduleWithFixedDelay(nodeScanner(schedule), schedule.getInitialDelay().getMillis(), schedule.getScanInterval().getMillis(), TimeUnit.MILLISECONDS);
-        System.err.println(String.format("SCHEDULE: Created schedule for node %d : %s", schedule.getNodeId(), future));
-        return future;
+        NodeScan nodeScan = createNodeScan(schedule.getForeignSource(), schedule.getForeignId());
+        return nodeScan.schedule(m_scheduledExecutor, schedule);
     }
 
     public ScheduledFuture<?> getScheduledFutureForNode(int nodeId) {
@@ -252,20 +205,19 @@ public class Provisioner implements SpringServiceDaemon {
     //^ Helper functions for the schedule
     
     protected void importModelFromResource(Resource resource) throws Exception {
-    	importModelFromResource(null, resource, new NoOpProvisionMonitor());
+    	importModelFromResource(resource, new NoOpProvisionMonitor());
     }
 
-    protected void importModelFromResource(String foreignSource, Resource resource, ProvisionMonitor monitor)
+    protected void importModelFromResource(Resource resource, ProvisionMonitor monitor)
             throws Exception {
-        doImport(resource, monitor, new ImportManager(), foreignSource);
+        doImport(resource, monitor, new ImportManager());
     }
 
     private void doImport(Resource resource, final ProvisionMonitor monitor,
-            ImportManager importManager, final String foreignSource) throws Exception {
+            ImportManager importManager) throws Exception {
         
         LifeCycleInstance doImport = m_lifeCycleRepository.createLifeCycleInstance("import", m_providers.toArray());
         doImport.setAttribute("resource", resource);
-        doImport.setAttribute("foreignSource", foreignSource);
         
         doImport.trigger();
         
@@ -318,12 +270,10 @@ public class Provisioner implements SpringServiceDaemon {
             m_stats = new TimeTrackingMonitor();
             
             resource = ((event != null && getEventUrl(event) != null) ? new UrlResource(getEventUrl(event)) : getImportResource()); 
-            String foreignSource = event == null ? null : getEventForeignSource(event); 
     
             send(importStartedEvent(resource));
-            
     
-    		importModelFromResource(foreignSource, resource, m_stats);
+    		importModelFromResource(resource, m_stats);
     
     		log().info("Finished Importing: "+m_stats);
     
@@ -345,14 +295,19 @@ public class Provisioner implements SpringServiceDaemon {
         if (scheduleForNode != null) {
             addToScheduleQueue(scheduleForNode);
         }
+
+    }
+    
+    @EventHandler(uei = EventConstants.NODE_UPDATED_EVENT_UEI)
+    public void handleNodeUpdated(Event e) {
+        
+        //TODO Handle scheduling
     }
 
-    /**
-     * @param e
-     */
     @EventHandler(uei = EventConstants.NODE_DELETED_EVENT_UEI)
     public void handleNodeDeletedEvent(Event e) {
         removeNodeFromScheduleQueue(new Long(e.getNodeid()).intValue());
+        
     }
 
     private String getEventUrl(Event event) {

@@ -204,40 +204,54 @@
 %>
 
 <jsp:include page="/includes/header.jsp" flush="false" >
+  <jsp:param name="nostyles" value="true" />
   <jsp:param name="title" value="Node" />
   <jsp:param name="headTitle" value="${model.label}" />
   <jsp:param name="headTitle" value="Node" />
   <jsp:param name="breadcrumb" value="<a href='element/index.jsp'>Search</a>" />
   <jsp:param name="breadcrumb" value="Node" />
+  <jsp:param name="link" value="<link rel='stylesheet' type='text/css' href='css/styles.css' media='screen' />" />
+  <jsp:param name="link" value="<link rel='stylesheet' type='text/css' href='css/print.css' media='print' />" />
+  <jsp:param name="link" value="<link rel='stylesheet' type='text/css' href='extJS/resources/css/ext-all.css'></link>" />
+  <jsp:param name="link" value="<link rel='stylesheet' type='text/css' href='css/o-styles.css' media='screen' />" />
+  <jsp:param name="link" value="<link rel='stylesheet' type='text/css' href='extJS/resources/css/opennmsGridTheme.css'></link>" />
+  <jsp:param name="script" value="<script type='text/javascript' src='extJS/source/core/Ext.js'></script>" />
+  <jsp:param name="script" value="<script type='text/javascript' src='extJS/source/adapter/ext-base.js'></script>" />
+  <jsp:param name="script" value="<script type='text/javascript' src='extJS/ext-all-debug.js'></script>" />
+  <jsp:param name="script" value="<script type='text/javascript' src='js/opennms/ux/PageableGrid.js'></script>"/>
+  <jsp:param name="script" value="<script type='text/javascript' src='js/opennms/ux/IPInterfaceGrid.js'></script>"/>
+  <jsp:param name="script" value="<script type='text/javascript' src='js/opennms/ux/SNMPInterfaceGrid.js'></script>"/>
+  <jsp:param name="script" value="<script type='text/javascript' src='js/nodePageView.js'></script>" />
 </jsp:include>
 
-<%--<link rel="stylesheet" type="text/css" href="extJS/resources/css/ext-all.css"/>
-<link rel="stylesheet" type="text/css" href="extJS/resources/css/opennmsGridTheme.css" />
-<script type="text/javascript" src="extJS/adapter/ext/ext-base.js"></script>
-<script type="text/javascript" src="extJS/ext-all.js"></script>
-<script type="text/javascript" src="js/nodePageGrid.js"></script>--%>
+<script type='text/javascript'>
+	Ext.onReady(function(){
+		initPageView('interfaces-panel', ${model.id});
+	})
+</script>
 
+<div class="onms">
 <h2>Node: ${model.label}</h2>
 <div id="linkbar">
-  <ul>
+  <ul class="o-menu">
     <c:url var="eventLink" value="event/list">
       <c:param name="filter" value="node=${model.id}"/>
     </c:url>
-    <li>
+    <li class="o-menuitem">
       <a href="${eventLink}">View Events</a>
     </li>
 
     <c:url var="alarmLink" value="alarm/list.htm">
       <c:param name="filter" value="node=${model.id}"/>
     </c:url>
-    <li>
+    <li class="o-menuitem">
       <a href="${alarmLink}">View Alarms</a>
     </li>
     
     <c:url var="assetLink" value="asset/modify.jsp">
       <c:param name="node" value="${model.id}"/>
     </c:url>
-    <li>
+    <li class="o-menuitem">
       <a href="${assetLink}">Asset Info</a>
     </li>
 
@@ -245,13 +259,13 @@
       <c:url var="siteLink" value="siteStatusView.htm">
         <c:param name="statusSite" value="${model.statusSite}"/>
       </c:url>
-      <li>
+      <li class="o-menuitem">
         <a href="${siteLink}">Site Status</a>
       </li>
     </c:if>
 
     <c:forEach items="${model.links}" var="link">
-      <li>
+      <li class="o-menuitem">
         <a href="${link.url}">${link.text}</a>
       </li>
     </c:forEach>
@@ -262,7 +276,7 @@
         <c:param name="parentResource" value="${model.id}"/>
         <c:param name="reports" value="all"/>
       </c:url>
-      <li>
+      <li class="o-menuitem">
         <a href="${resourceGraphsUrl}">Resource Graphs</a>
       </li>
     </c:if>
@@ -271,14 +285,14 @@
       <c:url var="rescanLink" value="element/rescan.jsp">
         <c:param name="node" value="${model.id}"/>
       </c:url>
-      <li>
+      <li class="o-menuitem">
         <a href="${rescanLink}">Rescan</a>
       </li>
       
       <c:url var="adminLink" value="admin/nodemanagement/index.jsp">
         <c:param name="node" value="${model.id}"/>
       </c:url>
-      <li>
+      <li class="o-menuitem">
         <a href="${adminLink}">Admin</a>
       </li>
 
@@ -287,19 +301,20 @@
           <c:param name="node" value="${model.id}"/>
           <c:param name="ipaddr" value="${model.snmpPrimaryIntf.ipAddress}"/>
         </c:url>
-        <li>
+        <li class="o-menuitem">
           <a href="${updateSnmpLink}">Update SNMP</a>
         </li>
       </c:if>
     </c:if>
   </ul>
 </div>
-<div id="grid-panel"></div>
+</div>
 <div class="TwoColLeft">
+  
   <!-- general info box -->
-  <h3>General (Status: ${model.status})</h3>
+  <h3 class="o-box">General (Status: ${model.status})</h3>
   <div class="boxWrapper">
-    <ul class="plain">
+    <ul class="plain o-box">
       <c:if test="${model.showIpRoute}">
         <c:url var="ipRouteLink" value="element/routeipnode.jsp">
           <c:param name="node" value="${model.id}"/>
@@ -328,12 +343,12 @@
   </div>
 
   <!-- Availability box -->
-  <jsp:include page="/includes/nodeAvailability-box.jsp" flush="false" />
+  <%-- <jsp:include page="/includes/nodeAvailability-box.jsp" flush="false" /> --%>
 
   <!-- Asset box, if info available --> 
   <c:if test="${! empty model.asset && (! empty model.asset.description || ! empty model.asset.comments)}">
-    <h3>Asset Information</h3>
-    <table>
+    <h3 class="o-box">Asset Information</h3>
+    <table class="o-box">
       <tr>
         <th>Description</th>
         <td>${model.asset.description}</td>
@@ -348,8 +363,8 @@
 
   <!-- SNMP box, if info available -->
   <c:if test="${! empty model.node.nodeSysId}">
-    <h3>SNMP Attributes</h3>
-    <table>
+    <h3 class="o-box">SNMP Attributes</h3>
+    <table class="o-box">
       <tr>
         <th>Name</th>
         <td>${model.node.nodeSysName}</td>
@@ -373,83 +388,13 @@
     </table>
   </c:if>
 
-  <!-- Interface box -->
-  <h3>Interfaces</h3>
-  <table>
-    <tr>
-      <th>Interface</th>
-      <th>Index</th>
-      <th>Description</th>
-      <c:if test="${model.hasIfAliases}">
-        <th>IfAlias</th>
-      </c:if>
-    </tr>
-    <c:forEach items="${model.intfs}" var="intf">
-      <c:url var="interfaceLink" value="element/interface.jsp">
-        <c:param name="ipinterfaceid" value="${intf.id}"/>
-      </c:url>
-      <tr>
-        <td>
-          <c:choose>
-            <c:when test="${intf.ipAddress == '0.0.0.0'}">
-              <c:choose>
-                <c:when test="${intf.snmpIfName != null && intf.snmpIfName != ''}">
-                  <a href="${interfaceLink}">${intf.snmpIfName}</a>
-                </c:when>
-                <c:when test="${intf.snmpIfDescription != null && intf.snmpIfDescription != ''}">
-                  <a href="${interfaceLink}">${intf.snmpIfDescription}</a>
-                </c:when>
-                <c:otherwise>
-                  <a href="${interfaceLink}">Non-IP</a>
-                </c:otherwise>
-              </c:choose>
-            </c:when>
-            <c:otherwise>
-              <a href="${interfaceLink}">${intf.ipAddress}</a>
-              <c:if test="${intf.ipAddress != intf.hostname}">
-                (${intf.hostname})
-              </c:if>
-            </c:otherwise>
-          </c:choose>
-        </td>
-        <td>
-          <c:choose>
-            <c:when test="${intf.ifIndex > 0}">
-              ${intf.ifIndex}
-            </c:when>
-            <c:otherwise>
-              &nbsp;
-            </c:otherwise>
-          </c:choose>
-        </td>
-        <td>
-          <c:choose>
-            <c:when test="${intf.snmpIfDescription != null && intf.snmpIfDescription != ''}">
-              ${intf.snmpIfDescription}
-            </c:when>
-            <c:when test="${intf.snmpIfName != null && intf.snmpIfName != '' && intf.ipAddress != '0.0.0.0'}">
-              ${intf.snmpIfName}
-             </c:when>
-            <c:otherwise>
-              &nbsp;
-            </c:otherwise>
-          </c:choose>
-        </td>
-        <c:if test="${model.hasIfAliases}">
-          <td>
-            <c:if test="${intf.snmpIfAlias != null && intf.snmpIfAlias != ''}">
-              ${intf.snmpIfAlias}
-            </c:if>
-          </td>
-        </c:if>
-      </tr>
-    </c:forEach>
-  </table>
+  <!-- Interface box - generated by ExtJs -->
+  <div id="interfaces-panel"></div>
 
   <!-- Vlan box if available -->
   <c:if test="${! empty model.vlans}">
     <h3>VLAN Information</h3>
-    <table>
+    <table class="o-box">
       <thead>
         <tr>
           <th>ID</th>
@@ -479,6 +424,7 @@
 </div>
 
 <div class="TwoColRight">
+  
   <!-- notification box -->
   <jsp:include page="/includes/notification-box.jsp" flush="false" >
     <jsp:param name="node" value="${model.id}" />

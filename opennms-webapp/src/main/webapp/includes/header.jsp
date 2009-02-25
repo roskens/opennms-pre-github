@@ -47,7 +47,7 @@
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-
+   
 <%-- The <html> tag is unmatched in this file (its matching tag is in the
      footer), so we hide it in a JSP code fragment so the Eclipse HTML
      validator doesn't complain.  See bug #1728. --%>
@@ -63,11 +63,25 @@
   <c:forEach var="meta" items="${paramValues.meta}">
     <c:out value="${meta}" escapeXml="false"/>
   </c:forEach>
-  <base href="<%=org.opennms.web.Util.calculateUrlBase( request )%>" />
-  <link rel="stylesheet" type="text/css" href="css/styles.css" media="screen" />
-	<link rel="stylesheet" type="text/css" href="css/print.css" media="print" />
-	
+  <c:choose>
+    <c:when test="${param.nobase != 'true' }">
+        <base href="<%=org.opennms.web.Util.calculateUrlBase( request )%>" />
+    </c:when>
+  </c:choose>
+  <!--  ${nostyles} -->
+  <c:choose>
+    <c:when test="${param.nostyles != 'true' }">
+        <link rel="stylesheet" type="text/css" href="css/styles.css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="css/print.css" media="print" />
+    </c:when>
+  </c:choose>
+<c:forEach var="link" items="${paramValues.link}">
+    <c:out value="${link}" escapeXml="false" />
+  </c:forEach>
   <script type="text/javascript" src="js/global.js"></script>
+<c:forEach var="script" items="${paramValues.script}">
+    <c:out value="${script}" escapeXml="false" />
+  </c:forEach>
 </head>
 
 <%-- The <body> tag is unmatched in this file (its matching tag is in the
@@ -129,12 +143,20 @@
 <%-- This <div> tag is unmatched in this file (its matching tag is in the
      footer), so we hide it in a JSP code fragment so the Eclipse HTML
      validator doesn't complain.  See bug #1728. --%>
+<%-- Internet Explorer gets miffed and refuses to display the page content
+     for certain pages if the following div is empty. (ie when the outer if
+     test fails.) Moving the <h2> tags outside the if statement makes it
+     happy again --%>
 <%= "<div id=\"content\">" %>
-<c:if test="${(param.nonavbar != 'true') && (!empty pageContext.request.remoteUser)}">	
-   <h2><a href="index.jsp">Home</a>
+<div class="onms">
+<h2>
+<c:if test="${(param.nonavbar != 'true') && (!empty pageContext.request.remoteUser)}">
+   <a href="index.jsp">Home</a>
    <c:forEach var="breadcrumb" items="${paramValues.breadcrumb}">
      <c:if test="${breadcrumb != ''}">
            / <c:out value="${breadcrumb}" escapeXml="false"/>
      </c:if>
-   </c:forEach></h2>
+   </c:forEach>
 </c:if>
+</h2>
+</div>

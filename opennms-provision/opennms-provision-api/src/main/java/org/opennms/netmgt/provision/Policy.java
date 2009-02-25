@@ -40,9 +40,6 @@ package org.opennms.netmgt.provision;
  * @author <a href="mailto:brozow@opennms.org">Matt Brozowski</a>
  *
  */
-public interface Policy<T> {
-    public T apply(T entity);
+public interface Policy {
     
-    public String getParameter(String key);
-    public void setParameter(String key, String value);
 }

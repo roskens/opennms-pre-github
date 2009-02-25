@@ -31,18 +31,22 @@
 //
 package org.opennms.netmgt.snmp;
 
+import java.util.Arrays;
+
 import junit.framework.TestCase;
 
 public class SnmpObjIdTest extends TestCase {
 
     private void assertArrayEquals(int[] a, int[] b) {
         if (a == null) {
-            assertNull("expected value is null but actual value is "+b, b);
+            assertNull("expected value is null but actual value is "+Arrays.toString(b), b);
         } else {
-            if (b == null) fail("Expected value is "+a+" but actual value is null"); 
+            if (b == null) {
+                fail("Expected value is "+Arrays.toString(a)+" but actual value is null");
+            } 
             assertEquals("arrays have different length", a.length, b.length);
             for(int i = 0; i < a.length; i++) {
-                assertEquals("array differ at index "+i+" expected: "+a+", actual: "+b, a[i], b[i]);
+                assertEquals("array differ at index "+i+" expected: "+Arrays.toString(a)+", actual: "+Arrays.toString(b), a[i], b[i]);
             }
         }
     }
@@ -116,7 +120,8 @@ public class SnmpObjIdTest extends TestCase {
         assertEquals(result, base.append("9.8.7.6"));
         assertEquals(result, base.append(inst));
         
-        assertTrue(base.isPrefixOf(base));        assertTrue(base.isPrefixOf(result));
+        assertTrue(base.isPrefixOf(base));
+        assertTrue(base.isPrefixOf(result));
         assertFalse(result.isPrefixOf(base));
         
         SnmpInstId instance = result.getInstance(base);

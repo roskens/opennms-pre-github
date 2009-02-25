@@ -16,7 +16,9 @@ function onClickMapElement(evt)
 	
 	var id = evt.target.parentNode.getAttributeNS(null,"id");
 	var mapElement = map.mapElements[id];
-		
+	// close other menus
+	windowsClean();
+	
 	// view info node
 	clearDownInfo();			
 	writeTopInfoText(mapElement.getInfo());
@@ -28,15 +30,20 @@ function onClickMapElement(evt)
 
 		if(mapElement.isNode())
 		{
-			//create new window instance and add it to the Windows array with the windowId as a key
-			//var transx = mapElement.getX() + mapElemDimension;
-			//var transy = mapElement.getY() ;
-			//myMapApp.Windows[mapElement.getNodeId()] = 
-			//new Window(mapElement.getNodeId(),"Windows",winwidth,winheight,transx,transy,true,winconstrXmin,winconstrYmin,winconstrXmax,winconstrYmax,true,winPlaceholderStyles,windowStyles,3,true,true,mapElement.getLabel(),"Select Link",true,true,true,wintitlebarStyles,wintitlebarHeight,winstatusbarStyles,winstatusbarHeight,wintitletextStyles,winstatustextStyles,winbuttonStyles,testsomethink);
- 			//var nodelink = createSVGLinkText(mapElement.getNodeId());
-			//myMapApp.Windows[mapElement.getNodeId()].appendContent(nodelink,false);
-			openLink('element/node.jsp?node='+mapElement.getNodeId(),'','left=0,top=0, width='+screen.width+',height='+screen.height+',toolbar=no,menubar=no,location=no,scrollbars=1,resize=1,minimize=1');
+			var nodeid = mapElement.getNodeId();
+			var label = mapElement.getLabel();
+			var x = mapElement.getX() + mapElemDimension;
+			var y = mapElement.getY() ;
 			
+			var cm =  new ContextMenuSimulator(winSvgElement,nodeid,label,x,y,cmwidth,cmheight,cmmenuStyle,cmmenuElementStyle,cmmenuElementTextStyle,cmmenuElementMouseStyle,cmdelta);
+			for(var index in CM_COMMANDS){
+				if(CM_COMMANDS[index]=="-"){
+					cm.addItem(label+index,"-----------------------",ciao);
+				}else{
+					var commandLabel = unescape(CM_COMMANDS[index]);
+					cm.addItem(index,commandLabel,execSelectedCMAction);
+				}
+			}
 		}
 	
 		if(mapElement.isMap())
@@ -46,30 +53,11 @@ function onClickMapElement(evt)
 			
 	}
 }
-/*
-function testsomethink(id, evtType) {
-	if (evtType == "open" )
-  alert("window with id " + id + "and event" + evtType);
+
+function openContextMenu(mapElement) {
 }
 
-function createSVGLinkText(id) {
-	var textEl = document.createElementNS(svgNS,"text");
-	textEl.setAttributeNS(null, "x","10");
-	textEl.setAttributeNS(null, "y","50");
-	textEl.setAttributeNS(null, "id",id+"elementlink");
-//	text.setAttributeNS(null, "font-size",titleFontSize);
-//	text.setAttributeNS(null,"font-family",textFamily);
-	textEl.setAttributeNS(null, "cursor","pointer");
-//	text.appendChild(document.createTextNode());
-	text.addEventListener("click", "openLink('element/node.jsp?node='"+id+",'','left=0,top=0, width='"+screen.width+"',height='"+screen.height+"',toolbar=no,menubar=no,location=no,scrollbars=1,resize=1,minimize=1');", false);
-	var tspan = document.createElementNS(svgNS,"tspan");
-	tspan.setAttributeNS(null, "dy","12");
-	var tspanContent = document.createTextNode("Node Page");
-	tspan.appendChild(tspanContent);
-	textEl.appendChild(tspan);
-	return textEl
-}
-*/
+
 function onMouseDownOnMapElement(evt)
 {	
 	if ((typeof map) == "object")
@@ -181,6 +169,7 @@ function onMouseDownOnMap(evt)
 		map.startSelectionRectangle = getMouse(evt);
 		
 	}
+	windowsClean();
 	
 	disableContextMenu(evt);
 	

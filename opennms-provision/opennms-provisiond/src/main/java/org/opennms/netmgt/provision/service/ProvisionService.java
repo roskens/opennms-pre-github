@@ -29,14 +29,24 @@
  */
 package org.opennms.netmgt.provision.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import org.opennms.netmgt.model.OnmsCategory;
 import org.opennms.netmgt.model.OnmsDistPoller;
+import org.opennms.netmgt.model.OnmsIpInterface;
+import org.opennms.netmgt.model.OnmsMonitoredService;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.OnmsServiceType;
+import org.opennms.netmgt.model.OnmsSnmpInterface;
+import org.opennms.netmgt.provision.IpInterfacePolicy;
+import org.opennms.netmgt.provision.NodePolicy;
+import org.opennms.netmgt.provision.ServiceDetector;
+import org.opennms.netmgt.provision.SnmpInterfacePolicy;
 import org.opennms.netmgt.provision.persist.ForeignSourceRepository;
+import org.opennms.netmgt.provision.persist.requisition.Requisition;
+import org.springframework.core.io.Resource;
 import org.springframework.transaction.annotation.Transactional;
 
 /*
@@ -95,7 +105,22 @@ public interface ProvisionService {
             boolean snmpDataForInterfacesUpToDate);
     
     @Transactional
-    public abstract OnmsNode getImportedNode(String foreignSource, String foreignId);
+    public abstract OnmsNode updateNodeAttributes(OnmsNode node);
+    
+    @Transactional
+    public abstract OnmsIpInterface updateIpInterfaceAttributes(Integer nodeId, OnmsIpInterface ipInterface);
+    
+    @Transactional
+    public OnmsSnmpInterface updateSnmpInterfaceAttributes(Integer nodeId, OnmsSnmpInterface snmpInterface);
+
+    @Transactional
+    public abstract OnmsMonitoredService addMonitoredService(Integer ipInterfaceId, String svcName);
+
+    @Transactional
+    public abstract OnmsMonitoredService addMonitoredService(Integer nodeId, String ipAddress, String serviceName);
+    
+    @Transactional
+    public abstract OnmsNode getRequisitionedNode(String foreignSource, String foreignId);
 
     /**
      * Delete the indicated node form the database.
@@ -173,5 +198,25 @@ public interface ProvisionService {
     public abstract NodeScanSchedule getScheduleForNode(int nodeId);
     
     public abstract void setForeignSourceRepository(ForeignSourceRepository foriengSourceRepository);
+
+    /**
+     * @param foreignSource
+     * @param resource
+     * @return
+     */
+    public abstract Requisition loadRequisition(Resource resource);
+
+    public abstract List<ServiceDetector> getDetectorsForForeignSource(String foreignSource);
+    
+    public abstract List<NodePolicy> getNodePoliciesForForeignSource(String foreignSourceName);
+    
+    public abstract List<IpInterfacePolicy> getIpInterfacePoliciesForForeignSource(String foreignSourceName);
+    
+    public abstract List<SnmpInterfacePolicy> getSnmpInterfacePoliciesForForeignSource(String foreignSourceName);
+
+    public abstract void updateNodeScanStamp(Integer nodeId, Date scanStamp);
+
+    public abstract void deleteObsoleteInterfaces(Integer nodeId, Date scanStamp);
+
 
 }

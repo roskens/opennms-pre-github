@@ -36,8 +36,8 @@
 package org.opennms.netmgt.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -50,6 +50,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -104,6 +106,9 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
 
     /** identifier field */
     private String m_ifAlias;
+    
+    private Date m_lastCapsdPoll;
+    
 
     private OnmsNode m_node;
 
@@ -117,7 +122,9 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
         m_ipAddr = ipaddr == null ? "0.0.0.0" : ipaddr;
         m_ifIndex = ifIndex;
         m_node = node;
-        node.getSnmpInterfaces().add(this);
+        if (node != null) {
+            node.getSnmpInterfaces().add(this);
+        }
     }
 
     /** default constructor */
@@ -162,7 +169,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
         m_netMask = snmpipadentnetmask;
     }
 
-    @Column(name = "snmpPhysAddr", length = 12)
+    @Column(name = "snmpPhysAddr", length = 16)
     public String getPhysAddr() {
         return m_physAddr;
     }
@@ -242,6 +249,16 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
     public void setIfAlias(String snmpifalias) {
         m_ifAlias = snmpifalias;
     }
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="snmpLastCapsdPoll")
+    public Date getLastCapsdPoll() {
+        return m_lastCapsdPoll;
+    }
+    
+    public void setLastCapsdPoll(Date lastCapsdPoll) {
+        m_lastCapsdPoll = lastCapsdPoll;
+    }
 
     @XmlIDREF
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -267,6 +284,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
             .append("snmpifadminstatus", getIfAdminStatus())
             .append("snmpifoperstatus", getIfOperStatus())
             .append("snmpifalias", getIfAlias())
+            .append("lastCapsdPoll", getLastCapsdPoll())
             .toString();
     }
 
@@ -301,8 +319,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
     @Transient
     public CollectionType getCollectionType() {
         CollectionType maxCollType = CollectionType.NO_COLLECT;
-        for (Iterator<OnmsIpInterface> it = getIpInterfaces().iterator(); it.hasNext();) {
-            OnmsIpInterface ipIface = it.next();
+        for (OnmsIpInterface ipIface : getIpInterfaces()) {
             if (ipIface.getIsSnmpPrimary() != null) {
                 maxCollType = maxCollType.max(ipIface.getIsSnmpPrimary());
             }
@@ -375,5 +392,50 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
     public void addIpInterface(OnmsIpInterface iface) {
         m_ipInterfaces.add(iface);
     }
+
+    public void mergeSnmpInterfaceAttributes(OnmsSnmpInterface scannedSnmpIface) {
+        
+        if (hasNewValue(scannedSnmpIface.getIfAdminStatus(), getIfAdminStatus())) {
+            setIfAdminStatus(scannedSnmpIface.getIfAdminStatus());
+        }
+        
+        if (hasNewValue(scannedSnmpIface.getIfAlias(), getIfAlias())) {
+            setIfAlias(scannedSnmpIface.getIfAlias());
+        }
+        
+        if (hasNewValue(scannedSnmpIface.getIfDescr(), getIfDescr())) {
+            setIfDescr(scannedSnmpIface.getIfDescr());
+        }
+            
+        if (hasNewValue(scannedSnmpIface.getIfName(), getIfName())) {
+            setIfName(scannedSnmpIface.getIfName());
+        }
+        
+        if (hasNewValue(scannedSnmpIface.getIfOperStatus(), getIfOperStatus())) {
+            setIfOperStatus(scannedSnmpIface.getIfOperStatus());
+        }
+        
+        if (hasNewValue(scannedSnmpIface.getIfSpeed(), getIfSpeed())) {
+            setIfSpeed(scannedSnmpIface.getIfSpeed());
+        }
+        
+        if (hasNewValue(scannedSnmpIface.getIfType(), getIfType())) {
+            setIfType(scannedSnmpIface.getIfType());
+        }
+        
+        if (hasNewValue(scannedSnmpIface.getIpAddress(), getIpAddress())) {
+            setIpAddress(scannedSnmpIface.getIpAddress());
+        }
+        
+        if (hasNewValue(scannedSnmpIface.getNetMask(), getNetMask())) {
+            setNetMask(scannedSnmpIface.getNetMask());
+        }
+        
+        if (hasNewValue(scannedSnmpIface.getPhysAddr(), getPhysAddr())) {
+            setPhysAddr(scannedSnmpIface.getPhysAddr());
+        }
+        
+    }
+
 
 }
