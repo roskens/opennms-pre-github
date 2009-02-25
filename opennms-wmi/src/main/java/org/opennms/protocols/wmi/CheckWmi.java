@@ -59,6 +59,7 @@ public class CheckWmi {
 		options.addOption("domain", true,
 				"the NT/AD domain the credentials belong to");
 		options.addOption("wmiClass", true, "the object class in WMI to query");
+		options.addOption("wql", false, "the WQL query to execute");
 		options.addOption("wmiObject", true, "the object to query in WMI");
 		options.addOption("op", true,
 				"compare operation: NOOP, EQ, NEQ, GT, LT");
@@ -85,6 +86,13 @@ public class CheckWmi {
 		} else {
 			usage(options, cmd);
 			System.exit(1);
+		}
+
+		String wmiWql = "";
+                boolean hasWql = false;
+		if (cmd.hasOption("wql")) {
+			wmiClass = cmd.getOptionValue("wql");
+                        hasWql = true;
 		}
 
 		String wmiObject = "";
@@ -126,7 +134,11 @@ public class CheckWmi {
 			ArrayList<Object> wmiObjects;
 			// Create the check parameters holder.
 			WmiParams clientParams = new WmiParams(WmiParams.WMI_OPERATION_INSTANCEOF, compVal, compOp, wmiClass,
-					wmiObject);
+			    					wmiObject);
+			if(!hasWql) {
+			    clientParams = new WmiParams(WmiParams.WMI_OPERATION_WQL, compVal, compOp, wmiWql, wmiObject);
+                        }
+
 			// Create the WMI Manager
 			WmiManager mgr = new WmiManager(host, user, pass, domain, matchType);
 
