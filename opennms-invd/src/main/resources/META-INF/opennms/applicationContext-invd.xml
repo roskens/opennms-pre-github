@@ -10,6 +10,15 @@
     <!-- Inventory Configuration DAO -->
     <bean name="inventoryConfigDao" class="org.opennms.netmgt.dao.castor.InvdConfigDaoCastorImpl"/>
 
+    <!-- The inventory daemon event listener. -->
+    <bean name="invdEventListener" class="org.opennms.netmgt.invd.InvdEventListener">
+        <property name="transactionTemplate" ref="transactionTemplate"/>
+        <!-- <property name="invd" ref="daemon" /> -->
+        <property name="inventoryConfigDao" ref="inventoryConfigDao"/>
+        <property name="inventoryScheduler" ref="inventoryScheduler" />
+        <property name="scanableServices" ref="scanableServices" />
+    </bean>
+
     <bean name="scanableServices" class="org.opennms.netmgt.invd.ScanableServices">
         
     </bean>
@@ -28,7 +37,7 @@
 
     <bean id="daemon" class="org.opennms.netmgt.invd.Invd">
         <!-- <property name="eventSubscriptionService" ref="eventSubscriptionService"/>
-     <property name="eventForwarder" ref="eventForwarder"/> -->
+        <property name="eventForwarder" ref="eventForwarder"/> -->
         <property name="invdConfigDao" ref="inventoryConfigDao"/>
         <property name="ipInterfaceDao" ref="ipInterfaceDao"/>
         <property name="scannerCollection" ref="scannerCollection"/>
