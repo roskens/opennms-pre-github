@@ -3,7 +3,7 @@
     <wmi-inventory name="default">
         <!-- Identify a category to sort things by -->
         <wmi-category name="Network Adapters">
-            <wmi-asset name="Network Adapter" wmiClass="Win32_NetworkAdatpter" nameProperty="Name">
+            <wmi-asset name="Network Adapter" wmiClass="Win32_NetworkAdapter" nameProperty="Name" recheckInterval="3600000">
                 <wmi-asset-property name="Device ID" wmi-property="DeviceID"/>
                 <wmi-asset-property name="Connection Name" wmi-property="NetConnectionID"/>
                 <wmi-asset-property name="Status" wmi-property="NetConnectionStatus"/>
@@ -12,7 +12,7 @@
                 <wmi-asset-property name="MAC Address" wmi-property="MACAddress"/>
             </wmi-asset>
 
-            <wmi-asset name="Network Adapter Config" wmiClass="Win32_NetworkAdatpterConfiguration" nameProperty="Description">
+            <wmi-asset name="Network Adapter Config" wmiClass="Win32_NetworkAdapterConfiguration" nameProperty="Description" recheckInterval="3600000">
                 <wmi-asset-property name="Device ID" wmi-property="Index"/>
                 <wmi-asset-property name="Description" wmi-property="Description"/>
                 <wmi-asset-property name="DHCP Enabled?" wmi-property="DHCPEnabled"/>               
