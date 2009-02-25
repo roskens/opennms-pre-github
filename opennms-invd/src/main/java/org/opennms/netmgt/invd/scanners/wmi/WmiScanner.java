@@ -91,7 +91,7 @@ public class WmiScanner implements InventoryScanner {
 
     public void initialize(ScanningClient client, Map<String, String> parameters) {
         log().debug("initialize: Initializing WMI scanning for client: " + client);
-        Integer scheduledNodeKey = new Integer(client.getNodeId());
+        Integer scheduledNodeKey = client.getNodeId();
         WmiClientState nodeState = m_scheduledNodes.get(scheduledNodeKey);
 
         if (nodeState != null) {
@@ -174,7 +174,7 @@ public class WmiScanner implements InventoryScanner {
 
                                 OnmsWbemProperty prop = obj.getWmiProperties().getByName(asset.getNameProperty());
                                 Object propVal = prop.getWmiValue();
-                                String instance = null;
+                                String instance;
                                 if (propVal instanceof String) {
                                     instance = (String) propVal;
                                 } else {

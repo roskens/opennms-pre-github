@@ -54,6 +54,7 @@ public class WmiClientState {
     private HashMap<String, WmiAssetState> m_assetStates = new HashMap<String, WmiAssetState>();
 
     public WmiClientState(InetAddress address, Map parameters) {
+        // TODO allow parameters to override agentConfig.
         m_address = address.getHostAddress();
         m_agentConfig = WmiPeerFactory.getInstance().getAgentConfig(address);
         m_manager = new WmiManager(m_address, m_agentConfig.getUsername(),

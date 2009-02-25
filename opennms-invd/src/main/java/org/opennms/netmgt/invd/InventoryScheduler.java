@@ -148,8 +148,7 @@ public class InventoryScheduler {
 
     private ReadyRunnable ifScheduler() {
         // Schedule existing interfaces for data collection
-
-        ReadyRunnable interfaceScheduler = new ReadyRunnable() {
+        return new ReadyRunnable() {
 
             public boolean isReady() {
                 return true;
@@ -169,7 +168,6 @@ public class InventoryScheduler {
 
             }
         };
-        return interfaceScheduler;
     }
 
     /**
@@ -270,8 +268,7 @@ public class InventoryScheduler {
 
     private OnmsIpInterface getIpInterface(int nodeId, String ipAddress) {
 		OnmsNode node = m_nodeDao.load(nodeId);
-        OnmsIpInterface iface = node.getIpInterfaceByIpAddress(ipAddress);
-		return iface;
+		return node.getIpInterfaceByIpAddress(ipAddress);
 	}
 
     private void scheduleInterface(OnmsIpInterface iface, String svcName, boolean existing) {
@@ -301,7 +298,7 @@ public class InventoryScheduler {
 
         for (ScannerSpecification spec : matchingSpecs) {
 
-            if (existing == false) {
+            if (!existing) {
                 /*
                  * It is possible that both a nodeGainedService and a
                  * primarySnmpInterfaceChanged event are generated for an
@@ -336,7 +333,7 @@ public class InventoryScheduler {
                     sb.append(svcName);
                     log().debug(sb.toString());
                 }
-                ScanableService cSvc = null;
+                ScanableService cSvc;
 
                 /*
                  * Create a new SnmpCollector object representing this node,
@@ -458,6 +455,7 @@ public class InventoryScheduler {
      *            TODO
      * @param spec
      *            TODO
+     * @return boolean true if address/pkg pair is represented in scanable services list.
      */
     private boolean alreadyScheduled(OnmsIpInterface iface,
             ScannerSpecification spec) {
