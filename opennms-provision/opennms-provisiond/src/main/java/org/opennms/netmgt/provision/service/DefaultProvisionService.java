@@ -39,6 +39,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Category;
 import org.joda.time.DateTime;
@@ -446,9 +447,9 @@ public class DefaultProvisionService implements ProvisionService {
         m_nodeDao.update(node);
     }
     
-    public NodeScanSchedule getScheduleForNode(int nodeId) {
+    public NodeScanSchedule getScheduleForNode(int nodeId, boolean force) {
         OnmsNode node = m_nodeDao.get(nodeId);
-        return createScheduleForNode(node);
+        return createScheduleForNode(node, force);
     }
     
     public List<NodeScanSchedule> getScheduleForNodes() {
@@ -458,7 +459,7 @@ public class DefaultProvisionService implements ProvisionService {
         List<NodeScanSchedule> scheduledNodes = new ArrayList<NodeScanSchedule>();
         
         for(OnmsNode node : nodes) {
-            NodeScanSchedule nodeScanSchedule = createScheduleForNode(node);
+            NodeScanSchedule nodeScanSchedule = createScheduleForNode(node, false);
             if (nodeScanSchedule != null) {
                 scheduledNodes.add(nodeScanSchedule);
             }
@@ -467,7 +468,7 @@ public class DefaultProvisionService implements ProvisionService {
         return scheduledNodes;
     }
     
-    private NodeScanSchedule createScheduleForNode(OnmsNode node) {
+    private NodeScanSchedule createScheduleForNode(OnmsNode node, boolean force) {
         Assert.notNull(node, "Node may not be null");
 
         ForeignSource fs = null;
@@ -479,7 +480,7 @@ public class DefaultProvisionService implements ProvisionService {
 
         Duration scanInterval = fs.getScanInterval();
         Duration initialDelay = Duration.ZERO;
-        if (node.getLastCapsdPoll() != null) {
+        if (node.getLastCapsdPoll() != null && !force) {
             DateTime nextPoll = new DateTime(node.getLastCapsdPoll().getTime()).plus(scanInterval);
             DateTime now = new DateTime();
             if (nextPoll.isAfter(now)) {
@@ -549,7 +550,7 @@ public class DefaultProvisionService implements ProvisionService {
         ForeignSource foreignSource = m_foreignSourceRepository.getForeignSource(foreignSourceName);
         assertNotNull(foreignSource, "Expected a foreignSource with name %s", foreignSourceName);
         
-        List<PluginConfig> detectorConfigs = foreignSource.getDetectors();
+        Set<PluginConfig> detectorConfigs = foreignSource.getDetectors();
         if (detectorConfigs == null) {
             return new ArrayList<ServiceDetector>(m_pluginRegistry.getAllPlugins(ServiceDetector.class));
         }
@@ -586,7 +587,7 @@ public class DefaultProvisionService implements ProvisionService {
         ForeignSource foreignSource = m_foreignSourceRepository.getForeignSource(foreignSourceName);
         assertNotNull(foreignSource, "Expected a foreignSource with name %s", foreignSourceName);
         
-        List<PluginConfig> configs = foreignSource.getPolicies();
+        Set<PluginConfig> configs = foreignSource.getPolicies();
         if (configs == null) {
             return Collections.emptyList(); 
         }

@@ -68,4 +68,13 @@ public class SnmpInterfaceBuilder {
         return this;
     }
 
+    public SnmpInterfaceBuilder setCollectionEnabled(boolean collect) {
+        m_snmpIf.setCollectionEnabled(collect);
+        return this;
+    }
+
+    public SnmpInterfaceBuilder setPhysAddr(String physAddr) {
+        m_snmpIf.setPhysAddr(physAddr);
+        return this;
+    }
 }

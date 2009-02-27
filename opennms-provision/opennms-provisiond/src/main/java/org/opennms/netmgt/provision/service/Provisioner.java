@@ -291,7 +291,17 @@ public class Provisioner implements SpringServiceDaemon {
      */
     @EventHandler(uei = EventConstants.NODE_ADDED_EVENT_UEI)
     public void handleNodeAddedEvent(Event e) {
-        NodeScanSchedule scheduleForNode = getProvisionService().getScheduleForNode(new Long(e.getNodeid()).intValue());
+        NodeScanSchedule scheduleForNode = getProvisionService().getScheduleForNode(new Long(e.getNodeid()).intValue(), true);
+        if (scheduleForNode != null) {
+            addToScheduleQueue(scheduleForNode);
+        }
+
+    }
+    
+    @EventHandler(uei = EventConstants.FORCE_RESCAN_EVENT_UEI)
+    public void handleForceRescan(Event e) {
+        removeNodeFromScheduleQueue(new Long(e.getNodeid()).intValue());
+        NodeScanSchedule scheduleForNode = getProvisionService().getScheduleForNode(new Long(e.getNodeid()).intValue(), true);
         if (scheduleForNode != null) {
             addToScheduleQueue(scheduleForNode);
         }
@@ -300,8 +310,13 @@ public class Provisioner implements SpringServiceDaemon {
     
     @EventHandler(uei = EventConstants.NODE_UPDATED_EVENT_UEI)
     public void handleNodeUpdated(Event e) {
+        // scan now since a reimport has occurred
+        removeNodeFromScheduleQueue(new Long(e.getNodeid()).intValue());
+        NodeScanSchedule scheduleForNode = getProvisionService().getScheduleForNode(new Long(e.getNodeid()).intValue(), true);
+        if (scheduleForNode != null) {
+            addToScheduleQueue(scheduleForNode);
+        }
         
-        //TODO Handle scheduling
     }
 
     @EventHandler(uei = EventConstants.NODE_DELETED_EVENT_UEI)

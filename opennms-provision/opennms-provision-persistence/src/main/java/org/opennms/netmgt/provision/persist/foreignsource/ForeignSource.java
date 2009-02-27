@@ -36,8 +36,10 @@
 package org.opennms.netmgt.provision.persist.foreignsource;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
@@ -45,13 +47,17 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.apache.commons.lang.builder.CompareToBuilder;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.log4j.Category;
 import org.joda.time.Duration;
+import org.opennms.core.utils.ThreadCategory;
 import org.opennms.netmgt.provision.persist.StringIntervalAdapter;
 
 /**
@@ -77,18 +83,20 @@ public class ForeignSource implements Serializable, Comparable<ForeignSource> {
 
     @XmlElementWrapper(name="detectors")
     @XmlElement(name="detector")
-    private List<PluginConfig> m_detectors = new ArrayList<PluginConfig>();
+    private Set<PluginConfig> m_detectors = new LinkedHashSet<PluginConfig>();
     
     @XmlElementWrapper(name="policies")
     @XmlElement(name="policy")
-    private List<PluginConfig> m_policies = new ArrayList<PluginConfig>();
+    private Set<PluginConfig> m_policies = new LinkedHashSet<PluginConfig>();
 
     private boolean m_default;
 
     public ForeignSource() {
+        updateDateStamp();
     }
     
     public ForeignSource(String name) {
+        updateDateStamp();
         setName(name);
     }
     
@@ -119,25 +127,55 @@ public class ForeignSource implements Serializable, Comparable<ForeignSource> {
         m_scanInterval = scanInterval;
     }
     /**
+     * @return the date stamp
+     */
+    @XmlTransient
+    public XMLGregorianCalendar getDateStamp() {
+        return m_dateStamp;
+    }
+    /**
+     * @return the date stamp as a {@link java.util.Date}
+     */
+    @XmlTransient
+    public Date getDateStampAsDate() {
+        return m_dateStamp.toGregorianCalendar().getTime();
+    }
+    /**
+     * @param value the date stamp
+     */
+    public void setDateStamp(XMLGregorianCalendar value) {
+        m_dateStamp = value;
+    }
+    /**
+     * Update the date stamp to the current date and time
+     */
+    public void updateDateStamp() {
+        try {
+            m_dateStamp = DatatypeFactory.newInstance().newXMLGregorianCalendar(new GregorianCalendar());
+        } catch (DatatypeConfigurationException e) {
+            log().warn("unable to update datestamp", e);
+        }
+    }
+    /**
      * @return the detectors
      */
     @XmlTransient
-    public List<PluginConfig> getDetectors() {
+    public Set<PluginConfig> getDetectors() {
         return m_detectors;
     }
     /**
      * @param detectors the detectors to set
      */
-    public void setDetectors(List<PluginConfig> detectors) {
+    public void setDetectors(Set<PluginConfig> detectors) {
         m_detectors = detectors;
     }
     
     @XmlTransient
-    public List<PluginConfig> getPolicies() {
+    public Set<PluginConfig> getPolicies() {
         return m_policies;
     }
     
-    public void setPolicies(List<PluginConfig> policies) {
+    public void setPolicies(Set<PluginConfig> policies) {
         m_policies = policies;
     }
     
@@ -185,7 +223,11 @@ public class ForeignSource implements Serializable, Comparable<ForeignSource> {
     public void setDefault(boolean isDefault) {
         m_default = isDefault;
     }
-    
+
+    private Category log() {
+        return ThreadCategory.getInstance(ForeignSource.class);
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)
@@ -223,7 +265,7 @@ public class ForeignSource implements Serializable, Comparable<ForeignSource> {
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder()
+        return new HashCodeBuilder(443, 1061)
             .append(getName())
             .append(getScanInterval())
             .append(getDetectors().toArray(OF_PLUGIN_CONFIGS))

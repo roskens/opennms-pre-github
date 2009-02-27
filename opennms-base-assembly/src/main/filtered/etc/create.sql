@@ -359,6 +359,10 @@ create unique index node_foreign_unique_idx on node(foreignSource, foreignId);
 --#                       1 = Up, 2 = Down, 3 = Testing
 --#  snmpIfAlias		: SNMP MIB-2 ifXTable.ifXEntry.ifAlias
 --#			  Value is interface's device alias
+--#  snmpCollect        : 'C' means collect 'N' means don't collect
+--#                     : 'UC' means collect 'UN' means don't collect (user override)
+--#                       This has been moved from the isSnmpPrimary field in the
+--#                         ipinterface table
 --#
 --# NOTE:  Although not marked as "not null" the snmpIfIndex field
 --#        should never be null.  This table is considered to be uniquely
@@ -382,6 +386,7 @@ create table snmpInterface (
 	snmpIfOperStatus	integer,
 	snmpIfAlias		varchar(256),
     snmpLastCapsdPoll timestamp with time zone,
+    snmpCollect     varchar(2) default 'N',
 
     CONSTRAINT snmpinterface_pkey primary key (id),
 	constraint fk_nodeID2 foreign key (nodeID) references node ON DELETE CASCADE
@@ -428,6 +433,8 @@ create index snmpinterface_ipaddr_idx on snmpinterface(ipaddr);
 --#                      'S' - Secondary SNMP
 --#                      'N' - Not eligible (does not support SNMP or
 --#                               or has no ifIndex)
+--#                     NOTE: 'C' is no longer a valid value for isSnmpPrimary
+--#                       this has moved to the snmpinterface table
 --#
 --########################################################################
 

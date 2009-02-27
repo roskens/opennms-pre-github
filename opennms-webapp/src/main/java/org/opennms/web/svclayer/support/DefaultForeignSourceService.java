@@ -3,8 +3,8 @@ package org.opennms.web.svclayer.support;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
@@ -35,18 +35,44 @@ public class DefaultForeignSourceService implements ForeignSourceService {
         m_pendingForeignSourceRepository = repo;
     }
     
+    public Set<ForeignSource> getAllForeignSources() {
+        return m_activeForeignSourceRepository.getForeignSources();
+    }
+
     public ForeignSource getForeignSource(String name) {
         return m_pendingForeignSourceRepository.getForeignSource(name);
     }
+    public ForeignSource deployForeignSource(String name) {
+        m_activeForeignSourceRepository.save(m_pendingForeignSourceRepository.getForeignSource(name));
+        return m_activeForeignSourceRepository.getForeignSource(name);
+    }
     public ForeignSource saveForeignSource(String name, ForeignSource fs) {
         m_pendingForeignSourceRepository.save(fs);
-        m_activeForeignSourceRepository.save(fs);
         return fs;
     }
     public ForeignSource deleteForeignSource(String name) {
         m_pendingForeignSourceRepository.delete(m_pendingForeignSourceRepository.getForeignSource(name));
         m_activeForeignSourceRepository.delete(m_activeForeignSourceRepository.getForeignSource(name));
         return m_activeForeignSourceRepository.getForeignSource(name);
+    }
+
+    public ForeignSource addParameter(String foreignSourceName, String pathToAdd) {
+        ForeignSource fs = m_pendingForeignSourceRepository.getForeignSource(foreignSourceName);
+        PropertyPath path = new PropertyPath(pathToAdd);
+        Object obj = path.getValue(fs);
+        
+        try {
+            MethodUtils.invokeMethod(obj, "addParameter", new Object[] { "key", "value" });
+        } catch (NoSuchMethodException e) {
+            throw new IllegalArgumentException("Unable to call addParameter on object of type " + obj.getClass(), e);
+        } catch (IllegalAccessException e) {
+            throw new IllegalArgumentException("unable to access property "+pathToAdd, e);
+        } catch (InvocationTargetException e) {
+            throw new IllegalArgumentException("an execption occurred adding a parameter to "+pathToAdd, e);
+        }
+
+        m_pendingForeignSourceRepository.save(fs);
+        return fs;
     }
 
     public ForeignSource deletePath(String foreignSourceName, String pathToDelete) {
@@ -84,7 +110,7 @@ public class DefaultForeignSourceService implements ForeignSourceService {
     }
     public ForeignSource deleteDetector(String foreignSource, String name) {
         ForeignSource fs = m_pendingForeignSourceRepository.getForeignSource(foreignSource);
-        List<PluginConfig> detectors = fs.getDetectors();
+        Set<PluginConfig> detectors = fs.getDetectors();
         for (Iterator<PluginConfig> i = detectors.iterator(); i.hasNext(); ) {
             PluginConfig pc = i.next();
             if (pc.getName().equals(name)) {
@@ -105,7 +131,7 @@ public class DefaultForeignSourceService implements ForeignSourceService {
     }
     public ForeignSource deletePolicy(String foreignSource, String name) {
         ForeignSource fs = m_pendingForeignSourceRepository.getForeignSource(foreignSource);
-        List<PluginConfig> policies = fs.getPolicies();
+        Set<PluginConfig> policies = fs.getPolicies();
         for (Iterator<PluginConfig> i = policies.iterator(); i.hasNext(); ) {
             PluginConfig pc = i.next();
             if (pc.getName().equals(name)) {
