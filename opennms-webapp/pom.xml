@@ -232,6 +232,29 @@
       </plugin>
 	-->
 
+      <!-- 
+       <plugin>
+      	<groupId>org.mortbay.jetty</groupId>
+      	<artifactId>maven-jetty-plugin</artifactId>
+      	<version>6.1.14</version>
+      	<configuration>
+	         <systemProperties>
+	            <systemProperty>
+	              <name>opennms.home</name>
+	               <value>${basedir}/../target/opennms-${project.version}</value>
+	            </systemProperty>
+	            <systemProperty>
+	              <name>rrd.base.dir</name>
+	               <value>${basedir}/../target/opennms-${project.version}/share</value>
+	            </systemProperty>
+	            <systemProperty>
+	              <name>rrd.binary</name>
+	               <value>rrdtool</value>
+	            </systemProperty>
+	         </systemProperties>
+        </configuration>
+      </plugin>
+      -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-eclipse-plugin</artifactId>
@@ -244,13 +267,22 @@
           </additionalProjectnatures>
         </configuration>
       </plugin>
-
-	<plugin>
-                <groupId>org.mortbay.jetty</groupId>
-                <artifactId>maven-jetty-plugin</artifactId>
-                <version>6.1.9</version>
-            </plugin>
-
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <descriptors>
+            <descriptor>src/assembly/xsds.xml</descriptor>
+          </descriptors>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
   <dependencies>
@@ -278,6 +310,10 @@
     <dependency>
       <groupId>org.opennms</groupId>
       <artifactId>opennms-hibernate</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.opennms</groupId>
+      <artifactId>opennms-javamail-api</artifactId>
     </dependency>
     <dependency>
       <groupId>org.opennms</groupId>

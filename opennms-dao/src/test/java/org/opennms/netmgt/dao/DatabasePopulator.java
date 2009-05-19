@@ -102,9 +102,9 @@ public class DatabasePopulator {
     private UserNotificationDao m_userNotificationDao;
     private AvailabilityReportLocatorDao m_availabilityReportLocatorDao;
     private LocationMonitorDaoHibernate m_locationMonitorDao;
-    private OnmsMapDaoHibernate m_onmsMapDao;
-    private OnmsMapElementDaoHibernate m_onmsMapElementDao;
-    private DataLinkInterfaceDaoHibernate m_dataLinkInterfaceDao;
+    private OnmsMapDao m_onmsMapDao;
+    private OnmsMapElementDao m_onmsMapElementDao;
+    private DataLinkInterfaceDao m_dataLinkInterfaceDao;
     private AcknowledgmentDao m_acknowledgmentDao;
     
     private OnmsNode m_node1;
@@ -282,10 +282,38 @@ public class DatabasePopulator {
         getDataLinkInterfaceDao().save(dli3);
         getDataLinkInterfaceDao().flush();
         
+        OnmsMap map = new OnmsMap("DB_Pop_Test_Map", "admin");
+        map.setBackground("fake_background.jpg");
+        map.setAccessMode(OnmsMap.ACCESS_MODE_ADMIN);
+        map.setType(OnmsMap.USER_GENERATED_MAP);
+        getOnmsMapDao().save(map);
+        getOnmsMapDao().flush();
+
+        OnmsMapElement mapElement = new OnmsMapElement(map, 1,
+                OnmsMapElement.NODE_TYPE,
+                "Test Node",
+                OnmsMapElement.defaultNodeIcon,
+                0,
+                10);
+        getOnmsMapElementDao().save(mapElement);
+        getOnmsMapElementDao().flush();
+
+        DataLinkInterface dli = new DataLinkInterface(1, 1, 1, 1, "A", new Date());
+        getDataLinkInterfaceDao().save(dli);
+        getDataLinkInterfaceDao().flush();
+
+        DataLinkInterface dli2 = new DataLinkInterface(1, 2, 1, 1, "A", new Date());
+        getDataLinkInterfaceDao().save(dli2);
+        getDataLinkInterfaceDao().flush();
+
+        DataLinkInterface dli3 = new DataLinkInterface(2, 1, 1, 1, "A", new Date());
+        getDataLinkInterfaceDao().save(dli3);
+        getDataLinkInterfaceDao().flush();
         
         OnmsAcknowledgment ack = new OnmsAcknowledgment();
         ack.setAckTime(new Date());
-        ack.setAckType(AckType.Unspecified);
+        ack.setAckType(AckType.UNSPECIFIED);
+        ack.setAckAction(AckAction.UNSPECIFIED);
         ack.setAckUser("admin");
         getAcknowledgmentDao().save(ack);
         getAcknowledgmentDao().flush();
@@ -479,29 +507,30 @@ public class DatabasePopulator {
         m_locationMonitorDao = locationMonitorDao;
     }
 
-    public OnmsMapDaoHibernate getOnmsMapDao() {
+    public OnmsMapDao getOnmsMapDao() {
         return m_onmsMapDao;
     }
 
-    public void setOnmsMapDao(OnmsMapDaoHibernate onmsMapDao) {
+    public void setOnmsMapDao(OnmsMapDao onmsMapDao) {
         this.m_onmsMapDao = onmsMapDao;
     }
 
-    public OnmsMapElementDaoHibernate getOnmsMapElementDao() {
+    public OnmsMapElementDao getOnmsMapElementDao() {
         return m_onmsMapElementDao;
     }
 
-    public void setOnmsMapElementDao(OnmsMapElementDaoHibernate onmsMapElementDao) {
+    public void setOnmsMapElementDao(OnmsMapElementDao onmsMapElementDao) {
         this.m_onmsMapElementDao = onmsMapElementDao;
     }
 
-    public DataLinkInterfaceDaoHibernate getDataLinkInterfaceDao() {
+    public DataLinkInterfaceDao getDataLinkInterfaceDao() {
         return m_dataLinkInterfaceDao;
     }
 
-    public void setDataLinkInterfaceDao(DataLinkInterfaceDaoHibernate dataLinkInterfaceDao) {
+    public void setDataLinkInterfaceDao(DataLinkInterfaceDao dataLinkInterfaceDao) {
         this.m_dataLinkInterfaceDao = dataLinkInterfaceDao;
     }
+    
     public AcknowledgmentDao getAcknowledgmentDao() {
         return m_acknowledgmentDao;
     }

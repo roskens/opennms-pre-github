@@ -1,36 +1,86 @@
+//
+// This file is part of the OpenNMS(R) Application.
+//
+// OpenNMS(R) is Copyright (C) 2002-2003 The OpenNMS Group, Inc.  All rights reserved.
+// OpenNMS(R) is a derivative work, containing both original code, included code and modified
+// code that was published under the GNU General Public License. Copyrights for modified 
+// and included code are below.
+//
+// OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+//
+// For more information contact:
+//      OpenNMS Licensing       <license@opennms.org>
+//      http://www.opennms.org/
+//      http://www.opennms.com///
+
 package org.opennms.web.inventory;
 
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import org.opennms.rancid.*;
+import org.opennms.netmgt.config.RWSConfig;
+import org.opennms.netmgt.config.RWSConfigFactory;
+import org.opennms.netmgt.config.rancid.BaseUrl;
+import java.util.*;
 
-import org.opennms.rancid.InventoryElement;
-import org.opennms.rancid.InventoryNode;
-import org.opennms.rancid.RWSClientApi;
-import org.opennms.rancid.RancidApiException;
-import org.opennms.rancid.RancidNode;
 
 public class InventoryLayer {
     
+    //static String _URL = "http://www.rionero.com:9080";
+    
+    private  static String _URL = "errore";
+     
+    private static BaseUrl[] burl;
+    
+    private static RWSConfig rwsCfgFactory;
     
     static public void init(){
         
         try {
+            System.out.println("Setting Up RWS client");
             RWSClientApi.init();
+
+            RWSConfigFactory.init();
+            
+            rwsCfgFactory = RWSConfigFactory.getInstance();
+            burl = rwsCfgFactory.getUrls();
+            _URL = burl[0].getServer_url();
+            System.out.println("RWS Url " + _URL);
+            
         }
         catch (Exception e) {
             
         }
     }
+    
+ 
         
-    static public Map<String, Object> getInventoryElement(String url, String group, String rancidName) throws RancidApiException{
+//    static public boolean hasRancidInfo(String nodeLabe){
+//        return true;        
+//    }
+//    
+    static public Map<String, Object> getInventoryElement(String rancidName) throws RancidApiException{
         
         try {
         
-            RancidNode rn = RWSClientApi.getRWSRancidNode(url, group, rancidName);
+            String group = "laboratorio";
+            
+            
+            RancidNode rn = RWSClientApi.getRWSRancidNode(_URL, group, rancidName);
     
+            
     
             InventoryNode in = new InventoryNode(rn);
             InventoryElement ie = new InventoryElement(in);
@@ -60,8 +110,10 @@ public class InventoryLayer {
             nodeModel.put("productpartnumber", ie.getProductPartNumber());
             nodeModel.put("hardwareversion", ie.getHardwareVersion());
             nodeModel.put("ramsize", ie.getRamSize());        
-            nodeModel.put("nwramsize", ie.getNwRamSize()); 
-;
+            nodeModel.put("nwramsize", ie.getNwRamSize());
+            nodeModel.put("group", group);;
+            nodeModel.put("url", _URL);
+
     
             
             return nodeModel;
@@ -70,105 +122,262 @@ public class InventoryLayer {
             throw e;
         }
     }
-    
-    static public Map<String, Object> getInventoryNode(String url, String group, String rancidName) throws RancidApiException{
-        
-        try {
-        
-            RancidNode rn = RWSClientApi.getRWSRancidNode(url, group, rancidName);
-    
-    
-            InventoryNode in = new InventoryNode(rn);
-            
-            //in.setVersionId("version1");
-            Date dc = new Date();
-            //in.setCreationDate(dc);
-            in.setExpirationDate(dc);
-            
-            //software configuration
-            in.setSoftwareVersion("1.1");
-            in.setSoftwareImageUrl("http://rancid.net/softwareimage");
-            
-            //configuration
-            in.setConfigurationUrl("http://rancid.net/configuration");
-//            in.setRootConfigurationUrl("http://rancid.net/rootconfiguration");
+//
+//    static public Map<String, Object> getInventoryNodeList(String rancidName) throws RancidApiException{
+//        
+//        try {
+//        
+//            String group = "laboratorio";
+//      
+//            
+//            RancidNode rn = RWSClientApi.getRWSRancidNode(_URL, group, rancidName);
+//    
+//    
+//            InventoryNode in = new InventoryNode(rn);
+//            
+//            List<InventoryElement> lista = new LinkedList();
+//            InventoryElement i1 = new InventoryElement(in);
+//            i1.setElementName("Bridge1");
+//            lista.add(i1);
+//            InventoryElement i2 = new InventoryElement(in);
+//            i2.setElementName("Bridge2");
+//            lista.add(i2);
+//            InventoryElement i3 = new InventoryElement(in);
+//            i3.setElementName("Bridge3");
+//            lista.add(i3);
+//            InventoryElement i4 = new InventoryElement(in);
+//            i4.setElementName("Bridge4");
+//            lista.add(i4);
+//            in.setNodeElements(lista);
+//
+//            
+//            Map<String, Object> nodeModel = new TreeMap<String, Object>();    
+//
+//            nodeModel.put("inventory", lista);
+//            return nodeModel;
+//        }
+//        catch (RancidApiException e) {
+//            throw e;
+//        }
+//    }
+//   
 
+    
+    
+   // NEW CODE
+   static public Map<String, Object> getRancidNode(String rancidName, String userRole) throws RancidApiException{
+        
+         try {
+            
+         
+            
             Map<String, Object> nodeModel = new TreeMap<String, Object>();
             
-    //      Integer ii = Integer(ie.getElementId(4));
-    //      nodeModel.put("id", ii.toString());
-    
-            nodeModel.put("status", in.getParent().getState());
-            nodeModel.put("datecrea", in.getCreationDate());
-            nodeModel.put("dateexp", in.getExpirationDate());
-            nodeModel.put("softversion", in.getSoftwareVersion());
-            nodeModel.put("softimage", in.getSoftwareImageUrl());
-            nodeModel.put("softconfigurl", in.getConfigurationUrl());
-//            nodeModel.put("rootconfigurl", in.getRootConfigurationUrl());
-  
+            List<RancidNodeWrapper> ranlist = new ArrayList<RancidNodeWrapper>();
             
-            return nodeModel;
-        }
-        catch (RancidApiException e) {
-            throw e;
-        }
-    }
-    static public Map<String, Object> getInventoryNodeList(String url, String group, String rancidName) throws RancidApiException{
-        
-        try {
-        
-            RancidNode rn = RWSClientApi.getRWSRancidNode(url, group, rancidName);
-    
-    
-            InventoryNode in = new InventoryNode(rn);
+            // Group list            
+            RWSResourceList groups = RWSClientApi.getRWSResourceGroupsList(_URL);
             
-            List<InventoryElement> lista = new LinkedList<InventoryElement>();
-            InventoryElement i1 = new InventoryElement(in);
-            i1.setElementName("Bridge1");
-            lista.add(i1);
-            InventoryElement i2 = new InventoryElement(in);
-            i2.setElementName("Bridge2");
-            lista.add(i2);
-            InventoryElement i3 = new InventoryElement(in);
-            i3.setElementName("Bridge3");
-            lista.add(i3);
-            InventoryElement i4 = new InventoryElement(in);
-            i4.setElementName("Bridge4");
-            lista.add(i4);
-            in.setNodeElements(lista);
+            List<String> grouplist = groups.getResource();
+            Iterator iter1 = grouplist.iterator();
+            
+          
+            String groupname;
+            boolean first = true;
+            while (iter1.hasNext()){
+                groupname = (String)iter1.next();
+                try {
+                    RancidNode rn = RWSClientApi.getRWSRancidNodeInventory(_URL ,groupname, rancidName);
+                    String vs = rn.getHeadRevision();
+                    InventoryNode in = (InventoryNode)rn.getNodeVersions().get(vs);
 
-            
-            Map<String, Object> nodeModel = new TreeMap<String, Object>();
-    //      Integer ii = Integer(ie.getElementId(4));
-    //      nodeModel.put("id", ii.toString());
-    
+                    RancidNodeWrapper rnw = new RancidNodeWrapper(rn.getDeviceName(), groupname, rn.getDeviceType(), rn.getComment(), rn.getHeadRevision(),
+                      rn.getTotalRevisions(), in.getExpirationDate(), rn.getRootConfigurationUrl());
+                    if (first) {
+                        nodeModel.put("devicename", rn.getDeviceName());
+                        nodeModel.put("status", rn.getState());
+                        nodeModel.put("devicetype", rn.getDeviceType());
+                        nodeModel.put("comment", rn.getComment());
+                        first = false;
+                    }
+                    ranlist.add(rnw); 
 
-            nodeModel.put("inventory", lista);
+                }
+                catch (RancidApiException e){
+                    //skip node not found in group...
+                }
+            }
+            
+            //Groups invariant            
+            nodeModel.put("grouptable", ranlist);
+            nodeModel.put("url", _URL);
+            
+            //CLOGIN
+            if (userRole.compareTo("admin") == 0){
+                RancidNodeAuthentication rn5 = RWSClientApi.getRWSAuthNode(_URL,rancidName);
+                //System.out.println("rn5 " + rn5.getUser() + rn5.getPassword()+rn5.getConnectionMethodString());
+                nodeModel.put("cloginuser", rn5.getUser());
+                nodeModel.put("cloginpassword", rn5.getPassword());
+                nodeModel.put("cloginconnmethod", rn5.getConnectionMethodString());
+                nodeModel.put("cloginenablepass", rn5.getEnablePass());
+                String autoen = "0";
+                if (rn5.isAutoEnable()){
+                    autoen = "1";
+                }
+                nodeModel.put("cloginautoenable", autoen);
+            }
+            
             return nodeModel;
         }
         catch (RancidApiException e) {
             throw e;
         }
     }
-   static public Map<String, Object> getRancidNode(String url, String group, String rancidName) throws RancidApiException{
-        
-        try {
-        
-            RancidNode rn = RWSClientApi.getRWSRancidNode(url, group, rancidName);
-            
-            Map<String, Object> nodeModel = new TreeMap<String, Object>();
-    //      Integer ii = Integer(ie.getElementId(4));
-    //      nodeModel.put("id", ii.toString());
+   static public Map<String, Object> getRancidNodeList(String rancidName, String groupname) throws RancidApiException{
+       
+       try {
+           
+           Map<String, Object> nodeModel = new TreeMap<String, Object>();
+           
+           List<InventoryWrapper> ranlist = new ArrayList<InventoryWrapper>();
+           
+           RancidNode rn = RWSClientApi.getRWSRancidNodeInventory(_URL, groupname, rancidName);
+
+           nodeModel.put("devicename", rn.getDeviceName());
+           
+           //*********
+           // version
+         
+           RWSResourceList versionList;
+           
+           versionList = RWSClientApi.getRWSResourceConfigList(_URL, groupname, rancidName);
+           
+           List<String> versionListStr= versionList.getResource();
+           
+           Iterator iter1 = versionListStr.iterator();
+           
+           String vs;
+           
+           while (iter1.hasNext()) {
+               vs = (String)iter1.next();
+               InventoryNode in = (InventoryNode)rn.getNodeVersions().get(vs);
+               InventoryWrapper inwr = new InventoryWrapper(in.getVersionId(), in.getExpirationDate(), groupname, in.getConfigurationUrl());
+               ranlist.add(inwr);
+           }
+           
+           nodeModel.put("grouptable", ranlist);
+           nodeModel.put("url", _URL);
+           
+           
+           return nodeModel;
+       }
+       catch (RancidApiException e) {
+           throw e;
+       }
+   }
+static public Map<String, Object> getRancidNodeList(String rancidName) throws RancidApiException{
+       
+       try {
+           
+           Map<String, Object> nodeModel = new TreeMap<String, Object>();
+           
+           RWSResourceList groups = RWSClientApi.getRWSResourceGroupsList(_URL);
+           
+           List<InventoryWrapper> ranlist = new ArrayList<InventoryWrapper>();
+           
+           List<String> grouplist = groups.getResource();
+           Iterator iter2 = grouplist.iterator();
+           
+           boolean first = true;
+           String groupname;
+           while (iter2.hasNext()) {
+               groupname = (String)iter2.next();
+           
+               RancidNode rn = RWSClientApi.getRWSRancidNodeInventory(_URL, groupname, rancidName);
     
-            nodeModel.put("status", rn.getState());
-            nodeModel.put("devicename", rn.getDeviceName());
-            nodeModel.put("devicetype", rn.getDeviceType());
-            nodeModel.put("comment", rn.getComment());
-            
-            return nodeModel;
-        }
-        catch (RancidApiException e) {
-            throw e;
-        }
-    }
+               if (first){
+                   nodeModel.put("devicename", rn.getDeviceName());
+                   first = false;
+               }
+               
+               //*********
+               // version
+             
+               RWSResourceList versionList;
+               
+               versionList = RWSClientApi.getRWSResourceConfigList(_URL, groupname, rancidName);
+               
+               List<String> versionListStr= versionList.getResource();
+               
+               Iterator iter1 = versionListStr.iterator();
+               
+               String vs;
+               
+               while (iter1.hasNext()) {
+                   vs = (String)iter1.next();
+                   InventoryNode in = (InventoryNode)rn.getNodeVersions().get(vs);
+                   InventoryWrapper inwr = new InventoryWrapper(in.getVersionId(), in.getExpirationDate(), groupname, in.getConfigurationUrl());
+                   ranlist.add(inwr);
+               }
+           }
+           
+           nodeModel.put("grouptable", ranlist);
+           nodeModel.put("url", _URL);
+           
+           
+           return nodeModel;
+       }
+       catch (RancidApiException e) {
+           throw e;
+       }
+   }
+   static public int updateCloginInfo(String device, String user, String password, String method, String autoenable, String enablepass) {
+       
+       try {
+           RancidNodeAuthentication rna = RWSClientApi.getRWSAuthNode(_URL, device);
+           //RancidNodeAuthentication rna = new RancidNodeAuthentication();
+           rna.setUser(user);
+           rna.setPassword(password);
+           rna.setConnectionMethod(method);
+           rna.setEnablePass(enablepass);
+           boolean autoe = false;
+           if (autoenable.compareTo("1")==0) {
+               autoe = true;
+           }
+           rna.setAutoEnable(autoe);
+           RWSClientApi.createOrUpdateRWSAuthNode(_URL,rna);
+           
+           return 0;
+       }
+       catch (RancidApiException e) {
+           return -1;
+       }
+   }
+   
+   static public Map<String, Object> getInventoryNode(String rancidName, String group, String version) throws RancidApiException{
+       
+       try {
+    
+           RancidNode rn = RWSClientApi.getRWSRancidNodeInventory(_URL, group, rancidName);
+       
+           InventoryNode in = (InventoryNode)rn.getNodeVersions().get(version);
+           
+           //InventoryWrapper tmpw = new InventoryWrapper(version, in.getExpirationDate(), group, in.getConfigurationUrl());
+                       
+           Map<String, Object> nodeModel = new TreeMap<String, Object>();
+   
+           nodeModel.put("devicename", rancidName);
+           nodeModel.put("groupname", group);
+           nodeModel.put("version", version);
+           nodeModel.put("status", in.getParent().getState());
+           nodeModel.put("expirationdate", in.getExpirationDate());
+           nodeModel.put("configurationurl", in.getConfigurationUrl());
+           nodeModel.put("url", _URL);
+           
+           return nodeModel;
+       }
+       catch (RancidApiException e) {
+           throw e;
+       }
+   }
 }

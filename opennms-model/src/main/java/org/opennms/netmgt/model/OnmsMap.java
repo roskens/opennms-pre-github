@@ -3,7 +3,7 @@
 //
 // OpenNMS(R) is Copyright (C) 2006 The OpenNMS Group, Inc.  All rights reserved.
 // OpenNMS(R) is a derivative work, containing both original code, included code and modified
-// code that was published under the GNU General Public License. Copyrights for modified 
+// code that was published under the GNU General Public License. Copyrights for modified
 // and included code are below.
 //
 // OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
@@ -69,15 +69,18 @@ public class OnmsMap implements Serializable {
     public static final String ACCESS_MODE_ADMIN = "RW";
     public static final String ACCESS_MODE_USER = "RO";
 
+    @XmlTransient
     @Id
     @Column(name="mapId")
     @SequenceGenerator(name="mapSequence", sequenceName="mapNxtId")
     @GeneratedValue(generator="mapSequence")
-    @XmlTransient
     private int id;
 
     @Column(name = "mapName")
     private String name;
+
+    @Column(name = "mapGroup")
+    private String mapGroup;
 
     @Column(name = "mapBackGround")
     private String background;
@@ -122,10 +125,10 @@ public class OnmsMap implements Serializable {
     @JoinColumn(name = "mapId")
     private List<OnmsMapElement> mapElements = new ArrayList<OnmsMapElement>();
 
-    @Transient
     @XmlTransient
+    @Transient
     private boolean isNew = false;
-        
+
     private static final long serialVersionUID = 3885485728813867167L;
 
     public OnmsMap() {
@@ -145,7 +148,7 @@ public class OnmsMap implements Serializable {
 
     public OnmsMap(String name, String background, String owner,
                String accessMode, String userLastModifies, float scale,
-               int offsetX, int offsetY, String type, int width, int height) {        
+               int offsetX, int offsetY, String type, int width, int height) {
         this.name = name;
         this.background = background;
         this.owner = owner;
@@ -184,6 +187,14 @@ public class OnmsMap implements Serializable {
         this.name = name;
     }
 
+    public String getMapGroup() {
+        return mapGroup;
+    }
+
+    public void setMapGroup(String mapGroup) {
+        this.mapGroup = mapGroup;
+    }
+
     public String getBackground() {
         return background;
     }
@@ -207,7 +218,7 @@ public class OnmsMap implements Serializable {
     public void setAccessMode(String accessMode) {
         if(accessMode.equals(ACCESS_MODE_USER) || accessMode.equals(ACCESS_MODE_ADMIN))
             this.accessMode = accessMode;
-        else            
+        else
             this.accessMode = ACCESS_MODE_USER;
     }
 

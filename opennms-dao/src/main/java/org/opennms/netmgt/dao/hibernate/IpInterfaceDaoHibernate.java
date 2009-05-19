@@ -57,7 +57,8 @@ public class IpInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsIpInterfac
         super(OnmsIpInterface.class);
         
         
-        m_findByServiceTypeQuery = System.getProperty("org.opennms.dao.ipinterface.findByServiceType", "select distinct ipIf from OnmsIpInterface as ipIf join ipIf.monitoredServices as monSvc where monSvc.serviceType.name = ?");
+        m_findByServiceTypeQuery = System.getProperty("org.opennms.dao.ipinterface.findByServiceType", 
+                                                      "select distinct ipIf from OnmsIpInterface as ipIf join ipIf.monitoredServices as monSvc where monSvc.serviceType.name = ?");
         
     }
 
@@ -67,6 +68,21 @@ public class IpInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsIpInterfac
 
     public Collection<OnmsIpInterface> findByIpAddress(String ipAddress) {
         return find("from OnmsIpInterface ipIf where ipIf.ipAddress = ?", ipAddress);
+    }
+    
+    public OnmsIpInterface findByNodeIdAndIpAddress(Integer nodeId, String ipAddress) {
+        return findUnique("select iface from OnmsIpInterface as iface where iface.node.id = ? and iface.ipAddress = ?", 
+                          nodeId, 
+                          ipAddress);
+        
+    }
+
+    public OnmsIpInterface findByForeignKeyAndIpAddress(String foreignSource, String foreignId, String ipAddress) {
+        return findUnique("select iface from OnmsIpInterface as iface join iface.node as node where node.foreignSource = ? and node.foreignId = ? and iface.ipAddress = ?", 
+                          foreignSource, 
+                          foreignId, 
+                          ipAddress);
+        
     }
 
     public Collection<OnmsIpInterface> findByServiceType(String svcName) {

@@ -36,37 +36,50 @@
 //
 package org.opennms.netmgt.snmp;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 public class ColumnTracker extends CollectionTracker {
     
     private SnmpObjId m_base;
     private SnmpObjId m_last;
-    private boolean m_finished = false;
     private int m_maxRepetitions;
 
     public ColumnTracker(SnmpObjId base) {
-        this(base, 2);
+        this(null, base);
+    }
+
+    public ColumnTracker(SnmpObjId base, int maxRepititions) {
+        this(null, base, maxRepititions);
     }
     
-    public ColumnTracker(SnmpObjId base, int maxRepititions) {
+    public ColumnTracker(CollectionTracker parent, SnmpObjId base) {
+        this(parent, base, 2);
+    }
+
+    public ColumnTracker(CollectionTracker parent, SnmpObjId base, int maxRepititions) {
+        super(parent);
         m_base = base;
         m_last = base;
-        m_maxRepetitions = maxRepititions; 
-    }
-    
-    @Override
-    public void setMaxRepititions(int maxRepititions) {
         m_maxRepetitions = maxRepititions;
     }
 
-    public boolean isFinished() {
-        return m_finished || !m_base.isPrefixOf(m_last);
+    public SnmpObjId getBase() {
+        return m_base;
     }
 
+    public String toString() {
+        return new ToStringBuilder(this)
+            .append("base", m_base)
+            .append("last oid", m_last)
+            .append("max repetitions", m_maxRepetitions)
+            .append("finished?", isFinished())
+            .toString();
+    }
     public ResponseProcessor buildNextPdu(PduBuilder pduBuilder) {
         if (pduBuilder.getMaxVarsPerPdu() < 1) {
             throw new IllegalArgumentException("maxVarsPerPdu < 1");
         }
-        
+
         pduBuilder.addOid(m_last);
         pduBuilder.setNonRepeaters(0);
         pduBuilder.setMaxRepetitions(getMaxRepetitions());
@@ -82,9 +95,14 @@ public class ColumnTracker extends CollectionTracker {
                 if (m_base.isPrefixOf(responseObjId) && !m_base.equals(responseObjId)) {
                     SnmpInstId inst = responseObjId.getInstance(m_base);
                     if (inst != null) {
-                        storeResult(m_base, inst, val);
+                        storeResult(new SnmpResult(m_base, inst, val));
                     }
                 }
+                
+                if (!m_base.isPrefixOf(m_last)) {
+                    setFinished(true);
+                }
+                
             }
 
             public boolean processErrors(int errorStatus, int errorIndex) {
@@ -112,17 +130,25 @@ public class ColumnTracker extends CollectionTracker {
     public int getMaxRepetitions() {
         return m_maxRepetitions;
     }
-    
+
+    @Override
     public void setMaxRepetitions(int maxRepetitions) {
         m_maxRepetitions = maxRepetitions;
     }
 
     protected void receivedEndOfMib() {
-        m_finished = true;
+        setFinished(true);
     }
 
     protected void errorOccurred() {
-        m_finished = true;
+        setFinished(true);
     }
 
+    public SnmpInstId getLastInstance() {
+        if (m_base.isPrefixOf(m_last) && !m_base.equals(m_last)) {
+            return m_last.getInstance(m_base);
+        } else {
+            return null;
+        }
+    }
 }

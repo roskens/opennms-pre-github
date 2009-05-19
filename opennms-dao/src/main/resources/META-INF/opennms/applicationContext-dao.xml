@@ -88,6 +88,10 @@
     <property name="transactionManager" ref="transactionManager" />
   </bean>
 
+  <bean id="acknowledgmentDao" class="org.opennms.netmgt.dao.hibernate.AcknowledgmentDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+
   <bean id="alarmDao" class="org.opennms.netmgt.dao.hibernate.AlarmDaoHibernate">
     <property name="sessionFactory" ref="sessionFactory" />
   </bean>
@@ -173,10 +177,6 @@
     <property name="monitoringLocationConfigResource" ref="locationMonitorConfigResourceLocation" />
   </bean>
   
-  <bean id="acknowledgmentDao" class="org.opennms.netmgt.dao.hibernate.AcknowledgmentDaoHibernate" >
-    <property name="sessionFactory" ref="sessionFactory" />
-  </bean>
-
   <bean id="surveillanceViewConfigResourceLocation" class="java.lang.String">
     <constructor-arg value="file:${opennms.home}/etc/surveillance-views.xml" />
   </bean>
@@ -258,5 +258,25 @@
   </bean>
   
   <bean id="snmpConfigDao" class="org.opennms.netmgt.dao.FactoryBasedSnmpConfigDao" />
+  
+  <bean id="javamailConfigResourceLocation" class="java.lang.String">
+    <constructor-arg value="file:${opennms.home}/etc/javamail-configuration.xml" />
+  </bean>
+
+  <bean id="javamailConfigDao" class="org.opennms.netmgt.dao.castor.DefaultJavamailConfigurationDao">
+    <property name="configResource" ref="javamailConfigResourceLocation" />
+  </bean>
+
+  <bean id="onmsMapDao" class="org.opennms.netmgt.dao.hibernate.OnmsMapDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="onmsMapElementDao" class="org.opennms.netmgt.dao.hibernate.OnmsMapElementDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="dataLinkInterfaceDao" class="org.opennms.netmgt.dao.hibernate.DataLinkInterfaceDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
   
 </beans>

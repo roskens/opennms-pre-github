@@ -35,9 +35,53 @@
  */
 package org.opennms.netmgt.model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 
 public enum AckType {
-    Unspecified,
-    Alarm,
-    Notification,
+    UNSPECIFIED(1, "Unspecified"),
+    ALARM(2, "Alarm"),
+    NOTIFICATION(3, "Notification");
+    
+    private static final Map<Integer, AckType> m_idMap; 
+    private static final List<Integer> m_ids;
+
+
+    private int m_id;
+    private String m_label;
+    
+    static {
+        m_ids = new ArrayList<Integer>(values().length);
+        m_idMap = new HashMap<Integer, AckType>(values().length);
+        for (AckType action : values()) {
+            m_ids.add(action.getId());
+            m_idMap.put(action.getId(), action);
+        }
+    }
+
+
+    private AckType(int id, String label) {
+        m_id = id;
+        m_label = label;
+    }
+    
+    private Integer getId() {
+        return m_id;
+    }
+    
+    @Override
+    public String toString() {
+        return m_label;
+    }
+
+    public static AckType get(int id) {
+        if (m_idMap.containsKey(id)) {
+            return m_idMap.get(id);
+        } else {
+            throw new IllegalArgumentException("Cannot create AckType from unknown ID: " + id);
+        }
+    }
 }

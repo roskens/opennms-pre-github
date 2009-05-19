@@ -69,7 +69,7 @@ public abstract class SnmpWalker {
         m_name = name;
 
         m_tracker = tracker;
-        m_tracker.setMaxRepititions(maxRepititions);
+        m_tracker.setMaxRepetitions(maxRepititions);
         
         m_maxVarsPerPdu = maxVarsPerPdu;
 
@@ -91,9 +91,9 @@ public abstract class SnmpWalker {
     }
 
     protected void buildAndSendNextPdu() throws IOException {
-        if (m_tracker.isFinished())
+        if (m_tracker.isFinished()) {
             handleDone();
-        else {
+        } else {
             m_pduBuilder.reset();
             m_responseProcessor = m_tracker.buildNextPdu(m_pduBuilder);
             sendNextPdu(m_pduBuilder);

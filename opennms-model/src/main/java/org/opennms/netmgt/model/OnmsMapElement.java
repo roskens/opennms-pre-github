@@ -49,16 +49,18 @@ import java.io.Serializable;
 @Entity
 @Table(name = "element")
 public class OnmsMapElement implements Serializable {
+    private static final long serialVersionUID = 1594163211618494443L;
+    
     public static final String MAP_TYPE = "M";
     public static final String NODE_TYPE = "N";
     public static final String defaultNodeIcon = "unspecified";
     public static final String defaultMapIcon = "map";
 
+    @XmlTransient
     @Id
     @Column(name="id")
     @SequenceGenerator(name = "opennmsSequence", sequenceName = "opennmsNxtId")
     @GeneratedValue(generator = "opennmsSequence")
-    @XmlTransient
     private int id;
 
     @Column(name = "elementId")
@@ -181,7 +183,7 @@ public class OnmsMapElement implements Serializable {
     public void setX(int x) {
         this.x = x;
     }
-   
+
     public int getY() {
         return y;
     }

@@ -46,6 +46,7 @@ public abstract class CollectionTracker implements Collectable {
     private CollectionTracker m_parent;
     private boolean m_failed = false;
     private boolean m_timedOut = false;
+    private boolean m_finished = false;
     
     
     public CollectionTracker() {
@@ -68,7 +69,7 @@ public abstract class CollectionTracker implements Collectable {
     
     public boolean timedOut() { return m_timedOut; }
     
-    abstract public void setMaxRepititions(int maxRepititions);
+    abstract public void setMaxRepetitions(int maxRepetitions);
     
     public void setFailed(boolean failed) {
         m_failed = failed;
@@ -78,32 +79,43 @@ public abstract class CollectionTracker implements Collectable {
         m_timedOut = timedOut;
     }
     
-    protected void storeResult(SnmpObjId base, SnmpInstId inst, SnmpValue val) {
-        if (m_parent != null)
-            m_parent.storeResult(base, inst, val);
+    protected void storeResult(SnmpResult res) {
+        if (m_parent != null) {
+            m_parent.storeResult(res);
+        }
     }
     
-    public abstract boolean isFinished();
+    public boolean isFinished() {
+        return m_finished;
+    }
+    
+    public final void setFinished(boolean finished) {
+        m_finished = finished;
+    }
 
     public abstract ResponseProcessor buildNextPdu(PduBuilder pduBuilder);
 
     protected void reportTooBigErr(String msg) {
-        if (m_parent != null)
+        if (m_parent != null) {
             m_parent.reportTooBigErr(msg);
+        }
     }
     
     protected void reportGenErr(String msg) {
-        if (m_parent != null)
+        if (m_parent != null) {
             m_parent.reportGenErr(msg);
+        }
     }
     
     protected void reportNoSuchNameErr(String msg) {
-        if (m_parent != null)
+        if (m_parent != null) {
             m_parent.reportNoSuchNameErr(msg);
+        }
     }
     
     public CollectionTracker getCollectionTracker() {
         return this;
     }
+
 
 }

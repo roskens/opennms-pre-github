@@ -31,9 +31,11 @@
 package org.opennms.netmgt.provision.detector;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.opennms.netmgt.provision.ServiceDetector;
 import org.opennms.netmgt.provision.detector.icmp.IcmpDetector;
 import org.opennms.netmgt.provision.detector.smb.SmbDetector;
 import org.opennms.netmgt.provision.detector.snmp.SnmpDetector;
@@ -49,27 +51,31 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations= {"classpath:/META-INF/opennms/detectors.xml"})
+@ContextConfiguration(locations= {"classpath:/META-INF/opennms/detectors.xml",
+        "classpath:/META-INF/opennms/test/snmpConfigFactoryContext.xml"})
 public class SimpleDetectorWiringTest implements ApplicationContextAware {
     
     private ApplicationContext m_applicationContext;
     
+    private void testWiredDetector(Class<? extends ServiceDetector> detectorClass) {
+        Object bean = m_applicationContext.getBean(detectorClass.getName());
+        assertNotNull(bean);
+        assertTrue(detectorClass.isInstance(bean));
+    }
+    
     @Test
     public void testIcmpDetectorWiring(){
-        IcmpDetector bean = (IcmpDetector) m_applicationContext.getBean("icmpDetector");
-        assertNotNull(bean);
+        testWiredDetector(IcmpDetector.class);
     }
     
     @Test
     public void testSmbDetectorWiring() {
-        SmbDetector bean = (SmbDetector) m_applicationContext.getBean("smbDetector");
-        assertNotNull(bean);
+        testWiredDetector(SmbDetector.class);
     }
     
     @Test
     public void testSnmpDetectorWiring() {
-        SnmpDetector bean = (SnmpDetector) m_applicationContext.getBean("snmpDetector");
-        assertNotNull(bean);
+        testWiredDetector(SnmpDetector.class);
     }
     
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {

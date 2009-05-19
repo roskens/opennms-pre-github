@@ -211,11 +211,12 @@
   <jsp:param name="breadcrumb" value="Node" />
 </jsp:include>
 
-<%--<link rel="stylesheet" type="text/css" href="extJS/resources/css/ext-all.css"/>
+<link rel="stylesheet" type="text/css" href="extJS/resources/css/ext-all.css"/>
 <link rel="stylesheet" type="text/css" href="extJS/resources/css/opennmsGridTheme.css" />
 <script type="text/javascript" src="extJS/adapter/ext/ext-base.js"></script>
 <script type="text/javascript" src="extJS/ext-all.js"></script>
-<script type="text/javascript" src="js/nodePageGrid.js"></script>--%>
+<script type="text/javascript" src="js/nodePageIpInterfaceGrid.js"></script>
+<script type="text/javascript" src="js/nodePageEventView.js"></script>
 
 <h2>Node: ${model.label}</h2>
 <div id="linkbar">
@@ -294,8 +295,11 @@
     </c:if>
   </ul>
 </div>
-<div id="grid-panel"></div>
+
 <div class="TwoColLeft">
+  <!-- node grid -->
+  <div id="grid-panel"></div>
+  
   <!-- general info box -->
   <h3>General (Status: ${model.status})</h3>
   <div class="boxWrapper">
@@ -479,13 +483,16 @@
 </div>
 
 <div class="TwoColRight">
+  <!-- node event view -->
+  <div id="event-view"></div>
+  
   <!-- notification box -->
   <jsp:include page="/includes/notification-box.jsp" flush="false" >
     <jsp:param name="node" value="${model.id}" />
   </jsp:include>
   
   <!-- events list  box -->
-  <c:url var="eventListUrl" value="event/list">
+  <%--<c:url var="eventListUrl" value="event/list">
     <c:param name="filter" value="node=${model.id}"/>
   </c:url>
   <jsp:include page="/includes/eventlist.jsp" flush="false" >
@@ -493,7 +500,7 @@
     <jsp:param name="throttle" value="5" />
     <jsp:param name="header" value="<a href='${eventListUrl}'>Recent Events</a>" />
     <jsp:param name="moreUrl" value="${eventListUrl}" />
-  </jsp:include>
+  </jsp:include>--%>
   
   <!-- Recent outages box -->
   <jsp:include page="/includes/nodeOutages-box.jsp" flush="false" />

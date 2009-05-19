@@ -61,6 +61,7 @@ import org.exolab.castor.xml.ValidationException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.opennms.netmgt.config.ackd.AckdConfiguration;
 import org.opennms.netmgt.config.actiond.ActiondConfiguration;
 import org.opennms.netmgt.config.ami.AmiConfig;
 import org.opennms.netmgt.config.archiver.events.EventsArchiverConfiguration;
@@ -69,6 +70,7 @@ import org.opennms.netmgt.config.categories.Catinfo;
 import org.opennms.netmgt.config.charts.ChartConfiguration;
 import org.opennms.netmgt.config.collectd.CollectdConfiguration;
 import org.opennms.netmgt.config.collectd.JmxDatacollectionConfig;
+import org.opennms.netmgt.config.common.JavamailConfiguration;
 import org.opennms.netmgt.config.datacollection.DatacollectionConfig;
 import org.opennms.netmgt.config.destinationPaths.DestinationPaths;
 import org.opennms.netmgt.config.dhcpd.DhcpdConfiguration;
@@ -118,6 +120,7 @@ import org.opennms.test.ConfigurationTestUtils;
 import org.opennms.test.mock.MockLogAppender;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.util.StringUtils;
+import org.opennms.netmgt.config.rancid.RancidConfiguration;
 
 /**
  * The name of this class is a tribute to
@@ -524,6 +527,18 @@ public class WillItUnmarshalTest {
     @Test
     public void testWmiDatacollectionConfiguration() throws Exception {
         unmarshal("wmi-datacollection-config.xml", WmiDatacollectionConfig.class);
+    }
+    @Test
+    public void testJavaMailConfiguration() throws Exception {
+        unmarshal("javamail-configuration.xml", JavamailConfiguration.class);
+    }
+    @Test
+    public void testAckdConfiguration() throws Exception {
+        unmarshal("ackd-configuration.xml", AckdConfiguration.class);
+    }
+    @Test
+    public void testRancidConfiguration() throws Exception {
+        unmarshal("rancid-configuration.xml", RancidConfiguration.class);
     }
 
     @Test

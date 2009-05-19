@@ -63,12 +63,11 @@ public class CorrelatorIntegrationTest extends AbstractTransactionalTemporaryDat
     @Override
     protected String[] getConfigLocations() {
         return new String[] {
-                "classpath:META-INF/opennms/applicationContext-dao.xml",
+//                "classpath:META-INF/opennms/applicationContext-dao.xml",
                 "classpath:META-INF/opennms/applicationContext-daemon.xml",
                 "classpath:META-INF/opennms/mockEventIpcManager.xml",
                 "classpath:META-INF/opennms/applicationContext-correlator.xml",
-                "classpath*:META-INF/opennms/correlation-engine.xml",
-        };
+                "classpath*:META-INF/opennms/correlation-engine.xml" };
     }
 
     public void setEventIpcManager(MockEventIpcManager eventIpcMgr) {

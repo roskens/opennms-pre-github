@@ -44,19 +44,19 @@ public abstract class AbstractSnmpStore {
 
     private Map<String, SnmpValue> m_responseMap = new TreeMap<String, SnmpValue>();
     public static final String IFINDEX = "ifIndex";
-    public abstract void storeResult(SnmpObjId base, SnmpInstId inst, SnmpValue val);
+    public abstract void storeResult(SnmpResult res);
 
     public AbstractSnmpStore() {
     }
 
     public Integer getInt32(String key) {
         SnmpValue val = getValue(key);
-        return (val == null ? null : new Integer(val.toInt()));
+        return (val == null ? null : Integer.valueOf(val.toInt()));
     }
 
     public Long getUInt32(String key) {
         SnmpValue val = getValue(key);
-        return (val == null ? null : new Long(val.toLong()));
+        return (val == null ? null : Long.valueOf(val.toLong()));
     }
 
     public String getDisplayString(String key) {

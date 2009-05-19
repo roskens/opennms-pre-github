@@ -29,14 +29,21 @@
  */
 package org.opennms.netmgt.provision.service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
 import org.opennms.netmgt.model.OnmsCategory;
 import org.opennms.netmgt.model.OnmsDistPoller;
+import org.opennms.netmgt.model.OnmsIpInterface;
+import org.opennms.netmgt.model.OnmsMonitoredService;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.OnmsServiceType;
+import org.opennms.netmgt.model.OnmsSnmpInterface;
+import org.opennms.netmgt.provision.ServiceDetector;
 import org.opennms.netmgt.provision.persist.ForeignSourceRepository;
+import org.opennms.netmgt.provision.persist.requisition.Requisition;
+import org.springframework.core.io.Resource;
 import org.springframework.transaction.annotation.Transactional;
 
 /*
@@ -95,7 +102,22 @@ public interface ProvisionService {
             boolean snmpDataForInterfacesUpToDate);
     
     @Transactional
-    public abstract OnmsNode getImportedNode(String foreignSource, String foreignId);
+    public abstract OnmsNode updateNodeAttributes(OnmsNode node);
+    
+    @Transactional
+    public abstract OnmsIpInterface updateIpInterfaceAttributes(Integer nodeId, OnmsIpInterface ipInterface);
+    
+    @Transactional
+    public OnmsSnmpInterface updateSnmpInterfaceAttributes(Integer nodeId, OnmsSnmpInterface snmpInterface);
+
+    @Transactional
+    public abstract OnmsMonitoredService addMonitoredService(Integer ipInterfaceId, String svcName);
+
+    @Transactional
+    public abstract OnmsMonitoredService addMonitoredService(Integer nodeId, String ipAddress, String serviceName);
+    
+    @Transactional
+    public abstract OnmsNode getRequisitionedNode(String foreignSource, String foreignId);
 
     /**
      * Delete the indicated node form the database.
@@ -173,5 +195,15 @@ public interface ProvisionService {
     public abstract NodeScanSchedule getScheduleForNode(int nodeId);
     
     public abstract void setForeignSourceRepository(ForeignSourceRepository foriengSourceRepository);
+
+    /**
+     * @param foreignSource
+     * @param resource
+     * @return
+     */
+    public abstract Requisition loadRequisition(Resource resource);
+
+    public abstract Collection<ServiceDetector> getDetectorsForForeignSource(String foreignSource);
+
 
 }

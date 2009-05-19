@@ -39,7 +39,6 @@ public class SingleInstanceTracker extends CollectionTracker {
     private SnmpObjId m_base;
     private SnmpInstId m_inst;
     private SnmpObjId m_oid;
-    private boolean m_finished = false;
     
     public SingleInstanceTracker(SnmpObjId base, SnmpInstId inst) {
         this(base, inst, null);
@@ -57,17 +56,14 @@ public class SingleInstanceTracker extends CollectionTracker {
     }
     
     @Override
-    public void setMaxRepititions(int maxRepititions) {
+    public void setMaxRepetitions(int maxRepititions) {
         // do nothing since we are not a repeater
     }
 
-    public boolean isFinished() {
-        return m_finished;
-    }
-
     public ResponseProcessor buildNextPdu(PduBuilder pduBuilder) {
-        if (pduBuilder.getMaxVarsPerPdu() < 1)
+        if (pduBuilder.getMaxVarsPerPdu() < 1) {
             throw new IllegalArgumentException("maxVarsPerPdu < 1");
+        }
         
         SnmpObjId requestOid = m_oid.decrement();
         log().debug("Requesting oid following: "+requestOid);
@@ -80,13 +76,15 @@ public class SingleInstanceTracker extends CollectionTracker {
             public void processResponse(SnmpObjId responseObjId, SnmpValue val) {
                 log().debug("Processing varBind: "+responseObjId+" = "+val);
                 
-                if (val.isEndOfMib())
+                if (val.isEndOfMib()) {
                     receivedEndOfMib();
-
-                m_finished = true;
-                if (m_oid.equals(responseObjId)) {
-                    storeResult(m_base, m_inst, val);
                 }
+
+                if (m_oid.equals(responseObjId)) {
+                    storeResult(new SnmpResult(m_base, m_inst, val));
+                }
+                
+                setFinished(true);
             }
 
             public boolean processErrors(int errorStatus, int errorIndex) {
@@ -117,12 +115,11 @@ public class SingleInstanceTracker extends CollectionTracker {
     }
 
     protected void errorOccurred() {
-        m_finished = true;
+        setFinished(true);
     }
 
     protected void receivedEndOfMib() {
-        m_finished = true;
+        setFinished(true);
     }
-
 
 }
