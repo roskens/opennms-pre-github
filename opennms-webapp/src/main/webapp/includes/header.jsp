@@ -63,11 +63,25 @@
   <c:forEach var="meta" items="${paramValues.meta}">
     <c:out value="${meta}" escapeXml="false"/>
   </c:forEach>
-  <base href="<%=org.opennms.web.Util.calculateUrlBase( request )%>" />
-  <link rel="stylesheet" type="text/css" href="css/styles.css" media="screen" />
-	<link rel="stylesheet" type="text/css" href="css/print.css" media="print" />
-	
+  <c:choose>
+    <c:when test="${param.nobase != 'true' }">
+        <base href="<%=org.opennms.web.Util.calculateUrlBase( request )%>" />
+    </c:when>
+  </c:choose>
+  <!--  ${nostyles} -->
+  <c:choose>
+    <c:when test="${param.nostyles != 'true' }">
+        <link rel="stylesheet" type="text/css" href="css/styles.css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="css/print.css" media="print" />
+    </c:when>
+  </c:choose>
+<c:forEach var="link" items="${paramValues.link}">
+    <c:out value="${link}" escapeXml="false" />
+  </c:forEach>
   <script type="text/javascript" src="js/global.js"></script>
+<c:forEach var="script" items="${paramValues.script}">
+    <c:out value="${script}" escapeXml="false" />
+  </c:forEach>
 </head>
 
 <%-- The <body> tag is unmatched in this file (its matching tag is in the

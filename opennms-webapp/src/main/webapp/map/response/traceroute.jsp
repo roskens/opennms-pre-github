@@ -53,10 +53,6 @@
         throw new MissingParameterException( "node", new String[] {"report", "node", "intf"} );
     }
     int nodeId = WebSecurityUtils.safeParseInt(nodeIdString);
-    
-    //required parameter intf
-    String intf = request.getParameter( "intf" );
-
 
 %>
 
@@ -81,23 +77,25 @@ function checkIpAddress(ip){
 
 
 function doCommand(){
-     var command = document.getElementById("command").value;
-     var address = document.getElementById("address").value;
-          
-     if(document.getElementById("numericOutput").checked){
-          	command=command+ " -n ";
-     }
-     if(document.getElementById("hopAddress").value!=""){
-	     if(!checkIpAddress(document.getElementById("hopAddress").value)){
-			alert("Invalid Hop IP address");
-			document.getElementById("hopAddress").focus();
-			return;
-		}
-	     command=command+" -g "+document.getElementById("hopAddress").value;
-     }
-     
-     window.close();
-     window.open('<%=org.opennms.web.Util.calculateUrlBase( request )%>ExecCommand.map?command='+command+'&address='+address, 'TraceRoute', 'toolbar,width='+self.screen.width-150+' ,height=300, left=0, top=0, scrollbars=1') ;
+    var url ='<%=org.opennms.web.Util.calculateUrlBase( request )%>ExecCommand.map?command='+document.getElementById("command").value;
+    var address = document.getElementById("address").value;
+    
+    url = url+'&address='+address;
+
+    if(document.getElementById("numericOutput").checked){
+ 	     url = url+'&numericOutput=true';
+    }
+    if(document.getElementById("hopAddress").value!=""){
+     if(!checkIpAddress(document.getElementById("hopAddress").value)){
+		alert("Invalid Hop IP address");
+		document.getElementById("hopAddress").focus();
+		return;
+	}
+     url=url+"&hopAddress="+document.getElementById("hopAddress").value;
+    }
+    
+    window.close();
+    window.open(url, 'TraceRoute', 'toolbar,width='+self.screen.width-150+' ,height=300, left=0, top=0, scrollbars=1') ;
 }
 </script>
 
@@ -113,9 +111,6 @@ function doCommand(){
           <td align="left">
             <h3>
               Node: <%=NetworkElementFactory.getNodeLabel(nodeId)%><br/>
-              <% if(intf != null ) { %>
-                Interface: <%=intf%>
-              <% } %>
             </h3>
           </td>
           <td>&nbsp;</td>
@@ -128,11 +123,6 @@ function doCommand(){
     <td height="20">&nbsp;</td>
   </tr>
 
-<%if(intf!=null){%>
-    <input type="hidden" id="address" name="address" value="<%=intf%>" />
-
-<%}%>
-
     <input type="hidden" id="command" name="command" value="traceroute" />
 
     <tr>
@@ -141,34 +131,28 @@ function doCommand(){
           <tr>
             <td>&nbsp;</td>
             <td>Ip Address: </td>
-	    <td>
-	                  <%
-	    	      String ipAddress = null;              
-	                  if( intf != null ){
-	                  	    ipAddress = intf;
-	                  }else{
-	                  %>
-	                        <% 
-	                        Interface[] intfs = NetworkElementFactory.getActiveInterfacesOnNode( nodeId );
-	                        for( int i=0; i < intfs.length; i++ ) { 
-	                        	if(intfs[i]!=null){
-	    				      ipAddress = intfs[i].getIpAddress();
-					      if(ipAddress.equals("0.0.0.0"))
-						continue;
-					      else
-						break;	    				      
-	    				  }                     	
-	    		        }
-	    		    
-	    		    if(ipAddress==null){
-	    		    	ipAddress="";
-	    		    }
-	                  }%>
-	                  <input type="text" size="10" id="address" name="address" value="<%=ipAddress%>" />
-            </td>  
-            <td colspan="2">&nbsp;</td>
-          </tr>
-          <tr>
+	    <td><select id="address" name="address">
+	<%
+    String ipAddress = null;              
+        Interface[] intfs = NetworkElementFactory.getActiveInterfacesOnNode( nodeId );
+        for( int i=0; i < intfs.length; i++ ) { 
+          	if(intfs[i]!=null){
+			    ipAddress = intfs[i].getIpAddress();
+				if(ipAddress.equals("0.0.0.0") || !intfs[i].isManaged())
+					continue;
+	      		else
+	%>
+	 	<option value="<%=ipAddress%>"><%=ipAddress%></option>
+    <%
+ 			}                     	
+ 		}
+ 		    
+    %>
+            </select>
+        </td>  
+        <td colspan="2">&nbsp;</td>
+        </tr>
+        <tr>
             <td>&nbsp;</td>
             <td>Forced hop IP:</td>
 	    <td><input id="hopAddress" type="text"  size="10" />

@@ -59,7 +59,7 @@ import org.opennms.netmgt.provision.persist.foreignsource.ForeignSource;
 import org.opennms.netmgt.provision.persist.foreignsource.PluginConfig;
 import org.opennms.netmgt.provision.persist.foreignsource.PolicyCollection;
 import org.opennms.netmgt.provision.persist.foreignsource.PolicyWrapper;
-import org.opennms.netmgt.provision.persist.requisition.OnmsForeignSourceCollection;
+import org.opennms.netmgt.provision.persist.requisition.ForeignSourceCollection;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,6 +93,13 @@ public class ForeignSourceRestService extends OnmsRestService {
     @Context
     SecurityContext m_securityContext;
 
+    @GET
+    @Path("default")
+    @Produces( { MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    public ForeignSource getDefaultForeignSource() throws ParseException {
+        return m_deployedForeignSourceRepository.getDefaultForeignSource();
+    }
+
     /**
      * Returns all the deployed foreign sources
      * 
@@ -102,8 +109,8 @@ public class ForeignSourceRestService extends OnmsRestService {
     @GET
     @Path("deployed")
     @Produces( { MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    public OnmsForeignSourceCollection getDeployedForeignSources() throws ParseException {
-        return new OnmsForeignSourceCollection(m_deployedForeignSourceRepository.getForeignSources());
+    public ForeignSourceCollection getDeployedForeignSources() throws ParseException {
+        return new ForeignSourceCollection(m_deployedForeignSourceRepository.getForeignSources());
     }
     
     /**
@@ -115,8 +122,8 @@ public class ForeignSourceRestService extends OnmsRestService {
     @GET
     @Path("pending")
     @Produces( { MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    public OnmsForeignSourceCollection getPendingForeignSources() throws ParseException {
-        return new OnmsForeignSourceCollection(m_pendingForeignSourceRepository.getForeignSources());
+    public ForeignSourceCollection getPendingForeignSources() throws ParseException {
+        return new ForeignSourceCollection(m_pendingForeignSourceRepository.getForeignSources());
     }
 
     /**

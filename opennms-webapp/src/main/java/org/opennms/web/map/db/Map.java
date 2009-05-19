@@ -20,6 +20,8 @@ public class Map {
 
     private String owner;
 
+    private String group;
+    
     private String accessMode;
 
     private String userLastModifies;
@@ -45,6 +47,10 @@ public class Map {
     public static final String AUTOMATICALLY_GENERATED_MAP = "A";
 
     public static final String DELETED_MAP = "D"; //for future use
+
+    public static final String ACCESS_MODE_ADMIN = "RW";
+    public static final String ACCESS_MODE_USER = "RO";
+    public static final String ACCESS_MODE_GROUP = "RWRO";
 
     private boolean isNew = false;
 
@@ -75,6 +81,25 @@ public class Map {
         this.width=width;
         this.height=height;
     }
+
+    public Map(int id, String name, String background, String owner, String group,
+            String accessMode, String userLastModifies, float scale,
+            int offsetX, int offsetY, String type, int width, int height) {
+        this.id = id;
+        this.name = name;
+        this.background = background;
+        this.owner = owner;
+        this.group = group;
+        this.accessMode = accessMode;
+        this.userLastModifies = userLastModifies;
+        this.scale = scale;
+        this.offsetX = offsetX;
+        this.offsetY = offsetY;
+        this.type = type;
+        this.width=width;
+        this.height=height;
+    }
+
 
     /**
      * @return Returns the accessMode.
@@ -268,4 +293,12 @@ public class Map {
 	public void setWidth(int width) {
 		this.width = width;
 	}
+
+    public String getGroup() {
+        return group;
+    }
+
+    public void setGroup(String group) {
+        this.group = group;
+    }
 }
