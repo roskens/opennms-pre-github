@@ -39,19 +39,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <jsp:include page="/includes/header.jsp" flush="false" >
-  <jsp:param name="title" value="Rancid" />
+  <jsp:param name="title" value="ViewVC" />
   <jsp:param name="headTitle" value="${model.id}" />
-  <jsp:param name="headTitle" value="Rancid" />
+  <jsp:param name="headTitle" value="ViewVC" />
   <jsp:param name="breadcrumb" value="<a href='element/index.jsp'>Search</a>" />
   <jsp:param name="breadcrumb" value="<a href='element/node.jsp?node=${model.db_id}'>Node</a>" />
-  <jsp:param name="breadcrumb" value="Rancid" />
+  <jsp:param name="breadcrumb" value="<a href='inventory/rancid.htm?node=${model.db_id}'>Rancid</a>" />
+  <jsp:param name="breadcrumb" value="ViewVC Group ${model.group}" />
 </jsp:include>
 
-<h2>Node: ${model.id} </h2>
-
-
-
-<iframe src =${model.iframelink} width="100%" height="300">
+<iframe src="${model.iframelink}" width="100%" height="300">
   <p>Your browser does not support iframes.</p>
 </iframe>
 

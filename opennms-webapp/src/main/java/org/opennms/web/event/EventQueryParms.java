@@ -38,7 +38,7 @@ package org.opennms.web.event;
 
 import java.util.List;
 
-import org.opennms.web.event.filter.Filter;
+import org.opennms.web.filter.Filter;
 
 /**
  * Convenience data structure for holding the arguments to an event query.
@@ -47,9 +47,9 @@ import org.opennms.web.event.filter.Filter;
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
 public class EventQueryParms extends Object {
-    public EventFactory.SortStyle sortStyle;
+    public SortStyle sortStyle;
 
-    public EventFactory.AcknowledgeType ackType;
+    public AcknowledgeType ackType;
 
     public List<Filter> filters;
 

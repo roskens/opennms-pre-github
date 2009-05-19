@@ -202,6 +202,7 @@ public class DefaultProvisionService implements ProvisionService {
         OnmsIpInterface dbIface = m_ipInterfaceDao.findByNodeIdAndIpAddress(nodeId, scannedIface.getIpAddress());
         if (dbIface != null) {
             dbIface.mergeInterfaceAttributes(scannedIface);
+            info("Updating IpInterface %s", dbIface);
             m_ipInterfaceDao.update(dbIface);
             return dbIface;
         } else {
@@ -223,6 +224,7 @@ public class DefaultProvisionService implements ProvisionService {
         if (dbSnmpIface != null) {
             // update the interface that was found
             dbSnmpIface.mergeSnmpInterfaceAttributes(snmpInterface);
+            info("Updating SnmpInterface %s", dbSnmpIface);
             m_snmpInterfaceDao.update(dbSnmpIface);
             return dbSnmpIface;
         } else {
@@ -232,6 +234,7 @@ public class DefaultProvisionService implements ProvisionService {
             // for performance reasons we don't add the snmp interface to the node so we avoid loading all the interfaces
             // setNode only sets the node in the interface
             snmpInterface.setNode(dbNode);
+            info("Saving SnmpInterface %s", snmpInterface);
             m_snmpInterfaceDao.save(snmpInterface);
             return snmpInterface;
         }
@@ -308,7 +311,10 @@ public class DefaultProvisionService implements ProvisionService {
     @Transactional
     public OnmsNode getRequisitionedNode(String foreignSource, String foreignId) throws ForeignSourceRepositoryException {
         OnmsNodeRequisition nodeReq = m_foreignSourceRepository.getNodeRequisition(foreignSource, foreignId);
-        Assert.notNull(nodeReq, "nodeReq for node "+foreignSource+":"+foreignId+" cannot be null!");
+        if (nodeReq == null) {
+            log().warn("nodeReq for node "+foreignSource+":"+foreignId+" cannot be null!");
+            return null;
+        }
         OnmsNode node = nodeReq.constructOnmsNodeFromRequisition();
         
         // fill in real db categories
@@ -505,12 +511,17 @@ public class DefaultProvisionService implements ProvisionService {
     
     private NodeScanSchedule createScheduleForNode(OnmsNode node, boolean force) {
         Assert.notNull(node, "Node may not be null");
+        if (node.getForeignSource() == null) {
+            log().info("Not scheduling node "+node+" to be scanned since it has a null foreignSource");
+            return null;
+        }
 
         ForeignSource fs = null;
         try {
             fs = m_foreignSourceRepository.getForeignSource(node.getForeignSource());
         } catch (ForeignSourceRepositoryException e) {
-            log().warn("unable to get foreign source repository", e);
+            log().warn(String.format("unable to get foreign source '%s' from repository", node.getForeignSource()), e);
+            return null;
         }
 
         Duration scanInterval = fs.getScanInterval();
@@ -608,6 +619,7 @@ public class DefaultProvisionService implements ProvisionService {
         
         iface.visit(new ServiceTypeFulfiller());
         
+        info("SaveOrUpdating IpInterface %s", iface);
         m_ipInterfaceDao.saveOrUpdate(iface);
         
         return iface;
@@ -694,5 +706,9 @@ public class DefaultProvisionService implements ProvisionService {
 
     private void info(String format, Object... args) {
         log().info(String.format(format, args));
+    }
+
+    private void debug(String format, Object... args) {
+        log().debug(String.format(format, args));
     }
 }

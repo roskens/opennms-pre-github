@@ -24,6 +24,27 @@ public class FilesystemForeignSourceRepository extends AbstractForeignSourceRepo
         super();
     }
 
+    public Set<String> getActiveForeignSourceNames() {
+        Set<String> fsNames = new TreeSet<String>();
+        File directory = new File(m_foreignSourcePath);
+        if (directory.exists()) {
+            for (File file : directory.listFiles()) {
+                if (file.getName().endsWith(".xml")) {
+                    fsNames.add(file.getName().replaceAll(".xml$", ""));
+                }
+            }
+        }
+        directory = new File(m_requisitionPath);
+        if (directory.exists()) {
+            for (File file : directory.listFiles()) {
+                if (file.getName().endsWith(".xml")) {
+                    fsNames.add(file.getName().replaceAll(".xml$", ""));
+                }
+            }
+        }
+        return fsNames;
+    }
+
     public void setUpdateDateStamps(boolean update) {
         m_updateDateStamps = update;
     }
@@ -62,6 +83,10 @@ public class FilesystemForeignSourceRepository extends AbstractForeignSourceRepo
     public synchronized void save(ForeignSource foreignSource) throws ForeignSourceRepositoryException {
         if (foreignSource == null) {
             throw new ForeignSourceRepositoryException("can't save a null foreign source!");
+        }
+        if (foreignSource.getName().equals("default")) {
+            putDefaultForeignSource(foreignSource);
+            return;
         }
         File outputFile = getOutputFileForForeignSource(foreignSource);
         FileWriter writer = null;

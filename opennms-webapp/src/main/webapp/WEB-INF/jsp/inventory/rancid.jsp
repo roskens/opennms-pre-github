@@ -55,6 +55,10 @@
 	  		<th>Node</th>
 	  		<td><a href="element/node.jsp?node=${model.db_id}">${model.id}</a></td>
 	  	</tr>
+ 		<tr>
+	  		<th>Foreign Source</th>
+	  		<td>${model.foreignSource}</td>
+	  	</tr>
 	</table>
 
 	<h3>Rancid Info</h3>
@@ -80,27 +84,52 @@
 </div>
 
 <div class="TwoColRight">
-<!-- general info box -->
-	<h3>Associated Elements</h3>
+<!-- Inventory info box -->
+	<h3>Inventory Elements</h3>
 	
 	<table class="o-box">
 	<tr>
 		<th>Group</th>
-		<th>CVS Root repository</th>
-		<th>Total revisions</th>
-		<th>Head version</th>
+		<th>Total Revisions</th>
+		<th>Last Version</th>
 		<th>Last Update</th>
 	</tr>
 	<c:forEach items="${model.grouptable}" var="groupelm" begin ="0" end="9">
 		<tr>
-			<td>${groupelm.group}</td>
-			<td><a href="inventory/rancidViewVc.htm?node=${model.db_id}&groupname=${groupelm.group}&version=${groupelm.headRevision}&viewvc=${groupelm.rootConfigurationUrl}">${model.id}</td>
-			<td>${groupelm.totalRevisions} <a href="inventory/rancidList.jsp?node=${model.db_id}&groupname=${groupelm.group}">(list)</a></td>
-			<td><a href="inventory/invnode.jsp?node=${model.db_id}&groupname=${groupelm.group}&version=${groupelm.headRevision}">${groupelm.headRevision}</td>
+			<td>${groupelm.group}
+			<a href="inventory/rancidViewVc.htm?node=${model.db_id}&groupname=${groupelm.group}&viewvc=${groupelm.rootConfigurationUrl}">(configurations)</a>
+			</td>
+			<td>${groupelm.totalRevisions} <a href="inventory/rancidList.htm?node=${model.db_id}&groupname=${groupelm.group}">(list)</a></td>
+			<td>${groupelm.headRevision}
+			<a href="inventory/invnode.htm?node=${model.db_id}&groupname=${groupelm.group}&version=${groupelm.headRevision}">(inventory)</a>
+			</td>
 			<td>${groupelm.creationDate}</td>
 		</tr>
 	</c:forEach>
-		<th colspan="5" ><a href="inventory/rancidList.jsp?node=${model.db_id}&groupname=*">entire group list...</a></th>
+	<tr>
+		<th colspan="4" ><a href="inventory/rancidList.htm?node=${model.db_id}&groupname=*">entire group list...</a></th>
+	</tr>
 	</table>
+
+<!-- Software image box -->
+	<h3>Software Images Stored</h3>
+	
+	<table class="o-box">
+	<tr>
+		<th>Name</th>
+		<th>Size</th>
+		<th>Last Modified</th>
+	</tr>
+	<c:forEach items="${model.bucketitems}" var="swimgelem">
+		<tr>
+			<td>${swimgelem.name}
+<a href="${model.url}/storage/buckets/${model.id}?filename=${swimgelem.name}">(download)</a>
+			</td>
+			<td>${swimgelem.size}</td>
+			<td>${swimgelem.lastModified}</td>
+		</tr>
+	</c:forEach>
+	</table>
+
 </div>
 <jsp:include page="/includes/footer.jsp" flush="false" />

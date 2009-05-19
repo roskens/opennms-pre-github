@@ -1,4 +1,8 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java"
+	import="
+	java.util.Map,
+	org.opennms.netmgt.provision.support.PluginWrapper
+	" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
@@ -36,14 +40,14 @@
 		<tree:nodeForm>
 			<tree:field label="name" property="name" />
 			<tree:select label="class" property="pluginClass" fieldSize="${classFieldWidth}" items="${detectorTypes}" />
-			<c:if test="${!empty pluginInfo[detector.pluginClass].optionalItems}">
+			<c:if test="${!empty detector.availableParameterKeys}">
 				<tree:action label="[Add Parameter]"  action="addParameter" />
 			</c:if>
 		</tree:nodeForm>
 
 		<tree:tree root="${detector}" childProperty="parameters" var="parameter" varStatus="detectorParameterIter">
 			<tree:nodeForm>
-				<tree:select label="key" property="key" items="${pluginInfo[detector.pluginClass].optionalKeys}" />
+				<tree:select label="key" property="key" items="${detector.availableParameterKeys}" />
 				<tree:field label="value" property="value" />
 			</tree:nodeForm>
 		</tree:tree>
@@ -57,7 +61,7 @@
 		<tree:nodeForm>
 			<tree:field label="name" property="name" />
 			<tree:select label="class" property="pluginClass" fieldSize="${classFieldWidth}" items="${policyTypes}" />
-			<c:if test="${!empty pluginInfo[policy.pluginClass].optionalItems}">
+			<c:if test="${!empty policy.availableParameterKeys}">
 				<tree:action label="[Add Parameter]"  action="addParameter" />
 			</c:if>
 		</tree:nodeForm>
@@ -82,7 +86,7 @@
 				<c:otherwise>
 					<c:set var="showDelete" value="true" scope="request" />
 					<tree:nodeForm>
-						<tree:select label="key" property="key" items="${pluginInfo[policy.pluginClass].optionalKeys}" />
+						<tree:select label="key" property="key" items="${policy.availableParameterKeys}" />
 	               		<tree:field label="value" property="value" />
 					</tree:nodeForm>
 				</c:otherwise>

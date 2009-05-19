@@ -39,14 +39,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.opennms.web.WebSecurityUtils;
+import org.opennms.web.event.AcknowledgeType;
 import org.opennms.web.event.Event;
 import org.opennms.web.event.EventFactory;
 import org.opennms.web.event.EventUtil;
-import org.opennms.web.event.EventFactory.AcknowledgeType;
-import org.opennms.web.event.EventFactory.SortStyle;
-import org.opennms.web.event.filter.Filter;
+import org.opennms.web.event.SortStyle;
 import org.opennms.web.event.filter.NodeFilter;
 import org.opennms.web.event.filter.SeverityFilter;
+import org.opennms.web.filter.Filter;
 
 import com.sun.syndication.feed.synd.SyndEntry;
 import com.sun.syndication.feed.synd.SyndEntryImpl;

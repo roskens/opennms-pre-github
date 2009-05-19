@@ -208,7 +208,7 @@ public class Collectd extends AbstractServiceDaemon implements
 
         // reinitializePrimarySnmpInterface
         ueiList.add(EventConstants.REINITIALIZE_PRIMARY_SNMP_INTERFACE_EVENT_UEI);
-
+        
         // interfaceReparented
         ueiList.add(EventConstants.INTERFACE_REPARENTED_EVENT_UEI);
 
@@ -1186,12 +1186,8 @@ public class Collectd extends AbstractServiceDaemon implements
         EventUtils.checkNodeId(event);
         EventUtils.checkInterface(event);
 
-        Category log = log();
-
-        if (event.getInterface() == null) {
-            log.error("reinitializePrimarySnmpInterface event is missing an interface.");
-            return;
-        }
+        int nodeid = (int) event.getNodeid();
+        String ipAddress = event.getInterface();
 
         // Mark the primary SNMP interface for reinitialization in
         // order to update any modified attributes associated with
@@ -1201,40 +1197,42 @@ public class Collectd extends AbstractServiceDaemon implements
         // updates map and mark any which have the same interface
         // address for reinitialization
         //
+        Category log = log();
+        
         OnmsIpInterface iface = null;
         synchronized (getCollectableServices()) {
             Iterator<CollectableService> iter = getCollectableServices().iterator();
             while (iter.hasNext()) {
                 CollectableService cSvc = iter.next();
-
+        
                 InetAddress addr = (InetAddress) cSvc.getAddress();
                 if (log.isDebugEnabled())
                     log.debug("Comparing CollectableService ip address = "
                             + addr.getHostAddress()
                             + " and event ip interface = "
-                            + event.getInterface());
-                if (addr.getHostAddress().equals(event.getInterface())) {
+                            + ipAddress);
+                if (addr.getHostAddress().equals(ipAddress)) {
                     synchronized (cSvc) {
                     	if (iface == null) {
-                    		iface = getIpInterface((int) event.getNodeid(), event.getInterface());
+                            iface = getIpInterface(nodeid, ipAddress);
                     	}
                         // Got a match! Retrieve the CollectorUpdates object
                         // associated
                         // with this CollectableService.
                         CollectorUpdates updates = cSvc.getCollectorUpdates();
-
+        
                         // Now set the reinitialization flag
                         updates.markForReinitialization(iface);
                         if (log.isDebugEnabled())
                             log.debug("reinitializePrimarySnmpInterfaceHandler: marking "
-                                    + event.getInterface()
+                                    + ipAddress
                                     + " for reinitialization for service SNMP.");
                     }
                 }
             }
         }
     }
-
+    
     /**
      * This method is responsible for handling serviceDeleted events.
      * 

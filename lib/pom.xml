@@ -2,12 +2,25 @@
   <parent>
     <groupId>org.opennms</groupId>
     <artifactId>opennms</artifactId>
-    <version>1.7.1-SNAPSHOT</version>
+    <version>1.7.1</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>org.opennms.lib</artifactId>
+  <version>1.7.2-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>OpenNMS Libraries</name>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>2.0-beta-9</version>
+        <configuration>
+          <tagBase>https://opennms.svn.sourceforge.net/svnroot/opennms/opennms/tags</tagBase>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
   <modules>
     <module>joesnmp</module>
     <module>service-registration</module>

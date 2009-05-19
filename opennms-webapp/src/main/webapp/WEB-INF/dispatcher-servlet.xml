@@ -19,13 +19,6 @@
 
   <bean	class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
 
-  <!-- view resolver to deal with Availability reports -->
-  
-  <bean id="reportViewResolver" class="org.springframework.web.servlet.view.XmlViewResolver">
-  	<property name="order" value="0"/>
-  	<property name="location" value="/WEB-INF/views.xml"/>
-  </bean>
-
   <bean id="defaultViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 	<property name="viewClass"
 	          value="org.springframework.web.servlet.view.JstlView" />
@@ -111,41 +104,6 @@
 	          value="org.opennms.web.controller.DaemonStatusBinder" />
 	<property name="successView" value="daemonstatus" />
   </bean>-->
-  
-  <bean name="outageFilterView"
-  	class="org.opennms.web.svclayer.outage.OutagesFilteringView">
-    <property name="categoryDao" ref="categoryDao"/>
-  </bean>
-  
-  <bean name="outageListBuilder"
-        class="org.opennms.web.svclayer.outage.OutageListBuilder"/>
-  
-  <bean name="/outage/list.htm"
-		class="org.opennms.web.controller.OutageListController">
-    <property name="outageService" ref="outageService" />
-    <property name="successView" value="outage/list"/>
-    <property name="defaultRowsDisplayed" value="25"/>
-    <property name="filterView" ref="outageFilterView"/>
-    <property name="outageListBuilder" ref="outageListBuilder"/>
-  </bean>
-	
-  <bean name="/outage/displayAllOutages.htm"
-		class="org.opennms.web.controller.OutageAllController">
-	<property name="outageService" ref="outageService" />
-	<property name="successView" value="outage/displayAllOutages"/>
-  </bean>
- 
-  <bean name="/outage/displaySuppressedOutages.htm"
-		class="org.opennms.web.controller.OutageSuppressedController">
-	<property name="outageService" ref="outageService" />
-	<property name="successView" value="outage/displaySuppressedOutages"/>
-  </bean>
-	
-  <bean name="/outage/displayResolvedOutages.htm"
-	    class="org.opennms.web.controller.OutageResolvedController">
-	<property name="outageService" ref="outageService" />
-	<property name="successView" value="outage/displayResolvedOutages"/>
-  </bean>
 
   <bean name="/distributedStatusSummary.htm"
 		class="org.opennms.web.controller.DistributedStatusSummaryController">
@@ -208,18 +166,6 @@
     <property name="nodeListService" ref="nodeListService" />
   </bean>
 
-  <!-- RANCID stuff -->
-  <bean name="/inventory/rancid.htm" class="org.opennms.web.controller.inventory.RancidController">
-    <property name="inventoryService" ref="inventoryService"/>
-  </bean>  
-    <bean name="/inventory/rancidViewVc.htm" class="org.opennms.web.controller.inventory.RancidViewVcController">
-    <property name="inventoryService" ref="inventoryService"/>
-  </bean>  
-  
-  <bean name="/admin/rancid/rancidAdmin.htm" class="org.opennms.web.controller.inventory.AdminRancidController">
-    <property name="inventoryService" ref="inventoryService"/>
-  </bean> 
-       
   <bean name="/alarm/ticket/create.htm" class="org.opennms.web.controller.alarm.AlarmTicketController">
   	<property name="troubleTicketProxy" ref="troubleTicketProxy" />
   </bean>
@@ -230,14 +176,66 @@
     <property name="troubleTicketProxy" ref="troubleTicketProxy" />
   </bean>
   
+  <bean name="/alarm/acknowledge" class="org.opennms.web.controller.alarm.AcknowledgeAlarmController">
+    <property name="webAlarmRepository" ref="webAlarmRepository" />
+    <property name="redirectView" value="/alarm/list.htm" />
+  </bean>
+  
+  <bean name="/alarm/acknowledgeByFilter" class="org.opennms.web.controller.alarm.AcknowledgeAlarmByFilterController">
+    <property name="webAlarmRepository" ref="webAlarmRepository" />
+    <property name="redirectView" value="/alarm/list.htm" />
+  </bean>
+
+  <bean name="/alarm/changeSeverity" class="org.opennms.web.controller.alarm.AlarmSeverityChangeController">
+    <property name="webAlarmRepository" ref="webAlarmRepository" />
+    <property name="redirectView" value="/alarm/list.htm" />
+  </bean>
+
   <bean name="/alarm/list.htm" class="org.opennms.web.controller.alarm.AlarmFilterController">
     <property name="successView" value="alarm/list" />
     <property name="defaultShortLimit" value="20" />
     <property name="defaultLongLimit" value="10" />
     <property name="defaultAcknowledgeType" value="UNACKNOWLEDGED" />
     <property name="defaultSortStyle" value="ID" />
+    <property name="webAlarmRepository" ref="webAlarmRepository" />
+  </bean>
+
+  <alias name="/outage/list.htm" alias="/outage/list" />
+  <bean name="/outage/list.htm" class="org.opennms.web.controller.outage.OutageFilterController">
+    <property name="successView" value="outage/list" />
+    <property name="defaultShortLimit" value="20" />
+    <property name="defaultLongLimit" value="10" />
+    <property name="defaultOutageType" value="CURRENT" />
+    <property name="defaultSortStyle" value="ID" />
+    <property name="webOutageRepository" ref="webOutageRepository" />
   </bean>
   
+  <alias name="/outage/detail.htm" alias="/outage/detail.jsp" />  
+  <bean name="/outage/detail.htm" class="org.opennms.web.controller.outage.OutageDetailController">
+    <property name="successView" value="outage/detail" />
+    <property name="webOutageRepository" ref="webOutageRepository" />
+  </bean>
+
+  <bean name="/outage/servicesdown-box.htm" class="org.opennms.web.controller.outage.OutageBoxController">
+    <property name="successView" value="outage/servicesdown-box" />
+    <property name="webOutageRepository" ref="webOutageRepository" />
+  </bean>
+
+  <bean name="/outage/nodeOutages-box.htm" class="org.opennms.web.controller.outage.NodeOutagesController">
+    <property name="successView" value="outage/nodeOutages-box" />
+    <property name="webOutageRepository" ref="webOutageRepository" />
+  </bean>
+
+  <bean name="/outage/interfaceOutages-box.htm" class="org.opennms.web.controller.outage.InterfaceOutagesController">
+    <property name="successView" value="outage/interfaceOutages-box" />
+    <property name="webOutageRepository" ref="webOutageRepository" />
+  </bean>
+
+  <bean name="/outage/serviceOutages-box.htm" class="org.opennms.web.controller.outage.ServiceOutagesController">
+    <property name="successView" value="outage/serviceOutages-box" />
+    <property name="webOutageRepository" ref="webOutageRepository" />
+  </bean>
+
   <bean name="/admin/distributed/locationMonitorResume.htm" class="org.opennms.web.controller.distributed.LocationMonitorResumeController">
     <property name="commandName"><value>command</value></property>
     <property name="commandClass"><value>org.opennms.web.command.LocationMonitorIdCommand</value></property>
@@ -404,11 +402,6 @@
   	<property name="pageSize" value="1"/>
   </bean>
   
-  <bean name="/report/availability/viewreport.htm"
-  		class="org.opennms.web.controller.SimpleXMLReportController">
-   		<property name="viewerService" ref="availabilityReportViewerService"/>
-  </bean>
-  
   <bean name="/graph/results.htm" class="org.opennms.web.controller.GraphResultsController">
     <property name="graphResultsService" ref="graphResultsService"/>
   </bean>
@@ -493,6 +486,69 @@
     <property name="statisticsReportService" ref="statisticsReportService" />
   </bean>
 
+ <!--  Rancid Integration -->
+   <!-- RANCID stuff -->
+  <bean name="/inventory/rancid.htm" class="org.opennms.web.controller.inventory.RancidController">
+    <property name="inventoryService" ref="inventoryService"/>
+  </bean>  
+
+  <bean name="/inventory/rancidList.htm" class="org.opennms.web.controller.inventory.RancidListController">
+    <property name="inventoryService" ref="inventoryService"/>
+  </bean>  
+  
+  <bean name="/inventory/invnode.htm" class="org.opennms.web.controller.inventory.InvNodeController">
+    <property name="inventoryService" ref="inventoryService"/>
+  </bean>  
+  
+  <bean name="/inventory/rancidViewVc.htm" class="org.opennms.web.controller.inventory.RancidViewVcController">
+    <property name="inventoryService" ref="inventoryService"/>
+  </bean>  
+  
+  <bean name="/admin/rancid/rancidAdmin.htm" class="org.opennms.web.controller.inventory.AdminRancidController">
+    <property name="inventoryService" ref="inventoryService"/>
+  </bean>        
+
+  <bean name="/admin/rancid/rancidCreate.htm" class="org.opennms.web.controller.inventory.AdminRancidCreateController">
+    <property name="inventoryService" ref="inventoryService"/>
+    <property name="commandClass" value="org.opennms.web.controller.inventory.AdminRancidRouterDbCommClass"/>
+    <property name="formView" value="admin/rancid/rancidAdmin"/>
+    <property name="successView" value="admin/rancid/rancidAdmin"/> 
+  </bean>   
+
+  <bean name="/admin/rancid/rancidUpdate.htm" class="org.opennms.web.controller.inventory.AdminRancidUpdateController">
+    <property name="inventoryService" ref="inventoryService"/>
+    <property name="commandClass" value="org.opennms.web.controller.inventory.AdminRancidRouterDbCommClass"/>
+    <property name="formView" value="admin/rancid/rancidAdmin"/>
+    <property name="successView" value="admin/rancid/rancidAdmin"/> 
+  </bean>   
+
+  <bean name="/admin/rancid/rancidDelete.htm" class="org.opennms.web.controller.inventory.AdminRancidDeleteController">
+    <property name="inventoryService" ref="inventoryService"/>
+    <property name="commandClass" value="org.opennms.web.controller.inventory.AdminRancidRouterDbCommClass"/>
+    <property name="formView" value="admin/rancid/rancidAdmin"/>
+    <property name="successView" value="admin/rancid/rancidAdmin"/> 
+  </bean>   
+ 
+  <bean name="/admin/rancid/rancidStatus.htm" class="org.opennms.web.controller.inventory.AdminRancidStatusController">
+    <property name="inventoryService" ref="inventoryService"/>
+    <property name="commandClass" value="org.opennms.web.controller.inventory.AdminRancidRouterDbCommClass"/>
+    <property name="formView" value="admin/rancid/rancidAdmin"/>
+    <property name="successView" value="admin/rancid/rancidAdmin"/> 
+  </bean>   
+
+  <bean name="/admin/rancid/rancidClogin.htm" class="org.opennms.web.controller.inventory.AdminRancidCloginUpdateController">
+    <property name="inventoryService" ref="inventoryService"/>
+    <property name="commandClass" value="org.opennms.web.controller.inventory.AdminRancidCloginCommClass"/>
+    <property name="formView" value="admin/rancid/rancidAdmin"/>
+    <property name="successView" value="admin/rancid/rancidAdmin"/> 
+  </bean>  
+
+  <bean name="/admin/rancid/rancidDeleteClogin.htm" class="org.opennms.web.controller.inventory.AdminRancidCloginDeleteController">
+    <property name="inventoryService" ref="inventoryService"/>
+    <property name="commandClass" value="org.opennms.web.controller.inventory.AdminRancidCloginCommClass"/>
+    <property name="formView" value="admin/rancid/rancidAdmin"/>
+    <property name="successView" value="admin/rancid/rancidAdmin"/> 
+  </bean>  
  
 	<!-- Examples
 		<bean name="/nodes.htm" class="org.opennms.controller.NodeController">

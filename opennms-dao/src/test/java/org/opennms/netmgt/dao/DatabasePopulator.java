@@ -55,6 +55,7 @@ import org.opennms.netmgt.model.OnmsMap;
 import org.opennms.netmgt.model.OnmsMapElement;
 import org.opennms.netmgt.model.OnmsMonitoredService;
 import org.opennms.netmgt.model.OnmsNode;
+import org.opennms.netmgt.model.OnmsNotification;
 import org.opennms.netmgt.model.OnmsOutage;
 import org.opennms.netmgt.model.OnmsServiceType;
 import org.opennms.netmgt.model.OnmsSeverity;
@@ -255,6 +256,12 @@ public class DatabasePopulator {
         event.setEventDisplay("Y");
         getEventDao().save(event);
         getEventDao().flush();
+        
+        OnmsNotification notif = new OnmsNotification();
+        notif.setEvent(event);
+        notif.setTextMsg("This is a test notification");
+        getNotificationDao().save(notif);
+        getNotificationDao().flush();
        
         OnmsMonitoredService svc = getMonitoredServiceDao().get(1, "192.168.1.1", "SNMP");
         OnmsOutage resolved = new OnmsOutage(new Date(), new Date(), event, event, svc, null, null);
@@ -273,8 +280,14 @@ public class DatabasePopulator {
         OnmsAlarm alarm = new OnmsAlarm();
         alarm.setDistPoller(getDistPollerDao().load("localhost"));
         alarm.setUei(event.getEventUei());
+        alarm.setAlarmType(1);
+        alarm.setNode(m_node1);
+        alarm.setDescription("This is a test alarm");
+        alarm.setLogMsg("this is a test alarm log message");
         alarm.setCounter(1);
+        alarm.setIpAddr("192.168.1.1");
         alarm.setSeverity(OnmsSeverity.NORMAL);
+        alarm.setFirstEventTime(event.getEventTime());
         alarm.setLastEvent(event);
         getAlarmDao().save(alarm);
         getAlarmDao().flush();

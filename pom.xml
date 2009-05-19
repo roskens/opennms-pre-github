@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.opennms</groupId>
   <artifactId>opennms</artifactId>
-  <version>1.7.1-SNAPSHOT</version>
+  <version>1.7.3-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>OpenNMS</name>
   <url>http://opennms.org</url>
@@ -800,27 +800,40 @@
       <dependency>
         <groupId>org.opennms.lib</groupId>
         <artifactId>org.opennms.lib.joesnmp</artifactId>
-        <version>${project.version}</version>
+        <version>1.7.1</version>
       </dependency>
       <dependency>
         <groupId>org.opennms.lib</groupId>
         <artifactId>org.opennms.lib.service-registration</artifactId>
-        <version>0.4-SNAPSHOT</version>
+        <version>0.5</version>
       </dependency>
       <dependency>
         <groupId>org.opennms.lib.snmp</groupId>
         <artifactId>org.opennms.lib.snmp.api</artifactId>
-        <version>${project.version}</version>
+        <version>1.7.1</version>
       </dependency>
       <dependency>
         <groupId>org.opennms.lib.snmp</groupId>
         <artifactId>org.opennms.lib.snmp.joesnmp</artifactId>
-        <version>${project.version}</version>
+        <version>1.7.1</version>
       </dependency>
       <dependency>
         <groupId>org.opennms.lib.snmp</groupId>
         <artifactId>org.opennms.lib.snmp.snmp4j</artifactId>
-        <version>${project.version}</version>
+        <version>1.7.1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms.lib.snmp</groupId>
+        <artifactId>org.opennms.lib.snmp.integration-tests</artifactId>
+        <version>1.7.1</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms.lib.snmp</groupId>
+        <artifactId>org.opennms.lib.snmp.integration-tests</artifactId>
+        <version>1.7.1</version>
+        <type>test-jar</type>
+        <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.opennms</groupId>
@@ -1106,7 +1119,7 @@
       <dependency>
         <groupId>org.opennms</groupId>
         <artifactId>rancid-api</artifactId>
-        <version>0.2-SNAPSHOT</version>
+        <version>0.5-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.dnsjava</groupId>

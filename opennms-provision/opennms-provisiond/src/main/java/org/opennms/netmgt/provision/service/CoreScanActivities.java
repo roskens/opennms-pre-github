@@ -170,24 +170,24 @@ public class CoreScanActivities {
     public void detectAgents(Phase currentPhase, NodeScan nodeScan) {
         
         boolean foundAgent = false;
-        
-        // someday I'll change this to use agentDetectors
-        OnmsIpInterface primaryIface = nodeScan.getNode().getPrimaryInterface();
-        if (primaryIface.getMonitoredServiceByServiceType("SNMP") != null) {
-            nodeScan.doAgentScan(currentPhase, primaryIface.getInetAddress(), "SNMP");
-            foundAgent = true;
+
+        if (!nodeScan.isAborted()) {
+            OnmsIpInterface primaryIface = nodeScan.getNode().getPrimaryInterface();
+            if (primaryIface.getMonitoredServiceByServiceType("SNMP") != null) {
+                nodeScan.doAgentScan(currentPhase, primaryIface.getInetAddress(), "SNMP");
+                foundAgent = true;
+            }
+            
+            if (!foundAgent) {
+                nodeScan.doNoAgentScan(currentPhase);
+            }
         }
-        
-        if (!foundAgent) {
-            nodeScan.doNoAgentScan(currentPhase);
-        }
-        
     }
     
     @Activity( lifecycle = "nodeScan", phase = "scanCompleted" )
     public void scanCompleted(Phase currentPhase, NodeScan nodeScan) {
         if (!nodeScan.isAborted()) {
-            EventBuilder bldr = new EventBuilder("uei.opennms.org/internal/provisiond/nodeScanCompleted", "Provisiond");
+            EventBuilder bldr = new EventBuilder(EventConstants.PROVISION_SCAN_COMPLETE_UEI, "Provisiond");
             bldr.setNodeid(nodeScan.getNodeId());
             bldr.addParam(EventConstants.PARM_FOREIGN_SOURCE, nodeScan.getForeignSource());
             bldr.addParam(EventConstants.PARM_FOREIGN_ID, nodeScan.getForeignId());
@@ -356,6 +356,17 @@ public class CoreScanActivities {
         System.err.println("agentScan.deleteObsoleteResources");
     }
     
+    @Activity( lifecycle = "agentScan", phase = "agentScanCompleted", schedulingHint="write")
+    public void agentScanCompleted(Phase currentPhase, AgentScan agentScan) {
+        if (!agentScan.isAborted()) {
+            EventBuilder bldr = new EventBuilder(EventConstants.REINITIALIZE_PRIMARY_SNMP_INTERFACE_EVENT_UEI, "Provisiond");
+            bldr.setNodeid(agentScan.getNodeId());
+            bldr.setInterface(agentScan.getAgentAddress().getHostAddress());
+            m_eventForwarder.sendNow(bldr.getEvent());
+        }
+        
+    }
+    
     @Activity( lifecycle = "noAgent", phase = "stampProvisionedInterfaces", schedulingHint="write")
     public void stampProvisionedInterfaces(Phase currentPhase, NoAgentScan scan) {
         if (scan.isAborted()) { return; }
@@ -378,7 +389,7 @@ public class CoreScanActivities {
         
         m_provisionService.deleteObsoleteInterfaces(scan.getNodeId(), scan.getScanStamp());
         
-        System.err.println("agentScan.deleteObsoleteResources");
+        System.err.println("noAgentScan.deleteObsoleteResources");
     }
     
     

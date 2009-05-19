@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.opennms.web.WebSecurityUtils;
-import org.opennms.web.acegisecurity.Authentication;
 import org.opennms.web.svclayer.inventory.InventoryService;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
@@ -29,7 +28,7 @@ public class RancidController implements Controller {
        
         String node = request.getParameter("node");
         int nodeid = WebSecurityUtils.safeParseInt(node);
-        Map<String, Object> model = m_inventoryService.getRancidNode(nodeid,request.isUserInRole(Authentication.ADMIN_ROLE));
+        Map<String, Object> model = m_inventoryService.getRancidNode(nodeid);
         ModelAndView modelAndView = new ModelAndView("inventory/rancid","model",model);
         return modelAndView;
     }

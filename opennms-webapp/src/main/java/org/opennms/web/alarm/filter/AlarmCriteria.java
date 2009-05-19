@@ -31,8 +31,9 @@
  */
 package org.opennms.web.alarm.filter;
 
-import org.opennms.web.alarm.AlarmFactory.AcknowledgeType;
-import org.opennms.web.alarm.AlarmFactory.SortStyle;
+import org.opennms.web.alarm.AcknowledgeType;
+import org.opennms.web.alarm.SortStyle;
+import org.opennms.web.filter.Filter;
 
 
 /**
@@ -64,6 +65,10 @@ public class AlarmCriteria {
     
     public AlarmCriteria(Filter... filters) {
         this(filters, null, null, -1, -1);
+    }
+    
+    public AlarmCriteria(AcknowledgeType ackType, Filter[] filters) {
+        this(filters, null, ackType, -1, -1);
     }
     
     public AlarmCriteria(Filter[] filters, SortStyle sortStyle, AcknowledgeType ackType, int limit, int offset) {

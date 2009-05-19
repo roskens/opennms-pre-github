@@ -2,7 +2,7 @@
   <parent>
     <groupId>org.opennms</groupId>
     <artifactId>opennms-provision</artifactId>
-    <version>1.7.1-SNAPSHOT</version>
+    <version>1.7.3-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>opennms-snmp-scanners</artifactId>
@@ -16,7 +16,6 @@
   	<dependency>
   		<groupId>org.opennms.lib.snmp</groupId>
   		<artifactId>org.opennms.lib.snmp.api</artifactId>
-  		<version>${project.version}</version>
   	</dependency>
   	<dependency>
   		<groupId>org.opennms</groupId>
@@ -32,13 +31,11 @@
   	<dependency>
   		<groupId>org.opennms.lib.snmp</groupId>
   		<artifactId>org.opennms.lib.snmp.integration-tests</artifactId>
-  		<version>${project.version}</version>
 		<scope>test</scope>
   	</dependency>
   	<dependency>
   	 <groupId>org.opennms.lib.snmp</groupId>
   	 <artifactId>org.opennms.lib.snmp.snmp4j</artifactId>
-  	 <version>${project.version}</version>
   	 <scope>test</scope>
   	</dependency>
   </dependencies>

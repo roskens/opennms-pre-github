@@ -47,6 +47,7 @@
 	contentType="text/html"
 	session="true"
 	import="org.opennms.web.WebSecurityUtils,
+			org.opennms.web.controller.alarm.*,
 			org.opennms.web.alarm.*,
 			org.opennms.netmgt.model.OnmsSeverity,
 	        org.opennms.web.acegisecurity.Authentication"
@@ -99,16 +100,16 @@
     if (alarm.getAcknowledgeTime()==null)
     {
         ackButtonName = "Acknowledge";
-        action = AcknowledgeAlarmServlet.ACKNOWLEDGE_ACTION;
+        action = AcknowledgeAlarmController.ACKNOWLEDGE_ACTION;
     }
     else
     {
         ackButtonName = "Unacknowledge";
-        action = AcknowledgeAlarmServlet.UNACKNOWLEDGE_ACTION;
+        action = AcknowledgeAlarmController.UNACKNOWLEDGE_ACTION;
     }
     
-    String escalateAction = AlarmSeverityChangeServlet.ESCALATE_ACTION;
-    String clearAction = AlarmSeverityChangeServlet.CLEAR_ACTION;
+    String escalateAction = AlarmSeverityChangeController.ESCALATE_ACTION;
+    String clearAction = AlarmSeverityChangeController.CLEAR_ACTION;
     if (alarm.getSeverity() == OnmsSeverity.CLEARED || (alarm.getSeverity().isGreaterThan(OnmsSeverity.NORMAL) && alarm.getSeverity().isLessThan(OnmsSeverity.CRITICAL))) {
     	showEscalate=true;
     }

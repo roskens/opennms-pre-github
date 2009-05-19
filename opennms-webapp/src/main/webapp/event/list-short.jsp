@@ -44,19 +44,39 @@
 
 --%>
 
-<%@page language="java"
-	contentType="text/html"
-	session="true"
-	import="org.opennms.web.event.*,
-		java.util.*,
-		java.sql.SQLException,
-		org.opennms.web.acegisecurity.Authentication,
-		org.opennms.web.event.filter.*,
-		org.opennms.web.WebSecurityUtils,
-		org.opennms.web.XssRequestWrapper
-		
-	"
-%>
+<%@page language="java"	contentType="text/html"	session="true" %>
+
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
+
+<%@page import="org.opennms.web.WebSecurityUtils" %>
+<%@page import="org.opennms.web.XssRequestWrapper" %>
+<%@page import="org.opennms.web.acegisecurity.Authentication" %>
+
+<%@page import="org.opennms.web.filter.Filter"%>
+
+<%@page import="org.opennms.web.event.EventUtil"%>
+<%@page import="org.opennms.web.event.Event"%>
+<%@page import="org.opennms.web.event.EventQueryParms"%>
+<%@page import="org.opennms.web.event.AcknowledgeEventServlet"%>
+
+<%@page import="org.opennms.web.event.filter.ExactUEIFilter"%>
+<%@page import="org.opennms.web.event.filter.NegativeExactUEIFilter"%>
+<%@page import="org.opennms.web.event.filter.SeverityFilter"%>
+<%@page import="org.opennms.web.event.filter.NegativeSeverityFilter"%>
+<%@page import="org.opennms.web.event.filter.AfterDateFilter"%>
+<%@page import="org.opennms.web.event.filter.BeforeDateFilter"%>
+<%@page import="org.opennms.web.event.filter.NodeFilter"%>
+<%@page import="org.opennms.web.event.filter.NegativeNodeFilter"%>
+<%@page import="org.opennms.web.event.filter.InterfaceFilter"%>
+<%@page import="org.opennms.web.event.filter.NegativeInterfaceFilter"%>
+<%@page import="org.opennms.web.event.filter.ServiceFilter"%>
+<%@page import="org.opennms.web.event.filter.NegativeServiceFilter"%>
+<%@page import="org.opennms.web.event.filter.AcknowledgedByFilter"%>
+<%@page import="org.opennms.web.event.filter.NegativeAcknowledgedByFilter"%>
+
+
+
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%--
@@ -74,23 +94,22 @@
 
     //required attributes
     Event[] events = (Event[])req.getAttribute( "events" );
+    Integer eventCount = (Integer)req.getAttribute( "eventCount" );
     EventQueryParms parms = (EventQueryParms)req.getAttribute( "parms" );
 
-    if( events == null || parms == null ) {
-	throw new ServletException( "Missing either the events or parms request attribute." );
+    if( events == null || parms == null || eventCount == null ) {
+        throw new ServletException( "Missing either the events, eventCount, or parms request attribute." );
     }
 
     String action = null;
 
-    if( parms.ackType == EventFactory.AcknowledgeType.UNACKNOWLEDGED ) {
+    if( parms.ackType == AcknowledgeType.UNACKNOWLEDGED ) {
         action = AcknowledgeEventServlet.ACKNOWLEDGE_ACTION;
     } 
-    else if( parms.ackType == EventFactory.AcknowledgeType.ACKNOWLEDGED ) {
+    else if( parms.ackType == AcknowledgeType.ACKNOWLEDGED ) {
         action = AcknowledgeEventServlet.UNACKNOWLEDGE_ACTION;
     }
 
-    int eventCount = EventFactory.getEventCount( parms.ackType, parms.getFilters() );    
-    
     //useful constant strings
     String addPositiveFilterString = "[+]";
     String addNegativeFilterString = "[-]";
@@ -99,7 +118,10 @@
 %>
 
 
-<jsp:include page="/includes/header.jsp" flush="false" >
+
+
+<%@page import="org.opennms.web.event.AcknowledgeType"%>
+<%@page import="org.opennms.web.event.SortStyle"%><jsp:include page="/includes/header.jsp" flush="false" >
   <jsp:param name="title" value="Event List" />
   <jsp:param name="headTitle" value="List" />
   <jsp:param name="headTitle" value="Events" />
@@ -183,12 +205,12 @@
       <!-- menu -->
       <div id="linkbar">
       <ul>
-        <li><a href="<%=this.makeLink( parms, new ArrayList<org.opennms.web.event.filter.Filter>())%>" title="Remove all search constraints" >View all events</a></li>
+        <li><a href="<%=this.makeLink( parms, new ArrayList<Filter>())%>" title="Remove all search constraints" >View all events</a></li>
         <li><a href="event/advsearch.jsp" title="More advanced searching and sorting options">Advanced Search</a></li>
         <li><a href="<%=org.opennms.web.Util.calculateUrlBase(req)%>/event/severity.jsp">Severity Legend</a></li>
       
       <% if( !(req.isUserInRole( Authentication.READONLY_ROLE ))) { %>
-        <% if( parms.ackType == EventFactory.AcknowledgeType.UNACKNOWLEDGED ) { %> 
+        <% if( parms.ackType == AcknowledgeType.UNACKNOWLEDGED ) { %> 
         <li><a href="javascript: void document.acknowledge_by_filter_form.submit()" onclick="return confirm('Are you sure you want to acknowledge all events in the current search including those not shown on your screen?  (<%=eventCount%> total events)')" title="Acknowledge all events that match the current search constraints, even those not shown on the screen">Acknowledge entire search</a></li>
         <% } else { %>
         <li><a href="javascript: void document.acknowledge_by_filter_form.submit()" onclick="return confirm('Are you sure you want to unacknowledge all events in the current search including those not shown on your screen)?  (<%=eventCount%> total events)')" title="Unacknowledge all events that match the current search constraints, even those not shown on the screen">Unacknowledge entire search</a></li>
@@ -219,17 +241,17 @@
               </jsp:include>
             <% } %>          
 
-            <% if( parms.filters.size() > 0 || parms.ackType == EventFactory.AcknowledgeType.UNACKNOWLEDGED || parms.ackType == EventFactory.AcknowledgeType.ACKNOWLEDGED ) { %>
+            <% if( parms.filters.size() > 0 || parms.ackType == AcknowledgeType.UNACKNOWLEDGED || parms.ackType == AcknowledgeType.ACKNOWLEDGED ) { %>
               <% int length = parms.filters.size(); %>
 
               <p>Search constraints: 
-                  <% if( parms.ackType == EventFactory.AcknowledgeType.UNACKNOWLEDGED ) { %>
-                  <span class="filter">Event(s) outstanding <a href="<%=this.makeLink(parms, EventFactory.AcknowledgeType.ACKNOWLEDGED)%>" title="Show acknowledged event(s)">[-]</a></span>
-                  <% } else if( parms.ackType == EventFactory.AcknowledgeType.ACKNOWLEDGED ) { %>
-                  <span class="filter">Event(s) acknowledged <a href="<%=this.makeLink(parms, EventFactory.AcknowledgeType.UNACKNOWLEDGED)%>" title="Show outstanding event(s)">[-]</a></span>
+                  <% if( parms.ackType == AcknowledgeType.UNACKNOWLEDGED ) { %>
+                  <span class="filter">Event(s) outstanding <a href="<%=this.makeLink(parms, AcknowledgeType.ACKNOWLEDGED)%>" title="Show acknowledged event(s)">[-]</a></span>
+                  <% } else if( parms.ackType == AcknowledgeType.ACKNOWLEDGED ) { %>
+                  <span class="filter">Event(s) acknowledged <a href="<%=this.makeLink(parms, AcknowledgeType.UNACKNOWLEDGED)%>" title="Show outstanding event(s)">[-]</a></span>
                   <% } %>
 									<% for( int i=0; i < length; i++ ) { %>
-									  <% org.opennms.web.event.filter.Filter filter = (org.opennms.web.event.filter.Filter)parms.filters.get(i); %>
+									  <% Filter filter = (Filter)parms.filters.get(i); %>
 									    &nbsp; <span class="filter"><%=WebSecurityUtils.sanitizeString(filter.getTextDescription())%> <a href="<%=this.makeLink( parms, filter, false)%>" title="Remove filter">[-]</a></span>                    
 									<% } %>
               </p>           
@@ -246,12 +268,12 @@
         <thead>
         <tr>
 					<th></th>
-          <th><%=this.makeSortLink( parms, EventFactory.SortStyle.ID,        EventFactory.SortStyle.REVERSE_ID,        "id",        "ID" )%></th>
-          <th><%=this.makeSortLink( parms, EventFactory.SortStyle.SEVERITY,  EventFactory.SortStyle.REVERSE_SEVERITY,  "severity",  "Severity"  )%></th>
-          <th><%=this.makeSortLink( parms, EventFactory.SortStyle.TIME,      EventFactory.SortStyle.REVERSE_TIME,      "time",      "Time"      )%></th>
-          <th><%=this.makeSortLink( parms, EventFactory.SortStyle.NODE,      EventFactory.SortStyle.REVERSE_NODE,      "node",      "Node"      )%></th>
-          <th><%=this.makeSortLink( parms, EventFactory.SortStyle.INTERFACE, EventFactory.SortStyle.REVERSE_INTERFACE, "interface", "Interface" )%></th>
-          <th><%=this.makeSortLink( parms, EventFactory.SortStyle.SERVICE,   EventFactory.SortStyle.REVERSE_SERVICE,   "service",   "Service"   )%></th>
+          <th><%=this.makeSortLink( parms, SortStyle.ID,        SortStyle.REVERSE_ID,        "id",        "ID" )%></th>
+          <th><%=this.makeSortLink( parms, SortStyle.SEVERITY,  SortStyle.REVERSE_SEVERITY,  "severity",  "Severity"  )%></th>
+          <th><%=this.makeSortLink( parms, SortStyle.TIME,      SortStyle.REVERSE_TIME,      "time",      "Time"      )%></th>
+          <th><%=this.makeSortLink( parms, SortStyle.NODE,      SortStyle.REVERSE_NODE,      "node",      "Node"      )%></th>
+          <th><%=this.makeSortLink( parms, SortStyle.INTERFACE, SortStyle.REVERSE_INTERFACE, "interface", "Interface" )%></th>
+          <th><%=this.makeSortLink( parms, SortStyle.SERVICE,   SortStyle.REVERSE_SERVICE,   "service",   "Service"   )%></th>
           <th>Ackd</th>
         </tr>
         </thead>     
@@ -265,7 +287,7 @@
             <% } %>
           <td class="noWrap"><a href="event/detail.jsp?id=<%=events[i].getId()%>"><%=events[i].getId()%></a>
 						<% if(events[i].getUei() != null) { %>
-	            <% org.opennms.web.event.filter.Filter exactUEIFilter = new ExactUEIFilter(events[i].getUei()); %>
+	            <% Filter exactUEIFilter = new ExactUEIFilter(events[i].getUei()); %>
 	              <abbr title="<%=events[i].getUei()%>">UEI</abbr>
 	            <% if( !parms.filters.contains( exactUEIFilter )) { %>
 	                <a href="<%=this.makeLink( parms, exactUEIFilter, true)%>" class="filterLink" title="Show only events with this UEI"><%=addPositiveFilterString%></a>
@@ -276,7 +298,7 @@
 
           <td class="bright noWrap"> 
             <%=EventUtil.getSeverityLabel(events[i].getSeverity())%>
-            <% org.opennms.web.event.filter.Filter severityFilter = new SeverityFilter(events[i].getSeverity()); %>      
+            <% Filter severityFilter = new SeverityFilter(events[i].getSeverity()); %>      
             <% if( !parms.filters.contains( severityFilter )) { %>
                 <a href="<%=this.makeLink( parms, severityFilter, true)%>" class="filterLink" title="Show only events with this severity"><%=addPositiveFilterString%></a>
                 <a href="<%=this.makeLink( parms, new NegativeSeverityFilter(events[i].getSeverity()), true)%>" class="filterLink" title="Do not show events with this severity"><%=addNegativeFilterString%></a>
@@ -289,7 +311,7 @@
           </td>
           <td class="noWrap">
 	    <% if(events[i].getNodeId() != 0 && events[i].getNodeLabel()!= null ) { %>
-              <% org.opennms.web.event.filter.Filter nodeFilter = new NodeFilter(events[i].getNodeId()); %>             
+              <% Filter nodeFilter = new NodeFilter(events[i].getNodeId()); %>             
               <% String[] labels = this.getNodeLabels( events[i].getNodeLabel() ); %>
               <a href="element/node.jsp?node=<%=events[i].getNodeId()%>" title="<%=labels[1]%>"><%=labels[0]%></a>   
               <% if( !parms.filters.contains(nodeFilter) ) { %>
@@ -300,7 +322,7 @@
           </td>
           <td class="noWrap">
             <% if(events[i].getIpAddress() != null ) { %>
-              <% org.opennms.web.event.filter.Filter intfFilter = new InterfaceFilter(events[i].getIpAddress()); %>
+              <% Filter intfFilter = new InterfaceFilter(events[i].getIpAddress()); %>
               <% if( events[i].getNodeId() != 0 ) { %>
                  <a href="element/interface.jsp?node=<%=events[i].getNodeId()%>&intf=<%=events[i].getIpAddress()%>" title="More info on this interface"><%=events[i].getIpAddress()%></a>
               <% } else { %>
@@ -314,7 +336,7 @@
           </td>
           <td class="noWrap">
             <% if(events[i].getServiceName() != null) { %>
-              <% org.opennms.web.event.filter.Filter serviceFilter = new ServiceFilter(events[i].getServiceId()); %>
+              <% Filter serviceFilter = new ServiceFilter(events[i].getServiceId()); %>
               <% if( events[i].getNodeId() != 0 && events[i].getIpAddress() != null ) { %>
                 <a href="element/service.jsp?node=<%=events[i].getNodeId()%>&intf=<%=events[i].getIpAddress()%>&service=<%=events[i].getServiceId()%>" title="More info on this service"><%=events[i].getServiceName()%></a>
               <% } else { %>
@@ -328,7 +350,7 @@
           </td>         
           <td><div class="clip">
             <% if (events[i].isAcknowledged()) { %>
-              <% org.opennms.web.event.filter.Filter acknByFilter = new AcknowledgedByFilter(events[i].getAcknowledgeUser()); %>      
+              <% Filter acknByFilter = new AcknowledgedByFilter(events[i].getAcknowledgeUser()); %>      
               <%=events[i].getAcknowledgeUser()%>
               <% if( !parms.filters.contains( acknByFilter )) { %>
                 <nobr>
@@ -350,11 +372,11 @@
       </table>
         <hr />
         <p style="margin-top:10px;"><% if( !(req.isUserInRole( Authentication.READONLY_ROLE ))) { %>
-            <% if( parms.ackType == EventFactory.AcknowledgeType.UNACKNOWLEDGED ) { %>
+            <% if( parms.ackType == AcknowledgeType.UNACKNOWLEDGED ) { %>
 							<input TYPE="reset" />
 							<input TYPE="button" VALUE="Select All" onClick="checkAllCheckboxes()"/>
               <input type="button" value="Acknowledge Events" onClick="submitForm('acknowledge')"/>
-            <% } else if( parms.ackType == EventFactory.AcknowledgeType.ACKNOWLEDGED ) { %>
+            <% } else if( parms.ackType == AcknowledgeType.ACKNOWLEDGED ) { %>
               <input TYPE="reset" />
 							<input TYPE="button" VALUE="Select All" onClick="checkAllCheckboxes()"/>
 							<input type="button" value="Unacknowledge Events" onClick="submitForm('unacknowledge')"/>
@@ -374,7 +396,7 @@
 <%!
     String urlBase = "event/list";
 
-    protected String makeSortLink( EventQueryParms parms, EventFactory.SortStyle style, EventFactory.SortStyle revStyle, String sortString, String title ) {
+    protected String makeSortLink( EventQueryParms parms, SortStyle style, SortStyle revStyle, String sortString, String title ) {
       StringBuffer buffer = new StringBuffer();
 
       buffer.append( "<nobr>" );
@@ -408,7 +430,7 @@
     }
 
     
-    public String getFiltersAsString(List<org.opennms.web.event.filter.Filter> filters ) {
+    public String getFiltersAsString(List<Filter> filters ) {
         StringBuffer buffer = new StringBuffer();
     
         if( filters != null ) {
@@ -422,7 +444,7 @@
         return( buffer.toString() );
     }
 
-    public String makeLink( EventFactory.SortStyle sortStyle, EventFactory.AcknowledgeType ackType, List<org.opennms.web.event.filter.Filter> filters, int limit ) {
+    public String makeLink( SortStyle sortStyle, AcknowledgeType ackType, List<Filter> filters, int limit ) {
       StringBuffer buffer = new StringBuffer( this.urlBase );
       buffer.append( "?sortby=" );
       buffer.append( EventUtil.getSortStyleString(sortStyle) );
@@ -442,23 +464,23 @@
     }
 
 
-    public String makeLink( EventQueryParms parms, EventFactory.SortStyle sortStyle ) {
+    public String makeLink( EventQueryParms parms, SortStyle sortStyle ) {
       return( this.makeLink( sortStyle, parms.ackType, parms.filters, parms.limit) );
     }
 
 
-    public String makeLink( EventQueryParms parms, EventFactory.AcknowledgeType ackType ) {
+    public String makeLink( EventQueryParms parms, AcknowledgeType ackType ) {
       return( this.makeLink( parms.sortStyle, ackType, parms.filters, parms.limit) );
     }
 
 
-    public String makeLink( EventQueryParms parms, List<org.opennms.web.event.filter.Filter> filters ) {
+    public String makeLink( EventQueryParms parms, List<Filter> filters ) {
       return( this.makeLink( parms.sortStyle, parms.ackType, filters, parms.limit) );
     }
 
 
-    public String makeLink( EventQueryParms parms, org.opennms.web.event.filter.Filter filter, boolean add ) {
-      List<org.opennms.web.event.filter.Filter> newList = new ArrayList<org.opennms.web.event.filter.Filter>( parms.filters );
+    public String makeLink( EventQueryParms parms, Filter filter, boolean add ) {
+      List<Filter> newList = new ArrayList<Filter>( parms.filters );
       if( add ) {
         newList.add( filter );
       }

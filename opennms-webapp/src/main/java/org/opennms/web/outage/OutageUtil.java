@@ -54,100 +54,15 @@ import org.opennms.web.outage.filter.NegativeInterfaceFilter;
 import org.opennms.web.outage.filter.NegativeNodeFilter;
 import org.opennms.web.outage.filter.NegativeServiceFilter;
 import org.opennms.web.outage.filter.NodeFilter;
-import org.opennms.web.outage.filter.OutageFilter;
+import org.opennms.web.outage.filter.OutageIdFilter;
 import org.opennms.web.outage.filter.RegainedServiceDateAfterFilter;
 import org.opennms.web.outage.filter.RegainedServiceDateBeforeFilter;
 import org.opennms.web.outage.filter.ServiceFilter;
 
 public abstract class OutageUtil extends Object {
-    protected static final Map<OutageFactory.SortStyle, String> sortStyles;
-    
-    protected static final Map<String, OutageFactory.SortStyle> sortStylesString;
-
-    protected static final Map<OutageFactory.OutageType, String> outTypes;
-    
-    protected static final Map<String, OutageFactory.OutageType> outTypesString;
-
     protected static final String DOWN_COLOR = "red";
 
-    public static final String FILTER_SERVLET_URL_BASE = "outage/list";
-
-    static {
-        // integer -> style mappings
-        sortStylesString = new HashMap<String, OutageFactory.SortStyle>();
-        sortStylesString.put(Integer.toString(OutageFactory.SortStyle._NODE), OutageFactory.SortStyle.NODE);
-        sortStylesString.put(Integer.toString(OutageFactory.SortStyle._INTERFACE), OutageFactory.SortStyle.INTERFACE);
-        sortStylesString.put(Integer.toString(OutageFactory.SortStyle._SERVICE), OutageFactory.SortStyle.SERVICE);
-        sortStylesString.put(Integer.toString(OutageFactory.SortStyle._IFLOSTSERVICE), OutageFactory.SortStyle.IFLOSTSERVICE);
-        sortStylesString.put(Integer.toString(OutageFactory.SortStyle._IFREGAINEDSERVICE), OutageFactory.SortStyle.IFREGAINEDSERVICE);
-        sortStylesString.put(Integer.toString(OutageFactory.SortStyle._ID), OutageFactory.SortStyle.ID);
-        sortStylesString.put(Integer.toString(OutageFactory.SortStyle._REVERSE_NODE), OutageFactory.SortStyle.REVERSE_NODE);
-        sortStylesString.put(Integer.toString(OutageFactory.SortStyle._REVERSE_INTERFACE), OutageFactory.SortStyle.REVERSE_INTERFACE);
-        sortStylesString.put(Integer.toString(OutageFactory.SortStyle._REVERSE_SERVICE), OutageFactory.SortStyle.REVERSE_SERVICE);
-        sortStylesString.put(Integer.toString(OutageFactory.SortStyle._REVERSE_IFLOSTSERVICE), OutageFactory.SortStyle.REVERSE_IFLOSTSERVICE);
-        sortStylesString.put(Integer.toString(OutageFactory.SortStyle._REVERSE_IFREGAINEDSERVICE), OutageFactory.SortStyle.REVERSE_IFREGAINEDSERVICE);
-        sortStylesString.put(Integer.toString(OutageFactory.SortStyle._REVERSE_ID), OutageFactory.SortStyle.REVERSE_ID);
-
-        // style -> integer mappings
-        sortStyles = new HashMap<OutageFactory.SortStyle, String>();
-        sortStyles.put(OutageFactory.SortStyle.NODE, Integer.toString(OutageFactory.SortStyle._NODE));
-        sortStyles.put(OutageFactory.SortStyle.INTERFACE, Integer.toString(OutageFactory.SortStyle._INTERFACE));
-        sortStyles.put(OutageFactory.SortStyle.SERVICE, Integer.toString(OutageFactory.SortStyle._SERVICE));
-        sortStyles.put(OutageFactory.SortStyle.IFLOSTSERVICE, Integer.toString(OutageFactory.SortStyle._IFLOSTSERVICE));
-        sortStyles.put(OutageFactory.SortStyle.IFREGAINEDSERVICE, Integer.toString(OutageFactory.SortStyle._IFREGAINEDSERVICE));
-        sortStyles.put(OutageFactory.SortStyle.ID, Integer.toString(OutageFactory.SortStyle._ID));
-        sortStyles.put(OutageFactory.SortStyle.REVERSE_NODE, Integer.toString(OutageFactory.SortStyle._REVERSE_NODE));
-        sortStyles.put(OutageFactory.SortStyle.REVERSE_INTERFACE, Integer.toString(OutageFactory.SortStyle._REVERSE_INTERFACE));
-        sortStyles.put(OutageFactory.SortStyle.REVERSE_SERVICE, Integer.toString(OutageFactory.SortStyle._REVERSE_SERVICE));
-        sortStyles.put(OutageFactory.SortStyle.REVERSE_IFLOSTSERVICE, Integer.toString(OutageFactory.SortStyle._REVERSE_IFLOSTSERVICE));
-        sortStyles.put(OutageFactory.SortStyle.REVERSE_IFREGAINEDSERVICE, Integer.toString(OutageFactory.SortStyle._REVERSE_IFREGAINEDSERVICE));
-        sortStyles.put(OutageFactory.SortStyle.REVERSE_ID, Integer.toString(OutageFactory.SortStyle._REVERSE_ID));
-
-
-        // integer -> outage type mappings
-        outTypesString = new HashMap<String, OutageFactory.OutageType>();
-        outTypesString.put(Integer.toString(OutageFactory.OutageType._CURRENT), OutageFactory.OutageType.CURRENT);
-        outTypesString.put(Integer.toString(OutageFactory.OutageType._RESOLVED), OutageFactory.OutageType.RESOLVED);
-        outTypesString.put(Integer.toString(OutageFactory.OutageType._BOTH), OutageFactory.OutageType.BOTH);
-
-        // outage type -> integer mappings
-        outTypes = new HashMap<OutageFactory.OutageType, String>();
-        outTypes.put(OutageFactory.OutageType.CURRENT, Integer.toString(OutageFactory.OutageType._CURRENT));
-        outTypes.put(OutageFactory.OutageType.RESOLVED, Integer.toString(OutageFactory.OutageType._RESOLVED));
-        outTypes.put(OutageFactory.OutageType.BOTH, Integer.toString(OutageFactory.OutageType._BOTH));
-    }
-
-    public static OutageFactory.SortStyle getSortStyle(String sortStyleString) {
-        if (sortStyleString == null) {
-            throw new IllegalArgumentException("Cannot take null parameters.");
-        }
-
-        return sortStylesString.get(sortStyleString.toLowerCase());
-    }
-
-    public static String getSortStyleString(OutageFactory.SortStyle sortStyle) {
-        if (sortStyle == null) {
-            throw new IllegalArgumentException("Cannot take null parameters.");
-        }
-
-        return sortStyles.get(sortStyle);
-    }
-
-    public static OutageFactory.OutageType getOutageType(String outTypeString) {
-        if (outTypeString == null) {
-            throw new IllegalArgumentException("Cannot take null parameters.");
-        }
-
-        return outTypesString.get(outTypeString.toLowerCase());
-    }
-
-    public static String getOutageTypeString(OutageFactory.OutageType outType) {
-        if (outType == null) {
-            throw new IllegalArgumentException("Cannot take null parameters.");
-        }
-
-        return outTypes.get(outType);
-    }
+    public static final String FILTER_SERVLET_URL_BASE = "outage/list.htm";
 
     public static Filter getFilter(String filterString) {
         if (filterString == null) {
@@ -166,8 +81,8 @@ public abstract class OutageUtil extends Object {
             filter = new InterfaceFilter(value);
         } else if (type.equals(ServiceFilter.TYPE)) {
             filter = new ServiceFilter(WebSecurityUtils.safeParseInt(value));
-        } else if (type.equals(OutageFilter.TYPE)) {
-            filter = new OutageFilter(WebSecurityUtils.safeParseInt(value));
+        } else if (type.equals(OutageIdFilter.TYPE)) {
+            filter = new OutageIdFilter(WebSecurityUtils.safeParseInt(value));
         } else if (type.equals(NegativeNodeFilter.TYPE)) {
             filter = new NegativeNodeFilter(WebSecurityUtils.safeParseInt(value));
         } else if (type.equals(NegativeInterfaceFilter.TYPE)) {
@@ -227,7 +142,7 @@ public abstract class OutageUtil extends Object {
 
     protected static final String[] LINK_IGNORES = new String[] { "sortby", "outtype", "limit", "multiple", "filter" };
 
-    public static String makeLink(HttpServletRequest request, OutageFactory.SortStyle sortStyle, OutageFactory.OutageType outageType, List<Filter> filters, int limit) {
+    public static String makeLink(HttpServletRequest request, SortStyle sortStyle, OutageType outageType, List<Filter> filters, int limit) {
         if (request == null || sortStyle == null || outageType == null || filters == null) {
             throw new IllegalArgumentException("Cannot take null parameters.");
         }
@@ -237,8 +152,8 @@ public abstract class OutageUtil extends Object {
         }
 
         Map<String, Object> additions = new HashMap<String, Object>();
-        additions.put("sortby", OutageUtil.getSortStyleString(sortStyle));
-        additions.put("outtype", OutageUtil.getOutageTypeString(outageType));
+        additions.put("sortby", sortStyle.getShortName());
+        additions.put("outtype", outageType.getShortName());
         additions.put("limit", Integer.toString(limit));
 
         if (filters != null) {
@@ -262,7 +177,7 @@ public abstract class OutageUtil extends Object {
         return makeLink(request, parms.sortStyle, parms.outageType, parms.filters, parms.limit);
     }
 
-    public static String makeLink(HttpServletRequest request, OutageQueryParms parms, OutageFactory.SortStyle sortStyle) {
+    public static String makeLink(HttpServletRequest request, OutageQueryParms parms, SortStyle sortStyle) {
         if (request == null || parms == null || sortStyle == null) {
             throw new IllegalArgumentException("Cannot take null parameters.");
         }
@@ -270,7 +185,7 @@ public abstract class OutageUtil extends Object {
         return makeLink(request, sortStyle, parms.outageType, parms.filters, parms.limit);
     }
 
-    public static String makeLink(HttpServletRequest request, OutageQueryParms parms, OutageFactory.OutageType outageType) {
+    public static String makeLink(HttpServletRequest request, OutageQueryParms parms, OutageType outageType) {
         if (request == null || parms == null || outageType == null) {
             throw new IllegalArgumentException("Cannot take null parameters.");
         }
@@ -302,7 +217,7 @@ public abstract class OutageUtil extends Object {
         return makeLink(request, parms.sortStyle, parms.outageType, newList, parms.limit);
     }
 
-    public static String makeHiddenTags(HttpServletRequest request, OutageFactory.SortStyle sortStyle, OutageFactory.OutageType outageType, List<Filter> filters, int limit) {
+    public static String makeHiddenTags(HttpServletRequest request, SortStyle sortStyle, OutageType outageType, List<Filter> filters, int limit) {
         if (request == null || sortStyle == null || outageType == null || filters == null) {
             throw new IllegalArgumentException("Cannot take null parameters.");
         }
@@ -312,8 +227,8 @@ public abstract class OutageUtil extends Object {
         }
 
         Map<String, Object> additions = new HashMap<String, Object>();
-        additions.put("sortby", OutageUtil.getSortStyleString(sortStyle));
-        additions.put("outtype", OutageUtil.getOutageTypeString(outageType));
+        additions.put("sortby", sortStyle.getShortName());
+        additions.put("outtype", outageType.getShortName());
         additions.put("limit", Integer.toString(limit));
 
         if (filters != null) {
@@ -337,7 +252,7 @@ public abstract class OutageUtil extends Object {
         return makeHiddenTags(request, parms.sortStyle, parms.outageType, parms.filters, parms.limit);
     }
 
-    public static String makeHiddenTags(HttpServletRequest request, OutageQueryParms parms, OutageFactory.SortStyle sortStyle) {
+    public static String makeHiddenTags(HttpServletRequest request, OutageQueryParms parms, SortStyle sortStyle) {
         if (request == null || parms == null || sortStyle == null) {
             throw new IllegalArgumentException("Cannot take null parameters.");
         }
@@ -345,7 +260,7 @@ public abstract class OutageUtil extends Object {
         return makeHiddenTags(request, sortStyle, parms.outageType, parms.filters, parms.limit);
     }
 
-    public static String makeHiddenTags(HttpServletRequest request, OutageQueryParms parms, OutageFactory.OutageType outageType) {
+    public static String makeHiddenTags(HttpServletRequest request, OutageQueryParms parms, OutageType outageType) {
         if (request == null || parms == null || outageType == null) {
             throw new IllegalArgumentException("Cannot take null parameters.");
         }
