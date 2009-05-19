@@ -117,6 +117,8 @@ import org.opennms.netmgt.config.wmi.WmiDatacollectionConfig;
 import org.opennms.netmgt.config.xmlrpcd.XmlrpcdConfiguration;
 import org.opennms.netmgt.config.xmpConfig.XmpConfig;
 import org.opennms.netmgt.config.xmpDataCollection.XmpDatacollectionConfig;
+import org.opennms.netmgt.config.map.adapter.MapsAdapterConfiguration;
+import org.opennms.netmgt.config.rancid.adapter.RancidConfiguration;
 import org.opennms.netmgt.dao.castor.CastorUtils;
 import org.opennms.netmgt.xml.eventconf.Events;
 import org.opennms.test.ConfigurationTestUtils;
@@ -539,8 +541,16 @@ public class WillItUnmarshalTest {
         unmarshal("ackd-configuration.xml", AckdConfiguration.class);
     }
     @Test
-    public void testRancidConfiguration() throws Exception {
+    public void testRwsConfiguration() throws Exception {
         unmarshal("rws-configuration.xml", RwsConfiguration.class);
+    }
+    @Test
+    public void testMapsAdapterConfiguration() throws Exception {
+        unmarshal("mapsadapter-configuration.xml", MapsAdapterConfiguration.class);
+    }
+    @Test
+    public void testRancidAdapterConfiguration() throws Exception {
+        unmarshal("rancid-configuration.xml", RancidConfiguration.class);
     }
     @Test
     public void testXmpConfig() throws Exception {

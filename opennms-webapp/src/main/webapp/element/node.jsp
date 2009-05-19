@@ -204,24 +204,17 @@
 %>
 
 <jsp:include page="/includes/header.jsp" flush="false" >
-  <jsp:param name="nostyles" value="true" />
   <jsp:param name="title" value="Node" />
   <jsp:param name="headTitle" value="${model.label}" />
   <jsp:param name="headTitle" value="Node" />
   <jsp:param name="breadcrumb" value="<a href='element/index.jsp'>Search</a>" />
   <jsp:param name="breadcrumb" value="Node" />
-  <jsp:param name="link" value="<link rel='stylesheet' type='text/css' href='css/styles.css' media='screen' />" />
-  <jsp:param name="link" value="<link rel='stylesheet' type='text/css' href='css/print.css' media='print' />" />
-  <jsp:param name="link" value="<link rel='stylesheet' type='text/css' href='extJS/resources/css/ext-all.css'></link>" />
-  <jsp:param name="link" value="<link rel='stylesheet' type='text/css' href='css/o-styles.css' media='screen' />" />
-  <jsp:param name="link" value="<link rel='stylesheet' type='text/css' href='extJS/resources/css/opennmsGridTheme.css'></link>" />
-  <jsp:param name="script" value="<script type='text/javascript' src='extJS/adapter/ext/ext-base.js'></script>" />
-  <jsp:param name="script" value="<script type='text/javascript' src='extJS/ext-all-debug.js'></script>" />
+  <jsp:param name="enableExtJS" value="true"/>
   <jsp:param name="script" value="<script type='text/javascript' src='js/opennms/ux/PageableGrid.js'></script>"/>
-  <jsp:param name="script" value="<script type='text/javascript' src='js/opennms/ux/IPInterfaceGrid.js'></script>"/>
-  <jsp:param name="script" value="<script type='text/javascript' src='js/opennms/ux/SNMPInterfaceGrid.js'></script>"/>
   <jsp:param name="script" value="<script type='text/javascript' src='js/opennms/ux/SearchFilterLayout.js'></script>"/>
   <jsp:param name="script" value="<script type='text/javascript' src='js/opennms/ux/SearchFilterGrid.js'></script>"/>
+  <jsp:param name="script" value="<script type='text/javascript' src='js/opennms/ux/IPInterfaceGrid.js'></script>"/>
+  <jsp:param name="script" value="<script type='text/javascript' src='js/opennms/ux/SNMPInterfaceGrid.js'></script>"/>
   <jsp:param name="script" value="<script type='text/javascript' src='js/nodePageView.js'></script>" />
 </jsp:include>
 
@@ -231,6 +224,7 @@
 	})
 </script>
 
+<div class="onms">
 <h2>Node: ${model.label}</h2>
 <div id="linkbar">
   <ul class="o-menu">
@@ -308,18 +302,18 @@
     </c:if>
   </ul>
 </div>
-
+</div>
 <div class="TwoColLeft">
   
   <!-- general info box -->
-  <h3 class="o-box-title">General (Status: ${model.status})</h3>
+  <h3 class="o-box">General (Status: ${model.status})</h3>
   <div class="boxWrapper">
-    <ul class="plain">
+    <ul class="plain o-box">
       <c:if test="${model.showIpRoute}">
         <c:url var="ipRouteLink" value="element/routeipnode.jsp">
           <c:param name="node" value="${model.id}"/>
         </c:url>
-        <li class="o-boxed-menuitem">
+        <li>
           <a href="${ipRouteLink}">View Node Ip Route Info</a>
         </li>
       </c:if>
@@ -328,7 +322,7 @@
         <c:url var="bridgeLink" value="element/bridgenode.jsp">
           <c:param name="node" value="${model.id}"/>
         </c:url>
-        <li class="o-boxed-menuitem">
+        <li>
           <a href="${bridgeLink}">View Node Bridge/STP Info</a>
         </li>
       </c:if>
@@ -336,7 +330,7 @@
       <c:url var="detailLink" value="element/linkednode.jsp">
         <c:param name="node" value="${model.id}"/>
       </c:url>
-      <li class="o-boxed-menuitem">
+      <li>
         <a href="${detailLink}">View Node Link Detailed Info</a>
       </li>
     </ul>	     
@@ -347,8 +341,8 @@
 
   <!-- Asset box, if info available --> 
   <c:if test="${! empty model.asset && (! empty model.asset.description || ! empty model.asset.comments)}">
-    <h3 class="o-box-title">Asset Information</h3>
-    <table>
+    <h3 class="o-box">Asset Information</h3>
+    <table class="o-box">
       <tr>
         <th>Description</th>
         <td>${model.asset.description}</td>
@@ -365,25 +359,25 @@
   <c:if test="${! empty model.node.nodeSysId}">
     <h3 class="o-box">SNMP Attributes</h3>
     <table class="o-box">
-      <tr class="o-box">
-        <th class="o-box">Name</th>
-        <td class="o-box">${model.node.nodeSysName}</td>
+      <tr>
+        <th>Name</th>
+        <td>${model.node.nodeSysName}</td>
       </tr>
-      <tr class="o-box">
-        <th class="o-box">Object&nbsp;ID</th>
-        <td class="o-box">${model.node.nodeSysId}</td>
+      <tr>
+        <th>Object&nbsp;ID</th>
+        <td>${model.node.nodeSysId}</td>
       </tr>
-      <tr class="o-box">
-        <th class="o-box">Location</th>
-        <td class="o-box">${model.node.nodeSysLocn}</td>
+      <tr>
+        <th>Location</th>
+        <td>${model.node.nodeSysLocn}</td>
       </tr>
-      <tr class="o-box">
-        <th class="o-box">Contact</th>
-        <td class="o-box">${model.node.nodeSysContact}</td>
+      <tr>
+        <th>Contact</th>
+        <td>${model.node.nodeSysContact}</td>
       </tr>
-      <tr class="o-box">
-        <th class="o-box" valign="top">Description</th>
-        <td class="o-box" valign="top">${model.node.nodeSysDescr}</td>
+      <tr>
+        <th valign="top">Description</th>
+        <td valign="top">${model.node.nodeSysDescr}</td>
       </tr>
     </table>
   </c:if>
@@ -396,24 +390,24 @@
     <h3>VLAN Information</h3>
     <table class="o-box">
       <thead>
-        <tr class="o-box">
-          <th class="o-box">ID</th>
-          <th class="o-box">Name</th>
-          <th class="o-box">Type</th>
-          <th class="o-box">Status</th>
-          <th class="o-box">Status</th>
-          <th class="o-box">Last Poll Time</th>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Status</th>
+          <th>Status</th>
+          <th>Last Poll Time</th>
         </tr>
       </thead>
   
       <c:forEach items="${model.vlans}" var="vlan">
-        <tr class="o-box">
-          <td class="o-box">${vlan.vlanId}</td>
-          <td class="o-box">${vlan.vlanName}</td>
-          <td class="o-box">${vlan.vlanTypeString}</td>
-          <td class="o-box">${vlan.vlanStatusString}</td>
-          <td class="o-box">${vlan.statusString}</td>
-          <td class="o-box">${vlan.lastPollTime}</td>
+        <tr>
+          <td>${vlan.vlanId}</td>
+          <td>${vlan.vlanName}</td>
+          <td>${vlan.vlanTypeString}</td>
+          <td>${vlan.vlanStatusString}</td>
+          <td>${vlan.statusString}</td>
+          <td>${vlan.lastPollTime}</td>
         </tr>
       </c:forEach>
     </table>

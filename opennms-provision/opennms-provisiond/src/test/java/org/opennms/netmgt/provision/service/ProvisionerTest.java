@@ -113,6 +113,7 @@ import org.springframework.transaction.annotation.Transactional;
 @ContextConfiguration(locations={
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-daemon.xml",
+        "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml",
         "classpath:/META-INF/opennms/mockEventIpcManager.xml",
         "classpath:/META-INF/opennms/applicationContext-setupIpLike-enabled.xml",
         "classpath:/META-INF/opennms/applicationContext-provisiond.xml",
@@ -193,6 +194,9 @@ public class ProvisionerTest {
         m_foreignSourceRepository.save(m_foreignSource);
         
         m_provisionService.setForeignSourceRepository(m_foreignSourceRepository);
+        
+        m_pausibleExecutor.pause();
+
     }
 
 
@@ -273,8 +277,6 @@ public class ProvisionerTest {
     @JUnitSnmpAgent(host="127.0.0.1", port=9161, resource="classpath:snmpTestData1.properties")
     public void testPopulateWithSnmp() throws Exception {
         
-        m_pausibleExecutor.pause();
-
         importFromResource("classpath:/tec_dump.xml");
 
         //Verify distpoller count
@@ -301,8 +303,6 @@ public class ProvisionerTest {
     @Transactional
     @JUnitSnmpAgent(host="127.0.0.1", port=9161, resource="classpath:snmpTestData1.properties")
     public void testPopulateWithSnmpAndNodeScan() throws Exception {
-        
-        m_pausibleExecutor.pause();
         
         importFromResource("classpath:/requisition_then_scan.xml");
 
@@ -349,7 +349,14 @@ public class ProvisionerTest {
 
         //Verify snmpInterface count
         assertEquals(6, getSnmpInterfaceDao().countAll());
+        
+        
+        // Node Delete
+        importFromResource("classpath:/nonodes.xml");
 
+        //Verify node count
+        assertEquals(0, getNodeDao().countAll());
+        
         
     }
 
@@ -446,6 +453,9 @@ public class ProvisionerTest {
         assertEquals(10, getNodeDao().countAll());
         importFromResource("classpath:/tec_dump.xml.smalltest.delete");
         assertEquals(9, getNodeDao().countAll());
+    
+        importFromResource("classpath:/tec_dump.xml.smalltest.nonodes");
+        assertEquals(0, getNodeDao().countAll());
     }
 
     /**

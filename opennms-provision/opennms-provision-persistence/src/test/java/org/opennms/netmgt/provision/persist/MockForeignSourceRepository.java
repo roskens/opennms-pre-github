@@ -35,6 +35,7 @@
 
 package org.opennms.netmgt.provision.persist;
 
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -73,6 +74,7 @@ public class MockForeignSourceRepository extends AbstractForeignSourceRepository
     public void save(ForeignSource foreignSource) {
         Assert.notNull(foreignSource);
         Assert.notNull(foreignSource.getName());
+        foreignSource.updateDateStamp();
         m_foreignSources.put(foreignSource.getName(), foreignSource);
     }
 
@@ -98,11 +100,16 @@ public class MockForeignSourceRepository extends AbstractForeignSourceRepository
     public void save(Requisition requisition) {
         Assert.notNull(requisition);
         Assert.notNull(requisition.getForeignSource());
+        requisition.updateDateStamp();
         m_requisitions.put(requisition.getForeignSource(), requisition);
     }
 
     public void delete(Requisition requisition) throws ForeignSourceRepositoryException {
         m_requisitions.remove(requisition.getForeignSource());
+    }
+
+    public URL getRequisitionURL(String foreignSource) {
+        throw new UnsupportedOperationException("no URL in the mock repository");
     }
 
 }

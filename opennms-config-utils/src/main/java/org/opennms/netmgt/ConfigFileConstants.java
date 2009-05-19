@@ -353,6 +353,11 @@ public final class ConfigFileConstants {
     
     public static final int HTTP_COLLECTION_CONFIG_FILE_NAME;
 
+    /**
+     * The config file for maps Adapter
+     */
+    public static final int MAPS_ADAPTER_CONFIG_FILE_NAME;
+
     //
     // End other config files
     //
@@ -451,9 +456,16 @@ public final class ConfigFileConstants {
     public static final int XMP_CONFIG_FILE_NAME;
     
     /**
-     * The Rancid configuration file
+     * The RWS (RestFul Web Service) configuration file
+     * used to access Rancid
      */
     public static final int RWS_CONFIG_FILE_NAME;   
+
+    /**
+     * The Rancid Provisioning Adapter configuration file
+     */
+    public static final int RANCID_CONFIG_FILE_NAME;   
+
 
     /**
      * The WMI collection configuration file
@@ -593,9 +605,13 @@ public final class ConfigFileConstants {
         
         AMI_CONFIG_FILE_NAME = 75;
         
+        MAPS_ADAPTER_CONFIG_FILE_NAME = 76;
+        
+        RANCID_CONFIG_FILE_NAME = 77;
+        
         // Allocate and build the mapping of identifiers to names
         //
-        FILE_ID_TO_NAME = new String[76];
+        FILE_ID_TO_NAME = new String[78];
 
         FILE_ID_TO_NAME[DB_CONFIG_FILE_NAME] = "opennms-database.xml";
         FILE_ID_TO_NAME[JMS_CONFIG_FILE_NAME] = "opennms-jms.xml";
@@ -672,7 +688,7 @@ public final class ConfigFileConstants {
         FILE_ID_TO_NAME[TRANSLATOR_CONFIG_FILE_NAME] = "translator-configuration.xml";
         FILE_ID_TO_NAME[SYSLOGD_CONFIG_FILE_NAME] = "syslogd-configuration.xml";
         FILE_ID_TO_NAME[LINKD_CONFIG_FILE_NAME] = "linkd-configuration.xml";
-	FILE_ID_TO_NAME[MAP_PROPERTIES_FILE_NAME] = "map.properties";
+        FILE_ID_TO_NAME[MAP_PROPERTIES_FILE_NAME] = "map.properties";
         FILE_ID_TO_NAME[SURVEILLANCE_VIEWS_FILE_NAME] = "surveillance-views.xml";
         FILE_ID_TO_NAME[SITE_STATUS_VIEWS_FILE_NAME] = "site-status-views.xml";
         FILE_ID_TO_NAME[MONITORING_LOCATIONS_FILE_NAME] = "monitoring-locations.xml";
@@ -683,11 +699,13 @@ public final class ConfigFileConstants {
         FILE_ID_TO_NAME[WMI_COLLECTION_CONFIG_FILE_NAME] = "wmi-datacollection-config.xml";
         FILE_ID_TO_NAME[OPENNMS_DATASOURCE_CONFIG_FILE_NAME] = "opennms-datasources.xml";
         FILE_ID_TO_NAME[RWS_CONFIG_FILE_NAME] = "rws-configuration.xml";
+        FILE_ID_TO_NAME[RANCID_CONFIG_FILE_NAME] = "rancid-configuration.xml";
         FILE_ID_TO_NAME[XMP_COLLECTION_CONFIG_FILE_NAME] = "xmp-datacollection-config.xml";
         FILE_ID_TO_NAME[XMP_CONFIG_FILE_NAME] = "xmp-config.xml";
         FILE_ID_TO_NAME[SNMP_INTERFACE_POLLER_CONFIG_FILE_NAME] = "snmp-interface-poller-configuration.xml";
         FILE_ID_TO_NAME[ASTERISK_CONFIG_FILE_NAME] = "asterisk-configuration.properties";
         FILE_ID_TO_NAME[AMI_CONFIG_FILE_NAME] = "ami-config.xml";
+        FILE_ID_TO_NAME[MAPS_ADAPTER_CONFIG_FILE_NAME] = "mapsadapter-configuration.xml";
     }
 
     /**

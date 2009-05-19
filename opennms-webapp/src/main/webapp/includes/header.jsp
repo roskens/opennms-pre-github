@@ -47,7 +47,7 @@
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-
+   
 <%-- The <html> tag is unmatched in this file (its matching tag is in the
      footer), so we hide it in a JSP code fragment so the Eclipse HTML
      validator doesn't complain.  See bug #1728. --%>
@@ -73,12 +73,24 @@
     <c:when test="${param.nostyles != 'true' }">
         <link rel="stylesheet" type="text/css" href="css/styles.css" media="screen" />
         <link rel="stylesheet" type="text/css" href="css/print.css" media="print" />
+        <c:choose>
+        	<c:when test="${param.enableExtJS == 'true'}">
+        		<link rel='stylesheet' type='text/css' href='extJS/resources/css/ext-all.css' />
+  				<link rel='stylesheet' type='text/css' href='css/o-styles.css' media='screen' />
+  				<link rel='stylesheet' type='text/css' href='extJS/resources/css/opennmsGridTheme.css' />
+        	</c:when>
+        </c:choose>
     </c:when>
   </c:choose>
 <c:forEach var="link" items="${paramValues.link}">
     <c:out value="${link}" escapeXml="false" />
   </c:forEach>
   <script type="text/javascript" src="js/global.js"></script>
+	<c:if test="${param.enableExtJS == 'true'}">
+  		<script type='text/javascript' src='extJS/source/core/Ext.js'></script>
+  		<script type='text/javascript' src='extJS/source/adapter/ext-base.js'></script>
+  		<script type='text/javascript' src='extJS/ext-all-debug.js'></script>
+	</c:if>
 <c:forEach var="script" items="${paramValues.script}">
     <c:out value="${script}" escapeXml="false" />
   </c:forEach>
@@ -148,8 +160,9 @@
      test fails.) Moving the <h2> tags outside the if statement makes it
      happy again --%>
 <%= "<div id=\"content\">" %>
+<div class="onms">
 <h2>
-<c:if test="${(param.nonavbar != 'true') && (!empty pageContext.request.remoteUser)}">	
+<c:if test="${(param.nonavbar != 'true') && (!empty pageContext.request.remoteUser)}">
    <a href="index.jsp">Home</a>
    <c:forEach var="breadcrumb" items="${paramValues.breadcrumb}">
      <c:if test="${breadcrumb != ''}">
@@ -158,3 +171,4 @@
    </c:forEach>
 </c:if>
 </h2>
+</div>

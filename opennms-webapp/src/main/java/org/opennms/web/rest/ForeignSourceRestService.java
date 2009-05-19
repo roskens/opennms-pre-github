@@ -33,7 +33,7 @@
 package org.opennms.web.rest;
 
 import java.text.ParseException;
-import java.util.List;
+import java.util.Set;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -51,15 +51,17 @@ import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
 
 import org.joda.time.Duration;
+import org.opennms.netmgt.dao.NodeDao;
+import org.opennms.netmgt.model.OnmsNodeList;
 import org.opennms.netmgt.provision.persist.ForeignSourceRepository;
 import org.opennms.netmgt.provision.persist.StringIntervalPropertyEditor;
 import org.opennms.netmgt.provision.persist.foreignsource.DetectorCollection;
 import org.opennms.netmgt.provision.persist.foreignsource.DetectorWrapper;
 import org.opennms.netmgt.provision.persist.foreignsource.ForeignSource;
+import org.opennms.netmgt.provision.persist.foreignsource.ForeignSourceCollection;
 import org.opennms.netmgt.provision.persist.foreignsource.PluginConfig;
 import org.opennms.netmgt.provision.persist.foreignsource.PolicyCollection;
 import org.opennms.netmgt.provision.persist.foreignsource.PolicyWrapper;
-import org.opennms.netmgt.provision.persist.requisition.ForeignSourceCollection;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,6 +85,9 @@ public class ForeignSourceRestService extends OnmsRestService {
     @Autowired
     @Qualifier("deployed")
     private ForeignSourceRepository m_deployedForeignSourceRepository;
+
+    @Autowired
+    private NodeDao m_nodeDao;
     
     @Context
     UriInfo m_uriInfo;
@@ -148,6 +153,13 @@ public class ForeignSourceRestService extends OnmsRestService {
     @Produces( { MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     public ForeignSource getPendingForeignSource(@PathParam("foreignSource") String foreignSource) {
         return m_pendingForeignSourceRepository.getForeignSource(foreignSource);
+    }
+
+    @GET
+    @Path("deployed/{foreignSource}/nodes")
+    @Produces( { MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    public OnmsNodeList getNodesForForeignSource(@PathParam("foreignSource") String foreignSource) {
+        return new OnmsNodeList(m_nodeDao.findByForeignSource(foreignSource));
     }
 
     /**
@@ -301,7 +313,7 @@ public class ForeignSourceRestService extends OnmsRestService {
     @Transactional
     public Response deleteDetector(@PathParam("foreignSource") String foreignSource, @PathParam("detector") String detector) {
         ForeignSource fs = m_pendingForeignSourceRepository.getForeignSource(foreignSource);
-        List<PluginConfig> detectors = fs.getDetectors();
+        Set<PluginConfig> detectors = fs.getDetectors();
         PluginConfig removed = removeEntry(detectors, detector);
         if (removed != null) {
             fs.setDetectors(detectors);
@@ -316,7 +328,7 @@ public class ForeignSourceRestService extends OnmsRestService {
     @Transactional
     public Response deletePolicy(@PathParam("foreignSource") String foreignSource, @PathParam("policy") String policy) {
         ForeignSource fs = m_pendingForeignSourceRepository.getForeignSource(foreignSource);
-        List<PluginConfig> policies = fs.getPolicies();
+        Set<PluginConfig> policies = fs.getPolicies();
         PluginConfig removed = removeEntry(policies, policy);
         if (removed != null) {
             fs.setPolicies(policies);
@@ -326,7 +338,7 @@ public class ForeignSourceRestService extends OnmsRestService {
         return Response.notModified().build();
     }
 
-    private PluginConfig removeEntry(List<PluginConfig> plugins, String name) {
+    private PluginConfig removeEntry(Set<PluginConfig> plugins, String name) {
         PluginConfig removed = null;
         java.util.Iterator<PluginConfig> i = plugins.iterator();
         while (i.hasNext()) {

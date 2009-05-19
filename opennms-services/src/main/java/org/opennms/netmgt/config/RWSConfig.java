@@ -37,6 +37,7 @@
 package org.opennms.netmgt.config;
 
 import org.opennms.netmgt.config.rws.BaseUrl;
+import org.opennms.netmgt.config.rws.StandbyUrl;
 
 /**
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
@@ -46,8 +47,14 @@ import org.opennms.netmgt.config.rws.BaseUrl;
  */
 public interface RWSConfig {
 
-    public BaseUrl[] getUrls();
+    public BaseUrl getBaseUrl();
     
+    public StandbyUrl[] getStanbyUrls();
+    
+    public StandbyUrl getNextStandbyUrl();
+    
+    public boolean hasStandbyUrl();
+
     //public void update() throws IOException, MarshalException, ValidationException;
     
     //public void save() throws MarshalException, IOException, ValidationException;

@@ -7,14 +7,12 @@
     http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd
     ">
 
-  <bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
+  <bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
-    <property name="locations">
-      <list>
-        <value>file:${opennms.home}/etc/model-importer.properties</value>
-      </list>
-    </property>
+    <property name="location" value="file:${opennms.home}/etc/model-importer.properties" />
   </bean>
+  
+  <bean name="extensionManager" class="org.opennms.netmgt.dao.support.DefaultExtensionManager" />
 
   <!-- 
     DataSourceFactory has been changed to return TransactionAwareDataSources so
@@ -245,20 +243,6 @@
     <property name="configResource" ref="statsdConfigResourceLocation" />
   </bean>
   
-  <bean id="onmsMapDao" class="org.opennms.netmgt.dao.hibernate.OnmsMapDaoHibernate">
-    <property name="sessionFactory" ref="sessionFactory" />
-  </bean>
-
-  <bean id="onmsMapElementDao" class="org.opennms.netmgt.dao.hibernate.OnmsMapElementDaoHibernate">
-    <property name="sessionFactory" ref="sessionFactory" />
-  </bean>
-
-  <bean id="dataLinkInterfaceDao" class="org.opennms.netmgt.dao.hibernate.DataLinkInterfaceDaoHibernate">
-    <property name="sessionFactory" ref="sessionFactory" />
-  </bean>
-  
-  <bean id="snmpConfigDao" class="org.opennms.netmgt.dao.FactoryBasedSnmpConfigDao" />
-  
   <bean id="javamailConfigResourceLocation" class="java.lang.String">
     <constructor-arg value="file:${opennms.home}/etc/javamail-configuration.xml" />
   </bean>
@@ -277,6 +261,14 @@
 
   <bean id="dataLinkInterfaceDao" class="org.opennms.netmgt.dao.hibernate.DataLinkInterfaceDaoHibernate">
     <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+  
+  <bean id="init-snmpPeerFactory" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+    <property name="staticMethod"><value>org.opennms.netmgt.config.SnmpPeerFactory.init</value></property>
+  </bean>
+
+  <bean id="snmpPeerFactory" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean" depends-on="init-snmpPeerFactory">
+    <property name="staticMethod"><value>org.opennms.netmgt.config.SnmpPeerFactory.getInstance</value></property>
   </bean>
   
 </beans>

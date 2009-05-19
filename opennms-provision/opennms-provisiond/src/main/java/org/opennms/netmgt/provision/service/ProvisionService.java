@@ -29,7 +29,7 @@
  */
 package org.opennms.netmgt.provision.service;
 
-import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -40,7 +40,10 @@ import org.opennms.netmgt.model.OnmsMonitoredService;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.OnmsServiceType;
 import org.opennms.netmgt.model.OnmsSnmpInterface;
+import org.opennms.netmgt.provision.IpInterfacePolicy;
+import org.opennms.netmgt.provision.NodePolicy;
 import org.opennms.netmgt.provision.ServiceDetector;
+import org.opennms.netmgt.provision.SnmpInterfacePolicy;
 import org.opennms.netmgt.provision.persist.ForeignSourceRepository;
 import org.opennms.netmgt.provision.persist.requisition.Requisition;
 import org.springframework.core.io.Resource;
@@ -192,7 +195,7 @@ public interface ProvisionService {
      */
     public abstract List<NodeScanSchedule> getScheduleForNodes();
     
-    public abstract NodeScanSchedule getScheduleForNode(int nodeId);
+    public abstract NodeScanSchedule getScheduleForNode(int nodeId, boolean force);
     
     public abstract void setForeignSourceRepository(ForeignSourceRepository foriengSourceRepository);
 
@@ -203,7 +206,17 @@ public interface ProvisionService {
      */
     public abstract Requisition loadRequisition(Resource resource);
 
-    public abstract Collection<ServiceDetector> getDetectorsForForeignSource(String foreignSource);
+    public abstract List<ServiceDetector> getDetectorsForForeignSource(String foreignSource);
+    
+    public abstract List<NodePolicy> getNodePoliciesForForeignSource(String foreignSourceName);
+    
+    public abstract List<IpInterfacePolicy> getIpInterfacePoliciesForForeignSource(String foreignSourceName);
+    
+    public abstract List<SnmpInterfacePolicy> getSnmpInterfacePoliciesForForeignSource(String foreignSourceName);
+
+    public abstract void updateNodeScanStamp(Integer nodeId, Date scanStamp);
+
+    public abstract void deleteObsoleteInterfaces(Integer nodeId, Date scanStamp);
 
 
 }

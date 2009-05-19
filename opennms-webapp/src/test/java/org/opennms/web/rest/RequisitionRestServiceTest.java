@@ -22,7 +22,9 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
     TransactionalTestExecutionListener.class
 })
 @ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/component-dao.xml"
+        "classpath:/META-INF/opennms/component-dao.xml",
+        "classpath:/META-INF/opennms/applicationContext-daemon.xml",
+        "classpath:/restServiceTest.xml"
 })
 
 public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase {
@@ -33,25 +35,13 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
         String url = "/requisitions/pending";
         String xml = sendRequest(GET, url, 200);
         assertTrue(xml.contains("Management interface"));
-        
-        url = "/requisitions/pending/test";
-        sendPut(url, "dateStamp=2009-01-01T00:00:00");
-        xml = sendRequest(GET, url, 200);
-        assertTrue(xml.contains("date-stamp=\"2009-01-01T00:00:00\""));
-        
-        url = "/requisitions/pending/test";
-        sendPut(url, "dateStamp=2009-01-01T00:00:00");
-        sendRequest(DELETE, url, 200);
-        xml = sendRequest(GET, url, 204);
 
-        createRequisition();
-
-        sendPut(url, "dateStamp=2009-01-01T00:00:00");
+        url = "/requisitions/pending/test";
         sendPut(url + "/deploy", "");
         
         url = "/requisitions/deployed/test";
         xml = sendRequest(GET, url, 200);
-        assertTrue(xml.contains("date-stamp=\"2009-01-01T00:00:00\""));
+        assertTrue(xml.contains("date-stamp="));
 
         sendRequest(DELETE, url, 200);
         xml = sendRequest(GET, url, 204);
@@ -64,7 +54,7 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
         String url = "/requisitions/pending/test/nodes";
 
         // create a node
-        sendPost(url, "<node node-label=\"shoe\" parent-node-label=\"david\" foreign-id=\"1111\" />");
+        sendPost(url, "<node xmlns=\"http://xmlns.opennms.org/xsd/config/model-import\" node-label=\"shoe\" parent-node-label=\"david\" foreign-id=\"1111\" />");
         
         // get list of nodes
         String xml = sendRequest(GET, url, 200);
@@ -95,8 +85,8 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
         String xml;
         
         // create an interface
-        sendPost(base, "<interface status=\"1\" snmp-primary=\"S\" ip-addr=\"172.20.1.254\" descr=\"Monkey\"><monitored-service service-name=\"ICMP\"/></interface>");
-        sendPost(base, "<interface status=\"1\" snmp-primary=\"S\" ip-addr=\"172.20.1.254\" descr=\"Blah\"><monitored-service service-name=\"ICMP\"/></interface>");
+        sendPost(base, "<interface xmlns=\"http://xmlns.opennms.org/xsd/config/model-import\" status=\"1\" snmp-primary=\"S\" ip-addr=\"172.20.1.254\" descr=\"Monkey\"><monitored-service service-name=\"ICMP\"/></interface>");
+        sendPost(base, "<interface xmlns=\"http://xmlns.opennms.org/xsd/config/model-import\" status=\"1\" snmp-primary=\"S\" ip-addr=\"172.20.1.254\" descr=\"Blah\"><monitored-service service-name=\"ICMP\"/></interface>");
         
         // get list of interfaces
         xml = sendRequest(GET, base, 200);
@@ -133,7 +123,7 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
         String base = "/requisitions/pending/test/nodes/4243/interfaces/172.20.1.204/services";
         
         // create a service
-        sendPost(base, "<monitored-service service-name=\"MONKEY\" />");
+        sendPost(base, "<monitored-service xmlns=\"http://xmlns.opennms.org/xsd/config/model-import\" service-name=\"MONKEY\" />");
 
         // get list of services
         String xml = sendRequest(GET, base, 200);
@@ -161,7 +151,7 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
         String base = "/requisitions/pending/test/nodes/4243/categories";
 
         // create a category
-        sendPost(base, "<category name=\"Dead Servers\" />");
+        sendPost(base, "<category xmlns=\"http://xmlns.opennms.org/xsd/config/model-import\" name=\"Dead Servers\" />");
 
         // get list of categories
         String url = base;
@@ -190,7 +180,7 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
         String base = "/requisitions/pending/test/nodes/4243/asset";
 
         // create an asset
-        sendPost(base, "<asset name=\"manufacturer\" value=\"Dead Servers, Inc.\" />");
+        sendPost(base, "<asset xmlns=\"http://xmlns.opennms.org/xsd/config/model-import\" name=\"manufacturer\" value=\"Dead Servers, Inc.\" />");
 
         // get list of asset parameters
         String url = base;
@@ -214,7 +204,7 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
 
     private void createRequisition() throws Exception {
         String req =
-            "<model-import date-stamp=\"2006-03-09T00:03:09\" foreign-source=\"test\">" +
+            "<model-import xmlns=\"http://xmlns.opennms.org/xsd/config/model-import\" date-stamp=\"2006-03-09T00:03:09\" foreign-source=\"test\">" +
                 "<node node-label=\"david\" parent-node-label=\"apknd\" foreign-id=\"4243\">" +
                     "<interface ip-addr=\"172.20.1.204\" status=\"1\" snmp-primary=\"S\" descr=\"VPN interface\">" +
                         "<monitored-service service-name=\"ICMP\"/>" +

@@ -13,7 +13,6 @@
   
   <context:property-placeholder location="file:${opennms.home}/etc/model-importer.properties" />
 
-
   <bean id="importResource" class="org.springframework.core.io.UrlResource">
     <constructor-arg><value>${importer.importURL}</value></constructor-arg>
   </bean>
@@ -99,7 +98,6 @@
                     <list>
                       <value>loadNode</value>
                       <value>detectAgents</value>
-                      <value>deleteObsoleteResources</value>
                     </list>
                 </constructor-arg>
             </bean>
@@ -111,6 +109,7 @@
                       <value>persistNodeInfo</value>
                       <value>detectPhysicalInterfaces</value>
                       <value>detectIpInterfaces</value>
+                      <value>deleteObsoleteResources</value>
                     </list>
                 </constructor-arg>
             </bean>
@@ -138,7 +137,12 @@
   
   <!--  autowired -->
   <bean id="coreScanActivities" class="org.opennms.netmgt.provision.service.CoreScanActivities" />
-  
+
+  <bean id="adapterManager" class="org.opennms.netmgt.provision.service.ProvisioningAdapterManager" >
+    <property name="pluginRegistry" ref="pluginRegistry" />
+    <property name="eventSubscriptionService" ref="eventSubscriptionService" />
+  </bean>
+    
   <bean id="daemon" class="org.opennms.netmgt.provision.service.Provisioner" depends-on="snmpPeerFactory-init">
     <property name="provisionService" ref="provisionService" />
     <property name="importResource" ref="importResource"/>
@@ -154,11 +158,15 @@
     </property>
   </bean>
   
-     <bean class="org.opennms.netmgt.model.events.AnnotationBasedEventListenerAdapter">
-        <property name="annotatedListener" ref="daemon" />
-        <property name="eventSubscriptionService" ref="eventSubscriptionService" />
-    </bean>
+  <bean id="daemonListener" class="org.opennms.netmgt.model.events.AnnotationBasedEventListenerAdapter">
+    <property name="annotatedListener" ref="daemon" />
+    <property name="eventSubscriptionService" ref="eventSubscriptionService" />
+  </bean>
  
+  <bean id="adapterManagerListener" class="org.opennms.netmgt.model.events.AnnotationBasedEventListenerAdapter">
+    <property name="annotatedListener" ref="adapterManager" />
+    <property name="eventSubscriptionService" ref="eventSubscriptionService" />
+  </bean>
 
   <bean id="modelImportingJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
     <property name="targetObject">
@@ -186,5 +194,7 @@
       </list>
     </property>
   </bean>
+  
+ 
 
 </beans>

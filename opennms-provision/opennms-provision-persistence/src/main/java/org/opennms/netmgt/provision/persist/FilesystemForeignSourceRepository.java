@@ -1,6 +1,9 @@
 package org.opennms.netmgt.provision.persist;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -10,6 +13,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.stream.StreamSource;
 
+import org.apache.commons.io.IOUtils;
 import org.opennms.netmgt.provision.persist.foreignsource.ForeignSource;
 import org.opennms.netmgt.provision.persist.requisition.Requisition;
 
@@ -70,10 +74,15 @@ public class FilesystemForeignSourceRepository extends AbstractForeignSourceRepo
             throw new ForeignSourceRepositoryException("can't save a null foreign source!");
         }
         File outputFile = getOutputFileForForeignSource(foreignSource);
+        FileWriter writer = null;
         try {
-            m_marshaller.marshal(foreignSource, outputFile);
-        } catch (JAXBException e) {
+            foreignSource.updateDateStamp();
+            writer = new FileWriter(outputFile);
+            m_marshaller.marshal(foreignSource, writer);
+        } catch (Exception e) {
             throw new ForeignSourceRepositoryException("unable to write requisition to " + outputFile.getPath(), e);
+        } finally {
+            IOUtils.closeQuietly(writer);
         }
     }
 
@@ -122,10 +131,15 @@ public class FilesystemForeignSourceRepository extends AbstractForeignSourceRepo
             throw new ForeignSourceRepositoryException("can't save a null requisition!");
         }
         File outputFile = getOutputFileForRequisition(requisition);
+        FileWriter writer = null;
         try {
-            m_marshaller.marshal(requisition, outputFile);
+            requisition.updateDateStamp();
+            writer = new FileWriter(outputFile);
+            m_marshaller.marshal(requisition, writer);
         } catch (Exception e) {
             throw new ForeignSourceRepositoryException("unable to write requisition to " + outputFile.getPath(), e);
+        } finally {
+            IOUtils.closeQuietly(writer);
         }
     }
 
@@ -186,6 +200,14 @@ public class FilesystemForeignSourceRepository extends AbstractForeignSourceRepo
         createPath(reqPath);
         File outputFile = encodeFileName(m_requisitionPath, requisition.getForeignSource());
         return outputFile;
+    }
+
+    public URL getRequisitionURL(String foreignSource) throws ForeignSourceRepositoryException {
+        try {
+            return getOutputFileForRequisition(getRequisition(foreignSource)).toURL();
+        } catch (MalformedURLException e) {
+            throw new ForeignSourceRepositoryException("an error occurred getting the requisition URL", e);
+        }
     }
 
 }

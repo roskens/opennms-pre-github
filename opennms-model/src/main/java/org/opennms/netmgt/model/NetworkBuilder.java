@@ -113,6 +113,11 @@ public class NetworkBuilder {
             return this;
         }
         
+        public NodeBuilder setSysObjectId(String sysObjectId) {
+            m_node.setSysObjectId(sysObjectId);
+            return this;
+        }
+        
         
     }
     
@@ -135,7 +140,7 @@ public class NetworkBuilder {
 		}
 
 		public InterfaceBuilder setIsSnmpPrimary(String isSnmpPrimary) {
-			m_iface.setIsSnmpPrimary(OnmsIpInterface.CollectionType
+			m_iface.setIsSnmpPrimary(OnmsIpInterface.PrimaryType
 					.get(isSnmpPrimary));
 			return this;
 		}

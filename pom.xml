@@ -86,7 +86,13 @@
     <url>http://opennms.svn.sourceforge.net/viewvc/opennms/opennms/trunk</url>
   </scm>
   <modules>
+    <!-- new structure -->
     <module>dependencies</module>
+    <module>core</module>
+    <module>features</module>
+
+    <!-- new structure -->
+    <module>assemblies</module>
     <module>opennms-test</module>
     <module>mock-snmp-agent</module>
     <module>opennms-util</module>
@@ -106,9 +112,6 @@
     <module>opennms-config</module>
     <module>opennms-provision</module>
     <module>opennms-services</module>
-<!--
-    <module>opennms-remote-poller</module>
--->
     <module>integrations</module>
     <module>opennms-import</module>
     <module>opennms-jetty</module>
@@ -589,7 +592,7 @@
 
 
    <!-- code signing properties - used in opennms-webstart -->
-   <!-- NOTE: because of maven property initialization, webstart.keystore must match the hardcoded activation in opennms-remote-poller/pom.xml -->
+   <!-- NOTE: because of maven property initialization, webstart.keystore must match the hardcoded activation in features/remote-poller/pom.xml -->
    <webstart.keystore>${project.build.directory}/build-generated-keystore.ks</webstart.keystore>
    <webstart.keypass>opennms</webstart.keypass>
    <webstart.storepass>opennms</webstart.storepass>
@@ -606,6 +609,49 @@
   </properties>
 
   <profiles>
+
+    <profile>
+      <id>build.all</id>
+      <activation>
+        <property><name>build</name><value>all</value></property>
+      </activation>
+      <modules>
+        <module>lib</module>
+        <module>extensions</module>
+        <module>opennms-doc</module>
+      </modules>
+    </profile>
+
+    <profile>
+      <id>build.lib</id>
+      <activation>
+        <property><name>build</name><value>lib</value></property>
+      </activation>
+      <modules>
+        <module>lib</module>
+      </modules>
+    </profile>
+
+    <profile>
+      <id>build.extensions</id>
+      <activation>
+        <property><name>build</name><value>extensions</value></property>
+      </activation>
+      <modules>
+        <module>extensions</module>
+      </modules>
+    </profile>
+
+    <profile>
+      <id>build.docs</id>
+      <activation>
+        <property><name>build</name><value>docs</value></property>
+      </activation>
+      <modules>
+        <module>opennms-doc</module>
+      </modules>
+    </profile>
+
     <profile>
       <id>buildDocs</id>
       <activation>
@@ -733,19 +779,9 @@
         <version>1.0</version>
       </dependency>
       <dependency>
-        <groupId>org.opennms</groupId>
-        <artifactId>service-registration</artifactId>
-        <version>0.3</version>
-      </dependency>
-      <dependency>
         <groupId>org.opennms.api.integration</groupId>
         <artifactId>opennms-provisioning</artifactId>
         <version>1.0.0</version>
-      </dependency>
-      <dependency>
-        <groupId>org.opennms.api.integration</groupId>
-        <artifactId>opennms-ticketing</artifactId>
-        <version>1.0.2</version>
       </dependency>
 
       <!--  opennms dependencies -->
@@ -754,6 +790,16 @@
         <groupId>org.opennms</groupId>
         <artifactId>opennms-ackd</artifactId>
         <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms.features.ticketing</groupId>
+        <artifactId>api</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms.lib</groupId>
+        <artifactId>service-registration</artifactId>
+        <version>0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.opennms</groupId>
@@ -1074,11 +1120,6 @@
         <version>2.7.6</version>
       </dependency>
       <dependency>
-        <groupId>org.asteriskjava</groupId>
-        <artifactId>asterisk-java</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
         <groupId>axis</groupId>
         <artifactId>axis</artifactId>
         <version>1.4</version>
@@ -1153,7 +1194,7 @@
       <dependency>
         <groupId>commons-beanutils</groupId>
         <artifactId>commons-beanutils-core</artifactId>
-        <version>1.7.0</version>
+        <version>1.8.0</version>
       </dependency>
       <dependency>
         <groupId>commons-chain</groupId>
@@ -1261,6 +1302,11 @@
         <version>1.4</version>
       </dependency>
       <dependency>
+        <groupId>javax.annotation</groupId>
+        <artifactId>jsr250-api</artifactId>
+        <version>1.0</version>
+      </dependency>
+      <dependency>
         <groupId>javax.activation</groupId>
         <artifactId>activation</artifactId>
         <version>1.1</version>
@@ -1300,12 +1346,12 @@
       <dependency>
         <groupId>javax.xml.bind</groupId>
         <artifactId>jaxb-api</artifactId>
-        <version>2.1</version>
+        <version>2.0</version>
       </dependency>
       <dependency>
         <groupId>com.sun.xml.bind</groupId>
         <artifactId>jaxb-impl</artifactId>
-        <version>2.1.9</version>
+        <version>2.0.5</version>
       </dependency>
       <dependency>
         <groupId>org.mortbay.jetty</groupId>
@@ -1449,12 +1495,12 @@
       <dependency>
         <groupId>org.snmp4j</groupId>
         <artifactId>snmp4j</artifactId>
-        <version>1.9.3c</version>
+        <version>1.9.3d</version>
       </dependency>
       <dependency>
         <groupId>org.snmp4j</groupId>
         <artifactId>snmp4j-agent</artifactId>
-        <version>1.2.1d</version>
+        <version>1.2.2</version>
         <scope>test</scope>
       </dependency>
       <dependency>

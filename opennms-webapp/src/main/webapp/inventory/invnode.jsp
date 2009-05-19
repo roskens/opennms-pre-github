@@ -36,13 +36,7 @@
 	session="true"
 	import="org.opennms.web.element.*,
 		java.util.*,
-		java.net.*,
-        java.sql.SQLException,
-        org.opennms.core.utils.IPSorter,
-        org.opennms.web.acegisecurity.Authentication,
         org.opennms.web.svclayer.ResourceService,
-        org.opennms.web.asset.Asset,
-        org.opennms.web.asset.AssetModel,
         org.opennms.web.inventory.InventoryLayer,
         org.springframework.web.context.WebApplicationContext,
         org.springframework.web.context.support.WebApplicationContextUtils,
@@ -52,12 +46,7 @@
 
 
 <%!
-//    private int m_telnetServiceId;
-//    private int m_httpServiceId;
-//    private int m_dellServiceId;
-//    private int m_snmpServiceId;
     private ResourceService m_resourceService;
-//	private AssetModel m_model = new AssetModel();
 
     public void init() throws ServletException {
 
@@ -152,7 +141,7 @@ String nodeBreadCrumb2 = "<a href='inventory/rancid.jsp?node=" + nodeId  + "'>Ra
 		<th><a href = "${model.swconfigurationurl}" > ${model.swconfigurationurl} </a></th>
 		</tr>
     <tr>
-	<th>Root Configuration Url</th>
+	<th>CVS Configuration Url</th>
 	<th><a href = "${model.configurationurl}" > ${model.configurationurl} </a></th>
 	</tr>
 	</table>

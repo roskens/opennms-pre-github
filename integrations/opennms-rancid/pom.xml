@@ -32,6 +32,11 @@
       <artifactId>opennms-spring</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>org.opennms</groupId>
+      <artifactId>opennms-services</artifactId>
+    </dependency>
+
     <!-- test dependencies -->
     <dependency>
       <groupId>org.opennms</groupId>
@@ -46,12 +51,14 @@
       <scope>test</scope>
     </dependency>
 
-    <dependency>
-      <groupId>org.opennms</groupId>
-      <artifactId>opennms-services</artifactId>
-      <type>test-jar</type>
-      <scope>test</scope>
-    </dependency>
 
   </dependencies>
+  <repositories>
+    <repository>
+      <id>maven-restlet</id>
+      <name>Public online Restlet repository</name>
+      <url>http://maven.restlet.org</url>
+    </repository>
+  </repositories>
+
 </project>

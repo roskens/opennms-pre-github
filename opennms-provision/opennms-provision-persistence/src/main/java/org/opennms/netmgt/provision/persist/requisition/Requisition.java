@@ -8,7 +8,9 @@
 
 package org.opennms.netmgt.provision.persist.requisition;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -20,19 +22,25 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.apache.commons.lang.builder.CompareToBuilder;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.log4j.Category;
+import org.opennms.core.utils.ThreadCategory;
 import org.opennms.netmgt.provision.persist.OnmsNodeRequisition;
 import org.opennms.netmgt.provision.persist.RequisitionVisitor;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name="model-import")
-public class Requisition implements Comparable<Requisition> {
+public class Requisition implements Serializable, Comparable<Requisition> {
+    private static final long serialVersionUID = 1L;
+
     @XmlTransient
     private Map<String, OnmsNodeRequisition> m_nodeReqs = new LinkedHashMap<String, OnmsNodeRequisition>();
     
@@ -43,7 +51,7 @@ public class Requisition implements Comparable<Requisition> {
     protected XMLGregorianCalendar m_dateStamp;
     
     @XmlAttribute(name="foreign-source")
-    protected String m_foreignSource;
+    protected String m_foreignSource = "imported:";
     
     @XmlAttribute(name="last-import")
     protected XMLGregorianCalendar m_lastImport;
@@ -102,6 +110,14 @@ public class Requisition implements Comparable<Requisition> {
         m_dateStamp = value;
     }
 
+    public void updateDateStamp() {
+        try {
+            m_dateStamp = DatatypeFactory.newInstance().newXMLGregorianCalendar(new GregorianCalendar());
+        } catch (DatatypeConfigurationException e) {
+            log().warn("unable to update datestamp", e);
+        }
+    }
+
     public String getForeignSource() {
         if (m_foreignSource == null) {
             return "imported:";
@@ -126,6 +142,7 @@ public class Requisition implements Comparable<Requisition> {
 
     public Requisition() {
         updateNodeCache();
+        updateDateStamp();
     }
 
     private void updateNodeCache() {
@@ -138,7 +155,7 @@ public class Requisition implements Comparable<Requisition> {
     }
     
     public void visit(RequisitionVisitor visitor) {
-        if (m_nodeReqs.size() == 0 && m_nodes.size() > 0) {
+        if (m_nodeReqs.size() == 0 && m_nodes != null && m_nodes.size() > 0) {
             updateNodeCache();
         }
 
@@ -152,12 +169,16 @@ public class Requisition implements Comparable<Requisition> {
     }
 
     public OnmsNodeRequisition getNodeRequistion(String foreignId) {
-        if (m_nodeReqs.size() == 0 && m_nodes.size() > 0) {
+        if (m_nodeReqs.size() == 0 && m_nodes != null && m_nodes.size() > 0) {
             updateNodeCache();
         }
         return m_nodeReqs.get(foreignId);
     }
     
+    private Category log() {
+        return ThreadCategory.getInstance(Requisition.class);
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)

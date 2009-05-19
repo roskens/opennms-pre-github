@@ -36,8 +36,8 @@
 package org.opennms.netmgt.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -50,6 +50,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -57,14 +59,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.log4j.Category;
 import org.opennms.core.utils.AlphaNumeric;
 import org.opennms.core.utils.ThreadCategory;
-import org.opennms.netmgt.model.OnmsIpInterface.CollectionType;
 import org.springframework.core.style.ToStringCreator;
 
 @XmlRootElement(name = "snmpInterface")
 @Entity
 @Table(name = "snmpInterface")
 public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
-
+    
     /**
      * 
      */
@@ -104,6 +105,10 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
 
     /** identifier field */
     private String m_ifAlias;
+    
+    private Date m_lastCapsdPoll;
+
+    private String m_collect = "N";
 
     private OnmsNode m_node;
 
@@ -164,7 +169,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
         m_netMask = snmpipadentnetmask;
     }
 
-    @Column(name = "snmpPhysAddr", length = 12)
+    @Column(name = "snmpPhysAddr", length = 16)
     public String getPhysAddr() {
         return m_physAddr;
     }
@@ -244,6 +249,47 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
     public void setIfAlias(String snmpifalias) {
         m_ifAlias = snmpifalias;
     }
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="snmpLastCapsdPoll")
+    public Date getLastCapsdPoll() {
+        return m_lastCapsdPoll;
+    }
+    
+    public void setLastCapsdPoll(Date lastCapsdPoll) {
+        m_lastCapsdPoll = lastCapsdPoll;
+    }
+    
+    @Column(name="snmpCollect")
+    public String getCollect() {
+        return m_collect;
+    }
+    
+    public void setCollect(String collect) {
+        m_collect = collect;
+    }
+    
+    @Transient
+    public boolean isCollectionUserSpecified(){
+        return m_collect.startsWith("U");
+    }
+    
+    @Transient
+    public boolean isCollectionEnabled() {
+        return "C".equals(m_collect) || "UC".equals(m_collect);
+    }
+    
+    public void setCollectionEnabled(boolean shouldCollect) {
+        setCollectionEnabled(shouldCollect, false);
+    }
+    
+    public void setCollectionEnabled(boolean shouldCollect, boolean userSpecified){
+       if(userSpecified){
+           m_collect = shouldCollect ? "UC":"UN";
+       }else if(!m_collect.startsWith("U")){
+           m_collect = shouldCollect ? "C" : "N";
+       }
+    }
 
     @XmlIDREF
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -269,6 +315,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
             .append("snmpifadminstatus", getIfAdminStatus())
             .append("snmpifoperstatus", getIfOperStatus())
             .append("snmpifalias", getIfAlias())
+            .append("lastCapsdPoll", getLastCapsdPoll())
             .toString();
     }
 
@@ -299,18 +346,6 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
     // }
     // return ifsForSnmpIface;
     // }
-
-    @Transient
-    public CollectionType getCollectionType() {
-        CollectionType maxCollType = CollectionType.NO_COLLECT;
-        for (Iterator<OnmsIpInterface> it = getIpInterfaces().iterator(); it.hasNext();) {
-            OnmsIpInterface ipIface = it.next();
-            if (ipIface.getIsSnmpPrimary() != null) {
-                maxCollType = maxCollType.max(ipIface.getIsSnmpPrimary());
-            }
-        }
-        return maxCollType;
-    }
 
     public Category log() {
         return ThreadCategory.getInstance(getClass());
@@ -420,7 +455,16 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
             setPhysAddr(scannedSnmpIface.getPhysAddr());
         }
         
+        if (hasNewValue(scannedSnmpIface.getLastCapsdPoll(), getLastCapsdPoll())) {
+            setLastCapsdPoll(scannedSnmpIface.getLastCapsdPoll());
+        }
+        
+        if(scannedSnmpIface.isCollectionUserSpecified()){
+            setCollectionEnabled(scannedSnmpIface.isCollectionEnabled(), true);
+        }else if(!isCollectionUserSpecified()){
+            setCollectionEnabled(scannedSnmpIface.isCollectionEnabled() || isCollectionEnabled());
+        }
+        
     }
-
 
 }

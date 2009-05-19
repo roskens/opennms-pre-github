@@ -37,7 +37,7 @@ public class InvCloginServlet extends HttpServlet {
             String autoenable = request.getParameter("autoE");
             String enablepass = request.getParameter("enpass");
             
-            //System.out.println("InvCloginServlet setting user and password "+ device +" "+ userId +" "+password + " enablep "+ enablepass);
+            log().debug("InvCloginServlet setting user and password "+ device +" "+ userId +" "+password + " enablep "+ enablepass);
 
             int ret = InventoryLayer.updateCloginInfo(device, userId, password, loginM, autoenable, enablepass);
             redirect(request, response);

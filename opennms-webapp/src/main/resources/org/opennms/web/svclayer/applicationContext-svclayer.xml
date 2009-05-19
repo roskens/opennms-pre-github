@@ -2,12 +2,12 @@
 <beans xmlns="http://www.springframework.org/schema/beans" 
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:tx="http://www.springframework.org/schema/tx" 
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
 
 
-    <tx:annotation-driven />
-    
+  <tx:annotation-driven />
 
   <!-- Surveillance View beans -->
   <bean id="surveillanceService" class="org.opennms.web.svclayer.support.DefaultSurveillanceService" >
@@ -122,7 +122,7 @@
   
   <!--  Manual Provisioning -->
   <bean id="manualProvisioningDao" class="org.opennms.web.svclayer.dao.support.DefaultManualProvisioningDao">
-    <property name="importFileDirectory" value="file:${opennms.home}/etc" />
+    <property name="importFileDirectory" value="${opennms.webapp.importFile.dir}" />
   </bean>
   
   <bean id="manualProvisioningService" class="org.opennms.web.svclayer.support.DefaultManualProvisioningService">
@@ -216,4 +216,18 @@
     <property name="resourceDao" ref="resourceDao"/>
   </bean>
   
+  <!--INVENTORY-->
+  
+    <bean id="rwsConfig-init" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+      <property name="staticMethod"><value>org.opennms.netmgt.config.RWSConfigFactory.init</value></property>
+    </bean>
+  
+    <bean id="rwsConfig" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean" depends-on="rwsConfig-init">
+      <property name="staticMethod"><value>org.opennms.netmgt.config.RWSConfigFactory.getInstance</value></property>
+    </bean>
+         
+   <bean id="inventoryService" class="org.opennms.web.svclayer.inventory.InventoryService">
+   	<property name="rwsConfig" ref="rwsConfig"/>
+   	<property name="nodeDao" ref="nodeDao"/>
+   </bean>
 </beans>

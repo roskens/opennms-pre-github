@@ -36,66 +36,60 @@
 //
 package org.opennms.netmgt.config;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
-import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 import org.apache.log4j.Category;
-import org.apache.log4j.Level;
 import org.exolab.castor.xml.MarshalException;
-import org.exolab.castor.xml.Marshaller;
 import org.exolab.castor.xml.Unmarshaller;
 import org.exolab.castor.xml.ValidationException;
-import org.opennms.core.utils.IPSorter;
-import org.opennms.core.utils.IpListFromUrl;
 import org.opennms.core.utils.ThreadCategory;
-import org.opennms.netmgt.config.poller.ExcludeRange;
-import org.opennms.netmgt.config.poller.IncludeRange;
-import org.opennms.netmgt.config.poller.Monitor;
-import org.opennms.netmgt.config.poller.Package;
-import org.opennms.netmgt.config.poller.Parameter;
-import org.opennms.netmgt.config.poller.PollerConfiguration;
-import org.opennms.netmgt.config.poller.Service;
 import org.opennms.netmgt.config.rws.RwsConfiguration;
-import org.opennms.netmgt.dao.CastorDataAccessFailureException;
-import org.opennms.netmgt.dao.CastorObjectRetrievalFailureException;
-import org.opennms.netmgt.filter.FilterDaoFactory;
-import org.opennms.netmgt.model.OnmsMonitoredService;
-import org.opennms.netmgt.model.ServiceSelector;
-
-import org.opennms.netmgt.poller.DistributionContext;
-import org.opennms.netmgt.poller.ServiceMonitor;
-import org.opennms.netmgt.poller.ServiceMonitorLocator;
-import org.opennms.netmgt.rrd.RrdException;
-import org.opennms.netmgt.rrd.RrdUtils;
-import org.springframework.dao.PermissionDeniedDataAccessException;
+import org.opennms.netmgt.config.rws.StandbyUrl;
 
 import org.opennms.netmgt.config.rws.BaseUrl;
 
 /**
+ * @author <a href="mailto:antonio@opennms.it">Antonio Russo</a>
  * @author <a href="mailto:brozow@openms.org">Mathew Brozowski</a>
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
 abstract public class RWSConfigManager implements RWSConfig {
     
-    public synchronized BaseUrl[] getUrls() {
+    private int cursor = 0;
+    
+    public synchronized BaseUrl getBaseUrl() {
         
-        BaseUrl[] url = m_config.getBaseUrl();
+        BaseUrl url = m_config.getBaseUrl();
         return url;
     }
  
+    public synchronized StandbyUrl[] getStanbyUrls() {
+        
+        return m_config.getStandbyUrl();
+
+    }
+
+    /**
+     * 
+     */
+    public synchronized StandbyUrl getNextStandbyUrl() {
+        StandbyUrl standbyUrl = null;
+        if (hasStandbyUrl()) {
+            if (cursor == m_config.getStandbyUrlCount())   
+                cursor = 0;
+            standbyUrl = m_config.getStandbyUrl(cursor++);
+        }
+        
+        return standbyUrl;
+    }
+    
+     public synchronized boolean hasStandbyUrl() {
+
+         return (m_config.getStandbyUrlCount() > 0);
+        
+    }
+
     public RWSConfigManager(Reader reader) throws MarshalException, ValidationException, IOException {
         reloadXML(reader);
     }
@@ -139,8 +133,6 @@ abstract public class RWSConfigManager implements RWSConfig {
         return m_config;
     }
 
-    
- 
     private Category log() {
         return ThreadCategory.getInstance(this.getClass());
     }

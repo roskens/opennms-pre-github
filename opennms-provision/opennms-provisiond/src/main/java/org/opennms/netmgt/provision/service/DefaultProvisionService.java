@@ -34,9 +34,12 @@ package org.opennms.netmgt.provision.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Category;
 import org.joda.time.DateTime;
@@ -61,7 +64,11 @@ import org.opennms.netmgt.model.PathElement;
 import org.opennms.netmgt.model.events.AddEventVisitor;
 import org.opennms.netmgt.model.events.DeleteEventVisitor;
 import org.opennms.netmgt.model.events.EventForwarder;
+import org.opennms.netmgt.model.events.UpdateEventVisitor;
+import org.opennms.netmgt.provision.IpInterfacePolicy;
+import org.opennms.netmgt.provision.NodePolicy;
 import org.opennms.netmgt.provision.ServiceDetector;
+import org.opennms.netmgt.provision.SnmpInterfacePolicy;
 import org.opennms.netmgt.provision.persist.ForeignSourceRepository;
 import org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException;
 import org.opennms.netmgt.provision.persist.OnmsNodeRequisition;
@@ -134,15 +141,16 @@ public class DefaultProvisionService implements ProvisionService {
     }
     
     @Transactional
-    public void updateNode(OnmsNode scannedNode, boolean x, boolean xx) {
+    public void updateNode(OnmsNode node, boolean x, boolean xx) {
         
-        OnmsNode dbNode = m_nodeDao.getHierarchy(scannedNode.getId());
+        OnmsNode dbNode = m_nodeDao.getHierarchy(node.getId());
 
-        dbNode.mergeNode(scannedNode, m_eventForwarder);
+        dbNode.mergeNode(node, m_eventForwarder);
     
         m_nodeDao.update(dbNode);
-        
+        EntityVisitor eventAccumlator = new UpdateEventVisitor(m_eventForwarder);
         //TODO: update the node in the scheduledList of Nodes
+        node.visit(eventAccumlator);
         
     }
 
@@ -439,19 +447,19 @@ public class DefaultProvisionService implements ProvisionService {
         m_nodeDao.update(node);
     }
     
-    public NodeScanSchedule getScheduleForNode(int nodeId) {
+    public NodeScanSchedule getScheduleForNode(int nodeId, boolean force) {
         OnmsNode node = m_nodeDao.get(nodeId);
-        return createScheduleForNode(node);
+        return createScheduleForNode(node, force);
     }
     
     public List<NodeScanSchedule> getScheduleForNodes() {
         Assert.notNull(m_nodeDao, "Node DAO is null and is not supposed to be");
-        List<OnmsNode> nodes = m_nodeDao.findAll();
+        List<OnmsNode> nodes = m_nodeDao.findAllProvisionedNodes();
         
         List<NodeScanSchedule> scheduledNodes = new ArrayList<NodeScanSchedule>();
         
         for(OnmsNode node : nodes) {
-            NodeScanSchedule nodeScanSchedule = createScheduleForNode(node);
+            NodeScanSchedule nodeScanSchedule = createScheduleForNode(node, false);
             if (nodeScanSchedule != null) {
                 scheduledNodes.add(nodeScanSchedule);
             }
@@ -460,7 +468,7 @@ public class DefaultProvisionService implements ProvisionService {
         return scheduledNodes;
     }
     
-    private NodeScanSchedule createScheduleForNode(OnmsNode node) {
+    private NodeScanSchedule createScheduleForNode(OnmsNode node, boolean force) {
         Assert.notNull(node, "Node may not be null");
 
         ForeignSource fs = null;
@@ -472,7 +480,7 @@ public class DefaultProvisionService implements ProvisionService {
 
         Duration scanInterval = fs.getScanInterval();
         Duration initialDelay = Duration.ZERO;
-        if (node.getLastCapsdPoll() != null) {
+        if (node.getLastCapsdPoll() != null && !force) {
             DateTime nextPoll = new DateTime(node.getLastCapsdPoll().getTime()).plus(scanInterval);
             DateTime now = new DateTime();
             if (nextPoll.isAfter(now)) {
@@ -538,13 +546,13 @@ public class DefaultProvisionService implements ProvisionService {
         }
     }
 
-    public Collection<ServiceDetector> getDetectorsForForeignSource(String foreignSourceName) {
+    public List<ServiceDetector> getDetectorsForForeignSource(String foreignSourceName) {
         ForeignSource foreignSource = m_foreignSourceRepository.getForeignSource(foreignSourceName);
         assertNotNull(foreignSource, "Expected a foreignSource with name %s", foreignSourceName);
         
-        List<PluginConfig> detectorConfigs = foreignSource.getDetectors();
+        Set<PluginConfig> detectorConfigs = foreignSource.getDetectors();
         if (detectorConfigs == null) {
-            return m_pluginRegistry.getAllPlugins(ServiceDetector.class);
+            return new ArrayList<ServiceDetector>(m_pluginRegistry.getAllPlugins(ServiceDetector.class));
         }
         
         List<ServiceDetector> detectors = new ArrayList<ServiceDetector>(detectorConfigs.size());
@@ -560,6 +568,50 @@ public class DefaultProvisionService implements ProvisionService {
         }
 
         return detectors;
+    }
+
+    public List<NodePolicy> getNodePoliciesForForeignSource(String foreignSourceName) {
+        return getPluginsForForeignSource(NodePolicy.class, foreignSourceName);
+    }
+    
+    public List<IpInterfacePolicy> getIpInterfacePoliciesForForeignSource(String foreignSourceName) {
+        return getPluginsForForeignSource(IpInterfacePolicy.class, foreignSourceName);
+    }
+    
+    public List<SnmpInterfacePolicy> getSnmpInterfacePoliciesForForeignSource(String foreignSourceName) {
+        return getPluginsForForeignSource(SnmpInterfacePolicy.class, foreignSourceName);
+    }
+
+    
+    public <T> List<T> getPluginsForForeignSource(Class<T> pluginClass, String foreignSourceName) {
+        ForeignSource foreignSource = m_foreignSourceRepository.getForeignSource(foreignSourceName);
+        assertNotNull(foreignSource, "Expected a foreignSource with name %s", foreignSourceName);
+        
+        Set<PluginConfig> configs = foreignSource.getPolicies();
+        if (configs == null) {
+            return Collections.emptyList(); 
+        }
+        
+        List<T> plugins = new ArrayList<T>(configs.size());
+        for(PluginConfig config : configs) {
+            T plugin = m_pluginRegistry.getPluginInstance(pluginClass, config);
+            if (plugin == null) {
+                error("Configured plugin does not exist: %s", config);
+            } else {
+                plugins.add(plugin);
+            }
+        }
+
+        return plugins;
+        
+    }
+
+    public void deleteObsoleteInterfaces(Integer nodeId, Date scanStamp) {
+        m_nodeDao.deleteObsoleteInterfaces(nodeId, scanStamp);
+    }
+
+    public void updateNodeScanStamp(Integer nodeId, Date scanStamp) {
+        m_nodeDao.updateNodeScanStamp(nodeId, scanStamp);
     }
 
     private void error(String format, Object... args) {

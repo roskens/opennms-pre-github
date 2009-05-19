@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-     
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+  
+  <context:annotation-config/>
+
   <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
     <property name="locations">
       <list>
         <value>WEB-INF/configuration.properties</value>
+        <value>file:${opennms.home}/etc/model-importer.properties</value>
       </list>
     </property>
   </bean>
@@ -35,16 +41,29 @@
 
   <!-- Home Page -->
   <bean name="/frontPage.htm" class="org.opennms.web.controller.FrontPageController"/>
-  
+
   <bean name="/admin/provisioningGroups.htm" class="org.opennms.web.controller.ProvisioningGroupsController">
     <property name="provisioningService" ref="manualProvisioningService" />
+    <property name="foreignSourceService" ref="defaultForeignSourceService" />
     <property name="commandName" value="groupAction" />
   </bean>
-  
+
   <bean name="/admin/editProvisioningGroup.htm" class="org.opennms.web.controller.EditProvisioningGroupController">
     <property name="provisioningService" ref="manualProvisioningService" />
     <property name="bindOnNewForm" value="true" />
     <property name="commandName" value="nodeEditForm" />
+    <property name="successView" value="redirect:/admin/provisioningGroups.htm" />
+  </bean>
+  
+  <bean name="defaultForeignSourceService" class="org.opennms.web.svclayer.support.DefaultForeignSourceService">
+  	<property name="pendingForeignSourceRepository" ref="pendingForeignSourceRepository" />
+  	<property name="activeForeignSourceRepository" ref="deployedForeignSourceRepository" />
+  </bean>
+  
+  <bean name="/admin/editForeignSource.htm" class="org.opennms.web.controller.EditForeignSourceController">
+    <property name="bindOnNewForm" value="true" />
+    <property name="foreignSourceService" ref="defaultForeignSourceService" />
+    <property name="commandName" value="foreignSourceEditForm" />
     <property name="successView" value="redirect:/admin/provisioningGroups.htm" />
   </bean>
   
@@ -188,7 +207,15 @@
     <property name="successView"><value>element/nodeList</value></property>
     <property name="nodeListService" ref="nodeListService" />
   </bean>
-  
+
+  <bean name="/inventory/rancid.htm" class="org.opennms.web.controller.inventory.RancidController">
+    <property name="inventoryService" ref="inventoryService"/>
+  </bean>  
+
+  <bean name="/admin/rancid/rancidAdmin.htm" class="org.opennms.web.controller.inventory.AdminRancidController">
+    <property name="inventoryService" ref="inventoryService"/>
+  </bean>  
+
   <bean name="/alarm/ticket/create.htm" class="org.opennms.web.controller.alarm.AlarmTicketController">
   	<property name="troubleTicketProxy" ref="troubleTicketProxy" />
   </bean>

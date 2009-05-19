@@ -6,6 +6,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -22,6 +23,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.opennms.netmgt.config.DataSourceFactory;
 import org.opennms.netmgt.mock.MockDatabase;
+import org.opennms.test.DaoTestConfigBean;
 import org.springframework.mock.web.MockFilterConfig;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -51,12 +53,10 @@ public abstract class AbstractSpringJerseyRestTestCase {
     @Before
     public void setUp() throws Exception {
         beforeServletStart();
-        
-        String userDir = System.getProperty("user.dir");
-        System.setProperty("opennms.home", userDir+"/src/test/opennms-home");
-        System.setProperty("rrd.base.dir", "/tmp");
-        System.setProperty("rrd.binary", "rrdtool");
-           
+
+        DaoTestConfigBean bean = new DaoTestConfigBean();
+        bean.afterPropertiesSet();
+
         MockDatabase db = new MockDatabase(true);
         DataSourceFactory.setInstance(db);
                 
@@ -155,6 +155,10 @@ public abstract class AbstractSpringJerseyRestTestCase {
 
     protected String sendRequest(String requestType, String url, int spectedStatus) throws Exception {
         MockHttpServletRequest request = createRequest(requestType, url);
+        return sendRequest(request, spectedStatus);
+    }
+
+    protected String sendRequest(MockHttpServletRequest request, int spectedStatus) throws Exception, UnsupportedEncodingException {
         MockHttpServletResponse response = createResponse();
         dispatch(request, response);
         assertEquals(spectedStatus, response.getStatus());

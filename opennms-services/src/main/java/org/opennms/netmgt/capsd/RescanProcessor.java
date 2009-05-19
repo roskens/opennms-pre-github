@@ -593,46 +593,6 @@ public final class RescanProcessor implements Runnable {
         }
         
         updateSnmpInfoForNonIpInterface(dbc, node, ifIndex, snmpc, ifAddr);
-
-        updateIpInfoForNonIpInterface(dbc, now, node, ifIndex, snmpc, ifAddr);
-    }
-
-    /**
-     * IpInterface table updates for non-IP interface.
-     */
-    private void updateIpInfoForNonIpInterface(Connection dbc, Date now,
-            DbNodeEntry node, int ifIndex, IfSnmpCollector snmpc,
-            InetAddress ifAddr) throws SQLException {
-        // Attempt to load IP Interface entry from the database
-        DbIpInterfaceEntry dbIpIfEntry = DbIpInterfaceEntry.get(dbc, node.getNodeId(), ifAddr, ifIndex);
-        if (dbIpIfEntry == null) {
-            // Create a new entry
-            if (log().isDebugEnabled()) {
-                log().debug("updateNonIpInterface: non-IP interface with ifIndex "
-                          + ifIndex
-                          + " not in database, creating new interface object.");
-            }
-            dbIpIfEntry = DbIpInterfaceEntry.create(node.getNodeId(), ifAddr);
-        }
-
-        // Update any IpInterface table fields which have changed
-        dbIpIfEntry.setLastPoll(now);
-        
-        /*
-         * XXX If m_useIfIndexAsKey is set in the DbIpInterfaceEntry,
-         * no entries (or at least not the right entry) will be updated
-         * because the WHERE clause for the UPDATE will be referring to
-         * the *new* ifIndex.
-         */
-        dbIpIfEntry.setIfIndex(ifIndex);
-        dbIpIfEntry.setManagedState(DbIpInterfaceEntry.STATE_UNMANAGED);
-        int status = snmpc.getAdminStatus(ifIndex);
-        if (status != -1) {
-            dbIpIfEntry.setStatus(status);
-        }
-
-        // Update the database
-        dbIpIfEntry.store(dbc);
     }
 
     /**
@@ -1856,34 +1816,30 @@ public final class RescanProcessor implements Runnable {
                  */
                 InetAddress[] aaddrs = snmpc.getIfAddressAndMask(ifIndex);
 
-                // Address array should NEVER be null but just in case..
+
                 if (aaddrs == null) {
-                    log().warn("updateSnmpInfo: unable to retrieve address and "
-                            + "netmask for nodeId/ifIndex: "
-                            + node.getNodeId() + "/" + ifIndex);
+                    // disable collection on interface with no ip address by default
+                    currSnmpIfEntry.setCollect("N");
+                } else {
 
-                    aaddrs = new InetAddress[2];
+                    // IP address
+                    currSnmpIfEntry.setIfAddress(aaddrs[0]);
+                    
+                    // mark the interface is collection enable
+                    currSnmpIfEntry.setCollect("C");
 
-                    // Set interface address to current interface
-                    aaddrs[0] = ifaddr;
-
-                    // Set netmask to NULL
-                    aaddrs[1] = null;
-                }
-
-                // IP address
-                currSnmpIfEntry.setIfAddress(aaddrs[0]);
-
-                // netmask
-                if (aaddrs[1] != null) {
-                    if (log().isDebugEnabled()) {
-                        log().debug("updateSnmpInfo: interface "
-                                  + aaddrs[0].getHostAddress()
-                                  + " has netmask: "
-                                  + aaddrs[1].getHostAddress());
+                    // netmask
+                    if (aaddrs[1] != null) {
+                        if (log().isDebugEnabled()) {
+                            log().debug("updateSnmpInfo: interface "
+                                        + aaddrs[0].getHostAddress()
+                                        + " has netmask: "
+                                        + aaddrs[1].getHostAddress());
+                        }
+                        currSnmpIfEntry.setNetmask(aaddrs[1]);
                     }
-                    currSnmpIfEntry.setNetmask(aaddrs[1]);
-                }
+                    
+                } 
 
                 // type
                 Integer sint = ifte.getIfType();
@@ -1953,6 +1909,7 @@ public final class RescanProcessor implements Runnable {
             dbSnmpIfEntry.updateAdminStatus(currSnmpIfEntry.getAdminStatus());
             dbSnmpIfEntry.updateOperationalStatus(currSnmpIfEntry.getOperationalStatus());
             dbSnmpIfEntry.updateAlias(currSnmpIfEntry.getAlias());
+            dbSnmpIfEntry.updateCollect(currSnmpIfEntry.getCollect());
 
             /*
              * If this is a new interface or if any of the following

@@ -702,8 +702,6 @@ final class SuspectEventProcessor implements Runnable {
         addSubIpInterfaces(dbc, node, collector, now, nodeId, cFactory, pollerCfgFactory,
                            snmpc);
         
-        // Now add any non-IP interfaces
-        addSubNonIpInterfaces(dbc, collector, now, nodeId, snmpc);
     }
 
 
@@ -810,49 +808,6 @@ final class SuspectEventProcessor implements Runnable {
                                   xaddrUnmanaged, xifIndex, xipPkg);
         }
     }
-
-    private void addSubNonIpInterfaces(Connection dbc, IfCollector collector,
-            Date now, int nodeId, IfSnmpCollector snmpc) throws SQLException {
-        if (!snmpc.hasIpAddrTable()) {
-            return;
-        }
-
-        if (!collector.hasNonIpInterfaces()) {
-            return;
-        }
-
-        for(Integer ifindex : collector.getNonIpInterfaces()) {
-
-            DbIpInterfaceEntry xipIfEntry = null;
-            try {
-                xipIfEntry =
-                    DbIpInterfaceEntry.create(nodeId,
-                                              InetAddress.getByName("0.0.0.0"));
-            } catch (UnknownHostException e) {
-                continue;
-            }
-            xipIfEntry.setLastPoll(now);
-            xipIfEntry.setManagedState(DbIpInterfaceEntry.STATE_UNMANAGED);
-
-            /*
-             * XXX I'm not sure if it is always safe to call setIfIndex
-             * here.  We should only do it if an snmpInterface entry
-             * was previously created for this ifIndex.  It was likely done
-             * by addSnmpInterfaces, but I have't checked to make sure that
-             * all cases are covered. - dj@opennms.org 
-             */
-            xipIfEntry.setIfIndex(ifindex.intValue());
-
-            int status = snmpc.getAdminStatus(ifindex.intValue());
-            if (status != -1) {
-                xipIfEntry.setStatus(status);
-            }
-
-            xipIfEntry.setPrimaryState(DbIpInterfaceEntry.SNMP_NOT_ELIGIBLE);
-
-            xipIfEntry.store(dbc);
-        }
-    }
     
     private boolean addIfTableSnmpInterfaces(Connection dbc, InetAddress ifaddr,
             int nodeId, IfCollector collector)
@@ -885,43 +840,38 @@ final class SuspectEventProcessor implements Runnable {
             if (snmpc.hasIpAddrTable()) {
                 aaddrs = snmpc.getIfAddressAndMask(xifIndex);
             }
-            if (aaddrs == null) {
-                /*
-                 * Must be non-IP interface, set ifAddress to
-                 * '0.0.0.0' and mask to null
-                 */
-                aaddrs = new InetAddress[2];
-                try {
-                    aaddrs[0] = InetAddress.getByName("0.0.0.0");
-                } catch (UnknownHostException e) {
-                    continue;
-                }
-                aaddrs[1] = null;
-            }
 
             // At some point back in the day this was done with ifType
             // Skip loopback interfaces
-            if (aaddrs[0].getHostAddress().startsWith("127.")) {
+            if (aaddrs != null && aaddrs[0].getHostAddress().startsWith("127.")) {
                 continue;
             }
 
             final DbSnmpInterfaceEntry snmpEntry =
                 DbSnmpInterfaceEntry.create(nodeId, xifIndex);
 
-            // IP address
-            snmpEntry.setIfAddress(aaddrs[0]);
-            if (aaddrs[0].equals(ifaddr)) {
-                addedSnmpInterfaceEntry = true;
-            }
+            if (aaddrs == null) {
+                // No IP associeated with the interface
+                snmpEntry.setCollect("N");
 
-            // netmask
-            if (aaddrs[1] != null) {
-                snmpEntry.setNetmask(aaddrs[1]);
+            } else {
+                // IP address
+                snmpEntry.setIfAddress(aaddrs[0]);
+                if (aaddrs[0].equals(ifaddr)) {
+                    addedSnmpInterfaceEntry = true;
+                }
+
+                // netmask
+                if (aaddrs[1] != null) {
+                    snmpEntry.setNetmask(aaddrs[1]);
+                }
+                
+                snmpEntry.setCollect("C");
             }
 
             // description
             final String str = ifte.getIfDescr();
-            if (log().isDebugEnabled()) {
+            if (log().isDebugEnabled() && aaddrs != null) {
                 log().debug("SuspectEventProcessor: "
                         + aaddrs[0].getHostAddress() + " has ifDescription: "
                         + str);
@@ -934,14 +884,14 @@ final class SuspectEventProcessor implements Runnable {
             String physAddr = null;
             try {
                 physAddr = ifte.getPhysAddr();
-                if (log().isDebugEnabled()) {
+                if (log().isDebugEnabled() && aaddrs != null) {
                     log().debug("SuspectEventProcessor: "
                             + aaddrs[0].getHostAddress()
                             + " has physical address: -" + physAddr + "-");
                 }
             } catch (IllegalArgumentException iae) {
                 physAddr = null;
-                if (log().isDebugEnabled()) {
+                if (log().isDebugEnabled() && aaddrs != null) {
                     log().debug("ifPhysAddress." + ifte.getIfIndex() + " on node "
                                + nodeId + " / " + aaddrs[0].getHostAddress()
                                + " could not be converted to a hex string (not a PhysAddr / OCTET STRING?), setting to null.");

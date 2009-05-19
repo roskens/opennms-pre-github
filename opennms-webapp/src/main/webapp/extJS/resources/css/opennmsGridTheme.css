@@ -11,6 +11,8 @@ table {
 	margin-bottom: auto;
 	width:auto;
 }
+
+
 /*Overriting style*/
 
 /*Cutom Style begin*/
@@ -61,14 +63,38 @@ table {
 	background-image:url(../extJS/resources/images/onmsTheme/magnifier.png);	
 }
 
-.x-grid3-hd-row td{
-	color:#ffffff;
-	border-left:0px;
-	font-weight: bold;
-	background: transparent;
+.x-grid3-hd-row td {
+    color:#ffffff;
+    border-left:0px;
+    font-weight: bold;
+    background: transparent;
 }
 
-.x-grid3-row-over{
+.x-grid3-row td {
+    border-left:0px;
+    border-collapse: false;
+    background: transparent;
+    font-family: "Lucida Grande",Verdana,sans-serif;
+}
+
+td.x-grid3-hd-over .x-grid3-hd-inner, td.sort-asc, td.sort-desc {
+    color: #000000;
+}
+
+
+.x-grid3 table{
+	/*table-layout:auto;*/
+}
+
+.x-grid3-row {
+    border-style: none;
+}
+
+.x-grid3-cell-inner {
+	padding: 4px 5px;
+}
+
+.x-grid3-row-over {
 	background:#EFEFEF;	
 }
 
@@ -79,9 +105,10 @@ table {
 	background:#444444;
 }
 
-.x-panel {
+.x-panel-body {
     border-style: solid;
     border-color: #d0d0d0;
+    
 }
 .x-panel-header {
     color:#333;
@@ -91,10 +118,6 @@ table {
 }
 .x-panel-header-text{
 	color:#ffffff;	
-}
-
-.x-panel-body {
-    border-color:#d0d0d0;
 }
 
 .x-panel-bbar .x-toolbar {
@@ -150,6 +173,21 @@ table {
 /* Tools */
 .x-tool {
     background-image:url(../images/gray/panel/tool-sprites.gif);
+}
+
+/*Toolbar background*/
+.x-toolbar .x-btn-center, .x-toolbar .x-btn-left, .x-toolbar .x-btn-right  {
+	border-width: 0px;
+	border-style: none;
+	border-top-color: #000000;
+	border-bottom-color: #000000;
+	border-right-color: #000000;
+	border-left-color: #000000;
+}
+
+.x-toolbar td{
+    background: transparent;
+    border-style: none;	
 }
 
 /* Ghosting */
@@ -285,7 +323,8 @@ ul.x-tab-strip-top{
 	background-image: url(../images/onmsTheme/panel/headingbg.png);
 	background-position: center center;
 	border-color:#d0d0d0;
-    padding-top: 2px;
+    padding-top: 4px;
+    margin-top: 7px;
 }
 
 ul.x-tab-strip-bottom{

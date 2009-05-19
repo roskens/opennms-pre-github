@@ -77,10 +77,9 @@ public class Provisioner implements SpringServiceDaemon {
     private volatile Resource m_importResource;
     private volatile EventSubscriptionService m_eventSubscriptionService;
     private volatile EventForwarder m_eventForwarder;
-
-    private volatile TimeTrackingMonitor m_stats;
     
-	
+    private volatile TimeTrackingMonitor m_stats;
+
     public void setProvisionService(ProvisionService provisionService) {
 	    m_provisionService = provisionService;
 	}
@@ -93,7 +92,7 @@ public class Provisioner implements SpringServiceDaemon {
 	    m_scheduledExecutor = scheduledExecutor;
 	}
 
-	public void setLifeCycleRepository(LifeCycleRepository lifeCycleRepository) {
+    public void setLifeCycleRepository(LifeCycleRepository lifeCycleRepository) {
 	    m_lifeCycleRepository = lifeCycleRepository;
 	}
 
@@ -130,7 +129,7 @@ public class Provisioner implements SpringServiceDaemon {
     }
     
     public NodeScan createNodeScan(String foreignSource, String foreignId) {
-        return new NodeScan(foreignSource, foreignId, m_lifeCycleRepository, m_providers);
+        return new NodeScan(foreignSource, foreignId, m_provisionService, m_lifeCycleRepository, m_providers);
     }
 
     //Helper functions for the schedule
@@ -292,18 +291,38 @@ public class Provisioner implements SpringServiceDaemon {
      */
     @EventHandler(uei = EventConstants.NODE_ADDED_EVENT_UEI)
     public void handleNodeAddedEvent(Event e) {
-        NodeScanSchedule scheduleForNode = getProvisionService().getScheduleForNode(new Long(e.getNodeid()).intValue());
+        NodeScanSchedule scheduleForNode = getProvisionService().getScheduleForNode(new Long(e.getNodeid()).intValue(), true);
         if (scheduleForNode != null) {
             addToScheduleQueue(scheduleForNode);
         }
+
+    }
+    
+    @EventHandler(uei = EventConstants.FORCE_RESCAN_EVENT_UEI)
+    public void handleForceRescan(Event e) {
+        removeNodeFromScheduleQueue(new Long(e.getNodeid()).intValue());
+        NodeScanSchedule scheduleForNode = getProvisionService().getScheduleForNode(new Long(e.getNodeid()).intValue(), true);
+        if (scheduleForNode != null) {
+            addToScheduleQueue(scheduleForNode);
+        }
+
+    }
+    
+    @EventHandler(uei = EventConstants.NODE_UPDATED_EVENT_UEI)
+    public void handleNodeUpdated(Event e) {
+        // scan now since a reimport has occurred
+        removeNodeFromScheduleQueue(new Long(e.getNodeid()).intValue());
+        NodeScanSchedule scheduleForNode = getProvisionService().getScheduleForNode(new Long(e.getNodeid()).intValue(), true);
+        if (scheduleForNode != null) {
+            addToScheduleQueue(scheduleForNode);
+        }
+        
     }
 
-    /**
-     * @param e
-     */
     @EventHandler(uei = EventConstants.NODE_DELETED_EVENT_UEI)
     public void handleNodeDeletedEvent(Event e) {
         removeNodeFromScheduleQueue(new Long(e.getNodeid()).intValue());
+        
     }
 
     private String getEventUrl(Event event) {

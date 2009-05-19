@@ -8,8 +8,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
@@ -24,10 +25,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.opennms.netmgt.provision.persist.foreignsource.ForeignSource;
+import org.opennms.netmgt.provision.persist.foreignsource.ForeignSourceCollection;
 import org.opennms.netmgt.provision.persist.foreignsource.PluginConfig;
-import org.opennms.netmgt.provision.persist.requisition.ForeignSourceCollection;
 import org.opennms.test.FileAnticipator;
 import org.xml.sax.SAXException;
+
+import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl;
 
 public class PersistenceSerializationTest {
     private ForeignSourceCollection fsw;
@@ -58,8 +61,9 @@ public class PersistenceSerializationTest {
 
         fs = fsr.getForeignSource("cheese");
 //        fs.setScanInterval(scanInterval)
+        fs.setDateStamp(XMLGregorianCalendarImpl.parse("2009-02-25T12:45:38.800-05:00"));
 
-        ArrayList<PluginConfig> detectors = new ArrayList<PluginConfig>();
+        Set<PluginConfig> detectors = new LinkedHashSet<PluginConfig>();
         final PluginConfig detector = new PluginConfig("food", "org.opennms.netmgt.provision.persist.detectors.FoodDetector");
         detector.addParameter("type", "cheese");
         detector.addParameter("density", "soft");
@@ -67,7 +71,7 @@ public class PersistenceSerializationTest {
         detectors.add(detector);
         fs.setDetectors(detectors);
 
-        ArrayList<PluginConfig> policies = new ArrayList<PluginConfig>();
+        Set<PluginConfig> policies = new LinkedHashSet<PluginConfig>();
         PluginConfig policy = new PluginConfig("lower-case-node", "org.opennms.netmgt.provision.persist.policies.NodeCategoryPolicy");
         policy.addParameter("label", "~^[a-z]$");
         policy.addParameter("category", "Lower-Case-Nodes");
@@ -84,9 +88,7 @@ public class PersistenceSerializationTest {
 
         fsw = new ForeignSourceCollection(fsr.getForeignSources());
         c = JAXBContext.newInstance(ForeignSourceCollection.class, ForeignSource.class);
-
         m = c.createMarshaller();
-        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         
         XMLUnit.setIgnoreWhitespace(true);
         XMLUnit.setIgnoreAttributeOrder(true);
