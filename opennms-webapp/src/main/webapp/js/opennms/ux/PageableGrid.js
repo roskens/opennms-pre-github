@@ -9,29 +9,35 @@ OpenNMS.ux.PageableGrid = Ext.extend(Ext.grid.GridPanel, {
     emptyMsg: "No topics to display",
     viewConfig : {
 	  autoFill: true,
-	  forceFit: true
+	  forceFit: true,
+	  scrollOffset:2
 	},
+	remoteSort:true,
 	
 	initComponent:function(){
-	
+		this.on('rowdblclick', this.onDoubleClick, this);
+		
 		var tpl = new Ext.XTemplate(this.urlTemplate);
 		
 		this.url = tpl.apply(this);
-	
-		this.store = new Ext.data.Store({
-			proxy:new Ext.data.HttpProxy({
-				method:"GET",
-				url: this.url
-			}),
-			paramNames:{
-			"start" : "offset",
-			"limit" : "limit",
-			"sort" : "orderby",
-			"dir" : "dir"
-			},
-			autoLoad:true,
-			reader:new Ext.data.XmlReader({ record:this.recordTag, totalRecords:"@totalCount" }, this.recordMap)
-		});
+		
+		if(this.store == undefined){
+			this.store = new Ext.data.Store({
+				proxy:new Ext.data.HttpProxy({
+					method:"GET",
+					url: this.url
+				}),
+				paramNames:{
+				"start" : "offset",
+				"limit" : "limit",
+				"sort" : "orderBy",
+				dir: "order"
+				},
+				autoLoad:true,
+				reader:new Ext.data.XmlReader({ record:this.recordTag, totalRecords:"@totalCount" }, this.recordMap),
+				remoteSort:this.remoteSort
+			});
+		}
 	
 
 		Ext.apply(this,{
@@ -46,9 +52,7 @@ OpenNMS.ux.PageableGrid = Ext.extend(Ext.grid.GridPanel, {
 			
 			loadMask:true,
 			stripeRows:true,
-			viewConfig:{
-				autoFill:true
-			}
+			viewConfig:this.viewConfig
 			
 		});
 		
@@ -71,6 +75,10 @@ OpenNMS.ux.PageableGrid = Ext.extend(Ext.grid.GridPanel, {
 		if(this.pagingBarButtons && this.pagingBarButtons.length > 0){
 			this.getBottomToolbar().addButton(this.pagingBarButtons);
 		}
+	},
+	
+	onDoubleClick:function(event){
+		
 	}
 });
 

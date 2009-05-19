@@ -37,6 +37,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -52,6 +54,7 @@ import org.opennms.netmgt.dao.MonitoredServiceDao;
 import org.opennms.netmgt.dao.NodeDao;
 import org.opennms.netmgt.dao.ServiceTypeDao;
 import org.opennms.netmgt.dao.SnmpInterfaceDao;
+import org.opennms.netmgt.model.AbstractEntityVisitor;
 import org.opennms.netmgt.model.EntityVisitor;
 import org.opennms.netmgt.model.OnmsCategory;
 import org.opennms.netmgt.model.OnmsDistPoller;
@@ -90,6 +93,22 @@ import org.springframework.util.Assert;
 @Service
 public class DefaultProvisionService implements ProvisionService {
     
+    /**
+     * ServiceTypeFulfiller
+     *
+     * @author brozow
+     */
+    private final class ServiceTypeFulfiller extends AbstractEntityVisitor {
+        @Override
+        public void visitMonitoredService(OnmsMonitoredService monSvc) {
+            OnmsServiceType dbType = monSvc.getServiceType();
+            if (dbType.getId() == null) {
+                dbType = createServiceTypeIfNecessary(dbType.getName());
+            }
+            monSvc.setServiceType(dbType);
+        }
+    }
+
     @Autowired
     private DistPollerDao m_distPollerDao;
     
@@ -116,7 +135,7 @@ public class DefaultProvisionService implements ProvisionService {
     private EventForwarder m_eventForwarder;
     
     @Autowired
-    @Qualifier("deployed")
+    @Qualifier("fused")
     private ForeignSourceRepository m_foreignSourceRepository;
     
     @Autowired
@@ -137,19 +156,18 @@ public class DefaultProvisionService implements ProvisionService {
 
         node.visit(eventAccumlator);
         
-        //TODO: Update node in schedule
     }
     
     @Transactional
-    public void updateNode(OnmsNode node, boolean x, boolean xx) {
+    public void updateNode(OnmsNode node) {
         
         OnmsNode dbNode = m_nodeDao.getHierarchy(node.getId());
 
-        dbNode.mergeNode(node, m_eventForwarder);
+        dbNode.mergeNode(node, m_eventForwarder, false);
     
         m_nodeDao.update(dbNode);
         EntityVisitor eventAccumlator = new UpdateEventVisitor(m_eventForwarder);
-        //TODO: update the node in the scheduledList of Nodes
+
         node.visit(eventAccumlator);
         
     }
@@ -165,7 +183,6 @@ public class DefaultProvisionService implements ProvisionService {
             node.visit(new DeleteEventVisitor(m_eventForwarder));
         }
         
-        //TODO: Should remove the node from the scheduled list of nodes
     
     }
     
@@ -185,13 +202,15 @@ public class DefaultProvisionService implements ProvisionService {
         OnmsIpInterface dbIface = m_ipInterfaceDao.findByNodeIdAndIpAddress(nodeId, scannedIface.getIpAddress());
         if (dbIface != null) {
             dbIface.mergeInterfaceAttributes(scannedIface);
-            m_ipInterfaceDao.save(dbIface);
+            m_ipInterfaceDao.update(dbIface);
             return dbIface;
         } else {
-            OnmsNode dbNode = m_nodeDao.get(nodeId);
+            OnmsNode dbNode = m_nodeDao.load(nodeId);
             assertNotNull(dbNode, "no node found with nodeId %d", nodeId);
-            dbNode.addIpInterface(scannedIface);
-            m_nodeDao.update(dbNode);
+            // for performance reasons we don't add the ip interface to the node so we avoid loading all the interfaces
+            // setNode only sets the node in the interface
+            scannedIface.setNode(dbNode);
+            saveOrUpdate(scannedIface);
             AddEventVisitor visitor = new AddEventVisitor(m_eventForwarder);
             scannedIface.visit(visitor);
             return scannedIface;
@@ -208,10 +227,12 @@ public class DefaultProvisionService implements ProvisionService {
             return dbSnmpIface;
         } else {
             // add the interface to the node, if it wasn't found
-            OnmsNode dbNode = m_nodeDao.get(nodeId);
+            OnmsNode dbNode = m_nodeDao.load(nodeId);
             assertNotNull(dbNode, "no node found with nodeId %d", nodeId);
-            dbNode.addSnmpInterface(snmpInterface);
-            m_nodeDao.update(dbNode);
+            // for performance reasons we don't add the snmp interface to the node so we avoid loading all the interfaces
+            // setNode only sets the node in the interface
+            snmpInterface.setNode(dbNode);
+            m_snmpInterfaceDao.save(snmpInterface);
             return snmpInterface;
         }
     }
@@ -287,8 +308,22 @@ public class DefaultProvisionService implements ProvisionService {
     @Transactional
     public OnmsNode getRequisitionedNode(String foreignSource, String foreignId) throws ForeignSourceRepositoryException {
         OnmsNodeRequisition nodeReq = m_foreignSourceRepository.getNodeRequisition(foreignSource, foreignId);
-        Assert.notNull(nodeReq, "nodeReq cannot be null!");
-        return nodeReq.constructOnmsNodeFromRequisition();
+        Assert.notNull(nodeReq, "nodeReq for node "+foreignSource+":"+foreignId+" cannot be null!");
+        OnmsNode node = nodeReq.constructOnmsNodeFromRequisition();
+        
+        // fill in real db categories
+        HashSet<OnmsCategory> dbCategories = new HashSet<OnmsCategory>();
+        for(OnmsCategory category : node.getCategories()) {
+            OnmsCategory dbCategory = createCategoryIfNecessary(category.getName());
+            dbCategories.add(dbCategory);
+        }
+        
+        node.setCategories(dbCategories);
+        
+        // fill in reall service types
+        node.visit(new ServiceTypeFulfiller());
+        
+        return node;
     }
     
     @Transactional
@@ -505,7 +540,10 @@ public class DefaultProvisionService implements ProvisionService {
      * @see org.opennms.netmgt.provision.service.ProvisionService#loadRequisition(java.lang.String, org.springframework.core.io.Resource)
      */
     public Requisition loadRequisition(Resource resource) {
-        return m_foreignSourceRepository.importRequisition(resource);
+        Requisition r = m_foreignSourceRepository.importResourceRequisition(resource);
+        r.updateLastImported();
+        m_foreignSourceRepository.save(r);
+        return r;
     }
 
     /* (non-Javadoc)
@@ -534,23 +572,53 @@ public class DefaultProvisionService implements ProvisionService {
             
             node.setDistPoller(dbPoller);
             
-            m_nodeDao.save(node);
+            return saveOrUpdate(node);
             
-            return node;
             
         } else {
             dbNode.mergeNodeAttributes(node);
-            m_nodeDao.saveOrUpdate(dbNode);
             
-            return dbNode;
+            return saveOrUpdate(dbNode);
         }
     }
+    
+    private OnmsNode saveOrUpdate(OnmsNode node) {
+        
 
+        Set<OnmsCategory> updatedCategories = new HashSet<OnmsCategory>();
+        for(Iterator<OnmsCategory> it = node.getCategories().iterator(); it.hasNext(); ) {
+            OnmsCategory category = it.next();
+            if (category.getId() == null) {
+                it.remove();
+                
+                OnmsCategory newCategory = createCategoryIfNecessary(category.getName());
+                updatedCategories.add(newCategory);
+            }
+        }
+        
+        node.getCategories().addAll(updatedCategories);
+        
+        m_nodeDao.saveOrUpdate(node);
+        
+        return node;
+        
+    }
+    
+    private OnmsIpInterface saveOrUpdate(OnmsIpInterface iface) {
+        
+        iface.visit(new ServiceTypeFulfiller());
+        
+        m_ipInterfaceDao.saveOrUpdate(iface);
+        
+        return iface;
+        
+    }
+    
     public List<ServiceDetector> getDetectorsForForeignSource(String foreignSourceName) {
         ForeignSource foreignSource = m_foreignSourceRepository.getForeignSource(foreignSourceName);
         assertNotNull(foreignSource, "Expected a foreignSource with name %s", foreignSourceName);
         
-        Set<PluginConfig> detectorConfigs = foreignSource.getDetectors();
+        List<PluginConfig> detectorConfigs = foreignSource.getDetectors();
         if (detectorConfigs == null) {
             return new ArrayList<ServiceDetector>(m_pluginRegistry.getAllPlugins(ServiceDetector.class));
         }
@@ -587,7 +655,7 @@ public class DefaultProvisionService implements ProvisionService {
         ForeignSource foreignSource = m_foreignSourceRepository.getForeignSource(foreignSourceName);
         assertNotNull(foreignSource, "Expected a foreignSource with name %s", foreignSourceName);
         
-        Set<PluginConfig> configs = foreignSource.getPolicies();
+        List<PluginConfig> configs = foreignSource.getPolicies();
         if (configs == null) {
             return Collections.emptyList(); 
         }
@@ -596,7 +664,7 @@ public class DefaultProvisionService implements ProvisionService {
         for(PluginConfig config : configs) {
             T plugin = m_pluginRegistry.getPluginInstance(pluginClass, config);
             if (plugin == null) {
-                error("Configured plugin does not exist: %s", config);
+                info("Configured plugin is not appropropriate for policy class %s: %s", pluginClass, config);
             } else {
                 plugins.add(plugin);
             }
@@ -607,6 +675,12 @@ public class DefaultProvisionService implements ProvisionService {
     }
 
     public void deleteObsoleteInterfaces(Integer nodeId, Date scanStamp) {
+        List<OnmsIpInterface> obsoleteInterfaces = m_nodeDao.findObsoleteIpInterfaces(nodeId, scanStamp);
+        
+        for(OnmsIpInterface iface : obsoleteInterfaces) {
+            iface.visit(new DeleteEventVisitor(m_eventForwarder));
+        }
+        
         m_nodeDao.deleteObsoleteInterfaces(nodeId, scanStamp);
     }
 
@@ -615,6 +689,10 @@ public class DefaultProvisionService implements ProvisionService {
     }
 
     private void error(String format, Object... args) {
-        ThreadCategory.getInstance(getClass()).error(String.format(format, args));
+        log().error(String.format(format, args));
+    }
+
+    private void info(String format, Object... args) {
+        log().info(String.format(format, args));
     }
 }

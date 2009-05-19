@@ -103,7 +103,7 @@ public abstract class SimpleQueuedProvisioningAdapter implements ProvisioningAda
     /**
      * Adapters extending this class must implement this method
      */
-    public abstract boolean isNodeReady(int nodeId);
+    public abstract boolean isNodeReady(AdapterOperation op);
     public abstract void processPendingOperationForNode(AdapterOperation op) throws ProvisioningAdapterException;
     
 
@@ -296,8 +296,8 @@ public abstract class SimpleQueuedProvisioningAdapter implements ProvisioningAda
                 throw new IllegalArgumentException("the Operation Object passed is either null or of the wrong class");
             }
             
-            if (this.m_nodeId == ((AdapterOperation)operation).getNodeId() &&
-                this.m_type == ((AdapterOperation)operation).getType()) {
+            if (m_nodeId == ((AdapterOperation)operation).getNodeId() &&
+                m_type == ((AdapterOperation)operation).getType()) {
                 equals = true;
             }
             return equals;
@@ -310,7 +310,7 @@ public abstract class SimpleQueuedProvisioningAdapter implements ProvisioningAda
         
         public void run() {
             
-            if (isNodeReady(m_nodeId)) {
+            if (isNodeReady(this)) {
                 m_operationQueue.dequeueOperationForNode(m_nodeId, this);
                 try {
                     processPendingOperationForNode(this);

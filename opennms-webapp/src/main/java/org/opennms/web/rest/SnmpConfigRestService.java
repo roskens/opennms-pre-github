@@ -49,11 +49,11 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.xml.bind.annotation.XmlRootElement;
 
 import org.opennms.netmgt.config.SnmpEventInfo;
 import org.opennms.netmgt.config.SnmpPeerFactory;
 import org.opennms.netmgt.snmp.SnmpAgentConfig;
+import org.opennms.secret.web.snmpinfo.SnmpInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -61,123 +61,47 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sun.jersey.spi.resource.PerRequest;
 
+/**
+<p>REST service to the OpenNMS SNMP configuration <code>snmp-config.xml</code></p>
+<p>This current implementation only supports setting and getting of the configuration elements:
+<ul>
+<li>community string</li>
+<li>SNMP version</li>
+<li>Port</li>
+<li>Retries</li>
+<li>Timeouts</li>
+</ul>
+</p>
+<p>The implementation only supports a PUT request because it is an implied "Update" of the configuration
+since it requires an IP address and all IPs have a default configuration.  This request is is passed to
+the factory for optimization of the configuration store:<code>snmp-config.xml</code>.</p>
+<p>Example 1: Change SNMP community string.  <i>Note: Community string is the only required element</i></p>
+<pre>
+curl -v -X PUT -H "Content-Type: application/xml" \
+     -H "Accept: application/xml" \
+     -d "&lt;snmp-info&gt;
+         &lt;community&gt;yRuSonoZ&lt;/community&gt;
+         &lt;port&gt;161&lt;/port&gt;
+         &lt;retries&gt;1&lt;/retries&gt;
+         &lt;timeout&gt;2000&lt;/timeout&gt;
+         &lt;version&gt;v2c&lt;/version&gt;
+         &lt;/snmp-info&gt;" \
+     -u admin:admin http://localhost:8980/opennms/rest/snmpConfig/10.1.1.1
+</pre>
+<p>Example 2: Query SNMP community string.</p>
+<pre>
+curl -v -X GET -u admin:admin http://localhost:8980/opennms/rest/snmpConfig/10.1.1.1
+</pre>
+ *
+ * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
+ *
+ */
 @Component
 @PerRequest
 @Scope("prototype")
-@Path("snmpConfiguration")
+@Path("snmpConfig")
 @Transactional
 public class SnmpConfigRestService extends OnmsRestService {
-    
-    @XmlRootElement(name="snmp-info")
-    public static class SnmpInfo {
-
-        private String m_community;
-        private String m_version;
-        private int m_port;
-        private int m_retries;
-        private int m_timeout;
-        
-        public SnmpInfo() {
-            
-        }
-
-        /**
-         * @param config
-         */
-        public SnmpInfo(SnmpAgentConfig config) {
-            m_community = config.getReadCommunity();
-            m_port = config.getPort();
-            m_timeout = config.getTimeout();
-            m_retries = config.getRetries();
-            m_version = config.getVersionAsString();
-        }
-
-        /**
-         * @return the community
-         */
-        public String getCommunity() {
-            return m_community;
-        }
-
-        /**
-         * @param community the community to set
-         */
-        public void setCommunity(String community) {
-            m_community = community;
-        }
-
-        /**
-         * @return the version
-         */
-        public String getVersion() {
-            return m_version;
-        }
-
-        /**
-         * @param version the version to set
-         */
-        public void setVersion(String version) {
-            m_version = version;
-        }
-
-        /**
-         * @return the port
-         */
-        public int getPort() {
-            return m_port;
-        }
-
-        /**
-         * @param port the port to set
-         */
-        public void setPort(int port) {
-            m_port = port;
-        }
-
-        /**
-         * @return the retries
-         */
-        public int getRetries() {
-            return m_retries;
-        }
-
-        /**
-         * @param retries the retries to set
-         */
-        public void setRetries(int retries) {
-            m_retries = retries;
-        }
-
-        /**
-         * @return the timeout
-         */
-        public int getTimeout() {
-            return m_timeout;
-        }
-
-        /**
-         * @param timeout the timeout to set
-         */
-        public void setTimeout(int timeout) {
-            m_timeout = timeout;
-        }
-
-        /**
-         * @return
-         */
-        public SnmpEventInfo createEventInfo(String ipAddr) throws UnknownHostException {
-            SnmpEventInfo eventInfo = new SnmpEventInfo();
-            eventInfo.setCommunityString(m_community);
-            eventInfo.setVersion(m_version);
-            eventInfo.setPort(m_port);
-            eventInfo.setTimeout(m_timeout);
-            eventInfo.setRetryCount(m_retries);
-            eventInfo.setFirstIPAddress(ipAddr);
-            return eventInfo;
-        }
-        
-        
-    }
     
     @Autowired
     private SnmpPeerFactory m_snmpPeerFactory;
@@ -209,5 +133,26 @@ public class SnmpConfigRestService extends OnmsRestService {
         }
         
     }
-    
+   
+    /**
+     * Updates a specific interface
+     */
+    @PUT
+    @Path("{ipAddr}")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Transactional
+    public Response updateInterface(@PathParam("ipAddr") String ipAddress, MultivaluedMapImpl params) {
+        try {
+            SnmpInfo info = new SnmpInfo();
+            setProperties(params, info);
+            SnmpEventInfo eventInfo = info.createEventInfo(ipAddress);
+            m_snmpPeerFactory.define(eventInfo);
+            SnmpPeerFactory.saveCurrent();
+            return Response.ok().build();
+        } catch (Exception e) {
+            return Response.serverError().build();
+        }
+    }
+
+
 }

@@ -41,10 +41,13 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 import org.apache.mina.core.future.IoFutureListener;
 import org.opennms.core.utils.ThreadCategory;
+import org.opennms.netmgt.EventConstants;
 import org.opennms.netmgt.dao.SnmpAgentConfigFactory;
 import org.opennms.netmgt.model.OnmsIpInterface;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.OnmsSnmpInterface;
+import org.opennms.netmgt.model.events.EventBuilder;
+import org.opennms.netmgt.model.events.EventForwarder;
 import org.opennms.netmgt.provision.AsyncServiceDetector;
 import org.opennms.netmgt.provision.DetectFuture;
 import org.opennms.netmgt.provision.IpInterfacePolicy;
@@ -53,7 +56,9 @@ import org.opennms.netmgt.provision.ServiceDetector;
 import org.opennms.netmgt.provision.SnmpInterfacePolicy;
 import org.opennms.netmgt.provision.SyncServiceDetector;
 import org.opennms.netmgt.provision.service.NodeScan.AgentScan;
+import org.opennms.netmgt.provision.service.NodeScan.BaseAgentScan;
 import org.opennms.netmgt.provision.service.NodeScan.IpInterfaceScan;
+import org.opennms.netmgt.provision.service.NodeScan.NoAgentScan;
 import org.opennms.netmgt.provision.service.lifecycle.Phase;
 import org.opennms.netmgt.provision.service.lifecycle.annotations.Activity;
 import org.opennms.netmgt.provision.service.lifecycle.annotations.ActivityProvider;
@@ -65,6 +70,7 @@ import org.opennms.netmgt.snmp.SnmpAgentConfig;
 import org.opennms.netmgt.snmp.SnmpUtils;
 import org.opennms.netmgt.snmp.SnmpWalker;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.util.Assert;
 
 /**
@@ -75,7 +81,12 @@ import org.springframework.util.Assert;
 @ActivityProvider
 public class CoreScanActivities {
     
-    @Autowired ProvisionService m_provisionService;
+    @Autowired 
+    private ProvisionService m_provisionService;
+    
+    @Autowired
+    @Qualifier("standard")
+    private EventForwarder m_eventForwarder;
     
     @Autowired
     private SnmpAgentConfigFactory m_agentConfigFactory;
@@ -157,12 +168,31 @@ public class CoreScanActivities {
 
     @Activity( lifecycle = "nodeScan", phase = "detectAgents" )
     public void detectAgents(Phase currentPhase, NodeScan nodeScan) {
+        
+        boolean foundAgent = false;
+        
         // someday I'll change this to use agentDetectors
         OnmsIpInterface primaryIface = nodeScan.getNode().getPrimaryInterface();
         if (primaryIface.getMonitoredServiceByServiceType("SNMP") != null) {
             nodeScan.doAgentScan(currentPhase, primaryIface.getInetAddress(), "SNMP");
+            foundAgent = true;
         }
         
+        if (!foundAgent) {
+            nodeScan.doNoAgentScan(currentPhase);
+        }
+        
+    }
+    
+    @Activity( lifecycle = "nodeScan", phase = "scanCompleted" )
+    public void scanCompleted(Phase currentPhase, NodeScan nodeScan) {
+        if (!nodeScan.isAborted()) {
+            EventBuilder bldr = new EventBuilder("uei.opennms.org/internal/provisiond/nodeScanCompleted", "Provisiond");
+            bldr.setNodeid(nodeScan.getNodeId());
+            bldr.addParam(EventConstants.PARM_FOREIGN_SOURCE, nodeScan.getForeignSource());
+            bldr.addParam(EventConstants.PARM_FOREIGN_ID, nodeScan.getForeignId());
+            m_eventForwarder.sendNow(bldr.getEvent());
+        }
     }
 
     @Activity( lifecycle = "agentScan", phase = "collectNodeInfo" )
@@ -326,6 +356,33 @@ public class CoreScanActivities {
         System.err.println("agentScan.deleteObsoleteResources");
     }
     
+    @Activity( lifecycle = "noAgent", phase = "stampProvisionedInterfaces", schedulingHint="write")
+    public void stampProvisionedInterfaces(Phase currentPhase, NoAgentScan scan) {
+        if (scan.isAborted()) { return; }
+        
+        scan.setScanStamp(new Date());
+        
+        for(OnmsIpInterface iface : scan.getNode().getIpInterfaces()) {
+            iface.setIpLastCapsdPoll(scan.getScanStamp());
+            
+            currentPhase.add(ipUpdater(currentPhase, scan, iface), "write");
+            
+        }
+        
+    }
+    
+    @Activity( lifecycle = "noAgent", phase = "deleteUnprovisionedInterfaces", schedulingHint="write")
+    public void deleteObsoleteResources(Phase currentPhase, NoAgentScan scan) {
+
+        m_provisionService.updateNodeScanStamp(scan.getNodeId(), scan.getScanStamp());
+        
+        m_provisionService.deleteObsoleteInterfaces(scan.getNodeId(), scan.getScanStamp());
+        
+        System.err.println("agentScan.deleteObsoleteResources");
+    }
+    
+    
+    
     @Activity( lifecycle = "ipInterfaceScan", phase = "detectServices" )
     public void detectServices(Phase currentPhase, IpInterfaceScan ifaceScan) throws InterruptedException {
         
@@ -383,6 +440,8 @@ public class CoreScanActivities {
                     cb.complete(detector.isServiceDetected(ipAddress, new NullDetectorMonitor()));
                 } catch (Throwable t) {
                     cb.handleException(t);
+                }finally{
+                    detector.dispose();
                 }
             }
             @Override
@@ -421,10 +480,14 @@ public class CoreScanActivities {
         private IoFutureListener<DetectFuture> listener(final Callback<Boolean> cb) {
             return new IoFutureListener<DetectFuture>() {
                 public void operationComplete(DetectFuture future) {
-                    if (future.getException() != null) {
-                        cb.handleException(future.getException());
-                    } else {
-                        cb.complete(future.isServiceDetected());
+                    try {
+                        if (future.getException() != null) {
+                            cb.handleException(future.getException());
+                        } else {
+                            cb.complete(future.isServiceDetected());
+                        }
+                    } finally{
+                       m_detector.dispose();
                     }
                 }
             };
@@ -433,7 +496,7 @@ public class CoreScanActivities {
     }
     
     private Runnable ipUpdater(final Phase currentPhase,
-            final AgentScan agentScan, final OnmsIpInterface iface) {
+            final BaseAgentScan agentScan, final OnmsIpInterface iface) {
         Runnable r = new Runnable() {
             public void run() {
                 agentScan.doUpdateIPInterface(currentPhase, iface);
@@ -446,11 +509,13 @@ public class CoreScanActivities {
     }
 
     
+    @SuppressWarnings("unused")
     private void error(Throwable t, String format, Object... args) {
         Logger log = ThreadCategory.getInstance(getClass());
         log.error(String.format(format, args), t);
     }
 
+    @SuppressWarnings("unused")
     private void debug(String format, Object... args) {
         Logger log = ThreadCategory.getInstance(getClass());
         if (log.isDebugEnabled()) {
@@ -469,6 +534,7 @@ public class CoreScanActivities {
             log.info(String.format(format, args));
         }
     }
+    @SuppressWarnings("unused")
     private void error(String format, Object... args) {
         Logger log = ThreadCategory.getInstance(getClass());
         log.error(String.format(format, args));

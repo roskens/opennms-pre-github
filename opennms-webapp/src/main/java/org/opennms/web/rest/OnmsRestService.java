@@ -5,6 +5,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.apache.log4j.Category;
 import org.hibernate.criterion.MatchMode;
@@ -12,8 +13,11 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.opennms.core.utils.ThreadCategory;
 import org.opennms.netmgt.model.OnmsCriteria;
+import org.opennms.netmgt.provision.persist.StringXmlCalendarPropertyEditor;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
+
+import com.sun.jersey.core.util.MultivaluedMapImpl;
 
 public class OnmsRestService {
 
@@ -79,33 +83,31 @@ public class OnmsRestService {
 	 * @param criteria the object which will be populated with the filter/ordering
 	 * @param objectClass the type of thing being filtered.
 	 */
-	protected void addFiltersToCriteria(MultivaluedMap<java.lang.String, java.lang.String> params, OnmsCriteria criteria, Class objectClass) {
+	protected void addFiltersToCriteria(MultivaluedMap<java.lang.String, java.lang.String> params, OnmsCriteria criteria, Class<?> objectClass) {
 		
-		setOrdering(params, criteria);
+		MultivaluedMap<String, String> paramsCopy = new MultivaluedMapImpl();
+	    paramsCopy.putAll(params);
 		
-		if(params.containsKey("query")) {
-			String query=params.getFirst("query");
+		if(paramsCopy.containsKey("query")) {
+			String query=paramsCopy.getFirst("query");
 			criteria.add(Restrictions.sqlRestriction(query));
-			params.remove("query");
+			paramsCopy.remove("query");
 		}
 		
-		if(params.containsKey("node.id")) {
-		    String nodeId = params.getFirst("node.id");
+		if(paramsCopy.containsKey("node.id")) {
+		    String nodeId = paramsCopy.getFirst("node.id");
 		    Integer id = new Integer(nodeId);
 		    criteria.createCriteria("node").add(Restrictions.eq("id", id));
-		    //criteria.add(Restrictions.eq("id", 13255));
-		    params.remove("node.id");
-		    //criteria.add(Restrictions.like("id", "13508")); //.createCriteria("node").add(Restrictions.eq("id",147));
-	        
+		    paramsCopy.remove("node.id");
 		}
 		
-		params.remove("_dc");
+		paramsCopy.remove("_dc");
 
 		//By default, just do equals comparision
 		ComparisonOperation op=ComparisonOperation.EQ;
-		if(params.containsKey("comparator")) {
-			String comparatorLabel=params.getFirst("comparator");
-			params.remove("comparator");
+		if(paramsCopy.containsKey("comparator")) {
+			String comparatorLabel=paramsCopy.getFirst("comparator");
+			paramsCopy.remove("comparator");
 	
 			if(comparatorLabel.equals("equals")) {
 				op=ComparisonOperation.EQ;
@@ -129,9 +131,9 @@ public class OnmsRestService {
 		}
 		BeanWrapper wrapper = new BeanWrapperImpl(objectClass);
 		wrapper.registerCustomEditor(java.util.Date.class, new ISO8601DateEditor());
-		for(String key: params.keySet()) {
+		for(String key: paramsCopy.keySet()) {
 		    
-		    String stringValue=params.getFirst(key);
+		    String stringValue=paramsCopy.getFirst(key);
 		   
 			if("null".equals(stringValue)) {
 				criteria.add(Restrictions.isNull(key));
@@ -178,13 +180,14 @@ public class OnmsRestService {
 	 * @param params - set of values to look in for the "order" and "orderBy" values
 	 * @param criteria - the criteria object which will be updated with ordering configuration
 	 */
-	private void setOrdering(MultivaluedMap<java.lang.String, java.lang.String> params, OnmsCriteria criteria) {
-		if(params.containsKey("orderBy")) {
+	protected void addOrdering(MultivaluedMap<java.lang.String, java.lang.String> params, OnmsCriteria criteria) {
+		System.out.println("order by params: " + params);
+	    if(params.containsKey("orderBy")) {
 			String orderBy=params.getFirst("orderBy");
 			params.remove("orderBy");
 			boolean orderAsc=true;
 			if(params.containsKey("order")) {
-				if("desc".equals(params.getFirst("order"))) {
+				if("desc".equalsIgnoreCase(params.getFirst("order"))) {
 					orderAsc=false;
 				}
 				params.remove("order");
@@ -197,14 +200,61 @@ public class OnmsRestService {
 		}
 	}
 	
-	    protected <T> T throwException(Status status, String msg) {
-	        System.out.println("error: " + msg);
-	        log().error(msg);
-	        throw new WebApplicationException(Response.status(status).type(MediaType.TEXT_PLAIN).entity(msg).build());
-	    }
-	    
-	    protected Category log() {
-	        return ThreadCategory.getInstance(getClass());
-	    }
+    protected <T> T throwException(Status status, String msg) {
+        System.out.println("error: " + msg);
+        log().error(msg);
+        throw new WebApplicationException(Response.status(status).type(MediaType.TEXT_PLAIN).entity(msg).build());
+    }
+    
+    protected Category log() {
+        return ThreadCategory.getInstance(getClass());
+    }
+
+    /**
+     * Convert a column name with underscores to the corresponding property name using "camel case".  A name
+     * like "customer_number" would match a "customerNumber" property name.
+     * @param name the column name to be converted
+     * @return the name using "camel case"
+     */
+    public static String convertNameToPropertyName(String name) {
+        StringBuffer result = new StringBuffer();
+        boolean nextIsUpper = false;
+        if (name != null && name.length() > 0) {
+            if (name.length() > 1 && (name.substring(1, 2).equals("_") || (name.substring(1, 2).equals("-")))) {
+                result.append(name.substring(0, 1).toUpperCase());
+            } else {
+                result.append(name.substring(0, 1).toLowerCase());
+            }
+            for (int i = 1; i < name.length(); i++) {
+                String s = name.substring(i, i + 1);
+                if (s.equals("_") || s.equals("-")) {
+                    nextIsUpper = true;
+                } else {
+                    if (nextIsUpper) {
+                        result.append(s.toUpperCase());
+                        nextIsUpper = false;
+                    } else {
+                        result.append(s.toLowerCase());
+                    }
+                }
+            }
+        }
+        return result.toString();
+    }
+
+    protected void setProperties(org.opennms.web.rest.MultivaluedMapImpl params, Object req) {
+        BeanWrapper wrapper = new BeanWrapperImpl(req);
+        wrapper.registerCustomEditor(XMLGregorianCalendar.class, new StringXmlCalendarPropertyEditor());
+        for(String key : params.keySet()) {
+            String propertyName = convertNameToPropertyName(key);
+            if (wrapper.isWritableProperty(propertyName)) {
+                Object value = null;
+                String stringValue = params.getFirst(key);
+                value = wrapper.convertIfNecessary(stringValue, wrapper.getPropertyType(propertyName));
+                wrapper.setPropertyValue(propertyName, value);
+            }
+        }
+    }
+
 
 }

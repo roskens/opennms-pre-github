@@ -55,9 +55,9 @@
     <property name="successView" value="redirect:/admin/provisioningGroups.htm" />
   </bean>
   
-  <bean name="defaultForeignSourceService" class="org.opennms.web.svclayer.support.DefaultForeignSourceService">
+  <bean name="defaultForeignSourceService" class="org.opennms.netmgt.provision.persist.DefaultForeignSourceService">
   	<property name="pendingForeignSourceRepository" ref="pendingForeignSourceRepository" />
-  	<property name="activeForeignSourceRepository" ref="deployedForeignSourceRepository" />
+  	<property name="deployedForeignSourceRepository" ref="deployedForeignSourceRepository" />
   </bean>
   
   <bean name="/admin/editForeignSource.htm" class="org.opennms.web.controller.EditForeignSourceController">
@@ -208,14 +208,18 @@
     <property name="nodeListService" ref="nodeListService" />
   </bean>
 
+  <!-- RANCID stuff -->
   <bean name="/inventory/rancid.htm" class="org.opennms.web.controller.inventory.RancidController">
     <property name="inventoryService" ref="inventoryService"/>
   </bean>  
-
-  <bean name="/admin/rancid/rancidAdmin.htm" class="org.opennms.web.controller.inventory.AdminRancidController">
+    <bean name="/inventory/rancidViewVc.htm" class="org.opennms.web.controller.inventory.RancidViewVcController">
     <property name="inventoryService" ref="inventoryService"/>
   </bean>  
-
+  
+  <bean name="/admin/rancid/rancidAdmin.htm" class="org.opennms.web.controller.inventory.AdminRancidController">
+    <property name="inventoryService" ref="inventoryService"/>
+  </bean> 
+       
   <bean name="/alarm/ticket/create.htm" class="org.opennms.web.controller.alarm.AlarmTicketController">
   	<property name="troubleTicketProxy" ref="troubleTicketProxy" />
   </bean>

@@ -59,37 +59,45 @@
 
 <%
 
-	Node node_db = ElementUtil.getNodeByParams(request);
-	int nodeId = node_db.getNodeId();
-	
-	
-	//nodeModel.put("id", Integer.toString(nodeId));
-	//nodeModel.put("label", node_db.getLabel());
-	String elementID = node_db.getLabel();
-	
-    String groupID = request.getParameter("groupname");
-    String versionId = request.getParameter("version");
-    
+	Node node_db;
+	int nodeId=0;
+	String elementID="";
 	Map<String, Object> nodeModel = new TreeMap<String, Object>();
 	Map<String, Object> nodeModel2 = new TreeMap<String, Object>();
-	try {	
 
+
+	try {
+		node_db = ElementUtil.getNodeByParams(request);
+		nodeId = node_db.getNodeId();
+
+		elementID = node_db.getLabel();
+		
+		
+	    String groupID = request.getParameter("groupname");
+	    String versionId = request.getParameter("version");
+	    
 		nodeModel = InventoryLayer.getInventoryNode(elementID, groupID, versionId);
-		//nodeModel2 = InventoryLayer.getInventoryNodeList(elementID);
+		
+		nodeModel2 = InventoryLayer.getInventoryNodeList(elementID,groupID, versionId);
+		
+		} catch (Exception e) {
+			//throw new ServletException("Could node get Rancid Node ", e);
+		}
+    nodeModel.put("devicename", elementID);
+    nodeModel.put("id", nodeId);
+    //nodeModel.put("general_status", node_db.node.getType());
 
-	} catch (Exception e) {
-		//throw new ServletException("Could node get Rancid Node ", e);
-	}
-    nodeModel.put("id", elementID);
     pageContext.setAttribute("model", nodeModel);
+    pageContext.setAttribute("model2", nodeModel2);
+
 %>
 <%
 String nodeBreadCrumb = "<a href='element/node.jsp?node=" + nodeId  + "'>Node</a>";
-String nodeBreadCrumb2 = "<a href='inventory/rancid.jsp?node=" + nodeId  + "'>Rancid</a>";
+String nodeBreadCrumb2 = "<a href='inventory/rancid.htm?node=" + nodeId  + "'>Rancid</a>";
 %>
 <jsp:include page="/includes/header.jsp" flush="false" >
 <jsp:param name="title" value="Inventory" />
-<jsp:param name="headTitle" value="${model.id}" />
+<jsp:param name="headTitle" value="${model.devicename}" />
 <jsp:param name="headTitle" value="Rancid" />
 <jsp:param name="breadcrumb" value="<a href='element/index.jsp'>Search</a>" />
 <jsp:param name="breadcrumb" value="<%= nodeBreadCrumb %>" />
@@ -98,13 +106,13 @@ String nodeBreadCrumb2 = "<a href='inventory/rancid.jsp?node=" + nodeId  + "'>Ra
 </jsp:include>
 
 
-<h2>Node: ${model.id}</h2>
+<h2>Node: ${model.devicename}</h2>
 
 
 <div class="TwoColLeft">
   <!-- general info box -->
-  <h3>General (Status: ${model.status})</h3>
-	<table>
+  <h3>General (Status: ${model.general_status})</h3>
+	<table class="o-box">
   	<tr>
   		<th>Node</th>
   		<td><a href="element/node.jsp?node=<%=nodeId%>"><%=elementID%></a></td>
@@ -112,57 +120,73 @@ String nodeBreadCrumb2 = "<a href='inventory/rancid.jsp?node=" + nodeId  + "'>Ra
   </table>
   <h3>Element info</h3>
 
-  <table>
+  <table class="o-box">
 	<tr>
 		<th>Group Name</th>
-		<th>${model.groupname}</th>
+		<td>${model.groupname}</td>
 	</tr>
 	<tr>
 		<th>Version</th>
-		<th>${model.version}</th>
+		<td>${model.version}</td>
 	</tr>
 	<tr>
 		<th>Rancid Name</th>
-		<th>${model.devicename}</th>
+		<td>${model.devicename}</td>
 	</tr>
+	    <th>Status</th>
+	    <td>${model.status}</td>
 	<tr>
 	    <th>Creation Date</th>
-	    <th>${model.creationdate}</th>
+	    <td>${model.creationdate}</td>
 	</tr>
    </table>
-
-	<h3>Software configuration</h3>
 	
 	 <h3>Configuration info</h3>
 
-	 <table>
+	 <table class="o-box">
+	    <!--
 	    <tr>
 		<th>Software Configuration Url</th>
-		<th><a href = "${model.swconfigurationurl}" > ${model.swconfigurationurl} </a></th>
+		<th><a href = "${model.swconfigurationurl}" > ${model.devicename} </a></th>
 		</tr>
-    <tr>
-	<th>CVS Configuration Url</th>
-	<th><a href = "${model.configurationurl}" > ${model.configurationurl} </a></th>
-	</tr>
+		-->
+	    <tr>
+		<th>CVS Configuration Url</th>
+		<td><a href="inventory/rancidViewVc.htm?node=${model.id}&groupname=${model.groupname}&viewvc=${model.configurationurl}">${model.devicename}</td>
+
+		<!--th><a href = "${model.configurationurl}" > ${model.devicename} </a></th -->
+		</tr>
 	</table>
-	
 </div>
 <div class="TwoColRight">
 <!-- general info box -->
-<h3>Associated Elements</h3>
+<h3>Associated Inventory Items</h3>
 
-<table>
-<tr><th><a href="inventory/invelement.jsp?rancidnode=7206PED.wind.lab?group=laboratorio">Slot 0 (Nome) </a></th>
-<th>Inventory Type</th>
-<th>Vendor</th>
-</tr>
-<c:forEach items="${model2.inventory}" var="invel">
-<tr>
-<th>Element </th>
-<th>${invel.elementName}</th>
-</tr>
-</c:forEach>
-</table>
+	<c:forEach items="${model2.inventory}" var="invel" varStatus="status">
+	<h3>Item ${status.count}</h3>
+	<table class="o-box">
+		<c:forEach items="${invel.tupleList}" var="tup">
+		<tr>
+			<th>${tup.name}</th>
+			<td>${tup.description}</td>
+		</tr>
+		</c:forEach>
+		<tr><th></th><td></td></tr>
+		<c:forEach items="${invel.softwareList}" var="sof">
+		<tr>
+			<th>Software: ${sof.type}</th>
+			<td>Version: ${sof.version}</td>
+		</tr>
+		</c:forEach>
+		<tr><th></th><td></td></tr>
+		<c:forEach items="${invel.memoryList}" var="mem">
+		<tr>
+			<td>Memory: ${mem.type}</th>
+			<td>Size: ${mem.size}</th>
+		</tr>
+		</c:forEach>
+		</table>
+	</c:forEach>
 </div>
 
 <jsp:include page="/includes/footer.jsp" flush="false" />

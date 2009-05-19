@@ -37,7 +37,7 @@ package org.opennms.web.svclayer;
 import java.util.Collection;
 import java.util.Map;
 
-import org.opennms.netmgt.config.modelimport.ModelImport;
+import org.opennms.netmgt.provision.persist.requisition.Requisition;
 
 /**
  * 
@@ -47,27 +47,27 @@ public interface ManualProvisioningService {
     
     Collection<String> getProvisioningGroupNames();
     
-    ModelImport getProvisioningGroup(String name);
+    Requisition getProvisioningGroup(String name);
     
-    ModelImport createProvisioningGroup(String name);
+    Requisition createProvisioningGroup(String name);
+
+    Requisition saveProvisioningGroup(String groupName, Requisition groupData);
     
-    ModelImport saveProvisioningGroup(String groupName, ModelImport groupData);
+    Requisition addNewNodeToGroup(String groupName, String nodeLabel);
     
-    ModelImport addNewNodeToGroup(String groupName, String nodeLabel);
+    Requisition addCategoryToNode(String groupName, String pathToNode, String categoryName);
     
-    ModelImport addCategoryToNode(String groupName, String pathToNode, String categoryName);
+    Requisition addAssetFieldToNode(String groupName, String pathToNode, String fieldName, String fieldValue);
     
-    ModelImport addAssetFieldToNode(String groupName, String pathToNode, String fieldName, String fieldValue);
+    Requisition addInterfaceToNode(String groupName, String pathToNode, String ipAddr);
     
-    ModelImport addInterfaceToNode(String groupName, String pathToNode, String ipAddr);
+    Requisition addServiceToInterface(String groupName, String pathToInterface, String serviceName);
     
-    ModelImport addServiceToInterface(String groupName, String pathToInterface, String serviceName);
-    
-    ModelImport deletePath(String groupName, String pathToDelete);
+    Requisition deletePath(String groupName, String pathToDelete);
     
     void importProvisioningGroup(String groupName);
 
-    Collection<ModelImport> getAllGroups();
+    Collection<Requisition> getAllGroups();
 
     void deleteProvisioningGroup(String groupName);
 

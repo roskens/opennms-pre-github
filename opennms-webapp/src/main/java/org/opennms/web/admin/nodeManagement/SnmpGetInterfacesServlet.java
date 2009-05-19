@@ -69,9 +69,9 @@ public class SnmpGetInterfacesServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
     private static final String INTERFACE_QUERY = "SELECT " +
-        "ipinterface.nodeid, " +
-        "ipinterface.ipaddr, " +
-        "ipinterface.ifindex, " +
+        "snmpinterface.nodeid, " +
+        "snmpinterface.ipaddr, " +
+        "snmpinterface.snmpifindex, " +
         "ipinterface.iphostname, " +
         "ipinterface.issnmpprimary, " +
         "snmpinterface.snmpifdescr, " +
@@ -80,9 +80,9 @@ public class SnmpGetInterfacesServlet extends HttpServlet {
         "snmpinterface.snmpifalias, " +
         "snmpinterface.snmpcollect, " +
         "snmpinterface.id " +
-        "FROM ipinterface LEFT JOIN snmpinterface " +
+        "FROM snmpinterface LEFT JOIN ipinterface " +
         "ON ipinterface.snmpinterfaceid=snmpinterface.id " +
-        "WHERE ipinterface.nodeid=?";
+        "WHERE snmpinterface.nodeid=?";
 
     public void init() throws ServletException {
         try {
@@ -90,7 +90,7 @@ public class SnmpGetInterfacesServlet extends HttpServlet {
         } catch (Exception e) {
         }
     }
-
+    
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession user = request.getSession(true);
 

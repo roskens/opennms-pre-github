@@ -7,6 +7,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -51,7 +54,7 @@ public abstract class AbstractSpringJerseyRestTestCase {
     private Filter filter;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws Throwable {
         beforeServletStart();
 
         DaoTestConfigBean bean = new DaoTestConfigBean();
@@ -77,16 +80,22 @@ public abstract class AbstractSpringJerseyRestTestCase {
         contextListener.contextInitialized(e);
         
         servletContext.setContextPath(contextPath);
-        servletConfig = new MockServletConfig(servletContext, "dispatcher");        
+        servletConfig = new MockServletConfig(servletContext, "dispatcher");    
         servletConfig.addInitParameter("com.sun.jersey.config.property.resourceConfigClass", "com.sun.jersey.api.core.PackagesResourceConfig");
         servletConfig.addInitParameter("com.sun.jersey.config.property.packages", "org.opennms.web.rest");
         
-        MockFilterConfig filterConfig = new MockFilterConfig(servletContext, "openSessionInViewFilter");
-        filter = new OpenSessionInViewFilter();        
-        filter.init(filterConfig);
-        
-        dispatcher = new SpringServlet();
-        dispatcher.init(servletConfig);
+        try {
+
+            MockFilterConfig filterConfig = new MockFilterConfig(servletContext, "openSessionInViewFilter");
+            filter = new OpenSessionInViewFilter();        
+            filter.init(filterConfig);
+
+            dispatcher = new SpringServlet();
+            dispatcher.init(servletConfig);
+
+        } catch (ServletException se) {
+            throw se.getRootCause();
+        }
         
         afterServletStart();
         System.err.println("------------------------------------------------------------------------------");
@@ -131,7 +140,15 @@ public abstract class AbstractSpringJerseyRestTestCase {
     }
 
     protected MockHttpServletRequest createRequest(String requestType, String urlPath) {
-        MockHttpServletRequest request = new MockHttpServletRequest(servletContext, requestType, contextPath + urlPath);
+        MockHttpServletRequest request = new MockHttpServletRequest(servletContext, requestType, contextPath + urlPath) {
+
+            @Override
+            public void setContentType(String contentType) {
+                super.setContentType(contentType);
+                super.addHeader("Content-Type", contentType);
+            }
+            
+        };
         request.setContextPath(contextPath);
         return request;
     }
@@ -147,10 +164,29 @@ public abstract class AbstractSpringJerseyRestTestCase {
     protected void sendData(String requestType, String contentType, String url, String data) throws Exception {
         MockHttpServletRequest request = createRequest(requestType, url);
         request.setContentType(contentType);
-        request.setContent(data.getBytes());
+        
+        if(contentType.equals(MediaType.APPLICATION_FORM_URLENCODED)){
+            request.setParameters(parseParamData(data));
+        }else{
+            request.setContent(data.getBytes());
+        }
+        
         MockHttpServletResponse response = createResponse();        
         dispatch(request, response);
         assertEquals(200, response.getStatus());
+    }
+
+    private Map<String, String> parseParamData(String data) throws UnsupportedEncodingException {
+        Map<String, String> retVal = new HashMap<String, String>();
+        for (String item : data.split("&")) {
+            String[] kv = item.split("=");
+            if(kv.length > 1){
+                
+                retVal.put(URLDecoder.decode(kv[0], "UTF-8"), URLDecoder.decode(kv[1],"UTF-8"));
+            }
+            //result.add(URLDecoder.decode(kv[0], "UTF-8"), URLDecoder.decode(kv[1],"UTF-8"));
+        }
+        return retVal;
     }
 
     protected String sendRequest(String requestType, String url, int spectedStatus) throws Exception {

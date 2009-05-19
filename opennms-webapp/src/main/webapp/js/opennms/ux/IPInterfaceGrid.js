@@ -46,6 +46,14 @@ OpenNMS.ux.IPInterfaceGrid = Ext.extend(OpenNMS.ux.PageableGrid, {
 			sortable :true,
 			align :'left'
 		},{
+			id: 'isDown',
+			header :'Down',
+			dataIndex :'isDown',
+			width :30,
+			sortable :true,
+			align :'left',
+			hidden :true
+		},{
 			id: 'ipLastCapsdPoll',
 			header:'Last Node Scan',
 			dataIndex:'ipLastCapsdPoll',
@@ -64,13 +72,14 @@ OpenNMS.ux.IPInterfaceGrid = Ext.extend(OpenNMS.ux.PageableGrid, {
 	],
 	recordTag:'ipInterface',
 	recordMap:[
-			    {name:"interfaceId", mapping:"interfaceId"},
-			    {name:"ipAddress", mapping:"ipAddress"},
+			    {name:'interfaceId', mapping:'interfaceId'},
+			    {name:'ipAddress', mapping:'ipAddress'},
 			    {name:'ipHostName', mapping:'ipHostName'},
 			    {name:'ifIndex', mapping:'ifIndex'},
-			    {name:"isManaged", mapping:"isManaged"},
+			    {name:'isManaged', mapping:'isManaged'},
+			    {name:'isDown', mapping:'isDown'},
 			    {name:'ipLastCapsdPoll', mapping:'ipLastCapsdPoll'},
-			    {name:"snmpInterface", mapping:"snmpInterface"}
+			    {name:'snmpInterface', mapping:'snmpInterface'}
 	],
 	
 
@@ -82,6 +91,10 @@ OpenNMS.ux.IPInterfaceGrid = Ext.extend(OpenNMS.ux.PageableGrid, {
 
 		OpenNMS.ux.IPInterfaceGrid.superclass.initComponent.apply(this, arguments);
 		
+	},
+	
+	onDoubleClick:function(event){
+		window.location = "element/interface.jsp?ipinterfaceid=" + this.getSelectionModel().getSelected().data.interfaceId;
 	}
 
 

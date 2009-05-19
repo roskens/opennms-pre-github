@@ -52,12 +52,15 @@ public interface ForeignSourceRepository {
 
     public int getForeignSourceCount() throws ForeignSourceRepositoryException;
     public Set<ForeignSource> getForeignSources() throws ForeignSourceRepositoryException;
-    public ForeignSource getDefaultForeignSource() throws ForeignSourceRepositoryException;
     public ForeignSource getForeignSource(String foreignSourceName) throws ForeignSourceRepositoryException;
     public void save(ForeignSource foreignSource) throws ForeignSourceRepositoryException;
     public void delete(ForeignSource foreignSource) throws ForeignSourceRepositoryException;
 
-    public Requisition importRequisition(Resource resource) throws ForeignSourceRepositoryException;
+    public ForeignSource getDefaultForeignSource() throws ForeignSourceRepositoryException;
+    public void putDefaultForeignSource(ForeignSource foreignSource) throws ForeignSourceRepositoryException;
+    public void resetDefaultForeignSource() throws ForeignSourceRepositoryException;
+
+    public Requisition importResourceRequisition(Resource resource) throws ForeignSourceRepositoryException;
     public Set<Requisition> getRequisitions() throws ForeignSourceRepositoryException;
     public Requisition getRequisition(String foreignSourceName) throws ForeignSourceRepositoryException;
     public Requisition getRequisition(ForeignSource foreignSource) throws ForeignSourceRepositoryException;

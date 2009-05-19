@@ -26,13 +26,12 @@ public class AdminRancidController implements Controller {
 
     public ModelAndView handleRequest(HttpServletRequest request,
             HttpServletResponse arg1) throws Exception {
-       
             
         
 
         String node = request.getParameter("node");
         int nodeid = WebSecurityUtils.safeParseInt(node);
-        Map model = m_inventoryService.getRancidNode(nodeid,request.isUserInRole(Authentication.ADMIN_ROLE));
+        Map<String, Object> model = m_inventoryService.getRancidNode(nodeid,request.isUserInRole(Authentication.ADMIN_ROLE));
         ModelAndView modelAndView = new ModelAndView("admin/rancid/rancidAdmin","model",model);
         return modelAndView;
     }

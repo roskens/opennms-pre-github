@@ -67,6 +67,14 @@ public class NodeDaoHibernate extends AbstractDaoHibernate<OnmsNode, Integer>
         super(OnmsNode.class);
     }
 
+    public OnmsNode get(String lookupCriteria) {
+        if (lookupCriteria.contains(":")) {
+            String[] criteria = lookupCriteria.split(":");
+            return findByForeignId(criteria[0], criteria[1]);
+        }
+        return get(Integer.parseInt(lookupCriteria));
+    }
+
     public Collection<OnmsNode> findNodes(final OnmsDistPoller distPoller) {
         return find("from OnmsNode where distPoller = ?", distPoller);
     }
@@ -190,6 +198,10 @@ public class NodeDaoHibernate extends AbstractDaoHibernate<OnmsNode, Integer>
     
     public List<OnmsNode> findAllProvisionedNodes() {
         return find("from OnmsNode n where n.foreignSource is not null");
+    }
+    
+    public List<OnmsIpInterface> findObsoleteIpInterfaces(Integer nodeId, Date scanStamp) {
+        return findObjects(OnmsIpInterface.class, "from OnmsIpInterface iface where iface.node.id = ? and (iface.ipLastCapsdPoll is null or iface.ipLastCapsdPoll < ?)", nodeId, scanStamp);
     }
 
     public void deleteObsoleteInterfaces(Integer nodeId, Date scanStamp) {

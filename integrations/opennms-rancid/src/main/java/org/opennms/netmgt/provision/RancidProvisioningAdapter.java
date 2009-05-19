@@ -35,6 +35,7 @@
  */
 package org.opennms.netmgt.provision;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -49,17 +50,24 @@ import org.opennms.netmgt.config.RWSConfig;
 import org.opennms.netmgt.config.RancidAdapterConfig;
 import org.opennms.netmgt.dao.NodeDao;
 import org.opennms.netmgt.model.OnmsAssetRecord;
+import org.opennms.netmgt.model.OnmsCategory;
 import org.opennms.netmgt.model.OnmsIpInterface;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.events.EventBuilder;
 import org.opennms.netmgt.model.events.EventForwarder;
+import org.opennms.netmgt.model.events.EventSubscriptionService;
+import org.opennms.netmgt.model.events.annotations.EventHandler;
+import org.opennms.netmgt.model.events.annotations.EventListener;
 import org.opennms.netmgt.xml.event.Event;
 import org.opennms.rancid.ConnectionProperties;
 import org.opennms.rancid.RWSClientApi;
+import org.opennms.rancid.RancidApiException;
 import org.opennms.rancid.RancidNode;
 import org.opennms.rancid.RancidNodeAuthentication;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.TransactionCallback;
+import org.springframework.transaction.support.TransactionTemplate;
 import org.springframework.util.Assert;
 
 /**
@@ -69,25 +77,46 @@ import org.springframework.util.Assert;
  * @author <a href="mailto:antonio@opennms.it">Antonio Russo</a>
  *
  */
-public class RancidProvisioningAdapter extends SimpleQueuedProvisioningAdapter implements InitializingBean {
+
+@EventListener(name="RancidProvisioningAdapter:Listener")
+public class RancidProvisioningAdapter extends SimpleQueuedProvisioningAdapter implements InitializingBean, org.opennms.netmgt.model.events.EventListener {
     
     private NodeDao m_nodeDao;
-    private EventForwarder m_eventForwarder;
+    private volatile EventForwarder m_eventForwarder;
+    private volatile EventSubscriptionService m_eventSubscriptionService;
+
     private RWSConfig m_rwsConfig;
     private RancidAdapterConfig m_rancidAdapterConfig;
     private ConnectionProperties m_cp;
     
+    private List<String> m_rancid_categories;
+    
+    private TransactionTemplate m_template;
+    
+    public TransactionTemplate getTemplate() {
+        return m_template;
+    }
+    public void setTemplate(TransactionTemplate template) {
+        m_template = template;
+    }
+
     private static final String MESSAGE_PREFIX = "Rancid provisioning failed: ";
-    private static final String ADAPTER_NAME="RANCID Provisioning Adapter";
+    private static final String ADAPTER_NAME="RancidProvisioningAdapter";
     private static final String RANCID_COMMENT="node provisioned by opennms";
 
-    private volatile static ConcurrentMap<Integer, RancidNodeContainer> m_onmsNodeRancidNodeMap;
+    public static final String NAME = "RancidProvisioningAdapter";
+    private volatile static ConcurrentMap<Integer, RancidNode> m_onmsNodeRancidNodeMap;
 
     @Override
-    AdapterOperationSchedule createScheduleForNode(int nodeId, AdapterOperationType type) {
+    AdapterOperationSchedule createScheduleForNode(final int nodeId, AdapterOperationType type) {
         if (type.equals(AdapterOperationType.CONFIG_CHANGE)) {
-            String ipaddress = getSuitableIpForRancid(nodeId);
-            return new AdapterOperationSchedule(m_rancidAdapterConfig.getDelay(ipaddress),60000, 1, TimeUnit.MILLISECONDS);
+            final String ipaddress =
+            (String)m_template.execute(new TransactionCallback() {
+                public Object doInTransaction(TransactionStatus arg0) {
+                    return getSuitableIpForRancid(nodeId);
+                }
+            });
+            return new AdapterOperationSchedule(m_rancidAdapterConfig.getDelay(ipaddress),60000, m_rancidAdapterConfig.getRetries(ipaddress), TimeUnit.MILLISECONDS);
         }
         return new AdapterOperationSchedule();
     }
@@ -102,92 +131,135 @@ public class RancidProvisioningAdapter extends SimpleQueuedProvisioningAdapter i
         
         Assert.notNull(m_nodeDao, "Rancid Provisioning Adapter requires nodeDao property to be set.");
         
-        List<OnmsNode> nodes = m_nodeDao.findAllProvisionedNodes();
-        m_onmsNodeRancidNodeMap = new ConcurrentHashMap<Integer, RancidNodeContainer>(nodes.size());
+        createMessageSelectorAndSubscribe();
+        getRancidCategories();
         
+        m_template.execute(new TransactionCallback() {
+            public Object doInTransaction(TransactionStatus arg0) {
+                buildRancidNodeMap();
+                return null;
+            }
+        });
+
+        
+    }
+
+    private void getRancidCategories() {
+        
+        try {
+            m_rancid_categories = RWSClientApi.getRWSResourceDeviceTypesPatternList(m_cp).getResource();
+        } catch (RancidApiException e) {
+            ConnectionProperties cp = getStandByRWSConnection();
+            if (cp != null) {
+                try {
+                    m_rancid_categories = RWSClientApi.getRWSResourceDeviceTypesPatternList(m_cp).getResource();
+                } catch (RancidApiException e1) {
+                    log().error("Rancid provisioning Adapter was not able to retieve rancid categories from RWS server");
+                    m_rancid_categories = new ArrayList<String>();
+                    m_rancid_categories.add("cisco");
+                }
+            }
+        }
+    }
+
+
+    private void buildRancidNodeMap() {
+        List<OnmsNode> nodes = m_nodeDao.findAllProvisionedNodes();
+        m_onmsNodeRancidNodeMap = new ConcurrentHashMap<Integer, RancidNode>(nodes.size());
+        
+
         for (OnmsNode onmsNode : nodes) {
             RancidNode rNode = getSuitableRancidNode(onmsNode);
-            RancidNodeAuthentication rAuth = getSuitableRancidNodeAuthentication(onmsNode);
-            
-            m_onmsNodeRancidNodeMap.putIfAbsent(onmsNode.getId(), new RancidNodeContainer(rNode, rAuth));
+            if (rNode != null) {            
+                m_onmsNodeRancidNodeMap.putIfAbsent(onmsNode.getId(), rNode);
+            }
         }
     }
+
 
     private ConnectionProperties getRWSConnection() {
-        log().debug("Connections used :" +m_rwsConfig.getBaseUrl().getServer_url()+m_rwsConfig.getBaseUrl().getDirectory());
-        log().debug("timeout: "+m_rwsConfig.getBaseUrl().getTimeout());        
-        return new ConnectionProperties(m_rwsConfig.getBaseUrl().getServer_url(),m_rwsConfig.getBaseUrl().getDirectory(),m_rwsConfig.getBaseUrl().getTimeout());
+        return m_rwsConfig.getBase();
     }
 
-    private class RancidNodeContainer {
-        private RancidNode m_node;
-        private RancidNodeAuthentication m_auth;
-        
-        public RancidNodeContainer(RancidNode node, RancidNodeAuthentication auth) {
-            setNode(node);
-            setAuth(auth);
-        }
-
-        public void setNode(RancidNode node) {
-            m_node = node;
-        }
-
-        public RancidNode getNode() {
-            return m_node;
-        }
-
-        public void setAuth(RancidNodeAuthentication auth) {
-            m_auth = auth;
-        }
-
-        public RancidNodeAuthentication getAuth() {
-            return m_auth;
-        }
+    private ConnectionProperties getStandByRWSConnection() {
+        return m_rwsConfig.getNextStandBy();
     }
 
-    @Transactional
-    public void doAdd(int nodeId) throws ProvisioningAdapterException {
-        log().debug("RANCID PROVISIONING ADAPTER CALLED addNode");
+    public void doAdd(int nodeId, ConnectionProperties cp, boolean retry) throws ProvisioningAdapterException {
+        log().debug("RANCID PROVISIONING ADAPTER CALLED addNode: nodeid: " + nodeId);
         try {
             OnmsNode node = m_nodeDao.get(nodeId);                                                                                                                                                                                            
             Assert.notNull(node, "Rancid Provisioning Adapter addNode method failed to return node for given nodeId:"+nodeId);
             
             RancidNode rNode = getSuitableRancidNode(node);
-            rNode.setStateUp(true);
-            RWSClientApi.createRWSRancidNode(m_cp, rNode);
+            
+            if (m_onmsNodeRancidNodeMap.containsValue(rNode)) {
+                log().warn("Rancid Provisioning Adapter: Error Duplicate node: " + node);
+                ProvisioningAdapterException e = new ProvisioningAdapterException("Duplicate node has been provided: "+node); 
+                sendAndThrow(nodeId, e);
+                return;
+            }
 
-            RancidNodeAuthentication rAuth = getSuitableRancidNodeAuthentication(node);
-            RWSClientApi.createOrUpdateRWSAuthNode(m_cp, rAuth);
+            rNode.setStateUp(true);
+
+            RWSClientApi.createRWSRancidNode(cp, rNode);
+            RWSClientApi.createOrUpdateRWSAuthNode(cp, rNode.getAuth());
             
-            m_onmsNodeRancidNodeMap.put(Integer.valueOf(nodeId), new RancidNodeContainer(rNode, rAuth));
+            m_onmsNodeRancidNodeMap.put(Integer.valueOf(nodeId), rNode);
             
+        } catch (ProvisioningAdapterException ae) {
+                sendAndThrow(nodeId, ae);
         } catch (Exception e) {
-            sendAndThrow(nodeId, e);
+            cp = getStandByRWSConnection();
+            if (retry && cp != null) {
+                log().info("Rancid Provisioning Adapter: retry Add on standByConn: " + cp.getUrl());
+                doAdd(nodeId, cp, false);
+            } else {
+                sendAndThrow(nodeId, e);            
+            }
         }
     }
 
-    @Transactional
-    public void doUpdate(int nodeId) throws ProvisioningAdapterException {
-        log().debug("RANCID PROVISIONING ADAPTER CALLED updateNode");
+    public void doUpdate(int nodeId, ConnectionProperties cp, boolean retry) throws ProvisioningAdapterException {
+        log().debug("RANCID PROVISIONING ADAPTER CALLED updateNode: nodeid: " + nodeId);
         try {
             OnmsNode node = m_nodeDao.get(nodeId);
+            Assert.notNull(node, "Rancid Provisioning Adapter update Node method failed to return node for given nodeId:"+nodeId);
             
-            RancidNode rNode = getSuitableRancidNode(node);
-            RWSClientApi.createOrUpdateRWSRancidNode(m_cp, rNode);
+            RancidNode rNewNode = getSuitableRancidNode(node);
+            // if the node exists in rancid and is different 
+            // I must delete old data in Rancid
+            if (m_onmsNodeRancidNodeMap.containsKey(Integer.valueOf(nodeId))) {
+                RancidNode rCurrentNode = m_onmsNodeRancidNodeMap.get(Integer.valueOf(nodeId));            
+                if (!rCurrentNode.equals(rNewNode)) {
+                    try {
+                        RWSClientApi.deleteRWSRancidNode(cp, rCurrentNode);
+                        RWSClientApi.deleteRWSAuthNode(cp, rCurrentNode.getAuth());                        
+                    } catch (Exception e) {
+                        log().error("RANCID PROVISIONING ADAPTER Failed to delete node: " + nodeId + " Exception: " + e.getMessage());
+                    }
+                }
+            }
             
-            RancidNodeAuthentication rAuth = getSuitableRancidNodeAuthentication(node);
-            RWSClientApi.createOrUpdateRWSAuthNode(m_cp, getSuitableRancidNodeAuthentication(node));
             
-            m_onmsNodeRancidNodeMap.replace(node.getId(), new RancidNodeContainer(rNode, rAuth));
+            RWSClientApi.createOrUpdateRWSRancidNode(cp, rNewNode);
+            RWSClientApi.createOrUpdateRWSAuthNode(cp, rNewNode.getAuth());
+            
+            m_onmsNodeRancidNodeMap.replace(node.getId(), rNewNode);
         } catch (Exception e) {
-            sendAndThrow(nodeId, e);
+            cp = getStandByRWSConnection();
+            if (retry && cp != null) {
+                log().info("Rancid Provisioning Adapter: retry Update on standByConn: " + cp.getUrl());
+                doUpdate(nodeId, cp, false);
+            } else {
+                sendAndThrow(nodeId, e);            
+            }
         }
     }
     
-    @Transactional
-    public void doDelete(int nodeId) throws ProvisioningAdapterException {
+    public void doDelete(int nodeId,ConnectionProperties cp, boolean retry) throws ProvisioningAdapterException {
 
-        log().debug("RANCID PROVISIONING ADAPTER CALLED deleteNode");
+        log().debug("RANCID PROVISIONING ADAPTER CALLED deleteNode: nodeid: " + nodeId);
         
         /*
          * The work to maintain the hashmap boils down to needing to do deletes, so
@@ -195,31 +267,57 @@ public class RancidProvisioningAdapter extends SimpleQueuedProvisioningAdapter i
          */
         try {
 
-            RancidNode rNode = m_onmsNodeRancidNodeMap.get(Integer.valueOf(nodeId)).getNode();
-            RWSClientApi.deleteRWSRancidNode(m_cp, rNode);
+            if (m_onmsNodeRancidNodeMap.containsKey(Integer.valueOf(nodeId))) {
+                RancidNode rNode = m_onmsNodeRancidNodeMap.get(Integer.valueOf(nodeId));
+
+                RWSClientApi.deleteRWSRancidNode(cp, rNode);
+                RWSClientApi.deleteRWSAuthNode(cp, rNode.getAuth());
+
+                m_onmsNodeRancidNodeMap.remove(Integer.valueOf(nodeId));
+            } else {
+                log().warn("No node found in nodeRancid Map for nodeid: " + nodeId);                
+            }
             
-            RancidNodeAuthentication rAuth = m_onmsNodeRancidNodeMap.get(Integer.valueOf(nodeId)).getAuth();
-            RWSClientApi.deleteRWSAuthNode(m_cp, rAuth);
-            
-            m_onmsNodeRancidNodeMap.remove(Integer.valueOf(nodeId));
         } catch (Exception e) {
-            sendAndThrow(nodeId, e);
+            cp = getStandByRWSConnection();
+            if (retry && cp != null) {
+                log().info("Rancid Provisioning Adapter: retry Delete on standByConn: " + cp.getUrl());
+                doDelete(nodeId, cp, false);
+            } else {
+                sendAndThrow(nodeId, e);            
+            }
         }
     }
 
-    public void doNodeConfigChanged(int nodeid) throws ProvisioningAdapterException {
-        throw new ProvisioningAdapterException("configChanged event not yet implemented.");
+    public void doNodeConfigChanged(int nodeId,ConnectionProperties cp, boolean retry) throws ProvisioningAdapterException {
+        log().debug("RANCID PROVISIONING ADAPTER CALLED updateNode: nodeid: " + nodeId);
+        try {
+            if (m_onmsNodeRancidNodeMap.containsKey(Integer.valueOf(nodeId))) {
+                RancidNode rNode = m_onmsNodeRancidNodeMap.get(Integer.valueOf(nodeId));
+                RWSClientApi.updateRWSRancidNode(cp, rNode);
+            } else {
+                log().warn("No node found in nodeRancid Map for nodeid: " + nodeId);
+            }
+        } catch (Exception e) {
+            cp = getStandByRWSConnection();
+            if (retry && cp != null) {
+                log().info("Rancid Provisioning Adapter: retry ConfigChange on standByConn: " + cp.getUrl());
+                doNodeConfigChanged(nodeId, cp, false);
+            } else {
+                sendAndThrow(nodeId, e);            
+            }
+        }
     }
     
     private void sendAndThrow(int nodeId, Exception e) {
-        log().debug("RANCID PROVISIONING ADAPTER CALLED sendAndThrow");
-        Event event = buildEvent(EventConstants.PROVISIONING_ADAPTER_FAILED, nodeId).addParam("reason", MESSAGE_PREFIX+e.getLocalizedMessage()).getEvent();
-        m_eventForwarder.sendNow(event);
-        throw new ProvisioningAdapterException(MESSAGE_PREFIX, e);
+            log().debug("RANCID PROVISIONING ADAPTER CALLED sendAndThrow: nodeid: " + nodeId);
+            log().debug("RANCID PROVISIONING ADAPTER CALLED sendAndThrow: Exception: " + e.getMessage());
+            Event event = buildEvent(EventConstants.PROVISIONING_ADAPTER_FAILED, nodeId).addParam("reason", MESSAGE_PREFIX+e.getLocalizedMessage()).getEvent();
+            m_eventForwarder.sendNow(event);
+            throw new ProvisioningAdapterException(MESSAGE_PREFIX, e);
     }
 
     private EventBuilder buildEvent(String uei, int nodeId) {
-        log().debug("RANCID PROVISIONING ADAPTER CALLED EventBuilder");
         EventBuilder builder = new EventBuilder(uei, "Provisioner", new Date());
         builder.setNodeid(nodeId);
         return builder;
@@ -264,7 +362,7 @@ public class RancidProvisioningAdapter extends SimpleQueuedProvisioningAdapter i
         return ADAPTER_NAME;
     }
 
-    private String getSuitableIpForRancid(int nodeid){
+    public String getSuitableIpForRancid(int nodeid){
         OnmsNode node = m_nodeDao.get(nodeid);
         OnmsIpInterface primaryInterface = node.getPrimaryInterface();
         
@@ -280,25 +378,47 @@ public class RancidProvisioningAdapter extends SimpleQueuedProvisioningAdapter i
     private RancidNode getSuitableRancidNode(OnmsNode node) {
         
 
-        //FIXME: Guglielmo, the group should be the foreign source of the node
-        // Antonio: I'm working on the configuration file and the group
-        // is written in the configuration file
-        // in principle you can provide rancid node to more then a group
+        //The group should be the foreign source of the node
+
         String group = node.getForeignSource();
-//        RancidNode r_node = new RancidNode(m_rancidAdapterConfig.getGroup(), node.getLabel());
-//        String group = m_rancidAdapterConfig.getGroup();
+
+        if (group == null) return null;
         RancidNode r_node = new RancidNode(group, node.getLabel());
 
-        //FIXME: Guglielmo, the device type is going to have to be mapped by SysObjectId...
-        //that should probably be in the RancidNode class
-        // It is in the Configuration file for Rancid ADapter
-        r_node.setDeviceType(m_rancidAdapterConfig.getType(node.getSysObjectId()));
+        String ipaddress = getSuitableIpForRancid(node.getId().intValue());
+        if (m_rancidAdapterConfig.useCategories(ipaddress)) {
+           r_node.setDeviceType(getTypeFromCategories(node)); 
+        } else {
+            r_node.setDeviceType(getTypeFromSysObjectId(node.getSysObjectId()));
+        }
         r_node.setStateUp(false);
         r_node.setComment(RANCID_COMMENT);
+        r_node.setAuth(getSuitableRancidNodeAuthentication(node));
         return r_node;
 
     }
     
+    private String getTypeFromSysObjectId(String sysoid) {
+        String rancidType = m_rancidAdapterConfig.getType(sysoid);
+        log().debug("Rancid configuration file: Rancid devicetype found: " + rancidType);
+        return rancidType;
+    }
+    
+    private String getTypeFromCategories(OnmsNode node) {
+        log().debug("Using Categories to get Rancid devicetype for node: " + node.getLabel());
+        for (String rancidType: m_rancid_categories) {
+            for (OnmsCategory nodecategory: node.getCategories()) {
+                if (nodecategory.getName().equalsIgnoreCase(rancidType)) {
+                    log().debug("Found Matching Category: Rancid devicetype found: " + rancidType);
+                    return rancidType;
+                }
+            }
+        }
+        log().warn("No Matching Category found: trying to get devicetype using config file");
+        return getTypeFromCategories(node);
+    }
+
+
     private RancidNodeAuthentication getSuitableRancidNodeAuthentication(OnmsNode node) {
         // RancidAutentication
         RancidNodeAuthentication r_auth_node = new RancidNodeAuthentication();
@@ -331,21 +451,111 @@ public class RancidProvisioningAdapter extends SimpleQueuedProvisioningAdapter i
     }
 
     @Override
-    public boolean isNodeReady(int nodeId) {
-        // TODO Auto-generated method stub
+    public boolean isNodeReady(AdapterOperation op) {
+        if (op.getType() == AdapterOperationType.CONFIG_CHANGE) {
+            Integer nodeid = op.getNodeId();
+            updateRancidNodeState(nodeid, true);
+            return 
+            m_rancidAdapterConfig.isCurTimeInSchedule(getSuitableIpForRancid(nodeid));
+        }
         return true;
     }
 
     @Override
-    public void processPendingOperationForNode(AdapterOperation op) throws ProvisioningAdapterException {
+    public void processPendingOperationForNode(final AdapterOperation op) throws ProvisioningAdapterException {
         if (op.getType() == AdapterOperationType.ADD) {
-            doAdd(op.getNodeId());
+            m_template.execute(new TransactionCallback() {
+                public Object doInTransaction(TransactionStatus arg0) {
+                    doAdd(op.getNodeId(),m_cp,true);
+                    return null;
+                }
+            });
         } else if (op.getType() == AdapterOperationType.UPDATE) {
-            doUpdate(op.getNodeId());
+            m_template.execute(new TransactionCallback() {
+                public Object doInTransaction(TransactionStatus arg0) {
+                    doUpdate(op.getNodeId(),m_cp,true);
+                    return null;
+                }
+            });
         } else if (op.getType() == AdapterOperationType.DELETE) {
-            doDelete(op.getNodeId());
+            m_template.execute(new TransactionCallback() {
+                public Object doInTransaction(TransactionStatus arg0) {
+                    doDelete(op.getNodeId(),m_cp,true);
+                    return null;
+                }
+            });
         } else if (op.getType() == AdapterOperationType.CONFIG_CHANGE) {
-            doNodeConfigChanged(op.getNodeId());
+            m_template.execute(new TransactionCallback() {
+                public Object doInTransaction(TransactionStatus arg0) {
+                    doNodeConfigChanged(op.getNodeId(),m_cp,true);
+                    return null;
+                }
+            });
         }
     }
+    
+    @EventHandler(uei = EventConstants.RANCID_DOWNLOAD_FAILURE_UEI)
+    public void handleRancidDownLoadFailure(Event e) {
+        log().debug("get Event uei/id: " + e.getUei() + "/" + e.getDbid());
+        if (e.hasNodeid()) {
+            int nodeId = Long.valueOf(e.getNodeid()).intValue();
+            if (m_onmsNodeRancidNodeMap.containsKey(Integer.valueOf(nodeId))) {
+                updateRancidNodeState(nodeId, true);
+                doNodeConfigChanged(nodeId,m_cp,true);
+            } else {
+                log().warn("node does not exist with nodeid: " + e.getNodeid());
+            }
+        }
+    }
+
+    @EventHandler(uei = EventConstants.RANCID_DOWNLOAD_SUCCESS_UEI)
+    public void handleRancidDownLoadSuccess(Event e) {
+        log().debug("get Event uei/id: " + e.getUei() + "/" + e.getDbid());
+        if (e.hasNodeid() ) {
+            int nodeId = Long.valueOf(e.getNodeid()).intValue();
+            if (m_onmsNodeRancidNodeMap.containsKey(Integer.valueOf(nodeId))) {
+                updateRancidNodeState(nodeId, false);
+                doNodeConfigChanged(nodeId,m_cp,true);
+            } else {
+                log().warn("node does not exist with nodeid: " + e.getNodeid());
+            }
+        }
+    }
+
+    private void updateRancidNodeState(int nodeid, boolean up) {
+        RancidNode rnode = m_onmsNodeRancidNodeMap.get(Integer.valueOf(nodeid));
+        rnode.setStateUp(up);
+        m_onmsNodeRancidNodeMap.put(nodeid, rnode);
+    }
+
+    public EventSubscriptionService getEventSubscriptionService() {
+        return m_eventSubscriptionService;
+    }
+
+
+    public void setEventSubscriptionService(
+            EventSubscriptionService eventSubscriptionService) {
+        m_eventSubscriptionService = eventSubscriptionService;
+    }
+
+
+    public void onEvent(Event e) {
+        if (e == null)
+            return;
+       
+        if (e.getUei().equals(EventConstants.RANCID_DOWNLOAD_FAILURE_UEI))
+            handleRancidDownLoadFailure(e);
+        else if (e.getUei().equals(EventConstants.RANCID_DOWNLOAD_SUCCESS_UEI))
+            handleRancidDownLoadSuccess(e);
+    }
+
+    private void createMessageSelectorAndSubscribe() {
+        
+        List<String> ueiList = new ArrayList<String>();
+        ueiList.add(EventConstants.RANCID_DOWNLOAD_FAILURE_UEI);
+        ueiList.add(EventConstants.RANCID_DOWNLOAD_SUCCESS_UEI);
+        
+        getEventSubscriptionService().addEventListener(this, ueiList);
+    }
+
 }

@@ -97,7 +97,6 @@
     <module>mock-snmp-agent</module>
     <module>opennms-util</module>
     <module>opennms-bootstrap</module>
-    <module>opennms-joesnmp</module>
     <module>opennms-install</module>
     <module>opennms-model</module>
     <module>opennms-ackd</module>
@@ -108,7 +107,6 @@
     <module>opennms-icmp</module>
     <module>opennms-javamail</module>
     <module>opennms-rrd</module>
-    <module>opennms-snmp</module>
     <module>opennms-config</module>
     <module>opennms-provision</module>
     <module>opennms-services</module>
@@ -122,6 +120,7 @@
     <module>opennms-wmi</module>
     <module>opennms-asterisk</module>
     <module>opennms-base-assembly</module>
+    <module>integration-tests</module>
   </modules>
   <build>
   <pluginManagement>
@@ -653,19 +652,6 @@
     </profile>
 
     <profile>
-      <id>buildDocs</id>
-      <activation>
-        <os>
-          <family>!windows</family>
-        </os>
-      </activation>
-
-      <modules>
-        <module>opennms-doc</module>
-      </modules>
-    </profile>
-
-    <profile>
       <id>opt-local-rrdtool</id>
       
       <activation>
@@ -771,7 +757,7 @@
       <dependency>
         <groupId>org.opennms</groupId>
         <artifactId>jicmp-api</artifactId>
-        <version>1.0.9</version>
+        <version>1.0.10</version>
       </dependency>
       <dependency>
         <groupId>org.opennms</groupId>
@@ -792,14 +778,49 @@
         <version>${project.version}</version>
       </dependency>
       <dependency>
+        <groupId>org.opennms.features</groupId>
+        <artifactId>org.opennms.features.remote-poller</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
         <groupId>org.opennms.features.ticketing</groupId>
-        <artifactId>api</artifactId>
+        <artifactId>org.opennms.features.ticketing.api</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms.features.provisioning</groupId>
+        <artifactId>org.opennms.features.provisioning.api</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms.features.provisioning</groupId>
+        <artifactId>org.opennms.features.provisioning.lib</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>org.opennms.lib</groupId>
-        <artifactId>service-registration</artifactId>
+        <artifactId>org.opennms.lib.joesnmp</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms.lib</groupId>
+        <artifactId>org.opennms.lib.service-registration</artifactId>
         <version>0.4-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms.lib.snmp</groupId>
+        <artifactId>org.opennms.lib.snmp.api</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms.lib.snmp</groupId>
+        <artifactId>org.opennms.lib.snmp.joesnmp</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms.lib.snmp</groupId>
+        <artifactId>org.opennms.lib.snmp.snmp4j</artifactId>
+        <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>org.opennms</groupId>
@@ -992,6 +1013,12 @@
       </dependency>
       <dependency>
         <groupId>org.opennms</groupId>
+        <artifactId>opennms-provision-persistence</artifactId>
+        <version>${project.version}</version>
+        <type>test-jar</type>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms</groupId>
         <artifactId>opennms-provisiond</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -1038,21 +1065,6 @@
       </dependency>
       <dependency>
         <groupId>org.opennms</groupId>
-        <artifactId>opennms-snmp-api</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.opennms</groupId>
-        <artifactId>opennms-snmp-joesnmp</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.opennms</groupId>
-        <artifactId>opennms-snmp-snmp4j</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.opennms</groupId>
         <artifactId>opennms-spring</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -1095,6 +1107,11 @@
         <groupId>org.opennms</groupId>
         <artifactId>rancid-api</artifactId>
         <version>0.2-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.dnsjava</groupId>
+        <artifactId>dnsjava</artifactId>
+        <version>2.0.6</version>
       </dependency>
       <dependency>
         <groupId>org.opennms</groupId>
@@ -1495,12 +1512,12 @@
       <dependency>
         <groupId>org.snmp4j</groupId>
         <artifactId>snmp4j</artifactId>
-        <version>1.9.3d</version>
+        <version>1.9.2a</version>
       </dependency>
       <dependency>
         <groupId>org.snmp4j</groupId>
         <artifactId>snmp4j-agent</artifactId>
-        <version>1.2.2</version>
+        <version>1.2d</version>
         <scope>test</scope>
       </dependency>
       <dependency>
@@ -1658,7 +1675,11 @@
       <id>java-net-maven2-repo</id>
       <url>http://download.java.net/maven/2</url>
     </repository>
-
+    <repository>
+      <id>maven-restlet</id>
+      <name>Public online Restlet repository</name>
+      <url>http://maven.restlet.org</url>
+    </repository>
   </repositories>
   <pluginRepositories>
     <pluginRepository>

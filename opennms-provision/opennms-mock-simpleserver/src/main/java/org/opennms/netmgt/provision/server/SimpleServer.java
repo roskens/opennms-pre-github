@@ -34,11 +34,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.lang.reflect.UndeclaredThrowableException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import org.apache.log4j.Logger;
+import org.opennms.core.utils.ThreadCategory;
 import org.opennms.netmgt.provision.server.exchange.Exchange;
 import org.opennms.netmgt.provision.server.exchange.RequestHandler;
 import org.opennms.netmgt.provision.server.exchange.SimpleConversationEndPoint;
@@ -115,18 +116,19 @@ public class SimpleServer extends SimpleConversationEndPoint {
         getServerThread().start();
     }
     
-    @SuppressWarnings("deprecation")
     public void stopServer() throws IOException {
-
+        getServerSocket().close();
         if(getServerThread() != null && getServerThread().isAlive()) { 
             
             if(getSocket() != null && !getSocket().isClosed()) {
                getSocket().close();  
             }
             
-            getServerSocket().close();
-            getServerThread().stop();
         }
+    }
+    
+    public void dispose(){
+        
     }
     
     protected Runnable getRunnable() throws Exception {
@@ -146,12 +148,12 @@ public class SimpleServer extends SimpleConversationEndPoint {
                     BufferedReader in = new BufferedReader(new InputStreamReader(getSocket().getInputStream()));
                     attemptConversation(in, out);
                 }catch(Exception e){
-                    throw new UndeclaredThrowableException(e);
+                    info(e, "SimpleServer Exception on conversation");
                 } finally {
                     try {
                         stopServer();
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        info(e, "SimpleServer Exception on stopping server");
                     }
                 }
             }
@@ -171,7 +173,6 @@ public class SimpleServer extends SimpleConversationEndPoint {
      * @throws Exception 
      */
     protected boolean attemptConversation(BufferedReader in, OutputStream out) throws Exception{
-        //System.out.println("SSLServer attempting conversation");
         m_conversation.attemptServerConversation(in, out);      
         return true;
     }
@@ -224,6 +225,13 @@ public class SimpleServer extends SimpleConversationEndPoint {
 
     protected Thread getServerThread() {
         return m_serverThread;
+    }
+    
+    private void info(Throwable t, String format, Object... args) {
+        Logger log = ThreadCategory.getInstance(getClass());
+        if (log.isInfoEnabled()) {
+            log.info(String.format(format, args), t);
+        }
     }
     
 }

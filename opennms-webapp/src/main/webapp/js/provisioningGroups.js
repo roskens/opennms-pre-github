@@ -7,6 +7,7 @@ function confirmAction(group, action, confirmation) {
 	}
 	document.takeAction.groupName.value = group;
 	document.takeAction.action.value = action;
+	document.takeAction.actionTarget.value = "";
 	document.takeAction.submit();
 	return true;
 }
@@ -14,7 +15,21 @@ function confirmAction(group, action, confirmation) {
 function doAction(group, action) {
 	document.takeAction.groupName.value = group;
 	document.takeAction.action.value = action;
+	document.takeAction.actionTarget.value = "";
 	document.takeAction.submit();
+	return true;
+}
+
+function cloneRequisition(group) {
+	var answer = prompt("What do you wish to call the new requisition?");
+	if (answer == null) {
+		return false;
+	} else {
+		document.takeAction.groupName.value = group;
+		document.takeAction.action.value = "cloneRequisition";
+		document.takeAction.actionTarget.value = answer;
+		document.takeAction.submit();
+	}
 	return true;
 }
 
@@ -24,8 +39,28 @@ function editRequisition(group) {
 	return true;
 }
 
+function cloneForeignSource(group) {
+	var answer = prompt("What do you wish to call the new foreign source?");
+	if (answer == null) {
+		return false;
+	} else {
+		document.takeAction.groupName.value = group;
+		document.takeAction.action.value = "cloneForeignSource";
+		document.takeAction.actionTarget.value = answer;
+		document.takeAction.submit();
+	}
+	return true;
+}
+
 function editForeignSource(foreignSourceName) {
 	document.editForeignSourceForm.foreignSourceName.value = foreignSourceName;
 	document.editForeignSourceForm.submit();
+	return true;
+}
+
+function resetDefaultForeignSource() {
+	document.takeAction.groupName.value = "default";
+	document.takeAction.action.value = "resetDefaultForeignSource";
+	document.takeAction.submit();
 	return true;
 }

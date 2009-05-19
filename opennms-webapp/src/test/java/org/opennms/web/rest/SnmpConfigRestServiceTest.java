@@ -12,7 +12,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.opennms.netmgt.config.SnmpPeerFactory;
-import org.opennms.web.rest.SnmpConfigRestService.SnmpInfo;
+import org.opennms.secret.web.snmpinfo.SnmpInfo;
 
 /*
  * TODO
@@ -50,7 +50,7 @@ public class SnmpConfigRestServiceTest extends AbstractSpringJerseyRestTestCase 
     @Test
     public void testGetForUnknownIp() throws Exception {
 
-        String url = "/snmpConfiguration/1.1.1.1";
+        String url = "/snmpConfig/1.1.1.1";
         // Testing GET Collection
         
         SnmpInfo config = getXmlObject(m_jaxbContext, url, 200, SnmpInfo.class);
@@ -62,7 +62,7 @@ public class SnmpConfigRestServiceTest extends AbstractSpringJerseyRestTestCase 
     @Test
     public void testSetNewValue() throws Exception {
         
-        String url = "/snmpConfiguration/1.1.1.1";
+        String url = "/snmpConfig/1.1.1.1";
         // Testing GET Collection
         
         SnmpInfo config = getXmlObject(m_jaxbContext, url, 200, SnmpInfo.class);

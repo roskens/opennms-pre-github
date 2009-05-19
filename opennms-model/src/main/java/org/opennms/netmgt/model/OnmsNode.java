@@ -83,7 +83,7 @@ import org.springframework.core.style.ToStringCreator;
  *     
 */
 @XmlRootElement(name = "node")
-@Entity
+@Entity()
 @Table(name="node")
 @SecondaryTable(name="pathOutage")
 public class OnmsNode extends OnmsEntity implements Serializable,
@@ -529,6 +529,15 @@ public class OnmsNode extends OnmsEntity implements Serializable,
     public boolean removeCategory(OnmsCategory category) {
         return getCategories().remove(category);
     }
+    
+    public boolean hasCategory(String categoryName) {
+        for(OnmsCategory category : getCategories()) {
+            if (category.getName().equals(categoryName)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public String toString() {
         return new ToStringCreator(this)
@@ -540,13 +549,11 @@ public class OnmsNode extends OnmsEntity implements Serializable,
 	public void visit(EntityVisitor visitor) {
 		visitor.visitNode(this);
 		
-		for (Iterator<OnmsIpInterface> it = getIpInterfaces().iterator(); it.hasNext();) {
-			OnmsIpInterface iface = it.next();
+		for (OnmsIpInterface iface : getIpInterfaces()) {
 			iface.visit(visitor);
 		}
 		
-		for (Iterator<OnmsSnmpInterface> it = getSnmpInterfaces().iterator(); it.hasNext();) {
-			OnmsSnmpInterface snmpIface = it.next();
+		for (OnmsSnmpInterface snmpIface : getSnmpInterfaces()) {
 			snmpIface.visit(visitor);
 		}
 		
@@ -561,8 +568,7 @@ public class OnmsNode extends OnmsEntity implements Serializable,
 	@Transient
     public boolean isDown() {
         boolean down = true;
-        for (Iterator<OnmsIpInterface> it = m_ipInterfaces.iterator(); it.hasNext();) {
-            OnmsIpInterface ipIf = it.next();
+        for (OnmsIpInterface ipIf : m_ipInterfaces) {
             if (!ipIf.isDown()) {
                 return !down;
             }
@@ -677,9 +683,15 @@ public class OnmsNode extends OnmsEntity implements Serializable,
         }
         
         mergeAgentAttributes(scannedNode);
+        
+        mergeAdditionalCategories(scannedNode);
+    }
+    
+    public void mergeAdditionalCategories(OnmsNode scannedNode) {
+        getCategories().addAll(scannedNode.getCategories());
     }
 
-    public void mergeSnmpInterfaces(OnmsNode scannedNode) {
+    public void mergeSnmpInterfaces(OnmsNode scannedNode, boolean deleteMissing) {
         
         // we need to skip this step if there is an indication that snmp data collection failed
         if (scannedNode.getSnmpInterfaces().size() == 0) {
@@ -704,8 +716,10 @@ public class OnmsNode extends OnmsEntity implements Serializable,
     
             // remove it since there is no corresponding scanned interface
             if (imported == null) {
-                it.remove();
-                scannedInterfaceMap.remove(iface.getIfIndex());
+                if (deleteMissing) {
+                    it.remove();
+                    scannedInterfaceMap.remove(iface.getIfIndex());
+                }
             } else {
                 // merge the data from the corresponding scanned interface
                 iface.mergeSnmpInterfaceAttributes(imported);
@@ -720,7 +734,7 @@ public class OnmsNode extends OnmsEntity implements Serializable,
         }
     }
 
-    public void mergeIpInterfaces(OnmsNode scannedNode, EventForwarder eventForwarder) {
+    public void mergeIpInterfaces(OnmsNode scannedNode, EventForwarder eventForwarder, boolean deleteMissing) {
         // build a map of ipAddrs to ipInterfaces for the scanned node
         Map<String, OnmsIpInterface> ipInterfaceMap = new HashMap<String, OnmsIpInterface>();
         for (OnmsIpInterface iface : scannedNode.getIpInterfaces()) {
@@ -735,11 +749,13 @@ public class OnmsNode extends OnmsEntity implements Serializable,
             
             // if we can't find a scanned interface remove from the database
             if (scannedIface == null) {
-                it.remove();
-                dbIface.visit(new DeleteEventVisitor(eventForwarder));
+                if (deleteMissing) {
+                    it.remove();
+                    dbIface.visit(new DeleteEventVisitor(eventForwarder));
+                }
             } else {
                 // else update the database with scanned info
-                dbIface.mergeInterface(scannedIface, eventForwarder);
+                dbIface.mergeInterface(scannedIface, eventForwarder, deleteMissing);
             }
             
             // now remove the interface form the map to indicate it was processed
@@ -757,21 +773,41 @@ public class OnmsNode extends OnmsEntity implements Serializable,
         }
     }
 
-    public void mergeCategories(OnmsNode scannedNode) {
+    public void mergeCategorySet(OnmsNode scannedNode) {
         if (!getCategories().equals(scannedNode.getCategories())) {
             setCategories(scannedNode.getCategories());
         }
     }
 
-    public void mergeNode(OnmsNode scannedNode, EventForwarder eventForwarder) {
+    /**
+     * Truly merges the node's assert record
+     * @param scannedNode
+     */
+    public void mergeAssets(OnmsNode scannedNode) {
+        this.getAssetRecord().mergeRecord(scannedNode.getAssetRecord());
+    }
+    
+    /**
+     * Simply replaces the current asset record with the new record
+     * @param scnannedNode
+     */
+    public void replaceCurrentAssetRecord(OnmsNode scannedNode) {
+        scannedNode.getAssetRecord().setId(this.getAssetRecord().getId());
+        scannedNode.setId(this.m_id);  //just in case
+        this.setAssetRecord(scannedNode.getAssetRecord());
+    }
+
+    public void mergeNode(OnmsNode scannedNode, EventForwarder eventForwarder, boolean deleteMissing) {
         
         mergeNodeAttributes(scannedNode);
     
-    	mergeSnmpInterfaces(scannedNode);
+    	mergeSnmpInterfaces(scannedNode, deleteMissing);
         
-        mergeIpInterfaces(scannedNode, eventForwarder);
+        mergeIpInterfaces(scannedNode, eventForwarder, deleteMissing);
         
-    	mergeCategories(scannedNode);
+    	mergeCategorySet(scannedNode);
+    	
+    	mergeAssets(scannedNode);
     }
 
 }

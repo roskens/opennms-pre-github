@@ -1,35 +1,38 @@
-//
-// This file is part of the OpenNMS(R) Application.
-//
-// OpenNMS(R) is Copyright (C) 2006 The OpenNMS Group, Inc.  All rights reserved.
-// OpenNMS(R) is a derivative work, containing both original code, included code and modified
-// code that was published under the GNU General Public License. Copyrights for modified 
-// and included code are below.
-//
-// OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
-//
-// Modifications:
-//
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or
-// (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-//
-// For more information contact:
-// OpenNMS Licensing       <license@opennms.org>
-//     http://www.opennms.org/
-//     http://www.opennms.com/
-//
-
+/*
+ * This file is part of the OpenNMS(R) Application.
+ *
+ * OpenNMS(R) is Copyright (C) 2009 The OpenNMS Group, Inc.  All rights reserved.
+ * OpenNMS(R) is a derivative work, containing both original code, included code and modified
+ * code that was published under the GNU General Public License. Copyrights for modified
+ * and included code are below.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * Modifications:
+ * 
+ * Created: January 21, 2009
+ *
+ * Copyright (C) 2009 The OpenNMS Group, Inc.  All rights reserved.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * For more information contact:
+ *      OpenNMS Licensing       <license@opennms.org>
+ *      http://www.opennms.org/
+ *      http://www.opennms.com/
+ */
 package org.opennms.web.rest;
 
 import java.text.ParseException;
@@ -48,14 +51,12 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
-import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.opennms.netmgt.EventConstants;
 import org.opennms.netmgt.model.events.EventBuilder;
 import org.opennms.netmgt.model.events.EventProxy;
 import org.opennms.netmgt.model.events.EventProxyException;
 import org.opennms.netmgt.provision.persist.ForeignSourceRepository;
-import org.opennms.netmgt.provision.persist.StringXmlCalendarPropertyEditor;
 import org.opennms.netmgt.provision.persist.requisition.Requisition;
 import org.opennms.netmgt.provision.persist.requisition.RequisitionAsset;
 import org.opennms.netmgt.provision.persist.requisition.RequisitionAssetCollection;
@@ -68,8 +69,6 @@ import org.opennms.netmgt.provision.persist.requisition.RequisitionMonitoredServ
 import org.opennms.netmgt.provision.persist.requisition.RequisitionMonitoredServiceCollection;
 import org.opennms.netmgt.provision.persist.requisition.RequisitionNode;
 import org.opennms.netmgt.provision.persist.requisition.RequisitionNodeCollection;
-import org.springframework.beans.BeanWrapper;
-import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
@@ -79,6 +78,52 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sun.jersey.spi.resource.PerRequest;
 
+/**
+<p>RESTful service to the OpenNMS Provisioning Groups.  In this API, these "groups" of nodes 
+are aptly named and treated as requisitions.</p>
+<p>This current implementation supports CRUD operations for managing provisioning requisitions.  Requisitions
+are first POSTed into a bin called pending and no provisioning (import) operations are taken.  This is done
+so that a) the XML can be verified and b) so that the operations can happen at a later time.
+<ul>
+<li>GET/PUT/POST pending and deployed requisitions</li>
+<li>GET pending and deployed count</li>
+</ul>
+</p>
+<p>Example 1: Create a new requisition <i>Note: The foreign-source attribute typically has a 1 to 1 
+relationship to a provisioning group and to the name used in this requisition.  The relationship is 
+implied by name and it is best practice to use the same for all three.  If a foreign source definition
+exists with the same name, it will be used during the provisioning (import) operations in lieu of the
+default foreign source</i></p>
+<pre>
+curl -X POST \
+     -H "Content-Type: application/xml" \
+     -d "&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+         &lt;model-import xmlns="http://xmlns.opennms.org/xsd/config/model-import" 
+             date-stamp="2009-03-07T17:56:53.123-05:00"
+             last-import="2009-03-07T17:56:53.117-05:00" foreign-source="site1"&gt;
+           &lt;node node-label="p-brane" foreign-id="1" &gt;
+             &lt;interface ip-addr="10.0.1.3" descr="en1" status="1" snmp-primary="P"&gt;
+               &lt;monitored-service service-name="ICMP"/&gt;
+               &lt;monitored-service service-name="SNMP"/&gt;
+             &lt;/interface&gt;
+             &lt;category name="Production"/&gt;
+             &lt;category name="Routers"/&gt;
+           &lt;/node&gt;
+         &lt;/model-import&gt;" \
+     -u admin:admin \
+     http://localhost:8980/opennms/rest/requisitions/pending
+</pre>
+<p>Example 2: Query all deployed requisitions</p>
+<pre>
+curl -X GET \
+     -H "Content-Type: application/xml" \
+     -u admin:admin \
+        http://localhost:8980/opennms/rest/requisitions/deployed \
+        2>/dev/null \
+        |xmllint --format -</pre>
+ *
+ * @author <a href="mailto:ranger@opennms.org">Benjamin Reed</a>
+ */
 @Component
 @PerRequest
 @Scope("prototype")
@@ -280,10 +325,10 @@ public class RequisitionRestService extends OnmsRestService {
     }
     
     /**
-     * Returns a collection of categories for a given node in the specified foreign source
+     * Returns a collection of assets for a given node in the specified foreign source
      */
     @GET
-    @Path("pending/{foreignSource}/nodes/{foreignId}/asset")
+    @Path("pending/{foreignSource}/nodes/{foreignId}/assets")
     @Produces( { MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     public RequisitionAssetCollection getAssetParameters(@PathParam("foreignSource") String foreignSource, @PathParam("foreignId") String foreignId) throws ParseException {
         Requisition req = m_pendingForeignSourceRepository.getRequisition(foreignSource);
@@ -300,7 +345,7 @@ public class RequisitionRestService extends OnmsRestService {
      * Returns the requested category for a given node in the specified foreign source
      */
     @GET
-    @Path("pending/{foreignSource}/nodes/{foreignId}/asset/{parameter}")
+    @Path("pending/{foreignSource}/nodes/{foreignId}/assets/{parameter}")
     @Produces( { MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     public RequisitionAsset getAssetParameter(@PathParam("foreignSource") String foreignSource, @PathParam("foreignId") String foreignId, @PathParam("parameter") String parameter) throws ParseException {
         Requisition req = m_pendingForeignSourceRepository.getRequisition(foreignSource);
@@ -380,7 +425,7 @@ public class RequisitionRestService extends OnmsRestService {
             if (node != null) {
                 RequisitionInterface iface = node.getInterface(ipAddress);
                 if (iface != null) {
-                    iface.putService(service);
+                    iface.putMonitoredService(service);
                     m_pendingForeignSourceRepository.save(req);
                     return Response.ok(req).build();
                 }
@@ -414,7 +459,7 @@ public class RequisitionRestService extends OnmsRestService {
      * Updates or adds an asset parameter to a node
      */
     @POST
-    @Path("pending/{foreignSource}/nodes/{foreignId}/asset")
+    @Path("pending/{foreignSource}/nodes/{foreignId}/assets")
     @Consumes(MediaType.APPLICATION_XML)
     @Transactional
     public Response addOrReplaceNodeAssetParameter(@PathParam("foreignSource") String foreignSource, @PathParam("foreignId") String foreignId, RequisitionAsset asset) {
@@ -617,7 +662,7 @@ public class RequisitionRestService extends OnmsRestService {
     }
 
     @DELETE
-    @Path("pending/{foreignSource}/nodes/{foreignId}/asset/{parameter}")
+    @Path("pending/{foreignSource}/nodes/{foreignId}/assets/{parameter}")
     @Transactional
     public Response deleteAssetParameter(@PathParam("foreignSource") String foreignSource, @PathParam("foreignId") String foreignId, @PathParam("parameter") String parameter) {
         Requisition req = m_pendingForeignSourceRepository.getRequisition(foreignSource);
@@ -630,19 +675,6 @@ public class RequisitionRestService extends OnmsRestService {
             }
         }
         return null;
-    }
-
-    private void setProperties(MultivaluedMapImpl params, Object req) {
-        BeanWrapper wrapper = new BeanWrapperImpl(req);
-        wrapper.registerCustomEditor(XMLGregorianCalendar.class, new StringXmlCalendarPropertyEditor());
-        for(String key : params.keySet()) {
-            if (wrapper.isWritableProperty(key)) {
-                Object value = null;
-                String stringValue = params.getFirst(key);
-                value = wrapper.convertIfNecessary(stringValue, wrapper.getPropertyType(key));
-                wrapper.setPropertyValue(key, value);
-            }
-        }
     }
 
     private void debug(String format, Object... values) {

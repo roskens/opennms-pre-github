@@ -76,7 +76,7 @@
               <jarResources>
                 <jarResource>
                   <groupId>org.opennms.features</groupId>
-                  <artifactId>remote-poller</artifactId>
+                  <artifactId>org.opennms.features.remote-poller</artifactId>
                   <version>${project.version}</version>
                   <classifier>jar-with-dependencies</classifier>
                   <mainClass>org.opennms.poller.remote.Main</mainClass>
@@ -89,7 +89,7 @@
               <jarResources>
                 <jarResource>
                   <groupId>org.opennms.features</groupId>
-                  <artifactId>remote-poller</artifactId>
+                  <artifactId>org.opennms.features.remote-poller</artifactId>
                   <version>${project.version}</version>
                   <classifier>jar-with-dependencies</classifier>
                   <mainClass>org.opennms.poller.remote.Main</mainClass>
@@ -263,6 +263,33 @@
         </configuration>
       </plugin>
       <plugin>
+        <groupId>com.sun.tools.jxc.maven2</groupId>
+        <artifactId>maven-jaxb-schemagen-plugin</artifactId>
+        <version>1.2</version>
+        <configuration>
+          <destdir>${project.build.directory}/xsds</destdir>
+          <srcdir>${basedir}/src/main/java</srcdir>
+          <verbose>false</verbose>
+          <includes>
+            <include>org/opennms/secret/web/snmpinfo/*.java</include>
+          </includes>
+          <schemas>
+            <schema>
+              <namespace>http://xmlns.opennms.org/xsd/config/snmp-info</namespace>
+              <file>snmp-info.xsd</file>
+            </schema>
+          </schemas>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>process-sources</phase>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <configuration>
           <descriptors>
@@ -290,6 +317,10 @@
     <dependency>
         <groupId>org.opennms</groupId>
         <artifactId>rancid-api</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.dnsjava</groupId>
+        <artifactId>dnsjava</artifactId>
     </dependency>
     <dependency>
       <groupId>org.opennms</groupId>
@@ -321,6 +352,16 @@
     <dependency>
       <groupId>org.opennms</groupId>
       <artifactId>opennms-provision-persistence</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.opennms</groupId>
+      <artifactId>opennms-provision-persistence</artifactId>
+      <type>test-jar</type>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.opennms</groupId>
+      <artifactId>opennms-provisiond</artifactId>
     </dependency>
     <dependency>
       <groupId>org.opennms</groupId>
@@ -382,8 +423,8 @@
       <artifactId>opennms-test</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.opennms</groupId>
-      <artifactId>opennms-snmp-api</artifactId>
+      <groupId>org.opennms.lib.snmp</groupId>
+      <artifactId>org.opennms.lib.snmp.api</artifactId>
     </dependency>
     <dependency>
       <groupId>org.opennms</groupId>

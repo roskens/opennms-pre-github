@@ -54,28 +54,12 @@ public class InterfacePolicyTest {
     
     @Test
     @Transactional
-    public void testInclusivePolicy() {
-        OnmsIpInterface o = null;
-        InclusiveInterfacePolicy p = new InclusiveInterfacePolicy();
-
-        List<OnmsIpInterface> matchedInterfaces = new ArrayList<OnmsIpInterface>();
-        
-        for (OnmsIpInterface iface : m_interfaces) {
-            o = p.apply(iface);
-            if (o != null) {
-                matchedInterfaces.add(o);
-            }
-        }
-        
-        assertEquals(m_interfaces, matchedInterfaces);
-    }
-
-    @Test
-    @Transactional
     public void testMatchingPolicy() {
         OnmsIpInterface o = null;
         
-        MatchingInterfacePolicy p = new MatchingInterfacePolicy();
+        MatchingIpInterfacePolicy p = new MatchingIpInterfacePolicy();
+        p.setAction("DO_NOT_PERSIST");
+        p.setMatchBehavior("NO_PARAMETERS");
         p.setIpAddress("~^10\\..*$");
 
         List<OnmsIpInterface> populatedInterfaces = new ArrayList<OnmsIpInterface>();

@@ -26,7 +26,11 @@
 </form>
 
 <br />
-<form action="${relativeRequestPath}" name="takeAction" method="post"><input type="text" name="groupName" size="20"/><input type="hidden" name="action" value="addGroup" /><input type="submit" value="Add New Group"/></form>
+<form action="${relativeRequestPath}" name="takeAction" method="post"><input type="text" name="groupName" size="20"/><input type="hidden" name="action" value="addGroup" /><input type="hidden" name="actionTarget" value="" />
+<input type="submit" value="Add New Group"/>
+<input type="button" value="Edit Default Foreign Source" onclick="javascript:editForeignSource('default')" />
+<input type="button" value="Reset Default Foreign Source" onclick="javascript:resetDefaultForeignSource()" />
+</form>
 
 <c:forEach var="foreignSourceName" items="${foreignSourceNames}">
   <h3 style="vertical-align: middle; margin: 25px 0px 5px 0px; padding: 5px">
@@ -34,15 +38,15 @@
   </h3>
   <span style="font-size: large; text-align: right">
     <c:choose>
-      <c:when test="${dbNodeCounts[group.foreignSource] > 0}">
-        <input type="button" value="Delete Nodes" onclick="javascript:confirmAction('${groups[foreignSourceName].foreignSource}', 'deleteNodes', 'Are you sure you want to delete all the nodes from group ${group.foreignSource}. This CANNOT be undone.')" />
+      <c:when test="${dbNodeCounts[foreignSourceName] > 0}">
+        <input type="button" value="Delete Nodes" onclick="javascript:confirmAction('${foreignSourceName}', 'deleteNodes', 'Are you sure you want to delete all the nodes from group ${foreignSourceName}?  This CANNOT be undone.')" />
       </c:when>
       <c:otherwise>
-        <input type="button" value="Delete Group" onclick="javascript:doAction('${group.foreignSource}', 'deleteGroup')" />
+        <input type="button" value="Delete Group" onclick="javascript:doAction('${foreignSourceName}', 'deleteGroup')" />
       </c:otherwise>
     </c:choose>
     <c:if test="${!empty groups[foreignSourceName]}">
-      <input type="button" value="Import" onclick="javascript:doAction('${groups[foreignSourceName].foreignSource}', 'import')" />
+      <input type="button" value="Import" onclick="javascript:doAction('${foreignSourceName}', 'import')" />
     </c:if>
   </span>
   <br />
@@ -54,7 +58,8 @@
   	  	<span style="font-size: smaller">Define node and interface data for import.</span>
   	  </td>
   	  <td>
-  	  	<a href="javascript:editRequisition('${foreignSourceName}')">EDIT</a><br />
+  	  	<a href="javascript:editRequisition('${foreignSourceName}')">EDIT</a>
+  	  	<br />
         <span style="font-size: smaller">
           <c:choose>
             <c:when test="${empty groups[foreignSourceName]}">
@@ -85,7 +90,9 @@
   	    <span style="font-size: smaller">Define scanning behavior for import.</span>
   	  </td>
   	  <td>
-  	  	<a href="javascript:editForeignSource('${foreignSourceName}')">EDIT</a><br />
+  	  	<a href="javascript:editForeignSource('${foreignSourceName}')">EDIT</a> |
+  	  	<a href="javascript:cloneForeignSource('${foreignSourceName}')">CLONE</a>
+  	  	<br />
   	  	<c:if test="${!empty foreignSources[foreignSourceName]}">
           <span style="font-size: smaller">
             last modified:

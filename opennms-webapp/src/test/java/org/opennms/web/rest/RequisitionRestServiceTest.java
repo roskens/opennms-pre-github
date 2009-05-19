@@ -68,7 +68,7 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
         assertTrue(xml.contains("parent-node-label=\"apknd\""));
         
         // set attributes
-        sendPut(url, "nodeLabel=homo+sapien");
+        sendPut(url, "node-label=homo+sapien");
         xml = sendRequest(GET, url, 200);
         assertTrue(xml.contains("node-label=\"homo sapien\""));
 
@@ -103,9 +103,10 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
         assertFalse(xml.contains("172.20.1.201"));
 
         // set attributes
-        sendPut(url, "descr=Total+Crap");
+        sendPut(url, "descr=Total+Crap&snmp-primary=P");
         xml = sendRequest(GET, url, 200);
         assertTrue(xml.contains("descr=\"Total Crap\""));
+        assertTrue(xml.contains("snmp-primary=\"P\""));
 
         // delete interface
         xml = sendRequest(DELETE, url, 200);
@@ -177,7 +178,7 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
     public void testNodeAssets() throws Exception {
         createRequisition();
         
-        String base = "/requisitions/pending/test/nodes/4243/asset";
+        String base = "/requisitions/pending/test/nodes/4243/assets";
 
         // create an asset
         sendPost(base, "<asset xmlns=\"http://xmlns.opennms.org/xsd/config/model-import\" name=\"manufacturer\" value=\"Dead Servers, Inc.\" />");
@@ -189,7 +190,7 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
         assertTrue(xml.contains("Windows Pi"));
         
         // get individual asset parameter
-        url = "/requisitions/pending/test/nodes/4243/asset/operatingSystem";
+        url = "/requisitions/pending/test/nodes/4243/assets/operatingSystem";
         xml = sendRequest(GET, url, 200);
         assertTrue(xml.contains("value=\"Windows Pi\""));
         
@@ -197,8 +198,8 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
         xml = sendRequest(DELETE, url, 200);
         xml = sendRequest(GET, url, 204);
         
-        // confirm there are less categories
-        xml = sendRequest(GET, "/requisitions/pending/test/nodes/4243/asset", 200);
+        // confirm there are less assets
+        xml = sendRequest(GET, "/requisitions/pending/test/nodes/4243/assets", 200);
         assertTrue(xml.contains("count=\"2\""));
     }
 

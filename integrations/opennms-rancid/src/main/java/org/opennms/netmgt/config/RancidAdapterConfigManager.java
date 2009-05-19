@@ -155,8 +155,7 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
         m_urlIPMap = new HashMap<String, List<String>>();
     
         if (hasPolicies()) {
-            for(Package pkg : packages()) {
-        
+            for (Package pkg: packages() ) {        
                 for(String url : includeURLs(pkg)) {
         
                     List<String> iplist = IpListFromUrl.parse(url);
@@ -180,8 +179,7 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
         
         
         if (hasPolicies()) {
-            for(Package pkg : packages()) {
-        
+            for (Package pkg: packages() ) {
                 // Get a list of ipaddress per package agaist the filter rules from
                 // database and populate the package, IP list map.
                 //
@@ -389,13 +387,7 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
             return getPolicyManageWithoutTesting(ipaddr).getRetries();
         return getConfiguration().getRetries();
     }
-    
-    public long getRetryDelay(String ipaddr) {
-        if (hasPolicyManage(ipaddr) && getPolicyManage(ipaddr).hasRetryDelay())
-            return getPolicyManageWithoutTesting(ipaddr).getRetryDelay();
-        return getConfiguration().getRetryDelay();
-    }
-        
+            
     public boolean useCategories(String ipaddr) {
         if (hasPolicyManage(ipaddr) && getPolicyManage(ipaddr).hasUseCategories())
             return getPolicyManageWithoutTesting(ipaddr).getUseCategories();
@@ -403,11 +395,12 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
     }
 
     public String getType(String sysoid){
-        for (Mapping map: mappings()) {
-            if (sysoid.startsWith(map.getSysoidMask()))
-            return map.getType();
+        if (sysoid != null) {
+            for (Mapping map: mappings()) {
+                if (sysoid.startsWith(map.getSysoidMask()))
+                return map.getType();
+            }
         }
-        
         return getConfiguration().getDefaultType();
     }
     
@@ -482,7 +475,13 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
     
 
     public Iterable<Package> packages() {
-        return m_pkgIpMap.keySet();
+        List<Package> pkgs = new ArrayList<Package>();
+        if (hasPolicies()) {
+            for (PolicyManage pm: policies() ) {
+                pkgs.add(pm.getPackage());
+            }
+        }
+        return pkgs;
     }
 
     public Iterable<Mapping> mappings() {

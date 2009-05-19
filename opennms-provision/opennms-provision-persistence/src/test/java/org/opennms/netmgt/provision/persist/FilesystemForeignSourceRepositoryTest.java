@@ -18,6 +18,7 @@ import org.opennms.netmgt.provision.persist.foreignsource.ForeignSource;
 import org.opennms.netmgt.provision.persist.foreignsource.PluginConfig;
 import org.opennms.netmgt.provision.persist.requisition.Requisition;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -37,6 +38,7 @@ public class FilesystemForeignSourceRepositoryTest {
     private String m_defaultForeignSourceName;
 
     @Autowired
+    @Qualifier("pending")
     private ForeignSourceRepository m_foreignSourceRepository;
 
     @Before
@@ -45,7 +47,7 @@ public class FilesystemForeignSourceRepositoryTest {
     }
 
     private Requisition createRequisition() throws Exception {
-        Requisition r = m_foreignSourceRepository.importRequisition(new ClassPathResource("/requisition-test.xml"));
+        Requisition r = m_foreignSourceRepository.importResourceRequisition(new ClassPathResource("/requisition-test.xml"));
         m_foreignSourceRepository.save(r);
         return r;
     }
@@ -89,8 +91,7 @@ public class FilesystemForeignSourceRepositoryTest {
     @Test
     public void testDefaultForeignSource() throws Exception {
         createRequisition();
-        List<String> detectorList = Arrays.asList(new String[]{ "Citrix", "DHCP", "DNS", "DominoIIOP", "FTP", "HTTP", "HTTPS", "ICMP",
-                "IMAP", "LDAP", "NRPE", "POP3", "Radius", "SMB", "SMTP", "SNMP", "SSH" });
+        List<String> detectorList = Arrays.asList(new String[]{ "DNS", "FTP", "HTTP", "IMAP", "LDAP", "NRPE", "POP3", "Radius", "SMTP", "SNMP", "SSH" });
         String uuid = UUID.randomUUID().toString();
         ForeignSource defaultForeignSource = m_foreignSourceRepository.getForeignSource(uuid);
         assertEquals("name must match requested foreign source repository name", uuid, defaultForeignSource.getName());

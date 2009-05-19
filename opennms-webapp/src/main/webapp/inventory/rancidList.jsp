@@ -70,24 +70,27 @@
 %>
 
 <%
-
-	Node node_db = ElementUtil.getNodeByParams(request);
-	int nodeId = node_db.getNodeId();
-
-	String elementID = node_db.getLabel();
-
-    String groupID = request.getParameter("groupname");
-	
 	Map<String, Object> nodeModel = new TreeMap<String, Object>();
-	try {	
+	Node node_db=null;
+	int nodeId=0;
+	String elementID="";
 
+	try {
+		
+		node_db = ElementUtil.getNodeByParams(request);
+		nodeId = node_db.getNodeId();
+		
+		elementID = node_db.getLabel();
+	
+	    String groupID = request.getParameter("groupname");
+			
         if (groupID.compareTo("*") == 0){
         	nodeModel = InventoryLayer.getRancidNodeList(elementID);
         }
         else {
         	nodeModel = InventoryLayer.getRancidNodeList(elementID, groupID);
         }
-
+	
 	} catch (Exception e) {
 		//throw new ServletException("Could node get Rancid Node ", e);
 	}
@@ -97,7 +100,7 @@
 
 <%
 String nodeBreadCrumb = "<a href='element/node.jsp?node=" + nodeId  + "'>Node</a>";
-String nodeBreadCrumb2 = "<a href='inventory/rancid.jsp?node=" + nodeId  + "'>Rancid</a>";
+String nodeBreadCrumb2 = "<a href='inventory/rancid.htm?node=" + nodeId  + "'>Rancid</a>";
 %>
 
 <jsp:include page="/includes/header.jsp" flush="false" >
@@ -118,7 +121,7 @@ String nodeBreadCrumb2 = "<a href='inventory/rancid.jsp?node=" + nodeId  + "'>Ra
 <!-- general info box -->
 <h3>Associated Elements</h3>
 
-<table>
+<table class="o-box">
 <tr>
 	<th>Group</th>
 	<th>UrlViewVC</th>
@@ -127,10 +130,10 @@ String nodeBreadCrumb2 = "<a href='inventory/rancid.jsp?node=" + nodeId  + "'>Ra
 </tr>
 <c:forEach items="${model.grouptable}" var="groupelm">
 	<tr>
-		<th>${groupelm.group}</th>
-		<th><a href="${groupelm.urlViewVC}">${model.id}</th>
-		<th><a href="inventory/invnode.jsp?node=<%=nodeId%>&groupname=${groupelm.group}&version=${groupelm.version}">${groupelm.version}</a></th>
-		<th>${groupelm.date}</th>
+		<td>${groupelm.group}</td>
+		<td><a href="${groupelm.urlViewVC}">${model.id}</td>
+		<td><a href="inventory/invnode.jsp?node=<%=nodeId%>&groupname=${groupelm.group}&version=${groupelm.version}">${groupelm.version}</a></td>
+		<td>${groupelm.date}</td>
 
 	</tr>
 </c:forEach>

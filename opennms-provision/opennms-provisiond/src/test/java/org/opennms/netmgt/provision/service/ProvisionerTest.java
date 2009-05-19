@@ -38,9 +38,12 @@
 package org.opennms.netmgt.provision.service;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
@@ -83,6 +86,7 @@ import org.opennms.netmgt.provision.persist.OnmsNodeRequisition;
 import org.opennms.netmgt.provision.persist.OnmsServiceCategoryRequisition;
 import org.opennms.netmgt.provision.persist.RequisitionVisitor;
 import org.opennms.netmgt.provision.persist.foreignsource.ForeignSource;
+import org.opennms.netmgt.provision.persist.policies.NodeCategorySettingPolicy;
 import org.opennms.netmgt.provision.persist.requisition.Requisition;
 import org.opennms.netmgt.xml.event.Event;
 import org.opennms.test.mock.MockLogAppender;
@@ -169,10 +173,7 @@ public class ProvisionerTest {
     @BeforeClass
     public static void setUpSnmpConfig() {
         SnmpPeerFactory.setFile(new File("src/test/proxy-snmp-config.xml"));
-    }
-    
-    @Before
-    public void setUp() throws Exception {
+
         Properties props = new Properties();
         props.setProperty("log4j.logger.org.hibernate", "INFO");
         props.setProperty("log4j.logger.org.springframework", "INFO");
@@ -181,6 +182,10 @@ public class ProvisionerTest {
         MockLogAppender.setupLogging(props);
         
         //System.setProperty("mock.debug", "false");
+    }
+    
+    @Before
+    public void setUp() throws Exception {
         
         m_eventAnticipator = m_mockEventIpcManager.getEventAnticipator();
         
@@ -204,7 +209,7 @@ public class ProvisionerTest {
     @Transactional
     public void testVisit() throws Exception {
 
-        Requisition requisition = m_foreignSourceRepository.importRequisition(new ClassPathResource("/NewFile2.xml"));
+        Requisition requisition = m_foreignSourceRepository.importResourceRequisition(new ClassPathResource("/NewFile2.xml"));
         CountingVisitor visitor = new CountingVisitor();
         requisition.visit(visitor);
         verifyCounts(visitor);
@@ -342,7 +347,7 @@ public class ProvisionerTest {
         assertEquals(2, getInterfaceDao().countAll());
         
         //Verify ifservices count - discover snmp service on other if
-        assertEquals(2, getMonitoredServiceDao().countAll());
+        assertEquals("Unexpected number of services found: "+getMonitoredServiceDao().findAll(), 2, getMonitoredServiceDao().countAll());
         
         //Verify service count
         assertEquals(1, getServiceTypeDao().countAll());
@@ -609,6 +614,45 @@ public class ProvisionerTest {
         assertEquals(schedulesForNode.size(), m_provisioner.getScheduleLength());
         assertEquals(getNodeDao().countAll(), m_provisioner.getScheduleLength());
         
+    }
+    
+    @Test
+    @Transactional
+    public void testSaveCategoriesOnUpdateNodeAttributes() throws Exception {
+        
+        final String TEST_CATEGORY = "TEST_CATEGORY";
+        
+        final String LABEL = "apknd";
+        
+        importFromResource("classpath:/tec_dump.xml.smalltest");
+        
+        Collection<OnmsNode> nodes = m_nodeDao.findByLabel(LABEL);
+        assertNotNull(nodes);
+        assertEquals(1, nodes.size());
+        
+        OnmsNode node = nodes.iterator().next();
+        assertNotNull(node);
+        assertEquals(LABEL, node.getLabel());
+        assertFalse(node.hasCategory(TEST_CATEGORY));
+        
+        NodeCategorySettingPolicy policy = new NodeCategorySettingPolicy();
+        policy.setCategory(TEST_CATEGORY);
+        policy.setLabel(LABEL);
+        
+        node = policy.apply(node);
+        
+        assertTrue(node.hasCategory(TEST_CATEGORY));
+        
+        m_provisionService.updateNodeAttributes(node);
+        
+        // flush here to force a write so we are sure that the OnmsCategories are correctly created
+        m_nodeDao.flush();
+        
+        OnmsNode node2 = m_nodeDao.findByLabel(LABEL).iterator().next();
+
+        assertTrue(node2.hasCategory(TEST_CATEGORY));
+        
+
     }
     
     

@@ -30,12 +30,9 @@
  */
 package org.opennms.netmgt.provision.support;
 
-import java.io.IOException;
-import java.io.InterruptedIOException;
 import java.net.ConnectException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
-import java.net.NoRouteToHostException;
 import java.nio.charset.Charset;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
@@ -44,6 +41,7 @@ import java.util.regex.Pattern;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 
+import org.apache.log4j.Logger;
 import org.apache.mina.core.filterchain.IoFilterAdapter;
 import org.apache.mina.core.future.ConnectFuture;
 import org.apache.mina.core.future.IoFutureListener;
@@ -54,7 +52,7 @@ import org.apache.mina.filter.codec.textline.TextLineCodecFactory;
 import org.apache.mina.filter.logging.LoggingFilter;
 import org.apache.mina.filter.ssl.SslFilter;
 import org.apache.mina.transport.socket.SocketConnector;
-import org.apache.mina.transport.socket.nio.NioSocketConnector;
+import org.opennms.core.utils.ThreadCategory;
 import org.opennms.netmgt.provision.DetectFuture;
 import org.opennms.netmgt.provision.DetectorMonitor;
 import org.opennms.netmgt.provision.support.AsyncClientConversation.AsyncExchangeImpl;
@@ -73,6 +71,9 @@ public abstract class AsyncBasicDetector<Request, Response> extends AsyncAbstrac
     private int m_idleTime = 1;
     private AsyncClientConversation<Request, Response> m_conversation = new AsyncClientConversation<Request, Response>();
     private boolean useSSLFilter = false;
+    
+    private static ConnectorFactory s_connectorFactory = new ConnectorFactory();
+    private SocketConnector m_connector;
     
     public AsyncBasicDetector(String serviceName, int port) {
         super(serviceName, port);
@@ -94,30 +95,35 @@ public abstract class AsyncBasicDetector<Request, Response> extends AsyncAbstrac
     public DetectFuture isServiceDetected(InetAddress address, DetectorMonitor monitor) throws Exception {
         DetectFuture future = null;
         
-        SocketConnector connector = new NioSocketConnector();
+        m_connector = s_connectorFactory.getConnector();
         
         future = new DefaultDetectFuture(this);
         
         // Set connect timeout.
-        connector.setConnectTimeoutMillis( getTimeout() );
-        connector.setHandler( createDetectorHandler(future) );
+        m_connector.setConnectTimeoutMillis( getTimeout() );
+        m_connector.setHandler( createDetectorHandler(future) );
         
         if(isUseSSLFilter()) {
             SslFilter filter = new SslFilter(createClientSSLContext());
             filter.setUseClientMode(true);
-            connector.getFilterChain().addFirst("SSL", filter);
+            m_connector.getFilterChain().addFirst("SSL", filter);
         }
         
-        connector.getFilterChain().addLast( "logger", getLoggingFilter() != null ? getLoggingFilter() : new LoggingFilter() );
-        connector.getFilterChain().addLast( "codec", getProtocolCodecFilter());
-        connector.getSessionConfig().setIdleTime( IdleStatus.READER_IDLE, getIdleTime() );
+        m_connector.getFilterChain().addLast( "logger", getLoggingFilter() != null ? getLoggingFilter() : new LoggingFilter() );
+        m_connector.getFilterChain().addLast( "codec", getProtocolCodecFilter());
+        m_connector.getSessionConfig().setIdleTime( IdleStatus.READER_IDLE, getIdleTime() );
 
         // Start communication
         InetSocketAddress socketAddress = new InetSocketAddress(address, getPort());
-        ConnectFuture cf = connector.connect( socketAddress );
-        cf.addListener(retryAttemptListener( connector, future, socketAddress, getRetries() ));
+        ConnectFuture cf = m_connector.connect( socketAddress );
+        cf.addListener(retryAttemptListener( m_connector, future, socketAddress, getRetries() ));
         
         return future;
+    }
+    
+    public void dispose(){
+        s_connectorFactory.dispose(m_connector);
+        m_connector = null;
     }
     
     /**
@@ -150,19 +156,15 @@ public abstract class AsyncBasicDetector<Request, Response> extends AsyncAbstrac
                
                 if(cause instanceof ConnectException) {
                     if(retryAttempt == 0) {
-                        System.out.println("service detected is false");
-                        detectFuture.setServiceDetected(false); 
+                        info("service %s detected false",getServiceName());
+                        detectFuture.setServiceDetected(false);
                     }else {
+                        info("Connection exception occurred %s for service %s retrying attempt: ", cause, getServiceName());
                         future = connector.connect(address);
                         future.addListener(retryAttemptListener(connector, detectFuture, address, retryAttempt -1));
                     }
-                }else if(cause instanceof NoRouteToHostException) {
-                    detectFuture.setServiceDetected(false);
-                }else if(cause instanceof InterruptedIOException) {
-                    detectFuture.setServiceDetected(false);
-                }else if(cause instanceof IOException) {
-                    detectFuture.setServiceDetected(false);
                 }else if(cause instanceof Throwable) {
+                    info("Threw a Throwable and detection is false for service %s", getServiceName());
                     detectFuture.setServiceDetected(false);
                 } 
             }
@@ -278,6 +280,12 @@ public abstract class AsyncBasicDetector<Request, Response> extends AsyncAbstrac
     public boolean isUseSSLFilter() {
         return useSSLFilter;
     }
-       
+    
+    private void info(String format, Object... args) {
+        Logger log = ThreadCategory.getInstance(getClass());
+        if (log.isInfoEnabled()) {
+            log.info(String.format(format, args));
+        }
+    }
 
 }
