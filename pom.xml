@@ -146,9 +146,12 @@
         <version>2.0-alpha1</version>
       </plugin>
       <plugin>
-	    <groupId>org.codehaus.groovy.maven</groupId>
-	    <artifactId>gmaven-plugin</artifactId>
-	    <version>${gmaven.version}</version>
+        <groupId>org.codehaus.groovy.maven</groupId>
+        <artifactId>gmaven-plugin</artifactId>
+        <version>1.0-rc-5</version>
+        <configuration>
+          <providerSelection>1.5</providerSelection>
+        </configuration>
       </plugin>
       <plugin>
         <inherited>false</inherited>
@@ -432,9 +435,6 @@
   </reporting>
 
   <properties>
-    <!-- version to use for the gmaven plugin and related dependencies -->
-    <gmaven.version>1.0-rc-5</gmaven.version>
-    
   
     <!-- maven surefire version added here so it could be overridden -->
     <maven.surefire.plugin.version>2.4.3</maven.surefire.plugin.version>
@@ -1030,7 +1030,7 @@
       <dependency>
         <groupId>org.opennms</groupId>
         <artifactId>rancid-api</artifactId>
-        <version>0.92</version>
+        <version>0.93</version>
       </dependency>
       <dependency>
         <groupId>org.dnsjava</groupId>

@@ -8,6 +8,10 @@ public class RancidReportExecCommClass {
     
     private String reporttype;
     
+    private String reportfiletype;
+    
+    private String reportemail;
+    
     public String getDate() {
         return date;
     }
@@ -26,5 +30,16 @@ public class RancidReportExecCommClass {
     public void setReporttype(String reporttype) {
         this.reporttype = reporttype;
     }
-    
+    public String getReportfiletype() {
+        return reportfiletype;
+    }
+    public void setReportfiletype(String reportfiletype) {
+        this.reportfiletype = reportfiletype;
+    }
+    public String getReportemail() {
+        return reportemail;
+    }
+    public void setReportemail(String reportemail) {
+        this.reportemail = reportemail;
+    }    
 }
