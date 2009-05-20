@@ -1,7 +1,7 @@
 /*
  * This file is part of the OpenNMS(R) Application.
  *
- * OpenNMS(R) is Copyright (C) 2007-2008 The OpenNMS Group, Inc.  All rights reserved.
+ * OpenNMS(R) is Copyright (C) 2007-2009 The OpenNMS Group, Inc.  All rights reserved.
  * OpenNMS(R) is a derivative work, containing both original code, included code and modified
  * code that was published under the GNU General Public License. Copyrights for modified
  * and included code are below.
@@ -10,6 +10,7 @@
  *
  * Modifications:
  * 
+ * 2009 Apr: refactoring to support ACL DAO work
  * Created: September 16, 2007
  *
  *
@@ -36,13 +37,12 @@ package org.opennms.web.rss;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
+import org.opennms.netmgt.model.OnmsSeverity;
 import org.opennms.web.WebSecurityUtils;
 import org.opennms.web.event.AcknowledgeType;
 import org.opennms.web.event.Event;
 import org.opennms.web.event.EventFactory;
-import org.opennms.web.event.EventUtil;
 import org.opennms.web.event.SortStyle;
 import org.opennms.web.event.filter.NodeFilter;
 import org.opennms.web.event.filter.SeverityFilter;
@@ -65,7 +65,7 @@ public class EventFeed extends AbstractFeed {
 
         feed.setTitle("Events");
         feed.setDescription("OpenNMS Events");
-        feed.setLink(getUrlBase() + "event/list");
+        feed.setLink(getUrlBase() + "event/list.htm");
 
         ArrayList<SyndEntry> entries = new ArrayList<SyndEntry>();
 
@@ -78,14 +78,18 @@ public class EventFeed extends AbstractFeed {
                 filters.add(new NodeFilter(nodeId));
             }
             if (this.getRequest().getParameter("severity") != null) {
-                String sev = this.getRequest().getParameter("severity");
-                List<Integer> severities = EventUtil.getSeverityList();
-                for (Integer severity : severities) {
-                    if (EventUtil.getSeverityLabel(severity).toLowerCase().equals(sev)) {
-                        filters.add(new SeverityFilter(severity));
+                String parameter = this.getRequest().getParameter("severity");
+                try {
+                    Integer severityId = WebSecurityUtils.safeParseInt(parameter);
+                    filters.add(new SeverityFilter(severityId));
+                } catch (NumberFormatException e) {
+                    for (OnmsSeverity sev : OnmsSeverity.values()) {
+                        if (sev.getLabel().toLowerCase().equals(parameter.toLowerCase())) {
+                            filters.add(new SeverityFilter(sev));
+                            break;
+                        }
                     }
                 }
-
             }
             
             events = EventFactory.getEvents(SortStyle.TIME, AcknowledgeType.BOTH, filters.toArray(new Filter[] {}), this.getMaxEntries(), -1);

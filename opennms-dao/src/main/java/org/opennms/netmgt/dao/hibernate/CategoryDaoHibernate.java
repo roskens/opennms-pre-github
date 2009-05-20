@@ -41,12 +41,14 @@ package org.opennms.netmgt.dao.hibernate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.type.IntegerType;
 import org.hibernate.type.Type;
 import org.opennms.netmgt.dao.CategoryDao;
 import org.opennms.netmgt.model.OnmsCategory;
+import org.opennms.netmgt.model.OnmsCriteria;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
@@ -55,16 +57,26 @@ public class CategoryDaoHibernate extends AbstractCachingDaoHibernate<OnmsCatego
     public CategoryDaoHibernate() {
         super(OnmsCategory.class, false);
     }
-
+    
     public OnmsCategory findByName(String name) {
-        return findByCacheKey("from OnmsCategory as category where category.name = ?", name);
+        return findByName(name, true);
+    }
+
+    public OnmsCategory findByName(String name, boolean useCached) {
+        if (useCached) {
+            return findByCacheKey("from OnmsCategory as category where category.name = ?", name);
+        } else {
+            return findUnique("from OnmsCategory as category where category.name = ?", name);
+        }
     }
     
-    
-
     @Override
     protected String getKey(OnmsCategory category) {
         return category.getName();
+    }
+    
+    public List<String> getAllCategoryNames() {
+        return findObjects(String.class, "select category.name from OnmsCategory as category");
     }
 
     public List<Criterion> getCriterionForCategorySetsUnion(String[]... categories) {
@@ -101,5 +113,14 @@ public class CategoryDaoHibernate extends AbstractCachingDaoHibernate<OnmsCatego
         }
 
         return criteria;
+    }
+
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.CategoryDao#getCategoriesWithAuthorizedGroup(java.lang.String)
+     */
+    public List<OnmsCategory> getCategoriesWithAuthorizedGroup(String groupName) {
+        OnmsCriteria crit = new OnmsCriteria(OnmsCategory.class);
+        crit.add(Restrictions.sqlRestriction("{alias}.categoryId in (select cg.categoryId from category_group cg where cg.groupId = ?)", groupName, Hibernate.STRING));
+        return findMatching(crit);
     }
 }

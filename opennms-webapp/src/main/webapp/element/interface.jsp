@@ -52,7 +52,7 @@
                 org.opennms.core.utils.SIUtils,
                 org.opennms.netmgt.model.OnmsResource,
                 org.opennms.web.Util,
-                org.opennms.web.acegisecurity.Authentication,
+                org.opennms.web.springframework.security.Authentication,
                 org.opennms.web.element.*,
                 org.opennms.web.event.*,
                 org.opennms.web.svclayer.ResourceService,
@@ -102,8 +102,8 @@
         services = new Service[0];
     }
 
-    String eventUrl1 = "event/list?filter=node%3D" + nodeId + "&filter=interface%3D" + ipAddr;
-    String eventUrl2 = "event/list?filter=node%3D" + nodeId + "&filter=ifindex%3D" + ifIndex;
+    String eventUrl1 = "event/list.htm?filter=node%3D" + nodeId + "&filter=interface%3D" + ipAddr;
+    String eventUrl2 = "event/list.htm?filter=node%3D" + nodeId + "&filter=ifindex%3D" + ifIndex;
     
     String telnetIp = null;
     Service telnetService = NetworkElementFactory.getService(nodeId, ipAddr, this.telnetServiceId);

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Category;
 import org.apache.log4j.Logger;
+import org.opennms.web.springframework.security.Authentication;
 import org.opennms.web.svclayer.inventory.InventoryService;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.ServletRequestDataBinder;
@@ -24,11 +25,13 @@ public class AdminRancidCloginUpdateController extends SimpleFormController {
         log().debug("AdminRancidCloginUpdateController ModelAndView onSubmit");
         
         AdminRancidCloginCommClass bean = (AdminRancidCloginCommClass) command;
-        
-        boolean done = m_inventoryService.updateClogin(bean.getDeviceName(), bean.getGroupName(), bean.getUserID(), bean.getPass(),
-                                        bean.getEnpass(), bean.getLoginM(), bean.getAutoE());
-        if (!done){
-            log().debug("AdminRancidCloginUpdateController error on submitting cLogin changes");
+        if (request.isUserInRole(Authentication.ADMIN_ROLE)) {
+
+            boolean done = m_inventoryService.updateClogin(bean.getDeviceName(), bean.getGroupName(), bean.getUserID(), bean.getPass(),
+                                            bean.getEnpass(), bean.getLoginM(), bean.getAutoE());
+            if (!done){
+                log().debug("AdminRancidCloginUpdateController error on submitting cLogin changes");
+            }
         }
         String redirectURL = request.getHeader("Referer");
         response.sendRedirect(redirectURL);

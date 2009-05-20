@@ -58,7 +58,7 @@
 <%@page import="org.opennms.web.Util"%>
 <%@page import="org.opennms.web.WebSecurityUtils" %>
 <%@page import="org.opennms.web.XssRequestWrapper" %>
-<%@page import="org.opennms.web.acegisecurity.Authentication" %>
+<%@page import="org.opennms.web.springframework.security.Authentication" %>
 
 <%@page import="org.opennms.web.controller.alarm.AcknowledgeAlarmController" %>
 <%@page import="org.opennms.web.controller.alarm.AlarmSeverityChangeController" %>
@@ -117,12 +117,9 @@
     String action = null;
 
     if( !(req.isUserInRole( Authentication.READONLY_ROLE ))) {     
-        if( parms.ackType == AcknowledgeType.UNACKNOWLEDGED ) {
-            action = AcknowledgeAlarmController.ACKNOWLEDGE_ACTION;
-        } 
-        else if( parms.ackType == AcknowledgeType.ACKNOWLEDGED ) {
-            action = AcknowledgeAlarmController.UNACKNOWLEDGE_ACTION;
-        }
+    	if ( parms.ackType != null ) {
+    		action = parms.ackType.getShortName();
+    	}
     } 
     
     pageContext.setAttribute("action", action);
@@ -182,9 +179,9 @@
         } else if (anAction == "clear") {
         	document.alarm_action_form.actionCode.value = "<%=AlarmSeverityChangeController.CLEAR_ACTION%>";
         } else if (anAction == "acknowledge") {
-        	document.alarm_action_form.actionCode.value = "<%=AcknowledgeAlarmController.ACKNOWLEDGE_ACTION%>";
+        	document.alarm_action_form.actionCode.value = "<%= AcknowledgeType.ACKNOWLEDGED.getShortName() %>";
         } else if (anAction == "unacknowledge") {
-        	document.alarm_action_form.actionCode.value = "<%=AcknowledgeAlarmController.UNACKNOWLEDGE_ACTION%>";
+        	document.alarm_action_form.actionCode.value = "<%= AcknowledgeType.UNACKNOWLEDGED.getShortName() %>";
         }
  
         if (document.alarm_action_form.alarm.length)
@@ -452,7 +449,7 @@
           <td class="divider" valign="middle" rowspan="1" >
 	    <% if(alarms[i].getId() > 0 ) { %>           
                 <nobr>
-                  <a href="event/list?sortby=id&acktype=unack&filter=alarm=<%=alarms[i].getId()%>"><%=alarms[i].getCount()%></a>
+                  <a href="event/list.htm?sortby=id&acktype=unack&filter=alarm=<%=alarms[i].getId()%>"><%=alarms[i].getCount()%></a>
                 </nobr>
             <% } else { %>
             <%=alarms[i].getCount()%>
@@ -596,7 +593,7 @@
       else {
         filters.remove( filter );
       }
-      StringBuffer buffer = new StringBuffer( "event/list" );
+      StringBuffer buffer = new StringBuffer( "event/list.htm" );
       buffer.append( "?sortby=" );
       buffer.append( parms.sortStyle.getShortName() );
       buffer.append( "&acktype=" );

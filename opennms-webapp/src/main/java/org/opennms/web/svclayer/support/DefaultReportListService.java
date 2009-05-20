@@ -34,8 +34,11 @@
  */
 package org.opennms.web.svclayer.support;
 
+import java.io.File;
 import java.util.List;
 
+import org.apache.log4j.Category;
+import org.opennms.core.utils.ThreadCategory;
 import org.opennms.netmgt.dao.AvailabilityReportLocatorDao;
 import org.opennms.netmgt.model.AvailabilityReportLocator;
 import org.opennms.web.svclayer.ReportListService;
@@ -51,7 +54,24 @@ public class DefaultReportListService implements ReportListService {
     public List<AvailabilityReportLocator> getAllReports() {
         return m_reportLocatorDao.findAll();
     }
+    
+    public void deleteReports(Integer[] ids) {
+        for (Integer id : ids) {
+            String deleteFile = new String(m_reportLocatorDao.get(id).getLocation());
+            boolean success = (new File(deleteFile).delete());
+            if (success) {
+                log().debug("deleted report XML file: " + deleteFile);
+            } else {
+                log().warn("unable to delete report XML file: " + deleteFile + " will delete locator anyway");
+            }
+            m_reportLocatorDao.deleteById(id);
+        }
+    }
 
+    private Category log() {
+        return ThreadCategory.getInstance(getClass());
+    }
+    
     public AvailabilityReportLocatorDao getReportLocatorDao() {
         return m_reportLocatorDao;
     }

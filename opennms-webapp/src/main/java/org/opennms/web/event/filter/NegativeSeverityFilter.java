@@ -1,7 +1,7 @@
 //
 // This file is part of the OpenNMS(R) Application.
 //
-// OpenNMS(R) is Copyright (C) 2002-2003 The OpenNMS Group, Inc.  All rights reserved.
+// OpenNMS(R) is Copyright (C) 2002-2009 The OpenNMS Group, Inc.  All rights reserved.
 // OpenNMS(R) is a derivative work, containing both original code, included code and modified
 // code that was published under the GNU General Public License. Copyrights for modified 
 // and included code are below.
@@ -32,7 +32,7 @@
 
 package org.opennms.web.event.filter;
 
-import org.opennms.web.event.EventUtil;
+import org.opennms.netmgt.model.OnmsSeverity;
 import org.opennms.web.filter.NotEqualsFilter;
 import org.opennms.web.filter.SQLType;
 
@@ -41,18 +41,22 @@ import org.opennms.web.filter.SQLType;
  * this value instead of only filtering IN this value.
  */
 public class NegativeSeverityFilter extends NotEqualsFilter<Integer> {
-    public static final String TYPE = "severitynot";
+    public static final String TYPE = "severityNot";
 
     public NegativeSeverityFilter(int severity) {
         super(TYPE, SQLType.INT, "EVENTSEVERITY", "eventSeverity", severity);
     }
 
+    public NegativeSeverityFilter(OnmsSeverity severity) {
+        this(severity.getId());
+    }
+
     public String getTextDescription() {
-        return ("severity is not " + EventUtil.getSeverityLabel(getSeverity()));
+        return ("severity is not " + OnmsSeverity.get(getSeverity()).getLabel());
     }
 
     public String toString() {
-        return ("<EventFactory.NegativeSeverityFilter: " + this.getDescription() + ">");
+        return ("<WebEventRepository.NegativeSeverityFilter: " + getDescription() + ">");
     }
 
     public int getSeverity() {

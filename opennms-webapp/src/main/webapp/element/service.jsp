@@ -42,7 +42,7 @@
 	contentType="text/html"
 	session="true"
 	import="
-		org.opennms.web.acegisecurity.Authentication,
+		org.opennms.web.springframework.security.Authentication,
 		org.opennms.web.element.ElementUtil,
 		org.opennms.web.element.NetworkElementFactory,
 		org.opennms.web.element.Service
@@ -56,7 +56,7 @@
 	String ipAddr = service.getIpAddress();
  	int serviceId = service.getServiceId();
 
-    String eventUrl = "event/list?filter=node%3D" + nodeId
+    String eventUrl = "event/list.htm?filter=node%3D" + nodeId
                       + "&filter=interface%3D" + ipAddr + "&filter=service%3D"
                       + serviceId;
 %>

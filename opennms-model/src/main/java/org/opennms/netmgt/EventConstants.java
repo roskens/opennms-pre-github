@@ -1,7 +1,7 @@
 //
 // This file is part of the OpenNMS(R) Application.
 //
-// OpenNMS(R) is Copyright (C) 2002-2006 The OpenNMS Group, Inc.  All rights reserved.
+// OpenNMS(R) is Copyright (C) 2002-2009 The OpenNMS Group, Inc.  All rights reserved.
 // OpenNMS(R) is a derivative work, containing both original code, included code and modified
 // code that was published under the GNU General Public License. Copyrights for modified 
 // and included code are below.
@@ -1005,7 +1005,7 @@ public class EventConstants {
      * @see java.text.DateFormat
      * @deprecated This is no longer used by the UI. All WebUI-specific code
      *             should under the org.opennms.web packages.
-     * @see org.opennms.web.Util.formatDataToUIString
+     * @see org.opennms.web.Util.formatDateToUIString
      */
     public static final String formatToUIString(Date date) {
         return DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM).format(date);
@@ -1020,18 +1020,19 @@ public class EventConstants {
         int rc = SEV_INDETERMINATE;
         if (sev != null) {
             sev = sev.trim();
-            if (sev.equalsIgnoreCase("normal"))
+            if (sev.equalsIgnoreCase("normal")) {
                 rc = SEV_NORMAL;
-            else if (sev.equalsIgnoreCase("warning"))
+            } else if (sev.equalsIgnoreCase("warning")) {
                 rc = SEV_WARNING;
-            else if (sev.equalsIgnoreCase("minor"))
+            } else if (sev.equalsIgnoreCase("minor")) {
                 rc = SEV_MINOR;
-            else if (sev.equalsIgnoreCase("major"))
+            } else if (sev.equalsIgnoreCase("major")) {
                 rc = SEV_MAJOR;
-            else if (sev.equalsIgnoreCase("critical"))
+            } else if (sev.equalsIgnoreCase("critical")) {
                 rc = SEV_CRITICAL;
-            else if (sev.equalsIgnoreCase("cleared"))
+            } else if (sev.equalsIgnoreCase("cleared")) {
                 rc = SEV_CLEARED;
+            }
         }
         return rc;
     }

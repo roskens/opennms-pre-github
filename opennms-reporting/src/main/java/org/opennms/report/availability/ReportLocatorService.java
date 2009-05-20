@@ -31,15 +31,15 @@
 //
 package org.opennms.report.availability;
 
-import java.util.Collection;
+import java.util.List;
 
 import org.opennms.netmgt.model.AvailabilityReportLocator;
 
 public interface ReportLocatorService {
 	
-	Collection<?> locateReports();
+	List<?> locateReports();
 
-	Collection<?> locateReports(String categoryName);
+	List<?> locateReports(String categoryName);
 	
 	void deleteReport(int id);
 	

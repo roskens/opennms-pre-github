@@ -91,6 +91,11 @@
   		<script type='text/javascript' src='extJS/source/adapter/ext-base.js'></script>
   		<script type='text/javascript' src='extJS/ext-all-debug.js'></script>
 	</c:if>
+
+	<c:if test="${param.storageAdmin == 'true'}">
+  		<script type='text/javascript' src='js/rwsStorage.js'></script>
+	</c:if>
+
 <c:forEach var="script" items="${paramValues.script}">
     <c:out value="${script}" escapeXml="false" />
   </c:forEach>
@@ -117,7 +122,7 @@
 				<c:choose>
 					<c:when test="${!empty pageContext.request.remoteUser}">
 						User: <a href="account/selfService/index.jsp" title="Account self-service"><strong>${pageContext.request.remoteUser}</strong></a> (Notices <c:out value="${noticeStatus}" escapeXml="false"/>)
-						- <a href="j_acegi_logout">Log out</a><br/>
+						- <a href="j_spring_security_logout">Log out</a><br/>
 					</c:when>
 					<c:otherwise>
 						User: &hellip;<br/>

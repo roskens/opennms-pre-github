@@ -31,6 +31,9 @@
  */
 package org.opennms.web.event.filter;
 
+import java.util.Arrays;
+
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.opennms.web.event.AcknowledgeType;
 import org.opennms.web.event.SortStyle;
 import org.opennms.web.filter.Filter;
@@ -62,6 +65,10 @@ public class EventCriteria {
         this(filters, null, null, -1, -1);
     }
     
+    public EventCriteria(AcknowledgeType ackType, Filter[] filters) {
+        this(filters, null, ackType, -1, -1);
+    }
+
     public EventCriteria(Filter[] filters, SortStyle sortStyle, AcknowledgeType ackType, int limit, int offset){
         m_filters = filters;
         m_sortStyle = sortStyle;
@@ -83,5 +90,16 @@ public class EventCriteria {
         if(m_limit > 0 && m_offset > -1){
             visitor.visitLimit(m_limit, m_offset);
         }
+    }
+    
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+        .append("filters", Arrays.asList(m_filters))
+            .append("sortStyle", m_sortStyle)
+            .append("ackType", m_ackType)
+            .append("limit", m_limit)
+            .append("offset", m_offset)
+            .toString();
     }
 }

@@ -1,39 +1,97 @@
+/*
+ * This file is part of the OpenNMS(R) Application.
+ *
+ * OpenNMS(R) is Copyright (C) 2009 The OpenNMS Group, Inc. All rights reserved.
+ * OpenNMS(R) is a derivative work, containing both original code, included code and modified
+ * code that was published under the GNU General Public License. Copyrights for modified
+ * and included code are below.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * Modifications:
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * For more information contact:
+ *      OpenNMS Licensing <license@opennms.org>
+ *      http://www.opennms.org/
+ *      http://www.opennms.com/
+ */
+
 package org.opennms.web.event;
 
-/** Convenience class to determine what sort of events to include in a query. */
-public class AcknowledgeType extends Object {
-    /* CORBA-style enumeration */
-    public static final int _ACKNOWLEDGED = 1;
+import java.util.HashMap;
+import java.util.Map;
 
-    public static final int _UNACKNOWLEDGED = 2;
+import org.springframework.util.Assert;
 
-    public static final int _BOTH = 3;
+/** Convenience class to determine what sort of alarms to include in a query. */
+public enum AcknowledgeType {
+    ACKNOWLEDGED("ack"), UNACKNOWLEDGED("unack"), BOTH("both");
 
-    public static final AcknowledgeType ACKNOWLEDGED = new AcknowledgeType("ACKNOWLEDGED", _ACKNOWLEDGED);
+    private static final Map<String, AcknowledgeType> s_ackTypesString;
+    
+    private String m_shortName;
 
-    public static final AcknowledgeType UNACKNOWLEDGED = new AcknowledgeType("UNACKNOWLEDGED", _UNACKNOWLEDGED);
+    static {
+        s_ackTypesString = new HashMap<String, AcknowledgeType>();
 
-    public static final AcknowledgeType BOTH = new AcknowledgeType("BOTH", _BOTH);
+        for (AcknowledgeType ackType : AcknowledgeType.values()) {
+            s_ackTypesString.put(ackType.getShortName(), ackType);
+        }
+    }
 
-    protected String name;
-
-    protected int id;
-
-    private AcknowledgeType(String name, int id) {
-        this.name = name;
-        this.id = id;
+    private AcknowledgeType(String shortName) {
+        m_shortName = shortName;
     }
 
     public String toString() {
-        return ("Event.AcknowledgeType." + this.name);
+        return "AcknowledgeType." + getName();
     }
 
     public String getName() {
-        return (this.name);
+        return name();
     }
 
-    public int getId() {
-        return (this.id);
+    public String getShortName() {
+        return m_shortName;
+    }
+    
+    /**
+     * Convenience method for getting the SQL <em>ORDER BY</em> clause related
+     * this sort style.
+     */
+    protected String getAcknowledgeTypeClause() {
+        switch (this) {
+        case ACKNOWLEDGED:
+            return " EVENTACKUSER IS NOT NULL";
+    
+        case UNACKNOWLEDGED:
+            return " EVENTACKUSER IS NULL";
+    
+        case BOTH:
+            return " (EVENTACKUSER IS NULL OR EVENTACKUSER IS NOT NULL)";
+            
+        default:
+            throw new IllegalArgumentException("Cannot get clause for AcknowledgeType " + this);
+        }
     }
 
+    public static AcknowledgeType getAcknowledgeType(String ackTypeString) {
+        Assert.notNull(ackTypeString, "Cannot take null parameters.");
+
+        return s_ackTypesString.get(ackTypeString.toLowerCase());
+    }
 }

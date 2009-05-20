@@ -1,7 +1,7 @@
 //
 // This file is part of the OpenNMS(R) Application.
 //
-// OpenNMS(R) is Copyright (C) 2002-2003 The OpenNMS Group, Inc.  All rights reserved.
+// OpenNMS(R) is Copyright (C) 2002-2009 The OpenNMS Group, Inc.  All rights reserved.
 // OpenNMS(R) is a derivative work, containing both original code, included code and modified
 // code that was published under the GNU General Public License. Copyrights for modified 
 // and included code are below.
@@ -10,6 +10,7 @@
 //
 // Modifications:
 //
+// 2009 Apr: refactoring to support ACL DAO work
 // 2007 Jul 24: Java 5 generics. - dj@opennms.org
 //
 // Copyright (C) 1999-2001 Oculan Corp.  All rights reserved.
@@ -45,6 +46,7 @@ import java.util.Date;
 import java.util.Vector;
 
 import org.opennms.core.resource.Vault;
+import org.opennms.netmgt.model.OnmsSeverity;
 import org.opennms.web.event.filter.IfIndexFilter;
 import org.opennms.web.event.filter.InterfaceFilter;
 import org.opennms.web.event.filter.NodeFilter;
@@ -58,7 +60,7 @@ import org.opennms.web.filter.Filter;
  * @author <A HREF="mailto:larry@opennms.org">Lawrence Karnowski </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
-public class EventFactory extends Object {
+public class EventFactory {
 
     /** Private constructor so this class cannot be instantiated. */
     private EventFactory() {
@@ -86,9 +88,9 @@ public class EventFactory extends Object {
             StringBuffer select = new StringBuffer("SELECT COUNT(EVENTID) AS EVENTCOUNT FROM EVENTS LEFT OUTER JOIN NODE USING (NODEID) LEFT OUTER JOIN SERVICE USING (SERVICEID) WHERE ");
             select.append(getAcknowledgeTypeClause(ackType));
 
-            for (int i = 0; i < filters.length; i++) {
+            for (Filter filter : filters) {
                 select.append(" AND");
-                select.append(filters[i].getParamSql());
+                select.append(filter.getParamSql());
             }
 
             select.append(" AND EVENTDISPLAY='Y' ");
@@ -96,8 +98,8 @@ public class EventFactory extends Object {
             PreparedStatement stmt = conn.prepareStatement(select.toString());
             
             int parameterIndex = 1;
-            for (int i = 0; i < filters.length; i++) {
-            	parameterIndex += filters[i].bindParam(stmt, parameterIndex);
+            for (Filter filter : filters) {
+            	parameterIndex += filter.bindParam(stmt, parameterIndex);
             }
             
             ResultSet rs = stmt.executeQuery();
@@ -134,9 +136,9 @@ public class EventFactory extends Object {
             StringBuffer select = new StringBuffer("SELECT EVENTSEVERITY, COUNT(*) AS EVENTCOUNT FROM EVENTS LEFT OUTER JOIN NODE USING (NODEID) LEFT OUTER JOIN SERVICE USING (SERVICEID) WHERE ");
             select.append(getAcknowledgeTypeClause(ackType));
 
-            for (int i = 0; i < filters.length; i++) {
+            for (Filter filter : filters) {
                 select.append(" AND");
-                select.append(filters[i].getParamSql());
+                select.append(filter.getParamSql());
             }
 
             select.append(" AND EVENTDISPLAY='Y'");
@@ -145,8 +147,8 @@ public class EventFactory extends Object {
             PreparedStatement stmt = conn.prepareStatement(select.toString());
             
             int parameterIndex = 1;
-            for (int i = 0; i < filters.length; i++) {
-            	parameterIndex += filters[i].bindParam(stmt, parameterIndex);
+            for (Filter filter : filters) {
+            	parameterIndex += filter.bindParam(stmt, parameterIndex);
             }
             
             ResultSet rs = stmt.executeQuery();
@@ -195,17 +197,17 @@ public class EventFactory extends Object {
 
     /** Return all unacknowledged events sorted by time. */
     public static Event[] getEvents() throws SQLException {
-        return (EventFactory.getEvents(SortStyle.TIME, AcknowledgeType.UNACKNOWLEDGED));
+        return getEvents(SortStyle.TIME, AcknowledgeType.UNACKNOWLEDGED);
     }
 
     /** Return all unacknowledged or acknowledged events sorted by time. */
     public static Event[] getEvents(AcknowledgeType ackType) throws SQLException {
-        return (EventFactory.getEvents(SortStyle.TIME, ackType));
+        return getEvents(SortStyle.TIME, ackType);
     }
 
     /** Return all unacknowledged events sorted by the given sort style. */
     public static Event[] getEvents(SortStyle sortStyle) throws SQLException {
-        return (EventFactory.getEvents(sortStyle, AcknowledgeType.UNACKNOWLEDGED));
+        return getEvents(sortStyle, AcknowledgeType.UNACKNOWLEDGED);
     }
 
     /**
@@ -217,7 +219,7 @@ public class EventFactory extends Object {
      */
     public static Event[] getEvents(SortStyle sortStyle, boolean includeAcknowledged) throws SQLException {
         AcknowledgeType ackType = (includeAcknowledged) ? AcknowledgeType.BOTH : AcknowledgeType.UNACKNOWLEDGED;
-        return (EventFactory.getEvents(sortStyle, ackType));
+        return getEvents(sortStyle, ackType);
     }
 
     /**
@@ -225,7 +227,7 @@ public class EventFactory extends Object {
      * given sort style.
      */
     public static Event[] getEvents(SortStyle sortStyle, AcknowledgeType ackType) throws SQLException {
-        return (EventFactory.getEvents(sortStyle, ackType, new Filter[0]));
+        return getEvents(sortStyle, ackType, new Filter[0]);
     }
 
     /**
@@ -233,7 +235,7 @@ public class EventFactory extends Object {
      * given sort style.
      */
     public static Event[] getEvents(SortStyle sortStyle, AcknowledgeType ackType, Filter[] filters) throws SQLException {
-        return (EventFactory.getEvents(sortStyle, ackType, filters, -1, -1));
+        return getEvents(sortStyle, ackType, filters, -1, -1);
     }
 
     /**
@@ -284,9 +286,9 @@ public class EventFactory extends Object {
             
             select.append(getAcknowledgeTypeClause(ackType));
 
-            for (int i = 0; i < filters.length; i++) {
+            for (Filter filter : filters) {
                 select.append(" AND");
-                select.append(filters[i].getParamSql());
+                select.append(filter.getParamSql());
             }
 
             select.append(" AND EVENTDISPLAY='Y' ");
@@ -302,8 +304,8 @@ public class EventFactory extends Object {
             PreparedStatement stmt = conn.prepareStatement(select.toString());
             
             int parameterIndex = 1;
-            for (int i = 0; i < filters.length; i++) {
-            	parameterIndex += filters[i].bindParam(stmt, parameterIndex);
+            for (Filter filter : filters) {
+            	parameterIndex += filter.bindParam(stmt, parameterIndex);
             }
             
             ResultSet rs = stmt.executeQuery();
@@ -327,7 +329,7 @@ public class EventFactory extends Object {
 
     /** Return all unacknowledged events sorted by event ID for the given node. */
     public static Event[] getEventsForNode(int nodeId) throws SQLException {
-        return (getEventsForNode(nodeId, SortStyle.ID, AcknowledgeType.UNACKNOWLEDGED, -1, -1));
+        return getEventsForNode(nodeId, SortStyle.ID, AcknowledgeType.UNACKNOWLEDGED, -1, -1);
     }
 
     /**
@@ -339,7 +341,7 @@ public class EventFactory extends Object {
      */
     public static Event[] getEventsForNode(int nodeId, boolean includeAcknowledged) throws SQLException {
         AcknowledgeType ackType = (includeAcknowledged) ? AcknowledgeType.BOTH : AcknowledgeType.UNACKNOWLEDGED;
-        return (getEventsForNode(nodeId, SortStyle.ID, ackType, -1, -1));
+        return getEventsForNode(nodeId, SortStyle.ID, ackType, -1, -1);
     }
 
     /**
@@ -347,7 +349,7 @@ public class EventFactory extends Object {
      * given sort style for the given node.
      */
     public static Event[] getEventsForNode(int nodeId, SortStyle sortStyle, AcknowledgeType ackType) throws SQLException {
-        return (getEventsForNode(nodeId, sortStyle, ackType, -1, -1));
+        return getEventsForNode(nodeId, sortStyle, ackType, -1, -1);
     }
 
     /**
@@ -363,11 +365,11 @@ public class EventFactory extends Object {
         }
 
         Filter[] filters = new Filter[] { new NodeFilter(nodeId) };
-        return (EventFactory.getEvents(sortStyle, ackType, filters, throttle, offset));
+        return getEvents(sortStyle, ackType, filters, throttle, offset);
     }
 
     /**
-     * Return the number of events for this node and the given acknowledgement
+     * Return the number of events for this node and the given acknowledgment
      * type.
      */
     public static int getEventCountForNode(int nodeId, AcknowledgeType ackType) throws SQLException {
@@ -413,7 +415,7 @@ public class EventFactory extends Object {
      * interface.
      */
     public static Event[] getEventsForInterface(int nodeId, String ipAddress) throws SQLException {
-        return (getEventsForInterface(nodeId, ipAddress, SortStyle.ID, AcknowledgeType.UNACKNOWLEDGED, -1, -1));
+        return getEventsForInterface(nodeId, ipAddress, SortStyle.ID, AcknowledgeType.UNACKNOWLEDGED, -1, -1);
     }
 
     /**
@@ -425,7 +427,7 @@ public class EventFactory extends Object {
      */
     public static Event[] getEventsForInterface(int nodeId, String ipAddress, boolean includeAcknowledged) throws SQLException {
         AcknowledgeType ackType = (includeAcknowledged) ? AcknowledgeType.BOTH : AcknowledgeType.UNACKNOWLEDGED;
-        return (getEventsForInterface(nodeId, ipAddress, SortStyle.ID, ackType, -1, -1));
+        return getEventsForInterface(nodeId, ipAddress, SortStyle.ID, ackType, -1, -1);
     }
 
     /**
@@ -444,7 +446,7 @@ public class EventFactory extends Object {
         }
 
         Filter[] filters = new Filter[] { new NodeFilter(nodeId), new InterfaceFilter(ipAddress) };
-        return (EventFactory.getEvents(sortStyle, ackType, filters, throttle, offset));
+        return getEvents(sortStyle, ackType, filters, throttle, offset);
     }
 
     /**
@@ -463,7 +465,7 @@ public class EventFactory extends Object {
         }
 
         Filter[] filters = new Filter[] { new NodeFilter(nodeId), new  IfIndexFilter(ifIndex)};
-        return (EventFactory.getEvents(sortStyle, ackType, filters, throttle, offset));
+        return getEvents(sortStyle, ackType, filters, throttle, offset);
     }
 
 
@@ -472,7 +474,7 @@ public class EventFactory extends Object {
      * IP address, regardless of what node they belong to.
      */
     public static Event[] getEventsForInterface(String ipAddress) throws SQLException {
-        return (getEventsForInterface(ipAddress, SortStyle.ID, AcknowledgeType.UNACKNOWLEDGED, -1, -1));
+        return getEventsForInterface(ipAddress, SortStyle.ID, AcknowledgeType.UNACKNOWLEDGED, -1, -1);
     }
 
     /**
@@ -484,7 +486,7 @@ public class EventFactory extends Object {
      */
     public static Event[] getEventsForInterface(String ipAddress, boolean includeAcknowledged) throws SQLException {
         AcknowledgeType ackType = (includeAcknowledged) ? AcknowledgeType.BOTH : AcknowledgeType.UNACKNOWLEDGED;
-        return (getEventsForInterface(ipAddress, SortStyle.ID, ackType, -1, -1));
+        return getEventsForInterface(ipAddress, SortStyle.ID, ackType, -1, -1);
     }
 
     /**
@@ -503,12 +505,12 @@ public class EventFactory extends Object {
         }
 
         Filter[] filters = new Filter[] { new InterfaceFilter(ipAddress) };
-        return (EventFactory.getEvents(sortStyle, ackType, filters, throttle, offset));
+        return getEvents(sortStyle, ackType, filters, throttle, offset);
     }
 
     /**
      * Return the number of events for this node ID, IP address, and the given
-     * acknowledgement type.
+     * acknowledgment type.
      */
     public static int getEventCountForInterface(int nodeId, String ipAddress, AcknowledgeType ackType) throws SQLException {
         if (ipAddress == null || ackType == null) {
@@ -516,12 +518,12 @@ public class EventFactory extends Object {
         }
 
         Filter[] filters = new Filter[] { new NodeFilter(nodeId), new InterfaceFilter(ipAddress) };
-        return (getEventCount(ackType, filters));
+        return getEventCount(ackType, filters);
     }
 
     /**
      * Return the number of events for this IP address and the given
-     * acknowledgement type.
+     * acknowledgment type.
      */
     public static int getEventCountForInterface(String ipAddress, AcknowledgeType ackType) throws SQLException {
         if (ipAddress == null || ackType == null) {
@@ -529,7 +531,7 @@ public class EventFactory extends Object {
         }
 
         Filter[] filters = new Filter[] { new InterfaceFilter(ipAddress) };
-        return (getEventCount(ackType, filters));
+        return getEventCount(ackType, filters);
     }
 
     /*
@@ -540,7 +542,7 @@ public class EventFactory extends Object {
 
     /** Return all unacknowledged events sorted by time for the given service. */
     public static Event[] getEventsForService(int nodeId, String ipAddress, int serviceId) throws SQLException {
-        return (getEventsForService(nodeId, ipAddress, serviceId, SortStyle.ID, AcknowledgeType.UNACKNOWLEDGED, -1, -1));
+        return getEventsForService(nodeId, ipAddress, serviceId, SortStyle.ID, AcknowledgeType.UNACKNOWLEDGED, -1, -1);
     }
 
     /**
@@ -552,7 +554,7 @@ public class EventFactory extends Object {
      */
     public static Event[] getEventsForService(int nodeId, String ipAddress, int serviceId, boolean includeAcknowledged) throws SQLException {
         AcknowledgeType ackType = (includeAcknowledged) ? AcknowledgeType.BOTH : AcknowledgeType.UNACKNOWLEDGED;
-        return (getEventsForService(nodeId, ipAddress, serviceId, SortStyle.ID, ackType, -1, -1));
+        return getEventsForService(nodeId, ipAddress, serviceId, SortStyle.ID, ackType, -1, -1);
     }
 
     /**
@@ -571,7 +573,7 @@ public class EventFactory extends Object {
         }
 
         Filter[] filters = new Filter[] { new NodeFilter(nodeId), new InterfaceFilter(ipAddress), new ServiceFilter(serviceId) };
-        return (EventFactory.getEvents(sortStyle, ackType, filters, throttle, offset));
+        return getEvents(sortStyle, ackType, filters, throttle, offset);
     }
 
     /**
@@ -579,7 +581,7 @@ public class EventFactory extends Object {
      * type, regardless of what node or interface they belong to.
      */
     public static Event[] getEventsForService(int serviceId) throws SQLException {
-        return (getEventsForService(serviceId, SortStyle.ID, AcknowledgeType.UNACKNOWLEDGED, -1, -1));
+        return getEventsForService(serviceId, SortStyle.ID, AcknowledgeType.UNACKNOWLEDGED, -1, -1);
     }
 
     /**
@@ -589,7 +591,7 @@ public class EventFactory extends Object {
      */
     public static Event[] getEventsForService(int serviceId, boolean includeAcknowledged) throws SQLException {
         AcknowledgeType ackType = (includeAcknowledged) ? AcknowledgeType.BOTH : AcknowledgeType.UNACKNOWLEDGED;
-        return (getEventsForService(serviceId, SortStyle.ID, ackType, -1, -1));
+        return getEventsForService(serviceId, SortStyle.ID, ackType, -1, -1);
     }
 
     /**
@@ -608,7 +610,7 @@ public class EventFactory extends Object {
         }
 
         Filter[] filters = new Filter[] { new ServiceFilter(serviceId) };
-        return (EventFactory.getEvents(sortStyle, ackType, filters, throttle, offset));
+        return getEvents(sortStyle, ackType, filters, throttle, offset);
     }
 
     /**
@@ -621,7 +623,7 @@ public class EventFactory extends Object {
         }
 
         Filter[] filters = new Filter[] { new NodeFilter(nodeId), new InterfaceFilter(ipAddress), new ServiceFilter(serviceId) };
-        return (getEventCount(ackType, filters));
+        return getEventCount(ackType, filters);
     }
 
     /**
@@ -641,7 +643,7 @@ public class EventFactory extends Object {
      * Return all unacknowledged events sorted by time for the given severity.
      */
     public static Event[] getEventsForSeverity(int severity) throws SQLException {
-        return (EventFactory.getEventsForSeverity(severity, SortStyle.ID, AcknowledgeType.UNACKNOWLEDGED));
+        return getEventsForSeverity(severity, SortStyle.ID, AcknowledgeType.UNACKNOWLEDGED);
     }
 
     /**
@@ -653,11 +655,11 @@ public class EventFactory extends Object {
      */
     public static Event[] getEventsForSeverity(int severity, boolean includeAcknowledged) throws SQLException {
         AcknowledgeType ackType = includeAcknowledged ? AcknowledgeType.BOTH : AcknowledgeType.UNACKNOWLEDGED;
-        return (EventFactory.getEventsForSeverity(severity, SortStyle.ID, ackType));
+        return getEventsForSeverity(severity, SortStyle.ID, ackType);
     }
 
     public static Event[] getEventsForSeverity(int severity, SortStyle sortStyle, AcknowledgeType ackType) throws SQLException {
-        return (EventFactory.getEvents(sortStyle, ackType, new Filter[] { new SeverityFilter(severity) }));
+        return getEvents(sortStyle, ackType, new Filter[] { new SeverityFilter(severity) });
     }
 
     /**
@@ -665,7 +667,7 @@ public class EventFactory extends Object {
      * distributed poller.
      */
     public static Event[] getEventsForPoller(String poller) throws SQLException {
-        return (getEventsForPoller(poller, false));
+        return getEventsForPoller(poller, false);
     }
 
     /**
@@ -794,9 +796,9 @@ public class EventFactory extends Object {
         StringBuffer update = new StringBuffer("UPDATE EVENTS SET EVENTACKUSER=?, EVENTACKTIME=? WHERE");
         update.append(getAcknowledgeTypeClause(AcknowledgeType.UNACKNOWLEDGED));
 
-        for (int i = 0; i < filters.length; i++) {
+        for (Filter filter : filters) {
             update.append(" AND");
-            update.append(filters[i].getParamSql());
+            update.append(filter.getParamSql());
         }
 
         Connection conn = Vault.getDbConnection();
@@ -807,8 +809,8 @@ public class EventFactory extends Object {
             stmt.setTimestamp(2, new Timestamp(time.getTime()));
             
             int parameterIndex = 3;
-            for (int i = 0; i < filters.length; i++) {
-            	parameterIndex += filters[i].bindParam(stmt, parameterIndex);
+            for (Filter filter : filters) {
+            	parameterIndex += filter.bindParam(stmt, parameterIndex);
             }
 
             stmt.executeUpdate();
@@ -910,9 +912,9 @@ public class EventFactory extends Object {
         StringBuffer update = new StringBuffer("UPDATE EVENTS SET EVENTACKUSER=NULL, EVENTACKTIME=NULL WHERE");
         update.append(getAcknowledgeTypeClause(AcknowledgeType.ACKNOWLEDGED));
 
-        for (int i = 0; i < filters.length; i++) {
+        for (Filter filter : filters) {
             update.append(" AND");
-            update.append(filters[i].getParamSql());
+            update.append(filter.getParamSql());
         }
 
         Connection conn = Vault.getDbConnection();
@@ -921,8 +923,8 @@ public class EventFactory extends Object {
             PreparedStatement stmt = conn.prepareStatement(update.toString());
             
             int parameterIndex = 1;
-            for (int i = 0; i < filters.length; i++) {
-            	parameterIndex += filters[i].bindParam(stmt, parameterIndex);
+            for (Filter filter : filters) {
+            	parameterIndex += filter.bindParam(stmt, parameterIndex);
             }
 
             stmt.executeUpdate();
@@ -1017,8 +1019,8 @@ public class EventFactory extends Object {
             element = rs.getString("eventLogmsg");
             event.logMessage = (String) element;
 
-            element = new Integer(rs.getInt("eventSeverity"));
-            event.severity = ((Integer) element).intValue();
+            element = OnmsSeverity.get(rs.getInt("eventSeverity"));
+            event.severity = ((OnmsSeverity) element);
 
             element = rs.getString("eventOperInstruct");
             event.operatorInstruction = (String) element;
@@ -1078,71 +1080,7 @@ public class EventFactory extends Object {
         if (sortStyle == null) {
             throw new IllegalArgumentException("Cannot take null parameters.");
         }
-
-        String clause = null;
-
-        switch (sortStyle.getId()) {
-        case SortStyle._SEVERITY:
-            clause = " ORDER BY EVENTSEVERITY DESC";
-            break;
-
-        case SortStyle._REVERSE_SEVERITY:
-            clause = " ORDER BY EVENTSEVERITY ASC";
-            break;
-
-        case SortStyle._TIME:
-            clause = " ORDER BY EVENTTIME DESC";
-            break;
-
-        case SortStyle._REVERSE_TIME:
-            clause = " ORDER BY EVENTTIME ASC";
-            break;
-
-        case SortStyle._NODE:
-            clause = " ORDER BY NODELABEL ASC";
-            break;
-
-        case SortStyle._REVERSE_NODE:
-            clause = " ORDER BY NODELABEL DESC";
-            break;
-
-        case SortStyle._INTERFACE:
-            clause = " ORDER BY IPADDR ASC";
-            break;
-
-        case SortStyle._REVERSE_INTERFACE:
-            clause = " ORDER BY IPADDR DESC";
-            break;
-
-        case SortStyle._SERVICE:
-            clause = " ORDER BY SERVICENAME ASC";
-            break;
-
-        case SortStyle._REVERSE_SERVICE:
-            clause = " ORDER BY SERVICENAME DESC";
-            break;
-
-        case SortStyle._POLLER:
-            clause = " ORDER BY EVENTDPNAME ASC";
-            break;
-
-        case SortStyle._REVERSE_POLLER:
-            clause = " ORDER BY EVENTDPNAME DESC";
-            break;
-
-        case SortStyle._ID:
-            clause = " ORDER BY EVENTID DESC";
-            break;
-
-        case SortStyle._REVERSE_ID:
-            clause = " ORDER BY EVENTID ASC";
-            break;
-
-        default:
-            throw new IllegalArgumentException("Unknown EventFactory.SortStyle: " + sortStyle.getName());
-        }
-
-        return clause;
+        return sortStyle.getOrderByClause();
     }
 
     /**
@@ -1156,27 +1094,7 @@ public class EventFactory extends Object {
         if (ackType == null) {
             throw new IllegalArgumentException("Cannot take null parameters.");
         }
-
-        String clause = null;
-
-        switch (ackType.getId()) {
-        case AcknowledgeType._ACKNOWLEDGED:
-            clause = " EVENTACKUSER IS NOT NULL ";
-            break;
-
-        case AcknowledgeType._UNACKNOWLEDGED:
-            clause = " EVENTACKUSER IS NULL ";
-            break;
-
-        case AcknowledgeType._BOTH:
-            clause = " (EVENTACKUSER IS NULL OR EVENTACKUSER IS NOT NULL) ";
-            break;
-
-        default:
-            throw new IllegalArgumentException("Unknown EventFactory.AcknowledgeType: " + ackType.getName());
-        }
-
-        return clause;
+        return ackType.getAcknowledgeTypeClause();
     }
 
 }

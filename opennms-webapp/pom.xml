@@ -3,7 +3,7 @@
   <parent>
     <artifactId>opennms</artifactId>
     <groupId>org.opennms</groupId>
-    <version>1.7.3-SNAPSHOT</version>
+    <version>1.7.4-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>opennms-webapp</artifactId>
@@ -311,7 +311,7 @@
     <!-- Sort dependencies by groupId then artifactId, but put dependencies with a groupId of org.opennms first. -->
     <dependency>
       <groupId>org.opennms</groupId>
-      <artifactId>opennms-acegi</artifactId>
+      <artifactId>opennms-spring-security</artifactId>
     </dependency>
     <!-- Rancid -->
     <dependency>
@@ -576,5 +576,27 @@
               </dependency>
 
       
+    
+    <dependency>
+      <groupId>org.apache.directory.server</groupId>
+      <artifactId>apacheds-core</artifactId>
+      <version>1.0.2</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.directory.server</groupId>
+      <artifactId>apacheds-server-jndi</artifactId>
+      <version>1.0.2</version>
+      <scope>test</scope>
+    </dependency>
+    
+    <dependency>
+      <groupId>backport-util-concurrent</groupId>
+      <artifactId>backport-util-concurrent</artifactId>
+      <version>3.1</version>
+      <scope>test</scope>
+    </dependency>
+    
   </dependencies>
 </project>

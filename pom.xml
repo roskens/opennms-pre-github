@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.opennms</groupId>
   <artifactId>opennms</artifactId>
-  <version>1.7.3-SNAPSHOT</version>
+  <version>1.7.4-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>OpenNMS</name>
   <url>http://opennms.org</url>
@@ -197,7 +197,7 @@
      <plugin>
        <groupId>org.apache.maven.plugins</groupId>
        <artifactId>maven-resources-plugin</artifactId>
-       <version>2.2</version>
+       <version>2.3</version>
        <configuration>
           <encoding>UTF-8</encoding>
           <escapeString>\</escapeString>
@@ -235,6 +235,7 @@
         <configuration>
           <source>1.5</source>
           <target>1.5</target>
+          <encoding>UTF-8</encoding>
         </configuration>
       </plugin>
       <plugin>
@@ -337,107 +338,6 @@
           </includes>          
         </configuration>
       </plugin>
-<!--
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>sql-maven-plugin</artifactId>
-        <inherited>false</inherited>
-        <dependencies>
-          <dependency>
-            <groupId>postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>8.1-404.jdbc3</version>
-          </dependency>
-        </dependencies>
-
-        <!- NESTED COMMENT common configuration shared by all executions NESTED COMMENT ->
-        <configuration>
-           <username>opennms</username>
-           <password>opennms</password>
-           <url>jdbc:postgresql://localhost:5432/test</url>
-           <driver>org.postgresql.Driver</driver>
-        </configuration>
-
-        <executions>
-
-          <execution>
-            <id>drop-db-before-test-if-any</id>
-            <phase>process-test-resources</phase>
-            <goals>
-              <goal>execute</goal>
-            </goals>
-            <configuration>
-              <!- NESTED COMMENT need another database to drop the targeted one NESTED COMMENT ->
-              <user>postgres</user>
-              <password></password>
-              <url>jdbc:postgresql://localhost:5432/template1</url>
-              <autocommit>true</autocommit>
-              <sqlCommand>drop database test</sqlCommand>
-              <!- NESTED COMMENT ignore error when database is not avaiable NESTED COMMENT ->
-              <onError>continue</onError>
-            </configuration>
-          </execution>
-
-          <execution>
-            <id>create-db</id>
-            <phase>process-test-resources</phase>
-            <goals>
-              <goal>execute</goal>
-            </goals>
-            <configuration>
-              <url>jdbc:postgresql://localhost:5432/template1</url>
-              <user>postgres</user>
-              <password></password>
-              <autocommit>true</autocommit>
-              <sqlCommand>create database test</sqlCommand>
-            </configuration>
-          </execution>
-
-          <execution>
-            <id>create-schema</id>
-            <phase>process-test-resources</phase>
-            <goals>
-              <goal>execute</goal>
-            </goals>
-            <configuration>
-              <autocommit>true</autocommit>
-              <onError>continue</onError>
-              <srcFiles>
-                <srcFile>opennms-base-assembly/src/main/filtered/etc/create.sql</srcFile>
-              </srcFiles>
-            </configuration>
-          </execution>
-
-          <execution>
-            <id>create-data</id>
-            <phase>process-test-resources</phase>
-            <goals>
-              <goal>execute</goal>
-            </goals>
-            <configuration>
-              <fileset>
-                <basedir>${basedir}</basedir>
-                <srcFiles>
-                  <srcFile>src/test/resources/test-data.sql</srcFile>
-                </srcFiles>
-              </fileset>
-            </configuration>
-          </execution>
-
-          <execution>
-            <id>drop-db-after-test</id>
-            <phase>test</phase>
-            <goals>
-              <goal>execute</goal>
-            </goals>
-            <configuration>
-              <autocommit>true</autocommit>
-              <sqlCommand>drop database test</sqlCommand>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
--->
       <plugin>
         <inherited>false</inherited>
         <groupId>org.apache.maven.plugins</groupId>
@@ -733,6 +633,8 @@
         </property>
       </activation>
       <modules>
+        <module>extensions</module>
+        <module>opennms-doc</module>
         <module>opennms-tools</module>
       </modules>
     </profile>
@@ -853,7 +755,7 @@
       </dependency>
       <dependency>
         <groupId>org.opennms</groupId>
-        <artifactId>opennms-acegi</artifactId>
+        <artifactId>opennms-spring-security</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
@@ -1119,7 +1021,7 @@
       <dependency>
         <groupId>org.opennms</groupId>
         <artifactId>rancid-api</artifactId>
-        <version>0.5-SNAPSHOT</version>
+        <version>0.92</version>
       </dependency>
       <dependency>
         <groupId>org.dnsjava</groupId>
@@ -1148,6 +1050,16 @@
         <groupId>antlr</groupId>
         <artifactId>antlr</artifactId>
         <version>2.7.6</version>
+      </dependency>
+      <dependency>
+        <groupId>org.aspectj</groupId>
+        <artifactId>aspectjrt</artifactId>
+        <version>1.6.2</version>
+      </dependency>
+      <dependency>
+        <groupId>org.aspectj</groupId>
+        <artifactId>aspectjweaver</artifactId>
+        <version>1.6.2</version>
       </dependency>
       <dependency>
         <groupId>axis</groupId>
@@ -1207,8 +1119,7 @@
       <dependency>
         <groupId>c3p0</groupId>
         <artifactId>c3p0</artifactId>
-        <version>0.9.0.4</version>
-        <!-- <version>0.9.1.2</version> -->
+        <version>0.9.1.2</version>
       </dependency>
       <dependency>
         <groupId>org.codehaus.castor</groupId>
@@ -1237,6 +1148,11 @@
         <version>1.1</version>
       </dependency>
       <dependency>
+        <groupId>commons-codec</groupId>
+        <artifactId>commons-codec</artifactId>
+        <version>1.3</version>
+      </dependency>
+      <dependency>
         <groupId>commons-collections</groupId>
         <artifactId>commons-collections</artifactId>
         <version>3.2</version>
@@ -1249,7 +1165,13 @@
       <dependency>
         <groupId>commons-dbcp</groupId>
         <artifactId>commons-dbcp</artifactId>
+        <!-- anything higher than 1.2 causes weird weird errors! -->
         <version>1.2</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-digester</groupId>
+        <artifactId>commons-digester</artifactId>
+        <version>1.8</version>
       </dependency>
       <dependency>
         <groupId>commons-httpclient</groupId>
@@ -1272,6 +1194,11 @@
         <version>1.0.4</version>
       </dependency>
       <dependency>
+        <groupId>org.dbunit</groupId>
+        <artifactId>dbunit</artifactId>
+        <version>2.2</version>
+      </dependency>
+      <dependency>
         <groupId>net.sf.opencsv</groupId>
         <artifactId>opencsv</artifactId>
         <version>1.8</version>
@@ -1287,6 +1214,11 @@
         <artifactId>easymock</artifactId>
         <version>2.2</version>
         <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>net.sf.ehcache</groupId>
+        <artifactId>ehcache</artifactId>
+        <version>1.5.0</version>
       </dependency>
       <dependency>
         <groupId>org.extremecomponents</groupId>
@@ -1369,6 +1301,12 @@
       </dependency>
       <dependency>
         <groupId>javax.servlet</groupId>
+        <artifactId>jsp-api</artifactId>
+        <version>2.0</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>javax.servlet</groupId>
         <artifactId>servlet-api</artifactId>
         <version>2.3</version>
         <scope>provided</scope>
@@ -1386,27 +1324,27 @@
       <dependency>
         <groupId>org.mortbay.jetty</groupId>
         <artifactId>jetty</artifactId>
-        <version>6.1.14</version>
+        <version>6.1.16</version>
       </dependency>
       <dependency>
         <groupId>org.mortbay.jetty</groupId>
         <artifactId>jetty-ajp</artifactId>
-        <version>6.1.14</version>
+        <version>6.1.16</version>
       </dependency>
       <dependency>
         <groupId>org.mortbay.jetty</groupId>
         <artifactId>jetty-util</artifactId>
-        <version>6.1.14</version>
+        <version>6.1.16</version>
       </dependency>
       <dependency>
         <groupId>org.mortbay.jetty</groupId>
         <artifactId>servlet-api-2.5</artifactId>
-        <version>6.1.14</version>
+        <version>6.1.16</version>
       </dependency>
       <dependency>
         <groupId>org.mortbay.jetty</groupId>
-        <artifactId>jsp-2.1</artifactId>
-        <version>6.1.14</version>
+        <artifactId>jsp-2.1-jetty</artifactId>
+        <version>6.1.16</version>
       </dependency>
       <dependency>
         <groupId>jfree</groupId>
@@ -1479,16 +1417,6 @@
       </dependency>
       <dependency>
         <groupId>mx4j</groupId>
-        <artifactId>mx4j</artifactId>
-        <version>3.0.2</version>
-      </dependency>
-      <dependency>
-        <groupId>mx4j</groupId>
-        <artifactId>mx4j-remote</artifactId>
-        <version>3.0.2</version>
-      </dependency>
-      <dependency>
-        <groupId>mx4j</groupId>
         <artifactId>mx4j-tools</artifactId>
         <version>3.0.1</version>
       </dependency>
@@ -1515,12 +1443,12 @@
       <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-api</artifactId>
-        <version>1.5.0</version>
+        <version>1.5.6</version>
       </dependency>
       <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-log4j12</artifactId>
-        <version>1.5.0</version>
+        <version>1.5.6</version>
       </dependency>
       <dependency>
         <groupId>org.snmp4j</groupId>
@@ -1604,13 +1532,13 @@
       </dependency>
       <dependency>
         <groupId>org.jinterop</groupId>
-        <artifactId>jinterop</artifactId>
-        <version>2.01</version>
+        <artifactId>j-interop</artifactId>
+        <version>2.0.4</version>
       </dependency>
       <dependency>
         <groupId>org.jinterop</groupId>
-        <artifactId>jinteropdeps</artifactId>
-        <version>2.01</version>
+        <artifactId>j-interopdeps</artifactId>
+        <version>2.0.4</version>
       </dependency>
 
 

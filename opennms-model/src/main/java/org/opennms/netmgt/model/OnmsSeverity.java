@@ -1,7 +1,7 @@
 /*
  * This file is part of the OpenNMS(R) Application.
  *
- * OpenNMS(R) is Copyright (C) 2008 The OpenNMS Group, Inc. All rights reserved.
+ * OpenNMS(R) is Copyright (C) 2008-2009 The OpenNMS Group, Inc. All rights reserved.
  * OpenNMS(R) is a derivative work, containing both original code, included code and modified
  * code that was published under the GNU General Public License. Copyrights for modified
  * and included code are below.
@@ -31,6 +31,7 @@
  *      http://www.opennms.org/
  *      http://www.opennms.com/
  */
+
 package org.opennms.netmgt.model;
 
 import java.io.Serializable;
@@ -49,20 +50,21 @@ import javax.persistence.Embeddable;
 @Embeddable
 public enum OnmsSeverity implements Serializable {
     // Keep this ordered by ID so we can use the internal enum compareTo
-    INDETERMINATE(1, "Indeterminate"),
-    CLEARED(2, "Cleared"),
-    NORMAL(3, "Normal"),
-    WARNING(4, "Warning"),
-    MINOR(5, "Minor"),
-    MAJOR(6, "Major"),
-    CRITICAL(7, "Critical");
+    INDETERMINATE(1, "Indeterminate", "lightblue"),
+    CLEARED(2, "Cleared", "white"),
+    NORMAL(3, "Normal", "green"),
+    WARNING(4, "Warning", "cyan"),
+    MINOR(5, "Minor", "yellow"),
+    MAJOR(6, "Major", "orange"),
+    CRITICAL(7, "Critical", "red");
     
     private static final Map<Integer, OnmsSeverity> m_idMap; 
     private static final List<Integer> m_ids;
     
     private int m_id;
     private String m_label;
-    
+    private String m_color;
+
     static {
         m_ids = new ArrayList<Integer>(values().length);
         m_idMap = new HashMap<Integer, OnmsSeverity>(values().length);
@@ -72,9 +74,10 @@ public enum OnmsSeverity implements Serializable {
         }
     }
 
-    private OnmsSeverity(int id, String label) {
+    private OnmsSeverity(int id, String label, String color) {
         m_id = id;
         m_label = label;
+        m_color = color;
     }
     
     public int getId() {
@@ -83,6 +86,10 @@ public enum OnmsSeverity implements Serializable {
     
     public String getLabel() {
         return m_label;
+    }
+
+    public String getColor() {
+        return m_color;
     }
 
     public boolean isLessThan(OnmsSeverity other) {

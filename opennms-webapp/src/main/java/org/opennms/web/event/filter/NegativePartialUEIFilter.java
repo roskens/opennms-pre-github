@@ -1,7 +1,7 @@
 //
 // This file is part of the OpenNMS(R) Application.
 //
-// OpenNMS(R) is Copyright (C) 2002-2003 The OpenNMS Group, Inc.  All rights reserved.
+// OpenNMS(R) is Copyright (C) 2002-2009 The OpenNMS Group, Inc.  All rights reserved.
 // OpenNMS(R) is a derivative work, containing both original code, included code and modified
 // code that was published under the GNU General Public License. Copyrights for modified 
 // and included code are below.
@@ -32,10 +32,10 @@
 
 package org.opennms.web.event.filter;
 
-import org.opennms.web.filter.SubstringFilter;
+import org.opennms.web.filter.NoSubstringFilter;
 
 /** Encapsulates filtering on partial unique event identifiers. */
-public class NegativePartialUEIFilter extends SubstringFilter {
+public class NegativePartialUEIFilter extends NoSubstringFilter {
     public static final String TYPE = "partialUeiNot";
 
     public NegativePartialUEIFilter(String uei) {
@@ -47,7 +47,7 @@ public class NegativePartialUEIFilter extends SubstringFilter {
     }
 
     public String toString() {
-        return ("<EventFactory.NegativePartialUEIFilter: " + this.getDescription() + ">");
+        return ("<WebEventRepository.NegativePartialUEIFilter: " + this.getDescription() + ">");
     }
 
     public String getUEI() {

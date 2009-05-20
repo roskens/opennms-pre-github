@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	   xmlns:context="http://www.springframework.org/schema/context"
-	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+<beans xmlns="http://www.springframework.org/schema/beans" 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx" 
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd"
+       >
   
   <context:annotation-config/>
 
@@ -70,11 +73,15 @@
   	<property name="adminCategoryService" ref="adminCategoryService"/>
   </bean>
   
-  <bean name="/admin/groups/list.htm"
+  <bean name="/admin/userGroupView/groups/list.htm"
   		class="org.opennms.web.controller.admin.group.GroupListController">
   	<property name="groupManager" ref="groupManager"/>
   </bean>
 
+	<!-- Converted from a Dispatcher to controller -->
+    <!-- This one uses Autowired -->
+	<bean name="/admin/userGroupView/groups/modifyGroup" class="org.opennms.web.controller.admin.group.GroupController" />
+  	
   <bean name="/aggregateStatus.htm"
 		class="org.opennms.web.controller.SiteStatusViewController">
     <property name="service" ref="siteStatusViewService" />
@@ -159,11 +166,17 @@
     <property name="distributedPollerService" ref="distributedPollerService" />
   </bean>
   
-  <bean name="/element/nodeList.htm" class="org.opennms.web.controller.element.NodeListController">
+  <bean name="/element/nodeList.htm" class="org.opennms.web.controller.node.NodeListController">
     <property name="commandName"><value>command</value></property>
     <property name="commandClass"><value>org.opennms.web.command.NodeListCommand</value></property>
     <property name="successView"><value>element/nodeList</value></property>
     <property name="nodeListService" ref="nodeListService" />
+  </bean>
+
+  <bean name="/admin/node/add.htm" class="org.opennms.web.controller.node.NodeProvisioningController">
+    <property name="redirectView"><value>add.htm</value></property>
+    <property name="successView"><value>admin/node/add</value></property>
+    <property name="nodeProvisionService" ref="nodeProvisionService" />
   </bean>
 
   <bean name="/alarm/ticket/create.htm" class="org.opennms.web.controller.alarm.AlarmTicketController">
@@ -198,6 +211,52 @@
     <property name="defaultAcknowledgeType" value="UNACKNOWLEDGED" />
     <property name="defaultSortStyle" value="ID" />
     <property name="webAlarmRepository" ref="webAlarmRepository" />
+  </bean>
+
+  <bean name="/event/acknowledge" class="org.opennms.web.controller.event.AcknowledgeEventController">
+    <property name="webEventRepository" ref="webEventRepository" />
+    <property name="redirectView" value="/event/list.htm" />
+  </bean>
+
+  <bean name="/event/acknowledgeByFilter" class="org.opennms.web.controller.event.AcknowledgeEventByFilterController">
+    <property name="webEventRepository" ref="webEventRepository" />
+    <property name="redirectView" value="/event/list.htm" />
+  </bean>
+
+  <alias name="/event/detail.htm" alias="/event/detail.jsp" />
+  <bean name="/event/detail.htm" class="org.opennms.web.controller.event.EventFilterController">
+    <property name="successView" value="event/detail" />
+    <property name="defaultShortLimit" value="20" />
+    <property name="defaultLongLimit" value="10" />
+    <property name="defaultAcknowledgeType" value="UNACKNOWLEDGED" />
+    <property name="defaultSortStyle" value="ID" />
+    <property name="webEventRepository" ref="webEventRepository" />
+  </bean>
+
+  <alias name="/event/list.htm" alias="/event/list" />
+  <bean name="/event/list.htm" class="org.opennms.web.controller.event.EventFilterController">
+    <property name="successView" value="event/list" />
+    <property name="defaultShortLimit" value="20" />
+    <property name="defaultLongLimit" value="10" />
+    <property name="defaultAcknowledgeType" value="UNACKNOWLEDGED" />
+    <property name="defaultSortStyle" value="ID" />
+    <property name="webEventRepository" ref="webEventRepository" />
+  </bean>
+
+  <bean name="/notification/acknowledge" class="org.opennms.web.controller.notification.AcknowledgeNotificationController">
+    <property name="webNotificationRepository" ref="webNotificationRepository" />
+    <property name="redirectView" value="/notification/list.htm" />
+  </bean>
+
+  <alias name="/notification/list.htm" alias="/notification/browse" />
+  <bean name="/notification/list.htm" class="org.opennms.web.controller.notification.NotificationFilterController">
+    <property name="successView" value="notification/list" />
+    <property name="defaultShortLimit" value="20" />
+    <property name="defaultLongLimit" value="10" />
+    <property name="defaultSortStyle" value="ID" />
+    <property name="webNotificationRepository" ref="webNotificationRepository" />
+    <property name="webEventRepository" ref="webEventRepository" />
+    <property name="nodeDao" ref="nodeDao" />
   </bean>
 
   <alias name="/outage/list.htm" alias="/outage/list" />
@@ -356,6 +415,12 @@
           <property name="file" value="${opennms.home}/etc/map.enable"/>
         </bean>
         
+        <bean class="org.opennms.web.navigate.ProvisionUserNavBarEntry">
+          <property name="name" value="Add Node"/>
+          <property name="url" value="admin/node/add.htm"/>
+          <property name="locationMatch" value="addNode"/>
+        </bean>
+
         <bean class="org.opennms.web.navigate.AdminUserNavBarEntry">
           <property name="name" value="Admin"/>
           <property name="url" value="admin/index.jsp"/>
@@ -387,6 +452,9 @@
   
   <!-- Availability Reports -->
   
+  <bean name="/report/availability/index.htm"
+  		class="org.springframework.web.servlet.mvc.UrlFilenameViewController" />
+  
   <bean name="/report/availability/report.htm"
   		class="org.opennms.web.controller.AvailabilityReportController">
   	<property name="availabilityReportService" ref="availabilityReportService"/>
@@ -399,7 +467,17 @@
   <bean name="/report/availability/list.htm"
   		class="org.opennms.web.controller.ReportListController">
   	<property name="reportListService" ref="reportListService"/>
-  	<property name="pageSize" value="1"/>
+  	<property name="pageSize" value="10"/>
+  </bean>
+  
+  <bean name="/report/availability/manage.htm" 
+  		class="org.opennms.web.controller.ManageAvailabilityReportController">
+    <property name="bindOnNewForm" value="true" />
+  	<property name="reportListService" ref="reportListService"/>
+    <property name="commandName" value="ManageAvailabilityReportCommand" />
+    <property name="commandClass" value="org.opennms.web.command.ManageAvailabilityReportCommand" />
+    <property name="pageSize" value="10"/>
+    <property name="successView" value="redirect:/report/availability/manage.htm" />
   </bean>
   
   <bean name="/graph/results.htm" class="org.opennms.web.controller.GraphResultsController">
@@ -548,6 +626,28 @@
     <property name="commandClass" value="org.opennms.web.controller.inventory.AdminRancidCloginCommClass"/>
     <property name="formView" value="admin/rancid/rancidAdmin"/>
     <property name="successView" value="admin/rancid/rancidAdmin"/> 
+  </bean>  
+  
+  <bean name="/admin/storage/storageAdmin.htm" class="org.opennms.web.controller.inventory.AdminStorageController">
+    <property name="inventoryService" ref="inventoryService"/>
+  </bean>        
+  
+  <bean name="/admin/storage/storageCreateBucket.htm" class="org.opennms.web.controller.inventory.AdminStorageCreateBucketController">
+    <property name="inventoryService" ref="inventoryService"/>
+    <property name="commandClass" value="org.opennms.web.controller.inventory.AdminStorageCommClass"/>
+    <property name="formView" value="admin/storage/storageAdmin"/>
+    <property name="successView" value="admin/storage/storageAdmin"/> 
+  </bean>  
+
+  <bean name="/admin/storage/storageDeleteBucket.htm" class="org.opennms.web.controller.inventory.AdminStorageDeleteBucketController">
+    <property name="inventoryService" ref="inventoryService"/>
+    <property name="commandClass" value="org.opennms.web.controller.inventory.AdminStorageCommClass"/>
+    <property name="formView" value="admin/storage/storageAdmin"/>
+    <property name="successView" value="admin/storage/storageAdmin"/> 
+  </bean>  
+
+  <bean name="/admin/storage/storageDeleteBucketItem.htm" class="org.opennms.web.controller.inventory.AdminStorageDeleteBucketItemController">
+    <property name="inventoryService" ref="inventoryService"/>
   </bean>  
  
 	<!-- Examples

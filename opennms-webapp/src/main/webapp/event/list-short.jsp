@@ -3,7 +3,7 @@
 //
 // This file is part of the OpenNMS(R) Application.
 //
-// OpenNMS(R) is Copyright (C) 2002-2008 The OpenNMS Group, Inc.  All rights reserved.
+// OpenNMS(R) is Copyright (C) 2002-2009 The OpenNMS Group, Inc.  All rights reserved.
 // OpenNMS(R) is a derivative work, containing both original code, included code and modified
 // code that was published under the GNU General Public License. Copyrights for modified 
 // and included code are below.
@@ -12,6 +12,7 @@
 //
 // Modifications:
 //
+// 2009 Apr: refactoring to support ACL DAO work
 // 2008 Aug 14: Sanitize input
 // 2005 Sep 30: Hacked up to use CSS for layout. -- DJ Gregor
 // 2004 Feb 11: remove the extra 'limit' parameter in the base URL.
@@ -51,14 +52,14 @@
 
 <%@page import="org.opennms.web.WebSecurityUtils" %>
 <%@page import="org.opennms.web.XssRequestWrapper" %>
-<%@page import="org.opennms.web.acegisecurity.Authentication" %>
+<%@page import="org.opennms.web.springframework.security.Authentication" %>
 
 <%@page import="org.opennms.web.filter.Filter"%>
 
+<%@page import="org.opennms.web.event.AcknowledgeType" %>
 <%@page import="org.opennms.web.event.EventUtil"%>
 <%@page import="org.opennms.web.event.Event"%>
 <%@page import="org.opennms.web.event.EventQueryParms"%>
-<%@page import="org.opennms.web.event.AcknowledgeEventServlet"%>
 
 <%@page import="org.opennms.web.event.filter.ExactUEIFilter"%>
 <%@page import="org.opennms.web.event.filter.NegativeExactUEIFilter"%>
@@ -103,11 +104,8 @@
 
     String action = null;
 
-    if( parms.ackType == AcknowledgeType.UNACKNOWLEDGED ) {
-        action = AcknowledgeEventServlet.ACKNOWLEDGE_ACTION;
-    } 
-    else if( parms.ackType == AcknowledgeType.ACKNOWLEDGED ) {
-        action = AcknowledgeEventServlet.UNACKNOWLEDGE_ACTION;
+    if ( parms.ackType != null ) {
+    	action = parms.ackType.getShortName();
     }
 
     //useful constant strings
@@ -281,7 +279,7 @@
         Event event = events[i];
         pageContext.setAttribute("event", event);
       %>
-        <tr class="<%=EventUtil.getSeverityLabel(events[i].getSeverity())%>">
+        <tr class="<%= events[i].getSeverity().getLabel() %>">
           <% if( !(req.isUserInRole( Authentication.READONLY_ROLE ))) { %>
           <td><input type="checkbox" name="event" value="<%=events[i].getId()%>" /></td>
             <% } %>
@@ -297,7 +295,7 @@
 						</td>
 
           <td class="bright noWrap"> 
-            <%=EventUtil.getSeverityLabel(events[i].getSeverity())%>
+            <%= events[i].getSeverity().getLabel() %>
             <% Filter severityFilter = new SeverityFilter(events[i].getSeverity()); %>      
             <% if( !parms.filters.contains( severityFilter )) { %>
                 <a href="<%=this.makeLink( parms, severityFilter, true)%>" class="filterLink" title="Show only events with this severity"><%=addPositiveFilterString%></a>
@@ -447,9 +445,9 @@
     public String makeLink( SortStyle sortStyle, AcknowledgeType ackType, List<Filter> filters, int limit ) {
       StringBuffer buffer = new StringBuffer( this.urlBase );
       buffer.append( "?sortby=" );
-      buffer.append( EventUtil.getSortStyleString(sortStyle) );
+      buffer.append( sortStyle.getShortName() );
       buffer.append( "&acktype=" );
-      buffer.append( EventUtil.getAcknowledgeTypeString(ackType) );
+      buffer.append( ackType.getShortName() );
       if (limit > 0) {
           buffer.append( "&limit=" ).append(limit);
       }

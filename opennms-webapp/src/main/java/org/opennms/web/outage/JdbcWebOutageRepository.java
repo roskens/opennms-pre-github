@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
-import org.opennms.web.outage.filter.Filter;
+import org.opennms.web.filter.Filter;
 import org.opennms.web.outage.filter.OutageCriteria;
 import org.opennms.web.outage.filter.OutageIdFilter;
 import org.opennms.web.outage.filter.OutageCriteria.BaseOutageCriteriaVisitor;
@@ -28,7 +28,15 @@ public class JdbcWebOutageRepository implements WebOutageRepository {
     SimpleJdbcTemplate m_simpleJdbcTemplate;
     
     public int countMatchingOutages(OutageCriteria criteria) {
-        String sql = getSql("SELECT COUNT(OUTAGEID) as OUTAGECOUNT FROM OUTAGES LEFT OUTER JOIN NODE USING (NODEID) LEFT OUTER JOIN SERVICE USING (SERVICEID)", null, criteria);
+        String sql = getSql("SELECT COUNT(OUTAGEID) as OUTAGECOUNT "
+                                + "FROM OUTAGES "
+                                + "LEFT OUTER JOIN NODE USING (NODEID) "
+                                + "LEFT OUTER JOIN SERVICE USING (SERVICEID) "
+                                + "JOIN IPINTERFACE ON OUTAGES.NODEID=IPINTERFACE.NODEID AND OUTAGES.IPADDR=IPINTERFACE.IPADDR "
+                                + "JOIN IFSERVICES ON OUTAGES.NODEID=IFSERVICES.NODEID AND OUTAGES.IPADDR=IFSERVICES.IPADDR AND "
+                                + "OUTAGES.SERVICEID=IFSERVICES.SERVICEID "
+                                , null, criteria);
+        // System.err.println("countMatchingOutages() = " + sql);
         return queryForInt(sql, paramSetter(criteria));
     }
 
@@ -43,16 +51,34 @@ public class JdbcWebOutageRepository implements WebOutageRepository {
                             + "LEFT OUTER JOIN NOTIFICATIONS ON SVCLOSTEVENTID=NOTIFICATIONS.EVENTID "
                             + "LEFT OUTER JOIN ASSETS ON NODE.NODEID=ASSETS.NODEID "
                             , null,criteria);
+        // System.err.println("getMatchingOutages() = " + sql);
         return getOutages(sql, paramSetter(criteria));
     }
 
     public int countMatchingOutageSummaries(OutageCriteria criteria) {
-        String sql = getSql("SELECT COUNT(DISTINCT NODEID) AS OUTAGECOUNT FROM OUTAGES LEFT OUTER JOIN NODE USING (NODEID) LEFT OUTER JOIN SERVICE USING (SERVICEID)", null, criteria);
+        String sql = getSql("SELECT COUNT(DISTINCT NODE.NODEID) AS OUTAGECOUNT "
+                            + "FROM OUTAGES "
+                            + "LEFT OUTER JOIN NODE USING (NODEID) "
+                            + "LEFT OUTER JOIN SERVICE USING (SERVICEID) "
+                            + "JOIN IPINTERFACE ON OUTAGES.NODEID=IPINTERFACE.NODEID AND OUTAGES.IPADDR=IPINTERFACE.IPADDR "
+                            + "JOIN IFSERVICES ON OUTAGES.NODEID=IFSERVICES.NODEID AND OUTAGES.IPADDR=IFSERVICES.IPADDR AND "
+                            + "OUTAGES.SERVICEID=IFSERVICES.SERVICEID "
+                            , null, criteria);
+        // System.err.println("countMatchingOutageSummaries() = " + sql);
         return queryForInt(sql, paramSetter(criteria));
     }
 
     public OutageSummary[] getMatchingOutageSummaries(OutageCriteria criteria) {
-        String sql = getSql("SELECT DISTINCT OUTAGES.NODEID, NODE.NODELABEL, max(OUTAGES.IFLOSTSERVICE) AS IFLOSTSERVICE, max(OUTAGES.IFREGAINEDSERVICE) AS IFREGAINEDSERVICE, NOW() AS CURRENTTIME FROM OUTAGES LEFT OUTER JOIN NODE USING (NODEID) LEFT OUTER JOIN SERVICE USING (SERVICEID)", "NODEID, NODELABEL", criteria);
+        String sql = getSql("SELECT DISTINCT "
+                            + "NODE.NODEID, NODE.NODELABEL, max(OUTAGES.IFLOSTSERVICE) AS IFLOSTSERVICE, max(OUTAGES.IFREGAINEDSERVICE) AS IFREGAINEDSERVICE, NOW() AS CURRENTTIME "
+                            + "FROM OUTAGES "
+                            + "LEFT OUTER JOIN NODE USING (NODEID) "
+                            + "LEFT OUTER JOIN SERVICE USING (SERVICEID) "
+                            + "JOIN IPINTERFACE ON OUTAGES.NODEID=IPINTERFACE.NODEID AND OUTAGES.IPADDR=IPINTERFACE.IPADDR "
+                            + "JOIN IFSERVICES ON OUTAGES.NODEID=IFSERVICES.NODEID AND OUTAGES.IPADDR=IFSERVICES.IPADDR AND "
+                            + "OUTAGES.SERVICEID=IFSERVICES.SERVICEID "
+                            , "NODE.NODEID, NODE.NODELABEL", criteria);
+        // System.err.println("getMatchingOutageSummaries() = " + sql);
         return getOutageSummaries(sql, paramSetter(criteria));
     }
 
@@ -85,7 +111,9 @@ public class JdbcWebOutageRepository implements WebOutageRepository {
 
             public void and(StringBuilder buf) {
                 if (first) {
-                    buf.append(" WHERE ");
+                    buf.append(" WHERE (NODE.NODETYPE IS NULL OR NODE.NODETYPE != 'D') AND (IPINTERFACE.ISMANAGED IS NULL OR IPINTERFACE.ISMANAGED != 'D') AND (IFSERVICES.STATUS IS NULL OR IFSERVICES.STATUS != 'D') AND ");
+//                    buf.append(" WHERE NODE.NODETYPE != 'D' AND ");
+//                    buf.append(" WHERE ");
                     first = false;
                 } else {
                     buf.append(" AND ");

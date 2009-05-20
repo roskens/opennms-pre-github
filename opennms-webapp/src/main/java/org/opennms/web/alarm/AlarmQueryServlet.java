@@ -1,7 +1,7 @@
 //
 // This file is part of the OpenNMS(R) Application.
 //
-// OpenNMS(R) is Copyright (C) 2002-2005 The OpenNMS Group, Inc.  All rights reserved.
+// OpenNMS(R) is Copyright (C) 2002-2009 The OpenNMS Group, Inc.  All rights reserved.
 // OpenNMS(R) is a derivative work, containing both original code, included code and modified
 // code that was published under the GNU General Public License. Copyrights for modified 
 // and included code are below.
@@ -10,6 +10,7 @@
 //
 // Modifications:
 //
+// 2009 Apr: refactoring to support ACL DAO work
 // 2008 Oct 04: Class name change from Severity -> OnmsSeverity and some method name changes; organize imports. - dj@opennms.org
 // 2008 Sep 27: Use new SeverityFilter signature that requires a Severity. - dj@opennms.org
 // 2007 Jul 24: Add serialVersionUID and Java 5 generics. - dj@opennms.org
@@ -67,13 +68,13 @@ import org.opennms.web.alarm.filter.LogMessageSubstringFilter;
 import org.opennms.web.alarm.filter.NodeNameLikeFilter;
 import org.opennms.web.alarm.filter.ServiceFilter;
 import org.opennms.web.alarm.filter.SeverityFilter;
-import org.opennms.web.event.EventFilterServlet;
+import org.opennms.web.controller.event.EventFilterController;
 import org.opennms.web.filter.Filter;
 
 /**
  * This servlet takes a large and specific request parameter set and maps it to
  * the more robust "filter" parameter set of the
- * {@link EventFilterServlet EventFilterServlet}via a redirect.
+ * {@link EventFilterController EventFilterController}via a redirect.
  * 
  * @author <A HREF="mailto:larry@opennms.org">Lawrence Karnowski </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
@@ -83,12 +84,12 @@ public class AlarmQueryServlet extends HttpServlet {
 
     /**
      * The list of parameters that are extracted by this servlet and not passed
-     * on to the {@link EventFilterServlet EventFilterServlet}.
+     * on to the {@link EventFilterController EventFilterController}.
      */
     protected static String[] IGNORE_LIST = new String[] { "msgsub", "msgmatchany", "nodenamelike", "service", "iplike", "severity", "relativetime", "usebeforetime", "beforehour", "beforeminute", "beforeampm", "beforedate", "beforemonth", "beforeyear", "useaftertime", "afterhour", "afterminute", "afterampm", "afterdate", "aftermonth", "afteryear" };
 
     /**
-     * The URL for the {@link EventFilterServlet EventFilterServlet}. The
+     * The URL for the {@link EventFilterController EventFilterController}. The
      * default is "list." This URL is a sibling URL, so it is relative to the
      * URL directory that was used to call this servlet (usually "event/").
      */
@@ -98,14 +99,14 @@ public class AlarmQueryServlet extends HttpServlet {
         ServletConfig config = this.getServletConfig();
 
         if (config.getInitParameter("redirect.url") != null) {
-            this.redirectUrl = config.getInitParameter("redirect.url");
+            redirectUrl = config.getInitParameter("redirect.url");
         }
     }
 
     /**
      * Extracts the key parameters from the parameter set, translates them into
      * filter-based parameters, and then passes the modified parameter set to
-     * the {@link EventFilterServlet EventFilterServlet}.
+     * the {@link EventFilterController EventFilterController}.
      */
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Filter> filterArray = new ArrayList<Filter>();
@@ -223,7 +224,7 @@ public class AlarmQueryServlet extends HttpServlet {
             queryString = Util.makeQueryString(request, IGNORE_LIST);
         }
 
-        response.sendRedirect(this.redirectUrl + "?" + queryString);
+        response.sendRedirect(redirectUrl + "?" + queryString);
     }
 
     protected BeforeFirstEventTimeFilter getBeforeFirstEventTimeFilter(HttpServletRequest request) {

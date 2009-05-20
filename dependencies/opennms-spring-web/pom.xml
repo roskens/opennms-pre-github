@@ -2,7 +2,7 @@
   <parent>
     <groupId>org.opennms</groupId>
     <artifactId>dependencies</artifactId>
-    <version>1.7.3-SNAPSHOT</version>
+    <version>1.7.4-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>opennms-spring-web</artifactId>
@@ -19,13 +19,25 @@
 
     <dependency>
       <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+      <version>${springVersion}</version>
+      <exclusions>
+        <exclusion><groupId>org.springframework</groupId><artifactId>spring-beans</artifactId></exclusion>
+        <exclusion><groupId>org.springframework</groupId><artifactId>spring-context</artifactId></exclusion>
+        <exclusion><groupId>org.springframework</groupId><artifactId>spring-context-support</artifactId></exclusion>
+        <exclusion><groupId>org.springframework</groupId><artifactId>spring-core</artifactId></exclusion>
+      </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
       <version>${springVersion}</version>
       <exclusions>
-	<exclusion><groupId>org.springframework</groupId><artifactId>spring-beans</artifactId></exclusion>
-	<exclusion><groupId>org.springframework</groupId><artifactId>spring-context</artifactId></exclusion>
-	<exclusion><groupId>org.springframework</groupId><artifactId>spring-context-support</artifactId></exclusion>
-	<exclusion><groupId>org.springframework</groupId><artifactId>spring-core</artifactId></exclusion>
+        <exclusion><groupId>org.springframework</groupId><artifactId>spring-beans</artifactId></exclusion>
+        <exclusion><groupId>org.springframework</groupId><artifactId>spring-context</artifactId></exclusion>
+        <exclusion><groupId>org.springframework</groupId><artifactId>spring-context-support</artifactId></exclusion>
+        <exclusion><groupId>org.springframework</groupId><artifactId>spring-core</artifactId></exclusion>
       </exclusions>
     </dependency>
 
@@ -34,10 +46,10 @@
       <artifactId>spring-webmvc-struts</artifactId>
       <version>${springVersion}</version>
       <exclusions>
-	<exclusion><groupId>org.springframework</groupId><artifactId>spring-beans</artifactId></exclusion>
-	<exclusion><groupId>org.springframework</groupId><artifactId>spring-context</artifactId></exclusion>
-	<exclusion><groupId>org.springframework</groupId><artifactId>spring-context-support</artifactId></exclusion>
-	<exclusion><groupId>org.springframework</groupId><artifactId>spring-core</artifactId></exclusion>
+        <exclusion><groupId>org.springframework</groupId><artifactId>spring-beans</artifactId></exclusion>
+        <exclusion><groupId>org.springframework</groupId><artifactId>spring-context</artifactId></exclusion>
+        <exclusion><groupId>org.springframework</groupId><artifactId>spring-context-support</artifactId></exclusion>
+        <exclusion><groupId>org.springframework</groupId><artifactId>spring-core</artifactId></exclusion>
       </exclusions>
     </dependency>
 

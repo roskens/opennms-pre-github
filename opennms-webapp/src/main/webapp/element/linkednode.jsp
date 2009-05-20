@@ -48,7 +48,7 @@
 		org.opennms.web.WebSecurityUtils,
 		org.opennms.web.element.*,
 		java.util.*,
-		org.opennms.web.acegisecurity.Authentication,
+		org.opennms.web.springframework.security.Authentication,
 		org.opennms.web.event.*,
 		java.net.*,org.opennms.core.utils.IPSorter,org.opennms.web.svclayer.ResourceService,org.springframework.web.context.WebApplicationContext,org.springframework.web.context.support.WebApplicationContextUtils"
 %>
@@ -256,7 +256,7 @@
       <div id="linkbar">
       <ul>
         <li>
-		<a href="event/list?filter=node%3D<%=nodeId%>">View Events</a>
+		<a href="event/list.htm?filter=node%3D<%=nodeId%>">View Events</a>
 	</li>
         <!-- li>
 		<a href="conf/inventorylist.jsp?node=<%=nodeId%>">Inventory</a>
@@ -393,7 +393,7 @@
                     <% if (intfs[i].getIfIndex() > 0) { %>
                         <%=intfs[i].getIfIndex()%>
                     <% } else { %>
-                        &nbsp
+                        &nbsp;
                     <% } %>
                 </td>
                 <td>
@@ -402,7 +402,7 @@
                     <% } else if (intfs[i].getSnmpIfName() != null && !intfs[i].getSnmpIfName().equals("") && !"0.0.0.0".equals(intfs[i].getIpAddress())) { %>
                         <%=intfs[i].getSnmpIfName()%>
                     <% } else { %>
-                        &nbsp
+                        &nbsp;
                     <% } %>
                 </td>
                 <% if (hasIfAliases) { %>
@@ -410,7 +410,7 @@
                         <% if (intfs[i].getSnmpIfAlias() != null && !intfs[i].getSnmpIfAlias().equals("")) { %>
                             <%=intfs[i].getSnmpIfAlias()%>
 		        <% } else {%>
-                            &nbsp
+                            &nbsp;
 		        <% } %>
                     </td>
 		<% } %>

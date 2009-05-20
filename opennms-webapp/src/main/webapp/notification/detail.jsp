@@ -3,7 +3,7 @@
 //
 // This file is part of the OpenNMS(R) Application.
 //
-// OpenNMS(R) is Copyright (C) 2002-2003 The OpenNMS Group, Inc.  All rights reserved.
+// OpenNMS(R) is Copyright (C) 2002-2009 The OpenNMS Group, Inc.  All rights reserved.
 // OpenNMS(R) is a derivative work, containing both original code, included code and modified
 // code that was published under the GNU General Public License. Copyrights for modified 
 // and included code are below.
@@ -12,6 +12,7 @@
 //
 // Modifications:
 //
+// 2009 Apr: refactoring to support ACL DAO work
 // 2003 Feb 07: Fixed URLEncoder issues.
 // 2002 Nov 26: Fixed breadcrumbs issue.
 // 
@@ -76,10 +77,10 @@
     }
 
     if (NoticeFactory.canDisplayEvent(notice.getEventId())) {
-	Event event = EventFactory.getEvent(notice.getEventId());
-	eventSeverity = EventUtil.getSeverityLabel(event.getSeverity());
+		Event event = EventFactory.getEvent(notice.getEventId());
+		eventSeverity = event.getSeverity().getLabel();
     } else {
-	eventSeverity = new String("Cleared");
+		eventSeverity = new String("Cleared");
     }
 
 %>
@@ -108,11 +109,11 @@
 <table>
   <tr class="<%=eventSeverity%>">
     <td width="15%">Notification Time</td>
-    <td width="17%"><%=org.opennms.netmgt.EventConstants.formatToUIString(notice.getTimeSent())%></td>
+    <td width="17%"><%=org.opennms.web.Util.formatDateToUIString(notice.getTimeSent())%></td>
     <td width="15%">Time&nbsp;Replied</td>
-    <td width="17%"><%=notice.getTimeReplied()!=null ? org.opennms.netmgt.EventConstants.formatToUIString(notice.getTimeReplied()) : "&nbsp"%></td>
+    <td width="17%"><%=notice.getTimeReplied()!=null ? org.opennms.web.Util.formatDateToUIString(notice.getTimeReplied()) : "&nbsp;"%></td>
     <td width="15%">Responder</td>
-    <td width="17%"><%=notice.getResponder()!=null ? notice.getResponder() : "&nbsp"%></td>
+    <td width="17%"><%=notice.getResponder()!=null ? notice.getResponder() : "&nbsp;"%></td>
   </tr>
   <tr class="<%=eventSeverity%>">
     <td width="15%">Node</td>
@@ -192,14 +193,12 @@
     </tr>
   </thead>
   
-  <% List sentToList = notice.getSentTo(); %>
-  <%  for (int i=0; i < sentToList.size(); i++) { %>
-    <%  NoticeSentTo sentTo = (NoticeSentTo)sentToList.get(i); %>
+  <%  for (NoticeSentTo sentTo : notice.getSentTo()) { %>
 
     <tr class="<%=eventSeverity%>">
       <td><%=sentTo.getUserId()%></td>
 
-      <td><%=org.opennms.netmgt.EventConstants.formatToUIString(sentTo.getTime())%></td>
+      <td><%=org.opennms.web.Util.formatDateToUIString(sentTo.getTime())%></td>
 
       <td>
         <% if (sentTo.getMedia()!=null && !sentTo.getMedia().trim().equals("")) { %>
@@ -225,7 +224,7 @@
 <% if (notice.getTimeReplied()==null) { %>
   <form method="post" name="acknowledge" action="notification/acknowledge">
     <input type="hidden" name="notices" value="<%=notice.getId()%>"/>
-    <input type="hidden" name="redirect" value="<%=request.getContextPath() + request.getServletPath() + "?" + request.getQueryString()%>" />
+    <input type="hidden" name="redirect" value="<%= request.getServletPath() + "?" + request.getQueryString()%>" />
     <input type="button" value="Acknowledge" onClick="javascript:acknowledgeNotice()"/>
   </form>
 <% } %>

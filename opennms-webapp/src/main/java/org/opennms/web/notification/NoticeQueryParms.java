@@ -1,7 +1,7 @@
 //
 // This file is part of the OpenNMS(R) Application.
 //
-// OpenNMS(R) is Copyright (C) 2002-2003 The OpenNMS Group, Inc.  All rights reserved.
+// OpenNMS(R) is Copyright (C) 2002-2009 The OpenNMS Group, Inc.  All rights reserved.
 // OpenNMS(R) is a derivative work, containing both original code, included code and modified
 // code that was published under the GNU General Public License. Copyrights for modified 
 // and included code are below.
@@ -10,6 +10,7 @@
 //
 // Modifications:
 //
+// 2009 Apr: Refactoring to support DAO ACL work
 // 2007 Jul 24: Java 5 generics. - dj@opennms.org
 //
 // Copyright (C) 1999-2001 Oculan Corp.  All rights reserved.
@@ -38,7 +39,7 @@ package org.opennms.web.notification;
 
 import java.util.List;
 
-import org.opennms.web.notification.filter.Filter;
+import org.opennms.web.filter.Filter;
 
 /**
  * Convenience data structure for holding the arguments to an notice query.
@@ -47,9 +48,9 @@ import org.opennms.web.notification.filter.Filter;
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
 public class NoticeQueryParms extends Object {
-    public NoticeFactory.SortStyle sortStyle;
+    public SortStyle sortStyle;
 
-    public NoticeFactory.AcknowledgeType ackType;
+    public AcknowledgeType ackType;
 
     public List<Filter> filters;
 
@@ -57,11 +58,13 @@ public class NoticeQueryParms extends Object {
 
     public int multiple;
 
+    public String display;
+    
     /**
      * Convert the internal (and useful) ArrayList filters object into an array
-     * of EventFactory.Filter instances.
+     * of Filter instances.
      */
     public Filter[] getFilters() {
-        return this.filters.toArray(new Filter[this.filters.size()]);
+        return filters.toArray(new Filter[filters.size()]);
     }
 }
