@@ -177,12 +177,6 @@ public class LinkProvisioningAdapterTest {
         verify();
     }
     
-    
-    @Test
-    public void dwoCheckNodeAdded(){
-        
-    }
-    
     public <T> T createMock(Class<T> clazz){
         return m_easyMock.createMock(clazz);
     }
