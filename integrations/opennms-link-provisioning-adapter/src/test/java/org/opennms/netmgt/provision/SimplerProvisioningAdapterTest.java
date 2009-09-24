@@ -38,6 +38,7 @@ package org.opennms.netmgt.provision;
 import static org.junit.Assert.*;
 
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -48,14 +49,20 @@ import org.junit.Test;
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  *
  */
-public class LinkProvisioningAdapterTest {
+public class SimplerProvisioningAdapterTest {
+    
+    public static String NAME = "MyProvisioningAdapter";
     
     CountDownLatch addLatch = new CountDownLatch(1);
     CountDownLatch deleteLatch = new CountDownLatch(1);
     CountDownLatch updateLatch = new CountDownLatch(1);
     CountDownLatch configChangeLatch = new CountDownLatch(1);
     
-    class MyLinkProvisioningAdapter extends LinkProvisioningAdapter {
+    class MyProvisioningAdapter extends SimplerQueuedProvisioningAdapter {
+        
+        public MyProvisioningAdapter() {
+            super(NAME);
+        }
 
         @Override
         public void doAddNode(int nodeid) {
@@ -69,33 +76,59 @@ public class LinkProvisioningAdapterTest {
 
         @Override
         public void doNotifyConfigChange(int nodeid) {
-            throw new UnsupportedOperationException("MyLinkProvisioningAdapter.doNotifyConfigChange is not yet implemented");
+            configChangeLatch.countDown();
         }
 
         @Override
         public void doUpdateNode(int nodeid) {
-            throw new UnsupportedOperationException("MyLinkProvisioningAdapter.doUpdateNode is not yet implemented");
+            updateLatch.countDown();
         }
         
     }
     
-    MyLinkProvisioningAdapter m_adapter = new MyLinkProvisioningAdapter();
+    MyProvisioningAdapter m_adapter = new MyProvisioningAdapter();
     
     @Before
     public void setUp() {
         m_adapter.init();
     }
+    
+    @Test
+    public void dwoGetName() {
+        assertEquals(NAME, m_adapter.getName());
+    }
 
     @Test
-    public void dwoAddNodeCallsDoAddNode() {
+    public void dwoAddNodeCallsDoAddNode() throws InterruptedException {
 
-        
+        m_adapter.addNode(1);
+        assertTrue(addLatch.await(2, TimeUnit.SECONDS));
 
     }
 
     @Test
-    public void dwoProcessPendingOperationForNodeAdapterOperation() {
-        fail("Not yet implemented");
+    public void dwoDeleteNodeCallsDoDeleteNode() throws InterruptedException {
+
+        m_adapter.deleteNode(1);
+        assertTrue(deleteLatch.await(2, TimeUnit.SECONDS));
+
     }
+
+    @Test
+    public void dwoUpdateNodeCallsDoUpdateNode() throws InterruptedException {
+
+        m_adapter.updateNode(1);
+        assertTrue(updateLatch.await(2, TimeUnit.SECONDS));
+
+    }
+
+    @Test
+    public void dwoNotifyConfigChangeCallsDoNotifyConfigChange() throws InterruptedException {
+
+        m_adapter.nodeConfigChanged(1);
+        assertTrue(configChangeLatch.await(2, TimeUnit.SECONDS));
+
+    }
+
 
 }

@@ -47,36 +47,31 @@ import org.opennms.core.utils.ThreadCategory;
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  *
  */
-public class LinkProvisioningAdapter extends SimpleQueuedProvisioningAdapter {
+public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter {
 
     private static final String ADAPTER_NAME = "LinkAdapter";
-
-    @Override
-    public String getName() {
-        return ADAPTER_NAME;
+    
+    public LinkProvisioningAdapter() {
+        super(ADAPTER_NAME);
     }
 
-    @Override
-    public boolean isNodeReady(AdapterOperation op) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public void processPendingOperationForNode(final AdapterOperation op) throws ProvisioningAdapterException {
-        log().info("processPendingOperationForNode: Handling Operation: "+op);
+    public void doAddNode(int nodeid) {
         
-        if (op.getType() == AdapterOperationType.ADD || op.getType() == AdapterOperationType.UPDATE) {
-            throw new ProvisioningAdapterException(new UnsupportedOperationException("This operation: "+op+", is currently not supported."));
-        } else if (op.getType() == AdapterOperationType.DELETE) {
-            throw new ProvisioningAdapterException(new UnsupportedOperationException("This operation: "+op+", is currently not supported."));
-        } else if (op.getType() == AdapterOperationType.CONFIG_CHANGE) {
-            throw new ProvisioningAdapterException(new UnsupportedOperationException("This operation: "+op+", is currently not supported."));
-        } else {
-            log().warn("unknown operation: " + op.getType());
-        }
     }
-
+    
+    public void doUpdateNode(int nodeid) {
+        
+    }
+    
+    public void doDeleteNode(int nodeid) {
+        
+    }
+    
+    public void doNotifyConfigChange(int nodeid) {
+        
+    }
+    
+    
     private static Category log() {
         return ThreadCategory.getInstance(LinkProvisioningAdapter.class);
     }
