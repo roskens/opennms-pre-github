@@ -38,6 +38,8 @@ package org.opennms.netmgt.provision;
 
 import org.apache.log4j.Category;
 import org.opennms.core.utils.ThreadCategory;
+import org.opennms.netmgt.dao.NodeDao;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 /**
@@ -51,11 +53,29 @@ public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter {
 
     private static final String ADAPTER_NAME = "LinkAdapter";
     
+    @Autowired
+    NodeDao m_dao;
+    
+    private LinkMatchResolver m_linkMatchResolver;
+
+    private NodeLinkService m_nodeLinkService;
+    
     public LinkProvisioningAdapter() {
         super(ADAPTER_NAME);
     }
 
-    public void doAddNode(int nodeid) {
+    public void doAddNode(int nodeId1) {
+        String nodeLabel1 = m_nodeLinkService.getNodeLabel(nodeId1);
+        String nodeLabel2 = m_linkMatchResolver.getAssociatedEndPoint(nodeLabel1);
+
+        Integer nodeId2 = m_nodeLinkService.getNodeId(nodeLabel2);
+        if(nodeId2 != null){
+            if(nodeLabel1.compareTo(nodeLabel2) < 0){
+                m_nodeLinkService.createLink(nodeId1, nodeId2);
+            }else{
+                m_nodeLinkService.createLink(nodeId2, nodeId1);
+            }
+        }
         
     }
     
@@ -74,6 +94,26 @@ public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter {
     
     private static Category log() {
         return ThreadCategory.getInstance(LinkProvisioningAdapter.class);
+    }
+
+    public void setLinkMatchResolver(LinkMatchResolver linkMatchResolver) {
+        m_linkMatchResolver = linkMatchResolver;
+    }
+
+    public LinkMatchResolver getLinkMatchResolver() {
+        return m_linkMatchResolver;
+    }
+
+    public void setNodeLinkService(NodeLinkService nodeLinkService) {
+        m_nodeLinkService = nodeLinkService;
+    }
+    
+    private String min(String a, String b){
+         return a.compareTo(b) < 0 ? a : b;  
+    }
+    
+    private String max(String a, String b){
+        return a.compareTo(b) < 0 ? b : a;
     }
 
 }

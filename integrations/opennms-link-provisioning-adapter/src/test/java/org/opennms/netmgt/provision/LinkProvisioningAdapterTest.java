@@ -35,12 +35,32 @@
  */
 package org.opennms.netmgt.provision;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
+import static org.easymock.EasyMock.*;
 
-import java.util.concurrent.CountDownLatch;
-
+import org.easymock.IAnswer;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.opennms.netmgt.dao.DatabasePopulator;
+import org.opennms.netmgt.dao.NodeDao;
+import org.opennms.netmgt.dao.db.JUnitTemporaryDatabase;
+import org.opennms.netmgt.dao.db.OpenNMSConfigurationExecutionListener;
+import org.opennms.netmgt.dao.db.TemporaryDatabaseExecutionListener;
+import org.opennms.netmgt.dao.hibernate.NodeDaoHibernate;
+import org.opennms.netmgt.model.OnmsNode;
+import org.opennms.test.mock.EasyMockUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
 /**
  * Test the user stories/use cases associated with the Link Adapter.
@@ -50,52 +70,128 @@ import org.junit.Test;
  */
 public class LinkProvisioningAdapterTest {
     
-    CountDownLatch addLatch = new CountDownLatch(1);
-    CountDownLatch deleteLatch = new CountDownLatch(1);
-    CountDownLatch updateLatch = new CountDownLatch(1);
-    CountDownLatch configChangeLatch = new CountDownLatch(1);
+    public static final String END_POINT_1 = "nc-ral0001-to-ral0002-dwave";
+    public static final String END_POINT_2 = "nc-ral0002-to-ral0001-dwave";
     
-    class MyLinkProvisioningAdapter extends LinkProvisioningAdapter {
-
-        @Override
-        public void doAddNode(int nodeid) {
-            addLatch.countDown();
-        }
-
-        @Override
-        public void doDeleteNode(int nodeid) {
-            deleteLatch.countDown();
-        }
-
-        @Override
-        public void doNotifyConfigChange(int nodeid) {
-            throw new UnsupportedOperationException("MyLinkProvisioningAdapter.doNotifyConfigChange is not yet implemented");
-        }
-
-        @Override
-        public void doUpdateNode(int nodeid) {
-            throw new UnsupportedOperationException("MyLinkProvisioningAdapter.doUpdateNode is not yet implemented");
-        }
-        
-    }
+    LinkProvisioningAdapter m_adapter;
     
-    MyLinkProvisioningAdapter m_adapter = new MyLinkProvisioningAdapter();
+    EasyMockUtils m_easyMock = new EasyMockUtils();
+
+    private LinkMatchResolver m_matchResolver;
+
+    private NodeLinkService m_nodeLinkService;
+    
     
     @Before
     public void setUp() {
-        m_adapter.init();
-    }
-
-    @Test
-    public void dwoAddNodeCallsDoAddNode() {
-
+        m_matchResolver = createMock(LinkMatchResolver.class);
+        m_nodeLinkService = createMock(NodeLinkService.class);
         
-
+        expect(m_matchResolver.getAssociatedEndPoint(END_POINT_1)).andStubReturn(END_POINT_2);
+        expect(m_matchResolver.getAssociatedEndPoint(END_POINT_2)).andStubReturn(END_POINT_1);
+        expect(m_matchResolver.getAssociatedEndPoint(not(or(eq(END_POINT_1), eq(END_POINT_2))))).andStubReturn(null);
+        
+        expect(m_nodeLinkService.getNodeLabel(1)).andStubReturn(END_POINT_1);
+        expect(m_nodeLinkService.getNodeLabel(2)).andStubReturn(END_POINT_2);
+        expect(m_nodeLinkService.getNodeLabel(not(or(eq(1), eq(2))))).andStubReturn(null);
+        
     }
-
+    
     @Test
-    public void dwoProcessPendingOperationForNodeAdapterOperation() {
-        fail("Not yet implemented");
+    public void dwoTestStubs(){
+        replay();
+        assertEquals(END_POINT_2, m_matchResolver.getAssociatedEndPoint(END_POINT_1));
+        assertEquals(END_POINT_1, m_matchResolver.getAssociatedEndPoint(END_POINT_2));
+        assertNull(m_matchResolver.getAssociatedEndPoint("other"));
+        
+        assertEquals(END_POINT_1, m_nodeLinkService.getNodeLabel(1));
+        assertEquals(END_POINT_2, m_nodeLinkService.getNodeLabel(2));
+        assertNull(m_nodeLinkService.getNodeLabel(17));
+        
+        verify();
     }
+    
+    
+    
+    @Test
+    public void dwoAddLinkedNodes() {
+        
+        expect(m_nodeLinkService.getNodeId(END_POINT_1)).andStubReturn(1);
+        
+        // we make node2 return null the first time so when node1 is added it appear node2 is not there
+        expect(m_nodeLinkService.getNodeId(END_POINT_2)).andReturn(null).andStubReturn(2);
 
+        m_nodeLinkService.createLink(1, 2);
+        
+        replay();
+        
+        m_adapter = new LinkProvisioningAdapter();
+        m_adapter.setLinkMatchResolver(m_matchResolver);
+        m_adapter.setNodeLinkService(m_nodeLinkService);
+        
+        
+        
+        m_adapter.doAddNode(1);
+        m_adapter.doAddNode(2);
+         
+        
+        
+        verify();
+    }
+    
+    @Test
+    public void dwoAddEndPoint2EndPoint1Exists() {
+        
+        expect(m_nodeLinkService.getNodeId(END_POINT_1)).andStubReturn(1);
+        expect(m_nodeLinkService.getNodeId(END_POINT_2)).andStubReturn(2);
+
+        m_nodeLinkService.createLink(1, 2);
+        
+        replay();
+        
+        m_adapter = new LinkProvisioningAdapter();
+        m_adapter.setLinkMatchResolver(m_matchResolver);
+        m_adapter.setNodeLinkService(m_nodeLinkService);
+        
+        m_adapter.doAddNode(2);
+        
+        verify();
+    }
+    
+    @Test
+    public void dwoAddEndPoint1EndPoint2Exists() {
+        
+        expect(m_nodeLinkService.getNodeId(END_POINT_1)).andStubReturn(1);
+        expect(m_nodeLinkService.getNodeId(END_POINT_2)).andStubReturn(2);
+
+       m_nodeLinkService.createLink(1, 2);
+        
+        replay();
+        
+        m_adapter = new LinkProvisioningAdapter();
+        m_adapter.setLinkMatchResolver(m_matchResolver);
+        m_adapter.setNodeLinkService(m_nodeLinkService);
+        
+        m_adapter.doAddNode(1);
+        
+        verify();
+    }
+    
+    
+    @Test
+    public void dwoCheckNodeAdded(){
+        
+    }
+    
+    public <T> T createMock(Class<T> clazz){
+        return m_easyMock.createMock(clazz);
+    }
+    
+    public void verify(){
+        m_easyMock.verifyAll();
+    }
+    
+    public void replay(){
+        m_easyMock.replayAll();
+    }
 }
