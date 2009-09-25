@@ -39,6 +39,7 @@ package org.opennms.netmgt.provision;
 import org.apache.log4j.Category;
 import org.opennms.core.utils.ThreadCategory;
 import org.opennms.netmgt.dao.NodeDao;
+import org.opennms.netmgt.xml.event.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 
@@ -95,6 +96,14 @@ public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter {
     }
     
     public void doNotifyConfigChange(int nodeid) {
+        
+    }
+    
+    public void dataLinkFailedEvent(Event event){
+        
+    }
+    
+    public void dataLinkRestored(Event event){
         
     }
     
