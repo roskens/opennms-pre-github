@@ -42,8 +42,12 @@ import static org.easymock.EasyMock.or;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
+import java.util.Date;
+
 import org.junit.Before;
 import org.junit.Test;
+import org.opennms.netmgt.model.events.EventBuilder;
+import org.opennms.netmgt.xml.event.Event;
 import org.opennms.test.mock.EasyMockUtils;
 
 /**
@@ -56,6 +60,8 @@ public class LinkProvisioningAdapterTest {
     
     public static final String END_POINT_1 = "nc-ral0001-to-ral0002-dwave";
     public static final String END_POINT_2 = "nc-ral0002-to-ral0001-dwave";
+    public static final String UP_STATUS = "G";
+    public static final String FAILED_STATUS = "B";
     
     LinkProvisioningAdapter m_adapter;
     
@@ -148,7 +154,7 @@ public class LinkProvisioningAdapterTest {
         expect(m_nodeLinkService.getNodeId(END_POINT_1)).andStubReturn(1);
         expect(m_nodeLinkService.getNodeId(END_POINT_2)).andStubReturn(2);
 
-       m_nodeLinkService.createLink(1, 2);
+        m_nodeLinkService.createLink(1, 2);
         
         replay();
         
@@ -157,6 +163,94 @@ public class LinkProvisioningAdapterTest {
         m_adapter.setNodeLinkService(m_nodeLinkService);
         
         m_adapter.doAddNode(1);
+        
+        verify();
+    }
+    
+    @Test
+    public void dwoDataLinkFailedEventEndPoint1(){
+        
+        expect(m_nodeLinkService.getNodeId(END_POINT_1)).andStubReturn(1);
+        expect(m_nodeLinkService.getNodeId(END_POINT_2)).andStubReturn(2);
+        
+        m_nodeLinkService.updateLinkStatus(1,2, FAILED_STATUS);
+        
+        replay();
+        
+        EventBuilder eventBuilder = new EventBuilder("uei.opennms.org/internal/linkd/dataLinkFailed", END_POINT_1);
+        eventBuilder.setCreationTime(new Date());
+        eventBuilder.setDescription("nodeLinkFailed");
+        
+        m_adapter = new LinkProvisioningAdapter();
+        m_adapter.setLinkMatchResolver(m_matchResolver);
+        m_adapter.setNodeLinkService(m_nodeLinkService);
+        m_adapter.dataLinkFailed(eventBuilder.getEvent());
+        
+        verify();
+    }
+    
+    @Test
+    public void dwoDataLinkFailEventEndPoint2(){
+        
+        expect(m_nodeLinkService.getNodeId(END_POINT_1)).andStubReturn(1);
+        expect(m_nodeLinkService.getNodeId(END_POINT_2)).andStubReturn(2);
+        
+        m_nodeLinkService.updateLinkStatus(2, 1, FAILED_STATUS);
+        
+        replay();
+        
+        EventBuilder eventBuilder = new EventBuilder("uei.opennms.org/internal/linkd/dataLinkFailed", END_POINT_2);
+        eventBuilder.setCreationTime(new Date());
+        eventBuilder.setDescription("nodeLinkFailed");
+        
+        m_adapter = new LinkProvisioningAdapter();
+        m_adapter.setLinkMatchResolver(m_matchResolver);
+        m_adapter.setNodeLinkService(m_nodeLinkService);
+        m_adapter.dataLinkFailed(eventBuilder.getEvent());
+        
+        verify();
+    }
+    
+    @Test
+    public void dwoDataLinkRestoredEventEndPoint1(){
+
+        expect(m_nodeLinkService.getNodeId(END_POINT_1)).andStubReturn(1);
+        expect(m_nodeLinkService.getNodeId(END_POINT_2)).andStubReturn(2);
+        
+        m_nodeLinkService.updateLinkStatus(1,2, UP_STATUS);
+        
+        replay();
+        
+        EventBuilder eventBuilder = new EventBuilder("uei.opennms.org/internal/linkd/dataLinkRestored", END_POINT_1);
+        eventBuilder.setCreationTime(new Date());
+        eventBuilder.setDescription("nodeLinkFailed");
+        
+        m_adapter = new LinkProvisioningAdapter();
+        m_adapter.setLinkMatchResolver(m_matchResolver);
+        m_adapter.setNodeLinkService(m_nodeLinkService);
+        m_adapter.dataLinkRestored(eventBuilder.getEvent());
+        
+        verify();
+    }
+    
+    @Test
+    public void dwoDataLinkRestoredEventEndPoint2(){
+
+        expect(m_nodeLinkService.getNodeId(END_POINT_1)).andStubReturn(1);
+        expect(m_nodeLinkService.getNodeId(END_POINT_2)).andStubReturn(2);
+        
+        m_nodeLinkService.updateLinkStatus(1,2, UP_STATUS);
+        
+        replay();
+        
+        EventBuilder eventBuilder = new EventBuilder("uei.opennms.org/internal/linkd/dataLinkRestored", END_POINT_1);
+        eventBuilder.setCreationTime(new Date());
+        eventBuilder.setDescription("nodeLinkFailed");
+        
+        m_adapter = new LinkProvisioningAdapter();
+        m_adapter.setLinkMatchResolver(m_matchResolver);
+        m_adapter.setNodeLinkService(m_nodeLinkService);
+        m_adapter.dataLinkRestored(eventBuilder.getEvent());
         
         verify();
     }

@@ -131,4 +131,15 @@ public class DefaultNodeLinkServiceTest {
         assertEquals(1, dataLinks.size());
     }
     
+    @Test
+    public void dwoTestUpdateLinkStatus(){
+        Collection<DataLinkInterface> dataLinks = m_dataLinkDao.findByNodeId(END_POINT2_ID);
+        assertEquals("A", dataLinks.iterator().next().getStatus());
+        
+        m_nodeLinkService.updateLinkStatus(END_POINT2_ID, END_POINT1_ID, "G");
+        
+        dataLinks = m_dataLinkDao.findByNodeId(END_POINT2_ID);
+        assertEquals("G", dataLinks.iterator().next().getStatus());
+    }
+    
 }

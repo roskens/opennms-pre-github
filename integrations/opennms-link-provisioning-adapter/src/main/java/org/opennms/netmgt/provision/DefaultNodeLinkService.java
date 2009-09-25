@@ -80,4 +80,20 @@ public class DefaultNodeLinkService implements NodeLinkService {
         return null;
     }
 
+    public void updateLinkStatus(int nodeId, int parentNodeId, String status) {
+        OnmsCriteria criteria = new OnmsCriteria(DataLinkInterface.class);
+        criteria.add(Restrictions.eq("nodeId", nodeId));
+        criteria.add(Restrictions.eq("nodeParentId", parentNodeId));
+        
+        Collection<DataLinkInterface> dataLinkInterface = m_dataLinkDao.findMatching(criteria);
+        
+        if(dataLinkInterface.size() > 0){
+            DataLinkInterface dataLink = dataLinkInterface.iterator().next();
+            dataLink.setStatus(status);
+            
+            m_dataLinkDao.update(dataLink);
+            m_dataLinkDao.flush();
+        }
+    }
+
 }
