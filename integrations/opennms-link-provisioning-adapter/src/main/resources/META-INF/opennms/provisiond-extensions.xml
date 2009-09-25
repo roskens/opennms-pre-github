@@ -13,9 +13,8 @@
     <constructor-arg value="${opennms.home}/etc/link-adapter-configuration.xml" />
   </bean>
   
-  <bean id="linkAdapterConfigDao" class="org.opennms.netmgt.provision.config.linkadapter.LinkAdapterConfigDao">
+  <bean id="linkAdapterConfigDao" class="org.opennms.netmgt.provision.config.linkadapter.DefaultLinkAdapterConfigurationDao">
     <property name="configResource" ref="linkAdapterConfigResourceLocation" />
-    <property name="reloadCheckInterval" value="-1" />
   </bean>
   
   <bean name="linkMatchResolver" class="org.opennms.netmgt.provision.DefaultLinkMatchResolverImpl" />

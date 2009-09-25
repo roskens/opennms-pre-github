@@ -1,12 +1,12 @@
 package org.opennms.netmgt.provision;
 
-import java.util.Set;
-
-import org.opennms.netmgt.provision.config.linkadapter.LinkAdapterConfigDao;
+import org.opennms.netmgt.provision.config.linkadapter.DefaultLinkAdapterConfigurationDao;
 import org.opennms.netmgt.provision.config.linkadapter.LinkPattern;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class DefaultLinkMatchResolverImpl implements LinkMatchResolver {
-    private LinkAdapterConfigDao m_configDao = new LinkAdapterConfigDao();
+    @Autowired
+    private DefaultLinkAdapterConfigurationDao m_configDao;
     
     public String getAssociatedEndPoint(String endPoint) {
         if (m_configDao != null) {
@@ -19,15 +19,5 @@ public class DefaultLinkMatchResolverImpl implements LinkMatchResolver {
         }
 
         return null;
-    }
-
-    public synchronized void addPattern(LinkPattern p) {
-        Set<LinkPattern> patterns = m_configDao.getPatterns();
-        patterns.add(p);
-        m_configDao.setPatterns(patterns);
-    }
-
-    public void setPatterns(Set<LinkPattern> patterns) {
-        m_configDao.setPatterns(patterns);
     }
 }

@@ -1,6 +1,7 @@
 package org.opennms.netmgt.provision.config.linkadapter;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Set;
 
@@ -17,17 +18,16 @@ import org.springframework.core.io.Resource;
 import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.util.Assert;
 
-public class LinkAdapterConfigDao extends AbstractCastorConfigDao<LinkAdapterConfiguration, LinkAdapterConfiguration> {
-    LinkAdapterConfiguration m_config;
+public class DefaultLinkAdapterConfigurationDao extends AbstractCastorConfigDao<LinkAdapterConfiguration, LinkAdapterConfiguration> implements LinkAdapterConfigurationDao {
     private JAXBContext m_context;
     private Marshaller m_marshaller;
     private Unmarshaller m_unmarshaller;
     
-    public LinkAdapterConfigDao() {
-        super(LinkAdapterConfiguration.class, "Map link adapter configuration");
+    public DefaultLinkAdapterConfigurationDao() {
+        super(LinkAdapterConfiguration.class, "Map Link Adapter Configuration");
     }
     
-    public LinkAdapterConfigDao(Class<LinkAdapterConfiguration> entityClass, String description) {
+    public DefaultLinkAdapterConfigurationDao(Class<LinkAdapterConfiguration> entityClass, String description) {
         super(entityClass, description);
     }
 
@@ -37,19 +37,38 @@ public class LinkAdapterConfigDao extends AbstractCastorConfigDao<LinkAdapterCon
     }
 
     public Set<LinkPattern> getPatterns() {
-        Assert.notNull(m_config, "LinkAdapterConfigDao has no configuration loaded!");
+        Assert.notNull(getContainer(), "LinkAdapterConfigDao has no container!");
+        Assert.notNull(getContainer().getObject(), "LinkAdapterConfigDao has no configuration loaded!");
         return getContainer().getObject().getPatterns();
     }
 
     public void setPatterns(Set<LinkPattern> patterns) {
-        Assert.notNull(m_config, "LinkAdapterConfigDao has no configuration loaded!");
+        Assert.notNull(getContainer(), "LinkAdapterConfigDao has no container!");
+        Assert.notNull(getContainer().getObject(), "LinkAdapterConfigDao has no configuration loaded!");
         getContainer().getObject().setPatterns(patterns);
+    }
+
+    public synchronized void saveCurrent() {
+        File file;
+        try {
+            file = getConfigResource().getFile();
+        } catch (IOException e) {
+            throw new DataAccessResourceFailureException("Unable to determine file for " + getConfigResource() + ": " + e, e);
+        }
+        if (file == null) {
+            throw new DataAccessResourceFailureException("Unable to determine file for " + getConfigResource());
+        }
+        try {
+            m_marshaller.marshal(getContainer().getObject(), file);
+        } catch (Exception e) {
+            throw new DataAccessResourceFailureException("Could not marshal configuration file for " + getConfigResource() + ": " + e, e);
+        }
     }
 
     @Override
     protected LinkAdapterConfiguration loadConfig(Resource resource) {
         long startTime = System.currentTimeMillis();
-        
+
         if (log().isDebugEnabled()) {
             log().debug("Loading " + getDescription() + " configuration from " + resource);
         }
@@ -61,19 +80,10 @@ public class LinkAdapterConfigDao extends AbstractCastorConfigDao<LinkAdapterCon
             
             long endTime = System.currentTimeMillis();
             log().info(createLoadedLogMessage(config, (endTime - startTime)));
-            
+
             return config;
         } catch (Exception e) {
             throw new JAXBDataAccessFailureException("Unable to unmarshal the link adapter configuration.", e);
-        }
-    }
-
-    public synchronized void saveCurrent() {
-        try {
-            File file = getConfigResource().getFile();
-            m_marshaller.marshal(getContainer().getObject(), file);
-        } catch (Exception e) {
-            throw new DataAccessResourceFailureException("Could not marshal configuration file for " + getConfigResource() + ": " + e, e);
         }
     }
 
@@ -98,6 +108,5 @@ public class LinkAdapterConfigDao extends AbstractCastorConfigDao<LinkAdapterCon
 
         super.afterPropertiesSet();
     }
-
 
 }

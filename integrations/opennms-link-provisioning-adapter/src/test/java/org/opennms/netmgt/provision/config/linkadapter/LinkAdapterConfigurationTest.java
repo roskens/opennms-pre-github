@@ -6,8 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Properties;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -24,25 +23,34 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.opennms.netmgt.dao.db.JUnitTemporaryDatabase;
 import org.opennms.netmgt.dao.db.OpenNMSConfigurationExecutionListener;
-import org.opennms.netmgt.provision.DefaultLinkMatchResolverImpl;
+import org.opennms.netmgt.dao.db.TemporaryDatabaseExecutionListener;
 import org.opennms.netmgt.provision.config.DefaultNamespacePrefixMapper;
 import org.opennms.test.FileAnticipator;
+import org.opennms.test.mock.MockLogAppender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestExecutionListeners({
     OpenNMSConfigurationExecutionListener.class,
-    DependencyInjectionTestExecutionListener.class
+    TemporaryDatabaseExecutionListener.class,
+    DependencyInjectionTestExecutionListener.class,
+    DirtiesContextTestExecutionListener.class,
+    TransactionalTestExecutionListener.class
 })
 @ContextConfiguration(locations={
-        "classpath*:/META-INF/opennms/provisiond-extensions.xml"
+        "classpath:/META-INF/opennms/applicationContext-dao.xml",
+        "classpath*:/META-INF/opennms/provisiond-extensions.xml",
+        "classpath:/linkTestContext.xml"
 })
-@Ignore
+@JUnitTemporaryDatabase()
 public class LinkAdapterConfigurationTest {
 
     static private class TestOutputResolver extends SchemaOutputResolver {
@@ -58,11 +66,9 @@ public class LinkAdapterConfigurationTest {
     }
 
     @Autowired
-    private DefaultLinkMatchResolverImpl m_resolver;
+    private DefaultLinkAdapterConfigurationDao m_linkConfigDao;
     
     private FileAnticipator m_fileAnticipator;
-
-    private LinkAdapterConfiguration m_linkAdapterConfiguration;
 
     private JAXBContext m_context;
 
@@ -74,11 +80,6 @@ public class LinkAdapterConfigurationTest {
     public void setUp() throws Exception {
         m_fileAnticipator = new FileAnticipator();
 
-        Set<LinkPattern> patterns = new HashSet<LinkPattern>();
-        patterns.add(new LinkPattern("before-(.*?)-after", "middle-was-$1"));
-        patterns.add(new LinkPattern("foo-(.*?)-baz", "middle-was-$1"));
-        m_resolver.setPatterns(patterns);
-        
         m_context = JAXBContext.newInstance(LinkAdapterConfiguration.class, LinkPattern.class);
 
         m_marshaller = m_context.createMarshaller();
@@ -88,6 +89,13 @@ public class LinkAdapterConfigurationTest {
         m_unmarshaller = m_context.createUnmarshaller();
         m_unmarshaller.setSchema(null);
 
+        Properties props = new Properties();
+        props.setProperty("log4j.logger.org.springframework", "WARN");
+        props.setProperty("log4j.logger.org.hibernate", "WARN");
+        props.setProperty("log4j.logger.org.opennms", "DEBUG");
+        props.setProperty("log4j.logger.org.opennms.netmgt.dao.castor", "WARN");
+        MockLogAppender.setupLogging(props);
+        
         XMLUnit.setIgnoreComments(true);
         XMLUnit.setIgnoreWhitespace(true);
         XMLUnit.setIgnoreAttributeOrder(true);
@@ -119,11 +127,13 @@ public class LinkAdapterConfigurationTest {
     @Test
     public void generateXML() throws JAXBException {
         StringWriter objectXML = new StringWriter();
-        m_marshaller.marshal(m_linkAdapterConfiguration, objectXML);
+        LinkAdapterConfiguration config = new LinkAdapterConfiguration();
+        config.setPatterns(m_linkConfigDao.getPatterns());
+        m_marshaller.marshal(config, objectXML);
         System.err.println(objectXML.toString());
     }
     
-    @Test
+    @Test(expected=Exception.class)
     @Ignore("I can't find a way to get JAXB to set minOccurs=1 with annotations...")
     public void testRequireLinkTag() throws Exception {
         ValidationEventHandler handler = new DefaultValidationEventHandler();

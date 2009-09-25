@@ -32,7 +32,7 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 @ContextConfiguration(locations={
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
-        "classpath:/META-INF/opennms/provisiond-extensions.xml",
+        "classpath*:/META-INF/opennms/provisiond-extensions.xml",
         "classpath:/META-INF/opennms/linkAdapterTestContext.xml",
         "classpath:/linkTestContext.xml"
 })

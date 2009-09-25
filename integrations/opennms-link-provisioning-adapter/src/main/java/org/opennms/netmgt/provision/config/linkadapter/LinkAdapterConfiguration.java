@@ -6,6 +6,8 @@ import java.util.Set;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 @XmlRootElement(name="link-adapter-configuration")
 public class LinkAdapterConfiguration {
     Set<LinkPattern> m_patterns = new HashSet<LinkPattern>();
@@ -22,5 +24,11 @@ public class LinkAdapterConfiguration {
     public synchronized void setPatterns(Set<LinkPattern> patterns) {
         m_patterns.clear();
         m_patterns.addAll(patterns);
+    }
+    
+    public String toString() {
+        return new ToStringBuilder(this)
+            .append("patterns", m_patterns)
+            .toString();
     }
 }

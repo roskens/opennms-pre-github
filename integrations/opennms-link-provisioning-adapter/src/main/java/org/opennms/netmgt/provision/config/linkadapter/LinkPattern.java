@@ -7,6 +7,8 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 /* Note that this root element is not referenced as link-pattern generally, it will be in a <for />
  * tag inside the {@link LinkAdapterConfiguration}, normally.
  */
@@ -55,4 +57,10 @@ public class LinkPattern {
         return null;
     }
 
+    public String toString() {
+        return new ToStringBuilder(this)
+            .append("pattern", m_pattern)
+            .append("template", m_template)
+            .toString();
+    }
 }

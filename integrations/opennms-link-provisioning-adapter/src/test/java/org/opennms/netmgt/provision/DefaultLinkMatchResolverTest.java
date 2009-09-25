@@ -6,10 +6,11 @@ import static org.junit.Assert.assertNull;
 import java.util.Properties;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.opennms.netmgt.dao.db.JUnitTemporaryDatabase;
 import org.opennms.netmgt.dao.db.OpenNMSConfigurationExecutionListener;
+import org.opennms.netmgt.dao.db.TemporaryDatabaseExecutionListener;
 import org.opennms.test.mock.MockLogAppender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -22,16 +23,17 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestExecutionListeners({
     OpenNMSConfigurationExecutionListener.class,
+    TemporaryDatabaseExecutionListener.class,
     DependencyInjectionTestExecutionListener.class,
     DirtiesContextTestExecutionListener.class,
     TransactionalTestExecutionListener.class
 })
 @ContextConfiguration(locations={
+        "classpath:/META-INF/opennms/applicationContext-dao.xml",
         "classpath*:/META-INF/opennms/provisiond-extensions.xml",
         "classpath:/linkTestContext.xml"
 })
-
-@Ignore
+@JUnitTemporaryDatabase()
 public class DefaultLinkMatchResolverTest {
     @Autowired
     private DefaultLinkMatchResolverImpl m_resolver;
@@ -39,7 +41,10 @@ public class DefaultLinkMatchResolverTest {
     @Before
     public void setUp() {
         Properties props = new Properties();
+        props.setProperty("log4j.logger.org.springframework", "WARN");
+        props.setProperty("log4j.logger.org.hibernate", "WARN");
         props.setProperty("log4j.logger.org.opennms", "DEBUG");
+        props.setProperty("log4j.logger.org.opennms.netmgt.dao.castor", "WARN");
         MockLogAppender.setupLogging(props);
     }
     
