@@ -99,7 +99,7 @@ public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter {
         
     }
     
-    public void dataLinkFailedEvent(Event event){
+    public void dataLinkFailed(Event event){
         
     }
     
