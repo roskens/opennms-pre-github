@@ -40,6 +40,7 @@ import org.apache.log4j.Category;
 import org.opennms.core.utils.ThreadCategory;
 import org.opennms.netmgt.dao.NodeDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
 
 
 /**
@@ -54,14 +55,20 @@ public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter {
     private static final String ADAPTER_NAME = "LinkAdapter";
     
     @Autowired
-    NodeDao m_dao;
-    
     private LinkMatchResolver m_linkMatchResolver;
-
+    
+    @Autowired
     private NodeLinkService m_nodeLinkService;
     
     public LinkProvisioningAdapter() {
         super(ADAPTER_NAME);
+    }
+    
+    @Override
+    public void init() {
+        super.init();
+        Assert.notNull(m_nodeLinkService, "nodeLinkService must not be null");
+        Assert.notNull(m_linkMatchResolver, "linkMatchResolver must not be null");
     }
 
     public void doAddNode(int nodeId1) {
@@ -108,12 +115,5 @@ public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter {
         m_nodeLinkService = nodeLinkService;
     }
     
-    private String min(String a, String b){
-         return a.compareTo(b) < 0 ? a : b;  
-    }
-    
-    private String max(String a, String b){
-        return a.compareTo(b) < 0 ? b : a;
-    }
 
 }

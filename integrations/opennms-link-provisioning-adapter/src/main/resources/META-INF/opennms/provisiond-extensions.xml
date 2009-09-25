@@ -9,6 +9,8 @@
   
   <bean name="lpa" class="org.opennms.netmgt.provision.LinkProvisioningAdapter" />
   
+  <bean id="nodeLinkService" class="org.opennms.netmgt.provision.DefaultNodeLinkService"/>
+  
   <bean id="linkAdapterConfigResourceLocation" class="java.lang.String">
     <constructor-arg value="${opennms.home}/etc/link-adapter-configuration.xml" />
   </bean>
