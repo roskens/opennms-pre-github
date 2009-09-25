@@ -79,7 +79,6 @@ public class LinkAdapterConfigDao extends AbstractCastorConfigDao<LinkAdapterCon
 
     @Override
     public void afterPropertiesSet() {
-        super.afterPropertiesSet();
 
         try {
             m_context = JAXBContext.newInstance(LinkAdapterConfiguration.class, LinkPattern.class);
@@ -96,6 +95,8 @@ public class LinkAdapterConfigDao extends AbstractCastorConfigDao<LinkAdapterCon
         } catch (Exception e) {
             throw new IllegalStateException("Unable to create JAXB context.", e);
         }
+
+        super.afterPropertiesSet();
     }
 
 
