@@ -92,9 +92,13 @@ public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter {
     }
     
     public void doUpdateNode(int nodeid) {
-        
+        createLinkForNodeIfNecessary(nodeid);
     }
     
+    private void createLinkForNodeIfNecessary(int nodeid) {
+        doAddNode(nodeid);
+    }
+
     public void doDeleteNode(int nodeid) {
         //This is handle using cascading deletes from the node table to the datalink table
     }
@@ -105,20 +109,16 @@ public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter {
     
     @EventHandler(uei=EventConstants.DATA_LINK_FAILED_EVENT_UEI)
     public void dataLinkFailed(Event event){
-        if(event.getUei().equals("uei.opennms.org/internal/linkd/dataLinkFailed")){
-            int nodeId = m_nodeLinkService.getNodeId(event.getSource());
-            int parentNodeId =  m_nodeLinkService.getNodeId(m_linkMatchResolver.getAssociatedEndPoint(event.getSource()));
-            m_nodeLinkService.updateLinkStatus(nodeId, parentNodeId, "B");
-        }
+        int nodeId = m_nodeLinkService.getNodeId(event.getSource());
+        int parentNodeId =  m_nodeLinkService.getNodeId(m_linkMatchResolver.getAssociatedEndPoint(event.getSource()));
+        m_nodeLinkService.updateLinkStatus(nodeId, parentNodeId, "B");
     }
     
     @EventHandler(uei=EventConstants.DATA_LINK_RESTORED_EVENT_UEI)
     public void dataLinkRestored(Event event){
-        if(event.getUei().equals("uei.opennms.org/internal/linkd/dataLinkRestored")){
-            int nodeId = m_nodeLinkService.getNodeId(event.getSource());
-            int parentNodeId = m_nodeLinkService.getNodeId(m_linkMatchResolver.getAssociatedEndPoint(event.getSource()));
-            m_nodeLinkService.updateLinkStatus(nodeId, parentNodeId, "G");
-        }
+        int nodeId = m_nodeLinkService.getNodeId(event.getSource());
+        int parentNodeId = m_nodeLinkService.getNodeId(m_linkMatchResolver.getAssociatedEndPoint(event.getSource()));
+        m_nodeLinkService.updateLinkStatus(nodeId, parentNodeId, "G");
     }
     
     

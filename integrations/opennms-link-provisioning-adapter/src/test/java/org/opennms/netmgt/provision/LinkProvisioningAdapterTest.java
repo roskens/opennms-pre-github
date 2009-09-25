@@ -47,7 +47,6 @@ import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 import org.opennms.netmgt.model.events.EventBuilder;
-import org.opennms.netmgt.xml.event.Event;
 import org.opennms.test.mock.EasyMockUtils;
 
 /**
@@ -251,6 +250,69 @@ public class LinkProvisioningAdapterTest {
         m_adapter.setLinkMatchResolver(m_matchResolver);
         m_adapter.setNodeLinkService(m_nodeLinkService);
         m_adapter.dataLinkRestored(eventBuilder.getEvent());
+        
+        verify();
+    }
+    
+    @Test
+    public void dwoTestUpdateEndPoint1(){
+        expect(m_nodeLinkService.getNodeId(END_POINT_1)).andStubReturn(1);
+        
+        // we make node2 return null the first time so when node1 is added it appear node2 is not there
+        expect(m_nodeLinkService.getNodeId(END_POINT_2)).andReturn(null).andStubReturn(2);
+
+        m_nodeLinkService.createLink(1, 2);
+        
+        replay();
+        
+        m_adapter = new LinkProvisioningAdapter();
+        m_adapter.setLinkMatchResolver(m_matchResolver);
+        m_adapter.setNodeLinkService(m_nodeLinkService);
+        
+        
+        
+        m_adapter.doAddNode(1);
+        m_adapter.doAddNode(2);
+         
+        
+        
+        verify();
+    }
+    
+    @Test
+    public void dwoUpdateEndPoint2EndPoint1Exists() {
+        
+        expect(m_nodeLinkService.getNodeId(END_POINT_1)).andStubReturn(1);
+        expect(m_nodeLinkService.getNodeId(END_POINT_2)).andStubReturn(2);
+
+        m_nodeLinkService.createLink(1, 2);
+        
+        replay();
+        
+        m_adapter = new LinkProvisioningAdapter();
+        m_adapter.setLinkMatchResolver(m_matchResolver);
+        m_adapter.setNodeLinkService(m_nodeLinkService);
+        
+        m_adapter.doAddNode(2);
+        
+        verify();
+    }
+    
+    @Test
+    public void dwoUpdateEndPoint1EndPoint2Exists() {
+        
+        expect(m_nodeLinkService.getNodeId(END_POINT_1)).andStubReturn(1);
+        expect(m_nodeLinkService.getNodeId(END_POINT_2)).andStubReturn(2);
+
+        m_nodeLinkService.createLink(1, 2);
+        
+        replay();
+        
+        m_adapter = new LinkProvisioningAdapter();
+        m_adapter.setLinkMatchResolver(m_matchResolver);
+        m_adapter.setNodeLinkService(m_nodeLinkService);
+        
+        m_adapter.doAddNode(1);
         
         verify();
     }
