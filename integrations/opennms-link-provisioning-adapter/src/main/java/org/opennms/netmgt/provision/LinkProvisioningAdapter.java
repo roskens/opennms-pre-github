@@ -96,7 +96,7 @@ public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter {
     }
     
     public void doDeleteNode(int nodeid) {
-        
+        //This is handle using cascading deletes from the node table to the datalink table
     }
     
     public void doNotifyConfigChange(int nodeid) {
