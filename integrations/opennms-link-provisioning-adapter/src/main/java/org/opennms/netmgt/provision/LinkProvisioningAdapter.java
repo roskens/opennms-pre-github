@@ -38,7 +38,10 @@ package org.opennms.netmgt.provision;
 
 import org.apache.log4j.Category;
 import org.opennms.core.utils.ThreadCategory;
+import org.opennms.netmgt.EventConstants;
 import org.opennms.netmgt.dao.NodeDao;
+import org.opennms.netmgt.model.events.annotations.EventHandler;
+import org.opennms.netmgt.model.events.annotations.EventListener;
 import org.opennms.netmgt.xml.event.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
@@ -51,6 +54,7 @@ import org.springframework.util.Assert;
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  *
  */
+@EventListener(name="LinkProvisioningAdapter")
 public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter {
 
     private static final String ADAPTER_NAME = "LinkAdapter";
@@ -99,10 +103,12 @@ public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter {
         
     }
     
+    @EventHandler(uei=EventConstants.DATA_LINK_FAILED_EVENT_UEI)
     public void dataLinkFailed(Event event){
         
     }
     
+    @EventHandler(uei=EventConstants.DATA_LINK_RESTORED_EVENT_UEI)
     public void dataLinkRestored(Event event){
         
     }
