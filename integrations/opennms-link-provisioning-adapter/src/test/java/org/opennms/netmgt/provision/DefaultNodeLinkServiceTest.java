@@ -37,6 +37,7 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
         "classpath:/linkTestContext.xml"
 })
 @JUnitTemporaryDatabase()
+@Ignore
 public class DefaultNodeLinkServiceTest {
     
     @Autowired 
