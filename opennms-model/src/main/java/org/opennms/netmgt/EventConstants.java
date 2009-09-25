@@ -600,7 +600,6 @@ public class EventConstants {
     public static final String PARM_ALARM_UEI = "alarmUei";
     public static final String PARM_TROUBLE_TICKET = "troubleTicket";
 
-
     public final static String TROUBLETICKET_CREATE_UEI = "uei.opennms.org/troubleTicket/create";
     public final static String TROUBLETICKET_UPDATE_UEI = "uei.opennms.org/troubleTicket/update";
     public final static String TROUBLETICKET_CLOSE_UEI = "uei.opennms.org/troubleTicket/close";
@@ -611,6 +610,9 @@ public class EventConstants {
     public final static String RANCID_DOWNLOAD_SUCCESS_UEI="uei.opennms.org/standard/rancid/traps/rancidTrapDownloadSuccess";
     public final static String RANCID_DOWNLOAD_FAILURE_UEI="uei.opennms.org/standard/rancid/traps/rancidTrapDownloadFailure";
     public final static String RANCID_GROUP_PROCESSING_COMPLETED_UEI="uei.opennms.org/standard/rancid/traps/rancidTrapGroupProcessingCompleted";
+
+    public static final String DATA_LINK_FAILED_EVENT_UEI = "uei.opennms.org/internal/linkd/dataLinkFailed";
+    public static final String DATA_LINK_RESTORED_EVENT_UEI = "uei.opennms.org/internal/linkd/dataLinkRestored";
 
    
     //

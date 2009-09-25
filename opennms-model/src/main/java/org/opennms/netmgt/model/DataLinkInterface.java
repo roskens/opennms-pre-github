@@ -50,8 +50,7 @@ import java.util.Date;
 @Entity
 @Table(name = "datalinkinterface")
 public class DataLinkInterface  implements Serializable {
-
-    private static final long serialVersionUID = -1940209159462647862L;
+    private static final long serialVersionUID = 5241963830563150843L;
 
     private Integer id;
     @Column(name="nodeid", nullable=false)

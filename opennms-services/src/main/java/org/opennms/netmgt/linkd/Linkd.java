@@ -573,6 +573,13 @@ public class Linkd extends AbstractServiceDaemon {
 	public void setEventListener(LinkdEventProcessor eventListener) {
 		m_eventListener = eventListener;
 	}
+
+	/*
+    public void setDataLinkFailed(String endPoint1, String endPoint2) {
+        // TODO Auto-generated method stub
+        
+    }
+    */
 	
 
 
