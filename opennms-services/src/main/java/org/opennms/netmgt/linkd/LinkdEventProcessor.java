@@ -51,7 +51,6 @@ import org.opennms.netmgt.EventConstants;
 import org.opennms.netmgt.eventd.EventIpcManager;
 import org.opennms.netmgt.model.events.EventListener;
 import org.opennms.netmgt.xml.event.Event;
-import org.opennms.netmgt.xml.event.Parm;
 
 import org.opennms.netmgt.capsd.InsufficientInformationException;
 import org.springframework.beans.factory.InitializingBean;
@@ -115,12 +114,6 @@ final class LinkdEventProcessor implements EventListener, InitializingBean {
 
         // node regained service
         ueiList.add(EventConstants.NODE_REGAINED_SERVICE_EVENT_UEI);
-
-        // dataLinkFailed
-        ueiList.add(EventConstants.DATA_LINK_FAILED_EVENT_UEI);
-
-        // dataLinkRestored
-        ueiList.add(EventConstants.DATA_LINK_RESTORED_EVENT_UEI);
 
         getEventMgr().addEventListener(this, ueiList);
     }
@@ -202,36 +195,6 @@ final class LinkdEventProcessor implements EventListener, InitializingBean {
         getLinkd().wakeUpNodeCollection((int)event.getNodeid());
     }
 
-    private void handleDataLinkFailed(Event event) throws InsufficientInformationException {
-        String[] endPoints = getEndPoints(event);
-        if (endPoints != null) {
-//            getLinkd().setDataLinkFailed(endPoints[0], endPoints[1]);
-        }
-    }
-
-    private void handleDataLinkRestored(Event event) throws InsufficientInformationException {
-        String[] endPoints = getEndPoints(event);
-        if (endPoints != null) {
-//            getLinkd().setDataLinkRestored(endPoints[0], endPoints[1]);
-        }
-    }
-
-    private String[] getEndPoints(Event event) {
-        List<Parm> parms = event.getParms().getParmCollection();
-        String endPoint1 = null;
-        String endPoint2 = null;
-        for (Parm p : parms) {
-            if (p.getParmName().equals("endPoint1")) {
-                endPoint1 = p.getValue().getContent();
-            } else if (p.getParmName().equals("endPoint2")) {
-                endPoint2 = p.getValue().getContent();
-            }
-        }
-        if (endPoint1 != null && endPoint2 != null) {
-            return new String[] { endPoint1, endPoint2 };
-        }
-        return null;
-    }
 
     /**
      * This method is invoked by the EventIpcManager when a new event is
@@ -277,17 +240,7 @@ final class LinkdEventProcessor implements EventListener, InitializingBean {
                     log.info("onEvent: calling handleNodeGainedService for event " + eventid);
                 }
                 handleNodeGainedService(event);
-            }  else if (eventUei.equals(EventConstants.DATA_LINK_FAILED_EVENT_UEI)) {
-                if (log.isInfoEnabled()) {
-                    log.info("onEvent: calling handleDataLinkFailed for event " + eventid);
-                }
-                handleDataLinkFailed(event);
-            }  else if (eventUei.equals(EventConstants.DATA_LINK_RESTORED_EVENT_UEI)) {
-                if (log.isInfoEnabled()) {
-                    log.info("onEvent: calling handleDataLinkRestored for event " + eventid);
-                }
-                handleDataLinkRestored(event);
-            }
+            } 
         } catch (InsufficientInformationException ex) {
             log.info("onEvent: insufficient information in event, discarding it: " + ex.getMessage());
         } catch (Throwable t) {

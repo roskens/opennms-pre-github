@@ -49,8 +49,7 @@
 
 <%
     statusMap = new HashMap<Character, String>();
-    statusMap.put( new Character('A'), "Active" );
-    statusMap.put( new Character('F'), "Failing" );
+  	statusMap.put( new Character('A'), "Active" );
     statusMap.put( new Character(' '), "Unknown" );
     statusMap.put( new Character('D'), "Deleted" );
     statusMap.put( new Character('N'), "Not Active" );
