@@ -49,10 +49,11 @@ public class LinkInfo {
 	long snmpifspeed;
 	int snmpifoperstatus;
     int snmpifadminstatus;
+    String status;
 
 
 	
-	LinkInfo(int id, int nodeid, int ifindex, int nodeparentid, int parentifindex, int snmpiftype, long snmpifspeed, int snmpifoperstatus, int snmpifadminstatus) {
+	LinkInfo(int id, int nodeid, int ifindex, int nodeparentid, int parentifindex, int snmpiftype, long snmpifspeed, int snmpifoperstatus, int snmpifadminstatus, String status) {
 		super();
 		this.id = id;
 		this.nodeid = nodeid;
@@ -63,6 +64,7 @@ public class LinkInfo {
 		this.snmpifspeed = snmpifspeed;
 		this.snmpifoperstatus = snmpifoperstatus;
         this.snmpifadminstatus = snmpifadminstatus;
+        this.status = status;
 	}
 	
 	public boolean equals(Object obj) {

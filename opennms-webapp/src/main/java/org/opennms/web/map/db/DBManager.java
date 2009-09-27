@@ -1730,7 +1730,7 @@ public class DBManager extends Manager {
             Statement stmt = conn.createStatement();
 
             String sql = "SELECT "
-                + "datalinkinterface.id, datalinkinterface.nodeid, ifindex,nodeparentid, parentifindex, snmpiftype,snmpifspeed,snmpifoperstatus,snmpifadminstatus "
+                + "datalinkinterface.id, datalinkinterface.nodeid, ifindex,nodeparentid, parentifindex, status, snmpiftype,snmpifspeed,snmpifoperstatus,snmpifadminstatus "
                 + "FROM datalinkinterface "
                 + "left join snmpinterface on nodeparentid = snmpinterface.nodeid "
                 + "WHERE"
@@ -1751,7 +1751,8 @@ public class DBManager extends Manager {
                 int ifindex = -1;
                 int nodeparentid = -1;
                 int parentifindex = -1;
-
+                String status = "U";
+                
                 int snmpiftype = -1;
                 long snmpifspeed = -1;
                 int snmpifoperstatus = -1;
@@ -1781,6 +1782,12 @@ public class DBManager extends Manager {
                 if (element != null) {
                     parentifindex = ((Integer) element);
                 }
+
+                element = new String(rs.getString("status"));
+                if (element != null) {
+                    status = ((String) element);
+                }
+                
                 element = new Integer(rs.getInt("snmpiftype"));
                 if (element != null) {
                     snmpiftype = ((Integer) element);
@@ -1805,14 +1812,14 @@ public class DBManager extends Manager {
                                              nodeparentid, parentifindex,
                                              snmpiftype, snmpifspeed,
                                              snmpifoperstatus,
-                                             snmpifadminstatus);
+                                             snmpifadminstatus, status);
     
                 nodes.add(link);
             }
             rs.close();
 
             sql = "SELECT "
-                    + "datalinkinterface.id, datalinkinterface.nodeid, ifindex,nodeparentid, parentifindex, snmpiftype,snmpifspeed,snmpifoperstatus,snmpifadminstatus "
+                    + "datalinkinterface.id, datalinkinterface.nodeid, ifindex,nodeparentid, parentifindex, status, snmpiftype,snmpifspeed,snmpifoperstatus,snmpifadminstatus "
                     + "FROM datalinkinterface "
                     + "left join snmpinterface on datalinkinterface.nodeid = snmpinterface.nodeid "
                     + "WHERE"
@@ -1833,6 +1840,7 @@ public class DBManager extends Manager {
                 int ifindex = -1;
                 int nodeparentid = -1;
                 int parentifindex = -1;
+                String status = "U";
 
                 int snmpiftype = -1;
                 long snmpifspeed = -1;
@@ -1863,6 +1871,12 @@ public class DBManager extends Manager {
                 if (element != null) {
                     parentifindex = ((Integer) element);
                 }
+                
+                element = new String(rs.getString("status"));
+                if (element != null) {
+                    status = ((String) element);
+                }
+                
                 element = new Integer(rs.getInt("snmpiftype"));
                 if (element != null) {
                     snmpiftype = ((Integer) element);
@@ -1887,14 +1901,14 @@ public class DBManager extends Manager {
                                              nodeparentid, parentifindex,
                                              snmpiftype, snmpifspeed,
                                              snmpifoperstatus,
-                                             snmpifadminstatus);
+                                             snmpifadminstatus, status);
 
                 nodes.add(link);
             }
             rs.close();
  
             sql = "SELECT "
-                    + "id,nodeid, ifindex,nodeparentid, parentifindex "
+                    + "id,nodeid, ifindex,nodeparentid, parentifindex, status "
                     + "FROM datalinkinterface " + "WHERE" + " (nodeid IN ("
                     + nodelist + ")" + " OR nodeparentid in (" + nodelist
                     + ")) " + "AND status != 'D'";
@@ -1908,7 +1922,8 @@ public class DBManager extends Manager {
                 int ifindex = -1;
                 int nodeparentid = -1;
                 int parentifindex = -1;
-
+                String status = "U";
+                
                 int snmpiftype = -1;
                 long snmpifspeed = -1;
                 int snmpifoperstatus = -1;
@@ -1938,12 +1953,18 @@ public class DBManager extends Manager {
                 if (element != null) {
                     parentifindex = ((Integer) element);
                 }
+                
+                element = new String(rs.getString("status"));
+                if (element != null) {
+                    status = ((String) element);
+                }
+                
                 log.debug("getLinksOnElements: id="+id);
                 LinkInfo link = new LinkInfo(id, nodeid, ifindex,
                                              nodeparentid, parentifindex,
                                              snmpiftype, snmpifspeed,
                                              snmpifoperstatus,
-                                             snmpifadminstatus);
+                                             snmpifadminstatus, status);
 
                 nodes.add(link);
             }
