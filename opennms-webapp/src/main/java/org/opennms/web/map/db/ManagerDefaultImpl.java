@@ -1379,7 +1379,8 @@ public class ManagerDefaultImpl implements Manager {
      * @return the id corresponding to the link defined in configuration file. If there is no match, the default link id is returned.
      */
     private int getLinkTypeId(LinkInfo linkinfo) {
-    	return mapsPropertiesFactory.getLinkTypeId(linkinfo.snmpiftype, linkinfo.snmpifspeed);
+        if (linkinfo.linktypeid > 0 ) return linkinfo.linktypeid;
+        else return mapsPropertiesFactory.getLinkTypeId(linkinfo.snmpiftype, linkinfo.snmpifspeed);
     }
     
     private VLink[] getLinkArray(VElement[] elems) throws MapsException {
