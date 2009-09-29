@@ -110,14 +110,14 @@ public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter {
     @EventHandler(uei=EventConstants.DATA_LINK_FAILED_EVENT_UEI)
     public void dataLinkFailed(Event event){
         int nodeId = m_nodeLinkService.getNodeId(EventUtils.getParm(event, EventConstants.PARM_ENDPOINT1));
-        int parentNodeId =  m_nodeLinkService.getNodeId(m_linkMatchResolver.getAssociatedEndPoint(event.getSource()));
+        int parentNodeId =  m_nodeLinkService.getNodeId(EventUtils.getParm(event, EventConstants.PARM_ENDPOINT2));
         m_nodeLinkService.updateLinkStatus(nodeId, parentNodeId, "B");
     }
     
     @EventHandler(uei=EventConstants.DATA_LINK_RESTORED_EVENT_UEI)
     public void dataLinkRestored(Event event){
         int nodeId = m_nodeLinkService.getNodeId(EventUtils.getParm(event, EventConstants.PARM_ENDPOINT1));
-        int parentNodeId = m_nodeLinkService.getNodeId(m_linkMatchResolver.getAssociatedEndPoint(event.getSource()));
+        int parentNodeId = m_nodeLinkService.getNodeId(EventUtils.getParm(event, EventConstants.PARM_ENDPOINT2));
         m_nodeLinkService.updateLinkStatus(nodeId, parentNodeId, "G");
     }
     

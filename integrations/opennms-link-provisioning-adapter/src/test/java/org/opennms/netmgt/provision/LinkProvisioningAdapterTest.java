@@ -176,7 +176,9 @@ public class LinkProvisioningAdapterTest {
         
         replay();
         
-        EventBuilder eventBuilder = new EventBuilder("uei.opennms.org/internal/linkd/dataLinkFailed", END_POINT_1);
+        EventBuilder eventBuilder = new EventBuilder("uei.opennms.org/internal/linkd/dataLinkFailed", null);
+        eventBuilder.setParam("endPoint1", END_POINT_1);
+        eventBuilder.setParam("endPoint2", END_POINT_2);
         eventBuilder.setCreationTime(new Date());
         eventBuilder.setDescription("nodeLinkFailed");
         
@@ -198,7 +200,9 @@ public class LinkProvisioningAdapterTest {
         
         replay();
         
-        EventBuilder eventBuilder = new EventBuilder("uei.opennms.org/internal/linkd/dataLinkFailed", END_POINT_2);
+        EventBuilder eventBuilder = new EventBuilder("uei.opennms.org/internal/linkd/dataLinkFailed", null);
+        eventBuilder.setParam("endPoint1", END_POINT_2);
+        eventBuilder.setParam("endPoint2", END_POINT_1);
         eventBuilder.setCreationTime(new Date());
         eventBuilder.setDescription("nodeLinkFailed");
         
@@ -220,7 +224,9 @@ public class LinkProvisioningAdapterTest {
         
         replay();
         
-        EventBuilder eventBuilder = new EventBuilder("uei.opennms.org/internal/linkd/dataLinkRestored", END_POINT_1);
+        EventBuilder eventBuilder = new EventBuilder("uei.opennms.org/internal/linkd/dataLinkRestored", null);
+        eventBuilder.setParam("endPoint1", END_POINT_1);
+        eventBuilder.setParam("endPoint2", END_POINT_2);
         eventBuilder.setCreationTime(new Date());
         eventBuilder.setDescription("nodeLinkFailed");
         
@@ -238,11 +244,13 @@ public class LinkProvisioningAdapterTest {
         expect(m_nodeLinkService.getNodeId(END_POINT_1)).andStubReturn(1);
         expect(m_nodeLinkService.getNodeId(END_POINT_2)).andStubReturn(2);
         
-        m_nodeLinkService.updateLinkStatus(1,2, UP_STATUS);
+        m_nodeLinkService.updateLinkStatus(2,1, UP_STATUS);
         
         replay();
         
-        EventBuilder eventBuilder = new EventBuilder("uei.opennms.org/internal/linkd/dataLinkRestored", END_POINT_1);
+        EventBuilder eventBuilder = new EventBuilder("uei.opennms.org/internal/linkd/dataLinkRestored", null);
+        eventBuilder.setParam("endPoint1", END_POINT_2);
+        eventBuilder.setParam("endPoint2", END_POINT_1);
         eventBuilder.setCreationTime(new Date());
         eventBuilder.setDescription("nodeLinkFailed");
         
