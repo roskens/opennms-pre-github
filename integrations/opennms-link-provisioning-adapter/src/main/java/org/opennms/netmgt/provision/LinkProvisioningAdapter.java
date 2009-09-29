@@ -39,7 +39,7 @@ package org.opennms.netmgt.provision;
 import org.apache.log4j.Category;
 import org.opennms.core.utils.ThreadCategory;
 import org.opennms.netmgt.EventConstants;
-import org.opennms.netmgt.dao.NodeDao;
+import org.opennms.netmgt.model.events.EventUtils;
 import org.opennms.netmgt.model.events.annotations.EventHandler;
 import org.opennms.netmgt.model.events.annotations.EventListener;
 import org.opennms.netmgt.xml.event.Event;
@@ -109,14 +109,14 @@ public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter {
     
     @EventHandler(uei=EventConstants.DATA_LINK_FAILED_EVENT_UEI)
     public void dataLinkFailed(Event event){
-        int nodeId = m_nodeLinkService.getNodeId(event.getSource());
+        int nodeId = m_nodeLinkService.getNodeId(EventUtils.getParm(event, EventConstants.PARM_ENDPOINT1));
         int parentNodeId =  m_nodeLinkService.getNodeId(m_linkMatchResolver.getAssociatedEndPoint(event.getSource()));
         m_nodeLinkService.updateLinkStatus(nodeId, parentNodeId, "B");
     }
     
     @EventHandler(uei=EventConstants.DATA_LINK_RESTORED_EVENT_UEI)
     public void dataLinkRestored(Event event){
-        int nodeId = m_nodeLinkService.getNodeId(event.getSource());
+        int nodeId = m_nodeLinkService.getNodeId(EventUtils.getParm(event, EventConstants.PARM_ENDPOINT1));
         int parentNodeId = m_nodeLinkService.getNodeId(m_linkMatchResolver.getAssociatedEndPoint(event.getSource()));
         m_nodeLinkService.updateLinkStatus(nodeId, parentNodeId, "G");
     }

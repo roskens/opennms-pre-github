@@ -992,6 +992,11 @@ public class EventConstants {
      * Used for indicating a reason message in an event or alarm.
      */
     public static final String PARM_REASON = "reason";
+    
+    /**
+     * Used for indication the first endpoint to a map link
+     */
+    public static final String PARM_ENDPOINT1 = "endpoint1";
 
 
     /**

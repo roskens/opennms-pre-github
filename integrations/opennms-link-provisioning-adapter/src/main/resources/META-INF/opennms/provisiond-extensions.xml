@@ -12,7 +12,7 @@
   <bean id="nodeLinkService" class="org.opennms.netmgt.provision.DefaultNodeLinkService"/>
   
   <bean id="linkAdapterConfigResourceLocation" class="java.lang.String">
-    <constructor-arg value="${opennms.home}/etc/link-adapter-configuration.xml" />
+    <constructor-arg value="file:${opennms.home}/etc/link-adapter-configuration.xml" />
   </bean>
   
   <bean id="linkAdapterConfigDao" class="org.opennms.netmgt.provision.config.linkadapter.DefaultLinkAdapterConfigurationDao">
