@@ -996,7 +996,12 @@ public class EventConstants {
     /**
      * Used for indication the first endpoint to a map link
      */
-    public static final String PARM_ENDPOINT1 = "endpoint1";
+    public static final String PARM_ENDPOINT1 = "endPoint1";
+    
+    /**
+     * Used for indication the second endpoint to a map link
+     */
+    public static final String PARM_ENDPOINT2 = "endPoint2";
 
 
     /**
