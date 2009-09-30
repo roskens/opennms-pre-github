@@ -1,4 +1,4 @@
-package org.opennms.netmgt.provision.config.linkadapter;
+package org.opennms.netmgt.provision.config.dao;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,6 +14,8 @@ import javax.xml.bind.helpers.DefaultValidationEventHandler;
 import org.opennms.netmgt.dao.JAXBDataAccessFailureException;
 import org.opennms.netmgt.dao.castor.AbstractCastorConfigDao;
 import org.opennms.netmgt.provision.config.DefaultNamespacePrefixMapper;
+import org.opennms.netmgt.provision.config.linkadapter.LinkAdapterConfiguration;
+import org.opennms.netmgt.provision.config.linkadapter.LinkPattern;
 import org.springframework.core.io.Resource;
 import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.util.Assert;

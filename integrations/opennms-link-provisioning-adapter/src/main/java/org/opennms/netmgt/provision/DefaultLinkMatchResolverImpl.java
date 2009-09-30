@@ -1,6 +1,6 @@
 package org.opennms.netmgt.provision;
 
-import org.opennms.netmgt.provision.config.linkadapter.DefaultLinkAdapterConfigurationDao;
+import org.opennms.netmgt.provision.config.dao.DefaultLinkAdapterConfigurationDao;
 import org.opennms.netmgt.provision.config.linkadapter.LinkPattern;
 import org.springframework.beans.factory.annotation.Autowired;
 
