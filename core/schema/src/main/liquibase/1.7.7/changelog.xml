@@ -8,9 +8,7 @@
 
 	<changeSet author="rssntn67" id="1.7.7-add-linkTypeId">
 		<addColumn tableName="datalinkinterface">
-			<column name="linktypeid" type="integer">
-				<constraints nullable="true" />
-			</column>
+			<column name="linktypeid" type="integer"/>
 		</addColumn>
 
 		<rollback>

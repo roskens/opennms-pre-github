@@ -1791,7 +1791,7 @@ create table datalinkinterface (
     nodeparentid     integer not null,
 	parentIfIndex    integer not null,
     status	         char(1) not null,
-    linkTypeId       integer not null,
+    linkTypeId       integer,
     lastPollTime     timestamp not null,
 
     constraint pk_datalinkinterface primary key (nodeid,ifindex),
