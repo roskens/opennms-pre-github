@@ -135,11 +135,46 @@ public class DefaultNodeLinkServiceTest {
     public void dwoTestUpdateLinkStatus(){
         Collection<DataLinkInterface> dataLinks = m_dataLinkDao.findByNodeId(END_POINT2_ID);
         assertEquals("A", dataLinks.iterator().next().getStatus());
+        int parentNodeId = END_POINT1_ID;
+        int nodeId = END_POINT2_ID;
         
-        m_nodeLinkService.updateLinkStatus(END_POINT2_ID, END_POINT1_ID, "G");
+        m_nodeLinkService.updateLinkStatus(parentNodeId, nodeId, "G");
         
         dataLinks = m_dataLinkDao.findByNodeId(END_POINT2_ID);
         assertEquals("G", dataLinks.iterator().next().getStatus());
+    }
+    
+    @Test
+    public void dwoTestUpdateLinkFailedStatus(){
+        int parentNodeId = END_POINT1_ID;
+        int nodeId = END_POINT2_ID;
+        
+        Collection<DataLinkInterface> dataLinks = m_dataLinkDao.findByNodeId(nodeId);
+        assertEquals("A", dataLinks.iterator().next().getStatus());
+        
+        m_nodeLinkService.updateLinkStatus(parentNodeId, nodeId, "B");
+        
+        dataLinks = m_dataLinkDao.findByNodeId(nodeId);
+        assertEquals("B", dataLinks.iterator().next().getStatus());
+    }
+    
+    @Test
+    public void dwoTestUpdateLinkGoodThenFailedStatus(){
+        int parentNodeId = END_POINT1_ID;
+        int nodeId = END_POINT2_ID;
+        
+        Collection<DataLinkInterface> dataLinks = m_dataLinkDao.findByNodeId(nodeId);
+        assertEquals("A", dataLinks.iterator().next().getStatus());
+        
+        m_nodeLinkService.updateLinkStatus(parentNodeId, nodeId, "G");
+        
+        dataLinks = m_dataLinkDao.findByNodeId(nodeId);
+        assertEquals("G", dataLinks.iterator().next().getStatus());
+        
+        m_nodeLinkService.updateLinkStatus(parentNodeId, nodeId, "B");
+        
+        dataLinks = m_dataLinkDao.findByNodeId(nodeId);
+        assertEquals("B", dataLinks.iterator().next().getStatus());
     }
     
 }

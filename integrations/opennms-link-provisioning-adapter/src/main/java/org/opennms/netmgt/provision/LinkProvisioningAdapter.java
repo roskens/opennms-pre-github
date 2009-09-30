@@ -76,17 +76,21 @@ public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter {
         Assert.notNull(m_linkMatchResolver, "linkMatchResolver must not be null");
     }
 
-    public void doAddNode(int nodeId1) {
-        String nodeLabel1 = m_nodeLinkService.getNodeLabel(nodeId1);
-        String nodeLabel2 = m_linkMatchResolver.getAssociatedEndPoint(nodeLabel1);
-
-        Integer nodeId2 = m_nodeLinkService.getNodeId(nodeLabel2);
-        if(nodeId2 != null){
-            if(nodeLabel1.compareTo(nodeLabel2) < 0){
-                m_nodeLinkService.createLink(nodeId1, nodeId2);
-            }else{
-                m_nodeLinkService.createLink(nodeId2, nodeId1);
-            }
+    public void doAddNode(int endPointId) {
+        String endPoint1 = m_nodeLinkService.getNodeLabel(endPointId);
+        String endPoint2 = m_linkMatchResolver.getAssociatedEndPoint(endPoint1);
+        
+        String nodeLabel = max(endPoint1, endPoint2);
+        String parentNodeLabel = min(endPoint1, endPoint2);
+        
+        Integer nodeId = m_nodeLinkService.getNodeId(nodeLabel);
+        Integer parentNodeId = m_nodeLinkService.getNodeId(parentNodeLabel);
+        
+        log().info(String.format("running doAddNode on node %s nodeId: %d", nodeLabel, nodeId));
+        
+        if(nodeId != null && parentNodeId != null){
+            log().info(String.format("Found link between parentNode %s and node %s", parentNodeLabel, nodeLabel));
+            m_nodeLinkService.createLink(parentNodeId, nodeId);
         }
         
     }
@@ -109,18 +113,51 @@ public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter {
     
     @EventHandler(uei=EventConstants.DATA_LINK_FAILED_EVENT_UEI)
     public void dataLinkFailed(Event event){
-        int nodeId = m_nodeLinkService.getNodeId(EventUtils.getParm(event, EventConstants.PARM_ENDPOINT1));
-        int parentNodeId =  m_nodeLinkService.getNodeId(EventUtils.getParm(event, EventConstants.PARM_ENDPOINT2));
-        m_nodeLinkService.updateLinkStatus(nodeId, parentNodeId, "B");
+        updateLinkStatus("dataLinkFailed", event, "B");
+    }
+
+    private void updateLinkStatus(String method, Event event, String newStatus) {
+        infof("%s: received event %s", method, event.getUei());
+        String endPoint1 = EventUtils.getParm(event, EventConstants.PARM_ENDPOINT1);
+        String endPoint2 = EventUtils.getParm(event, EventConstants.PARM_ENDPOINT2);
+        
+        Assert.notNull(endPoint1, "Param endPoint1 cannot be null");
+        Assert.notNull(endPoint2, "Param endPoint2 cannot be null");
+        
+        String nodeLabel = max(endPoint1, endPoint2);
+        String parentNodeLabel = min(endPoint1, endPoint2);
+        Integer nodeId = m_nodeLinkService.getNodeId(nodeLabel);
+        Integer parentNodeId = m_nodeLinkService.getNodeId(parentNodeLabel);
+        
+        if(nodeId != null && parentNodeId != null) {
+            infof("%s: updated link nodeLabel: %s, nodeId: %d, parentLabel: %s, parentId: %d ", method, nodeLabel, nodeId, parentNodeLabel, parentNodeId);
+            m_nodeLinkService.updateLinkStatus(parentNodeId, nodeId, newStatus);
+        }else {
+            infof("%s: found no link with parent: %s and node %s", method, parentNodeLabel, nodeLabel);
+        }
     }
     
     @EventHandler(uei=EventConstants.DATA_LINK_RESTORED_EVENT_UEI)
     public void dataLinkRestored(Event event){
-        int nodeId = m_nodeLinkService.getNodeId(EventUtils.getParm(event, EventConstants.PARM_ENDPOINT1));
-        int parentNodeId = m_nodeLinkService.getNodeId(EventUtils.getParm(event, EventConstants.PARM_ENDPOINT2));
-        m_nodeLinkService.updateLinkStatus(nodeId, parentNodeId, "G");
+        updateLinkStatus("dataLinkRestored", event, "G");
     }
     
+    
+    private String max(String string1, String string2) {
+        if(string1.compareTo(string2) < 0) {
+            return string2;
+        }else {
+            return string1;
+        }
+    }
+    
+    private String min(String string1, String string2) {
+        if(string1.compareTo(string2) < 0) {
+            return string1;
+        }else {
+            return string2;
+        }
+    }
     
     private static Category log() {
         return ThreadCategory.getInstance(LinkProvisioningAdapter.class);
@@ -136,6 +173,14 @@ public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter {
 
     public void setNodeLinkService(NodeLinkService nodeLinkService) {
         m_nodeLinkService = nodeLinkService;
+    }
+    
+    private void infof(String format, Object... args) {
+        log().info(String.format(format, args));
+    }
+    
+    private void debugf(String format, Object... args) {
+        log().debug(String.format(format, args));
     }
     
 
