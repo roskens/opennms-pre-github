@@ -347,6 +347,7 @@ cp integrations/opennms-map-provisioning-adapter/target/*.jar  $RPM_BUILD_ROOT%{
 cp integrations/opennms-rancid/target/*.jar                    $RPM_BUILD_ROOT%{instprefix}/lib/
 rm -rf $RPM_BUILD_ROOT%{instprefix}/lib/*-sources.jar
 rm -rf $RPM_BUILD_ROOT%{instprefix}/lib/*-tests.jar
+rm -rf $RPM_BUILD_ROOT%{instprefix}/lib/*-xsds.jar
 
 # config files, this should be more automated  :P
 cp integrations/opennms-link-provisioning-adapter/src/main/resources/link-adapter-configuration.xml $RPM_BUILD_ROOT%{instprefix}/etc/
