@@ -399,9 +399,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files plugin-provisioning-link
 %attr(664,root,root) %{instprefix}/lib/opennms-link-provisioning-adapter*.jar
+%attr(664,root,root) %{instprefix}/etc/link-adapter-configuration.xml
 
 %files plugin-provisioning-map
 %attr(664,root,root) %{instprefix}/lib/opennms-map-provisioning-adapter*.jar
+%attr(664,root,root) %{instprefix}/etc/mapsadapter-configuration.xml
 
 %files plugin-provisioning-rancid
 %attr(664,root,root) %{instprefix}/lib/opennms-rancid*.jar
