@@ -236,22 +236,6 @@ public class AbstractTransactionalDaoTestCase extends AbstractTransactionalTempo
     public void setUserNotificationDao(UserNotificationDao userNotificationDao) {
         m_userNotificationDao = userNotificationDao;
     }
-
-    public OnmsMapDaoHibernate getOnmsMapDao() {
-        return m_onmsMapDao;
-    }
-
-    public void setOnmsMapDao(OnmsMapDaoHibernate onmsMapDao) {
-        this.m_onmsMapDao = onmsMapDao;
-    }
-
-    public OnmsMapElementDaoHibernate getOnmsMapElementDao() {
-        return m_onmsMapElementDao;
-    }
-
-    public void setOnmsElementMapDao(OnmsMapElementDaoHibernate onmsMapElementDao) {
-        this.m_onmsMapElementDao = onmsMapElementDao;
-    }
     
     public OnmsNode getNode1() {
         return m_populator.getNode1();

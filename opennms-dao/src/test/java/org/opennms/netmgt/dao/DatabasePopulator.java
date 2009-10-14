@@ -71,6 +71,7 @@ import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.OnmsOutage;
 import org.opennms.netmgt.model.OnmsServiceType;
 import org.opennms.netmgt.model.OnmsSeverity;
+import org.opennms.netmgt.model.OnmsUserNotification;
 
 /**
  * Populates a test database with some entities (nodes, interfaces, services).
@@ -307,34 +308,6 @@ public class DatabasePopulator {
         getAlarmDao().save(alarm);
         getAlarmDao().flush();
 
-        OnmsMap map = new OnmsMap("DB_Pop_Test_Map", "admin");
-        map.setBackground("fake_background.jpg");
-        map.setAccessMode(OnmsMap.ACCESS_MODE_ADMIN);
-        map.setType(OnmsMap.USER_GENERATED_MAP);
-        getOnmsMapDao().save(map);
-        getOnmsMapDao().flush();
-
-        OnmsMapElement mapElement = new OnmsMapElement(map, 1,
-                OnmsMapElement.NODE_TYPE,
-                "Test Node",
-                OnmsMapElement.defaultNodeIcon,
-                0,
-                10);
-        getOnmsMapElementDao().save(mapElement);
-        getOnmsMapElementDao().flush();
-
-        DataLinkInterface dli = new DataLinkInterface(1, 1, 1, 1, "A", new Date());
-        getDataLinkInterfaceDao().save(dli);
-        getDataLinkInterfaceDao().flush();
-
-        DataLinkInterface dli2 = new DataLinkInterface(1, 2, 1, 1, "A", new Date());
-        getDataLinkInterfaceDao().save(dli2);
-        getDataLinkInterfaceDao().flush();
-
-        DataLinkInterface dli3 = new DataLinkInterface(2, 1, 1, 1, "A", new Date());
-        getDataLinkInterfaceDao().save(dli3);
-        getDataLinkInterfaceDao().flush();
-        
         OnmsMap map = new OnmsMap("DB_Pop_Test_Map", "admin");
         map.setBackground("fake_background.jpg");
         map.setAccessMode(OnmsMap.ACCESS_MODE_ADMIN);
