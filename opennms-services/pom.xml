@@ -2,7 +2,7 @@
   <parent>
     <artifactId>opennms</artifactId>
     <groupId>org.opennms</groupId>
-    <version>1.7.4-SNAPSHOT</version>
+    <version>1.7.5-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>opennms-services</artifactId>
@@ -299,6 +299,10 @@
     <dependency>
       <groupId>jep</groupId>
       <artifactId>jep</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.krupczak</groupId>
+      <artifactId>Xmp</artifactId>
     </dependency>
         <dependency>
       <groupId>org.opennms</groupId>

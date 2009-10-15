@@ -3,7 +3,7 @@
   <parent>
     <artifactId>opennms</artifactId>
     <groupId>org.opennms</groupId>
-    <version>1.7.4-SNAPSHOT</version>
+    <version>1.7.5-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>opennms-webapp</artifactId>
@@ -220,12 +220,10 @@
             </goals>
             <configuration>
               <generatedClasses>${basedir}/target/jsp-classes</generatedClasses>
-	      <excludes>*/lps/*.jsp</excludes>
             </configuration>
           </execution>
         </executions>
       </plugin>
-
       <!-- 
        <plugin>
       	<groupId>org.mortbay.jetty</groupId>
@@ -545,12 +543,6 @@
     <dependency>
       <groupId>rome</groupId>
       <artifactId>rome</artifactId>
-	    <exclusions>
-	        <exclusion>
-                <groupId>jdom</groupId>
-                <artifactId>jdom</artifactId>
-            </exclusion>
-	    </exclusions>
     </dependency>
     <dependency>
       <groupId>struts</groupId>
@@ -561,20 +553,10 @@
       <artifactId>standard</artifactId>
       <scope>compile</scope>
     </dependency>
-
-      <!-- OpenLaszlo -->
-              <dependency>
-                  <groupId>org.openlaszlo</groupId>
-                  <artifactId>openlaszlo</artifactId>
-                  <type>pom</type>
-              </dependency>
-
-              <dependency>
-                  <groupId>xerces</groupId>
-                  <artifactId>xercesImpl</artifactId>
-              </dependency>
-
-      
+    <dependency>
+      <groupId>xerces</groupId>
+      <artifactId>xercesImpl</artifactId>
+    </dependency>
     
     <dependency>
       <groupId>org.apache.directory.server</groupId>
