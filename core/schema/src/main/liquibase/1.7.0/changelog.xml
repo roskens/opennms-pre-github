@@ -25,10 +25,11 @@
 			<column name="lasteventtime" />
 		</createIndex>
 
+		<rollback>
+			<dropIndex tableName="alarms" indexName="alarm_lasteventtime_idx" />
+			<dropColumn tableName="alarms" columnName="ifindex" />
+			<dropColumn tableName="events" columnName="ifindex" />
+		</rollback>
 	</changeSet>
-
-	<changeSet author="rangerrick" id="1.7.0-ownership">
-		<sql>GRANT ALL PRIVILEGES ON DATABASE ${install.database.name} TO ${install.database.user}</sql>
-	</changeSet> 
 
 </databaseChangeLog>
