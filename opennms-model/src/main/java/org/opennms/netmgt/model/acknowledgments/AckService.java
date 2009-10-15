@@ -8,7 +8,11 @@
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
- * Original code base Copyright (C) 1999-2001 Oculan Corp.  All rights reserved.
+ * Modifications:
+ * 
+ * Created: January 7, 2009
+ *
+ * Copyright (C) 2009 The OpenNMS Group, Inc.  All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,22 +29,32 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
  * For more information contact:
- * OpenNMS Licensing       <license@opennms.org>
- *     http://www.opennms.org/
- *     http://www.opennms.com/
+ *      OpenNMS Licensing       <license@opennms.org>
+ *      http://www.opennms.org/
+ *      http://www.opennms.com/
  */
-package org.opennms.netmgt.provision.detector.dhcp.response;
+package org.opennms.netmgt.model.acknowledgments;
 
-public class DhcpResponse {
+import java.util.Collection;
+
+import org.opennms.netmgt.model.OnmsAcknowledgment;
+import org.springframework.transaction.annotation.Transactional;
+
+/**
+ * Transactional boundary for processing acknowledgments
+ * 
+ * @author <a href="mailto:david@opennms.org">David Hustace</a>
+ * @author <a href="makilto:jeffg@opennms.org">Jeff Gehlbach</a>
+ * 
+ * Acknowledgment 
+ * 
+ */
+@Transactional(readOnly=false)
+public interface AckService {
+
     
-    private long m_responseTime;
+    void processAck(OnmsAcknowledgment ack);
     
-    public DhcpResponse(long responseTime){
-        m_responseTime = responseTime;
-    }
-    
-    public boolean validate(long num) {
-        return m_responseTime > num;
-    }
+    void processAcks(Collection<OnmsAcknowledgment> acks);
 
 }

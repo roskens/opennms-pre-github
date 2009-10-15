@@ -31,6 +31,11 @@
 		<insert tableName="categories"><column name="categoryname" value="Production" /></insert>
 		<insert tableName="categories"><column name="categoryname" value="Test" /></insert>
 		<insert tableName="categories"><column name="categoryname" value="Development" /></insert>
+
+		<modifySql>
+			<replace replace=" serial " with=" integer DEFAULT nextval('catNxtId') " />
+		</modifySql>
+
 	</changeSet>
 
 </databaseChangeLog>

@@ -8,11 +8,7 @@
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
- * Modifications:
- * 
- * Created: January 7, 2009
- *
- * Copyright (C) 2009 The OpenNMS Group, Inc.  All rights reserved.
+ * Original code base Copyright (C) 1999-2001 Oculan Corp.  All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,32 +25,26 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
  * For more information contact:
- *      OpenNMS Licensing       <license@opennms.org>
- *      http://www.opennms.org/
- *      http://www.opennms.com/
+ * OpenNMS Licensing       <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
  */
-package org.opennms.netmgt.ackd;
+package org.opennms.netmgt.provision.detector.simple;
 
-import java.util.Collection;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
-import org.opennms.netmgt.model.OnmsAcknowledgment;
-import org.opennms.netmgt.model.events.EventForwarder;
-import org.springframework.transaction.annotation.Transactional;
+@Component
+@Scope("prototype")
+public class NotesHttpDetector extends MultilineHttpDetector {
 
-/**
- * Transactional boundary for processing acknowledgements
- * 
- * @author <a href="mailto:david@opennms.org">David Hustace</a>
- * @author <a href="makilto:jeffg@opennms.org">Jeff Gehlbach</a>
- * 
- */
-@Transactional(readOnly=false)
-public interface AckService {
-        
-    void processAck(OnmsAcknowledgment ack);
+    public NotesHttpDetector(){
+        super();
+        setServiceName("NOTES");
+    }
     
-    void processAcks(Collection<OnmsAcknowledgment> acks);
-
-    void setEventForwarder(EventForwarder eventForwarder);
-
+    @Override
+    protected void onInit() {
+        send(request(httpCommand("HEAD")), contains("Lotus", getUrl(), isCheckRetCode(), getMaxRetCode()));
+    }
 }

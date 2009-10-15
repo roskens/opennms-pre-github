@@ -30,16 +30,18 @@
  */
 package org.opennms.netmgt.capsd.plugins;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.net.InetAddress;
-import java.net.UnknownHostException;
 
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
-import org.opennms.netmgt.config.DhcpdConfigFactory;
+import org.opennms.netmgt.dhcpd.Dhcpd;
 
 
 /**
@@ -48,11 +50,26 @@ import org.opennms.netmgt.config.DhcpdConfigFactory;
  */
 public class DhcpPluginTest {
     
+    private Dhcpd m_dhcpd;
+    
+    @Before
+    public void setup() throws Exception{
+        m_dhcpd = Dhcpd.getInstance();
+        m_dhcpd.init();
+        m_dhcpd.start();
+        
+    }
+    
+    @After
+    public void tearDown(){
+        m_dhcpd.stop();
+    }
+    
+    @Ignore
     @Test
     public void testPlugin() throws MarshalException, ValidationException, IOException {
-//        DhcpdConfigFactory.init();
-//        DhcpPlugin plugin = new DhcpPlugin();
-//
-//        assertTrue(plugin.isProtocolSupported(InetAddress.getByName("192.168.1.103")));
+        DhcpPlugin plugin = new DhcpPlugin();
+        assertTrue(plugin.isProtocolSupported(InetAddress.getByName("172.20.1.1")));
     }
+    
 }

@@ -29,51 +29,35 @@
  *     http://www.opennms.org/
  *     http://www.opennms.com/
  */
-package org.opennms.netmgt.provision.detector.dhcp.client;
+package org.opennms.netmgt.provision.support.codec;
 
-import java.io.IOException;
-import java.net.InetAddress;
+import java.nio.charset.Charset;
 
-import org.opennms.netmgt.dhcpd.Dhcpd;
-import org.opennms.netmgt.provision.detector.dhcp.request.DhcpRequest;
-import org.opennms.netmgt.provision.detector.dhcp.response.DhcpResponse;
-import org.opennms.netmgt.provision.support.Client;
+import org.apache.mina.core.session.IoSession;
+import org.apache.mina.filter.codec.ProtocolCodecFactory;
+import org.apache.mina.filter.codec.ProtocolDecoder;
+import org.apache.mina.filter.codec.ProtocolEncoder;
 
-
-public class DhcpClient implements Client<DhcpRequest, DhcpResponse> {
+public class MultilineHttpProtocolFactory implements ProtocolCodecFactory {
     
-    private int m_retries;
-    private int m_timeout;
-    private InetAddress m_address;
-    private long m_responseTime;
+    private LineOrientedEncoder m_encoder;
+    private MultilineHttpStatusResponseDecoder m_decoder;
     
-    public void close() {
-        
-    }
-
-    public void connect(InetAddress address, int port, int timeout) throws IOException, Exception {
-        m_address = address;
-        m_timeout = timeout;
-        
-    }
-
-    public DhcpResponse receiveBanner() throws IOException, Exception {
-        m_responseTime = Dhcpd.isServer(m_address, m_timeout, getRetries());
-        System.err.println("got a response from server: " + m_responseTime);
-        DhcpResponse response = new DhcpResponse(m_responseTime);
-        return response;
-    }
-
-    public DhcpResponse sendRequest(DhcpRequest request) throws IOException, Exception {
-        return null;
+    public MultilineHttpProtocolFactory() {
+        this(Charset.defaultCharset());
     }
     
-    public void setRetries(int retries) {
-        m_retries = retries;
+    public MultilineHttpProtocolFactory(Charset charset) {
+        m_encoder = new LineOrientedEncoder(charset);
+        m_decoder = new MultilineHttpStatusResponseDecoder(charset);
+    }
+    
+    public ProtocolDecoder getDecoder(IoSession session) throws Exception {
+        return m_decoder;
     }
 
-    public int getRetries() {
-        return m_retries;
+    public ProtocolEncoder getEncoder(IoSession session) throws Exception {
+        return m_encoder;
     }
 
 }
