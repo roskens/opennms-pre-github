@@ -24,7 +24,7 @@
 		</or>
 	</preConditions>
 
-	<include file="sequences.xml" />
+	<include file="create-sequences.xml" />
 
 	<include file="1.6.0/changelog.xml" />
 	<include file="1.7.0/changelog.xml" />
@@ -50,7 +50,9 @@
 	<include file="triggers/setSnmpInterfaceKeysOnInsertTrigger.xml" />
 	<include file="triggers/setSnmpInterfaceKeysOnUpdateTrigger.xml" />
 
-	<changeSet id="grant-permissions" author="rangerrick" runAlways="true" context="production">
+	<include file="repair-sequences.xml" />
+
+	<changeSet id="grant-permissions" author="rangerrick" runOnChange="true" runAlways="true" context="production">
 		<preConditions>
 			<dbms type="postgresql" />
 		</preConditions>
