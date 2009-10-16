@@ -515,6 +515,7 @@
 
    <updatePolicy>daily</updatePolicy>
 
+   <minaVersion>2.0.0-M6</minaVersion>
   </properties>
 
   <profiles>
@@ -1042,7 +1043,7 @@
       <dependency>
         <groupId>org.opennms</groupId>
         <artifactId>rancid-api</artifactId>
-        <version>0.94</version>
+        <version>0.96</version>
       </dependency>
       <dependency>
         <groupId>org.dnsjava</groupId>
@@ -1442,6 +1443,11 @@
         </exclusions>
       </dependency>
       <dependency>
+        <groupId>org.apache.mina</groupId>
+        <artifactId>mina-core</artifactId>
+        <version>${minaVersion}</version>
+      </dependency>
+      <dependency>
         <groupId>mx4j</groupId>
         <artifactId>mx4j-tools</artifactId>
         <version>3.0.1</version>
@@ -1609,17 +1615,6 @@
       <id>opennms-snapshots</id>
       <name>OpenNMS Repository</name>
       <url>http://repo.opennms.org/snapshots</url>
-    </repository>
-    <repository>
-     <snapshots>
-        <enabled>true</enabled>
-        <updatePolicy>${updatePolicy}</updatePolicy>
-      </snapshots>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <id>java-net-maven2-repo</id>
-      <url>http://download.java.net/maven/2</url>
     </repository>
     <repository>
       <id>maven-restlet</id>

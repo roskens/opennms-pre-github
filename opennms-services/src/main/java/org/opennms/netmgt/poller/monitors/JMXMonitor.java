@@ -30,6 +30,7 @@
 
 package org.opennms.netmgt.poller.monitors;
 
+import java.io.IOException;
 import java.net.InetAddress;
 import java.util.Map;
 
@@ -88,12 +89,12 @@ public abstract class JMXMonitor extends IPv4Monitor {
                          long nanoResponseTime = System.nanoTime() - t0;
 
                          serviceStatus = PollStatus.available(nanoResponseTime / 1000000.0);
+                    
+                         break;
 
                      }
-                    
-                     break;
                 }      
-                catch(Exception e) {
+                catch(IOException e) {
                 	serviceStatus = logDown(Level.DEBUG, dsName+": IOException while polling address: " + ipv4Addr);
                     break;
                 }
