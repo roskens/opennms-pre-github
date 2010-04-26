@@ -649,13 +649,9 @@
    <minaVersion>2.0.0-M6</minaVersion>
    <oroVersion>2.0.8</oroVersion>
    <xercesVersion>2.6.2</xercesVersion>
-<<<<<<< HEAD:pom.xml
    <gmavenVersion>1.0-rc-5</gmavenVersion>
-=======
-   <gmavenVersion>1.0</gmavenVersion>
    <jettyVersion>6.1.24</jettyVersion>
    <jettyServletVersion>6.1.14</jettyServletVersion>
->>>>>>> bd312a1... version jetty dependencies to avoid new plugin version:pom.xml
   </properties>
 
   <profiles>
@@ -1596,10 +1592,14 @@
         <groupId>org.mortbay.jetty</groupId>
         <artifactId>jsp-2.1-jetty</artifactId>
 <<<<<<< HEAD:pom.xml
+<<<<<<< HEAD:pom.xml
         <version>6.1.18</version>
 =======
         <version>${jettyServletVersion}</version>
 >>>>>>> bd312a1... version jetty dependencies to avoid new plugin version:pom.xml
+=======
+        <version>${jettyVersion}</version>
+>>>>>>> d2778ad... upgrade to the newer jsp-2.1-jetty:pom.xml
       </dependency>
       <dependency>
         <groupId>jfree</groupId>
