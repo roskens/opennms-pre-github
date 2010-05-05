@@ -119,7 +119,8 @@ public class DragonWaveNodeSwitchingTest implements MockSnmpAgentAware {
             throws UnknownHostException {
         return SnmpUtils.get(SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(host)), SnmpObjId.get(oid));
     }
-    
+
+    /*    
     @Test
     @JUnitSnmpAgent(host="127.0.0.1", port=9161, resource="classpath:/dw/walks/node3-walk.properties")
     public void testASetup() throws Exception{
@@ -131,6 +132,7 @@ public class DragonWaveNodeSwitchingTest implements MockSnmpAgentAware {
         
         assertEquals(".1.3.6.1.4.1.7262.1", sysObjectId);
     }
+    */
 
     private void importResource(String location) throws Exception {
         m_provisioner.importModelFromResource(m_resourceLoader.getResource(location));
