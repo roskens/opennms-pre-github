@@ -66,6 +66,7 @@ import org.opennms.web.element.NetworkElementFactory;
  * @author <A HREF="mailto:larry@opennms.org">Lawrence Karnowski </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
+@Deprecated
 public abstract class Util {
 
     /**
