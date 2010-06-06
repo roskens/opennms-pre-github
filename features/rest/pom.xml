@@ -69,7 +69,6 @@
       <artifactId>org.opennms.features.springframework-security</artifactId>
     </dependency>
 
-
     <!-- test dependencies -->
     <dependency>
       <groupId>org.opennms</groupId>
