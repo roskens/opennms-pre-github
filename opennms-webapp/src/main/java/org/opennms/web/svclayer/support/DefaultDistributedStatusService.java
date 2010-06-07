@@ -65,7 +65,7 @@ import org.opennms.netmgt.model.OnmsResource;
 import org.opennms.netmgt.model.PollStatus;
 import org.opennms.netmgt.model.PrefabGraph;
 import org.opennms.netmgt.model.OnmsLocationMonitor.MonitorStatus;
-import org.opennms.web.Util;
+import org.opennms.web.api.Util;
 import org.opennms.web.WebSecurityUtils;
 import org.opennms.web.command.DistributedStatusDetailsCommand;
 import org.opennms.web.graph.RelativeTimePeriod;

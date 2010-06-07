@@ -20,7 +20,7 @@ import org.opennms.netmgt.dao.AlarmDao;
 import org.opennms.netmgt.model.OnmsAlarm;
 import org.opennms.netmgt.model.OnmsAlarmCollection;
 import org.opennms.netmgt.model.OnmsCriteria;
-import org.opennms.web.rest.MultivaluedMapImpl;
+import org.opennms.web.api.MultivaluedMapImpl;
 import org.opennms.web.rest.OnmsRestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;

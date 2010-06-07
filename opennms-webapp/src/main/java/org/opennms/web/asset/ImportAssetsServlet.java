@@ -58,7 +58,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.opennms.core.resource.Vault;
 import org.opennms.web.MissingParameterException;
-import org.opennms.web.Util;
+import org.opennms.web.api.Util;
 import org.opennms.web.WebSecurityUtils;
 
 import au.com.bytecode.opencsv.CSVReader;

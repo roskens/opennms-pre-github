@@ -25,7 +25,7 @@ import org.opennms.netmgt.model.OnmsServiceType;
 import org.opennms.netmgt.model.events.EventProxy;
 import org.opennms.netmgt.model.events.EventProxyException;
 import org.opennms.netmgt.xml.event.Event;
-import org.opennms.web.rest.MultivaluedMapImpl;
+import org.opennms.web.api.MultivaluedMapImpl;
 import org.opennms.web.rest.OnmsRestService;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;

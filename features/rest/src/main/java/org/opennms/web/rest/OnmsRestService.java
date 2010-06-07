@@ -371,7 +371,7 @@ public class OnmsRestService {
     }
     
     @SuppressWarnings("unchecked")
-    protected void setProperties(org.opennms.web.rest.MultivaluedMapImpl params, Object req) {
+    protected void setProperties(org.opennms.web.api.MultivaluedMapImpl params, Object req) {
         BeanWrapper wrapper = new BeanWrapperImpl(req);
         wrapper.registerCustomEditor(XMLGregorianCalendar.class, new StringXmlCalendarPropertyEditor());
         for(String key : params.keySet()) {

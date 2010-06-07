@@ -270,10 +270,6 @@
       <artifactId>opennms-web-api</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.opennms.features</groupId>
-      <artifactId>org.opennms.features.rest</artifactId>
-    </dependency>
-    <dependency>
       <groupId>org.opennms</groupId>
       <artifactId>opennms-services</artifactId>
       <exclusions>

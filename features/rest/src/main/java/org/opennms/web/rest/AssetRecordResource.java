@@ -24,6 +24,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.opennms.netmgt.EventConstants;
+import org.opennms.web.api.MultivaluedMapImpl;
 
 
 import com.sun.jersey.spi.resource.PerRequest;

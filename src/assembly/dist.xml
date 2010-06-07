@@ -27,6 +27,16 @@
     </moduleSet>
     <moduleSet>
       <includes>
+        <include>org.opennms.features:org.opennms.features.rest</include>
+      </includes>
+      <binaries>
+        <outputDirectory>webapps/opennms-rest</outputDirectory>
+        <unpack>true</unpack>
+        <includeDependencies>false</includeDependencies>
+      </binaries>
+    </moduleSet>
+    <moduleSet>
+      <includes>
         <include>org.opennms:opennms-doc</include>
       </includes>
       <binaries>

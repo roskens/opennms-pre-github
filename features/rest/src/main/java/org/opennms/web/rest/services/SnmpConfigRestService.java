@@ -53,7 +53,7 @@ import javax.ws.rs.core.Response;
 import org.opennms.netmgt.config.SnmpEventInfo;
 import org.opennms.netmgt.config.SnmpPeerFactory;
 import org.opennms.netmgt.snmp.SnmpAgentConfig;
-import org.opennms.web.rest.MultivaluedMapImpl;
+import org.opennms.web.api.MultivaluedMapImpl;
 import org.opennms.web.rest.OnmsRestService;
 import org.opennms.web.snmpinfo.SnmpInfo;
 import org.springframework.beans.factory.annotation.Autowired;

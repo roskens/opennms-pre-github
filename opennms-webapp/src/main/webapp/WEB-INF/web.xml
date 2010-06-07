@@ -42,7 +42,6 @@
         classpath:/META-INF/opennms/applicationContext-reportingJasperReports.xml
         classpath:/META-INF/opennms/applicationContext-reporting.xml
         /WEB-INF/applicationContext-spring-security.xml
-        /WEB-INF/applicationContext-jersey.xml
         /WEB-INF/applicationContext-spring-webflow.xml
         <!-- WARMERGE: insert contextConfigLocation -->
     </param-value>
@@ -236,21 +235,6 @@
   </listener>
   
   <!-- WARMERGE: insert listener -->
-
-  <!--  RESTful Web Services -->
-  <servlet>
-    <servlet-name>opennmsRestWebServices</servlet-name>
-    <servlet-class>com.sun.jersey.spi.spring.container.servlet.SpringServlet</servlet-class>
-    <init-param>
-      <param-name>com.sun.jersey.config.property.resourceConfigClass</param-name>
-      <param-value>com.sun.jersey.api.core.PackagesResourceConfig</param-value>
-    </init-param>
-    <init-param>
-      <param-name>com.sun.jersey.config.property.packages</param-name>
-      <param-value>org.opennms.web.rest</param-value>
-    </init-param>
-    <load-on-startup>1</load-on-startup>
-  </servlet>
 
   <!--  servlet that gwt rpc requests get mapped to -->
    <servlet>
@@ -458,12 +442,6 @@
   <servlet-mapping>
     <servlet-name>newPasswordAction</servlet-name>
     <url-pattern>/account/selfService/newPasswordAction</url-pattern>
-  </servlet-mapping>
-  
-  <!-- Servlet mappings for REST Services -->
-  <servlet-mapping>
-    <servlet-name>opennmsRestWebServices</servlet-name>
-    <url-pattern>/rest/*</url-pattern>
   </servlet-mapping>
   
   <servlet>

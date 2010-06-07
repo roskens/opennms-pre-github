@@ -67,7 +67,7 @@ import org.opennms.netmgt.xml.event.Event;
 import org.opennms.netmgt.xml.event.Parm;
 import org.opennms.netmgt.xml.event.Parms;
 import org.opennms.netmgt.xml.event.Value;
-import org.opennms.web.Util;
+import org.opennms.web.api.Util;
 import org.opennms.web.WebSecurityUtils;
 import org.opennms.web.svclayer.ResourceService;
 import org.springframework.web.context.WebApplicationContext;

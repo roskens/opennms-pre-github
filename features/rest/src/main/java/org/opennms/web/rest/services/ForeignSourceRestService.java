@@ -65,7 +65,7 @@ import org.opennms.netmgt.provision.persist.foreignsource.ForeignSourceCollectio
 import org.opennms.netmgt.provision.persist.foreignsource.PluginConfig;
 import org.opennms.netmgt.provision.persist.foreignsource.PolicyCollection;
 import org.opennms.netmgt.provision.persist.foreignsource.PolicyWrapper;
-import org.opennms.web.rest.MultivaluedMapImpl;
+import org.opennms.web.api.MultivaluedMapImpl;
 import org.opennms.web.rest.OnmsRestService;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;

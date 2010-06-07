@@ -41,7 +41,7 @@ import org.opennms.netmgt.dao.OnmsMapDao;
 import org.opennms.netmgt.model.OnmsCriteria;
 import org.opennms.netmgt.model.OnmsMapList;
 import org.opennms.netmgt.model.OnmsMap;
-import org.opennms.web.rest.MultivaluedMapImpl;
+import org.opennms.web.api.MultivaluedMapImpl;
 import org.opennms.web.rest.OnmsRestService;
 import org.opennms.web.rest.resources.OnmsMapElementResource;
 

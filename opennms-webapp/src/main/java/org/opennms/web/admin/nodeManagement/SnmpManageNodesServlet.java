@@ -59,7 +59,7 @@ import org.opennms.netmgt.EventConstants;
 import org.opennms.netmgt.config.DataSourceFactory;
 import org.opennms.netmgt.config.NotificationFactory;
 import org.opennms.netmgt.xml.event.Event;
-import org.opennms.web.Util;
+import org.opennms.web.api.Util;
 import org.opennms.web.WebSecurityUtils;
 
 /**

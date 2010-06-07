@@ -56,7 +56,7 @@ import org.opennms.netmgt.config.discovery.IncludeUrl;
 import org.opennms.netmgt.config.discovery.Specific;
 import org.opennms.netmgt.model.events.EventProxy;
 import org.opennms.netmgt.xml.event.Event;
-import org.opennms.web.Util;
+import org.opennms.web.api.Util;
 import org.opennms.web.WebSecurityUtils;
 
 /**

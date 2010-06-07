@@ -16,6 +16,8 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.ext.MessageBodyReader;
 import javax.ws.rs.ext.Provider;
 
+import org.opennms.web.api.MultivaluedMapImpl;
+
 @Provider
 public class FormPropertiesReader implements MessageBodyReader<MultivaluedMapImpl> {	
     @Context private HttpServletRequest m_httpServletRequest;
@@ -36,6 +38,7 @@ public class FormPropertiesReader implements MessageBodyReader<MultivaluedMapImp
 	    
 		MultivaluedMapImpl result = new MultivaluedMapImpl();
 		
+        @SuppressWarnings("unchecked")
 		Enumeration<String> en = m_httpServletRequest.getParameterNames();
 		while(en.hasMoreElements()) {
 		    String parmName = en.nextElement();

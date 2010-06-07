@@ -36,28 +36,13 @@
 //
 package org.opennms.web;
 
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.UndeclaredThrowableException;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.net.UnknownHostException;
-import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.opennms.core.resource.Vault;
 import org.opennms.netmgt.model.events.EventProxy;
-import org.opennms.netmgt.utils.TcpEventProxy;
 import org.opennms.web.element.NetworkElementFactory;
 
 /**

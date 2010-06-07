@@ -29,6 +29,10 @@
     </dependency>
     <dependency>
       <groupId>org.opennms.dependencies</groupId>
+      <artifactId>jersey-dependencies</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.opennms.dependencies</groupId>
       <artifactId>spring-dependencies</artifactId>
     </dependency>
     <dependency>

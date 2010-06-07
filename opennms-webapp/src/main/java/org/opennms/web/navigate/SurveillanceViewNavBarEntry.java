@@ -38,7 +38,7 @@ package org.opennms.web.navigate;
 import javax.servlet.http.HttpServletRequest;
 
 import org.opennms.netmgt.dao.SurveillanceViewConfigDao;
-import org.opennms.web.Util;
+import org.opennms.web.api.Util;
 
 public class SurveillanceViewNavBarEntry extends LocationBasedNavBarEntry {
     private SurveillanceViewConfigDao m_surveillanceViewConfigDao;

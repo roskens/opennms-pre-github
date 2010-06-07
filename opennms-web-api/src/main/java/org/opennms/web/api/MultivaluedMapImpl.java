@@ -1,4 +1,4 @@
-package org.opennms.web.rest;
+package org.opennms.web.api;
 
 import java.util.ArrayList;
 import java.util.Arrays;

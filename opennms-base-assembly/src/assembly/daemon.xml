@@ -126,6 +126,39 @@
       </includes>
     </fileSet>
     <fileSet>
+      <directory>target/dependency-rest</directory>
+      <outputDirectory>jetty-webapps/opennms-rest</outputDirectory>
+      <excludes>
+        <exclude>WEB-INF/lib/*</exclude>
+        <exclude>WEB-INF/log4j.properties</exclude>
+      </excludes>
+    </fileSet>
+    <fileSet>
+      <directory>target/dependency-rest/WEB-INF/lib</directory>
+      <outputDirectory>lib</outputDirectory>
+      <excludes>
+        <exclude>opennms-webapp-*.jar</exclude>
+        <exclude>gwt*.jar</exclude>
+        <exclude>extremecomponents-*.jar</exclude>
+        <exclude>jstl-*.jar</exclude>
+        <exclude>jsp-api-*.jar</exclude>
+        <exclude>servlet-api-*.jar</exclude>
+         <exclude>com.springsource.javax.xml.bind*.jar</exclude>
+      </excludes>
+    </fileSet>
+    <fileSet>
+      <directory>target/dependency-rest/WEB-INF/lib</directory>
+      <outputDirectory>jetty-webapps/opennms-rest/WEB-INF/lib</outputDirectory>
+      <includes>
+        <include>opennms-webapp-*.jar</include>
+        <include>gwt*.jar</include>
+        <include>extremecomponents-*.jar</include>
+        <exclude>jsp-api-*.jar</exclude>
+        <exclude>jstl-*.jar</exclude>
+        <exclude>servlet-api-*.jar</exclude>
+      </includes>
+    </fileSet>
+    <fileSet>
       <directory>target/dependency-remote-monitor/WEB-INF/lib</directory>
       <outputDirectory>lib</outputDirectory>
       <excludes>
