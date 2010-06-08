@@ -5,9 +5,9 @@ import java.util.Date;
 
 import org.opennms.features.poller.remote.gwt.client.ApplicationDetails;
 import org.opennms.features.poller.remote.gwt.client.ApplicationInfo;
-import org.opennms.features.poller.remote.gwt.client.GWTLatLng;
 import org.opennms.features.poller.remote.gwt.client.location.LocationDetails;
 import org.opennms.features.poller.remote.gwt.client.location.LocationInfo;
+import org.opennms.features.poller.remote.gwt.client.map.GWTLatLng;
 import org.opennms.netmgt.model.OnmsApplication;
 import org.opennms.netmgt.model.OnmsMonitoringLocationDefinition;
 

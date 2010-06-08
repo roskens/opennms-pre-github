@@ -1,7 +1,7 @@
 package org.opennms.features.poller.remote.gwt.client.events;
 
 
-import org.opennms.features.poller.remote.gwt.client.GWTMarkerState;
+import org.opennms.features.poller.remote.gwt.client.map.MarkerState;
 
 import com.google.gwt.event.shared.GwtEvent;
 
@@ -9,9 +9,9 @@ public class GWTMarkerClickedEvent extends GwtEvent<GWTMarkerClickedEventHandler
     
     public final static Type<GWTMarkerClickedEventHandler> TYPE = new Type<GWTMarkerClickedEventHandler>();
     
-    private GWTMarkerState m_marker;
+    private MarkerState m_marker;
     
-    public GWTMarkerClickedEvent(GWTMarkerState marker) {
+    public GWTMarkerClickedEvent(MarkerState marker) {
         setMarker(marker);
     }
 
@@ -26,11 +26,11 @@ public class GWTMarkerClickedEvent extends GwtEvent<GWTMarkerClickedEventHandler
         return TYPE;
     }
 
-    private void setMarker(GWTMarkerState marker) {
+    private void setMarker(MarkerState marker) {
         m_marker = marker;
     }
 
-    public GWTMarkerState getMarkerState() {
+    public MarkerState getMarkerState() {
         return m_marker;
     }
 

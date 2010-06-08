@@ -1,6 +1,6 @@
 package org.opennms.features.poller.remote.gwt.server.geocoding;
 
-import org.opennms.features.poller.remote.gwt.client.GWTLatLng;
+import org.opennms.features.poller.remote.gwt.client.map.GWTLatLng;
 
 public class NullGeocoder implements Geocoder {
 

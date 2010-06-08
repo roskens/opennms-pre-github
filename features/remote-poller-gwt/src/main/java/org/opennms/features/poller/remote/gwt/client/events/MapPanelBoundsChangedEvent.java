@@ -1,6 +1,6 @@
 package org.opennms.features.poller.remote.gwt.client.events;
 
-import org.opennms.features.poller.remote.gwt.client.GWTBounds;
+import org.opennms.features.poller.remote.gwt.client.map.GWTBounds;
 
 import com.google.gwt.event.shared.GwtEvent;
 

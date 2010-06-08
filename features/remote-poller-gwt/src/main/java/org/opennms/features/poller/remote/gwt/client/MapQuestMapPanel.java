@@ -5,7 +5,11 @@ import java.util.Map;
 
 import org.opennms.features.poller.remote.gwt.client.events.GWTMarkerClickedEvent;
 import org.opennms.features.poller.remote.gwt.client.events.MapPanelBoundsChangedEvent;
-import org.opennms.features.poller.remote.gwt.client.utils.BoundsBuilder;
+import org.opennms.features.poller.remote.gwt.client.map.BoundsBuilder;
+import org.opennms.features.poller.remote.gwt.client.map.GWTBounds;
+import org.opennms.features.poller.remote.gwt.client.map.GWTLatLng;
+import org.opennms.features.poller.remote.gwt.client.map.MapPanel;
+import org.opennms.features.poller.remote.gwt.client.map.MarkerState;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
@@ -40,9 +44,9 @@ public class MapQuestMapPanel extends Composite implements MapPanel {
 
     private class DefaultMarkerClickHandler implements ClickHandler {
 
-        private GWTMarkerState m_markerState;
+        private MarkerState m_markerState;
 
-        public DefaultMarkerClickHandler(final GWTMarkerState markerState) {
+        public DefaultMarkerClickHandler(final MarkerState markerState) {
             setMarkerState(markerState);
         }
 
@@ -50,11 +54,11 @@ public class MapQuestMapPanel extends Composite implements MapPanel {
             m_eventBus.fireEvent(new GWTMarkerClickedEvent(getMarkerState()));
         }
 
-        public void setMarkerState(final GWTMarkerState markerState) {
+        public void setMarkerState(final MarkerState markerState) {
             m_markerState = markerState;
         }
 
-        public GWTMarkerState getMarkerState() {
+        public MarkerState getMarkerState() {
             return m_markerState;
         }
 
@@ -134,7 +138,7 @@ public class MapQuestMapPanel extends Composite implements MapPanel {
         }
     }
 
-    private MQAPoi createMarker(final GWTMarkerState marker) {
+    private MQAPoi createMarker(final MarkerState marker) {
         final MQALatLng latLng = toMQALatLng(marker.getLatLng());
         final MQAIcon icon = createIcon(marker);
         final MQAPoi point = MQAPoi.newInstance(latLng, icon);
@@ -146,7 +150,7 @@ public class MapQuestMapPanel extends Composite implements MapPanel {
         return point;
     }
 
-    private MQAIcon createIcon(final GWTMarkerState marker) {
+    private MQAIcon createIcon(final MarkerState marker) {
         return MQAIcon.newInstance(marker.getImageURL(), 32, 32);
     }
 
@@ -184,7 +188,7 @@ public class MapQuestMapPanel extends Composite implements MapPanel {
         m_map.setSize();
     }
 
-    public void placeMarker(final GWTMarkerState marker) {
+    public void placeMarker(final MarkerState marker) {
         MQAPoi m = getMarker(marker.getName());
 
         if (m == null) {
@@ -197,7 +201,7 @@ public class MapQuestMapPanel extends Composite implements MapPanel {
 
     }
 
-    private void updateMarker(final MQAPoi m, final GWTMarkerState marker) {
+    private void updateMarker(final MQAPoi m, final MarkerState marker) {
         m.setIcon(createIcon(marker));
         m.setVisible(marker.isVisible());
     }

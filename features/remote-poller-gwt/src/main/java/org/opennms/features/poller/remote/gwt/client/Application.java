@@ -2,6 +2,7 @@ package org.opennms.features.poller.remote.gwt.client;
 
 import org.opennms.features.poller.remote.gwt.client.events.LocationManagerInitializationCompleteEvent;
 import org.opennms.features.poller.remote.gwt.client.events.LocationManagerInitializationCompleteEventHander;
+import org.opennms.features.poller.remote.gwt.client.map.MapPanel;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;

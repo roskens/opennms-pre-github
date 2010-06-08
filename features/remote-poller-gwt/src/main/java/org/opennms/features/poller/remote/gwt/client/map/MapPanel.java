@@ -1,4 +1,4 @@
-package org.opennms.features.poller.remote.gwt.client;
+package org.opennms.features.poller.remote.gwt.client.map;
 
 import com.google.gwt.user.client.ui.Widget;
 
@@ -12,6 +12,6 @@ public interface MapPanel {
 
     public void setBounds(GWTBounds locationBounds);
 
-    public void placeMarker(GWTMarkerState marker);
+    public void placeMarker(MarkerState marker);
     
 }

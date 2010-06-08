@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-import org.opennms.features.poller.remote.gwt.client.GWTLatLng;
+import org.opennms.features.poller.remote.gwt.client.map.GWTLatLng;
 
 public class TestNominatimGeocoder extends AbstractGeocoderTest {
 

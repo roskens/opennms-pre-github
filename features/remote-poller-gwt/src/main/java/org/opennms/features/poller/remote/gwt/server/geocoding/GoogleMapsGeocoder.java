@@ -7,7 +7,7 @@ import geo.google.datamodel.GeoCoordinate;
 import java.util.List;
 
 import org.opennms.core.utils.LogUtils;
-import org.opennms.features.poller.remote.gwt.client.GWTLatLng;
+import org.opennms.features.poller.remote.gwt.client.map.GWTLatLng;
 
 public class GoogleMapsGeocoder implements Geocoder {
 	private static final long DEFAULT_RATE = 10;

@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.opennms.features.poller.remote.gwt.client.GWTLatLng;
+import org.opennms.features.poller.remote.gwt.client.map.GWTLatLng;
 
 public class TestMapquestGeocoder extends AbstractGeocoderTest {
 

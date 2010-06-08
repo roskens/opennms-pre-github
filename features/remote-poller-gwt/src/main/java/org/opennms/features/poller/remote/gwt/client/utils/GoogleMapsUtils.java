@@ -1,7 +1,7 @@
 package org.opennms.features.poller.remote.gwt.client.utils;
 
-import org.opennms.features.poller.remote.gwt.client.GWTBounds;
-import org.opennms.features.poller.remote.gwt.client.GWTLatLng;
+import org.opennms.features.poller.remote.gwt.client.map.GWTBounds;
+import org.opennms.features.poller.remote.gwt.client.map.GWTLatLng;
 
 import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.maps.client.geom.LatLngBounds;

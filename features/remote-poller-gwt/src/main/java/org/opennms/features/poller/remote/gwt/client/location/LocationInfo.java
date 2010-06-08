@@ -3,10 +3,10 @@ package org.opennms.features.poller.remote.gwt.client.location;
 import java.io.Serializable;
 import java.util.Set;
 
-import org.opennms.features.poller.remote.gwt.client.GWTBounds;
-import org.opennms.features.poller.remote.gwt.client.GWTLatLng;
 import org.opennms.features.poller.remote.gwt.client.GWTMarkerState;
 import org.opennms.features.poller.remote.gwt.client.StatusDetails;
+import org.opennms.features.poller.remote.gwt.client.map.GWTBounds;
+import org.opennms.features.poller.remote.gwt.client.map.GWTLatLng;
 import org.opennms.features.poller.remote.gwt.client.utils.CompareToBuilder;
 import org.opennms.features.poller.remote.gwt.client.utils.EqualsUtil;
 import org.opennms.features.poller.remote.gwt.client.utils.HashCodeBuilder;

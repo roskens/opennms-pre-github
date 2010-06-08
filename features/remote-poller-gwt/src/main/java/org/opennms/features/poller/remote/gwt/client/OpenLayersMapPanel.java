@@ -23,7 +23,11 @@ import org.gwtopenmaps.openlayers.client.layer.WMSParams;
 import org.gwtopenmaps.openlayers.client.popup.Popup;
 import org.opennms.features.poller.remote.gwt.client.events.GWTMarkerClickedEvent;
 import org.opennms.features.poller.remote.gwt.client.events.MapPanelBoundsChangedEvent;
-import org.opennms.features.poller.remote.gwt.client.utils.BoundsBuilder;
+import org.opennms.features.poller.remote.gwt.client.map.BoundsBuilder;
+import org.opennms.features.poller.remote.gwt.client.map.GWTBounds;
+import org.opennms.features.poller.remote.gwt.client.map.GWTLatLng;
+import org.opennms.features.poller.remote.gwt.client.map.MapPanel;
+import org.opennms.features.poller.remote.gwt.client.map.MarkerState;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -43,17 +47,17 @@ public class OpenLayersMapPanel extends Composite implements MapPanel {
 
     private class DefaultMarkerClickHandler implements MarkerBrowserEventListener {
         
-        private GWTMarkerState m_markerState;
+        private MarkerState m_markerState;
         
-        public DefaultMarkerClickHandler(GWTMarkerState markerState) {
+        public DefaultMarkerClickHandler(MarkerState markerState) {
             setMarkerState(markerState);
         }
 
-        public void setMarkerState(GWTMarkerState markerState) {
+        public void setMarkerState(MarkerState markerState) {
             m_markerState = markerState;
         }
 
-        public GWTMarkerState getMarkerState() {
+        public MarkerState getMarkerState() {
             return m_markerState;
         }
 
@@ -151,7 +155,7 @@ public class OpenLayersMapPanel extends Composite implements MapPanel {
 
 
 
-    private Marker createMarker(final GWTMarkerState marker) {
+    private Marker createMarker(final MarkerState marker) {
         final LonLat lonLat = toLonLat(marker.getLatLng());
         final Icon icon = createIcon(marker);
         final Marker m = new Marker(lonLat, icon);
@@ -159,7 +163,7 @@ public class OpenLayersMapPanel extends Composite implements MapPanel {
         return m;
     }
 
-    private Icon createIcon(final GWTMarkerState marker) {
+    private Icon createIcon(final MarkerState marker) {
         return new Icon(marker.getImageURL(), new Size(32, 32), new Pixel(-16, -32));
     }
 
@@ -199,7 +203,7 @@ public class OpenLayersMapPanel extends Composite implements MapPanel {
         m_map.updateSize();
     }
 
-    public void placeMarker(final GWTMarkerState marker) {
+    public void placeMarker(final MarkerState marker) {
         Marker m = getMarker(marker.getName());
 
         if(m == null) {
@@ -212,7 +216,7 @@ public class OpenLayersMapPanel extends Composite implements MapPanel {
         
     }
 
-    private void updateMarker(final Marker m, final GWTMarkerState marker) {
+    private void updateMarker(final Marker m, final MarkerState marker) {
         m.setImageUrl(marker.getImageURL());
         // FIXME: can we do this?
         // m.setVisible(marker.isVisible());

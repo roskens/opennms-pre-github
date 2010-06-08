@@ -9,6 +9,9 @@ import java.util.Map;
 
 import org.opennms.features.poller.remote.gwt.client.events.GWTMarkerClickedEvent;
 import org.opennms.features.poller.remote.gwt.client.events.MapPanelBoundsChangedEvent;
+import org.opennms.features.poller.remote.gwt.client.map.GWTBounds;
+import org.opennms.features.poller.remote.gwt.client.map.MapPanel;
+import org.opennms.features.poller.remote.gwt.client.map.MarkerState;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -45,7 +48,7 @@ public class GoogleMapsPanel extends Composite implements MapPanel {
     MapWidget m_mapWidget;
     
     private Map<String, Marker> m_markers = new HashMap<String, Marker>();
-    private Map<String, GWTMarkerState> m_markerStates = new HashMap<String,GWTMarkerState>();
+    private Map<String, MarkerState> m_markerStates = new HashMap<String, MarkerState>();
     private HandlerManager m_eventBus;
 
     public GoogleMapsPanel(final HandlerManager eventBus) {
@@ -111,7 +114,7 @@ public class GoogleMapsPanel extends Composite implements MapPanel {
         getMapWidget().addOverlay(newMarker);
     }
 
-    private Marker createMarker(final GWTMarkerState marker) {
+    private Marker createMarker(final MarkerState marker) {
         final Icon icon = Icon.newInstance();
         icon.setIconSize(Size.newInstance(32, 32));
         icon.setIconAnchor(Point.newInstance(16, 32));
@@ -130,7 +133,7 @@ public class GoogleMapsPanel extends Composite implements MapPanel {
         return m;
     }
 
-    public void placeMarker(final GWTMarkerState marker) {
+    public void placeMarker(final MarkerState marker) {
     	m_markerStates.put(marker.getName(), marker);
 
     	Marker m = m_markers.get(marker.getName());
@@ -143,15 +146,15 @@ public class GoogleMapsPanel extends Composite implements MapPanel {
         }
     }
 
-    private void updateMarkerFromState(Marker m, GWTMarkerState marker) {
+    private void updateMarkerFromState(Marker m, MarkerState marker) {
         m.setImage(marker.getImageURL());
         m.setVisible(marker.isVisible());
     }
 
     private final class DefaultMarkerClickHandler implements MarkerClickHandler {
-        private final GWTMarkerState m_marker;
+        private final MarkerState m_marker;
 
-        DefaultMarkerClickHandler(GWTMarkerState marker) {
+        DefaultMarkerClickHandler(MarkerState marker) {
             m_marker = marker;
         }
 

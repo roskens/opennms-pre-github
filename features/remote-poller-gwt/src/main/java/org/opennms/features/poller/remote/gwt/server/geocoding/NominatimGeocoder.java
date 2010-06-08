@@ -11,7 +11,7 @@ import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.opennms.core.utils.LogUtils;
-import org.opennms.features.poller.remote.gwt.client.GWTLatLng;
+import org.opennms.features.poller.remote.gwt.client.map.GWTLatLng;
 
 public class NominatimGeocoder implements Geocoder {
 	private static final String GEOCODE_URL = "http://nominatim.openstreetmap.org/search?format=xml";

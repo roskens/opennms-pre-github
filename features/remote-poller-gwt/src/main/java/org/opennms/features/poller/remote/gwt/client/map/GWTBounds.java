@@ -1,6 +1,4 @@
-package org.opennms.features.poller.remote.gwt.client;
-
-import org.opennms.features.poller.remote.gwt.client.utils.HashCodeBuilder;
+package org.opennms.features.poller.remote.gwt.client.map;
 
 public class GWTBounds {
     
@@ -53,10 +51,7 @@ public class GWTBounds {
     }
 
     public int hashCode() {
-    	return new HashCodeBuilder()
-    		.append(m_southWestCorner)
-    		.append(m_northEastCorner)
-    		.toHashcode();
+        return m_southWestCorner.hashCode() * 37 + m_northEastCorner.hashCode();
     }
 
     public String toString() {

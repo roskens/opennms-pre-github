@@ -1,17 +1,15 @@
 /**
  * 
  */
-package org.opennms.features.poller.remote.gwt.client;
+package org.opennms.features.poller.remote.gwt.client.map;
 
-import java.io.Serializable;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
-public class GWTLatLng implements IsSerializable, Serializable {
-	private static final long serialVersionUID = 1L;
+public class GWTLatLng implements IsSerializable {
 
-	private Double m_latitude;
-	private Double m_longitude;
+	private final Double m_latitude;
+	private final Double m_longitude;
 
 	public final static GWTLatLng getDefault() {
 		return new GWTLatLng(35.7174,-79.1619);

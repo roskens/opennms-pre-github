@@ -3,6 +3,7 @@ package org.opennms.features.poller.remote.gwt.client;
 import java.io.Serializable;
 import java.util.Set;
 
+import org.opennms.features.poller.remote.gwt.client.map.MarkerState;
 import org.opennms.features.poller.remote.gwt.client.utils.CompareToBuilder;
 import org.opennms.features.poller.remote.gwt.client.utils.EqualsUtil;
 import org.opennms.features.poller.remote.gwt.client.utils.HashCodeBuilder;
@@ -69,7 +70,7 @@ public class ApplicationInfo implements Serializable, IsSerializable, Comparable
 	public void setPriority(final Long priority) {
 		m_priority = priority;
 	}
-	public GWTMarkerState getMarkerState() {
+	public MarkerState getMarkerState() {
 		return new GWTMarkerState(m_name, null, m_statusDetails == null? Status.UNINITIALIZED : m_statusDetails.getStatus());
 	}
 

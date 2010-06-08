@@ -3,9 +3,9 @@ package org.opennms.features.poller.remote.gwt.client.utils;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.opennms.features.poller.remote.gwt.client.GWTBounds;
-import org.opennms.features.poller.remote.gwt.client.GWTLatLng;
-import org.opennms.features.poller.remote.gwt.client.utils.BoundsBuilder;
+import org.opennms.features.poller.remote.gwt.client.map.BoundsBuilder;
+import org.opennms.features.poller.remote.gwt.client.map.GWTBounds;
+import org.opennms.features.poller.remote.gwt.client.map.GWTLatLng;
 
 
 public class BoundsBuilderTest {

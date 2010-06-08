@@ -2,10 +2,14 @@ package org.opennms.features.poller.remote.gwt.client;
 
 import java.io.Serializable;
 
+import org.opennms.features.poller.remote.gwt.client.map.GWTBounds;
+import org.opennms.features.poller.remote.gwt.client.map.GWTLatLng;
+import org.opennms.features.poller.remote.gwt.client.map.MarkerState;
+
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 
-public class GWTMarkerState implements IsSerializable, Serializable {
+public class GWTMarkerState implements IsSerializable, Serializable, MarkerState {
 	private static final long serialVersionUID = 1L;
 
 	private Status m_status;

@@ -27,11 +27,14 @@ import org.opennms.features.poller.remote.gwt.client.events.LocationsUpdatedEven
 import org.opennms.features.poller.remote.gwt.client.events.MapPanelBoundsChangedEvent;
 import org.opennms.features.poller.remote.gwt.client.location.LocationDetails;
 import org.opennms.features.poller.remote.gwt.client.location.LocationInfo;
+import org.opennms.features.poller.remote.gwt.client.map.BoundsBuilder;
+import org.opennms.features.poller.remote.gwt.client.map.GWTBounds;
+import org.opennms.features.poller.remote.gwt.client.map.MapPanel;
+import org.opennms.features.poller.remote.gwt.client.map.MarkerState;
 import org.opennms.features.poller.remote.gwt.client.remoteevents.ApplicationUpdatedRemoteEvent;
 import org.opennms.features.poller.remote.gwt.client.remoteevents.LocationUpdatedRemoteEvent;
 import org.opennms.features.poller.remote.gwt.client.remoteevents.LocationsUpdatedRemoteEvent;
 import org.opennms.features.poller.remote.gwt.client.remoteevents.UpdateCompleteRemoteEvent;
-import org.opennms.features.poller.remote.gwt.client.utils.BoundsBuilder;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.HandlerManager;
@@ -214,7 +217,7 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
         // since the pageable lists use get() to fetch based on index.
         final ArrayList<LocationInfo> visibleLocations = new ArrayList<LocationInfo>();
         for (final LocationInfo location : m_locations.values()) {
-            final GWTMarkerState markerState = location.getMarkerState();
+            final MarkerState markerState = location.getMarkerState();
             GWTBounds mapBounds = m_mapPanel.getBounds();
             if (markerState.isSelected() && markerState.isWithinBounds(mapBounds) && markerState.isVisible()) {
                 visibleLocations.add(location);
@@ -478,7 +481,7 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
     }
 
     public void onGWTMarkerClicked(GWTMarkerClickedEvent event) {
-        GWTMarkerState markerState = event.getMarkerState();
+        MarkerState markerState = event.getMarkerState();
         showLocationDetails(markerState.getName());
     }
 
