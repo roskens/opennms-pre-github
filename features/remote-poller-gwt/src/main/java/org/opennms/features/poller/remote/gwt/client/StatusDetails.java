@@ -39,6 +39,7 @@ public class StatusDetails implements Serializable, IsSerializable, Comparable<S
     }
 
     public int hashCode() {
+        // FIXME this hash code doesn't preserve equals contract
         return new HashCodeBuilder()
             .append(this.getStatus())
             .append(this.getReason())
@@ -53,6 +54,7 @@ public class StatusDetails implements Serializable, IsSerializable, Comparable<S
     }
 
     public int compareTo(final StatusDetails that) {
+        // FIXME this comparable doesn't seems weird
         return new CompareToBuilder()
 //            .append(this.getStatus(), that.getStatus())
             // reverse sort!

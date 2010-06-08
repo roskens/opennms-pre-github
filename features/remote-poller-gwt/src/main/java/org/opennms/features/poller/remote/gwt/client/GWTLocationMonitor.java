@@ -62,6 +62,7 @@ public class GWTLocationMonitor implements Serializable, IsSerializable, Compara
 	}
 
 	public int hashCode() {
+	    // FIXME Fails to preserver equals contract
 		return new HashCodeBuilder()
 			.append(this.getId())
 			.append(this.getName())

@@ -12,6 +12,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+// TODO: This is server side only class.. it should move to the server package
 public class CacheFilter implements Filter {
 	private static final long ONE_DAY = 1000 * 60 * 60 * 24;
 
