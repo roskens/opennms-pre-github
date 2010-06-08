@@ -213,6 +213,11 @@
       <artifactId>opennms-rrdtool-api</artifactId>
       <scope>runtime</scope>
     </dependency>
+    <dependency>
+      <groupId>taglibs</groupId>
+      <artifactId>standard</artifactId>
+      <scope>runtime</scope>
+    </dependency>
 
     <!-- Test Dependencies -->
     <dependency>
@@ -247,6 +252,7 @@
       <artifactId>org.opennms.tests.mock-elements</artifactId>
       <scope>test</scope>
     </dependency>
+    
   </dependencies>
 
   <repositories>
