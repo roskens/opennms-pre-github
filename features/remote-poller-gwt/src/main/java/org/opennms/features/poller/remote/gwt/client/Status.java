@@ -8,41 +8,12 @@ import java.io.Serializable;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 public enum Status implements Serializable, IsSerializable {
-	UP,
-	MARGINAL,
-	DOWN,
-	UNKNOWN,
-	UNINITIALIZED;
+	UP             { public String getColor() { return "#00ff00"; } public String getStyle() { return "statusUp"; } },
+	MARGINAL       { public String getColor() { return "#ffff00"; } public String getStyle() { return "statusMarginal"; } },
+	DOWN           { public String getColor() { return "#ff0000"; } public String getStyle() { return "statusDown"; } },
+	UNKNOWN        { public String getColor() { return "#0000ff"; } public String getStyle() { return "statusUnknown"; } },
+	UNINITIALIZED  { public String getColor() { return "#dddddd"; } public String getStyle() { return "statusUninitialized"; } };
 
-	public String getColor() {
-		String color;
-		if (this.equals(Status.UP)){
-			color = "#00ff00";
-		} else if (this.equals(Status.MARGINAL)) {
-			color = "#ffff00";
-		} else if (this.equals(Status.DOWN)) {
-			color = "#ff0000";
-		} else if (this.equals(Status.UNKNOWN)) {
-			color = "#0000ff";
-		} else {
-			color = "#dddddd";
-		}
-		return color;
-	}
-
-	public String getStyle() {
-		String cssClass;
-		if (this.equals(Status.UP)) {
-			cssClass = "statusUp";
-		} else if (this.equals(Status.MARGINAL)) {
-			cssClass = "statusMarginal";
-		} else if (this.equals(Status.DOWN)) {
-			cssClass = "statusDown";
-		} else if (this.equals(Status.UNKNOWN)){
-			cssClass = "statusUnknown";
-		} else {
-			cssClass = "statusUninitialized";
-		}
-		return cssClass;
-	}
+	abstract public String getColor();
+	abstract public String getStyle();
 }
