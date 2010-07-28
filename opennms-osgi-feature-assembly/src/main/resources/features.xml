@@ -22,6 +22,10 @@
         <bundle>mvn:org.springframework/spring-context/${spring3-version}</bundle>
         <bundle>mvn:org.springframework/spring-context-support/${spring3-version}</bundle>
         <bundle>mvn:org.springframework/spring-expression/${spring3-version}</bundle>
+        <bundle>mvn:org.springframework/spring-tx/${spring3-version}</bundle>
+        <bundle>mvn:org.springframework/spring-orm/${spring3-version}</bundle>
+        <bundle>mvn:org.springframework/spring-tx/${spring3-version}</bundle>
+        <bundle>mvn:org.springframework/spring-jdbc/${spring3-version}</bundle>
     </feature>
 
     <feature name='spring-dm' version='${spring-osgi-version}'>
@@ -42,6 +46,28 @@
         <bundle>mvn:org.springframework.osgi/spring-osgi-annotation/${spring-osgi-version}</bundle>
     </feature>
 
+    <feature name="hibernate" version="${hibernate.version}">
+        <bundle>mvn:org.apache.servicemix.specs/org.apache.servicemix.specs.java-persistence-api-1.1.1/${servicemix-specs-version}</bundle>
+        <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.cglib/2.1_3_4</bundle>
+        <bundle>mvn:commons-collections/commons-collections/${commons-collections-version}</bundle>
+        <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.commons-pool/${commons-pool-bundle-version}</bundle>
+        <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.dom4j/${dom4j-bundle-version}</bundle>
+        <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.antlr/${antlr-bundle-version}</bundle>
+        <bundle>mvn:http://repository.springsource.com/maven/bundles/external!org.jboss.javassist/com.springsource.javassist/${javassist-version}</bundle>
+        <bundle>mvn:org.hibernate/com.springsource.org.hibernate/${hibernate.version}</bundle>
+        <bundle>mvn:org.hibernate/com.springsource.org.hibernate.annotations/${hibernate-annotations.version}</bundle>
+        <bundle>mvn:org.hibernate/com.springsource.org.hibernate.annotations.common/${hibernate-annotations-common.version}</bundle>
+        <bundle>mvn:org.hibernate/com.springsource.org.hibernate.ejb/${hibernate-ejb.version}</bundle>
+        <!--
+        <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.asm/${asm-bundle-version}</bundle>
+        -->
+        <bundle>mvn:org.objectweb.asm/com.springsource.org.objectweb.asm/${asm.version}</bundle>
+        <bundle>mvn:org.apache.servicemix.specs/org.apache.servicemix.specs.activation-api-1.1/${servicemix-specs-version}</bundle>
+        <bundle>mvn:org.apache.servicemix.specs/org.apache.servicemix.specs.jaxb-api-2.1/${servicemix-specs-version}</bundle>
+        <bundle>mvn:org.apache.servicemix.specs/org.apache.servicemix.specs.stax-api-1.0/${servicemix-specs-version}</bundle>
+        <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.jaxb-impl/${jaxb-bundle-version}</bundle>
+    </feature>
+
     <!-- Base opennms feature descriptor for a daemon install -->
 
     <feature name="opennms-config" version="${project.version}">
@@ -60,4 +86,18 @@
         <feature version="${project.version}">opennms-util</feature>
         <bundle>mvn:org.opennms/opennms-config-utils/${project.version}</bundle>
     </feature>
+
+    <feature name="opennms-dao" version="${project.version}">
+        <bundle>mvn:org.codehaus.castor/com.springsource.org.castor/${castor-version}</bundle>
+        <bundle>mvn:org.apache.servicemix.specs/org.apache.servicemix.specs.java-persistence-api-1.1.1/${servicemix-specs-version}</bundle>
+        <bundle>mvn:commons-collections/commons-collections/${commons-collections-version}</bundle>
+        <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.commons-io/${commons-io-bundle-version}</bundle>
+        <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.snmp4j/${snmp4j-version}</bundle>
+        <bundle>mvn:com.mchange.c3p0/com.springsource.com.mchange.v2.c3p0/${c3p0-version}</bundle>
+        <bundle>mvn:commons-lang/commons-lang/${commons-lang-version}</bundle>
+        <feature version='${spring-osgi-version}'>spring-dm3</feature>
+        <feature version='${hibernate.version}'>hibernate</feature>
+        <bundle>mvn:org.opennms/opennms-dao/${project.version}</bundle>
+    </feature>
+
 </features>
