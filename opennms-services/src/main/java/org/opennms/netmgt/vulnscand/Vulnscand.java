@@ -453,7 +453,7 @@ public class Vulnscand extends AbstractServiceDaemon {
 						// REMOVE SLASHES.... - 
 						//nextAddress = nextAddress.replaceAll("/", "");
 						//nextAddress = nextAddress + "/" + nextAddress;
-						log().debug("JOHAN LevelAddresses : " + nextAddress);
+						log().debug("LevelAddresses : " + nextAddress);
 					}
 					try {
 						// All we know right now is the IP.....

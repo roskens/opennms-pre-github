@@ -8,3 +8,6 @@ target
 .settings
 .springBeans
 build.properties
+.iml
+.ipr
+.iws
