@@ -125,6 +125,7 @@
         <module>opennms-asterisk</module>
         <module>opennms-xmp</module>
         <module>opennms-base-assembly</module>
+        <module>opennms-osgi-feature-assembly</module>
         <module>tests</module>
         <module>integration-tests</module>
     </modules>
@@ -314,7 +315,7 @@
                 <plugin>
                     <groupId>org.apache.felix</groupId>
                     <artifactId>maven-bundle-plugin</artifactId>
-                    <version>${felix-version}</version>
+                    <version>2.0.1</version>
                 </plugin>
 
                 <plugin>
@@ -350,6 +351,115 @@
             </plugins>
         </pluginManagement>
         <plugins>
+            <!-- Base osgi bundle plugin configuration for opennms -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <inherited>true</inherited>
+                <executions>
+                    <execution>
+                        <id>create-prop</id>
+                        <phase>initialize</phase>
+                        <configuration>
+                            <tasks>
+                                <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="maven.plugin.classpath"/>
+                                <property name="ant.regexp.regexpimpl" value="org.apache.tools.ant.util.regexp.Jdk14RegexpRegexp"/>
+                                <property name="mv" value="${project.version}"/>
+                                <echo message="Maven version: ${mv}"/>
+                                <propertyregex property="ov.p1" input="${mv}" regexp="(\d+)(?:\.(\d+)(?:\.(\d+))?)?(?:[^a-zA-Z0-9](.*))?" replace="\1" defaultValue="0"/>
+                                <propertyregex property="ov.p2" input="${mv}" regexp="(\d+)(?:\.(\d+)(?:\.(\d+))?)?(?:[^a-zA-Z0-9](.*))?" replace=".\2" defaultValue=".0"/>
+                                <propertyregex property="ov.p3" input="${mv}" regexp="(\d+)(?:\.(\d+)(?:\.(\d+))?)?(?:[^a-zA-Z0-9](.*))?" replace=".\3" defaultValue=".0"/>
+                                <propertyregex property="ov.p4" input="${mv}" regexp="(\d+)(?:\.(\d+)(?:\.(\d+))?)?(?:[^a-zA-Z0-9](.*))?" replace=".\4" defaultValue=""/>
+                                <propertyregex property="ov.p1a" input="${ov.p1}" regexp="(.+)" replace="\1" defaultValue="0"/>
+                                <propertyregex property="ov.p2a" input="${ov.p2}" regexp="(\..+)" replace="\1" defaultValue=".0"/>
+                                <propertyregex property="ov.p3a" input="${ov.p3}" regexp="(\..+)" replace="\1" defaultValue=".0"/>
+                                <propertyregex property="ov.p4a" input="${ov.p4}" regexp="(\..+)" replace="\1" defaultValue=""/>
+                                <property name="ov" value="${ov.p1a}${ov.p2a}${ov.p3a}${ov.p4a}"/>
+                                <property name="os" value="${ov.p1a}${ov.p2a}"/>
+                                <echo message="OSGi version: ${ov}"/>
+                                <mkdir dir="target"/>
+                                <echo file="target/opennms.osgi.version.txt">
+                                    opennms.osgi.version.clean = ${ov}
+                                    opennms.schema.version = ${os}
+                                </echo>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>javax.xml.bind</groupId>
+                        <artifactId>jaxb-api</artifactId>
+                        <version>${jaxb-api-version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.sun.xml.bind</groupId>
+                        <artifactId>jaxb-impl</artifactId>
+                        <version>${jaxb-version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.sun.xml.bind</groupId>
+                        <artifactId>jaxb-xjc</artifactId>
+                        <version>${jaxb-version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>ant-contrib</groupId>
+                        <artifactId>ant-contrib</artifactId>
+                        <version>1.0b3</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>ant</groupId>
+                        <artifactId>ant-optional</artifactId>
+                        <version>1.5.3-1</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>properties-maven-plugin</artifactId>
+                <inherited>true</inherited>
+                <executions>
+                    <execution>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>read-project-properties</goal>
+                        </goals>
+                        <configuration>
+                            <files>
+                                <file>target/opennms.osgi.version.txt</file>
+                            </files>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions>
+                <version>2.0.1</version>
+                <inherited>true</inherited>
+                <configuration>
+                    <excludeDependencies>${opennms.osgi.exclude.dependencies}</excludeDependencies>
+                    <instructions>
+                        <Bundle-Name>${project.artifactId}</Bundle-Name>
+                        <Bundle-SymbolicName>${opennms.osgi.symbolic.name}</Bundle-SymbolicName>
+                        <Bundle-Activator>${opennms.osgi.activator}</Bundle-Activator>
+                        <Export-Package>${opennms.osgi.export}</Export-Package>
+                        <Import-Package>${opennms.osgi.import}</Import-Package>
+                        <DynamicImport-Package>${opennms.osgi.dynamic}</DynamicImport-Package>
+                        <Private-Package>${opennms.osgi.private.pkg}</Private-Package>
+                        <Implementation-Title>opennms</Implementation-Title>
+                        <Implementation-Version>${project.version}</Implementation-Version>
+                        <_versionpolicy>${opennms.osgi.import.default.version}</_versionpolicy>
+                        <_failok>${opennms.osgi.failok}</_failok>
+                    </instructions>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-eclipse-plugin</artifactId>
@@ -514,130 +624,6 @@
                     </execution>
                 </executions>
             </plugin>
-
-            <!-- Base osgi bundle plugin configuration for opennms -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <inherited>true</inherited>
-                <executions>
-                    <execution>
-                        <id>create-prop</id>
-                        <phase>initialize</phase>
-                        <configuration>
-                            <tasks>
-                                <taskdef resource="net/sf/antcontrib/antcontrib.properties"
-                                         classpathref="maven.plugin.classpath"/>
-                                <property name="ant.regexp.regexpimpl"
-                                          value="org.apache.tools.ant.util.regexp.Jdk14RegexpRegexp"/>
-                                <property name="mv" value="${project.version}"/>
-                                <echo message="Maven version: ${mv}"/>
-                                <propertyregex property="ov.p1" input="${mv}"
-                                               regexp="(\d+)(?:\.(\d+)(?:\.(\d+))?)?(?:[^a-zA-Z0-9](.*))?" replace="\1"
-                                               defaultValue="0"/>
-                                <propertyregex property="ov.p2" input="${mv}"
-                                               regexp="(\d+)(?:\.(\d+)(?:\.(\d+))?)?(?:[^a-zA-Z0-9](.*))?" replace=".\2"
-                                               defaultValue=".0"/>
-                                <propertyregex property="ov.p3" input="${mv}"
-                                               regexp="(\d+)(?:\.(\d+)(?:\.(\d+))?)?(?:[^a-zA-Z0-9](.*))?" replace=".\3"
-                                               defaultValue=".0"/>
-                                <propertyregex property="ov.p4" input="${mv}"
-                                               regexp="(\d+)(?:\.(\d+)(?:\.(\d+))?)?(?:[^a-zA-Z0-9](.*))?" replace=".\4"
-                                               defaultValue=""/>
-                                <propertyregex property="ov.p1a" input="${ov.p1}" regexp="(.+)" replace="\1"
-                                               defaultValue="0"/>
-                                <propertyregex property="ov.p2a" input="${ov.p2}" regexp="(\..+)" replace="\1"
-                                               defaultValue=".0"/>
-                                <propertyregex property="ov.p3a" input="${ov.p3}" regexp="(\..+)" replace="\1"
-                                               defaultValue=".0"/>
-                                <propertyregex property="ov.p4a" input="${ov.p4}" regexp="(\..+)" replace="\1"
-                                               defaultValue=""/>
-                                <property name="ov" value="${ov.p1a}${ov.p2a}${ov.p3a}${ov.p4a}"/>
-                                <property name="os" value="${ov.p1a}${ov.p2a}"/>
-                                <echo message="OSGi version: ${ov}"/>
-                                <mkdir dir="target"/>
-                                <echo file="target/opennms.osgi.version.txt">
-                                    opennms.osgi.version.clean = ${ov}
-                                    opennms.schema.version = ${os}
-                                </echo>
-                            </tasks>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>javax.xml.bind</groupId>
-                        <artifactId>jaxb-api</artifactId>
-                        <version>${jaxb-api-version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>com.sun.xml.bind</groupId>
-                        <artifactId>jaxb-impl</artifactId>
-                        <version>${jaxb-version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>com.sun.xml.bind</groupId>
-                        <artifactId>jaxb-xjc</artifactId>
-                        <version>${jaxb-version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>ant-contrib</groupId>
-                        <artifactId>ant-contrib</artifactId>
-                        <version>1.0b3</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>ant</groupId>
-                        <artifactId>ant-optional</artifactId>
-                        <version>1.5.3-1</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>properties-maven-plugin</artifactId>
-                <inherited>true</inherited>
-                <executions>
-                    <execution>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>read-project-properties</goal>
-                        </goals>
-                        <configuration>
-                            <files>
-                                <file>target/opennms.osgi.version.txt</file>
-                            </files>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <version>${felix-version}</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <excludeDependencies>${opennms.osgi.exclude.dependencies}</excludeDependencies>
-                    <instructions>
-                        <Bundle-Name>${project.artifactId}</Bundle-Name>
-                        <Bundle-SymbolicName>${opennms.osgi.symbolic.name}</Bundle-SymbolicName>
-                        <Bundle-Activator>${opennms.osgi.activator}</Bundle-Activator>
-                        <Export-Package>${opennms.osgi.export}</Export-Package>
-                        <Import-Package>${opennms.osgi.import}</Import-Package>
-                        <DynamicImport-Package>${opennms.osgi.dynamic}</DynamicImport-Package>
-                        <Private-Package>${opennms.osgi.private.pkg}</Private-Package>
-                        <Implementation-Title>opennms</Implementation-Title>
-                        <Implementation-Version>${project.version}</Implementation-Version>
-                        <_versionpolicy>${opennms.osgi.import.default.version}</_versionpolicy>
-                        <_failok>${opennms.osgi.failok}</_failok>
-                    </instructions>
-                </configuration>
-            </plugin>
-
         </plugins>
     </build>
 

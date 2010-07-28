@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<features>
+    <!-- Order of this file is important to the feature validator -->
+    <!-- Supporting bundles used with opennms -->
+
+    <feature name='spring' version='${spring-version}'>
+        <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.aopalliance/${aopalliance-bundle-version}</bundle>
+        <bundle>mvn:org.springframework/spring-core/${spring-version}</bundle>
+        <bundle>mvn:org.springframework/spring-beans/${spring-version}</bundle>
+        <bundle>mvn:org.springframework/spring-aop/${spring-version}</bundle>
+        <bundle>mvn:org.springframework/spring-context/${spring-version}</bundle>
+        <bundle>mvn:org.springframework/spring-context-support/${spring-version}</bundle>
+    </feature>
+
+    <feature name='spring3' version='${spring3-version}'>
+        <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.aopalliance/${aopalliance-bundle-version}</bundle>
+        <bundle>mvn:org.springframework/spring-asm/${spring3-version}</bundle>
+        <bundle>mvn:org.springframework/spring-aop/${spring3-version}</bundle>
+        <bundle>mvn:org.springframework/spring-aspects/${spring3-version}</bundle>
+        <bundle>mvn:org.springframework/spring-core/${spring3-version}</bundle>
+        <bundle>mvn:org.springframework/spring-beans/${spring3-version}</bundle>
+        <bundle>mvn:org.springframework/spring-context/${spring3-version}</bundle>
+        <bundle>mvn:org.springframework/spring-context-support/${spring3-version}</bundle>
+        <bundle>mvn:org.springframework/spring-expression/${spring3-version}</bundle>
+    </feature>
+
+    <feature name='spring-dm' version='${spring-osgi-version}'>
+        <feature version='${spring-version}'>spring</feature>
+        <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.cglib/2.1_3_4</bundle>
+        <bundle>mvn:org.springframework.osgi/spring-osgi-io/${spring-osgi-version}</bundle>
+        <bundle>mvn:org.springframework.osgi/spring-osgi-core/${spring-osgi-version}</bundle>
+        <bundle>mvn:org.springframework.osgi/spring-osgi-extender/${spring-osgi-version}</bundle>
+        <bundle>mvn:org.springframework.osgi/spring-osgi-annotation/${spring-osgi-version}</bundle>
+    </feature>
+
+    <feature name='spring-dm3' version='${spring-osgi-version}'>
+        <feature version='${spring3-version}'>spring3</feature>
+        <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.cglib/2.1_3_4</bundle>
+        <bundle>mvn:org.springframework.osgi/spring-osgi-io/${spring-osgi-version}</bundle>
+        <bundle>mvn:org.springframework.osgi/spring-osgi-core/${spring-osgi-version}</bundle>
+        <bundle>mvn:org.springframework.osgi/spring-osgi-extender/${spring-osgi-version}</bundle>
+        <bundle>mvn:org.springframework.osgi/spring-osgi-annotation/${spring-osgi-version}</bundle>
+    </feature>
+
+    <!-- Base opennms feature descriptor for a daemon install -->
+
+    <feature name="opennms-config" version="${project.version}">
+        <bundle>mvn:org.codehaus.castor/com.springsource.org.castor/${castor-version}</bundle>
+        <bundle>mvn:org.opennms/opennms-config/${project.version}</bundle>
+    </feature>
+
+    <feature name="opennms-util" version="${project.version}">
+        <bundle>mvn:org.apache.servicemix.specs/org.apache.servicemix.specs.java-persistence-api-1.1.1/${servicemix-specs-version}</bundle>
+        <feature version='${spring-osgi-version}'>spring-dm3</feature>
+        <feature version='${spring3-version}'>spring3</feature>
+        <bundle>mvn:org.opennms/opennms-util/${project.version}</bundle>
+    </feature>
+
+    <feature name="opennms-config-utils" version="${project.version}">
+        <feature version="${project.version}">opennms-util</feature>
+        <bundle>mvn:org.opennms/opennms-config-utils/${project.version}</bundle>
+    </feature>
+</features>
