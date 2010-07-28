@@ -100,4 +100,67 @@
         <bundle>mvn:org.opennms/opennms-dao/${project.version}</bundle>
     </feature>
 
+    <feature name="opennms-daemon" version="${project.version}">
+        <bundle>mvn:org.codehaus.castor/com.springsource.org.castor/${castor-version}</bundle>
+        <bundle>mvn:org.apache.servicemix.specs/org.apache.servicemix.specs.java-persistence-api-1.1.1/${servicemix-specs-version}</bundle>
+        <bundle>mvn:commons-collections/commons-collections/${commons-collections-version}</bundle>
+        <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.commons-io/${commons-io-bundle-version}</bundle>
+        <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.snmp4j/${snmp4j-version}</bundle>
+        <bundle>mvn:com.mchange.c3p0/com.springsource.com.mchange.v2.c3p0/${c3p0-version}</bundle>
+        <bundle>mvn:commons-lang/commons-lang/${commons-lang-version}</bundle>
+        <bundle>mvn:net.sourceforge.mx4j/com.springsource.mx4j/${mx4j-version}</bundle>
+        <feature version='${spring-osgi-version}'>spring-dm3</feature>
+        <feature version='${hibernate.version}'>hibernate</feature>
+
+        <bundle>mvn:org.opennms/opennms-daemon/${project.version}</bundle>
+    </feature>
+
+    <feature name="opennms-javamail-api" version="${project.version}">
+        <feature version='${spring3-version}'>spring3</feature>
+        <feature version='${hibernate.version}'>hibernate</feature>
+        <bundle>mvn:com.mchange.c3p0/com.springsource.com.mchange.v2.c3p0/${c3p0-version}</bundle>
+        <bundle>mvn:org.codehaus.castor/com.springsource.org.castor/${castor-version}</bundle>
+        <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.snmp4j/${snmp4j-version}</bundle>
+        <bundle>mvn:javax.mail/mail/${javax-mail-version}</bundle>
+        <bundle>mvn:commons-lang/commons-lang/${commons-lang-version}</bundle>
+        <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.commons-io/${commons-io-bundle-version}</bundle>
+        <bundle>mvn:org.opennms/opennms-javamail-api/${project.version}</bundle>
+    </feature>
+
+    <feature name="opennms-rrd-api" version="${project.version}">
+        <feature version='${spring3-version}'>spring3</feature>
+        <bundle>mvn:org.apache.servicemix.specs/org.apache.servicemix.specs.java-persistence-api-1.1.1/${servicemix-specs-version}</bundle>
+        <bundle>mvn:org.opennms/opennms-rrd-api/${project.version}</bundle>
+    </feature>
+
+    <feature name="opennms-icmp-api" version="${project.version}">
+        <feature version='${spring3-version}'>spring3</feature>
+        <bundle>mvn:org.apache.servicemix.specs/org.apache.servicemix.specs.java-persistence-api-1.1.1/${servicemix-specs-version}</bundle>
+        <bundle>mvn:org.opennms/opennms-icmp-api/${project.version}</bundle>
+    </feature>
+
+    <feature name="opennms-model" version="${project.version}">
+        <feature version='${spring3-version}'>spring3</feature>
+        <bundle>mvn:org.codehaus.castor/com.springsource.org.castor/${castor-version}</bundle>
+        <bundle>mvn:org.apache.servicemix.specs/org.apache.servicemix.specs.java-persistence-api-1.1.1/${servicemix-specs-version}</bundle>
+        <feature version='${hibernate.version}'>hibernate</feature>
+        <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.snmp4j/${snmp4j-version}</bundle>
+        <bundle>mvn:commons-lang/commons-lang/${commons-lang-version}</bundle>
+        <bundle>mvn:org.opennms/opennms-model/${project.version}</bundle>
+    </feature>
+
+    <feature name="org.opennms.features.phonebook" version="${project.version}">
+        <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.commons-io/${commons-io-bundle-version}</bundle>
+        <bundle>mvn:org.opennms.features/org.opennms.features.phonebook/${project.version}</bundle>
+    </feature>
+
+    <feature name="org.opennms.features.poller" version="${project.version}">
+        <feature version='${spring3-version}'>spring3</feature>
+        <bundle>mvn:org.opennms.features.poller/org.opennms.features.poller.api/${project.version}</bundle>
+    </feature>
+
+    <feature name="org.opennms.features.ticketing.api" version="${project.version}">
+        <bundle>mvn:org.opennms.features.ticketing/org.opennms.features.ticketing.api/${project.version}</bundle>
+    </feature>
+
 </features>

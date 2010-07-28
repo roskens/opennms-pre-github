@@ -180,6 +180,7 @@
         <irclib-bundle-version>1.10_2</irclib-bundle-version>
         <isorelax-bundle-version>20050913_1</isorelax-bundle-version>
         <javax.el-bundle-version>2.1.0</javax.el-bundle-version>
+        <javax-mail-version>1.4.3</javax-mail-version>
         <jcr-bundle-version>1.0_2</jcr-bundle-version>
         <jdom-bundle-version>1.1_2</jdom-bundle-version>
         <jettison-bundle-version>1.2</jettison-bundle-version>
@@ -196,6 +197,7 @@
         <lucene-bundle-version>3.0.1_1</lucene-bundle-version>
         <mvel-bundle-version>2.0.8_3</mvel-bundle-version>
         <mina-bundle-version>1.1.7_3</mina-bundle-version>
+        <mx4j-version>3.0.2</mx4j-version>
         <neethi-bundle-version>2.0.4_2</neethi-bundle-version>
         <oro-bundle-version>2.0.8_3</oro-bundle-version>
         <openjpa-bundle-version>1.2.1_2</openjpa-bundle-version>
