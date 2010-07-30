@@ -163,4 +163,50 @@
         <bundle>mvn:org.opennms.features.ticketing/org.opennms.features.ticketing.api/${project.version}</bundle>
     </feature>
 
+    <feature name="opennms-services" version="${project.version}">
+        <feature version='${spring3-version}'>spring3</feature>
+        <feature version='${hibernate.version}'>hibernate</feature>
+        <feature version="${project.version}">opennms-config</feature>
+        <feature version="${project.version}">opennms-util</feature>
+        <feature version="${project.version}">opennms-config-utils</feature>
+        <feature version="${project.version}">opennms-model</feature>
+        <feature version="${project.version}">opennms-daemon</feature>
+        <feature version="${project.version}">opennms-dao</feature>
+        <feature version="${project.version}">opennms-javamail-api</feature>
+        <feature version="${project.version}">opennms-rrd-api</feature>
+        <feature version="${project.version}">opennms-icmp-api</feature>
+        <feature version="${project.version}">org.opennms.features.phonebook</feature>
+        <feature version="${project.version}">org.opennms.features.poller</feature>
+        <feature version="${project.version}">org.opennms.features.ticketing.api</feature>
+        <bundle>mvn:org.apache.geronimo.specs/geronimo-servlet_2.5_spec/${servlet-api-2.5-version}</bundle>
+        <bundle>mvn:org.apache.geronimo.specs/geronimo-el_1.0_spec/${el-api-1.0-version}</bundle>
+        <bundle>mvn:org.apache.geronimo.specs/geronimo-jsp_2.1_spec/${jsp-api-2.1-version}</bundle>
+        <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.commons-httpclient/${commons-httpclient-bundle-version}</bundle>
+        <bundle>mvn:net.homeip.yusuke/com.springsource.twitter4j/${twitter4j-version}</bundle>
+        <bundle>mvn:org.restlet/org.restlet/${restlet-version}</bundle>
+        <bundle>mvn:org.opennms/commons-cli/${commons-cli-version}</bundle>
+        <bundle>mvn:org.opennms/jdhcp/${jdhcp-version}</bundle>
+        <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.commons-codec/${commons-codec-version}</bundle>
+        <bundle>mvn:org.opennms/novell-ldap/${novell-ldap-version}</bundle>
+        <bundle>mvn:org.apache.bsf/com.springsource.org.apache.bsf/${bsf-version}</bundle>
+        <bundle>mvn:org.opennms/jradius-client/${jradius-client-version}</bundle>
+        <bundle>mvn:org.opennms/jradius-core/${jradius-version}</bundle>
+        <bundle>mvn:org.opennms/jradius-dictionary/${jradius-version}</bundle>
+        <bundle>mvn:org.opennms/gnu-crypto/${gnu-crypto-version}</bundle>
+        <bundle>mvn:org.apache.regexp/com.springsource.org.apache.regexp/${apache-regexp-version}</bundle>
+        <bundle>mvn:org.opennms/commons-chain/${commons-chain-version}</bundle>
+        <bundle>mvn:org.apache.commons/com.springsource.org.apache.commons.digester/${commons-digester-version}</bundle>
+        <bundle>mvn:org.apache.commons/com.springsource.org.apache.commons.beanutils/${commons-beanutils-version}</bundle>
+        <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.jsch/${jsch-version}</bundle>
+        <bundle>mvn:org.igniterealtime/com.springsource.org.jivesoftware.smack/${smack-version}</bundle>
+        <bundle>mvn:org.igniterealtime/com.springsource.org.jivesoftware.smackx/${smack-version}</bundle>
+        <bundle>mvn:org.jfree.chart/com.springsource.org.jfree.chart/${jfree-chart-version}</bundle>
+        <bundle>mvn:org.jfree/com.springsource.org.jfree/${jfree-version}</bundle>
+        <bundle>mvn:org.aspectj/com.springsource.org.aspectj.runtime/${aspectj-version}</bundle>
+        <bundle>mvn:org.aspectj/com.springsource.org.aspectj.weaver/${aspectj-version}</bundle>
+        <bundle>mvn:org.apache.commons/com.springsource.org.apache.commons.configuration/${commons-configuration-version}</bundle>
+        <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.quartz/${quartz-version}</bundle>
+        <bundle>mvn:org.opennms/opennms-services/${project.version}</bundle>
+    </feature>
+
 </features>

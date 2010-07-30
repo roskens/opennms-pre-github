@@ -128,6 +128,7 @@
         <module>opennms-osgi-feature-assembly</module>
         <module>tests</module>
         <module>integration-tests</module>
+        <module>opennms-osgi-bundles</module>
     </modules>
     <build>
         <pluginManagement>
@@ -834,7 +835,7 @@
             ${opennms.osgi.import.before.defaults},
             ${opennms.osgi.import.defaults},
             ${opennms.osgi.import.additional},
-            *
+            *,
         </opennms.osgi.import.pkg>
         <opennms.osgi.activator/>
         <opennms.osgi.failok>false</opennms.osgi.failok>

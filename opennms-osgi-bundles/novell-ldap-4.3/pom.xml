@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>opennms-osgi-bundles</artifactId>
+        <groupId>org.opennms</groupId>
+        <version>1.9.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>novell-ldap</artifactId>
+
+    <version>4.3</version>
+    <packaging>bundle</packaging>
+    <name>opennms Bundles: ${pkgArtifactId}-${pkgVersion}</name>
+    <description>
+        This bundle simply wraps ${pkgArtifactId}-${pkgVersion}.jar.
+    </description>
+
+    <properties>
+        <pkgGroupId>com.novell.ldap</pkgGroupId>
+        <pkgArtifactId>jldap</pkgArtifactId>
+        <pkgVersion>4.3</pkgVersion>
+        <opennms.osgi.export>
+            com.novell.ldap,
+            com.novell.ldap.asn1,
+            com.novell.ldap.client,
+            com.novell.ldap.connectionpool,
+            com.novell.ldap.controls,
+            com.novell.ldap.events,
+            com.novell.ldap.events.edir,
+            com.novell.ldap.events.edir.eventdata,
+            com.novell.ldap.extensions,
+            com.novell.ldap.resources,
+            com.novell.ldap.rfc2251,
+            com.novell.ldap.spml,
+            com.novell.ldap.util,
+            com.novell.sasl.client,
+            com.novell.security.sasl,
+            org.ietf.ldap
+        </opennms.osgi.export>
+        <opennms.osgi.import>
+            org.openspml.client;resolution:=optional,
+            org.openspml.message;resolution:=optional,
+            org.openspml.util;resolution:=optional,
+            *
+        </opennms.osgi.import>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>${pkgGroupId}</groupId>
+            <artifactId>${pkgArtifactId}</artifactId>
+            <version>${pkgVersion}</version>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+
+    <repositories>
+        <!-- ServiceMix repo -->
+        <repository>
+            <id>servicemix</id>
+            <name>Apache ServiceMix Repository</name>
+            <url>http://svn.apache.org/repos/asf/servicemix/m2-repo</url>
+        </repository>
+    </repositories>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <artifactSet>
+                                <includes>
+                                    <include>${pkgGroupId}:${pkgArtifactId}</include>
+                                </includes>
+                            </artifactSet>
+                            <filters>
+                                <filter>
+                                    <artifact>${pkgGroupId}:${pkgArtifactId}</artifact>
+                                    <excludes>
+                                        <exclude>**</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                            <promoteTransitiveDependencies>true</promoteTransitiveDependencies>
+                            <createDependencyReducedPom>true</createDependencyReducedPom>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+
+</project>

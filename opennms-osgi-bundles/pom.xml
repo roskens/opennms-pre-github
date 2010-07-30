@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>opennms</artifactId>
+        <groupId>org.opennms</groupId>
+        <version>1.9.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>opennms-osgi-bundles</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>commons-cli-1.1</module>
+        <module>jdhcp-1.1.1</module>
+        <module>novell-ldap-4.3</module>
+        <module>jradius-client-20040211</module>
+        <module>jradius-core-1.0.0-20080911</module>
+        <module>gnu-crypto-2.0.1</module>
+        <module>jradius-dictionary-1.0.0-20080911</module>
+        <module>commons-chain-1.2</module>
+    </modules>
+
+
+</project>
