@@ -1,10 +1,10 @@
 //============================================================================
 //
-// Copyright (c) 2009+ desmax74
+// Copyright (c) 2009+ Massimiliano Dessi (desmax74)
 // Copyright (c) 2009+ The OpenNMS Group, Inc.
 // All rights reserved everywhere.
 //
-// This program was developed and is maintained by Rocco RIONERO
+// This program was developed and is maintained by Massimiliano Dessi
 // ("the author") and is subject to dual-copyright according to
 // the terms set in "The OpenNMS Project Contributor Agreement".
 //
@@ -25,7 +25,7 @@
 //
 // The author can be contacted at the following email address:
 //
-//       Massimiliano Dess&igrave;
+//       Massimiliano Dessi
 //       desmax74@yahoo.it
 //
 //
@@ -34,8 +34,8 @@
 //============================================================================
 package org.opennms.acl.factory;
 
-import org.opennms.acl.domain.Authority;
-import org.opennms.acl.service.AclItemService;
+import org.opennms.acl.domain.AuthorityFacade;
+import org.opennms.acl.service.AclCategoryService;
 import org.opennms.acl.service.AuthorityService;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,25 +44,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 /**
- * <p>AuthorityFactoryImpl class.</p>
- *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
- * @since jdk 1.5.0
- * @version $Id: $
+ * @since 1.9.0
  */
 @Service("authorityFactory")
 public class AuthorityFactoryImpl implements AutorityFactory, InitializingBean {
 
-    /** {@inheritDoc} */
-    public Authority getAuthority(Integer id) {
-        return new Authority(authorityService.getAuthority(id), authorityService, aclItemService);
+    public AuthorityFacade getAuthority(Integer id) {
+        return new AuthorityFacade(authorityService.getAuthority(id), authorityService, aclItemService);
     }
 
-    /**
-     * <p>afterPropertiesSet</p>
-     *
-     * @throws java.lang.Exception if any.
-     */
     public void afterPropertiesSet() throws Exception {
         Assert.state(authorityService != null, "authorityService property must be set and cannot be null");
         Assert.state(aclItemService != null, "aclItemService property must be set and cannot be null");
@@ -72,5 +63,5 @@ public class AuthorityFactoryImpl implements AutorityFactory, InitializingBean {
     private AuthorityService authorityService;
     @Autowired
     @Qualifier("categoryNodesItemsService")
-    private AclItemService aclItemService;
+    private AclCategoryService aclItemService;
 }

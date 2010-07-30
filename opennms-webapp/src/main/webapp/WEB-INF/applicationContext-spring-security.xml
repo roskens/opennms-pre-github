@@ -1,98 +1,128 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans:beans xmlns="http://www.springframework.org/schema/security"
-  xmlns:beans="http://www.springframework.org/schema/beans"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-              http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.4.xsd"> 
-              
-          
-  <http access-denied-page="/accessDenied.jsp" realm="OpenNMS Realm" entry-point-ref="mappedEntryPoint">
-    <intercept-url pattern="/" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_DASHBOARD"  />
-    <intercept-url pattern="/favicon.ice" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_DASHBOARD" />
-    <intercept-url pattern="/logoff.jsp" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_DASHBOARD"  />
-    <intercept-url pattern="/login.jsp*" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_DASHBOARD"  />
-    <intercept-url pattern="/accessDenied.jsp*" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_DASHBOARD"  />
-    <intercept-url pattern="/css/*.css" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_DASHBOARD"  />
-    <intercept-url pattern="/js/pngfix.js" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_DASHBOARD"  />
-    <intercept-url pattern="/js/global.js" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_DASHBOARD"  />
-    <intercept-url pattern="/images/**" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_DASHBOARD"  />
-    <intercept-url pattern="/webstart/**" filters="none" />
-    <intercept-url pattern="/admin/node/add.htm" access="ROLE_PROVISION, ROLE_ADMIN" />
-    <intercept-url pattern="/admin/**" access="ROLE_ADMIN" />
-    <intercept-url pattern="/rtc/post/**" access="ROLE_RTC" />
-    
-    <intercept-url pattern="/rest/**" method="DELETE" access="ROLE_ADMIN"/>
-    <intercept-url pattern="/rest/**" method="POST" access="ROLE_ADMIN"/>
-    <intercept-url pattern="/rest/**" method="PUT" access="ROLE_ADMIN"/>
-    <intercept-url pattern="/rest/**" method="GET" access="ROLE_USER"/>
-    <intercept-url pattern="/rest/**" method="HEAD" access="ROLE_USER"/>
-    <intercept-url pattern="/rest/**" method="OPTIONS" access="ROLE_USER"/>
-    
-    <intercept-url pattern="/frontpage.htm" access="ROLE_USER,ROLE_DASHBOARD" />
-    <intercept-url pattern="/dashboard.jsp" access="ROLE_USER,ROLE_DASHBOARD" />
-    <intercept-url pattern="/gwt.js" access="ROLE_USER,ROLE_DASHBOARD" />
-    <intercept-url pattern="/surveillanceservice.gwt" access="ROLE_USER,ROLE_DASHBOARD" />
-    <intercept-url pattern="/graph/graph.png" access="ROLE_USER,ROLE_DASHBOARD" />
-    <intercept-url pattern="/dashboard/**" access="ROLE_USER,ROLE_DASHBOARD" />
-    <intercept-url pattern="/coreweb/**" access="ROLE_USER,ROLE_DASHBOARD" />
-    
-    <intercept-url pattern="/**" access="ROLE_USER" />
-    
-    <form-login login-page="/login.jsp" authentication-failure-url="/login.jsp?login_error=1" />
-    <anonymous />
-    <http-basic />
-    <logout logout-success-url="/logoff.jsp" />
-    <!-- 
-    
-    I have not used auto-config because I am not certain that the remember me service will work with LDAP  
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:p="http://www.springframework.org/schema/p"
+xmlns:sec="http://www.springframework.org/schema/security"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.springframework.org/schema/security
+http://www.springframework.org/schema/security/spring-security-2.0.4.xsd">
+
+
+  <sec:http access-denied-page="/accessDenied.jsp" realm="OpenNMS Realm" entry-point-ref="mappedEntryPoint">
+    <sec:intercept-url pattern="/" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_DASHBOARD"  />
+    <sec:intercept-url pattern="/favicon.ice" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_DASHBOARD" />
+    <sec:intercept-url pattern="/logoff.jsp" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_DASHBOARD"  />
+    <sec:intercept-url pattern="/login.jsp*" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_DASHBOARD"  />
+    <sec:intercept-url pattern="/accessDenied.jsp*" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_DASHBOARD"  />
+    <sec:intercept-url pattern="/css/*.css" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_DASHBOARD"  />
+    <sec:intercept-url pattern="/js/pngfix.js" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_DASHBOARD"  />
+    <sec:intercept-url pattern="/js/global.js" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_DASHBOARD"  />
+    <sec:intercept-url pattern="/images/**" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_DASHBOARD"  />
+    <sec:intercept-url pattern="/webstart/**" filters="none" />
+    <sec:intercept-url pattern="/admin/node/add.htm" access="ROLE_PROVISION, ROLE_ADMIN" />
+    <sec:intercept-url pattern="/admin/**" access="ROLE_ADMIN" />
+    <sec:intercept-url pattern="/rtc/post/**" access="ROLE_RTC" />
+
+    <sec:intercept-url pattern="/rest/**" method="DELETE" access="ROLE_ADMIN"/>
+    <sec:intercept-url pattern="/rest/**" method="POST" access="ROLE_ADMIN"/>
+    <sec:intercept-url pattern="/rest/**" method="PUT" access="ROLE_ADMIN"/>
+    <sec:intercept-url pattern="/rest/**" method="GET" access="ROLE_USER"/>
+    <sec:intercept-url pattern="/rest/**" method="HEAD" access="ROLE_USER"/>
+    <sec:intercept-url pattern="/rest/**" method="OPTIONS" access="ROLE_USER"/>
+
+    <sec:intercept-url pattern="/frontpage.htm" access="ROLE_USER,ROLE_DASHBOARD" />
+    <sec:intercept-url pattern="/dashboard.jsp" access="ROLE_USER,ROLE_DASHBOARD" />
+    <sec:intercept-url pattern="/gwt.js" access="ROLE_USER,ROLE_DASHBOARD" />
+    <sec:intercept-url pattern="/surveillanceservice.gwt" access="ROLE_USER,ROLE_DASHBOARD" />
+    <sec:intercept-url pattern="/graph/graph.png" access="ROLE_USER,ROLE_DASHBOARD" />
+    <sec:intercept-url pattern="/dashboard/**" access="ROLE_USER,ROLE_DASHBOARD" />
+    <sec:intercept-url pattern="/coreweb/**" access="ROLE_USER,ROLE_DASHBOARD" />
+
+    <sec:intercept-url pattern="/**" access="ROLE_USER" />
+
+    <sec:form-login login-page="/login.jsp" authentication-failure-url="/login.jsp?login_error=1" />
+    <sec:anonymous />
+    <sec:http-basic />
+    <sec:logout logout-success-url="/logoff.jsp" />
+    <!--
+
+    I have not used auto-config because I am not certain that the remember me service will work with LDAP
     If you can get remember-me to work with LDAP then it may be an interesting service to use
-    
+
     Since I'm relying on others help with LDAP I didn't want to have anything here to make it harder for them :-)
-        
+
     <remember-me />
     -->
-  </http>
-  
-   <authentication-provider user-service-ref="openNMSUserDetailsService">
-     <password-encoder ref="upperCaseMd5PasswordEncoder" />
-   </authentication-provider>
-   
-  <beans:bean id="mappedEntryPoint" class="org.opennms.web.springframework.security.AntPatternBasedAuthenticationEntryPointChain">
-    <beans:property name="patterns">
-      <beans:list>
-        <beans:value>/rss.jsp*</beans:value>
-        <beans:value>/rest/**</beans:value>
-      </beans:list>
-    </beans:property>
+  </sec:http>
+
+   <sec:authentication-provider user-service-ref="openNMSUserDetailsService">
+     <sec:password-encoder ref="upperCaseMd5PasswordEncoder" />
+   </sec:authentication-provider>
+
+  <bean id="mappedEntryPoint" class="org.opennms.web.springframework.security.AntPatternBasedAuthenticationEntryPointChain">
+    <property name="patterns">
+      <list>
+        <value>/rss.jsp*</value>
+        <value>/rest/**</value>
+      </list>
+    </property>
     <!-- This bean is the entry point defined by the <http-basic> element above -->
-    <beans:property name="matchingEntryPoint" ref="_basicAuthenticationEntryPoint" />
+    <property name="matchingEntryPoint" ref="_basicAuthenticationEntryPoint" />
     <!-- This bean is the entry point defined by the <form-login> element above -->
-    <beans:property name="nonMatchingEntryPoint" ref="_formLoginEntryPoint" />
-  </beans:bean>
+    <property name="nonMatchingEntryPoint" ref="_formLoginEntryPoint" />
+  </bean>
 
    <!--  This filter is used to setup the Hibernate query filtering to authorized nodes only -->
-   <beans:bean id="authFilterEnabler" class="org.opennms.web.springframework.security.AuthFilterEnabler">
-     <custom-filter position="LAST"/>
-     <beans:property name="filterManager" ref="filterManager" />
-     <beans:property name="groupDao" ref="groupDao" />
-   </beans:bean>
+   <bean id="authFilterEnabler" class="org.opennms.web.springframework.security.AuthFilterEnabler">
+     <sec:custom-filter position="LAST" />
+     <property name="filterManager" ref="filterManager" />
+     <property name="groupDao" ref="groupDao" />
+   </bean>
+
 
 
   <!--  We need a mechanism to return the correct entryPoint for rss and restful api's  -->
-              
+
   <!-- ===================== USER DAO AUTHENTICATION ==================== -->
-  <beans:bean id="userDao" class="org.opennms.web.springframework.security.UserDaoImpl">
-    <beans:property name="magicUsersConfigurationFile" value="${opennms.home}/etc/magic-users.properties" />
-    <beans:property name="usersConfigurationFile" value="${opennms.home}/etc/users.xml" />
-    <beans:property name="groupsConfigurationFile" value="${opennms.home}/etc/groups.xml" />
-    <beans:property name="useGroups" value="false" />
-  </beans:bean>
+  <!-- Authentication on files
+  <bean id="userDao" class="org.opennms.web.springframework.security.UserDaoImpl">
+    <property name="magicUsersConfigurationFile" value="${opennms.home}/etc/magic-users.properties" />
+    <property name="usersConfigurationFile" value="${opennms.home}/etc/users.xml" />
+    <property name="groupsConfigurationFile" value="${opennms.home}/etc/groups.xml" />
+    <property name="useGroups" value="false" />
+  </bean>
 
-  <beans:bean id="openNMSUserDetailsService" class="org.opennms.web.springframework.security.OpenNMSUserDetailsService">
-    <beans:property name="userDao" ref="userDao" />
-  </beans:bean>
+  <bean id="openNMSUserDetailsService" class="org.opennms.web.springframework.security.OpenNMSUserDetailsService"
+    p:userDao-ref="userDao" />-->
 
-  <beans:bean id="upperCaseMd5PasswordEncoder" class="org.opennms.web.springframework.security.UpperCaseMd5PasswordEncoder"/>
+
+  	<!--Authentication on DB with groups -->
+   	<sec:authentication-provider user-service-ref="openNMSUserDetailsService">
+		<sec:password-encoder ref="upperCaseMd5PasswordEncoder"/>
+		<!-- <sec:password-encoder hash="sha" />-->
+	</sec:authentication-provider>
+
+	<bean id="openNMSUserDetailsService" class="org.opennms.acl.repository.jdbc.AuthenticationJdbcDaoImpl">
+		<property name="dataSource" ref="dataSource" />
+		<property name="usersByUsernameQuery"
+			value="SELECT username, password, enabled FROM authentication WHERE username = ?" />
+		<property name="groupAuthoritiesByUsernameQuery"
+			value="SELECT g.id, g.group_name, ga.name FROM groups g, group_members gm, authorities ga WHERE gm.username = ? AND g.id = ga.group_id AND g.id = gm.group_id"/>
+		<property name="enableGroups" value="true"/>
+		<property name="enableAuthorities" value="false"/>
+    </bean>
+
+    <bean id="accessManager" class="org.springframework.security.vote.AffirmativeBased">
+		<property name="decisionVoters">
+			<list>
+				<bean class="org.springframework.security.vote.RoleVoter"/>
+				<bean class="org.springframework.security.vote.AuthenticatedVoter" />
+			</list>
+		</property>
+	</bean>
+
+  <bean id="upperCaseMd5PasswordEncoder" class="org.opennms.web.springframework.security.UpperCaseMd5PasswordEncoder"/>
 
   <!-- ====================== RADIUS AUTHENTICATION ===================== -->
   <!--
@@ -114,7 +144,7 @@
        specified attribute, the user will be assigned the roles specified by
        the defaultRoles property.
    -->
-  <!-- 
+  <!--
   <beans:bean id="radiusAuthenticationProvider" class="org.opennms.web.springframework.security.RadiusAuthenticationProvider">
     <custom-authentication-provider />
     <beans:constructor-arg value="%%% Radius Server %%%"/>
@@ -126,13 +156,11 @@
     <!--<beans:property name="authTypeClass"><beans:bean class="net.jradius.client.auth.PAPAuthenticator"/></beans:property>-->
     <!--<beans:property name="defaultRoles" value="ROLE_USER"/>-->
     <!--<beans:property name="rolesAttribute" value="Unknown-VSAttribute(%%% Vendor ID %%%:%%% Attribute Number %%%)"/>-->
-  <!-- 
+  <!--
   </beans:bean>
   -->
 
   <!--  this is used to send events on login success and failure -->
-  <beans:bean class="org.opennms.web.springframework.security.SecurityAuthenticationEventOnmsEventBuilder">
-    <beans:property name="eventProxy" ref="eventProxy"/>
-  </beans:bean>
+  <bean class="org.opennms.web.springframework.security.SecurityAuthenticationEventOnmsEventBuilder" p:eventProxy-ref="eventProxy"/>
 
-</beans:beans>
+</beans>

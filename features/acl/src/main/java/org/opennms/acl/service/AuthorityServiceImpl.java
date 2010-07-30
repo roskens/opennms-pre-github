@@ -1,10 +1,10 @@
 //============================================================================
 //
-// Copyright (c) 2009+ desmax74
+// Copyright (c) 2009+ Massimiliano Dessi (desmax74)
 // Copyright (c) 2009+ The OpenNMS Group, Inc.
 // All rights reserved everywhere.
 //
-// This program was developed and is maintained by Rocco RIONERO
+// This program was developed and is maintained by Massimiliano Dessi
 // ("the author") and is subject to dual-copyright according to
 // the terms set in "The OpenNMS Project Contributor Agreement".
 //
@@ -25,7 +25,7 @@
 //
 // The author can be contacted at the following email address:
 //
-//       Massimiliano Dess&igrave;
+//       Massimiliano Dessi
 //       desmax74@yahoo.it
 //
 //
@@ -34,115 +34,97 @@
 //============================================================================
 package org.opennms.acl.service;
 
-import java.util.List;
+import java.util.Set;
 
-import org.opennms.acl.model.AuthorityDTO;
-import org.opennms.acl.model.Pager;
-import org.opennms.acl.repository.AuthorityRepository;
+import org.opennms.netmgt.Pager;
+import org.opennms.netmgt.dao.AuthorityDao;
+import org.opennms.netmgt.model.OnmsAuthority;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
- * <p>AuthorityServiceImpl class.</p>
- *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
- * @since jdk 1.5.0
- * @version $Id: $
+ * @since 1.9.0
  */
 @Service("authorityService")
 public class AuthorityServiceImpl implements AuthorityService {
 
-    /** {@inheritDoc} */
-    public List<AuthorityDTO> getGroupAuthorities(Integer id) {
+    @Transactional(readOnly=true)
+    public OnmsAuthority getAuthorityByName(String name) {
+        return authorityRepository.getAuthorityByName(name);
+    }
+
+    @Transactional(readOnly=true)
+    public Set<OnmsAuthority> getGroupAuthorities(Integer id) {
         return authorityRepository.getGroupAuthorities(id);
     }
 
-    /**
-     * <p>getFreeAuthoritiesForGroup</p>
-     *
-     * @return a {@link java.util.List} object.
-     */
-    public List<AuthorityDTO> getFreeAuthoritiesForGroup() {
+    @Transactional(readOnly=true)
+    public Set<OnmsAuthority> getFreeAuthoritiesForGroup() {
         return authorityRepository.getFreeAuthoritiesForGroup();
     }
 
-    /**
-     * <p>getAuthorities</p>
-     *
-     * @return a {@link java.util.List} object.
-     */
-    public List<AuthorityDTO> getAuthorities() {
+    @Transactional(readOnly=true)
+    public Set<OnmsAuthority> getAuthorities() {
         return authorityRepository.getAuthorities();
     }
 
-    /** {@inheritDoc} */
-    public boolean insertGroupAuthorities(Integer id, List<Integer> authorities) {
+    @Transactional(propagation=Propagation.REQUIRED, rollbackFor=DataAccessException.class)
+    public void insertGroupAuthorities(Integer id, Set<Integer> authorities) {
         authorityRepository.removeGroupFromAuthorities(id);
-        return authorityRepository.saveAuthorities(id, authorities);
+        authorityRepository.saveAuthorities(id, authorities);
     }
 
-    /** {@inheritDoc} */
-    public List<AuthorityDTO> getFreeAuthorities(String username) {
+    @Transactional(readOnly=true)
+    public Set<OnmsAuthority> getFreeAuthorities(String username) {
         return authorityRepository.getFreeAuthorities(username);
     }
 
-    /** {@inheritDoc} */
-    public List<AuthorityDTO> getUserAuthorities(String username) {
+    @Transactional(readOnly=true)
+    public Set<OnmsAuthority> getUserAuthorities(String username) {
         return authorityRepository.getUserAuthorities(username);
     }
 
-    /**
-     * <p>getTotalItemsNumber</p>
-     *
-     * @return a {@link java.lang.Integer} object.
-     */
     public Integer getTotalItemsNumber() {
         return getAuthoritiesNumber();
     }
 
-    /** {@inheritDoc} */
-    public AuthorityDTO getAuthority(Integer id) {
+    @Transactional(readOnly=true)
+    public OnmsAuthority getAuthority(Integer id) {
         return authorityRepository.getAuthority(id);
     }
 
-    /** {@inheritDoc} */
-    public List<AuthorityDTO> getAuthorities(Pager pager) {
+    @Transactional(readOnly=true)
+    public Set<OnmsAuthority> getAuthorities(Pager pager) {
         return authorityRepository.getAuthorities(pager);
     }
 
-    /** {@inheritDoc} */
-    public boolean removeAuthority(Integer id) {
-        return authorityRepository.removeAuthority(id);
+    @Transactional(propagation=Propagation.REQUIRED, rollbackFor=DataAccessException.class)
+    public void removeAuthority(Integer id) {
+        authorityRepository.removeAuthority(id);
     }
 
-    /** {@inheritDoc} */
-    public boolean save(AuthorityDTO authority) {
-        return authorityRepository.save(authority);
+    @Transactional(propagation=Propagation.REQUIRED, rollbackFor=DataAccessException.class)
+    public void save(OnmsAuthority authority) {
+        authorityRepository.save(authority);
     }
 
-    /**
-     * <p>getAuthoritiesNumber</p>
-     *
-     * @return a {@link java.lang.Integer} object.
-     */
+    @Transactional(readOnly=true)
     public Integer getAuthoritiesNumber() {
         return authorityRepository.getAuthoritiesNumber();
     }
 
-    /** {@inheritDoc} */
-    public List<Integer> getIdItemsAuthority(Integer id) {
+    public Set<Integer> getIdItemsAuthority(Integer id) {
         return authorityRepository.getIdItemsAuthority(id);
     }
 
-    /**
-     * <p>Setter for the field <code>authorityRepository</code>.</p>
-     *
-     * @param authorityRepository a {@link org.opennms.acl.repository.AuthorityRepository} object.
-     */
     @Autowired
-    public void setAuthorityRepository(AuthorityRepository authorityRepository) {
+    public void setAuthorityRepository(AuthorityDao authorityRepository) {
         this.authorityRepository = authorityRepository;
     }
 
-    private AuthorityRepository authorityRepository;
+    private AuthorityDao authorityRepository;
 }

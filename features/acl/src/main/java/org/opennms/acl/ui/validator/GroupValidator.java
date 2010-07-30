@@ -1,10 +1,10 @@
 //============================================================================
 //
-// Copyright (c) 2009+ desmax74
+// Copyright (c) 2009+ Massimiliano Dessi (desmax74)
 // Copyright (c) 2009+ The OpenNMS Group, Inc.
 // All rights reserved everywhere.
 //
-// This program was developed and is maintained by Rocco RIONERO
+// This program was developed and is maintained by Massimiliano Dessi
 // ("the author") and is subject to dual-copyright according to
 // the terms set in "The OpenNMS Project Contributor Agreement".
 //
@@ -25,7 +25,7 @@
 //
 // The author can be contacted at the following email address:
 //
-//       Massimiliano Dess&igrave;
+//       Massimiliano Dessi
 //       desmax74@yahoo.it
 //
 //
@@ -34,32 +34,34 @@
 //============================================================================
 package org.opennms.acl.ui.validator;
 
-import org.opennms.acl.model.GroupDTO;
+import org.opennms.acl.service.GroupService;
+import org.opennms.netmgt.model.OnmsGroup;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 /**
- * <p>GroupValidator class.</p>
- *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
- * @since jdk 1.5.0
- * @version $Id: $
+ * @since 1.9.0
  */
 @Component("groupValidator")
 public class GroupValidator implements Validator {
 
-    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public boolean supports(Class clazz) {
-        return GroupDTO.class.isAssignableFrom(clazz);
+        return OnmsGroup.class.isAssignableFrom(clazz);
     }
 
-    /** {@inheritDoc} */
     public void validate(Object command, Errors err) {
-        // GroupDTO group = (GroupDTO) command;
+        OnmsGroup group = (OnmsGroup) command;
         ValidationUtils.rejectIfEmptyOrWhitespace(err, "name", "name.required.value", "name is required.");
+        if (null != groupService.getGroupByName(group.getName())) {
+            err.rejectValue("name", "error.name.already.present");
+        }
     }
 
+    @Autowired
+    private GroupService groupService;
 }

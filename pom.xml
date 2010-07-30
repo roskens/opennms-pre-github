@@ -652,6 +652,7 @@
    <log4jVersion>1.2.15</log4jVersion>
    <minaVersion>2.0.0-M6</minaVersion>
    <oroVersion>2.0.8</oroVersion>
+   <tilesVersion>2.2.2</tilesVersion>
    <xercesVersion>2.6.2</xercesVersion>
    <gmavenVersion>1.0</gmavenVersion>
    <jettyVersion>6.1.24</jettyVersion>
@@ -1411,12 +1412,12 @@
       <dependency>
         <groupId>org.aspectj</groupId>
         <artifactId>aspectjrt</artifactId>
-        <version>1.6.2</version>
+        <version>1.6.8</version>
       </dependency>
       <dependency>
         <groupId>org.aspectj</groupId>
         <artifactId>aspectjweaver</artifactId>
-        <version>1.6.2</version>
+        <version>1.6.8</version>
       </dependency>
       <dependency>
         <groupId>axis</groupId>
@@ -1819,6 +1820,26 @@
         <version>1.1.2</version>
         <scope>runtime</scope>
       </dependency>
+      <dependency>
+		<groupId>org.apache.tiles</groupId>
+		<artifactId>tiles-core</artifactId>
+		<version>${tilesVersion}</version>
+	  </dependency>
+	  <dependency>
+		<groupId>org.apache.tiles</groupId>
+		<artifactId>tiles-api</artifactId>
+		<version>${tilesVersion}</version>
+	  </dependency>
+	  <dependency>
+		<groupId>org.apache.tiles</groupId>
+		<artifactId>tiles-jsp</artifactId>
+		<version>${tilesVersion}</version>
+	  </dependency>
+	  <dependency>
+		<groupId>org.apache.tiles</groupId>
+		<artifactId>tiles-servlet</artifactId>
+		<version>${tilesVersion}</version>
+	  </dependency>
       <dependency>
         <groupId>tomcat</groupId>
         <artifactId>catalina</artifactId>

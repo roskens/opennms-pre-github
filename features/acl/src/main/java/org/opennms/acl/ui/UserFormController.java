@@ -1,10 +1,10 @@
-//============================================================================
+// ============================================================================
 //
-// Copyright (c) 2009+ desmax74
+// Copyright (c) 2009+ Massimiliano Dessi (desmax74)
 // Copyright (c) 2009+ The OpenNMS Group, Inc.
 // All rights reserved everywhere.
 //
-// This program was developed and is maintained by Rocco RIONERO
+// This program was developed and is maintained by Massimiliano Dessi
 // ("the author") and is subject to dual-copyright according to
 // the terms set in "The OpenNMS Project Contributor Agreement".
 //
@@ -15,32 +15,33 @@
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307,
+// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307,
 // USA.
 //
 // The author can be contacted at the following email address:
 //
-//       Massimiliano Dess&igrave;
-//       desmax74@yahoo.it
+// Massimiliano Dessi
+// desmax74@yahoo.it
 //
 //
-//-----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // OpenNMS Network Management System is Copyright by The OpenNMS Group, Inc.
-//============================================================================
+// ============================================================================
 package org.opennms.acl.ui;
 
-import org.opennms.acl.model.UserDTO;
 import org.opennms.acl.service.UserService;
+import org.opennms.acl.ui.validator.PasswordValidator;
 import org.opennms.acl.ui.validator.UserValidator;
 import org.opennms.acl.util.Constants;
+import org.opennms.netmgt.model.OnmsUser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.security.providers.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -56,68 +57,68 @@ import org.springframework.web.bind.support.SessionStatus;
  * User Form Controller to insert or update a managed user
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
- * @since jdk 1.5.0
- * @version $Id: $
+ * @since 1.9.0
  */
 @Controller
 @RequestMapping("/user.edit.page")
 public class UserFormController {
 
-    /**
-     * <p>processSubmit</p>
-     *
-     * @param user a {@link org.opennms.acl.model.UserDTO} object.
-     * @param result a {@link org.springframework.validation.BindingResult} object.
-     * @param status a {@link org.springframework.web.bind.support.SessionStatus} object.
-     * @return a {@link java.lang.String} object.
-     */
     @RequestMapping(method = RequestMethod.POST)
-    protected String processSubmit(@ModelAttribute("user") UserDTO user, BindingResult result, SessionStatus status) {
+    protected String processSubmit(@ModelAttribute("user") OnmsUser user,
+            BindingResult result, SessionStatus status) {
         String mav = userForm;
-        validator.validate(user, result);
+        userValidator.validate(user, result);
         if (!result.hasErrors()) {
-            userService.save(user);
-            status.setComplete();
-            mav = Constants.REDIRECT_USER_LIST;
+            mav = processNormalFlow(user, status);
         }
         return mav;
     }
 
-    /**
-     * <p>initBinder</p>
-     *
-     * @param binder a {@link org.springframework.web.bind.WebDataBinder} object.
-     * @throws java.lang.Exception if any.
-     */
+    private String processNormalFlow(OnmsUser user, SessionStatus status) {
+        encriptPassword(user);
+        userService.saveUser(user);
+        status.setComplete();
+        return Constants.REDIRECT_USER_LIST;
+    }
+
+    private void encriptPassword(OnmsUser user) {
+        if (user.getNew()) {
+            user.setPassword(upperCaseMd5PasswordEncoder.encodePassword(new StringBuffer(user.getPassword()).toString(),null));
+        } else if (!user.getNewPassword().equals("") && !user.getPassword().equals("") ) {
+            user.setPassword(upperCaseMd5PasswordEncoder.encodePassword(new StringBuffer(user.getNewPassword()).toString(),null));
+        }
+    }
+
     @InitBinder()
     public void initBinder(WebDataBinder binder) throws Exception {
         binder.registerCustomEditor(String.class, new StringTrimmerEditor(false));
     }
 
-    /**
-     * <p>setupForm</p>
-     *
-     * @param id a {@link java.lang.Integer} object.
-     * @param model a {@link org.springframework.ui.ModelMap} object.
-     * @return a {@link java.lang.String} object.
-     */
     @RequestMapping(method = RequestMethod.GET)
-    public String setupForm(@RequestParam(required = false, value = "sid") Integer id, ModelMap model) {
-        UserDTO user;
-        if (id == null) {
-            user = new UserDTO();
-        } else {
-            user = (UserDTO) userService.getUserCredentials(id.toString());
-            user.setPassword("");
-        }
+    public String setupForm(@RequestParam(required = false, value = "sid") String username,ModelMap model) {
+        OnmsUser user = retrieveUser(username);
         model.addAttribute(Constants.USER, user);
         return userForm;
     }
 
+    private OnmsUser retrieveUser(String username) {
+        OnmsUser user;
+        if (username == null) {
+            user = new OnmsUser(true);
+            user.setEnabled(true);
+        } else {
+            user = (OnmsUser) userService.getUser(username);
+        }
+        return user;
+    }
+
+    private final String userForm = "acl/user/form";
     @Autowired
     private UserService userService;
     @Autowired
-    @Qualifier("userValidator")
-    private UserValidator validator;
-    private final String userForm = "user/form";
+    private UserValidator userValidator;
+    @Autowired
+    private PasswordValidator passwordValidator;
+    @Autowired
+    private Md5PasswordEncoder upperCaseMd5PasswordEncoder;
 }

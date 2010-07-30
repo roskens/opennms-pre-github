@@ -3,15 +3,15 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:sec="http://www.springframework.org/schema/security" xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-http://www.springframework.org/schema/security 
+http://www.springframework.org/schema/security
 http://www.springframework.org/schema/security/spring-security-2.0.4.xsd
-http://www.springframework.org/schema/tx 
+http://www.springframework.org/schema/tx
 http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
-http://www.springframework.org/schema/aop 
+http://www.springframework.org/schema/aop
 http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
-http://www.springframework.org/schema/context 
+http://www.springframework.org/schema/context
 http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 
 	<context:component-scan base-package="org.opennms.acl" />
@@ -21,16 +21,6 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 		class="org.springframework.context.support.ResourceBundleMessageSource"
 		p:basename="org.opennms.acl.ui.messages.ui" />
 
-	<bean id="cacheManager"
-		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"
-		p:configLocation="classpath:ehcache.xml" />
-
-
-	<!--
-		<bean name="dataSource"
-		class="org.springframework.jndi.JndiObjectFactoryBean"
-		p:jndiName="${jndi.datasource}"/>
-	-->
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close" p:url="${jdbc.url}" p:username="${jdbc.username}"
@@ -38,44 +28,56 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 		p:maxIdle="3" p:maxWait="50" p:removeAbandoned="true"
 		p:removeAbandonedTimeout="550" p:logAbandoned="true" p:maxActive="20" />
 
-	<bean id="onmsDataSource" class="org.apache.commons.dbcp.BasicDataSource"
-		destroy-method="close" p:url="${jdbc.onms.url}" p:username="${jdbc.onms.username}"
-		p:password="${jdbc.onms.password}" p:driverClassName="${jdbc.onms.driver}"
-		p:maxIdle="3" p:maxWait="50" p:removeAbandoned="true"
-		p:removeAbandonedTimeout="550" p:logAbandoned="true" p:maxActive="20" />
 
-	<!-- iBATIS  -->
-	<bean name="sqlMapClient"
-		class="org.springframework.orm.ibatis.SqlMapClientFactoryBean"
-		p:dataSource-ref="dataSource" p:configLocation="/acl-sqlMapConfig.xml" />
+    <!-- Hibernate -->
 
-	<bean name="onmsSqlMapClient"
-		class="org.springframework.orm.ibatis.SqlMapClientFactoryBean"
-		p:dataSource-ref="onmsDataSource" p:configLocation="/acl-onms-sqlMapConfig.xml" />
+	<context:component-scan base-package="org.opennms.netmgt.dao.hibernate">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+	</context:component-scan>
 
-	<!-- T R A N S A C T I O N S -->
-	<bean name="transactionManager"
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
-		p:dataSource-ref="dataSource" />
+	<context:component-scan base-package="org.opennms.acl.service">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+    </context:component-scan>
 
-	<tx:advice id="txAdvice" transaction-manager="transactionManager">
-		<tx:attributes>
-			<tx:method name="save*" propagation="REQUIRED"
-				rollback-for="RepositoryException" />
-			<tx:method name="update*" propagation="REQUIRED"
-				rollback-for="RepositoryException" />
-			<tx:method name="delete*" propagation="REQUIRED"
-				rollback-for="RepositoryException" />
-			<tx:method name="read*" read-only="true" />
-			<tx:method name="get*" read-only="true" />
-		</tx:attributes>
-	</tx:advice>
+    <tx:annotation-driven transaction-manager="transactionManager" />
 
-	<aop:config>
-		<aop:pointcut id="repositoryOperations"
-			expression="execution(* org.opennms.acl.repository.*Impl.*(..))" />
-		<aop:advisor advice-ref="txAdvice" pointcut-ref="repositoryOperations" />
-	</aop:config>
+    <bean name="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager"
+		p:sessionFactory-ref="sessionFactory"/>
+
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean"
+        p:dataSource-ref="dataSource" >
+       <property name="annotatedClasses">
+            <list>
+            	<value>org.opennms.netmgt.model.OnmsUser</value>
+        		<value>org.opennms.netmgt.model.OnmsAuthority</value>
+                <value>org.opennms.netmgt.model.OnmsGroupMembers</value>
+        		<value>org.opennms.netmgt.model.OnmsGroup</value>
+        		<value>org.opennms.netmgt.model.OnmsAuthoritiesCategories</value>
+        		<value>org.opennms.netmgt.model.OnmsCategory</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <value>
+                hibernate.dialect=${hibernate.dialect}
+                hibernate.jdbc.batch_size=${hibernate.jdbc.batch_size}
+                hibernate.c3p0.max_size=${hibernate.c3p0.max_size}
+                hibernate.c3p0.min_size=${hibernate.c3p0.min_size}
+                hibernate.c3p0.timeout=${hibernate.c3p0.timeout}
+                hibernate.c3p0.max_statements=${hibernate.c3p0.max_statements}
+                hibernate.c3p0.idle_test_period=${hibernate.c3p0.idle_test_period}
+                hibernate.c3p0.acquire_increment=${hibernate.c3p0.acquire_increment}
+                hibernate.c3p0.validate=${hibernate.c3p0.validate}
+                hibernate.cache.provider_class=${hibernate.cache.provider_class}
+                hibernate.connection.provider_class=${hibernate.connection.provider_class}
+                hibernate.show_sql=${hibernate.show_sql}
+                hibernate.hbm2ddl.auto=update
+                hibernate.cache.use_second_level_cache=true
+                hibernate.cache.use_query_cache=true
+            </value>
+        </property>
+    </bean>
+
 
 	<!--  S E C U R I T Y -->
 	<sec:http>
@@ -88,8 +90,7 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 			logout-success-url="/login.jsp" />
 	</sec:http>
 
-	<sec:authentication-provider
-		user-service-ref="userDetailsService">
+	<sec:authentication-provider user-service-ref="userDetailsService">
 		<sec:password-encoder hash="sha" />
 	</sec:authentication-provider>
 
@@ -111,20 +112,6 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 			value="SELECT username, authority FROM authorities WHERE username = ?" />
 	</bean>
 
-	<!-- CACHE -->
-
-	<bean id="aclCache"
-		class="org.springframework.security.acls.jdbc.EhCacheBasedAclCache">
-		<constructor-arg ref="aclEhCache" />
-	</bean>
-
-	<bean id="aclEhCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean"
-		p:cacheManager-ref="cacheManager" p:cacheName="aclCache" />
-
-	<bean id="autoritiesEhCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean"
-		p:cacheManager-ref="cacheManager" p:cacheName="autoritiesCache" />
-
-	<bean id="userEhCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean"
-		p:cacheManager-ref="cacheManager" p:cacheName="userCache" />
+    <bean id="upperCaseMd5PasswordEncoder" class="org.opennms.web.springframework.security.UpperCaseMd5PasswordEncoder"/>
 
 </beans>

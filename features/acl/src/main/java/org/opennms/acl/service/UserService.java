@@ -1,10 +1,10 @@
 //============================================================================
 //
-// Copyright (c) 2009+ desmax74
+// Copyright (c) 2009+ Massimiliano Dessi (desmax74)
 // Copyright (c) 2009+ The OpenNMS Group, Inc.
 // All rights reserved everywhere.
 //
-// This program was developed and is maintained by Rocco RIONERO
+// This program was developed and is maintained by Massimiliano Dessi
 // ("the author") and is subject to dual-copyright according to
 // the terms set in "The OpenNMS Project Contributor Agreement".
 //
@@ -25,7 +25,7 @@
 //
 // The author can be contacted at the following email address:
 //
-//       Massimiliano Dess&igrave;
+//       Massimiliano Dessi
 //       desmax74@yahoo.it
 //
 //
@@ -36,88 +36,73 @@ package org.opennms.acl.service;
 
 import java.util.List;
 
-import org.opennms.acl.model.Pager;
-import org.opennms.acl.model.UserAuthoritiesDTO;
-import org.opennms.acl.model.UserDTO;
-import org.opennms.acl.model.UserDTOLight;
-import org.opennms.acl.model.UserView;
+import org.opennms.netmgt.Pager;
+import org.opennms.netmgt.model.OnmsUser;
 
 /**
- * <p>UserService interface.</p>
- *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
- * @since jdk 1.5.0
- * @version $Id: $
+ * @since 1.9.0
  */
 public interface UserService extends PagerService {
 
     /**
-     * <p>getEnabledUsers</p>
+     * Retrieve all users (enabled/disabled)
      *
-     * @param pager a {@link org.opennms.acl.model.Pager} object.
-     * @return a {@link java.util.List} object.
+     * @param pager
+     * @return
      */
-    public List<UserDTOLight> getEnabledUsers(Pager pager);
+    public List<OnmsUser> getUsers(Pager pager);
+
+    /**
+     * Retrieve the enabled users
+     *
+     * @param pager
+     * @return
+     */
+    public List<OnmsUser> getEnabledUsers(Pager pager);
 
     /**
      * Retrieve the disabled users
      *
-     * @param pager a {@link org.opennms.acl.model.Pager} object.
-     * @return a {@link java.util.List} object.
+     * @param pager
+     * @return
      */
-    public List<UserDTOLight> getDisabledUsers(Pager pager);
+    public List<OnmsUser> getDisabledUsers(Pager pager);
 
-    /**
-     * Retrieve the id of user by username
-     *
-     * @param username a {@link java.lang.String} object.
-     * @return the unique identifier
-     */
-    public Object getIdUser(String username);
 
     /**
      * disable a user
      *
-     * @param id a {@link java.lang.String} object.
-     * @return the outcome of disable operation
+     * @param id
      */
-    public Boolean disableUser(String id);
+    public void disableUser(String username);
+
+    /**
+     * enable a user
+     *
+     * @param id
+     */
+    public void enableUser(String username);
 
     /**
      * retrieve a user
      *
-     * @param id a {@link java.lang.String} object.
+     * @param id
      * @return a {@link UserView}
      */
-    public UserView getUser(String id);
+    public OnmsUser getUser(String username);
 
-    /**
-     * retrieve a user with credentials
-     *
-     * @param id a {@link java.lang.String} object.
-     * @return a {@link UserView}
-     */
-    public UserDTO getUserCredentials(String id);
 
     /**
      * retrieve a user with their authorities
      *
-     * @param username a {@link java.lang.String} object.
+     * @param username
      * @return {@link UserAuthoritiesDTO} with their roles
      */
-    public UserAuthoritiesDTO getUserWithAuthorities(String username);
+    public OnmsUser getUserWithAuthorities(String username);
+
 
     /**
-     * retrieve a user with their id
-     *
-     * @return {@link UserAuthoritiesDTO} with their authorities
-     * @param sid a {@link java.lang.Integer} object.
-     */
-    public UserAuthoritiesDTO getUserWithAuthoritiesByID(Integer sid);
-
-    /**
-     * <p>getUsersNumber</p>
-     *
      * @return user's number
      */
     public Integer getUsersNumber();
@@ -125,16 +110,15 @@ public interface UserService extends PagerService {
     /**
      * Method only for admin, insert a user or change the user password
      *
-     * @param user a {@link org.opennms.acl.model.UserDTO} object.
-     * @return a boolean.
+     * @param user
      */
-    public boolean save(UserDTO user);
+    public void saveUserAndAuthorities(OnmsUser user);
 
     /**
-     * <p>save</p>
+     * Method only for admin, insert a user or change the user password
      *
-     * @param user a {@link org.opennms.acl.model.UserAuthoritiesDTO} object.
-     * @return a boolean.
+     * @param user
      */
-    public boolean save(UserAuthoritiesDTO user);
+    public void saveUser(OnmsUser user);
+
 }

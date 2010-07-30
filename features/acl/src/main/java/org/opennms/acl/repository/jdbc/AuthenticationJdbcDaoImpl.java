@@ -1,10 +1,10 @@
 //============================================================================
 //
-// Copyright (c) 2009+ desmax74
+// Copyright (c) 2009+ Massimiliano Dessi (desmax74)
 // Copyright (c) 2009+ The OpenNMS Group, Inc.
 // All rights reserved everywhere.
 //
-// This program was developed and is maintained by Rocco RIONERO
+// This program was developed and is maintained by Massimiliano Dessi
 // ("the author") and is subject to dual-copyright according to
 // the terms set in "The OpenNMS Project Contributor Agreement".
 //
@@ -25,7 +25,7 @@
 //
 // The author can be contacted at the following email address:
 //
-//       Massimiliano Dess&igrave;
+//       Massimiliano Dessi
 //       desmax74@yahoo.it
 //
 //
@@ -48,14 +48,11 @@ import org.springframework.security.userdetails.jdbc.JdbcDaoImpl;
  * Used by Spring security to perform authentication
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
- * @since jdk 1.5.0
- * @version $Id: $
+ * @since 1.9.0
  */
 public class AuthenticationJdbcDaoImpl extends JdbcDaoImpl {
 
     /**
-     * {@inheritDoc}
-     *
      * Load the user detail in the authentication phase
      */
     public UserDetails loadUserByUsername(String username) {

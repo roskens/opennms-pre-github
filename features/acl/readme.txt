@@ -11,4 +11,11 @@ log with username:admin password adminadmin
 to stop the webapp type in the shell: mvn jetty:stop
 
 
+Merge with opennms:
+0.1
+db: 
+the categories table is already present in the opennms database
+src:
+Category class (with Hibernate jpa annotation) is already present in opennms classes
+0.2
 

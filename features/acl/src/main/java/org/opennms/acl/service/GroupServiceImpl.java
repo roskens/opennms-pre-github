@@ -1,10 +1,10 @@
 //============================================================================
 //
-// Copyright (c) 2009+ desmax74
+// Copyright (c) 2009+ Massimiliano Dessi (desmax74)
 // Copyright (c) 2009+ The OpenNMS Group, Inc.
 // All rights reserved everywhere.
 //
-// This program was developed and is maintained by Rocco RIONERO
+// This program was developed and is maintained by Massimiliano Dessi
 // ("the author") and is subject to dual-copyright according to
 // the terms set in "The OpenNMS Project Contributor Agreement".
 //
@@ -25,7 +25,7 @@
 //
 // The author can be contacted at the following email address:
 //
-//       Massimiliano Dess&igrave;
+//       Massimiliano Dessi
 //       desmax74@yahoo.it
 //
 //
@@ -34,93 +34,108 @@
 //============================================================================
 package org.opennms.acl.service;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-import org.opennms.acl.model.GroupDTO;
-import org.opennms.acl.model.Pager;
-import org.opennms.acl.repository.GroupRepository;
+import org.opennms.netmgt.Pager;
+import org.opennms.netmgt.dao.AuthorityDao;
+import org.opennms.netmgt.dao.GroupDao;
+import org.opennms.netmgt.model.OnmsAuthority;
+import org.opennms.netmgt.model.OnmsGroup;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
- * <p>GroupServiceImpl class.</p>
- *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
- * @since jdk 1.5.0
- * @version $Id: $
+ * @since 1.9.0
  */
 @Service("groupService")
 public class GroupServiceImpl implements GroupService {
 
-    /** {@inheritDoc} */
-    public List<GroupDTO> getUserGroupsWithAutorities(String username) {
-        return repository.getUserGroupsWithAutorities(username);
+    @Transactional(readOnly=true)
+    public Set<OnmsGroup> getUserGroupsWithAutorities(String username) {
+        return groupRepository.getUserGroupsWithAutorities(username);
     }
 
-    /** {@inheritDoc} */
-    public Boolean deleteUserGroups(String username) {
-        return repository.deleteUserGroups(username);
+    @Transactional(propagation=Propagation.REQUIRED, rollbackFor=DataAccessException.class)
+    public void deleteUserGroups(String username) {
+        groupRepository.deleteUserGroups(username);
     }
 
-    /** {@inheritDoc} */
-    public List<GroupDTO> getFreeGroups(String username) {
-        return repository.getFreeGroups(username);
+    @Transactional(readOnly=true)
+    public Set<OnmsGroup> getFreeGroups(String username) {
+        return groupRepository.getFreeGroups(username);
     }
 
-    /** {@inheritDoc} */
-    public GroupDTO getGroup(Integer id) {
-        return repository.getGroup(id);
+    @Transactional(readOnly=true)
+    public OnmsGroup getGroup(Integer id) {
+        return groupRepository.getGroup(id);
     }
 
-    /**
-     * <p>getGroups</p>
-     *
-     * @return a {@link java.util.List} object.
-     */
-    public List<GroupDTO> getGroups() {
-        return repository.getGroups();
+    @Transactional(readOnly=true)
+    public Set<OnmsGroup> getGroups(Pager pager) {
+        return groupRepository.getGroups(pager);
     }
 
-    /** {@inheritDoc} */
-    public List<GroupDTO> getGroups(Pager pager) {
-        return repository.getGroups(pager);
+    @Transactional(readOnly=true)
+    public Set<OnmsGroup> getUserGroups(String username) {
+        return groupRepository.getUserGroups(username);
     }
 
-    /** {@inheritDoc} */
-    public List<GroupDTO> getUserGroups(String username) {
-        return repository.getUserGroups(username);
+    @Transactional(propagation=Propagation.REQUIRED, rollbackFor=DataAccessException.class)
+    public void removeGroup(Integer id) {
+        groupRepository.removeGroup(id);
     }
 
-    /** {@inheritDoc} */
-    public Boolean removeGroup(Integer id) {
-        return repository.removeGroup(id);
+    @Transactional(propagation=Propagation.REQUIRED, rollbackFor=DataAccessException.class)
+    public void save(OnmsGroup group) {
+    	if(!group.isNew()){
+    		boolean eliminable = groupRepository.getGroup(group.getId()).getEliminable();
+    		group.setEliminable(eliminable);
+    	}
+        authorityRepository.removeGroupFromAuthorities(group.getId());
+        if(group.getAuthorities().size() > 0){
+            authorityRepository.saveAuthorities(group.getId(), getIdAuthorities(group));
+        }
+        groupRepository.save(group);
     }
 
-    /** {@inheritDoc} */
-    public Boolean save(GroupDTO group) {
-        return repository.save(group);
+
+
+    @Transactional(readOnly= true)
+    public OnmsGroup getGroupByName(String name) {
+        return groupRepository.getGroupByName(name);
     }
 
-    /** {@inheritDoc} */
-    public Boolean saveGroups(String username, List<Integer> groups) {
-        return repository.saveGroups(username, groups);
+    @Transactional(propagation=Propagation.REQUIRED, rollbackFor=DataAccessException.class)
+    public void saveGroups(String username, Set<Integer> groups) {
+        groupRepository.saveGroups(username, groups);
     }
 
-    /**
-     * <p>getTotalItemsNumber</p>
-     *
-     * @return a {@link java.lang.Integer} object.
-     */
+    @Transactional(readOnly=true)
     public Integer getTotalItemsNumber() {
-        return repository.getGroupsNumber();
+        return groupRepository.getGroupsNumber();
     }
 
-    /** {@inheritDoc} */
+    @Transactional(readOnly=true)
     public Boolean hasUsers(Integer id) {
-        return repository.hasUsers(id);
+        return groupRepository.hasUsers(id);
+    }
+
+    private Set<Integer> getIdAuthorities(OnmsGroup group) {
+        Set<Integer> ids = new HashSet<Integer>();
+        for (OnmsAuthority authority : group.getAuthorities()) {
+            ids.add(authority.getId());
+        }
+        return ids;
     }
 
     @Autowired
-    private GroupRepository repository;
+    private GroupDao groupRepository;
+    @Autowired
+    private AuthorityDao authorityRepository;
 
 }

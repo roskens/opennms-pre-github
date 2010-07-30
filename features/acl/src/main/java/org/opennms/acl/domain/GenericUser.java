@@ -1,10 +1,10 @@
 //============================================================================
 //
-// Copyright (c) 2009+ desmax74
+// Copyright (c) 2009+ Massimiliano Dessi (desmax74)
 // Copyright (c) 2009+ The OpenNMS Group, Inc.
 // All rights reserved everywhere.
 //
-// This program was developed and is maintained by Rocco RIONERO
+// This program was developed and is maintained by Massimiliano Dessi
 // ("the author") and is subject to dual-copyright according to
 // the terms set in "The OpenNMS Project Contributor Agreement".
 //
@@ -25,7 +25,7 @@
 //
 // The author can be contacted at the following email address:
 //
-//       Massimiliano Dess&igrave;
+//       Massimiliano Dessi
 //       desmax74@yahoo.it
 //
 //
@@ -35,53 +35,52 @@
 package org.opennms.acl.domain;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
-import org.opennms.acl.model.GroupDTO;
-import org.opennms.acl.model.UserAuthoritiesDTO;
-import org.opennms.acl.model.UserView;
 import org.opennms.acl.service.GroupService;
 import org.opennms.acl.service.UserService;
+import org.opennms.netmgt.model.OnmsAuthority;
+import org.opennms.netmgt.model.OnmsGroup;
+import org.opennms.netmgt.model.OnmsUser;
+import org.opennms.netmgt.model.OnmsUserView;
 import org.springframework.util.Assert;
 
 /**
  * This entity represent a user managed by Acl application.
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
- * @since jdk 1.5.0
- * @version $Id: $
+ * @since 1.9.0
  */
 public class GenericUser implements Serializable {
 
     /**
      * Constructor
      *
-     * @param user a {@link org.opennms.acl.model.UserAuthoritiesDTO} object.
-     * @param userService a {@link org.opennms.acl.service.UserService} object.
-     * @param groupService a {@link org.opennms.acl.service.GroupService} object.
+     * @param user
+     * @param authorityService
      */
-    public GenericUser(UserAuthoritiesDTO user, UserService userService, GroupService groupService) {
+    public GenericUser(OnmsUser user, UserService userService, GroupService groupService) {
         Assert.notNull(user);
         this.user = user;
         this.userService = userService;
         this.groupService = groupService;
-        this.user.setGroups(groupService.getUserGroupsWithAutorities(this.user.getUsername()));
     }
 
     /**
      * Save the user
      */
     public void save() {
-        userService.save(user);
+        userService.saveUserAndAuthorities(user);
     }
 
     /**
      * Add a list of groups to this GenericUser
      *
-     * @param groups a {@link java.util.List} object.
+     * @param authorities
+     * @return result of the operation
      */
-    public void setNewGroups(List<Integer> groups) {
-        user.setItems(groups);
+    public void setNewGroups(Set<Integer> items) {
+        user.setItems(items);
     }
 
     /**
@@ -89,41 +88,28 @@ public class GenericUser implements Serializable {
      *
      * @return free groups
      */
-    public List<GroupDTO> getFreeGroups() {
+    public Set<OnmsGroup> getFreeGroups() {
         return groupService.getFreeGroups(user.getUsername());
     }
 
-    /**
-     * <p>getGroups</p>
-     *
-     * @return a {@link java.util.List} object.
-     */
-    public List<GroupDTO> getGroups() {
+    public Set<OnmsGroup> getGroups() {
         return groupService.getUserGroups(user.getUsername());
     }
 
     /**
      * Return a read only GenericUser
      *
-     * @return a {@link org.opennms.acl.model.UserView} object.
+     * @return
      */
-    public UserView getUserView() {
+    public OnmsUserView getUserView() {
         return user;
     }
 
-    /**
-     * Return the GenericUser unique identifier
-     *
-     * @return a {@link java.lang.Long} object.
-     */
-    public Long getId() {
-        return user.getId();
-    }
 
     /**
      * Return the username of this GenericUser
      *
-     * @return a {@link java.lang.String} object.
+     * @return
      */
     public String getUsername() {
         return user.getUsername();
@@ -132,13 +118,13 @@ public class GenericUser implements Serializable {
     /**
      * Return a list of authorities of this GenericUser
      *
-     * @return a {@link java.util.List} object.
+     * @return
      */
-    public List<?> getAuthorities() {
+    public Set<OnmsAuthority> getAuthorities() {
         return user.getAuthorities();
     }
 
-    private UserAuthoritiesDTO user;
+    private OnmsUser user;
     private GroupService groupService;
     private UserService userService;
     private static final long serialVersionUID = 1L;

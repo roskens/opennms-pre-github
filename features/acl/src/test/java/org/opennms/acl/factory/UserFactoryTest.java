@@ -7,14 +7,12 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.opennms.acl.SpringFactory;
 import org.opennms.acl.conf.dbunit.DBAuthority;
 import org.opennms.acl.conf.dbunit.DBGroup;
 import org.opennms.acl.conf.dbunit.DBUser;
 
-@Ignore("test database is not thread-safe, port to opennms temporary database code")
 public class UserFactoryTest {
 
     @BeforeClass
@@ -32,12 +30,10 @@ public class UserFactoryTest {
         dbGroup.prepareDb();
         dbUser.prepareDb();
         dbAuth.prepareDb();
-        // dbAuthoritiesAuth.prepareDb();
     }
 
     @After
     public void cleanDb() {
-        // dbAuthoritiesAuth.cleanDb();
         dbAuth.cleanDb();
         dbUser.cleanDb();
         dbGroup.cleanDb();
@@ -46,21 +42,19 @@ public class UserFactoryTest {
     @Test
     public void getUserByIDWithAuthorities() {
 
-        assertNotNull(factory.getAclUser(1));
-        assertTrue(factory.getAclUser(1).getUsername().equals("max"));
+        assertTrue(factory.getAclUserByUsername("max").getUsername().equals("max"));
     }
 
     @Test(expected = java.lang.IllegalArgumentException.class)
     public void getUserDisabledByIDWithAuthorities() {
 
-        factory.getAclUser(8);
+        factory.getAclUserByUsername(null);
     }
 
     @Test
     public void getUserByIDWithOutAuthorities() {
 
-        assertNotNull(factory.getAclUser(2));
-        assertTrue(factory.getAclUser(2).getUsername().equals("pippo"));
+        assertTrue(factory.getAclUserByUsername("pippo").getUsername().equals("pippo"));
     }
 
     @Test
@@ -73,12 +67,11 @@ public class UserFactoryTest {
     @Test(expected = java.lang.IllegalArgumentException.class)
     public void getUserDisabldeByUsernameWithAuthorities() {
 
-        factory.getAclUserByUsername("pluto");
+        factory.getAclUserByUsername(null);
     }
 
     private DBUser dbUser = new DBUser();
     private DBAuthority dbAuth = new DBAuthority();
     private DBGroup dbGroup = new DBGroup();
-    // private DBAuthoritiesAuth dbAuthoritiesAuth = new DBAuthoritiesAuth();
     private static AclUserFactory factory;
 }

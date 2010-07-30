@@ -1,10 +1,10 @@
 //============================================================================
 //
-// Copyright (c) 2009+ desmax74
+// Copyright (c) 2009+ Massimiliano Dessi (desmax74)
 // Copyright (c) 2009+ The OpenNMS Group, Inc.
 // All rights reserved everywhere.
 //
-// This program was developed and is maintained by Rocco RIONERO
+// This program was developed and is maintained by Massimiliano Dessi
 // ("the author") and is subject to dual-copyright according to
 // the terms set in "The OpenNMS Project Contributor Agreement".
 //
@@ -25,7 +25,7 @@
 //
 // The author can be contacted at the following email address:
 //
-//       Massimiliano Dess&igrave;
+//       Massimiliano Dessi
 //       desmax74@yahoo.it
 //
 //
@@ -34,8 +34,8 @@
 //============================================================================
 package org.opennms.acl.ui.validator;
 
-import org.opennms.acl.model.UserDTO;
 import org.opennms.acl.service.UserService;
+import org.opennms.netmgt.model.OnmsUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -43,44 +43,51 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 /**
- * <p>UserValidator class.</p>
- *
+ * Validator for new user
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
- * @since jdk 1.5.0
- * @version $Id: $
+ * @since 1.9.0
  */
 @Component("userValidator")
 public class UserValidator implements Validator {
 
-    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public boolean supports(Class clazz) {
-        return UserDTO.class.isAssignableFrom(clazz);
+        return OnmsUser.class.isAssignableFrom(clazz);
     }
 
-    /** {@inheritDoc} */
     public void validate(Object command, Errors err) {
-        UserDTO user = (UserDTO) command;
+        OnmsUser user = (OnmsUser) command;
+        if(user.getNew()){
+            newUser(err, user);
+        }else{
+        	passwordValidator.validate(user, err);
+        }
+    }
+
+    private void newUser(Errors err, OnmsUser user) {
+
         ValidationUtils.rejectIfEmptyOrWhitespace(err, "username", "username.required.value", "username is required.");
         ValidationUtils.rejectIfEmptyOrWhitespace(err, "password", "password.required.value", "password is required.");
-        if (user.isNew() && null != userService.getIdUser(user.getUsername())) {
+        ValidationUtils.rejectIfEmptyOrWhitespace(err, "confirmNewPassword", "password.required.value", "password is required.");
+
+        if (!user.getPassword().equals(user.getConfirmNewPassword())) {
+			err.rejectValue("password", "error.password.match",
+					"password don't match the confirm");
+			err.rejectValue("confirmNewPassword", "error.confirmpassword.match",
+					"confirm password don't match the new");
+		}
+
+        if (null != userService.getUser(user.getUsername())) {
             err.rejectValue("username", "error.username.already.present");
         }
 
-        if (!user.getPassword().equals("") && user.getPassword().length() < 6) {
+        if (!user.getPassword().equals("") && user.getPassword().length() < 4) {
             err.rejectValue("password", "error.password.length", "password too short");
         }
     }
 
-    /**
-     * <p>Setter for the field <code>userService</code>.</p>
-     *
-     * @param userService a {@link org.opennms.acl.service.UserService} object.
-     */
     @Autowired
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
-
-    private UserService userService;
+	private PasswordValidator passwordValidator;
+    @Autowired
+	private UserService userService;
 }

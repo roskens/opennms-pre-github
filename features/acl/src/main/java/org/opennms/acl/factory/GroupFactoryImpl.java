@@ -1,10 +1,10 @@
 //============================================================================
 //
-// Copyright (c) 2009+ desmax74
+// Copyright (c) 2009+ Massimiliano Dessi (desmax74)
 // Copyright (c) 2009+ The OpenNMS Group, Inc.
 // All rights reserved everywhere.
 //
-// This program was developed and is maintained by Rocco RIONERO
+// This program was developed and is maintained by Massimiliano Dessi
 // ("the author") and is subject to dual-copyright according to
 // the terms set in "The OpenNMS Project Contributor Agreement".
 //
@@ -25,7 +25,7 @@
 //
 // The author can be contacted at the following email address:
 //
-//       Massimiliano Dess&igrave;
+//       Massimiliano Dessi
 //       desmax74@yahoo.it
 //
 //
@@ -34,27 +34,23 @@
 //============================================================================
 package org.opennms.acl.factory;
 
-import org.opennms.acl.domain.Group;
-import org.opennms.acl.model.GroupDTO;
+import org.opennms.acl.domain.GroupFacade;
 import org.opennms.acl.service.AuthorityService;
 import org.opennms.acl.service.GroupService;
+import org.opennms.netmgt.model.OnmsGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * <p>GroupFactoryImpl class.</p>
- *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
- * @since jdk 1.5.0
- * @version $Id: $
+ * @since 1.9.0
  */
 @Service("groupFactory")
 public class GroupFactoryImpl implements GroupFactory {
 
-    /** {@inheritDoc} */
-    public Group getGroup(Integer id) {
-        GroupDTO group = groupService.getGroup(id);
-        return new Group(group, authorityService, groupService);
+    public GroupFacade getGroup(Integer id) {
+        OnmsGroup group = groupService.getGroup(id);
+        return new GroupFacade(group, authorityService, groupService);
     }
 
     @Autowired

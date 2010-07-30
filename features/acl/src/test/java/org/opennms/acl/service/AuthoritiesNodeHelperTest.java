@@ -3,122 +3,122 @@ package org.opennms.acl.service;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import org.junit.Ignore;
 import org.junit.Test;
-import org.opennms.acl.model.AuthorityDTO;
-import org.opennms.acl.model.AuthorityView;
+import org.opennms.netmgt.model.OnmsAuthority;
 
-@Ignore("test database is not thread-safe, port to opennms temporary database code")
 public class AuthoritiesNodeHelperTest {
 
     @Test
     public void constructor() {
-        AuthorityDTO authority = createAuthority();
+        OnmsAuthority authority = createAuthority();
 
-        List<String> items = new ArrayList<String>();
-        items.add("1");
+        Set<Integer> items = new HashSet<Integer>();
+        items.add(1);
 
         authority.setItems(items);
 
-        List<AuthorityDTO> authorities = new ArrayList<AuthorityDTO>();
+        Set<OnmsAuthority> authorities = new HashSet<OnmsAuthority>();
         authorities.add(authority);
 
-        AuthoritiesNodeHelper helper = new AuthoritiesNodeHelper(authorities);
+        AuthoritiesCategoriesHelper helper = new AuthoritiesCategoriesHelper(authorities);
         assertNotNull(helper);
     }
 
     @Test
     public void getAuthoritiesItems() {
 
-        AuthorityDTO authority = createAuthority();
+        OnmsAuthority authority = createAuthority();
 
-        List<String> items = new ArrayList<String>();
-        items.add("1");
+        Set<Integer> items = new HashSet<Integer>();
+        items.add(1);
 
         authority.setItems(items);
 
-        List<AuthorityDTO> authorities = new ArrayList<AuthorityDTO>();
+        Set<OnmsAuthority> authorities = new HashSet<OnmsAuthority>();
         authorities.add(authority);
 
-        AuthoritiesNodeHelper helper = new AuthoritiesNodeHelper(authorities);
+        AuthoritiesCategoriesHelper helper = new AuthoritiesCategoriesHelper(authorities);
         assertNotNull(helper);
-        Set<AuthorityView> auths = new HashSet<AuthorityView>();
+        Set<OnmsAuthority> auths = new HashSet<OnmsAuthority>();
         auths.add(authority);
-
-        assertTrue(helper.getAuthoritiesItems(auths).size() == 1);
-        assertTrue(helper.getAuthorities().size() == 1);
+        
+        Set<Integer> itemsRetrieve = helper.getAuthoritiesItems(authorities);
+        assertTrue(itemsRetrieve.size() == 1);
 
     }
 
     @Test
     public void getAuthoritiesItemsNoDuplicated() {
 
-        AuthorityDTO authority = createAuthority();
-
-        List<String> items = new ArrayList<String>();
-        items.add("1");
-        items.add("2");
-        items.add("3");
+        OnmsAuthority authority = createAuthority();
+        Set<Integer> items = new HashSet<Integer>();
+        items.add(1);
+        items.add(2);
+        items.add(3);
 
         authority.setItems(items);
 
-        List<AuthorityDTO> authorities = new ArrayList<AuthorityDTO>();
+        Set<OnmsAuthority> authorities = new HashSet<OnmsAuthority>();
         authorities.add(authority);
         authorities.add(authority);
 
-        AuthoritiesNodeHelper helper = new AuthoritiesNodeHelper(authorities);
+        AuthoritiesCategoriesHelper helper = new AuthoritiesCategoriesHelper(authorities);
         assertNotNull(helper);
-        Set<AuthorityView> auths = new HashSet<AuthorityView>();
+        
+        Set<OnmsAuthority> auths = new HashSet<OnmsAuthority>();
         auths.add(authority);
 
-        assertTrue(helper.getAuthorities().size() == 1);
-
+        Set<Integer> itemsRetrieve = helper.getAuthoritiesItems(authorities);
+        assertTrue(itemsRetrieve.size() == 3);
     }
 
     @Test
     public void deleteItems() {
 
-        AuthorityDTO authority = createAuthority();
+        OnmsAuthority authority = createAuthority();
 
-        List<String> items = new ArrayList<String>();
-        items.add("1");
-        items.add("2");
-        items.add("3");
-
+        Set<Integer> items = new HashSet<Integer>();
+        items.add(1);
+        items.add(2);
+        items.add(3);
         authority.setItems(items);
+        
+        OnmsAuthority admin = new OnmsAuthority();
+        authority.setDescription("this is a description");
+        authority.setId(13);
+        authority.setName("ROLE_ADMIN");
+        admin.setItems(items);
 
-        List<AuthorityDTO> authorities = new ArrayList<AuthorityDTO>();
+        Set<OnmsAuthority> authorities = new HashSet<OnmsAuthority>();
         authorities.add(authority);
-        authorities.add(authority);
+        authorities.add(admin);
 
-        AuthoritiesNodeHelper helper = new AuthoritiesNodeHelper(authorities);
+        AuthoritiesCategoriesHelper helper = new AuthoritiesCategoriesHelper(authorities);
         assertNotNull(helper);
-        Set<AuthorityView> auths = new HashSet<AuthorityView>();
+        Set<OnmsAuthority> auths = new HashSet<OnmsAuthority>();
         auths.add(authority);
 
-        assertTrue(helper.getAuthorities().size() == 1);
+        
+        Set<Integer> itemsRetrieve = helper.getAuthoritiesItems(authorities);
+        
+        assertTrue(itemsRetrieve.size() == 3);
 
-        Set<AuthorityView> authoritiesView = new HashSet<AuthorityView>();
+        Set<OnmsAuthority> authoritiesView = new HashSet<OnmsAuthority>();
         authoritiesView.add(authority);
 
-        assertTrue(helper.deleteItem(1));
-        assertTrue(helper.getAuthoritiesItems(authoritiesView).size() == 2);
-
-        assertTrue(helper.deleteItem(2));
-        assertTrue(helper.getAuthoritiesItems(authoritiesView).size() == 1);
-
-        assertTrue(helper.deleteItem(3));
+        assertTrue(helper.deleteAuthority(authority.getName()));
         assertTrue(helper.getAuthoritiesItems(authoritiesView).size() == 0);
+        
+        authoritiesView.add(admin);
+        assertTrue(helper.getAuthoritiesItems(authoritiesView).size() == 3);
 
     }
 
-    private AuthorityDTO createAuthority() {
-        AuthorityDTO authority = new AuthorityDTO();
+    private OnmsAuthority createAuthority() {
+        OnmsAuthority authority = new OnmsAuthority();
         authority.setDescription("this is a description");
         authority.setId(12);
         authority.setName("ROLE_USER");

@@ -1,10 +1,10 @@
 //============================================================================
 //
-// Copyright (c) 2009+ desmax74
+// Copyright (c) 2009+ Massimiliano Dessi (desmax74)
 // Copyright (c) 2009+ The OpenNMS Group, Inc.
 // All rights reserved everywhere.
 //
-// This program was developed and is maintained by Rocco RIONERO
+// This program was developed and is maintained by desmax74
 // ("the author") and is subject to dual-copyright according to
 // the terms set in "The OpenNMS Project Contributor Agreement".
 //
@@ -25,7 +25,7 @@
 //
 // The author can be contacted at the following email address:
 //
-//       Massimiliano Dess&igrave;
+//       Massimiliano Dessi
 //       desmax74@yahoo.it
 //
 //
@@ -40,24 +40,9 @@ import org.opennms.acl.domain.GenericUser;
  * Contract to retrieve GenericUser by id
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
- * @since jdk 1.5.0
- * @version $Id: $
+ * @since 1.9.0
  */
 public interface AclUserFactory {
 
-    /**
-     * <p>getAclUser</p>
-     *
-     * @param id a {@link java.lang.Integer} object.
-     * @return a {@link org.opennms.acl.domain.GenericUser} object.
-     */
-    public GenericUser getAclUser(Integer id);
-
-    /**
-     * <p>getAclUserByUsername</p>
-     *
-     * @param username a {@link java.lang.String} object.
-     * @return a {@link org.opennms.acl.domain.GenericUser} object.
-     */
     public GenericUser getAclUserByUsername(String username);
 }

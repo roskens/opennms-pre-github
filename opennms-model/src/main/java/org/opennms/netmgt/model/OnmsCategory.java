@@ -3,7 +3,7 @@
 //
 // OpenNMS(R) is Copyright (C) 2006 The OpenNMS Group, Inc.  All rights reserved.
 // OpenNMS(R) is a derivative work, containing both original code, included code and modified
-// code that was published under the GNU General Public License. Copyrights for modified 
+// code that was published under the GNU General Public License. Copyrights for modified
 // and included code are below.
 //
 // OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
@@ -69,10 +69,10 @@ public class OnmsCategory implements Serializable, Comparable<OnmsCategory> {
 
     /** identifier field */
     private Integer m_id;
-    
+
     /** persistent field */
     private String m_name;
-    
+
     /** persistent field */
     private String m_description;
 
@@ -96,7 +96,7 @@ public class OnmsCategory implements Serializable, Comparable<OnmsCategory> {
      */
     public OnmsCategory() {
     }
-    
+
     /**
      * <p>Constructor for OnmsCategory.</p>
      *
@@ -167,7 +167,7 @@ public class OnmsCategory implements Serializable, Comparable<OnmsCategory> {
 	public void setDescription(String description) {
 		m_description = description;
 	}
-	
+
 	/**
 	 * <p>getAuthorizedGroups</p>
 	 *
@@ -181,7 +181,7 @@ public class OnmsCategory implements Serializable, Comparable<OnmsCategory> {
 	public Set<String> getAuthorizedGroups() {
 	    return m_authorizedGroups;
 	}
-	
+
 	/**
 	 * <p>setAuthorizedGroups</p>
 	 *
@@ -190,7 +190,7 @@ public class OnmsCategory implements Serializable, Comparable<OnmsCategory> {
 	public void setAuthorizedGroups(Set<String> authorizedGroups) {
 	    m_authorizedGroups = authorizedGroups;
 	}
-	
+
         /*
     @ManyToMany(mappedBy="categories")
     public Set<OnmsNode> getMemberNodes() {

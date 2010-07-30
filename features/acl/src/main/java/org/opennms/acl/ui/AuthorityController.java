@@ -1,10 +1,10 @@
 //============================================================================
 //
-// Copyright (c) 2009+ desmax74
+// Copyright (c) 2009+ Massimiliano Dessi (desmax74)
 // Copyright (c) 2009+ The OpenNMS Group, Inc.
 // All rights reserved everywhere.
 //
-// This program was developed and is maintained by Rocco RIONERO
+// This program was developed and is maintained by Massimiliano Dessi
 // ("the author") and is subject to dual-copyright according to
 // the terms set in "The OpenNMS Project Contributor Agreement".
 //
@@ -25,7 +25,7 @@
 //
 // The author can be contacted at the following email address:
 //
-//       Massimiliano Dess&igrave;
+//       Massimiliano Dessi
 //       desmax74@yahoo.it
 //
 //
@@ -34,14 +34,16 @@
 //============================================================================
 package org.opennms.acl.ui;
 
+import java.util.HashSet;
+
 import javax.servlet.http.HttpServletRequest;
 
-import org.opennms.acl.domain.Authority;
+import org.opennms.acl.domain.AuthorityFacade;
 import org.opennms.acl.exception.AuthorityNotFoundException;
-import org.opennms.acl.model.Pager;
 import org.opennms.acl.service.AuthorityService;
 import org.opennms.acl.ui.util.WebUtils;
 import org.opennms.acl.util.Constants;
+import org.opennms.netmgt.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -53,82 +55,75 @@ import org.springframework.web.servlet.ModelAndView;
  * Authority Controller
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
- * @since jdk 1.5.0
- * @version $Id: $
+ * @since 1.9.0
  */
 @Controller
 public class AuthorityController {
-
     /**
-     * <p>list</p>
-     *
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
-     * @return a {@link org.springframework.web.servlet.ModelAndView} object.
+     * Show the paginated list of authorities
+     * @param req
+     * @return
      */
     @RequestMapping("/authority.list.page")
     public ModelAndView list(HttpServletRequest req) {
         Pager pager = WebUtils.getPager(req, authorityService.getTotalItemsNumber(), 15);
-        ModelAndView mav = new ModelAndView("authority/list");
+        ModelAndView mav = new ModelAndView("acl/authority/list");
         mav.addObject(Constants.AUTHORITIES, authorityService.getAuthorities(pager));
         mav.addObject(Constants.PAGER, pager);
         return mav;
     }
 
     /**
-     * <p>detail</p>
-     *
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
-     * @return a {@link org.springframework.web.servlet.ModelAndView} object.
+     * Show authority's detail
+     * @param req
+     * @return
      */
     @RequestMapping("/authority.detail.page")
     public ModelAndView detail(HttpServletRequest req) {
-        Authority authority = WebUtils.getAuthority(req);
-        return new ModelAndView("authority/detail", Constants.AUTHORITY, authority.getAuthorityView());
+        AuthorityFacade authority = WebUtils.getAuthority(req);
+        return new ModelAndView("acl/authority/detail", Constants.AUTHORITY, authority.getAuthorityView());
     }
 
     /**
-     * <p>delete</p>
-     *
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
-     * @return a {@link org.springframework.web.servlet.ModelAndView} object.
+     * Delete an authority
      */
     @RequestMapping("/authority.delete.page")
     public ModelAndView delete(HttpServletRequest req) {
-        Authority authority = WebUtils.getAuthority(req);
+        AuthorityFacade authority = WebUtils.getAuthority(req);
+        authority.remove();
         ModelAndView mav = new ModelAndView(Constants.REDIRECT_AUTHORITY_LIST);
-        mav.addObject(Constants.MESSAGE, authority.remove() ? Constants.MSG_AUTHORITY_DELETE_SUCCESS : Constants.MSG_AUTHORITY_DELETE_FAILURE);
+        mav.addObject(Constants.MESSAGE, Constants.MSG_AUTHORITY_DELETE_SUCCESS );
         return mav;
     }
 
     /**
-     * <p>confirmDelete</p>
-     *
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
-     * @return a {@link org.springframework.web.servlet.ModelAndView} object.
+     * Show the information about the authority
+     * before the removal
+     * @param req
+     * @return
      */
     @RequestMapping("/authority.confirm.page")
     public ModelAndView confirmDelete(HttpServletRequest req) {
-        Authority authority = WebUtils.getAuthority(req);
-        ModelAndView mav = new ModelAndView("authority/detail");
+        AuthorityFacade authority = WebUtils.getAuthority(req);
+        ModelAndView mav = new ModelAndView("acl/authority/detail");
         mav.addObject(Constants.AUTHORITY, authority.getAuthorityView());
         mav.addObject(Constants.UI_MODE, Constants.DELETE);
         return mav;
     }
 
     /**
-     * <p>items</p>
-     *
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
-     * @return a {@link org.springframework.web.servlet.ModelAndView} object.
+     * Show the items(OpenNMS category) of an authority
+     * @param req
+     * @return
      */
     @RequestMapping("/authority.items.page")
     public ModelAndView items(HttpServletRequest req) {
-        Authority authority = WebUtils.getAuthority(req);
+        AuthorityFacade authority = WebUtils.getAuthority(req);
         if (authority != null) {
-            ModelAndView mav = new ModelAndView("authority/items");
+            ModelAndView mav = new ModelAndView("acl/authority/items");
             mav.addObject(Constants.AUTHORITY, authority.getAuthorityView());
             mav.addObject(Constants.UI_ITEMS, authority.getFreeItems());
-            mav.addObject(Constants.AUTHORITY_ITEMS, authority.getItems());
+            mav.addObject(Constants.AUTHORITY_ITEMS, authority.getCategories());
             return mav;
         } else {
             throw new AuthorityNotFoundException("id not found");
@@ -136,32 +131,28 @@ public class AuthorityController {
     }
 
     /**
-     * <p>selection</p>
-     *
-     * @param ids a {@link java.lang.String} object.
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
-     * @return a {@link org.springframework.web.servlet.ModelAndView} object.
+     * Acquire the new authority's items
+     * @param ids
+     * @param req
+     * @return
      */
     @RequestMapping("/authority.selection.page")
     public ModelAndView selection(@RequestParam("includedHidden") String ids, HttpServletRequest req) {
-        Authority authority = WebUtils.getAuthority(req);
+        AuthorityFacade authority = WebUtils.getAuthority(req);
         if (ids != null && ids.length() > 0) {
             authority.setNewItems(WebUtils.extractIdGrantedAuthorityFromString(ids, Constants.COMMA));
-            authority.save();
+        }else{
+            authority.setNewItems(new HashSet<Integer>());
         }
+        authority.save();
+
         return new ModelAndView(new StringBuilder(Constants.REDIRECT_AUTHORITY_LIST).append("?").append(Constants.AUTHORITY_ID).append("=").append(authority.getId()).toString());
     }
 
-    /**
-     * <p>Constructor for AuthorityController.</p>
-     *
-     * @param authorityService a {@link org.opennms.acl.service.AuthorityService} object.
-     */
     @Autowired
-    public AuthorityController(@Qualifier("authorityService") AuthorityService authorityService) {
+    public AuthorityController(@Qualifier("authorityService") AuthorityService authorityService/*, @Qualifier("categoryDao")CategoryDao categoryDao*/) {
         this.authorityService = authorityService;
     }
 
     private final AuthorityService authorityService;
-
 }

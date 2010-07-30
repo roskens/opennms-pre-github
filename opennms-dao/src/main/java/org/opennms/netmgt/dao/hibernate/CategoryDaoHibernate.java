@@ -11,6 +11,7 @@
  *
  * Modifications:
  *
+ * 2009 Jun 24: Add getItems, getAuthorityItems, getFreeItems  - desmax74@yahoo.it
  * 2007 Dec 09: Format code, add getCriterionForCategorySetsUnion. - dj@opennms.org
  * 2007 Jul 03: Organize imports. - dj@opennms.org
  *
@@ -39,9 +40,12 @@
 package org.opennms.netmgt.dao.hibernate;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Hibernate;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.type.IntegerType;
@@ -49,30 +53,21 @@ import org.hibernate.type.Type;
 import org.opennms.netmgt.dao.CategoryDao;
 import org.opennms.netmgt.model.OnmsCategory;
 import org.opennms.netmgt.model.OnmsCriteria;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
-
-/**
- * <p>CategoryDaoHibernate class.</p>
- *
- * @author ranger
- * @version $Id: $
- */
+@Repository("categoryRepository")
 public class CategoryDaoHibernate extends AbstractCachingDaoHibernate<OnmsCategory, Integer, String> implements CategoryDao {
 
-    /**
-     * <p>Constructor for CategoryDaoHibernate.</p>
-     */
     public CategoryDaoHibernate() {
         super(OnmsCategory.class, false);
     }
     
-    /** {@inheritDoc} */
     public OnmsCategory findByName(String name) {
         return findByName(name, true);
     }
 
-    /** {@inheritDoc} */
     public OnmsCategory findByName(String name, boolean useCached) {
         if (useCached) {
             return findByCacheKey("from OnmsCategory as category where category.name = ?", name);
@@ -81,27 +76,15 @@ public class CategoryDaoHibernate extends AbstractCachingDaoHibernate<OnmsCatego
         }
     }
     
-    /** {@inheritDoc} */
     @Override
     protected String getKey(OnmsCategory category) {
         return category.getName();
     }
     
-    /**
-     * <p>getAllCategoryNames</p>
-     *
-     * @return a {@link java.util.List} object.
-     */
     public List<String> getAllCategoryNames() {
         return findObjects(String.class, "select category.name from OnmsCategory as category");
     }
 
-    /**
-     * <p>getCriterionForCategorySetsUnion</p>
-     *
-     * @param categories an array of {@link java.lang.String} objects.
-     * @return a {@link java.util.List} object.
-     */
     public List<Criterion> getCriterionForCategorySetsUnion(String[]... categories) {
         Assert.notNull(categories, "categories argument must not be null");
         Assert.isTrue(categories.length >= 1, "categories must have at least one set of categories");
@@ -141,10 +124,47 @@ public class CategoryDaoHibernate extends AbstractCachingDaoHibernate<OnmsCatego
     /* (non-Javadoc)
      * @see org.opennms.netmgt.dao.CategoryDao#getCategoriesWithAuthorizedGroup(java.lang.String)
      */
-    /** {@inheritDoc} */
     public List<OnmsCategory> getCategoriesWithAuthorizedGroup(String groupName) {
         OnmsCriteria crit = new OnmsCriteria(OnmsCategory.class);
         crit.add(Restrictions.sqlRestriction("{alias}.categoryId in (select cg.categoryId from category_group cg where cg.groupId = ?)", groupName, Hibernate.STRING));
         return findMatching(crit);
+    }
+    
+    @SuppressWarnings("unchecked")
+    public Set<OnmsCategory> getAuthorityItems(Set<Integer> items) {
+        Set<OnmsCategory> authorityItems = new HashSet<OnmsCategory>();
+        if(items.size() > 0){
+            String query ="SELECT categories FROM OnmsCategory categories WHERE categories.id IN (:setParams)";
+            String[] params ={ "setParams" };
+            Object[] values = { items};
+            authorityItems.addAll(getHibernateTemplate().findByNamedParam(query,params,values));
+        }
+        return authorityItems;
+    }
+    
+    @SuppressWarnings("unchecked")
+    public Set<OnmsCategory> getFreeItems(Set<Integer> items) {
+        String query ="SELECT categories FROM OnmsCategory categories WHERE categories.id NOT IN (:setParams)";
+        String[] params = {"setParams"};
+        List freeItems = getHibernateTemplate().findByNamedParam(query, params, getArrayItems(items));
+        return new HashSet<OnmsCategory>(freeItems);
+    }
+    
+    @SuppressWarnings("unchecked")
+    public Set<OnmsCategory> getItems() {
+        return new HashSet<OnmsCategory>(getHibernateTemplate().loadAll(OnmsCategory.class));
+    }
+    
+    @Autowired
+    public void setupSessionFactory(SessionFactory sessionFactory) {
+        this.setSessionFactory(sessionFactory);
+    }
+    
+    private Object[] getArrayItems(Set<Integer> items){
+        if(items.size() < 1){
+            items.add(0);            
+        }
+        Object[] values = {items};
+        return values;
     }
 }

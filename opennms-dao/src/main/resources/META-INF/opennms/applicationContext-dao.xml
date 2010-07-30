@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" 
+<beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:util="http://www.springframework.org/schema/util"
@@ -9,15 +9,15 @@
        ">
 
   <context:annotation-config />
-  
+
   <bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
     <property name="location" value="file:${opennms.home}/etc/model-importer.properties" />
   </bean>
-  
+
   <bean name="extensionManager" class="org.opennms.netmgt.dao.support.DefaultExtensionManager" />
 
-  <!-- 
+  <!--
     DataSourceFactory has been changed to return TransactionAwareDataSources so
     legacy code can participate in transactions properly.
   -->
@@ -61,10 +61,11 @@
         <value>org.opennms.netmgt.model.OnmsAcknowledgment</value>
         <value>org.opennms.netmgt.model.OnmsLinkState</value>
         <value>org.opennms.netmgt.model.ReportCatalogEntry</value>
-        <!--
         <value>org.opennms.netmgt.model.OnmsUser</value>
+        <value>org.opennms.netmgt.model.OnmsAuthority</value>
+        <value>org.opennms.netmgt.model.OnmsGroupMembers</value>
         <value>org.opennms.netmgt.model.OnmsGroup</value>
-        -->
+       	<value>org.opennms.netmgt.model.OnmsAuthoritiesCategories</value>
       </list>
     </property>
     <!--  property name="schemaUpdate" value="true">
@@ -93,7 +94,7 @@
   <bean id="transactionTemplate" class="org.springframework.transaction.support.TransactionTemplate">
     <property name="transactionManager" ref="transactionManager" />
   </bean>
-  
+
   <bean id="filterManager" class="org.opennms.netmgt.dao.hibernate.HibernateFilterManager">
     <property name="sessionFactory" ref="sessionFactory" />
   </bean>
@@ -137,11 +138,11 @@
   <bean id="nodeDao" class="org.opennms.netmgt.dao.hibernate.NodeDaoHibernate">
     <property name="sessionFactory" ref="sessionFactory" />
   </bean>
-  
+
   <bean id="linkStateDao" class="org.opennms.netmgt.dao.hibernate.LinkStateDaoHibernate">
     <property name="sessionFactory" ref="sessionFactory" />
   </bean>
-  
+
   <bean id="reportCatalogDao" class="org.opennms.netmgt.dao.hibernate.ReportCatalogDaoHibernate">
     <property name="sessionFactory" ref="sessionFactory" />
   </bean>
@@ -165,18 +166,18 @@
   <bean id="userNotificationDao" class="org.opennms.netmgt.dao.hibernate.UserNotificationDaoHibernate">
     <property name="sessionFactory" ref="sessionFactory" />
   </bean>
-  
+
   <!--
   <bean id="userDao" class="org.opennms.netmgt.dao.hibernate.UserDaoHibernate" >
     <property name="sessionFactory" ref="sessionFactory" />
   </bean>
 
- 
+
   <bean id="groupDao" class="org.opennms.netmgt.dao.hibernate.GroupDaoHibernate" >
     <property name="sessionFactory" ref="sessionFactory" />
   </bean>
   -->
- 
+
   <bean id="applicationDao" class="org.opennms.netmgt.dao.hibernate.ApplicationDaoHibernate">
     <property name="sessionFactory" ref="sessionFactory" />
   </bean>
@@ -201,7 +202,7 @@
     <property name="sessionFactory" ref="sessionFactory" />
     <property name="monitoringLocationConfigResource" ref="locationMonitorConfigResourceLocation" />
   </bean>
- 
+
   <bean id="surveillanceViewConfigResourceLocation" class="java.lang.String">
     <constructor-arg value="file:${opennms.home}/etc/surveillance-views.xml" />
   </bean>
@@ -209,31 +210,31 @@
   <bean id="surveillanceViewConfigDao" class="org.opennms.netmgt.dao.castor.DefaultSurveillanceViewConfigDao">
     <property name="configResource" ref="surveillanceViewConfigResourceLocation" />
   </bean>
-  
+
   <bean id="databaseReportConfigResourceLocation" class="java.lang.String">
     <constructor-arg value="file:${opennms.home}/etc/database-reports.xml" />
   </bean>
-  
+
   <bean id="databaseReportConfigDao" class="org.opennms.netmgt.dao.castor.DefaultDatabaseReportConfigDao">
     <property name="configResource" ref="databaseReportConfigResourceLocation" />
   </bean>
-  
+
   <bean id="availabilityReportConfigResourceLocation" class="java.lang.String">
     <constructor-arg value="file:${opennms.home}/etc/availability-reports.xml" />
   </bean>
-  
+
   <bean id="availabilityReportConfigDao" class="org.opennms.netmgt.dao.castor.DefaultOnmsReportConfigDao">
     <property name="configResource" ref="availabilityReportConfigResourceLocation" />
   </bean>
-  
+
   <bean id="jasperReportConfigResourceLocation" class="java.lang.String">
     <constructor-arg value="file:${opennms.home}/etc/jasper-reports.xml" />
   </bean>
-  
+
   <bean id="jasperReportConfigDao" class="org.opennms.netmgt.dao.castor.DefaultJasperReportConfigDao">
     <property name="configResource" ref="jasperReportConfigResourceLocation" />
   </bean>
-  
+
   <bean id="databaseSchemaConfigFactory-init" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
     <property name="staticMethod"><value>org.opennms.netmgt.config.DatabaseSchemaConfigFactory.init</value></property>
   </bean>
@@ -282,7 +283,7 @@
     <property name="configResource" ref="statsdConfigResourceLocation" />
     <property name="reloadCheckInterval" value="-1" />
   </bean>
-  
+
   <bean id="javamailConfigResourceLocation" class="java.lang.String">
     <constructor-arg value="file:${opennms.home}/etc/javamail-configuration.xml" />
   </bean>
@@ -303,13 +304,13 @@
   <bean id="dataLinkInterfaceDao" class="org.opennms.netmgt.dao.hibernate.DataLinkInterfaceDaoHibernate">
     <property name="sessionFactory" ref="sessionFactory" />
   </bean>
-  
+
   <bean id="init-snmpPeerFactory" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
     <property name="staticMethod"><value>org.opennms.netmgt.config.SnmpPeerFactory.init</value></property>
   </bean>
 
   <bean id="snmpPeerFactory" class="org.opennms.netmgt.config.SnmpPeerFactory" depends-on="init-snmpPeerFactory" factory-method="getInstance"/>
-  
+
   <bean id="simpleJdbcTemplate" class="org.springframework.jdbc.core.simple.SimpleJdbcTemplate">
     <constructor-arg ref="jdbcTemplate" />
   </bean>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
- 
+
 <databaseChangeLog
 	xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -23,7 +23,7 @@
 			SELECT COUNT(relname) AS SEQUENCE_NAME FROM pg_class, pg_namespace
 			WHERE relkind='S' AND pg_class.relnamespace = pg_namespace.oid AND relname ILIKE 'nodenxtid'
 		</sqlCheck>
-	</preConditions> 
+	</preConditions>
 	<createSequence sequenceName="nodenxtid" />
 </changeSet>
 
@@ -33,7 +33,7 @@
 			SELECT COUNT(relname) AS SEQUENCE_NAME FROM pg_class, pg_namespace
 			WHERE relkind='S' AND pg_class.relnamespace = pg_namespace.oid AND relname ILIKE 'servicenxtid'
 		</sqlCheck>
-	</preConditions> 
+	</preConditions>
 	<createSequence sequenceName="servicenxtid" />
 </changeSet>
 
@@ -43,7 +43,7 @@
 			SELECT COUNT(relname) AS SEQUENCE_NAME FROM pg_class, pg_namespace
 			WHERE relkind='S' AND pg_class.relnamespace = pg_namespace.oid AND relname ILIKE 'eventsnxtid'
 		</sqlCheck>
-	</preConditions> 
+	</preConditions>
 	<createSequence sequenceName="eventsnxtid" />
 </changeSet>
 
@@ -53,7 +53,7 @@
 			SELECT COUNT(relname) AS SEQUENCE_NAME FROM pg_class, pg_namespace
 			WHERE relkind='S' AND pg_class.relnamespace = pg_namespace.oid AND relname ILIKE 'alarmsnxtid'
 		</sqlCheck>
-	</preConditions> 
+	</preConditions>
 	<createSequence sequenceName="alarmsnxtid" />
 </changeSet>
 
@@ -63,7 +63,7 @@
 			SELECT COUNT(relname) AS SEQUENCE_NAME FROM pg_class, pg_namespace
 			WHERE relkind='S' AND pg_class.relnamespace = pg_namespace.oid AND relname ILIKE 'outagenxtid'
 		</sqlCheck>
-	</preConditions> 
+	</preConditions>
 	<createSequence sequenceName="outagenxtid" />
 </changeSet>
 
@@ -73,7 +73,7 @@
 			SELECT COUNT(relname) AS SEQUENCE_NAME FROM pg_class, pg_namespace
 			WHERE relkind='S' AND pg_class.relnamespace = pg_namespace.oid AND relname ILIKE 'notifynxtid'
 		</sqlCheck>
-	</preConditions> 
+	</preConditions>
 	<createSequence sequenceName="notifynxtid" />
 </changeSet>
 
@@ -83,7 +83,7 @@
 			SELECT COUNT(relname) AS SEQUENCE_NAME FROM pg_class, pg_namespace
 			WHERE relkind='S' AND pg_class.relnamespace = pg_namespace.oid AND relname ILIKE 'vulnnxtid'
 		</sqlCheck>
-	</preConditions> 
+	</preConditions>
 	<createSequence sequenceName="vulnnxtid" />
 </changeSet>
 
@@ -93,7 +93,7 @@
 			SELECT COUNT(relname) AS SEQUENCE_NAME FROM pg_class, pg_namespace
 			WHERE relkind='S' AND pg_class.relnamespace = pg_namespace.oid AND relname ILIKE 'catnxtid'
 		</sqlCheck>
-	</preConditions> 
+	</preConditions>
 	<createSequence sequenceName="catnxtid" />
 </changeSet>
 
@@ -103,7 +103,7 @@
 			SELECT COUNT(relname) AS SEQUENCE_NAME FROM pg_class, pg_namespace
 			WHERE relkind='S' AND pg_class.relnamespace = pg_namespace.oid AND relname ILIKE 'usernotifnxtid'
 		</sqlCheck>
-	</preConditions> 
+	</preConditions>
 	<createSequence sequenceName="usernotifnxtid" />
 </changeSet>
 
@@ -113,7 +113,7 @@
 			SELECT COUNT(relname) AS SEQUENCE_NAME FROM pg_class, pg_namespace
 			WHERE relkind='S' AND pg_class.relnamespace = pg_namespace.oid AND relname ILIKE 'demandpollnxtid'
 		</sqlCheck>
-	</preConditions> 
+	</preConditions>
 	<createSequence sequenceName="demandpollnxtid" />
 </changeSet>
 
@@ -123,7 +123,7 @@
 			SELECT COUNT(relname) AS SEQUENCE_NAME FROM pg_class, pg_namespace
 			WHERE relkind='S' AND pg_class.relnamespace = pg_namespace.oid AND relname ILIKE 'pollresultnxtid'
 		</sqlCheck>
-	</preConditions> 
+	</preConditions>
 	<createSequence sequenceName="pollresultnxtid" />
 </changeSet>
 
@@ -133,7 +133,7 @@
 			SELECT COUNT(relname) AS SEQUENCE_NAME FROM pg_class, pg_namespace
 			WHERE relkind='S' AND pg_class.relnamespace = pg_namespace.oid AND relname ILIKE 'mapnxtid'
 		</sqlCheck>
-	</preConditions> 
+	</preConditions>
 	<createSequence sequenceName="mapnxtid" />
 </changeSet>
 

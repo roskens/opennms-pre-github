@@ -1,10 +1,10 @@
 //============================================================================
 //
-// Copyright (c) 2009+ desmax74
+// Copyright (c) 2009+ Massimiliano Dessi' (desmax74)
 // Copyright (c) 2009+ The OpenNMS Group, Inc.
 // All rights reserved everywhere.
 //
-// This program was developed and is maintained by Rocco RIONERO
+// This program was developed and is maintained by Massimiliano Dessi
 // ("the author") and is subject to dual-copyright according to
 // the terms set in "The OpenNMS Project Contributor Agreement".
 //
@@ -25,7 +25,7 @@
 //
 // The author can be contacted at the following email address:
 //
-//       Massimiliano Dess&igrave;
+//       Massimiliano Dessi
 //       desmax74@yahoo.it
 //
 //
@@ -34,16 +34,16 @@
 //============================================================================
 package org.opennms.acl.ui;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.opennms.acl.domain.Group;
+import org.opennms.acl.domain.GroupFacade;
 import org.opennms.acl.exception.AuthorityNotFoundException;
-import org.opennms.acl.model.Pager;
 import org.opennms.acl.service.GroupService;
 import org.opennms.acl.ui.util.WebUtils;
 import org.opennms.acl.util.Constants;
+import org.opennms.netmgt.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -55,79 +55,54 @@ import org.springframework.web.servlet.ModelAndView;
  * Group Controller
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
- * @since jdk 1.5.0
- * @version $Id: $
+ * @since 1.9.0
  */
 @Controller
 public class GroupController {
 
-    /**
-     * <p>list</p>
-     *
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
-     * @return a {@link org.springframework.web.servlet.ModelAndView} object.
-     */
+
     @RequestMapping("/group.list.page")
     public ModelAndView list(HttpServletRequest req) {
         Pager pager = WebUtils.getPager(req, groupService.getTotalItemsNumber(), 15);
-        ModelAndView mav = new ModelAndView("group/list");
+        ModelAndView mav = new ModelAndView("acl/group/list");
         mav.addObject(Constants.GROUPS, groupService.getGroups(pager));
         mav.addObject(Constants.PAGER, pager);
         return mav;
     }
 
-    /**
-     * <p>detail</p>
-     *
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
-     * @return a {@link org.springframework.web.servlet.ModelAndView} object.
-     */
+
     @RequestMapping("/group.detail.page")
     public ModelAndView detail(HttpServletRequest req) {
-        Group group = WebUtils.getGroup(req);
-        return new ModelAndView("group/detail", Constants.GROUP, group.getGroupView());
+        GroupFacade group = WebUtils.getGroup(req);
+        return new ModelAndView("acl/group/detail", Constants.GROUP, group.getGroupView());
     }
 
-    /**
-     * <p>delete</p>
-     *
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
-     * @return a {@link org.springframework.web.servlet.ModelAndView} object.
-     */
+
     @RequestMapping("/group.delete.page")
     public ModelAndView delete(HttpServletRequest req) {
-        Group group = WebUtils.getGroup(req);
+        GroupFacade group = WebUtils.getGroup(req);
         ModelAndView mav = new ModelAndView(Constants.REDIRECT_GROUP_LIST);
-        mav.addObject(Constants.MESSAGE, group.remove() ? Constants.MSG_AUTHORITY_DELETE_SUCCESS : Constants.MSG_AUTHORITY_DELETE_FAILURE);
+        group.remove();
+        mav.addObject(Constants.MESSAGE, Constants.MSG_AUTHORITY_DELETE_SUCCESS);
         return mav;
     }
 
-    /**
-     * <p>confirmDelete</p>
-     *
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
-     * @return a {@link org.springframework.web.servlet.ModelAndView} object.
-     */
+
     @RequestMapping("/group.confirm.page")
     public ModelAndView confirmDelete(HttpServletRequest req) {
-        Group group = WebUtils.getGroup(req);
-        ModelAndView mav = new ModelAndView("group/detail");
+        GroupFacade group = WebUtils.getGroup(req);
+        ModelAndView mav = new ModelAndView("acl/group/detail");
         mav.addObject(Constants.GROUP, group.getGroupView());
         mav.addObject(Constants.UI_MODE, Constants.DELETE);
         return mav;
     }
 
-    /**
-     * <p>items</p>
-     *
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
-     * @return a {@link org.springframework.web.servlet.ModelAndView} object.
-     */
+
     @RequestMapping("/group.items.page")
     public ModelAndView items(HttpServletRequest req) {
-        Group group = WebUtils.getGroup(req);
+        GroupFacade group = WebUtils.getGroup(req);
         if (group != null) {
-            ModelAndView mav = new ModelAndView("group/items");
+            ModelAndView mav = new ModelAndView("acl/group/items");
             mav.addObject(Constants.GROUP, group.getGroupView());
             mav.addObject(Constants.UI_ITEMS, group.getFreeAuthorities());
             mav.addObject(Constants.GROUP_AUTHORITIES, group.getAuthorities());
@@ -137,30 +112,22 @@ public class GroupController {
         }
     }
 
-    /**
-     * <p>selection</p>
-     *
-     * @param ids a {@link java.lang.String} object.
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
-     * @return a {@link org.springframework.web.servlet.ModelAndView} object.
-     */
+
     @RequestMapping("/group.selection.page")
     public ModelAndView selection(@RequestParam("includedHidden") String ids, HttpServletRequest req) {
-        Group group = WebUtils.getGroup(req);
+        GroupFacade group = WebUtils.getGroup(req);
+
         if (group != null && ids.length() > 0) {
             group.setNewAuthorities(WebUtils.extractIdGrantedAuthorityFromString(ids, Constants.COMMA));
         } else {
-            group.setNewAuthorities(new ArrayList<Integer>());
+            group.setNewAuthorities(new HashSet<Integer>());
         }
+
         group.save();
         return new ModelAndView(new StringBuilder(Constants.REDIRECT_GROUP_LIST).append("?").append(Constants.GROUP_ID).append("=").append(group.getId()).toString());
     }
 
-    /**
-     * <p>Constructor for GroupController.</p>
-     *
-     * @param groupService a {@link org.opennms.acl.service.GroupService} object.
-     */
+
     @Autowired
     public GroupController(@Qualifier("groupService") GroupService groupService) {
         this.groupService = groupService;

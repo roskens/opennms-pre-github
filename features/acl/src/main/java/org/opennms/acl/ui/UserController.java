@@ -1,10 +1,10 @@
 //============================================================================
 //
-// Copyright (c) 2009+ desmax74
+// Copyright (c) 2009+ Massimiliano Dessi (desmax74)
 // Copyright (c) 2009+ The OpenNMS Group, Inc.
 // All rights reserved everywhere.
 //
-// This program was developed and is maintained by Rocco RIONERO
+// This program was developed and is maintained by Massimiliano Dessi
 // ("the author") and is subject to dual-copyright according to
 // the terms set in "The OpenNMS Project Contributor Agreement".
 //
@@ -25,7 +25,7 @@
 //
 // The author can be contacted at the following email address:
 //
-//       Massimiliano Dess&igrave;
+//       Massimiliano Dessi
 //       desmax74@yahoo.it
 //
 //
@@ -34,16 +34,16 @@
 //============================================================================
 package org.opennms.acl.ui;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.opennms.acl.domain.GenericUser;
 import org.opennms.acl.exception.UserNotfoundException;
-import org.opennms.acl.model.Pager;
 import org.opennms.acl.service.UserService;
 import org.opennms.acl.ui.util.WebUtils;
 import org.opennms.acl.util.Constants;
+import org.opennms.netmgt.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,50 +54,42 @@ import org.springframework.web.servlet.ModelAndView;
  * User Controller
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
- * @since jdk 1.5.0
- * @version $Id: $
+ * @since 1.9.0
  */
 @Controller
 public class UserController {
 
-    /**
-     * <p>authorities</p>
-     *
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
-     * @return a {@link org.springframework.web.servlet.ModelAndView} object.
-     * @throws java.lang.Exception if any.
-     */
     @RequestMapping("/user.authorities.page")
     public ModelAndView authorities(HttpServletRequest req) throws Exception {
         GenericUser user = WebUtils.getUser(req);
-        return new ModelAndView("user/authorities", Constants.UI_USER, user.getUserView());
+        return new ModelAndView("acl/user/authorities", Constants.UI_USER, user.getUserView());
     }
 
-    /**
-     * <p>list</p>
-     *
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
-     * @return a {@link org.springframework.web.servlet.ModelAndView} object.
-     * @throws java.lang.Exception if any.
-     */
     @RequestMapping("/user.list.page")
     public ModelAndView list(HttpServletRequest req) throws Exception {
         Pager pager = WebUtils.getPager(req, userService.getTotalItemsNumber(), 15);
-        return new ModelAndView("user/list", Constants.UI_USERS, userService.getEnabledUsers(pager));
+        return new ModelAndView("acl/user/list", Constants.UI_USERS, userService.getUsers(pager));
     }
 
-    /**
-     * <p>detail</p>
-     *
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
-     * @return a {@link org.springframework.web.servlet.ModelAndView} object.
-     * @throws java.lang.Exception if any.
-     */
+    @RequestMapping("/user.disable.page")
+    public ModelAndView disable(@RequestParam("sid") String username, HttpServletRequest req) throws Exception {
+        userService.disableUser(username);
+        Pager pager = WebUtils.getPager(req, userService.getTotalItemsNumber(), 15);
+        return new ModelAndView("acl/user/list", Constants.UI_USERS, userService.getUsers(pager));
+    }
+
+    @RequestMapping("/user.enable.page")
+    public ModelAndView enable(@RequestParam("sid") String username, HttpServletRequest req) throws Exception {
+        userService.enableUser(username);
+        Pager pager = WebUtils.getPager(req, userService.getTotalItemsNumber(), 15);
+        return new ModelAndView("acl/user/list", Constants.UI_USERS, userService.getUsers(pager));
+    }
+
     @RequestMapping("/user.detail.page")
     public ModelAndView detail(HttpServletRequest req) throws Exception {
         GenericUser user = WebUtils.getUser(req);
         if (user != null) {
-            ModelAndView mav = new ModelAndView("user/detail");
+            ModelAndView mav = new ModelAndView("acl/user/detail");
             mav.addObject(Constants.UI_USER, user.getUserView());
             mav.addObject(Constants.UI_USER_GROUPS, user.getGroups());
             mav.addObject(Constants.GROUPS, user.getFreeGroups());
@@ -107,24 +99,16 @@ public class UserController {
         }
     }
 
-    /**
-     * <p>selection</p>
-     *
-     * @param ids a {@link java.lang.String} object.
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
-     * @return a {@link org.springframework.web.servlet.ModelAndView} object.
-     * @throws java.lang.Exception if any.
-     */
     @RequestMapping("/user.selection.page")
     public ModelAndView selection(@RequestParam("includedHidden") String ids, HttpServletRequest req) throws Exception {
         GenericUser user = WebUtils.getUser(req);
         if (user != null && ids != null && ids.length() > 0) {
             user.setNewGroups(WebUtils.extractIdGrantedAuthorityFromString(ids, Constants.COMMA));
         } else {
-            user.setNewGroups(new ArrayList<Integer>());
+            user.setNewGroups(new HashSet<Integer>());
         }
         user.save();
-        return new ModelAndView(new StringBuilder(Constants.REDIRECT_USER_AUTHORITIES).append("?").append(Constants.USER_SID).append("=").append(user.getId()).toString());
+        return new ModelAndView(new StringBuilder(Constants.REDIRECT_USER_AUTHORITIES).append("?").append(Constants.USER_SID).append("=").append(user.getUsername()).toString());
     }
 
     @Autowired

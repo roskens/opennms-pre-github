@@ -49,7 +49,6 @@
     username CDATA #REQUIRED
     password CDATA #REQUIRED
     enabled CDATA #IMPLIED
-    id CDATA #REQUIRED
 >
 
 <!ELEMENT authorities EMPTY>
@@ -77,5 +76,6 @@
 <!ATTLIST group_members
     group_id CDATA #REQUIRED
     username CDATA #REQUIRED
+    id CDATA #REQUIRED
 >
 

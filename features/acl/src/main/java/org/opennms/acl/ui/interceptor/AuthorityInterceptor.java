@@ -1,10 +1,10 @@
 //============================================================================
 //
-// Copyright (c) 2009+ desmax74
+// Copyright (c) 2009+ Massimiliano Dessi (desmax74)
 // Copyright (c) 2009+ The OpenNMS Group, Inc.
 // All rights reserved everywhere.
 //
-// This program was developed and is maintained by Rocco RIONERO
+// This program was developed and is maintained by Massimiliano Dessi
 // ("the author") and is subject to dual-copyright according to
 // the terms set in "The OpenNMS Project Contributor Agreement".
 //
@@ -25,7 +25,7 @@
 //
 // The author can be contacted at the following email address:
 //
-//       Massimiliano Dess&igrave;
+//       Massimiliano Dessi
 //       desmax74@yahoo.it
 //
 //
@@ -37,7 +37,7 @@ package org.opennms.acl.ui.interceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.opennms.acl.domain.Authority;
+import org.opennms.acl.domain.AuthorityFacade;
 import org.opennms.acl.factory.AutorityFactory;
 import org.opennms.acl.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,19 +49,17 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
  * Interceptor to put an Authority in the request
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
- * @since jdk 1.5.0
- * @version $Id: $
+ * @since 1.9.0
  */
 @Service("authoritiesFactoryInterceptor")
 public class AuthorityInterceptor extends HandlerInterceptorAdapter {
 
-    /** {@inheritDoc} */
     @Override
     public boolean preHandle(HttpServletRequest req, HttpServletResponse res, Object handler) throws Exception {
         Integer aid = ServletRequestUtils.getIntParameter(req, Constants.AUTHORITY_ID, 0);
         if (!aid.equals(0)) {
             // cache this invocation with trasparent aop cache
-            Authority authority = authorityFactory.getAuthority(aid);
+            AuthorityFacade authority = authorityFactory.getAuthority(aid);
             req.setAttribute(Constants.AUTHORITY, authority);
         }
         return true;

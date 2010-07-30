@@ -5,7 +5,7 @@
 //
 // OpenNMS(R) is Copyright (C) 2002-2003 The OpenNMS Group, Inc.  All rights reserved.
 // OpenNMS(R) is a derivative work, containing both original code, included code and modified
-// code that was published under the GNU General Public License. Copyrights for modified 
+// code that was published under the GNU General Public License. Copyrights for modified
 // and included code are below.
 //
 // OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
@@ -17,7 +17,7 @@
 // 2002 Nov 26: Fixed breadcrumbs issue.
 // 2002 Sep 24: Added a "select" option for SNMP data and a config page.
 // 2002 Sep 19: Added a "delete nodes" page to the webUI.
-// 
+//
 // Original code base Copyright (C) 1999-2001 Oculan Corp.  All rights reserved.
 //
 // This program is free software; you can redistribute it and/or modify
@@ -62,7 +62,7 @@
       document.addInterface.action="admin/newInterface.jsp?action=new";
       document.addInterface.submit();
   }
-  
+
   function deletePost()
   {
       document.deleteNodes.submit();
@@ -77,38 +77,38 @@
   {
     document.manageRanges.submit();
   }
-  
+
   function snmpManagePost()
   {
     document.snmpManage.submit();
   }
-  
+
   function manageSnmp()
   {
     document.manageSnmp.submit();
   }
-  
+
   function snmpConfigPost()
   {
     document.snmpConfig.action="admin/snmpConfig.jsp";
     document.snmpConfig.submit();
   }
-  
+
   function networkConnection()
   {
     document.networkConnection.submit();
   }
-  
+
   function dns()
   {
     document.dns.submit();
   }
-  
+
   function communication()
   {
       document.communication.submit();
   }
-  
+
 </script>
 
 <form method="post" name="getNodes" action="admin/getNodes">
@@ -134,26 +134,27 @@
   <div class="TwoColLeft">
     <h3>OpenNMS System</h3>
     <div class="boxWrapper">
-      <ul class="plain">  
+      <ul class="plain">
+        <li><a href="group.list.page">Access Control List</a></li>
         <li><a href="admin/userGroupView/index.jsp">Configure Users, Groups and Roles</a></li>
         <li><a href="admin/sysconfig.jsp">System Information</a></li>
       </ul>
     </div>
 
     <h3>Operations</h3>
-    
+
     <div class="boxWrapper">
-      <ul class="plain">  
+      <ul class="plain">
         <li><a href="admin/discovery/modifyDiscoveryConfig">Configure Discovery</a></li>
         <li><a href="javascript:snmpConfigPost()">Configure SNMP Community Names by IP</a></li>
         <li><a href="javascript:snmpManagePost()">Configure SNMP Data Collection per Interface</a></li>
 		<!-- Removed this - see bug 586
         	<li><a href="admin/pollerConfig/index.jsp">Configure Pollers</a></li>
-		-->        
+		-->
         <li><a href="javascript:submitPost()">Manage and Unmanage Interfaces and Services</a></li>
         <li><a href="admin/thresholds/index.htm">Manage Thresholds</a></li>
-        <!-- Secret function 
-        	<a href="admin/eventconf/list.jsp">Configure Events</a> 
+        <!-- Secret function
+        	<a href="admin/eventconf/list.jsp">Configure Events</a>
         -->
         <li><a href="admin/notification/index.jsp">Configure Notifications</a></li>
         <li><a href="admin/sched-outages/index.jsp">Scheduled Outages</a></li>
@@ -177,11 +178,11 @@
               <input type="submit" value="Update" />
             </p>
         </form>
-      </div>    
+      </div>
 
     <h3>Nodes</h3>
     <div class="boxWrapper">
-      <ul class="plain">  
+      <ul class="plain">
         <li><a href="javascript:addInterfacePost()">Add Interface</a></li>
         <li><a href="admin/provisioningGroups.htm">Manage Provisioning Groups</a></li>
         <li><a href="admin/asset/index.jsp">Import and Export Asset Information</a></li>
@@ -192,16 +193,16 @@
 
 	<h3>Distributed Monitoring</h3>
     <div class="boxWrapper">
-      <ul class="plain">  
+      <ul class="plain">
         <li><a href="admin/applications.htm">Manage Applications</a></li>
         <li><a href="distributed/locationMonitorList.htm">Manage Location Monitors</a></li>
       </ul>
     </div>
 
 
-    
+
   </div>
-      
+
   <div class="TwoColRight">
       <h3>Descriptions</h3>
       <div class="boxWrapper">
@@ -211,21 +212,21 @@
             existing users. Groups contain users. Roles are then assigned to Groups.
             (User: A person, Group: Administrators, Role: On Duty Administrator)
         </p>
-        
+
        <p><b>Notification Status</b>: Notifications will be sent out only if this setting is switched to <em>On</em>.
 			This is a system-wide setting. As long as this is <em>Off</em> OpenNMS will create no notifications.
 			The current status of notifications is also reflected in the upper right-hand
             corner of every OpenNMS screen with a banner denoting either <em>Notices On</em> or <em>Notices
             Off</em>.
         </p>
-        
+
         <p><b>Configure Discovery</b>: Set up the IP addresses (individual addresses and/or ranges) that you want OpenNMS to scan for new nodes.
          </p>
-        
+
 	<P><B>Configure SNMP Community Names by IP</b>:Configure the Community String used in SNMP Data Collection. OpenNMS is shipped with a community string of "public".
 	If you have set a different <em>read</em> community on your devices you must put it here to be able to collect data from
 	these devices.
-	</P>           
+	</P>
 
 	<P><B>Configure SNMP Data Collection per Interface</b>: This interface will allow you
 	to configure which IP and non-IP interfaces are used in SNMP Data Collection.
@@ -237,37 +238,37 @@
         If you manage the service on both interfaces, you will get two notifications if it fails. If you want only one,
         unmanage the service on one of the interfaces.
         </p>
-              
 
-     <p><b>Manage thresholds</b>: Allows you to configure (add/remove/modify) thresholds. 
+
+     <p><b>Manage thresholds</b>: Allows you to configure (add/remove/modify) thresholds.
 
         <p><b>Configure Notifications</b>: Create and manage notification escalation
             plans, called <em>destination paths</em>. A destination path is associated to
-            an OpenNMS event.  Each path can have any arbitrary number of escalations or 
-            targets (users or groups) and can send notices through email, pagers, et cetera.  
-            Each destination path can be triggered by any number of OpenNMS events and can 
-            further be associated with specific interfaces or services.   
+            an OpenNMS event.  Each path can have any arbitrary number of escalations or
+            targets (users or groups) and can send notices through email, pagers, et cetera.
+            Each destination path can be triggered by any number of OpenNMS events and can
+            further be associated with specific interfaces or services.
         </p>
 
 
-	<p><b>Scheduled Outages</b>: Add and edit scheduled 
-	    outages. You can pause notifications, polling, thresholding and data collection 
-            (or any combination of the four) for any interface/node for any time.  
+	<p><b>Scheduled Outages</b>: Add and edit scheduled
+	    outages. You can pause notifications, polling, thresholding and data collection
+            (or any combination of the four) for any interface/node for any time.
 	</p>
 
 
 
-        <p><b>Add Interface</b>: Add an interfaces to the database. If the 
-            IP address of the interface is contained in the ipAddrTable of an existing node, 
+        <p><b>Add Interface</b>: Add an interfaces to the database. If the
+            IP address of the interface is contained in the ipAddrTable of an existing node,
             the interface will be added into the node. Otherwise, a new node will be created.
         </p>
 
 	<p><b>Manage Provisioning Groups</b>: Manually add nodes, interfaces
-	and services to OpenNMS.  The creation of these entities is managed completely by you 
+	and services to OpenNMS.  The creation of these entities is managed completely by you
 	rather than by having OpenNMS discover the network.
 	</p>
 
-        <p><b>Import and Export Asset Information</b>: Export and import data into OpenNMS's asset inventory.             
+        <p><b>Import and Export Asset Information</b>: Export and import data into OpenNMS's asset inventory.
             The comma-delimited file format is supported by most spreadsheet and
             database applications. Details for using the Import and Export
             functionalities can be found through this link as well.
@@ -276,22 +277,22 @@
 	<p><b>Manage Surveillance Categories</b>: Manage surveillance categories (also known
             as node categories) and edit the list of nodes belonging to each category.
 	</p>
-        
+
         <p><b>Delete Nodes</b>: Permanently delete nodes from the database.
         </p>
 <!--
-        <p><b>Configure Pollers</b> provides an easy way to modify the polling status of 
+        <p><b>Configure Pollers</b> provides an easy way to modify the polling status of
             standard services.  It also enables the user to add and delete custom services.
         </p>
--->        
+-->
 
 
 
 	<p><b>Manage applications</b> and <b>Manage Location Monitors</b>: Distributed Monitoring Configuration.
 	</p>
-	
 
- 
+
+
       </div>
   </div>
   <hr />

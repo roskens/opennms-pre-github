@@ -1,10 +1,10 @@
 //============================================================================
 //
-// Copyright (c) 2009+ desmax74
+// Copyright (c) 2009+ Massimiliano Dessi (desmax74)
 // Copyright (c) 2009+ The OpenNMS Group, Inc.
 // All rights reserved everywhere.
 //
-// This program was developed and is maintained by Rocco RIONERO
+// This program was developed and is maintained by Massimiliano Dessi
 // ("the author") and is subject to dual-copyright according to
 // the terms set in "The OpenNMS Project Contributor Agreement".
 //
@@ -25,7 +25,7 @@
 //
 // The author can be contacted at the following email address:
 //
-//       Massimiliano Dess&igrave;
+//       Massimiliano Dessi
 //       desmax74@yahoo.it
 //
 //
@@ -34,57 +34,33 @@
 //============================================================================
 package org.opennms.acl.ui.util;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.opennms.acl.domain.Authority;
+import org.opennms.acl.domain.AuthorityFacade;
 import org.opennms.acl.domain.GenericUser;
-import org.opennms.acl.domain.Group;
-import org.opennms.acl.model.Pager;
+import org.opennms.acl.domain.GroupFacade;
 import org.opennms.acl.util.Constants;
+import org.opennms.netmgt.Pager;
 import org.springframework.web.bind.ServletRequestUtils;
 
 /**
- * <p>WebUtils class.</p>
- *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
- * @since jdk 1.5.0
- * @version $Id: $
+ * @since 1.9.0
  */
 public class WebUtils {
 
-    /**
-     * <p>getIntId</p>
-     *
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
-     * @return a int.
-     */
     public static int getIntId(HttpServletRequest req) {
         return ServletRequestUtils.getIntParameter(req, Constants.ID, 0);
     }
 
-    /**
-     * <p>getIntParam</p>
-     *
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
-     * @param name a {@link java.lang.String} object.
-     * @return a int.
-     */
     public static int getIntParam(HttpServletRequest req, String name) {
         return ServletRequestUtils.getIntParameter(req, name, 0);
     }
 
-    /**
-     * <p>addSessionAttribute</p>
-     *
-     * @param session a {@link javax.servlet.http.HttpSession} object.
-     * @param name a {@link java.lang.String} object.
-     * @param value a {@link java.lang.Object} object.
-     * @return a boolean.
-     */
     public static boolean addSessionAttribute(HttpSession session, String name, Object value) {
         if (value != null) {
             session.setAttribute(name, value);
@@ -94,80 +70,35 @@ public class WebUtils {
         }
     }
 
-    /**
-     * <p>getNumPage</p>
-     *
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
-     * @return a int.
-     */
     public static int getNumPage(HttpServletRequest req) {
         return ServletRequestUtils.getIntParameter(req, Constants.UI_PAGE, 0);
     }
 
-    /**
-     * <p>getPager</p>
-     *
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
-     * @return a {@link org.opennms.acl.model.Pager} object.
-     */
     public static Pager getPager(HttpServletRequest req) {
         return (Pager) req.getAttribute(Constants.PAGER);
     }
 
-    /**
-     * <p>getUser</p>
-     *
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
-     * @return a {@link org.opennms.acl.domain.GenericUser} object.
-     */
     public static GenericUser getUser(HttpServletRequest req) {
         return (GenericUser) req.getAttribute(Constants.USER);
     }
 
-    /**
-     * <p>getAuthority</p>
-     *
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
-     * @return a {@link org.opennms.acl.domain.Authority} object.
-     */
-    public static Authority getAuthority(HttpServletRequest req) {
-        return (Authority) req.getAttribute(Constants.AUTHORITY);
+    public static AuthorityFacade getAuthority(HttpServletRequest req) {
+        return (AuthorityFacade) req.getAttribute(Constants.AUTHORITY);
     }
 
-    /**
-     * <p>getGroup</p>
-     *
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
-     * @return a {@link org.opennms.acl.domain.Group} object.
-     */
-    public static Group getGroup(HttpServletRequest req) {
-        return (Group) req.getAttribute(Constants.GROUP);
+    public static GroupFacade getGroup(HttpServletRequest req) {
+        return (GroupFacade) req.getAttribute(Constants.GROUP);
     }
 
-    /**
-     * <p>extractIdGrantedAuthorityFromString</p>
-     *
-     * @param line a {@link java.lang.String} object.
-     * @param separator a {@link java.lang.String} object.
-     * @return a {@link java.util.List} object.
-     */
-    public static List<Integer> extractIdGrantedAuthorityFromString(String line, String separator) {
+    public static Set<Integer> extractIdGrantedAuthorityFromString(String line, String separator) {
         String[] fields = line.split(separator);
-        List<Integer> ids = new ArrayList<Integer>();
+        Set<Integer> ids = new HashSet<Integer>();
         for (Integer i = 0; i < fields.length; i++) {
             ids.add(new Integer(fields[i]));
         }
         return ids;
     }
 
-    /**
-     * <p>getPager</p>
-     *
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
-     * @param totalItemsNumber a {@link java.lang.Integer} object.
-     * @param numberItemsOnPage a {@link java.lang.Integer} object.
-     * @return a {@link org.opennms.acl.model.Pager} object.
-     */
     public static Pager getPager(HttpServletRequest req, Integer totalItemsNumber, Integer numberItemsOnPage) {
         int page = ServletRequestUtils.getIntParameter(req, Constants.PAGE_NUMBER, 0);
         int numeroPagineMax = getMaxPageNumber(totalItemsNumber, numberItemsOnPage);
@@ -177,14 +108,6 @@ public class WebUtils {
         return new Pager(page, numeroPagineMax, numberItemsOnPage);
     }
 
-    /**
-     * <p>getPager</p>
-     *
-     * @param page a int.
-     * @param totalItemsNumber a {@link java.lang.Integer} object.
-     * @param numberItemsOnPage a {@link java.lang.Integer} object.
-     * @return a {@link org.opennms.acl.model.Pager} object.
-     */
     public static Pager getPager(int page, Integer totalItemsNumber, Integer numberItemsOnPage) {
         int numeroPagineMax = getMaxPageNumber(totalItemsNumber, numberItemsOnPage);
         if (page > numeroPagineMax) {

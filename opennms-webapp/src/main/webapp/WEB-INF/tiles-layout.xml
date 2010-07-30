@@ -1,0 +1,53 @@
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+	<definition name="default" template="/WEB-INF/jsp/acl/layout/admin/defaultLayout.jsp">
+		<put-attribute name="head" value="/WEB-INF/jsp/acl/layout/commons/head.jsp" />
+		<put-attribute name="header" value="/WEB-INF/jsp/acl/layout/admin/adminHeader.jsp" />
+		<put-attribute name="boxSx" value="/WEB-INF/jsp/acl/layout/admin/adminBoxSx.jsp" />
+		<put-attribute name="footerScripts" value="/WEB-INF/jsp/acl/layout/commons/footerScripts.jsp" />
+	</definition>
+	<!-- Authority controller -->
+    <definition name="acl/authority/list" extends="default">
+		<put-attribute name="body" value="/WEB-INF/jsp/acl/authority/list.jsp" />
+	</definition>
+	<definition name="acl/authority/detail" extends="default">
+		<put-attribute name="body" value="/WEB-INF/jsp/acl/authority/detail.jsp" />
+	</definition>
+	<definition name="acl/authority/items" extends="default">
+		<put-attribute name="body" value="/WEB-INF/jsp/acl/authority/items.jsp" />
+	</definition>
+	<!-- Group Controller -->
+	<definition name="acl/group/list" extends="default">
+		<put-attribute name="body" value="/WEB-INF/jsp/acl/group/list.jsp" />
+	</definition>
+	<definition name="acl/group/detail" extends="default">
+		<put-attribute name="body" value="/WEB-INF/jsp/acl/group/detail.jsp" />
+	</definition>
+	<definition name="acl/group/items" extends="default">
+		<put-attribute name="body" value="/WEB-INF/jsp/acl/group/items.jsp" />
+	</definition>
+	<!-- User Controller -->
+	<definition name="acl/user/authorities" extends="default">
+		<put-attribute name="body" value="/WEB-INF/jsp/acl/user/authorities.jsp" />
+	</definition>
+	<definition name="acl/user/list" extends="default">
+		<put-attribute name="body" value="/WEB-INF/jsp/acl/user/list.jsp" />
+	</definition>
+	<definition name="acl/user/detail" extends="default">
+		<put-attribute name="body" value="/WEB-INF/jsp/acl/user/detail.jsp" />
+	</definition>
+	<!-- FORMs -->
+	<definition name="acl/admin/form" extends="default">
+		<put-attribute name="body" value="/WEB-INF/jsp/acl/admin/form.jsp" />
+	</definition>
+	<definition name="acl/user/form" extends="default">
+		<put-attribute name="body" value="/WEB-INF/jsp/acl/user/form.jsp" />
+	</definition>
+	<definition name="acl/authority/form" extends="default">
+		<put-attribute name="body" value="/WEB-INF/jsp/acl/authority/form.jsp" />
+	</definition>
+	<definition name="acl/group/form" extends="default">
+		<put-attribute name="body" value="/WEB-INF/jsp/acl/group/form.jsp" />
+	</definition>
+</tiles-definitions>

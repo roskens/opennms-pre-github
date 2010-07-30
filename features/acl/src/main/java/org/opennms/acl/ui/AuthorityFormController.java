@@ -1,10 +1,10 @@
 //============================================================================
 //
-// Copyright (c) 2009+ desmax74
+// Copyright (c) 2009+ Massimiliano Dessi (desmax74)
 // Copyright (c) 2009+ The OpenNMS Group, Inc.
 // All rights reserved everywhere.
 //
-// This program was developed and is maintained by Rocco RIONERO
+// This program was developed and is maintained by Massimiliano Dessi
 // ("the author") and is subject to dual-copyright according to
 // the terms set in "The OpenNMS Project Contributor Agreement".
 //
@@ -25,7 +25,7 @@
 //
 // The author can be contacted at the following email address:
 //
-//       Massimiliano Dess&igrave;
+//       Massimiliano Dessi
 //       desmax74@yahoo.it
 //
 //
@@ -34,10 +34,10 @@
 //============================================================================
 package org.opennms.acl.ui;
 
-import org.opennms.acl.model.AuthorityDTO;
 import org.opennms.acl.service.AuthorityService;
 import org.opennms.acl.ui.validator.AuthorityValidator;
 import org.opennms.acl.util.Constants;
+import org.opennms.netmgt.model.OnmsAuthority;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
@@ -56,26 +56,17 @@ import org.springframework.web.bind.support.SessionStatus;
  * Authority Form Controller to insert or update an Authority
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
- * @since jdk 1.5.0
- * @version $Id: $
+ * @since 1.9.0
  */
 @Controller
 @RequestMapping("/authority.edit.page")
 public class AuthorityFormController {
 
-    /**
-     * <p>processSubmit</p>
-     *
-     * @param authority a {@link org.opennms.acl.model.AuthorityDTO} object.
-     * @param result a {@link org.springframework.validation.BindingResult} object.
-     * @param status a {@link org.springframework.web.bind.support.SessionStatus} object.
-     * @return a {@link java.lang.String} object.
-     */
     @RequestMapping(method = RequestMethod.POST)
-    protected String processSubmit(@ModelAttribute("authority") AuthorityDTO authority, BindingResult result, SessionStatus status) {
+    protected String processSubmit(@ModelAttribute("authority") OnmsAuthority authority, BindingResult result, SessionStatus status) {
         String mav = authorityForm;
         authorityValidator.validate(authority, result);
-        if (!result.hasErrors()) {
+        if (!result.hasErrors() && ! status.isComplete()) {
             authorityService.save(authority);
             status.setComplete();
             mav = Constants.REDIRECT_AUTHORITY_LIST;
@@ -83,27 +74,14 @@ public class AuthorityFormController {
         return mav;
     }
 
-    /**
-     * <p>initBinder</p>
-     *
-     * @param binder a {@link org.springframework.web.bind.WebDataBinder} object.
-     * @throws java.lang.Exception if any.
-     */
     @InitBinder()
     public void initBinder(WebDataBinder binder) throws Exception {
         binder.registerCustomEditor(String.class, new StringTrimmerEditor(false));
     }
 
-    /**
-     * <p>setupForm</p>
-     *
-     * @param id a {@link java.lang.Integer} object.
-     * @param model a {@link org.springframework.ui.ModelMap} object.
-     * @return a {@link java.lang.String} object.
-     */
     @RequestMapping(method = RequestMethod.GET)
     public String setupForm(@RequestParam(required = false, value = "aid") Integer id, ModelMap model) {
-        model.addAttribute(Constants.AUTHORITY, id == null ? new AuthorityDTO() : authorityService.getAuthority(id));
+        model.addAttribute(Constants.AUTHORITY, id == null ? new OnmsAuthority() : authorityService.getAuthority(id));
         return authorityForm;
     }
 
@@ -112,5 +90,5 @@ public class AuthorityFormController {
     @Autowired
     @Qualifier("authorityValidator")
     private AuthorityValidator authorityValidator;
-    private final String authorityForm = "authority/form";
+    private final String authorityForm = "acl/authority/form";
 }

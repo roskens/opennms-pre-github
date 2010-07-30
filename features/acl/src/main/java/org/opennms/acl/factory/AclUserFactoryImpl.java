@@ -1,10 +1,10 @@
 //============================================================================
 //
-// Copyright (c) 2009+ desmax74
+// Copyright (c) 2009+ Massimiliano Dessi (desmax74)
 // Copyright (c) 2009+ The OpenNMS Group, Inc.
 // All rights reserved everywhere.
 //
-// This program was developed and is maintained by Rocco RIONERO
+// This program was developed and is maintained by Massimiliano Dessi
 // ("the author") and is subject to dual-copyright according to
 // the terms set in "The OpenNMS Project Contributor Agreement".
 //
@@ -25,7 +25,7 @@
 //
 // The author can be contacted at the following email address:
 //
-//       Massimiliano Dess&igrave;
+//       Massimiliano Dessi
 //       desmax74@yahoo.it
 //
 //
@@ -35,10 +35,10 @@
 package org.opennms.acl.factory;
 
 import org.opennms.acl.domain.GenericUser;
-import org.opennms.acl.model.UserAuthoritiesDTO;
 import org.opennms.acl.service.AuthorityService;
 import org.opennms.acl.service.GroupService;
 import org.opennms.acl.service.UserService;
+import org.opennms.netmgt.model.OnmsUser;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,29 +48,17 @@ import org.springframework.util.Assert;
  * Acl user factory, retrieve users by id or username
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
- * @since jdk 1.5.0
- * @version $Id: $
+ * @since 1.9.0
  */
 @Service("aclUserFactory")
 public class AclUserFactoryImpl implements AclUserFactory, InitializingBean {
 
-    /** {@inheritDoc} */
     public GenericUser getAclUserByUsername(String username) {
-        UserAuthoritiesDTO userAuthoritiesDTO = userService.getUserWithAuthorities(username);
+        OnmsUser userAuthoritiesDTO = userService.getUserWithAuthorities(username);
         return new GenericUser(userAuthoritiesDTO, userService, groupService);
     }
 
-    /** {@inheritDoc} */
-    public GenericUser getAclUser(Integer sid) {
-        UserAuthoritiesDTO userAuthoritiesDTO = userService.getUserWithAuthoritiesByID(sid);
-        return new GenericUser(userAuthoritiesDTO, userService, groupService);
-    }
 
-    /**
-     * <p>afterPropertiesSet</p>
-     *
-     * @throws java.lang.Exception if any.
-     */
     public void afterPropertiesSet() throws Exception {
         Assert.state(authorityService != null, "authorityService property must be set and cannot be null");
         Assert.state(userService != null, "userService property must be set and cannot be null");

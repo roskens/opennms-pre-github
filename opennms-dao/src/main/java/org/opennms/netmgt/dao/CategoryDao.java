@@ -10,6 +10,8 @@
 //
 // Modifications:
 //
+// 2009 Jun 24: Add getItems, getAuthorityItems, getFreeItems  - desmax74@yahoo.it
+//
 // 2007 Dec 09: Add getCriterionForCategorySetsUnion. - dj@opennms.org
 //
 // Original code base Copyright (C) 1999-2001 Oculan Corp.  All rights reserved.
@@ -36,55 +38,26 @@
 package org.opennms.netmgt.dao;
 
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.criterion.Criterion;
 import org.opennms.netmgt.model.OnmsCategory;
 
-/**
- * <p>CategoryDao interface.</p>
- *
- * @author ranger
- * @version $Id: $
- */
 public interface CategoryDao extends OnmsDao<OnmsCategory, Integer> {
 	
-    /**
-     * <p>findByName</p>
-     *
-     * @param name a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.model.OnmsCategory} object.
-     */
-    OnmsCategory findByName(String name);
+    public abstract OnmsCategory findByName(String name);
     
-    /**
-     * <p>findByName</p>
-     *
-     * @param name a {@link java.lang.String} object.
-     * @param useCached a boolean.
-     * @return a {@link org.opennms.netmgt.model.OnmsCategory} object.
-     */
-    OnmsCategory findByName(String name, boolean useCached);
+    public abstract OnmsCategory findByName(String name, boolean useCached);
     
-    /**
-     * <p>getAllCategoryNames</p>
-     *
-     * @return a {@link java.util.List} object.
-     */
-    List<String> getAllCategoryNames();
+    public abstract List<String> getAllCategoryNames();
     
-    /**
-     * <p>getCriterionForCategorySetsUnion</p>
-     *
-     * @param categories an array of {@link java.lang.String} objects.
-     * @return a {@link java.util.List} object.
-     */
-    List<Criterion> getCriterionForCategorySetsUnion(String[]... categories);
+    public abstract List<Criterion> getCriterionForCategorySetsUnion(String[]... categories);
     
-    /**
-     * <p>getCategoriesWithAuthorizedGroup</p>
-     *
-     * @param groupName a {@link java.lang.String} object.
-     * @return a {@link java.util.List} object.
-     */
-    List<OnmsCategory> getCategoriesWithAuthorizedGroup(String groupName);
+    public abstract List<OnmsCategory> getCategoriesWithAuthorizedGroup(String groupName);
+    
+    public Set<OnmsCategory> getItems();
+
+    public Set<OnmsCategory> getAuthorityItems(Set<Integer> items);
+
+    public Set<OnmsCategory> getFreeItems(Set<Integer> items);
 }

@@ -1,10 +1,10 @@
 //============================================================================
 //
-// Copyright (c) 2009+ desmax74
+// Copyright (c) 2009+ Massimiliano Dessi (desmax74)
 // Copyright (c) 2009+ The OpenNMS Group, Inc.
 // All rights reserved everywhere.
 //
-// This program was developed and is maintained by Rocco RIONERO
+// This program was developed and is maintained by Massimiliano Dessi
 // ("the author") and is subject to dual-copyright according to
 // the terms set in "The OpenNMS Project Contributor Agreement".
 //
@@ -25,7 +25,7 @@
 //
 // The author can be contacted at the following email address:
 //
-//       Massimiliano Dess&igrave;
+//       Massimiliano Dessi
 //       desmax74@yahoo.it
 //
 //
@@ -49,19 +49,17 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
  * Interceptor to put a User in the request
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
- * @since jdk 1.5.0
- * @version $Id: $
+ * @since 1.9.0
  */
 @Service
 public class UserInterceptor extends HandlerInterceptorAdapter {
 
-    /** {@inheritDoc} */
     @Override
     public boolean preHandle(HttpServletRequest req, HttpServletResponse res, Object handler) throws Exception {
-        Integer sid = ServletRequestUtils.getIntParameter(req, Constants.USER_SID, 0);
-        if (!sid.equals(0)) {
-            // cache this invocation with trasparent aop cache
-            GenericUser user = aclUserFactory.getAclUser(sid);
+        String username = ServletRequestUtils.getStringParameter(req, Constants.USER_SID);
+        if(null != username){
+            //TODO cache this invocation with trasparent aop cache
+            GenericUser user = aclUserFactory.getAclUserByUsername(username);
             req.setAttribute(Constants.USER, user);
         }
         return true;

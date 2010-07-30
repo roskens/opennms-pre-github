@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
     http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
     <display-name>Acl-web</display-name>
@@ -34,13 +34,6 @@
     <filter-mapping>
         <filter-name>springSecurityFilterChain</filter-name>
         <url-pattern>/*</url-pattern>
-    </filter-mapping> 
-    <filter>
-        <filter-name>sitemesh</filter-name>
-        <filter-class>com.opensymphony.module.sitemesh.filter.PageFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>sitemesh</filter-name><servlet-name>acl</servlet-name>
     </filter-mapping>
     <servlet>
         <servlet-name>acl</servlet-name>
@@ -76,7 +69,7 @@
             <taglib-location>/WEB-INF/tld/spring-form.tld</taglib-location>
         </taglib>
         <taglib>
-            <taglib-uri>http://www.springframework.org/security/tags</taglib-uri> 
+            <taglib-uri>http://www.springframework.org/security/tags</taglib-uri>
             <taglib-location>/WEB-INF/tld/security.tld</taglib-location>
         </taglib>
     </jsp-config>

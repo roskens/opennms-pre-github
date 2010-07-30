@@ -1,10 +1,10 @@
 //============================================================================
 //
-// Copyright (c) 2009+ desmax74
+// Copyright (c) 2009+ Massimiliano Dessi (desmax74)
 // Copyright (c) 2009+ The OpenNMS Group, Inc.
 // All rights reserved everywhere.
 //
-// This program was developed and is maintained by Rocco RIONERO
+// This program was developed and is maintained by Massimiliano Dessi
 // ("the author") and is subject to dual-copyright according to
 // the terms set in "The OpenNMS Project Contributor Agreement".
 //
@@ -25,7 +25,7 @@
 //
 // The author can be contacted at the following email address:
 //
-//       Massimiliano Dess&igrave;
+//       Massimiliano Dessi
 //       desmax74@yahoo.it
 //
 //
@@ -34,43 +34,45 @@
 //============================================================================
 package org.opennms.acl.service;
 
-import java.util.List;
+import java.util.Set;
 
-import org.opennms.acl.model.GroupDTO;
-import org.opennms.acl.model.Pager;
+import org.opennms.netmgt.Pager;
+import org.opennms.netmgt.model.OnmsGroup;
 
 /**
- * <p>GroupService interface.</p>
- *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
- * @since jdk 1.5.0
- * @version $Id: $
+ * @since 1.9.0
  */
 public interface GroupService extends PagerService {
 
     /**
      * Save a GroupDTO
      *
-     * @param group a {@link org.opennms.acl.model.GroupDTO} object.
-     * @return the result of the operation
+     * @param group
      */
-    public Boolean save(GroupDTO group);
+    public void save(OnmsGroup group);
 
     /**
      * Retrieve a group by id
      *
-     * @param id a {@link java.lang.Integer} object.
+     * @param id
      * @return group
      */
-    public GroupDTO getGroup(Integer id);
+    public OnmsGroup getGroup(Integer id);
+
+    /**
+     *
+     * @param name
+     * @return group
+     */
+    public OnmsGroup getGroupByName(String name);
 
     /**
      * Remove a group by id
      *
-     * @param id a {@link java.lang.Integer} object.
-     * @return the result of the operation
+     * @param id
      */
-    public Boolean removeGroup(Integer id);
+    public void removeGroup(Integer id);
 
     /**
      * Check if Group has a users
@@ -81,59 +83,38 @@ public interface GroupService extends PagerService {
     public Boolean hasUsers(Integer id);
 
     /**
-     * <p>getGroups</p>
-     *
-     * @param pager a {@link org.opennms.acl.model.Pager} object.
+     * @param pager
      * @return paginated list of groups
      */
-    public List<GroupDTO> getGroups(Pager pager);
+    public Set<OnmsGroup> getGroups(Pager pager);
 
     /**
-     * <p>getGroups</p>
-     *
-     * @return list of all authorities
-     */
-    public List<GroupDTO> getGroups();
-
-    /**
-     * <p>getUserGroups</p>
-     *
-     * @param username a {@link java.lang.String} object.
+     * @param username
      * @return the list of user's authorities by username
      */
-    public List<GroupDTO> getUserGroups(String username);
+    public Set<OnmsGroup> getUserGroups(String username);
 
     /**
-     * <p>getFreeGroups</p>
-     *
-     * @param username a {@link java.lang.String} object.
+     * @param username
      * @return the list of authorities that user doesn't have
      */
-    public List<GroupDTO> getFreeGroups(String username);
+    public Set<OnmsGroup> getFreeGroups(String username);
 
     /**
      * Save a list of authorities for a given user
      *
-     * @param username a {@link java.lang.String} object.
-     * @param groups a {@link java.util.List} object.
-     * @return the result of operation
+     * @param username
+     * @param groups
      */
-    public Boolean saveGroups(String username, List<Integer> groups);
+    public void saveGroups(String username, Set<Integer> groups);
 
     /**
      * Delete all user's authorities
      *
-     * @param username a {@link java.lang.String} object.
-     * @return the result of the operation
+     * @param username
      */
-    public Boolean deleteUserGroups(String username);
+    public void deleteUserGroups(String username);
 
-    /**
-     * <p>getUserGroupsWithAutorities</p>
-     *
-     * @param username a {@link java.lang.String} object.
-     * @return a {@link java.util.List} object.
-     */
-    public List<GroupDTO> getUserGroupsWithAutorities(String username);
+    public Set<OnmsGroup> getUserGroupsWithAutorities(String username);
 
 }

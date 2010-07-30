@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+	<changeSet id="1.9.0-ACL" author="desmax74">
+
+		<!-- TABLES -->
+		<!-- authentication -->
+		<createTable tableName="authentication">
+			<column name="id" type="integer" autoIncrement="true">
+				<constraints nullable="false" />
+			</column>
+			<column name="username" type="varchar(20)">
+				<constraints primaryKey="true" nullable="false"/>
+			</column>
+			<column name="password" type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="enabled" type="boolean" defaultValue="true"/>
+			<column name="fullname" type="varchar(255)" />
+			<column name="comments" type="varchar(255)" />
+			<column name="email" type="varchar(255)" />
+			<column name="numsvc" type="varchar(255)" />
+			<column name="numpin" type="varchar(255)" />
+			<column name="txtsvc" type="varchar(255)" />
+			<column name="txtpin" type="varchar(255)" />
+		</createTable>
+
+		<!-- authorities -->
+		<createTable tableName="authorities">
+			<column name="id" type="integer" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="name" type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="description" type="varchar(255)">
+				<constraints nullable="true"/>
+			</column>
+			<column name="group_id" type="integer" defaultValue="0"/>
+			<column name="eliminable" type="boolean" defaultValue="true"/>
+		</createTable>
+
+		<!-- authorities_categories -->
+		<createTable tableName="authorities_categories">
+			<column name="id" type="integer" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="authority_id" type="integer">
+				<constraints nullable="false"/>
+			</column>
+			<column name="category_id" type="integer">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+
+		<!-- groups -->
+		<createTable tableName="groups">
+			<column name="id" type="integer" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false"/>
+			</column>
+			<column name="group_name" type="varchar(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="eliminable" type="boolean" defaultValue="true"/>
+		</createTable>
+
+		<!-- group_members -->
+		<createTable tableName="group_members">
+			<column name="id" type="integer" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true"/>
+			</column>
+			<column name="username" type="varchar(20)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="group_id" type="integer">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+
+		<addForeignKeyConstraint constraintName="fk_authorities_group_id" onDelete="CASCADE"
+			baseTableName="authorities" baseColumnNames="group_id"
+			referencedTableName="groups" referencedColumnNames="id" />
+		<addForeignKeyConstraint constraintName="fk_authorities_categories_authority_id" onDelete="CASCADE"
+			baseTableName="authorities_categories" baseColumnNames="authority_id"
+			referencedTableName="authorities" referencedColumnNames="id" />
+		<addForeignKeyConstraint constraintName="fk_authorities_categories_category_id" onDelete="CASCADE"
+			baseTableName="authorities_categories" baseColumnNames="category_id"
+			referencedTableName="categories" referencedColumnNames="categoryid" />
+		<addForeignKeyConstraint constraintName="fk_group_members_group_id" onDelete="CASCADE"
+			baseTableName="group_members" baseColumnNames="group_id"
+			referencedTableName="groups" referencedColumnNames="id" />
+
+		<!-- VALUES -->
+		<insert tableName="authentication">
+			<!-- id = 1 -->
+			<column name="username" value="admin" />
+			<!-- pass= "admin" with upperCaseMd5Password	-->
+			<column name="password" value="21232F297A57A5A743894A0E4A801FC3" />
+			<!--	pass="admin" with sha
+			<column name="password" value="dd94709528bb1c83d08f3088d4043f4742891f4f" />-->
+			<column name="fullname" value="admin" />
+			<column name="comments" value="admin user" />
+			<column name="enabled" value="true" />
+		</insert>
+
+		<insert tableName="groups">
+			<!-- id = 1 -->
+			<column name="group_name" value="GROUP_HIDDEN" />
+			<column name="eliminable" value="false" />
+		</insert>
+
+		<insert tableName="groups">
+			<!-- id = 2 -->
+			<column name="group_name" value="GROUP_ADMIN" />
+			<column name="eliminable" value="false" />
+		</insert>
+
+		<insert tableName="groups">
+			<!-- id = 3 -->
+			<column name="group_name" value="GROUP_USER" />
+			<column name="eliminable" value="false" />
+		</insert>
+
+		<insert tableName="groups">
+			<!-- id = 4 -->
+			<column name="group_name" value="GROUP_DASHBOARD" />
+			<column name="eliminable" value="false" />
+		</insert>
+
+		<insert tableName="authorities">
+			<!-- id = 1 -->
+			<column name="name" value="ROLE_ADMIN" />
+			<column name="description" value="admin" />
+			<column name="group_id" value="2" />
+			<column name="eliminable" value="false" />
+		</insert>
+
+		<insert tableName="authorities">
+			<!-- id = 2 -->
+			<column name="name" value="ROLE_USER" />
+			<column name="description" value="user" />
+			<column name="group_id" value="3" />
+			<column name="eliminable" value="false" />
+		</insert>
+
+		<insert tableName="authorities">
+			<!-- id = 3 -->
+			<column name="name" value="ROLE_DASHBOARD" />
+			<column name="description" value="dashboard" />
+			<column name="group_id" value="4" />
+			<column name="eliminable" value="false" />
+		</insert>
+
+		<insert tableName="group_members">
+			<!-- id = 1 -->
+			<column name="username" value="admin" />
+			<column name="group_id" value="2" />
+		</insert>
+
+		<insert tableName="group_members">
+			<!-- id = 2 -->
+			<column name="username" value="admin" />
+			<column name="group_id" value="3" />
+		</insert>
+
+		<insert tableName="group_members">
+			<!-- id = 3 -->
+			<column name="username" value="admin" />
+			<column name="group_id" value="4" />
+		</insert>
+
+		<rollback>
+			<dropTable tableName="group_members" />
+			<dropTable tableName="groups" />
+			<dropTable tableName="authorities_categories" />
+			<dropTable tableName="authorities" />
+		</rollback>
+
+	</changeSet>
+
+</databaseChangeLog>
