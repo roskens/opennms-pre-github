@@ -52,13 +52,13 @@
             <tr class="table-row-pari"></c:otherwise>
             </c:choose>
                 <td align="left">${user.username}</td>
-                <td align="center"><a href="user.authorities.page?sid=${user.username}"><img border="0" title="<spring:message code="ui.action.view"/>" alt="<spring:message code="ui.action.view"/>" src="images/view.png"/></a></td>
-                <td align="center"><a href="user.edit.page?sid=${user.username}"><img border="0" title="<spring:message code="ui.action.edit"/>" alt="<spring:message code="ui.action.edit"/>" src="images/edit.png"/></a></td>
+                <td align="center"><a href="user.authorities.page?sid=${user.username}"><img border="0" title="<spring:message code="ui.action.view"/>" alt="<spring:message code="ui.action.view"/>" src="images/acl/view.png"/></a></td>
+                <td align="center"><a href="user.edit.page?sid=${user.username}"><img border="0" title="<spring:message code="ui.action.edit"/>" alt="<spring:message code="ui.action.edit"/>" src="images/acl/edit.png"/></a></td>
             	<c:if test="${user.enabled}">
-            		<td align="center"><a href="user.disable.page?sid=${user.username}"><img border="0" title="<spring:message code="ui.action.disable"/>" alt="<spring:message code="ui.action.disable"/>" src="images/disable.png"/></a></td>
+            		<td align="center"><a href="user.disable.page?sid=${user.username}"><img border="0" title="<spring:message code="ui.action.disable"/>" alt="<spring:message code="ui.action.disable"/>" src="images/acl/disable.png"/></a></td>
             	</c:if>
             	<c:if test="${!user.enabled}">
-            		<td align="center"><a href="user.enable.page?sid=${user.username}"><img border="0" title="<spring:message code="ui.action.enable"/>" alt="<spring:message code="ui.action.enable"/>" src="images/enable.png"/></a></td>
+            		<td align="center"><a href="user.enable.page?sid=${user.username}"><img border="0" title="<spring:message code="ui.action.enable"/>" alt="<spring:message code="ui.action.enable"/>" src="images/acl/enable.png"/></a></td>
             	</c:if>
             </tr>
         </c:forEach>
@@ -68,5 +68,5 @@
 <br/>
 <tag:pager href="user.list.page"/>
 <div align="center">
-<input type="image" src="images/add.png" title="<spring:message code="ui.action.user.new"/>" alt="<spring:message code="ui.action.user.new"/>" onclick="location.href = 'user.edit.page'" value="<spring:message code="ui.action.user.new"/>"/>
+<input type="image" src="images/acl/add.png" title="<spring:message code="ui.action.user.new"/>" alt="<spring:message code="ui.action.user.new"/>" onclick="location.href = 'user.edit.page'" value="<spring:message code="ui.action.user.new"/>"/>
 </div>

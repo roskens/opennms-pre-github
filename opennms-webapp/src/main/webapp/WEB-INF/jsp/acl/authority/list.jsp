@@ -52,10 +52,10 @@
 			<c:otherwise><tr class="table-row-pari"></c:otherwise>
 			</c:choose>
 				<td align="left"><a href="authority.detail.page?aid=${authority.id}" title="<spring:message code="ui.action.view"/>">${authority.name}</a></td>
-				<td align="center"><a href="authority.detail.page?aid=${authority.id}"><img border="0" title="<spring:message code="ui.action.view"/>" alt="<spring:message code="ui.action.view"/>" src="images/view.png"/></a></td>
+				<td align="center"><a href="authority.detail.page?aid=${authority.id}"><img border="0" title="<spring:message code="ui.action.view"/>" alt="<spring:message code="ui.action.view"/>" src="images/acl/view.png"/></a></td>
 				<c:if test="${authority.eliminable}">
-				<td align="center"><a href="authority.edit.page?aid=${authority.id}"><img border="0" title="<spring:message code="ui.action.edit"/>" alt="<spring:message code="ui.action.edit"/>" src="images/edit.png"/></a></td>
-				<td align="center"><a href="authority.confirm.page?aid=${authority.id}"><img border="0" alt="<spring:message code="ui.action.delete"/>" title="<spring:message code="ui.action.delete"/>" src="images/del.png"/></a></td>
+				<td align="center"><a href="authority.edit.page?aid=${authority.id}"><img border="0" title="<spring:message code="ui.action.edit"/>" alt="<spring:message code="ui.action.edit"/>" src="images/acl/edit.png"/></a></td>
+				<td align="center"><a href="authority.confirm.page?aid=${authority.id}"><img border="0" alt="<spring:message code="ui.action.delete"/>" title="<spring:message code="ui.action.delete"/>" src="images/acl/del.png"/></a></td>
 				</c:if>
 			</tr>
 		</c:forEach>
@@ -65,5 +65,5 @@
 <br/>
 <tag:pager href="authority.list.page"/>
 <div align="center">
-<input type="image" src="images/add.png" title="<spring:message code="ui.action.role.new"/>" alt="<spring:message code="ui.action.role.new"/>" onclick="location.href = 'authority.edit.page'" value="<spring:message code="ui.action.authority.new"/>"/>
+<input type="image" src="images/acl/add.png" title="<spring:message code="ui.action.role.new"/>" alt="<spring:message code="ui.action.role.new"/>" onclick="location.href = 'authority.edit.page'" value="<spring:message code="ui.action.authority.new"/>"/>
 </div>
