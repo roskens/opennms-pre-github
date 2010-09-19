@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
+import java.util.Properties;
 import java.util.Set;
 
 import org.junit.Before;
@@ -23,9 +24,7 @@ import org.opennms.netmgt.config.monitoringLocations.Locations;
 import org.opennms.netmgt.config.monitoringLocations.MonitoringLocationsConfiguration;
 import org.opennms.netmgt.dao.ApplicationDao;
 import org.opennms.netmgt.dao.DistPollerDao;
-import org.opennms.netmgt.dao.FilterDao;
 import org.opennms.netmgt.dao.IpInterfaceDao;
-import org.opennms.netmgt.dao.LocationMonitorDao;
 import org.opennms.netmgt.dao.MonitoredServiceDao;
 import org.opennms.netmgt.dao.NodeDao;
 import org.opennms.netmgt.dao.ServiceTypeDao;
@@ -40,13 +39,13 @@ import org.opennms.netmgt.model.OnmsApplication;
 import org.opennms.netmgt.model.OnmsDistPoller;
 import org.opennms.netmgt.model.OnmsIpInterface;
 import org.opennms.netmgt.model.OnmsLocationMonitor;
+import org.opennms.netmgt.model.OnmsLocationMonitor.MonitorStatus;
 import org.opennms.netmgt.model.OnmsMonitoredService;
-import org.opennms.netmgt.model.OnmsMonitoringLocationDefinition;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.OnmsServiceType;
 import org.opennms.netmgt.model.PollStatus;
-import org.opennms.netmgt.model.OnmsLocationMonitor.MonitorStatus;
 import org.opennms.netmgt.poller.remote.PollerBackEnd;
+import org.opennms.test.mock.MockLogAppender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -102,8 +101,6 @@ public class LocationDataServiceTest implements TemporaryDatabaseAware<Temporary
     @Autowired
     private PollerBackEnd m_pollerBackEnd;
 
-    private MonitoringLocationsConfiguration m_monitoringLocationsConfiguration;
-
     private OnmsLocationMonitor m_rduMonitor1;
     private OnmsLocationMonitor m_rduMonitor2;
     private OnmsMonitoredService m_localhostHttpService;
@@ -114,18 +111,11 @@ public class LocationDataServiceTest implements TemporaryDatabaseAware<Temporary
 
     @Before
     public void setUp() throws Exception {
+        Properties p = new Properties();
+        p.setProperty("log4j.logger.org.hibernate", "INFO");
+        p.setProperty("log4j.logger.org.hibernate.SQL", "DEBUG");
+        MockLogAppender.setupLogging(p);
         
-        m_monitoringLocationsConfiguration = m_locationMonitorDao.getMonitoringLocationsConfiguration();
-        Locations locations = new Locations();
-        LocationDef locationDef = new LocationDef();
-        locationDef.setLocationName("RDU");
-        locationDef.setMonitoringArea("East Coast");
-        locationDef.setCoordinates("35.715751,-79.16262");
-        locationDef.setPollingPackageName("example1");
-        locationDef.setPriority(1L);
-        locations.addLocationDef(locationDef);
-        m_monitoringLocationsConfiguration.setLocations(locations);
-
         OnmsApplication app = new OnmsApplication();
         app.setName("TestApp1");
         m_applicationDao.saveOrUpdate(app);
@@ -223,7 +213,8 @@ public class LocationDataServiceTest implements TemporaryDatabaseAware<Temporary
         
         LocationInfo li = m_locationDataService.getLocationInfo("RDU");
         assertEquals("RDU", li.getName());
-        assertEquals(Status.MARGINAL, li.getStatusDetails().getStatus());
+        // Down because one of the services is down.
+        assertEquals(Status.DOWN, li.getStatusDetails().getStatus());
     }
 
     @Test
@@ -238,7 +229,7 @@ public class LocationDataServiceTest implements TemporaryDatabaseAware<Temporary
         
         LocationDetails ld = m_locationDataService.getLocationDetails("RDU");
         assertEquals(Status.UNKNOWN, ld.getApplicationState().getStatusDetails().getStatus());
-        assertEquals(Status.MARGINAL, ld.getLocationMonitorState().getStatusDetails().getStatus());
+        assertEquals(Status.DOWN, ld.getLocationMonitorState().getStatusDetails().getStatus());
     }
     
     @Test
@@ -253,7 +244,7 @@ public class LocationDataServiceTest implements TemporaryDatabaseAware<Temporary
         
         LocationDetails ld = m_locationDataService.getLocationDetails("RDU");
         LocationMonitorState lms = ld.getLocationMonitorState();
-        assertEquals(Status.MARGINAL, lms.getStatusDetails().getStatus());
+        assertEquals(Status.DOWN, lms.getStatusDetails().getStatus());
         assertEquals(2, lms.getServices().size());
         assertEquals(1, lms.getServicesDown().size());
         assertEquals(1, lms.getMonitorsWithServicesDown().size());

@@ -3,7 +3,7 @@
   <parent>
     <groupId>org.opennms</groupId>
     <artifactId>org.opennms.features</artifactId>
-    <version>1.9.1-SNAPSHOT</version>
+    <version>1.9.2-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.opennms.features</groupId>
@@ -76,7 +76,7 @@
       <plugin>
         <groupId>org.dstovall</groupId>
          <artifactId>onejar-maven-plugin</artifactId>
-         <version>1.4.1</version>
+         <version>1.4.3</version>
          <executions>
             <execution>
               <configuration>

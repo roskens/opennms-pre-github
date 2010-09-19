@@ -10,13 +10,6 @@
 //
 // OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
 //
-// Modifications:
-//
-// 2003 Feb 07: Fixed URLEncoder issues.
-// 2003 Feb 04: Added a check to prevent null entries in queries. Bug #536.
-// 
-// Original code base Copyright (C) 1999-2001 Oculan Corp.  All rights reserved.
-//
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation; either version 2 of the License, or
@@ -43,12 +36,13 @@
 	session="true"
 %>
 
-
-<%@page import="edu.ncsu.pdgrenon.Collector"%>
+<%@page import="org.opennms.util.ilr.Collector"%>
 <%@page import="java.io.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
+
 
 <jsp:include page="/includes/header.jsp" flush="false" >
   <jsp:param name="title" value="Instrumentation Log Reader" />
@@ -74,15 +68,26 @@ for(int i = 5; i > 0; i--) {
 }
 File file = new File(baseFileName);
 
-if(file.exists()) {
+
+
+if(file.exists() && file.length() != 0) {
 	c.readLogMessagesFromFile(baseFileName);
 }
 
+pageContext.setAttribute("fileLength",file.length());
 pageContext.setAttribute("collector",c);
 pageContext.setAttribute("OpennmsHome",opennmsHome);
 
 %>
 <c_rt:set var="nan" value="<%=java.lang.Double.NaN%>"/>
+
+<c:choose>
+	<c:when test="${fileLength == 0}">
+		<script language="JavaScript">
+			alert ("Instrumentation.log either does not exist or is empty. Check to see if you have it set to DEBUG in log4j.properties")
+		</script>
+	</c:when>
+</c:choose>
 
 <br/>
 <p>
@@ -105,54 +110,51 @@ Threads Used: ${collector.threadCount}
 <tr>
 <th>Service</th>
 <th>Collections</th>
-<th>Average Time Between Collections</th>
 <th>Average Collection Time</th>
-<th>Total Collection Time</th>
+<th>Average Time Between Collections</th>
 <th>Successful Collections</th>
-<th>Average Successful Collection Time</th>
-<th>Total Successful Collection Time</th>
 <th>Success Percentage</th>
+<th>Average Successful Collection Time</th>
 <th>Unsuccessful Collections</th>
+<th>Unsuccessful Percentage</th>
 <th>Average Unsuccessful Collection Time</th>
-<th>Total Unsuccessful Collection Time</th>
-<th>Failed Percentage</th>
 </tr>
 <c:forEach  var="svcCollector" items="${collector.serviceCollectors}">
-<tr>
-<td><a href="element/node.jsp?node=${svcCollector.parsedServiceID}">${svcCollector.serviceID}</a></td>
-<td>${svcCollector.collectionCount}</td>
-<td>${svcCollector.averageDurationBetweenCollections}</td>
-<td>${svcCollector.averageCollectionDuration}</td>
-<td>${svcCollector.totalCollectionDuration}</td>
-<td>${svcCollector.successfulCollectionCount}</td>
-<td>${svcCollector.averageSuccessfulCollectionDuration}</td>
-<td>${svcCollector.successfulCollectionDuration}</td>
 <c:choose>
-	<c:when test="${svcCollector.successPercentage > 50}" >
-		<td style="background: green">${svcCollector.successPercentage}</td>
-	</c:when>
-	<c:when test="${svcCollector.successPercentage == -1}" >
-		<td style="background: yellow">No Collections</td>
-	</c:when>
-	<c:otherwise>
-		<td>${svcCollector.successPercentage}</td>
-	</c:otherwise>
+    <c:when test="${svcCollector.successPercentage > 50}" >
+        <tr class="Normal">
+    </c:when>
+    <c:when test="${svcCollector.successPercentage == -1}" >
+        <tr class="Warning">
+    </c:when>
+    <c:otherwise>
+        <tr class="Critical">
+    </c:otherwise>
 </c:choose>
+<td><a href="element/node.jsp?node=${svcCollector.parsedServiceID}">${svcCollector.serviceID}</a></td>
+<td align="right">${svcCollector.collectionCount}</td>
+<td align="right">${svcCollector.averageCollectionDuration}</td>
+<td align="right">${svcCollector.averageDurationBetweenCollections}</td>
+<td align="right">${svcCollector.successfulCollectionCount}</td>
+<c:choose>
+    <c:when test="${svcCollector.successPercentage == -1}" >
+        <td align="right">No Collections</td>
+    </c:when>
+    <c:otherwise>
+        <td align="right"><fmt:formatNumber type="number" maxFractionDigits="1" minFractionDigits="1" value="${svcCollector.successPercentage}" /></td>
+    </c:otherwise>
+</c:choose>
+<td align="right">${svcCollector.averageSuccessfulCollectionDuration}</td>
+<td align="right">${svcCollector.errorCollectionCount}</td>
 <c:choose>	
-	<c:when test="${svcCollector.errorPercentage > 50}">
-		<td style="background: red">${svcCollector.errorPercentage}</td>
-	</c:when>
 	<c:when test="${svcCollector.errorPercentage == -1}">
-		<td style="background: yellow">No Collections</td>
+		<td align="right">No Collections</td>
 	</c:when>
 	<c:otherwise>
-		<td>${svcCollector.errorPercentage}</td>
+		<td align="right"><fmt:formatNumber type="number" maxFractionDigits="1" minFractionDigits="1" value="${svcCollector.errorPercentage}" /></td>
 	</c:otherwise>
 </c:choose>
-<td>${svcCollector.errorCollectionCount}</td>
-<td>${svcCollector.averageErrorCollectionDuration}</td>
-<td>${svcCollector.errorCollectionDuration}</td>
-
+<td align="right">${svcCollector.averageErrorCollectionDuration}</td>
 </tr>
 
 </c:forEach>

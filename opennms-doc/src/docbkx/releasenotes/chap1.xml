@@ -6,6 +6,23 @@
 
 	<!-- Start 1.9 -->
 
+	<section id="introduction-1.9.1">
+		<title>Release 1.9.1</title>
+
+		<para>
+			Release 1.9.1 is the latest in a series of development releases of OpenNMS.  This
+			represents what will eventually become OpenNMS 1.10.0 when it is declared
+			feature-complete and stable.
+		</para>
+		<para>
+			Since 1.9.0, <ulink url="http://bugzilla.opennms.org/buglist.cgi?target_milestone=1.9.1">a few new
+			features</ulink> were added.
+		</para>
+		<para>
+			The codename for 1.9.1 is <emphasis>Oboe</emphasis>
+		</para>
+	</section>
+
 	<section id="introduction-1.9.0">
 		<title>Release 1.9.0</title>
 
@@ -25,6 +42,22 @@
 
 	<!-- Start 1.8 -->
 
+	<section id="introduction-1.8.4">
+		<title>Release 1.8.4</title>
+
+		<para>
+			Release 1.8.4 is the fourth in the 1.8 series of production-ready OpenNMS releases.
+		</para>
+		<para>
+			Since 1.8.3, <ulink url="http://bugzilla.opennms.org/buglist.cgi?target_milestone=1.8.4">a number of bug fixes</ulink>
+			were added, including a fix for filehandle leaks in the WMI monitor, and a cross-site-scripting vulnerability in
+			the web UI.
+		</para>
+		<para>
+			The codename for 1.8.4 is <emphasis>Grey Goose</emphasis>
+		</para>
+	</section>
+
 	<section id="introduction-1.8.3">
 		<title>Release 1.8.3</title>
 
@@ -32,7 +65,7 @@
 			Release 1.8.3 is the fourth in the 1.8 series of production-ready OpenNMS releases.
 		</para>
 		<para>
-			Since 1.8.2, <ulink url="http://bugzilla.opennms.org/buglist.cgi?target_milestone=1.8.2">a few bug fixes</ulink>
+			Since 1.8.2, <ulink url="http://bugzilla.opennms.org/buglist.cgi?target_milestone=1.8.3">a few bug fixes</ulink>
 			were added, including a fix for an issue where snmp-graph.properties could cause OpenNMS not to start.
 		</para>
 		<para>
