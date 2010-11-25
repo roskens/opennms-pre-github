@@ -36,28 +36,14 @@
 //
 package org.opennms.web;
 
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.UndeclaredThrowableException;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.net.UnknownHostException;
-import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
-import org.opennms.core.resource.Vault;
 import org.opennms.netmgt.model.events.EventProxy;
-import org.opennms.netmgt.utils.TcpEventProxy;
 import org.opennms.web.element.NetworkElementFactory;
 
 /**
@@ -117,11 +103,11 @@ public abstract class Util {
      *             NetworkElementFactory.getHostname} instead.
      * @return a {@link java.lang.String} object.
      */
-    public static String getHostname(String ipAddress) {
+    public static String getHostname(String ipAddress, ServletContext servletContext) {
         String hostname = ipAddress;
 
         try {
-            hostname = NetworkElementFactory.getHostname(ipAddress);
+            hostname = NetworkElementFactory.getInstance(servletContext).getHostname(ipAddress);
         } catch (Exception e) {
             // ignore this exception and just return the IP address
         }
@@ -163,11 +149,11 @@ public abstract class Util {
      *             NetworkElementFactory.getHostname} instead.
      * @return a {@link java.lang.String} object.
      */
-    public static String resolveIpAddress(String ipAddress) {
+    public static String resolveIpAddress(String ipAddress, ServletContext servletContext) {
         String hostname = ipAddress;
 
         try {
-            hostname = NetworkElementFactory.getHostname(ipAddress);
+            hostname = NetworkElementFactory.getInstance(servletContext).getHostname(ipAddress);
         } catch (Exception e) {
             // ignore this exception and just return the IP address
         }
@@ -187,7 +173,7 @@ public abstract class Util {
      *         /&gt; tag for each parameter.
      */
     public static String makeHiddenTags(HttpServletRequest request) {
-        return (org.opennms.web.api.Util.makeHiddenTags(request, new HashMap(), new String[0]));
+        return (org.opennms.web.api.Util.makeHiddenTags(request, new HashMap<String,Object>(), new String[0]));
     }
 
     /**
@@ -202,7 +188,7 @@ public abstract class Util {
      *         <code>paramName</code>" value=" <code>paramValue</code>"
      *         /&gt; tag for each parameter.
      */
-    public static String makeHiddenTags(HttpServletRequest request, Map additions) {
+    public static String makeHiddenTags(HttpServletRequest request, Map<String,Object> additions) {
         return (org.opennms.web.api.Util.makeHiddenTags(request, additions, new String[0]));
     }
 
@@ -219,7 +205,7 @@ public abstract class Util {
      *         /&gt; tag for each parameter.
      */
     public static String makeHiddenTags(HttpServletRequest request, String[] ignores) {
-        return (org.opennms.web.api.Util.makeHiddenTags(request, new HashMap(), ignores));
+        return (org.opennms.web.api.Util.makeHiddenTags(request, new HashMap<String,Object>(), ignores));
     }
 
     /**
@@ -238,7 +224,7 @@ public abstract class Util {
      *         <code>paramName</code>" value=" <code>paramValue</code>"
      *         /&gt; tag for each parameter not in the ignore list.
      */
-    public static String makeHiddenTags(HttpServletRequest request, Map additions, String[] ignores) {
+    public static String makeHiddenTags(HttpServletRequest request, Map<String,Object> additions, String[] ignores) {
         return (org.opennms.web.api.Util.makeHiddenTags(request, additions, ignores, org.opennms.web.api.Util.IgnoreType.BOTH));
     }
 
@@ -260,7 +246,7 @@ public abstract class Util {
      *         <code>paramName</code>" value=" <code>paramValue</code>"
      *         /&gt; tag for each parameter not in the ignore list.
      */
-    public static String makeHiddenTags(HttpServletRequest request, Map additions, String[] ignores, org.opennms.web.api.Util.IgnoreType ignoreType) {
+    public static String makeHiddenTags(HttpServletRequest request, Map<String,Object> additions, String[] ignores, org.opennms.web.api.Util.IgnoreType ignoreType) {
         return org.opennms.web.api.Util.makeHiddenTags(request, additions, ignores, ignoreType);
     }
 
@@ -273,7 +259,7 @@ public abstract class Util {
      * @return a {@link java.lang.String} object.
      */
     public static String makeQueryString(HttpServletRequest request) {
-        return (org.opennms.web.api.Util.makeQueryString(request, new HashMap(), new String[0]));
+        return (org.opennms.web.api.Util.makeQueryString(request, new HashMap<String,Object>(), new String[0]));
     }
 
     /**
@@ -286,7 +272,7 @@ public abstract class Util {
      * @param additions a {@link java.util.Map} object.
      * @return a {@link java.lang.String} object.
      */
-    public static String makeQueryString(HttpServletRequest request, Map additions) {
+    public static String makeQueryString(HttpServletRequest request, Map<String,Object> additions) {
         return (org.opennms.web.api.Util.makeQueryString(request, additions, new String[0]));
     }
 
@@ -301,7 +287,7 @@ public abstract class Util {
      * @return a {@link java.lang.String} object.
      */
     public static String makeQueryString(HttpServletRequest request, String[] ignores) {
-        return (org.opennms.web.api.Util.makeQueryString(request, new HashMap(), ignores));
+        return (org.opennms.web.api.Util.makeQueryString(request, new HashMap<String,Object>(), ignores));
     }
 
     /**
@@ -320,7 +306,7 @@ public abstract class Util {
      * @return A string in the <em>x-www-form-urlencoded</em> format that is
      *         suitable for adding to a URL as a query string.
      */
-    public static String makeQueryString(HttpServletRequest request, Map additions, String[] ignores) {
+    public static String makeQueryString(HttpServletRequest request, Map<String,Object> additions, String[] ignores) {
         return (org.opennms.web.api.Util.makeQueryString(request, additions, ignores, org.opennms.web.api.Util.IgnoreType.BOTH));
     }
 
@@ -341,7 +327,7 @@ public abstract class Util {
      *         suitable for adding to a URL as a query string.
      * @param ignoreType a {@link org.opennms.web.api.Util.IgnoreType} object.
      */
-    public static String makeQueryString(HttpServletRequest request, Map additions, String[] ignores, org.opennms.web.api.Util.IgnoreType ignoreType) {
+    public static String makeQueryString(HttpServletRequest request, Map<String,Object> additions, String[] ignores, org.opennms.web.api.Util.IgnoreType ignoreType) {
         return org.opennms.web.api.Util.makeQueryString(request, additions, ignores, ignoreType);
     }
 

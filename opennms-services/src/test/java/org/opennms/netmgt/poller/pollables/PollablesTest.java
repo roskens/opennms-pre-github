@@ -108,6 +108,7 @@ public class PollablesTest {
     private MockNode mNode3;
     private MockInterface mDot4;
     private MockService mDot4Smtp;
+    @SuppressWarnings("unused")
     private MockService mDot4Http;
     private PollableNode pNode1;
     private PollableInterface pDot1;
@@ -2491,8 +2492,8 @@ public class PollablesTest {
     }
 
     private boolean pollableServiceInPackage(PollerConfig pollerConfig, String ipAddr, String serviceName, Package pkg) {
-        return (pollerConfig.serviceInPackageAndEnabled(serviceName, pkg)
-                && pollerConfig.interfaceInPackage(ipAddr, pkg));
+        return (pollerConfig.isServiceInPackageAndEnabled(serviceName, pkg)
+                && pollerConfig.isInterfaceInPackage(ipAddr, pkg));
     }
 
     private InetAddress getInetAddress(String ipAddr) {

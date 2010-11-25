@@ -34,7 +34,12 @@
 
 package org.opennms.netmgt.config;
 
+import java.math.BigInteger;
+import java.net.UnknownHostException;
+
+import org.opennms.core.utils.ByteArrayComparator;
 import org.opennms.core.utils.InetAddressUtils;
+import org.opennms.core.utils.ThreadCategory;
 import org.opennms.netmgt.config.common.Range;
 
 /**
@@ -44,7 +49,7 @@ import org.opennms.netmgt.config.common.Range;
  */
 final class MergeableRange implements Comparable<Range> {
     private Range m_range;
-    private RangeComparator m_comparator;
+    private static final RangeComparator m_comparator = new RangeComparator();
     private final MergeableSpecific m_first;
     private final MergeableSpecific m_last;
     
@@ -55,7 +60,6 @@ final class MergeableRange implements Comparable<Range> {
      */
     public MergeableRange(Range range) {
         m_range = range;
-        m_comparator = new RangeComparator();
         m_first = new MergeableSpecific(range.getBegin());
         m_last = new MergeableSpecific(range.getEnd());
     }
@@ -217,12 +221,7 @@ final class MergeableRange implements Comparable<Range> {
      * @return a boolean.
      */
     public boolean isAdjacentToBegin(Range nextRange) {
-        boolean adjacent = false;
-        
-        if (m_last.compareTo(nextRange.getBegin()) == -1) {
-            adjacent = true;
-        }
-        return adjacent;
+        return new BigInteger("-1").equals(InetAddressUtils.difference(m_last.getSpecific(), nextRange.getBegin()));
     }
     
     /**
@@ -232,12 +231,7 @@ final class MergeableRange implements Comparable<Range> {
      * @return a boolean.
      */
     public boolean isAdjacentToEnd(Range nextRange) {
-        boolean adjacent = false;
-        
-        if (m_first.compareTo(nextRange.getEnd()) == 1) {
-            adjacent = true;
-        }
-        return adjacent;
+        return new BigInteger("-1").equals(InetAddressUtils.difference(m_first.getSpecific(), nextRange.getEnd()));
     }
     
     /**
@@ -257,26 +251,23 @@ final class MergeableRange implements Comparable<Range> {
         
         Range newRange = null;
         
-        if (specific.getValue() == getFirst().getValue()) {
-            getRange().setBegin(InetAddressUtils.toIpAddrString((specific.getValue()+1)));
-        } else if (specific.getValue() == getLast().getValue()) {
-            getRange().setEnd(InetAddressUtils.toIpAddrString((specific.getValue()-1)));
-        } else {
-            newRange = new Range();
-            newRange.setBegin(InetAddressUtils.toIpAddrString((specific.getValue()+1)));
-            newRange.setEnd(getRange().getEnd());
-            getRange().setEnd(InetAddressUtils.toIpAddrString((specific.getValue()-1)));
+        ByteArrayComparator comparator = new ByteArrayComparator();
+        try {
+            if (comparator.compare(specific.getValue(), getFirst().getValue()) == 0) {
+                getRange().setBegin(InetAddressUtils.incr(specific.getSpecific()));
+            } else if (comparator.compare(specific.getValue(), getLast().getValue()) == 0) {
+                getRange().setEnd(InetAddressUtils.decr(specific.getSpecific()));
+            } else {
+                newRange = new Range();
+                newRange.setBegin(InetAddressUtils.incr(specific.getSpecific()));
+                newRange.setEnd(getRange().getEnd());
+                getRange().setEnd(InetAddressUtils.decr(specific.getSpecific()));
+            }
+        } catch (UnknownHostException e) {
+            ThreadCategory.getInstance(getClass()).error("Error converting string to IP address: " + e.getMessage(), e);
         }
+
         return newRange;
-    }
-        
-    /**
-     * <p>getComparator</p>
-     *
-     * @return the comparator
-     */
-    public RangeComparator getComparator() {
-        return m_comparator;
     }
 
     /**
@@ -296,5 +287,4 @@ final class MergeableRange implements Comparable<Range> {
     public MergeableSpecific getLast() {
         return m_last;
     }
-
 }

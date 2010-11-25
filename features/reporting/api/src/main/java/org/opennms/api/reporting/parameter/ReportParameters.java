@@ -11,6 +11,8 @@
 // Modifications:
 // 
 // Created: November 9th, 2009 jonathan@opennms.org
+// Modified:    November 9th, 2010 jonathan@opennms.org
+//              Add java.lang.Float support
 //
 // Copyright (C) 2009 The OpenNMS Group, Inc.  All rights reserved.
 //
@@ -42,6 +44,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.opennms.api.reporting.ReportFormat;
+import org.opennms.api.reporting.ReportMode;
 
 
 /**
@@ -59,6 +62,7 @@ public class ReportParameters implements Serializable {
     protected List <ReportDateParm> m_dateParms;
     protected List <ReportStringParm> m_stringParms;
     protected List <ReportIntParm> m_intParms;
+    protected List<ReportFloatParm> m_floatParms;
 
     /**
      * <p>Constructor for ReportParameters.</p>
@@ -120,6 +124,24 @@ public class ReportParameters implements Serializable {
     public void setIntParms(List<ReportIntParm> ints) {
         m_intParms = ints;
     }
+    
+    /**
+     * <p>getFloatParms</p>
+     *
+     * @return a {@link java.util.List} object.
+     */
+    public List<ReportFloatParm> getFloatParms() {
+        return m_floatParms;
+    }
+
+    /**
+     * <p>setFloatParms</p>
+     *
+     * @param ints a {@link java.util.List} object.
+     */
+    public void setFloatParms(List<ReportFloatParm> floats) {
+        m_floatParms = floats;
+    }
 
     /**
      * <p>setReportId</p>
@@ -178,6 +200,80 @@ public class ReportParameters implements Serializable {
     /**
      * <p>getReportParms</p>
      *
+     * * @param format a {@link org.opennms.api.reporting.ReportMode} object.
+     * 
+     * @return a {@link java.util.HashMap} object.
+     */
+    public HashMap<String, Object> getReportParms(ReportMode mode) {
+        
+        HashMap <String,Object>parmMap = new HashMap<String, Object>();
+        
+        // Add all the strings from the report
+        if (m_stringParms != null ) {
+            Iterator<ReportStringParm>stringIter = m_stringParms.iterator();
+            while (stringIter.hasNext()) {
+                ReportStringParm parm = stringIter.next();
+                parmMap.put(parm.getName(), parm.getValue());
+            }
+        }
+        // Add all the dates from the report
+        if (m_dateParms != null) {
+            Iterator<ReportDateParm>dateIter = m_dateParms.iterator();
+            while (dateIter.hasNext()) {
+                ReportDateParm parm = dateIter.next();
+                Calendar cal = Calendar.getInstance();
+                if (mode == ReportMode.ONLINE) {
+                    cal.setTime(parm.getValue());
+                } else {
+                    if (parm.getUseAbsoluteDate() && (mode == ReportMode.ONLINE)) {
+                        // use the absolute date set when the report was scheduled.
+                        cal.setTime(parm.getValue());
+                    } else {
+                        // use the offset date set when the report was scheduled
+                        int amount = 0 - parm.getCount();
+                        if (parm.getInterval().equals("year")) {
+                            cal.add(Calendar.YEAR, amount);
+                        } else { 
+                            if (parm.getInterval().equals("month")) {
+                                cal.add(Calendar.MONTH, amount);
+                            } else {
+                                cal.add(Calendar.DATE, amount);
+                            }
+                        }
+                    }
+                }
+                cal.set(Calendar.HOUR_OF_DAY, parm.getHours());
+                cal.set(Calendar.MINUTE, parm.getMinutes());
+                cal.set(Calendar.SECOND,0);
+                cal.set(Calendar.MILLISECOND,0);
+                parmMap.put(parm.getName(), cal.getTime());
+            }
+        }
+        
+        // Add all the integers from the report
+        if (m_intParms != null) {
+            Iterator<ReportIntParm>intIter = m_intParms.iterator();
+            while (intIter.hasNext()) {
+                ReportIntParm parm = intIter.next();
+                parmMap.put(parm.getName(), parm.getValue());
+            }
+        }
+        
+        // Add all the floats from the report
+        if (m_floatParms != null) {
+            Iterator<ReportFloatParm>floatIter = m_floatParms.iterator();
+            while (floatIter.hasNext()) {
+                ReportFloatParm parm = floatIter.next();
+                parmMap.put(parm.getName(), parm.getValue());
+            }
+        }
+        
+        return parmMap;
+    }
+    
+    /**
+     * <p>getReportParms</p>
+     *
      * @return a {@link java.util.HashMap} object.
      */
     public HashMap<String, Object> getReportParms() {
@@ -231,7 +327,18 @@ public class ReportParameters implements Serializable {
             }
         }
         
+        // Add all the floats from the report
+        if (m_floatParms != null) {
+            Iterator<ReportFloatParm>floatIter = m_floatParms.iterator();
+            while (floatIter.hasNext()) {
+                ReportFloatParm parm = floatIter.next();
+                parmMap.put(parm.getName(), parm.getValue());
+            }
+        }
+        
         return parmMap;
     }
+    
+    
 
 }

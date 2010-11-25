@@ -41,8 +41,6 @@
 package org.opennms.netmgt.capsd;
 
 import java.io.InputStream;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 
 import org.opennms.core.concurrent.RunnableConsumerThreadPool;
 import org.opennms.mock.snmp.MockSnmpAgent;
@@ -151,6 +149,7 @@ public class CapsdTest extends OpenNMSTestCase {
 //        m_network.addService("ICMP");
 //        m_network.addService("SNMP");
         m_network.addInterface("172.20.1.201");
+        m_network.addInterface("fe80:0000:0000:0000:ffff:eeee:dddd:cccc");
         m_network.addService("ICMP");
         m_network.addService("SNMP");
     }
@@ -184,38 +183,27 @@ public class CapsdTest extends OpenNMSTestCase {
         super.tearDown();
     }
 
-    protected String myLocalHost() {
-      try {
-          return InetAddress.getLocalHost().getHostAddress();
-      } catch (UnknownHostException e) {
-          e.printStackTrace();
-          fail("Exception getting localhost");
-      }
-      
-      return null;
-    }
-    
     public final void testRescan() throws Exception {
         
-        assertEquals("Initally only 1 interface", 1, m_db.countRows("select * from ipinterface where nodeid = ?", FOREIGN_NODEID));
+        assertEquals("Initally only 2 interfaces", 2, m_db.countRows("select * from ipinterface where nodeid = ?", FOREIGN_NODEID));
 
         m_capsd.init();
         m_capsd.start();
         
         m_capsd.rescanInterfaceParent(77);
         
-        Thread.sleep(10000);
+        Thread.sleep(30000);
         
         m_capsd.stop();
         
-        assertEquals("after scanning should be 2 interfaces", 2, m_db.countRows("select * from ipinterface where nodeid = ?", FOREIGN_NODEID));
+        assertEquals("after scanning should be 3 interfaces", 3, m_db.countRows("select * from ipinterface where nodeid = ?", FOREIGN_NODEID));
     }
     
     public final void testRescanOfForeignNode() throws Exception {
         
         m_db.getJdbcTemplate().update("update node set foreignSource='testSource', foreignId='123' where nodeid = ?", FOREIGN_NODEID);
         
-        assertEquals("Initally only 1 interface", 1, m_db.countRows("select * from ipinterface where nodeid = ?", FOREIGN_NODEID));
+        assertEquals("Initally only 2 interfaces", 2, m_db.countRows("select * from ipinterface where nodeid = ?", FOREIGN_NODEID));
 
         m_capsd.init();
         m_capsd.start();
@@ -226,7 +214,7 @@ public class CapsdTest extends OpenNMSTestCase {
         
         m_capsd.stop();
         
-        assertEquals("after scanning should still be 1 since its foreign", 1, m_db.countRows("select * from ipinterface where nodeid = ?", FOREIGN_NODEID));
+        assertEquals("after scanning should still be 2 since its foreign", 2, m_db.countRows("select * from ipinterface where nodeid = ?", FOREIGN_NODEID));
 
     }
     

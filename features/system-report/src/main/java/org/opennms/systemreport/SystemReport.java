@@ -20,21 +20,26 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.PropertyConfigurator;
+import org.opennms.bootstrap.Bootstrap;
 import org.opennms.core.soa.ServiceRegistry;
 import org.opennms.core.utils.LogUtils;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class SystemReport {
+public class SystemReport extends Bootstrap {
     final static Pattern m_pattern = Pattern.compile("^-D(.*?)=(.*)$");
+
+    public static void main(String[] args) throws Exception {
+        loadDefaultProperties();
+        executeClass("org.opennms.systemreport.SystemReport", "report", args, true);
+    }
 
     /**
      * @param args
      */
-    public static void main(String[] args) {
+    public static void report(String[] args) throws Exception {
         final String tempdir = System.getProperty("java.io.tmpdir");
 
         // pull out -D defines first
@@ -70,50 +75,45 @@ public class SystemReport {
         options.addOption("o", "output",         true,  "the file to write output to");
         options.addOption("x", "log-level",      true,  "the log level to log at (default: INFO)");
         
-        try {
-            final CommandLine line = parser.parse(options, args, false);
-            final Set<String> plugins = new LinkedHashSet<String>();
-            
-            final SystemReport report = new SystemReport();
+        final CommandLine line = parser.parse(options, args, false);
+        final Set<String> plugins = new LinkedHashSet<String>();
+        
+        final SystemReport report = new SystemReport();
 
-            // help
-            if (line.hasOption("h")) {
-                final HelpFormatter formatter = new HelpFormatter();
-                formatter.printHelp("system-report.sh [options]", options);
-                System.exit(0);
-            }
+        // help
+        if (line.hasOption("h")) {
+            final HelpFormatter formatter = new HelpFormatter();
+            formatter.printHelp("system-report.sh [options]", options);
+            System.exit(0);
+        }
 
-            if (line.hasOption("x")) {
-                setupLogging(line.getOptionValue("x"));
-            }
+        if (line.hasOption("x")) {
+            setupLogging(line.getOptionValue("x"));
+        }
 
-            // format and output file
-            if (line.hasOption("f")) {
-                report.setFormat(line.getOptionValue("f"));
-            }
-            if (line.hasOption("o")) {
-                report.setOutput(line.getOptionValue("o"));
-            }
-            if (line.hasOption("u")) {
-                final String value = line.getOptionValue("u");
-                if (value != null) {
-                    for (final String s : value.split(",+")) {
-                        plugins.add(s);
-                    }
+        // format and output file
+        if (line.hasOption("f")) {
+            report.setFormat(line.getOptionValue("f"));
+        }
+        if (line.hasOption("o")) {
+            report.setOutput(line.getOptionValue("o"));
+        }
+        if (line.hasOption("u")) {
+            final String value = line.getOptionValue("u");
+            if (value != null) {
+                for (final String s : value.split(",+")) {
+                    plugins.add(s);
                 }
             }
+        }
 
-            // final command
-            if (line.hasOption("p")) {
-                report.listPlugins();
-            } else if (line.hasOption("l")) {
-                report.listFormats();
-            } else {
-                report.writePluginData(plugins);
-            }
-        } catch (final ParseException e) {
-            LogUtils.errorf(SystemReport.class, e, "Unable to parse arguments.");
-            System.exit(1);
+        // final command
+        if (line.hasOption("p")) {
+            report.listPlugins();
+        } else if (line.hasOption("l")) {
+            report.listFormats();
+        } else {
+            report.writePluginData(plugins);
         }
     }
 
@@ -184,7 +184,11 @@ public class SystemReport {
                 if (!pluginMap.containsKey(pluginName)) {
                     LogUtils.warnf(this, "No plugin named '%s' found, skipping.", pluginName);
                 } else {
-                    formatter.write(pluginMap.get(pluginName));
+                    try {
+                        formatter.write(pluginMap.get(pluginName));
+                    } catch (final Exception e) {
+                        LogUtils.errorf(this, e, "An error occurred calling plugin '%s'", pluginName);
+                    }
                     if (stream != null) stream.flush();
                 }
             }
@@ -230,7 +234,6 @@ public class SystemReport {
             configs.add("classpath:/META-INF/opennms/applicationContext-soa.xml");
             configs.add("classpath:/META-INF/opennms/applicationContext-dao.xml");
             configs.add("classpath*:/META-INF/opennms/component-dao.xml");
-            configs.add("classpath:/META-INF/opennms/applicationContext-systemProperties.xml");
             configs.add("classpath:/META-INF/opennms/applicationContext-systemReport.xml");
             final ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(configs.toArray(new String[0]));
             m_serviceRegistry = (ServiceRegistry) context.getBean("serviceRegistry");

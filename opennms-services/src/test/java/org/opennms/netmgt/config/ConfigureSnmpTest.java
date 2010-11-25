@@ -34,7 +34,6 @@
  */
 package org.opennms.netmgt.config;
 
-import java.io.Reader;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -48,6 +47,7 @@ import org.opennms.netmgt.xml.event.Parm;
 import org.opennms.netmgt.xml.event.Parms;
 import org.opennms.netmgt.xml.event.Value;
 import org.opennms.test.ConfigurationTestUtils;
+import org.springframework.core.io.Resource;
 
 /**
  * 
@@ -64,21 +64,19 @@ public class ConfigureSnmpTest extends TestCase {
     protected void setUp() throws Exception {
     	super.setUp();
     	
-        Reader rdr = ConfigurationTestUtils.getReaderForResource(this, "snmp-config-configureSnmpTest.xml");
-    	SnmpPeerFactory.setInstance(new SnmpPeerFactory(rdr));
+        Resource rsrc = ConfigurationTestUtils.getSpringResourceForResource(this, "snmp-config-configureSnmpTest.xml");
+    	SnmpPeerFactory.setInstance(new SnmpPeerFactory(rsrc));
     }
 
-    //start back porting configure snmp enhancements from stable
     /**
-     * Test method for {@link org.opennms.netmgt.config.SnmpPeerFactory#toLong(java.net.InetAddress)}.
      * Tests creating a string representation of an IP address that is converted to an InetAddress and then
      * a long and back to an IP address.
      * 
      * @throws UnknownHostException 
      */
-    public void testToLongToAddr() throws UnknownHostException {
+    public void testToIpAddrString() throws UnknownHostException {
         String addr = "192.168.1.1";
-        assertEquals(addr, InetAddressUtils.toIpAddrString(InetAddressUtils.toIpAddrLong(InetAddress.getByName(addr))));
+        assertEquals(addr, InetAddressUtils.toIpAddrString(InetAddress.getByName(addr).getAddress()));
     }
 
     /**
@@ -95,7 +93,6 @@ public class ConfigureSnmpTest extends TestCase {
         
         assertNotNull(info);
         assertEquals("192.168.1.1", info.getFirstIPAddress());
-        assertEquals(InetAddressUtils.toIpAddrLong(InetAddress.getByName("192.168.1.1")), info.getFirst());
         assertNull(info.getLastIPAddress());
         assertTrue(info.isSpecific());
     }
@@ -110,8 +107,7 @@ public class ConfigureSnmpTest extends TestCase {
         addCommunityStringToEvent(event, "abc");
         SnmpEventInfo info = new SnmpEventInfo(event);
         
-        SnmpConfigManager mgr = new SnmpConfigManager(SnmpPeerFactory.getSnmpConfig());
-        mgr.mergeIntoConfig(info.createDef());
+        SnmpConfigManager.mergeIntoConfig(SnmpPeerFactory.getSnmpConfig(), info.createDef());
 
         SnmpAgentConfig agent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(addr));
         assertEquals(agent.getAddress().getHostAddress(), addr);
@@ -135,8 +131,7 @@ public class ConfigureSnmpTest extends TestCase {
         SnmpEventInfo info = new SnmpEventInfo(event);
         info.setVersion("v2c");
         
-        SnmpConfigManager mgr = new SnmpConfigManager(SnmpPeerFactory.getSnmpConfig());
-        mgr.mergeIntoConfig(info.createDef());
+        SnmpConfigManager.mergeIntoConfig(SnmpPeerFactory.getSnmpConfig(), info.createDef());
         
         agent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(addr1));
         assertEquals(agent.getAddress().getHostAddress(), addr1);
@@ -160,8 +155,7 @@ public class ConfigureSnmpTest extends TestCase {
         SnmpEventInfo info = new SnmpEventInfo(event);
         info.setCommunityString("opennmsrules");
         
-        SnmpConfigManager mgr = new SnmpConfigManager(SnmpPeerFactory.getSnmpConfig());
-        mgr.mergeIntoConfig(info.createDef());
+        SnmpConfigManager.mergeIntoConfig(SnmpPeerFactory.getSnmpConfig(), info.createDef());
         
         agent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(addr1));
         assertEquals(agent.getAddress().getHostAddress(), addr1);
@@ -185,8 +179,7 @@ public class ConfigureSnmpTest extends TestCase {
         info.setCommunityString("splice-test");
         info.setVersion("v2c");
         
-        SnmpConfigManager mgr = new SnmpConfigManager(SnmpPeerFactory.getSnmpConfig());
-        mgr.mergeIntoConfig(info.createDef());
+        SnmpConfigManager.mergeIntoConfig(SnmpPeerFactory.getSnmpConfig(), info.createDef());
         
         assertEquals(5, SnmpPeerFactory.getSnmpConfig().getDefinition(2).getRangeCount());
         
@@ -212,8 +205,7 @@ public class ConfigureSnmpTest extends TestCase {
         final SnmpEventInfo info = new SnmpEventInfo(event);
         info.setCommunityString("splice2-test");
 
-        SnmpConfigManager mgr = new SnmpConfigManager(SnmpPeerFactory.getSnmpConfig());
-        mgr.mergeIntoConfig(info.createDef());
+        SnmpConfigManager.mergeIntoConfig(SnmpPeerFactory.getSnmpConfig(), info.createDef());
         
         assertEquals(3, SnmpPeerFactory.getSnmpConfig().getDefinition(3).getRangeCount());
         assertEquals(1, SnmpPeerFactory.getSnmpConfig().getDefinition(3).getSpecificCount());

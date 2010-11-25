@@ -31,38 +31,39 @@
  */
 package org.opennms.netmgt.model.discovery;
 
+import java.math.BigInteger;
 import java.util.Iterator;
 
 import junit.framework.TestCase;
 
 public class IPAddressSetTest extends TestCase {
     
-    private IPAddress m_oneDot1 = new IPAddress("192.168.1.1");
-    private IPAddress m_oneDot2 = new IPAddress("192.168.1.2");
-    private IPAddress m_oneDot3 = new IPAddress("192.168.1.3");
-    private IPAddress m_oneDot4 = new IPAddress("192.168.1.4");
-    private IPAddress m_oneDot5 = new IPAddress("192.168.1.5");
-    private IPAddress m_oneDot6 = new IPAddress("192.168.1.6");
-    private IPAddress m_oneDot7 = new IPAddress("192.168.1.7");
-    private IPAddress m_oneDot8 = new IPAddress("192.168.1.8");
-    private IPAddress m_oneDot9 = new IPAddress("192.168.1.9");
-    private IPAddress m_oneDotA = new IPAddress("192.168.1.10");
-    private IPAddress m_oneDotB = new IPAddress("192.168.1.11");
-    private IPAddress m_oneDotC = new IPAddress("192.168.1.12");
-    private IPAddress m_oneDotD = new IPAddress("192.168.1.13");
-    private IPAddress m_oneDotE = new IPAddress("192.168.1.14");
-    private IPAddress m_oneDotF = new IPAddress("192.168.1.15");
+    private final IPAddress m_oneDot1 = new IPAddress("192.168.1.1");
+    private final IPAddress m_oneDot2 = new IPAddress("192.168.1.2");
+    private final IPAddress m_oneDot3 = new IPAddress("192.168.1.3");
+    private final IPAddress m_oneDot4 = new IPAddress("192.168.1.4");
+    private final IPAddress m_oneDot5 = new IPAddress("192.168.1.5");
+    private final IPAddress m_oneDot6 = new IPAddress("192.168.1.6");
+    private final IPAddress m_oneDot7 = new IPAddress("192.168.1.7");
+    private final IPAddress m_oneDot8 = new IPAddress("192.168.1.8");
+    private final IPAddress m_oneDot9 = new IPAddress("192.168.1.9");
+    private final IPAddress m_oneDotA = new IPAddress("192.168.1.10");
+    private final IPAddress m_oneDotB = new IPAddress("192.168.1.11");
+    private final IPAddress m_oneDotC = new IPAddress("192.168.1.12");
+    private final IPAddress m_oneDotD = new IPAddress("192.168.1.13");
+    private final IPAddress m_oneDotE = new IPAddress("192.168.1.14");
+    private final IPAddress m_oneDotF = new IPAddress("192.168.1.15");
     
 
-    private IPAddressRange m_small = new IPAddressRange(m_oneDot1, m_oneDot5);
-    private IPAddressRange m_smaller = new IPAddressRange(m_oneDot7, m_oneDot9);
+    private final IPAddressRange m_small = new IPAddressRange(m_oneDot1, m_oneDot5);
+    private final IPAddressRange m_smaller = new IPAddressRange(m_oneDot7, m_oneDot9);
     
 
     public void testIPAddressSet() {
         IPAddressSet set = new IPAddressSet();
         assertTrue(set.isEmpty());
 
-        assertEquals(0, set.size());
+        assertEquals(BigInteger.ZERO, set.size());
         assertEquals(0, set.getRangeCount());
         assertEquals(set.size(), iterateAndCount(set));
 
@@ -74,7 +75,7 @@ public class IPAddressSetTest extends TestCase {
         IPAddressSet set = new IPAddressSet(m_oneDot1);
         assertFalse(set.isEmpty());
         
-        assertEquals(1, set.size());
+        assertEquals(BigInteger.ONE, set.size());
         assertEquals(1, set.getRangeCount());
         assertEquals(set.size(), iterateAndCount(set));
 
@@ -91,7 +92,7 @@ public class IPAddressSetTest extends TestCase {
         IPAddressSet set = new IPAddressSet(m_small);
         
         assertFalse(set.isEmpty());
-        assertEquals(5, set.size());
+        assertEquals(new BigInteger("5"), set.size());
         assertEquals(1, set.getRangeCount());
         
         assertEquals(set.size(), iterateAndCount(set));
@@ -107,7 +108,7 @@ public class IPAddressSetTest extends TestCase {
         IPAddressSet set = new IPAddressSet(m_small);
         set = set.union(m_oneDot7);
         
-        assertEquals(6, set.size());
+        assertEquals(new BigInteger("6"), set.size());
         assertEquals(2, set.getRangeCount());
         
         assertEquals(set.size(), iterateAndCount(set));
@@ -124,7 +125,7 @@ public class IPAddressSetTest extends TestCase {
         IPAddressSet set = new IPAddressSet(m_smaller);
         set = set.union(m_small);
         
-        assertEquals(8, set.size());
+        assertEquals(new BigInteger("8"), set.size());
         assertEquals(2, set.getRangeCount());
         
         assertEquals(set.size(), iterateAndCount(set));
@@ -141,7 +142,7 @@ public class IPAddressSetTest extends TestCase {
         set = set.union(new IPAddressRange(m_oneDot3, m_oneDot8));
         
         
-        assertEquals(9, set.size());
+        assertEquals(new BigInteger("9"), set.size());
         assertEquals(1, set.getRangeCount());
         assertEquals(set.size(), iterateAndCount(set));
         
@@ -153,7 +154,7 @@ public class IPAddressSetTest extends TestCase {
         set = set.union(m_smaller);
         set = set.union(new IPAddressRange(m_oneDotA, m_oneDotC));
         
-        assertEquals(11, set.size());
+        assertEquals(new BigInteger("11"), set.size());
         assertEquals(2, set.getRangeCount());
         assertEquals(set.size(), iterateAndCount(set));
         
@@ -164,18 +165,18 @@ public class IPAddressSetTest extends TestCase {
         set = set.union(m_smaller);
         set = set.union(new IPAddressRange(m_oneDotB, m_oneDotD));
         
-        assertEquals(11, set.size());
+        assertEquals(new BigInteger("11"), set.size());
         assertEquals(3, set.getRangeCount());
         assertEquals(set.size(), iterateAndCount(set));
         
     }
     
-    public long iterateAndCount(IPAddressSet set) {
-        int count = 0;
+    private static BigInteger iterateAndCount(IPAddressSet set) {
+        BigInteger count = BigInteger.ZERO;
         Iterator<IPAddress> it = set.iterator();
         while(it.hasNext()) {
             it.next();
-            count++;
+            count = count.add(BigInteger.ONE);
         }
         return count;
     }
@@ -185,7 +186,7 @@ public class IPAddressSetTest extends TestCase {
         IPAddressSet setB = new IPAddressSet(new IPAddressRange(m_oneDotB, m_oneDotD)).union(m_oneDot6);
         IPAddressSet set = setA.union(setB);
         
-        assertEquals(12, set.size());
+        assertEquals(new BigInteger("12"), set.size());
         assertEquals(2, set.getRangeCount());
         assertEquals(set.size(), iterateAndCount(set));
 
@@ -199,7 +200,7 @@ public class IPAddressSetTest extends TestCase {
         IPAddressSet set = new IPAddressSet(new IPAddressRange(m_oneDot1, m_oneDot9));
         set = set.minus(new IPAddress(m_oneDot6));
 
-        assertEquals(8, set.size());
+        assertEquals(new BigInteger("8"), set.size());
         assertEquals(2, set.getRangeCount());
         
         assertEquals(set.size(), iterateAndCount(set));
@@ -215,7 +216,7 @@ public class IPAddressSetTest extends TestCase {
         set = set.minus(m_small);
         set = set.minus(m_smaller);
 
-        assertEquals(1, set.size());
+        assertEquals(BigInteger.ONE, set.size());
         assertEquals(1, set.getRangeCount());
         
         assertEquals(set.size(), iterateAndCount(set));
@@ -233,7 +234,7 @@ public class IPAddressSetTest extends TestCase {
         
         set = set.minus(set2);
 
-        assertEquals(6, set.size());
+        assertEquals(new BigInteger("6"), set.size());
         assertEquals(2, set.getRangeCount());
         
         assertEquals(set.size(), iterateAndCount(set));

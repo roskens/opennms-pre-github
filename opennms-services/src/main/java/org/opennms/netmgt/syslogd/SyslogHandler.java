@@ -43,12 +43,12 @@ package org.opennms.netmgt.syslogd;
 
 import java.io.IOException;
 import java.net.DatagramSocket;
+import java.net.InetAddress;
 
 import org.opennms.core.utils.ThreadCategory;
 import org.opennms.netmgt.config.SyslogdConfig;
 import org.opennms.netmgt.config.syslogd.HideMessage;
 import org.opennms.netmgt.config.syslogd.UeiList;
-import org.opennms.netmgt.model.discovery.IPAddress;
 import org.opennms.netmgt.xml.event.Event;
 import org.opennms.netmgt.xml.event.EventReceipt;
 
@@ -185,7 +185,7 @@ public final class SyslogHandler {
 
         try {
             if (m_dgIp != null && m_dgIp.length() != 0) {
-                m_dgSock = new DatagramSocket(m_dgPort, (new IPAddress(m_dgIp)).toInetAddress());
+                m_dgSock = new DatagramSocket(m_dgPort, InetAddress.getByName(m_dgIp));
             } else {
                 m_dgSock = new DatagramSocket(m_dgPort);
             }

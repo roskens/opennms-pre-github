@@ -167,16 +167,21 @@ public class CategoryModel extends Object {
      * @param categoryName a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
-    public String getCategoryComment(String categoryName) {
+    public String getCategoryComment(final String categoryName) {
         if (categoryName == null) {
             throw new IllegalArgumentException("Cannot take null parameters.");
         }
 
         String comment = null;
-        org.opennms.netmgt.config.categories.Category category = m_factory.getCategory(categoryName);
-
-        if (category != null) {
-            comment = category.getComment();
+        m_factory.getReadLock().lock();
+        try {
+            org.opennms.netmgt.config.categories.Category category = m_factory.getCategory(categoryName);
+    
+            if (category != null) {
+                comment = category.getComment();
+            }
+        } finally {
+            m_factory.getReadLock().unlock();
         }
 
         return comment;
@@ -187,17 +192,23 @@ public class CategoryModel extends Object {
      *
      * @param rtcCategory a {@link org.opennms.netmgt.xml.rtc.Category} object.
      */
-    public void updateCategory(org.opennms.netmgt.xml.rtc.Category rtcCategory) {
+    public void updateCategory(final org.opennms.netmgt.xml.rtc.Category rtcCategory) {
         if (rtcCategory == null) {
             throw new IllegalArgumentException("Cannot take null parameters.");
         }
 
-        String categoryName = rtcCategory.getCatlabel();
-        org.opennms.netmgt.config.categories.Category categoryDef = m_factory.getCategory(categoryName);
-        org.opennms.web.category.Category category = new org.opennms.web.category.Category(categoryDef, rtcCategory, new Date());
-
-        synchronized (m_categoryMap) {
-            m_categoryMap.put(categoryName, category);
+        final String categoryName = rtcCategory.getCatlabel();
+        
+        m_factory.getWriteLock().lock();
+        try {
+            org.opennms.netmgt.config.categories.Category categoryDef = m_factory.getCategory(categoryName);
+            org.opennms.web.category.Category category = new org.opennms.web.category.Category(categoryDef, rtcCategory, new Date());
+    
+            synchronized (m_categoryMap) {
+                m_categoryMap.put(categoryName, category);
+            }
+        } finally {
+            m_factory.getWriteLock().unlock();
         }
 
         m_log.debug(categoryName + " was updated");
@@ -282,7 +293,7 @@ public class CategoryModel extends Object {
      * @return a {@link java.util.Map} object.
      * @throws java.sql.SQLException if any.
      */
-    public Map<Integer, Double> getNodeAvailability(Set nodeIds) throws SQLException {
+    public Map<Integer, Double> getNodeAvailability(Set<Integer> nodeIds) throws SQLException {
         Calendar cal = new GregorianCalendar();
         Date now = cal.getTime();
         cal.add(Calendar.DATE, -1);
@@ -301,7 +312,7 @@ public class CategoryModel extends Object {
      * @return a {@link java.util.Map} object.
      * @throws java.sql.SQLException if any.
      */
-    public Map<Integer, Double> getNodeAvailability(Set nodeIds, Date start, Date end) throws SQLException {
+    public Map<Integer, Double> getNodeAvailability(Set<Integer> nodeIds, Date start, Date end) throws SQLException {
     	if(nodeIds==null || nodeIds.size()==0){
     		throw new IllegalArgumentException("Cannot take nodeIds null or with length 0.");
     	}
@@ -326,7 +337,7 @@ public class CategoryModel extends Object {
             Connection conn = Vault.getDbConnection();
             d.watch(conn);
         	StringBuffer sb = new StringBuffer("select nodeid, getManagePercentAvailNodeWindow(nodeid, ?, ?)  from node where nodeid in (");
-        	Iterator it = nodeIds.iterator();
+        	Iterator<Integer> it = nodeIds.iterator();
         	while (it.hasNext()){
         		sb.append(it.next());
         		if (it.hasNext()) {

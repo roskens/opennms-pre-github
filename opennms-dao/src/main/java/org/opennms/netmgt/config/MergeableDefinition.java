@@ -34,6 +34,8 @@
 
 package org.opennms.netmgt.config;
 
+import java.math.BigInteger;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
@@ -81,14 +83,11 @@ final class MergeableDefinition {
      */
     public boolean equals(Definition def) {
         boolean compares = false;
-        Definition matchingDef = (Definition)def;
-        
-        if (compareStrings(getConfigDef().getReadCommunity(), matchingDef.getReadCommunity())
-                && compareStrings(getConfigDef().getVersion(), matchingDef.getVersion())
-                && getConfigDef().getPort() == matchingDef.getPort() 
-                && getConfigDef().getRetry() == matchingDef.getRetry()
-                && getConfigDef().getTimeout() == matchingDef.getTimeout()
-                && compareStrings(getConfigDef().getVersion(), matchingDef.getVersion())) {
+        if (compareStrings(getConfigDef().getReadCommunity(), def.getReadCommunity())
+                && compareStrings(getConfigDef().getVersion(), def.getVersion())
+                && getConfigDef().getPort() == def.getPort() 
+                && getConfigDef().getRetry() == def.getRetry()
+                && getConfigDef().getTimeout() == def.getTimeout()) {
             compares = true;
         }
         return compares;
@@ -446,10 +445,10 @@ final class MergeableDefinition {
         for (int i = 0; i < specifics.length; i++) {
             MergeableSpecific specific = new MergeableSpecific(specifics[i]);
             for (Range range : getConfigDef().getRangeCollection()) {
-                if (specific.compareTo(range.getBegin()) == -1) {
+                if (new BigInteger("-1").equals(InetAddressUtils.difference(specific.getSpecific(), range.getBegin()))) {
                     getConfigDef().removeSpecific(specific.getSpecific());
                     range.setBegin(specific.getSpecific());
-                } else if (specific.compareTo(range.getEnd()) == 1) {
+                } else if (new BigInteger("1").equals(InetAddressUtils.difference(specific.getSpecific(), range.getEnd()))) {
                     getConfigDef().removeSpecific(specific.getSpecific());
                     range.setEnd(specific.getSpecific());
                 }
@@ -491,7 +490,7 @@ final class MergeableDefinition {
                 newRange.setBegin(specific.getSpecific());
                 while (it.hasNext()) {
                     String nextSpecific = (String)it.next();
-                    if (specific.compareTo(nextSpecific) == -1) {
+                    if (new BigInteger("-1").equals(InetAddressUtils.difference(specific.getSpecific(), nextSpecific))) {
                         newRange.setEnd(nextSpecific);
                         getConfigDef().removeSpecific(specific.getSpecific());
                         getConfigDef().removeSpecific(nextSpecific);
@@ -535,18 +534,22 @@ final class MergeableDefinition {
         for (int i = 0; i < ranges.length; i++) {
             Range defRng = ranges[i];
 
-            if (range.eclipses(defRng)) {
-                getConfigDef().removeRange(defRng);
-            } else if (range.withInRange(defRng)) {
-                Range newRange = new Range();
-                newRange.setBegin(InetAddressUtils.toIpAddrString((range.getLast().getValue()+1)));
-                newRange.setEnd(defRng.getEnd());
-                getConfigDef().addRange(newRange);
-                defRng.setEnd(InetAddressUtils.toIpAddrString((range.getFirst().getValue()-1)));
-            } else if (range.overlapsBegin(defRng)) {
-                defRng.setBegin(InetAddressUtils.toIpAddrString((range.getLast().getValue()+1)));
-            } else if (range.overlapsEnd(defRng)) {
-                defRng.setEnd(InetAddressUtils.toIpAddrString((range.getFirst().getValue()-1)));
+            try {
+                if (range.eclipses(defRng)) {
+                    getConfigDef().removeRange(defRng);
+                } else if (range.withInRange(defRng)) {
+                    Range newRange = new Range();
+                    newRange.setBegin(InetAddressUtils.incr(range.getLast().getSpecific()));
+                    newRange.setEnd(defRng.getEnd());
+                    getConfigDef().addRange(newRange);
+                    defRng.setEnd(InetAddressUtils.decr(range.getFirst().getSpecific()));
+                } else if (range.overlapsBegin(defRng)) {
+                    defRng.setBegin(InetAddressUtils.incr(range.getLast().getSpecific()));
+                } else if (range.overlapsEnd(defRng)) {
+                    defRng.setEnd(InetAddressUtils.decr(range.getFirst().getSpecific()));
+                }
+            } catch (UnknownHostException e) {
+                ThreadCategory.getInstance(getClass()).error("Error converting string to IP address: " + e.getMessage(), e);
             }
         }
     }

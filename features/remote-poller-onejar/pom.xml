@@ -3,7 +3,7 @@
   <parent>
     <groupId>org.opennms</groupId>
     <artifactId>org.opennms.features</artifactId>
-    <version>1.9.2-SNAPSHOT</version>
+    <version>1.9.3-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.opennms.features</groupId>
@@ -13,6 +13,12 @@
   <url>http://maven.apache.org</url>
   <build>
     <plugins>
+      <plugin>
+       <artifactId>maven-deploy-plugin</artifactId>
+       <configuration>
+         <skip>true</skip>
+       </configuration>
+      </plugin>
       <plugin>
         <groupId>org.codehaus.groovy.maven</groupId>
         <artifactId>gmaven-plugin</artifactId>
@@ -38,6 +44,7 @@
                   if (project.properties['webstart.keypass']) {
                     args.put('keypass', project.properties['webstart.keypass'])
                   }
+                  def ant = new AntBuilder();
                   ant.genkey(args)
                 }
               </source>

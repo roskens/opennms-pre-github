@@ -48,6 +48,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
+import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
 
@@ -68,7 +69,7 @@ import org.xml.sax.InputSource;
  */
 public class CastorUtils {
     private static final CastorExceptionTranslator CASTOR_EXCEPTION_TRANSLATOR = new CastorExceptionTranslator();
-    private static final boolean PRESERVE_WHITESPACE = false;
+    public static final boolean PRESERVE_WHITESPACE = false;
 
     /** Private constructor since this class only has static methods (so far). */
     private CastorUtils() {
@@ -175,8 +176,7 @@ public class CastorUtils {
      *      Unmarshaller.unmarshal() call throws a org.exolab.castor.xml.MarshalException
      * @throws org.exolab.castor.xml.ValidationException if the underlying Castor
      *      Unmarshaller.unmarshal() call throws a org.exolab.castor.xml.ValidationException
-     * @deprecated Use a Resource or InputStream-based method instead to avoid
-     *             character set issues.
+     * @deprecated Use the version which specifies whether to preserve whitespace when unmarshalling.
      */
     public static <T> T unmarshal(Class<T> clazz, Reader reader) throws MarshalException, ValidationException {
         return unmarshal(clazz, reader, PRESERVE_WHITESPACE);
@@ -195,8 +195,6 @@ public class CastorUtils {
      *      Unmarshaller.unmarshal() call throws a org.exolab.castor.xml.MarshalException
      * @throws org.exolab.castor.xml.ValidationException if the underlying Castor
      *      Unmarshaller.unmarshal() call throws a org.exolab.castor.xml.ValidationException
-     * @deprecated Use a Resource or InputStream-based method instead to avoid
-     *             character set issues.
      */
     @SuppressWarnings("unchecked")
     public static <T> T unmarshal(Class<T> clazz, Reader reader, boolean preserveWhitespace) throws MarshalException, ValidationException {
@@ -327,7 +325,6 @@ public class CastorUtils {
      *      Unmarshaller.unmarshal() call throws a MarshalException or
      *      ValidationException.  The underlying exception will be translated
      *      using CastorExceptionTranslator.
-     * @deprecated Use a Resource or InputStream-based method instead to avoid character set issues.
      */
     public static <T> T unmarshalWithTranslatedExceptions(Class<T> clazz, Reader reader, boolean preserveWhitespace) throws DataAccessException {
         try {
@@ -472,5 +469,14 @@ public class CastorUtils {
         fileWriter.write(stringWriter.toString());
         fileWriter.flush();
         fileWriter.close();
+    }
+
+    // FIXME This is a funky way to duplicate an object - dj@opennms.org
+    @SuppressWarnings("unchecked")
+    public static <T> T duplicateObject(T object, Class<T> clazz) throws MarshalException, ValidationException {
+        StringWriter stringWriter = new StringWriter();
+        Marshaller.marshal(object, stringWriter);
+        StringReader stringReader = new StringReader(stringWriter.toString());
+        return (T) Unmarshaller.unmarshal(clazz, stringReader);
     }
 }
