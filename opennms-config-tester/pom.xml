@@ -2,7 +2,7 @@
   <parent>
     <artifactId>opennms</artifactId>
     <groupId>org.opennms</groupId>
-    <version>1.9.1-SNAPSHOT</version>
+    <version>1.9.3-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>opennms-config-tester</artifactId>
@@ -59,11 +59,6 @@
     	<groupId>org.opennms</groupId>
     	<artifactId>opennms-map-provisioning-adapter</artifactId>
     	<version>${project.parent.version}</version>
-    	<scope>compile</scope>
-    </dependency>
-    <dependency>
-    	<groupId>org.opennms</groupId>
-    	<artifactId>opennms-webapp</artifactId>
     	<scope>compile</scope>
     </dependency>
     <dependency>
