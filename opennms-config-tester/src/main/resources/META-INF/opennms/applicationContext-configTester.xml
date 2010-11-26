@@ -476,7 +476,7 @@ org.opennms.netmgt.filter.FilterParseException: SQL Exception occurred getting I
 
   <bean id="serviceConfigFactory" class="org.opennms.netmgt.config.ServiceConfigFactory" depends-on="serviceConfigFactory-init" factory-method="getInstance"/>
 
-  <bean id="siteStatusViewConfigDao" class="org.opennms.web.svclayer.dao.support.DefaultSiteStatusViewConfigDao"/>
+  <bean id="siteStatusViewConfigDao" class="org.opennms.netmgt.dao.castor.DefaultSiteStatusViewConfigDao"/>
   
   <bean id="smsPhonebook" class="org.opennms.sms.phonebook.PropertyPhonebook">
     <constructor-arg><value>${opennms.home}/etc/smsPhonebook.properties</value></constructor-arg>
