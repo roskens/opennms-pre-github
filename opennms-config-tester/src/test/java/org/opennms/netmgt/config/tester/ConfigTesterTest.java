@@ -276,6 +276,7 @@ public class ConfigTesterTest {
     }
 
     @Test
+    @Ignore
     public void testRancidConfiguration() {
         ConfigTester.main(new String[] { "rancid-configuration.xml" });
     }
@@ -341,6 +342,7 @@ public class ConfigTesterTest {
 	}
 
 	@Test
+	@Ignore
     public void testSnmpAssetAdapterConfiguration() {
         ConfigTester.main(new String[] { "snmp-asset-adapter-configuration.xml" });
     }
