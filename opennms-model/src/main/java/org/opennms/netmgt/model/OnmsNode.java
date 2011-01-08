@@ -36,6 +36,7 @@
 package org.opennms.netmgt.model;
 
 import java.io.Serializable;
+import java.net.InetAddress;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -71,6 +72,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.annotations.Filter;
+import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.netmgt.EventConstants;
 import org.opennms.netmgt.model.OnmsIpInterface.PrimaryType;
 import org.opennms.netmgt.model.events.AddEventVisitor;
@@ -840,11 +842,21 @@ public class OnmsNode extends OnmsEntity implements Serializable,
 
     /**
      * <p>getIpInterfaceByIpAddress</p>
-     *
+     * 
      * @param ipAddress a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
      */
     public OnmsIpInterface getIpInterfaceByIpAddress(String ipAddress) {
+        return getIpInterfaceByIpAddress(InetAddressUtils.getInetAddress(ipAddress));
+    }
+
+    /**
+     * <p>getIpInterfaceByIpAddress</p>
+     *
+     * @param ipAddress a {@link java.lang.String} object.
+     * @return a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
+     */
+    public OnmsIpInterface getIpInterfaceByIpAddress(InetAddress ipAddress) {
         for (OnmsIpInterface iface : getIpInterfaces()) {
             if (ipAddress.equals(iface.getIpAddress())) {
                 return iface;
@@ -1046,7 +1058,7 @@ public class OnmsNode extends OnmsEntity implements Serializable,
         OnmsIpInterface oldPrimaryInterface = null;
         OnmsIpInterface scannedPrimaryIf = null;
         // build a map of ipAddrs to ipInterfaces for the scanned node
-        Map<String, OnmsIpInterface> ipInterfaceMap = new HashMap<String, OnmsIpInterface>();
+        Map<InetAddress, OnmsIpInterface> ipInterfaceMap = new HashMap<InetAddress, OnmsIpInterface>();
         for (OnmsIpInterface iface : scannedNode.getIpInterfaces()) {
             if(scannedPrimaryIf == null && iface.isPrimary()){
                 scannedPrimaryIf = iface;
@@ -1100,8 +1112,8 @@ public class OnmsNode extends OnmsEntity implements Serializable,
             EventBuilder bldr = new EventBuilder(EventConstants.PRIMARY_SNMP_INTERFACE_CHANGED_EVENT_UEI, "Provisiond");
             bldr.setIpInterface(scannedPrimaryIf);
             bldr.setService("SNMP");
-            bldr.addParam(EventConstants.PARM_OLD_PRIMARY_SNMP_ADDRESS, oldPrimaryInterface.getIpAddress());
-            bldr.addParam(EventConstants.PARM_NEW_PRIMARY_SNMP_ADDRESS, scannedPrimaryIf.getIpAddress());
+            bldr.addParam(EventConstants.PARM_OLD_PRIMARY_SNMP_ADDRESS, oldPrimaryInterface.getIpAddressAsString());
+            bldr.addParam(EventConstants.PARM_NEW_PRIMARY_SNMP_ADDRESS, scannedPrimaryIf.getIpAddressAsString());
             
             eventForwarder.sendNow(bldr.getEvent());
         }

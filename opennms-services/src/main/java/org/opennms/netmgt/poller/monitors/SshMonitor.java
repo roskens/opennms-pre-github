@@ -63,7 +63,7 @@ import org.opennms.netmgt.protocols.ssh.Ssh;
  */
 
 @Distributable
-final public class SshMonitor extends IPv4Monitor {
+final public class SshMonitor extends AbstractServiceMonitor {
 
     private static final int DEFAULT_RETRY = 0;
     /** Constant <code>DEFAULT_TIMEOUT=3000</code> */
@@ -155,9 +155,9 @@ final public class SshMonitor extends IPv4Monitor {
      * @see #poll(InetAddress, Map)
      */
     public PollStatus poll(MonitoredService svc, Map<String, Object> parameters) {
-        NetworkInterface iface = svc.getNetInterface();
-        if (iface.getType() != NetworkInterface.TYPE_IPV4)
-            throw new NetworkInterfaceNotSupportedException("Unsupported interface type, only TYPE_IPV4 currently supported");
+        NetworkInterface<InetAddress> iface = svc.getNetInterface();
+        if (iface.getType() != NetworkInterface.TYPE_INET)
+            throw new NetworkInterfaceNotSupportedException("Unsupported interface type, only TYPE_INET currently supported");
         InetAddress address = (InetAddress) iface.getAddress();
 
         return poll(address, parameters);

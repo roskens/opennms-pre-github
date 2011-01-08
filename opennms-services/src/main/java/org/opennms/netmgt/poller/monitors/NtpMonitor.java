@@ -71,7 +71,7 @@ import org.opennms.protocols.ntp.NtpMessage;
  */
 
 @Distributable
-final public class NtpMonitor extends IPv4Monitor {
+final public class NtpMonitor extends AbstractServiceMonitor {
     /**
      * Default NTP port.
      */
@@ -104,13 +104,13 @@ final public class NtpMonitor extends IPv4Monitor {
      * </P>
      */
     public PollStatus poll(MonitoredService svc, Map<String, Object> parameters) {
-        NetworkInterface iface = svc.getNetInterface();
+        NetworkInterface<InetAddress> iface = svc.getNetInterface();
 
         //
         // Get interface address from NetworkInterface
         //
-        if (iface.getType() != NetworkInterface.TYPE_IPV4)
-            throw new NetworkInterfaceNotSupportedException("Unsupported interface type, only TYPE_IPV4 currently supported");
+        if (iface.getType() != NetworkInterface.TYPE_INET)
+            throw new NetworkInterfaceNotSupportedException("Unsupported interface type, only TYPE_INET currently supported");
 
         // get the log
         //

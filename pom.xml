@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.opennms</groupId>
   <artifactId>opennms</artifactId>
-  <version>1.9.3-SNAPSHOT</version>
+  <version>1.9.4-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>OpenNMS</name>
   <url>http://opennms.org</url>
@@ -92,17 +92,15 @@
     <module>dependencies</module>
     <module>core</module>
     <module>features</module>
-    <module>assemblies</module>
+    <module>opennms-assemblies</module>
     <module>integrations</module>
     <module>tests</module>
     <module>integration-tests</module>
 
     <!-- old structure -->
-    <module>opennms-doc</module>
     <module>opennms-test</module>
     <module>opennms-util</module>
     <module>opennms-bootstrap</module>
-    <module>opennms-install</module>
     <module>opennms-model</module>
     <module>opennms-ackd</module>
     <module>opennms-alarmd</module>
@@ -127,10 +125,11 @@
     <module>opennms-wmi</module>
     <module>opennms-asterisk</module>
     <module>opennms-xmp</module>
-    <module>opennms-base-assembly</module>
 
-    <!-- unfortunate side-effect of the way maven assemblies work -->
-    <module>opennms-full-assembly</module>
+    <!-- if we were still including these, they would be at the end -->
+    <!-- instead, they're a part of the separate assembly build now -->
+    <!-- <module>opennms-base-assembly</module> -->
+    <!-- <module>opennms-full-assembly</module> -->
   </modules>
   <build>
   <pluginManagement>
@@ -173,6 +172,7 @@
             <artifactId>castor-dependencies</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>
+            <type>pom</type>
             <exclusions>
               <exclusion>
                 <groupId>javax.jms</groupId>
@@ -235,7 +235,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>gwt-maven-plugin</artifactId>
-        <version>1.2</version>
+        <version>2.1.0-1</version>
         <executions>
           <execution>
             <goals>
@@ -250,6 +250,36 @@
             </goals>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>axistools-maven-plugin</artifactId>
+        <version>1.4</version>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>jxr-maven-plugin</artifactId>
+        <version>2.2</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <version>2.5</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.7</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>2.3.1</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <version>2.2</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -274,9 +304,17 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
-        <version>2.0.2</version>
+        <version>2.1.1</version>
         <configuration>
           <archiveClasses>true</archiveClasses>
+          <outputFileNameMapping>@{artifactId}@-@{baseVersion}@@{dashClassifier?}@.@{extension}@</outputFileNameMapping>
+          <archive>
+            <manifest>
+              <addClasspath>true</addClasspath>
+              <classpathLayoutType>custom</classpathLayoutType>
+              <customClasspathLayout>WEB-INF/lib/@{artifact.groupIdPath}/@{artifact.artifactId}-@{artifact.baseVersion}@{dashClassifier?}.@{artifact.extension}</customClasspathLayout>
+            </manifest>
+          </archive>
         </configuration>
       </plugin>
       <plugin>
@@ -340,18 +378,9 @@
        <artifactId>maven-pax-plugin</artifactId>
      </plugin>
      <plugin>
-       <inherited>false</inherited>
-       <groupId>org.apache.maven.plugins</groupId>
-       <artifactId>maven-release-plugin</artifactId>
-       <configuration>
-          <preparationGoals>clean install</preparationGoals>
-          <arguments>-Droot.dir=${basedir} -Dmaven.test.skip.exec=true</arguments>
-          <tagBase>https://opennms.svn.sourceforge.net/svnroot/opennms/opennms/tags</tagBase>
-       </configuration>
-     </plugin>
-     <plugin>
        <groupId>org.apache.maven.plugins</groupId>
        <artifactId>maven-resources-plugin</artifactId>
+       <!-- Don't upgrade this past 2.3 for now!  Major escaping bugs! -->
        <version>2.3</version>
        <configuration>
           <encoding>UTF-8</encoding>
@@ -584,6 +613,8 @@
     <install.version>${project.version}</install.version>
     <display.version>${install.version}</display.version>
     <opennms.home>${dist.dir}/${dist.name}</opennms.home>
+    <maven.metadata.legacy>true</maven.metadata.legacy>
+    <root.dir>${project.basedir}</root.dir>
     <dist.dir>${root.dir}/target</dist.dir>
     <dist.name>opennms-${project.version}</dist.name>
     <install.dir>${opennms.home}</install.dir>
@@ -647,13 +678,29 @@
    <log4jVersion>1.2.15</log4jVersion>
    <minaVersion>2.0.0-M6</minaVersion>
    <oroVersion>2.0.8</oroVersion>
-   <xercesVersion>2.6.2</xercesVersion>
+   <xercesVersion>2.9.1</xercesVersion>
    <gmavenVersion>1.0</gmavenVersion>
-   <jettyVersion>6.1.26</jettyVersion>
-   <jettyServletVersion>6.1.16</jettyServletVersion>
+   <jettyVersion>6.1.24</jettyVersion>
+   <jettyServletVersion>6.1.14</jettyServletVersion>
   </properties>
 
   <profiles>
+
+    <profile>
+      <id>enable.snapshots</id>
+      <activation>
+        <property><name>enable.snapshots</name><value>true</value></property>
+      </activation>
+      <repositories>
+        <repository>
+          <snapshots><enabled>true</enabled><updatePolicy>${updatePolicy}</updatePolicy></snapshots>
+          <releases><enabled>false</enabled><updatePolicy>${updatePolicy}</updatePolicy></releases>
+          <id>opennms-snapshots</id>
+          <name>OpenNMS Snapshot Maven Repository</name>
+          <url>http://maven.opennms.org/content/groups/opennms.org-snapshot</url>
+        </repository>
+      </repositories>
+    </profile>
 
     <profile>
       <id>build.all</id>
@@ -780,16 +827,6 @@
       <!--  opennms dependencies that are outside of the opennms/trunk project -->
       <!--  PLEASE KEEP THESE IN ALPHABETICAL ORDER -->
       <dependency>
-        <groupId>org.opennms</groupId>
-        <artifactId>jicmp-api</artifactId>
-        <version>1.0.10</version>
-      </dependency>
-      <dependency>
-        <groupId>org.opennms</groupId>
-        <artifactId>jrrd-api</artifactId>
-        <version>1.0</version>
-      </dependency>
-      <dependency>
         <groupId>org.opennms.api.integration</groupId>
         <artifactId>opennms-provisioning</artifactId>
         <version>1.0.0</version>
@@ -845,12 +882,17 @@
       </dependency>
       <dependency>
         <groupId>org.opennms.features</groupId>
-        <artifactId>org.opennms.features.phonebook</artifactId>
+        <artifactId>org.opennms.features.request-tracker</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>org.opennms.features</groupId>
-        <artifactId>org.opennms.features.http-remoting</artifactId>
+        <artifactId>org.opennms.features.phonebook</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms.assemblies</groupId>
+        <artifactId>org.opennms.assemblies.http-remoting</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
@@ -935,21 +977,9 @@
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>org.opennms.features</groupId>
-        <artifactId>org.opennms.features.webapp-full</artifactId>
+        <groupId>org.opennms.assemblies</groupId>
+        <artifactId>org.opennms.assemblies.webapp-full</artifactId>
         <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.opennms.lib</groupId>
-        <artifactId>org.opennms.lib.tracker</artifactId>
-        <version>0.6</version>
-      </dependency>
-      <dependency>
-        <groupId>org.opennms.lib.snmp</groupId>
-        <artifactId>org.opennms.lib.snmp.integration-tests</artifactId>
-        <version>2.0.1</version>
-        <type>test-jar</type>
-        <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.opennms</groupId>
@@ -969,53 +999,105 @@
       </dependency>
       <dependency>
         <groupId>org.opennms.dependencies</groupId>
+        <artifactId>icmp-dependencies</artifactId>
+        <version>${project.version}</version>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms.dependencies</groupId>
+        <artifactId>liquibase-dependencies</artifactId>
+        <version>${project.version}</version>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms.dependencies</groupId>
         <artifactId>gwt-dependencies</artifactId>
         <version>${project.version}</version>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms.dependencies</groupId>
+        <artifactId>gwt-maps-dependencies</artifactId>
+        <version>${project.version}</version>
+        <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.opennms.dependencies</groupId>
         <artifactId>javamail-dependencies</artifactId>
         <version>${project.version}</version>
+        <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.opennms.dependencies</groupId>
         <artifactId>jcifs-dependencies</artifactId>
         <version>${project.version}</version>
+        <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.opennms.dependencies</groupId>
         <artifactId>jinterop-dependencies</artifactId>
         <version>${project.version}</version>
+        <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.opennms.dependencies</groupId>
         <artifactId>jnlp-dependencies</artifactId>
         <version>${project.version}</version>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms.dependencies</groupId>
+        <artifactId>jdhcp-dependencies</artifactId>
+        <version>${project.version}</version>
+        <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.opennms.dependencies</groupId>
         <artifactId>jradius-dependencies</artifactId>
         <version>${project.version}</version>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms.dependencies</groupId>
+        <artifactId>jrobin-dependencies</artifactId>
+        <version>${project.version}</version>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms.dependencies</groupId>
+        <artifactId>jrrd-dependencies</artifactId>
+        <version>${project.version}</version>
+        <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.opennms.dependencies</groupId>
         <artifactId>quartz-dependencies</artifactId>
         <version>${project.version}</version>
+        <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.opennms.dependencies</groupId>
         <artifactId>rrd4j-dependencies</artifactId>
         <version>${project.version}</version>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms.dependencies</groupId>
+        <artifactId>rxtx-dependencies</artifactId>
+        <version>${project.version}</version>
+        <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.opennms.dependencies</groupId>
         <artifactId>servlet-dependencies</artifactId>
         <version>${project.version}</version>
+        <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.opennms.dependencies</groupId>
         <artifactId>spring-security-dependencies</artifactId>
         <version>${project.version}</version>
+        <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.opennms</groupId>
@@ -1079,6 +1161,7 @@
         <groupId>org.opennms.dependencies</groupId>
         <artifactId>castor-dependencies</artifactId>
         <version>${project.version}</version>
+        <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.opennms</groupId>
@@ -1124,11 +1207,13 @@
         <groupId>org.opennms.dependencies</groupId>
         <artifactId>drools-dependencies</artifactId>
         <version>${project.version}</version>
+        <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.opennms.dependencies</groupId>
         <artifactId>hibernate-dependencies</artifactId>
         <version>${project.version}</version>
+        <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.opennms</groupId>
@@ -1171,6 +1256,7 @@
         <groupId>org.opennms.dependencies</groupId>
         <artifactId>jersey-dependencies</artifactId>
         <version>${project.version}</version>
+        <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.opennms</groupId>
@@ -1181,6 +1267,7 @@
         <groupId>org.opennms.dependencies</groupId>
         <artifactId>mina-dependencies</artifactId>
         <version>${project.version}</version>
+        <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.opennms</groupId>
@@ -1224,8 +1311,8 @@
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>org.opennms.features</groupId>
-        <artifactId>org.opennms.features.remote-poller-onejar</artifactId>
+        <groupId>org.opennms.assemblies</groupId>
+        <artifactId>org.opennms.assemblies.remote-poller-onejar</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
@@ -1293,26 +1380,31 @@
         <groupId>org.opennms.dependencies</groupId>
         <artifactId>jasper-dependencies</artifactId>
         <version>${project.version}</version>
+        <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.opennms.dependencies</groupId>
         <artifactId>jaxb-dependencies</artifactId>
         <version>${project.version}</version>
+        <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.opennms.dependencies</groupId>
         <artifactId>spring-dependencies</artifactId>
         <version>${project.version}</version>
+        <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.opennms.dependencies</groupId>
         <artifactId>spring-web-dependencies</artifactId>
         <version>${project.version}</version>
+        <type>pom</type>
       </dependency>
       <dependency>
   		  <groupId>org.opennms.dependencies</groupId>
   		  <artifactId>spring-test-dependencies</artifactId>
         <version>${project.version}</version>
+        <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.opennms</groupId>
@@ -1342,6 +1434,33 @@
       </dependency>
       <dependency>
         <groupId>org.opennms</groupId>
+        <artifactId>opennms-webapp</artifactId>
+        <version>${project.version}</version>
+        <type>tar.gz</type>
+        <classifier>meta-inf</classifier>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms</groupId>
+        <artifactId>opennms-webapp</artifactId>
+        <version>${project.version}</version>
+        <type>tar.gz</type>
+        <classifier>web-inf</classifier>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms</groupId>
+        <artifactId>opennms-webapp</artifactId>
+        <version>${project.version}</version>
+        <type>tar.gz</type>
+        <classifier>lib</classifier>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms.features</groupId>
+        <artifactId>root-webapp</artifactId>
+        <version>${project.version}</version>
+        <type>war</type>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms</groupId>
         <artifactId>opennms-webapp-ng</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -1354,6 +1473,7 @@
         <groupId>org.opennms.dependencies</groupId>
         <artifactId>rancid-dependencies</artifactId>
         <version>${project.version}</version>
+        <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.opennms</groupId>
@@ -1362,18 +1482,51 @@
       </dependency>
       <dependency>
         <groupId>org.opennms.dependencies</groupId>
+        <artifactId>asterisk-dependencies</artifactId>
+        <version>${project.version}</version>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms.dependencies</groupId>
         <artifactId>dnsjava-dependencies</artifactId>
         <version>${project.version}</version>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms.dependencies</groupId>
+        <artifactId>service-registration-dependencies</artifactId>
+        <version>${project.version}</version>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms.dependencies</groupId>
+        <artifactId>snmp-agent-dependencies</artifactId>
+        <version>${project.version}</version>
+        <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.opennms.dependencies</groupId>
         <artifactId>snmp-dependencies</artifactId>
         <version>${project.version}</version>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms.dependencies</groupId>
+        <artifactId>snmp-test-dependencies</artifactId>
+        <version>${project.version}</version>
+        <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.opennms.dependencies</groupId>
         <artifactId>twitter4j-dependencies</artifactId>
         <version>${project.version}</version>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms.dependencies</groupId>
+        <artifactId>tracker-dependencies</artifactId>
+        <version>${project.version}</version>
+        <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.opennms</groupId>
@@ -1656,7 +1809,7 @@
       <dependency>
         <groupId>javax.servlet</groupId>
         <artifactId>servlet-api</artifactId>
-        <version>2.3</version>
+        <version>2.5</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
@@ -1720,14 +1873,9 @@
         <version>1.6</version>
       </dependency>
       <dependency>
-        <groupId>org.jrobin</groupId>
-        <artifactId>jrobin</artifactId>
-        <version>1.5.9</version>
-      </dependency>
-      <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
-        <version>4.7</version>
+        <version>4.8.2</version>
       </dependency>
       <dependency>
         <groupId>jwebunit</groupId>
@@ -1796,16 +1944,11 @@
         <!-- Change back to org.smslib once our USSD changes are accepted upstream -->
         <groupId>org.opennms.smslib</groupId>
         <artifactId>smslib</artifactId>
-        <version>3.4.3-SNAPSHOT</version>
+        <version>3.4.3-20100302</version>
       </dependency>
       <dependency>
         <groupId>org.rxtx</groupId>
         <artifactId>rxtx</artifactId>
-        <version>2.2-pre2</version>
-      </dependency>
-      <dependency>
-        <groupId>org.rxtx</groupId>
-        <artifactId>rxtx-osgi</artifactId>
         <version>2.2-pre2</version>
       </dependency>
       <dependency>
@@ -1895,15 +2038,8 @@
   </dependencyManagement>
   <repositories>
     <repository>
-      <snapshots><enabled>true</enabled></snapshots>
-      <releases><enabled>false</enabled></releases>
-      <id>opennms-snapshots</id>
-      <name>OpenNMS Snapshot Maven Repository</name>
-      <url>http://maven.opennms.org/content/groups/opennms.org-snapshot</url>
-    </repository>
-    <repository>
-      <snapshots><enabled>false</enabled></snapshots>
-      <releases><enabled>true</enabled></releases>
+      <snapshots><enabled>false</enabled><updatePolicy>${updatePolicy}</updatePolicy></snapshots>
+      <releases><enabled>true</enabled><updatePolicy>${updatePolicy}</updatePolicy></releases>
       <id>opennms-repo</id>
       <name>OpenNMS Repository</name>
       <url>http://maven.opennms.org/content/groups/opennms.org-release</url>
@@ -1911,8 +2047,8 @@
   </repositories>
   <pluginRepositories>
     <pluginRepository>
-      <snapshots><enabled>false</enabled></snapshots>
-      <releases><enabled>true</enabled></releases>
+      <snapshots><enabled>false</enabled><updatePolicy>${updatePolicy}</updatePolicy></snapshots>
+      <releases><enabled>true</enabled><updatePolicy>${updatePolicy}</updatePolicy></releases>
       <id>maven-repo</id>
       <name>Maven Central</name>
       <url>http://repo1.maven.org/maven2</url>

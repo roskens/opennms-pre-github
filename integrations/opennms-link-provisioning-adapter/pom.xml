@@ -3,7 +3,7 @@
   <parent>
     <groupId>org.opennms</groupId>
     <artifactId>opennms-integrations</artifactId>
-    <version>1.9.3-SNAPSHOT</version>
+    <version>1.9.4-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>opennms-link-provisioning-adapter</artifactId>
@@ -60,6 +60,7 @@
         <configuration>
           <descriptors>
             <descriptor>src/assembly/xsds.xml</descriptor>
+            <descriptor>src/assembly/etc.xml</descriptor>
           </descriptors>
         </configuration>
         <executions>
@@ -94,10 +95,12 @@
     <dependency>
       <groupId>org.opennms.dependencies</groupId>
       <artifactId>jaxb-dependencies</artifactId>
+      <type>pom</type>
     </dependency>
     <dependency>
       <groupId>org.opennms.dependencies</groupId>
       <artifactId>spring-dependencies</artifactId>
+      <type>pom</type>
     </dependency>
     <!-- test dependencies -->
       <dependency>
@@ -152,22 +155,11 @@
       <artifactId>org.opennms.tests.mock-elements</artifactId>
       <scope>test</scope>
     </dependency>
-    
     <dependency>
-    	<groupId>org.opennms.lib.snmp</groupId>
-        <artifactId>org.opennms.lib.snmp.integration-tests</artifactId>
-    	<type>test-jar</type>
-    	<scope>test</scope>
+      <groupId>org.opennms.dependencies</groupId>
+      <artifactId>snmp-test-dependencies</artifactId>
+      <scope>test</scope>
+      <type>pom</type>
     </dependency>
   </dependencies>
-
-  <repositories>
-    <repository>
-      <snapshots><enabled>false</enabled></snapshots>
-      <releases><enabled>true</enabled></releases>
-      <id>opennms-repo</id>
-      <name>OpenNMS Repository</name>
-      <url>http://maven.opennms.org/content/groups/opennms.org-release</url>
-    </repository>
-  </repositories>
 </project>

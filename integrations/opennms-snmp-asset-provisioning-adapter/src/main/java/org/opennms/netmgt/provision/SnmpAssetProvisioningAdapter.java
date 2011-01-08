@@ -65,6 +65,7 @@ import org.opennms.netmgt.snmp.SnmpAgentConfig;
 import org.opennms.netmgt.snmp.SnmpObjId;
 import org.opennms.netmgt.snmp.SnmpUtils;
 import org.opennms.netmgt.snmp.SnmpValue;
+import org.opennms.netmgt.trapd.SyntaxToEvent;
 import org.opennms.netmgt.xml.event.Event;
 import org.opennms.netmgt.xml.event.Parm;
 import org.springframework.beans.BeanWrapper;
@@ -195,7 +196,13 @@ public class SnmpAssetProvisioningAdapter extends SimplerQueuedProvisioningAdapt
 					continue;
 				}
 				foundAValue = true;
-				substitutions.setProperty(aliases.get(i), values[i].toString());
+				// Use trapd's SyntaxToEvent parser so that we format base64
+				// and MAC address values appropriately
+				Parm parm = SyntaxToEvent.processSyntax(aliases.get(i), values[i]);
+				substitutions.setProperty(
+						aliases.get(i),
+						parm.getValue().getContent()
+				);
 			}
 
 			if (!foundAValue) {
@@ -384,16 +391,16 @@ public class SnmpAssetProvisioningAdapter extends SimplerQueuedProvisioningAdapt
 			final Set<OnmsIpInterface> ipInterfaces = node.getIpInterfaces();
 			for (final OnmsIpInterface onmsIpInterface : ipInterfaces) {
 				log().debug("getIpForNode: trying Interface with id: " + onmsIpInterface.getId());
-				if (onmsIpInterface.getIpAddress() != null) 
-					ipaddr = onmsIpInterface.getInetAddress();
+				if (onmsIpInterface.getIpAddressAsString() != null) 
+					ipaddr = onmsIpInterface.getIpAddress();
 				else 
 					log().debug("getIpForNode: found null ip address on Interface with id: " + onmsIpInterface.getId());
 
 			}
 		} else {        
 			log().debug("getIpForNode: found Snmp Primary Interface");
-			if (primaryInterface.getIpAddress() != null )
-				ipaddr = primaryInterface.getInetAddress();
+			if (primaryInterface.getIpAddressAsString() != null )
+				ipaddr = primaryInterface.getIpAddress();
 			else 
 				log().debug("getIpForNode: found null ip address on Primary Interface");
 		}

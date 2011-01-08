@@ -55,7 +55,7 @@
 <%@page import="java.util.ArrayList" %>
 <%@page import="java.util.List" %>
 
-<%@page import="org.opennms.web.Util"%>
+<%@page import="org.opennms.web.api.Util"%>
 <%@page import="org.opennms.web.WebSecurityUtils" %>
 <%@page import="org.opennms.web.XssRequestWrapper" %>
 <%@page import="org.opennms.web.springframework.security.Authentication" %>
@@ -84,8 +84,8 @@
 <%@page import="org.opennms.web.alarm.filter.AfterFirstEventTimeFilter" %>
 <%@page import="org.opennms.web.alarm.filter.BeforeFirstEventTimeFilter" %>
 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <%--
   This page is written to be the display (view) portion of the AlarmQueryServlet
@@ -236,14 +236,14 @@
       <li><a href="<%=this.makeLink(parms, "long")%>" title="Detailed List of Alarms">Long Listing</a></li>
         </c:otherwise>
       </c:choose>
-      <li><a href="javascript: void window.open('<%=Util.calculateUrlBase(req)%>/alarm/severity.jsp','', 'fullscreen=no,toolbar=no,status=no,menubar=no,scrollbars=no,resizable=yes,directories=no,location=no,width=525,height=158')" title="Open a window explaining the alarm severities">Severity Legend</a></li>
+      <li><a href="javascript:void()" onclick="javascript:window.open('<%=Util.calculateUrlBase(req)%>/alarm/severity.jsp','', 'fullscreen=no,toolbar=no,status=no,menubar=no,scrollbars=no,resizable=yes,directories=no,location=no,width=525,height=158')" title="Open a window explaining the alarm severities">Severity Legend</a></li>
       
       <% if( req.isUserInRole( Authentication.ADMIN_ROLE ) || !req.isUserInRole( Authentication.READONLY_ROLE ) ) { %>
         <% if ( alarmCount > 0 ) { %>
           <li>
             <!-- hidden form for acknowledging the result set -->
             <form style="display:inline" method="post" action="alarm/acknowledgeByFilter" name="acknowledge_by_filter_form">
-              <input type="hidden" name="redirectParms" value="<%=Util.htmlify(req.getQueryString())%>" />
+              <input type="hidden" name="redirectParms" value="<c:out value="<%=req.getQueryString()%>"/>" />
               <input type="hidden" name="actionCode" value="<%=action%>" />
               <%=Util.makeHiddenTags(req)%>
             </form>
@@ -291,7 +291,7 @@
 
       <% if( req.isUserInRole( Authentication.ADMIN_ROLE ) || !req.isUserInRole( Authentication.READONLY_ROLE ) ) { %>
           <form action="alarm/acknowledge" method="post" name="alarm_action_form">
-          <input type="hidden" name="redirectParms" value="<%=Util.htmlify(req.getQueryString())%>" />
+          <input type="hidden" name="redirectParms" value="<c:out value="<%=req.getQueryString()%>"/>" />
           <input type="hidden" name="actionCode" value="<%=action%>" />
           <%=Util.makeHiddenTags(req)%>
       <% } %>
@@ -410,9 +410,13 @@
             <% if(alarms[i].getIpAddress() != null ) { %>
               <% Filter intfFilter = new InterfaceFilter(alarms[i].getIpAddress()); %>
               <% if( alarms[i].getNodeId() != 0 ) { %>
-                 <a href="element/interface.jsp?node=<%=alarms[i].getNodeId()%>&intf=<%=alarms[i].getIpAddress()%>" title="More info on this interface"><%=alarms[i].getIpAddress()%></a>
+                <c:url var="interfaceLink" value="element/interface.jsp">
+                  <c:param name="node" value="<%=String.valueOf(alarms[i].getNodeId())%>"/>
+                  <c:param name="intf" value="<%=alarms[i].getIpAddress()%>"/>
+                </c:url>
+                <a href="<c:out value="${interfaceLink}"/>" title="More info on this interface"><%=alarms[i].getIpAddress()%></a>
               <% } else { %>
-                 <%=alarms[i].getIpAddress()%>
+                <%=alarms[i].getIpAddress()%>
               <% } %>
               <% if( !parms.filters.contains(intfFilter) ) { %>
                 <nobr>
@@ -427,9 +431,14 @@
             <% if(alarms[i].getServiceName() != null && alarms[i].getServiceName() != "") { %>
               <% Filter serviceFilter = new ServiceFilter(alarms[i].getServiceId()); %>
               <% if( alarms[i].getNodeId() != 0 && alarms[i].getIpAddress() != null ) { %>
-                <a href="element/service.jsp?node=<%=alarms[i].getNodeId()%>&intf=<%=alarms[i].getIpAddress()%>&service=<%=alarms[i].getServiceId()%>" title="More info on this service"><%=alarms[i].getServiceName()%></a>
+                <c:url var="serviceLink" value="element/service.jsp">
+                  <c:param name="node" value="<%=String.valueOf(alarms[i].getNodeId())%>"/>
+                  <c:param name="intf" value="<%=alarms[i].getIpAddress()%>"/>
+                  <c:param name="service" value="<%=String.valueOf(alarms[i].getServiceId())%>"/>
+                </c:url>
+                <a href="<c:out value="${serviceLink}"/>" title="More info on this service"><c:out value="<%=alarms[i].getServiceName()%>"/></a>
               <% } else { %>
-                <%=alarms[i].getServiceName()%>
+                <c:out value="<%=alarms[i].getServiceName()%>"/>
               <% } %>
               <% if( !parms.filters.contains( serviceFilter )) { %>
                 <nobr>
@@ -443,7 +452,7 @@
           <td class="divider" valign="middle" rowspan="1" >
 	    <% if(alarms[i].getId() > 0 ) { %>           
                 <nobr>
-                  <a href="event/list.htm?sortby=id&acktype=unack&filter=alarm=<%=alarms[i].getId()%>"><%=alarms[i].getCount()%></a>
+                  <a href="event/list.htm?sortby=id&amp;acktype=unack&amp;filter=alarm%3d<%=alarms[i].getId()%>"><%=alarms[i].getCount()%></a>
                 </nobr>
             <% } else { %>
             <%=alarms[i].getCount()%>
@@ -543,6 +552,7 @@
       buffer.append( title );
       buffer.append( "</a>" );
 
+      buffer.append( "</nobr>" );
 
       return( buffer.toString() );
     }
@@ -553,7 +563,7 @@
     
         if( filters != null ) {
             for( int i=0; i < filters.size(); i++ ) {
-                buffer.append( "&filter=" );
+                buffer.append( "&amp;filter=" );
                 String filterString = AlarmUtil.getFilterString(filters.get(i));
                 buffer.append(Util.encode(filterString));
             }
@@ -566,13 +576,13 @@
       StringBuffer buffer = new StringBuffer( this.urlBase );
       buffer.append( "?sortby=" );
       buffer.append( sortStyle.getShortName() );
-      buffer.append( "&acktype=" );
+      buffer.append( "&amp;acktype=" );
       buffer.append( ackType.getShortName() );
       if (limit > 0) {
-          buffer.append( "&limit=" ).append(limit);
+          buffer.append( "&amp;limit=" ).append(limit);
       }
       if (display != null) {
-          buffer.append( "&display=" ).append(display);
+          buffer.append( "&amp;display=" ).append(display);
       }
       buffer.append( this.getFiltersAsString(filters) );
 
@@ -590,7 +600,7 @@
       StringBuffer buffer = new StringBuffer( "event/list.htm" );
       buffer.append( "?sortby=" );
       buffer.append( parms.sortStyle.getShortName() );
-      buffer.append( "&acktype=" );
+      buffer.append( "&amp;acktype=" );
       buffer.append( parms.ackType.getShortName() );
       buffer.append( this.getFiltersAsString(filters) );
 
@@ -647,5 +657,3 @@
     }
 
 %>
-
-

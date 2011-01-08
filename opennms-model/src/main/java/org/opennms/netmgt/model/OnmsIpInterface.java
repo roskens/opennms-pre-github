@@ -33,7 +33,6 @@ package org.opennms.netmgt.model;
 
 import java.io.Serializable;
 import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -62,7 +61,11 @@ import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import org.hibernate.annotations.Type;
+import org.opennms.core.utils.InetAddressUtils;
+import org.opennms.core.xml.bind.InetAddressXmlAdapter;
 import org.opennms.netmgt.model.events.AddEventVisitor;
 import org.opennms.netmgt.model.events.DeleteEventVisitor;
 import org.opennms.netmgt.model.events.EventForwarder;
@@ -194,7 +197,7 @@ public class OnmsIpInterface extends OnmsEntity implements Serializable {
 
     private Integer m_id;
 
-    private String m_ipAddress;
+    private InetAddress m_ipAddress;
 
     private String m_ipHostName;
 
@@ -223,6 +226,16 @@ public class OnmsIpInterface extends OnmsEntity implements Serializable {
      * @param node a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
     public OnmsIpInterface(String ipAddr, OnmsNode node) {
+        this(InetAddressUtils.getInetAddress(ipAddr), node);
+    }
+
+    /**
+     * minimal constructor
+     *
+     * @param ipAddr a {@link java.lang.String} object.
+     * @param node a {@link org.opennms.netmgt.model.OnmsNode} object.
+     */
+    public OnmsIpInterface(InetAddress ipAddr, OnmsNode node) {
         m_ipAddress = ipAddr;
         m_node = node;
         if (node != null) {
@@ -264,26 +277,14 @@ public class OnmsIpInterface extends OnmsEntity implements Serializable {
         m_id = id;
     }
 
-
-
     /**
      * <p>getIpAddress</p>
      *
      * @return a {@link java.lang.String} object.
      */
-    @Column(name="ipAddr", length=16)
-    @XmlElement(name="ipAddress")
-    public String getIpAddress() {
-        return m_ipAddress;
-    }
-
-    /**
-     * <p>setIpAddress</p>
-     *
-     * @param ipaddr a {@link java.lang.String} object.
-     */
-    public void setIpAddress(String ipaddr) {
-        m_ipAddress = ipaddr;
+    @Transient
+    public String getIpAddressAsString() {
+        return InetAddressUtils.toIpAddrString(m_ipAddress);
     }
 
     //@Column(name="ifIndex")
@@ -510,7 +511,7 @@ public class OnmsIpInterface extends OnmsEntity implements Serializable {
      */
     public String toString() {
         return new ToStringCreator(this)
-        .append("ipaddr", getIpAddress())
+        .append("ipaddr", getIpAddressAsString())
         //.append("ifindex", getIfIndex())
         .append("iphostname", getIpHostName())
         .append("ismanaged", getIsManaged())
@@ -535,22 +536,21 @@ public class OnmsIpInterface extends OnmsEntity implements Serializable {
      *
      * @return a {@link java.net.InetAddress} object.
      */
-    @Transient
-    public InetAddress getInetAddress() {
-        String ipAddr = getIpAddress();
-        if (ipAddr == null) {
-            return null;
-        }
+    @Column(name="ipAddr")
+    @XmlElement(name="ipAddress")
+    @Type(type="org.opennms.netmgt.model.InetAddressUserType")
+    @XmlJavaTypeAdapter(InetAddressXmlAdapter.class)
+    public InetAddress getIpAddress() {
+        return m_ipAddress;
+    }
 
-        InetAddress addr = null;
-        try {
-            String hostName = getIpHostName() == null ? ipAddr : getIpHostName();
-            addr = InetAddress.getByName(ipAddr);
-            addr = InetAddress.getByAddress(hostName, addr.getAddress());
-        } catch (UnknownHostException e) {
-            // this can't happen here
-        }
-        return addr;
+    /**
+     * <p>setInetAddress</p>
+     *
+     * @param ipaddr a {@link java.lang.String} object.
+     */
+    public void setIpAddress(InetAddress ipaddr) {
+        m_ipAddress = ipaddr;
     }
 
     /**

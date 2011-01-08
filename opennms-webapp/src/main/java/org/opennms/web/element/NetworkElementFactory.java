@@ -68,6 +68,7 @@ import org.opennms.core.resource.Vault;
 import org.opennms.core.utils.ByteArrayComparator;
 import org.opennms.core.utils.DBUtils;
 import org.opennms.core.utils.InetAddressUtils;
+import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.EventConstants;
 import org.opennms.netmgt.dao.CategoryDao;
 import org.opennms.netmgt.dao.DataLinkInterfaceDao;
@@ -81,17 +82,17 @@ import org.opennms.netmgt.linkd.DbStpInterfaceEntry;
 import org.opennms.netmgt.linkd.DbStpNodeEntry;
 import org.opennms.netmgt.linkd.DbVlanEntry;
 import org.opennms.netmgt.model.OnmsArpInterface;
-import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
 import org.opennms.netmgt.model.OnmsCategory;
 import org.opennms.netmgt.model.OnmsCriteria;
 import org.opennms.netmgt.model.OnmsIpInterface;
-import org.opennms.netmgt.model.OnmsIpInterface.PrimaryType;
 import org.opennms.netmgt.model.OnmsMonitoredService;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.OnmsRestrictions;
 import org.opennms.netmgt.model.OnmsServiceType;
 import org.opennms.netmgt.model.OnmsSnmpInterface;
-import org.opennms.web.Util;
+import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
+import org.opennms.netmgt.model.OnmsIpInterface.PrimaryType;
+import org.opennms.web.api.Util;
 import org.opennms.web.svclayer.AggregateStatus;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -193,7 +194,7 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
         
         if(ifaces.size() > 0) {
             OnmsIpInterface iface = ifaces.get(0);
-            return iface.getIpAddress();
+            return iface.getIpAddressAsString();
         }else{
             return null;
         }
@@ -582,12 +583,12 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
             throw new IllegalArgumentException("Cannot take null parameters.");
         }
         OnmsCriteria criteria = new OnmsCriteria(OnmsMonitoredService.class);
-        criteria.createAlias("ipInterface", "ipIface", OnmsCriteria.LEFT_JOIN);
-        criteria.createAlias("ipIface.node", "node", OnmsCriteria.LEFT_JOIN);
+        criteria.createAlias("ipInterface", "ipInterface", OnmsCriteria.LEFT_JOIN);
+        criteria.createAlias("ipInterface.node", "node", OnmsCriteria.LEFT_JOIN);
         criteria.createAlias("serviceType", "serviceType", OnmsCriteria.LEFT_JOIN);
-        criteria.createAlias("ipIface.snmpInterface", "snmpIface", OnmsCriteria.LEFT_JOIN);
+        criteria.createAlias("ipInterface.snmpInterface", "snmpIface", OnmsCriteria.LEFT_JOIN);
         criteria.add(Restrictions.eq("node.id", nodeId));
-        criteria.add(Restrictions.eq("ipIface.ipAddress", ipAddress));
+        criteria.add(Restrictions.eq("ipInterface.ipAddress", ipAddress));
         criteria.add(Restrictions.eq("serviceType.id", serviceId));
         
         List<OnmsMonitoredService> monSvcs = m_monSvcDao.findMatching(criteria);
@@ -604,9 +605,9 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
 	 */
     public Service getService(int ifServiceId) {
         OnmsCriteria criteria = new OnmsCriteria(OnmsMonitoredService.class);
-        criteria.createAlias("ipInterface", "ipIface", OnmsCriteria.LEFT_JOIN);
-        criteria.createAlias("ipIface.node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.createAlias("ipIface.snmpInterface", "snmpIface",  OnmsCriteria.LEFT_JOIN);
+        criteria.createAlias("ipInterface", "ipInterface", OnmsCriteria.LEFT_JOIN);
+        criteria.createAlias("ipInterface.node", "node", OnmsCriteria.LEFT_JOIN);
+        criteria.createAlias("ipInterface.snmpInterface", "snmpIface",  OnmsCriteria.LEFT_JOIN);
         criteria.add(Restrictions.eq("id", ifServiceId));
         criteria.addOrder(Order.asc("status"));
         
@@ -647,10 +648,10 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
         }
         
         OnmsCriteria criteria = new OnmsCriteria(OnmsMonitoredService.class);
-        criteria.createAlias("ipInterface", "ipIface");
-        criteria.createAlias("ipIface.node", "node");
+        criteria.createAlias("ipInterface", "ipInterface");
+        criteria.createAlias("ipInterface.node", "node");
         criteria.add(Restrictions.eq("node.id", nodeId));
-        criteria.add(Restrictions.eq("ipIface.ipAddress", ipAddress));
+        criteria.add(Restrictions.eq("ipInterface.ipAddress", ipAddress));
         
         if(!includeDeletions) {
             criteria.add(Restrictions.ne("status", "D"));
@@ -664,9 +665,9 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
 	 */
     public Service[] getServicesOnNode(int nodeId) {
         OnmsCriteria criteria = new OnmsCriteria(OnmsMonitoredService.class);
-        criteria.createAlias("ipInterface", "ipIface");
-        criteria.createAlias("ipIface.snmpInterface", "snmpIface", OnmsCriteria.LEFT_JOIN);
-        criteria.createAlias("ipIface.node", "node");
+        criteria.createAlias("ipInterface", "ipInterface");
+        criteria.createAlias("ipInterface.snmpInterface", "snmpIface", OnmsCriteria.LEFT_JOIN);
+        criteria.createAlias("ipInterface.node", "node");
         criteria.createAlias("serviceType", "serviceType");
         criteria.add(Restrictions.eq("node.id", nodeId));
         
@@ -678,9 +679,9 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
 	 */
     public Service[] getServicesOnNode(int nodeId, int serviceId) {
         OnmsCriteria criteria = new OnmsCriteria(OnmsMonitoredService.class);
-        criteria.createAlias("ipInterface", "ipIface");
-        criteria.createAlias("ipIface.node", "node");
-        criteria.createAlias("ipIface.snmpInterface", "snmpInterface", OnmsCriteria.LEFT_JOIN);
+        criteria.createAlias("ipInterface", "ipInterface");
+        criteria.createAlias("ipInterface.node", "node");
+        criteria.createAlias("ipInterface.snmpInterface", "snmpInterface", OnmsCriteria.LEFT_JOIN);
         criteria.createAlias("serviceType", "serviceType");
         criteria.add(Restrictions.eq("node.id", nodeId));
         criteria.add(Restrictions.eq("serviceType.id", serviceId));
@@ -774,6 +775,16 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
         return node;
     }
 
+    private AtInterface getAtInterfaceForOnmsNode(final OnmsNode onmsNode, final String ipAddr) {
+        for (final OnmsArpInterface iface : onmsNode.getArpInterfaces()) {
+            final String ifaceAddress = iface.getIpAddress();
+            if (ifaceAddress != null && ifaceAddress.equals(ipAddr)) {
+                return new AtInterface(onmsNode.getId(), iface.getSourceNode().getId(), iface.getIfIndex(), iface.getIpAddress(), iface.getPhysAddr(), iface.getLastPoll().toString(), iface.getStatus().getCharCode());
+            }
+        }
+        return null;
+    }
+    
     /**
      * This method returns the data from the result set as an vector of
      * ipinterface objects.
@@ -1162,8 +1173,8 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
 	 */
     public Node[] getAllNodes(int serviceId) {
         OnmsCriteria criteria = new OnmsCriteria(OnmsNode.class);
-        criteria.createAlias("ipInterfaces", "ipIfaces");
-        criteria.createAlias("ipIfaces.monitoredServices", "monSvcs");
+        criteria.createAlias("ipInterfaces", "ipInterfaces");
+        criteria.createAlias("ipInterfaces.monitoredServices", "monSvcs");
         criteria.add(Restrictions.ne("type", "D"));
         criteria.add(Restrictions.eq("monSvcs.serviceType.id", serviceId));
         criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
@@ -1262,16 +1273,11 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
     }
     
     /* (non-Javadoc)
-	 * @see org.opennms.web.element.NetworkElementFactoryInterfac#getAtInterface(int, java.lang.String)
-	 */
+     * @see org.opennms.web.element.NetworkElementFactoryInterface#getAtInterface(int, java.lang.String)
+     */
     public AtInterface getAtInterface(int nodeId, String ipAddr) {
-        OnmsCriteria criteria = new OnmsCriteria(OnmsArpInterface.class);
-        criteria.createAlias("node", "node");
-        criteria.add(Restrictions.eq("node.id", nodeId));
-        criteria.add(Restrictions.eq("ipAddress", ipAddr));
-        criteria.add(Restrictions.ne("status", StatusType.DELETED));
-        
-        return null;
+        OnmsNode node = m_nodeDao.get(nodeId);
+        return getAtInterfaceForOnmsNode(node, ipAddr);
     }
 
     /**
@@ -1305,8 +1311,13 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
     /* (non-Javadoc)
 	 * @see org.opennms.web.element.NetworkElementFactoryInterfac#getIpRoute(int)
 	 */
-    public IpRouteInterface[] getIpRoute(int nodeId) {
-        return null;
+    public IpRouteInterface[] getIpRoute(final int nodeId) {
+        try {
+            return getIpRoute(nodeId, null);
+        } catch (final SQLException e) {
+            LogUtils.warnf(this, e, "An error occurred getting the IP Route for node %d", nodeId);
+            return null;
+        }
     }
 
     /**
@@ -2545,7 +2556,7 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
                 intf.m_ifIndex = ipIface.getIfIndex();
             }
             intf.m_ipHostName = ipIface.getIpHostName();
-            intf.m_ipAddr = ipIface.getIpAddress();
+            intf.m_ipAddr = ipIface.getIpAddressAsString();
             intf.m_isManaged = ipIface.getIsManaged().charAt(0);
             if(ipIface.getIpLastCapsdPoll() != null) {
                 intf.m_ipLastCapsdPoll = Util.formatDateToUIString(ipIface.getIpLastCapsdPoll());
@@ -2619,7 +2630,6 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
                 intf.m_nodeId = snmpIface.getNode().getId();
             }
             
-            intf.m_ipAddr = snmpIface.getIpAddress();
             intf.m_snmpIfIndex = snmpIface.getIfIndex();
             intf.m_snmpIpAdEntNetMask = snmpIface.getNetMask();
             intf.m_snmpPhysAddr = snmpIface.getPhysAddr();
@@ -2641,48 +2651,60 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
             
             return intf;
     }
-
     
+    // FIXME: Do any of these @SuppressWarnings("unused") methods get reflected?  Or can we drop them?
+
+    @SuppressWarnings("unused")
     private void setNodeDao(NodeDao nodeDao) {
         m_nodeDao = nodeDao;
     }
 
+    @SuppressWarnings("unused")
     private NodeDao getNodeDao() {
         return m_nodeDao;
     }
 
+    @SuppressWarnings("unused")
     private void setIpInterfaceDao(IpInterfaceDao ipInterfaceDao) {
         m_ipInterfaceDao = ipInterfaceDao;
     }
 
+    @SuppressWarnings("unused")
     private IpInterfaceDao getIpInterfaceDao() {
         return m_ipInterfaceDao;
     }
 
+    @SuppressWarnings("unused")
     private void setSnmpInterfaceDao(SnmpInterfaceDao snmpInterfaceDao) {
         m_snmpInterfaceDao = snmpInterfaceDao;
     }
 
+    @SuppressWarnings("unused")
     private SnmpInterfaceDao getSnmpInterfaceDao() {
         return m_snmpInterfaceDao;
     }
 
+    @SuppressWarnings("unused")
     private void setDataLinkInterfaceDao(DataLinkInterfaceDao dataLinkInterfaceDao) {
         m_dataLinkInterfaceDao = dataLinkInterfaceDao;
     }
 
+    @SuppressWarnings("unused")
     private DataLinkInterfaceDao getDataLinkInterfaceDao() {
         return m_dataLinkInterfaceDao;
     }
 
+    @SuppressWarnings("unused")
     private void setMonSvcDao(MonitoredServiceDao monSvcDao) {
         m_monSvcDao = monSvcDao;
     }
 
+    @SuppressWarnings("unused")
     private MonitoredServiceDao getMonSvcDao() {
         return m_monSvcDao;
     }
 
+    @SuppressWarnings("unused")
     private void setServiceTypeDao(ServiceTypeDao serviceTypeDao) {
         m_serviceTypeDao = serviceTypeDao;
     }
@@ -2691,6 +2713,7 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
         return m_serviceTypeDao;
     }
 
+    @SuppressWarnings("unused")
     private void setCategoryDao(CategoryDao categoryDao) {
         m_categoryDao = categoryDao;
     }
@@ -2720,7 +2743,5 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
 	public void afterPropertiesSet() throws Exception {
 		Assert.notNull(m_nodeDao, "NodeDao must not be null");
 		Assert.notNull(m_ipInterfaceDao, "IpinterfaceDao must not be null");
-
-		Assert.notNull(m_nodeDao);
 	}
 }

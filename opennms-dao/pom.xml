@@ -2,7 +2,7 @@
   <parent>
     <artifactId>opennms</artifactId>
     <groupId>org.opennms</groupId>
-    <version>1.9.3-SNAPSHOT</version>
+    <version>1.9.4-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>opennms-dao</artifactId>
@@ -74,6 +74,7 @@
     <dependency>
       <groupId>org.opennms.dependencies</groupId>
       <artifactId>castor-dependencies</artifactId>
+      <type>pom</type>
     </dependency>
     <dependency>
       <groupId>org.opennms</groupId>
@@ -90,6 +91,7 @@
     <dependency>
       <groupId>org.opennms.dependencies</groupId>
       <artifactId>hibernate-dependencies</artifactId>
+      <type>pom</type>
     </dependency>
     <dependency>
       <groupId>org.opennms</groupId>
@@ -107,6 +109,7 @@
     <dependency>
       <groupId>org.opennms.dependencies</groupId>
       <artifactId>spring-dependencies</artifactId>
+      <type>pom</type>
     </dependency>
     <dependency>
       <groupId>org.opennms</groupId>
@@ -172,6 +175,7 @@
     <dependency>
       <groupId>org.opennms.dependencies</groupId>
       <artifactId>dnsjava-dependencies</artifactId>
+      <type>pom</type>
     </dependency>
   </dependencies>
 </project>

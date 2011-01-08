@@ -75,7 +75,7 @@ import org.opennms.netmgt.poller.NetworkInterfaceNotSupportedException;
 
 // this is marked not distributable because it relies on a shared library
 @Distributable(DistributionContext.DAEMON)
-final public class IcmpMonitor extends IPv4Monitor {
+final public class IcmpMonitor extends AbstractServiceMonitor {
     /**
      * Constructs a new monitor.
      *
@@ -99,12 +99,12 @@ final public class IcmpMonitor extends IPv4Monitor {
      * </P>
      */
     public PollStatus poll(MonitoredService svc, Map<String, Object> parameters) {
-        NetworkInterface iface = svc.getNetInterface();
+        NetworkInterface<InetAddress> iface = svc.getNetInterface();
 
         // Get interface address from NetworkInterface
         //
-        if (iface.getType() != NetworkInterface.TYPE_IPV4)
-            throw new NetworkInterfaceNotSupportedException("Unsupported interface type, only TYPE_IPV4 currently supported");
+        if (iface.getType() != NetworkInterface.TYPE_INET)
+            throw new NetworkInterfaceNotSupportedException("Unsupported interface type, only TYPE_INET currently supported");
 
         ThreadCategory log = ThreadCategory.getInstance(this.getClass());
         Long rtt = null;

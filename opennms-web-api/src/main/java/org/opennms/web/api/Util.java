@@ -286,6 +286,7 @@ public abstract class Util extends Object {
             ignoreList.add(ignores[i]);
         }
 
+        @SuppressWarnings("unchecked")
         Enumeration<String> names = request.getParameterNames();
 
         while (names.hasMoreElements()) {
@@ -293,11 +294,11 @@ public abstract class Util extends Object {
             String[] values = request.getParameterValues(name);
 
             if ((ignoreType == IgnoreType.ADDITIONS_ONLY || !ignoreList.contains(name)) && values != null) {
-                for (int i = 0; i < values.length; i++) {
+                for (String value : values) {
                     buffer.append("<input type=\"hidden\" name=\"");
-                    buffer.append(name);
+                    buffer.append(WebSecurityUtils.sanitizeString(name));
                     buffer.append("\" value=\"");
-                    buffer.append(WebSecurityUtils.sanitizeString(values[i]));
+                    buffer.append(WebSecurityUtils.sanitizeString(value));
                     buffer.append("\" />");
                     buffer.append("\n");
                 }
@@ -316,11 +317,11 @@ public abstract class Util extends Object {
             String[] values = (tmp instanceof String[]) ? ((String[]) tmp) : (new String[] { (String) tmp });
 
             if ((ignoreType == IgnoreType.REQUEST_ONLY || !ignoreList.contains(name)) && values != null) {
-                for (int i = 0; i < values.length; i++) {
+                for (String value : values) {
                     buffer.append("<input type=\"hidden\" name=\"");
-                    buffer.append(name);
+                    buffer.append(WebSecurityUtils.sanitizeString(name));
                     buffer.append("\" value=\"");
-                    buffer.append(values[i]);
+                    buffer.append(WebSecurityUtils.sanitizeString(value));
                     buffer.append("\" />");
                     buffer.append("\n");
                 }
@@ -419,6 +420,7 @@ public abstract class Util extends Object {
             ignoreList.add(ignores[i]);
         }
 
+        @SuppressWarnings("unchecked")
         Enumeration<String> names = request.getParameterNames();
 
         while (names.hasMoreElements()) {
@@ -471,28 +473,10 @@ public abstract class Util extends Object {
         return buffer.toString();
     }
 
-    public static class IgnoreType extends Object {
-        public static final int _REQUEST_ONLY = 0;
-
-        public static final int _ADDITIONS_ONLY = 0;
-
-        public static final int _BOTH = 0;
-
-        public static final IgnoreType REQUEST_ONLY = new IgnoreType(_REQUEST_ONLY);
-
-        public static final IgnoreType ADDITIONS_ONLY = new IgnoreType(_ADDITIONS_ONLY);
-
-        public static final IgnoreType BOTH = new IgnoreType(_BOTH);
-
-        protected int value;
-
-        private IgnoreType(int value) {
-            this.value = value;
-        }
-
-        public int getValue() {
-            return this.value;
-        }
+    public enum IgnoreType {
+        REQUEST_ONLY,
+        ADDITIONS_ONLY,
+        BOTH
     }
 
     /**

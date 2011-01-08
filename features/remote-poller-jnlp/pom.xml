@@ -3,7 +3,7 @@
   <parent>
     <groupId>org.opennms</groupId>
     <artifactId>org.opennms.features</artifactId>
-    <version>1.9.3-SNAPSHOT</version>
+    <version>1.9.4-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.opennms.features</groupId>
@@ -55,7 +55,8 @@
       <plugin>
         <groupId>org.codehaus.mojo.webstart</groupId>
         <artifactId>webstart-maven-plugin</artifactId>
-        <version>1.0-alpha-2</version>
+        <!-- remove repository below when beta 2 is released! -->
+        <version>1.0-beta-2-onms2</version>
         <executions>
           <execution>
             <id>gui-app</id>
@@ -143,10 +144,12 @@
       <artifactId>org.opennms.features.remote-poller</artifactId>
     </dependency>
   </dependencies>
+
+  <!-- temporary, until new webstart-maven-plugin is released -->
   <repositories>
     <repository>
-      <snapshots><enabled>false</enabled></snapshots>
-      <releases><enabled>true</enabled></releases>
+      <snapshots><enabled>false</enabled><updatePolicy>${updatePolicy}</updatePolicy></snapshots>
+      <releases><enabled>true</enabled><updatePolicy>${updatePolicy}</updatePolicy></releases>
       <id>opennms-repo</id>
       <name>OpenNMS Repository</name>
       <url>http://maven.opennms.org/content/groups/opennms.org-release</url>

@@ -163,8 +163,8 @@ public class OnmsSnmpInterfaceResource extends OnmsRestService {
         }
         log().debug("addSnmpInterface: adding interface " + snmpInterface);
         node.addSnmpInterface(snmpInterface);
-        if (snmpInterface.getIpAddress() != null) {
-            OnmsIpInterface iface = node.getIpInterfaceByIpAddress(snmpInterface.getIpAddress());
+        if (snmpInterface.getPrimaryIpInterface() != null) {
+            OnmsIpInterface iface = snmpInterface.getPrimaryIpInterface();
             iface.setSnmpInterface(snmpInterface);
             // TODO Add important events here
         }
@@ -234,7 +234,7 @@ public class OnmsSnmpInterfaceResource extends OnmsRestService {
             // we've updated the collection flag so we need to send an event to redo collection
             EventBuilder bldr = new EventBuilder(EventConstants.REINITIALIZE_PRIMARY_SNMP_INTERFACE_EVENT_UEI, "OpenNMS.Webapp");
             bldr.setNode(node);
-            bldr.setInterface(node.getPrimaryInterface().getIpAddress());
+            bldr.setInterface(node.getPrimaryInterface().getIpAddressAsString());
             e = bldr.getEvent();
         }
         log().debug("updateSnmpInterface: snmp interface " + snmpInterface + " updated");

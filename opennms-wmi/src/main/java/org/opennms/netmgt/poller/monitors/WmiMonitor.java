@@ -66,7 +66,7 @@ import org.opennms.protocols.wmi.WmiResult;
  */
 
 @Distributable
-public class WmiMonitor extends IPv4Monitor {
+public class WmiMonitor extends AbstractServiceMonitor {
 
 	private final static String DEFAULT_WMI_CLASS = "Win32_ComputerSystem";
 	private final static String DEFAULT_WMI_OBJECT = "Status";
@@ -104,8 +104,8 @@ public class WmiMonitor extends IPv4Monitor {
 		final InetAddress ipv4Addr = (InetAddress) iface.getAddress();
 		
 		// Validate the interface type.
-		if (iface.getType() != NetworkInterface.TYPE_IPV4) {
-			throw new NetworkInterfaceNotSupportedException("Unsupported interface type, only TYPE_IPV4 currently supported");
+		if (iface.getType() != NetworkInterface.TYPE_INET) {
+			throw new NetworkInterfaceNotSupportedException("Unsupported interface type, only TYPE_INET currently supported");
 		}
 
 		final WmiAgentConfig agentConfig = WmiPeerFactory.getInstance().getAgentConfig(ipv4Addr);

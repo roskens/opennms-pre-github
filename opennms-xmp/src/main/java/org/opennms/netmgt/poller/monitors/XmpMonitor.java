@@ -60,7 +60,7 @@ import org.opennms.netmgt.protocols.xmp.XmpUtilException;
  * @author jeffg
  * @version $Id: $
  */
-public class XmpMonitor extends IPv4Monitor {
+public class XmpMonitor extends AbstractServiceMonitor {
     
     /**
      * The protocol supported by the plugin
@@ -146,7 +146,7 @@ public class XmpMonitor extends IPv4Monitor {
     /** {@inheritDoc} */
     @Override
     public PollStatus poll(MonitoredService svc, Map parameters) {
-        NetworkInterface iface = svc.getNetInterface();
+        NetworkInterface<InetAddress> iface = svc.getNetInterface();
         
         PollStatus status = PollStatus.unavailable();
         InetAddress ipaddr = (InetAddress) iface.getAddress();

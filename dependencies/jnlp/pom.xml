@@ -2,12 +2,12 @@
   <parent>
     <groupId>org.opennms</groupId>
     <artifactId>dependencies</artifactId>
-    <version>1.9.3-SNAPSHOT</version>
+    <version>1.9.4-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.opennms.dependencies</groupId>
   <artifactId>jnlp-dependencies</artifactId>
-  <packaging>jar</packaging>
+  <packaging>pom</packaging>
   <name>OpenNMS JNLP Dependencies</name>
   <description>
     This module is used to provide a single artifact that the opennms project
@@ -27,10 +27,10 @@
   </dependencies>
   <repositories>
     <repository>
-      <snapshots><enabled>false</enabled></snapshots>
-      <releases><enabled>true</enabled></releases>
+      <snapshots><enabled>false</enabled><updatePolicy>${updatePolicy}</updatePolicy></snapshots>
+      <releases><enabled>true</enabled><updatePolicy>${updatePolicy}</updatePolicy></releases>
       <id>opennms-repo</id>
-      <name>OpenNMS Repository</name>
+      <name>OpenNMS Maven Repository</name>
       <url>http://maven.opennms.org/content/groups/opennms.org-release</url>
     </repository>
   </repositories>

@@ -35,8 +35,14 @@
 //
 package org.opennms.netmgt.dao;
 
+import java.net.Inet6Address;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -62,26 +68,63 @@ public class IpInterfaceDaoTest extends AbstractTransactionalDaoTestCase {
         
         assertEquals(2, count);
         assertEquals(2, iface.getMonitoredServices().size());
-        assertEquals("192.168.1.1", iface.getInetAddress().getHostAddress());
+        assertEquals("192.168.1.1", iface.getIpAddress().getHostAddress());
+    }
+    
+    public void testGetByService() {
+        List<OnmsIpInterface> ifaces = getIpInterfaceDao().findByServiceType("SNMP");
+        Collections.sort(ifaces, new Comparator<OnmsIpInterface>() {
+            public int compare(OnmsIpInterface o1, OnmsIpInterface o2) {
+                return new Integer(o1.getNode().getId()).compareTo(o2.getNode().getId());
+            }
+        });
+        
+        assertEquals(6, ifaces.size());
+        
+        OnmsIpInterface iface = ifaces.iterator().next();
+        assertEquals("node1", iface.getNode().getLabel());
+        assertEquals(2, iface.getMonitoredServices().size());
+        assertEquals("192.168.1.1", iface.getIpAddress().getHostAddress());
+        
+        OnmsMonitoredService service = iface.getMonitoredServiceByServiceType("SNMP");
+        assertNotNull(service);
+        assertEquals("192.168.1.1", service.getIpAddress());
     }
     
     public void testCountMatchingInerfaces() {
         OnmsCriteria crit = new OnmsCriteria(OnmsIpInterface.class);
         crit.add(Restrictions.like("ipAddress", "192.168.1.%"));
         assertEquals(3, getIpInterfaceDao().countMatching(crit));
+        
+        crit = new OnmsCriteria(OnmsIpInterface.class);
+        crit.add(Restrictions.like("ipAddress", "fe80:%dddd\\%5"));
+        assertEquals(1, getIpInterfaceDao().countMatching(crit));
     }
 
-    public void testGetInterfacesForNodes() {
-        Map<String, Integer> interfaceNodes = getIpInterfaceDao().getInterfacesForNodes();
+    public void testGetIPv6Interfaces() {
+        OnmsCriteria crit = new OnmsCriteria(OnmsIpInterface.class);
+        crit.add(Restrictions.like("ipAddress", "fe80:%dddd\\%5"));
+        List<OnmsIpInterface> ifaces = getIpInterfaceDao().findMatching(crit);
+        assertEquals(1, ifaces.size());
+        
+        OnmsIpInterface iface = ifaces.get(0);
+        assertTrue(iface.getIpAddress() instanceof Inet6Address);
+        Inet6Address v6address = (Inet6Address)iface.getIpAddress();
+        assertEquals(5, v6address.getScopeId());
+        assertEquals("fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd%5", iface.getIpAddressAsString());
+    }
+
+    public void testGetInterfacesForNodes() throws UnknownHostException {
+        Map<InetAddress, Integer> interfaceNodes = getIpInterfaceDao().getInterfacesForNodes();
         assertNotNull("interfaceNodes", interfaceNodes);
         
-        for (Entry<String, Integer> entry : interfaceNodes.entrySet()) {
+        for (Entry<InetAddress, Integer> entry : interfaceNodes.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue());
         }
         
-        assertEquals("node ID for 192.168.1.1", new Integer(1), interfaceNodes.get("192.168.1.1"));
-        assertEquals("node ID for 192.168.1.2", new Integer(1), interfaceNodes.get("192.168.1.2"));
-        assertEquals("node ID for 192.168.2.1", new Integer(2), interfaceNodes.get("192.168.2.1"));
+        assertEquals("node ID for 192.168.1.1", new Integer(1), interfaceNodes.get(InetAddress.getByName("192.168.1.1")));
+        assertEquals("node ID for 192.168.1.2", new Integer(1), interfaceNodes.get(InetAddress.getByName("192.168.1.2")));
+        assertEquals("node ID for 192.168.2.1", new Integer(2), interfaceNodes.get(InetAddress.getByName("192.168.2.1")));
         assertFalse("node ID for *BOGUS*IP* should not have been found", interfaceNodes.containsKey("*BOGUS*IP*"));
     }
     

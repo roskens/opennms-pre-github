@@ -252,7 +252,7 @@ public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
             ipIf = new OnmsIpInterface(ipAddr, node);
         }
 
-        InetAddress inetAddr = ipIf.getInetAddress();
+        InetAddress inetAddr = ipIf.getIpAddress();
         Integer ifIndex = getIfIndex(inetAddr);
 
         // if we've found an ifIndex for this interface
@@ -263,11 +263,9 @@ public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
 
             if (snmpIf == null) {
                 // if not then create one
-                snmpIf = new OnmsSnmpInterface(ipAddr, ifIndex, node);
+                snmpIf = new OnmsSnmpInterface(node, ifIndex);
             }
 
-            // make sure the snmpIf has the ipAddr of the primary interface
-            snmpIf.setIpAddress(ipAddr);
             InetAddress mask = getNetMask(inetAddr);
             if (mask != null) {
                 snmpIf.setNetMask(mask.getHostAddress());

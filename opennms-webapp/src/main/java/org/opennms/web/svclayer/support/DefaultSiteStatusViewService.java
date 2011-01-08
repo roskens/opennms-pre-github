@@ -55,7 +55,7 @@ import org.opennms.netmgt.model.AggregateStatusDefinition;
 import org.opennms.netmgt.model.AggregateStatusView;
 import org.opennms.netmgt.model.OnmsCategory;
 import org.opennms.netmgt.model.OnmsNode;
-import org.opennms.web.Util;
+import org.opennms.web.api.Util;
 import org.opennms.web.svclayer.AggregateStatus;
 import org.opennms.web.svclayer.SiteStatusViewService;
 import org.springframework.dao.DataRetrievalFailureException;

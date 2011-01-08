@@ -77,7 +77,7 @@ import org.opennms.netmgt.poller.NetworkInterfaceNotSupportedException;
 
 // NOTE: This requires that the JDBC Drivers for the dbs be included with the remote poller
 @Distributable
-public class JDBCMonitor extends IPv4Monitor {
+public class JDBCMonitor extends AbstractServiceMonitor {
 	/**
 	 * Number of miliseconds to wait before timing out a database login using
 	 * JDBC Hint: 1 minute is 6000 miliseconds.
@@ -170,7 +170,7 @@ public class JDBCMonitor extends IPv4Monitor {
 	 *      codes for JConnect </a>
 	 */
 	public PollStatus poll(MonitoredService svc, Map<String, Object> parameters) {
-		NetworkInterface iface = svc.getNetInterface();
+		NetworkInterface<InetAddress> iface = svc.getNetInterface();
 
 		// Assume that the service is down
 		PollStatus status = PollStatus.unavailable();
@@ -179,9 +179,9 @@ public class JDBCMonitor extends IPv4Monitor {
 		Statement statement = null;
 		ResultSet resultset = null;
 
-		if (iface.getType() != NetworkInterface.TYPE_IPV4) {
-			log().error("Unsupported interface type, only TYPE_IPV4 currently supported");
-			throw new NetworkInterfaceNotSupportedException(getClass().getName() + ": Unsupported interface type, only TYPE_IPV4 currently supported");
+		if (iface.getType() != NetworkInterface.TYPE_INET) {
+			log().error("Unsupported interface type, only TYPE_INET currently supported");
+			throw new NetworkInterfaceNotSupportedException(getClass().getName() + ": Unsupported interface type, only TYPE_INET currently supported");
 		}
 
 		if (parameters == null) {

@@ -59,6 +59,8 @@
 		org.opennms.netmgt.model.OnmsSeverity
 	"
 %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <%--
   This page is written to be the display (view) portion of the NotificationQueryServlet
@@ -210,9 +212,9 @@
 <% } %>
 	<jsp:include page="/includes/key.jsp" flush="false" />
         <form action="notification/acknowledge" method="post" name="acknowledge_form">
-          <input type="hidden" name="curUser" value="<%=request.getRemoteUser()%>">
-          <input type="hidden" name="redirectParms" value="<%=org.opennms.web.Util.htmlify(request.getQueryString())%>" />
-          <%=org.opennms.web.Util.makeHiddenTags(request)%>
+          <input type="hidden" name="curUser" value="<%=request.getRemoteUser()%>"/>
+          <input type="hidden" name="redirectParms" value="<c:out value="<%=request.getQueryString()%>"/>" />
+          <%=org.opennms.web.api.Util.makeHiddenTags(request)%>
       <table>
 			<thead>
 			  <tr>
@@ -244,7 +246,7 @@
             <% } %>
           </td>
           <td class="bright divider" rowspan="2"><%=eventSeverity%></td>
-          <td class="divider"><%=org.opennms.web.Util.formatDateToUIString(notices[i].getTimeSent())%></td>
+          <td class="divider"><%=org.opennms.web.api.Util.formatDateToUIString(notices[i].getTimeSent())%></td>
           <td class="divider"><% Filter responderFilter = new ResponderFilter(notices[i].getResponder()); %>      
             <% if(notices[i].getResponder()!=null) {%>
               <%=notices[i].getResponder()%>
@@ -255,7 +257,7 @@
           </td>
           <td class="divider">
             <%if (notices[i].getTimeReplied()!=null) { %>
-              <%=org.opennms.web.Util.formatDateToUIString(notices[i].getTimeReplied())%>
+              <%=org.opennms.web.api.Util.formatDateToUIString(notices[i].getTimeReplied())%>
             <% } %>
 					</td>
           <td class="divider">
@@ -274,7 +276,11 @@
             <% if(notices[i].getIpAddress() != null ) { %>
               <% Filter intfFilter = new InterfaceFilter(notices[i].getIpAddress()); %>
               <% if( notices[i].getNodeId() != 0 ) { %>
-                 <a href="element/interface.jsp?node=<%=notices[i].getNodeId()%>&intf=<%=notices[i].getIpAddress()%>" title="More info on this interface"><%=notices[i].getIpAddress()%></a>
+                <c:url var="interfaceLink" value="element/interface.jsp">
+                  <c:param name="node" value="<%=String.valueOf(notices[i].getNodeId())%>"/>
+                  <c:param name="intf" value="<%=notices[i].getIpAddress()%>"/>
+                </c:url>
+                <a href="<c:out value="${interfaceLink}"/>" title="More info on this interface"><%=notices[i].getIpAddress()%></a>
               <% } else { %>
                  <%=notices[i].getInterfaceId()%>
               <% } %>
@@ -287,9 +293,14 @@
             <% if(notices[i].getServiceName() != null) { %>
               <% Filter serviceFilter = new ServiceFilter(notices[i].getServiceId()); %>
               <% if( notices[i].getNodeId() != 0 && notices[i].getIpAddress() != null ) { %>
-                <a href="element/service.jsp?node=<%=notices[i].getNodeId()%>&intf=<%=notices[i].getIpAddress()%>&service=<%=notices[i].getServiceId()%>" title="More info on this service"><%=notices[i].getServiceName()%></a>
+                <c:url var="serviceLink" value="element/service.jsp">
+                  <c:param name="node" value="<%=String.valueOf(notices[i].getNodeId())%>"/>
+                  <c:param name="intf" value="<%=notices[i].getIpAddress()%>"/>
+                  <c:param name="service" value="<%=String.valueOf(notices[i].getServiceId())%>"/>
+                </c:url>
+                <a href="<c:out value="${serviceLink}"/>" title="More info on this service"><c:out value="<%=notices[i].getServiceName()%>"/></a>
               <% } else { %>
-                <%=notices[i].getServiceName()%>
+                <c:out value="<%=notices[i].getServiceName()%>"/>
               <% } %>
               <% if( !parms.filters.contains( serviceFilter )) { %>
                 <a href="<%=this.makeLink( parms, serviceFilter, true)%>" class="filterLink" title="Show only notices with this service type">${addPositiveFilter}</a>
@@ -335,6 +346,8 @@
     protected String makeSortLink( NoticeQueryParms parms, SortStyle style, SortStyle revStyle, String sortString, String title ) {
       StringBuffer buffer = new StringBuffer();
 
+      buffer.append( "<nobr>" );
+
       if( parms.sortStyle == style ) {
           buffer.append( "<img src=\"images/arrowdown.gif\" hspace=\"0\" vspace=\"0\" border=\"0\" alt=\"" );
           buffer.append( title );
@@ -360,6 +373,8 @@
       buffer.append( title );
       buffer.append( "</a>" );
 
+      buffer.append( "</nobr>" );
+
       return( buffer.toString() );
     }
 
@@ -367,15 +382,15 @@
       StringBuffer buffer = new StringBuffer( this.urlBase );
       buffer.append( "?sortby=" );
       buffer.append( sortStyle.getShortName() );
-      buffer.append( "&acktype=" );
+      buffer.append( "&amp;acktype=" );
       buffer.append( ackType.getShortName() );
       if (limit > 0) {
-          buffer.append( "&limit=" ).append(limit);
+          buffer.append( "&amp;limit=" ).append(limit);
       }
 
       if( filters != null ) {
         for( int i=0; i < filters.size(); i++ ) {
-          buffer.append( "&filter=" );
+          buffer.append( "&amp;filter=" );
           String filterString = filters.get(i).getDescription();
           buffer.append( java.net.URLEncoder.encode(filterString) );
         }
@@ -415,4 +430,3 @@
     }
 
 %>
-

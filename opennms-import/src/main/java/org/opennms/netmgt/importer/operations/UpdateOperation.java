@@ -165,7 +165,7 @@ public class UpdateOperation extends AbstractSaveOrUpdateOperation {
         }
 
         private OnmsIpInterface getImportedVersion(OnmsIpInterface iface) {
-            return m_ipAddrToImportIfs.get(iface.getIpAddress());
+            return m_ipAddrToImportIfs.get(iface.getIpAddressAsString());
         }
 
         private Collection<OnmsIpInterface> getNewInterfaces() {
@@ -173,7 +173,7 @@ public class UpdateOperation extends AbstractSaveOrUpdateOperation {
         }
 
         private void markAsProcessed(OnmsIpInterface iface) {
-            m_ipAddrToImportIfs.remove(iface.getIpAddress());
+            m_ipAddrToImportIfs.remove(iface.getIpAddressAsString());
         }
 
         private void update(OnmsIpInterface imported, OnmsIpInterface iface, List<Event> events) {
@@ -291,10 +291,6 @@ public class UpdateOperation extends AbstractSaveOrUpdateOperation {
             
             if (!nullSafeEquals(snmpIface.getIfType(), importedSnmpIface.getIfType())) {
                 snmpIface.setIfType(importedSnmpIface.getIfType());
-            }
-
-            if (!nullSafeEquals(snmpIface.getIpAddress(), importedSnmpIface.getIpAddress())) {
-                snmpIface.setIpAddress(importedSnmpIface.getIpAddress());
             }
             
             if (!nullSafeEquals(snmpIface.getNetMask(), importedSnmpIface.getNetMask())) {

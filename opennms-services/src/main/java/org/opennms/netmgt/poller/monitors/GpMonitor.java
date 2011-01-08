@@ -84,7 +84,7 @@ import org.opennms.netmgt.utils.ExecRunner;
 
 // this is marked not distributable because it relieds on the dhcpd deamon of opennms
 @Distributable(DistributionContext.DAEMON)
-final public class GpMonitor extends IPv4Monitor {
+final public class GpMonitor extends AbstractServiceMonitor {
     /**
      * Default retries.
      */
@@ -113,7 +113,7 @@ final public class GpMonitor extends IPv4Monitor {
      * the script or program being called.
      */
     public PollStatus poll(MonitoredService svc, Map<String, Object> parameters) {
-        NetworkInterface iface = svc.getNetInterface();
+        NetworkInterface<InetAddress> iface = svc.getNetInterface();
 
         //
         // Process parameters
@@ -123,8 +123,8 @@ final public class GpMonitor extends IPv4Monitor {
         //
         // Get interface address from NetworkInterface
         //
-        if (iface.getType() != NetworkInterface.TYPE_IPV4)
-            throw new NetworkInterfaceNotSupportedException("Unsupported interface type, only TYPE_IPV4 currently supported");
+        if (iface.getType() != NetworkInterface.TYPE_INET)
+            throw new NetworkInterfaceNotSupportedException("Unsupported interface type, only TYPE_INET currently supported");
 
         TimeoutTracker tracker = new TimeoutTracker(parameters, DEFAULT_RETRY, DEFAULT_TIMEOUT);
 

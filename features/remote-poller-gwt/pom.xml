@@ -3,7 +3,7 @@
   <parent>
     <groupId>org.opennms</groupId>
     <artifactId>org.opennms.features</artifactId>
-    <version>1.9.3-SNAPSHOT</version>
+    <version>1.9.4-SNAPSHOT</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
@@ -24,7 +24,6 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>gwt-maven-plugin</artifactId>
-        <version>1.2</version>
         <executions>
           <execution>
             <goals>
@@ -105,6 +104,7 @@
     <dependency>
       <groupId>org.opennms.dependencies</groupId>
       <artifactId>spring-web-dependencies</artifactId>
+      <type>pom</type>
     </dependency>
     <dependency>
       <groupId>net.simon04.jelementtree</groupId>
@@ -134,6 +134,7 @@
     <dependency>
       <groupId>org.opennms.dependencies</groupId>
       <artifactId>gwt-dependencies</artifactId>
+      <type>pom</type>
     </dependency>
 
     <!-- map APIs -->
@@ -178,6 +179,7 @@
     <dependency>
       <groupId>org.opennms.dependencies</groupId>
       <artifactId>servlet-dependencies</artifactId>
+      <type>pom</type>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -232,6 +234,7 @@
     <dependency>
       <groupId>org.opennms.dependencies</groupId>
       <artifactId>spring-test-dependencies</artifactId>
+      <type>pom</type>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -241,10 +244,11 @@
     </dependency>
   </dependencies>
 
+  <!-- special case, we need the stuff above as direct dependencies -->
   <repositories>
     <repository>
-      <snapshots><enabled>false</enabled></snapshots>
-      <releases><enabled>true</enabled></releases>
+      <snapshots><enabled>false</enabled><updatePolicy>${updatePolicy}</updatePolicy></snapshots>
+      <releases><enabled>true</enabled><updatePolicy>${updatePolicy}</updatePolicy></releases>
       <id>opennms-repo</id>
       <name>OpenNMS Repository</name>
       <url>http://maven.opennms.org/content/groups/opennms.org-release</url>

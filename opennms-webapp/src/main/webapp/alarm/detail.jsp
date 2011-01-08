@@ -52,8 +52,9 @@
 			org.opennms.netmgt.model.OnmsSeverity,
 	        org.opennms.web.springframework.security.Authentication"
 %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib tagdir="/WEB-INF/tags/form" prefix="form" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@taglib tagdir="/WEB-INF/tags/form" prefix="form" %>
 
 <%!
 
@@ -78,7 +79,7 @@
     int alarmId = -1;
 
     try {
-        alarmId = WebSecurityUtils.safeParseInt( alarmIdString );
+        alarmId = WebSecurityUtils.safeParseInt( WebSecurityUtils.sanitizeString(alarmIdString, false) );
     }
     catch( NumberFormatException e ) {
         throw new org.opennms.web.alarm.AlarmIdNotFoundException( "The alarm id must be an integer.", alarmIdString );
@@ -136,7 +137,10 @@
           <th width="100em">Node</th>
           <td class="divider" width="28%">
             <% if( alarm.getNodeId() > 0 ) { %>
-              <a href="element/node.jsp?node=<%=alarm.getNodeId()%>"><%=alarm.getNodeLabel()%></a>
+              <c:url var="nodeLink" value="element/node.jsp">
+                <c:param name="node" value="<%=String.valueOf(alarm.getNodeId())%>"/>
+              </c:url>
+              <a href="${nodeLink}"><c:out value="<%=alarm.getNodeLabel()%>"/></a>
             <% } else {%>
               &nbsp;
             <% } %>
@@ -146,12 +150,16 @@
         </tr>
         <tr class="<%=alarm.getSeverity().getLabel()%>">
           <th>Last&nbsp;Event</th>
-          <td><span title="Event <%= alarm.getLastEventID() %>"><a href="event/detail.jsp?id=<%= alarm.getLastEventID() %>"><%=org.opennms.web.Util.formatDateToUIString(alarm.getLastEventTime())%></a></span></td>
+          <td><span title="Event <%= alarm.getLastEventID() %>"><a href="event/detail.jsp?id=<%= alarm.getLastEventID() %>"><%=org.opennms.web.api.Util.formatDateToUIString(alarm.getLastEventTime())%></a></span></td>
           <th>Interface</th>
           <td>
             <% if( alarm.getIpAddress() != null ) { %>
               <% if( alarm.getNodeId() > 0 ) { %>
-                <a href="element/interface.jsp?node=<%=alarm.getNodeId()%>&intf=<%=alarm.getIpAddress()%>"><%=alarm.getIpAddress()%></a>
+                <c:url var="interfaceLink" value="element/interface.jsp">
+                  <c:param name="node" value="<%=String.valueOf(alarm.getNodeId())%>"/>
+                  <c:param name="intf" value="<%=alarm.getIpAddress()%>"/>
+                </c:url>
+                <a href="${interfaceLink}"><%=alarm.getIpAddress()%></a>
               <% } else { %>
                 <%=alarm.getIpAddress()%>
               <% } %>
@@ -160,18 +168,23 @@
             <% } %>
           </td>
           <th>Time&nbsp;Acknowledged</th>
-          <td><%=alarm.getAcknowledgeTime()!=null ? org.opennms.web.Util.formatDateToUIString(alarm.getAcknowledgeTime()) : "&nbsp;"%></td>
+          <td><%=alarm.getAcknowledgeTime()!=null ? org.opennms.web.api.Util.formatDateToUIString(alarm.getAcknowledgeTime()) : "&nbsp;"%></td>
         </tr>
         <tr class="<%=alarm.getSeverity().getLabel()%>">
           <th>First&nbsp;Event</th>
-          <td><%=org.opennms.web.Util.formatDateToUIString(alarm.getFirstEventTime())%></td>
+          <td><%=org.opennms.web.api.Util.formatDateToUIString(alarm.getFirstEventTime())%></td>
           <th>Service</th>
           <td>
             <% if( alarm.getServiceName() != null ) { %>
               <% if( alarm.getIpAddress() != null && alarm.getNodeId() > 0 ) { %>
-                <a href="element/service.jsp?node=<%=alarm.getNodeId()%>&intf=<%=alarm.getIpAddress()%>&service=<%=alarm.getServiceId()%>"><%=alarm.getServiceName()%></a>
+                <c:url var="serviceLink" value="element/service.jsp">
+                  <c:param name="node" value="<%=String.valueOf(alarm.getNodeId())%>"/>
+                  <c:param name="intf" value="<%=alarm.getIpAddress()%>"/>
+                  <c:param name="service" value="<%=String.valueOf(alarm.getServiceId())%>"/>
+                </c:url>
+                <a href="${serviceLink}"><c:out value="<%=alarm.getServiceName()%>"/></a>
               <% } else { %>
-                <%=alarm.getServiceName()%>
+                <c:out value="<%=alarm.getServiceName()%>"/>
               <% } %>
             <% } else {%>
               &nbsp;

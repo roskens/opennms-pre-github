@@ -58,7 +58,7 @@ import org.opennms.protocols.jmx.connectors.ConnectionWrapper;
  * @author ranger
  * @version $Id: $
  */
-public abstract class JMXMonitor extends IPv4Monitor {
+public abstract class JMXMonitor extends AbstractServiceMonitor {
 
     /**
      * <p>getMBeanServerConnection</p>
@@ -75,7 +75,7 @@ public abstract class JMXMonitor extends IPv4Monitor {
     /** {@inheritDoc} */
     public PollStatus poll(MonitoredService svc, Map<String, Object> map) {
 
-        NetworkInterface iface = svc.getNetInterface();
+        NetworkInterface<InetAddress> iface = svc.getNetInterface();
 
         PollStatus     serviceStatus = PollStatus.unavailable();
         String         dsName        = null;

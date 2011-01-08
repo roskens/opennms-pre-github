@@ -46,7 +46,6 @@
 --%>
 
 <%@page language="java"	contentType="text/html"	session="true" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
@@ -79,6 +78,9 @@
 <%@page import="org.opennms.web.event.filter.NegativeAcknowledgedByFilter"%>
 <%@page import="org.opennms.web.event.filter.ExactUEIFilter"%>
 <%@page import="org.opennms.web.event.filter.NegativeExactUEIFilter"%>
+
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <%--
   This page is written to be the display (view) portion of the EventFilterController
@@ -207,16 +209,16 @@
       <ul>
         <li><a href="<%=this.makeLink( parms, new ArrayList<Filter>())%>" title="Remove all search constraints" >View all events</a></li>
         <li><a href="event/advsearch.jsp" title="More advanced searching and sorting options">Advanced Search</a></li>
-        <li><a href="<%=org.opennms.web.Util.calculateUrlBase(req)%>/event/severity.jsp">Severity Legend</a></li>
+        <li><a href="event/severity.jsp">Severity Legend</a></li>
 
         <% if( req.isUserInRole( Authentication.ADMIN_ROLE ) || !req.isUserInRole( Authentication.READONLY_ROLE ) ) { %>
           <% if ( eventCount > 0 ) { %>
             <li>
               <!-- hidden form for acknowledging the result set -->
               <form style="display:inline" action="event/acknowledgeByFilter" method="post" name="acknowledge_by_filter_form">
-                <input type="hidden" name="redirectParms" value="<%=org.opennms.web.Util.htmlify(req.getQueryString())%>" />
+                <input type="hidden" name="redirectParms" value="<c:out value="<%=req.getQueryString()%>"/>" />
                 <input type="hidden" name="actionCode" value="<%=action%>" />
-                <%=org.opennms.web.Util.makeHiddenTags(req)%>
+                <%=org.opennms.web.api.Util.makeHiddenTags(req)%>
               </form>
 
               <% if( parms.ackType == AcknowledgeType.UNACKNOWLEDGED ) { %> 
@@ -278,9 +280,9 @@
 
     <% if( req.isUserInRole( Authentication.ADMIN_ROLE ) || !req.isUserInRole( Authentication.READONLY_ROLE ) ) { %>
       <form action="event/acknowledge" method="post" name="acknowledge_form">
-        <input type="hidden" name="redirectParms" value="<%=org.opennms.web.Util.htmlify(req.getQueryString())%>" />
+        <input type="hidden" name="redirectParms" value="<c:out value="<%=req.getQueryString()%>"/>" />
         <input type="hidden" name="actionCode" value="<%=action%>" />
-        <%=org.opennms.web.Util.makeHiddenTags(req)%>
+        <%=org.opennms.web.api.Util.makeHiddenTags(req)%>
     <% } %>
                 <jsp:include page="/includes/key.jsp" flush="false" />
       <table>
@@ -356,7 +358,11 @@
             <% if(events[i].getIpAddress() != null ) { %>
               <% Filter intfFilter = new InterfaceFilter(events[i].getIpAddress()); %>
               <% if( events[i].getNodeId() != 0 ) { %>
-                 <a href="element/interface.jsp?node=<%=events[i].getNodeId()%>&intf=<%=events[i].getIpAddress()%>" title="More info on this interface"><%=events[i].getIpAddress()%></a>
+                <c:url var="interfaceLink" value="element/interface.jsp">
+                  <c:param name="node" value="<%=String.valueOf(events[i].getNodeId())%>"/>
+                  <c:param name="intf" value="<%=events[i].getIpAddress()%>"/>
+                </c:url>
+                <a href="<c:out value="${interfaceLink}"/>" title="More info on this interface"><%=events[i].getIpAddress()%></a>
               <% } else { %>
                  <%=events[i].getIpAddress()%>
               <% } %>
@@ -374,9 +380,14 @@
             <% if(events[i].getServiceName() != null && events[i].getServiceName() != "") { %>
               <% Filter serviceFilter = new ServiceFilter(events[i].getServiceId()); %>
               <% if( events[i].getNodeId() != 0 && events[i].getIpAddress() != null ) { %>
-                <a href="element/service.jsp?node=<%=events[i].getNodeId()%>&intf=<%=events[i].getIpAddress()%>&service=<%=events[i].getServiceId()%>" title="More info on this service"><%=events[i].getServiceName()%></a>
+                <c:url var="serviceLink" value="element/service.jsp">
+                  <c:param name="node" value="<%=String.valueOf(events[i].getNodeId())%>"/>
+                  <c:param name="intf" value="<%=events[i].getIpAddress()%>"/>
+                  <c:param name="service" value="<%=String.valueOf(events[i].getServiceId())%>"/>
+                </c:url>
+                <a href="<c:out value="${serviceLink}"/>" title="More info on this service"><c:out value="<%=events[i].getServiceName()%>"/></a>
               <% } else { %>
-                <%=events[i].getServiceName()%>
+                <c:out value="<%=events[i].getServiceName()%>"/>
               <% } %>
               <% if( !parms.filters.contains( serviceFilter )) { %>
                 <nobr>
@@ -403,7 +414,7 @@
                 </nobr>
               <% } %>
               <% if (req.isUserInRole(Authentication.ADMIN_ROLE)) { %>
-               	  <a href="javascript: void submitNewNotificationForm('<%=events[i].getUei()%>');" title="Edit notifications for this Event UEI">Edit notifications for event</a>
+               	  <a href="javascript:void()" onclick="submitNewNotificationForm('<%=events[i].getUei()%>');" title="Edit notifications for this Event UEI">Edit notifications for event</a>
               <% } %>
             <% } else { %>
               &nbsp;
@@ -492,6 +503,8 @@
       buffer.append( title );
       buffer.append( "</a>" );
 
+      buffer.append( "</nobr>" );
+
       return( buffer.toString() );
     }
 
@@ -501,7 +514,7 @@
     
         if( filters != null ) {
             for( int i=0; i < filters.size(); i++ ) {
-                buffer.append( "&filter=" );
+                buffer.append( "&amp;filter=" );
                 String filterString = EventUtil.getFilterString((Filter)filters.get(i));
                 buffer.append( java.net.URLEncoder.encode(filterString) );
             }
@@ -514,10 +527,10 @@
       StringBuffer buffer = new StringBuffer( this.urlBase );
       buffer.append( "?sortby=" );
       buffer.append( sortStyle.getShortName() );
-      buffer.append( "&acktype=" );
+      buffer.append( "&amp;acktype=" );
       buffer.append( ackType.getShortName() );
       if (limit > 0) {
-          buffer.append( "&limit=" ).append(limit);
+          buffer.append( "&amp;limit=" ).append(limit);
       }
       buffer.append( this.getFiltersAsString(filters) );
 
@@ -573,5 +586,3 @@
     }
 
 %>
-
-

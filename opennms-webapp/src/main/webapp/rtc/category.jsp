@@ -45,7 +45,7 @@
 	contentType="text/html"
 	session="true"
 	import="org.opennms.web.category.*,
-	        org.opennms.web.Util,
+	        org.opennms.web.api.Util,
 		org.opennms.web.element.NetworkElementFactory,
 		org.opennms.web.MissingParameterException,
 		java.util.*,
@@ -53,6 +53,8 @@
 		org.opennms.web.XssRequestWrapper
 		"
 %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 
 <%!
     public CategoryModel model = null;
@@ -129,8 +131,8 @@
 </jsp:include>
 
 <h3>
-  <span title="Last updated <%=Util.htmlify(category.getLastUpdated().toString())%>">
-    <%=Util.htmlify(category.getName())%>
+  <span title="Last updated <c:out value="<%=category.getLastUpdated().toString()%>"/>">
+    <c:out value="<%=category.getName()%>"/>
   </span>
 </h3>
 
@@ -145,26 +147,26 @@
         } %>
 
               <input type="radio" name="showout" <%=(showoutages.equals("all") ? "checked" : "")%>
-               onclick="top.location = '<%=org.opennms.web.Util.calculateUrlBase( req )%>rtc/category.jsp?category=<%=Util.encode(category.getName())%>&amp;showoutages=all'" ></input>All
+               onclick="top.location = '<%=org.opennms.web.api.Util.calculateUrlBase( req )%>rtc/category.jsp?category=<%=Util.encode(category.getName())%>&amp;showoutages=all'" ></input>All
 
 
               <input type="radio" name="showout" <%=(showoutages.equals("outages") ? "checked" : "")%>
-               onclick="top.location = '<%=org.opennms.web.Util.calculateUrlBase( req )%>rtc/category.jsp?category=<%=Util.encode(category.getName())%>&amp;showoutages=outages'" ></input>With outages
+               onclick="top.location = '<%=org.opennms.web.api.Util.calculateUrlBase( req )%>rtc/category.jsp?category=<%=Util.encode(category.getName())%>&amp;showoutages=outages'" ></input>With outages
 
 
               <input type="radio" name="showout" <%=(showoutages.equals("avail") ? "checked" : "")%>
-               onclick="top.location = '<%=org.opennms.web.Util.calculateUrlBase( req )%>rtc/category.jsp?category=<%=Util.encode(category.getName())%>&amp;showoutages=avail'" ></input>With availability &lt; 100% 
+               onclick="top.location = '<%=org.opennms.web.api.Util.calculateUrlBase( req )%>rtc/category.jsp?category=<%=Util.encode(category.getName())%>&amp;showoutages=avail'" ></input>With availability &lt; 100% 
 
   </p>
 </form>
 
       <% if( category.getComment() != null ) { %>      
-        <p><%=Util.htmlify(category.getComment())%></p>
+        <p><c:out value="<%=category.getComment()%>"/></p>
       <% } %>
       <% if( AclUtils.shouldFilter() ) { %>
         <p style="color: red"> This list has been filtered to accessible nodes only based on your user group. </p>
       <% } %>
-      <!-- Last updated <%=Util.htmlify(category.getLastUpdated().toString())%> -->
+      <c:out escapeXml="false" value="<!-- Last updated "/><c:out value="<%=category.getLastUpdated().toString()%>"/><c:out escapeXml="false" value=" -->"/>
 
       <table>
         <tr>
@@ -198,7 +200,7 @@
 		    if ( showoutages.equals("all") | (showoutages.equals("outages") & serviceDownCount > 0 ) | (showoutages.equals("avail") & value < 100 ) ) {
         %>
                     <tr class="CellStatus">
-                      <td><a href="element/node.jsp?node=<%=node.getNodeid()%>"><%=Util.htmlify(nodeLabel)%></a></td>
+                      <td><a href="element/node.jsp?node=<%=node.getNodeid()%>"><c:out value="<%=nodeLabel%>"/></a></td>
                       <td class="<%=outageClass%>" align="right"><%=serviceDownCount%> of <%=serviceCount%></td>
                       <td class="<%=availClass%>" align="right" width="30%"><b><%=CategoryUtil.formatValue(value)%>%</b></td>
                     </tr>

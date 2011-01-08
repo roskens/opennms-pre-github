@@ -276,7 +276,7 @@ public class NodeDaoTest  {
         validateNode(n);
 
         for (OnmsIpInterface ip : n.getIpInterfaces()) {
-            ip.getIpAddress();
+            ip.getIpAddressAsString();
             for (OnmsMonitoredService service : ip.getMonitoredServices()) {
                 service.getServiceName();
             }
@@ -285,7 +285,7 @@ public class NodeDaoTest  {
         // Test for bug 1594
         for (OnmsSnmpInterface snmp : n.getSnmpInterfaces()) {
             for (OnmsIpInterface ip : snmp.getIpInterfaces()) {
-                ip.getIpAddress();
+                ip.getIpAddressAsString();
             }
         }
     }
@@ -332,12 +332,12 @@ public class NodeDaoTest  {
     @Test
     public void testDeleteObsoleteInterfaces() {
         
-        final Date timestampe = new Date(1234);
+        final Date timestamp = new Date(1234);
 
         m_transTemplate.execute(new TransactionCallback<Object>() {
 
             public Object doInTransaction(TransactionStatus status) {
-                simulateScan(timestampe);
+                simulateScan(timestamp);
                 return null;
             }
             
@@ -346,7 +346,7 @@ public class NodeDaoTest  {
         m_transTemplate.execute(new TransactionCallback<Object>() {
 
             public Object doInTransaction(TransactionStatus status) {
-                deleteObsoleteInterfaces(timestampe);
+                deleteObsoleteInterfaces(timestamp);
                 return null;
             }
             
@@ -371,19 +371,19 @@ public class NodeDaoTest  {
         assertEquals(1, after.getSnmpInterfaces().size());
     }
 
-    private void simulateScan(Date timestampe) {
+    private void simulateScan(Date timestamp) {
         OnmsNode n = getNodeDao().get(1);
         
-        assertEquals(3, n.getIpInterfaces().size());
-        assertEquals(3, n.getSnmpInterfaces().size());
+        assertEquals(4, n.getIpInterfaces().size());
+        assertEquals(4, n.getSnmpInterfaces().size());
 
         OnmsIpInterface iface = n.getIpInterfaceByIpAddress("192.168.1.1");
         assertNotNull(iface);
-        iface.setIpLastCapsdPoll(timestampe);
+        iface.setIpLastCapsdPoll(timestamp);
         
         OnmsSnmpInterface snmpIface = n.getSnmpInterfaceWithIfIndex(1);
         assertNotNull(snmpIface);
-        snmpIface.setLastCapsdPoll(timestampe);
+        snmpIface.setLastCapsdPoll(timestamp);
         
         getNodeDao().saveOrUpdate(n);
         
@@ -393,18 +393,18 @@ public class NodeDaoTest  {
 
     }
 
-    private void deleteObsoleteInterfaces(Date timestampe) {
-        getNodeDao().deleteObsoleteInterfaces(1, timestampe);
+    private void deleteObsoleteInterfaces(Date timestamp) {
+        getNodeDao().deleteObsoleteInterfaces(1, timestamp);
     }
     
     private void validateNode(OnmsNode n) throws Exception {
         assertNotNull("Expected node to be non-null", n);
         assertNotNull("Expected node "+n.getId()+" to have interfaces", n.getIpInterfaces());
-        assertEquals("Unexpected number of interfaces for node "+n.getId(), 3, n.getIpInterfaces().size());
+        assertEquals("Unexpected number of interfaces for node "+n.getId(), 4, n.getIpInterfaces().size());
         for (Object o : n.getIpInterfaces()) {
 			OnmsIpInterface iface = (OnmsIpInterface)o;
 			assertNotNull(iface);
-			assertNotNull(iface.getIpAddress());
+			assertNotNull(iface.getIpAddressAsString());
 		}
         
         assertNodeEquals(getNode1(), n);

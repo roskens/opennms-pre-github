@@ -72,7 +72,7 @@ import org.opennms.netmgt.poller.NetworkInterfaceNotSupportedException;
  */
 
 @Distributable
-final public class RadiusAuthMonitor extends IPv4Monitor {
+final public class RadiusAuthMonitor extends AbstractServiceMonitor {
     /**
      * Number of miliseconds to wait before timing out a radius AUTH request
      */
@@ -152,16 +152,16 @@ final public class RadiusAuthMonitor extends IPv4Monitor {
      * @see org.opennms.netmgt.poller.ServiceMonitor#SERVICE_UNRESPONSIVE
      */
     public PollStatus poll(MonitoredService svc, Map<String, Object> parameters) {
-        NetworkInterface iface = svc.getNetInterface();
+        NetworkInterface<InetAddress> iface = svc.getNetInterface();
 
         ThreadCategory log = ThreadCategory.getInstance(getClass());
 
         // Asume that the service is down
         PollStatus status = PollStatus.unavailable();
 
-        if (iface.getType() != NetworkInterface.TYPE_IPV4) {
-            log.error(getClass().getName() + ": Unsupported interface type, only TYPE_IPV4 currently supported");
-            throw new NetworkInterfaceNotSupportedException(getClass().getName() + ": Unsupported interface type, only TYPE_IPV4 currently supported");
+        if (iface.getType() != NetworkInterface.TYPE_INET) {
+            log.error(getClass().getName() + ": Unsupported interface type, only TYPE_INET currently supported");
+            throw new NetworkInterfaceNotSupportedException(getClass().getName() + ": Unsupported interface type, only TYPE_INET currently supported");
         }
 
         if (parameters == null) {

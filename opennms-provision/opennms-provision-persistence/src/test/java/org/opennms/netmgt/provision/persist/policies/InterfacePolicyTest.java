@@ -14,6 +14,7 @@ import org.opennms.netmgt.dao.db.JUnitTemporaryDatabase;
 import org.opennms.netmgt.dao.db.OpenNMSConfigurationExecutionListener;
 import org.opennms.netmgt.dao.db.TemporaryDatabaseExecutionListener;
 import org.opennms.netmgt.model.OnmsIpInterface;
+import org.opennms.test.mock.MockLogAppender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -49,6 +50,7 @@ public class InterfacePolicyTest {
     
     @Before
     public void setUp() {
+        MockLogAppender.setupLogging();
         m_populator.populateDatabase();
         m_interfaces = m_ipInterfaceDao.findAll();
     }
@@ -58,21 +60,21 @@ public class InterfacePolicyTest {
     public void testMatchingPolicy() {
         OnmsIpInterface o = null;
         
-        MatchingIpInterfacePolicy p = new MatchingIpInterfacePolicy();
+        final MatchingIpInterfacePolicy p = new MatchingIpInterfacePolicy();
         p.setAction("DO_NOT_PERSIST");
         p.setMatchBehavior("NO_PARAMETERS");
         p.setIpAddress("~^10\\..*$");
 
-        List<OnmsIpInterface> populatedInterfaces = new ArrayList<OnmsIpInterface>();
-        List<OnmsIpInterface> matchedInterfaces = new ArrayList<OnmsIpInterface>();
+        final List<OnmsIpInterface> populatedInterfaces = new ArrayList<OnmsIpInterface>();
+        final List<OnmsIpInterface> matchedInterfaces = new ArrayList<OnmsIpInterface>();
         
-        for (OnmsIpInterface iface : m_interfaces) {
+        for (final OnmsIpInterface iface : m_interfaces) {
             System.err.println(iface);
             o = p.apply(iface);
             if (o != null) {
                 matchedInterfaces.add(o);
             }
-            if (iface.getIpAddress().startsWith("10.")) {
+            if (iface.getIpAddressAsString().startsWith("10.")) {
                 populatedInterfaces.add(iface);
             }
         }
