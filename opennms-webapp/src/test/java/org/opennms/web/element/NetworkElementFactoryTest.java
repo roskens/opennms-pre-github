@@ -35,6 +35,8 @@
 package org.opennms.web.element;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.sql.SQLException;
 
@@ -64,10 +66,12 @@ import org.springframework.transaction.annotation.Transactional;
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations= {"classpath:/META-INF/opennms/applicationContext-dao.xml",
-                                  "classpath*:/META-INF/opennms/component-dao.xml",
-                                  "classpath:/META-INF/opennms/applicationContext-dao.xml",
-                                  "classpath:/NetworkElementFactoryContext.xml"})
+@ContextConfiguration(locations= {
+        "classpath:/META-INF/opennms/applicationContext-dao.xml",
+        "classpath*:/META-INF/opennms/component-dao.xml",
+        "classpath*:/META-INF/opennms/component-service.xml",
+        "classpath:/daoWebRepositoryTestContext.xml"
+})
 @TestExecutionListeners({
     OpenNMSConfigurationExecutionListener.class,
     TemporaryDatabaseExecutionListener.class,
@@ -148,12 +152,33 @@ public class NetworkElementFactoryTest  {
     }
     
     @Test
+    public void testNodeHasIfAliases() throws InterruptedException {
+        assertTrue(NetworkElementFactory.getInstance(m_appContext).nodeHasIfAliases(1));
+        assertEquals("Number of snmpinterface records updated during test", 1, m_jdbcTemplate.update("UPDATE snmpinterface SET snmpifalias = '' WHERE snmpifalias = 'Initial ifAlias value'"));
+        assertFalse(NetworkElementFactory.getInstance(m_appContext).nodeHasIfAliases(1));
+        assertEquals("Number of snmpinterface records updated during test", 1, m_jdbcTemplate.update("UPDATE snmpinterface SET snmpifalias = 'New ifAlias value' WHERE snmpifalias = ''"));
+        assertTrue(NetworkElementFactory.getInstance(m_appContext).nodeHasIfAliases(1));
+        assertEquals("Number of snmpinterface records updated during test", 1, m_jdbcTemplate.update("UPDATE snmpinterface SET snmpifalias = NULL WHERE snmpifalias = 'New ifAlias value'"));
+        assertFalse(NetworkElementFactory.getInstance(m_appContext).nodeHasIfAliases(1));
+    }
+    
+    @Test
     public void testGetDataLinksOnInterface() {
         DataLinkInterface[] dlis = NetworkElementFactory.getInstance(m_appContext).getDataLinksOnInterface(1, 1);
         assertEquals(4, dlis.length);
         
         DataLinkInterface[] dlis2 = NetworkElementFactory.getInstance(m_appContext).getDataLinksOnInterface(1, 9);
         assertEquals(0, dlis2.length);
+    }
+    
+    @Test
+    @Transactional
+    public void testGetAtInterfaces() throws Exception {
+        AtInterface atif = NetworkElementFactory.getInstance(m_appContext).getAtInterface(2, "192.168.2.1");
+        assertEquals("AA:BB:CC:DD:EE:FF", atif.get_physaddr());
+        
+        Node[] nodes = NetworkElementFactory.getInstance(m_appContext).getNodesFromPhysaddr("AA:BB:CC:DD:EE:FF");
+        assertEquals(1, nodes.length);
     }
     
     @Test

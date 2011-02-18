@@ -14,6 +14,8 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 /**
  * <p>RequisitionAsset class.</p>
  *
@@ -23,7 +25,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name="")
 @XmlRootElement(name="asset")
-public class RequisitionAsset {
+public class RequisitionAsset implements Comparable<RequisitionAsset> {
 
     @XmlAttribute(name="name", required=true)
     protected String m_name;
@@ -83,5 +85,22 @@ public class RequisitionAsset {
     public void setValue(String value) {
         m_value = value;
     }
+    
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof RequisitionAsset) {
+            return this.compareTo((RequisitionAsset)o) == 0;
+        } else return false;
+    }
 
+    public int compareTo(RequisitionAsset o) {
+        return m_name.compareTo(o.getName());
+    }
+
+    public String toString() {
+    	return new ToStringBuilder(this)
+    		.append("name", m_name)
+    		.append("value", m_value)
+    		.toString();
+    }
 }

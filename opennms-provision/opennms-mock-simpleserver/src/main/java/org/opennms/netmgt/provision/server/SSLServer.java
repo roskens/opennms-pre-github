@@ -13,6 +13,8 @@ import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLServerSocketFactory;
 
+import org.opennms.core.utils.LogUtils;
+
 /**
  * <p>SSLServer class.</p>
  *
@@ -96,13 +98,13 @@ public class SSLServer extends SimpleServer{
                     BufferedReader in = new BufferedReader(new InputStreamReader(getSocket().getInputStream()));
                     attemptConversation(in, out);
 
-                }catch(Exception e){
+                }catch(Throwable e){
                     throw new UndeclaredThrowableException(e);
                 } finally {
                     try {
                         stopServer();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    } catch (final IOException e) {
+                        LogUtils.debugf(this, e, "unable to stop server");
                     }
                 }
             }

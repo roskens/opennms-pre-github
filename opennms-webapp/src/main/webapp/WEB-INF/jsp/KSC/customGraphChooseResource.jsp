@@ -58,8 +58,15 @@
 <c:set var="totalRecords" value="${fn:length(resources)}"/>
 <script type="text/javascript">
 	var data = {total:"${totalRecords}", records:[
-					<c:forEach var="resource" items="${resources}">
-					{id:"${resource.id}", value:"${resource.resourceType.label}: ${resource.label}", type:"${resource.resourceType.label}"},
+					<c:forEach var="resource" items="${resources}" varStatus="rowCounter">
+					   <c:choose>
+					    <c:when test="${rowCounter.count == 1}">
+					         {id:"${resource.id}",count:"${rowCounter.count}", value:"${resource.resourceType.label}: ${resource.label}", type:"${resource.resourceType.label}"}
+					    </c:when>
+					    <c:otherwise>
+					         ,{id:"${resource.id}",count:"${rowCounter.count}", value:"${resource.resourceType.label}: ${resource.label}", type:"${resource.resourceType.label}"}
+					    </c:otherwise>
+					   </c:choose>
 					</c:forEach>
 		            ]
 			}
@@ -198,12 +205,13 @@
       </c:when>
       
       <c:otherwise>
-      	<script type="text/javascript">
+      	<%-- <script type="text/javascript">
 	      	Ext.onReady(function(){
 	  	      customResourceViewInit("resource-grid", data, "blah");
 	  	 	});
       	</script>
-      	<div id="resource-grid"></div>
+      	<div id="resource-grid"></div> --%>
+      	<div id="opennms:chooseResource" style="left: 20px;"></div>
         <%-- <form method="get" name="report" action="KSC/customGraphChooseResource.htm" >
           <input type="hidden" name="selectedResourceId" value="${param.selectedResourceId}"/>
           <select name="resourceId" size="10">

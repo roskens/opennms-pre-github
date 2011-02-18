@@ -5,7 +5,7 @@
     <relativePath>../poms/compiled/</relativePath>
     <groupId>org.opennms.features.sms-reflector.build</groupId>
     <artifactId>compiled-bundle-settings</artifactId>
-    <version>1.9.4-SNAPSHOT</version>
+    <version>1.9.6-SNAPSHOT</version>
   </parent>
 
   <properties>
@@ -83,6 +83,12 @@
       <version>${project.version}</version>
       <scope>test</scope>
       <type>pom</type>
+    </dependency>
+    <dependency>
+    	<groupId>org.opennms.core</groupId>
+    	<artifactId>org.opennms.core.lib</artifactId>
+    	<version>${project.version}</version>
+    	<scope>provided</scope>
     </dependency>
     <dependency>
     	<groupId>org.opennms.core</groupId>

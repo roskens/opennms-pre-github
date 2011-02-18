@@ -20,6 +20,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.opennms.core.utils.InetAddressUtils;
+
 
 /**
  * <p>RequisitionInterface class.</p>
@@ -30,7 +33,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name="", propOrder = { "m_monitoredServices", "m_categories" })
 @XmlRootElement(name = "interface")
-public class RequisitionInterface {
+public class RequisitionInterface implements Comparable<RequisitionInterface> {
 
     //TODO Change these to be sets so that we don't have to verify duplicates in the lists
     
@@ -116,21 +119,12 @@ public class RequisitionInterface {
     }
 
     /**
-     * <p>removeMonitoredService</p>
+     * <p>deleteMonitoredService</p>
      *
      * @param service a {@link org.opennms.netmgt.provision.persist.requisition.RequisitionMonitoredService} object.
      */
-    public void removeMonitoredService(RequisitionMonitoredService service) {
-        if (m_monitoredServices != null) {
-            Iterator<RequisitionMonitoredService> i = m_monitoredServices.iterator();
-            while (i.hasNext()) {
-                RequisitionMonitoredService svc = i.next();
-                if (svc.getServiceName().equals(service.getServiceName())) {
-                    i.remove();
-                    break;
-                }
-            }
-        }
+    public void deleteMonitoredService(RequisitionMonitoredService service) {
+        m_monitoredServices.remove(service);
     }
 
     /**
@@ -223,23 +217,14 @@ public class RequisitionInterface {
     }
 
     /**
-     * <p>removeCategory</p>
+     * <p>deleteCategory</p>
      *
      * @param category a {@link org.opennms.netmgt.provision.persist.requisition.RequisitionCategory} object.
      */
-    public void removeCategory(RequisitionCategory category) {
-        if (m_categories != null) {
-            Iterator<RequisitionCategory> i = m_categories.iterator();
-            while (i.hasNext()) {
-                RequisitionCategory cat = i.next();
-                if (cat.getName().equals(category.getName())) {
-                    i.remove();
-                    break;
-                }
-            }
-        }
+    public void deleteCategory(RequisitionCategory category) {
+        m_categories.remove(category);
     }
-    
+
     /**
      * <p>deleteCategory</p>
      *
@@ -291,7 +276,11 @@ public class RequisitionInterface {
      * @param value a {@link java.lang.String} object.
      */
     public void setIpAddr(String value) {
-        m_ipAddress = value;
+        try {
+            m_ipAddress = InetAddressUtils.toIpAddrString(InetAddressUtils.getInetAddress(value));
+        } catch (Throwable e) {
+            throw new IllegalArgumentException("Invalid IP address specified", e);
+        }
     }
 
     /**
@@ -354,6 +343,29 @@ public class RequisitionInterface {
      */
     public void setStatus(Integer value) {
         m_status = value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof RequisitionInterface) {
+            return this.compareTo((RequisitionInterface)o) == 0;
+        } else return false;
+    }
+
+    public int compareTo(RequisitionInterface o) {
+        return this.m_ipAddress.compareTo(o.getIpAddr());
+    }
+    
+    public String toString() {
+    	return new ToStringBuilder(this)
+    		.append("monitored-services", m_monitoredServices)
+    		.append("categories", m_categories)
+    		.append("description", m_description)
+    		.append("ip-address", m_ipAddress)
+    		.append("is-managed", m_isManaged)
+    		.append("snmp-primary", m_snmpPrimary)
+    		.append("status", m_status)
+    		.toString();
     }
 
 }

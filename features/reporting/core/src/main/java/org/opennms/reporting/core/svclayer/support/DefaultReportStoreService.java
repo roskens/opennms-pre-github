@@ -42,7 +42,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-
+import org.hibernate.criterion.Order;
 import org.opennms.api.reporting.ReportException;
 import org.opennms.api.reporting.ReportFormat;
 import org.opennms.api.reporting.ReportService;
@@ -50,6 +50,7 @@ import org.opennms.core.utils.ThreadCategory;
 import org.opennms.netmgt.config.databaseReports.Report;
 import org.opennms.netmgt.dao.DatabaseReportConfigDao;
 import org.opennms.netmgt.dao.ReportCatalogDao;
+import org.opennms.netmgt.model.OnmsCriteria;
 import org.opennms.netmgt.model.ReportCatalogEntry;
 import org.opennms.reporting.core.svclayer.ReportServiceLocator;
 import org.opennms.reporting.core.svclayer.ReportStoreService;
@@ -68,16 +69,16 @@ public class DefaultReportStoreService implements ReportStoreService {
     
     private static final String LOG4J_CATEGORY = "OpenNMS.Report";
     
-    private ThreadCategory log;
+    private final ThreadCategory log;
     
     /**
      * <p>Constructor for DefaultReportStoreService.</p>
      */
     public DefaultReportStoreService () {
-        
+        String oldPrefix = ThreadCategory.getPrefix();
         ThreadCategory.setPrefix(LOG4J_CATEGORY);
         log = ThreadCategory.getInstance(DefaultReportStoreService.class);
-    
+        ThreadCategory.setPrefix(oldPrefix);
     }
 
     /**
@@ -113,7 +114,9 @@ public class DefaultReportStoreService implements ReportStoreService {
      * @return a {@link java.util.List} object.
      */
     public List<ReportCatalogEntry> getAll() {
-        return m_reportCatalogDao.findAll();
+        OnmsCriteria onmsCrit = new OnmsCriteria(ReportCatalogEntry.class);
+        onmsCrit.addOrder(Order.desc("date"));
+        return m_reportCatalogDao.findMatching(onmsCrit);
     }
     
     /**
@@ -153,8 +156,9 @@ public class DefaultReportStoreService implements ReportStoreService {
     }
 
     /** {@inheritDoc} */
-    public void save(ReportCatalogEntry reportCatalogEntry) {
+    public void save(final ReportCatalogEntry reportCatalogEntry) {
         m_reportCatalogDao.save(reportCatalogEntry);
+        m_reportCatalogDao.flush();
     }
 
     /** {@inheritDoc} */

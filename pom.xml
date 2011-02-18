@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.opennms</groupId>
   <artifactId>opennms</artifactId>
-  <version>1.9.4-SNAPSHOT</version>
+  <version>1.9.6-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>OpenNMS</name>
   <url>http://opennms.org</url>
@@ -121,6 +121,7 @@
     <module>opennms-reporting</module>
     <module>opennms-qosdaemon</module>
     <module>opennms-web-api</module>
+    <module>opennms-web-dependencies</module>
     <module>opennms-webapp</module>
     <module>opennms-wmi</module>
     <module>opennms-asterisk</module>
@@ -461,7 +462,7 @@
             <runMailTests>${runMailTests}</runMailTests>
             <runPingTests>${runPingTests}</runPingTests>
           </systemPropertyVariables>
-	  <forkMode>pertest</forkMode>
+          <forkMode>pertest</forkMode>
           <argLine>-Xmx1024m</argLine>
           <includes>
             <include>**/*Test.java</include>
@@ -682,6 +683,7 @@
    <gmavenVersion>1.0</gmavenVersion>
    <jettyVersion>6.1.24</jettyVersion>
    <jettyServletVersion>6.1.14</jettyServletVersion>
+   <jasperreportsVersion>3.7.6</jasperreportsVersion>
   </properties>
 
   <profiles>
@@ -786,9 +788,9 @@
     <profile>
       <id>solaris-blastwave-rrdtool</id>
       <activation>
-      	<file>
-	  <exists>/var/sadm/pkg/CSWrrd/pkginfo</exists>
-	</file>
+      <file>
+        <exists>/var/sadm/pkg/CSWrrd/pkginfo</exists>
+      </file>
       </activation>
 
       <properties>
@@ -868,6 +870,11 @@
       <dependency>
         <groupId>org.opennms.core</groupId>
         <artifactId>org.opennms.core.tasks</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms.core.test-api</groupId>
+        <artifactId>org.opennms.core.test-api.dns</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
@@ -1036,6 +1043,12 @@
       <dependency>
         <groupId>org.opennms.dependencies</groupId>
         <artifactId>jinterop-dependencies</artifactId>
+        <version>${project.version}</version>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms.dependencies</groupId>
+        <artifactId>jna-dependencies</artifactId>
         <version>${project.version}</version>
         <type>pom</type>
       </dependency>
@@ -1401,8 +1414,8 @@
         <type>pom</type>
       </dependency>
       <dependency>
-  		  <groupId>org.opennms.dependencies</groupId>
-  		  <artifactId>spring-test-dependencies</artifactId>
+        <groupId>org.opennms.dependencies</groupId>
+          <artifactId>spring-test-dependencies</artifactId>
         <version>${project.version}</version>
         <type>pom</type>
       </dependency>
@@ -1420,6 +1433,12 @@
         <groupId>org.opennms</groupId>
         <artifactId>opennms-web-api</artifactId>
         <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms</groupId>
+        <artifactId>opennms-web-dependencies</artifactId>
+        <version>${project.version}</version>
+        <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.opennms</groupId>
@@ -1616,10 +1635,10 @@
         <artifactId>batik-util</artifactId>
         <version>1.7</version>
       </dependency>
-        <dependency>
-          <groupId>bsf</groupId>
-          <artifactId>bsf</artifactId>
-          <version>2.4.0</version>
+      <dependency>
+        <groupId>bsf</groupId>
+        <artifactId>bsf</artifactId>
+        <version>2.4.0</version>
       </dependency>
       <dependency>
         <groupId>bsh</groupId>
@@ -1964,7 +1983,7 @@
       <dependency>
         <groupId>postgresql</groupId>
         <artifactId>postgresql</artifactId>
-        <version>8.4-701.jdbc3</version>
+        <version>9.0-801.jdbc3</version>
       </dependency>
       <dependency>
         <groupId>rome</groupId>

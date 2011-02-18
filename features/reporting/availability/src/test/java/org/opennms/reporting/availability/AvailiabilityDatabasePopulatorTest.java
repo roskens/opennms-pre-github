@@ -50,6 +50,7 @@ import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.config.DataSourceFactory;
 import org.opennms.netmgt.dao.IpInterfaceDao;
 import org.opennms.netmgt.dao.NodeDao;
@@ -137,16 +138,14 @@ public class AvailiabilityDatabasePopulatorTest {
 //                ResultSet srs = stmt.executeQuery("SELECT ipInterface.ipaddr, ipInterface.nodeid FROM ipInterface WHERE ipInterface.ipaddr = '192.168.100.1'" );
                 Assert.assertTrue("interface results for 192.168.100.2", srs.next());
                 Assert.assertEquals(1 ,srs.getInt(1));
-            } catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+            } catch (Throwable e) {
+                LogUtils.errorf(this, e, "unable to execute SQL");
                 fail("unable to execute SQL");
             } finally {
                 try {
                     m_availConn.close();
-                } catch (SQLException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                } catch (final SQLException e) {
+                    LogUtils.errorf(this, e, "unable to close connection");
                 }
             }
         

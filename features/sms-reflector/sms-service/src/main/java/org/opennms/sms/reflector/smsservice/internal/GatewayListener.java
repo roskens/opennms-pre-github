@@ -2,6 +2,7 @@ package org.opennms.sms.reflector.smsservice.internal;
 
 import java.util.Map;
 
+import org.opennms.core.utils.LogUtils;
 import org.smslib.AGateway;
 import org.smslib.Service;
 import org.smslib.Service.ServiceStatus;
@@ -33,7 +34,7 @@ public class GatewayListener {
 	 * @param properties a {@link java.util.Map} object.
 	 */
 	@SuppressWarnings("unchecked")
-	public void addGateway(AGateway gateway, Map properties){
+    public void addGateway(AGateway gateway, Map properties){
 		if(m_service != null){
 			try{
 				if(m_service.getServiceStatus() == ServiceStatus.STARTED){
@@ -43,8 +44,8 @@ public class GatewayListener {
 				m_service.addGateway(gateway);
 				m_service.startService();
 				
-			}catch(Exception e){
-				e.printStackTrace();
+			}catch(final Exception e){
+			    LogUtils.warnf(this, e, "Unable to add gateway (%s) to SMS service", gateway);
 			}
 			
 		}
@@ -57,7 +58,7 @@ public class GatewayListener {
 	 * @param properties a {@link java.util.Map} object.
 	 */
 	@SuppressWarnings("unchecked")
-	public void removeGateway(AGateway gateway, Map properties){
+    public void removeGateway(AGateway gateway, Map properties){
 		if(m_service != null){
 			try{
 				if(m_service.getServiceStatus() == ServiceStatus.STARTED){
@@ -65,8 +66,8 @@ public class GatewayListener {
 				}
 				m_service.removeGateway(gateway);
 				m_service.startService();
-			}catch(Exception e){
-				e.printStackTrace();
+			}catch(final Exception e){
+			    LogUtils.warnf(this, e, "Unable to remove gateway (%s) from SMS service", gateway);
 			}
 			
 		}
@@ -80,7 +81,7 @@ public class GatewayListener {
 	 * @throws java.lang.Exception if any.
 	 */
 	@SuppressWarnings("unchecked")
-	public void bind(Object arg0, Map arg1) throws Exception {
+    public void bind(Object arg0, Map arg1) throws Exception {
 		// TODO Auto-generated method stub
 		
 	}
@@ -93,7 +94,7 @@ public class GatewayListener {
 	 * @throws java.lang.Exception if any.
 	 */
 	@SuppressWarnings("unchecked")
-	public void unbind(Object arg0, Map arg1) throws Exception {
+    public void unbind(Object arg0, Map arg1) throws Exception {
 		// TODO Auto-generated method stub
 		
 	}

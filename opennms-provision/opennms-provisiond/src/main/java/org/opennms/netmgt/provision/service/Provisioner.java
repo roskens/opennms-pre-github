@@ -56,6 +56,7 @@ import org.opennms.netmgt.EventConstants;
 import org.opennms.netmgt.daemon.SpringServiceDaemon;
 import org.opennms.netmgt.dao.SnmpAgentConfigFactory;
 import org.opennms.netmgt.model.OnmsIpInterface;
+import org.opennms.netmgt.model.OnmsMonitoredService;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.events.EventBuilder;
 import org.opennms.netmgt.model.events.EventForwarder;
@@ -495,7 +496,7 @@ public class Provisioner implements SpringServiceDaemon {
     
             send(importSuccessEvent(m_stats, url));
     
-        } catch (Exception e) {
+        } catch (Throwable e) {
             String msg = "Exception importing "+url;
             log().error(msg, e);
             send(importFailedEvent((msg+": "+e.getMessage()), url));
@@ -555,10 +556,12 @@ public class Provisioner implements SpringServiceDaemon {
 
         if (ip == null) {
             log().error("Received a "+uei+" event with a null ipAddress");
+            return;
         }
 
         if (!getProvisionService().isDiscoveryEnabled()) {
             log().info("Ignoring "+uei+" event for ip "+ip+" since discovery handling is disabled in provisiond");
+            return;
         }
         
         Runnable r = new Runnable() {
@@ -633,7 +636,7 @@ public class Provisioner implements SpringServiceDaemon {
                 ebldr = new EventBuilder(EventConstants.RELOAD_DAEMON_CONFIG_SUCCESSFUL_UEI, "Provisiond");
                 ebldr.addParam(EventConstants.PARM_DAEMON_NAME, "Provisiond");
                 
-            } catch (Exception exception) {
+            } catch (Throwable exception) {
                 
                 log().error("handleReloadConfigurationEvent: Error reloading configuration:"+exception, exception);
                 ebldr = new EventBuilder(EventConstants.RELOAD_DAEMON_CONFIG_FAILED_UEI, "Provisiond");
@@ -676,7 +679,7 @@ public class Provisioner implements SpringServiceDaemon {
         if (m_provisionService.isDiscoveryEnabled()) {
             try {
                 doAddInterface(event.getNodeid(), event.getInterface());
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 log().error("Unexpected exception processing event: " + event.getUei(), e);
             }
         }
@@ -697,7 +700,7 @@ public class Provisioner implements SpringServiceDaemon {
         if (m_provisionService.isDiscoveryEnabled()) {
             try {
                 doAddNode(event.getInterface(), EventUtils.getParm(event, EventConstants.PARM_NODE_LABEL));
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 log().error("Unexpected exception processing event: " + event.getUei(), e);
             }
         }
@@ -726,7 +729,7 @@ public class Provisioner implements SpringServiceDaemon {
         if (m_provisionService.isDiscoveryEnabled()) {
             try {
                 doChangeService(event.getInterface(), event.getService(), EventUtils.getParm(event, EventConstants.PARM_ACTION));
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 log().error("Unexpected exception processing event: " + event.getUei(), e);
             }
         }
@@ -744,12 +747,10 @@ public class Provisioner implements SpringServiceDaemon {
      */
     @EventHandler(uei=EventConstants.DELETE_INTERFACE_EVENT_UEI)
     public void handleDeleteInterface(Event event) {
-        if (m_provisionService.isDiscoveryEnabled()) {
-            try {
-                doDeleteInterface(event.getNodeid(), event.getInterface());
-            } catch (Exception e) {
-                log().error("Unexpected exception processing event: " + event.getUei(), e);
-            }
+        try {
+            doDeleteInterface(event.getNodeid(), event.getInterface());
+        } catch (Throwable e) {
+            log().error("Unexpected exception processing event: " + event.getUei(), e);
         }
     }
     
@@ -764,12 +765,10 @@ public class Provisioner implements SpringServiceDaemon {
      */
     @EventHandler(uei=EventConstants.DELETE_NODE_EVENT_UEI)
     public void handleDeleteNode(Event event) {
-        if (m_provisionService.isDiscoveryEnabled()) {
-            try {
-                doDeleteNode(event.getNodeid());
-            } catch (Exception e) {
-                log().error("Unexpected exception processing event: " + event.getUei(), e);
-            }
+        try {
+            doDeleteNode(event.getNodeid());
+        } catch (Throwable e) {
+            log().error("Unexpected exception processing event: " + event.getUei(), e);
         }
     }
     
@@ -784,17 +783,15 @@ public class Provisioner implements SpringServiceDaemon {
      */
     @EventHandler(uei=EventConstants.DELETE_SERVICE_EVENT_UEI)
     public void handleDeleteService(Event event) {
-        if (m_provisionService.isDiscoveryEnabled()) {
-            try {
-                doDeleteService(event.getNodeid(), event.getInterface(), event.getService());
-            } catch (Exception e) {
-                log().error("Unexpected exception processing event: " + event.getUei(), e);
-            }
+        try {
+	    doDeleteService(event.getNodeid(), event.getInterface() == null ? null : InetAddress.getByName(event.getInterface()), event.getService());
+        } catch (Throwable e) {
+            log().error("Unexpected exception processing event: " + event.getUei(), e);
         }
     }
     
-    private void doDeleteService(long nodeId, String ipAddr, String service) {
-        m_provisionService.deleteService((int)nodeId, ipAddr, service);
+    private void doDeleteService(long nodeId, InetAddress addr, String service) {
+        m_provisionService.deleteService((int)nodeId, addr, service);
     }
 
     /**
@@ -809,7 +806,7 @@ public class Provisioner implements SpringServiceDaemon {
                 doUpdateServer(event.getInterface(), event.getHost(), 
                         EventUtils.getParm(event, EventConstants.PARM_ACTION),
                         EventUtils.getParm(event, EventConstants.PARM_NODE_LABEL));
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 log().error("Unexpected exception processing event: " + event.getUei(), e);
             }
         }
@@ -832,7 +829,7 @@ public class Provisioner implements SpringServiceDaemon {
                 doUpdateService(event.getInterface(), event.getService(), 
                         EventUtils.getParm(event, EventConstants.PARM_ACTION),
                         EventUtils.getParm(event, EventConstants.PARM_NODE_LABEL));
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 log().error("Unexpected exception processing event: " + event.getUei(), e);
             }
         }

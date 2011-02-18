@@ -50,7 +50,7 @@ public class DefaultReportService implements ReportService {
         } catch (JRException e) {
             LogUtils.errorf(this, e, "Error running report: %s", e.getMessage());
             throw new ReportRunException("Caught JRException: " + e.getMessage());
-        }  catch (Exception e){
+        }  catch (Throwable e){
             LogUtils.errorf(this, e, "Unexpected exception: %s", e.getMessage());
             throw new ReportRunException("Caught unexpected " + e.getClass().getName() + ": " + e.getMessage());
         }        
@@ -140,10 +140,8 @@ public class DefaultReportService implements ReportService {
                 }
                 reportArchive.close();
             }
-            catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+            catch (final Exception e) {
+                LogUtils.warnf(this, e, "unable to create %s", zipFile);
             }
 
         }

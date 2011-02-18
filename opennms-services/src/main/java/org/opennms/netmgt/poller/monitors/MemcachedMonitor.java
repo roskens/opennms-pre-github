@@ -86,8 +86,8 @@ final public class MemcachedMonitor extends AbstractServiceMonitor {
     private static final int DEFAULT_TIMEOUT = 3000; // 3 second timeout on read()
 
     private static final String[] m_keys = new String[] {
-        "uptime", "rusageuser", "rusage_system",
-        "curr_items", "totalitems", "bytes",
+        "uptime", "rusageuser", "rusagesystem",
+        "curritems", "totalitems", "bytes", "limitmaxbytes",
         "currconnections", "totalconnections", "connectionstructure",
         "cmdget", "cmdset", "gethits", "getmisses", "evictions",
         "bytesread", "byteswritten", "threads"
@@ -161,7 +161,7 @@ final public class MemcachedMonitor extends AbstractServiceMonitor {
                                 if (statProps.containsKey(key)) {
                                     statProps.put(key, value);
                                 }
-                            } catch (Exception e) {
+                            } catch (Throwable e) {
                                 // ignore errors parsing
                             }
                         } else if (statEntry[0].equals("END")) {

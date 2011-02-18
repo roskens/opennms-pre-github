@@ -78,28 +78,6 @@ import com.google.common.collect.TreeMultimap;
  * @author <a href="mailto:cmiskell@opennms.org">Craig Miskell</a>
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  * @author <a href="mailto:tarus@opennms.org">Tarus Balog</a>
- * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
- * @author <a href="mailto:jeffg@opennms.org">Jeff Gehlbach</a>
- * @author <a href="mailto:cmiskell@opennms.org">Craig Miskell</a>
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
- * @author <a href="mailto:tarus@opennms.org">Tarus Balog</a>
- * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
- * @author <a href="mailto:jeffg@opennms.org">Jeff Gehlbach</a>
- * @author <a href="mailto:cmiskell@opennms.org">Craig Miskell</a>
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
- * @author <a href="mailto:tarus@opennms.org">Tarus Balog</a>
- * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
- * @author <a href="mailto:jeffg@opennms.org">Jeff Gehlbach</a>
- * @author <a href="mailto:cmiskell@opennms.org">Craig Miskell</a>
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
- * @author <a href="mailto:tarus@opennms.org">Tarus Balog</a>
- * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
- * @author <a href="mailto:jeffg@opennms.org">Jeff Gehlbach</a>
- * @author <a href="mailto:cmiskell@opennms.org">Craig Miskell</a>
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
- * @author <a href="mailto:tarus@opennms.org">Tarus Balog</a>
- * @version $Id: $
- * @since 1.8.1
  */
 public class ThresholdController extends AbstractController implements InitializingBean {
 
@@ -472,7 +450,7 @@ public class ThresholdController extends AbstractController implements Initializ
     private void sendNotifEvent(Event event) throws ServletException {
         try {
             Util.createEventProxy().send(event);
-        } catch (Exception e) {
+        } catch (Throwable e) {
             throw new ServletException("Could not send event " + event.getUei(), e);
         }
 
@@ -485,7 +463,7 @@ public class ThresholdController extends AbstractController implements Initializ
             ebldr.addParam(EventConstants.PARM_DAEMON_NAME, "Threshd");
             ebldr.addParam(EventConstants.PARM_CONFIG_FILE_NAME, "thresholds.xml");
             sendNotifEvent(ebldr.getEvent());
-        } catch (Exception e) {
+        } catch (Throwable e) {
             throw new ServletException("Could not save the changes to the threshold because "+e.getMessage(),e);
         }
         
@@ -493,7 +471,7 @@ public class ThresholdController extends AbstractController implements Initializ
             try {
                 EventconfFactory.getInstance().saveCurrent();
                 sendNotifEvent(createEventBuilder(EventConstants.EVENTSCONFIG_CHANGED_EVENT_UEI).getEvent());
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 throw new ServletException("Could not save the changes to the event configuration because "+e.getMessage(),e);
             }
             eventConfChanged=false;
@@ -520,7 +498,7 @@ public class ThresholdController extends AbstractController implements Initializ
         ThresholdingConfigFactory configFactory=ThresholdingConfigFactory.getInstance();
         ModelAndView modelAndView;
         if(expressionIndexString==null) {
-            throw new ServletException("expressionIndex parameter required to delete a threshold");
+            throw new ServletException("expressionIndex parameter required to delete a threshold expression");
         }
         int expressionIndex=WebSecurityUtils.safeParseInt(expressionIndexString);
         Group group=configFactory.getGroup(groupName);
@@ -590,7 +568,7 @@ public class ThresholdController extends AbstractController implements Initializ
         Group group=configFactory.getGroup(groupName);
         String thresholdIndexString=request.getParameter("thresholdIndex");
         if(thresholdIndexString==null) {
-            throw new ServletException("thresholdIndex parameter required to delete a threshold");
+            throw new ServletException("thresholdIndex parameter required to modify or delete a threshold");
         }
         int thresholdIndex=WebSecurityUtils.safeParseInt(thresholdIndexString);
         Threshold threshold=group.getThreshold(thresholdIndex);
@@ -621,7 +599,7 @@ public class ThresholdController extends AbstractController implements Initializ
         
         //and got back to the editGroup page
         modelAndView=new ModelAndView("admin/thresholds/editGroup");
-        modelAndView.addObject("group",configFactory.getGroup(groupName));
+        modelAndView.addObject("group",group);
         return modelAndView;
     }
     
@@ -633,7 +611,7 @@ public class ThresholdController extends AbstractController implements Initializ
         Group group=configFactory.getGroup(groupName);
         String expressionIndexString=request.getParameter("expressionIndex");
         if(expressionIndexString==null) {
-            throw new ServletException("expressionIndex parameter required to delete a threshold");
+            throw new ServletException("expressionIndex parameter required to modify or delete a threshold expression");
         }
         int expressionIndex=WebSecurityUtils.safeParseInt(expressionIndexString);
         Expression expression=group.getExpression(expressionIndex);
@@ -672,7 +650,7 @@ public class ThresholdController extends AbstractController implements Initializ
         //Otherwise we'll be dealing with questions on the mailing lists for the rest of our lives
         try {
              ThresholdingConfigFactory.reload();
-        } catch (Exception e) {
+        } catch (Throwable e) {
             throw new ServletException("Could not reload ThresholdingConfigFactory because "+e.getMessage(), e);
         }
         ThresholdingConfigFactory configFactory=ThresholdingConfigFactory.getInstance();

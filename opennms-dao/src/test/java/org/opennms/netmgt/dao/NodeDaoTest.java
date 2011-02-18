@@ -255,8 +255,6 @@ public class NodeDaoTest  {
         validateNode(n);
     }
     
-    
-    @Transactional
     public OnmsNode getNodeHierarchy(final int nodeId) {
         return m_transTemplate.execute(new TransactionCallback<OnmsNode>() {
 
@@ -269,6 +267,7 @@ public class NodeDaoTest  {
     
     /** Test for bug 1594 */
     @Test
+    @Transactional
     public void testQueryWithHierarchyCloseTransaction() throws Exception {
 
         OnmsNode n = getNodeHierarchy(1);
@@ -425,7 +424,7 @@ public class NodeDaoTest  {
 				expectedValue = ""+BeanUtils.getProperty(o1, m_propertyName);
 				String actualValue = ""+BeanUtils.getProperty(o2, m_propertyName);
 				return expectedValue.compareTo(actualValue);
-			} catch (Exception e) {
+			} catch (Throwable e) {
 				throw new IllegalArgumentException("Unable to compare property "+m_propertyName, e);
 			}
 		}

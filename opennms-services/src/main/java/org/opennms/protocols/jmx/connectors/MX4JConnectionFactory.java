@@ -39,6 +39,7 @@ import javax.management.remote.JMXConnector;
 import javax.management.remote.JMXConnectorFactory;
 import javax.management.remote.JMXServiceURL;
 
+import org.opennms.core.utils.LogUtils;
 import org.opennms.core.utils.ParameterMap;
 import org.opennms.core.utils.ThreadCategory;
 
@@ -89,9 +90,8 @@ public class MX4JConnectionFactory {
               MBeanServerConnection connection = connector.getMBeanServerConnection();
               
               connectionWrapper = new MX4JConnectionWrapper(connector, connection);
-          } catch(Exception e) {
-              e.printStackTrace();
-              //log.error("Unable to get MBeanServerConnection: " + url, e);
+          } catch(Throwable e) {
+              LogUtils.errorf(MX4JConnectionFactory.class, e, "Unable to get MBeanServerConnection: %s", url);
           }
       }
       else if (factory.equals("PASSWORD-CLEAR")) {
@@ -132,7 +132,7 @@ public class MX4JConnectionFactory {
 
               connectionWrapper = new MX4JConnectionWrapper(connector, connection);
               
-          } catch(Exception e) {
+          } catch(Throwable e) {
               log.error("Unable to get MBeanServerConnection: " + url, e);
           }
       }
@@ -175,7 +175,7 @@ public class MX4JConnectionFactory {
 
               connectionWrapper = new Jsr160ConnectionWrapper(connector, connection);
               
-          } catch(Exception e) {
+          } catch(Throwable e) {
               e.fillInStackTrace();
               log.error("Unable to get MBeanServerConnection", e);
           }
@@ -219,7 +219,7 @@ public class MX4JConnectionFactory {
 
               connectionWrapper = new Jsr160ConnectionWrapper(connector, connection);
               
-          } catch(Exception e) {
+          } catch(Throwable e) {
               e.fillInStackTrace();
               log.error("Unable to get MBeanServerConnection", e);
           }

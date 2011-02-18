@@ -155,7 +155,7 @@ public class ExecRunner {
      *     } else {
      *         System.out.println(&quot;Maximum run time exceeded!&quot;);
      *     }
-     * } catch (Exception e) {
+     * } catch (Throwable e) {
      *     System.out.println(&quot;Error executing &quot; + program + &quot;: &quot; + e.getMessage());
      *     continue;
      * }
@@ -421,7 +421,6 @@ public class ExecRunner {
             System.exit(0);
 
         } catch (final Exception e) {
-
             e.printStackTrace();
             System.exit(1);
 

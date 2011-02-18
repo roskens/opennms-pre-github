@@ -3,7 +3,7 @@
   <parent>
     <groupId>org.opennms</groupId>
     <artifactId>opennms</artifactId>
-    <version>1.9.4-SNAPSHOT</version>
+    <version>1.9.6-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
   <groupId>org.opennms</groupId>
@@ -231,6 +231,13 @@
       <type>tar.gz</type>
       <version>${project.version}</version>
       <classifier>daemon</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.opennms</groupId>
+      <artifactId>opennms-base-assembly</artifactId>
+      <type>tar.gz</type>
+      <version>${project.version}</version>
+      <classifier>log4j</classifier>
     </dependency>
     <dependency>
       <groupId>org.opennms</groupId>

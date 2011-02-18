@@ -58,6 +58,7 @@ import javax.xml.bind.Marshaller;
 
 import org.apache.commons.io.IOExceptionWithCause;
 import org.apache.commons.lang.StringUtils;
+import org.opennms.core.utils.LogUtils;
 import org.opennms.core.utils.ThreadCategory;
 import org.opennms.netmgt.provision.persist.ProvisionPrefixContextResolver;
 import org.opennms.netmgt.provision.persist.requisition.Requisition;
@@ -164,7 +165,7 @@ public class DnsRequisitionUrlConnection extends URLConnection {
         } catch (IOException e) {
             log().warn("getInputStream: Problem getting input stream: "+e, e);
             throw e;
-        } catch (Exception e) {
+        } catch (Throwable e) {
             String message = "Problem getting input stream: "+e;
             log().warn(message, e);
             throw new IOExceptionWithCause(message,e );
@@ -188,6 +189,7 @@ public class DnsRequisitionUrlConnection extends URLConnection {
 	ZoneTransferIn xfer = null;
         List<Record> records = null;
         
+        LogUtils.debugf(this, "connecting to host %s:%d", m_url.getHost(), m_port);
         try { 
             xfer = ZoneTransferIn.newIXFR(new Name(m_zone), 
                                         m_serial.longValue(), 
@@ -258,7 +260,7 @@ public class DnsRequisitionUrlConnection extends URLConnection {
         
         i.insertMonitoredService(new RequisitionMonitoredService("ICMP"));
         i.insertMonitoredService(new RequisitionMonitoredService("SNMP"));
-        n.insertInterface(i );
+        n.putInterface(i);
         
         return n;
     }

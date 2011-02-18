@@ -3,12 +3,24 @@ package org.opennms.web.rest;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.io.StringReader;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Unmarshaller;
+
+import org.junit.Before;
 import org.junit.Test;
+import org.opennms.core.utils.LogUtils;
+import org.opennms.netmgt.model.OnmsNode;
+import org.opennms.netmgt.model.OnmsNodeList;
+import org.opennms.test.mock.MockLogAppender;
 import org.springframework.mock.web.MockHttpServletRequest;
 
 /*
@@ -16,23 +28,106 @@ import org.springframework.mock.web.MockHttpServletRequest;
  * 1. Need to figure it out how to create a Mock for EventProxy to validate events sent by RESTful service
  */
 public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
-    
-    
+
+    private static int m_nodeCounter = 0;
+
+    @Before
+    public void setUp() throws Throwable {
+        super.setUp();
+        MockLogAppender.setupLogging();
+        m_nodeCounter = 0;
+    }
+
     @Test
     public void testNode() throws Exception {
+        JAXBContext context = JAXBContext.newInstance(OnmsNodeList.class);
+        Unmarshaller unmarshaller = context.createUnmarshaller();
+
         // Testing POST
         createNode();
         String url = "/nodes";
+
         // Testing GET Collection
         String xml = sendRequest(GET, url, 200);
         assertTrue(xml.contains("Darwin TestMachine 9.4.0 Darwin Kernel Version 9.4.0"));
-        url += "/1";
+        OnmsNodeList list = (OnmsNodeList)unmarshaller.unmarshal(new StringReader(xml));
+        assertEquals(1, list.getNodes().size());
+        assertEquals(xml, "TestMachine0", list.getNodes().get(0).getLabel());
+
+        // Testing orderBy
+        xml = sendRequest(GET, url, parseParamData("orderBy=sysObjectId"), 200);
+        list = (OnmsNodeList)unmarshaller.unmarshal(new StringReader(xml));
+        assertEquals(1, list.getNodes().size());
+        assertEquals("TestMachine0", list.getNodes().get(0).getLabel());
+
+        // Add 4 more nodes
+        for (m_nodeCounter = 1; m_nodeCounter < 5; m_nodeCounter++) {
+            createNode();
+        }
+
+        // Testing limit/offset
+        xml = sendRequest(GET, url, parseParamData("limit=3&offset=0&orderBy=label"), 200);
+        list = (OnmsNodeList)unmarshaller.unmarshal(new StringReader(xml));
+        assertEquals(3, list.getNodes().size());
+        assertEquals(3, list.getCount());
+        assertEquals(5, list.getTotalCount());
+        assertEquals("TestMachine0", list.getNodes().get(0).getLabel());
+        assertEquals("TestMachine1", list.getNodes().get(1).getLabel());
+        assertEquals("TestMachine2", list.getNodes().get(2).getLabel());
+
+        // This filter should match
+        xml = sendRequest(GET, url, parseParamData("comparator=like&label=%25Test%25"), 200);
+        LogUtils.infof(this, xml);
+        list = (OnmsNodeList)unmarshaller.unmarshal(new StringReader(xml));
+        assertEquals(5, list.getCount());
+        assertEquals(5, list.getTotalCount());
+
+        // This filter should fail (return 0 results)
+        xml = sendRequest(GET, url, parseParamData("comparator=like&label=%25DOES_NOT_MATCH%25"), 200);
+        LogUtils.infof(this, xml);
+        list = (OnmsNodeList)unmarshaller.unmarshal(new StringReader(xml));
+        assertEquals(0, list.getCount());
+        assertEquals(0, list.getTotalCount());
+
         // Testing PUT
+        url += "/1";
         sendPut(url, "sysContact=OpenNMS&assetRecord.manufacturer=Apple&assetRecord.operatingSystem=MacOSX Leopard");
+
         // Testing GET Single Object
         xml = sendRequest(GET, url, 200);
         assertTrue(xml.contains("<sysContact>OpenNMS</sysContact>"));        
+        assertTrue(xml.contains("<operatingSystem>MacOSX Leopard</operatingSystem>"));
+
+        // Testing DELETE
+        sendRequest(DELETE, url, 200);
+        sendRequest(GET, url, 204);
+    }
+
+    @Test
+    public void testPutNode() throws Exception {
+        JAXBContext context = JAXBContext.newInstance(OnmsNodeList.class);
+        Unmarshaller unmarshaller = context.createUnmarshaller();
+
+        // Testing POST
+        createNode();
+        String url = "/nodes";
+
+        // Testing GET Collection
+        String xml = sendRequest(GET, url, 200);
+        assertTrue(xml.contains("Darwin TestMachine 9.4.0 Darwin Kernel Version 9.4.0"));
+        OnmsNodeList list = (OnmsNodeList)unmarshaller.unmarshal(new StringReader(xml));
+        assertEquals(1, list.getNodes().size());
+        assertEquals("TestMachine0", list.getNodes().get(0).getLabel());
+
+        // Testing PUT
+        url += "/1";
+        sendPut(url, "sysContact=OpenNMS&assetRecord.manufacturer=Apple&assetRecord.operatingSystem=MacOSX Leopard");
+
+        // Testing GET Single Object to make sure that the parameters changed
+        xml = sendRequest(GET, url, 200);
+        assertTrue(xml.contains("<sysContact>OpenNMS</sysContact>"));        
         assertTrue(xml.contains("<operatingSystem>MacOSX Leopard</operatingSystem>"));        
+
         // Testing DELETE
         sendRequest(DELETE, url, 200);
         sendRequest(GET, url, 204);
@@ -40,23 +135,55 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
 
     @Test
     public void testLimits() throws Exception {
+        JAXBContext context = JAXBContext.newInstance(OnmsNodeList.class);
+        Unmarshaller unmarshaller = context.createUnmarshaller();
+
         // Testing POST
-        for (int i = 0; i < 20; i++) {
+        for (m_nodeCounter = 0; m_nodeCounter < 20; m_nodeCounter++) {
             createNode();
         }
         String url = "/nodes";
         // Testing GET Collection
         Map<String,String> parameters = new HashMap<String,String>();
         parameters.put("limit", "10");
+        parameters.put("orderBy", "id");
         String xml = sendRequest(GET, url, parameters, 200);
-        assertTrue(xml.contains("Darwin TestMachine 9.4.0 Darwin Kernel Version 9.4.0"));
-        Pattern p = Pattern.compile("<node>", Pattern.CASE_INSENSITIVE | Pattern.DOTALL | Pattern.MULTILINE);
+        assertTrue(xml, xml.contains("Darwin TestMachine 9.4.0 Darwin Kernel Version 9.4.0"));
+        Pattern p = Pattern.compile("<node id=", Pattern.CASE_INSENSITIVE | Pattern.DOTALL | Pattern.MULTILINE);
         Matcher m = p.matcher(xml);
         int count = 0;
         while (m.find()) {
             count++;
         }
         assertEquals("should get 10 nodes back", 10, count);
+
+        // Validate object by unmarshalling
+        OnmsNodeList list = (OnmsNodeList)unmarshaller.unmarshal(new StringReader(xml));
+        assertEquals(10, list.getCount());
+        assertEquals(10, list.getNodes().size());
+        assertEquals(20, list.getTotalCount());
+        int i = 0;
+        Set<OnmsNode> sortedNodes = new TreeSet<OnmsNode>(new Comparator<OnmsNode>() {
+            public int compare(OnmsNode o1, OnmsNode o2) {
+                if (o1 == null && o2 == null) {
+                    return 0;
+                } else if (o1 == null) {
+                    return 1;
+                } else if (o2 == null) {
+                    return -1;
+                } else {
+                    if (o1.getId() == null) {
+                        throw new IllegalStateException("Null ID on node: " + o1.toString());
+                    }
+                    return o1.getId().compareTo(o2.getId());
+                }
+            }
+        });
+        // Sort the nodes by ID
+        sortedNodes.addAll(list.getNodes());
+        for (OnmsNode node : sortedNodes) {
+            assertEquals(node.toString(), "TestMachine" + i++, node.getLabel());
+        }
     }
 
     @Test
@@ -100,7 +227,7 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
         sendRequest(DELETE, url, 200);
         sendRequest(GET, url, 204);
     }
-    
+
     @Test
     public void testCategory() throws Exception {
         createCategory();
@@ -126,67 +253,46 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
         sendRequest(request, 200);
     }
 
-    private void createNode() throws Exception {
-        String node = "<node>" +            
-        "<label>TestMachine</label>" +
+    @Test
+    public void testIPhoneNodeSearch() throws Exception {
+        createIpInterface();
+        String url = "/nodes";
+        String xml = sendRequest(GET, url, parseParamData("comparator=ilike&match=any&label=1%25&ipInterface.ipAddress=1%25&ipInterface.ipHostName=1%25"), 200);
+        assertTrue(xml, xml.contains("<node id=\"1\" label=\"TestMachine0\">"));
+        assertTrue(xml, xml.contains("count=\"1\""));
+        assertTrue(xml, xml.contains("totalCount=\"1\""));
+
+        xml = sendRequest(GET, url, parseParamData("comparator=ilike&match=any&label=8%25&ipInterface.ipAddress=8%25&ipInterface.ipHostName=8%25"), 200);
+        // Make sure that there were no matches
+        assertTrue(xml, xml.contains("count=\"0\""));
+        assertTrue(xml, xml.contains("totalCount=\"0\""));
+    }
+
+    @Override
+    protected void createNode() throws Exception {
+        String node = "<node label=\"TestMachine" + m_nodeCounter + "\">" +
         "<labelSource>H</labelSource>" +
         "<sysContact>The Owner</sysContact>" +
         "<sysDescription>" +
         "Darwin TestMachine 9.4.0 Darwin Kernel Version 9.4.0: Mon Jun  9 19:30:53 PDT 2008; root:xnu-1228.5.20~1/RELEASE_I386 i386" +
         "</sysDescription>" +
         "<sysLocation>DevJam</sysLocation>" +
-        "<sysName>TestMachine</sysName>" +
+        "<sysName>TestMachine" + m_nodeCounter + "</sysName>" +
         "<sysObjectId>.1.3.6.1.4.1.8072.3.2.255</sysObjectId>" +
         "<type>A</type>" +
         "</node>";
         sendPost("/nodes", node);
     }
-    
-    private void createIpInterface() throws Exception {
+
+    @Override
+    protected void createIpInterface() throws Exception {
         createNode();
         String ipInterface = "<ipInterface isManaged=\"M\" snmpPrimary=\"P\">" +
         "<ipAddress>10.10.10.10</ipAddress>" +
-        "<hostName>TestMachine</hostName>" +
+        "<hostName>TestMachine" + m_nodeCounter + "</hostName>" +
         "<ipStatus>1</ipStatus>" +
         "</ipInterface>";
         sendPost("/nodes/1/ipinterfaces", ipInterface);
-    }
-
-    private void createSnmpInterface() throws Exception {
-        createIpInterface();
-        String snmpInterface = "<snmpInterface ifIndex=\"6\">" +
-        "<ifAdminStatus>1</ifAdminStatus>" +
-        "<ifDescr>en1</ifDescr>" +
-        "<ifName>en1</ifName>" +
-        "<ifOperStatus>1</ifOperStatus>" +
-        "<ifSpeed>10000000</ifSpeed>" +
-        "<ifType>6</ifType>" +
-        "<ipAddress>10.10.10.10</ipAddress>" +
-        "<netMask>255.255.255.0</netMask>" +
-        "<physAddr>001e5271136d</physAddr>" +
-        "</snmpInterface>";
-        sendPost("/nodes/1/snmpinterfaces", snmpInterface);
-    }
-    
-    private void createService() throws Exception {
-        createIpInterface();
-        String service = "<service>" +
-        "<notify>Y</notify>" +
-        "<serviceType>" +
-        "<name>ICMP</name>" +
-        "</serviceType>" +
-        "<source>P</source>" +
-        "<status>N</status>" +
-        "</service>";
-        sendPost("/nodes/1/ipinterfaces/10.10.10.10/services", service);
-    }
-
-    private void createCategory() throws Exception {
-        createNode();
-        String service = "<category name=\"Routers\">" +
-            "<description>Core Routers</description>" +
-            "</category>";
-        sendPost("/nodes/1/categories", service);
     }
 
 }

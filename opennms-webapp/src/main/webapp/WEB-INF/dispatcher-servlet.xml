@@ -529,6 +529,7 @@
   		class="org.opennms.web.controller.OnlineReportController">
   	<property name="reportWrapperService" ref="reportWrapperService" />
   	<property name="categoryConfigService" ref="categoryConfigService" />
+  	<property name="categoryDao" ref="categoryDao" />
   	<property name="bindOnNewForm" value="true" />
   	<property name="commandName" value="parameters" />
   </bean>
@@ -539,7 +540,7 @@
 	<property name="reportStoreService" ref="reportStoreService"/>
     <property name="commandName" value="ManageDatabaseReportCommand" />
     <property name="commandClass" value="org.opennms.web.command.ManageDatabaseReportCommand" />
-    <property name="pageSize" value="10"/>
+    <property name="pageSize" value="20"/>
     <property name="successView" value="redirect:/report/database/manage.htm" />
   </bean>
   

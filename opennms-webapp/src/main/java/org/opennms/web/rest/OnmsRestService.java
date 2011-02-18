@@ -70,6 +70,8 @@ import com.sun.jersey.core.util.MultivaluedMapImpl;
  */
 public class OnmsRestService {
 
+	protected static final int DEFAULT_LIMIT = 10;
+
 	protected enum ComparisonOperation { EQ, NE, ILIKE, LIKE, GT, LT, GE, LE, CONTAINS }
 
 	private List<Order> m_ordering = new ArrayList<Order>();
@@ -185,12 +187,14 @@ public class OnmsRestService {
 		    paramsCopy.remove("match");
 		}
 
+		/*
         if(paramsCopy.containsKey("node.id") && !matchType.equalsIgnoreCase("any")) {
             String nodeId = paramsCopy.getFirst("node.id");
-            Integer id = new Integer(nodeId);
+            Integer id = Integer.valueOf(nodeId);
             criteria.createCriteria("node").add(Restrictions.eq("id", id));
             paramsCopy.remove("node.id");
         }
+        */
         
 		//By default, just do equals comparison
 		ComparisonOperation op=ComparisonOperation.EQ;
@@ -231,7 +235,12 @@ public class OnmsRestService {
     			} else if ("notnull".equals(stringValue)) {
     				criteriaList.add(Restrictions.isNotNull(key));
     			} else {
-    				Object thisValue=wrapper.convertIfNecessary(stringValue, wrapper.getPropertyType(key));
+    				@SuppressWarnings("unchecked")
+					Object thisValue=wrapper.convertIfNecessary(stringValue, wrapper.getPropertyType(key));
+    				if ("node.id".equals(key)) {
+    					thisValue = Integer.valueOf(stringValue);
+    				}
+    				LogUtils.warnf(this, "key = %s, propertyType = %s", key, wrapper.getPropertyType(key));
     				switch(op) {
     		   		case EQ:
     		    		criteriaList.add(Restrictions.eq(key, thisValue));
@@ -395,7 +404,7 @@ public class OnmsRestService {
                                    )
                                )
                            );
-        LogUtils.infof(this, "**** m_offset: " + m_offset + " ****");
+        LogUtils.infof(this, "**** m_offset: " + (m_offset == null ? 0 : m_offset) + " ****");
         OnmsCriteria rootCriteria = new OnmsCriteria(clazz);
         rootCriteria.add(Subqueries.propertyIn("id", criteria.getDetachedCriteria()));
         for (Order o : m_ordering) {
@@ -416,7 +425,8 @@ public class OnmsRestService {
      * @param params a {@link org.opennms.web.rest.MultivaluedMapImpl} object.
      * @param req a {@link java.lang.Object} object.
      */
-    protected void setProperties(org.opennms.web.rest.MultivaluedMapImpl params, Object req) {
+    @SuppressWarnings("unchecked")
+	protected void setProperties(org.opennms.web.rest.MultivaluedMapImpl params, Object req) {
         BeanWrapper wrapper = new BeanWrapperImpl(req);
         wrapper.registerCustomEditor(XMLGregorianCalendar.class, new StringXmlCalendarPropertyEditor());
         for(String key : params.keySet()) {

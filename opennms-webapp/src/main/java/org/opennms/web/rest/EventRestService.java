@@ -49,7 +49,6 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
 
-import org.hibernate.criterion.Order;
 import org.opennms.netmgt.dao.EventDao;
 import org.opennms.netmgt.model.OnmsCriteria;
 import org.opennms.netmgt.model.OnmsEvent;
@@ -125,21 +124,14 @@ public class EventRestService extends OnmsRestService {
 	@Produces( { MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Transactional
 	public OnmsEventCollection getEvents() throws ParseException {
-		MultivaluedMap<java.lang.String, java.lang.String> params = m_uriInfo
-				.getQueryParameters();
-		OnmsCriteria criteria = new OnmsCriteria(OnmsEvent.class);
-		setLimitOffset(params, criteria, 10, true);
-		addFiltersToCriteria(params, criteria, OnmsEvent.class);
-		//added ordering of the events based on id
-		criteria.addOrder(Order.desc("eventTime"));
-		OnmsEventCollection eventCol = new OnmsEventCollection(m_eventDao.findMatching(criteria));
+		OnmsEventCollection coll = new OnmsEventCollection(m_eventDao.findMatching(getQueryFilters(m_uriInfo.getQueryParameters())));
 		
-		//For getting total
+		//For getting totalCount
 		OnmsCriteria crit = new OnmsCriteria(OnmsEvent.class);
-		addFiltersToCriteria(params, crit, OnmsEvent.class);
+		addFiltersToCriteria(m_uriInfo.getQueryParameters(), crit, OnmsEvent.class);
+		coll.setTotalCount(m_eventDao.countMatching(crit));
 		
-		eventCol.setTotalCount(m_eventDao.countMatching(crit));
-		return eventCol;
+		return coll;
 	}
 
 	/**
@@ -158,8 +150,7 @@ public class EventRestService extends OnmsRestService {
 	Boolean ack) {
 		OnmsEvent event = m_eventDao.get(new Integer(eventId));
 		if (ack == null) {
-			throw new IllegalArgumentException(
-					"Must supply the 'ack' parameter, set to either 'true' or 'false'");
+			throw new IllegalArgumentException("Must supply the 'ack' parameter, set to either 'true' or 'false'");
 		}
 		processEventAck(event, ack);
 	}
@@ -180,12 +171,7 @@ public class EventRestService extends OnmsRestService {
 			formProperties.remove("ack");
 		}
 		
-		OnmsCriteria criteria = new OnmsCriteria(OnmsEvent.class);
-		setLimitOffset(formProperties, criteria, 10, true);
-		addFiltersToCriteria(formProperties, criteria, OnmsEvent.class);
-
-		
-		for (OnmsEvent event : m_eventDao.findMatching(criteria)) {
+		for (OnmsEvent event : m_eventDao.findMatching(getQueryFilters(formProperties))) {
 			processEventAck(event, ack);
 		}
 	}
@@ -200,5 +186,24 @@ public class EventRestService extends OnmsRestService {
 			event.setEventAckUser(null);
 		}
 		m_eventDao.save(event);
+	}
+
+	private OnmsCriteria getQueryFilters(final MultivaluedMap<String,String> params) {
+	    OnmsCriteria criteria = new OnmsCriteria(OnmsEvent.class);
+
+	    setLimitOffset(params, criteria, DEFAULT_LIMIT, false);
+	    addOrdering(params, criteria, false);
+        // Set default ordering
+        addOrdering(
+            new MultivaluedMapImpl(
+                new String[][] { 
+                    new String[] { "orderBy", "eventTime" }, 
+                    new String[] { "order", "desc" } 
+                }
+            ), criteria, false
+        );
+	    addFiltersToCriteria(params, criteria, OnmsEvent.class);
+
+	    return getDistinctIdCriteria(OnmsEvent.class, criteria);
 	}
 }

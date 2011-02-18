@@ -84,25 +84,25 @@
     public void init() throws ServletException {
         try {
             m_telnetServiceId = NetworkElementFactory.getInstance(getServletContext()).getServiceIdFromName("Telnet");
-        } catch (Exception e) {
+        } catch (Throwable e) {
             throw new ServletException("Could not determine the Telnet service ID", e);
         }        
 
         try {
             m_httpServiceId = NetworkElementFactory.getInstance(getServletContext()).getServiceIdFromName("HTTP");
-        } catch (Exception e) {
+        } catch (Throwable e) {
             throw new ServletException("Could not determine the HTTP service ID", e);
         }
 
         try {
             m_dellServiceId = NetworkElementFactory.getInstance(getServletContext()).getServiceIdFromName("Dell-OpenManage");
-        } catch (Exception e) {
+        } catch (Throwable e) {
             throw new ServletException("Could not determine the Dell-OpenManage service ID", e);
         }
 
         try {
             m_snmpServiceId = NetworkElementFactory.getInstance(getServletContext()).getServiceIdFromName("SNMP");
-        } catch (Exception e) {
+        } catch (Throwable e) {
             throw new ServletException("Could not determine the SNMP service ID", e);
         }
 
@@ -174,7 +174,7 @@
     }
     
     nodeModel.put("resources", m_resourceService.findNodeChildResources(nodeId));
-    nodeModel.put("vlans", NetworkElementFactory.getVlansOnNode(nodeId));
+    nodeModel.put("vlans", NetworkElementFactory.getInstance(getServletContext()).getVlansOnNode(nodeId));
     nodeModel.put("criticalPath", PathOutageFactory.getCriticalPath(nodeId));
     nodeModel.put("noCriticalPath", PathOutageFactory.NO_CRITICAL_PATH);
     nodeModel.put("admin", request.isUserInRole(Authentication.ADMIN_ROLE));
@@ -198,8 +198,8 @@
     }
     
     nodeModel.put("status", getStatusStringWithDefault(node_db));
-    nodeModel.put("showIpRoute", NetworkElementFactory.isRouteInfoNode(nodeId));
-    nodeModel.put("showBridge", NetworkElementFactory.isBridgeNode(nodeId));
+    nodeModel.put("showIpRoute", NetworkElementFactory.getInstance(getServletContext()).isRouteInfoNode(nodeId));
+    nodeModel.put("showBridge", NetworkElementFactory.getInstance(getServletContext()).isBridgeNode(nodeId));
     nodeModel.put("showRancid","true".equalsIgnoreCase(Vault.getProperty("opennms.rancidIntegrationEnabled")));
     
     nodeModel.put("node", node_db);

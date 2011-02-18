@@ -44,6 +44,7 @@ import java.util.Map;
 import org.opennms.core.utils.ThreadCategory;
 import org.opennms.netmgt.capsd.IfSnmpCollector;
 import org.opennms.netmgt.capsd.snmp.IfTableEntry;
+import org.opennms.netmgt.config.modelimport.types.InterfaceSnmpPrimaryType;
 import org.opennms.netmgt.dao.CategoryDao;
 import org.opennms.netmgt.dao.DistPollerDao;
 import org.opennms.netmgt.dao.NodeDao;
@@ -58,6 +59,7 @@ import org.opennms.netmgt.model.OnmsIpInterface.PrimaryType;
 import org.opennms.netmgt.xml.event.Event;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
+import org.springframework.beans.BeansException;
 
 /**
  * <p>Abstract AbstractSaveOrUpdateOperation class.</p>
@@ -114,7 +116,7 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
 	}
 
 	/** {@inheritDoc} */
-	public void foundInterface(String ipAddr, Object descr, String snmpPrimary, boolean managed, int status) {
+	public void foundInterface(String ipAddr, Object descr, InterfaceSnmpPrimaryType snmpPrimary, boolean managed, int status) {
 		
 		if ("".equals(ipAddr)) {
 			log().error("Found interface on node "+m_node.getLabel()+" with an empty ipaddr! Ignoring!");
@@ -125,10 +127,10 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
 
         m_currentInterface = new OnmsIpInterface(ipAddr, m_node);
         m_currentInterface.setIsManaged(status == 3 ? "U" : "M");
-        m_currentInterface.setIsSnmpPrimary(PrimaryType.get(snmpPrimary));
+        m_currentInterface.setIsSnmpPrimary(PrimaryType.get(snmpPrimary.toString()));
         //m_currentInterface.setIpStatus(status == 3 ? new Integer(3) : new Integer(1));
         
-        if ("P".equals(snmpPrimary)) {
+        if (InterfaceSnmpPrimaryType.P.equals(snmpPrimary)) {
         	try {
         		m_collector = new IfSnmpCollector(InetAddress.getByName(ipAddr));
         	} catch (UnknownHostException e) {
@@ -309,7 +311,7 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
 //		try {
 //			InetAddress addr = InetAddress.getByName(ipIf.getIpAddress());
 //			ipIf.setIpHostName(addr.getHostName());
-//		} catch (Exception e) {
+//		} catch (Throwable e) {
 //			if (ipIf.getIpHostName() == null)
 //				ipIf.setIpHostName(ipIf.getIpAddress());
 //		}
@@ -333,7 +335,11 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
     /** {@inheritDoc} */
     public void foundAsset(String name, String value) {
         BeanWrapper w = new BeanWrapperImpl(m_node.getAssetRecord());
-        w.setPropertyValue(name, value);
+        try {
+            w.setPropertyValue(name, value);
+        } catch (BeansException e) {
+            ThreadCategory.getInstance(this.getClass()).warn("Could not set property on asset: " + name, e);
+        }
     }
     
     private OnmsServiceType getServiceType(String serviceName) {

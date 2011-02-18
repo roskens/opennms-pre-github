@@ -80,7 +80,7 @@ public class SimpleServer extends SimpleConversationEndPoint {
     private Socket m_socket;
     private String m_banner;
     protected volatile boolean m_stopped = false;
-    
+
     /**
      * <p>setBanner</p>
      *
@@ -168,14 +168,22 @@ public class SimpleServer extends SimpleConversationEndPoint {
      * @throws java.io.IOException if any.
      */
     public void stopServer() throws IOException {
-        m_stopped = true;
-        getServerSocket().close();
-        if(getServerThread() != null && getServerThread().isAlive()) { 
-            
-            if(getSocket() != null && !getSocket().isClosed()) {
-               getSocket().close();  
+        if (!m_stopped) {
+            m_stopped = true;
+            Thread t = getServerThread();
+            if(t != null && t.isAlive()) { 
+                t.interrupt();
+                try {
+                    Thread.sleep(20);
+                } catch (final InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+                if(getSocket() != null && !getSocket().isClosed()) {
+                   getSocket().close();  
+                }
             }
-            
+            setServerThread(null);
+            getServerSocket().close();
         }
     }
     
@@ -203,7 +211,7 @@ public class SimpleServer extends SimpleConversationEndPoint {
                     if (getTimeout() > 0) {
                         getServerSocket().setSoTimeout(getTimeout());
                     }
-                    while (!m_stopped) {
+                    while (!m_stopped && getServerThread() != null) {
                         setSocket(getServerSocket().accept());
                         if (m_threadSleepLength > 0) {
                             Thread.sleep(m_threadSleepLength);
@@ -219,16 +227,30 @@ public class SimpleServer extends SimpleConversationEndPoint {
                         in = new BufferedReader(isr);
                         attemptConversation(in, out);
                     }
+                } catch (final InterruptedException e) {
+                    if (m_stopped) {
+                        LogUtils.debugf(this, e, "interrupted, shutting down");
+                    } else {
+                        LogUtils.infof(this, e, "interrupted while listening");
+                    }
+                    Thread.currentThread().interrupt();
                 } catch (final Exception e){
-                    LogUtils.infof(this, e, "SimpleServer Exception on conversation");
+                    if (m_stopped) {
+                        if (LogUtils.isTraceEnabled(this)) {
+                            LogUtils.tracef(this, e, "error during conversation");
+                        }
+                    } else {
+                        LogUtils.infof(this, e, "error during conversation");
+                    }
                 } finally {
                     IOUtils.closeQuietly(in);
                     IOUtils.closeQuietly(isr);
                     IOUtils.closeQuietly(out);
                     try {
+                        // just in case we're stopping because of an exception
                         stopServer();
                     } catch (final IOException e) {
-                        LogUtils.infof(this, e, "SimpleServer Exception on stopping server");
+                        LogUtils.infof(this, e, "error while stopping server");
                     }
                 }
             }

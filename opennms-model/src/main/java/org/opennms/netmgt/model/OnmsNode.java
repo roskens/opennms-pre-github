@@ -164,6 +164,9 @@ public class OnmsNode extends OnmsEntity implements Serializable,
     /** persistent field */
     private Set<OnmsArpInterface> m_arpInterfaces = new LinkedHashSet<OnmsArpInterface>();
 
+    /** persistent field */
+    private Set<OnmsArpInterface> m_arpInterfacesBySource = new LinkedHashSet<OnmsArpInterface>();
+
     private Set<OnmsCategory> m_categories = new LinkedHashSet<OnmsCategory>();
 
 	private PathElement m_pathElement;
@@ -192,7 +195,7 @@ public class OnmsNode extends OnmsEntity implements Serializable,
      * @return a {@link java.lang.Integer} object.
      */
     @Id
-    @Column(name="nodeId")
+    @Column(name="nodeId", nullable=false)
     @SequenceGenerator(name="nodeSequence", sequenceName="nodeNxtId")
     @GeneratedValue(generator="nodeSequence")
     @XmlTransient
@@ -206,10 +209,13 @@ public class OnmsNode extends OnmsEntity implements Serializable,
      * @return a {@link java.lang.String} object.
      */
     @XmlID
-    @XmlAttribute(name="id")
+    @XmlAttribute(name="id", required=true)
     @Transient
     public String getNodeId() {
-        return getId().toString();
+    	if (getId() != null) {
+    		return getId().toString();
+    	}
+    	return null;
     }
 
     /**
@@ -219,6 +225,15 @@ public class OnmsNode extends OnmsEntity implements Serializable,
      */
     public void setId(Integer nodeid) {
         m_id = nodeid;
+    }
+
+    /**
+     * <p>setNodeId</p>
+     *
+     * @param nodeid a {@link java.lang.String} object.
+     */
+    public void setNodeId(String nodeid) {
+        setId(Integer.valueOf(nodeid));
     }
 
     /**
@@ -679,15 +694,41 @@ public class OnmsNode extends OnmsEntity implements Serializable,
     }
     
     /**
-     * The arp interfaces on this node
+     * The ARP interfaces with this node as a source
+     *
+     * @return a {@link java.util.Set} object.
+     */
+    @XmlTransient
+    @OneToMany(mappedBy="sourceNode")
+    @org.hibernate.annotations.Cascade( {
+        org.hibernate.annotations.CascadeType.ALL,
+        org.hibernate.annotations.CascadeType.DELETE_ORPHAN })
+    public Set<OnmsArpInterface> getArpInterfacesBySource() {
+        return m_arpInterfacesBySource;
+    }
+
+    /**
+     * @param arpInterfaces a {@link java.util.Set} object.
+     */
+    public void setArpInterfacesBySource(Set<OnmsArpInterface> arpInterfaces) {
+        m_arpInterfacesBySource = arpInterfaces;
+    }
+    
+    /**
+     * @param iface a {@link org.opennms.netmgt.model.OnmsArpInterface} object.
+     */
+    public void addArpInterfaceBySource(OnmsArpInterface iface) {
+        iface.setNode(this);
+        getArpInterfacesBySource().add(iface);
+    }
+
+    /**
+     * The ARP interfaces on this node
      *
      * @return a {@link java.util.Set} object.
      */
     @XmlTransient
     @OneToMany(mappedBy="node")
-    @org.hibernate.annotations.Cascade( {
-        org.hibernate.annotations.CascadeType.ALL,
-        org.hibernate.annotations.CascadeType.DELETE_ORPHAN })
     public Set<OnmsArpInterface> getArpInterfaces() {
         return m_arpInterfaces;
     }

@@ -290,7 +290,7 @@ public class MapProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
             try {
                 MapsAdapterConfigFactory.reload();
                 syncMaps();
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 LogUtils.infof(this, e, "unable to reload maps adapter configuration");
             }
         }
@@ -453,6 +453,7 @@ public class MapProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
                                    new OnmsMapElement(onmsMap,node.getId(),OnmsMapElement.NODE_HIDE_TYPE,getLabel(node.getLabel()),celement.getIcon(),0,0)
                                 );   
                             }
+                            m_onmsMapElementDao.flush();
                         }
                     } // end add nodes loop
                     
@@ -508,7 +509,8 @@ public class MapProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
                                 m_onmsMapElementDao.save(
                                    new OnmsMapElement(onmsMap,node.getId(),OnmsMapElement.NODE_HIDE_TYPE,getLabel(node.getLabel()),celement.getIcon(),0,0)
                                 );   
-                            }                            
+                            }
+                            m_onmsMapElementDao.flush();
                         }
                         // delete elements from automated map
                         for(OnmsMapElement element: elements) {
@@ -593,13 +595,14 @@ public class MapProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
                             } else {
                                 m_onmsMapElementDao.save(new OnmsMapElement(onmsMap,onmsSubMap.getId(),OnmsMapElement.MAP_HIDE_TYPE,csubmap.getLabel(),csubmap.getIcon(),0,0));                                                                        
                             }
+                            m_onmsMapElementDao.flush();
                             
                         }
                         
                     }
                     int i = m_onmsMapDao.updateAllAutomatedMap(new Date());
                     log().debug("reSyncMap: updated last modified time for automated map: row#: " + i);
-                } catch (Exception e) {
+                } catch (Throwable e) {
                     log().error(e.getMessage());
                     sendAndThrow(e);
                 }
@@ -680,6 +683,8 @@ public class MapProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
                                     m_onmsMapElementDao.deleteElementsByElementIdAndType(onmsMap.getId(), OnmsMapElement.MAP_TYPE);
                                     log().debug("syncMaps: removing from map table.");
                                     m_onmsMapDao.delete(onmsMap);
+                                    m_onmsMapElementDao.flush();
+                                    m_onmsMapDao.flush();
                                 }
                             }
                             
@@ -704,6 +709,7 @@ public class MapProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
                                     log().debug("syncMaps: skipping not automated map: " + onmsMap.getName());
                                     log().debug("syncMaps: map type: " + onmsMap.getType());
                                 }
+                                m_onmsMapElementDao.flush();
                             }
                             // adding nodes to auto maps
                             for(final OnmsNode node: m_onmsNodeDao.findAllProvisionedNodes()) {
@@ -775,6 +781,7 @@ public class MapProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
                                     }
                                     
                                 }
+                                m_onmsMapElementDao.flush();
                                 
                             }
                             log().debug("syncMaps: maps synchronized.  releasing lock...");
@@ -793,7 +800,7 @@ public class MapProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
         }
     }    
 
-    private void sendAndThrow(final Exception e) {
+    private void sendAndThrow(final Throwable e) {
         final Event event = buildEvent(EventConstants.PROVISIONING_ADAPTER_FAILED).addParam("reason", MESSAGE_PREFIX+e.getLocalizedMessage()).getEvent();
         m_eventForwarder.sendNow(event);
         log().error(e.getMessage());

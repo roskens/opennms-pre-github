@@ -35,6 +35,9 @@
  */
 package org.opennms.reporting.core.svclayer.support;
 
+import static org.easymock.EasyMock.replay;
+import static org.easymock.EasyMock.verify;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,8 +51,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-
-import static org.easymock.EasyMock.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestExecutionListeners({
@@ -86,6 +87,7 @@ public class DefaultReportStoreServiceTest {
         
         ReportCatalogEntry reportCatalogEntry = new ReportCatalogEntry();
         m_reportCatalogDao.save(reportCatalogEntry);
+        m_reportCatalogDao.flush();
         replay(m_reportCatalogDao);
         
         m_reportStoreService.save(reportCatalogEntry);

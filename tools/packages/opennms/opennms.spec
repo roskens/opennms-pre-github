@@ -17,8 +17,6 @@
 %{!?sharedir:%define sharedir /var/opennms}
 # This is where the "logs" directory will link on RPM-based systems
 %{!?logdir:%define logdir /var/log/opennms}
-# Where the OpenNMS webapp lives
-%{!?webappsdir:%define webappsdir %instprefix/webapps}
 # Where the OpenNMS Jetty webapp lives
 %{!?jettydir:%define jettydir %instprefix/jetty-webapps}
 # The directory for the OpenNMS webapp
@@ -35,10 +33,13 @@
 # keep RPM from making an empty debug package
 %define debug_package %{nil}
 # don't do a bunch of weird redhat post-stuff  :)
+%define _use_internal_dependency_generator 0
 %define __os_install_post %{nil}
 %define __find_requires %{nil}
 %define __perl_requires %{nil}
 %global _binaries_in_noarch_packages_terminate_build 0
+AutoReq: no
+AutoProv: no
 
 %define with_tests	0%{nil}
 %define with_docs	1%{nil}
@@ -57,7 +58,7 @@ BuildRoot:		%{_tmppath}/%{name}-%{version}-root
 
 Requires:		opennms-webui      >= %{version}-%{release}
 Requires:		opennms-core        = %{version}-%{release}
-Requires:		postgresql-server  >= 7.4
+Requires:		postgresql-server  >= 8.1
 
 # don't worry about buildrequires, the shell script will bomb quick  =)
 BuildRequires:		%{jdk}
@@ -72,21 +73,8 @@ OpenNMS is an enterprise-grade network management platform.
 This package used to contain what is now in the "opennms-core" package.
 It now exists to give a reasonable default installation of OpenNMS.
 
-When you install this package, you will also need to install one of the
-opennms-webapp packages.  OpenNMS now provides 2 ways to install the
-web UI:
-
-* standalone
-
-  A standalone version of the web UI for OpenNMS, suitable for embedding inside
-  tomcat or another servlet container, or on a server separate from the OpenNMS
-  core server.
-
-* jetty
-
-  A version of the web UI for OpenNMS which uses a built-in, embedded version
-  of Jetty, which runs in the same JVM as OpenNMS.  This is the recommended
-  version unless you have specific needs otherwise.
+When you install this package, you will likely also need to install the
+webapp package.
 
 %{extrainfo}
 %{extrainfo2}
@@ -105,7 +93,7 @@ daemon responsible for discovery, polling, data collection, and
 notifications (ie, anything that is not part of the web UI).
 
 If you want to be able to view your data, you will need to install
-one of the opennms-webapp packages.
+the webapp package.
 
 The logs and data directories are relocatable.  By default, they are:
 
@@ -158,21 +146,6 @@ Obsoletes:	opennms-webapp < 1.3.11
 %description webapp-jetty
 The web UI for OpenNMS.  This is the Jetty version, which runs
 embedded in the main OpenNMS core process.
-
-%{extrainfo}
-%{extrainfo2}
-
-
-%package webapp-standalone
-Summary:	Standalone web interface for OpenNMS
-Group:		Applications/System
-Requires:	opennms-core = %{version}-%{release}
-Provides:	opennms-webui = %{version}-%{release}
-Obsoletes:	opennms-webapp < 1.3.11
-
-%description webapp-standalone
-The web UI for OpenNMS.  This is the standalone version, suitable for
-use with Tomcat or another servlet container.
 
 %{extrainfo}
 %{extrainfo2}
@@ -386,6 +359,7 @@ find $RPM_BUILD_ROOT%{instprefix}/bin ! -type d | \
 find $RPM_BUILD_ROOT%{instprefix}/lib ! -type d | \
     sed -e "s|^$RPM_BUILD_ROOT|%attr(755,root,root) |" | \
     grep -v 'provisioning-adapter' | \
+    grep -v 'opennms-rancid-%{version}' | \
     sort >> %{_tmppath}/files.main
 find $RPM_BUILD_ROOT%{instprefix}/etc -type d | \
     sed -e "s,^$RPM_BUILD_ROOT,%dir ," | \
@@ -400,16 +374,6 @@ find $RPM_BUILD_ROOT%{jettydir} ! -type d | \
 find $RPM_BUILD_ROOT%{jettydir} -type d | \
     sed -e "s,^$RPM_BUILD_ROOT,%dir ," | \
     sort >> %{_tmppath}/files.jetty
-
-# webapps
-find $RPM_BUILD_ROOT%{webappsdir} ! -type d | \
-    sed -e "s,^$RPM_BUILD_ROOT,," | \
-    grep -v '/WEB-INF/[^/]*\.xml$' | \
-    grep -v '/WEB-INF/[^/]*\.properties$' | \
-    sort > %{_tmppath}/files.webapp
-find $RPM_BUILD_ROOT%{webappsdir} -type d | \
-    sed -e "s,^$RPM_BUILD_ROOT,%dir ," | \
-    sort >> %{_tmppath}/files.webapp
 
 popd
 
@@ -453,13 +417,6 @@ rm -rf $RPM_BUILD_ROOT
 %config %{jettydir}/%{servletdir}/WEB-INF/*.properties
 %config %{jettydir}/opennms-remoting/WEB-INF/*.properties
 
-%files webapp-standalone -f %{_tmppath}/files.webapp
-%defattr(644 root root 755)
-%config %{webappsdir}/%{servletdir}/WEB-INF/*.xml
-%config %{webappsdir}/opennms-remoting/WEB-INF/*.xml
-%config %{webappsdir}/%{servletdir}/WEB-INF/*.properties
-%config %{webappsdir}/opennms-remoting/WEB-INF/*.properties
-
 %files plugins
 
 %files plugin-provisioning-dns
@@ -476,7 +433,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(664,root,root) %{instprefix}/etc/mapsadapter-configuration.xml
 
 %files plugin-provisioning-rancid
-%attr(664,root,root) %{instprefix}/lib/opennms-rancid*.jar
+%attr(664,root,root) %{instprefix}/lib/opennms-rancid-%{version}*.jar
 
 %files plugin-provisioning-snmp-asset
 %attr(664,root,root) %{instprefix}/lib/opennms-snmp-asset-provisioning-adapter*.jar
@@ -599,95 +556,5 @@ if [ "$1" = 0 ]; then
 fi
 
 %changelog
-* Mon Jul 19 2010 Seth Leger <seth@opennms.org>
-- Added SNMP asset provisioning adapter.
-
-* Tue Sep 29 2009 Benjamin Reed <ranger@opennms.org>
-- Add provisioning adapters as optional packages.
-
-* Mon Oct 29 2007 Benjamin Reed <ranger@opennms.org>
-- Make sure the postinstall happens in opennms-core, not opennms.
-
-* Tue Sep 18 2007 Benjamin Reed <ranger@opennms.org>
-- Look for existing libraries and auto-populate libraries.properties,
-  if possible.
-
-* Tue Sep 04 2007 Benjamin Reed <ranger@opennms.org>
-- Split out -core and the webapps for easier balance of custom-installs
-  across systems and easy install through package management.
-
-* Thu Aug 16 2007 Benjamin Reed <ranger@opennms.org>
-- Added handling of Jetty stuff.
-
-* Wed Jul 25 2007 Benjamin Reed <ranger@opennms.org>
-- Updated to be noarch, now that all native code has been moved to
-  separate packages
-
-* Fri Jan 05 2007 DJ Gregor <dj@opennms.org>
-- Change the postgresql versions to 7.4.  The installer will not work
-  with anything earlier than 7.4.
-- Add WEB-INF/configuration.properties in the webapp as a configuration
-  file.
-- Fix up a comment to reflect the current name of the opennms startup script.
-
-* Thu Jan 20 2005 DJ Gregor <dj@opennms.org>
-- Remove much of the automatic bits that were performed at
-  install time.
-
-* Tue Sep 28 2004 Matt Brozowski <brozow@opennms.org>
-- Modified to use opennms.xml rather than changes to server.xml
-
-* Fri Nov 16 2001 Ben Reed <ben@opennms.org>
-- Updated symlinks to point to tomcat 4.0.1 dirs
-
-* Wed Oct 31 2001 Brian Weaver <weave@oculan.com>
-- Added more dependencies since the webapp package was being
-  installed BEFORE tomcat which just doesn't work.
-
-* Tue Oct 30 2001 Brian Weaver <weave@oculan.com>
-- Changed support from OpenJMS to JBossMQ
-
-* Wed Oct 24 2001 Ben Reed <ben@opennms.org>
-- changed things around so server.xml clobbers tomcat's
-  server.xml, if one exists in
-  webapps/%{name}/WEB-INF/server.xml
-
-* Tue Oct 09 2001 Brian Weaver <weave@oculan.com>
-- Removed the OpenJMS jar code after build so that
-  it is not installed. This will force the client
-  to use the OpenJMS jar files from /usr/share/java
-  to ensure that the client/server are communicating
-  correctly.
-
-* Tue Oct 02 2001 Benjamin Reed <ben@opennms.org>
-- added /var/tomcat4 to add some opennms jars
-
-* Tue Oct 02 2001 Benjamin Reed <ben@opennms.org>
-- init in temporarily gone until the new startup stuff is
-  worked out
-
-* Tue Oct 02 2001 Benjamin Reed <ben@opennms.org>
-- postun gone, move much of pre into build-time, fix
-  for doc and log link errors
-
-* Sun Sep 30 2001 Benjamin Reed <ben@opennms.org>
-- changed to handle generating a proper .src.rpm that can
-  be built standalone
-
-* Tue Sep 11 2001 Benjamin Reed <ben@opennms.org>
-- Ported the RPM to the experimental build.
-
-* Mon Apr 16 2001 Benjamin Reed <ben@opennms.org>
-- Added a /usr/bin/opennms that calls the opennms script
-  in %{instprefix} for convenience
-
-* Tue Apr 04 2001 Benjamin Reed <ben@opennms.org>
-- Rearranged to work with the new build system.
-
-* Mon Nov 27 2000 Benjamin Reed <ben@opennms.org>
-- Work on actually doing something other than copying files
-- Addition of distribution-specific conditionals
-
-* Wed Nov 8 2000 Benjamin Reed <ben@opennms.org>
-- Initial RPM
-
+* Thu Feb 10 2011 Benjamin Reed <ranger@opennms.org>
+- See http://opennms.git.sourceforge.net/git/gitweb.cgi?p=opennms/opennms;a=history;f=tools/packages/opennms/opennms.spec;hb=HEAD for the full commit log.

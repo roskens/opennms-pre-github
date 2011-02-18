@@ -82,10 +82,8 @@ public class HostResourceSWRunDetectorTest implements ApplicationContextAware {
     }
     
     @After
-    public void tearDown(){
-        if(m_snmpAgent != null && m_snmpAgent.isRunning()){
-            m_snmpAgent.stop();
-        }
+    public void tearDown() throws InterruptedException {
+        m_snmpAgent.shutDownAndWait();
     }
     
     @Test
@@ -104,4 +102,9 @@ public class HostResourceSWRunDetectorTest implements ApplicationContextAware {
         
     }
 
+    @Test
+    public void testLackOfCaseSensitivity() throws UnknownHostException{
+        m_detector.setServiceToDetect("Omnitek XR.exe");
+        assertTrue(m_detector.isServiceDetected(InetAddress.getByName(TEST_IP_ADDRESS), new NullDetectorMonitor()));
+    }
 }

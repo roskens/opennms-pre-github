@@ -75,6 +75,7 @@ if (defined $TESTS) {
 	debug("tests are not enabled, passing -Dmaven.test.skip.exec=true");
 	unshift(@ARGS, '-Dmaven.test.skip.exec=true');
 }
+unshift(@ARGS, '-Djava.awt.headless=true');
 
 if (grep { $_ =~ /^-Droot.dir=/ } @ARGS) {
 	debug("root.dir defined");
@@ -83,21 +84,45 @@ if (grep { $_ =~ /^-Droot.dir=/ } @ARGS) {
 	unshift(@ARGS, '-Droot.dir=' . $PREFIX);
 }
 
+if (-r $ENV{'HOME'} . "/.opennms-buildrc") {
+	if (open(FILEIN, $ENV{'HOME'} . "/.opennms-buildrc")) {
+		while (my $line = <FILEIN>) {
+			chomp($line);
+			if ($line !~ /^\s*$/ && $line !~ /^\s*\#/) {
+				unshift(@ARGS, $line);
+			}
+		}
+		close(FILEIN);
+	}
+}
+
 $ENV{'MAVEN_OPTS'} = $MAVEN_OPTS;
 info("MAVEN_OPTS = $MAVEN_OPTS"); 
 
-sub handle_errors_and_exit {
-	my $exit = $_;
-	if ($_ == 0) {
+sub handle_errors {
+	my $exit = shift;
+	if ($exit == 0) {
 		info("finished successfully");
-	} elsif ($_ == -1) {
+	} elsif ($exit == -1) {
 		error("failed to execute: $!");
-	} elsif ($_ & 127) {
-		error("child died with signal " . ($_ & 127));
+	} elsif ($exit & 127) {
+		error("child died with signal " . ($exit & 127));
 	} else {
-		error("child exited with value " . ($_ >> 8));
+		error("child exited with value " . ($exit >> 8));
 	}
-	exit $_ >> 8;
+	return $exit;
+}
+
+sub handle_errors_and_exit_on_failure {
+	my $exit = handle_errors(@_);
+	if ($exit != 0) {
+		exit ($exit >> 8);
+	}
+}
+
+sub handle_errors_and_exit {
+	my $exit = handle_errors(@_);
+	exit ($exit >> 8);
 }
 
 sub debug {

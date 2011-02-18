@@ -44,11 +44,15 @@ import java.lang.reflect.UndeclaredThrowableException;
 
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
+import org.opennms.core.utils.BeanUtils;
 import org.opennms.core.queue.FifoQueue;
 import org.opennms.core.queue.FifoQueueImpl;
 import org.opennms.netmgt.config.ScriptdConfigFactory;
 import org.opennms.netmgt.daemon.AbstractServiceDaemon;
+import org.opennms.netmgt.dao.NodeDao;
 import org.opennms.netmgt.xml.event.Event;
+
+import org.springframework.beans.factory.access.BeanFactoryReference;
 
 /**
  * This class implements a script execution service. This service subscribes to
@@ -120,12 +124,16 @@ public final class Scriptd extends AbstractServiceDaemon {
 
         try {
             m_eventReader = new BroadcastEventProcessor(execQ);
-        } catch (Exception ex) {
+        } catch (Throwable ex) {
             log().error("Failed to setup event reader", ex);
             throw new UndeclaredThrowableException(ex);
         }
 
-        m_execution = new Executor(execQ, aFactory);
+        // get the node DAO
+        BeanFactoryReference bf = BeanUtils.getBeanFactory("daoContext");
+        NodeDao nodeDao = BeanUtils.getBean(bf, "nodeDao", NodeDao.class);
+
+        m_execution = new Executor(execQ, aFactory, nodeDao);
     }
 
     /**
@@ -148,7 +156,7 @@ public final class Scriptd extends AbstractServiceDaemon {
             if (m_execution != null) {
                 m_execution.stop();
             }
-        } catch (Exception e) {
+        } catch (Throwable e) {
         }
 
         if (m_eventReader != null) {

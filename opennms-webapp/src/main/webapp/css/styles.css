@@ -145,8 +145,12 @@ td div.clip {
 }
 
 .normal {
-	font-size: 100%;
+	font-size: 70%;
 	margin: 5px;
+}
+
+.normal p{
+    font-size: 100%;
 }
 
 /* Layouts */
@@ -333,11 +337,14 @@ table.top td {
 
 table.normal {
 	width: auto;
+	font-size: 100%;
 }
 table.normal td {
 	border: none;
 	background-color: transparent;
+	font-size: 70%;
 }
+
 td.normal {
 	border: none;
 	background-color: transparent;
@@ -784,4 +791,29 @@ li.pagination {
 
 .pagination img {
         vertical-align: middle;
+}
+
+/* Standard form - used for database reports */
+
+.stdform {
+	margin:0 50px; 
+	padding:50px 0;
+}
+
+.stdform .label{
+	font-size: 100%;
+	float: left;
+	width: 230px;
+	margin-right: 10px;
+	text-align: right;
+	clear: left;
+	display: block;
+}
+
+.stdform p select, .stdform p input, .stdform p option, .stdform p options {
+	font-size: 70%;
+}
+
+.stdform .indent {
+	margin-left: 240px;
 }

@@ -98,7 +98,7 @@ public class AcknowledgmentRestService extends OnmsRestService {
      * @return a {@link org.opennms.netmgt.model.OnmsAcknowledgment} object.
      */
     @GET
-    @Produces("text/xml")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Path("{id}")
     @Transactional
     public OnmsAcknowledgment getAcknowledgment(@PathParam("id") String alarmId) {
@@ -112,7 +112,7 @@ public class AcknowledgmentRestService extends OnmsRestService {
      * @return a {@link java.lang.String} object.
      */
     @GET
-    @Produces("text/plain")
+    @Produces(MediaType.TEXT_PLAIN)
     @Path("count")
     @Transactional
     public String getCount() {
@@ -125,17 +125,17 @@ public class AcknowledgmentRestService extends OnmsRestService {
      * @return a {@link org.opennms.netmgt.model.OnmsAcknowledgmentCollection} object.
      */
     @GET
-    @Produces("text/xml")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Transactional
     public OnmsAcknowledgmentCollection getAcks() {
-    	MultivaluedMap<java.lang.String,java.lang.String> params=m_uriInfo.getQueryParameters();
-		OnmsCriteria criteria=new OnmsCriteria(OnmsAcknowledgment.class);
+        OnmsAcknowledgmentCollection coll = new OnmsAcknowledgmentCollection(m_ackDao.findMatching(getQueryFilters(m_uriInfo.getQueryParameters())));
 
-    	setLimitOffset(params, criteria);
-    	addOrdering(params, criteria, false);
-    	addFiltersToCriteria(params, criteria, OnmsAcknowledgment.class);
+        //For getting totalCount
+        OnmsCriteria crit = new OnmsCriteria(OnmsAcknowledgment.class);
+        addFiltersToCriteria(m_uriInfo.getQueryParameters(), crit, OnmsAcknowledgment.class);
+        coll.setTotalCount(m_ackDao.countMatching(crit));
 
-        return new OnmsAcknowledgmentCollection(m_ackDao.findMatching(getDistinctIdCriteria(OnmsAcknowledgment.class, criteria)));
+        return coll;
     }
 
 //    @PUT
@@ -174,6 +174,23 @@ public class AcknowledgmentRestService extends OnmsRestService {
         return ack;
         
     }
-    
-}
 
+    private OnmsCriteria getQueryFilters(MultivaluedMap<String,String> params) {
+        OnmsCriteria criteria = new OnmsCriteria(OnmsAcknowledgment.class);
+
+        setLimitOffset(params, criteria, DEFAULT_LIMIT, false);
+        addOrdering(params, criteria, false);
+        // Set default ordering
+        addOrdering(
+            new MultivaluedMapImpl(
+                new String[][] { 
+                    new String[] { "orderBy", "ackTime" }, 
+                    new String[] { "order", "desc" } 
+                }
+            ), criteria, false
+        );
+        addFiltersToCriteria(params, criteria, OnmsAcknowledgment.class);
+
+        return getDistinctIdCriteria(OnmsAcknowledgment.class, criteria);
+    }
+}

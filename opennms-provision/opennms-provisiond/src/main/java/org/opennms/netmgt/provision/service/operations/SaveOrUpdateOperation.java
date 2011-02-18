@@ -38,6 +38,7 @@ package org.opennms.netmgt.provision.service.operations;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+import org.opennms.netmgt.config.modelimport.types.InterfaceSnmpPrimaryType;
 import org.opennms.netmgt.model.OnmsCategory;
 import org.opennms.netmgt.model.OnmsIpInterface;
 import org.opennms.netmgt.model.OnmsMonitoredService;
@@ -47,6 +48,7 @@ import org.opennms.netmgt.model.OnmsIpInterface.PrimaryType;
 import org.opennms.netmgt.provision.service.ProvisionService;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
+import org.springframework.beans.BeansException;
 
 /**
  * <p>Abstract SaveOrUpdateOperation class.</p>
@@ -114,11 +116,11 @@ public abstract class SaveOrUpdateOperation extends ImportOperation {
 	 *
 	 * @param ipAddr a {@link java.lang.String} object.
 	 * @param descr a {@link java.lang.Object} object.
-	 * @param snmpPrimary a {@link java.lang.String} object.
+	 * @param snmpPrimary a {@link InterfaceSnmpPrimaryType} object.
 	 * @param managed a boolean.
 	 * @param status a int.
 	 */
-	public void foundInterface(String ipAddr, Object descr, String snmpPrimary, boolean managed, int status) {
+	public void foundInterface(String ipAddr, Object descr, InterfaceSnmpPrimaryType snmpPrimary, boolean managed, int status) {
 		
 		if (ipAddr == null || "".equals(ipAddr.trim())) {
 		    log().error(String.format("Found interface on node %s with an empty ipaddr! Ignoring!", m_node.getLabel()));
@@ -127,9 +129,9 @@ public abstract class SaveOrUpdateOperation extends ImportOperation {
 
         m_currentInterface = new OnmsIpInterface(ipAddr, m_node);
         m_currentInterface.setIsManaged(status == 3 ? "U" : "M");
-        m_currentInterface.setIsSnmpPrimary(PrimaryType.get(snmpPrimary));
+        m_currentInterface.setIsSnmpPrimary(PrimaryType.get(snmpPrimary.toString()));
         
-        if ("P".equals(snmpPrimary)) {
+        if (InterfaceSnmpPrimaryType.P.equals(snmpPrimary)) {
 
             try {
                 m_scanManager = new ScanManager(InetAddress.getByName(ipAddr));
@@ -171,7 +173,7 @@ public abstract class SaveOrUpdateOperation extends ImportOperation {
         if (m_currentInterface != null) {
             OnmsServiceType svcType = getProvisionService().createServiceTypeIfNecessary(serviceName);
             OnmsMonitoredService service = new OnmsMonitoredService(m_currentInterface, svcType);
-            service.setStatus("A");
+            service.setStatus("A"); // DbIfServiceEntry.STATUS_ACTIVE
             m_currentInterface.getMonitoredServices().add(service);
         }
     
@@ -204,6 +206,10 @@ public abstract class SaveOrUpdateOperation extends ImportOperation {
      */
     public void foundAsset(String name, String value) {
         BeanWrapper w = new BeanWrapperImpl(m_node.getAssetRecord());
-        w.setPropertyValue(name, value);
+        try {
+            w.setPropertyValue(name, value);
+        } catch (BeansException e) {
+            log().error("Could not set property on object of type " + m_node.getClass().getName() + ": " + name, e);
+        }
     }
 }

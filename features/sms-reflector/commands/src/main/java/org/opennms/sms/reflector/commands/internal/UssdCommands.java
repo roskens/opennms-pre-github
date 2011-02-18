@@ -14,7 +14,7 @@ import org.smslib.USSDRequest;
 public class UssdCommands implements CommandProvider
 {
     private SmsService m_service;
-    private USSDNotification m_ussdNotification;
+    // private USSDNotification m_ussdNotification;
     
     /**
      * <p>setService</p>
@@ -46,7 +46,7 @@ public class UssdCommands implements CommandProvider
 
         try {
             m_service.sendUSSDRequest(req, gwId);
-        } catch (Exception e) {
+        } catch (Throwable e) {
             intp.println("Exception sending USSD request: " + e.getMessage());
             intp.printStackTrace(e);
         }

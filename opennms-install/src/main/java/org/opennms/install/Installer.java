@@ -103,8 +103,6 @@ import org.springframework.util.StringUtils;
  * @version $Id: $
  */
 public class Installer {
-    static final String s_version = "$Id$";
-
     static final String LIBRARY_PROPERTY_FILE = "libraries.properties";
 
     String m_opennms_home = null;
@@ -207,6 +205,7 @@ public class Installer {
             m_migration.setChangeLog("changelog.xml");
         }
 
+        checkIPv6();
 
         /*
          * make sure we can load the ICMP library before we go any farther
@@ -298,6 +297,14 @@ public class Installer {
         m_out.println("Installer completed successfully!");
     }
 
+	private void checkIPv6() {
+		final IPv6Validator v6Validator = new IPv6Validator();
+        if (!v6Validator.isPlatformIPv6Ready()) {
+        	m_out.println("Your OS does not support IPv6.");
+        	System.exit(1);
+        }
+	}
+
     private void handleConfigurationChanges() {
         File etcDir = new File(m_opennms_home + File.separator + "etc");
         File importDir = new File(m_import_dir);
@@ -355,7 +362,7 @@ public class Installer {
      */
     public void printHeader() {
         m_out.println("==============================================================================");
-        m_out.println("OpenNMS Installer Version " + s_version);
+        m_out.println("OpenNMS Installer");
         m_out.println("==============================================================================");
         m_out.println("");
         m_out.println("Configures PostgreSQL tables, users, and other miscellaneous settings.");
@@ -1020,7 +1027,7 @@ public class Installer {
                     searchPaths.add(value);
                 }
             }
-        } catch (Exception e) {
+        } catch (Throwable e) {
             // ok if we can't read these, we'll try to find them
         }
 

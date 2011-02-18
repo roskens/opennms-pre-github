@@ -14,6 +14,8 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 /**
  * <p>RequisitionCategory class.</p>
  *
@@ -23,7 +25,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name="")
 @XmlRootElement(name="category")
-public class RequisitionCategory {
+public class RequisitionCategory implements Comparable<RequisitionCategory> {
 
     @XmlAttribute(name="name", required=true)
     protected String m_name;
@@ -59,5 +61,22 @@ public class RequisitionCategory {
      */
     public void setName(String value) {
         m_name = value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof RequisitionCategory) {
+            return this.compareTo((RequisitionCategory)o) == 0;
+        } else return false;
+    }
+
+    public int compareTo(RequisitionCategory o) {
+        return m_name.compareTo(o.getName());
+    }
+
+    public String toString() {
+    	return new ToStringBuilder(this)
+    		.append("name", m_name)
+    		.toString();
     }
 }
