@@ -1,458 +1,566 @@
 package org.opennms.netmgt.config.tester;
 
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.io.File;
+import java.io.FilenameFilter;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.sql.DataSource;
+
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.Ignore;
-import org.opennms.netmgt.config.tester.ConfigTester;
+import org.opennms.netmgt.config.DataSourceFactory;
+import org.opennms.test.ConfigurationTestUtils;
 import org.opennms.test.DaoTestConfigBean;
+import org.springframework.util.StringUtils;
 
 
 public class ConfigTesterTest {
-	@Before
+    private static Set<String> m_filesTested = new HashSet<String>();
+    private static Set<String> m_filesIgnored = new HashSet<String>();
+	private TestDataSource m_dataSource;
+
+    @Before
 	public void init() {
         DaoTestConfigBean daoTestConfig = new DaoTestConfigBean();
         daoTestConfig.afterPropertiesSet();
+        
+        m_dataSource = new TestDataSource();
+		DataSourceFactory.setInstance(m_dataSource);
 	}
+    
+    @After
+    public void done() {
+    	if (m_dataSource.getConnectionGetAttempts().size() > 0) {
+    		StringWriter writer = new StringWriter();
+    		PrintWriter printWriter = new PrintWriter(writer);
+    		for (SQLException e : m_dataSource.getConnectionGetAttempts()) {
+				e.printStackTrace(printWriter);
+    		}
+    		fail(m_dataSource.getConnectionGetAttempts().size()
+    				+ " DataSource.getConnection attempts were made: \n"
+    				+ writer.toString());
+    	}
+    }
 
 	@Test
 	public void testAckdConfiguration() {
-        ConfigTester.main(new String[] { "ackd-configuration.xml" });
+        testConfigFile("ackd-configuration.xml");
 	}
 
 	@Test
 	public void testActiondConfiguration() {
-        ConfigTester.main(new String[] { "actiond-configuration.xml" });
+        testConfigFile("actiond-configuration.xml");
 	}
 
 	@Test
 	public void testAmiConfig() {
-        ConfigTester.main(new String[] { "ami-config.xml" });
+        testConfigFile("ami-config.xml");
 	}
 	
 	@Test
-	@Ignore
 	public void testAsteriskConfiguration() {
-        ConfigTester.main(new String[] { "asterisk-configuration.properties" });
+        ignoreConfigFile("asterisk-configuration.properties");
 	}
 	
 	@Test
 	public void testAvailabilityReports() {
-        ConfigTester.main(new String[] { "availability-reports.xml" });
+        testConfigFile("availability-reports.xml");
 	}
 	
 	@Test
-	@Ignore
 	/**
 	 * This file isn't read directly by OpenNMS.
 	 */
 	public void testC3p0Properties() {
-        ConfigTester.main(new String[] { "c3p0.properties" });
+        ignoreConfigFile("c3p0.properties");
 	}
 	
 	@Test
 	public void testCapsdConfiguration() {
-        ConfigTester.main(new String[] { "capsd-configuration.xml" });
+        testConfigFile("capsd-configuration.xml");
 	}
 	
 	@Test
 	public void testCategories() {
-        ConfigTester.main(new String[] { "categories.xml" });
+        testConfigFile("categories.xml");
 	}
 	
 	@Test
 	public void testChartConfiguration() {
-        ConfigTester.main(new String[] { "chart-configuration.xml" });
+        testConfigFile("chart-configuration.xml");
 	}
 	
 	@Test
-	@Ignore
 	public void testCollectdConfiguration() {
-        ConfigTester.main(new String[] { "collectd-configuration.xml" });
+        testConfigFile("collectd-configuration.xml");
 	}
 	
 	@Test
 	public void testDatabaseReports() {
-        ConfigTester.main(new String[] { "database-reports.xml" });
+        testConfigFile("database-reports.xml");
 	}
 	
 	@Test
 	public void testDatabaseSchema() {
-        ConfigTester.main(new String[] { "database-schema.xml" });
+        testConfigFile("database-schema.xml");
 	}
 	
 	@Test
 	public void testDataCollectionConfig() {
-        ConfigTester.main(new String[] { "datacollection-config.xml" });
+        testConfigFile("datacollection-config.xml");
 	}
 	
 	@Test
 	public void testDestinationPaths() {
-        ConfigTester.main(new String[] { "destinationPaths.xml" });
+        testConfigFile("destinationPaths.xml");
 	}
 	
 	@Test
 	public void testDhcpdConfiguration() {
-        ConfigTester.main(new String[] { "dhcpd-configuration.xml" });
+        testConfigFile("dhcpd-configuration.xml");
 	}
 	
 	@Test
 	public void testDiscoveryConfiguration() {
-        ConfigTester.main(new String[] { "discovery-configuration.xml" });
+        testConfigFile("discovery-configuration.xml");
 	}
 
 	@Test
-	@Ignore
 	public void testEventConf() {
-        ConfigTester.main(new String[] { "eventconf.xml" });
+        testConfigFile("eventconf.xml");
 	}
     
 	@Test
     public void testEventdConfiguration() {
-        ConfigTester.main(new String[] { "eventd-configuration.xml" });
+        testConfigFile("eventd-configuration.xml");
     }
     
 	@Test
     public void testEventsArchiverConfiguration() {
-        ConfigTester.main(new String[] { "events-archiver-configuration.xml" });
+        testConfigFile("events-archiver-configuration.xml");
     }
     
 	@Test
     public void testExcludeUeis() {
-        ConfigTester.main(new String[] { "exclude-ueis.properties" });
+        testConfigFile("exclude-ueis.properties");
     }
 
 	@Test
     public void testGroups() {
-        ConfigTester.main(new String[] { "groups.xml" });
+        testConfigFile("groups.xml");
     }
     
 	@Test
     public void testHttpDatacollectionConfig() {
-        ConfigTester.main(new String[] { "http-datacollection-config.xml" });
+        testConfigFile("http-datacollection-config.xml");
     }
 
 	@Test
     public void testJasperReports() {
-        ConfigTester.main(new String[] { "jasper-reports.xml" });
+        testConfigFile("jasper-reports.xml");
     }
     
 	@Test
     public void testJavamailConfigurationProperties() {
-        ConfigTester.main(new String[] { "javamail-configuration.properties" });
+        testConfigFile("javamail-configuration.properties");
     }
     
 	@Test
     public void testJavamailConfigurationXml() {
-        ConfigTester.main(new String[] { "javamail-configuration.xml" });
+        testConfigFile("javamail-configuration.xml");
     }
 
 	@Test
     public void testJdbcDatacollectionConfig() {
-        ConfigTester.main(new String[] { "jdbc-datacollection-config.xml" });
+        testConfigFile("jdbc-datacollection-config.xml");
     }
     
 	@Test
     public void testJmxDatacollectionConfig() {
-        ConfigTester.main(new String[] { "jmx-datacollection-config.xml" });
+        testConfigFile("jmx-datacollection-config.xml");
     }
 
     @Test
 	public void testKscPerformanceReports() {
-        ConfigTester.main(new String[] { "ksc-performance-reports.xml" });
+        testConfigFile("ksc-performance-reports.xml");
 	}
 
     @Test
-    @Ignore
     public void testLinkdConfiguration() {
-        ConfigTester.main(new String[] { "linkd-configuration.xml" });
+        ignoreConfigFile("linkd-configuration.xml");
     }
 
     @Test
     public void testMagicUsers() {
-        ConfigTester.main(new String[] { "magic-users.properties" });
+        testConfigFile("magic-users.properties");
     }
 
     @Test
     public void testMap() {
-        ConfigTester.main(new String[] { "map.properties" });
+        testConfigFile("map.properties");
     }
     
     @Test
-    @Ignore
     public void testMapsadapterConfiguration() {
-        ConfigTester.main(new String[] { "mapsadapter-configuration.xml" });
+        ignoreConfigFile("mapsadapter-configuration.xml");
     }
     
     @Test
     public void testMicroblogConfiguration() {
-        ConfigTester.main(new String[] { "microblog-configuration.xml" });
+        testConfigFile("microblog-configuration.xml");
     }
     
     @Test
     public void testModelImporter() {
-        ConfigTester.main(new String[] { "model-importer.properties" });
+        testConfigFile("model-importer.properties");
     }
     
     @Test
-    @Ignore
     /**
      * See GatewayGroupLoader for the code that we'd need to call in the ConfigTester.
      */
     public void testModemConfig() {
-        ConfigTester.main(new String[] { "modemConfig.properties" });
+        ignoreConfigFile("modemConfig.properties");
     }
     
     @Test
     public void testMonitoringLocations() {
-        ConfigTester.main(new String[] { "monitoring-locations.xml" });
+        testConfigFile("monitoring-locations.xml");
     }
     
     @Test
     public void testNotifdConfiguration() {
-        ConfigTester.main(new String[] { "notifd-configuration.xml" });
+        testConfigFile("notifd-configuration.xml");
     }
 
     @Test
     public void testNotificationCommands() {
-        ConfigTester.main(new String[] { "notificationCommands.xml" });
+        testConfigFile("notificationCommands.xml");
     }
     
     @Test
-    @Ignore
     public void testNotifications() {
-        ConfigTester.main(new String[] { "notifications.xml" });
+        ignoreConfigFile("notifications.xml");
     }
     
     @Test
     public void testNsclientConfig() {
-        ConfigTester.main(new String[] { "nsclient-config.xml" });
+        testConfigFile("nsclient-config.xml");
     }
     
     @Test
     public void testNsclientDatacollectionConfig() {
-        ConfigTester.main(new String[] { "nsclient-datacollection-config.xml" });
+        testConfigFile("nsclient-datacollection-config.xml");
     }
     
     @Test
     public void testOpennmsDatasources() {
-        ConfigTester.main(new String[] { "opennms-datasources.xml" });
+        testConfigFile("opennms-datasources.xml");
     }
     
     @Test
     public void testOpennmsServer() {
-        ConfigTester.main(new String[] { "opennms-server.xml" });
+        testConfigFile("opennms-server.xml");
     }
     
     @Test
-    @Ignore
     public void testOpennms() {
-        ConfigTester.main(new String[] { "opennms.properties" });
+        ignoreConfigFile("opennms.properties");
     }
     
     @Test
     public void testOtrs() {
-        ConfigTester.main(new String[] { "otrs.properties" });
+        testConfigFile("otrs.properties");
     }
     
     @Test
     public void testPollOutages() {
-        ConfigTester.main(new String[] { "poll-outages.xml" });
+        testConfigFile("poll-outages.xml");
     }
     
     @Test
     public void testPollerConfig() {
-        ConfigTester.main(new String[] { "poller-config.properties" });
+        testConfigFile("poller-config.properties");
     }
     
     @Test
-    @Ignore
     public void testPollerConfiguration() {
-        ConfigTester.main(new String[] { "poller-configuration.xml" });
+        ignoreConfigFile("poller-configuration.xml");
     }
     
     @Test
     public void testProvisiondConfiguration() {
-        ConfigTester.main(new String[] { "provisiond-configuration.xml" });
+        testConfigFile("provisiond-configuration.xml");
     }
 
     @Test
-    @Ignore
     public void testRancidConfiguration() {
-        ConfigTester.main(new String[] { "rancid-configuration.xml" });
+        ignoreConfigFile("rancid-configuration.xml");
     }
 
     @Test
     public void testReportdConfiguration() {
-        ConfigTester.main(new String[] { "reportd-configuration.xml" });
+        testConfigFile("reportd-configuration.xml");
     }
 	
 	@Test
 	public void testResponseAdhocGraph() {
-        ConfigTester.main(new String[] { "response-adhoc-graph.properties" });
+        testConfigFile("response-adhoc-graph.properties");
 	}
 	
 	@Test
 	public void testResponsePrefabGraph() {
-        ConfigTester.main(new String[] { "response-graph.properties" });
+        testConfigFile("response-graph.properties");
 	}
 
 	@Test
     public void testRrdConfiguration() {
-        ConfigTester.main(new String[] { "rrd-configuration.properties" });
+        testConfigFile("rrd-configuration.properties");
     }
 
 	@Test
     public void testRt() {
-        ConfigTester.main(new String[] { "rt.properties" });
+        testConfigFile("rt.properties");
     }
 
 	@Test
     public void testRtcConfiguration() {
-        ConfigTester.main(new String[] { "rtc-configuration.xml" });
+        testConfigFile("rtc-configuration.xml");
     }
 
 	@Test
     public void testRwsConfiguration() {
-        ConfigTester.main(new String[] { "rws-configuration.xml" });
+        testConfigFile("rws-configuration.xml");
     }
 
 	@Test
     public void testScriptdConfiguration() {
-        ConfigTester.main(new String[] { "scriptd-configuration.xml" });
+        testConfigFile("scriptd-configuration.xml");
     }
 
 	@Test
     public void testServiceConfiguration() {
-        ConfigTester.main(new String[] { "service-configuration.xml" });
+        testConfigFile("service-configuration.xml");
     }
 
 	@Test
     public void testSiteStatusViews() {
-        ConfigTester.main(new String[] { "site-status-views.xml" });
+        testConfigFile("site-status-views.xml");
     }
 
 	@Test
     public void testSmsPhonebook() {
-        ConfigTester.main(new String[] { "smsPhonebook.properties" });
+        testConfigFile("smsPhonebook.properties");
     }
 
 	@Test
 	public void testSnmpAdhocGraph() {
-        ConfigTester.main(new String[] { "snmp-adhoc-graph.properties" });
+        testConfigFile("snmp-adhoc-graph.properties");
 	}
 
 	@Test
-	@Ignore
     public void testSnmpAssetAdapterConfiguration() {
-        ConfigTester.main(new String[] { "snmp-asset-adapter-configuration.xml" });
+        ignoreConfigFile("snmp-asset-adapter-configuration.xml");
     }
 
 	@Test
     public void testSnmpConfig() {
-        ConfigTester.main(new String[] { "snmp-config.xml" });
+        testConfigFile("snmp-config.xml");
     }
 
 	@Test
 	public void testSnmpPrefabGraph() {
-        ConfigTester.main(new String[] { "snmp-graph.properties" });
+        testConfigFile("snmp-graph.properties");
 	}
 
 	@Test
-	@Ignore
     public void testSnmpInterfacePollerConfiguration() {
-        ConfigTester.main(new String[] { "snmp-interface-poller-configuration.xml" });
+        ignoreConfigFile("snmp-interface-poller-configuration.xml");
     }
 
 	@Test
     public void testStatsdConfiguration() {
-        ConfigTester.main(new String[] { "statsd-configuration.xml" });
+        testConfigFile("statsd-configuration.xml");
     }
 
 	@Test
     public void testSurveillanceViews() {
-        ConfigTester.main(new String[] { "surveillance-views.xml" });
+        testConfigFile("surveillance-views.xml");
     }
 
 	@Test
     public void testSyslogdConfiguration() {
-        ConfigTester.main(new String[] { "syslogd-configuration.xml" });
+        testConfigFile("syslogd-configuration.xml");
     }
 
 	@Test
-	@Ignore
     public void testThreshdConfiguration() {
-        ConfigTester.main(new String[] { "threshd-configuration.xml" });
+		ignoreConfigFile("threshd-configuration.xml");
     }
 
 	@Test
     public void testThresholds() {
-        ConfigTester.main(new String[] { "thresholds.xml" });
+        testConfigFile("thresholds.xml");
     }
 
 	@Test
     public void testTl1dConfiguration() {
-        ConfigTester.main(new String[] { "tl1d-configuration.xml" });
+        testConfigFile("tl1d-configuration.xml");
     }
 
 	@Test
-	@Ignore
     public void testTranslatorConfiguration() {
-        ConfigTester.main(new String[] { "translator-configuration.xml" });
+        ignoreConfigFile("translator-configuration.xml");
     }
 
 	@Test
     public void testTrapdConfiguration() {
-        ConfigTester.main(new String[] { "trapd-configuration.xml" });
+        testConfigFile("trapd-configuration.xml");
     }
 
 	@Test
     public void testUsers() {
-        ConfigTester.main(new String[] { "users.xml" });
+        testConfigFile("users.xml");
     }
 
 	@Test
     public void testVacuumdConfiguration() {
-        ConfigTester.main(new String[] { "vacuumd-configuration.xml" });
+        testConfigFile("vacuumd-configuration.xml");
     }
 
 	@Test
     public void testViewsdisplay() {
-        ConfigTester.main(new String[] { "viewsdisplay.xml" });
+        testConfigFile("viewsdisplay.xml");
     }
 
 	@Test
     public void testVulnscandConfiguration() {
-        ConfigTester.main(new String[] { "vulnscand-configuration.xml" });
+        testConfigFile("vulnscand-configuration.xml");
     }
 
 	@Test
     public void testWmiConfig() {
-        ConfigTester.main(new String[] { "wmi-config.xml" });
+        testConfigFile("wmi-config.xml");
     }
 
 	@Test
     public void testWmiDatacollectionConfig() {
-        ConfigTester.main(new String[] { "wmi-datacollection-config.xml" });
+        testConfigFile("wmi-datacollection-config.xml");
     }
 
 	@Test
     public void testXmlrpcdConfiguration() {
-        ConfigTester.main(new String[] { "xmlrpcd-configuration.xml" });
+        testConfigFile("xmlrpcd-configuration.xml");
     }
 
 	@Test
     public void testXmpConfig() {
-        ConfigTester.main(new String[] { "xmp-config.xml" });
+        testConfigFile("xmp-config.xml");
     }
 
 	@Test
     public void testXmpDatacollectionConfig() {
-        ConfigTester.main(new String[] { "xmp-datacollection-config.xml" });
+        testConfigFile("xmp-datacollection-config.xml");
     }
 
 	@Test
-	@Ignore
     public void testXmppConfiguration() {
-        ConfigTester.main(new String[] { "xmpp-configuration.properties" });
+        ignoreConfigFile("xmpp-configuration.properties");
+    }
+
+	private void testConfigFile(String file) {
+		ConfigTester.main(new String[] { file });
+        m_filesTested.add(file);
+	}
+	
+	private void ignoreConfigFile(String file) {
+        m_filesIgnored.add(file);
+	}
+	
+    @Test
+    public void testCheckAllDaemonXmlConfigFilesTested() {
+        File someConfigFile = ConfigurationTestUtils.getFileForConfigFile("discovery-configuration.xml");
+        File configDir = someConfigFile.getParentFile();
+        assertTrue("daemon configuration directory exists at " + configDir.getAbsolutePath(), configDir.exists());
+        assertTrue("daemon configuration directory is a directory at " + configDir.getAbsolutePath(), configDir.isDirectory());
+
+        String[] configFiles = configDir.list(new FilenameFilter() {
+            public boolean accept(File file, String name) {
+                return name.endsWith(".xml");
+            } });
+        
+        Set<String> allXml = new HashSet<String>(Arrays.asList(configFiles));
+        
+        allXml.removeAll(m_filesTested);
+        allXml.removeAll(m_filesIgnored);
+        
+        if (allXml.size() > 0) {
+            List<String> files = new ArrayList<String>(allXml);
+            Collections.sort(files);
+            fail("These files in " + configDir.getAbsolutePath() + " were not tested: \n\t" + StringUtils.collectionToDelimitedString(files, "\n\t"));
+        }
+    }
+    
+    private class TestDataSource implements DataSource {
+
+		private List<SQLException> m_connectionGetAttempts = new ArrayList<SQLException>();
+
+		public PrintWriter getLogWriter() throws SQLException {
+			return null;
+		}
+
+		public int getLoginTimeout() throws SQLException {
+			return 0;
+		}
+
+		public void setLogWriter(PrintWriter arg0) throws SQLException {
+		}
+
+		public void setLoginTimeout(int arg0) throws SQLException {
+		}
+
+		public boolean isWrapperFor(Class<?> arg0) throws SQLException {
+			return false;
+		}
+
+		public <T> T unwrap(Class<T> arg0) throws SQLException {
+			return null;
+		}
+
+		public Connection getConnection() throws SQLException {
+			return createStoreAndThrowException();
+		}
+
+		public Connection getConnection(String arg0, String arg1)
+				throws SQLException {
+			return createStoreAndThrowException();
+		}
+
+		private Connection createStoreAndThrowException() throws SQLException {
+			SQLException e = createException();
+			m_connectionGetAttempts.add(e);
+			throw e;
+		}
+
+		private SQLException createException() {
+			return new SQLException("No database connections should be requested when reading a configuration file, dude.");
+		}
+		
+		public List<SQLException> getConnectionGetAttempts() {
+			return m_connectionGetAttempts;
+		}
     }
 }
