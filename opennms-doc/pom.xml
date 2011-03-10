@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.opennms</groupId>
     <artifactId>opennms</artifactId>
-    <version>1.9.6-SNAPSHOT</version>
+    <version>1.9.7-SNAPSHOT</version>
   </parent>
   <artifactId>opennms-doc</artifactId>
   <packaging>pom</packaging>
@@ -38,6 +38,7 @@
           <htmlStylesheet>common/html.css</htmlStylesheet>
           <xincludeSupported>true</xincludeSupported>
           <foCustomization>${basedir}/src/docbkx/common/fopdf.xsl</foCustomization>
+          <draftWatermarkImage>${basedir}/src/docbkx/images/draft.png</draftWatermarkImage>
           <entities>
             <entity>
               <name>version</name>

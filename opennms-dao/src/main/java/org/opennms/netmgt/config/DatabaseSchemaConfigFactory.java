@@ -125,7 +125,7 @@ public final class DatabaseSchemaConfigFactory {
         InputStream cfgStream = null;
         try {
             cfgStream = new FileInputStream(configFile);
-            m_config = CastorUtils.unmarshal(DatabaseSchema.class, cfgStream, CastorUtils.PRESERVE_WHITESPACE);
+            m_config = CastorUtils.unmarshal(DatabaseSchema.class, cfgStream);
             finishConstruction();
         } finally {
             IOUtils.closeQuietly(cfgStream);
@@ -142,7 +142,7 @@ public final class DatabaseSchemaConfigFactory {
      */
     @Deprecated
     public DatabaseSchemaConfigFactory(final Reader reader) throws IOException, MarshalException, ValidationException {
-        m_config = CastorUtils.unmarshal(DatabaseSchema.class, reader, CastorUtils.PRESERVE_WHITESPACE);
+        m_config = CastorUtils.unmarshal(DatabaseSchema.class, reader);
         finishConstruction();
     }
 
@@ -154,7 +154,7 @@ public final class DatabaseSchemaConfigFactory {
      * @throws org.exolab.castor.xml.ValidationException if any.
      */
     public DatabaseSchemaConfigFactory(final InputStream is) throws MarshalException, ValidationException {
-        m_config = CastorUtils.unmarshal(DatabaseSchema.class, is, CastorUtils.PRESERVE_WHITESPACE);
+        m_config = CastorUtils.unmarshal(DatabaseSchema.class, is);
         finishConstruction();
     }
 
@@ -242,11 +242,12 @@ public final class DatabaseSchemaConfigFactory {
      * @return the database schema
      */
     public DatabaseSchema getDatabaseSchema() {
-        getReadLock().lock();
+        final Lock lock = getReadLock();
+		lock.lock();
         try {
             return m_config;
         } finally {
-            getReadLock().unlock();
+            lock.unlock();
         }
     }
 
@@ -356,11 +357,12 @@ public final class DatabaseSchemaConfigFactory {
      * @return the number of tables in the schema
      */
     public int getTableCount() {
-        getReadLock().lock();
+        final Lock lock = getReadLock();
+		lock.lock();
         try {
             return getDatabaseSchema().getTableCount();
         } finally {
-            getReadLock().unlock();
+            lock.unlock();
         }
     }
 

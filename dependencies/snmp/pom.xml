@@ -2,7 +2,7 @@
   <parent>
     <groupId>org.opennms</groupId>
     <artifactId>dependencies</artifactId>
-    <version>1.9.6-SNAPSHOT</version>
+    <version>1.9.7-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.opennms.dependencies</groupId>
@@ -70,6 +70,7 @@
       <version>${opennmsSnmpApiVersion}</version>
       <exclusions>
         <exclusion><groupId>org.opennms.core</groupId><artifactId>org.opennms.core.lib</artifactId></exclusion>
+        <exclusion><groupId>org.opennms.lib</groupId><artifactId>org.opennms.lib.joesnmp</artifactId></exclusion>
         <exclusion><groupId>org.opennms</groupId><artifactId>opennms-util</artifactId></exclusion>
         <exclusion><groupId>org.opennms.dependencies</groupId><artifactId>hibernate-dependencies</artifactId></exclusion>
         <exclusion><groupId>org.opennms.dependencies</groupId><artifactId>spring-dependencies</artifactId></exclusion>

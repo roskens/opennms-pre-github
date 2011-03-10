@@ -103,7 +103,7 @@ public class DaoWebEventRepository implements WebEventRepository {
                     criteria.addOrder(Order.desc("node.label"));
                     break;
                 case POLLER:
-                    criteria.addOrder(Order.desc("dispPoller"));
+                    criteria.addOrder(Order.desc("distPoller"));
                     break;
                 case SERVICE:
                     criteria.addOrder(Order.desc("serviceType.name"));
@@ -124,7 +124,7 @@ public class DaoWebEventRepository implements WebEventRepository {
                     criteria.addOrder(Order.asc("node.label"));
                     break;
                 case REVERSE_POLLER:
-                    criteria.addOrder(Order.asc("dispPoller"));
+                    criteria.addOrder(Order.asc("distPoller"));
                     break;
                 case REVERSE_SERVICE:
                     criteria.addOrder(Order.desc("serviceType.name"));
@@ -258,7 +258,7 @@ public class DaoWebEventRepository implements WebEventRepository {
     @Transactional
     public Event[] getMatchingEvents(EventCriteria criteria) {
         List<Event> events = new ArrayList<Event>();
-        log().debug("getMatchingEvents: try to get events fr Criteria: " + criteria.toString());
+        log().debug("getMatchingEvents: try to get events for Criteria: " + criteria.toString());
         List<OnmsEvent> onmsEvents = m_eventDao.findMatching(getOnmsCriteria(criteria));
 
         log().debug("getMatchingEvents: found " + onmsEvents.size() + " events");

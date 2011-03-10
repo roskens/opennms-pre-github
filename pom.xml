@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.opennms</groupId>
   <artifactId>opennms</artifactId>
-  <version>1.9.6-SNAPSHOT</version>
+  <version>1.9.7-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>OpenNMS</name>
   <url>http://opennms.org</url>
@@ -133,6 +133,13 @@
     <!-- <module>opennms-full-assembly</module> -->
   </modules>
   <build>
+  <extensions>
+    <extension>
+      <groupId>org.apache.maven.wagon</groupId>
+      <artifactId>wagon-ssh-external</artifactId>
+      <version>1.0-beta-7</version>
+    </extension>
+  </extensions>
   <pluginManagement>
     <plugins>    
 <!--
@@ -419,8 +426,8 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>2.3.2</version>
         <configuration>
-          <source>1.5</source>
-          <target>1.5</target>
+          <source>1.6</source>
+          <target>1.6</target>
           <encoding>UTF-8</encoding>
         </configuration>
       </plugin>
@@ -684,6 +691,7 @@
    <jettyVersion>6.1.24</jettyVersion>
    <jettyServletVersion>6.1.14</jettyServletVersion>
    <jasperreportsVersion>3.7.6</jasperreportsVersion>
+	<liquibaseVersion>2.0.1</liquibaseVersion>
   </properties>
 
   <profiles>
@@ -1173,6 +1181,18 @@
       <dependency>
         <groupId>org.opennms.dependencies</groupId>
         <artifactId>castor-dependencies</artifactId>
+        <version>${project.version}</version>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms.dependencies</groupId>
+        <artifactId>dbpool-dependencies</artifactId>
+        <version>${project.version}</version>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms.dependencies</groupId>
+        <artifactId>jdbc-pool-dependencies</artifactId>
         <version>${project.version}</version>
         <type>pom</type>
       </dependency>
@@ -1774,11 +1794,6 @@
         <version>3.1.5</version>
       </dependency>
       <dependency>
-        <groupId>httpunit</groupId>
-        <artifactId>httpunit</artifactId>
-        <version>1.6.1</version>
-      </dependency>
-      <dependency>
         <groupId>jakarta-regexp</groupId>
         <artifactId>jakarta-regexp</artifactId>
         <version>1.4</version>
@@ -1897,9 +1912,9 @@
         <version>4.8.2</version>
       </dependency>
       <dependency>
-        <groupId>jwebunit</groupId>
-        <artifactId>jwebunit</artifactId>
-        <version>1.2</version>
+        <groupId>net.sourceforge.jwebunit</groupId>
+        <artifactId>jwebunit-htmlunit-plugin</artifactId>
+        <version>2.5</version>
       </dependency>
       <dependency>
         <groupId>log4j</groupId>

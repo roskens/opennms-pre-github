@@ -31,18 +31,22 @@
  */
 package org.opennms.netmgt.xmlrpcd;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.io.IOException;
 import java.util.Date;
 import java.util.Hashtable;
-import java.util.Vector;
 
-import junit.framework.TestCase;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.opennms.netmgt.EventConstants;
 import org.opennms.netmgt.config.DataSourceFactory;
 import org.opennms.netmgt.config.xmlrpcd.XmlrpcServer;
 import org.opennms.netmgt.mock.MockDatabase;
 import org.opennms.netmgt.mock.MockNetwork;
+import org.opennms.netmgt.model.events.EventBuilder;
 import org.opennms.netmgt.xml.event.Event;
 import org.opennms.netmgt.xml.event.Parm;
 import org.opennms.netmgt.xml.event.Parms;
@@ -50,13 +54,13 @@ import org.opennms.netmgt.xml.event.Snmp;
 import org.opennms.netmgt.xml.event.Value;
 import org.opennms.test.ThrowableAnticipator;
 import org.opennms.test.mock.MockLogAppender;
-import org.opennms.test.mock.MockUtil;
 
 /**
+ * @author brozow@opennms.org
  * @author mikeh@aiinet.com
  * @author dj@gregor.com
  */
-public class XmlRpcNotifierTest extends TestCase {
+public class XmlRpcNotifierTest  {
     private XmlrpcAnticipator m_anticipator;
     private XmlRpcNotifier m_notifier;
     private MockDatabase m_db;
@@ -66,7 +70,7 @@ public class XmlRpcNotifierTest extends TestCase {
     
     private static final int s_noNodeId = 0;
 
-    private static final int s_nodeId = 1;
+    static final int s_nodeId = 1;
     private static final String s_nodeLabel = "Router";
     private static final String s_source = XmlRpcNotifierTest.class.getName();
     private static final String s_host = "bar";
@@ -81,11 +85,10 @@ public class XmlRpcNotifierTest extends TestCase {
     
     private static final boolean USE_DIFFERENT_PORT_PER_TEST = false;
 
+    @Before
     public void setUp() throws Exception, InterruptedException, IOException  {
         
-        super.setUp();
         
-        MockUtil.println("------------ Begin Test "+getName()+" --------------------------");
         MockLogAppender.setupLogging();
 
         int port = s_port;
@@ -94,7 +97,7 @@ public class XmlRpcNotifierTest extends TestCase {
         }
         
         m_anticipator = new XmlrpcAnticipator(port);
-        anticipateNotifyReceivedEvent();
+        m_anticipator.anticipateCall("notifyReceivedEvent", "0", "uei.opennms.org/internal/capsd/xmlrpcNotification", "test connection");
 
         XmlrpcServer remoteServer = new XmlrpcServer();
         remoteServer.setUrl("http://localhost:" + port);
@@ -112,48 +115,36 @@ public class XmlRpcNotifierTest extends TestCase {
         DataSourceFactory.setInstance(m_db);
     }
     
-    public void anticipateNotifyReceivedEvent() {
-        Vector<Object> v = new Vector<Object>();
-        v.add("0");
-        v.add("uei.opennms.org/internal/capsd/xmlrpcNotification");
-        v.add("test connection");
-        m_anticipator.anticipateCall("notifyReceivedEvent", v);
-    }
-
     public void finishUp() {
         m_anticipator.verifyAnticipated();
-        
         MockLogAppender.assertNoWarningsOrGreater();
-        MockUtil.println("------------ End Test "+getName()+" --------------------------");
     }
 
+    @After
     public void tearDown() throws Exception, InterruptedException, IOException {
         m_anticipator.shutdown();
-
-        super.tearDown();
     }
 
+    @Test
     public void testEventListener() {
         // Do nothing, just test to see if setUp() and tearDown() work
         finishUp();
     }
 
+    @Test
     public void testNotifySuccess() {
         long txNo = 12345;
         String uei = "uei.opennms.org/something!";
         String message = "hello";
 
-        Vector<Object> v = new Vector<Object>();
-        v.add(String.valueOf(txNo));
-        v.add(uei);
-        v.add(message);
-        m_anticipator.anticipateCall("notifySuccess", v);
+        m_anticipator.anticipateCall("notifySuccess", String.valueOf(txNo), uei, message);
 
         assertTrue("notifier notifySuccess", m_notifier.notifySuccess(txNo, uei, message));
 
         finishUp();
     }
     
+    @Test
     public void testFailureNotifySuccess() throws Exception {
         long txNo = 12345;
         String uei = "uei.opennms.org/something!";
@@ -165,22 +156,20 @@ public class XmlRpcNotifierTest extends TestCase {
         assertFalse("notifier notifySuccess", m_notifier.notifySuccess(txNo, uei, message));
     }
 
+    @Test
     public void testNotifyFailure() {
         long txNo = 12345;
         String uei = "uei.opennms.org/something!";
         String message = "hello";
 
-        Vector<Object> v = new Vector<Object>();
-        v.add(String.valueOf(txNo));
-        v.add(uei);
-        v.add(message);
-        m_anticipator.anticipateCall("notifyFailure", v);
+        m_anticipator.anticipateCall("notifyFailure", String.valueOf(txNo), uei, message);
 
         assertTrue("notifier notifyFailure", m_notifier.notifyFailure(txNo, uei, message));
 
         finishUp();
     }
     
+    @Test
     public void testFailureNotifyFailure() throws Exception {
         long txNo = 12345;
         String uei = "uei.opennms.org/something!";
@@ -192,22 +181,20 @@ public class XmlRpcNotifierTest extends TestCase {
         assertFalse("notifier notifyFailure", m_notifier.notifyFailure(txNo, uei, message));
     }
 
+    @Test
     public void testNotifyReceivedEvent() {
         long txNo = 12345;
         String uei = "uei.opennms.org/something!";
         String message = "hello";
 
-        Vector<Object> v = new Vector<Object>();
-        v.add(String.valueOf(txNo));
-        v.add(uei);
-        v.add(message);
-        m_anticipator.anticipateCall("notifyReceivedEvent", v);
+        m_anticipator.anticipateCall("notifyReceivedEvent", String.valueOf(txNo), uei, message);
 
         assertTrue("notifier notifyReceviedEvent", m_notifier.notifyReceivedEvent(txNo, uei, message));
 
         finishUp();
     }
 
+    @Test
     public void testFailureNotifyReceivedEvent() throws Exception {
         long txNo = 12345;
         String uei = "uei.opennms.org/something!";
@@ -219,215 +206,131 @@ public class XmlRpcNotifierTest extends TestCase {
         assertFalse("notifier notifyReceviedEvent", m_notifier.notifyReceivedEvent(txNo, uei, message));
     }
 
+    @Test
     public void testSendServiceDownEvent() throws Exception {
-        String date = new Date().toString();
+        Date date = new Date();
+        m_anticipator.anticipateCall("sendServiceDownEvent", s_nodeLabel, s_interface, s_service, "Not Available", s_host, EventConstants.formatToString(date));
 
-        Vector<Object> v = new Vector<Object>();
-        v.add(s_nodeLabel);
-        v.add(s_interface);
-        v.add(s_service);
-        v.add("Not Available");
-        v.add(s_host);
-        v.add(date);
-        m_anticipator.anticipateCall("sendServiceDownEvent", v);
-
-        Event e = new Event();
-        e.setNodeid(s_nodeId);
-        e.setInterface(s_interface);
-        e.setService(s_service);
-        e.setHost(s_host);
-        e.setTime(date);
-        assertTrue("notifier sendServiceDownEvent", m_notifier.sendServiceDownEvent(e));
+        EventBuilder bldr = serviceEventBuilder(date);
+        assertTrue("notifier sendServiceDownEvent", m_notifier.sendServiceDownEvent(bldr.getEvent()));
         
         finishUp();
     }
-
+    
+    @Test
     public void testFailureSendServiceDownEvent() throws Exception {
-        String date = new Date().toString();
-
+        Date date = new Date();
         finishUp();
         m_anticipator.shutdown();
 
-        Event e = new Event();
-        e.setNodeid(s_nodeId);
-        e.setInterface(s_interface);
-        e.setService(s_service);
-        e.setHost(s_host);
-        e.setTime(date);
-        assertFalse("notifier sendServiceDownEvent", m_notifier.sendServiceDownEvent(e));
+        EventBuilder bldr = serviceEventBuilder(date);
+        assertFalse("notifier sendServiceDownEvent", m_notifier.sendServiceDownEvent(bldr.getEvent()));
     }
     
+    @Test
     public void testSendServiceUpEvent() throws Exception {
-        String date = new Date().toString();
-        
-        Vector<Object> v = new Vector<Object>();
-        v.add(s_nodeLabel);
-        v.add(s_interface);
-        v.add(s_service);
-        v.add("Not Available");
-        v.add(s_host);
-        v.add(date);
-        m_anticipator.anticipateCall("sendServiceUpEvent", v);
+        Date date = new Date();
+        m_anticipator.anticipateCall("sendServiceUpEvent", s_nodeLabel, s_interface, s_service, "Not Available", s_host, EventConstants.formatToString(date));
 
-        Event e = new Event();
-        e.setNodeid(s_nodeId);
-        e.setInterface(s_interface);
-        e.setService(s_service);
-        e.setHost(s_host);
-        e.setTime(date);
-        assertTrue("notifier sendServiceUpEvent", m_notifier.sendServiceUpEvent(e));
+        EventBuilder bldr = serviceEventBuilder(date);
+        assertTrue("notifier sendServiceUpEvent", m_notifier.sendServiceUpEvent(bldr.getEvent()));
         
         finishUp();
     }
     
+    @Test
     public void testFailureSendServiceUpEvent() throws Exception {
-        String date = new Date().toString();
-        
+        Date date = new Date();
         finishUp();
         m_anticipator.shutdown();
 
-        Event e = new Event();
-        e.setNodeid(s_nodeId);
-        e.setInterface(s_interface);
-        e.setService(s_service);
-        e.setHost(s_host);
-        e.setTime(date);
-        assertFalse("notifier sendServiceUpEvent", m_notifier.sendServiceUpEvent(e));
+        EventBuilder bldr = serviceEventBuilder(date);
+        assertFalse("notifier sendServiceUpEvent", m_notifier.sendServiceUpEvent(bldr.getEvent()));
     }
 
+    @Test
     public void testSendInterfaceDownEvent() throws Exception {
-        String date = new Date().toString();
+        Date date = new Date();
+        m_anticipator.anticipateCall("sendInterfaceDownEvent", s_nodeLabel, s_interface, s_host, EventConstants.formatToString(date));
 
-        Vector<Object> v = new Vector<Object>();
-        v.add(s_nodeLabel);
-        v.add(s_interface);
-        v.add(s_host);
-        v.add(date);
-        m_anticipator.anticipateCall("sendInterfaceDownEvent", v);
-
-        Event e = new Event();
-        e.setNodeid(s_nodeId);
-        e.setInterface(s_interface);
-        e.setService(s_service);
-        e.setHost(s_host);
-        e.setTime(date);
-        assertTrue("notifier sendInterfaceDownEvent", m_notifier.sendInterfaceDownEvent(e));
+        EventBuilder bldr = serviceEventBuilder(date);
+        assertTrue("notifier sendInterfaceDownEvent", m_notifier.sendInterfaceDownEvent(bldr.getEvent()));
         
         finishUp();
     }
 
+    @Test
     public void testFailureSendInterfaceDownEvent() throws Exception {
-        String date = new Date().toString();
-
+        Date date = new Date();
         finishUp();
         m_anticipator.shutdown();
 
-        Event e = new Event();
-        e.setNodeid(s_nodeId);
-        e.setInterface(s_interface);
-        e.setService(s_service);
-        e.setHost(s_host);
-        e.setTime(date);
-        assertFalse("notifier sendInterfaceDownEvent", m_notifier.sendInterfaceDownEvent(e));
+        EventBuilder bldr = serviceEventBuilder(date);
+        assertFalse("notifier sendInterfaceDownEvent", m_notifier.sendInterfaceDownEvent(bldr.getEvent()));
     }
 
+    @Test
     public void testSendInterfaceUpEvent() throws Exception {
-        String date = new Date().toString();
+        Date date = new Date();
+        m_anticipator.anticipateCall("sendInterfaceUpEvent", s_nodeLabel, s_interface, s_host, s_host, EventConstants.formatToString(date));
 
-        Vector<Object> v = new Vector<Object>();
-        v.add(s_nodeLabel);
-        v.add(s_interface);
-        v.add(s_host);
-        v.add(s_host);
-        v.add(date);
-        m_anticipator.anticipateCall("sendInterfaceUpEvent", v);
-
-        Event e = new Event();
-        e.setNodeid(s_nodeId);
-        e.setInterface(s_interface);
-        e.setService(s_service);
-        e.setHost(s_host);
-        e.setTime(date);
-        assertTrue("notifier sendInterfaceUpEvent", m_notifier.sendInterfaceUpEvent(e));
+        EventBuilder bldr = serviceEventBuilder(date);
+        assertTrue("notifier sendInterfaceUpEvent", m_notifier.sendInterfaceUpEvent(bldr.getEvent()));
         
         finishUp();
     }
 
+    @Test
     public void testFailureSendInterfaceUpEvent() throws Exception {
-        String date = new Date().toString();
-        
+        Date date = new Date();
         finishUp();
         m_anticipator.shutdown();
 
-        Event e = new Event();
-        e.setNodeid(s_nodeId);
-        e.setInterface(s_interface);
-        e.setService(s_service);
-        e.setHost(s_host);
-        e.setTime(date);
-        assertFalse("notifier sendInterfaceUpEvent", m_notifier.sendInterfaceUpEvent(e));
+        EventBuilder bldr = serviceEventBuilder(date);
+        assertFalse("notifier sendInterfaceUpEvent", m_notifier.sendInterfaceUpEvent(bldr.getEvent()));
     }
 
+    @Test
     public void testSendNodeDownEvent() throws Exception {
-        String date = new Date().toString();
+        Date date = new Date();
+        m_anticipator.anticipateCall("sendNodeDownEvent", s_nodeLabel, s_host, EventConstants.formatToString(date));
 
-        Vector<Object> v = new Vector<Object>();
-        v.add(s_nodeLabel);
-        v.add(s_host);
-        v.add(date);
-        m_anticipator.anticipateCall("sendNodeDownEvent", v);
-
-        Event e = new Event();
-        e.setNodeid(s_nodeId);
-        e.setHost(s_host);
-        e.setTime(date);
-        assertTrue("notifier sendNodeDownEvent", m_notifier.sendNodeDownEvent(e));
+        EventBuilder bldr = basicEventBuilder(date);
+        assertTrue("notifier sendNodeDownEvent", m_notifier.sendNodeDownEvent(bldr.getEvent()));
         
         finishUp();
     }
 
+
+    @Test
     public void testFailureSendNodeDownEvent() throws Exception {
-        String date = new Date().toString();
-
+        Date date = new Date();
         finishUp();
         m_anticipator.shutdown();
 
-        Event e = new Event();
-        e.setNodeid(s_nodeId);
-        e.setHost(s_host);
-        e.setTime(date);
-        assertFalse("notifier sendNodeDownEvent", m_notifier.sendNodeDownEvent(e));
+        EventBuilder bldr = basicEventBuilder(date);
+        assertFalse("notifier sendNodeDownEvent", m_notifier.sendNodeDownEvent(bldr.getEvent()));
     }
 
+    @Test
     public void testSendNodeUpEvent() throws Exception {
-        String date = new Date().toString();
+        Date date = new Date();
+        m_anticipator.anticipateCall("sendNodeUpEvent", s_nodeLabel, s_host, EventConstants.formatToString(date));
 
-        Vector<Object> v = new Vector<Object>();
-        v.add(s_nodeLabel);
-        v.add(s_host);
-        v.add(date);
-        m_anticipator.anticipateCall("sendNodeUpEvent", v);
-
-        Event e = new Event();
-        e.setNodeid(s_nodeId);
-        e.setHost(s_host);
-        e.setTime(date);
-        assertTrue("notifier sendNodeUpEvent", m_notifier.sendNodeUpEvent(e));
+        EventBuilder bldr = basicEventBuilder(date);
+        assertTrue("notifier sendNodeUpEvent", m_notifier.sendNodeUpEvent(bldr.getEvent()));
         
         finishUp();
     }
 
+    @Test
     public void testFailureSendNodeUpEvent() throws Exception {
-        String date = new Date().toString();
-
+        Date date = new Date();
         finishUp();
         m_anticipator.shutdown();
 
-        Event e = new Event();
-        e.setNodeid(s_nodeId);
-        e.setHost(s_host);
-        e.setTime(date);
-        assertFalse("notifier sendNodeUpEvent", m_notifier.sendNodeUpEvent(e));
+        EventBuilder bldr = basicEventBuilder(date);
+        assertFalse("notifier sendNodeUpEvent", m_notifier.sendNodeUpEvent(bldr.getEvent()));
     }
 
     /**
@@ -444,157 +347,152 @@ public class XmlRpcNotifierTest extends TestCase {
      * <li>SNMP trap-specific fields (communityString, genericTrapNumber, enterpriseId, enterpriseIdText, specificTrapNumber, timeStamp, version)<li>
      * </ul>
      */
+    @Test
     public void testSendEventSimple() {
-        String date = new Date().toString();
+        Date date = new Date();
+        m_anticipator.anticipateCall("sendEvent", basicEventMap(date));
 
-        Vector<Object> v = new Vector<Object>();
-        makeBasicRpcHashtable(v, date);
-        m_anticipator.anticipateCall("sendEvent", v);
-
-        Event e = makeBasicEvent(date);
-        assertTrue("notifier sendEvent", m_notifier.sendEvent(e));
+        EventBuilder bldr = basicEventBuilder(date);
+        assertTrue("notifier sendEvent", m_notifier.sendEvent(bldr.getEvent()));
         
         finishUp();
     }
 
+    @Test
     public void testFailureSendEventSimple() throws Exception {
-        String date = new Date().toString();
-        
+        Date date = new Date();
         finishUp();
         m_anticipator.shutdown();
 
-        Event e = makeBasicEvent(date);
-        assertFalse("notifier sendEvent", m_notifier.sendEvent(e));
+        EventBuilder bldr = basicEventBuilder(date);
+        assertFalse("notifier sendEvent", m_notifier.sendEvent(bldr.getEvent()));
     }
 
+    @Test
     public void testSendEventSource() {
-        String date = new Date().toString();
+        Date date = new Date();
+        Hashtable<String, String> eventMap = basicEventMap(date);
+        eventMap.put("source", "some other source");
 
-        Vector<Object> v = new Vector<Object>();
-        Hashtable<String, String> t = makeBasicRpcHashtable(v, date);
-        t.put("source", s_source);
-        m_anticipator.anticipateCall("sendEvent", v);
+        m_anticipator.anticipateCall("sendEvent", eventMap);
 
-        Event e = makeBasicEvent(date);
-        e.setSource(s_source);
-        assertTrue("notifier sendEvent", m_notifier.sendEvent(e));
+        EventBuilder bldr = basicEventBuilder(date);
+        bldr.setSource("some other source");
+        assertTrue("notifier sendEvent", m_notifier.sendEvent(bldr.getEvent()));
         
         finishUp();
     }
 
+    @Test
     public void testSendEventHost() {
-        String date = new Date().toString();
+        Date date = new Date();
+        Hashtable<String, String> eventMap = basicEventMap(date);
+        eventMap.put("host", "some other host");
 
-        Vector<Object> v = new Vector<Object>();
-        Hashtable<String, String> t = makeBasicRpcHashtable(v, date);
-        t.put("host", s_host);
-        m_anticipator.anticipateCall("sendEvent", v);
+        m_anticipator.anticipateCall("sendEvent", eventMap);
 
-        Event e = makeBasicEvent(date);
-        e.setHost(s_host);
-        assertTrue("notifier sendEvent", m_notifier.sendEvent(e));
+        EventBuilder bldr = basicEventBuilder(date);
+        bldr.setHost("some other host");
+        assertTrue("notifier sendEvent", m_notifier.sendEvent(bldr.getEvent()));
         
         finishUp();
     }
 
+    @Test
     public void testSendEventInterface() {
-        String date = new Date().toString();
+        Date date = new Date();
+        Hashtable<String, String> eventMap = basicEventMap(date);
+        eventMap.put("interface", s_interface);
 
-        Vector<Object> v = new Vector<Object>();
-        Hashtable<String, String> t = makeBasicRpcHashtable(v, date);
-        t.put("interface", s_interface);
-        m_anticipator.anticipateCall("sendEvent", v);
+        m_anticipator.anticipateCall("sendEvent", eventMap);
 
-        Event e = makeBasicEvent(date);
-        e.setInterface(s_interface);
-        assertTrue("notifier sendEvent", m_notifier.sendEvent(e));
+        EventBuilder bldr = basicEventBuilder(date);
+        bldr.setInterface(s_interface);
+        assertTrue("notifier sendEvent", m_notifier.sendEvent(bldr.getEvent()));
         
         finishUp();
     }
 
+    @Test
     public void testSendEventService() {
-        String date = new Date().toString();
+        Date date = new Date();
+        Hashtable<String, String> eventMap = basicEventMap(date);
+        eventMap.put("service", s_service);
 
-        Vector<Object> v = new Vector<Object>();
-        Hashtable<String, String> t = makeBasicRpcHashtable(v, date);
-        t.put("service", s_service);
-        m_anticipator.anticipateCall("sendEvent", v);
+        m_anticipator.anticipateCall("sendEvent", eventMap);
 
-        Event e = makeBasicEvent(date);
-        e.setService(s_service);
-        assertTrue("notifier sendEvent", m_notifier.sendEvent(e));
+        EventBuilder bldr = basicEventBuilder(date);
+        bldr.setService(s_service);
+
+        assertTrue("notifier sendEvent", m_notifier.sendEvent(bldr.getEvent()));
         
         finishUp();
     }
 
+    @Test
     public void testSendEventDescription() {
-        String date = new Date().toString();
+        Date date = new Date();
+        Hashtable<String, String> eventMap = basicEventMap(date);
+        eventMap.put("description", s_description);
 
-        Vector<Object> v = new Vector<Object>();
-        Hashtable<String, String> t = makeBasicRpcHashtable(v, date);
-        t.put("description", s_description);
-        m_anticipator.anticipateCall("sendEvent", v);
+        m_anticipator.anticipateCall("sendEvent", eventMap);
 
-        Event e = makeBasicEvent(date);
-        e.setDescr(s_description);
-        assertTrue("notifier sendEvent",m_notifier.sendEvent(e));
+        EventBuilder bldr = basicEventBuilder(date);
+        bldr.setDescription(s_description);
+        assertTrue("notifier sendEvent",m_notifier.sendEvent(bldr.getEvent()));
         
         finishUp();
     }
 
+    @Test
     public void testSendEventSeverity() {
-        String date = new Date().toString();
+        Date date = new Date();
+        Hashtable<String, String> eventMap = basicEventMap(date);
+        eventMap.put("severity", s_severity);
 
-        Vector<Object> v = new Vector<Object>();
-        Hashtable<String, String> t = makeBasicRpcHashtable(v, date);
-        t.put("severity", s_severity);
-        m_anticipator.anticipateCall("sendEvent", v);
+        m_anticipator.anticipateCall("sendEvent", eventMap);
 
-        Event e = makeBasicEvent(date);
-        e.setSeverity(s_severity);
-        assertTrue("notifier sendEvent", m_notifier.sendEvent(e));
+        EventBuilder bldr = basicEventBuilder(date);
+        bldr.setSeverity(s_severity);
+        assertTrue("notifier sendEvent", m_notifier.sendEvent(bldr.getEvent()));
         
         finishUp();
     }
 
+    @Test
     public void testSendEventEmptyParms() {
-        String date = new Date().toString();
+        Date date = new Date();
+        m_anticipator.anticipateCall("sendEvent", basicEventMap(date));
 
-        Vector<Object> v = new Vector<Object>();
-        makeBasicRpcHashtable(v, date);
-        m_anticipator.anticipateCall("sendEvent", v);
-
-        Event e = makeBasicEvent(date);
-        Parms p = new Parms();
-        e.setParms(p);
-        assertTrue("notifier sendEvent", m_notifier.sendEvent(e));
+        EventBuilder bldr = basicEventBuilder(date);
+        bldr.setParms(new Parms());
+        assertTrue("notifier sendEvent", m_notifier.sendEvent(bldr.getEvent()));
         
         finishUp();
     }
 
 
+    @Test
     public void testSendEventOneParm() {
-        String date = new Date().toString();
+        Date date = new Date();
         String parmZeroName = "foo";
         String parmZeroContent = "bar";
         String parmZeroType = "string";
 
-        Vector<Object> v = new Vector<Object>();
-        Hashtable<String, String> t = makeBasicRpcHashtable(v, date);
-        addRpcParm(t, 0, parmZeroName, parmZeroContent, parmZeroType);
-        m_anticipator.anticipateCall("sendEvent", v);
+        Hashtable<String, String> eventMap = basicEventMap(date);
+        addRpcParm(eventMap, 0, parmZeroName, parmZeroContent, parmZeroType);
 
-        Event e = makeBasicEvent(date);
-        Parms p = new Parms();
-        e.setParms(p);
-        p.addParm(makeEventParm(parmZeroName, parmZeroContent, parmZeroType, "text"));
-        assertTrue("notifier sendEvent", m_notifier.sendEvent(e));
+        m_anticipator.anticipateCall("sendEvent", eventMap);
+
+        EventBuilder bldr = basicEventBuilder(date);
+        bldr.addParam(parmZeroName, parmZeroContent, parmZeroType, "text");
+        assertTrue("notifier sendEvent", m_notifier.sendEvent(bldr.getEvent()));
         
         finishUp();
     }
 
+    @Test
     public void testSendEventTwoParms() {
-        String date = new Date().toString();
         String parmZeroName = "foo";
         String parmZeroContent = "bar";
         String parmZeroType = "string";
@@ -603,18 +501,19 @@ public class XmlRpcNotifierTest extends TestCase {
         String parmOneContent = "blam";
         String parmOneType = "string";
 
-        Vector<Object> v = new Vector<Object>();
-        Hashtable<String, String> t = makeBasicRpcHashtable(v, date);
-        addRpcParm(t, 0, parmZeroName, parmZeroContent, parmZeroType);
-        addRpcParm(t, 1, parmOneName, parmOneContent, parmOneType);
-        m_anticipator.anticipateCall("sendEvent", v);
+        Date date = new Date();
+        Hashtable<String, String> eventMap = basicEventMap(date);
+        addRpcParm(eventMap, 0, parmZeroName, parmZeroContent, parmZeroType);
+        addRpcParm(eventMap, 1, parmOneName, parmOneContent, parmOneType);
 
-        Event e = makeBasicEvent(date);
-        Parms p = new Parms();
-        e.setParms(p);
-        p.addParm(makeEventParm(parmZeroName, parmZeroContent, parmZeroType, "text"));
-        p.addParm(makeEventParm(parmOneName, parmOneContent, parmOneType, "text"));
-        assertTrue("notifier sendEvent", m_notifier.sendEvent(e));
+        m_anticipator.anticipateCall("sendEvent", eventMap);
+
+        EventBuilder bldr = basicEventBuilder(date);
+
+        bldr.addParam(parmZeroName, parmZeroContent, parmZeroType, "text");
+        bldr.addParam(parmOneName, parmOneContent, parmOneType, "text");
+
+        assertTrue("notifier sendEvent", m_notifier.sendEvent(bldr.getEvent()));
         
         finishUp();
     }
@@ -623,50 +522,48 @@ public class XmlRpcNotifierTest extends TestCase {
      * Check that when Event.setNodeid(int) is not called that the
      * nodeId in the received RPC call is 0.
      */
+    @Test
     public void testSendEventNoNodeId() {
-        String date = new Date().toString();
-
-        Vector<Object> v = new Vector<Object>();
+        Date date = new Date();
         Hashtable<String, String> t = new Hashtable<String, String>();
-        v.add(t);
         t.put("uei", "hi!");
-        t.put("time", date);
+        t.put("source", s_source);
+        t.put("time", EventConstants.formatToString(date));
         t.put("nodeId", String.valueOf(s_noNodeId));
-        m_anticipator.anticipateCall("sendEvent", v);
+        m_anticipator.anticipateCall("sendEvent", t);
 
-        Event e = new Event();
-        e.setUei("hi!");
-        e.setTime(date);
-        assertTrue("notifier sendEvent", m_notifier.sendEvent(e));
+        EventBuilder bldr = new EventBuilder("hi!", s_source, date);
+        assertTrue("notifier sendEvent", m_notifier.sendEvent(bldr.getEvent()));
         
         finishUp();
     }
+
+
+
     
     /**
      * Check that when Event.setNodeid(int) is called with a
      * nodeId that isn't in the database that nodeLabel is not set.
      */
+    @Test
     public void testSendEventNoNodeLabel() {
-        String date = new Date().toString();
-
-        Vector<Object> v = new Vector<Object>();
+        Date date = new Date();
         Hashtable<String, String> t = new Hashtable<String, String>();
-        v.add(t);
         t.put("uei", "hi!");
-        t.put("time", date);
+        t.put("source", s_source);
+        t.put("time", EventConstants.formatToString(date));
         t.put("nodeId", String.valueOf(s_unknownNodeId));
-        m_anticipator.anticipateCall("sendEvent", v);
+        m_anticipator.anticipateCall("sendEvent", t);
 
-        Event e = new Event();
-        e.setUei("hi!");
-        e.setNodeid(s_unknownNodeId);
-        e.setTime(date);
-        assertTrue("notifier sendEvent", m_notifier.sendEvent(e));
+        EventBuilder bldr = new EventBuilder("hi!", s_source, date);
+        bldr.setNodeid(s_unknownNodeId);
+        assertTrue("notifier sendEvent", m_notifier.sendEvent(bldr.getEvent()));
         
         finishUp();
     }
 
 
+    @Test
     public void testSendEventNullEvent() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("event object must not be null"));
@@ -680,47 +577,121 @@ public class XmlRpcNotifierTest extends TestCase {
         finishUp();
     }
     
-    public static Event makeBasicEvent(String time) {
-        Event e = new Event();
-        e.setUei(s_uei);
-        e.setNodeid(s_nodeId);
-        e.setTime(time);
-        return e;
+    public static void addSnmpAttributes(EventBuilder bldr, String community, String enterpriseId, int generic, int specific, long dateLong, String version) {
+        bldr.setCommunity(community);
+        bldr.setGeneric(generic);
+        bldr.setEnterpriseId(enterpriseId);
+        bldr.setSpecific(specific);
+        bldr.setSnmpTimeStamp(dateLong);
+        bldr.setSnmpVersion(version);
     }
     
-    public static Snmp makeBasicTrapEventSnmp(String community, int generic, String enterpriseId, int specific,
-            long dateLong, String version) {
+    @Test
+    public void testSendTrapSimple() {
+        Date date = new Date();
+        String enterpriseId = ".1.3.6.4.1.1.1";
+
+        Hashtable<String, String> trapMap = basicTrapMap(date, "public", enterpriseId, 6, 2, date.getTime(), "1");
+
+        m_anticipator.anticipateCall("sendSnmpTrapEvent", trapMap);
+
+        EventBuilder bldr = basicEventBuilder(date);
+        Event e = bldr.getEvent();
+        addSnmpAttributes(bldr, "public", enterpriseId, 6, 2, date.getTime(), "1");
+        Snmp snmp = bldr.getEvent().getSnmp();
+        e.setSnmp(snmp);
+        assertTrue("notifier sendEvent", m_notifier.sendEvent(e));
+        
+        finishUp();
+    }
+
+    @Test
+    public void testFailureSendTrapSimple() throws Exception {
+        Date date = new Date();
+        String enterpriseId = ".1.3.6.4.1.1.1";
+
+        finishUp();
+        m_anticipator.shutdown();
+
+        EventBuilder bldr = basicEventBuilder(date);
+        Event e = bldr.getEvent();
+        addSnmpAttributes(bldr, "public", enterpriseId, 6, 2, date.getTime(), "1");
+        Snmp snmp = bldr.getEvent().getSnmp();
+        e.setSnmp(snmp);
+        assertFalse("notifier sendEvent", m_notifier.sendEvent(e));
+    }
+        
+    @Test
+    public void testSendTrapIdText() {
+        Date date = new Date();
+        String enterpriseId = ".1.3.6.4.1.1.1";
+
+        Hashtable<String, String> trapMap = basicTrapMap(date, "public", enterpriseId, 6, 2, date.getTime(), "1");
+        trapMap.put("enterpriseIdText", "foo!");
+
+        m_anticipator.anticipateCall("sendSnmpTrapEvent", trapMap);
+
+        EventBuilder bldr = basicEventBuilder(date);
+        Event e = bldr.getEvent();
+        addSnmpAttributes(bldr, "public", enterpriseId, 6, 2, date.getTime(), "1");
+        Snmp snmp = bldr.getEvent().getSnmp();
+        snmp.setIdtext("foo!");
+        e.setSnmp(snmp);
+        
+        assertTrue("notifier sendEvent", m_notifier.sendEvent(e));
+        
+        finishUp();
+    }
+    
+    @Test
+    public void testSendTrapEmptySnmp() {
+        Date date = new Date();
+        Hashtable<String, String> trapMap = basicTrapMap(date, "null", "null", 0, 0, 0, "null");
+
+        m_anticipator.anticipateCall("sendSnmpTrapEvent", trapMap);
+
+        Event e = basicEventBuilder(date).getEvent();
         Snmp s = new Snmp();
-        s.setCommunity(community);
-        s.setGeneric(generic);
-        s.setId(enterpriseId);
-        s.setSpecific(specific);
-        s.setTimeStamp(dateLong);
-        s.setVersion(version);
-        return s;
+        e.setSnmp(s);
+        assertTrue("notifier sendEvent", m_notifier.sendEvent(e));
+        
+        finishUp();
     }
     
-    public static Hashtable<String, String> makeBasicRpcHashtable(Vector<Object> v, String time) {
+    public static EventBuilder basicEventBuilder(Date date) {
+        return new EventBuilder(s_uei, s_source, date)
+            .setHost(s_host)
+            .setNodeid(s_nodeId);
+    }
+
+    private EventBuilder serviceEventBuilder(Date date) {
+        return basicEventBuilder(date)
+            .setInterface(s_interface)
+            .setService(s_service);
+    }
+    
+    private static Hashtable<String, String> basicEventMap(Date date) {
         Hashtable<String, String> t = new Hashtable<String, String>();
         t.put("uei", s_uei);
-        t.put("time", time);
+        t.put("source", s_source);
+        t.put("time", EventConstants.formatToString(date));
+        t.put("host", s_host);
         t.put("nodeId", String.valueOf(s_nodeId));
         t.put("nodeLabel", s_nodeLabel);
-        
-        v.add(t);
         return t;
     }
-    
-    public static Hashtable<String, String> makeBasicRpcTrapHashtable(Vector<Object> v, String date, String community, int generic,
-            String enterpriseId, int specific, long dateLong, String version) {
-        Hashtable<String, String> t = makeBasicRpcHashtable(v, date);
-        t.put("communityString", community);
-        t.put("genericTrapNumber", String.valueOf(generic));
-        t.put("enterpriseId", enterpriseId);
-        t.put("specificTrapNumber", String.valueOf(specific));
-        t.put("timeStamp", String.valueOf(dateLong));
-        t.put("version", version);
-        return t;
+
+
+    static Hashtable<String, String> basicTrapMap(Date date, String community, String enterpriseId, int generic, int specific, long dateLong, String version) {
+        Hashtable<String, String> trapMap = basicEventMap(date);
+                
+        trapMap.put("communityString", community);
+        trapMap.put("genericTrapNumber", String.valueOf(generic));
+        trapMap.put("enterpriseId", enterpriseId);
+        trapMap.put("specificTrapNumber", String.valueOf(specific));
+        trapMap.put("timeStamp", String.valueOf(dateLong));
+        trapMap.put("version", version);
+        return trapMap;
     }
     
     public Parm makeEventParm(String name, String content, String type, String encoding) {
@@ -744,70 +715,7 @@ public class XmlRpcNotifierTest extends TestCase {
         t.put(prefix + "type", type);
     }
     
-    public void testSendTrapSimple() {
-        long dateLong = System.currentTimeMillis();
-        String date = EventConstants.formatToString(new Date(dateLong));
-        String enterpriseId = ".1.3.6.4.1.1.1";
 
-        Vector<Object> v = new Vector<Object>();
-        makeBasicRpcTrapHashtable(v, date, "public", 6, enterpriseId, 2, dateLong, "1");
-        m_anticipator.anticipateCall("sendSnmpTrapEvent", v);
 
-        Event e = makeBasicEvent(date);
-        e.setSnmp(makeBasicTrapEventSnmp("public", 6, enterpriseId, 2, dateLong, "1"));
-        assertTrue("notifier sendEvent", m_notifier.sendEvent(e));
-        
-        finishUp();
-    }
-
-    public void testFailureSendTrapSimple() throws Exception {
-        long dateLong = System.currentTimeMillis();
-        String date = new Date(dateLong).toString();
-        String enterpriseId = ".1.3.6.4.1.1.1";
-
-        finishUp();
-        m_anticipator.shutdown();
-
-        Event e = makeBasicEvent(date);
-        e.setSnmp(makeBasicTrapEventSnmp("public", 6, enterpriseId, 2, dateLong, "1"));
-        assertFalse("notifier sendEvent", m_notifier.sendEvent(e));
-    }
-        
-    public void testSendTrapIdText() {
-        long dateLong = System.currentTimeMillis();
-        String date = new Date(dateLong).toString();
-        String enterpriseId = ".1.3.6.4.1.1.1";
-
-        Vector<Object> v = new Vector<Object>();
-        Hashtable<String, String> t = makeBasicRpcTrapHashtable(v, date, "public", 6, enterpriseId, 2, dateLong, "1");
-        t.put("enterpriseIdText", "foo!");
-        m_anticipator.anticipateCall("sendSnmpTrapEvent", v);
-
-        Event e = makeBasicEvent(date);
-
-        Snmp s = makeBasicTrapEventSnmp("public", 6, enterpriseId, 2, dateLong, "1");
-        s.setIdtext("foo!");
-        e.setSnmp(s);
-        
-        assertTrue("notifier sendEvent", m_notifier.sendEvent(e));
-        
-        finishUp();
-    }
-    
-    public void testSendTrapEmptySnmp() {
-        String date = new Date().toString();
-
-        Vector<Object> v = new Vector<Object>();
-        makeBasicRpcTrapHashtable(v, date, "null", 0, "null", 0, 0, "null");
-        
-        m_anticipator.anticipateCall("sendSnmpTrapEvent", v);
-
-        Event e = makeBasicEvent(date);
-        Snmp s = new Snmp();
-        e.setSnmp(s);
-        assertTrue("notifier sendEvent", m_notifier.sendEvent(e));
-        
-        finishUp();
-    }
 
 }

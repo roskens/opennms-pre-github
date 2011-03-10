@@ -92,16 +92,22 @@ public class XmlrpcAnticipatorTest extends TestCase {
         t.put("foo", "bar");
         
         
-        Vector<Object> v2 = new Vector<Object>();
         Hashtable<String, String> t2 = new Hashtable<String, String>();
-        v2.add(t2);
         t2.put("foo", "bar");
         
-        m_anticipator.anticipateCall("howCheesyIsIt", v);
+        m_anticipator.anticipateCall("howCheesyIsIt", t2);
         
         XmlRpcClient client = new XmlRpcClient("http://localhost:" + PORT);
+        Vector<Object> v2 = new Vector<Object>();
+        v2.add(t2);
         client.execute("howCheesyIsIt", v2);
         
+        try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
+		}
+
         m_anticipator.verifyAnticipated();
     }
     
@@ -117,10 +123,16 @@ public class XmlrpcAnticipatorTest extends TestCase {
         v2.add(t2);
         t2.put("foo", "baz");
         
-        m_anticipator.anticipateCall("howCheesyIsIt", v);
+        m_anticipator.anticipateCall("howCheesyIsIt", t);
         
         XmlRpcClient client = new XmlRpcClient("http://localhost:" + PORT);
         client.execute("howCheesyIsIt", v2);
+
+        try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
+		}
 
         boolean sawException = false;
         try {
@@ -149,11 +161,17 @@ public class XmlrpcAnticipatorTest extends TestCase {
         t2.put("description", "cheesiest");
         t2.put("something other than description", "hello");
         
-        m_anticipator.anticipateCall("howCheesyIsIt", v);
+        m_anticipator.anticipateCall("howCheesyIsIt", t);
         
         XmlRpcClient client = new XmlRpcClient("http://localhost:" + PORT);
         client.execute("howCheesyIsIt", v2);
         
+        try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
+		}
+
         m_anticipator.verifyAnticipated();
     }
 }

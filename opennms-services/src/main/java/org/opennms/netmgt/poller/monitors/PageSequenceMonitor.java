@@ -83,6 +83,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.params.ClientPNames;
 import org.apache.http.client.params.CookiePolicy;
+import org.apache.http.client.utils.URIUtils;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
@@ -233,8 +234,8 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
     private static final int DEFAULT_RETRY = 0;
 
     public static class HttpPageSequence {
-        PageSequence m_sequence;
-        List<HttpPage> m_pages;
+        final PageSequence m_sequence;
+        final List<HttpPage> m_pages;
         Properties m_sequenceProperties;
         Map<String,String> m_parameters = new HashMap<String,String>();
 
@@ -305,8 +306,8 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
 
     public static class HttpResponseRange {
         private static final Pattern RANGE_PATTERN = Pattern.compile("([1-5][0-9][0-9])(?:-([1-5][0-9][0-9]))?");
-        private int m_begin;
-        private int m_end;
+        private final int m_begin;
+        private final int m_end;
 
         HttpResponseRange(String rangeSpec) {
             Matcher matcher = RANGE_PATTERN.matcher(rangeSpec);
@@ -369,9 +370,8 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
             URI uriWithQueryString = null;
             try {
                 String query = URLEncodedUtils.format(parms, "UTF-8");
-                uriWithQueryString = new URI(
+                uriWithQueryString = URIUtils.createURI(
                                              uri.getScheme(), 
-                                             uri.getUserInfo(), 
                                              uri.getHost(), 
                                              uri.getPort(), 
                                              uri.getPath(),
@@ -380,10 +380,10 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
                                              query, 
                                              uri.getFragment()
                 );
+                this.setURI(uriWithQueryString);
             } catch (URISyntaxException e) {
-                ThreadCategory.getInstance(this.getClass()).warn(e.getMessage(), e);
+                ThreadCategory.getInstance("Cannot add query parameters to URI: " + this.getClass()).warn(e.getMessage(), e);
             }
-            this.setURI(uriWithQueryString);
         }
     }
 
@@ -576,7 +576,7 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
         private URI getURI(MonitoredService svc) throws URISyntaxException {
             Properties svcProps = getServiceProperties(svc);
             Properties seqProps = getSequenceProperties();
-            return new URI(getScheme(), getUserInfo(), getHost(seqProps, svcProps), getPort(), getPath(seqProps, svcProps), getQuery(seqProps, svcProps), getFragment(seqProps, svcProps));
+            return URIUtils.createURI(getScheme(), getHost(seqProps, svcProps), getPort(), getPath(seqProps, svcProps), getQuery(seqProps, svcProps), getFragment(seqProps, svcProps));
         }
 
         private String getFragment(Properties... p) {
@@ -679,9 +679,9 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
             return parms;
         }
 
-        private Map<String, String> m_parameterMap;
-        private HttpParams m_clientParams;
-        private HttpPageSequence m_pageSequence;
+        private final Map<String, String> m_parameterMap;
+        private final HttpParams m_clientParams;
+        private final HttpPageSequence m_pageSequence;
 
         PageSequenceMonitorParameters(Map<String, String> parameterMap) {
             m_parameterMap = parameterMap;
@@ -689,9 +689,11 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
             if (pageSequence == null) {
                 throw new IllegalArgumentException("page-sequence must be set in monitor parameters");
             }
+            // Perform parameter expansion on the page-sequence string
+            pageSequence = PropertiesUtils.substitute(pageSequence, m_parameterMap);
             PageSequence sequence = parsePageSequence(pageSequence);
             m_pageSequence = new HttpPageSequence(sequence);
-            m_pageSequence.setParameters(parameterMap);
+            m_pageSequence.setParameters(m_parameterMap);
 
             m_clientParams = createClientParams();
         }

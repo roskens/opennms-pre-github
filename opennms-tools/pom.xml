@@ -4,7 +4,7 @@
   <parent>
     <artifactId>opennms</artifactId>
     <groupId>org.opennms</groupId>
-    <version>1.9.6-SNAPSHOT</version>
+    <version>1.9.7-SNAPSHOT</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
@@ -16,6 +16,7 @@
 
   <modules>
     <module>opennms-rrd-stresser</module>
+    <module>opennms-rrd-converter</module>
     <module>groovy-tools</module>
   </modules>
 

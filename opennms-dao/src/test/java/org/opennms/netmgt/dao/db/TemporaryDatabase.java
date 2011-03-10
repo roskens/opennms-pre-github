@@ -167,14 +167,6 @@ public class TemporaryDatabase implements DataSource {
             m_installerDb.updatePlPgsql();
             m_installerDb.addStoredProcedures();
 
-            /*
-             * Here's an example of an iplike function that always returns true.
-             * CREATE OR REPLACE FUNCTION iplike(text, text) RETURNS bool AS ' BEGIN
-             * RETURN true; END; ' LANGUAGE 'plpgsql';
-             *
-             * Found this in BaseIntegrationTestCase.
-             */
-
             if (isSetupIpLike()) {
                 if (!m_installerDb.isIpLikeUsable()) {
                     m_installerDb.setupPlPgsqlIplike();
@@ -414,8 +406,8 @@ public class TemporaryDatabase implements DataSource {
         }
         System.err.println("Thread dump of " + threads.size() + " threads (" + daemons + " daemons):");
         Map<Thread, StackTraceElement[]> sortedThreads = new TreeMap<Thread, StackTraceElement[]>(new Comparator<Thread>() {
-            public int compare(Thread t1, Thread t2) {
-                return new Long(t1.getId()).compareTo(new Long(t2.getId()));
+            public int compare(final Thread t1, final Thread t2) {
+                return Long.valueOf(t1.getId()).compareTo(Long.valueOf(t2.getId()));
             }
         });
         sortedThreads.putAll(threads);
