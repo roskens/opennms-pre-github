@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,7 +15,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.sql.DataSource;
 
 import org.junit.After;
 import org.junit.Before;
@@ -30,26 +28,25 @@ import org.springframework.util.StringUtils;
 public class ConfigTesterTest {
     private static Set<String> m_filesTested = new HashSet<String>();
     private static Set<String> m_filesIgnored = new HashSet<String>();
-	private TestDataSource m_dataSource;
+	//private ConfigTesterDataSource m_dataSource;
 
     @Before
 	public void init() {
         DaoTestConfigBean daoTestConfig = new DaoTestConfigBean();
         daoTestConfig.afterPropertiesSet();
-        
-        m_dataSource = new TestDataSource();
-		DataSourceFactory.setInstance(m_dataSource);
 	}
-    
+
     @After
     public void done() {
-    	if (m_dataSource.getConnectionGetAttempts().size() > 0) {
+    	ConfigTesterDataSource dataSource = (ConfigTesterDataSource) DataSourceFactory.getDataSource();
+    	
+    	if (dataSource.getConnectionGetAttempts().size() > 0) {
     		StringWriter writer = new StringWriter();
     		PrintWriter printWriter = new PrintWriter(writer);
-    		for (SQLException e : m_dataSource.getConnectionGetAttempts()) {
+    		for (SQLException e : dataSource.getConnectionGetAttempts()) {
 				e.printStackTrace(printWriter);
     		}
-    		fail(m_dataSource.getConnectionGetAttempts().size()
+    		fail(dataSource.getConnectionGetAttempts().size()
     				+ " DataSource.getConnection attempts were made: \n"
     				+ writer.toString());
     	}
@@ -71,6 +68,9 @@ public class ConfigTesterTest {
 	}
 	
 	@Test
+	/**
+	 * FIXME: AsteriskConfig doesn't appear to be in our classpath.
+	 */
 	public void testAsteriskConfiguration() {
         ignoreConfigFile("asterisk-configuration.properties");
 	}
@@ -104,8 +104,11 @@ public class ConfigTesterTest {
 	}
 	
 	@Test
+	/**
+	 * Database access.
+	 */
 	public void testCollectdConfiguration() {
-        testConfigFile("collectd-configuration.xml");
+        ignoreConfigFile("collectd-configuration.xml");
 	}
 	
 	@Test
@@ -199,6 +202,9 @@ public class ConfigTesterTest {
 	}
 
     @Test
+    /**
+     * FIXME: Database access.
+     */
     public void testLinkdConfiguration() {
         ignoreConfigFile("linkd-configuration.xml");
     }
@@ -214,6 +220,9 @@ public class ConfigTesterTest {
     }
     
     @Test
+    /**
+     * FIXME: Database access.
+     */
     public void testMapsadapterConfiguration() {
         ignoreConfigFile("mapsadapter-configuration.xml");
     }
@@ -230,6 +239,8 @@ public class ConfigTesterTest {
     
     @Test
     /**
+     * FIXME: Don't know why this is ignored.
+     * 
      * See GatewayGroupLoader for the code that we'd need to call in the ConfigTester.
      */
     public void testModemConfig() {
@@ -252,6 +263,9 @@ public class ConfigTesterTest {
     }
     
     @Test
+    /**
+     * FIXME: Database access.
+     */
     public void testNotifications() {
         ignoreConfigFile("notifications.xml");
     }
@@ -277,6 +291,9 @@ public class ConfigTesterTest {
     }
     
     @Test
+    /**
+     * FIXME: Don't know why this is off.
+     */
     public void testOpennms() {
         ignoreConfigFile("opennms.properties");
     }
@@ -297,6 +314,9 @@ public class ConfigTesterTest {
     }
     
     @Test
+    /**
+     * FIXME: Database access.
+     */
     public void testPollerConfiguration() {
         ignoreConfigFile("poller-configuration.xml");
     }
@@ -307,6 +327,9 @@ public class ConfigTesterTest {
     }
 
     @Test
+    /**
+     * FIXME: Not part of the standard build?
+     */
     public void testRancidConfiguration() {
         ignoreConfigFile("rancid-configuration.xml");
     }
@@ -372,6 +395,9 @@ public class ConfigTesterTest {
 	}
 
 	@Test
+    /**
+     * FIXME: Not part of the standard build?
+     */
     public void testSnmpAssetAdapterConfiguration() {
         ignoreConfigFile("snmp-asset-adapter-configuration.xml");
     }
@@ -387,6 +413,9 @@ public class ConfigTesterTest {
 	}
 
 	@Test
+	/**
+	 * FIXME: Database access.
+	 */
     public void testSnmpInterfacePollerConfiguration() {
         ignoreConfigFile("snmp-interface-poller-configuration.xml");
     }
@@ -407,6 +436,9 @@ public class ConfigTesterTest {
     }
 
 	@Test
+	/**
+	 * FIXME: Database access.
+	 */
     public void testThreshdConfiguration() {
 		ignoreConfigFile("threshd-configuration.xml");
     }
@@ -423,7 +455,7 @@ public class ConfigTesterTest {
 
 	@Test
     public void testTranslatorConfiguration() {
-        ignoreConfigFile("translator-configuration.xml");
+        testConfigFile("translator-configuration.xml");
     }
 
 	@Test
@@ -477,13 +509,29 @@ public class ConfigTesterTest {
     }
 
 	@Test
+	/**
+	 * FIXME: Configuration code is not in its own class.
+	 * 
+	 * It's embedded in XMPPNotificationManager's constructor.
+	 */
     public void testXmppConfiguration() {
         ignoreConfigFile("xmpp-configuration.properties");
     }
+	
+	@Test
+	public void testAllConfigs() {
+		ConfigTester.main(new String[] { "-a" });
+	}
 
 	private void testConfigFile(String file) {
-		ConfigTester.main(new String[] { file });
+		/*
+		 * Add to the tested list first, so if we get a test failure
+		 * for a specific file test, we don't also make 
+         * testCheckAllDaemonXmlConfigFilesTested fail.
+		 */
         m_filesTested.add(file);
+        
+		ConfigTester.main(new String[] { file });
 	}
 	
 	private void ignoreConfigFile(String file) {
@@ -512,55 +560,5 @@ public class ConfigTesterTest {
             Collections.sort(files);
             fail("These files in " + configDir.getAbsolutePath() + " were not tested: \n\t" + StringUtils.collectionToDelimitedString(files, "\n\t"));
         }
-    }
-    
-    private class TestDataSource implements DataSource {
-
-		private List<SQLException> m_connectionGetAttempts = new ArrayList<SQLException>();
-
-		public PrintWriter getLogWriter() throws SQLException {
-			return null;
-		}
-
-		public int getLoginTimeout() throws SQLException {
-			return 0;
-		}
-
-		public void setLogWriter(PrintWriter arg0) throws SQLException {
-		}
-
-		public void setLoginTimeout(int arg0) throws SQLException {
-		}
-
-		public boolean isWrapperFor(Class<?> arg0) throws SQLException {
-			return false;
-		}
-
-		public <T> T unwrap(Class<T> arg0) throws SQLException {
-			return null;
-		}
-
-		public Connection getConnection() throws SQLException {
-			return createStoreAndThrowException();
-		}
-
-		public Connection getConnection(String arg0, String arg1)
-				throws SQLException {
-			return createStoreAndThrowException();
-		}
-
-		private Connection createStoreAndThrowException() throws SQLException {
-			SQLException e = createException();
-			m_connectionGetAttempts.add(e);
-			throw e;
-		}
-
-		private SQLException createException() {
-			return new SQLException("No database connections should be requested when reading a configuration file, dude.");
-		}
-		
-		public List<SQLException> getConnectionGetAttempts() {
-			return m_connectionGetAttempts;
-		}
     }
 }

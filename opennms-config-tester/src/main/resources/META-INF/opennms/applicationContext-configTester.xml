@@ -11,12 +11,12 @@
         <entry key="ackd-configuration.xml" value="ackdConfigurationDao"/>
         <entry key="actiond-configuration.xml" value="actiondConfigFactory"/>
         <entry key="ami-config.xml" value="amiPeerFactory"/>
-        <entry key="asterisk-configuration.properties" value="asteriskConfigProperties"/>
+        <!-- <entry key="asterisk-configuration.properties" value="asteriskConfigProperties"/> --><!-- Not part of standard build -->
         <entry key="availability-reports.xml" value="onmsReportConfigDao"/>
         <entry key="capsd-configuration.xml" value="capsdConfigFactory"/>
         <entry key="categories.xml" value="categoryFactory"/>
         <entry key="chart-configuration.xml" value="chartConfigFactory"/>
-        <entry key="collectd-configuration.xml" value="collectdConfigFactory"/><!-- database access -->
+        <!-- <entry key="collectd-configuration.xml" value="collectdConfigFactory"/>--><!-- database access -->
         <entry key="database-reports.xml" value="databaseReportConfigDao"/>
         <entry key="database-schema.xml" value="databaseSchemaConfigFactory"/>
         <entry key="datacollection-config.xml" value="dataCollectionConfigDao"/>
@@ -38,7 +38,7 @@
         <!-- <entry key="linkd-configuration.xml" value="linkdConfigFactory"/> --><!-- database access -->
         <entry key="magic-users.properties" value="userDao"/>
         <entry key="map.properties" value="mapPropertiesFactory"/>
-        <!-- <entry key="mapsadapter-configuration.xml" value="mapsAdapterConfigFactory"/> -->
+        <!-- <entry key="mapsadapter-configuration.xml" value="mapsAdapterConfigFactory"/> --><!--  database access -->
         <entry key="microblog-configuration.xml" value="microblogConfigurationDao"/>
         <entry key="model-importer.properties" value="modelImporterProperties"/>
         <!--  <entry key="modemConfig.properties" value="unknown"/> -->
@@ -79,7 +79,7 @@
         <!-- <entry key="threshd-configuration.xml" value="threshdConfigFactory"/> --><!-- database access -->
         <entry key="thresholds.xml" value="thresholdingConfigFactory"/>
         <entry key="tl1d-configuration.xml" value="tl1ConfigurationDao"/>
-        <!-- <entry key="translator-configuration.xml" value="eventTranslatorConfigFactory"/> -->
+        <entry key="translator-configuration.xml" value="eventTranslatorConfigFactory"/>
         <entry key="trapd-configuration.xml" value="trapdConfigFactory"/>
         <entry key="users.xml" value="userFactory"/>
         <entry key="vacuumd-configuration.xml" value="vacuumdConfigFactory"/>
@@ -90,7 +90,7 @@
         <entry key="xmlrpcd-configuration.xml" value="xmlrpcdConfigFactory"/>
         <entry key="xmp-config.xml" value="xmpConfigFactory"/>
         <entry key="xmp-datacollection-config.xml" value="xmpCollectionFactory"/>
-        <!-- <entry key="xmpp-configuration.properties" value="unknown"/> -->
+        <!-- <entry key="xmpp-configuration.properties" value="unknown"/> --><!-- config code not in its own class -->
       </map>
     </property>
   </bean>
@@ -152,11 +152,13 @@ org.opennms.netmgt.filter.FilterParseException: SQL Exception occurred getting I
   
   Interestingly, that exception does not bubble up and the initialization eventually completes once C3P0 gives up.
   -->
+  <!--
   <bean id="collectdConfigFactory-init" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
     <property name="staticMethod"><value>org.opennms.netmgt.config.CollectdConfigFactory.init</value></property>
   </bean>
 
   <bean id="collectdConfigFactory" class="org.opennms.netmgt.config.CollectdConfigFactory" depends-on="collectdConfigFactory-init" factory-method="getInstance"/>
+  -->
 
   <bean id="databaseReportConfigDao" class="org.opennms.netmgt.dao.castor.DefaultDatabaseReportConfigDao">
     <property name="configResource" value="file:${opennms.home}/etc/database-reports.xml"/>
@@ -339,7 +341,7 @@ org.opennms.netmgt.filter.FilterParseException: SQL Exception occurred getting I
   -->
     
   <bean id="dataSourceTester" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
-    <property name="staticMethod"><value>org.opennms.netmgt.config.C3P0ConnectionFactory.marshalDataSourceFromConfig</value></property>
+    <property name="staticMethod"><value>org.opennms.netmgt.config.ConnectionFactoryUtil.marshalDataSourceFromConfig</value></property>
     <property name="arguments">
       <list>
         <bean class="java.io.FileInputStream">
@@ -443,7 +445,7 @@ org.opennms.netmgt.filter.FilterParseException: SQL Exception occurred getting I
     <property name="staticMethod"><value>org.opennms.netmgt.rrd.RrdConfig.getProperties</value></property>
   </bean>
 
-  <bean id="rtConfigDao" class="org.opennms.netmgt.ticketer.rt.DefaultRtConfigDao"/>
+  <bean id="rtConfigDao" class="org.opennms.netmgt.rt.ReadOnlyRtConfigDao"/>
 
   <bean id="rtConfigDaoCheck" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
 	<property name="targetObject"><ref local="rtConfigDao"/></property>

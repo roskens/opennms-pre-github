@@ -12,6 +12,7 @@ import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.opennms.core.utils.BeanUtils;
+import org.opennms.netmgt.config.DataSourceFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -77,13 +78,22 @@ public class ConfigTester implements ApplicationContextAware {
 			return; // not reached; here to eliminate warning on line being uninitialized
 		}
 
-		if ((line.hasOption('l') || line.hasOption('h') || line.hasOption('a')) && line.getArgList().size() > 0) {
-			System.err.println("Invalid usage: No arguments allowed when using the '-a', '-h', or '-l' options.");
-			System.err.println("Run 'config-tester -h' for help.");
-			System.exit(1);
+		if ((line.hasOption('l') || line.hasOption('h') || line.hasOption('a'))) {
+			if (line.getArgList().size() > 0) {
+				System.err.println("Invalid usage: No arguments allowed when using the '-a', '-h', or '-l' options.");
+				System.err.println("Run 'config-tester -h' for help.");
+				System.exit(1);
+			}
+		} else {
+			if (line.getArgs().length == 0) {
+				System.err.println("Invalid usage: too few arguments.  Use the '-h' option for help.");
+				System.exit(1);
+			}
 		}
 		
 		boolean verbose = line.hasOption('v');
+
+		DataSourceFactory.setInstance(new ConfigTesterDataSource());
 		
 		if (line.hasOption('l')) {
 			System.out.println("Supported configuration files: ");
@@ -91,29 +101,17 @@ public class ConfigTester implements ApplicationContextAware {
 				System.out.println("    " + configFile);
 			}
 			System.out.println("Note: not all OpenNMS configuration files are currently supported.");
-			System.exit(0);
-		}
-
-		if (line.hasOption('h')) {
+		} else if (line.hasOption('h')) {
 			 final HelpFormatter formatter = new HelpFormatter();
 			 formatter.printHelp("config-tester -a\nOR: config-tester [config files]\nOR: config-tester -l\nOR: config-tester -h", options);
-			 System.exit(0);
-		}
-		
-		if (line.hasOption('a')) {
+		} else if (line.hasOption('a')) {
 			for (String configFile : tester.getConfigs().keySet()) {
 				tester.testConfig(configFile, verbose);
 			}
-			System.exit(0);
-		}
-		
-		if (line.getArgs().length == 0) {
-			System.err.println("Invalid usage: too few arguments.  Use the '-h' option for help.");
-			System.exit(1);
-		}
-		
-		for (String configFile : line.getArgs()) {
-			tester.testConfig(configFile, verbose);
+		} else {
+			for (String configFile : line.getArgs()) {
+				tester.testConfig(configFile, verbose);
+			}
 		}
 	}
 
