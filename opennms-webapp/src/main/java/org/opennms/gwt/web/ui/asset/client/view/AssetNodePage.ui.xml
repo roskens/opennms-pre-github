@@ -488,7 +488,7 @@
 							<td>
 								<onms:FieldSetTextArea ui:field="sComment"
 									name="{con.comment}" value="" helpText="{con.commentHelp}"
-									maxLength="200" />
+									maxLength="-1" />
 							</td>
 						</tr>
 					</table>
