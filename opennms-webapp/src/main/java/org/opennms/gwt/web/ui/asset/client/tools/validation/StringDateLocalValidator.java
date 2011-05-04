@@ -45,12 +45,22 @@ public class StringDateLocalValidator implements Validator {
 	
 	private final DateTimeFormat m_formater = DateTimeFormat.getFormat(PredefinedFormat.DATE_MEDIUM);
 
-	private String m_dateString;
+	private String m_dateString = "";
 
 	@Override
 	public String validate(Object object) {
-		m_dateString = (String) object;
-
+		
+		try {
+			m_dateString = (String) object;
+		}catch (Exception e) {
+		// validator can't cast given object to string.
+		// it's a STRING-validator... so nothing happens	
+		}
+		
+		if (m_dateString.equals("")) {
+			return "";
+		}
+		
 		try {
 			m_formater.parse(m_dateString);
 		} catch (Exception e) {
