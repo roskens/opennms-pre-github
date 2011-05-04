@@ -69,6 +69,9 @@
   <meta http-equiv="Content-Style-Type" content="text/css"/>
   <meta http-equiv="Content-Script-Type" content="text/javascript"/>
 
+  <!-- Set GWT property to get browsers locale -->
+  <meta name="gwt:property" content="locale=<%=request.getLocale()%>">
+
   <c:forEach var="meta" items="${paramValues.meta}">
     <c:out value="${meta}" escapeXml="false"/>
   </c:forEach>
