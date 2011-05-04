@@ -38,11 +38,11 @@ import com.google.gwt.core.client.GWT;
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
  * 
  */
-public class StringLengthValidator implements Validator {
+public class StringMaxLengthValidator implements Validator {
 	private AssetPageConstants con = GWT.create(AssetPageConstants.class);
 	private int maxLength;
 
-	public StringLengthValidator(int maxLength) {
+	public StringMaxLengthValidator(int maxLength) {
 		this.maxLength = maxLength;
 	}
 

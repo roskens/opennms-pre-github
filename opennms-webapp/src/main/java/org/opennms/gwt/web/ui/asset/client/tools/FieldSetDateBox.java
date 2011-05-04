@@ -32,10 +32,9 @@ package org.opennms.gwt.web.ui.asset.client.tools;
 
 import java.util.Date;
 
-import org.opennms.gwt.web.ui.asset.client.tools.validation.StringDateValidator;
-import org.opennms.gwt.web.ui.asset.client.tools.validation.StringLengthValidator;
+import org.opennms.gwt.web.ui.asset.client.tools.validation.StringDateLocalValidator;
+import org.opennms.gwt.web.ui.asset.client.tools.validation.StringMaxLengthValidator;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.dom.client.MouseUpEvent;
@@ -54,7 +53,8 @@ public class FieldSetDateBox extends AbstractFieldSet implements FieldSet, Value
 
 	private DateBox dateBox = new DateBox();
 
-	private final DateTimeFormat formater = DateTimeFormat.getFormat(PredefinedFormat.DATE_MEDIUM);
+	private final DateTimeFormat localFormater = DateTimeFormat.getFormat(PredefinedFormat.DATE_MEDIUM);
+	private final DateTimeFormat onmsFormater = DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss Z");
 	
 	@UiConstructor
 	public FieldSetDateBox(String name, String value, String helpText, int maxLength) {
@@ -70,13 +70,17 @@ public class FieldSetDateBox extends AbstractFieldSet implements FieldSet, Value
 	private void init(String value, int maxLength) {
 	
 		if(maxLength > 0 ){
-			addValidator(new StringLengthValidator(maxLength));
+			addValidator(new StringMaxLengthValidator(maxLength));
 		}
-		addValidator(new StringDateValidator());
+		addValidator(new StringDateLocalValidator());
 		
-		dateBox.getTextBox().setText(value);
+		try {
+			dateBox.setValue(onmsFormater.parse(value));
+		} catch (IllegalArgumentException e) {
+			dateBox.getTextBox().setText(value);
+		}	
 
-		dateBox.setFormat(new DateBox.DefaultFormat(formater));
+		dateBox.setFormat(new DateBox.DefaultFormat(localFormater));
 		dateBox.getTextBox().addFocusHandler(this);
 		dateBox.getTextBox().addChangeHandler(this);
 		dateBox.getTextBox().addMouseUpHandler(this);
@@ -96,7 +100,7 @@ public class FieldSetDateBox extends AbstractFieldSet implements FieldSet, Value
 	public String getValue() {
 		String result;
 		try{
-			result = formater.format(dateBox.getValue());
+			result = onmsFormater.format(dateBox.getValue());
 		}catch (Exception e) {
 			result = dateBox.getTextBox().getValue();
 		}
@@ -105,9 +109,8 @@ public class FieldSetDateBox extends AbstractFieldSet implements FieldSet, Value
 
 	public void setValue(String value) {
 		try {
-			dateBox.setValue(formater.parse(value));
+			dateBox.setValue(onmsFormater.parse(value));
 		} catch (Exception e) {
-			GWT.log("fieldsetdatebox exception: " + e);
 			dateBox.getTextBox().setText(value);
 		}
 		validate(dateBox.getTextBox().getText());

@@ -32,7 +32,7 @@ package org.opennms.gwt.web.ui.asset.client.tools;
 
 import java.util.ArrayList;
 
-import org.opennms.gwt.web.ui.asset.client.tools.validation.StringLengthValidator;
+import org.opennms.gwt.web.ui.asset.client.tools.validation.StringMaxLengthValidator;
 
 import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.dom.client.KeyUpEvent;
@@ -76,7 +76,7 @@ public class FieldSetSuggestBox extends AbstractFieldSet implements FieldSet, Va
 
 	private void init(String value, ArrayList<String> suggestions, int maxLength) {
 		if(maxLength > 0 ){
-			addValidator(new StringLengthValidator(maxLength));
+			addValidator(new StringMaxLengthValidator(maxLength));
 		}
 		if (suggestions != null) {
 			oracle.addAll(suggestions);

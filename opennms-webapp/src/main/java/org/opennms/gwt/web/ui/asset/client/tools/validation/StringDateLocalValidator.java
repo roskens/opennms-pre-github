@@ -40,9 +40,8 @@ import com.google.gwt.i18n.client.DateTimeFormat.PredefinedFormat;
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
  * 
  */
-public class StringDateValidator implements Validator {
+public class StringDateLocalValidator implements Validator {
 	private AssetPageConstants con = GWT.create(AssetPageConstants.class);
-	//private final DateTimeFormat m_formater = DateTimeFormat.getFormat("yyyy-MM-dd");
 	
 	private final DateTimeFormat m_formater = DateTimeFormat.getFormat(PredefinedFormat.DATE_MEDIUM);
 

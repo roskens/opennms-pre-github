@@ -30,7 +30,7 @@
 
 package org.opennms.gwt.web.ui.asset.client.tools;
 
-import org.opennms.gwt.web.ui.asset.client.tools.validation.StringLengthValidator;
+import org.opennms.gwt.web.ui.asset.client.tools.validation.StringMaxLengthValidator;
 
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
@@ -60,7 +60,7 @@ public class FieldSetTextArea extends AbstractFieldSet implements FieldSet, KeyU
 	private void init(String value, int maxLength) {
 		
 		if(maxLength > 0 ){
-			addValidator(new StringLengthValidator(maxLength));
+			addValidator(new StringMaxLengthValidator(maxLength));
 		}
 		
 		textArea.setText(value);

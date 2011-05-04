@@ -30,6 +30,7 @@
 
 package org.opennms.gwt.web.ui.asset.server;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -49,7 +50,7 @@ public class AssetServiceMockup extends RemoteServiceServlet implements AssetSer
 	private static final long serialVersionUID = 386558445935186134L;
 
 	private AssetCommand asset = new AssetCommand();
-	private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+	private SimpleDateFormat onmsFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss Z");
 	private ArrayList<String> maunfacturers = new ArrayList<String>();
 	
 	public AssetServiceMockup() {
@@ -119,7 +120,14 @@ public class AssetServiceMockup extends RemoteServiceServlet implements AssetSer
 		asset.setSerialNumber("SerialNumber");
 		asset.setAssetNumber("AssetNumber");
 		asset.setOperatingSystem("OperatingSystem");
-		asset.setDateInstalled(formatter.format(new Date()));
+		Date installDate;
+		try {
+			installDate = onmsFormatter.parse("2000-12-27 23:15:42 -0100");
+		} catch (ParseException e) {
+			e.printStackTrace();
+			installDate = new Date();
+		}
+		asset.setDateInstalled(onmsFormatter.format(installDate));
 	}
 
 	private void saveDataLocation() {
@@ -149,7 +157,16 @@ public class AssetServiceMockup extends RemoteServiceServlet implements AssetSer
 		asset.setLeaseExpires("FooDate");
 		asset.setVendorAssetNumber("VendorAssetNumber");
 		asset.setMaintContractNumber("MaintContractNumber");
-		asset.setMaintContractExpiration(formatter.format(new Date()));
+		
+		Date maintConExp;
+		try {
+			maintConExp = onmsFormatter.parse("2000-12-27 23:15:42 -0100");
+		} catch (ParseException e) {
+			e.printStackTrace();
+			maintConExp = new Date();
+		}
+		
+		asset.setMaintContractExpiration(onmsFormatter.format(maintConExp));
 		asset.setSupportPhone("SupportPhone");
 	}
 
