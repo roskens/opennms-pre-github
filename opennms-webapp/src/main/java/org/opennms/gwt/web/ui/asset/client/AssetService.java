@@ -46,7 +46,7 @@ public interface AssetService extends RemoteService {
 
 	AssetCommand getAssetByNodeId(int nodeId) throws Exception;
 
-	Boolean saveOrUpdateAssetByNodeId(int nodeId, AssetCommand asset);
+	Boolean saveOrUpdateAssetByNodeId(int nodeId, AssetCommand asset) throws Exception;
 	
-	AssetSuggCommand getAssetSuggestions();
+	AssetSuggCommand getAssetSuggestions() throws Exception;
 }

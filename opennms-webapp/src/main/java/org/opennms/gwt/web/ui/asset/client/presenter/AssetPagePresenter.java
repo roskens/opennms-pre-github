@@ -35,6 +35,7 @@ import org.opennms.gwt.web.ui.asset.client.event.SavedAssetEvent;
 import org.opennms.gwt.web.ui.asset.shared.AssetCommand;
 import org.opennms.gwt.web.ui.asset.shared.AssetSuggCommand;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -68,6 +69,8 @@ public class AssetPagePresenter implements Presenter {
 		void cleanUp();
 
 		Widget asWidget();
+
+		void setError(String description, Throwable throwable);
 	}
 
 	private final AssetServiceAsync rpcService;
@@ -81,8 +84,13 @@ public class AssetPagePresenter implements Presenter {
 		this.rpcService = rpcService;
 		this.eventBus = eventBus;
 		this.display = view;
-		// GWT.log("NodeId at URL: " + Window.Location.getParameter("nodeid"));
-		nodeId = Integer.parseInt(Window.Location.getParameter("node"));
+		
+		try {
+			nodeId = Integer.parseInt(Window.Location.getParameter("node"));
+		} catch (NumberFormatException e) {
+			GWT.log("Parameter node is not an parseabel NodeId: " + Window.Location.getParameter("node"), e);
+			display.setError("Parameter node is not an parseabel NodeId: " + Window.Location.getParameter("node"), e);
+		}
 	}
 
 	public void bind() {
@@ -123,8 +131,8 @@ public class AssetPagePresenter implements Presenter {
 			}
 
 			public void onFailure(Throwable caught) {
-				Window.alert("Error fetching asset data for nodeId: " + nodeId);
-				Window.alert("ERROR: " + caught.getMessage() + " <br/> " + caught.getStackTrace().toString());
+				GWT.log("Error fetching asset data for nodeId: " + nodeId, caught);
+				display.setError("Error fetching asset data for nodeId: " + nodeId, caught);
 			}
 		});
 	}
@@ -140,8 +148,8 @@ public class AssetPagePresenter implements Presenter {
 			}
 
 			public void onFailure(Throwable caught) {
-				Window.alert("Error during save or update asset for nodeId: " + nodeId);
-				Window.alert("ERROR: " + caught.getMessage() + " <br/> " + caught.getStackTrace().toString());
+				GWT.log("Error saveing asset data for nodeId: " + nodeId, caught);
+				display.setError("Error saveing asset data for nodeId: " + nodeId, caught);
 			}
 		});
 	}
@@ -154,8 +162,8 @@ public class AssetPagePresenter implements Presenter {
 			}
 
 			public void onFailure(Throwable caught) {
-				Window.alert("Error fetching assetSuggestion data for nodeId: " + nodeId);
-				Window.alert("Asset Info of Node: " + nodeId + " Sorry no suggestions");
+				GWT.log("Error fetching assetSuggestion data for nodeId: " + nodeId, caught);
+				display.setError("Error fetching assetSuggestion data for nodeId: " + nodeId, caught);
 			}
 		});
 

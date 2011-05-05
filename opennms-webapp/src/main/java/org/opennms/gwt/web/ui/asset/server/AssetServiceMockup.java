@@ -69,9 +69,9 @@ public class AssetServiceMockup extends RemoteServiceServlet implements AssetSer
 		return asset;
 	}
 
-	public Boolean saveOrUpdateAssetByNodeId(int nodeId, AssetCommand asset) {
+	public Boolean saveOrUpdateAssetByNodeId(int nodeId, AssetCommand asset) throws Exception {
 		if (nodeId == 999) {
-			return false;
+			throw new NullPointerException("just testing error-case: nodeid 999, you will not save!!");
 		}
 
 		this.asset = asset;
@@ -211,7 +211,7 @@ public class AssetServiceMockup extends RemoteServiceServlet implements AssetSer
 		asset.setComment("Es soll manchen Dichter geben, der muss dichten, um zu leben.Ist das immer so? Mitnichten,manche leben um zu dichten.");
 	}
 
-	public AssetSuggCommand getAssetSuggestions() {
+	public AssetSuggCommand getAssetSuggestions() throws Exception {
 		AssetSuggCommand assetSugg = new AssetSuggCommand();
 
 		assetSugg.setManufacturer(maunfacturers);

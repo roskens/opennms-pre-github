@@ -46,15 +46,21 @@ import org.opennms.gwt.web.ui.asset.shared.AssetCommand;
 import org.opennms.gwt.web.ui.asset.shared.AssetSuggCommand;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.DateTimeFormat.PredefinedFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiTemplate;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -299,9 +305,9 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
 
 	public void setData(AssetCommand asset) {
 		this.m_asset = asset;
-		if (m_asset.getLoggedInUser().equalsIgnoreCase("admin")){
+		if (m_asset.getLoggedInUser().equalsIgnoreCase("admin")) {
 			setEnable(true);
-		}else{
+		} else {
 			setEnable(false);
 		}
 		setDataSNMP(m_asset);
@@ -313,8 +319,8 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
 		setDataHardware(m_asset);
 		setDataComments(m_asset);
 		DateTimeFormat m_formater = DateTimeFormat.getFormat(PredefinedFormat.DATE_TIME_MEDIUM);
-		lastModified
-				.setText(con.lastModified() + " " + m_formater.format(asset.getLastModifiedDate()) + " | " + asset.getLastModifiedBy());
+		lastModified.setText(con.lastModified() + " " + m_formater.format(asset.getLastModifiedDate()) + " | "
+				+ asset.getLastModifiedBy());
 	}
 
 	private void setDataSNMP(AssetCommand asset) {
@@ -600,5 +606,35 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
 
 	public HasClickHandlers getResetButton() {
 		return resetButton;
+	}
+
+	@Override
+	public void setError(String description, Throwable throwable) {
+
+		String error = throwable.toString();
+		final DialogBox dialog = new DialogBox();
+		dialog.setText(description);
+
+		VerticalPanel panel = new VerticalPanel();
+		HTMLPanel html = new HTMLPanel(error);
+		html.setStyleName("Message");
+		panel.add(html);
+
+		Button ok = new Button("OK");
+		SimplePanel buttonPanel = new SimplePanel();
+		buttonPanel.setWidget(ok);
+		buttonPanel.setStyleName("Button");
+		panel.add(buttonPanel);
+
+		dialog.setPopupPosition(Window.getScrollLeft(), Window.getScrollTop());
+		dialog.setWidget(panel);
+		ok.addClickHandler(new ClickHandler() {
+
+			public void onClick(ClickEvent arg0) {
+				dialog.hide();
+			}
+		});
+
+		dialog.show();
 	}
 }
