@@ -626,7 +626,7 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
 		buttonPanel.setStyleName("Button");
 		panel.add(buttonPanel);
 
-		dialog.setPopupPosition(Window.getScrollLeft(), Window.getScrollTop());
+		dialog.setPopupPosition(Window.getScrollLeft() + 100, Window.getScrollTop() + 100);
 		dialog.setWidget(panel);
 		ok.addClickHandler(new ClickHandler() {
 
