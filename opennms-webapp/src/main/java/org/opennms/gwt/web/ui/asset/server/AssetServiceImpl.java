@@ -30,6 +30,7 @@
 
 package org.opennms.gwt.web.ui.asset.server;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -62,13 +63,44 @@ public class AssetServiceImpl extends RemoteServiceServlet implements
 	private OnmsNode m_onmsNode;
 
 	private OnmsAssetRecord m_onmsAssetRecord;
+	
+	/** Constant <code>AUTOENABLE="A"</code> */
+	private static final String AUTOENABLE = "A";
+	
+	/** Constant <code>AUTOENABLES="new ArrayList<String> { AUTOENABLE }"</code> */
+	private static final ArrayList<String> s_autoenableOptions = new ArrayList<String>();
+	
+	/** Constant <code>SSH_CONNECTION="ssh"</code> */
+	private static final String SSH_CONNECTION = "ssh";
+
+	/** Constant <code>TELNET_CONNECTION="ssh"</code> */
+	private static final String TELNET_CONNECTION = "telnet";
+	
+	/** Constant <code>RSH_CONNECTION="rsh"</code> */
+	private static final String RSH_CONNECTION = "rsh";
+
+	/** Constant <code>CONNECTIONS="new ArrayList<String>{ TELNET_CONNECTION,SSH_CO"{trunked}</code> */
+	private static final ArrayList<String> s_connectionOptions = new ArrayList<String>();
+	
+	public AssetServiceImpl () {
+		
+		//TODO: Should be configurable
+		/* Init static strings for autoenable option */
+		s_autoenableOptions.add(AUTOENABLE);
+		
+		//TODO: Should be configurable
+		/* Init static strings for connection types */
+		s_connectionOptions.add(TELNET_CONNECTION);
+		s_connectionOptions.add(SSH_CONNECTION);
+		s_connectionOptions.add(RSH_CONNECTION);
+	}
 
 	@Override
 	public AssetCommand getAssetByNodeId(int nodeId) {
 		AssetCommand assetCommand = new AssetCommand();
 		this.m_onmsNode = this.m_nodeDao.get(nodeId);
 		this.m_onmsAssetRecord = this.m_onmsNode.getAssetRecord();
-
+		
 		// copy all assetRecord properties to assetCommand for gui
 		BeanUtils.copyProperties(this.m_onmsAssetRecord, assetCommand);
 
@@ -78,6 +110,10 @@ public class AssetServiceImpl extends RemoteServiceServlet implements
 		assetCommand.setSnmpSysLocation(this.m_onmsNode.getSysLocation());
 		assetCommand.setSnmpSysName(this.m_onmsNode.getSysName());
 		assetCommand.setSnmpSysObjectId(this.m_onmsNode.getSysObjectId());
+		
+		// set static arrays for gui options
+		assetCommand.setAutoenableOptions(s_autoenableOptions);
+		assetCommand.setConnectionOptions(s_connectionOptions);
 		
 		assetCommand.setNodeId(this.m_onmsNode.getNodeId());
 		assetCommand.setNodeLabel(this.m_onmsNode.getLabel());
