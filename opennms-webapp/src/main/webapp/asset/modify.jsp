@@ -38,11 +38,14 @@
 //
 
 --%>
-
 <%@page language="java" contentType="text/html" session="true"  %>
 
 <jsp:include page="/includes/header.jsp" flush="false">
-	<jsp:param name="title" value="Asset" />
+  <jsp:param name="title" value="Modify Asset" />
+  <jsp:param name="headTitle" value="Modify" />
+  <jsp:param name="headTitle" value="Asset" />
+  <jsp:param name="breadcrumb" value="<a href ='asset/index.jsp'>Assets</a>" />
+  <jsp:param name="breadcrumb" value="Modify" />
 	<jsp:param name="meta">
 	  <jsp:attribute name="value">
 	    <meta name='gwt:module' content='org.opennms.gwt.web.ui.asset.Asset' />
