@@ -82,10 +82,11 @@ public class AssetServiceMockup extends RemoteServiceServlet implements AssetSer
 	}
 
 	public AssetCommand setData() {
+		asset.setNodeId("23");
+		asset.setNodeLabel("Cronojon");
 		asset.setLoggedInUser("admin");
 		saveDataSNMP();
-		saveDataConfigCategories();
-		saveDataIdentification();
+		saveDataConfigCategories();		saveDataIdentification();
 		saveDataLocation();
 		saveDataVendor();
 		saveDataAuthentication();

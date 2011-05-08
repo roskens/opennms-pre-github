@@ -35,6 +35,14 @@ package org.opennms.gwt.web.ui.asset.client;
  */
 public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants {
 	
+	@DefaultStringValue("Node Id: ")
+	@Key("nodeIdLabel")
+	String nodeIdLabel();
+	
+	@DefaultStringValue("General Information")
+	@Key("nodeInfoLink")
+	String nodeInfoLink();
+	
 	/* SNMP Labels */
 	@DefaultStringValue("SNMP Info")
 	@Key("snmpHeader")

@@ -55,6 +55,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DialogBox;
@@ -80,6 +81,11 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
 
 	AssetCommand m_asset;
 
+	@UiField 
+	Label nodeInfoLabel;
+	@UiField
+	Anchor nodeInfoLink;
+	
 	@UiField
 	VerticalPanel mainPanel;
 
@@ -310,6 +316,9 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
 		} else {
 			setEnable(false);
 		}
+		nodeInfoLabel.setText(asset.getNodeLabel() + " " + con.nodeIdLabel() + " " + asset.getNodeId());
+		nodeInfoLink.setHref("element/node.jsp?node=" + asset.getNodeId());
+		nodeInfoLink.setHTML(con.nodeInfoLink());
 		setDataSNMP(m_asset);
 		setDataConfigCategories(m_asset);
 		setDataIdentification(m_asset);
