@@ -37,6 +37,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
+import org.hibernate.transform.Transformers;
 import org.opennms.netmgt.dao.AssetRecordDao;
 import org.opennms.netmgt.model.OnmsAssetRecord;
 
@@ -100,213 +104,102 @@ public class AssetRecordDaoHibernate extends
 	}
 
 	@Override
-	public List<String> getDistinctAdditionalhardware() {
-		String hql = "select distinct a.additionalhardware from OnmsAssetRecord a order by a.additionalhardware asc";
-		return getHibernateTemplate().find(hql);
-	}
+	public List<OnmsAssetRecord> getDistinctProperties() {
+		DetachedCriteria criteria = DetachedCriteria
+				.forClass(OnmsAssetRecord.class);
+		ProjectionList projList = Projections.projectionList();
 
-	@Override
-	public List<String> getDistinctAddress1() {
-		String hql = "select distinct a.address1 from OnmsAssetRecord a order by a.address1 asc";
-		return getHibernateTemplate().find(hql);
-	}
+		projList.add(Projections.alias(
+				Projections.property("additionalhardware"),
+				"additionalhardware"));
+		projList.add(Projections.alias(Projections.property("address1"),
+				"address1"));
+		projList.add(Projections.alias(Projections.property("address2"),
+				"address2"));
+		projList.add(Projections.alias(Projections.property("admin"), "admin"));
+		projList.add(Projections.alias(Projections.property("assetNumber"),
+				"assetNumber"));
+		projList.add(Projections.alias(Projections.property("autoenable"),
+				"autoenable"));
+		projList.add(Projections.alias(Projections.property("building"),
+				"building"));
+		projList.add(Projections.alias(Projections.property("category"),
+				"category"));
+		projList.add(Projections.alias(Projections.property("circuitId"),
+				"circuitId"));
+		projList.add(Projections.alias(Projections.property("city"), "city"));
+		projList.add(Projections.alias(Projections.property("comment"),
+				"comment"));
+		projList.add(Projections.alias(Projections.property("connection"),
+				"connection"));
+		projList.add(Projections.alias(Projections.property("cpu"), "cpu"));
+		projList.add(Projections.alias(Projections.property("department"),
+				"department"));
+		projList.add(Projections.alias(Projections.property("description"),
+				"description"));
+		projList.add(Projections.alias(Projections.property("displayCategory"),
+				"displayCategory"));
+		projList.add(Projections.alias(Projections.property("division"),
+				"division"));
+		projList.add(Projections.alias(Projections.property("enable"), "enable"));
+		projList.add(Projections.alias(Projections.property("floor"), "floor"));
+		projList.add(Projections.alias(Projections.property("hdd1"), "hdd1"));
+		projList.add(Projections.alias(Projections.property("hdd2"), "hdd2"));
+		projList.add(Projections.alias(Projections.property("hdd3"), "hdd3"));
+		projList.add(Projections.alias(Projections.property("hdd4"), "hdd4"));
+		projList.add(Projections.alias(Projections.property("hdd5"), "hdd5"));
+		projList.add(Projections.alias(Projections.property("hdd6"), "hdd6"));
+		projList.add(Projections.alias(Projections.property("inputpower"),
+				"inputpower"));
+		projList.add(Projections.alias(Projections.property("lease"), "lease"));
+		projList.add(Projections.alias(Projections.property("maintcontract"),
+				"maintcontract"));
+		projList.add(Projections.alias(Projections.property("manufacturer"),
+				"manufacturer"));
+		projList.add(Projections.alias(Projections.property("modelNumber"),
+				"modelNumber"));
+		projList.add(Projections.alias(Projections.property("notifyCategory"),
+				"notifyCategory"));
+		projList.add(Projections.alias(
+				Projections.property("numpowersupplies"), "numpowersupplies"));
+		projList.add(Projections.alias(Projections.property("operatingSystem"),
+				"operatingSystem"));
+		projList.add(Projections.alias(Projections.property("pollerCategory"),
+				"pollerCategory"));
+		projList.add(Projections.alias(Projections.property("port"), "port"));
+		projList.add(Projections.alias(Projections.property("rack"), "rack"));
+		projList.add(Projections.alias(Projections.property("ram"), "ram"));
+		projList.add(Projections.alias(Projections.property("region"), "region"));
+		projList.add(Projections.alias(Projections.property("room"), "room"));
+		projList.add(Projections.alias(Projections.property("serialNumber"),
+				"serialNumber"));
+		projList.add(Projections.alias(Projections.property("slot"), "slot"));
+		projList.add(Projections.alias(Projections.property("snmpcommunity"),
+				"snmpcommunity"));
+		projList.add(Projections.alias(Projections.property("state"), "state"));
+		projList.add(Projections.alias(Projections.property("storagectrl"),
+				"storagectrl"));
+		projList.add(Projections.alias(Projections.property("supportPhone"),
+				"supportPhone"));
+		projList.add(Projections.alias(
+				Projections.property("thresholdCategory"), "thresholdCategory"));
+		projList.add(Projections.alias(Projections.property("username"),
+				"username"));
+		projList.add(Projections.alias(Projections.property("vendor"), "vendor"));
+		projList.add(Projections.alias(
+				Projections.property("vendorAssetNumber"), "vendorAssetNumber"));
+		projList.add(Projections.alias(Projections.property("vendorFax"),
+				"vendorFax"));
+		projList.add(Projections.alias(Projections.property("vendorPhone"),
+				"vendorPhone"));
+		projList.add(Projections.alias(Projections.property("zip"), "zip"));
 
-	@Override
-	public List<String> getDistinctAddress2() {
-		String hql = "select distinct a.address2 from OnmsAssetRecord a order by a.address2 asc";
-		return getHibernateTemplate().find(hql);
-	}
+		criteria.setProjection(Projections.distinct(projList));
+		criteria.setResultTransformer(Transformers
+				.aliasToBean(OnmsAssetRecord.class));
 
-	@Override
-	public List<String> getDistinctAdmin() {
-		String hql = "select distinct a.admin from OnmsAssetRecord a order by a.admin asc";
-		return getHibernateTemplate().find(hql);
-	}
-
-	@Override
-	public List<String> getDistinctAssetCategory() {
-		String hql = "select distinct a.category from OnmsAssetRecord a order by a.category asc";
-		return getHibernateTemplate().find(hql);
-	}
-
-	@Override
-	public List<String> getDistinctBuilding() {
-		String hql = "select distinct a.building from OnmsAssetRecord a order by a.building asc";
-		return getHibernateTemplate().find(hql);
-	}
-
-	@Override
-	public List<String> getDistinctCategory() {
-		String hql = "select distinct a.category from OnmsAssetRecord a order by a.category asc";
-		return getHibernateTemplate().find(hql);
-	}
-
-	@Override
-	public List<String> getDistinctCircuitId() {
-		String hql = "select distinct a.circuitId from OnmsAssetRecord a order by a.circuitId asc";
-		return getHibernateTemplate().find(hql);
-	}
-
-	@Override
-	public List<String> getDistinctCity() {
-		String hql = "select distinct a.city from OnmsAssetRecord a order by a.city asc";
-		return getHibernateTemplate().find(hql);
-	}
-
-	@Override
-	public List<String> getDistinctDepartment() {
-		String hql = "select distinct a.department from OnmsAssetRecord a order by a.department asc";
-		return getHibernateTemplate().find(hql);
-	}
-
-	@Override
-	public List<String> getDistinctDescription() {
-		String hql = "select distinct a.description from OnmsAssetRecord a order by a.description asc";
-		return getHibernateTemplate().find(hql);
-	}
-
-	@Override
-	public List<String> getDistinctDisplayCategory() {
-		String hql = "select distinct a.displayCategory from OnmsAssetRecord a order by a.displayCategory asc";
-		return getHibernateTemplate().find(hql);
-	}
-
-	@Override
-	public List<String> getDistinctDivision() {
-		String hql = "select distinct a.division from OnmsAssetRecord a order by a.division asc";
-		return getHibernateTemplate().find(hql);
-	}
-
-	@Override
-	public List<String> getDistinctFloor() {
-		String hql = "select distinct a.floor from OnmsAssetRecord a order by a.floor asc";
-		return getHibernateTemplate().find(hql);
-	}
-
-	@Override
-	public List<String> getDistinctInputpower() {
-		String hql = "select distinct a.inputpower from OnmsAssetRecord a order by a.inputpower asc";
-		return getHibernateTemplate().find(hql);
-	}
-
-	@Override
-	public List<String> getDistinctLease() {
-		String hql = "select distinct a.lease from OnmsAssetRecord a order by a.lease asc";
-		return getHibernateTemplate().find(hql);
-	}
-
-	@Override
-	public List<String> getDistinctMaintContract() {
-		String hql = "select distinct a.maintContractNumber from OnmsAssetRecord a order by a.maintContractNumber asc";
-		return getHibernateTemplate().find(hql);
-	}
-
-	@Override
-	public List<String> getDistinctManufacturer() {
-		// TODO Auto-generated method stub
-		String hql = "select distinct a.manufacturer from OnmsAssetRecord a order by a.manufacturer asc";
-		return getHibernateTemplate().find(hql);
-	}
-
-	@Override
-	public List<String> getDistinctModelNumber() {
-		String hql = "select distinct a.modelNumber from OnmsAssetRecord a order by a.modelNumber asc";
-		return getHibernateTemplate().find(hql);
-	}
-
-	@Override
-	public List<String> getDistinctNotificationCategory() {
-		String hql = "select distinct a.notifyCategory from OnmsAssetRecord a order by a.notifyCategory asc";
-		return getHibernateTemplate().find(hql);
-	}
-
-	@Override
-	public List<String> getDistinctOs() {
-		String hql = "select distinct a.operatingSystem from OnmsAssetRecord a order by a.operatingSystem asc";
-		return getHibernateTemplate().find(hql);
-	}
-
-	@Override
-	public List<String> getDistinctPollerCategory() {
-		String hql = "select distinct a.pollerCategory from OnmsAssetRecord a order by a.pollerCategory asc";
-		return getHibernateTemplate().find(hql);
-	}
-
-	@Override
-	public List<String> getDistinctRack() {
-		String hql = "select distinct a.rack from OnmsAssetRecord a order by a.rack asc";
-		return getHibernateTemplate().find(hql);
-	}
-
-	@Override
-	public List<String> getDistinctRegion() {
-		String hql = "select distinct a.region from OnmsAssetRecord a order by a.region asc";
-		return getHibernateTemplate().find(hql);
-	}
-
-	@Override
-	public List<String> getDistinctRoom() {
-		String hql = "select distinct a.room from OnmsAssetRecord a order by a.room asc";
-		return getHibernateTemplate().find(hql);
-	}
-
-	@Override
-	public List<String> getDistinctSnmpcommunity() {
-		String hql = "select distinct a.snmpcommunity from OnmsAssetRecord a order by a.snmpcommunity asc";
-		return getHibernateTemplate().find(hql);
-	}
-
-	@Override
-	public List<String> getDistinctState() {
-		String hql = "select distinct a.state from OnmsAssetRecord a order by a.state asc";
-		return getHibernateTemplate().find(hql);
-	}
-
-	@Override
-	public List<String> getDistinctStoragectrl() {
-		String hql = "select distinct a.storagectrl from OnmsAssetRecord a order by a.storagectrl asc";
-		return getHibernateTemplate().find(hql);
-	}
-
-	@Override
-	public List<String> getDistinctSupportPhone() {
-		String hql = "select distinct a.supportPhone from OnmsAssetRecord a order by a.supportPhone asc";
-		return getHibernateTemplate().find(hql);
-	}
-
-	@Override
-	public List<String> getDistinctThresholdCategory() {
-		String hql = "select distinct a.thresholdCategory from OnmsAssetRecord a order by a.thresholdCategory asc";
-		return getHibernateTemplate().find(hql);
-	}
-
-	@Override
-	public List<String> getDistinctVendor() {
-		String hql = "select distinct a.vendor from OnmsAssetRecord a order by a.vendor asc";
-		return getHibernateTemplate().find(hql);
-	}
-
-	@Override
-	public List<String> getDistinctVendorAsset() {
-		String hql = "select distinct a.vendor from OnmsAssetRecord a order by a.vendor asc";
-		return getHibernateTemplate().find(hql);
-	}
-
-	@Override
-	public List<String> getDistinctVendorFax() {
-		String hql = "select distinct a.vendorFax from OnmsAssetRecord a order by a.vendorFax asc";
-		return getHibernateTemplate().find(hql);
-	}
-
-	@Override
-	public List<String> getDistinctVendorPhone() {
-		String hql = "select distinct a.vendorPhone from OnmsAssetRecord a order by a.vendorPhone asc";
-		return getHibernateTemplate().find(hql);
-	}
-
-	@Override
-	public List<String> getDistinctZip() {
-		String hql = "select distinct a.zip from OnmsAssetRecord a order by a.zip asc";
-		return getHibernateTemplate().find(hql);
+		List<OnmsAssetRecord> result = getHibernateTemplate().findByCriteria(
+				criteria);
+		return result;
 	}
 }

@@ -182,7 +182,7 @@ public class OnmsAssetRecord implements Serializable {
     private String m_maintContractExpiration;
 
     /** identifier field */
-    private String m_maintContractNumber;
+    private String m_maintContract;
 
     private String m_managedObjectInstance;
 
@@ -643,8 +643,8 @@ public class OnmsAssetRecord implements Serializable {
      * @return a {@link java.lang.String} object.
      */
     @Column(name="maintContract", length=64)
-    public String getMaintContractNumber() {
-        return m_maintContractNumber;
+    public String getMaintcontract() {
+        return m_maintContract;
     }
 
     /**
@@ -1271,12 +1271,12 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setMaintContractNumber</p>
+     * <p>setMaintContract</p>
      *
      * @param maintcontract a {@link java.lang.String} object.
      */
-    public void setMaintContractNumber(String maintcontract) {
-        m_maintContractNumber = maintcontract;
+    public void setMaintcontract(String maintcontract) {
+        m_maintContract = maintcontract;
     }
 
     /**
@@ -1572,7 +1572,7 @@ public class OnmsAssetRecord implements Serializable {
             .append("lease", getLease())
             .append("leaseexpires", getLeaseExpires())
             .append("supportphone", getSupportPhone())
-            .append("maintcontract", getMaintContractNumber())
+            .append("maintcontract", getMaintcontract())
             .append("maintcontractexpires", getMaintContractExpiration())
             .append("displaycategory", getDisplayCategory())
             .append("notifycategory", getNotifyCategory())

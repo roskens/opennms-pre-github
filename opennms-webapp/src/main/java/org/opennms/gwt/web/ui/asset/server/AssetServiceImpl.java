@@ -30,8 +30,8 @@
 
 package org.opennms.gwt.web.ui.asset.server;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.opennms.gwt.web.ui.asset.client.AssetService;
 import org.opennms.gwt.web.ui.asset.shared.AssetCommand;
@@ -41,12 +41,7 @@ import org.opennms.netmgt.dao.NodeDao;
 import org.opennms.netmgt.model.OnmsAssetRecord;
 import org.opennms.netmgt.model.OnmsNode;
 import org.springframework.beans.BeanUtils;
-import org.springframework.security.Authentication;
-import org.springframework.security.context.SecurityContext;
-import org.springframework.security.context.SecurityContextHolder;
-import org.springframework.security.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -55,141 +50,158 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  * 
  */
 @Transactional(readOnly = false)
-public class AssetServiceImpl extends RemoteServiceServlet implements AssetService {
+public class AssetServiceImpl extends RemoteServiceServlet implements
+		AssetService {
 
-    private static final long serialVersionUID = 3847574674959207209L;
+	private static final long serialVersionUID = 3847574674959207209L;
 
-    private AssetRecordDao m_assetRecordDao;
+	private AssetRecordDao m_assetRecordDao;
 
-    private NodeDao m_nodeDao;
+	private NodeDao m_nodeDao;
 
-    private OnmsNode m_onmsNode;
+	private OnmsNode m_onmsNode;
 
-    private OnmsAssetRecord m_onmsAssetRecord;
+	private OnmsAssetRecord m_onmsAssetRecord;
 
-    private AssetSuggCommand m_assetSuggCommand;
-    
-    private AssetCommand m_assetCommand;
-    
-    public AssetServiceImpl() {
-    	this.m_assetCommand = new AssetCommand();
-    	this.m_assetSuggCommand = new AssetSuggCommand();
-    }
-    
-    @Override
-    public AssetCommand getAssetByNodeId(int nodeId) {
-        this.m_onmsNode = this.m_nodeDao.get(nodeId);
-        this.m_onmsAssetRecord = this.m_onmsNode.getAssetRecord();
-        
-        // copy all assetRecord properties to assetCommand for gui
-        BeanUtils.copyProperties(this.m_onmsAssetRecord, this.m_assetCommand);
-        
-        // set node specific properties for the asset node page
-        this.m_assetCommand.setSnmpSysContact(this.m_onmsNode.getSysContact());
-        this.m_assetCommand.setSnmpSysDescription(this.m_onmsNode.getSysDescription());
-        this.m_assetCommand.setSnmpSysLocation(this.m_onmsNode.getSysLocation());
-        this.m_assetCommand.setSnmpSysName(this.m_onmsNode.getSysName());
-        this.m_assetCommand.setSnmpSysObjectId(this.m_onmsNode.getSysObjectId());
-        
-        // set user from web ui session
-        this.m_assetCommand.setLoggedInUser(getUsername());
-        this.m_onmsAssetRecord.setNode(this.m_onmsNode);
-        return this.m_assetCommand;
-    }
+	@Override
+	public AssetCommand getAssetByNodeId(int nodeId) {
+		AssetCommand assetCommand = new AssetCommand();
+		this.m_onmsNode = this.m_nodeDao.get(nodeId);
+		this.m_onmsAssetRecord = this.m_onmsNode.getAssetRecord();
 
-    @Override
-    public AssetSuggCommand getAssetSuggestions() {
-    	// TODO: a lot of mapping code, better using Hibernates ResultToBeanMapper
-    	this.m_assetSuggCommand.setAdditionalhardware((ArrayList<String>) this.m_assetRecordDao.getDistinctAdditionalhardware());
-        this.m_assetSuggCommand.setAddress1((ArrayList<String>) this.m_assetRecordDao.getDistinctAddress1());
-        this.m_assetSuggCommand.setAddress2((ArrayList<String>) this.m_assetRecordDao.getDistinctAddress2());
-        this.m_assetSuggCommand.setAdmin((ArrayList<String>) this.m_assetRecordDao.getDistinctAdmin());
-        this.m_assetSuggCommand.setBuilding((ArrayList<String>) this.m_assetRecordDao.getDistinctBuilding());
-        this.m_assetSuggCommand.setCategory((ArrayList<String>) this.m_assetRecordDao.getDistinctDisplayCategory());
-        this.m_assetSuggCommand.setCircuitId((ArrayList<String>) this.m_assetRecordDao.getDistinctCircuitId());
-        this.m_assetSuggCommand.setCity((ArrayList<String>) this.m_assetRecordDao.getDistinctCity());
-        this.m_assetSuggCommand.setDepartment((ArrayList<String>) this.m_assetRecordDao.getDistinctDepartment());
-        this.m_assetSuggCommand.setDescription((ArrayList<String>) this.m_assetRecordDao.getDistinctDescription());
-        this.m_assetSuggCommand.setDisplayCategory((ArrayList<String>) this.m_assetRecordDao.getDistinctDisplayCategory());
-        this.m_assetSuggCommand.setDivision((ArrayList<String>) this.m_assetRecordDao.getDistinctDivision());
-        this.m_assetSuggCommand.setFloor((ArrayList<String>) this.m_assetRecordDao.getDistinctFloor());
-        this.m_assetSuggCommand.setInputpower((ArrayList<String>) this.m_assetRecordDao.getDistinctInputpower());
-        this.m_assetSuggCommand.setLease((ArrayList<String>) this.m_assetRecordDao.getDistinctLease());
-        this.m_assetSuggCommand.setMaintContractNumber((ArrayList<String>) this.m_assetRecordDao.getDistinctMaintContract());
-        this.m_assetSuggCommand.setManufacturer((ArrayList<String>) this.m_assetRecordDao.getDistinctManufacturer());
-        this.m_assetSuggCommand.setModelNumber((ArrayList<String>) this.m_assetRecordDao.getDistinctModelNumber());
-        this.m_assetSuggCommand.setNotifyCategory((ArrayList<String>) this.m_assetRecordDao.getDistinctNotificationCategory());
-        this.m_assetSuggCommand.setOperatingSystem((ArrayList<String>) this.m_assetRecordDao.getDistinctOs());
-        this.m_assetSuggCommand.setPollerCategory((ArrayList<String>) this.m_assetRecordDao.getDistinctPollerCategory());
-        this.m_assetSuggCommand.setRack((ArrayList<String>) this.m_assetRecordDao.getDistinctRack());
-        this.m_assetSuggCommand.setRegion((ArrayList<String>) this.m_assetRecordDao.getDistinctRegion());
-        this.m_assetSuggCommand.setRoom((ArrayList<String>) this.m_assetRecordDao.getDistinctRoom());
-        this.m_assetSuggCommand.setSnmpcommunity((ArrayList<String>) this.m_assetRecordDao.getDistinctSnmpcommunity());
-        this.m_assetSuggCommand.setState((ArrayList<String>) this.m_assetRecordDao.getDistinctState());
-        this.m_assetSuggCommand.setStoragectrl((ArrayList<String>) this.m_assetRecordDao.getDistinctStoragectrl());
-        this.m_assetSuggCommand.setSupportPhone((ArrayList<String>) this.m_assetRecordDao.getDistinctSupportPhone());
-        this.m_assetSuggCommand.setThresholdCategory((ArrayList<String>) this.m_assetRecordDao.getDistinctThresholdCategory());
-        this.m_assetSuggCommand.setVendor((ArrayList<String>) this.m_assetRecordDao.getDistinctVendor());
-        this.m_assetSuggCommand.setVendorFax((ArrayList<String>) this.m_assetRecordDao.getDistinctVendorFax());
-        this.m_assetSuggCommand.setVendorPhone((ArrayList<String>) this.m_assetRecordDao.getDistinctVendorPhone());
-        this.m_assetSuggCommand.setZip((ArrayList<String>) this.m_assetRecordDao.getDistinctZip());
-        
-        return this.m_assetSuggCommand;
-    }
+		// copy all assetRecord properties to assetCommand for gui
+		BeanUtils.copyProperties(this.m_onmsAssetRecord, assetCommand);
 
-    @Override
-    public Boolean saveOrUpdateAssetByNodeId(int nodeId, AssetCommand assetCommand) {
-    	Boolean isSaved = false;
-    	this.m_assetCommand = assetCommand;
-        this.m_onmsNode = this.m_nodeDao.get(nodeId);
-        this.m_onmsAssetRecord = this.m_onmsNode.getAssetRecord();
+		// set node specific properties for the asset node page
+		assetCommand.setSnmpSysContact(this.m_onmsNode.getSysContact());
+		assetCommand.setSnmpSysDescription(this.m_onmsNode.getSysDescription());
+		assetCommand.setSnmpSysLocation(this.m_onmsNode.getSysLocation());
+		assetCommand.setSnmpSysName(this.m_onmsNode.getSysName());
+		assetCommand.setSnmpSysObjectId(this.m_onmsNode.getSysObjectId());
+		
+		assetCommand.setNodeId(this.m_onmsNode.getNodeId());
+		assetCommand.setNodeLabel(this.m_onmsNode.getLabel());
 
-        BeanUtils.copyProperties(this.m_assetCommand, this.m_onmsAssetRecord);
+		// set user from web ui session
+		assetCommand.setLoggedInUser("admin");
+		this.m_onmsAssetRecord.setNode(this.m_onmsNode);
+		return assetCommand;
+	}
 
-        this.m_onmsAssetRecord.setLastModifiedBy(getUsername());
-        
-        this.m_onmsAssetRecord.setLastModifiedDate(new Date());
-        this.m_onmsAssetRecord.setNode(this.m_onmsNode);
-        
-        try {
-        	this.m_assetRecordDao.saveOrUpdate(this.m_onmsAssetRecord);
-        	isSaved = true;
-        } catch (Exception e) {
-        	//TODO: Catch exception and show error in web user interface
-        	isSaved = false;
-        	e.printStackTrace();
-        }
-        
-        return isSaved;
-    }
+	@Override
+	public AssetSuggCommand getAssetSuggestions() {
+		AssetSuggCommand suggestion = new AssetSuggCommand();
+		List<OnmsAssetRecord> distinctAssetProperties = this.m_assetRecordDao
+				.getDistinctProperties();
 
-    /**
-     * <p>getUsername</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    protected String getUsername() {
-        /*
-         * This should never be null, as the strategy should create a
-         * SecurityContext if one doesn't exist, but let's check anyway.
-         */
-        SecurityContext context = SecurityContextHolder.getContext();
-        Assert.state(context != null, "No security context found when calling SecurityContextHolder.getContext()");
-        
-        Authentication auth = context.getAuthentication();
-        Assert.state(auth != null, "No Authentication object found when calling getAuthentication on our SecurityContext object");
-        
-        Object obj = auth.getPrincipal();
-        Assert.state(obj != null, "No principal object found when calling getPrinticpal on our Authentication object");
-        
-        
-        if (obj instanceof UserDetails) { 
-            return ((UserDetails)obj).getUsername(); 
-        } else { 
-            return obj.toString(); 
-        }
-    }
-    
+		// TODO: a lot of mapping code, better using Hibernates
+		// ResultToBeanMapper
+		for (OnmsAssetRecord asset : distinctAssetProperties) {
+			suggestion.addAdditionalhardware(asset.getAdditionalhardware());
+			suggestion.addAddress1(asset.getAddress1());
+			suggestion.addAddress2(asset.getAddress2());
+			suggestion.addAdmin(asset.getAdmin());
+			suggestion.addBuilding(asset.getBuilding());
+			suggestion.addCategory(asset.getCategory());
+			suggestion.addCircuitId(asset.getCircuitId());
+			suggestion.addCity(asset.getCity());
+			suggestion.addCpu(asset.getCpu());
+			suggestion.addDepartment(asset.getDepartment());
+			suggestion.addDescription(asset.getDescription());
+			suggestion.addDisplayCategory(asset.getDisplayCategory());
+			suggestion.addDivision(asset.getDivision());
+			suggestion.addFloor(asset.getFloor());
+			suggestion.addHdd1(asset.getHdd1());
+			suggestion.addHdd2(asset.getHdd2());
+			suggestion.addHdd3(asset.getHdd3());
+			suggestion.addHdd4(asset.getHdd4());
+			suggestion.addHdd5(asset.getHdd5());
+			suggestion.addHdd6(asset.getHdd6());
+			suggestion.addInputpower(asset.getInputpower());
+			suggestion.addLease(asset.getLease());
+			suggestion.addMaintContractNumber(asset.getMaintcontract());
+			suggestion.addManufacturer(asset.getManufacturer());
+			suggestion.addModelNumber(asset.getModelNumber());
+			suggestion.addNotifyCategory(asset.getNotifyCategory());
+			suggestion.addNumpowersupplies(asset.getNumpowersupplies());
+			suggestion.addOperatingSystem(asset.getOperatingSystem());
+			suggestion.addPollerCategory(asset.getPollerCategory());
+			suggestion.addRack(asset.getRack());
+			suggestion.addRam(asset.getRam());
+			suggestion.addRegion(asset.getRegion());
+			suggestion.addRoom(asset.getRoom());
+			suggestion.addSnmpcommunity(asset.getSnmpcommunity());
+			suggestion.addState(asset.getState());
+			suggestion.addStoragectrl(asset.getStoragectrl());
+			suggestion.addSupportPhone(asset.getSupportPhone());
+			suggestion.addThresholdCategory(asset.getThresholdCategory());
+			suggestion.addVendor(asset.getVendor());
+			suggestion.addVendorFax(asset.getVendorFax());
+			suggestion.addVendorPhone(asset.getVendorPhone());
+			suggestion.addZip(asset.getZip());
+		}
+		return suggestion;
+	}
+
+	@Override
+	public Boolean saveOrUpdateAssetByNodeId(int nodeId,
+			AssetCommand assetCommand) {
+		Boolean isSaved = false;
+		this.m_onmsNode = this.m_nodeDao.get(nodeId);
+		this.m_onmsAssetRecord = this.m_onmsNode.getAssetRecord();
+
+		BeanUtils.copyProperties(assetCommand, this.m_onmsAssetRecord);
+
+		this.m_onmsAssetRecord.setLastModifiedBy("admin");
+
+		this.m_onmsAssetRecord.setLastModifiedDate(new Date());
+		this.m_onmsAssetRecord.setNode(this.m_onmsNode);
+
+		try {
+			this.m_assetRecordDao.saveOrUpdate(this.m_onmsAssetRecord);
+			isSaved = true;
+		} catch (Exception e) {
+			// TODO: Catch exception and show error in web user interface
+			isSaved = false;
+			e.printStackTrace();
+		}
+
+		return isSaved;
+	}
+
+	/**
+	 * <p>
+	 * getUsername
+	 * </p>
+	 * 
+	 * @return a {@link java.lang.String} object.
+	 */
+	// protected String getUsername() {
+	// /*
+	// * This should never be null, as the strategy should create a
+	// * SecurityContext if one doesn't exist, but let's check anyway.
+	// */
+	// SecurityContext context = SecurityContextHolder.getContext();
+	// Assert.state(context != null,
+	// "No security context found when calling SecurityContextHolder.getContext()");
+	//
+	// Authentication auth = context.getAuthentication();
+	// Assert.state(auth != null,
+	// "No Authentication object found when calling getAuthentication on our SecurityContext object");
+	//
+	// Object obj = auth.getPrincipal();
+	// Assert.state(obj != null,
+	// "No principal object found when calling getPrinticpal on our Authentication object");
+	//
+	//
+	// if (obj instanceof UserDetails) {
+	// return ((UserDetails)obj).getUsername();
+	// } else {
+	// return obj.toString();
+	// }
+	// }
+	//
+
 	public AssetRecordDao getAssetRecordDao() {
 		return m_assetRecordDao;
 	}

@@ -40,7 +40,7 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  * 
  */
 public class AssetCommand implements IsSerializable {
-	
+
 	/** identifier field */
 	private String m_additionalhardware;
 
@@ -58,8 +58,8 @@ public class AssetCommand implements IsSerializable {
 
 	/** identifier field */
 	private String m_autoenable;
-    
-    /** identifier field */
+
+	/** identifier field */
 	private ArrayList<String> m_autoenableOptions;
 
 	/** identifier field */
@@ -79,8 +79,8 @@ public class AssetCommand implements IsSerializable {
 
 	/** identifier field */
 	private String m_connection;
-    
-    /** identifier field */
+
+	/** identifier field */
 	private ArrayList<String> m_connectionOptions;
 
 	/** identifier field */
@@ -134,8 +134,8 @@ public class AssetCommand implements IsSerializable {
 	/** identifier field */
 	private String m_lastModifiedBy;
 
-    /** identifier field */
-    private Date m_lastModifiedDate;
+	/** identifier field */
+	private Date m_lastModifiedDate;
 
 	/** identifier field */
 	private String m_lease;
@@ -157,6 +157,12 @@ public class AssetCommand implements IsSerializable {
 
 	/** identifier field */
 	private String m_modelNumber;
+
+	/** identifier field */
+	private String m_nodeId;
+
+	/** identifier field */
+	private String m_nodeLabel;
 
 	/** identifier field */
 	private String m_notifyCategory;
@@ -193,23 +199,23 @@ public class AssetCommand implements IsSerializable {
 
 	/** identifier field */
 	private String m_slot;
-	
+
 	/** identifier field */
 	private String m_snmpcommunity;
 
-	/** identifier field */	
+	/** identifier field */
 	private String m_snmpSysContact;
-	
-	/** identifier field */	
+
+	/** identifier field */
 	private String m_snmpSysDescription;
 
-	/** identifier field */	
+	/** identifier field */
 	private String m_snmpSysLocation;
-	
-	/** identifier field */	
+
+	/** identifier field */
 	private String m_snmpSysName;
-	
-	/** identifier field */	
+
+	/** identifier field */
 	private String m_snmpSysObjectId;
 
 	/** identifier field */
@@ -238,15 +244,15 @@ public class AssetCommand implements IsSerializable {
 
 	/** identifier field */
 	private String m_vendorPhone;
-	
+
 	/** identifier field */
 	private String m_zip;
 
-    public AssetCommand () {
-    	this.m_autoenableOptions = new ArrayList<String>();
-    	this.m_connectionOptions = new ArrayList<String>();
-    	this.m_lastModifiedDate = new Date();
-    }
+	public AssetCommand() {
+		this.m_autoenableOptions = new ArrayList<String>();
+		this.m_connectionOptions = new ArrayList<String>();
+		this.m_lastModifiedDate = new Date();
+	}
 
 	public String getAdditionalhardware() {
 		return m_additionalhardware;
@@ -272,7 +278,7 @@ public class AssetCommand implements IsSerializable {
 		return m_autoenable;
 	}
 
-	public ArrayList<String> getAutoenableOptions () {
+	public ArrayList<String> getAutoenableOptions() {
 		return m_autoenableOptions;
 	}
 
@@ -300,14 +306,14 @@ public class AssetCommand implements IsSerializable {
 		return m_connection;
 	}
 
-	public ArrayList<String> getConnectionOptions () {
+	public ArrayList<String> getConnectionOptions() {
 		return m_connectionOptions;
 	}
-	
+
 	public String getCpu() {
 		return m_cpu;
 	}
-	
+
 	public String getDateInstalled() {
 		return m_dateInstalled;
 	}
@@ -359,7 +365,7 @@ public class AssetCommand implements IsSerializable {
 	public String getHdd6() {
 		return m_hdd6;
 	}
-	
+
 	public Integer getId() {
 		return m_id;
 	}
@@ -367,7 +373,7 @@ public class AssetCommand implements IsSerializable {
 	public String getInputpower() {
 		return m_inputpower;
 	}
-	
+
 	public String getLastModifiedBy() {
 		return m_lastModifiedBy;
 	}
@@ -402,6 +408,14 @@ public class AssetCommand implements IsSerializable {
 
 	public String getModelNumber() {
 		return m_modelNumber;
+	}
+
+	public String getNodeId() {
+		return m_nodeId;
+	}
+
+	public String getNodeLabel() {
+		return m_nodeLabel;
 	}
 
 	public String getNotifyCategory() {
@@ -540,7 +554,7 @@ public class AssetCommand implements IsSerializable {
 		this.m_autoenable = autoenable;
 	}
 
-	public void setAutoenableOptions (ArrayList<String> autoenableOptions) {
+	public void setAutoenableOptions(ArrayList<String> autoenableOptions) {
 		m_autoenableOptions = autoenableOptions;
 	}
 
@@ -672,6 +686,14 @@ public class AssetCommand implements IsSerializable {
 		this.m_modelNumber = modelNumber;
 	}
 
+	public void setNodeId(String m_nodeId) {
+		this.m_nodeId = m_nodeId;
+	}
+
+	public void setNodeLabel(String m_nodeLabel) {
+		this.m_nodeLabel = m_nodeLabel;
+	}
+
 	public void setNotifyCategory(String notifyCategory) {
 		this.m_notifyCategory = notifyCategory;
 	}
@@ -786,30 +808,49 @@ public class AssetCommand implements IsSerializable {
 
 	@Override
 	public String toString() {
-		return "AssetCommand [m_additionalhardware=" + m_additionalhardware + ", m_address1=" + m_address1
-				+ ", m_address2=" + m_address2 + ", m_admin=" + m_admin + ", m_assetNumber=" + m_assetNumber
-				+ ", m_autoenable=" + m_autoenable + ", m_autoenableOptions=" + m_autoenableOptions + ", m_building="
-				+ m_building + ", m_category=" + m_category + ", m_circuitId=" + m_circuitId + ", m_city=" + m_city
-				+ ", m_comment=" + m_comment + ", m_connection=" + m_connection + ", m_connectionOptions="
-				+ m_connectionOptions + ", m_cpu=" + m_cpu + ", m_dateInstalled=" + m_dateInstalled + ", m_department="
-				+ m_department + ", m_description=" + m_description + ", m_displayCategory=" + m_displayCategory
-				+ ", m_division=" + m_division + ", m_enable=" + m_enable + ", m_floor=" + m_floor + ", m_hdd1="
-				+ m_hdd1 + ", m_hdd2=" + m_hdd2 + ", m_hdd3=" + m_hdd3 + ", m_hdd4=" + m_hdd4 + ", m_hdd5=" + m_hdd5
-				+ ", m_hdd6=" + m_hdd6 + ", m_id=" + m_id + ", m_inputpower=" + m_inputpower + ", m_lastModifiedBy="
-				+ m_lastModifiedBy + ", m_lastModifiedDate=" + m_lastModifiedDate + ", m_lease=" + m_lease
-				+ ", m_leaseExpires=" + m_leaseExpires + ", m_maintContractExpiration=" + m_maintContractExpiration
-				+ ", m_maintContractNumber=" + m_maintContractNumber + ", m_manufacturer=" + m_manufacturer
-				+ ", m_modelNumber=" + m_modelNumber + ", m_notifyCategory=" + m_notifyCategory
-				+ ", m_numpowersupplies=" + m_numpowersupplies + ", m_operatingSystem=" + m_operatingSystem
-				+ ", m_password=" + m_password + ", m_pollerCategory=" + m_pollerCategory + ", m_port=" + m_port
-				+ ", m_rack=" + m_rack + ", m_ram=" + m_ram + ", m_region=" + m_region + ", m_room=" + m_room
-				+ ", m_serialNumber=" + m_serialNumber + ", m_slot=" + m_slot + ", m_snmpcommunity=" + m_snmpcommunity
-				+ ", m_snmpSysContact=" + m_snmpSysContact + ", m_snmpSysDescription=" + m_snmpSysDescription
-				+ ", m_snmpSysLocation=" + m_snmpSysLocation + ", m_snmpSysName=" + m_snmpSysName
-				+ ", m_snmpSysObjectId=" + m_snmpSysObjectId + ", m_state=" + m_state + ", m_storagectrl="
-				+ m_storagectrl + ", m_supportPhone=" + m_supportPhone + ", m_thresholdCategory=" + m_thresholdCategory
-				+ ", m_username=" + m_username + ", m_vendor=" + m_vendor + ", m_vendorAssetNumber="
-				+ m_vendorAssetNumber + ", m_vendorFax=" + m_vendorFax + ", m_vendorPhone=" + m_vendorPhone
-				+ ", m_zip=" + m_zip + "]";
-	}	
+		return "AssetCommand [m_additionalhardware=" + m_additionalhardware
+				+ ", m_address1=" + m_address1 + ", m_address2=" + m_address2
+				+ ", m_admin=" + m_admin + ", m_assetNumber=" + m_assetNumber
+				+ ", m_autoenable=" + m_autoenable + ", m_autoenableOptions="
+				+ m_autoenableOptions + ", m_building=" + m_building
+				+ ", m_category=" + m_category + ", m_circuitId=" + m_circuitId
+				+ ", m_city=" + m_city + ", m_comment=" + m_comment
+				+ ", m_connection=" + m_connection + ", m_connectionOptions="
+				+ m_connectionOptions + ", m_cpu=" + m_cpu
+				+ ", m_dateInstalled=" + m_dateInstalled + ", m_department="
+				+ m_department + ", m_description=" + m_description
+				+ ", m_displayCategory=" + m_displayCategory + ", m_division="
+				+ m_division + ", m_enable=" + m_enable + ", m_floor="
+				+ m_floor + ", m_hdd1=" + m_hdd1 + ", m_hdd2=" + m_hdd2
+				+ ", m_hdd3=" + m_hdd3 + ", m_hdd4=" + m_hdd4 + ", m_hdd5="
+				+ m_hdd5 + ", m_hdd6=" + m_hdd6 + ", m_id=" + m_id
+				+ ", m_inputpower=" + m_inputpower + ", m_lastModifiedBy="
+				+ m_lastModifiedBy + ", m_lastModifiedDate="
+				+ m_lastModifiedDate + ", m_lease=" + m_lease
+				+ ", m_leaseExpires=" + m_leaseExpires + ", m_loggedInUser="
+				+ m_loggedInUser + ", m_maintContractExpiration="
+				+ m_maintContractExpiration + ", m_maintContractNumber="
+				+ m_maintContractNumber + ", m_manufacturer=" + m_manufacturer
+				+ ", m_modelNumber=" + m_modelNumber + ", m_nodeId=" + m_nodeId
+				+ ", m_nodeLabel=" + m_nodeLabel + ", m_notifyCategory="
+				+ m_notifyCategory + ", m_numpowersupplies="
+				+ m_numpowersupplies + ", m_operatingSystem="
+				+ m_operatingSystem + ", m_password=" + m_password
+				+ ", m_pollerCategory=" + m_pollerCategory + ", m_port="
+				+ m_port + ", m_rack=" + m_rack + ", m_ram=" + m_ram
+				+ ", m_region=" + m_region + ", m_room=" + m_room
+				+ ", m_serialNumber=" + m_serialNumber + ", m_slot=" + m_slot
+				+ ", m_snmpcommunity=" + m_snmpcommunity
+				+ ", m_snmpSysContact=" + m_snmpSysContact
+				+ ", m_snmpSysDescription=" + m_snmpSysDescription
+				+ ", m_snmpSysLocation=" + m_snmpSysLocation
+				+ ", m_snmpSysName=" + m_snmpSysName + ", m_snmpSysObjectId="
+				+ m_snmpSysObjectId + ", m_state=" + m_state
+				+ ", m_storagectrl=" + m_storagectrl + ", m_supportPhone="
+				+ m_supportPhone + ", m_thresholdCategory="
+				+ m_thresholdCategory + ", m_username=" + m_username
+				+ ", m_vendor=" + m_vendor + ", m_vendorAssetNumber="
+				+ m_vendorAssetNumber + ", m_vendorFax=" + m_vendorFax
+				+ ", m_vendorPhone=" + m_vendorPhone + ", m_zip=" + m_zip + "]";
+	}
 }
