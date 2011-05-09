@@ -605,4 +605,44 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@DefaultStringValue("Can't read given text as date. Please use the Datepicker, not: ")
 	@Key("stringNotADate")
 	String stringNotADate();
+
+	@DefaultStringValue("Parameter node is not an parseabel NodeId: ")
+	@Key("nodeParamNotValidInt")
+	String nodeParamNotValidInt();
+
+	@DefaultStringValue("Error fetching asset data for nodeId: ")
+	@Key("errorFatchingAssetData")
+	String errorFatchingAssetData();
+
+	@DefaultStringValue("Error saveing asset data for nodeId: ")
+	@Key("errorSavingAssetData")
+	String errorSavingAssetData();
+
+	@DefaultStringValue("Error fetching assetSuggestion data for nodeId: ")
+	@Key("errorFetchingAssetSuggData")
+	String errorFetchingAssetSuggData();
+
+	@DefaultStringValue("Saving Asset Info of Node: ")
+	@Key("infoAssetSaving")
+	String infoAssetSaving();
+
+	@DefaultStringValue("Resetting Asset Info of Node: ")
+	@Key("infoAssetRestting")
+	String infoAssetRestting();
+
+	@DefaultStringValue("Asset Info of Node: ")
+	@Key("infoAsset")
+	String infoAsset();
+
+	@DefaultStringValue("Loading Asset Info of Node: ")
+	@Key("infoAssetLoging")
+	String infoAssetLoging();
+
+	@DefaultStringValue("Saved Asset Info of Node: ")
+	@Key("infoAssetSaved")
+	String infoAssetSaved();
+
+	@DefaultStringValue("Sorry, can't save. Still Errors on fileds. Please fix your input. ")
+	@Key("assetPageNotValidDontSave")
+	String assetPageNotValidDontSave();
 }

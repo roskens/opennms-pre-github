@@ -619,8 +619,10 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
 
 	@Override
 	public void setError(String description, Throwable throwable) {
-
-		String error = throwable.toString();
+		String error = "";
+		if (throwable != null) {
+			error = throwable.toString();
+		}
 		final DialogBox dialog = new DialogBox();
 		dialog.setText(description);
 
@@ -645,5 +647,15 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
 		});
 
 		dialog.show();
+	}
+
+	public boolean isUiValid() {
+		for (Iterator<FieldSet> fieldSetIter = fieldSetList.iterator(); fieldSetIter.hasNext();) {
+			FieldSet fs = fieldSetIter.next();
+			if(!fs.getError().isEmpty()){
+				return false;
+			}
+		}
+		return true;
 	}
 }

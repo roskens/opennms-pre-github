@@ -60,7 +60,7 @@ public class FieldSetTextArea extends AbstractFieldSet implements FieldSet, KeyU
 	private void init(String value, int maxLength) {
 		
 		if(maxLength > 0 ){
-			addValidator(new StringMaxLengthValidator(maxLength));
+			addErrorValidator(new StringMaxLengthValidator(maxLength));
 		}
 		
 		textArea.setText(value);

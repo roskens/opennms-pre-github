@@ -86,7 +86,8 @@ public class AssetServiceMockup extends RemoteServiceServlet implements AssetSer
 		asset.setNodeLabel("Cronojon");
 		asset.setLoggedInUser("admin");
 		saveDataSNMP();
-		saveDataConfigCategories();		saveDataIdentification();
+		saveDataConfigCategories();
+		saveDataIdentification();
 		saveDataLocation();
 		saveDataVendor();
 		saveDataAuthentication();

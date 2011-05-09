@@ -70,9 +70,9 @@ public class FieldSetDateBox extends AbstractFieldSet implements FieldSet, Value
 	private void init(String value, int maxLength) {
 	
 		if(maxLength > 0 ){
-			addValidator(new StringMaxLengthValidator(maxLength));
+			addErrorValidator(new StringMaxLengthValidator(maxLength));
 		}
-		addValidator(new StringDateLocalValidator());
+		addWarningValidator(new StringDateLocalValidator());
 		
 		try {
 			dateBox.setValue(onmsFormater.parse(value));

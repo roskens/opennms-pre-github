@@ -57,7 +57,7 @@ public class FieldSetTextBox extends AbstractFieldSet implements FieldSet, KeyUp
 	
 	private void init(String value, int maxLength) {
 		if(maxLength > 0 ){
-			addValidator(new StringMaxLengthValidator(maxLength));
+			addErrorValidator(new StringMaxLengthValidator(maxLength));
 		}
 		textBox.setText(value);
 		textBox.setEnabled(enabled);

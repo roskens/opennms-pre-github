@@ -30,6 +30,7 @@
 
 package org.opennms.gwt.web.ui.asset.client.presenter;
 
+import org.opennms.gwt.web.ui.asset.client.AssetPageConstants;
 import org.opennms.gwt.web.ui.asset.client.AssetServiceAsync;
 import org.opennms.gwt.web.ui.asset.client.event.SavedAssetEvent;
 import org.opennms.gwt.web.ui.asset.shared.AssetCommand;
@@ -51,6 +52,8 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class AssetPagePresenter implements Presenter {
 
+	private AssetPageConstants con = GWT.create(AssetPageConstants.class);
+
 	public interface Display {
 		HasClickHandlers getSaveButton();
 
@@ -71,6 +74,8 @@ public class AssetPagePresenter implements Presenter {
 		Widget asWidget();
 
 		void setError(String description, Throwable throwable);
+
+		boolean isUiValid();
 	}
 
 	private final AssetServiceAsync rpcService;
@@ -88,25 +93,30 @@ public class AssetPagePresenter implements Presenter {
 		try {
 			nodeId = Integer.parseInt(Window.Location.getParameter("node"));
 		} catch (NumberFormatException e) {
-			GWT.log("Parameter node is not an parseabel NodeId: " + Window.Location.getParameter("node"), e);
-			display.setError("Parameter node is not an parseabel NodeId: " + Window.Location.getParameter("node"), e);
+			GWT.log(con.nodeParamNotValidInt() + Window.Location.getParameter("node"), e);
+			display.setError(con.nodeParamNotValidInt() + Window.Location.getParameter("node"), e);
 		}
 	}
 
 	public void bind() {
 		display.getSaveButton().addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				display.setInfo("Asset Info of Node: " + nodeId + " Saving");
-				saveAssetData();
+				if (display.isUiValid()) {
+					display.setInfo(con.infoAssetSaving() + nodeId);
+					saveAssetData();
+				} else {
+					GWT.log("isUiValid -> false; will not save.");
+					display.setError(con.assetPageNotValidDontSave(), null);
+				}
 			}
 		});
 
 		display.getResetButton().addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				display.setInfo("Asset Info of Node: " + nodeId + " Reseting");
+				display.setInfo(con.infoAssetRestting() + nodeId);
 				display.setData(asset);
 				display.cleanUp();
-				display.setInfo("Asset Info of Node: " + nodeId);
+				display.setInfo(con.infoAsset() + nodeId);
 			}
 		});
 	}
@@ -115,7 +125,7 @@ public class AssetPagePresenter implements Presenter {
 		bind();
 		container.clear();
 		container.add(display.asWidget());
-		display.setInfo("Asset Info of Node: " + nodeId + " Loading");
+		display.setInfo(con.infoAssetLoging() + nodeId);
 		fetchAssetData();
 	}
 
@@ -125,14 +135,14 @@ public class AssetPagePresenter implements Presenter {
 				asset = result;
 
 				display.setData(asset);
-				display.setInfo("Asset Info of Node: " + nodeId);
+				display.setInfo(con.infoAsset() + nodeId);
 				display.cleanUp();
 				fetchAssetSuggData();
 			}
 
 			public void onFailure(Throwable caught) {
-				GWT.log("Error fetching asset data for nodeId: " + nodeId, caught);
-				display.setError("Error fetching asset data for nodeId: " + nodeId, caught);
+				GWT.log(con.errorFatchingAssetData() + nodeId, caught);
+				display.setError(con.errorFatchingAssetData() + nodeId, caught);
 			}
 		});
 	}
@@ -142,14 +152,14 @@ public class AssetPagePresenter implements Presenter {
 		rpcService.saveOrUpdateAssetByNodeId(nodeId, asset, new AsyncCallback<Boolean>() {
 			public void onSuccess(Boolean result) {
 				eventBus.fireEvent(new SavedAssetEvent(nodeId));
-				display.setInfo("Asset Info of Node: " + nodeId + " Saved");
+				display.setInfo(con.infoAssetSaved() + nodeId);
 				display.cleanUp();
 				fetchAssetData();
 			}
 
 			public void onFailure(Throwable caught) {
-				GWT.log("Error saveing asset data for nodeId: " + nodeId, caught);
-				display.setError("Error saveing asset data for nodeId: " + nodeId, caught);
+				GWT.log(con.errorSavingAssetData() + nodeId, caught);
+				display.setError(con.errorSavingAssetData() + nodeId, caught);
 			}
 		});
 	}
@@ -162,8 +172,8 @@ public class AssetPagePresenter implements Presenter {
 			}
 
 			public void onFailure(Throwable caught) {
-				GWT.log("Error fetching assetSuggestion data for nodeId: " + nodeId, caught);
-				display.setError("Error fetching assetSuggestion data for nodeId: " + nodeId, caught);
+				GWT.log(con.errorFetchingAssetSuggData() + nodeId, caught);
+				display.setError(con.errorFetchingAssetSuggData() + nodeId, caught);
 			}
 		});
 

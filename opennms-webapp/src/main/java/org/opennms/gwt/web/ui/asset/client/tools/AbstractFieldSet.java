@@ -62,9 +62,11 @@ public abstract class AbstractFieldSet extends Composite implements FieldSet {
 	protected Boolean enabled = true;
 	protected Boolean changed = false;
 	protected Label errorLabel = new Label();
+	protected Label warningLabel = new Label();
 	protected String helpText = "";
 	protected DecoratedPopupPanel popPanel = new DecoratedPopupPanel(true);
-	protected ArrayList<Validator> validators = new ArrayList<Validator>();
+	protected ArrayList<Validator> errorValidators = new ArrayList<Validator>();
+	protected ArrayList<Validator> warningValidators = new ArrayList<Validator>();
 
 	public AbstractFieldSet(String name, final String helpText) {
 		
@@ -99,7 +101,15 @@ public abstract class AbstractFieldSet extends Composite implements FieldSet {
 		panel.add(label);
 
 		errorLabel.setVisible(false);
+		errorLabel.setText(null);
+		errorLabel.setStyleName("FiedSetErrorLabel");
+		
+		warningLabel.setVisible(false);
+		warningLabel.setText(null);
+		warningLabel.setStyleName("FiedSetWarningLabel");
+		
 		mainPanel.add(errorLabel);
+		mainPanel.add(warningLabel);
 		mainPanel.add(panel);
 		mainPanel.setBorderWidth(0);
 		
@@ -142,7 +152,7 @@ public abstract class AbstractFieldSet extends Composite implements FieldSet {
 		mainPanel.setStyleDependentName("error", true);
 	}
 	
-	public void setError(ArrayList<String> errors) {
+	public void setErrors(ArrayList<String> errors) {
 		String allErrors = "";
 		for (Iterator<String> iterator = errors.iterator(); iterator.hasNext();) {
 			String error = iterator.next();
@@ -153,44 +163,98 @@ public abstract class AbstractFieldSet extends Composite implements FieldSet {
 		mainPanel.setStyleDependentName("error", true);
 	}
 
-	public void clearError() {
+	public void clearErrors() {
 		errorLabel.setText(null);
 		mainPanel.setStyleDependentName("error", false);
 	}
 
+	public String getError() {
+		return errorLabel.getText();
+	}
+	
+	public void setWarning(String warning) {
+		warningLabel.setText(warning);
+		warningLabel.setVisible(true);
+		mainPanel.setStyleDependentName("warning", true);
+	}
+	
+	public void setWarnings(ArrayList<String> warnings) {
+		String allWarnings = "";
+		for (Iterator<String> iterator = warnings.iterator(); iterator.hasNext();) {
+			String warning = iterator.next();
+			allWarnings += warning + " ";
+		}
+		warningLabel.setText(allWarnings);
+		warningLabel.setVisible(true);
+		mainPanel.setStyleDependentName("warning", true);
+	}
+	
+	public void clearWarnings() {
+		warningLabel.setText(null);
+		mainPanel.setStyleDependentName("warning", false);
+	}
+	
 	public void clearChanged() {
 		changed = false;
 		mainPanel.setStyleDependentName("changed", false);
 	}
 
 	public ArrayList<Validator> getValidators() {
-		return validators;
+		return errorValidators;
 	}
 
-	public void setValidators(ArrayList<Validator> validators) {
-		this.validators = validators;
+	public void setErrorValidators(ArrayList<Validator> validators) {
+		this.errorValidators = validators;
 	}
 	
-	public void addValidator(Validator validator) {
-		this.validators.add(validator);
+	public void addErrorValidator(Validator validator) {
+		this.errorValidators.add(validator);
 	}
 	
-	public void clearValidator() {
-		validators.clear();
+	public void clearErrorValidators() {
+		errorValidators.clear();
+	}
+	
+	public void setWarningValidators(ArrayList<Validator> validators) {
+		this.warningValidators = validators;
+	}
+	
+	public void addWarningValidator(Validator validator) {
+		this.warningValidators.add(validator);
+	}
+	
+	public void clearWarningValidators() {
+		warningValidators.clear();
 	}
 	
 	protected void validate(Object object) {
+		//validate errors
 		ArrayList<String> errors = new ArrayList<String>();
-		for (Iterator<Validator> iterator = validators.iterator(); iterator.hasNext();) {
+		for (Iterator<Validator> iterator = errorValidators.iterator(); iterator.hasNext();) {
 			Validator validator = (Validator) iterator.next();
 			if(validator.validate(object).length() > 0){
 				errors.add(validator.validate(object));
 			}
 		}
 		if(errors.size() > 0) {
-			setError(errors);
+			setErrors(errors);
 		}else {
-			clearError();
+			clearErrors();
 		}
+		
+		//validate warings
+		ArrayList<String> warnings = new ArrayList<String>();
+		for (Iterator<Validator> iterator = warningValidators.iterator(); iterator.hasNext();) {
+			Validator validator = (Validator) iterator.next();
+			if(validator.validate(object).length() > 0){
+				warnings.add(validator.validate(object));
+			}
+		}
+		if(warnings.size() > 0) {
+			setWarnings(warnings);
+		}else {
+			clearWarnings();
+		}
+		
 	}
 }

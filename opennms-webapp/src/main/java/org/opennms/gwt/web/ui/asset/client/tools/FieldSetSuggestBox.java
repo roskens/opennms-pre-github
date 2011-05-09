@@ -76,7 +76,7 @@ public class FieldSetSuggestBox extends AbstractFieldSet implements FieldSet, Va
 
 	private void init(String value, ArrayList<String> suggestions, int maxLength) {
 		if(maxLength > 0 ){
-			addValidator(new StringMaxLengthValidator(maxLength));
+			addErrorValidator(new StringMaxLengthValidator(maxLength));
 		}
 		if (suggestions != null) {
 			oracle.addAll(suggestions);

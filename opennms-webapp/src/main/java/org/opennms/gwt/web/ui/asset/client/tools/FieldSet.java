@@ -53,8 +53,10 @@ public interface FieldSet extends FocusHandler, ChangeHandler {
 
 	public abstract void setError(String error);
 
-	public abstract void clearError();
+	public abstract void clearErrors();
 
 	public abstract void clearChanged();
+	
+	public abstract String getError();
 
 }
