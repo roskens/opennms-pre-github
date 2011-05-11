@@ -52,12 +52,12 @@ import java.util.Properties;
 
 import org.opennms.core.utils.BundleLists;
 import org.opennms.core.utils.ThreadCategory;
+import org.opennms.core.xml.CastorUtils;
 import org.opennms.netmgt.config.GroupFactory;
 import org.opennms.netmgt.config.GroupManager;
 import org.opennms.netmgt.config.groups.Role;
 import org.opennms.netmgt.config.users.User;
 import org.opennms.netmgt.config.users.Userinfo;
-import org.opennms.netmgt.dao.castor.CastorUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.dao.DataRetrievalFailureException;
@@ -86,7 +86,7 @@ import org.springframework.util.Assert;
 public class UserDaoImpl implements UserDao, InitializingBean {
     private static final UpperCaseMd5PasswordEncoder PASSWORD_ENCODER = new UpperCaseMd5PasswordEncoder();
 
-    private static final GrantedAuthority ROLE_USER = new GrantedAuthorityImpl(Authentication.USER_ROLE);
+    private static final GrantedAuthority ROLE_USER = new GrantedAuthorityImpl(Authentication.ROLE_USER);
 
     private String m_usersConfigurationFile;
     

@@ -3,13 +3,13 @@
         session="true"
         import="java.util.*,
         org.opennms.netmgt.config.*,
-        org.opennms.netmgt.config.common.*,
         org.opennms.netmgt.config.poller.*,
         org.opennms.web.WebSecurityUtils,
         org.opennms.web.element.*,
         org.opennms.netmgt.model.OnmsNode,
         org.opennms.netmgt.EventConstants,
         org.opennms.netmgt.xml.event.Event,
+        org.opennms.core.utils.*,
         org.opennms.netmgt.utils.*,
         org.opennms.web.api.Util,
         org.exolab.castor.xml.ValidationException,
@@ -19,6 +19,9 @@
         java.text.SimpleDateFormat
         "
 %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <%!//A singleton instance of a "Match-any" interface, which can be used for generic tests/removals etc.
 	private static org.opennms.netmgt.config.poller.Interface matchAnyInterface;
 	{
@@ -425,7 +428,7 @@ Could not find an outage to edit because no outage name parameter was specified 
 				theOutage.addInterface(matchAnyInterface);
 			} else if (request.getParameter("addOutage") != null && theOutage.getType() != null) {
 				if (theOutage.getType().equalsIgnoreCase("specific")) {
-					Time newTime = new Time();
+					org.opennms.netmgt.config.poller.Time newTime = new org.opennms.netmgt.config.poller.Time();
 	
 					StringBuffer timeBuffer = new StringBuffer(17);
 					timeBuffer.append(request.getParameter("chooseStartDay"));
@@ -457,7 +460,7 @@ Could not find an outage to edit because no outage name parameter was specified 
 	
 					theOutage.addTime(newTime);
 				} else {
-					Time newTime = new Time();
+					org.opennms.netmgt.config.poller.Time newTime = new org.opennms.netmgt.config.poller.Time();
 	
 					if (theOutage.getType().equalsIgnoreCase("monthly")) {
 						newTime.setDay(request.getParameter("chooseDayOfMonth"));
@@ -709,7 +712,7 @@ function updateOutageTypeDisplay(selectElement) {
 		<label>Nodes and Interfaces:</label>
 			<table class="normal" border="0">
 				<tr>
-					<th valign="top">Nodes</th>
+					<th valign="top">Node Labels</th>
 					<th valign="top">Interfaces</th>
 				</tr>
 				<tr>
@@ -769,45 +772,44 @@ function updateOutageTypeDisplay(selectElement) {
 						<p style="font-weight: bold; margin: 10px 0px 2px 0px;">Current selection:</p>
 						<%
 						{
-						if (hasMatchAny) {
-							%>
+						if (hasMatchAny) { %>
 							<p><i>All interfaces</i></p>
-							<%
-						} else {
+						<% } else {
 							org.opennms.netmgt.config.poller.Interface[] outageInterfaces = theOutage.getInterface();
-							if (outageInterfaces.length > 0) {
-								%>
+							if (outageInterfaces.length > 0) { %>
 								<form id="deleteInterfaces" action="admin/sched-outages/editoutage.jsp" method="post">
-								<input type="hidden" name="formSubmission" value="true" />
-								<%
-								for (int i = 0; i < outageInterfaces.length; i++) {
-									org.opennms.netmgt.config.poller.Interface iface = outageInterfaces[i];
-									String addr = iface.getAddress();
-									org.opennms.web.element.Interface[] interfaces = NetworkElementFactory.getInstance(getServletContext()).getInterfacesWithIpAddress(addr);
-									for ( org.opennms.web.element.Interface thisInterface : interfaces ) {
-										String thisAddr = thisInterface.getIpAddress();
-										String thisName = thisInterface.getHostname();
-										out.println("<input type=\"image\" src=\"images/redcross.gif\" name=\"deleteInterface" + i + "\" />");
-										if(thisName == null || thisName.equals(thisAddr)) {
-											out.println(thisAddr);
-										} else {
-											out.println(thisAddr + " (" + thisName + ")");
-										}
-										if (!thisInterface.isManaged()) {
-											out.println(" (Unmanaged)");
-										}
-										out.println("<br/>");
-									}
-								}
-								%>
+									<input type="hidden" name="formSubmission" value="true" />
+									<% for (int i = 0; i < outageInterfaces.length; i++) {
+										org.opennms.netmgt.config.poller.Interface iface = outageInterfaces[i];
+										String addr = iface.getAddress();
+										org.opennms.web.element.Interface[] interfaces = NetworkElementFactory.getInstance(getServletContext()).getInterfacesWithIpAddress(addr);
+										if (interfaces.length > 0) {
+											for ( org.opennms.web.element.Interface thisInterface : interfaces ) {
+												String caption = thisInterface.getIpAddress();
+												String thisName = thisInterface.getHostname();
+												// If the hostname is different, append it
+												if(thisName != null && !thisName.equals(caption)) {
+													caption += " (" + thisName + ")";
+												}
+												// If the interface is unmanaged, append a note
+												if (!thisInterface.isManaged()) {
+													caption += " (Unmanaged)";
+												}
+												%>
+												<input type="image" src="images/redcross.gif" name="deleteInterface<%=String.valueOf(i)%>" />
+												<c:out value="<%=caption%>"/>
+												<br/>
+											<% }
+										} else { %>
+											<i>Could not find <c:out value="<%=addr%>"/> in the database</i><br/>
+										<% }
+									} %>
 								</form>
-								<%
-							} else { %>
+							<% } else { %>
 								<p><i>No specific interfaces selected</i></p>
 							<% }
-						}
-						}
-						%>
+							}
+						} %>
 					</td>
 				</tr>
 				<% if (!hasMatchAny) { %>
@@ -856,9 +858,9 @@ function updateOutageTypeDisplay(selectElement) {
 		<label>Time:</label>
 			<table class="normal">
 				<%
-					Time[] outageTimes = theOutage.getTime();
+				org.opennms.netmgt.config.poller.Time[] outageTimes = theOutage.getTime();
 					for (int i = 0; i < outageTimes.length; i++) {
-						Time thisTime = outageTimes[i];
+						org.opennms.netmgt.config.poller.Time thisTime = outageTimes[i];
 				%>
 				<tr>
 					<td> <input type="image" src="images/redcross.gif" name="deleteTime<%=i%>" /> </td>

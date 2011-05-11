@@ -2,7 +2,7 @@
   <parent>
     <groupId>org.opennms</groupId>
     <artifactId>dependencies</artifactId>
-    <version>1.9.8-SNAPSHOT</version>
+    <version>1.9.9-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.opennms.dependencies</groupId>
@@ -15,11 +15,6 @@
   </description>
 
   <dependencies>
-    <dependency>
-      <groupId>net.sf.jradius</groupId>
-      <artifactId>jradius-client</artifactId>
-      <version>20040211</version>
-    </dependency>
     <dependency>
       <groupId>net.jradius</groupId>
       <artifactId>jradius-core</artifactId>

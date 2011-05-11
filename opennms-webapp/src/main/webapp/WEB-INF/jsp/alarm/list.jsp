@@ -121,6 +121,8 @@
     pageContext.setAttribute("addNegativeFilter", "[-]");
     pageContext.setAttribute("addBeforeFilter", "[&gt;]");
     pageContext.setAttribute("addAfterFilter", "[&lt;]");
+    
+    final String baseHref = org.opennms.web.api.Util.calculateUrlBase(request);
 %>
 
 
@@ -129,7 +131,7 @@
   <jsp:param name="title" value="Alarm List" />
   <jsp:param name="headTitle" value="List" />
   <jsp:param name="headTitle" value="Alarms" />
-  <jsp:param name="breadcrumb" value="<a href= 'alarm/index.jsp' title='Alarms System Page'>Alarms</a>" />
+  <jsp:param name="breadcrumb" value="<a href='${baseHref}alarm/index.jsp' title='Alarms System Page'>Alarms</a>" />
   <jsp:param name="breadcrumb" value="List" />
 </jsp:include>
 
@@ -236,13 +238,13 @@
       <li><a href="<%=this.makeLink(parms, "long")%>" title="Detailed List of Alarms">Long Listing</a></li>
         </c:otherwise>
       </c:choose>
-      <li><a href="javascript:void()" onclick="javascript:window.open('<%=Util.calculateUrlBase(req)%>/alarm/severity.jsp','', 'fullscreen=no,toolbar=no,status=no,menubar=no,scrollbars=no,resizable=yes,directories=no,location=no,width=525,height=158')" title="Open a window explaining the alarm severities">Severity Legend</a></li>
+      <li><a href="javascript:void()" onclick="javascript:window.open('<%=Util.calculateUrlBase(req, "alarm/severity.jsp")%>','', 'fullscreen=no,toolbar=no,status=no,menubar=no,scrollbars=no,resizable=yes,directories=no,location=no,width=525,height=158')" title="Open a window explaining the alarm severities">Severity Legend</a></li>
       
-      <% if( req.isUserInRole( Authentication.ADMIN_ROLE ) || !req.isUserInRole( Authentication.READONLY_ROLE ) ) { %>
+      <% if( req.isUserInRole( Authentication.ROLE_ADMIN ) || !req.isUserInRole( Authentication.ROLE_READONLY ) ) { %>
         <% if ( alarmCount > 0 ) { %>
           <li>
             <!-- hidden form for acknowledging the result set -->
-            <form style="display:inline" method="post" action="alarm/acknowledgeByFilter" name="acknowledge_by_filter_form">
+            <form style="display:inline" method="post" action="<%= Util.calculateUrlBase(req, "alarm/acknowledgeByFilter") %>" name="acknowledge_by_filter_form">
               <input type="hidden" name="redirectParms" value="<c:out value="<%=req.getQueryString()%>"/>" />
               <input type="hidden" name="actionCode" value="<%=action%>" />
               <%=Util.makeHiddenTags(req)%>
@@ -289,8 +291,8 @@
               </p>           
             <% } %>
 
-      <% if( req.isUserInRole( Authentication.ADMIN_ROLE ) || !req.isUserInRole( Authentication.READONLY_ROLE ) ) { %>
-          <form action="alarm/acknowledge" method="post" name="alarm_action_form">
+      <% if( req.isUserInRole( Authentication.ROLE_ADMIN ) || !req.isUserInRole( Authentication.ROLE_READONLY ) ) { %>
+          <form action="<%= Util.calculateUrlBase(request, "alarm/acknowledge") %>" method="post" name="alarm_action_form">
           <input type="hidden" name="redirectParms" value="<c:out value="<%=req.getQueryString()%>"/>" />
           <input type="hidden" name="actionCode" value="<%=action%>" />
           <%=Util.makeHiddenTags(req)%>
@@ -299,7 +301,7 @@
       <table>
 				<thead>
 					<tr>
-                                             <% if( req.isUserInRole( Authentication.ADMIN_ROLE ) || !req.isUserInRole( Authentication.READONLY_ROLE ) ) { %>
+                                             <% if( req.isUserInRole( Authentication.ROLE_ADMIN ) || !req.isUserInRole( Authentication.ROLE_READONLY ) ) { %>
 						<% if ( parms.ackType == AcknowledgeType.UNACKNOWLEDGED ) { %>
 						<th width="1%">Ack</th>
 						<% } else if ( parms.ackType == AcknowledgeType.ACKNOWLEDGED ) { %>
@@ -352,7 +354,7 @@
                 <nobr>
                   <input type="checkbox" name="alarm" disabled="true" <%=alarms[i].isAcknowledged() ? "checked='true'" : ""%> /> 
                 </nobr>
-          <% } else if( req.isUserInRole( Authentication.ADMIN_ROLE ) || !req.isUserInRole( Authentication.READONLY_ROLE ) ) { %>
+          <% } else if( req.isUserInRole( Authentication.ROLE_ADMIN ) || !req.isUserInRole( Authentication.ROLE_READONLY ) ) { %>
               <td class="divider" valign="middle" rowspan="1">
                 <nobr>
                   <input type="checkbox" name="alarm" value="<%=alarms[i].getId()%>" /> 
@@ -365,7 +367,7 @@
           
           <td class="divider bright" valign="middle" rowspan="1">
             
-            <a href="alarm/detail.jsp?id=<%=alarms[i].getId()%>"><%=alarms[i].getId()%></a>
+            <a href="<%= Util.calculateUrlBase(request, "alarm/detail.jsp?id=" + alarms[i].getId()) %>"><%=alarms[i].getId()%></a>
           <c:if test="${param.display == 'long'}">
             <% if(alarms[i].getUei() != null) { %>
               <% Filter exactUEIFilter = new ExactUEIFilter(alarms[i].getUei()); %>
@@ -480,7 +482,7 @@
       </table>
 			<hr />
 			 <p><%=alarms.length%> alarms &nbsp;
-      <% if( req.isUserInRole( Authentication.ADMIN_ROLE ) || !req.isUserInRole( Authentication.READONLY_ROLE ) ) { %>
+      <% if( req.isUserInRole( Authentication.ROLE_ADMIN ) || !req.isUserInRole( Authentication.ROLE_READONLY ) ) { %>
           <input TYPE="reset" />
           <input TYPE="button" VALUE="Select All" onClick="checkAllCheckboxes()"/>
           <select name="alarmAction">
@@ -498,7 +500,7 @@
       </form>
 
       <%--<br/>
-      <% if(req.isUserInRole(Authentication.ADMIN_ROLE)) { %>
+      <% if(req.isUserInRole(Authentication.ROLE_ADMIN)) { %>
         <a HREF="admin/alarms.jsp" title="Acknowledge or Unacknowledge All Alarms">[Acknowledge or Unacknowledge All Alarms]</a>
       <% } %>--%>
 

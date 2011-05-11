@@ -55,18 +55,19 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.Marshaller;
 import org.exolab.castor.xml.ValidationException;
+import org.opennms.core.xml.CastorUtils;
 import org.opennms.netmgt.EventConstants;
-import org.opennms.netmgt.config.common.Header;
 import org.opennms.netmgt.config.users.Contact;
 import org.opennms.netmgt.config.users.DutySchedule;
+import org.opennms.netmgt.config.users.Header;
 import org.opennms.netmgt.config.users.User;
 import org.opennms.netmgt.config.users.Userinfo;
 import org.opennms.netmgt.config.users.Users;
-import org.opennms.netmgt.dao.castor.CastorUtils;
 
 /**
  * <p>Abstract UserManager class.</p>
@@ -111,7 +112,7 @@ public abstract class UserManager {
         Users users = userinfo.getUsers();
         oldHeader = userinfo.getHeader();
         List<User> usersList = users.getUserCollection();
-        m_users = new HashMap<String, User>();
+        m_users = new TreeMap<String, User>();
 
         for (User curUser : usersList) {
             m_users.put(curUser.getUserId(), curUser);

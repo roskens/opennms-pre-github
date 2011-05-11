@@ -43,11 +43,18 @@ public abstract class NativeDatagramSocket {
     
     public static final int AF_INET = 2;
     public static final int PF_INET = AF_INET;
-    public static final int AF_INET6 = Platform.isMac() ? 30 : Platform.isLinux() ? 10 : Platform.isWindows() ? 23 : Platform.isFreeBSD() ? 28 : Platform.isSolaris() ? 26 : -1;
+    public static final int AF_INET6 = Platform.isMac() ? 30 
+                                     : Platform.isLinux() ? 10 
+                                     : Platform.isWindows() ? 23 
+                                     : Platform.isFreeBSD() ? 28 
+                                     : Platform.isSolaris() ? 26 
+                                     : -1;
     public static final int PF_INET6 = AF_INET6;
 
-    public static final int SOCK_DGRAM = Platform.isSolaris() ? 1 : 2;
-    public static final int SOCK_RAW = Platform.isSolaris() ? 4 : Platform.isFreeBSD() ? 4 : 3;
+    public static final int SOCK_DGRAM = Platform.isSolaris() ? 1 
+                                        : 2;
+    public static final int SOCK_RAW = Platform.isSolaris() ? 4 
+                                     : 3;
 
     public static final int IPPROTO_ICMP = 1;
     public static final int IPPROTO_UDP = 17;
@@ -60,9 +67,10 @@ public abstract class NativeDatagramSocket {
     }
     
     public static NativeDatagramSocket create(int family, int type, int protocol) throws Exception {
-        System.err.println(String.format("create(%d, %d, %d)", family, type, protocol));
+        String implClassName = NativeDatagramSocket.getImplementationClassName(family);
+        System.err.println(String.format("%s(%d, %d, %d)", implClassName, family, type, protocol));
         Class<? extends NativeDatagramSocket> implementationClass =
-             Class.forName(NativeDatagramSocket.getImplementationClassName(family)).asSubclass(NativeDatagramSocket.class);
+             Class.forName(implClassName).asSubclass(NativeDatagramSocket.class);
         return implementationClass.getDeclaredConstructor(Integer.TYPE, Integer.TYPE, Integer.TYPE).newInstance(family, type, protocol);
     }
 
@@ -71,7 +79,10 @@ public abstract class NativeDatagramSocket {
     }
     
     private static String getClassPrefix() {
-        return Platform.isWindows() ? "Win32" : Platform.isMac() || Platform.isFreeBSD() || Platform.isOpenBSD() ? "BSD" : "Unix";
+        return Platform.isWindows() ? "Win32" 
+              : Platform.isSolaris() ? "Sun" 
+              : (Platform.isMac() || Platform.isFreeBSD() || Platform.isOpenBSD()) ? "BSD" 
+              : "Unix";
     }
 
     private static String getFamilyPrefix(int family) {

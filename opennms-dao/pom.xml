@@ -2,7 +2,7 @@
   <parent>
     <artifactId>opennms</artifactId>
     <groupId>org.opennms</groupId>
-    <version>1.9.8-SNAPSHOT</version>
+    <version>1.9.9-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>opennms-dao</artifactId>
@@ -106,6 +106,10 @@
       <groupId>org.opennms.dependencies</groupId>
       <artifactId>hibernate-dependencies</artifactId>
       <type>pom</type>
+    </dependency>
+    <dependency>
+      <groupId>org.opennms.core</groupId>
+      <artifactId>org.opennms.core.xml</artifactId>
     </dependency>
     <dependency>
       <groupId>org.opennms</groupId>

@@ -2,7 +2,7 @@
   <parent>
     <groupId>org.opennms</groupId>
     <artifactId>opennms-provision</artifactId>
-    <version>1.9.8-SNAPSHOT</version>
+    <version>1.9.9-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>opennms-detector-simple</artifactId>
@@ -18,10 +18,15 @@
   		<artifactId>opennms-icmp-api</artifactId>
   	</dependency>
 	<dependency>
-		<groupId>org.opennms.core</groupId>
-		<artifactId>org.opennms.core.jicmpv6</artifactId>
+		<groupId>org.opennms</groupId>
+		<artifactId>opennms-icmp-jni</artifactId>
 		<scope>test</scope>
 	</dependency>
+    <dependency>
+        <groupId>org.opennms</groupId>
+        <artifactId>opennms-icmp-jna</artifactId>
+        <scope>test</scope>
+    </dependency>
 
   	<dependency>
       <groupId>org.opennms.dependencies</groupId>

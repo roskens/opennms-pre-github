@@ -2,7 +2,7 @@
   <parent>
     <groupId>org.opennms.core</groupId>
     <artifactId>org.opennms.core.test-api</artifactId>
-    <version>1.9.8-SNAPSHOT</version>
+    <version>1.9.9-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.opennms.core.test-api</groupId>
@@ -33,7 +33,6 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.opennms.core</groupId>

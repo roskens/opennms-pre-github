@@ -112,8 +112,13 @@ public class CollectdIntegrationTest extends TestCase {
         m_filterDao = m_mockUtils.createMock(FilterDao.class);
         FilterDaoFactory.setInstance(m_filterDao);
         
-        Resource resource = new ClassPathResource("etc/poll-outages.xml"); 
-        PollOutagesConfigFactory.setInstance(new PollOutagesConfigFactory(resource));
+
+        // This call will also ensure that the poll-outages.xml file can parse IPv4
+        // and IPv6 addresses.
+        Resource resource = new ClassPathResource("etc/poll-outages.xml");
+        PollOutagesConfigFactory factory = new PollOutagesConfigFactory(resource);
+        factory.afterPropertiesSet();
+        PollOutagesConfigFactory.setInstance(factory);
 
         File homeDir = resource.getFile().getParentFile().getParentFile();
         System.setProperty("opennms.home", homeDir.getAbsolutePath());
@@ -286,7 +291,7 @@ public class CollectdIntegrationTest extends TestCase {
             return m_collectCount;
         }
 
-        public void initialize(@SuppressWarnings("rawtypes") Map parameters) {
+        public void initialize(Map<String, String> parameters) {
             // This fails because collectd does NOT actually passed in configured monitor parameters
             // since no collectors actually use them (except this one)
 //            String testKey = (String)parameters.get(TEST_KEY_PARM_NAME);
@@ -294,7 +299,7 @@ public class CollectdIntegrationTest extends TestCase {
 //            CollectdIntegrationTest.setServiceCollectorInTest(testKey, this);
         }
 
-        public void initialize(CollectionAgent agent, @SuppressWarnings("rawtypes") Map parameters) {
+        public void initialize(CollectionAgent agent, Map<String, String> parameters) {
             String testKey = (String)parameters.get(TEST_KEY_PARM_NAME);
             assertNotNull(testKey);
             CollectdIntegrationTest.setServiceCollectorInTest(testKey, this);

@@ -62,6 +62,7 @@
 
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <%!
     protected int telnetServiceId;
@@ -302,28 +303,32 @@
           <c:param name="parentResource" value="<%= Integer.toString(nodeId) %>"/>
           <c:param name="reports" value="all"/>
         </c:url>
-          <a href="${resourceGraphsUrl}">Resource Graphs</a>
+          <a href="${fn:escapeXml(resourceGraphsUrl)}">Resource Graphs</a>
 	  </li>
         <% } %>
         
          <li>
-         <a href="element/rescan.jsp?node=<%=nodeId%>">Rescan</a>      
+         <a href="element/rescan.jsp?node=<%=nodeId%>">Rescan</a>
          </li>
-        <% if( request.isUserInRole( Authentication.ADMIN_ROLE )) { %> 
+        <% if( request.isUserInRole( Authentication.ROLE_ADMIN )) { %> 
            <li>
            <a href="admin/nodemanagement/index.jsp?node=<%=nodeId%>">Admin</a>
            </li>
         <% } %>
 
-           <% if ( isSnmp && request.isUserInRole( Authentication.ADMIN_ROLE ))  { %>
+           <% if ( isSnmp && request.isUserInRole( Authentication.ROLE_ADMIN ))  { %>
               <% for( int i=0; i < intfs.length; i++ ) { %>
                 <% if( "P".equals( intfs[i].getIsSnmpPrimary() )) { %>
+                       <c:url var="updateSnmpLink" value="admin/updateSnmp.jsp">
+                           <c:param name="node" value="<%=String.valueOf(nodeId)%>"/>
+                           <c:param name="ipaddr" value="<%=intfs[i].getIpAddress()%>"/>
+                       </c:url>
                        <li>
-                       <a href="admin/updateSnmp.jsp?node=<%=nodeId%>&ipaddr=<%=intfs[i].getIpAddress()%>">Update SNMP</a>
+                       <a href="<c:out value="${updateSnmpLink}"/>">Update SNMP</a>
                        </li>
                 <% } %>
               <% } %>
-           <% } %>	    		        
+           <% } %>
 	  </ul>
 	  </div>
 	  
@@ -366,7 +371,7 @@
 			<th width="10%">ifStatus (Adm/Op)</th> 
 <%--
 			// TODO - turning this off until the SET is verified.
-			<% if( request.isUserInRole( Authentication.ADMIN_ROLE )) { %> 
+			<% if( request.isUserInRole( Authentication.ROLE_ADMIN )) { %> 
 			<th width="10%">Set Admin Status</th> 
 			<% } %>
 --%>
@@ -392,7 +397,12 @@
             <c:param name="node" value="<%=String.valueOf(nodeId)%>"/>
             <c:param name="intf" value="<%=intfs[i].getIpAddress()%>"/>
         </c:url>
-		<a href="${interfaceLink}"><%=intfs[i].getIpAddress()%></a>
+		<a href="<c:out value="${interfaceLink}"/>"><%=intfs[i].getIpAddress()%></a>
+		<!-- 
+			This is OK for now since getIpAddress() returns a String but if we refactor
+			NetworkElementFactory to return OnmsIpInterface instances, we will need to make
+			this comparison work between an InetAddress object and a String.
+		-->
 		<c:out value="<%=intfs[i].getIpAddress().equals(intfs[i].getHostname()) ? "" : "(" + intfs[i].getHostname() + ")"%>"/>
 
 		</td>
@@ -432,7 +442,7 @@
 					
 <%--
 		// TODO - turning this off until the SET is verified.
-		<% if( request.isUserInRole( Authentication.ADMIN_ROLE )) { %>
+		<% if( request.isUserInRole( Authentication.ROLE_ADMIN )) { %>
 			<% if(OPER_ADMIN_STATUS[intfs[i].getSnmpIfAdminStatus()].equalsIgnoreCase("Up") ){ %>
 		<td align="center"> <input type="button" value="Down" onClick="setDown(<%=intfs[i].getNodeId()%>,<%=intfs[i].getIfIndex()%>);"> </td>
 			<% } else if (OPER_ADMIN_STATUS[intfs[i].getSnmpIfAdminStatus()].equalsIgnoreCase("Down") ){ %>
@@ -470,7 +480,7 @@
 <%--
 			// TODO - turning this off until the SET is verified.
 				<th style="font-size:70%">
-				<% if( request.isUserInRole( Authentication.ADMIN_ROLE )) { %> 
+				<% if( request.isUserInRole( Authentication.ROLE_ADMIN )) { %> 
 					Set Admin Status
 				<% } else { %>
 					&nbsp;
@@ -504,7 +514,7 @@
 		        <% } %>
 		    </td>
 			<td class="standard" style="font-size:70%" width="15%">
-			<% if( request.isUserInRole( Authentication.ADMIN_ROLE ) && curlkif != null) { %>
+			<% if( request.isUserInRole( Authentication.ROLE_ADMIN ) && curlkif != null) { %>
 				<% if( curlkif.getSnmpIfAdminStatus() < 1 && curlkif.getSnmpIfOperStatus() < 1 ) { %>
 				&nbsp; 
 				<% } else { %>
@@ -516,7 +526,7 @@
 			</td>
 <%--
 			// TODO - turning this off until the SET is verified.
-			<% if( request.isUserInRole( Authentication.ADMIN_ROLE ) && curlkif != null) { %>
+			<% if( request.isUserInRole( Authentication.ROLE_ADMIN ) && curlkif != null) { %>
 				<% if(OPER_ADMIN_STATUS[curlkif.getSnmpIfAdminStatus()].equalsIgnoreCase("Up") ){ %>
 				<td class="standard" style="font-size:70%" align="center"><input type="button" value="Down" onClick="setDown(<%=curlkif.getNodeId()%>,<%=curlkif.getIfIndex()%>);"></td>
 				<% } else if (OPER_ADMIN_STATUS[curlkif.getSnmpIfAdminStatus()].equalsIgnoreCase("Down") ){ %>
@@ -604,7 +614,7 @@
 					
 <%--
 		    // TODO - turning this off until the SET is verified.
-		    <% if( request.isUserInRole( Authentication.ADMIN_ROLE )) { %>
+		    <% if( request.isUserInRole( Authentication.ROLE_ADMIN )) { %>
 			<% if(OPER_ADMIN_STATUS[snmpIntfs[i].getSnmpIfAdminStatus()].equalsIgnoreCase("Up") ){ %>
 		            <td align="center"> <input type="button" value="Down" onClick="setDown(<%=snmpIntfs[i].getNodeId()%>,<%=snmpIntfs[i].getSnmpIfIndex()%>);"> </td>
 			<% } else if (OPER_ADMIN_STATUS[snmpIntfs[i].getSnmpIfAdminStatus()].equalsIgnoreCase("Down") ){ %>
@@ -643,7 +653,7 @@
 <%--
 			// TODO - turning this off until the SET is verified.
 				<th style="font-size:70%">
-				<% if( request.isUserInRole( Authentication.ADMIN_ROLE )) { %> 
+				<% if( request.isUserInRole( Authentication.ROLE_ADMIN )) { %> 
 					Set Admin Status
 				<% } else { %>
 					&nbsp;
@@ -677,7 +687,7 @@
 		        <% } %>
 		        </td>
 			<td class="standard" style="font-size:70%" width="15%">
-			<% if( request.isUserInRole( Authentication.ADMIN_ROLE ) && curlkif != null) { %>
+			<% if( request.isUserInRole( Authentication.ROLE_ADMIN ) && curlkif != null) { %>
 			    <% if( curlkif.getSnmpIfAdminStatus() < 1 && curlkif.getSnmpIfOperStatus() < 1 ) { %>
 				&nbsp; 
 			    <% } else { %>
@@ -689,7 +699,7 @@
 			</td>
 <%--
 			// TODO - turning this off until the SET is verified.
-			<% if( request.isUserInRole( Authentication.ADMIN_ROLE ) && curlkif != null) { %>
+			<% if( request.isUserInRole( Authentication.ROLE_ADMIN ) && curlkif != null) { %>
 			    <% if(OPER_ADMIN_STATUS[curlkif.getSnmpIfAdminStatus()].equalsIgnoreCase("Up") ){ %>
 				<td class="standard" style="font-size:70%" align="center"><input type="button" value="Down" onClick="setDown(<%=curlkif.getNodeId()%>,<%=curlkif.getSnmpIfIndex()%>);"></td>
 			    <% } else if (OPER_ADMIN_STATUS[curlkif.getSnmpIfAdminStatus()].equalsIgnoreCase("Down") ){ %>

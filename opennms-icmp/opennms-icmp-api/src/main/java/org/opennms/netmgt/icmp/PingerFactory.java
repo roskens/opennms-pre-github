@@ -1,7 +1,7 @@
 //
 // This file is part of the OpenNMS(R) Application.
 //
-// OpenNMS(R) is Copyright (C) 2002-2003 The OpenNMS Group, Inc.  All rights reserved.
+// OpenNMS(R) is Copyright (C) 2002-20011 The OpenNMS Group, Inc.  All rights reserved.
 // OpenNMS(R) is a derivative work, containing both original code, included code and modified
 // code that was published under the GNU General Public License. Copyrights for modified 
 // and included code are below.
@@ -36,13 +36,11 @@
 
 package org.opennms.netmgt.icmp;
 
-import org.opennms.core.utils.LogUtils;
-import org.springframework.util.Assert;
-
 /**
- * <p>Pinger class.</p>
+ * <p>PingerFactory class.</p>
  *
- * @author <A HREF="mailto:sowmya@opennms.org">Sowmya Nataraj</A>
+ * @author <A HREF="mailto:seth@opennms.org">Seth Leger</A>
+ * @author <A HREF="mailto:brozow@opennms.org">Matt Brozowski</A>
  * @author <A HREF="http://www.opennms.org">OpenNMS.org </A>
  */
 public abstract class PingerFactory {
@@ -57,7 +55,20 @@ public abstract class PingerFactory {
      * @return a {@link Pinger} object.
      */
     public static Pinger getInstance() {
-        Assert.state(m_pinger != null, "this factory has not been initialized");
+        if (m_pinger == null) {
+            String pingerClassName = System.getProperty("org.opennms.netmgt.icmp.pingerClass", "org.opennms.netmgt.icmp.jna.JnaPinger");
+            Class<? extends Pinger> clazz = null;
+            try {
+                clazz = Class.forName(pingerClassName).asSubclass(Pinger.class);
+                m_pinger = clazz.newInstance();
+            } catch (ClassNotFoundException e) {
+                throw new IllegalArgumentException("Unable to find class named " + pingerClassName, e);
+            } catch (InstantiationException e) {
+                throw new IllegalArgumentException("Error trying to create pinger of type " + clazz, e);
+            } catch (IllegalAccessException e) {
+                throw new IllegalArgumentException("Unable to create pinger of type " + clazz + ".  It does not appear to have a public constructor", e);
+            }
+        }
         return m_pinger;
     }
 
@@ -67,8 +78,6 @@ public abstract class PingerFactory {
      * @param pinger a {@link Pinger} object.
      */
     public static void setInstance(Pinger pinger) {
-        Assert.notNull(pinger, "property pinger must not be null");
-        LogUtils.debugf(PingerFactory.class, "setting instance of pinger to %s", pinger.getClass().getName());
         m_pinger = pinger;
     }
     
@@ -79,4 +88,5 @@ public abstract class PingerFactory {
     protected static void reset() {
         m_pinger = null;
     }
+    
 }

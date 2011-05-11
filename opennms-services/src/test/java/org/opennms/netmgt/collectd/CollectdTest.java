@@ -39,13 +39,11 @@
 
 package org.opennms.netmgt.collectd;
 
-import static org.opennms.core.utils.InetAddressUtils.addr;
-import static org.opennms.core.utils.InetAddressUtils.str;
-
 import static org.easymock.EasyMock.eq;
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.expectLastCall;
 import static org.easymock.EasyMock.isA;
+import static org.opennms.core.utils.InetAddressUtils.addr;
 
 import java.io.File;
 import java.net.InetAddress;
@@ -178,8 +176,12 @@ public class CollectdTest extends TestCase {
         EasyMock.replay(m_filterDao);
         FilterDaoFactory.setInstance(m_filterDao);
 
-        Resource resource = new ClassPathResource("etc/poll-outages.xml"); 
-        PollOutagesConfigFactory.setInstance(new PollOutagesConfigFactory(resource));
+        // This call will also ensure that the poll-outages.xml file can parse IPv4
+        // and IPv6 addresses.
+        Resource resource = new ClassPathResource("etc/poll-outages.xml");
+        PollOutagesConfigFactory factory = new PollOutagesConfigFactory(resource);
+        factory.afterPropertiesSet();
+        PollOutagesConfigFactory.setInstance(factory);
 
         CollectdConfigFactory collectdConfig = new CollectdConfigFactory(ConfigurationTestUtils.getInputStreamForResource(this, "/org/opennms/netmgt/config/collectd-testdata.xml"), "nms1", false);
         CollectdConfigFactory.setInstance(collectdConfig);
@@ -442,13 +444,11 @@ public class CollectdTest extends TestCase {
             return s_delegate.collect(agent, eproxy, parameters);
         }
 
-        @SuppressWarnings("unchecked")
-        public void initialize(Map parameters) {
+        public void initialize(Map<String, String> parameters) {
             s_delegate.initialize(parameters);
         }
 
-        @SuppressWarnings("unchecked")
-        public void initialize(CollectionAgent agent, Map parameters) {
+        public void initialize(CollectionAgent agent, Map<String, String> parameters) {
             s_delegate.initialize(agent, parameters);
         }
 
