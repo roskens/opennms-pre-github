@@ -52,7 +52,6 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.apache.commons.lang.builder.CompareToBuilder;
-import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.joda.time.Duration;
 import org.opennms.core.utils.LogUtils;
@@ -66,10 +65,10 @@ import org.opennms.netmgt.provision.persist.StringIntervalAdapter;
  */
 @XmlRootElement(name="foreign-source")
 public class ForeignSource implements Serializable, Comparable<ForeignSource> {
+    private static final long serialVersionUID = -1903289015976502808L;
+
     private static final PluginConfig[] OF_PLUGIN_CONFIGS = new PluginConfig[0];
 
-    private static final long serialVersionUID = 1L;
-    
     @XmlAttribute(name="name")
     private String m_name;
 

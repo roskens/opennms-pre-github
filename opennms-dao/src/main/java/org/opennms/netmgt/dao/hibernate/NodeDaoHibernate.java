@@ -265,7 +265,7 @@ public class NodeDaoHibernate extends AbstractDaoHibernate<OnmsNode, Integer> im
                 		.setParameterList("rowCategories", rowCategories)
                 		.setParameterList("columnCategories", columnCategories)
                 		.setResultTransformer(new ResultTransformer() {
-                            private static final long serialVersionUID = 1L;
+                            private static final long serialVersionUID = 5152094813503430377L;
 
                             public Object transformTuple(Object[] tuple, String[] aliases) {
                                 logger.debug("tuple length = " + tuple.length);
@@ -275,7 +275,7 @@ public class NodeDaoHibernate extends AbstractDaoHibernate<OnmsNode, Integer> im
                                 return new SimpleSurveillanceStatus((Number)tuple[0], (Number)tuple[1], (Number)tuple[2]);
                             }
 
-                            @SuppressWarnings("rawtypes")
+                            @SuppressWarnings("unchecked")
                             public List transformList(List collection) {
                                 return collection;
                             }
