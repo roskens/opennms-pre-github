@@ -83,7 +83,7 @@ public class FieldSetSuggestBox extends AbstractFieldSet implements FieldSet, Va
 			oracle.setDefaultSuggestionsFromText(suggestions);
 		}
 		suggBox = new SuggestBox(oracle);
-
+		
 		suggBox.setText(value);
 
 		suggBox.getTextBox().addFocusHandler(this);
@@ -94,8 +94,8 @@ public class FieldSetSuggestBox extends AbstractFieldSet implements FieldSet, Va
 		suggBox.addKeyUpHandler(this);
 		suggBox.addSelectionHandler(this);
 		
-//		suggBox.setStyleName("suggBox");
-		suggBox.setSize("300px", "20px");
+		suggBox.setStyleName("suggBox");
+		suggBox.setSize("300px", "18px");
 	
 		panel.add(suggBox);
 	}

@@ -80,7 +80,7 @@ public class FieldSetListBox extends AbstractFieldSet implements FieldSet {
 		listBox.addChangeHandler(this);
 		listBox.setStyleName("listBox");
 
-		listBox.setSize("300px", "20px");
+		listBox.setSize("300px", "18px");
 
 		panel.add(listBox);
 	}

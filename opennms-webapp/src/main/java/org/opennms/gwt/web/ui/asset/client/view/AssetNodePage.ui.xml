@@ -23,30 +23,28 @@
 		type="org.opennms.gwt.web.ui.asset.client.AssetPageConstants" />
 
 	<ui:style>
-
+		
 	</ui:style>
+
 	<g:HTMLPanel>
-	
-	
-	
-<h2>
-<g:Label ui:field="nodeInfoLabel" text="" />
-</h2>
-<p>
-  <g:Anchor ui:field="nodeInfoLink"></g:Anchor>
-</p>
-			<g:VerticalPanel ui:field="mainPanel">
+		<h2>
+			<g:Label ui:field="nodeInfoLabel" text="" />
+		</h2>
+		<p>
+			<g:Anchor ui:field="nodeInfoLink"></g:Anchor>
+		</p>
+		<g:VerticalPanel ui:field="mainPanel" styleName="mainPanel">
 			<g:Label ui:field="lInfoTop">Hallo Welt</g:Label>
 
 			<onms:DisclosurePanelCookie name="snmp"
 				ui:field="snmpDiscPanel">
-				<g:HTMLPanel>
+				<g:HTMLPanel styleName="disclosureHeaderPanel">
 					<h3>
 						<g:Label ui:field="snmpHeader" text="{con.snmpHeader}" />
 					</h3>
 				</g:HTMLPanel>
-				<g:HTMLPanel>
-					<table>
+				<g:HTMLPanel styleName="disclosureBodyPanel">
+					<table class="assetContent">
 						<tr>
 							<td>
 								<g:Label ui:field="lSystemId" text="{con.systemId}" />
@@ -92,14 +90,14 @@
 			<onms:DisclosurePanelCookie name="confCat"
 				ui:field="confCatDiscPanel">
 
-				<g:HTMLPanel>
+				<g:HTMLPanel styleName="disclosureBodyPanel">
 					<h3>
 						<g:Label ui:field="confCatHeader" text="{con.configurationCatHeader}" />
 					</h3>
 				</g:HTMLPanel>
 
-				<g:HTMLPanel>
-					<table>
+				<g:HTMLPanel styleName="disclosureBodyPanel">
+					<table class="assetContent">
 						<tr>
 							<td>
 								<onms:FieldSetSuggestBox ui:field="sDisplayCat"
@@ -130,13 +128,13 @@
 
 			<onms:DisclosurePanelCookie name="ident"
 				ui:field="identDiscPanel">
-				<g:HTMLPanel>
+				<g:HTMLPanel styleName="disclosureBodyPanel">
 					<h3>
 						<g:Label ui:field="identHeader" text="{con.identificationHeader}" />
 					</h3>
 				</g:HTMLPanel>
-				<g:HTMLPanel>
-					<table>
+				<g:HTMLPanel styleName="disclosureBodyPanel">
+					<table class="assetContent">
 						<tr>
 							<td>
 								<onms:FieldSetSuggestBox ui:field="sDescription"
@@ -190,14 +188,14 @@
 			<onms:DisclosurePanelCookie name="location"
 				ui:field="locationDiscPanel">
 
-				<g:HTMLPanel>
+				<g:HTMLPanel styleName="disclosureBodyPanel">
 					<h3>
 						<g:Label ui:field="locationHeader" text="{con.locationHeader}" />
 					</h3>
 				</g:HTMLPanel>
 
-				<g:HTMLPanel>
-					<table>
+				<g:HTMLPanel styleName="disclosureBodyPanel">
+					<table class="assetContent">
 						<tr>
 							<td>
 								<onms:FieldSetSuggestBox ui:field="sRegion"
@@ -293,13 +291,13 @@
 
 			<onms:DisclosurePanelCookie name="vendor"
 				ui:field="vendorDiscPanel">
-				<g:HTMLPanel>
+				<g:HTMLPanel styleName="disclosureBodyPanel">
 					<h3>
 						<g:Label ui:field="vendorHeader" text="{con.vendorHeader}" />
 					</h3>
 				</g:HTMLPanel>
-				<g:HTMLPanel>
-					<table>
+				<g:HTMLPanel styleName="disclosureBodyPanel">
+					<table class="assetContent">
 						<tr>
 							<td>
 								<onms:FieldSetSuggestBox ui:field="sVendorName"
@@ -359,13 +357,13 @@
 
 			<onms:DisclosurePanelCookie name="auth"
 				ui:field="authDiscPanel">
-				<g:HTMLPanel>
+				<g:HTMLPanel styleName="disclosureBodyPanel">
 					<h3>
 						<g:Label ui:field="authHeader" text="{con.authenticationHeader}" />
 					</h3>
 				</g:HTMLPanel>
-				<g:HTMLPanel>
-					<table>
+				<g:HTMLPanel styleName="disclosureBodyPanel">
+					<table class="assetContent">
 						<tr>
 							<td>
 								<onms:FieldSetTextBox ui:field="sUserName"
@@ -407,14 +405,14 @@
 			<onms:DisclosurePanelCookie name="hardware"
 				ui:field="hardwareDiscPanel">
 
-				<g:HTMLPanel>
+				<g:HTMLPanel styleName="disclosureBodyPanel">
 					<h3>
 						<g:Label ui:field="hardwareHeader" text="{con.hardwareHeader}" />
 					</h3>
 				</g:HTMLPanel>
 
-				<g:HTMLPanel>
-					<table>
+				<g:HTMLPanel styleName="disclosureBodyPanel">
+					<table class="assetContent">
 						<tr>
 							<td>
 								<onms:FieldSetSuggestBox ui:field="sCpu"
@@ -485,13 +483,13 @@
 			<onms:DisclosurePanelCookie name="comments"
 				ui:field="commentsDiscPanel">
 
-				<g:HTMLPanel>
+				<g:HTMLPanel styleName="disclosureBodyPanel">
 					<h3>
 						<g:Label ui:field="commentsHeader" text="{con.commentsHeader}" />
 					</h3>
 				</g:HTMLPanel>
-				<g:HTMLPanel>
-					<table>
+				<g:HTMLPanel styleName="disclosureBodyPanel">
+					<table class="assetContent">
 						<tr>
 							<td>
 								<onms:FieldSetTextArea ui:field="sComment"

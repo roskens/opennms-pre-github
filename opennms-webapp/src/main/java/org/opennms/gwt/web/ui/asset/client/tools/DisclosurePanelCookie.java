@@ -53,7 +53,8 @@ public class DisclosurePanelCookie extends Composite implements HasWidgets {
 
 	@UiConstructor
 	public DisclosurePanelCookie(final String name) {
-
+		
+		panel.setStyleName("DisclosurePanelCookie");
 		panel.setAnimationEnabled(true);
 
 		if (Cookies.isCookieEnabled()) {

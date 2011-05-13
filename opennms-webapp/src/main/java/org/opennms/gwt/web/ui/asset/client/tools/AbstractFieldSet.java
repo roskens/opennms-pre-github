@@ -44,8 +44,6 @@ import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DecoratedPopupPanel;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment;
-import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -94,26 +92,23 @@ public abstract class AbstractFieldSet extends Composite implements FieldSet {
 		label.setText(name);
 		label.setStyleName("label");
 		label.setSize("100px", "20px");
-
-		panel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-		panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-		panel.setBorderWidth(0);
+		
+		panel.addStyleName("FieldSetHorizontalPanel");
 		panel.add(label);
 
 		errorLabel.setVisible(false);
 		errorLabel.setText(null);
-		errorLabel.setStyleName("FiedSetErrorLabel");
+		errorLabel.setStyleName("FieldSetErrorLabel");
 		
 		warningLabel.setVisible(false);
 		warningLabel.setText(null);
-		warningLabel.setStyleName("FiedSetWarningLabel");
+		warningLabel.setStyleName("FieldSetWarningLabel");
 		
 		mainPanel.add(errorLabel);
 		mainPanel.add(warningLabel);
 		mainPanel.add(panel);
-		mainPanel.setBorderWidth(0);
 		
-		mainPanel.setStylePrimaryName("fieldset");
+		mainPanel.setStyleName("FieldSet");
 
 		// All composites must call initWidget() in their constructors.
 		initWidget(mainPanel);
@@ -142,7 +137,6 @@ public abstract class AbstractFieldSet extends Composite implements FieldSet {
 	public void onChange(ChangeEvent event) {
 		mainPanel.setStyleDependentName("changed", true);
 		changed = true;
-		//TODO not a clever ... refactor me
 		validate(this.getValue());
 	}
 

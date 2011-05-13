@@ -44,11 +44,11 @@ public class AssetPage implements EntryPoint {
 	private AssetServiceAsync m_assetServiceAsync;
 
 	public void onModuleLoad() {
-		if (RootPanel.get("opennms:assetNodePage") != null) {
+		if (RootPanel.get("opennms-assetNodePage") != null) {
 			AssetServiceAsync rpcService = getAssetService();
 			HandlerManager eventBus = new HandlerManager(null);
 			AppController appViewer = new AppController(rpcService, eventBus);
-			appViewer.go(RootPanel.get("opennms:assetNodePage"));
+			appViewer.go(RootPanel.get("opennms-assetNodePage"));
 		}//not my page to be
 	}
 

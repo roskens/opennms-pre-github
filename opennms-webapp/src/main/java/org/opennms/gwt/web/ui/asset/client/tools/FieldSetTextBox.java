@@ -64,7 +64,7 @@ public class FieldSetTextBox extends AbstractFieldSet implements FieldSet, KeyUp
 		textBox.addChangeHandler(this);
 		textBox.addKeyUpHandler(this);
 		textBox.setStyleName("textBox");
-		textBox.setSize("300px", "20px");
+		textBox.setSize("300px", "18px");
 		panel.add(textBox);
 	}
 

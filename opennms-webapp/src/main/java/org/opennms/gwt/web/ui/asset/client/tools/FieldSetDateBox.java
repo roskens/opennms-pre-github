@@ -88,7 +88,7 @@ public class FieldSetDateBox extends AbstractFieldSet implements FieldSet, Value
 		
 		dateBox.addValueChangeHandler(this);
 		dateBox.setStyleName("dateBox");
-		dateBox.setSize("300px", "20px");
+		dateBox.setSize("300px", "18px");
 		
 		panel.add(dateBox);	
 	}
