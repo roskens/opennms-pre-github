@@ -561,7 +561,7 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
 		sPhone.setSuggestions(assetSugg.getVendorPhone());
 		sFax.setSuggestions(assetSugg.getVendorFax());
 		sLease.setSuggestions(assetSugg.getLease());
-		sMaintContract.setSuggestions(assetSugg.getMaintContractNumber());
+		sMaintContract.setSuggestions(assetSugg.getMaintContract());
 		sMaintPhone.setSuggestions(assetSugg.getSupportPhone());
 	}
 

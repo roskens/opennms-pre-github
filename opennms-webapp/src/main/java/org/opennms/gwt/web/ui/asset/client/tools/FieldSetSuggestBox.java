@@ -30,7 +30,7 @@
 
 package org.opennms.gwt.web.ui.asset.client.tools;
 
-import java.util.ArrayList;
+import java.util.Collection;
 
 import org.opennms.gwt.web.ui.asset.client.tools.validation.StringMaxLengthValidator;
 
@@ -55,7 +55,7 @@ public class FieldSetSuggestBox extends AbstractFieldSet implements FieldSet, Va
 		SelectionHandler<Suggestion>, KeyUpHandler, MouseUpHandler {
 
 	private SuggestBox suggBox;
-	private ArrayList<String> suggestions;
+	private Collection<String> suggestions;
 	private MultiWordSuggestOracle oracle = new MultiWordSuggestOracle();
 	
 	@UiConstructor
@@ -69,12 +69,12 @@ public class FieldSetSuggestBox extends AbstractFieldSet implements FieldSet, Va
 		init(value, null, -1);
 	}
 	
-	public FieldSetSuggestBox(String name, String value, String helpText, ArrayList<String> suggestions) {
+	public FieldSetSuggestBox(String name, String value, String helpText, Collection<String> suggestions) {
 		super(name, helpText);
 		init(value, suggestions, -1);
 	}
 
-	private void init(String value, ArrayList<String> suggestions, int maxLength) {
+	private void init(String value, Collection<String> suggestions, int maxLength) {
 		if(maxLength > 0 ){
 			addErrorValidator(new StringMaxLengthValidator(maxLength));
 		}
@@ -112,11 +112,11 @@ public class FieldSetSuggestBox extends AbstractFieldSet implements FieldSet, Va
 		suggBox.setText(value);
 	}
 
-	public ArrayList<String> getSuggestions() {
+	public Collection<String> getSuggestions() {
 		return suggestions;
 	}
 
-	public void setSuggestions(ArrayList<String> suggestions) {
+	public void setSuggestions(Collection<String> suggestions) {
 		this.suggestions = suggestions;
 		oracle.clear();
 		if (suggestions != null) {

@@ -64,7 +64,7 @@ public class StringDateLocalValidator implements Validator {
 		try {
 			m_formater.parse(m_dateString);
 		} catch (Exception e) {
-			return con.stringNotADate() + " " + m_dateString;
+			return con.stringNotADate();
 		}
 		return "";
 	}

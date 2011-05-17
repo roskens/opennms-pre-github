@@ -51,13 +51,8 @@ public class AssetServiceMockup extends RemoteServiceServlet implements AssetSer
 
 	private AssetCommand asset = new AssetCommand();
 	private SimpleDateFormat onmsFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss Z");
-	private ArrayList<String> maunfacturers = new ArrayList<String>();
 	
 	public AssetServiceMockup() {
-		maunfacturers.add("Atari");
-		maunfacturers.add("Bell-Labs");
-		maunfacturers.add("Comodore");
-		maunfacturers.add("Dell");
 		setData();
 	}
 
@@ -65,7 +60,6 @@ public class AssetServiceMockup extends RemoteServiceServlet implements AssetSer
 		if (nodeId == 666) {
 			throw new NullPointerException("just testing error-case: nodeid 666");
 		}
-
 		return asset;
 	}
 
@@ -77,7 +71,6 @@ public class AssetServiceMockup extends RemoteServiceServlet implements AssetSer
 		this.asset = asset;
 		asset.setLastModifiedDate(new Date());
 		asset.setLastModifiedBy("admin");
-		maunfacturers.add(this.asset.getManufacturer());
 		return true;
 	}
 
@@ -216,53 +209,41 @@ public class AssetServiceMockup extends RemoteServiceServlet implements AssetSer
 	public AssetSuggCommand getAssetSuggestions() throws Exception {
 		AssetSuggCommand assetSugg = new AssetSuggCommand();
 
-		assetSugg.setManufacturer(maunfacturers);
+		assetSugg.addDescription("001");
+		assetSugg.addDescription("001");
+		assetSugg.addDescription("002");
+		assetSugg.addDescription("003");
+		assetSugg.addDescription("004");
 
-		ArrayList<String> descriptions = new ArrayList<String>();
-		descriptions.add("001");
-		descriptions.add("002");
-		descriptions.add("003");
-		descriptions.add("004");
-		assetSugg.setDescription(descriptions);
+		assetSugg.addCategory("allo");
+		assetSugg.addCategory("aallo");
+		assetSugg.addCategory("ballo");
+		assetSugg.addCategory("callo");
 
-		ArrayList<String> categories = new ArrayList<String>();
-		categories.add("allo");
-		categories.add("aallo");
-		categories.add("ballo");
-		categories.add("callo");
-		assetSugg.setCategory(categories);
+		assetSugg.addCpu("AMD");
+		assetSugg.addCpu("ARM");
+		assetSugg.addCpu("INTEL");
+		assetSugg.addCpu("MOTOROLA");
 
-		ArrayList<String> cpus = new ArrayList<String>();
-		cpus.add("AMD");
-		cpus.add("ARM");
-		cpus.add("INTEL");
-		cpus.add("MOTOROLA");
-		assetSugg.setCpu(cpus);
+		assetSugg.addAdditionalhardware("Laser-Canon");
+		assetSugg.addAdditionalhardware("Magic-Door");
+		assetSugg.addAdditionalhardware("Blackhole-Port");
 
-		ArrayList<String> additionalhardwares = new ArrayList<String>();
-		additionalhardwares.add("Laser-Canon");
-		additionalhardwares.add("Magic-Door");
-		additionalhardwares.add("Blackhole-Port");
-		assetSugg.setAdditionalhardware(additionalhardwares);
-
-		ArrayList<String> admins = new ArrayList<String>();
-		admins.add("Super Mario");
-		admins.add("Medium Mario");
-		admins.add("Bad Mario");
-		admins.add("Pure Mario");
-		assetSugg.setAdmin(admins);
-
-		ArrayList<String> snmpcom = new ArrayList<String>();
-		snmpcom.add("public");
-		snmpcom.add("not so public");
-		snmpcom.add("private");
-		assetSugg.setSnmpcommunity(snmpcom);
+		assetSugg.addAdmin("Super Mario");
+		assetSugg.addAdmin("Medium Mario");
+		assetSugg.addAdmin("Bad Mario");
+		assetSugg.addAdmin("Pure Mario");
 		
-		ArrayList<String> custom1com = new ArrayList<String>();
-		custom1com.add("Testsystem");
-		custom1com.add("Productionsystem");
-		custom1com.add("Not in use");
+		assetSugg.addManufacturer("Atari");
+		assetSugg.addManufacturer("Atari");
+		assetSugg.addManufacturer("Bell-Labs");
+		assetSugg.addManufacturer("Comodore");
+		assetSugg.addManufacturer("Dell");
 
+		assetSugg.addSnmpcommunity("public");
+		assetSugg.addSnmpcommunity("not so public");
+		assetSugg.addSnmpcommunity("private");
+		
 		return assetSugg;
 	}
 }

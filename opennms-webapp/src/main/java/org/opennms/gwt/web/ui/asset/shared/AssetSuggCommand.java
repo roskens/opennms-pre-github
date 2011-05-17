@@ -30,7 +30,9 @@
 
 package org.opennms.gwt.web.ui.asset.shared;
 
-import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
@@ -40,679 +42,511 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  * 
  */
 public class AssetSuggCommand implements IsSerializable {
+	
+	private Set<String> m_additionalhardware;
 
-	private ArrayList<String> m_additionalhardware;
+	private Set<String> m_address1;
 
-	private ArrayList<String> m_address1;
+	private Set<String> m_address2;
 
-	private ArrayList<String> m_address2;
+	private Set<String> m_admin;
 
-	private ArrayList<String> m_admin;
+	private Set<String> m_building;
 
-	private ArrayList<String> m_building;
+	private Set<String> m_category;
 
-	private ArrayList<String> m_category;
+	private Set<String> m_circuitId;
 
-	private ArrayList<String> m_circuitId;
+	private Set<String> m_city;
 
-	private ArrayList<String> m_city;
+	private Set<String> m_cpu;
 
-	private ArrayList<String> m_cpu;
+	private Set<String> m_department;
 
-	private ArrayList<String> m_department;
+	private Set<String> m_description;
 
-	private ArrayList<String> m_description;
+	private Set<String> m_displayCategory;
 
-	private ArrayList<String> m_displayCategory;
+	private Set<String> m_division;
 
-	private ArrayList<String> m_division;
+	private Set<String> m_floor;
 
-	private ArrayList<String> m_floor;
+	private Set<String> m_hdd1;
 
-	private ArrayList<String> m_hdd1;
+	private Set<String> m_hdd2;
 
-	private ArrayList<String> m_hdd2;
+	private Set<String> m_hdd3;
 
-	private ArrayList<String> m_hdd3;
+	private Set<String> m_hdd4;
 
-	private ArrayList<String> m_hdd4;
+	private Set<String> m_hdd5;
 
-	private ArrayList<String> m_hdd5;
+	private Set<String> m_hdd6;
 
-	private ArrayList<String> m_hdd6;
+	private Set<String> m_inputpower;
 
-	private ArrayList<String> m_inputpower;
+	private Set<String> m_lease;
 
-	private ArrayList<String> m_lease;
+	private Set<String> m_maintContract;
 
-	private ArrayList<String> m_maintContractNumber;
+	private Set<String> m_manufacturer;
 
-	private ArrayList<String> m_manufacturer;
+	private Set<String> m_modelNumber;
 
-	private ArrayList<String> m_modelNumber;
+	private Set<String> m_notifyCategory;
 
-	private ArrayList<String> m_notifyCategory;
+	private Set<String> m_numpowersupplies;
 
-	private ArrayList<String> m_numpowersupplies;
+	private Set<String> m_operatingSystem;
 
-	private ArrayList<String> m_operatingSystem;
+	private Set<String> m_pollerCategory;
 
-	private ArrayList<String> m_pollerCategory;
+	private Set<String> m_rack;
 
-	private ArrayList<String> m_rack;
+	private Set<String> m_ram;
 
-	private ArrayList<String> m_ram;
+	private Set<String> m_region;
 
-	private ArrayList<String> m_region;
+	private Set<String> m_room;
 
-	private ArrayList<String> m_room;
+	private Set<String> m_snmpcommunity;
 
-	private ArrayList<String> m_snmpcommunity;
+	private Set<String> m_state;
 
-	private ArrayList<String> m_state;
+	private Set<String> m_storagectrl;
 
-	private ArrayList<String> m_storagectrl;
+	private Set<String> m_supportPhone;
 
-	private ArrayList<String> m_supportPhone;
+	private Set<String> m_thresholdCategory;
 
-	private ArrayList<String> m_thresholdCategory;
+	private Set<String> m_vendor;
 
-	private ArrayList<String> m_vendor;
+	private Set<String> m_vendorFax;
 
-	private ArrayList<String> m_vendorFax;
+	private Set<String> m_vendorPhone;
 
-	private ArrayList<String> m_vendorPhone;
-
-	private ArrayList<String> m_zip;
+	private Set<String> m_zip;
 
 	public AssetSuggCommand() {
-		this.m_additionalhardware = new ArrayList<String>();
-		this.m_address1 = new ArrayList<String>();
-		this.m_address2 = new ArrayList<String>();
-		this.m_admin = new ArrayList<String>();
-		this.m_building = new ArrayList<String>();
-		this.m_category = new ArrayList<String>();
-		this.m_circuitId = new ArrayList<String>();
-		this.m_city = new ArrayList<String>();
-		this.m_cpu = new ArrayList<String>();
-		this.m_department = new ArrayList<String>();
-		this.m_description = new ArrayList<String>();
-		this.m_displayCategory = new ArrayList<String>();
-		this.m_division = new ArrayList<String>();
-		this.m_floor = new ArrayList<String>();
-		this.m_hdd1 = new ArrayList<String>();
-		this.m_hdd2 = new ArrayList<String>();
-		this.m_hdd3 = new ArrayList<String>();
-		this.m_hdd4 = new ArrayList<String>();
-		this.m_hdd5 = new ArrayList<String>();
-		this.m_hdd6 = new ArrayList<String>();
-		this.m_inputpower = new ArrayList<String>();
-		this.m_lease = new ArrayList<String>();
-		this.m_maintContractNumber = new ArrayList<String>();
-		this.m_manufacturer = new ArrayList<String>();
-		this.m_modelNumber = new ArrayList<String>();
-		this.m_notifyCategory = new ArrayList<String>();
-		this.m_numpowersupplies = new ArrayList<String>();
-		this.m_operatingSystem = new ArrayList<String>();
-		this.m_pollerCategory = new ArrayList<String>();
-		this.m_rack = new ArrayList<String>();
-		this.m_ram = new ArrayList<String>();
-		this.m_region = new ArrayList<String>();
-		this.m_room = new ArrayList<String>();
-		this.m_snmpcommunity = new ArrayList<String>();
-		this.m_state = new ArrayList<String>();
-		this.m_storagectrl = new ArrayList<String>();
-		this.m_supportPhone = new ArrayList<String>();
-		this.m_thresholdCategory = new ArrayList<String>();
-		this.m_vendor = new ArrayList<String>();
-		this.m_vendorFax = new ArrayList<String>();
-		this.m_vendorPhone = new ArrayList<String>();
-		this.m_zip = new ArrayList<String>();
+		this.m_additionalhardware = new HashSet<String>();
+		this.m_address1 = new HashSet<String>();
+		this.m_address2 = new HashSet<String>();
+		this.m_admin = new HashSet<String>();
+		this.m_building = new HashSet<String>();
+		this.m_category = new HashSet<String>();
+		this.m_circuitId = new HashSet<String>();
+		this.m_city = new HashSet<String>();
+		this.m_cpu = new HashSet<String>();
+		this.m_department = new HashSet<String>();
+		this.m_description = new HashSet<String>();
+		this.m_displayCategory = new HashSet<String>();
+		this.m_division = new HashSet<String>();
+		this.m_floor = new HashSet<String>();
+		this.m_hdd1 = new HashSet<String>();
+		this.m_hdd2 = new HashSet<String>();
+		this.m_hdd3 = new HashSet<String>();
+		this.m_hdd4 = new HashSet<String>();
+		this.m_hdd5 = new HashSet<String>();
+		this.m_hdd6 = new HashSet<String>();
+		this.m_inputpower = new HashSet<String>();
+		this.m_lease = new HashSet<String>();
+		this.m_maintContract = new HashSet<String>();
+		this.m_manufacturer = new HashSet<String>();
+		this.m_modelNumber = new HashSet<String>();
+		this.m_notifyCategory = new HashSet<String>();
+		this.m_numpowersupplies = new HashSet<String>();
+		this.m_operatingSystem = new HashSet<String>();
+		this.m_pollerCategory = new HashSet<String>();
+		this.m_rack = new HashSet<String>();
+		this.m_ram = new HashSet<String>();
+		this.m_region = new HashSet<String>();
+		this.m_room = new HashSet<String>();
+		this.m_snmpcommunity = new HashSet<String>();
+		this.m_state = new HashSet<String>();
+		this.m_storagectrl = new HashSet<String>();
+		this.m_supportPhone = new HashSet<String>();
+		this.m_thresholdCategory = new HashSet<String>();
+		this.m_vendor = new HashSet<String>();
+		this.m_vendorFax = new HashSet<String>();
+		this.m_vendorPhone = new HashSet<String>();
+		this.m_zip = new HashSet<String>();
 	}
 
-	public ArrayList<String> getAdditionalhardware() {
+	public Collection<String> getAdditionalhardware() {
 		return this.m_additionalhardware;
 	}
 
-	public ArrayList<String> getAddress1() {
+	public Collection<String> getAddress1() {
 		return this.m_address1;
 	}
 
-	public ArrayList<String> getAddress2() {
+	public Collection<String> getAddress2() {
 		return this.m_address2;
 	}
 
-	public ArrayList<String> getAdmin() {
+	public Collection<String> getAdmin() {
 		return this.m_admin;
 	}
 
-	public ArrayList<String> getBuilding() {
+	public Collection<String> getBuilding() {
 		return this.m_building;
 	}
 
-	public ArrayList<String> getCategory() {
+	public Collection<String> getCategory() {
 		return this.m_category;
 	}
 
-	public ArrayList<String> getCircuitId() {
+	public Collection<String> getCircuitId() {
 		return this.m_circuitId;
 	}
 
-	public ArrayList<String> getCity() {
+	public Collection<String> getCity() {
 		return this.m_city;
 	}
 
-	public ArrayList<String> getCpu() {
+	public Collection<String> getCpu() {
 		return this.m_cpu;
 	}
 
-	public ArrayList<String> getDepartment() {
+	public Collection<String> getDepartment() {
 		return this.m_department;
 	}
 
-	public ArrayList<String> getDescription() {
+	public Collection<String> getDescription() {
 		return this.m_description;
 	}
 
-	public ArrayList<String> getDisplayCategory() {
+	public Collection<String> getDisplayCategory() {
 		return this.m_displayCategory;
 	}
 
-	public ArrayList<String> getDivision() {
+	public Collection<String> getDivision() {
 		return this.m_division;
 	}
 
-	public ArrayList<String> getFloor() {
+	public Collection<String> getFloor() {
 		return this.m_floor;
 	}
 
-	public ArrayList<String> getHdd1() {
+	public Collection<String> getHdd1() {
 		return this.m_hdd1;
 	}
 
-	public ArrayList<String> getHdd2() {
+	public Collection<String> getHdd2() {
 		return this.m_hdd2;
 	}
 
-	public ArrayList<String> getHdd3() {
+	public Collection<String> getHdd3() {
 		return this.m_hdd3;
 	}
 
-	public ArrayList<String> getHdd4() {
+	public Collection<String> getHdd4() {
 		return this.m_hdd4;
 	}
 
-	public ArrayList<String> getHdd5() {
+	public Collection<String> getHdd5() {
 		return this.m_hdd5;
 	}
 
-	public ArrayList<String> getHdd6() {
+	public Collection<String> getHdd6() {
 		return this.m_hdd6;
 	}
 
-	public ArrayList<String> getInputpower() {
+	public Collection<String> getInputpower() {
 		return this.m_inputpower;
 	}
 
-	public ArrayList<String> getLease() {
+	public Collection<String> getLease() {
 		return this.m_lease;
 	}
 
-	public ArrayList<String> getMaintContractNumber() {
-		return this.m_maintContractNumber;
+	public Collection<String> getMaintContract() {
+		return this.m_maintContract;
 	}
 
-	public ArrayList<String> getManufacturer() {
+	public Collection<String> getManufacturer() {
 		return this.m_manufacturer;
 	}
 
-	public ArrayList<String> getModelNumber() {
+	public Collection<String> getModelNumber() {
 		return this.m_modelNumber;
 	}
 
-	public ArrayList<String> getNotifyCategory() {
+	public Collection<String> getNotifyCategory() {
 		return this.m_notifyCategory;
 	}
 
-	public ArrayList<String> getNumpowersupplies() {
+	public Collection<String> getNumpowersupplies() {
 		return this.m_numpowersupplies;
 	}
 
-	public ArrayList<String> getOperatingSystem() {
+	public Collection<String> getOperatingSystem() {
 		return this.m_operatingSystem;
 	}
 
-	public ArrayList<String> getPollerCategory() {
+	public Collection<String> getPollerCategory() {
 		return this.m_pollerCategory;
 	}
 
-	public ArrayList<String> getRack() {
+	public Collection<String> getRack() {
 		return this.m_rack;
 	}
 
-	public ArrayList<String> getRam() {
+	public Collection<String> getRam() {
 		return this.m_ram;
 	}
 
-	public ArrayList<String> getRegion() {
+	public Collection<String> getRegion() {
 		return this.m_region;
 	}
 
-	public ArrayList<String> getRoom() {
+	public Collection<String> getRoom() {
 		return this.m_room;
 	}
 
-	public ArrayList<String> getSnmpcommunity() {
+	public Collection<String> getSnmpcommunity() {
 		return this.m_snmpcommunity;
 	}
 
-	public ArrayList<String> getState() {
+	public Collection<String> getState() {
 		return this.m_state;
 	}
 
-	public ArrayList<String> getStoragectrl() {
+	public Collection<String> getStoragectrl() {
 		return this.m_storagectrl;
 	}
 
-	public ArrayList<String> getSupportPhone() {
+	public Collection<String> getSupportPhone() {
 		return this.m_supportPhone;
 	}
 
-	public ArrayList<String> getThresholdCategory() {
+	public Collection<String> getThresholdCategory() {
 		return this.m_thresholdCategory;
 	}
 
-	public ArrayList<String> getVendor() {
+	public Collection<String> getVendor() {
 		return this.m_vendor;
 	}
 
-	public ArrayList<String> getVendorFax() {
+	public Collection<String> getVendorFax() {
 		return this.m_vendorFax;
 	}
 
-	public ArrayList<String> getVendorPhone() {
+	public Collection<String> getVendorPhone() {
 		return this.m_vendorPhone;
 	}
 
-	public ArrayList<String> getZip() {
+	public Collection<String> getZip() {
 		return this.m_zip;
 	}
 
-	public void setAdditionalhardware(ArrayList<String> additionalhardware) {
-		this.m_additionalhardware = additionalhardware;
-	}
-
-	public void setAddress1(ArrayList<String> address1) {
-		this.m_address1 = address1;
-	}
-
-	public void setAddress2(ArrayList<String> address2) {
-		this.m_address2 = address2;
-	}
-
-	public void setAdmin(ArrayList<String> admin) {
-		this.m_admin = admin;
-	}
-
-	public void setBuilding(ArrayList<String> building) {
-		this.m_building = building;
-	}
-
-	public void setCategory(ArrayList<String> category) {
-		this.m_category = category;
-	}
-
-	public void setCircuitId(ArrayList<String> circuitId) {
-		this.m_circuitId = circuitId;
-	}
-
-	public void setCity(ArrayList<String> city) {
-		this.m_city = city;
-	}
-
-	public void setCpu(ArrayList<String> cpu) {
-		this.m_cpu = cpu;
-	}
-
-	public void setDepartment(ArrayList<String> department) {
-		this.m_department = department;
-	}
-
-	public void setDescription(ArrayList<String> description) {
-		this.m_description = description;
-	}
-
-	public void setDisplayCategory(ArrayList<String> displayCategory) {
-		this.m_displayCategory = displayCategory;
-	}
-
-	public void setDivision(ArrayList<String> division) {
-		this.m_division = division;
-	}
-
-	public void setFloor(ArrayList<String> floor) {
-		this.m_floor = floor;
-	}
-
-	public void setHdd1(ArrayList<String> hdd1) {
-		this.m_hdd1 = hdd1;
-	}
-
-	public void setHdd2(ArrayList<String> hdd2) {
-		this.m_hdd2 = hdd2;
-	}
-
-	public void setHdd3(ArrayList<String> hdd3) {
-		this.m_hdd3 = hdd3;
-	}
-
-	public void setHdd4(ArrayList<String> hdd4) {
-		this.m_hdd4 = hdd4;
-	}
-
-	public void setHdd5(ArrayList<String> hdd5) {
-		this.m_hdd5 = hdd5;
-	}
-
-	public void setHdd6(ArrayList<String> hdd6) {
-		this.m_hdd6 = hdd6;
-	}
-
-	public void setInputpower(ArrayList<String> inputpower) {
-		this.m_inputpower = inputpower;
-	}
-
-	public void setLease(ArrayList<String> lease) {
-		this.m_lease = lease;
-	}
-
-	public void setMaintContractNumber(ArrayList<String> maintContractNumber) {
-		this.m_maintContractNumber = maintContractNumber;
-	}
-
-	public void setManufacturer(ArrayList<String> manufacturer) {
-		this.m_manufacturer = manufacturer;
-	}
-
-	public void setModelNumber(ArrayList<String> modelNumber) {
-		this.m_modelNumber = modelNumber;
-	}
-
-	public void setNotifyCategory(ArrayList<String> notifyCategory) {
-		this.m_notifyCategory = notifyCategory;
-	}
-
-	public void setNumpowersupplies(ArrayList<String> numpowersupplies) {
-		this.m_numpowersupplies = numpowersupplies;
-	}
-
-	public void setOperatingSystem(ArrayList<String> operatingSystem) {
-		this.m_operatingSystem = operatingSystem;
-	}
-
-	public void setPollerCategory(ArrayList<String> pollerCategory) {
-		this.m_pollerCategory = pollerCategory;
-	}
-
-	public void setRack(ArrayList<String> rack) {
-		this.m_rack = rack;
-	}
-
-	public void setRam(ArrayList<String> ram) {
-		this.m_ram = ram;
-	}
-
-	public void setRegion(ArrayList<String> region) {
-		this.m_region = region;
-	}
-
-	public void setRoom(ArrayList<String> room) {
-		this.m_room = room;
-	}
-
-	public void setSnmpcommunity(ArrayList<String> snmpcommunity) {
-		this.m_snmpcommunity = snmpcommunity;
-	}
-
-	public void setState(ArrayList<String> state) {
-		this.m_state = state;
-	}
-
-	public void setStoragectrl(ArrayList<String> storagectrl) {
-		this.m_storagectrl = storagectrl;
-	}
-
-	public void setSupportPhone(ArrayList<String> supportPhone) {
-		this.m_supportPhone = supportPhone;
-	}
-
-	public void setThresholdCategory(ArrayList<String> thresholdCategory) {
-		this.m_thresholdCategory = thresholdCategory;
-	}
-
-	public void setVendor(ArrayList<String> vendor) {
-		this.m_vendor = vendor;
-	}
-
-	public void setVendorFax(ArrayList<String> vendorFax) {
-		this.m_vendorFax = vendorFax;
-	}
-
-	public void setVendorPhone(ArrayList<String> vendorPhone) {
-		this.m_vendorPhone = vendorPhone;
-	}
-
-	public void setZip(ArrayList<String> zip) {
-		this.m_zip = zip;
-	}
-
 	public void addAdditionalhardware(String additionalhardware) {
-		if (additionalhardware != null)
+		if (additionalhardware != null || !"".equals(additionalhardware))
 			this.m_address1.add(additionalhardware);
 	}
 
 	public void addAddress1(String address1) {
-		if (address1 != null)
+		if (address1 != null || !"".equals(address1))
 			this.m_address1.add(address1);
 	}
 
 	public void addAddress2(String address2) {
-		if (address2 != null)
+		if (address2 != null || !"".equals(address2))
 			this.m_address2.add(address2);
 	}
 
 	public void addAdmin(String admin) {
-		if (admin != null)
+		if (admin != null || !"".equals(admin))
 			this.m_admin.add(admin);
 	}
 
 	public void addBuilding(String building) {
-		if (building != null)
+		if (building != null || !"".equals(building))
 			this.m_building.add(building);
 	}
 
 	public void addCategory(String category) {
-		if (category != null)
+		if (category != null || !"".equals(category))
 			this.m_category.add(category);
 	}
 
 	public void addCircuitId(String circuitId) {
-		if (circuitId != null)
+		if (circuitId != null || !"".equals(circuitId))
 			this.m_circuitId.add(circuitId);
 	}
 
 	public void addCity(String city) {
-		if (city != null)
+		if (city != null || !"".equals(city))
 			this.m_city.add(city);
 	}
 
 	public void addCpu(String cpu) {
-		if (cpu != null)
+		if (cpu != null || !"".equals(cpu))
 			this.m_cpu.add(cpu);
 	}
 
 	public void addDepartment(String department) {
-		if (department != null)
+		if (department != null || !"".equals(department))
 			this.m_department.add(department);
 	}
 
 	public void addDescription(String description) {
-		if (description != null)
+		if (description != null || !"".equals(description))
 			this.m_description.add(description);
 	}
 
 	public void addDisplayCategory(String displayCategory) {
-		if (displayCategory != null)
+		if (displayCategory != null || !"".equals(displayCategory))
 			this.m_displayCategory.add(displayCategory);
 	}
 
 	public void addDivision(String division) {
-		if (division != null)
+		if (division != null || !"".equals(division))
 			this.m_division.add(division);
 	}
 
 	public void addFloor(String floor) {
-		if (floor != null)
+		if (floor != null || !"".equals(floor))
 			this.m_floor.add(floor);
 	}
 
 	public void addHdd1(String hdd1) {
-		if (hdd1 != null)
+		if (hdd1 != null || !"".equals(hdd1))
 			this.m_hdd1.add(hdd1);
 	}
 
 	public void addHdd2(String hdd2) {
-		if (hdd2 != null)
+		if (hdd2 != null || !"".equals(hdd2))
 			this.m_hdd2.add(hdd2);
 	}
 
 	public void addHdd3(String hdd3) {
-		if (hdd3 != null)
+		if (hdd3 != null || !"".equals(hdd3))
 			this.m_hdd3.add(hdd3);
 	}
 
 	public void addHdd4(String hdd4) {
-		if (hdd4 != null)
+		if (hdd4 != null || !"".equals(hdd4))
 			this.m_hdd4.add(hdd4);
 	}
 
 	public void addHdd5(String hdd5) {
-		if (hdd5 != null)
+		if (hdd5 != null || !"".equals(hdd5))
 			this.m_hdd5.add(hdd5);
 	}
 
 	public void addHdd6(String hdd6) {
-		if (hdd6 != null)
+		if (hdd6 != null || !"".equals(hdd6))
 			this.m_hdd6.add(hdd6);
 	}
 
 	public void addInputpower(String inputpower) {
-		if (inputpower != null)
+		if (inputpower != null || !"".equals(inputpower))
 			this.m_inputpower.add(inputpower);
 	}
 
 	public void addLease(String lease) {
-		if (lease != null)
+		if (lease != null || !"".equals(lease))
 			this.m_lease.add(lease);
 	}
 
-	public void addMaintContractNumber(String maintContractNumber) {
-		if (maintContractNumber != null)
-			this.m_maintContractNumber.add(maintContractNumber);
+	public void addMaintContract(String maintContract) {
+		if (maintContract != null || !"".equals(maintContract))
+			this.m_maintContract.add(maintContract);
 	}
 
 	public void addManufacturer(String manufacturer) {
-		if (manufacturer != null)
+		if (manufacturer != null || !"".equals(manufacturer))
 			this.m_manufacturer.add(manufacturer);
 	}
 
 	public void addModelNumber(String modelNumber) {
-		if (modelNumber != null)
+		if (modelNumber != null || !"".equals(modelNumber))
 			this.m_modelNumber.add(modelNumber);
 	}
 
 	public void addNotifyCategory(String notifyCategory) {
-		if (notifyCategory != null)
+		if (notifyCategory != null || !"".equals(notifyCategory))
 			this.m_notifyCategory.add(notifyCategory);
 	}
 
 	public void addNumpowersupplies(String numpowersupplies) {
-		if (numpowersupplies != null)
+		if (numpowersupplies != null || !"".equals(numpowersupplies))
 			this.m_numpowersupplies.add(numpowersupplies);
 	}
 
 	public void addOperatingSystem(String operatingSystem) {
-		if (operatingSystem != null)
+		if (operatingSystem != null || !"".equals(operatingSystem))
 			this.m_operatingSystem.add(operatingSystem);
 	}
 
 	public void addPollerCategory(String pollerCategory) {
-		if (pollerCategory != null)
+		if (pollerCategory != null || !"".equals(pollerCategory))
 			this.m_pollerCategory.add(pollerCategory);
 	}
 
 	public void addRack(String rack) {
-		if (rack != null)
+		if (rack != null || !"".equals(rack))
 			this.m_rack.add(rack);
 	}
 
 	public void addRam(String ram) {
-		if (ram != null)
+		if (ram != null || !"".equals(ram))
 			this.m_ram.add(ram);
 	}
 
 	public void addRegion(String region) {
-		if (region != null)
+		if (region != null || !"".equals(region))
 			this.m_region.add(region);
 	}
 
 	public void addRoom(String room) {
-		if (room != null)
+		if (room != null || !"".equals(room))
 			this.m_room.add(room);
 	}
 
 	public void addSnmpcommunity(String snmpcommunity) {
-		if (snmpcommunity != null)
+		if (snmpcommunity != null || !"".equals(snmpcommunity))
 			this.m_snmpcommunity.add(snmpcommunity);
 	}
 
 	public void addState(String state) {
-		if (state != null)
+		if (state != null || !"".equals(state))
 			this.m_state.add(state);
 	}
 
 	public void addStoragectrl(String storagectrl) {
-		if (storagectrl != null)
+		if (storagectrl != null || !"".equals(storagectrl))
 			this.m_storagectrl.add(storagectrl);
 	}
 
 	public void addSupportPhone(String supportPhone) {
-		if (supportPhone != null)
+		if (supportPhone != null || !"".equals(supportPhone))
 			this.m_supportPhone.add(supportPhone);
 	}
 
 	public void addThresholdCategory(String thresholdCategory) {
-		if (thresholdCategory != null)
+		if (thresholdCategory != null || !"".equals(thresholdCategory))
 			this.m_thresholdCategory.add(thresholdCategory);
 	}
 
 	public void addVendor(String vendor) {
-		if (vendor != null)
+		if (vendor != null || !"".equals(vendor))
 			this.m_vendor.add(vendor);
 	}
 
 	public void addVendorFax(String vendorFax) {
-		if (vendorFax != null)
+		if (vendorFax != null || !"".equals(vendorFax))
 			this.m_vendorFax.add(vendorFax);
 	}
 
 	public void addVendorPhone(String vendorPhone) {
-		if (vendorPhone != null)
+		if (vendorPhone != null || !"".equals(vendorPhone))
 			this.m_vendorPhone.add(vendorPhone);
 	}
 
 	public void addZip(String zip) {
-		if (zip != null)
+		if (zip != null || !"".equals(zip))
 			this.m_zip.add(zip);
 	}
 
@@ -729,7 +563,7 @@ public class AssetSuggCommand implements IsSerializable {
 				+ ", m_hdd2=" + m_hdd2 + ", m_hdd3=" + m_hdd3 + ", m_hdd4="
 				+ m_hdd4 + ", m_hdd5=" + m_hdd5 + ", m_hdd6=" + m_hdd6
 				+ ", m_inputpower=" + m_inputpower + ", m_lease=" + m_lease
-				+ ", m_maintContractNumber=" + m_maintContractNumber
+				+ ", m_maintContractNumber=" + m_maintContract
 				+ ", m_manufacturer=" + m_manufacturer + ", m_modelNumber="
 				+ m_modelNumber + ", m_notifyCategory=" + m_notifyCategory
 				+ ", m_numpowersupplies=" + m_numpowersupplies

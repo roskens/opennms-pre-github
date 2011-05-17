@@ -602,7 +602,7 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@Key("stringToLongError")
 	String stringToLongError();
 
-	@DefaultStringValue("Can't read given text as date. Please use the Datepicker, not: ")
+	@DefaultStringValue("Can't read given text as date. Please use the Datepicker.")
 	@Key("stringNotADate")
 	String stringNotADate();
 
