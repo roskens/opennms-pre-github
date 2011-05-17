@@ -414,6 +414,8 @@
 .gwt-DecoratedPopupPanel .popupMiddleCenter {
   padding: 3px;
   background: #e3e3e3;
+  height: 100%;
+  width: 100%;
 }
 .gwt-DecoratedPopupPanel .popupTopCenter {
   background: url(../images/hborder.png) repeat-x;
