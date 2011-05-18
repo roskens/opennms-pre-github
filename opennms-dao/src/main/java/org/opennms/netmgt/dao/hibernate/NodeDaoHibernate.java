@@ -381,13 +381,13 @@ public class NodeDaoHibernate extends AbstractDaoHibernate<OnmsNode, Integer> im
 
     public Integer getNextNodeId (Integer nodeId) {
     	Integer nextNodeId = null;
-    	nextNodeId = findObjects(Integer.class, "select n.id from OnmsNode as n where n.id > ? and n.type != 'D' order by n.id asc LIMIT 1", nodeId).get(0);
+    	nextNodeId = findObjects(Integer.class, "select n.id from OnmsNode as n where n.id > ? and n.type != 'D' order by n.id asc limit 1", nodeId).get(0);
     	return nextNodeId;
     }
     
     public Integer getPreviousNodeId (Integer nodeId) {
     	Integer nextNodeId = null;
-    	nextNodeId = findObjects(Integer.class, "select n.id from OnmsNode as n where n.id < ? and n.type != 'D' order by n.id desc LIMIT 1", nodeId).get(0);
+    	nextNodeId = findObjects(Integer.class, "select n.id from OnmsNode as n where n.id < ? and n.type != 'D' order by n.id desc limit 1", nodeId).get(0);
     	return nextNodeId;
     }
 }

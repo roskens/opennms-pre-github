@@ -123,8 +123,8 @@ public class AssetServiceImpl extends RemoteServiceServlet implements
 		assetCommand.setNodeId(this.m_onmsNode.getNodeId());
 		assetCommand.setNodeLabel(this.m_onmsNode.getLabel());
 		
-		assetCommand.setNextNodeId(this.m_nodeDao.getNextNodeId(nodeId));
-		assetCommand.setPreviousNodeId(this.m_nodeDao.getPreviousNodeId(nodeId));
+//		assetCommand.setNextNodeId(this.m_nodeDao.getNextNodeId(nodeId));
+//		assetCommand.setPreviousNodeId(this.m_nodeDao.getPreviousNodeId(nodeId));
 
 		// set user from web ui session
 		assetCommand.setLoggedInUser("admin");
@@ -196,7 +196,7 @@ public class AssetServiceImpl extends RemoteServiceServlet implements
 
 		BeanUtils.copyProperties(assetCommand, this.m_onmsAssetRecord);
 
-		this.m_onmsAssetRecord.setLastModifiedBy("admin");
+		this.m_onmsAssetRecord.setLastModifiedBy(getUsername());
 
 		this.m_onmsAssetRecord.setLastModifiedDate(new Date());
 		this.m_onmsAssetRecord.setNode(this.m_onmsNode);

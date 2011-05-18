@@ -341,240 +341,212 @@ public class AssetSuggCommand implements IsSerializable {
 	}
 
 	public void addAdditionalhardware(String additionalhardware) {
-		if (additionalhardware != null || !"".equals(additionalhardware))
-			this.m_address1.add(additionalhardware);
+		if (additionalhardware != null && !"".equals(additionalhardware))
+			this.m_additionalhardware.add(additionalhardware);
 	}
 
 	public void addAddress1(String address1) {
-		if (address1 != null || !"".equals(address1))
+		if (address1 != null && !"".equals(address1))
 			this.m_address1.add(address1);
 	}
 
 	public void addAddress2(String address2) {
-		if (address2 != null || !"".equals(address2))
+		if (address2 != null && !"".equals(address2))
 			this.m_address2.add(address2);
 	}
 
 	public void addAdmin(String admin) {
-		if (admin != null || !"".equals(admin))
+		if (admin != null && !"".equals(admin))
 			this.m_admin.add(admin);
 	}
 
 	public void addBuilding(String building) {
-		if (building != null || !"".equals(building))
+		if (building != null && !"".equals(building))
 			this.m_building.add(building);
 	}
 
 	public void addCategory(String category) {
-		if (category != null || !"".equals(category))
+		if (category != null && !"".equals(category))
 			this.m_category.add(category);
 	}
 
 	public void addCircuitId(String circuitId) {
-		if (circuitId != null || !"".equals(circuitId))
+		if (circuitId != null && !"".equals(circuitId))
 			this.m_circuitId.add(circuitId);
 	}
 
 	public void addCity(String city) {
-		if (city != null || !"".equals(city))
+		if (city != null && !"".equals(city))
 			this.m_city.add(city);
 	}
 
 	public void addCpu(String cpu) {
-		if (cpu != null || !"".equals(cpu))
+		if (cpu != null && !"".equals(cpu))
 			this.m_cpu.add(cpu);
 	}
 
 	public void addDepartment(String department) {
-		if (department != null || !"".equals(department))
+		if (department != null && !"".equals(department))
 			this.m_department.add(department);
 	}
 
 	public void addDescription(String description) {
-		if (description != null || !"".equals(description))
+		if (description != null && !"".equals(description))
 			this.m_description.add(description);
 	}
 
 	public void addDisplayCategory(String displayCategory) {
-		if (displayCategory != null || !"".equals(displayCategory))
+		if (displayCategory != null && !"".equals(displayCategory))
 			this.m_displayCategory.add(displayCategory);
 	}
 
 	public void addDivision(String division) {
-		if (division != null || !"".equals(division))
+		if (division != null && !"".equals(division))
 			this.m_division.add(division);
 	}
 
 	public void addFloor(String floor) {
-		if (floor != null || !"".equals(floor))
+		if (floor != null && !"".equals(floor))
 			this.m_floor.add(floor);
 	}
 
 	public void addHdd1(String hdd1) {
-		if (hdd1 != null || !"".equals(hdd1))
+		if (hdd1 != null && !"".equals(hdd1))
 			this.m_hdd1.add(hdd1);
 	}
 
 	public void addHdd2(String hdd2) {
-		if (hdd2 != null || !"".equals(hdd2))
+		if (hdd2 != null && !"".equals(hdd2))
 			this.m_hdd2.add(hdd2);
 	}
 
 	public void addHdd3(String hdd3) {
-		if (hdd3 != null || !"".equals(hdd3))
+		if (hdd3 != null && !"".equals(hdd3))
 			this.m_hdd3.add(hdd3);
 	}
 
 	public void addHdd4(String hdd4) {
-		if (hdd4 != null || !"".equals(hdd4))
+		if (hdd4 != null && !"".equals(hdd4))
 			this.m_hdd4.add(hdd4);
 	}
 
 	public void addHdd5(String hdd5) {
-		if (hdd5 != null || !"".equals(hdd5))
+		if (hdd5 != null && !"".equals(hdd5))
 			this.m_hdd5.add(hdd5);
 	}
 
 	public void addHdd6(String hdd6) {
-		if (hdd6 != null || !"".equals(hdd6))
+		if (hdd6 != null && !"".equals(hdd6))
 			this.m_hdd6.add(hdd6);
 	}
 
 	public void addInputpower(String inputpower) {
-		if (inputpower != null || !"".equals(inputpower))
+		if (inputpower != null && !"".equals(inputpower))
 			this.m_inputpower.add(inputpower);
 	}
 
 	public void addLease(String lease) {
-		if (lease != null || !"".equals(lease))
+		if (lease != null && !"".equals(lease))
 			this.m_lease.add(lease);
 	}
 
 	public void addMaintContract(String maintContract) {
-		if (maintContract != null || !"".equals(maintContract))
+		if (maintContract != null && !"".equals(maintContract))
 			this.m_maintContract.add(maintContract);
 	}
 
 	public void addManufacturer(String manufacturer) {
-		if (manufacturer != null || !"".equals(manufacturer))
+		if (manufacturer != null && !"".equals(manufacturer))
 			this.m_manufacturer.add(manufacturer);
 	}
 
 	public void addModelNumber(String modelNumber) {
-		if (modelNumber != null || !"".equals(modelNumber))
+		if (modelNumber != null && !"".equals(modelNumber))
 			this.m_modelNumber.add(modelNumber);
 	}
 
 	public void addNotifyCategory(String notifyCategory) {
-		if (notifyCategory != null || !"".equals(notifyCategory))
+		if (notifyCategory != null && !"".equals(notifyCategory))
 			this.m_notifyCategory.add(notifyCategory);
 	}
 
 	public void addNumpowersupplies(String numpowersupplies) {
-		if (numpowersupplies != null || !"".equals(numpowersupplies))
+		if (numpowersupplies != null && !"".equals(numpowersupplies))
 			this.m_numpowersupplies.add(numpowersupplies);
 	}
 
 	public void addOperatingSystem(String operatingSystem) {
-		if (operatingSystem != null || !"".equals(operatingSystem))
+		if (operatingSystem != null && !"".equals(operatingSystem))
 			this.m_operatingSystem.add(operatingSystem);
 	}
 
 	public void addPollerCategory(String pollerCategory) {
-		if (pollerCategory != null || !"".equals(pollerCategory))
+		if (pollerCategory != null && !"".equals(pollerCategory))
 			this.m_pollerCategory.add(pollerCategory);
 	}
 
 	public void addRack(String rack) {
-		if (rack != null || !"".equals(rack))
+		if (rack != null && !"".equals(rack))
 			this.m_rack.add(rack);
 	}
 
 	public void addRam(String ram) {
-		if (ram != null || !"".equals(ram))
+		if (ram != null && !"".equals(ram))
 			this.m_ram.add(ram);
 	}
 
 	public void addRegion(String region) {
-		if (region != null || !"".equals(region))
+		if (region != null && !"".equals(region))
 			this.m_region.add(region);
 	}
 
 	public void addRoom(String room) {
-		if (room != null || !"".equals(room))
+		if (room != null && !"".equals(room))
 			this.m_room.add(room);
 	}
 
 	public void addSnmpcommunity(String snmpcommunity) {
-		if (snmpcommunity != null || !"".equals(snmpcommunity))
+		if (snmpcommunity != null && !"".equals(snmpcommunity))
 			this.m_snmpcommunity.add(snmpcommunity);
 	}
 
 	public void addState(String state) {
-		if (state != null || !"".equals(state))
+		if (state != null && !"".equals(state))
 			this.m_state.add(state);
 	}
 
 	public void addStoragectrl(String storagectrl) {
-		if (storagectrl != null || !"".equals(storagectrl))
+		if (storagectrl != null && !"".equals(storagectrl))
 			this.m_storagectrl.add(storagectrl);
 	}
 
 	public void addSupportPhone(String supportPhone) {
-		if (supportPhone != null || !"".equals(supportPhone))
+		if (supportPhone != null && !"".equals(supportPhone))
 			this.m_supportPhone.add(supportPhone);
 	}
 
 	public void addThresholdCategory(String thresholdCategory) {
-		if (thresholdCategory != null || !"".equals(thresholdCategory))
+		if (thresholdCategory != null && !"".equals(thresholdCategory))
 			this.m_thresholdCategory.add(thresholdCategory);
 	}
 
 	public void addVendor(String vendor) {
-		if (vendor != null || !"".equals(vendor))
+		if (vendor != null && !"".equals(vendor))
 			this.m_vendor.add(vendor);
 	}
 
 	public void addVendorFax(String vendorFax) {
-		if (vendorFax != null || !"".equals(vendorFax))
+		if (vendorFax != null && !"".equals(vendorFax))
 			this.m_vendorFax.add(vendorFax);
 	}
 
 	public void addVendorPhone(String vendorPhone) {
-		if (vendorPhone != null || !"".equals(vendorPhone))
+		if (vendorPhone != null && !"".equals(vendorPhone))
 			this.m_vendorPhone.add(vendorPhone);
 	}
 
 	public void addZip(String zip) {
-		if (zip != null || !"".equals(zip))
+		if (zip != null && !"".equals(zip))
 			this.m_zip.add(zip);
-	}
-
-	@Override
-	public String toString() {
-		return "AssetSuggCommand [m_additionalhardware=" + m_additionalhardware
-				+ ", m_address1=" + m_address1 + ", m_address2=" + m_address2
-				+ ", m_admin=" + m_admin + ", m_building=" + m_building
-				+ ", m_category=" + m_category + ", m_circuitId=" + m_circuitId
-				+ ", m_city=" + m_city + ", m_cpu=" + m_cpu + ", m_department="
-				+ m_department + ", m_description=" + m_description
-				+ ", m_displayCategory=" + m_displayCategory + ", m_division="
-				+ m_division + ", m_floor=" + m_floor + ", m_hdd1=" + m_hdd1
-				+ ", m_hdd2=" + m_hdd2 + ", m_hdd3=" + m_hdd3 + ", m_hdd4="
-				+ m_hdd4 + ", m_hdd5=" + m_hdd5 + ", m_hdd6=" + m_hdd6
-				+ ", m_inputpower=" + m_inputpower + ", m_lease=" + m_lease
-				+ ", m_maintContractNumber=" + m_maintContract
-				+ ", m_manufacturer=" + m_manufacturer + ", m_modelNumber="
-				+ m_modelNumber + ", m_notifyCategory=" + m_notifyCategory
-				+ ", m_numpowersupplies=" + m_numpowersupplies
-				+ ", m_operatingSystem=" + m_operatingSystem
-				+ ", m_pollerCategory=" + m_pollerCategory + ", m_rack="
-				+ m_rack + ", m_ram=" + m_ram + ", m_region=" + m_region
-				+ ", m_room=" + m_room + ", m_snmpcommunity=" + m_snmpcommunity
-				+ ", m_state=" + m_state + ", m_storagectrl=" + m_storagectrl
-				+ ", m_supportPhone=" + m_supportPhone
-				+ ", m_thresholdCategory=" + m_thresholdCategory
-				+ ", m_vendor=" + m_vendor + ", m_vendorFax=" + m_vendorFax
-				+ ", m_vendorPhone=" + m_vendorPhone + ", m_zip=" + m_zip + "]";
 	}
 }

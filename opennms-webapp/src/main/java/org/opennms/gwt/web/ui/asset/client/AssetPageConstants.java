@@ -454,7 +454,7 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@Key("comment")
 	String comment();
 	
-	@DefaultStringValue("Comments")
+	@DefaultStringValue("Comments for asset")
 	@Key("commentHelp")
 	String commentHelp();
 	
