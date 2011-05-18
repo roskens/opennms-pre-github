@@ -48,9 +48,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
+import org.hibernate.impl.CriteriaImpl.CriterionEntry;
 import org.hibernate.transform.ResultTransformer;
+import org.hibernate.transform.Transformers;
 import org.opennms.netmgt.dao.NodeDao;
 import org.opennms.netmgt.model.OnmsCategory;
 import org.opennms.netmgt.model.OnmsDistPoller;
@@ -60,6 +68,8 @@ import org.opennms.netmgt.model.OnmsSnmpInterface;
 import org.opennms.netmgt.model.SurveillanceStatus;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.util.StringUtils;
+
+import com.mchange.v2.codegen.bean.Property;
 
 /**
  * <p>NodeDaoHibernate class.</p>
@@ -369,9 +379,15 @@ public class NodeDaoHibernate extends AbstractDaoHibernate<OnmsNode, Integer> im
         return findObjects(Integer.class, "select distinct n.id from OnmsNode as n where n.type != 'D'");
     }
 
-
+    public Integer getNextNodeId (Integer nodeId) {
+    	Integer nextNodeId = null;
+    	nextNodeId = findObjects(Integer.class, "select n.id from OnmsNode as n where n.id > ? and n.type != 'D' order by n.id asc LIMIT 1", nodeId).get(0);
+    	return nextNodeId;
+    }
     
-    
-
-
+    public Integer getPreviousNodeId (Integer nodeId) {
+    	Integer nextNodeId = null;
+    	nextNodeId = findObjects(Integer.class, "select n.id from OnmsNode as n where n.id < ? and n.type != 'D' order by n.id desc LIMIT 1", nodeId).get(0);
+    	return nextNodeId;
+    }
 }

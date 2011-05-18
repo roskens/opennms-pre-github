@@ -159,6 +159,9 @@ public class AssetCommand implements IsSerializable {
 	private String m_modelNumber;
 
 	/** identifier field */
+	private Integer m_nextNodeId;
+	
+	/** identifier field */
 	private String m_nodeId;
 
 	/** identifier field */
@@ -183,6 +186,9 @@ public class AssetCommand implements IsSerializable {
 	private String m_port;
 
 	/** identifier field */
+	private Integer m_previousNodeId;
+
+	/** identifier field */
 	private String m_rack;
 
 	/** identifier field */
@@ -190,9 +196,9 @@ public class AssetCommand implements IsSerializable {
 
 	/** identifier field */
 	private String m_region;
-
+	
 	/** identifier field */
-	private String m_room;
+	private String m_room;	
 
 	/** identifier field */
 	private String m_serialNumber;
@@ -410,6 +416,10 @@ public class AssetCommand implements IsSerializable {
 		return m_modelNumber;
 	}
 
+	public Integer getNextNodeId() {
+		return m_nextNodeId;
+	}
+
 	public String getNodeId() {
 		return m_nodeId;
 	}
@@ -440,6 +450,10 @@ public class AssetCommand implements IsSerializable {
 
 	public String getPort() {
 		return m_port;
+	}
+
+	public Integer getPreviousNodeId() {
+		return m_previousNodeId;
 	}
 
 	public String getRack() {
@@ -686,6 +700,10 @@ public class AssetCommand implements IsSerializable {
 		this.m_modelNumber = modelNumber;
 	}
 
+	public void setNextNodeId(Integer m_nextNodeId) {
+		this.m_nextNodeId = m_nextNodeId;
+	}
+
 	public void setNodeId(String m_nodeId) {
 		this.m_nodeId = m_nodeId;
 	}
@@ -716,6 +734,10 @@ public class AssetCommand implements IsSerializable {
 
 	public void setPort(String port) {
 		this.m_port = port;
+	}
+
+	public void setPreviousNodeId(Integer m_previousNodeId) {
+		this.m_previousNodeId = m_previousNodeId;
 	}
 
 	public void setRack(String rack) {

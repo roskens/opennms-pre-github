@@ -1,5 +1,5 @@
 /*
- * This file is part of the OpenNMS(R) Application.
+f * This file is part of the OpenNMS(R) Application.
  *
  * OpenNMS(R) is Copyright (C) 2011 The OpenNMS Group, Inc.  All rights reserved.
  * OpenNMS(R) is a derivative work, containing both original code, included code and modified
@@ -42,7 +42,12 @@ import org.opennms.netmgt.dao.NodeDao;
 import org.opennms.netmgt.model.OnmsAssetRecord;
 import org.opennms.netmgt.model.OnmsNode;
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.Authentication;
+import org.springframework.security.context.SecurityContext;
+import org.springframework.security.context.SecurityContextHolder;
+import org.springframework.security.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -117,6 +122,9 @@ public class AssetServiceImpl extends RemoteServiceServlet implements
 		
 		assetCommand.setNodeId(this.m_onmsNode.getNodeId());
 		assetCommand.setNodeLabel(this.m_onmsNode.getLabel());
+		
+		assetCommand.setNextNodeId(this.m_nodeDao.getNextNodeId(nodeId));
+		assetCommand.setPreviousNodeId(this.m_nodeDao.getPreviousNodeId(nodeId));
 
 		// set user from web ui session
 		assetCommand.setLoggedInUser("admin");
@@ -212,32 +220,32 @@ public class AssetServiceImpl extends RemoteServiceServlet implements
 	 * 
 	 * @return a {@link java.lang.String} object.
 	 */
-	// protected String getUsername() {
-	// /*
-	// * This should never be null, as the strategy should create a
-	// * SecurityContext if one doesn't exist, but let's check anyway.
-	// */
-	// SecurityContext context = SecurityContextHolder.getContext();
-	// Assert.state(context != null,
-	// "No security context found when calling SecurityContextHolder.getContext()");
-	//
-	// Authentication auth = context.getAuthentication();
-	// Assert.state(auth != null,
-	// "No Authentication object found when calling getAuthentication on our SecurityContext object");
-	//
-	// Object obj = auth.getPrincipal();
-	// Assert.state(obj != null,
-	// "No principal object found when calling getPrinticpal on our Authentication object");
-	//
-	//
-	// if (obj instanceof UserDetails) {
-	// return ((UserDetails)obj).getUsername();
-	// } else {
-	// return obj.toString();
-	// }
-	// }
-	//
+	protected String getUsername() {
+		/*
+		 * This should never be null, as the strategy should create a
+		 * SecurityContext if one doesn't exist, but let's check anyway.
+		 */
+		SecurityContext context = SecurityContextHolder.getContext();
+		Assert.state(context != null,
+				"No security context found when calling SecurityContextHolder.getContext()");
 
+		Authentication auth = context.getAuthentication();
+		Assert.state(
+				auth != null,
+				"No Authentication object found when calling getAuthentication on our SecurityContext object");
+
+		Object obj = auth.getPrincipal();
+		Assert.state(
+				obj != null,
+				"No principal object found when calling getPrinticpal on our Authentication object");
+
+		if (obj instanceof UserDetails) {
+			return ((UserDetails) obj).getUsername();
+		} else {
+			return obj.toString();
+		}
+	}
+	
 	public AssetRecordDao getAssetRecordDao() {
 		return m_assetRecordDao;
 	}
