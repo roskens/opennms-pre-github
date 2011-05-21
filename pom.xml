@@ -125,11 +125,6 @@
     <module>opennms-wmi</module>
     <module>opennms-asterisk</module>
     <module>opennms-xmp</module>
-
-    <!-- if we were still including these, they would be at the end -->
-    <!-- instead, they're a part of the separate assembly build now -->
-    <!-- <module>opennms-base-assembly</module> -->
-    <!-- <module>opennms-full-assembly</module> -->
   </modules>
   <build>
   <extensions>
@@ -975,6 +970,11 @@
         <artifactId>org.opennms.features.poller.api</artifactId>
         <version>${project.version}</version>
       </dependency>
+      <dependency>
+        <groupId>org.opennms.features</groupId>
+        <artifactId>org.opennms.features.instrumentationLogReader</artifactId>
+        <version>${project.version}</version>
+      </dependency> 
       <dependency>
         <groupId>org.opennms.features</groupId>
         <artifactId>org.opennms.features.springframework-security</artifactId>

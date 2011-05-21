@@ -2,7 +2,7 @@
 <datacollection-group name="Brocade">
 
     <!-- Brocade Resource Types -->
-    <resourceType name="swFCPortIndex" label="Brocade Fibre Channel Port" resourceLabel="FC port ${swFCPortSpecifier}: ${swFCPortName}">
+	 <resourceType name="swFCPortIndex" label="Brocade Fibre Channel Port" resourceLabel="FC port ${swFCPortSpecifier}: ${swFCPortName}">
       <persistenceSelectorStrategy class="org.opennms.netmgt.collectd.PersistAllSelectorStrategy"/>
       <storageStrategy class="org.opennms.netmgt.dao.support.IndexStorageStrategy"/>
     </resourceType>
