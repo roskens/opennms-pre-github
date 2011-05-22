@@ -390,7 +390,7 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
 		sLease.setValue(asset.getLease());
 		sLeaseExpires.setValue(asset.getLeaseExpires());
 		sVendorAsset.setValue(asset.getVendorAssetNumber());
-		sMaintContract.setValue(asset.getMaintContractNumber());
+		sMaintContract.setValue(asset.getMaintcontract());
 		sContractExpires.setValue(asset.getMaintContractExpiration());
 		sMaintPhone.setValue(asset.getSupportPhone());
 	}
@@ -481,7 +481,7 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
 		m_asset.setLease(sLease.getValue());
 		m_asset.setLeaseExpires(sLeaseExpires.getValue());
 		m_asset.setVendorAssetNumber(sVendorAsset.getValue());
-		m_asset.setMaintContractNumber(sMaintContract.getValue());
+		m_asset.setMaintcontract(sMaintContract.getValue());
 		m_asset.setMaintContractExpiration(sContractExpires.getValue());
 		m_asset.setSupportPhone(sMaintPhone.getValue());
 	}
@@ -561,7 +561,7 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
 		sPhone.setSuggestions(assetSugg.getVendorPhone());
 		sFax.setSuggestions(assetSugg.getVendorFax());
 		sLease.setSuggestions(assetSugg.getLease());
-		sMaintContract.setSuggestions(assetSugg.getMaintContract());
+		sMaintContract.setSuggestions(assetSugg.getMaintcontract());
 		sMaintPhone.setSuggestions(assetSugg.getSupportPhone());
 	}
 

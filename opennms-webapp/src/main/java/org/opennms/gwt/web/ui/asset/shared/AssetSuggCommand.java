@@ -87,7 +87,7 @@ public class AssetSuggCommand implements IsSerializable {
 
 	private Set<String> m_lease;
 
-	private Set<String> m_maintContract;
+	private Set<String> m_maintcontract;
 
 	private Set<String> m_manufacturer;
 
@@ -150,7 +150,7 @@ public class AssetSuggCommand implements IsSerializable {
 		this.m_hdd6 = new TreeSet<String>();
 		this.m_inputpower = new TreeSet<String>();
 		this.m_lease = new TreeSet<String>();
-		this.m_maintContract = new TreeSet<String>();
+		this.m_maintcontract = new TreeSet<String>();
 		this.m_manufacturer = new TreeSet<String>();
 		this.m_modelNumber = new TreeSet<String>();
 		this.m_notifyCategory = new TreeSet<String>();
@@ -260,8 +260,8 @@ public class AssetSuggCommand implements IsSerializable {
 		return this.m_lease;
 	}
 
-	public Collection<String> getMaintContract() {
-		return this.m_maintContract;
+	public Collection<String> getMaintcontract() {
+		return this.m_maintcontract;
 	}
 
 	public Collection<String> getManufacturer() {
@@ -450,9 +450,9 @@ public class AssetSuggCommand implements IsSerializable {
 			this.m_lease.add(lease);
 	}
 
-	public void addMaintContract(String maintContract) {
-		if (maintContract != null && !"".equals(maintContract))
-			this.m_maintContract.add(maintContract);
+	public void addMaintcontract(String maintcontract) {
+		if (maintcontract != null && !"".equals(maintcontract))
+			this.m_maintcontract.add(maintcontract);
 	}
 
 	public void addManufacturer(String manufacturer) {

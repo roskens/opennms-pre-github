@@ -151,7 +151,7 @@ public class AssetServiceMockup extends RemoteServiceServlet implements AssetSer
 		// asset.setLeaseExpires(formatter.format(new Date()));
 		asset.setLeaseExpires("FooDate");
 		asset.setVendorAssetNumber("VendorAssetNumber");
-		asset.setMaintContractNumber("MaintContractNumber");
+		asset.setMaintcontract("Maintcontract");
 		
 		Date maintConExp;
 		try {

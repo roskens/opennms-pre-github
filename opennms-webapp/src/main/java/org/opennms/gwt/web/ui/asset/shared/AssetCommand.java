@@ -150,7 +150,7 @@ public class AssetCommand implements IsSerializable {
 	private String m_maintContractExpiration;
 
 	/** identifier field */
-	private String m_maintContractNumber;
+	private String m_maintcontract;
 
 	/** identifier field */
 	private String m_manufacturer;
@@ -160,7 +160,7 @@ public class AssetCommand implements IsSerializable {
 
 	/** identifier field */
 	private Integer m_nextNodeId;
-	
+
 	/** identifier field */
 	private String m_nodeId;
 
@@ -192,13 +192,16 @@ public class AssetCommand implements IsSerializable {
 	private String m_rack;
 
 	/** identifier field */
+	private String m_rackunitheight;
+
+	/** identifier field */
 	private String m_ram;
 
 	/** identifier field */
 	private String m_region;
-	
+
 	/** identifier field */
-	private String m_room;	
+	private String m_room;
 
 	/** identifier field */
 	private String m_serialNumber;
@@ -400,12 +403,16 @@ public class AssetCommand implements IsSerializable {
 		return m_loggedInUser;
 	}
 
+	public String getM_rackunitheight() {
+		return m_rackunitheight;
+	}
+
 	public String getMaintContractExpiration() {
 		return m_maintContractExpiration;
 	}
 
-	public String getMaintContractNumber() {
-		return m_maintContractNumber;
+	public String getMaintcontract() {
+		return m_maintcontract;
 	}
 
 	public String getManufacturer() {
@@ -684,12 +691,16 @@ public class AssetCommand implements IsSerializable {
 		this.m_loggedInUser = m_loggedInUser;
 	}
 
+	public void setRackunitheight(String m_rackunitheight) {
+		this.m_rackunitheight = m_rackunitheight;
+	}
+
 	public void setMaintContractExpiration(String maintContractExpiration) {
 		this.m_maintContractExpiration = maintContractExpiration;
 	}
 
-	public void setMaintContractNumber(String maintContractNumber) {
-		this.m_maintContractNumber = maintContractNumber;
+	public void setMaintcontract(String maintcontract) {
+		this.m_maintcontract = maintcontract;
 	}
 
 	public void setManufacturer(String manufacturer) {
@@ -851,15 +862,17 @@ public class AssetCommand implements IsSerializable {
 				+ m_lastModifiedDate + ", m_lease=" + m_lease
 				+ ", m_leaseExpires=" + m_leaseExpires + ", m_loggedInUser="
 				+ m_loggedInUser + ", m_maintContractExpiration="
-				+ m_maintContractExpiration + ", m_maintContractNumber="
-				+ m_maintContractNumber + ", m_manufacturer=" + m_manufacturer
-				+ ", m_modelNumber=" + m_modelNumber + ", m_nodeId=" + m_nodeId
-				+ ", m_nodeLabel=" + m_nodeLabel + ", m_notifyCategory="
-				+ m_notifyCategory + ", m_numpowersupplies="
-				+ m_numpowersupplies + ", m_operatingSystem="
-				+ m_operatingSystem + ", m_password=" + m_password
-				+ ", m_pollerCategory=" + m_pollerCategory + ", m_port="
-				+ m_port + ", m_rack=" + m_rack + ", m_ram=" + m_ram
+				+ m_maintContractExpiration + ", m_maintContract="
+				+ m_maintcontract + ", m_manufacturer=" + m_manufacturer
+				+ ", m_modelNumber=" + m_modelNumber + ", m_nextNodeId="
+				+ m_nextNodeId + ", m_nodeId=" + m_nodeId + ", m_nodeLabel="
+				+ m_nodeLabel + ", m_notifyCategory=" + m_notifyCategory
+				+ ", m_numpowersupplies=" + m_numpowersupplies
+				+ ", m_operatingSystem=" + m_operatingSystem + ", m_password="
+				+ m_password + ", m_pollerCategory=" + m_pollerCategory
+				+ ", m_port=" + m_port + ", m_previousNodeId="
+				+ m_previousNodeId + ", m_rack=" + m_rack
+				+ ", m_rackunitheight=" + m_rackunitheight + ", m_ram=" + m_ram
 				+ ", m_region=" + m_region + ", m_room=" + m_room
 				+ ", m_serialNumber=" + m_serialNumber + ", m_slot=" + m_slot
 				+ ", m_snmpcommunity=" + m_snmpcommunity

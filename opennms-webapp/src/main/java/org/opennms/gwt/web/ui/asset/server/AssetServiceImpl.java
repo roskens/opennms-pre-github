@@ -163,7 +163,7 @@ public class AssetServiceImpl extends RemoteServiceServlet implements
 			suggestion.addHdd6(asset.getHdd6());
 			suggestion.addInputpower(asset.getInputpower());
 			suggestion.addLease(asset.getLease());
-			suggestion.addMaintContract(asset.getMaintcontract());
+			suggestion.addMaintcontract(asset.getMaintcontract());
 			suggestion.addManufacturer(asset.getManufacturer());
 			suggestion.addModelNumber(asset.getModelNumber());
 			suggestion.addNotifyCategory(asset.getNotifyCategory());
