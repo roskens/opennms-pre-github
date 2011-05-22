@@ -170,6 +170,52 @@ public class AssetSuggCommand implements IsSerializable {
 		this.m_vendorFax = new TreeSet<String>();
 		this.m_vendorPhone = new TreeSet<String>();
 		this.m_zip = new TreeSet<String>();
+		initUnchangedEntry();
+	}
+	
+	private void initUnchangedEntry() {
+		this.m_additionalhardware.add("");
+		this.m_address1.add("");
+		this.m_address2.add("");
+		this.m_admin.add("");
+		this.m_building.add("");
+		this.m_category.add("");
+		this.m_circuitId.add("");
+		this.m_city.add("");
+		this.m_cpu.add("");
+		this.m_department.add("");
+		this.m_description.add("");
+		this.m_displayCategory.add("");
+		this.m_division.add("");
+		this.m_floor.add("");
+		this.m_hdd1.add("");
+		this.m_hdd2.add("");
+		this.m_hdd3.add("");
+		this.m_hdd4.add("");
+		this.m_hdd5.add("");
+		this.m_hdd6.add("");
+		this.m_inputpower.add("");
+		this.m_lease.add("");
+		this.m_maintcontract.add("");
+		this.m_manufacturer.add("");
+		this.m_modelNumber.add("");
+		this.m_notifyCategory.add("");
+		this.m_numpowersupplies.add("");
+		this.m_operatingSystem.add("");
+		this.m_pollerCategory.add("");
+		this.m_rack.add("");
+		this.m_ram.add("");
+		this.m_region.add("");
+		this.m_room.add("");
+		this.m_snmpcommunity.add("");
+		this.m_state.add("");
+		this.m_storagectrl.add("");
+		this.m_supportPhone.add("");
+		this.m_thresholdCategory.add("");
+		this.m_vendor.add("");
+		this.m_vendorFax.add("");
+		this.m_vendorPhone.add("");
+		this.m_zip.add("");
 	}
 
 	public Collection<String> getAdditionalhardware() {
