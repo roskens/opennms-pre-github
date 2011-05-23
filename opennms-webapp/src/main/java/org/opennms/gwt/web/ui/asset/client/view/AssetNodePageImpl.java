@@ -42,6 +42,8 @@ import org.opennms.gwt.web.ui.asset.client.tools.FieldSetListBox;
 import org.opennms.gwt.web.ui.asset.client.tools.FieldSetSuggestBox;
 import org.opennms.gwt.web.ui.asset.client.tools.FieldSetTextArea;
 import org.opennms.gwt.web.ui.asset.client.tools.FieldSetTextBox;
+import org.opennms.gwt.web.ui.asset.client.tools.FieldSetTextDisplay;
+import org.opennms.gwt.web.ui.asset.client.tools.validation.StringAsIntegerValidator;
 import org.opennms.gwt.web.ui.asset.shared.AssetCommand;
 import org.opennms.gwt.web.ui.asset.shared.AssetSuggCommand;
 
@@ -97,17 +99,17 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
 	@UiField
 	DisclosurePanelCookie snmpDiscPanel;
 
-	@UiField
-	Label lcSystemId;
-	@UiField
-	Label lcSystemName;
-	@UiField
-	Label lcSystemLocation;
-	@UiField
-	Label lcSystemContact;
-	@UiField
-	Label lcSystemDescription;
-
+	@UiField 
+	FieldSetTextDisplay sSystemId;
+	@UiField 
+	FieldSetTextDisplay sSystemName;
+	@UiField 
+	FieldSetTextDisplay sSystemLocation;
+	@UiField 
+	FieldSetTextDisplay sSystemContact;
+	@UiField 
+	FieldSetTextDisplay sSystemDescription;
+	
 	@UiField
 	FieldSetSuggestBox sDisplayCat;
 	@UiField
@@ -160,6 +162,8 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
 	FieldSetSuggestBox sRack;
 	@UiField
 	FieldSetTextBox sSlot;
+	@UiField
+	FieldSetTextBox sRackUnitHight;
 	@UiField
 	FieldSetTextBox sPort;
 	@UiField
@@ -240,10 +244,18 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
 
 	public AssetNodePageImpl() {
 		initWidget(uiBinder.createAndBindUi(this));
+		sRackUnitHight.addErrorValidator(new StringAsIntegerValidator());
 		initUiElementList();
 	}
 
 	private void initUiElementList() {
+		
+		fieldSetList.add(sSystemId);
+		fieldSetList.add(sSystemName);
+		fieldSetList.add(sSystemLocation);
+		fieldSetList.add(sSystemContact);
+		fieldSetList.add(sSystemDescription);
+		
 		fieldSetList.add(sDisplayCat);
 		fieldSetList.add(sNotificationCat);
 		fieldSetList.add(sPollerCat);
@@ -271,6 +283,7 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
 		fieldSetList.add(sRoom);
 		fieldSetList.add(sRack);
 		fieldSetList.add(sSlot);
+		fieldSetList.add(sRackUnitHight);
 		fieldSetList.add(sPort);
 		fieldSetList.add(sCircuitId);
 		fieldSetList.add(sAdmin);
@@ -337,11 +350,11 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
 		if ((asset.getSnmpSysObjectId().equals("")) || (asset.getSnmpSysObjectId() == null)) {
 			snmpDiscPanel.setVisible(false);
 		} else {
-			lcSystemId.setText(asset.getSnmpSysObjectId());
-			lcSystemName.setText(asset.getSnmpSysName());
-			lcSystemLocation.setText(asset.getSnmpSysLocation());
-			lcSystemContact.setText(asset.getSnmpSysContact());
-			lcSystemDescription.setText(asset.getSnmpSysDescription());
+			sSystemId.setValue(asset.getSnmpSysObjectId());
+			sSystemName.setValue(asset.getSnmpSysName());
+			sSystemLocation.setValue(asset.getSnmpSysLocation());
+			sSystemContact.setValue(asset.getSnmpSysContact());
+			sSystemDescription.setValue(asset.getSnmpSysDescription());
 			snmpDiscPanel.setVisible(true);
 		}
 	}
@@ -378,6 +391,7 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
 		sRoom.setValue(asset.getRoom());
 		sRack.setValue(asset.getRack());
 		sSlot.setValue(asset.getSlot());
+		sRackUnitHight.setValue(asset.getRackunitheight());
 		sPort.setValue(asset.getPort());
 		sCircuitId.setValue(asset.getCircuitId());
 		sAdmin.setValue(asset.getAdmin());
@@ -469,6 +483,7 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
 		m_asset.setRoom(sRoom.getValue());
 		m_asset.setRack(sRack.getValue());
 		m_asset.setSlot(sSlot.getValue());
+		m_asset.setRackunitheight(sRackUnitHight.getValue());
 		m_asset.setPort(sPort.getValue());
 		m_asset.setCircuitId(sCircuitId.getValue());
 		m_asset.setAdmin(sAdmin.getValue());

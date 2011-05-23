@@ -47,40 +47,32 @@
 					<table class="assetContent">
 						<tr>
 							<td>
-								<g:Label ui:field="lSystemId" text="{con.systemId}" />
-							</td>
-							<td>
-								<g:Label ui:field="lcSystemId" />
-							</td>
-							<td>
-								<g:Label ui:field="lSystemName" text="{con.systemName}" />
-
-							</td>
-							<td>
-								<g:Label ui:field="lcSystemName" />
+							<onms:FieldSetTextDisplay ui:field="sSystemId"
+									name="{con.systemId}" value="" helpText="{con.systemIdHelp}" />
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<g:Label ui:field="lSystemLocation" text="{con.systemLocation}" />
-							</td>
-							<td>
-								<g:Label ui:field="lcSystemLocation" />
-							</td>
-							<td>
-								<g:Label ui:field="lSystemContact" text="{con.systemContact}" />
-
-							</td>
-							<td>
-								<g:Label ui:field="lcSystemContact" />
+								<onms:FieldSetTextDisplay ui:field="sSystemName"
+									name="{con.systemName}" value="" helpText="{con.systemNameHelp}" />
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<g:Label ui:field="lSystemDescription" text="{con.systemDescription}" />
+									<onms:FieldSetTextDisplay ui:field="sSystemLocation"
+									name="{con.systemLocation}" value="" helpText="{con.systemLocationHelp}" />
 							</td>
+						</tr>						
+						<tr>
 							<td>
-								<g:Label ui:field="lcSystemDescription" />
+							<onms:FieldSetTextDisplay ui:field="sSystemContact"
+									name="{con.systemContact}" value="" helpText="{con.systemContactHelp}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<onms:FieldSetTextDisplay ui:field="sSystemDescription"
+									name="{con.systemDescription}" value="" helpText="{con.systemDescriptionHelp}" />
 							</td>
 						</tr>
 					</table>
@@ -104,6 +96,8 @@
 									name="{con.displayCat}" value="" helpText="{con.displayCatHelp}"
 									maxLength="64" />
 							</td>
+						</tr>
+						<tr>
 							<td>
 								<onms:FieldSetSuggestBox ui:field="sNotificationCat"
 									name="{con.notificationCat}" value="" helpText="{con.notificationCatHelp}"
@@ -116,6 +110,8 @@
 									name="{con.pollerCat}" value="" helpText="{con.pollerCatHelp}"
 									maxLength="64" />
 							</td>
+						</tr>
+						<tr>
 							<td>
 								<onms:FieldSetSuggestBox ui:field="sThresholdCat"
 									name="{con.thresholdCat}" value="" helpText="{con.thresholdCatHelp}"
@@ -141,6 +137,8 @@
 									name="{con.description}" value="" helpText="{con.descriptionHelp}"
 									maxLength="128" />
 							</td>
+						</tr>
+						<tr>
 							<td>
 								<onms:FieldSetSuggestBox ui:field="sAssetCategory"
 									name="{con.category}" value="" helpText="{con.categoryHelp}"
@@ -153,11 +151,15 @@
 									name="{con.manufacturer}" value="" helpText="{con.manufacturerHelp}"
 									maxLength="64" />
 							</td>
+						</tr>
+						<tr>
 							<td>
 								<onms:FieldSetSuggestBox ui:field="sModelNumber"
 									name="{con.modelNumber}" value="" helpText="{con.modelNumberHelp}"
 									maxLength="64" />
 							</td>
+						</tr>
+						<tr>
 							<td>
 								<onms:FieldSetTextBox ui:field="sSerialNumber"
 									name="{con.serialNumber}" value="" helpText="{con.serialNumberHelp}"
@@ -170,11 +172,15 @@
 									name="{con.assetNumber}" value="" helpText="{con.assetNumberHelp}"
 									maxLength="64" />
 							</td>
+						</tr>
+						<tr>
 							<td>
 								<onms:FieldSetDateBox ui:field="sDateInstalled"
 									name="{con.dateInstalled}" value="" helpText="{con.dateInstalledHelp}"
 									maxLength="64" />
 							</td>
+						</tr>
+						<tr>
 							<td>
 								<onms:FieldSetSuggestBox ui:field="sOperatingSystem"
 									name="{con.operatingSystem}" value="" helpText="{con.operatingSystemHelp}"
@@ -198,18 +204,15 @@
 					<table class="assetContent">
 						<tr>
 							<td>
+								<onms:FieldSetSuggestBox ui:field="sState"
+									name="{con.state}" value="" helpText="{con.stateHelp}"
+									maxLength="64" />
+							</td>
+						</tr>
+						<tr>
+							<td>
 								<onms:FieldSetSuggestBox ui:field="sRegion"
 									name="{con.region}" value="" helpText="{con.regionHelp}"
-									maxLength="64" />
-							</td>
-							<td>
-								<onms:FieldSetSuggestBox ui:field="sDivision"
-									name="{con.division}" value="" helpText="{con.divisionHelp}"
-									maxLength="64" />
-							</td>
-							<td>
-								<onms:FieldSetSuggestBox ui:field="sDepartment"
-									name="{con.department}" value="" helpText="{con.departmentHelp}"
 									maxLength="64" />
 							</td>
 						</tr>
@@ -232,14 +235,27 @@
 								<onms:FieldSetSuggestBox ui:field="sCity"
 									name="{con.city}" value="" helpText="{con.cityHelp}" maxLength="64" />
 							</td>
-							<td>
-								<onms:FieldSetSuggestBox ui:field="sState"
-									name="{con.state}" value="" helpText="{con.stateHelp}"
-									maxLength="64" />
-							</td>
+						</tr>
+						<tr>
 							<td>
 								<onms:FieldSetSuggestBox ui:field="sZip"
 									name="{con.zip}" value="" helpText="{con.zipHelp}" maxLength="64" />
+							</td>
+						</tr>
+						<tr><td>&nbsp;</td></tr>
+						<tr><td>&nbsp;</td></tr>
+						<tr>
+							<td>
+								<onms:FieldSetSuggestBox ui:field="sDivision"
+									name="{con.division}" value="" helpText="{con.divisionHelp}"
+									maxLength="64" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<onms:FieldSetSuggestBox ui:field="sDepartment"
+									name="{con.department}" value="" helpText="{con.departmentHelp}"
+									maxLength="64" />
 							</td>
 						</tr>
 						<tr>
@@ -248,22 +264,36 @@
 									name="{con.building}" value="" helpText="{con.buildingHelp}"
 									maxLength="64" />
 							</td>
+						</tr>
+						<tr>
 							<td>
 								<onms:FieldSetSuggestBox ui:field="sFloor"
 									name="{con.floor}" value="" helpText="{con.floorHelp}"
 									maxLength="64" />
 							</td>
+						</tr>
+						<tr>
 							<td>
 								<onms:FieldSetSuggestBox ui:field="sRoom"
 									name="{con.room}" value="" helpText="{con.roomHelp}" maxLength="64" />
 							</td>
 						</tr>
-
+						<tr><td>&nbsp;</td></tr>
+						<tr><td>&nbsp;</td></tr>
 						<tr>
 							<td>
 								<onms:FieldSetSuggestBox ui:field="sRack"
 									name="{con.rack}" value="" helpText="{con.rackHelp}" maxLength="64" />
 							</td>
+						</tr>
+						<tr>
+							<td>
+								<onms:FieldSetTextBox ui:field="sRackUnitHight"
+									name="{con.rackUnitHeight}" value="" helpText="{con.rackUnitHeightHelp}"
+									maxLength="2" />
+							</td>
+						</tr>
+						<tr>
 							<td>
 								<onms:FieldSetTextBox ui:field="sSlot"
 									name="{con.slot}" value="" helpText="{con.slotHelp}" maxLength="64" />
@@ -274,11 +304,15 @@
 								<onms:FieldSetTextBox ui:field="sPort"
 									name="{con.port}" value="" helpText="{con.portHelp}" maxLength="64" />
 							</td>
+						</tr>
+						<tr>
 							<td>
 								<onms:FieldSetSuggestBox ui:field="sCircuitId"
 									name="{con.circuitId}" value="" helpText="{con.circuitIdHelp}"
 									maxLength="64" />
 							</td>
+						</tr>
+						<tr>
 							<td>
 								<onms:FieldSetSuggestBox ui:field="sAdmin"
 									name="{con.admin}" value="" helpText="{con.adminHelp}"
@@ -304,11 +338,17 @@
 									name="{con.vendorName}" value="" helpText="{con.vendorNameHelp}"
 									maxLength="64" />
 							</td>
+						</tr>
+						<tr>
+
 							<td>
 								<onms:FieldSetSuggestBox ui:field="sPhone"
 									name="{con.phone}" value="" helpText="{con.phoneHelp}"
 									maxLength="64" />
 							</td>
+						</tr>
+						<tr>
+
 							<td>
 								<onms:FieldSetSuggestBox ui:field="sFax"
 									name="{con.fax}" value="" helpText="{con.faxHelp}" maxLength="64" />
@@ -321,11 +361,15 @@
 									name="{con.lease}" value="" helpText="{con.leaseHelp}"
 									maxLength="64" />
 							</td>
+						</tr>
+						<tr>
 							<td>
 								<onms:FieldSetDateBox ui:field="sLeaseExpires"
 									name="{con.leaseExpires}" value="" helpText="{con.leaseExpiresHelp}"
 									maxLength="64" />
 							</td>
+						</tr>
+						<tr>
 							<td>
 								<onms:FieldSetTextBox ui:field="sVendorAsset"
 									name="{con.vendorAsset}" value="" helpText="{con.vendorAssetHelp}"
@@ -338,11 +382,15 @@
 									name="{con.maintContract}" value="" helpText="{con.maintContractHelp}"
 									maxLength="64" />
 							</td>
+						</tr>
+						<tr>
 							<td>
 								<onms:FieldSetDateBox ui:field="sContractExpires"
 									name="{con.contractExpires}" value="" helpText="{con.contractExpiresHelp}"
 									maxLength="64" />
 							</td>
+						</tr>
+						<tr>
 							<td>
 								<onms:FieldSetSuggestBox ui:field="sMaintPhone"
 									name="{con.maintPhone}" value="" helpText="{con.maintPhoneHelp}"
@@ -370,11 +418,15 @@
 									name="{con.username}" value="" helpText="{con.usernameHelp}"
 									maxLength="32" />
 							</td>
+						</tr>
+						<tr>
 							<td>
 								<onms:FieldSetTextBox ui:field="sPassword"
 									name="{con.password}" value="" helpText="{con.passwordHelp}"
 									maxLength="32" />
 							</td>
+						</tr>
+						<tr>
 							<td>
 								<onms:FieldSetTextBox ui:field="sEnablePassword"
 									name="{con.enablePassword}" value="" helpText="{con.enablePasswordHelp}"
@@ -387,10 +439,14 @@
 								<onms:FieldSetListBox ui:field="sConnection"
 									name="{con.connection}" value="" helpText="{con.connectionHelp}" />
 							</td>
+						</tr>
+						<tr>
 							<td>
 								<onms:FieldSetListBox ui:field="sAutoEnable"
 									name="{con.autoEnable}" value="" helpText="{con.autoEnableHelp}" />
 							</td>
+						</tr>
+						<tr>
 							<td>
 								<onms:FieldSetSuggestBox ui:field="sSnmpcommunity"
 									name="{con.snmpcommunity}" value="" helpText="{con.snmpcommunityHelp}"
@@ -418,42 +474,21 @@
 								<onms:FieldSetSuggestBox ui:field="sCpu"
 									name="{con.cpu}" value="" helpText="{con.cpuHelp}" maxLength="32" />
 							</td>
+						</tr>
+						<tr>
 							<td>
 								<onms:FieldSetSuggestBox ui:field="sRam"
 									name="{con.ram}" value="" helpText="{con.ramHelp}" maxLength="10" />
 							</td>
-							<td>
-								<onms:FieldSetSuggestBox ui:field="sStoragectrl"
-									name="{con.storagectrl}" value="" helpText="{con.storagectrlHelp}"
-									maxLength="32" />
-							</td>
 						</tr>
-
 						<tr>
-							<td>
-								<onms:FieldSetSuggestBox ui:field="sHdd1"
-									name="{con.hdd} 1" value="" helpText="{con.hddHelp}" maxLength="32" />
-							</td>
-							<td>
-								<onms:FieldSetSuggestBox ui:field="sHdd4"
-									name="{con.hdd} 4" value="" helpText="{con.hddHelp}" maxLength="32" />
-							</td>
 							<td>
 								<onms:FieldSetSuggestBox ui:field="sAdditionalhardware"
 									name="{con.additionalhardware}" value=""
 									helpText="{con.additionalhardwareHelp}" maxLength="64" />
 							</td>
 						</tr>
-
 						<tr>
-							<td>
-								<onms:FieldSetSuggestBox ui:field="sHdd2"
-									name="{con.hdd} 2" value="" helpText="{con.hddHelp}" maxLength="32" />
-							</td>
-							<td>
-								<onms:FieldSetSuggestBox ui:field="sHdd5"
-									name="{con.hdd} 5" value="" helpText="{con.hddHelp}" maxLength="32" />
-							</td>
 							<td>
 								<onms:FieldSetSuggestBox ui:field="sNumpowersupplies"
 									name="{con.numpowersupplies}" value=""
@@ -462,17 +497,54 @@
 						</tr>
 						<tr>
 							<td>
-								<onms:FieldSetSuggestBox ui:field="sHdd3"
-									name="{con.hdd} 3" value="" helpText="{con.hddHelp}" maxLength="32" />
-							</td>
-							<td>
-								<onms:FieldSetSuggestBox ui:field="sHdd6"
-									name="{con.hdd} 6" value="" helpText="{con.hddHelp}" maxLength="32" />
-							</td>
-							<td>
 								<onms:FieldSetSuggestBox ui:field="sInputpower"
 									name="{con.inputpower}" value="" helpText="{con.inputpowerHelp}"
 									maxLength="6" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<onms:FieldSetSuggestBox ui:field="sStoragectrl"
+									name="{con.storagectrl}" value="" helpText="{con.storagectrlHelp}"
+									maxLength="32" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<onms:FieldSetSuggestBox ui:field="sHdd1"
+									name="{con.hdd} 1" value="" helpText="{con.hddHelp}" maxLength="32" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<onms:FieldSetSuggestBox ui:field="sHdd2"
+									name="{con.hdd} 2" value="" helpText="{con.hddHelp}" maxLength="32" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<onms:FieldSetSuggestBox ui:field="sHdd3"
+									name="{con.hdd} 3" value="" helpText="{con.hddHelp}" maxLength="32" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<onms:FieldSetSuggestBox ui:field="sHdd4"
+									name="{con.hdd} 4" value="" helpText="{con.hddHelp}" maxLength="32" />
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								<onms:FieldSetSuggestBox ui:field="sHdd5"
+									name="{con.hdd} 5" value="" helpText="{con.hddHelp}" maxLength="32" />
+							</td>
+
+						</tr>
+						<tr>
+							<td>
+								<onms:FieldSetSuggestBox ui:field="sHdd6"
+									name="{con.hdd} 6" value="" helpText="{con.hddHelp}" maxLength="32" />
 							</td>
 						</tr>
 

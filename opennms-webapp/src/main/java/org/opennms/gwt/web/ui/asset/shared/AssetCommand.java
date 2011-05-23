@@ -403,7 +403,7 @@ public class AssetCommand implements IsSerializable {
 		return m_loggedInUser;
 	}
 
-	public String getM_rackunitheight() {
+	public String getRackunitheight() {
 		return m_rackunitheight;
 	}
 

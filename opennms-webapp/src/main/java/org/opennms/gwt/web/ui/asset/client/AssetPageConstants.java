@@ -51,23 +51,43 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@DefaultStringValue("System Id")
 	@Key("systemId")
 	String systemId();
+	
+	@DefaultStringValue("System Id, information from SNMP-Deamon")
+	@Key("systemIdHelp")
+	String systemIdHelp();
 
 	@DefaultStringValue("System Name")
 	@Key("systemName")
 	String systemName();
 
+	@DefaultStringValue("System Name, information from SNMP-Deamon")
+	@Key("systemNameHelp")
+	String systemNameHelp();
+
 	@DefaultStringValue("System Location")
 	@Key("systemLocation")
 	String systemLocation();
+
+	@DefaultStringValue("System Location, information from SNMP-Deamon")
+	@Key("systemLocationHelp")
+	String systemLocationHelp();
 
 	@DefaultStringValue("System Contact")
 	@Key("systemContact")
 	String systemContact();
 
+	@DefaultStringValue("System Contact, information from SNMP-Deamon")
+	@Key("systemContactHelp")
+	String systemContactHelp();
+
 	@DefaultStringValue("System Description")
 	@Key("systemDescription")
 	String systemDescription();
 
+	@DefaultStringValue("System Description, information from SNMP-Deamon")
+	@Key("systemDescriptionHelp")
+	String systemDescriptionHelp();
+	
 	/* Configuration Categories */
 	@DefaultStringValue("Configuration Categories")
 	@Key("configurationCatHeader")
@@ -295,7 +315,7 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@Key("rackHelp")
 	String rackHelp();
 
-	@DefaultStringValue("Rack unit height blockt in Rack by Node")
+	@DefaultStringValue("Rack unit height blockt at rack by Node: 1, 2, 3, ...")
 	@Key("rackUnitHeightHelp")
 	String rackUnitHeightHelp();
 
@@ -344,7 +364,7 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@Key("vendorAsset")
 	String vendorAsset();
 
-	@DefaultStringValue("Maint Contract")
+	@DefaultStringValue("Maint Contract Number")
 	@Key("maintContract")
 	String maintContract();
 
@@ -380,7 +400,7 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@Key("vendorAssetHelp")
 	String vendorAssetHelp();
 
-	@DefaultStringValue("MaintContract -Type of maintenance contract (E.G. Platinum Plus, Smartnet, Etc.)")
+	@DefaultStringValue("Number/id of maintenance contract")
 	@Key("maintContractHelp")
 	String maintContractHelp();
 
@@ -609,7 +629,11 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@DefaultStringValue("Parameter node is not an parseabel NodeId: ")
 	@Key("nodeParamNotValidInt")
 	String nodeParamNotValidInt();
-
+	
+	@DefaultStringValue("Input is not an parseabel as Integer: ")
+	@Key("stringNoValidInteger")
+	String stringNoValidInteger();
+	
 	@DefaultStringValue("Error fetching asset data for nodeId: ")
 	@Key("errorFatchingAssetData")
 	String errorFatchingAssetData();
