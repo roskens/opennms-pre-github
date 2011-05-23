@@ -1,9 +1,24 @@
 /* Cleanup style sheet */
+.gwt-DialogBox td {
+    border: none;
+    padding: 0px 0px;
+}
+
 #opennms-assetNodePage table tbody tr td {
 	/* border-collapse: separate; */
 	border: none;
 	margin-bottom: 0px;
 	width: auto;
+}
+
+.gwt-SuggestBoxPopup {
+	height: 40px;
+}
+
+.gwt-SuggestBoxPopup div.suggestPopupContent {
+	overflow: auto;
+	padding-right: 20px;
+	max-height: 200px;
 }
 
 .gwt-SuggestBoxPopup table tr td {
@@ -25,10 +40,11 @@ table.assetContent {
 div.label {
 	vertical-align: middle;
 	display: block;
+	width: 150px;
 }
 
 table.FieldSetHorizontalPanel {
-	margin-bottom: auto;
+	margin-bottom: 0px;
 }
 
 
@@ -41,8 +57,17 @@ table.FieldSet td {
 	border: none;
 }
 
+table.FieldSet {
+    margin-bottom: 0px;
+    width: 400px;
+}
+
+.textLabel {
+    width: 300px;
+}
+
 table.DisclosurePanelCookie div {
-	padding-top: 5px;
+	padding-top: 0px;
 }
 
 table.DisclosurePanelCookie {

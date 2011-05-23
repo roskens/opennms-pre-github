@@ -28,7 +28,7 @@
  *      http://www.opennms.com/
  */
 
-package org.opennms.gwt.web.ui.asset.client.tools;
+package org.opennms.gwt.web.ui.asset.client.tools.fieldsets;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -91,7 +91,7 @@ public abstract class AbstractFieldSet extends Composite implements FieldSet {
 		
 		label.setText(name);
 		label.setStyleName("label");
-		label.setSize("100px", "20px");
+//		label.setSize("100px", "20px");
 		
 		panel.addStyleName("FieldSetHorizontalPanel");
 		panel.add(label);

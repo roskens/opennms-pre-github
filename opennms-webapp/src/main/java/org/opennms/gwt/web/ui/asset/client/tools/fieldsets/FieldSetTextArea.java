@@ -28,108 +28,78 @@
  *      http://www.opennms.com/
  */
 
-package org.opennms.gwt.web.ui.asset.client.tools;
+package org.opennms.gwt.web.ui.asset.client.tools.fieldsets;
 
-import java.util.Date;
-
-import org.opennms.gwt.web.ui.asset.client.tools.validation.StringDateLocalValidator;
 import org.opennms.gwt.web.ui.asset.client.tools.validation.StringMaxLengthValidator;
 
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.event.dom.client.MouseUpHandler;
-import com.google.gwt.event.logical.shared.ValueChangeEvent;
-import com.google.gwt.event.logical.shared.ValueChangeHandler;
-import com.google.gwt.i18n.client.DateTimeFormat;
-import com.google.gwt.i18n.client.DateTimeFormat.PredefinedFormat;
 import com.google.gwt.uibinder.client.UiConstructor;
-import com.google.gwt.user.datepicker.client.DateBox;
+import com.google.gwt.user.client.ui.TextArea;
 /**
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
  * 
  */
-public class FieldSetDateBox extends AbstractFieldSet implements FieldSet, ValueChangeHandler<Date>, MouseUpHandler, KeyUpHandler {
+public class FieldSetTextArea extends AbstractFieldSet implements FieldSet, KeyUpHandler, MouseUpHandler {
 
-	private DateBox dateBox = new DateBox();
-
-	private final DateTimeFormat localFormater = DateTimeFormat.getFormat(PredefinedFormat.DATE_MEDIUM);
-	private final DateTimeFormat onmsFormater = DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss Z");
+	private TextArea textArea = new TextArea();
 	
 	@UiConstructor
-	public FieldSetDateBox(String name, String value, String helpText, int maxLength) {
+	public FieldSetTextArea(String name, String value, String helpText, int maxLength) {
 		super(name, helpText);
 		init(value, maxLength);
 	}
 	
-	public FieldSetDateBox(String name, String value, String helpText) {
+	public FieldSetTextArea(String name, String value, String helpText) {
 		super(name, helpText);
 		init(value, -1);
 	}
 	
 	private void init(String value, int maxLength) {
-	
+		
 		if(maxLength > 0 ){
 			addErrorValidator(new StringMaxLengthValidator(maxLength));
 		}
-		addWarningValidator(new StringDateLocalValidator());
 		
-		try {
-			dateBox.setValue(onmsFormater.parse(value));
-		} catch (IllegalArgumentException e) {
-			dateBox.getTextBox().setText(value);
-		}	
-
-		dateBox.setFormat(new DateBox.DefaultFormat(localFormater));
-		dateBox.getTextBox().addFocusHandler(this);
-		dateBox.getTextBox().addChangeHandler(this);
-		dateBox.getTextBox().addMouseUpHandler(this);
-		dateBox.getTextBox().addKeyUpHandler(this);
+		textArea.setText(value);
+		textArea.setEnabled(enabled);
+		textArea.addChangeHandler(this);
+		textArea.addKeyUpHandler(this);
+		textArea.addMouseUpHandler(this);
+		textArea.setStyleName("textArea");
+		textArea.setSize("50em", "20em");
 		
-		dateBox.addValueChangeHandler(this);
-		dateBox.setStyleName("dateBox");
-		dateBox.setSize("300px", "18px");
-		
-		panel.add(dateBox);	
+		panel.add(textArea);
 	}
-	
+
 	public void setEnabled(Boolean enabled) {
-		dateBox.getTextBox().setEnabled(enabled);
+		textArea.setEnabled(enabled);
 	}
 
 	public String getValue() {
-		String result;
-		try{
-			result = onmsFormater.format(dateBox.getValue());
-		}catch (Exception e) {
-			result = dateBox.getTextBox().getValue();
-		}
-		return result;
+		return textArea.getText();
 	}
 
 	public void setValue(String value) {
-		try {
-			dateBox.setValue(onmsFormater.parse(value));
-		} catch (Exception e) {
-			dateBox.getTextBox().setText(value);
-		}
-		validate(dateBox.getTextBox().getText());
+		textArea.setText(value);
 	}
 
-	@Override
-	public void onValueChange(ValueChangeEvent<Date> event) {
-		changed = true;
-		mainPanel.setStyleDependentName("changed", true);
-		validate(dateBox.getTextBox().getValue());
-	}
-
+	/* (non-Javadoc)
+	 * @see com.google.gwt.event.dom.client.MouseUpHandler#onMouseUp(com.google.gwt.event.dom.client.MouseUpEvent)
+	 */
 	@Override
 	public void onMouseUp(MouseUpEvent event) {
-		validate(dateBox.getTextBox().getValue());
+		// TODO Auto-generated method stub
+		validate(textArea.getValue());
 	}
 
+	/* (non-Javadoc)
+	 * @see com.google.gwt.event.dom.client.KeyUpHandler#onKeyUp(com.google.gwt.event.dom.client.KeyUpEvent)
+	 */
 	@Override
 	public void onKeyUp(KeyUpEvent event) {
-		validate(dateBox.getTextBox().getValue());
+		validate(textArea.getValue());	
 	}
 }

@@ -28,60 +28,39 @@
  *      http://www.opennms.com/
  */
 
-package org.opennms.gwt.web.ui.asset.client.tools;
+package org.opennms.gwt.web.ui.asset.client.tools.fieldsets;
 
-import org.opennms.gwt.web.ui.asset.client.tools.validation.StringMaxLengthValidator;
-
-import com.google.gwt.event.dom.client.KeyUpEvent;
-import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.uibinder.client.UiConstructor;
-import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.Label;
 /**
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
  * 
  */
-public class FieldSetTextBox extends AbstractFieldSet implements FieldSet, KeyUpHandler {
+public class FieldSetTextDisplay extends AbstractFieldSet implements FieldSet {
 
-	protected TextBox textBox = new TextBox();
+	protected Label textLabel = new Label();
 
 	@UiConstructor
-	public FieldSetTextBox(String name, String value, String helpText, int maxLength) {
+	public FieldSetTextDisplay(String name, String value, String helpText) {
 		super(name, helpText);
-		init(value, maxLength);
+		init(value);
 	}
 	
-	public FieldSetTextBox(String name, String value, String helpText) {
-		super(name, helpText);
-		init(value, -1);
-	}
-	
-	private void init(String value, int maxLength) {
-		if(maxLength > 0 ){
-			addErrorValidator(new StringMaxLengthValidator(maxLength));
-		}
-		textBox.setText(value);
-		textBox.setEnabled(enabled);
-		textBox.addChangeHandler(this);
-		textBox.addKeyUpHandler(this);
-		textBox.setStyleName("textBox");
-		textBox.setSize("300px", "18px");
-		panel.add(textBox);
+	private void init(String value) {
+		textLabel.setText(value);
+		textLabel.setStyleName("textLabel");
+//		textLabel.setSize("300px", "18px");
+		panel.add(textLabel);
 	}
 
 	public void setEnabled(Boolean enabled) {
-		textBox.setEnabled(enabled);
 	}
 
 	public String getValue() {
-		return textBox.getText();
+		return textLabel.getText();
 	}
 
 	public void setValue(String value) {
-		textBox.setText(value);
-	}
-
-	@Override
-	public void onKeyUp(KeyUpEvent event) {
-		validate(textBox.getValue());
+		textLabel.setText(value);
 	}
 }

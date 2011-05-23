@@ -51,6 +51,7 @@ public class AssetServiceMockup extends RemoteServiceServlet implements AssetSer
 
 	private AssetCommand asset = new AssetCommand();
 	private SimpleDateFormat onmsFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss Z");
+	private AssetSuggCommand assetSugg = new AssetSuggCommand();
 	
 	public AssetServiceMockup() {
 		setData();
@@ -67,8 +68,9 @@ public class AssetServiceMockup extends RemoteServiceServlet implements AssetSer
 		if (nodeId == 999) {
 			throw new NullPointerException("just testing error-case: nodeid 999, you will not save!!");
 		}
-
 		this.asset = asset;
+		assetSugg.addCpu(asset.getCpu());
+		assetSugg.addAdditionalhardware(asset.getAdditionalhardware());
 		asset.setLastModifiedDate(new Date());
 		asset.setLastModifiedBy("admin");
 		return true;
@@ -151,7 +153,7 @@ public class AssetServiceMockup extends RemoteServiceServlet implements AssetSer
 		// asset.setLeaseExpires(formatter.format(new Date()));
 		asset.setLeaseExpires("FooDate");
 		asset.setVendorAssetNumber("VendorAssetNumber");
-		asset.setMaintcontract("Maintcontract");
+		asset.setMaintcontract("423423423_contract+Plus");
 		
 		Date maintConExp;
 		try {
@@ -207,8 +209,7 @@ public class AssetServiceMockup extends RemoteServiceServlet implements AssetSer
 	}
 
 	public AssetSuggCommand getAssetSuggestions() throws Exception {
-		AssetSuggCommand assetSugg = new AssetSuggCommand();
-
+		
 		assetSugg.addDescription("001");
 		assetSugg.addDescription("001");
 		assetSugg.addDescription("002");

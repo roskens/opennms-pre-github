@@ -28,7 +28,7 @@
  *      http://www.opennms.com/
  */
 
-package org.opennms.gwt.web.ui.asset.client.tools;
+package org.opennms.gwt.web.ui.asset.client.tools.fieldsets;
 
 import java.util.Collection;
 
