@@ -56,7 +56,7 @@
 	a.maintcontract,
 	CASE
 		WHEN
-			to_date(a.maintcontractexpires,'DD.MM.YYYY') - now() < INTERVAL '0 days'
+			to_date(a.maintcontractexpires,'yyyy-mm-dd 24h:m:s') - now() < INTERVAL '0 days'
  			THEN 'WARNING'
 		ELSE
 			'NORMAL'
@@ -75,7 +75,7 @@ WHERE
 	a.maintcontractexpires != 'n.v.' AND
 	a.maintcontract != 'n.v.' AND
 	a.maintcontract != '' AND
-	to_date(a.maintcontractexpires,'DD.MM.YYYY') - now() < INTERVAL '$P!{DS_WARN_THRESH} days'
+	to_date(a.maintcontractexpires,'yyyy-mm-dd 24h:m:s') - now() < INTERVAL '$P!{DS_WARN_THRESH} days'
 GROUP BY
 	a.manufacturer,
 	a.maintcontract,
@@ -105,10 +105,10 @@ ORDER BY
 	n.nodelabel,
 	a.manufacturer,
 	a.maintcontract,
-	to_date(a.maintcontractexpires,'DD.MM.YYYY') AS expire,
+	to_date(a.maintcontractexpires,'yyyy-mm-dd 24h:m:s') AS expire,
 	CASE
 		WHEN
-			to_date(a.maintcontractexpires,'DD.MM.YYYY') - now() < INTERVAL '0 days'
+			to_date(a.maintcontractexpires,'yyyy-mm-dd 24h:m:s') - now() < INTERVAL '0 days'
  			THEN 'WARNING'
 		ELSE
 			'NORMAL'
@@ -127,7 +127,7 @@ WHERE
 	a.maintcontractexpires != 'n.v.' AND
 	a.maintcontract != 'n.v.' AND
 	a.maintcontract != '' AND
-	to_date(a.maintcontractexpires,'DD.MM.YYYY') - now() < INTERVAL '$P!{DS_WARN_THRESH} days'
+	to_date(a.maintcontractexpires,'yyyy-mm-dd 24h:m:s') - now() < INTERVAL '$P!{DS_WARN_THRESH} days'
 GROUP BY
 	n.nodelabel,
 	a.manufacturer,
@@ -165,13 +165,13 @@ ORDER BY
 	a.modelnumber,
 	a.operatingsystem,
 	a.serialnumber,
-	to_date(a.dateinstalled,'DD.MM.YYYY') as dateinstalled,
+	to_date(a.dateinstalled,'yyyy-mm-dd 24h:m:s') as dateinstalled,
 	a.vendorphone,
-	to_date(a.maintcontractexpires,'DD.MM.YYYY') AS maintcontractexpires,
-	to_date(a.maintcontractexpires,'DD.MM.YYYY') - now() AS maintcontractleft,
+	to_date(a.maintcontractexpires,'yyyy-mm-dd 24h:m:s') AS maintcontractexpires,
+	to_date(a.maintcontractexpires,'yyyy-mm-dd 24h:m:s') - now() AS maintcontractleft,
 	CASE
 		WHEN
-			to_date(a.maintcontractexpires,'DD.MM.YYYY') - now() < INTERVAL '0 days'
+			to_date(a.maintcontractexpires,'yyyy-mm-dd 24h:m:s') - now() < INTERVAL '0 days'
  			THEN 'WARNING'
 		ELSE
 			'NORMAL'
@@ -190,7 +190,7 @@ WHERE
 	a.maintcontractexpires != 'n.v.' AND
 	a.maintcontract != 'n.v.' AND
 	a.maintcontract != '' AND
-	to_date(a.maintcontractexpires,'DD.MM.YYYY') - now() < INTERVAL '$P!{WARNING_THRESHOLD_DAYS} days'
+	to_date(a.maintcontractexpires,'yyyy-mm-dd 24h:m:s') - now() < INTERVAL '$P!{WARNING_THRESHOLD_DAYS} days'
 ORDER BY
 	a.manufacturer ASC,
 	a.maintcontractexpires DESC]]>
