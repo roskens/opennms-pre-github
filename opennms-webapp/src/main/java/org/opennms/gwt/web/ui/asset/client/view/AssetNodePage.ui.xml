@@ -162,6 +162,7 @@
 									maxLength="64" />
 							</td>
 						</tr>
+						<tr><td>&nbsp;</td></tr>
 						<tr>
 							<td>
 								<onms_fs:FieldSetTextBox ui:field="sSerialNumber"
@@ -219,6 +220,7 @@
 									maxLength="64" />
 							</td>
 						</tr>
+						<tr><td>&nbsp;</td></tr>
 						<tr>
 							<td>
 								<onms_fs:FieldSetSuggestBox ui:field="sAddress1"
@@ -245,7 +247,6 @@
 									name="{con.zip}" value="" helpText="{con.zipHelp}" maxLength="64" />
 							</td>
 						</tr>
-						<tr><td>&nbsp;</td></tr>
 						<tr><td>&nbsp;</td></tr>
 						<tr>
 							<td>
@@ -282,7 +283,6 @@
 							</td>
 						</tr>
 						<tr><td>&nbsp;</td></tr>
-						<tr><td>&nbsp;</td></tr>
 						<tr>
 							<td>
 								<onms_fs:FieldSetSuggestBox ui:field="sRack"
@@ -315,6 +315,7 @@
 									maxLength="64" />
 							</td>
 						</tr>
+						<tr><td>&nbsp;</td></tr>
 						<tr>
 							<td>
 								<onms_fs:FieldSetSuggestBox ui:field="sAdmin"
@@ -343,6 +344,14 @@
 							</td>
 						</tr>
 						<tr>
+							<td>
+								<onms_fs:FieldSetTextBox ui:field="sVendorAsset"
+									name="{con.vendorAsset}" value="" helpText="{con.vendorAssetHelp}"
+									maxLength="64" />
+							</td>
+						</tr>
+						<tr><td>&nbsp;</td></tr>
+						<tr>
 
 							<td>
 								<onms_fs:FieldSetSuggestBox ui:field="sPhone"
@@ -357,7 +366,14 @@
 									name="{con.fax}" value="" helpText="{con.faxHelp}" maxLength="64" />
 							</td>
 						</tr>
-
+						<tr>
+							<td>
+								<onms_fs:FieldSetSuggestBox ui:field="sMaintPhone"
+									name="{con.maintPhone}" value="" helpText="{con.maintPhoneHelp}"
+									maxLength="64" />
+							</td>
+						</tr>
+						<tr><td>&nbsp;</td></tr>
 						<tr>
 							<td>
 								<onms_fs:FieldSetSuggestBox ui:field="sLease"
@@ -372,13 +388,7 @@
 									maxLength="64" />
 							</td>
 						</tr>
-						<tr>
-							<td>
-								<onms_fs:FieldSetTextBox ui:field="sVendorAsset"
-									name="{con.vendorAsset}" value="" helpText="{con.vendorAssetHelp}"
-									maxLength="64" />
-							</td>
-						</tr>
+						<tr><td>&nbsp;</td></tr>
 						<tr>
 							<td>
 								<onms_fs:FieldSetSuggestBox ui:field="sMaintContract"
@@ -393,13 +403,7 @@
 									maxLength="64" />
 							</td>
 						</tr>
-						<tr>
-							<td>
-								<onms_fs:FieldSetSuggestBox ui:field="sMaintPhone"
-									name="{con.maintPhone}" value="" helpText="{con.maintPhoneHelp}"
-									maxLength="64" />
-							</td>
-						</tr>
+
 
 					</table>
 				</g:HTMLPanel>
@@ -493,6 +497,14 @@
 						</tr>
 						<tr>
 							<td>
+								<onms_fs:FieldSetSuggestBox ui:field="sStoragectrl"
+									name="{con.storagectrl}" value="" helpText="{con.storagectrlHelp}"
+									maxLength="32" />
+							</td>
+						</tr>
+						<tr><td>&nbsp;</td></tr>
+						<tr>
+							<td>
 								<onms_fs:FieldSetSuggestBox ui:field="sNumpowersupplies"
 									name="{con.numpowersupplies}" value=""
 									helpText="{con.numpowersuppliesHelp}" maxLength="1" />
@@ -505,13 +517,7 @@
 									maxLength="6" />
 							</td>
 						</tr>
-						<tr>
-							<td>
-								<onms_fs:FieldSetSuggestBox ui:field="sStoragectrl"
-									name="{con.storagectrl}" value="" helpText="{con.storagectrlHelp}"
-									maxLength="32" />
-							</td>
-						</tr>
+						<tr><td>&nbsp;</td></tr>
 						<tr>
 							<td>
 								<onms_fs:FieldSetSuggestBox ui:field="sHdd1"
@@ -530,6 +536,7 @@
 									name="{con.hdd} 3" value="" helpText="{con.hddHelp}" maxLength="32" />
 							</td>
 						</tr>
+						<tr><td>&nbsp;</td></tr>
 						<tr>
 							<td>
 								<onms_fs:FieldSetSuggestBox ui:field="sHdd4"
