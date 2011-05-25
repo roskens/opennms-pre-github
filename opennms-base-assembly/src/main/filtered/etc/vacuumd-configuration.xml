@@ -254,6 +254,10 @@
           '30' AS timeframe
         FROM 
           public.assets a
+        JOIN
+          node
+        ON
+          (a.nodeid = node.nodeid)
         WHERE 
           a.maintcontract IS NOT NULL  AND 
           a.maintcontractexpires IS NOT NULL  AND 
@@ -263,7 +267,7 @@
           a.maintcontract != '' AND 
           CAST(a.maintcontractexpires as date) &lt; (current_date + integer '30') AND
           CAST(a.maintcontractexpires as date) &gt; current_date AND
-          n.nodetype = 'A'
+          node.nodetype = 'A'
         ORDER BY
           CAST(a.maintcontractexpires as date) ASC;
         </statement>
