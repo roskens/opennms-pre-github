@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AssetMangementMaintStrategy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="assetMgmtStrategic" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="50"/>
+	<property name="ireport.y" value="0"/>
 	<template><![CDATA["${install.dir}/etc/report-templates/assets/styles/defaultStyles.jrtx"]]></template>
 	<subDataset name="summaryNodeAge">
+		<parameter name="DS_DATE_FORMAT" class="java.lang.String" isForPrompting="false">
+			<parameterDescription><![CDATA[]]></parameterDescription>
+			<defaultValueExpression><![CDATA["YYYY-MM-DD"]]></defaultValueExpression>
+		</parameter>
 		<queryString>
 			<![CDATA[SELECT
 	age,
@@ -25,14 +29,14 @@
 	sum(tally)
 FROM
 	(SELECT
-		((EXTRACT(days from (now() - to_date(dateinstalled, 'yyyy-mm-dd 24h:m:s'))))/365)::INTEGER AS age,
+		((EXTRACT(days from (now() - to_date(dateinstalled, '$P!{DS_DATE_FORMAT}'))))/365)::INTEGER AS age,
 		CASE
 			WHEN
 				maintcontractexpires = ''
 			THEN
 				NULL
 			ELSE
-				EXTRACT(epoch from (to_date(maintcontractexpires,'yyyy-mm-dd 24h:m:s') - now()))
+				EXTRACT(epoch from (to_date(maintcontractexpires,'$P!{DS_DATE_FORMAT}') - now()))
 		END AS contractleft,
 		count(*) AS tally
 	FROM
@@ -59,6 +63,9 @@ ORDER BY
 		<field name="sum" class="java.math.BigDecimal"/>
 	</subDataset>
 	<subDataset name="maintContractExpiresPerMonth">
+		<parameter name="DS_DATE_FORMAT" class="java.lang.String" isForPrompting="false">
+			<defaultValueExpression><![CDATA["YYYY-MM-DD"]]></defaultValueExpression>
+		</parameter>
 		<queryString>
 			<![CDATA[SELECT
 	to_char(dates, 'YYYY-MM') AS yearmonth,
@@ -84,7 +91,7 @@ FROM
 LEFT JOIN
 	assets
 ON
-	(to_char((to_date(assets.maintcontractexpires,'yyyy-mm-dd 24h:m:s')),'YYYY-MM') =
+	(to_char((to_date(assets.maintcontractexpires,'$P!{DS_DATE_FORMAT}')),'YYYY-MM') =
 	to_char(generatedMonth.dates, 'YYYY-MM') AND assets.maintcontractexpires != 'n.v.')
 ORDER BY
 	yearmonth]]>
@@ -159,6 +166,9 @@ ORDER BY
 		</group>
 	</subDataset>
 	<subDataset name="maintcontractSummary">
+		<parameter name="DS_DATE_FORMAT" class="java.lang.String" isForPrompting="false">
+			<defaultValueExpression><![CDATA["YYYY-MM-DD"]]></defaultValueExpression>
+		</parameter>
 		<queryString>
 			<![CDATA[SELECT
 	CASE
@@ -171,10 +181,10 @@ ORDER BY
 			THEN
 				'no contract'
 		WHEN
-			EXTRACT(epoch from (to_date(maintcontractexpires,'yyyy-mm-dd 24h:m:s') - now())) > 0
+			EXTRACT(epoch from (to_date(maintcontractexpires,'$P!{DS_DATE_FORMAT}') - now())) > 0
 			THEN 'in contract'
 		WHEN
-			EXTRACT(epoch from (to_date(maintcontractexpires,'yyyy-mm-dd 24h:m:s') - now())) < 0
+			EXTRACT(epoch from (to_date(maintcontractexpires,'$P!{DS_DATE_FORMAT}') - now())) < 0
 			THEN 'expired'
 		ELSE
 			'UNKNOWN'
@@ -203,6 +213,13 @@ ORDER BY
 		<field name="contractstatus" class="java.lang.String"/>
 		<field name="tally" class="java.lang.Long"/>
 	</subDataset>
+	<parameter name="DATE_FORMAT" class="java.lang.String">
+		<parameterDescription><![CDATA[Your date format in maintenance contracts. Default is "YYYY-MM-DD"]]></parameterDescription>
+		<defaultValueExpression><![CDATA["YYYY-MM-DD"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="COMPANY_LOGO" class="java.lang.String">
+		<defaultValueExpression><![CDATA["${install.dir}/etc/report-templates/assets/images/company-logo.png"]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[select now()]]>
 	</queryString>
@@ -222,7 +239,7 @@ ORDER BY
 			</staticText>
 			<image>
 				<reportElement x="391" y="0" width="164" height="49"/>
-				<imageExpression class="java.lang.String"><![CDATA["${install.dir}/etc/report-templates/assets/images/company-logo.png"]]></imageExpression>
+				<imageExpression class="java.lang.String"><![CDATA[$P{COMPANY_LOGO}]]></imageExpression>
 			</image>
 		</band>
 	</pageHeader>
@@ -246,7 +263,11 @@ ORDER BY
 				</chart>
 				<categoryDataset>
 					<dataset>
-						<datasetRun subDataset="summaryNodeAge"/>
+						<datasetRun subDataset="summaryNodeAge">
+							<datasetParameter name="DS_DATE_FORMAT">
+								<datasetParameterExpression><![CDATA[$P{DATE_FORMAT}]]></datasetParameterExpression>
+							</datasetParameter>
+						</datasetRun>
 					</dataset>
 					<categorySeries>
 						<seriesExpression><![CDATA[$F{contractstatus}]]></seriesExpression>
@@ -305,7 +326,11 @@ ORDER BY
 				</chart>
 				<categoryDataset>
 					<dataset>
-						<datasetRun subDataset="maintContractExpiresPerMonth"/>
+						<datasetRun subDataset="maintContractExpiresPerMonth">
+							<datasetParameter name="DS_DATE_FORMAT">
+								<datasetParameterExpression><![CDATA[$P{DATE_FORMAT}]]></datasetParameterExpression>
+							</datasetParameter>
+						</datasetRun>
 					</dataset>
 					<categorySeries>
 						<seriesExpression><![CDATA["Maintenance contracts"]]></seriesExpression>
@@ -364,7 +389,11 @@ ORDER BY
 				</chart>
 				<pieDataset maxCount="3" minPercentage="3.0">
 					<dataset>
-						<datasetRun subDataset="maintcontractSummary"/>
+						<datasetRun subDataset="maintcontractSummary">
+							<datasetParameter name="DS_DATE_FORMAT">
+								<datasetParameterExpression><![CDATA[$P{DATE_FORMAT}]]></datasetParameterExpression>
+							</datasetParameter>
+						</datasetRun>
 					</dataset>
 					<keyExpression><![CDATA[$F{contractstatus}]]></keyExpression>
 					<valueExpression><![CDATA[$F{tally}]]></valueExpression>

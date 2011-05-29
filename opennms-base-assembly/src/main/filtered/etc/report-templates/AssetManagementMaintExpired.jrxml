@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AssetMgmtMaintExpired" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isTitleNewPage="true">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AssetMgmtMaintExpired" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="488"/>
+	<property name="ireport.y" value="444"/>
 	<template><![CDATA["${install.dir}/etc/report-templates/assets/styles/defaultStyles.jrtx"]]></template>
 	<style name="expire_warning" mode="Transparent" hAlign="Center" vAlign="Middle" rotation="Left" markup="styled">
 		<conditionalStyle>
@@ -42,12 +42,15 @@
 			<style mode="Opaque" forecolor="#000000" backcolor="#FFCC66"/>
 		</conditionalStyle>
 	</style>
-	<subDataset name="summaryByVendor">
+	<subDataset name="summaryByManufacturer">
 		<parameter name="DS_WARN_THRESH" class="java.lang.Integer" isForPrompting="false">
 			<defaultValueExpression><![CDATA[30]]></defaultValueExpression>
 		</parameter>
 		<parameter name="DS_DISPLAY_EXPIRED" class="java.lang.String" isForPrompting="false">
 			<defaultValueExpression><![CDATA["true"]]></defaultValueExpression>
+		</parameter>
+		<parameter name="DS_DATE_FORMAT" class="java.lang.String" isForPrompting="false">
+			<defaultValueExpression><![CDATA["YYYY-MM-DD"]]></defaultValueExpression>
 		</parameter>
 		<queryString>
 			<![CDATA[SELECT
@@ -56,7 +59,7 @@
 	a.maintcontract,
 	CASE
 		WHEN
-			to_date(a.maintcontractexpires,'yyyy-mm-dd 24h:m:s') - now() < INTERVAL '0 days'
+			to_date(a.maintcontractexpires,'$P!{DS_DATE_FORMAT}') - now() < INTERVAL '0 days'
  			THEN 'WARNING'
 		ELSE
 			'NORMAL'
@@ -75,7 +78,7 @@ WHERE
 	a.maintcontractexpires != 'n.v.' AND
 	a.maintcontract != 'n.v.' AND
 	a.maintcontract != '' AND
-	to_date(a.maintcontractexpires,'yyyy-mm-dd 24h:m:s') - now() < INTERVAL '$P!{DS_WARN_THRESH} days'
+	to_date(a.maintcontractexpires,'$P!{DS_DATE_FORMAT}') - now() < INTERVAL '$P!{DS_WARN_THRESH} days'
 GROUP BY
 	a.manufacturer,
 	a.maintcontract,
@@ -88,7 +91,7 @@ ORDER BY
 		<field name="manufacturer" class="java.lang.String"/>
 		<field name="maintcontract" class="java.lang.String"/>
 		<field name="maintcontractstatus" class="java.lang.String"/>
-		<variable name="summaryManufacturer_COUNT" class="java.lang.Long" calculation="Sum">
+		<variable name="summaryManufacturer_SUM" class="java.lang.Long" calculation="Sum">
 			<variableExpression><![CDATA[$F{tally}]]></variableExpression>
 		</variable>
 		<filterExpression><![CDATA["true".equals($P{DS_DISPLAY_EXPIRED}) ? !"".equals($F{maintcontractstatus}) : "NORMAL".equals($F{maintcontractstatus})]]></filterExpression>
@@ -100,15 +103,18 @@ ORDER BY
 		<parameter name="DS_WARN_THRESH" class="java.lang.Integer" isForPrompting="false">
 			<defaultValueExpression><![CDATA[30]]></defaultValueExpression>
 		</parameter>
+		<parameter name="DS_DATE_FORMAT" class="java.lang.String" isForPrompting="false">
+			<defaultValueExpression><![CDATA["YYYY-MM-DD"]]></defaultValueExpression>
+		</parameter>
 		<queryString>
 			<![CDATA[SELECT
 	n.nodelabel,
 	a.manufacturer,
 	a.maintcontract,
-	to_date(a.maintcontractexpires,'yyyy-mm-dd 24h:m:s') AS expire,
+	to_date(a.maintcontractexpires,'$P!{DS_DATE_FORMAT}') AS expire,
 	CASE
 		WHEN
-			to_date(a.maintcontractexpires,'yyyy-mm-dd 24h:m:s') - now() < INTERVAL '0 days'
+			to_date(a.maintcontractexpires,'$P!{DS_DATE_FORMAT}') - now() < INTERVAL '0 days'
  			THEN 'WARNING'
 		ELSE
 			'NORMAL'
@@ -127,7 +133,7 @@ WHERE
 	a.maintcontractexpires != 'n.v.' AND
 	a.maintcontract != 'n.v.' AND
 	a.maintcontract != '' AND
-	to_date(a.maintcontractexpires,'yyyy-mm-dd 24h:m:s') - now() < INTERVAL '$P!{DS_WARN_THRESH} days'
+	to_date(a.maintcontractexpires,'$P!{DS_DATE_FORMAT}') - now() < INTERVAL '$P!{DS_WARN_THRESH} days'
 GROUP BY
 	n.nodelabel,
 	a.manufacturer,
@@ -151,11 +157,15 @@ ORDER BY
 		<defaultValueExpression><![CDATA[30]]></defaultValueExpression>
 	</parameter>
 	<parameter name="DISPLAY_EXPIRED" class="java.lang.String">
-		<parameterDescription><![CDATA[Show mainenance expired reports. Allowed parameter input: true or false as string, default is true.]]></parameterDescription>
-		<defaultValueExpression><![CDATA["true"]]></defaultValueExpression>
+		<parameterDescription><![CDATA[Show mainenance expired reports. Allowed parameter input: true or false as string, default is false.]]></parameterDescription>
+		<defaultValueExpression><![CDATA["false"]]></defaultValueExpression>
 	</parameter>
-	<parameter name="COMPANY_LOGO" class="java.lang.String" isForPrompting="false">
+	<parameter name="COMPANY_LOGO" class="java.lang.String">
 		<defaultValueExpression><![CDATA["${install.dir}/etc/report-templates/assets/images/company-logo.png"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="DATE_FORMAT" class="java.lang.String">
+		<parameterDescription><![CDATA[Your date format in maintenance contracts. Default is "YYYY-MM-DD"]]></parameterDescription>
+		<defaultValueExpression><![CDATA["YYYY-MM-DD"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT
@@ -165,13 +175,13 @@ ORDER BY
 	a.modelnumber,
 	a.operatingsystem,
 	a.serialnumber,
-	to_date(a.dateinstalled,'yyyy-mm-dd 24h:m:s') as dateinstalled,
+	to_date(a.dateinstalled,'$P!{DATE_FORMAT}') as dateinstalled,
 	a.vendorphone,
-	to_date(a.maintcontractexpires,'yyyy-mm-dd 24h:m:s') AS maintcontractexpires,
-	to_date(a.maintcontractexpires,'yyyy-mm-dd 24h:m:s') - now() AS maintcontractleft,
+	to_date(a.maintcontractexpires,'$P!{DATE_FORMAT}') AS maintcontractexpires,
+	to_date(a.maintcontractexpires,'$P!{DATE_FORMAT}') - now() AS maintcontractleft,
 	CASE
 		WHEN
-			to_date(a.maintcontractexpires,'yyyy-mm-dd 24h:m:s') - now() < INTERVAL '0 days'
+			to_date(a.maintcontractexpires,'$P!{DATE_FORMAT}') - now() < INTERVAL '$P!{WARNING_THRESHOLD_DAYS}'
  			THEN 'WARNING'
 		ELSE
 			'NORMAL'
@@ -190,7 +200,7 @@ WHERE
 	a.maintcontractexpires != 'n.v.' AND
 	a.maintcontract != 'n.v.' AND
 	a.maintcontract != '' AND
-	to_date(a.maintcontractexpires,'yyyy-mm-dd 24h:m:s') - now() < INTERVAL '$P!{WARNING_THRESHOLD_DAYS} days'
+	to_date(a.maintcontractexpires,'$P!{DATE_FORMAT}') - now() < INTERVAL '$P!{WARNING_THRESHOLD_DAYS} days'
 ORDER BY
 	a.manufacturer ASC,
 	a.maintcontractexpires DESC]]>
@@ -252,7 +262,7 @@ ORDER BY
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="462" splitType="Stretch">
+		<band height="465" splitType="Stretch">
 			<staticText>
 				<reportElement style="Title" x="0" y="182" width="555" height="49"/>
 				<textElement textAlignment="Center"/>
@@ -270,12 +280,15 @@ ORDER BY
 			<componentElement>
 				<reportElement key="table" style="summary_table" x="0" y="330" width="555" height="50"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="summaryByVendor">
+					<datasetRun subDataset="summaryByManufacturer">
 						<datasetParameter name="DS_WARN_THRESH">
 							<datasetParameterExpression><![CDATA[$P{WARNING_THRESHOLD_DAYS}]]></datasetParameterExpression>
 						</datasetParameter>
 						<datasetParameter name="DS_DISPLAY_EXPIRED">
 							<datasetParameterExpression><![CDATA[$P{DISPLAY_EXPIRED}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="DS_DATE_FORMAT">
+							<datasetParameterExpression><![CDATA[$P{DATE_FORMAT}]]></datasetParameterExpression>
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
@@ -367,7 +380,7 @@ ORDER BY
 							<textField>
 								<reportElement style="summary_body" x="0" y="0" width="86" height="17"/>
 								<textElement textAlignment="Center"/>
-								<textFieldExpression class="java.lang.Long"><![CDATA[$V{summaryManufacturer_COUNT}]]></textFieldExpression>
+								<textFieldExpression class="java.lang.Long"><![CDATA[$V{summaryManufacturer_SUM}]]></textFieldExpression>
 							</textField>
 						</jr:tableFooter>
 						<jr:detailCell style="summary_table_TD" height="20" rowSpan="1">
@@ -384,9 +397,6 @@ ORDER BY
 					</jr:column>
 				</jr:table>
 			</componentElement>
-			<break>
-				<reportElement x="0" y="294" width="100" height="1"/>
-			</break>
 			<staticText>
 				<reportElement style="Body" x="0" y="310" width="555" height="20"/>
 				<textElement/>
@@ -397,9 +407,6 @@ ORDER BY
 				<textElement/>
 				<text><![CDATA[Maintenance contract overview by node and ordered by expire date.]]></text>
 			</staticText>
-			<break>
-				<reportElement x="0" y="382" width="100" height="1"/>
-			</break>
 			<componentElement>
 				<reportElement key="table 1" style="Body" x="0" y="418" width="555" height="43"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
@@ -409,6 +416,9 @@ ORDER BY
 						</datasetParameter>
 						<datasetParameter name="DS_WARN_THRESH">
 							<datasetParameterExpression><![CDATA[$P{WARNING_THRESHOLD_DAYS}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="DS_DATE_FORMAT">
+							<datasetParameterExpression><![CDATA[$P{DATE_FORMAT}]]></datasetParameterExpression>
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
@@ -510,6 +520,15 @@ ORDER BY
 					</jr:column>
 				</jr:table>
 			</componentElement>
+			<break>
+				<reportElement x="0" y="293" width="100" height="1"/>
+			</break>
+			<break>
+				<reportElement x="0" y="380" width="100" height="1"/>
+			</break>
+			<break>
+				<reportElement x="0" y="461" width="100" height="1"/>
+			</break>
 		</band>
 	</title>
 	<pageHeader>
