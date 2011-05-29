@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="assetMgmtStrategic" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="382"/>
 	<template><![CDATA["${install.dir}/etc/report-templates/assets/styles/defaultStyles.jrtx"]]></template>
 	<subDataset name="summaryNodeAge">
 		<parameter name="DS_DATE_FORMAT" class="java.lang.String" isForPrompting="false">
@@ -69,7 +69,14 @@ ORDER BY
 		<queryString>
 			<![CDATA[SELECT
 	to_char(dates, 'YYYY-MM') AS yearmonth,
-	*
+	SUM(CASE
+		WHEN
+			nodeid is not null
+		THEN
+			'1'::INTEGER
+		ELSE
+			'0'::INTEGER
+	END) AS contractCount
 FROM
 	(SELECT
 		mytimequery.mytime::DATE
@@ -93,74 +100,13 @@ LEFT JOIN
 ON
 	(to_char((to_date(assets.maintcontractexpires,'$P!{DS_DATE_FORMAT}')),'YYYY-MM') =
 	to_char(generatedMonth.dates, 'YYYY-MM') AND assets.maintcontractexpires != 'n.v.')
+GROUP BY
+	yearmonth
 ORDER BY
 	yearmonth]]>
 		</queryString>
 		<field name="yearmonth" class="java.lang.String"/>
-		<field name="dates" class="java.sql.Date"/>
-		<field name="id" class="java.lang.Integer"/>
-		<field name="nodeid" class="java.lang.Integer"/>
-		<field name="category" class="java.lang.String"/>
-		<field name="manufacturer" class="java.lang.String"/>
-		<field name="vendor" class="java.lang.String"/>
-		<field name="modelnumber" class="java.lang.String"/>
-		<field name="serialnumber" class="java.lang.String"/>
-		<field name="description" class="java.lang.String"/>
-		<field name="circuitid" class="java.lang.String"/>
-		<field name="assetnumber" class="java.lang.String"/>
-		<field name="operatingsystem" class="java.lang.String"/>
-		<field name="rack" class="java.lang.String"/>
-		<field name="slot" class="java.lang.String"/>
-		<field name="port" class="java.lang.String"/>
-		<field name="region" class="java.lang.String"/>
-		<field name="division" class="java.lang.String"/>
-		<field name="department" class="java.lang.String"/>
-		<field name="address1" class="java.lang.String"/>
-		<field name="address2" class="java.lang.String"/>
-		<field name="city" class="java.lang.String"/>
-		<field name="state" class="java.lang.String"/>
-		<field name="zip" class="java.lang.String"/>
-		<field name="building" class="java.lang.String"/>
-		<field name="floor" class="java.lang.String"/>
-		<field name="room" class="java.lang.String"/>
-		<field name="vendorphone" class="java.lang.String"/>
-		<field name="vendorfax" class="java.lang.String"/>
-		<field name="vendorassetnumber" class="java.lang.String"/>
-		<field name="userlastmodified" class="java.lang.String"/>
-		<field name="lastmodifieddate" class="java.sql.Timestamp"/>
-		<field name="dateinstalled" class="java.lang.String"/>
-		<field name="lease" class="java.lang.String"/>
-		<field name="leaseexpires" class="java.lang.String"/>
-		<field name="supportphone" class="java.lang.String"/>
-		<field name="maintcontract" class="java.lang.String"/>
-		<field name="maintcontractexpires" class="java.lang.String"/>
-		<field name="displaycategory" class="java.lang.String"/>
-		<field name="notifycategory" class="java.lang.String"/>
-		<field name="pollercategory" class="java.lang.String"/>
-		<field name="thresholdcategory" class="java.lang.String"/>
-		<field name="comment" class="java.lang.String"/>
-		<field name="managedobjectinstance" class="java.lang.String"/>
-		<field name="managedobjecttype" class="java.lang.String"/>
-		<field name="username" class="java.lang.String"/>
-		<field name="password" class="java.lang.String"/>
-		<field name="enable" class="java.lang.String"/>
-		<field name="autoenable" class="java.lang.String"/>
-		<field name="connection" class="java.lang.String"/>
-		<field name="cpu" class="java.lang.String"/>
-		<field name="ram" class="java.lang.String"/>
-		<field name="storagectrl" class="java.lang.String"/>
-		<field name="hdd1" class="java.lang.String"/>
-		<field name="hdd2" class="java.lang.String"/>
-		<field name="hdd3" class="java.lang.String"/>
-		<field name="hdd4" class="java.lang.String"/>
-		<field name="hdd5" class="java.lang.String"/>
-		<field name="hdd6" class="java.lang.String"/>
-		<field name="numpowersupplies" class="java.lang.String"/>
-		<field name="inputpower" class="java.lang.String"/>
-		<field name="additionalhardware" class="java.lang.String"/>
-		<field name="admin" class="java.lang.String"/>
-		<field name="snmpcommunity" class="java.lang.String"/>
-		<field name="rackunitheight" class="java.lang.String"/>
+		<field name="contractcount" class="java.lang.Long"/>
 		<group name="yearmonth">
 			<groupExpression><![CDATA[$F{yearmonth}]]></groupExpression>
 		</group>
@@ -173,6 +119,12 @@ ORDER BY
 			<![CDATA[SELECT
 	CASE
 		WHEN
+			EXTRACT(epoch from (to_date(maintcontractexpires,'$P!{DS_DATE_FORMAT}') - now())) > 0
+			THEN 'in contract'
+		WHEN
+			EXTRACT(epoch from (to_date(maintcontractexpires,'$P!{DS_DATE_FORMAT}') - now())) < 0
+			THEN 'expired'
+		WHEN
 			maintcontract = '' OR maintcontract is null OR maintcontract = ' '
 			THEN
 				'no contract'
@@ -180,12 +132,6 @@ ORDER BY
 			maintcontract = 'n.v.'
 			THEN
 				'no contract'
-		WHEN
-			EXTRACT(epoch from (to_date(maintcontractexpires,'$P!{DS_DATE_FORMAT}') - now())) > 0
-			THEN 'in contract'
-		WHEN
-			EXTRACT(epoch from (to_date(maintcontractexpires,'$P!{DS_DATE_FORMAT}') - now())) < 0
-			THEN 'expired'
 		ELSE
 			'UNKNOWN'
 	END AS contractstatus,
@@ -280,8 +226,8 @@ ORDER BY
 				</categoryDataset>
 				<barPlot isShowLabels="true" isShowTickLabels="true" isShowTickMarks="true">
 					<plot>
-						<seriesColor seriesOrder="0" color="#A5A5A5"/>
-						<seriesColor seriesOrder="1" color="#4F7B23"/>
+						<seriesColor seriesOrder="0" color="#4F7B23"/>
+						<seriesColor seriesOrder="1" color="#A5A5A5"/>
 						<seriesColor seriesOrder="2" color="#FF3300"/>
 					</plot>
 					<itemLabel color="#000000" backgroundColor="#FFFFFF">
@@ -300,7 +246,7 @@ ORDER BY
 					</categoryAxisFormat>
 					<valueAxisLabelExpression><![CDATA["Nodes"]]></valueAxisLabelExpression>
 					<valueAxisFormat>
-						<axisFormat>
+						<axisFormat verticalTickLabels="false">
 							<labelFont>
 								<font size="10"/>
 							</labelFont>
@@ -335,9 +281,10 @@ ORDER BY
 					<categorySeries>
 						<seriesExpression><![CDATA["Maintenance contracts"]]></seriesExpression>
 						<categoryExpression><![CDATA[$F{yearmonth}]]></categoryExpression>
-						<valueExpression><![CDATA[$V{yearmonth_COUNT}]]></valueExpression>
+						<valueExpression><![CDATA[$F{contractcount}]]></valueExpression>
+						<labelExpression><![CDATA[$F{yearmonth}]]></labelExpression>
 						<itemHyperlink>
-							<hyperlinkTooltipExpression><![CDATA[$V{yearmonth_COUNT}.toString()]]></hyperlinkTooltipExpression>
+							<hyperlinkTooltipExpression><![CDATA[$F{contractcount}.toString()]]></hyperlinkTooltipExpression>
 						</itemHyperlink>
 					</categorySeries>
 				</categoryDataset>
