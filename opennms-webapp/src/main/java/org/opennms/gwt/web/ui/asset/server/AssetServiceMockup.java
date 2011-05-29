@@ -50,7 +50,7 @@ public class AssetServiceMockup extends RemoteServiceServlet implements AssetSer
 	private static final long serialVersionUID = 386558445935186134L;
 
 	private AssetCommand asset = new AssetCommand();
-	private SimpleDateFormat onmsFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss Z");
+	private SimpleDateFormat onmsFormatter = new SimpleDateFormat("yyyy-MM-dd");
 	private AssetSuggCommand assetSugg = new AssetSuggCommand();
 	
 	public AssetServiceMockup() {
@@ -119,7 +119,7 @@ public class AssetServiceMockup extends RemoteServiceServlet implements AssetSer
 		asset.setOperatingSystem("OperatingSystem");
 		Date installDate;
 		try {
-			installDate = onmsFormatter.parse("2000-12-27 23:15:42 -0100");
+			installDate = onmsFormatter.parse("2000-12-27");
 		} catch (ParseException e) {
 			e.printStackTrace();
 			installDate = new Date();
@@ -157,7 +157,7 @@ public class AssetServiceMockup extends RemoteServiceServlet implements AssetSer
 		
 		Date maintConExp;
 		try {
-			maintConExp = onmsFormatter.parse("2000-12-27 23:15:42 -0100");
+			maintConExp = onmsFormatter.parse("2000-12-27");
 		} catch (ParseException e) {
 			e.printStackTrace();
 			maintConExp = new Date();
@@ -194,7 +194,7 @@ public class AssetServiceMockup extends RemoteServiceServlet implements AssetSer
 		asset.setStoragectrl("SATA");
 		asset.setAdditionalhardware("Rocket-Tower");
 		asset.setNumpowersupplies("1");
-		asset.setInputpower("2400 Watt");
+		asset.setInputpower("2400 W");
 
 		asset.setHdd1("for Comics");
 		asset.setHdd2("for Musik");

@@ -33,14 +33,9 @@
 	padding: 0px;
 }
 
-table.assetContent {
-	margin-bottom: 0px;
-}
-
 div.label {
-	vertical-align: middle;
 	display: block;
-	width: 150px;
+	width: 165px;
 }
 
 table.FieldSetHorizontalPanel {
@@ -66,8 +61,18 @@ table.FieldSet {
     width: 300px;
 }
 
-table.DisclosurePanelCookie div {
-	padding-top: 0px;
+table.DisclosurePanelCookie  h3 {
+	margin-top: 0px;
+}
+
+table.DisclosurePanelCookie .label {
+	padding-top: 3px;
+	overflow: hidden;
+}
+
+table.DisclosurePanelCookie .content {
+	padding-top: 4px;
+	padding-bottom: 3px;
 }
 
 table.DisclosurePanelCookie {
@@ -119,6 +124,11 @@ input.dateBox {
 table.FieldSet-changed input {
 	background-color: #b4c598;
 }
+table.FieldSet-changed select {
+	background-color: #b4c598;
+}
+
+
 
 .FieldSet-changed .textArea {
 	background-color: #b4c598;
@@ -143,3 +153,29 @@ table.FieldSet-changed input {
 .FieldSet-error input.dateBoxFormatError {
 	background-color: #d94242 !important;
 }
+
+.legendHeadline {
+	font-weight: bold;
+	padding-bottom: 0px;
+	line-height: 1em;
+	padding-bottom: 2px;
+}
+.legendContent div {
+	float: left;
+	display: inline;
+	padding: 3px;
+	margin-right: 3px;
+}
+.legendContent .grey {
+	background-color: #EEEEEE;
+}
+.legendContent .green {
+	background-color: #b4c598;
+}
+.legendContent .yellow {
+	background-color: #FFF5CD;
+}
+.legendContent .red {
+	background-color: #d94242;
+}
+

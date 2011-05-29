@@ -62,5 +62,6 @@ public class FieldSetTextDisplay extends AbstractFieldSet implements FieldSet {
 
 	public void setValue(String value) {
 		textLabel.setText(value);
+		//validate(this.getValue());
 	}
 }

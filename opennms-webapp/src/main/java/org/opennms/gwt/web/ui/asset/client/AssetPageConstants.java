@@ -669,4 +669,24 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@DefaultStringValue("Sorry, can't save. Still Errors on fileds. Please fix your input. ")
 	@Key("assetPageNotValidDontSave")
 	String assetPageNotValidDontSave();
+	
+	@DefaultStringValue("legend")
+	@Key("legendHeadline")
+	String legendHeadline();	
+
+	@DefaultStringValue("Already saved value")
+	@Key("legendGrey")
+	String legendGrey();	
+	
+	@DefaultStringValue("Changed value, valid")
+	@Key("legendGreen")
+	String legendGreen();	
+
+	@DefaultStringValue("Changed value with warning, save possible")
+	@Key("legendYellow")
+	String legendYellow();
+
+	@DefaultStringValue("Changed value with error, can't be saved")
+	@Key("legendRed")
+	String legendRed();	
 }

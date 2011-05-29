@@ -640,7 +640,6 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
 		}
 		final DialogBox dialog = new DialogBox();
 		dialog.setText(description);
-
 		VerticalPanel panel = new VerticalPanel();
 		HTMLPanel html = new HTMLPanel(error);
 		html.setStyleName("Message");

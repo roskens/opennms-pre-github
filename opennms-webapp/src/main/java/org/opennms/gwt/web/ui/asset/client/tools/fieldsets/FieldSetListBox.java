@@ -57,6 +57,8 @@ public class FieldSetListBox extends AbstractFieldSet implements FieldSet {
 	}
 	
 	private void init(String value, ArrayList<String> options) {
+		inititalValue = value;
+		
 		this.options = options;
 
 		if (options != null) {
@@ -101,6 +103,8 @@ public class FieldSetListBox extends AbstractFieldSet implements FieldSet {
 			listBox.getItemCount();
 			listBox.setSelectedIndex(listBox.getItemCount() - 1);
 		}
+		inititalValue = value;
+		validate(this.getValue());
 	}
 
 	public void setOptions(ArrayList<String> options) {

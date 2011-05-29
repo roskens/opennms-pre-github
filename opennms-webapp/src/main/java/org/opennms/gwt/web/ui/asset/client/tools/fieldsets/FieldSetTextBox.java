@@ -59,6 +59,7 @@ public class FieldSetTextBox extends AbstractFieldSet implements FieldSet, KeyUp
 		if(maxLength > 0 ){
 			addErrorValidator(new StringMaxLengthValidator(maxLength));
 		}
+		inititalValue = value;
 		textBox.setText(value);
 		textBox.setEnabled(enabled);
 		textBox.addChangeHandler(this);
@@ -78,10 +79,12 @@ public class FieldSetTextBox extends AbstractFieldSet implements FieldSet, KeyUp
 
 	public void setValue(String value) {
 		textBox.setText(value);
+		inititalValue = value;
+		validate(this.getValue());
 	}
 
 	@Override
 	public void onKeyUp(KeyUpEvent event) {
-		validate(textBox.getValue());
+		checkField();
 	}
 }

@@ -36,6 +36,7 @@ import org.opennms.gwt.web.ui.asset.client.view.AssetNodePageImpl;
 
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.user.client.ui.RootPanel;
 
 /**
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
@@ -56,7 +57,10 @@ public class AppController implements Presenter {
 	@Override
 	public void go(HasWidgets container) {
 		this.container = container;
-		Presenter presenter = new AssetPagePresenter(rpcService, eventBus, new AssetNodePageImpl());
-		presenter.go(container);
+		
+		if (RootPanel.get("opennms-assetNodePage") != null) {
+			Presenter presenter = new AssetPagePresenter(rpcService, eventBus, new AssetNodePageImpl());
+			presenter.go(container);
+		}
 	}
 }

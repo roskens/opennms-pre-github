@@ -45,63 +45,65 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.DateTimeFormat.PredefinedFormat;
 import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.datepicker.client.DateBox;
+
 /**
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
  * 
  */
-public class FieldSetDateBox extends AbstractFieldSet implements FieldSet, ValueChangeHandler<Date>, MouseUpHandler, KeyUpHandler {
+public class FieldSetDateBox extends AbstractFieldSet implements FieldSet, ValueChangeHandler<Date>, MouseUpHandler,
+		KeyUpHandler {
 
 	private DateBox dateBox = new DateBox();
 
 	private final DateTimeFormat localFormater = DateTimeFormat.getFormat(PredefinedFormat.DATE_MEDIUM);
-	private final DateTimeFormat onmsFormater = DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss Z");
-	
+	private final DateTimeFormat onmsFormater = DateTimeFormat.getFormat("yyyy-MM-dd");
+
 	@UiConstructor
 	public FieldSetDateBox(String name, String value, String helpText, int maxLength) {
 		super(name, helpText);
 		init(value, maxLength);
 	}
-	
+
 	public FieldSetDateBox(String name, String value, String helpText) {
 		super(name, helpText);
 		init(value, -1);
 	}
-	
+
 	private void init(String value, int maxLength) {
-	
-		if(maxLength > 0 ){
+
+		if (maxLength > 0) {
 			addErrorValidator(new StringMaxLengthValidator(maxLength));
 		}
 		addWarningValidator(new StringDateLocalValidator());
-		
+
 		try {
 			dateBox.setValue(onmsFormater.parse(value));
 		} catch (IllegalArgumentException e) {
 			dateBox.getTextBox().setText(value);
-		}	
-
+		}
+		inititalValue = value;
 		dateBox.setFormat(new DateBox.DefaultFormat(localFormater));
 		dateBox.getTextBox().addFocusHandler(this);
 		dateBox.getTextBox().addChangeHandler(this);
 		dateBox.getTextBox().addMouseUpHandler(this);
 		dateBox.getTextBox().addKeyUpHandler(this);
-		
+
 		dateBox.addValueChangeHandler(this);
 		dateBox.setStyleName("dateBox");
 		dateBox.setSize("300px", "18px");
-		
-		panel.add(dateBox);	
+
+		panel.add(dateBox);
 	}
-	
+
 	public void setEnabled(Boolean enabled) {
 		dateBox.getTextBox().setEnabled(enabled);
 	}
 
 	public String getValue() {
 		String result;
-		try{
+		try {
 			result = onmsFormater.format(dateBox.getValue());
-		}catch (Exception e) {
+		} catch (Exception e) {
 			result = dateBox.getTextBox().getValue();
 		}
 		return result;
@@ -113,23 +115,22 @@ public class FieldSetDateBox extends AbstractFieldSet implements FieldSet, Value
 		} catch (Exception e) {
 			dateBox.getTextBox().setText(value);
 		}
-		validate(dateBox.getTextBox().getText());
+		inititalValue = value;
+		validate(this.getValue());
 	}
 
 	@Override
 	public void onValueChange(ValueChangeEvent<Date> event) {
-		changed = true;
-		mainPanel.setStyleDependentName("changed", true);
-		validate(dateBox.getTextBox().getValue());
+		checkField();
 	}
 
 	@Override
 	public void onMouseUp(MouseUpEvent event) {
-		validate(dateBox.getTextBox().getValue());
+		checkField();
 	}
 
 	@Override
 	public void onKeyUp(KeyUpEvent event) {
-		validate(dateBox.getTextBox().getValue());
+		checkField();
 	}
 }

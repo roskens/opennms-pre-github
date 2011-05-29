@@ -62,7 +62,7 @@ public class FieldSetTextArea extends AbstractFieldSet implements FieldSet, KeyU
 		if(maxLength > 0 ){
 			addErrorValidator(new StringMaxLengthValidator(maxLength));
 		}
-		
+		inititalValue = value;
 		textArea.setText(value);
 		textArea.setEnabled(enabled);
 		textArea.addChangeHandler(this);
@@ -84,6 +84,8 @@ public class FieldSetTextArea extends AbstractFieldSet implements FieldSet, KeyU
 
 	public void setValue(String value) {
 		textArea.setText(value);
+		inititalValue = value;
+		validate(this.getValue());
 	}
 
 	/* (non-Javadoc)
@@ -91,8 +93,7 @@ public class FieldSetTextArea extends AbstractFieldSet implements FieldSet, KeyU
 	 */
 	@Override
 	public void onMouseUp(MouseUpEvent event) {
-		// TODO Auto-generated method stub
-		validate(textArea.getValue());
+		checkField();
 	}
 
 	/* (non-Javadoc)
@@ -100,6 +101,6 @@ public class FieldSetTextArea extends AbstractFieldSet implements FieldSet, KeyU
 	 */
 	@Override
 	public void onKeyUp(KeyUpEvent event) {
-		validate(textArea.getValue());	
+		checkField();
 	}
 }

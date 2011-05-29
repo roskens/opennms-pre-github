@@ -47,6 +47,7 @@ import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
 import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.SuggestOracle.Suggestion;
+
 /**
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
  * 
@@ -57,7 +58,7 @@ public class FieldSetSuggestBox extends AbstractFieldSet implements FieldSet, Va
 	private SuggestBox suggBox;
 	private Collection<String> suggestions;
 	private MultiWordSuggestOracle oracle = new MultiWordSuggestOracle();
-	
+
 	@UiConstructor
 	public FieldSetSuggestBox(String name, String value, String helpText, int maxLength) {
 		super(name, helpText);
@@ -68,22 +69,23 @@ public class FieldSetSuggestBox extends AbstractFieldSet implements FieldSet, Va
 		super(name, helpText);
 		init(value, null, -1);
 	}
-	
+
 	public FieldSetSuggestBox(String name, String value, String helpText, Collection<String> suggestions) {
 		super(name, helpText);
 		init(value, suggestions, -1);
 	}
 
 	private void init(String value, Collection<String> suggestions, int maxLength) {
-		if(maxLength > 0 ){
+		if (maxLength > 0) {
 			addErrorValidator(new StringMaxLengthValidator(maxLength));
 		}
 		if (suggestions != null) {
 			oracle.addAll(suggestions);
 			oracle.setDefaultSuggestionsFromText(suggestions);
 		}
+		inititalValue = value;
 		suggBox = new SuggestBox(oracle);
-		
+
 		suggBox.setText(value);
 
 		suggBox.getTextBox().addFocusHandler(this);
@@ -93,10 +95,9 @@ public class FieldSetSuggestBox extends AbstractFieldSet implements FieldSet, Va
 		suggBox.addValueChangeHandler(this);
 		suggBox.addKeyUpHandler(this);
 		suggBox.addSelectionHandler(this);
-		
+
 		suggBox.setStyleName("suggBox");
 		suggBox.setSize("300px", "18px");
-	
 		panel.add(suggBox);
 	}
 
@@ -110,6 +111,8 @@ public class FieldSetSuggestBox extends AbstractFieldSet implements FieldSet, Va
 
 	public void setValue(String value) {
 		suggBox.setText(value);
+		inititalValue = value;
+		validate(this.getValue());
 	}
 
 	public Collection<String> getSuggestions() {
@@ -130,30 +133,36 @@ public class FieldSetSuggestBox extends AbstractFieldSet implements FieldSet, Va
 	}
 
 	public void onValueChange(ValueChangeEvent<String> event) {
-		changed = true;
-		mainPanel.setStyleDependentName("changed", true);
-		validate(suggBox.getValue());
+		checkField();
 	}
-	
+
 	public void onSelection(SelectionEvent<Suggestion> event) {
 		String selected = event.getSelectedItem().getReplacementString();
 		ValueChangeEvent.fire(suggBox, selected);
-		validate(suggBox.getValue());
+		checkField();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.google.gwt.event.dom.client.KeyUpHandler#onKeyUp(com.google.gwt.event.dom.client.KeyUpEvent)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.google.gwt.event.dom.client.KeyUpHandler#onKeyUp(com.google.gwt.event
+	 * .dom.client.KeyUpEvent)
 	 */
 	@Override
 	public void onKeyUp(KeyUpEvent event) {
-		validate(suggBox.getValue());
+		checkField();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.google.gwt.event.dom.client.MouseUpHandler#onMouseUp(com.google.gwt.event.dom.client.MouseUpEvent)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.google.gwt.event.dom.client.MouseUpHandler#onMouseUp(com.google.gwt
+	 * .event.dom.client.MouseUpEvent)
 	 */
 	@Override
 	public void onMouseUp(MouseUpEvent event) {
-		validate(suggBox.getValue());
+		checkField();
 	}
 }
