@@ -63,7 +63,7 @@ public class DisclosurePanelCookie extends Composite implements HasWidgets {
 				Cookies.setCookie(name + "Open", "true");
 			}
 
-			// check cookie an set open/close by cookie-value
+			// check cookie and set open/close by cookie-value
 			if (Cookies.getCookie(name + "Open").equals("true")) {
 				panel.setOpen(true);
 			} else {
@@ -72,6 +72,7 @@ public class DisclosurePanelCookie extends Composite implements HasWidgets {
 
 			// add openhandler that sets open/true to cookie
 			panel.addOpenHandler(new OpenHandler<DisclosurePanel>() {
+				@Override
 				public void onOpen(OpenEvent<DisclosurePanel> event) {
 					Cookies.setCookie(name + "Open", "true");
 				}
@@ -79,6 +80,7 @@ public class DisclosurePanelCookie extends Composite implements HasWidgets {
 
 			// add closehandler that sets close/flase to cookie
 			panel.addCloseHandler(new CloseHandler<DisclosurePanel>() {
+				@Override
 				public void onClose(CloseEvent<DisclosurePanel> event) {
 					Cookies.setCookie(name + "Open", "false");
 				}
