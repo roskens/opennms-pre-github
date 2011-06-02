@@ -36,7 +36,7 @@ import com.google.gwt.core.client.GWT;
 
 /**
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- * 
+ *         Validates length of a String against a maximum.
  */
 public class StringMaxLengthValidator implements Validator {
 	private AssetPageConstants con = GWT.create(AssetPageConstants.class);
@@ -46,12 +46,20 @@ public class StringMaxLengthValidator implements Validator {
 		this.maxLength = maxLength;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * The defined maximum for a valid string length.
 	 * 
-	 * @see
-	 * org.opennms.gwt.web.ui.asset.client.tools.Validator#validate(java.lang
-	 * .Object)
+	 * @return int maxLength
+	 */
+	public int getMaxLength() {
+		return maxLength;
+	}
+
+	/**
+	 * Validates length of a String against a maximum. Validation will run
+	 * against <code>(String) object</code> so make sure to use a proper object.
+	 * 
+	 * @param object
 	 */
 	@Override
 	public String validate(Object object) {
@@ -59,9 +67,5 @@ public class StringMaxLengthValidator implements Validator {
 			return con.stringToLongError() + " " + maxLength;
 		}
 		return "";
-	}
-	
-	public int getMaxLength() {
-		return maxLength;
 	}
 }

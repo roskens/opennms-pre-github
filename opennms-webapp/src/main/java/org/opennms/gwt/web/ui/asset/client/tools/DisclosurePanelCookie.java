@@ -45,7 +45,8 @@ import com.google.gwt.user.client.ui.Widget;
 
 /**
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- * 
+ * {@link DisclosurePanel} that stores if its collaped or not in a cookie.
+ * First added {@link Widget} is used as header.
  */
 public class DisclosurePanelCookie extends Composite implements HasWidgets {
 

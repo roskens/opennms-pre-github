@@ -30,12 +30,26 @@
 
 package org.opennms.gwt.web.ui.asset.client.tools.validation;
 
+import org.opennms.gwt.web.ui.asset.client.tools.fieldsets.AbstractFieldSet;
+
 /**
- * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a> 
+ * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
  * 
- * Validators will just work against a smale set of object-types. 
- * Just add validatoes that fits to object-type!
+ *         Validators are simple classes to check if a given parameter is valid
+ *         following an defined rule. Validators are used in
+ *         {@link AbstractFieldSet} instances to check if input is valid.
+ *         Validators results are string based. So "" = it's valid. Any returned
+ *         string != "" is an validation fail. Just add validators that fits to
+ *         given object-type!
  */
 public interface Validator {
+	/**
+	 * Validates the given object by a implemented rule.
+	 * 
+	 * @param object
+	 *            to validate.
+	 * @return "" means it is valid. "Message" means not valid, with the
+	 *         returned reason.
+	 */
 	public String validate(Object object);
 }

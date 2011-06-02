@@ -31,7 +31,6 @@
 package org.opennms.gwt.web.ui.asset.client.tools.fieldsets;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import org.opennms.gwt.web.ui.asset.client.tools.validation.Validator;
 
@@ -51,7 +50,15 @@ import com.google.gwt.user.client.ui.Widget;
 
 /**
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- * 
+ *         Implementation of {@link FieldSet} that creats an GWT
+ *         {@link Composite} and {@link Panel} based {@link FieldSet}. The
+ *         abstract implementation contains no field for value or value-input.
+ *         Just extensions of abstract FieldSet will support values. The
+ *         FieldSet contains label, help text, warning mechanism, error
+ *         mechanism, change mechanism. Warning- and errors-mechanism contains
+ *         {@link Validator}s, results will be displayed and marked up by css.
+ *         Change-mechanism will markup fields by css if the value was changed
+ *         by the user and is differed then original value.
  */
 public abstract class AbstractFieldSet extends Composite implements FieldSet {
 
@@ -70,10 +77,12 @@ public abstract class AbstractFieldSet extends Composite implements FieldSet {
 
 	public AbstractFieldSet(String name, final String helpText) {
 
+		// helpText popup preperation
 		this.helpText = helpText;
 		popPanel.setWidth("400px");
 		if ((helpText != null) && (!helpText.equals(""))) {
 			label.addMouseOverHandler(new MouseOverHandler() {
+				@Override
 				public void onMouseOver(MouseOverEvent event) {
 					Widget source = ((Widget) event.getSource()).getParent();
 					int left = source.getAbsoluteLeft() + 10;
@@ -85,6 +94,7 @@ public abstract class AbstractFieldSet extends Composite implements FieldSet {
 			});
 
 			label.addMouseOutHandler(new MouseOutHandler() {
+				@Override
 				public void onMouseOut(MouseOutEvent event) {
 					popPanel.hide();
 				}
@@ -93,7 +103,6 @@ public abstract class AbstractFieldSet extends Composite implements FieldSet {
 
 		label.setText(name);
 		label.setStyleName("label");
-		// label.setSize("100px", "20px");
 
 		panel.addStyleName("FieldSetHorizontalPanel");
 		panel.add(label);
@@ -116,38 +125,37 @@ public abstract class AbstractFieldSet extends Composite implements FieldSet {
 		initWidget(mainPanel);
 	}
 
-	public Boolean getEnabled() {
-		return enabled;
+	public void addErrorValidator(Validator validator) {
+		errorValidators.add(validator);
 	}
 
-	public String getLabel() {
-		return label.getText();
+	public void addWarningValidator(Validator validator) {
+		warningValidators.add(validator);
 	}
 
-	public void setLabel(String lable) {
-		this.label.setText(lable);
-	}
-
-	public void onFocus(FocusEvent event) {
-
-	}
-
-	public void onChange(ChangeEvent event) {
-		checkField();
-	}
-
+	/**
+	 * checks if the value of fieldset has changed and starts validation if
+	 * necessary.
+	 * 
+	 * @return true if fieldset was changed to a state not equales the initioal
+	 *         state of the value.
+	 */
 	public boolean checkField() {
-//		GWT.log("isValueChanged is called at " + this.getLabel() + " this.getValue()->" + this.getValue() + " initValue->" + inititalValue);
-		if(this.getValue() != null) {
-			if(!this.getValue().equals(inititalValue)){
+		// GWT.log("isValueChanged is called at " + this.getLabel() +
+		// " this.getValue()->" + this.getValue() + " initValue->" +
+		// inititalValue);
+		if (this.getValue() != null) {
+			if (!this.getValue().equals(inititalValue)) {
 				mainPanel.setStyleDependentName("changed", true);
 				changed = true;
 				validate(this.getValue());
 				return true;
-			}else{
-				//if a validate field if value is initialvalue again, but last value wasn't valid
-				// sample max chars=1; initialValue = 4; add an 2 so 42(error) remode 2(is initailvalue but error still set) 
-				if(this.getError() != "") {
+			} else {
+				// if a validate field if value is initialvalue again, but last
+				// value wasn't valid
+				// sample max chars=1; initialValue = 4; add an 2 so 42(error)
+				// remode 2(is initailvalue but error still set)
+				if (this.getError() != "") {
 					validate(this.getValue());
 				}
 			}
@@ -156,7 +164,68 @@ public abstract class AbstractFieldSet extends Composite implements FieldSet {
 		changed = false;
 		return false;
 	}
-	
+
+	@Override
+	public void clearChanged() {
+		changed = false;
+		mainPanel.setStyleDependentName("changed", false);
+	}
+
+	@Override
+	public void clearErrors() {
+		errorLabel.setText(null);
+		mainPanel.setStyleDependentName("error", false);
+	}
+
+	public void clearErrorValidators() {
+		errorValidators.clear();
+	}
+
+	@Override
+	public void clearWarnings() {
+		warningLabel.setText(null);
+		mainPanel.setStyleDependentName("warning", false);
+	}
+
+	public void clearWarningValidators() {
+		warningValidators.clear();
+	}
+
+	@Override
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+	@Override
+	public String getError() {
+		return errorLabel.getText();
+	}
+
+	public ArrayList<Validator> getErrorValidators() {
+		return errorValidators;
+	}
+
+	@Override
+	public String getLabel() {
+		return label.getText();
+	}
+
+	@Override
+	public String getWarning() {
+		return warningLabel.getText();
+	}
+
+	@Override
+	public void onChange(ChangeEvent event) {
+		checkField();
+	}
+
+	@Override
+	public void onFocus(FocusEvent event) {
+
+	}
+
+	@Override
 	public void setError(String error) {
 		errorLabel.setText(error);
 		errorLabel.setVisible(true);
@@ -165,8 +234,7 @@ public abstract class AbstractFieldSet extends Composite implements FieldSet {
 
 	public void setErrors(ArrayList<String> errors) {
 		String allErrors = "";
-		for (Iterator<String> iterator = errors.iterator(); iterator.hasNext();) {
-			String error = iterator.next();
+		for (String error : errors) {
 			allErrors += error + " ";
 		}
 		errorLabel.setText(allErrors);
@@ -174,19 +242,16 @@ public abstract class AbstractFieldSet extends Composite implements FieldSet {
 		mainPanel.setStyleDependentName("error", true);
 	}
 
-	public void clearErrors() {
-		errorLabel.setText(null);
-		mainPanel.setStyleDependentName("error", false);
+	public void setErrorValidators(ArrayList<Validator> validators) {
+		errorValidators = validators;
 	}
 
-	public String getError() {
-		return errorLabel.getText();
+	@Override
+	public void setLabel(String lable) {
+		label.setText(lable);
 	}
 
-	public String getWarning() {
-		return warningLabel.getText();
-	}
-
+	@Override
 	public void setWarning(String warning) {
 		warningLabel.setText(warning);
 		warningLabel.setVisible(true);
@@ -195,8 +260,7 @@ public abstract class AbstractFieldSet extends Composite implements FieldSet {
 
 	public void setWarnings(ArrayList<String> warnings) {
 		String allWarnings = "";
-		for (Iterator<String> iterator = warnings.iterator(); iterator.hasNext();) {
-			String warning = iterator.next();
+		for (String warning : warnings) {
 			allWarnings += warning + " ";
 		}
 		warningLabel.setText(allWarnings);
@@ -204,50 +268,24 @@ public abstract class AbstractFieldSet extends Composite implements FieldSet {
 		mainPanel.setStyleDependentName("warning", true);
 	}
 
-	public void clearWarnings() {
-		warningLabel.setText(null);
-		mainPanel.setStyleDependentName("warning", false);
-	}
-
-	public void clearChanged() {
-		changed = false;
-		mainPanel.setStyleDependentName("changed", false);
-	}
-
-	public ArrayList<Validator> getValidators() {
-		return errorValidators;
-	}
-
-	public void setErrorValidators(ArrayList<Validator> validators) {
-		this.errorValidators = validators;
-	}
-
-	public void addErrorValidator(Validator validator) {
-		this.errorValidators.add(validator);
-	}
-
-	public void clearErrorValidators() {
-		errorValidators.clear();
-	}
-
 	public void setWarningValidators(ArrayList<Validator> validators) {
-		this.warningValidators = validators;
+		warningValidators = validators;
 	}
 
-	public void addWarningValidator(Validator validator) {
-		this.warningValidators.add(validator);
-	}
-
-	public void clearWarningValidators() {
-		warningValidators.clear();
-	}
-
+	/**
+	 * Validates FieldSet. Warnings and errors will be checked. CSS tags will be
+	 * set if necessary.
+	 * 
+	 * @param object
+	 */
 	protected void validate(Object object) {
-//		GWT.log("validate is called at " + this.getLabel() + " this.getValue()->" + this.getValue() + " initValue->" + inititalValue);
+		// GWT.log("validate is called at " + this.getLabel() +
+		// " this.getValue()->" + this.getValue() + " initValue->" +
+		// inititalValue);
 		// validate errors
 		ArrayList<String> errors = new ArrayList<String>();
-		for (Iterator<Validator> iterator = errorValidators.iterator(); iterator.hasNext();) {
-			Validator validator = (Validator) iterator.next();
+		for (Validator validator2 : errorValidators) {
+			Validator validator = validator2;
 			if (validator.validate(object).length() > 0) {
 				errors.add(validator.validate(object));
 			}
@@ -258,10 +296,10 @@ public abstract class AbstractFieldSet extends Composite implements FieldSet {
 			clearErrors();
 		}
 
-		// validate warings
+		// validate warnings
 		ArrayList<String> warnings = new ArrayList<String>();
-		for (Iterator<Validator> iterator = warningValidators.iterator(); iterator.hasNext();) {
-			Validator validator = (Validator) iterator.next();
+		for (Validator validator2 : warningValidators) {
+			Validator validator = validator2;
 			if (validator.validate(object).length() > 0) {
 				warnings.add(validator.validate(object));
 			}

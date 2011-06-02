@@ -38,28 +38,34 @@ import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.client.ui.TextArea;
+
 /**
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- * 
+ *         </br> {@link FieldSet} for displaying and editing text as a textarea.
  */
 public class FieldSetTextArea extends AbstractFieldSet implements FieldSet, KeyUpHandler, MouseUpHandler {
 
 	private TextArea textArea = new TextArea();
-	
+
+	public FieldSetTextArea(String name, String value, String helpText) {
+		super(name, helpText);
+		init(value, -1);
+	}
+
 	@UiConstructor
 	public FieldSetTextArea(String name, String value, String helpText, int maxLength) {
 		super(name, helpText);
 		init(value, maxLength);
 	}
-	
-	public FieldSetTextArea(String name, String value, String helpText) {
-		super(name, helpText);
-		init(value, -1);
+
+	@Override
+	public String getValue() {
+		return textArea.getText();
 	}
-	
+
 	private void init(String value, int maxLength) {
-		
-		if(maxLength > 0 ){
+
+		if (maxLength > 0) {
 			addErrorValidator(new StringMaxLengthValidator(maxLength));
 		}
 		inititalValue = value;
@@ -70,37 +76,43 @@ public class FieldSetTextArea extends AbstractFieldSet implements FieldSet, KeyU
 		textArea.addMouseUpHandler(this);
 		textArea.setStyleName("textArea");
 		textArea.setSize("50em", "20em");
-		
+
 		panel.add(textArea);
 	}
 
-	public void setEnabled(Boolean enabled) {
-		textArea.setEnabled(enabled);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.google.gwt.event.dom.client.KeyUpHandler#onKeyUp(com.google.gwt.event
+	 * .dom.client.KeyUpEvent)
+	 */
+	@Override
+	public void onKeyUp(KeyUpEvent event) {
+		checkField();
 	}
 
-	public String getValue() {
-		return textArea.getText();
-	}
-
-	public void setValue(String value) {
-		textArea.setText(value);
-		inititalValue = value;
-		validate(this.getValue());
-	}
-
-	/* (non-Javadoc)
-	 * @see com.google.gwt.event.dom.client.MouseUpHandler#onMouseUp(com.google.gwt.event.dom.client.MouseUpEvent)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.google.gwt.event.dom.client.MouseUpHandler#onMouseUp(com.google.gwt
+	 * .event.dom.client.MouseUpEvent)
 	 */
 	@Override
 	public void onMouseUp(MouseUpEvent event) {
 		checkField();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.google.gwt.event.dom.client.KeyUpHandler#onKeyUp(com.google.gwt.event.dom.client.KeyUpEvent)
-	 */
 	@Override
-	public void onKeyUp(KeyUpEvent event) {
-		checkField();
+	public void setEnabled(Boolean enabled) {
+		textArea.setEnabled(enabled);
+	}
+
+	@Override
+	public void setValue(String value) {
+		textArea.setText(value);
+		inititalValue = value;
+		validate(this.getValue());
 	}
 }

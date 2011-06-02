@@ -34,39 +34,49 @@ import org.opennms.gwt.web.ui.asset.client.AssetPageConstants;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.i18n.client.DateTimeFormat;
-//import com.google.gwt.i18n.client.DateTimeFormat.PredefinedFormat;
 
 /**
- * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- * 
+ * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus
+ *         Neumann</a></br> Validates if the string representation of given
+ *         object is parseable to an {@link Date}. The expected format is
+ *         "yyyy-MM-dd".
  */
 public class StringDateLocalValidator implements Validator {
 	private AssetPageConstants con = GWT.create(AssetPageConstants.class);
-	
+
 	private final DateTimeFormat m_formater = DateTimeFormat.getFormat("yyyy-MM-dd");
 
 	private String m_dateString = "";
 
+	/**
+	 * Validates if the string representation of given object is parseable to an
+	 * {@link Date}. The expected format is "yyyy-MM-dd". The given object will
+	 * be casted by <code>(String) object</code>.
+	 * 
+	 * @param object
+	 */
 	@Override
 	public String validate(Object object) {
-		
+
 		try {
 			m_dateString = (String) object;
-		}catch (Exception e) {
-			// GWT.LOG("DATETIMEFORMATVALIDATOR: CAN'T CAST OBJECT: " + OBJECT + " TO STRING");
+		} catch (Exception e) {
+			// GWT.LOG("DATETIMEFORMATVALIDATOR: CAN'T CAST OBJECT: " + OBJECT +
+			// " TO STRING");
 			// validator can't cast given object to string.
-			// it's a STRING-validator... so nothing happens	
+			// it's a STRING-validator... so nothing happens
 		}
-		
+
 		if (m_dateString.equals("")) {
 			return "";
 		}
-		
+
 		try {
 			// GWT.log("DateTimeFormatValidator: m_DateSting: " + m_dateString);
-			m_formater.parse(m_dateString);
+			m_formater.parseStrict(m_dateString);
 		} catch (Exception e) {
-			// GWT.log("DateTimeFormatValidator: m_DateSting: " + m_dateString + " cant be formated by m_formater; " + "yyyy-MM-dd");
+			// GWT.log("DateTimeFormatValidator: m_DateSting: " + m_dateString +
+			// " can't be formated by m_formater; " + "yyyy-MM-dd");
 			return con.stringNotADate();
 		}
 		return "";

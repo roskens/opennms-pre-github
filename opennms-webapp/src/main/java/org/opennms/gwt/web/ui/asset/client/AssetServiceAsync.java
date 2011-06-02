@@ -37,13 +37,27 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 /**
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- * 
+ *         </br> Client side GWT Interface for asynchronous remote procedure
+ *         call (RPC) at asset services. Asynchronous version of
+ *         {@link AssetService}. GWT requires this asynchronous version in
+ *         addition to {@link AssetService}. All method signatures have an
+ *         additional AsyncCallBack parameter. {@link AssetService} and
+ *         AssetServiceAsync have to be in sync.
  */
 public interface AssetServiceAsync {
-
+	/**
+	 * @see AssetService#getAssetByNodeId(int nodeId)
+	 */
 	void getAssetByNodeId(int nodeId, AsyncCallback<AssetCommand> callback);
 
-	void saveOrUpdateAssetByNodeId(int nodeId, AssetCommand asset, AsyncCallback<Boolean> callback);
-
+	/**
+	 * @see AssetService#getAssetSuggestions()
+	 */
 	void getAssetSuggestions(AsyncCallback<AssetSuggCommand> callback);
+
+	/**
+	 * @see AssetService#saveOrUpdateAssetByNodeId(int nodeId, AssetCommand
+	 *      asset)
+	 */
+	void saveOrUpdateAssetByNodeId(int nodeId, AssetCommand asset, AsyncCallback<Boolean> callback);
 }

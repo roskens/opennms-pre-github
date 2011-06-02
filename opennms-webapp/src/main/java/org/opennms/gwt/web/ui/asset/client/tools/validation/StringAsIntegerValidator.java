@@ -36,24 +36,25 @@ import com.google.gwt.core.client.GWT;
 
 /**
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- * 
+ *         Validates given object to be castable to Integer.
  */
 public class StringAsIntegerValidator implements Validator {
 	private AssetPageConstants con = GWT.create(AssetPageConstants.class);
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Validates if the string representation of given object a valid integer.
+	 * Validation will run against
+	 * <code>Integer.parseInt(object.toString())</code> so make sure to use a
+	 * proper object.
 	 * 
-	 * @see
-	 * org.opennms.gwt.web.ui.asset.client.tools.Validator#validate(java.lang
-	 * .Object)
+	 * @param object
 	 */
 	@Override
 	public String validate(Object object) {
 		if (object.toString().equals("")) {
 			return "";
 		}
-		
+
 		try {
 			Integer.parseInt(object.toString());
 			return "";
