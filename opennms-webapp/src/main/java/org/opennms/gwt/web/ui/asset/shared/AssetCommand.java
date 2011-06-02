@@ -54,6 +54,9 @@ public class AssetCommand implements IsSerializable {
 	private String m_admin;
 
 	/** identifier field */
+	private Boolean m_allowModify;
+
+	/** identifier field */
 	private String m_assetNumber;
 
 	/** identifier field */
@@ -147,10 +150,10 @@ public class AssetCommand implements IsSerializable {
 	private String m_loggedInUser;
 
 	/** identifier field */
-	private String m_maintContractExpiration;
+	private String m_maintcontract;
 
 	/** identifier field */
-	private String m_maintcontract;
+	private String m_maintContractExpiration;
 
 	/** identifier field */
 	private String m_manufacturer;
@@ -256,7 +259,7 @@ public class AssetCommand implements IsSerializable {
 
 	/** identifier field */
 	private String m_zip;
-
+	
 	public AssetCommand() {
 		this.m_autoenableOptions = new ArrayList<String>();
 		this.m_connectionOptions = new ArrayList<String>();
@@ -266,17 +269,21 @@ public class AssetCommand implements IsSerializable {
 	public String getAdditionalhardware() {
 		return m_additionalhardware;
 	}
-
+	
 	public String getAddress1() {
 		return m_address1;
 	}
-
+	
 	public String getAddress2() {
 		return m_address2;
 	}
 
 	public String getAdmin() {
 		return m_admin;
+	}
+
+	public Boolean getAllowModify() {
+		return this.m_allowModify;
 	}
 
 	public String getAssetNumber() {
@@ -403,16 +410,12 @@ public class AssetCommand implements IsSerializable {
 		return m_loggedInUser;
 	}
 
-	public String getRackunitheight() {
-		return m_rackunitheight;
+	public String getMaintcontract() {
+		return m_maintcontract;
 	}
 
 	public String getMaintContractExpiration() {
 		return m_maintContractExpiration;
-	}
-
-	public String getMaintcontract() {
-		return m_maintcontract;
 	}
 
 	public String getManufacturer() {
@@ -465,6 +468,10 @@ public class AssetCommand implements IsSerializable {
 
 	public String getRack() {
 		return m_rack;
+	}
+
+	public String getRackunitheight() {
+		return m_rackunitheight;
 	}
 
 	public String getRam() {
@@ -565,6 +572,10 @@ public class AssetCommand implements IsSerializable {
 
 	public void setAdmin(String admin) {
 		this.m_admin = admin;
+	}
+
+	public void setAllowModify(Boolean allowModify) {
+		this.m_allowModify = allowModify;
 	}
 
 	public void setAssetNumber(String assetNumber) {
@@ -691,16 +702,12 @@ public class AssetCommand implements IsSerializable {
 		this.m_loggedInUser = m_loggedInUser;
 	}
 
-	public void setRackunitheight(String m_rackunitheight) {
-		this.m_rackunitheight = m_rackunitheight;
+	public void setMaintcontract(String maintcontract) {
+		this.m_maintcontract = maintcontract;
 	}
 
 	public void setMaintContractExpiration(String maintContractExpiration) {
 		this.m_maintContractExpiration = maintContractExpiration;
-	}
-
-	public void setMaintcontract(String maintcontract) {
-		this.m_maintcontract = maintcontract;
 	}
 
 	public void setManufacturer(String manufacturer) {
@@ -753,6 +760,10 @@ public class AssetCommand implements IsSerializable {
 
 	public void setRack(String rack) {
 		this.m_rack = rack;
+	}
+
+	public void setRackunitheight(String m_rackunitheight) {
+		this.m_rackunitheight = m_rackunitheight;
 	}
 
 	public void setRam(String ram) {

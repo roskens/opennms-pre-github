@@ -41,13 +41,10 @@ import org.opennms.netmgt.dao.AssetRecordDao;
 import org.opennms.netmgt.dao.NodeDao;
 import org.opennms.netmgt.model.OnmsAssetRecord;
 import org.opennms.netmgt.model.OnmsNode;
+import org.opennms.web.svclayer.SecurityContextService;
+import org.opennms.web.svclayer.support.SpringSecurityContextService;
 import org.springframework.beans.BeanUtils;
-import org.springframework.security.Authentication;
-import org.springframework.security.context.SecurityContext;
-import org.springframework.security.context.SecurityContextHolder;
-import org.springframework.security.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -68,32 +65,42 @@ public class AssetServiceImpl extends RemoteServiceServlet implements
 	private OnmsNode m_onmsNode;
 
 	private OnmsAssetRecord m_onmsAssetRecord;
-	
+
+	private SecurityContextService m_securityContext;
+
 	/** Constant <code>AUTOENABLE="A"</code> */
 	private static final String AUTOENABLE = "A";
-	
+
 	/** Constant <code>AUTOENABLES="new ArrayList<String> { AUTOENABLE }"</code> */
 	private static final ArrayList<String> s_autoenableOptions = new ArrayList<String>();
-	
+
 	/** Constant <code>SSH_CONNECTION="ssh"</code> */
 	private static final String SSH_CONNECTION = "ssh";
 
 	/** Constant <code>TELNET_CONNECTION="ssh"</code> */
 	private static final String TELNET_CONNECTION = "telnet";
-	
+
 	/** Constant <code>RSH_CONNECTION="rsh"</code> */
 	private static final String RSH_CONNECTION = "rsh";
 
-	/** Constant <code>CONNECTIONS="new ArrayList<String>{ TELNET_CONNECTION,SSH_CO"{trunked}</code> */
+	private static final String ALLOW_EDIT_ROLE_ADMIN = "ROLE_ADMIN";
+
+	private static final String ALLOW_EDIT_ROLE_PROVISION = "ROLE_PROVISION";
+
+	/**
+	 * Constant
+	 * <code>CONNECTIONS="new ArrayList<String>{ TELNET_CONNECTION,SSH_CO"{trunked}</code>
+	 */
 	private static final ArrayList<String> s_connectionOptions = new ArrayList<String>();
-	
-	public AssetServiceImpl () {
-		
-		//TODO: Should be configurable
+
+	public AssetServiceImpl() {
+		this.m_securityContext = new SpringSecurityContextService();
+
+		// TODO: Should be configurable
 		/* Init static strings for autoenable option */
 		s_autoenableOptions.add(AUTOENABLE);
-		
-		//TODO: Should be configurable
+
+		// TODO: Should be configurable
 		/* Init static strings for connection types */
 		s_connectionOptions.add(TELNET_CONNECTION);
 		s_connectionOptions.add(SSH_CONNECTION);
@@ -105,7 +112,7 @@ public class AssetServiceImpl extends RemoteServiceServlet implements
 		AssetCommand assetCommand = new AssetCommand();
 		this.m_onmsNode = this.m_nodeDao.get(nodeId);
 		this.m_onmsAssetRecord = this.m_onmsNode.getAssetRecord();
-		
+
 		// copy all assetRecord properties to assetCommand for gui
 		BeanUtils.copyProperties(this.m_onmsAssetRecord, assetCommand);
 
@@ -115,19 +122,28 @@ public class AssetServiceImpl extends RemoteServiceServlet implements
 		assetCommand.setSnmpSysLocation(this.m_onmsNode.getSysLocation());
 		assetCommand.setSnmpSysName(this.m_onmsNode.getSysName());
 		assetCommand.setSnmpSysObjectId(this.m_onmsNode.getSysObjectId());
-		
+
 		// set static arrays for gui options
 		assetCommand.setAutoenableOptions(s_autoenableOptions);
 		assetCommand.setConnectionOptions(s_connectionOptions);
-		
+
 		assetCommand.setNodeId(this.m_onmsNode.getNodeId());
 		assetCommand.setNodeLabel(this.m_onmsNode.getLabel());
-		
-//		assetCommand.setNextNodeId(this.m_nodeDao.getNextNodeId(nodeId));
-//		assetCommand.setPreviousNodeId(this.m_nodeDao.getPreviousNodeId(nodeId));
+
+		// assetCommand.setNextNodeId(this.m_nodeDao.getNextNodeId(nodeId));
+		// assetCommand.setPreviousNodeId(this.m_nodeDao.getPreviousNodeId(nodeId));
 
 		// set user from web ui session
-		assetCommand.setLoggedInUser("admin");
+		assetCommand.setLoggedInUser(this.m_securityContext.getUsername());
+		
+		// This is a poor re-implementation of modify permission based on spring roles
+		if (this.m_securityContext.hasRole(ALLOW_EDIT_ROLE_ADMIN)
+				|| this.m_securityContext.hasRole(ALLOW_EDIT_ROLE_PROVISION)) {
+			assetCommand.setAllowModify(true);
+		} else {
+			assetCommand.setAllowModify(false);
+		}
+
 		this.m_onmsAssetRecord.setNode(this.m_onmsNode);
 		return assetCommand;
 	}
@@ -196,7 +212,8 @@ public class AssetServiceImpl extends RemoteServiceServlet implements
 
 		BeanUtils.copyProperties(assetCommand, this.m_onmsAssetRecord);
 
-		this.m_onmsAssetRecord.setLastModifiedBy(getUsername());
+		this.m_onmsAssetRecord.setLastModifiedBy(this.m_securityContext
+				.getUsername());
 
 		this.m_onmsAssetRecord.setLastModifiedDate(new Date());
 		this.m_onmsAssetRecord.setNode(this.m_onmsNode);
@@ -213,39 +230,6 @@ public class AssetServiceImpl extends RemoteServiceServlet implements
 		return isSaved;
 	}
 
-	/**
-	 * <p>
-	 * getUsername
-	 * </p>
-	 * 
-	 * @return a {@link java.lang.String} object.
-	 */
-	protected String getUsername() {
-		/*
-		 * This should never be null, as the strategy should create a
-		 * SecurityContext if one doesn't exist, but let's check anyway.
-		 */
-		SecurityContext context = SecurityContextHolder.getContext();
-		Assert.state(context != null,
-				"No security context found when calling SecurityContextHolder.getContext()");
-
-		Authentication auth = context.getAuthentication();
-		Assert.state(
-				auth != null,
-				"No Authentication object found when calling getAuthentication on our SecurityContext object");
-
-		Object obj = auth.getPrincipal();
-		Assert.state(
-				obj != null,
-				"No principal object found when calling getPrinticpal on our Authentication object");
-
-		if (obj instanceof UserDetails) {
-			return ((UserDetails) obj).getUsername();
-		} else {
-			return obj.toString();
-		}
-	}
-	
 	public AssetRecordDao getAssetRecordDao() {
 		return m_assetRecordDao;
 	}
