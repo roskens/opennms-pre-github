@@ -36,244 +36,172 @@ import java.util.Date;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 /**
- * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- * 
+ * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a> </br>
+ *         Command object for asset pages. Contains fields from OnmsAsset and
+ *         additional values needed to show complete ui.
  */
 public class AssetCommand implements IsSerializable {
 
-	/** identifier field */
 	private String m_additionalhardware;
 
-	/** identifier field */
 	private String m_address1;
 
-	/** identifier field */
 	private String m_address2;
 
-	/** identifier field */
 	private String m_admin;
 
-	/** identifier field */
-	private Boolean m_allowModify;
+	private boolean m_allowModify;
 
-	/** identifier field */
 	private String m_assetNumber;
 
-	/** identifier field */
 	private String m_autoenable;
 
-	/** identifier field */
 	private ArrayList<String> m_autoenableOptions;
 
-	/** identifier field */
 	private String m_building;
 
-	/** identifier field */
 	private String m_category;
 
-	/** identifier field */
 	private String m_circuitId;
 
-	/** identifier field */
 	private String m_city;
 
-	/** identifier field */
 	private String m_comment;
 
-	/** identifier field */
 	private String m_connection;
 
-	/** identifier field */
 	private ArrayList<String> m_connectionOptions;
 
-	/** identifier field */
 	private String m_cpu;
 
-	/** identifier field */
 	private String m_dateInstalled;
 
-	/** identifier field */
 	private String m_department;
 
-	/** identifier field */
 	private String m_description;
 
-	/** identifier field */
 	private String m_displayCategory;
 
-	/** identifier field */
 	private String m_division;
 
-	/** identifier field */
 	private String m_enable;
 
-	/** identifier field */
 	private String m_floor;
 
-	/** identifier field */
 	private String m_hdd1;
 
-	/** identifier field */
 	private String m_hdd2;
 
-	/** identifier field */
 	private String m_hdd3;
 
-	/** identifier field */
 	private String m_hdd4;
 
-	/** identifier field */
 	private String m_hdd5;
 
-	/** identifier field */
 	private String m_hdd6;
 
-	/** identifier field */
 	private Integer m_id;
 
-	/** identifier field */
 	private String m_inputpower;
 
-	/** identifier field */
 	private String m_lastModifiedBy;
 
-	/** identifier field */
 	private Date m_lastModifiedDate;
 
-	/** identifier field */
 	private String m_lease;
 
-	/** identifier field */
 	private String m_leaseExpires;
 
-	/** identifier field */
 	private String m_loggedInUser;
 
-	/** identifier field */
 	private String m_maintcontract;
 
-	/** identifier field */
 	private String m_maintContractExpiration;
 
-	/** identifier field */
 	private String m_manufacturer;
 
-	/** identifier field */
 	private String m_modelNumber;
 
-	/** identifier field */
 	private Integer m_nextNodeId;
 
-	/** identifier field */
 	private String m_nodeId;
 
-	/** identifier field */
 	private String m_nodeLabel;
 
-	/** identifier field */
 	private String m_notifyCategory;
 
-	/** identifier field */
 	private String m_numpowersupplies;
 
-	/** identifier field */
 	private String m_operatingSystem;
 
-	/** identifier field */
 	private String m_password;
 
-	/** identifier field */
 	private String m_pollerCategory;
 
-	/** identifier field */
 	private String m_port;
 
-	/** identifier field */
 	private Integer m_previousNodeId;
 
-	/** identifier field */
 	private String m_rack;
 
-	/** identifier field */
 	private String m_rackunitheight;
 
-	/** identifier field */
 	private String m_ram;
 
-	/** identifier field */
 	private String m_region;
 
-	/** identifier field */
 	private String m_room;
 
-	/** identifier field */
 	private String m_serialNumber;
 
-	/** identifier field */
 	private String m_slot;
 
-	/** identifier field */
 	private String m_snmpcommunity;
 
-	/** identifier field */
 	private String m_snmpSysContact;
 
-	/** identifier field */
 	private String m_snmpSysDescription;
 
-	/** identifier field */
 	private String m_snmpSysLocation;
-
-	/** identifier field */
+	
 	private String m_snmpSysName;
 
-	/** identifier field */
 	private String m_snmpSysObjectId;
 
-	/** identifier field */
 	private String m_state;
 
-	/** identifier field */
 	private String m_storagectrl;
 
-	/** identifier field */
 	private String m_supportPhone;
 
-	/** identifier field */
 	private String m_thresholdCategory;
 
-	/** identifier field */
 	private String m_username;
 
-	/** identifier field */
 	private String m_vendor;
 
-	/** identifier field */
 	private String m_vendorAssetNumber;
 
-	/** identifier field */
 	private String m_vendorFax;
 
-	/** identifier field */
 	private String m_vendorPhone;
 
-	/** identifier field */
 	private String m_zip;
-	
+
 	public AssetCommand() {
-		this.m_autoenableOptions = new ArrayList<String>();
-		this.m_connectionOptions = new ArrayList<String>();
-		this.m_lastModifiedDate = new Date();
+		m_autoenableOptions = new ArrayList<String>();
+		m_connectionOptions = new ArrayList<String>();
+		m_lastModifiedDate = new Date();
 	}
 
 	public String getAdditionalhardware() {
 		return m_additionalhardware;
 	}
-	
+
 	public String getAddress1() {
 		return m_address1;
 	}
-	
+
 	public String getAddress2() {
 		return m_address2;
 	}
@@ -282,8 +210,8 @@ public class AssetCommand implements IsSerializable {
 		return m_admin;
 	}
 
-	public Boolean getAllowModify() {
-		return this.m_allowModify;
+	public boolean getAllowModify() {
+		return m_allowModify;
 	}
 
 	public String getAssetNumber() {
@@ -559,31 +487,31 @@ public class AssetCommand implements IsSerializable {
 	}
 
 	public void setAdditionalhardware(String additionalhardware) {
-		this.m_additionalhardware = additionalhardware;
+		m_additionalhardware = additionalhardware;
 	}
 
 	public void setAddress1(String address1) {
-		this.m_address1 = address1;
+		m_address1 = address1;
 	}
 
 	public void setAddress2(String address2) {
-		this.m_address2 = address2;
+		m_address2 = address2;
 	}
 
 	public void setAdmin(String admin) {
-		this.m_admin = admin;
+		m_admin = admin;
 	}
 
-	public void setAllowModify(Boolean allowModify) {
-		this.m_allowModify = allowModify;
+	public void setAllowModify(boolean m_allowModify) {
+		this.m_allowModify = m_allowModify;
 	}
 
 	public void setAssetNumber(String assetNumber) {
-		this.m_assetNumber = assetNumber;
+		m_assetNumber = assetNumber;
 	}
 
 	public void setAutoenable(String autoenable) {
-		this.m_autoenable = autoenable;
+		m_autoenable = autoenable;
 	}
 
 	public void setAutoenableOptions(ArrayList<String> autoenableOptions) {
@@ -591,27 +519,27 @@ public class AssetCommand implements IsSerializable {
 	}
 
 	public void setBuilding(String building) {
-		this.m_building = building;
+		m_building = building;
 	}
 
 	public void setCategory(String category) {
-		this.m_category = category;
+		m_category = category;
 	}
 
 	public void setCircuitId(String circuitId) {
-		this.m_circuitId = circuitId;
+		m_circuitId = circuitId;
 	}
 
 	public void setCity(String city) {
-		this.m_city = city;
+		m_city = city;
 	}
 
 	public void setComment(String comment) {
-		this.m_comment = comment;
+		m_comment = comment;
 	}
 
 	public void setConnection(String connection) {
-		this.m_connection = connection;
+		m_connection = connection;
 	}
 
 	public void setConnectionOptions(ArrayList<String> connectionOptions) {
@@ -619,83 +547,83 @@ public class AssetCommand implements IsSerializable {
 	}
 
 	public void setCpu(String cpu) {
-		this.m_cpu = cpu;
+		m_cpu = cpu;
 	}
 
 	public void setDateInstalled(String dateInstalled) {
-		this.m_dateInstalled = dateInstalled;
+		m_dateInstalled = dateInstalled;
 	}
 
 	public void setDepartment(String department) {
-		this.m_department = department;
+		m_department = department;
 	}
 
 	public void setDescription(String description) {
-		this.m_description = description;
+		m_description = description;
 	}
 
 	public void setDisplayCategory(String displayCategory) {
-		this.m_displayCategory = displayCategory;
+		m_displayCategory = displayCategory;
 	}
 
 	public void setDivision(String division) {
-		this.m_division = division;
+		m_division = division;
 	}
 
 	public void setEnable(String enable) {
-		this.m_enable = enable;
+		m_enable = enable;
 	}
 
 	public void setFloor(String floor) {
-		this.m_floor = floor;
+		m_floor = floor;
 	}
 
 	public void setHdd1(String hdd1) {
-		this.m_hdd1 = hdd1;
+		m_hdd1 = hdd1;
 	}
 
 	public void setHdd2(String hdd2) {
-		this.m_hdd2 = hdd2;
+		m_hdd2 = hdd2;
 	}
 
 	public void setHdd3(String hdd3) {
-		this.m_hdd3 = hdd3;
+		m_hdd3 = hdd3;
 	}
 
 	public void setHdd4(String hdd4) {
-		this.m_hdd4 = hdd4;
+		m_hdd4 = hdd4;
 	}
 
 	public void setHdd5(String hdd5) {
-		this.m_hdd5 = hdd5;
+		m_hdd5 = hdd5;
 	}
 
 	public void setHdd6(String hdd6) {
-		this.m_hdd6 = hdd6;
+		m_hdd6 = hdd6;
 	}
 
 	public void setId(Integer id) {
-		this.m_id = id;
+		m_id = id;
 	}
 
 	public void setInputpower(String inputpower) {
-		this.m_inputpower = inputpower;
+		m_inputpower = inputpower;
 	}
 
 	public void setLastModifiedBy(String lastModifiedBy) {
-		this.m_lastModifiedBy = lastModifiedBy;
+		m_lastModifiedBy = lastModifiedBy;
 	}
 
 	public void setLastModifiedDate(Date lastModifiedDate) {
-		this.m_lastModifiedDate = lastModifiedDate;
+		m_lastModifiedDate = lastModifiedDate;
 	}
 
 	public void setLease(String lease) {
-		this.m_lease = lease;
+		m_lease = lease;
 	}
 
 	public void setLeaseExpires(String leaseExpires) {
-		this.m_leaseExpires = leaseExpires;
+		m_leaseExpires = leaseExpires;
 	}
 
 	public void setLoggedInUser(String m_loggedInUser) {
@@ -703,19 +631,19 @@ public class AssetCommand implements IsSerializable {
 	}
 
 	public void setMaintcontract(String maintcontract) {
-		this.m_maintcontract = maintcontract;
+		m_maintcontract = maintcontract;
 	}
 
 	public void setMaintContractExpiration(String maintContractExpiration) {
-		this.m_maintContractExpiration = maintContractExpiration;
+		m_maintContractExpiration = maintContractExpiration;
 	}
 
 	public void setManufacturer(String manufacturer) {
-		this.m_manufacturer = manufacturer;
+		m_manufacturer = manufacturer;
 	}
 
 	public void setModelNumber(String modelNumber) {
-		this.m_modelNumber = modelNumber;
+		m_modelNumber = modelNumber;
 	}
 
 	public void setNextNodeId(Integer m_nextNodeId) {
@@ -731,27 +659,27 @@ public class AssetCommand implements IsSerializable {
 	}
 
 	public void setNotifyCategory(String notifyCategory) {
-		this.m_notifyCategory = notifyCategory;
+		m_notifyCategory = notifyCategory;
 	}
 
 	public void setNumpowersupplies(String numpowersupplies) {
-		this.m_numpowersupplies = numpowersupplies;
+		m_numpowersupplies = numpowersupplies;
 	}
 
 	public void setOperatingSystem(String operatingSystem) {
-		this.m_operatingSystem = operatingSystem;
+		m_operatingSystem = operatingSystem;
 	}
 
 	public void setPassword(String password) {
-		this.m_password = password;
+		m_password = password;
 	}
 
 	public void setPollerCategory(String pollerCategory) {
-		this.m_pollerCategory = pollerCategory;
+		m_pollerCategory = pollerCategory;
 	}
 
 	public void setPort(String port) {
-		this.m_port = port;
+		m_port = port;
 	}
 
 	public void setPreviousNodeId(Integer m_previousNodeId) {
@@ -759,7 +687,7 @@ public class AssetCommand implements IsSerializable {
 	}
 
 	public void setRack(String rack) {
-		this.m_rack = rack;
+		m_rack = rack;
 	}
 
 	public void setRackunitheight(String m_rackunitheight) {
@@ -767,136 +695,117 @@ public class AssetCommand implements IsSerializable {
 	}
 
 	public void setRam(String ram) {
-		this.m_ram = ram;
+		m_ram = ram;
 	}
 
 	public void setRegion(String region) {
-		this.m_region = region;
+		m_region = region;
 	}
 
 	public void setRoom(String room) {
-		this.m_room = room;
+		m_room = room;
 	}
 
 	public void setSerialNumber(String serialNumber) {
-		this.m_serialNumber = serialNumber;
+		m_serialNumber = serialNumber;
 	}
 
 	public void setSlot(String slot) {
-		this.m_slot = slot;
+		m_slot = slot;
 	}
 
 	public void setSnmpcommunity(String snmpcommunity) {
-		this.m_snmpcommunity = snmpcommunity;
+		m_snmpcommunity = snmpcommunity;
 	}
 
 	public void setSnmpSysContact(String snmpSysContact) {
-		this.m_snmpSysContact = snmpSysContact;
+		m_snmpSysContact = snmpSysContact;
 	}
 
 	public void setSnmpSysDescription(String snmpSysDescription) {
-		this.m_snmpSysDescription = snmpSysDescription;
+		m_snmpSysDescription = snmpSysDescription;
 	}
 
 	public void setSnmpSysLocation(String snmpSysLocation) {
-		this.m_snmpSysLocation = snmpSysLocation;
+		m_snmpSysLocation = snmpSysLocation;
 	}
 
 	public void setSnmpSysName(String snmpSysName) {
-		this.m_snmpSysName = snmpSysName;
+		m_snmpSysName = snmpSysName;
 	}
 
 	public void setSnmpSysObjectId(String snmpSysObjectId) {
-		this.m_snmpSysObjectId = snmpSysObjectId;
+		m_snmpSysObjectId = snmpSysObjectId;
 	}
 
 	public void setState(String state) {
-		this.m_state = state;
+		m_state = state;
 	}
 
 	public void setStoragectrl(String storagectrl) {
-		this.m_storagectrl = storagectrl;
+		m_storagectrl = storagectrl;
 	}
 
 	public void setSupportPhone(String supportPhone) {
-		this.m_supportPhone = supportPhone;
+		m_supportPhone = supportPhone;
 	}
 
 	public void setThresholdCategory(String thresholdCategory) {
-		this.m_thresholdCategory = thresholdCategory;
+		m_thresholdCategory = thresholdCategory;
 	}
 
 	public void setUsername(String username) {
-		this.m_username = username;
+		m_username = username;
 	}
 
 	public void setVendor(String vendor) {
-		this.m_vendor = vendor;
+		m_vendor = vendor;
 	}
 
 	public void setVendorAssetNumber(String vendorAssetNumber) {
-		this.m_vendorAssetNumber = vendorAssetNumber;
+		m_vendorAssetNumber = vendorAssetNumber;
 	}
 
 	public void setVendorFax(String vendorFax) {
-		this.m_vendorFax = vendorFax;
+		m_vendorFax = vendorFax;
 	}
 
 	public void setVendorPhone(String vendorPhone) {
-		this.m_vendorPhone = vendorPhone;
+		m_vendorPhone = vendorPhone;
 	}
 
 	public void setZip(String zip) {
-		this.m_zip = zip;
+		m_zip = zip;
 	}
 
 	@Override
 	public String toString() {
-		return "AssetCommand [m_additionalhardware=" + m_additionalhardware
-				+ ", m_address1=" + m_address1 + ", m_address2=" + m_address2
-				+ ", m_admin=" + m_admin + ", m_assetNumber=" + m_assetNumber
-				+ ", m_autoenable=" + m_autoenable + ", m_autoenableOptions="
-				+ m_autoenableOptions + ", m_building=" + m_building
-				+ ", m_category=" + m_category + ", m_circuitId=" + m_circuitId
-				+ ", m_city=" + m_city + ", m_comment=" + m_comment
-				+ ", m_connection=" + m_connection + ", m_connectionOptions="
-				+ m_connectionOptions + ", m_cpu=" + m_cpu
-				+ ", m_dateInstalled=" + m_dateInstalled + ", m_department="
-				+ m_department + ", m_description=" + m_description
-				+ ", m_displayCategory=" + m_displayCategory + ", m_division="
-				+ m_division + ", m_enable=" + m_enable + ", m_floor="
-				+ m_floor + ", m_hdd1=" + m_hdd1 + ", m_hdd2=" + m_hdd2
-				+ ", m_hdd3=" + m_hdd3 + ", m_hdd4=" + m_hdd4 + ", m_hdd5="
-				+ m_hdd5 + ", m_hdd6=" + m_hdd6 + ", m_id=" + m_id
-				+ ", m_inputpower=" + m_inputpower + ", m_lastModifiedBy="
-				+ m_lastModifiedBy + ", m_lastModifiedDate="
-				+ m_lastModifiedDate + ", m_lease=" + m_lease
-				+ ", m_leaseExpires=" + m_leaseExpires + ", m_loggedInUser="
-				+ m_loggedInUser + ", m_maintContractExpiration="
-				+ m_maintContractExpiration + ", m_maintContract="
-				+ m_maintcontract + ", m_manufacturer=" + m_manufacturer
-				+ ", m_modelNumber=" + m_modelNumber + ", m_nextNodeId="
-				+ m_nextNodeId + ", m_nodeId=" + m_nodeId + ", m_nodeLabel="
-				+ m_nodeLabel + ", m_notifyCategory=" + m_notifyCategory
-				+ ", m_numpowersupplies=" + m_numpowersupplies
-				+ ", m_operatingSystem=" + m_operatingSystem + ", m_password="
-				+ m_password + ", m_pollerCategory=" + m_pollerCategory
-				+ ", m_port=" + m_port + ", m_previousNodeId="
-				+ m_previousNodeId + ", m_rack=" + m_rack
-				+ ", m_rackunitheight=" + m_rackunitheight + ", m_ram=" + m_ram
-				+ ", m_region=" + m_region + ", m_room=" + m_room
-				+ ", m_serialNumber=" + m_serialNumber + ", m_slot=" + m_slot
-				+ ", m_snmpcommunity=" + m_snmpcommunity
-				+ ", m_snmpSysContact=" + m_snmpSysContact
-				+ ", m_snmpSysDescription=" + m_snmpSysDescription
-				+ ", m_snmpSysLocation=" + m_snmpSysLocation
-				+ ", m_snmpSysName=" + m_snmpSysName + ", m_snmpSysObjectId="
-				+ m_snmpSysObjectId + ", m_state=" + m_state
-				+ ", m_storagectrl=" + m_storagectrl + ", m_supportPhone="
-				+ m_supportPhone + ", m_thresholdCategory="
-				+ m_thresholdCategory + ", m_username=" + m_username
-				+ ", m_vendor=" + m_vendor + ", m_vendorAssetNumber="
-				+ m_vendorAssetNumber + ", m_vendorFax=" + m_vendorFax
+		return "AssetCommand [m_additionalhardware=" + m_additionalhardware + ", m_address1=" + m_address1
+				+ ", m_address2=" + m_address2 + ", m_admin=" + m_admin + ", m_allowModify=" + m_allowModify
+				+ ", m_assetNumber=" + m_assetNumber + ", m_autoenable=" + m_autoenable + ", m_autoenableOptions="
+				+ m_autoenableOptions + ", m_building=" + m_building + ", m_category=" + m_category + ", m_circuitId="
+				+ m_circuitId + ", m_city=" + m_city + ", m_comment=" + m_comment + ", m_connection=" + m_connection
+				+ ", m_connectionOptions=" + m_connectionOptions + ", m_cpu=" + m_cpu + ", m_dateInstalled="
+				+ m_dateInstalled + ", m_department=" + m_department + ", m_description=" + m_description
+				+ ", m_displayCategory=" + m_displayCategory + ", m_division=" + m_division + ", m_enable=" + m_enable
+				+ ", m_floor=" + m_floor + ", m_hdd1=" + m_hdd1 + ", m_hdd2=" + m_hdd2 + ", m_hdd3=" + m_hdd3
+				+ ", m_hdd4=" + m_hdd4 + ", m_hdd5=" + m_hdd5 + ", m_hdd6=" + m_hdd6 + ", m_id=" + m_id
+				+ ", m_inputpower=" + m_inputpower + ", m_lastModifiedBy=" + m_lastModifiedBy + ", m_lastModifiedDate="
+				+ m_lastModifiedDate + ", m_lease=" + m_lease + ", m_leaseExpires=" + m_leaseExpires
+				+ ", m_loggedInUser=" + m_loggedInUser + ", m_maintcontract=" + m_maintcontract
+				+ ", m_maintContractExpiration=" + m_maintContractExpiration + ", m_manufacturer=" + m_manufacturer
+				+ ", m_modelNumber=" + m_modelNumber + ", m_nextNodeId=" + m_nextNodeId + ", m_nodeId=" + m_nodeId
+				+ ", m_nodeLabel=" + m_nodeLabel + ", m_notifyCategory=" + m_notifyCategory + ", m_numpowersupplies="
+				+ m_numpowersupplies + ", m_operatingSystem=" + m_operatingSystem + ", m_password=" + m_password
+				+ ", m_pollerCategory=" + m_pollerCategory + ", m_port=" + m_port + ", m_previousNodeId="
+				+ m_previousNodeId + ", m_rack=" + m_rack + ", m_rackunitheight=" + m_rackunitheight + ", m_ram="
+				+ m_ram + ", m_region=" + m_region + ", m_room=" + m_room + ", m_serialNumber=" + m_serialNumber
+				+ ", m_slot=" + m_slot + ", m_snmpcommunity=" + m_snmpcommunity + ", m_snmpSysContact="
+				+ m_snmpSysContact + ", m_snmpSysDescription=" + m_snmpSysDescription + ", m_snmpSysLocation="
+				+ m_snmpSysLocation + ", m_snmpSysName=" + m_snmpSysName + ", m_snmpSysObjectId=" + m_snmpSysObjectId
+				+ ", m_state=" + m_state + ", m_storagectrl=" + m_storagectrl + ", m_supportPhone=" + m_supportPhone
+				+ ", m_thresholdCategory=" + m_thresholdCategory + ", m_username=" + m_username + ", m_vendor="
+				+ m_vendor + ", m_vendorAssetNumber=" + m_vendorAssetNumber + ", m_vendorFax=" + m_vendorFax
 				+ ", m_vendorPhone=" + m_vendorPhone + ", m_zip=" + m_zip + "]";
 	}
 }

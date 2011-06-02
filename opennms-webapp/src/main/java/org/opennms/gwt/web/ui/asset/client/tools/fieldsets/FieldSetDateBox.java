@@ -47,8 +47,15 @@ import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.datepicker.client.DateBox;
 
 /**
- * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- * 
+ * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus
+ *         Neumann</a></br> {@link FieldSet} for displaying and editing
+ *         {@link Dates}. It's working on stings for compatibility reasons with
+ *         old db-code. Works with an internal date format of "yyyy-MM-dd".
+ *         Displays the Date as i18n date format. If the given string is not in
+ *         "yyyy-MM-dd" format, or the input by the ui is not compatible with
+ *         "yyyy-MM-dd" a warning will be set but no errors. So even with
+ *         strange or non date format the {@link FieldSetDateBox} will not block
+ *         the work.
  */
 public class FieldSetDateBox extends AbstractFieldSet implements FieldSet, ValueChangeHandler<Date>, MouseUpHandler,
 		KeyUpHandler {
@@ -58,15 +65,33 @@ public class FieldSetDateBox extends AbstractFieldSet implements FieldSet, Value
 	private final DateTimeFormat localFormater = DateTimeFormat.getFormat(PredefinedFormat.DATE_MEDIUM);
 	private final DateTimeFormat onmsFormater = DateTimeFormat.getFormat("yyyy-MM-dd");
 
+	public FieldSetDateBox(String name, String value, String helpText) {
+		super(name, helpText);
+		init(value, -1);
+	}
+
 	@UiConstructor
 	public FieldSetDateBox(String name, String value, String helpText, int maxLength) {
 		super(name, helpText);
 		init(value, maxLength);
 	}
 
-	public FieldSetDateBox(String name, String value, String helpText) {
-		super(name, helpText);
-		init(value, -1);
+	/**
+	 * Returns internal value, if possible as "yyyy-MM-dd" like sting
+	 * representation of date. But returned string can be any string if the
+	 * users is not following the warnings.
+	 * 
+	 * @return String value
+	 */
+	@Override
+	public String getValue() {
+		String result;
+		try {
+			result = onmsFormater.format(dateBox.getValue());
+		} catch (Exception e) {
+			result = dateBox.getTextBox().getValue();
+		}
+		return result;
 	}
 
 	private void init(String value, int maxLength) {
@@ -77,7 +102,7 @@ public class FieldSetDateBox extends AbstractFieldSet implements FieldSet, Value
 		addWarningValidator(new StringDateLocalValidator());
 
 		try {
-			dateBox.setValue(onmsFormater.parse(value));
+			dateBox.setValue(onmsFormater.parseStrict(value));
 		} catch (IllegalArgumentException e) {
 			dateBox.getTextBox().setText(value);
 		}
@@ -95,32 +120,8 @@ public class FieldSetDateBox extends AbstractFieldSet implements FieldSet, Value
 		panel.add(dateBox);
 	}
 
-	public void setEnabled(Boolean enabled) {
-		dateBox.getTextBox().setEnabled(enabled);
-	}
-
-	public String getValue() {
-		String result;
-		try {
-			result = onmsFormater.format(dateBox.getValue());
-		} catch (Exception e) {
-			result = dateBox.getTextBox().getValue();
-		}
-		return result;
-	}
-
-	public void setValue(String value) {
-		try {
-			dateBox.setValue(onmsFormater.parse(value));
-		} catch (Exception e) {
-			dateBox.getTextBox().setText(value);
-		}
-		inititalValue = value;
-		validate(this.getValue());
-	}
-
 	@Override
-	public void onValueChange(ValueChangeEvent<Date> event) {
+	public void onKeyUp(KeyUpEvent event) {
 		checkField();
 	}
 
@@ -130,7 +131,30 @@ public class FieldSetDateBox extends AbstractFieldSet implements FieldSet, Value
 	}
 
 	@Override
-	public void onKeyUp(KeyUpEvent event) {
+	public void onValueChange(ValueChangeEvent<Date> event) {
 		checkField();
+	}
+
+	@Override
+	public void setEnabled(Boolean enabled) {
+		dateBox.getTextBox().setEnabled(enabled);
+	}
+
+	/**
+	 * To get a valid input without warnings use "yyyy-MM-dd" formated string
+	 * representation of date. But any string can be set to the value.
+	 * 
+	 * @param String
+	 *            value
+	 */
+	@Override
+	public void setValue(String value) {
+		try {
+			dateBox.setValue(onmsFormater.parseStrict(value));
+		} catch (Exception e) {
+			dateBox.getTextBox().setText(value);
+		}
+		inititalValue = value;
+		validate(this.getValue());
 	}
 }

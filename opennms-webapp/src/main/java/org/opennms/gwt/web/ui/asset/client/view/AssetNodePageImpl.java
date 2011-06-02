@@ -31,7 +31,6 @@
 package org.opennms.gwt.web.ui.asset.client.view;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import org.opennms.gwt.web.ui.asset.client.AssetPageConstants;
 import org.opennms.gwt.web.ui.asset.client.presenter.AssetPagePresenter;
@@ -69,25 +68,32 @@ import com.google.gwt.user.client.ui.Widget;
 
 /**
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- * 
+ * AssetNodePage java part. Corresponding ui-binder xml {@link AssetNodePage.ui.xml}.
+ * Most parts are mapping code to fill the ui {@link FieldSets} 
+ * from the command objects {@link AssetCommand}  {@link AssetSuggCommand} and back.
+ * Adding some validators to {@link FieldSets}.
+ * Mapping code may be replaced by implementing GWT Editor framework.
  */
 public class AssetNodePageImpl extends Composite implements AssetPagePresenter.Display {
 
-	private static AssetNodePageUiBinder uiBinder = GWT.create(AssetNodePageUiBinder.class);
-
+	/**
+	 * Recommended GWT MVP and UI-Binder design
+	 */
 	@UiTemplate("AssetNodePage.ui.xml")
 	interface AssetNodePageUiBinder extends UiBinder<Widget, AssetNodePageImpl> {
 	}
+
+	private static AssetNodePageUiBinder uiBinder = GWT.create(AssetNodePageUiBinder.class);
 
 	private AssetPageConstants con = GWT.create(AssetPageConstants.class);
 
 	AssetCommand m_asset;
 
-	@UiField 
+	@UiField
 	Label nodeInfoLabel;
 	@UiField
 	Anchor nodeInfoLink;
-	
+
 	@UiField
 	VerticalPanel mainPanel;
 
@@ -99,17 +105,17 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
 	@UiField
 	DisclosurePanelCookie snmpDiscPanel;
 
-	@UiField 
+	@UiField
 	FieldSetTextDisplay sSystemId;
-	@UiField 
+	@UiField
 	FieldSetTextDisplay sSystemName;
-	@UiField 
+	@UiField
 	FieldSetTextDisplay sSystemLocation;
-	@UiField 
+	@UiField
 	FieldSetTextDisplay sSystemContact;
-	@UiField 
+	@UiField
 	FieldSetTextDisplay sSystemDescription;
-	
+
 	@UiField
 	FieldSetSuggestBox sDisplayCat;
 	@UiField
@@ -250,14 +256,52 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
 		initUiElementList();
 	}
 
+	@Override
+	public Widget asWidget() {
+		return this;
+	}
+
+	@Override
+	public void cleanUp() {
+		for (FieldSet fs : fieldSetList) {
+			fs.clearChanged();
+		}
+	}
+
+	@Override
+	public AssetCommand getData() {
+		saveDataConfigCategories();
+		saveDataIdentification();
+		saveDataLocation();
+		saveDataVendor();
+		saveDataAuthentication();
+		saveDataHardware();
+		saveDataComments();
+
+		return m_asset;
+	}
+
+	@Override
+	public HasClickHandlers getResetButton() {
+		return resetButton;
+	}
+
+	@Override
+	public HasClickHandlers getSaveButton() {
+		return saveButton;
+	}
+	
+	/**
+	 * Set up a list of all {@link FieldSet}s of the ui.
+	 */
 	private void initUiElementList() {
-		
+
 		fieldSetList.add(sSystemId);
 		fieldSetList.add(sSystemName);
 		fieldSetList.add(sSystemLocation);
 		fieldSetList.add(sSystemContact);
 		fieldSetList.add(sSystemDescription);
-		
+
 		fieldSetList.add(sDisplayCat);
 		fieldSetList.add(sNotificationCat);
 		fieldSetList.add(sPollerCat);
@@ -324,133 +368,27 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
 		fieldSetList.add(sComment);
 	}
 
-	public void setData(AssetCommand asset) {
-		this.m_asset = asset;
-		if (m_asset.getLoggedInUser().equalsIgnoreCase("admin")) {
-			setEnable(true);
-		} else {
-			setEnable(false);
+	@Override
+	public boolean isUiValid() {
+		for (FieldSet fs : fieldSetList) {
+			if (!fs.getError().isEmpty()) {
+				return false;
+			}
 		}
-		nodeInfoLabel.setText(asset.getNodeLabel() + " " + con.nodeIdLabel() + " " + asset.getNodeId());
-		nodeInfoLink.setHref("element/node.jsp?node=" + asset.getNodeId());
-		nodeInfoLink.setHTML(con.nodeInfoLink());
-		setDataSNMP(m_asset);
-		setDataConfigCategories(m_asset);
-		setDataIdentification(m_asset);
-		setDataLocation(m_asset);
-		setDataVendor(m_asset);
-		setDataAuthentication(m_asset);
-		setDataHardware(m_asset);
-		setDataComments(m_asset);
-		DateTimeFormat m_formater = DateTimeFormat.getFormat(PredefinedFormat.DATE_TIME_MEDIUM);
-		lastModified.setText(con.lastModified() + " " + m_formater.format(asset.getLastModifiedDate()) + " | "
-				+ asset.getLastModifiedBy());
+		return true;
 	}
 
-	private void setDataSNMP(AssetCommand asset) {
-
-		if ((asset.getSnmpSysObjectId().equals("")) || (asset.getSnmpSysObjectId() == null)) {
-			snmpDiscPanel.setVisible(false);
-		} else {
-			sSystemId.setValue(asset.getSnmpSysObjectId());
-			sSystemName.setValue(asset.getSnmpSysName());
-			sSystemLocation.setValue(asset.getSnmpSysLocation());
-			sSystemContact.setValue(asset.getSnmpSysContact());
-			sSystemDescription.setValue(asset.getSnmpSysDescription());
-			snmpDiscPanel.setVisible(true);
-		}
+	private void saveDataAuthentication() {
+		m_asset.setUsername(sUserName.getValue());
+		m_asset.setPassword(sPassword.getValue());
+		m_asset.setEnable(sEnablePassword.getValue());
+		m_asset.setConnection(sConnection.getValue());
+		m_asset.setAutoenable(sAutoEnable.getValue());
+		m_asset.setSnmpcommunity(sSnmpcommunity.getValue());
 	}
 
-	private void setDataConfigCategories(AssetCommand asset) {
-		sDisplayCat.setValue(asset.getDisplayCategory());
-		sNotificationCat.setValue(asset.getNotifyCategory());
-		sPollerCat.setValue(asset.getPollerCategory());
-		sThresholdCat.setValue(asset.getThresholdCategory());
-	}
-
-	private void setDataIdentification(AssetCommand asset) {
-		sDescription.setValue(asset.getDescription());
-		sAssetCategory.setValue(asset.getCategory());
-		sManufacturer.setValue(asset.getManufacturer());
-		sModelNumber.setValue(asset.getModelNumber());
-		sSerialNumber.setValue(asset.getSerialNumber());
-		sAssetNumber.setValue(asset.getAssetNumber());
-		sOperatingSystem.setValue(asset.getOperatingSystem());
-		sDateInstalled.setValue(asset.getDateInstalled());
-	}
-
-	private void setDataLocation(AssetCommand asset) {
-		sRegion.setValue(asset.getRegion());
-		sDivision.setValue(asset.getDivision());
-		sDepartment.setValue(asset.getDepartment());
-		sAddress1.setValue(asset.getAddress1());
-		sAddress2.setValue(asset.getAddress2());
-		sCity.setValue(asset.getCity());
-		sState.setValue(asset.getState());
-		sZip.setValue(asset.getZip());
-		sBuilding.setValue(asset.getBuilding());
-		sFloor.setValue(asset.getFloor());
-		sRoom.setValue(asset.getRoom());
-		sRack.setValue(asset.getRack());
-		sSlot.setValue(asset.getSlot());
-		sRackUnitHight.setValue(asset.getRackunitheight());
-		sPort.setValue(asset.getPort());
-		sCircuitId.setValue(asset.getCircuitId());
-		sAdmin.setValue(asset.getAdmin());
-	}
-
-	private void setDataVendor(AssetCommand asset) {
-		sVendorName.setValue(asset.getVendor());
-		sPhone.setValue(asset.getVendorPhone());
-		sFax.setValue(asset.getVendorFax());
-		sLease.setValue(asset.getLease());
-		sLeaseExpires.setValue(asset.getLeaseExpires());
-		sVendorAsset.setValue(asset.getVendorAssetNumber());
-		sMaintContract.setValue(asset.getMaintcontract());
-		sContractExpires.setValue(asset.getMaintContractExpiration());
-		sMaintPhone.setValue(asset.getSupportPhone());
-	}
-
-	private void setDataAuthentication(AssetCommand asset) {
-		sUserName.setValue(asset.getUsername());
-		sPassword.setValue(asset.getPassword());
-		sEnablePassword.setValue(asset.getEnable());
-		sConnection.setOptions(asset.getConnectionOptions());
-		sConnection.setValue(asset.getConnection());
-		sAutoEnable.setOptions(asset.getAutoenableOptions());
-		sAutoEnable.setValue(asset.getAutoenable());
-		sSnmpcommunity.setValue(asset.getSnmpcommunity());
-	}
-
-	private void setDataHardware(AssetCommand asset) {
-		sCpu.setValue(asset.getCpu());
-		sRam.setValue(asset.getRam());
-		sStoragectrl.setValue(asset.getStoragectrl());
-		sAdditionalhardware.setValue(asset.getAdditionalhardware());
-		sNumpowersupplies.setValue(asset.getNumpowersupplies());
-		sInputpower.setValue(asset.getInputpower());
-		sHdd1.setValue(asset.getHdd1());
-		sHdd2.setValue(asset.getHdd2());
-		sHdd3.setValue(asset.getHdd3());
-		sHdd4.setValue(asset.getHdd4());
-		sHdd5.setValue(asset.getHdd5());
-		sHdd6.setValue(asset.getHdd6());
-	}
-
-	private void setDataComments(AssetCommand asset) {
-		sComment.setValue(asset.getComment());
-	}
-
-	public AssetCommand getData() {
-		saveDataConfigCategories();
-		saveDataIdentification();
-		saveDataLocation();
-		saveDataVendor();
-		saveDataAuthentication();
-		saveDataHardware();
-		saveDataComments();
-
-		return m_asset;
+	private void saveDataComments() {
+		m_asset.setComment(sComment.getValue());
 	}
 
 	private void saveDataConfigCategories() {
@@ -458,6 +396,22 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
 		m_asset.setNotifyCategory(sNotificationCat.getValue());
 		m_asset.setPollerCategory(sPollerCat.getValue());
 		m_asset.setThresholdCategory(sThresholdCat.getValue());
+	}
+
+	private void saveDataHardware() {
+		m_asset.setCpu(sCpu.getValue());
+		m_asset.setRam(sRam.getValue());
+		m_asset.setStoragectrl(sStoragectrl.getValue());
+		m_asset.setAdditionalhardware(sAdditionalhardware.getValue());
+		m_asset.setNumpowersupplies(sNumpowersupplies.getValue());
+		m_asset.setInputpower(sInputpower.getValue());
+
+		m_asset.setHdd1(sHdd1.getValue());
+		m_asset.setHdd2(sHdd2.getValue());
+		m_asset.setHdd3(sHdd3.getValue());
+		m_asset.setHdd4(sHdd4.getValue());
+		m_asset.setHdd5(sHdd5.getValue());
+		m_asset.setHdd6(sHdd6.getValue());
 	}
 
 	private void saveDataIdentification() {
@@ -503,35 +457,109 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
 		m_asset.setSupportPhone(sMaintPhone.getValue());
 	}
 
-	private void saveDataAuthentication() {
-		m_asset.setUsername(sUserName.getValue());
-		m_asset.setPassword(sPassword.getValue());
-		m_asset.setEnable(sEnablePassword.getValue());
-		m_asset.setConnection(sConnection.getValue());
-		m_asset.setAutoenable(sAutoEnable.getValue());
-		m_asset.setSnmpcommunity(sSnmpcommunity.getValue());
+	@Override
+	public void setData(AssetCommand asset) {
+		m_asset = asset;
+		
+		nodeInfoLabel.setText(asset.getNodeLabel() + " " + con.nodeIdLabel() + " " + asset.getNodeId());
+		nodeInfoLink.setHref("element/node.jsp?node=" + asset.getNodeId());
+		nodeInfoLink.setHTML(con.nodeInfoLink());
+		setDataSNMP(m_asset);
+		setDataConfigCategories(m_asset);
+		setDataIdentification(m_asset);
+		setDataLocation(m_asset);
+		setDataVendor(m_asset);
+		setDataAuthentication(m_asset);
+		setDataHardware(m_asset);
+		setDataComments(m_asset);
+		DateTimeFormat m_formater = DateTimeFormat.getFormat(PredefinedFormat.DATE_TIME_MEDIUM);
+		lastModified.setText(con.lastModified() + " " + m_formater.format(asset.getLastModifiedDate()) + " | "
+				+ asset.getLastModifiedBy());
 	}
 
-	private void saveDataHardware() {
-		m_asset.setCpu(sCpu.getValue());
-		m_asset.setRam(sRam.getValue());
-		m_asset.setStoragectrl(sStoragectrl.getValue());
-		m_asset.setAdditionalhardware(sAdditionalhardware.getValue());
-		m_asset.setNumpowersupplies(sNumpowersupplies.getValue());
-		m_asset.setInputpower(sInputpower.getValue());
-
-		m_asset.setHdd1(sHdd1.getValue());
-		m_asset.setHdd2(sHdd2.getValue());
-		m_asset.setHdd3(sHdd3.getValue());
-		m_asset.setHdd4(sHdd4.getValue());
-		m_asset.setHdd5(sHdd5.getValue());
-		m_asset.setHdd6(sHdd6.getValue());
+	private void setDataAuthentication(AssetCommand asset) {
+		sUserName.setValue(asset.getUsername());
+		sPassword.setValue(asset.getPassword());
+		sEnablePassword.setValue(asset.getEnable());
+		sConnection.setOptions(asset.getConnectionOptions());
+		sConnection.setValue(asset.getConnection());
+		sAutoEnable.setOptions(asset.getAutoenableOptions());
+		sAutoEnable.setValue(asset.getAutoenable());
+		sSnmpcommunity.setValue(asset.getSnmpcommunity());
 	}
 
-	private void saveDataComments() {
-		m_asset.setComment(sComment.getValue());
+	private void setDataComments(AssetCommand asset) {
+		sComment.setValue(asset.getComment());
 	}
 
+	private void setDataConfigCategories(AssetCommand asset) {
+		sDisplayCat.setValue(asset.getDisplayCategory());
+		sNotificationCat.setValue(asset.getNotifyCategory());
+		sPollerCat.setValue(asset.getPollerCategory());
+		sThresholdCat.setValue(asset.getThresholdCategory());
+	}
+
+	private void setDataHardware(AssetCommand asset) {
+		sCpu.setValue(asset.getCpu());
+		sRam.setValue(asset.getRam());
+		sStoragectrl.setValue(asset.getStoragectrl());
+		sAdditionalhardware.setValue(asset.getAdditionalhardware());
+		sNumpowersupplies.setValue(asset.getNumpowersupplies());
+		sInputpower.setValue(asset.getInputpower());
+		sHdd1.setValue(asset.getHdd1());
+		sHdd2.setValue(asset.getHdd2());
+		sHdd3.setValue(asset.getHdd3());
+		sHdd4.setValue(asset.getHdd4());
+		sHdd5.setValue(asset.getHdd5());
+		sHdd6.setValue(asset.getHdd6());
+	}
+
+	private void setDataIdentification(AssetCommand asset) {
+		sDescription.setValue(asset.getDescription());
+		sAssetCategory.setValue(asset.getCategory());
+		sManufacturer.setValue(asset.getManufacturer());
+		sModelNumber.setValue(asset.getModelNumber());
+		sSerialNumber.setValue(asset.getSerialNumber());
+		sAssetNumber.setValue(asset.getAssetNumber());
+		sOperatingSystem.setValue(asset.getOperatingSystem());
+		sDateInstalled.setValue(asset.getDateInstalled());
+	}
+
+	private void setDataLocation(AssetCommand asset) {
+		sRegion.setValue(asset.getRegion());
+		sDivision.setValue(asset.getDivision());
+		sDepartment.setValue(asset.getDepartment());
+		sAddress1.setValue(asset.getAddress1());
+		sAddress2.setValue(asset.getAddress2());
+		sCity.setValue(asset.getCity());
+		sState.setValue(asset.getState());
+		sZip.setValue(asset.getZip());
+		sBuilding.setValue(asset.getBuilding());
+		sFloor.setValue(asset.getFloor());
+		sRoom.setValue(asset.getRoom());
+		sRack.setValue(asset.getRack());
+		sSlot.setValue(asset.getSlot());
+		sRackUnitHight.setValue(asset.getRackunitheight());
+		sPort.setValue(asset.getPort());
+		sCircuitId.setValue(asset.getCircuitId());
+		sAdmin.setValue(asset.getAdmin());
+	}
+
+	private void setDataSNMP(AssetCommand asset) {
+
+		if ((asset.getSnmpSysObjectId().equals("")) || (asset.getSnmpSysObjectId() == null)) {
+			snmpDiscPanel.setVisible(false);
+		} else {
+			sSystemId.setValue(asset.getSnmpSysObjectId());
+			sSystemName.setValue(asset.getSnmpSysName());
+			sSystemLocation.setValue(asset.getSnmpSysLocation());
+			sSystemContact.setValue(asset.getSnmpSysContact());
+			sSystemDescription.setValue(asset.getSnmpSysDescription());
+			snmpDiscPanel.setVisible(true);
+		}
+	}
+
+	@Override
 	public void setDataSugg(AssetSuggCommand assetSugg) {
 		setDataSuggConfigCategories(assetSugg);
 		setDataSuggIdentification(assetSugg);
@@ -541,11 +569,30 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
 		setDataSuggHardware(assetSugg);
 	}
 
+	private void setDataSuggAuth(AssetSuggCommand assetSugg) {
+		sSnmpcommunity.setSuggestions(assetSugg.getSnmpcommunity());
+	}
+
 	private void setDataSuggConfigCategories(AssetSuggCommand assetSugg) {
 		sDisplayCat.setSuggestions(assetSugg.getDisplayCategory());
 		sNotificationCat.setSuggestions(assetSugg.getNotifyCategory());
 		sPollerCat.setSuggestions(assetSugg.getPollerCategory());
 		sThresholdCat.setSuggestions(assetSugg.getThresholdCategory());
+	}
+
+	private void setDataSuggHardware(AssetSuggCommand assetSugg) {
+		sCpu.setSuggestions(assetSugg.getCpu());
+		sRam.setSuggestions(assetSugg.getRam());
+		sStoragectrl.setSuggestions(assetSugg.getStoragectrl());
+		sAdditionalhardware.setSuggestions(assetSugg.getAdditionalhardware());
+		sNumpowersupplies.setSuggestions(assetSugg.getNumpowersupplies());
+		sInputpower.setSuggestions(assetSugg.getInputpower());
+		sHdd1.setSuggestions(assetSugg.getHdd1());
+		sHdd2.setSuggestions(assetSugg.getHdd2());
+		sHdd3.setSuggestions(assetSugg.getHdd3());
+		sHdd4.setSuggestions(assetSugg.getHdd4());
+		sHdd5.setSuggestions(assetSugg.getHdd5());
+		sHdd6.setSuggestions(assetSugg.getHdd6());
 	}
 
 	private void setDataSuggIdentification(AssetSuggCommand assetSugg) {
@@ -582,56 +629,25 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
 		sMaintPhone.setSuggestions(assetSugg.getSupportPhone());
 	}
 
-	private void setDataSuggAuth(AssetSuggCommand assetSugg) {
-		sSnmpcommunity.setSuggestions(assetSugg.getSnmpcommunity());
+	private void setDataVendor(AssetCommand asset) {
+		sVendorName.setValue(asset.getVendor());
+		sPhone.setValue(asset.getVendorPhone());
+		sFax.setValue(asset.getVendorFax());
+		sLease.setValue(asset.getLease());
+		sLeaseExpires.setValue(asset.getLeaseExpires());
+		sVendorAsset.setValue(asset.getVendorAssetNumber());
+		sMaintContract.setValue(asset.getMaintcontract());
+		sContractExpires.setValue(asset.getMaintContractExpiration());
+		sMaintPhone.setValue(asset.getSupportPhone());
 	}
 
-	private void setDataSuggHardware(AssetSuggCommand assetSugg) {
-		sCpu.setSuggestions(assetSugg.getCpu());
-		sRam.setSuggestions(assetSugg.getRam());
-		sStoragectrl.setSuggestions(assetSugg.getStoragectrl());
-		sAdditionalhardware.setSuggestions(assetSugg.getAdditionalhardware());
-		sNumpowersupplies.setSuggestions(assetSugg.getNumpowersupplies());
-		sInputpower.setSuggestions(assetSugg.getInputpower());
-		sHdd1.setSuggestions(assetSugg.getHdd1());
-		sHdd2.setSuggestions(assetSugg.getHdd2());
-		sHdd3.setSuggestions(assetSugg.getHdd3());
-		sHdd4.setSuggestions(assetSugg.getHdd4());
-		sHdd5.setSuggestions(assetSugg.getHdd5());
-		sHdd6.setSuggestions(assetSugg.getHdd6());
-	}
-
-	public void setInfo(String info) {
-		lInfoTop.setText(info);
-		lInfoBottom.setText(info);
-	}
-
-	public Widget asWidget() {
-		return this;
-	}
-
+	@Override
 	public void setEnable(Boolean enabled) {
-		for (Iterator<FieldSet> fieldSetIter = fieldSetList.iterator(); fieldSetIter.hasNext();) {
-			fieldSetIter.next().setEnabled(enabled);
+		for (FieldSet fieldSet : fieldSetList) {
+			fieldSet.setEnabled(enabled);
 		}
 		saveButton.setEnabled(enabled);
 		resetButton.setEnabled(enabled);
-	}
-
-	public void cleanUp() {
-		for (Iterator<FieldSet> fieldSetIter = fieldSetList.iterator(); fieldSetIter.hasNext();) {
-			FieldSet fs = fieldSetIter.next();
-			fs.clearChanged();
-			// fs.clearError();
-		}
-	}
-
-	public HasClickHandlers getSaveButton() {
-		return saveButton;
-	}
-
-	public HasClickHandlers getResetButton() {
-		return resetButton;
 	}
 
 	@Override
@@ -657,6 +673,7 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
 		dialog.setWidget(panel);
 		ok.addClickHandler(new ClickHandler() {
 
+			@Override
 			public void onClick(ClickEvent arg0) {
 				dialog.hide();
 			}
@@ -665,13 +682,9 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
 		dialog.show();
 	}
 
-	public boolean isUiValid() {
-		for (Iterator<FieldSet> fieldSetIter = fieldSetList.iterator(); fieldSetIter.hasNext();) {
-			FieldSet fs = fieldSetIter.next();
-			if(!fs.getError().isEmpty()){
-				return false;
-			}
-		}
-		return true;
+	@Override
+	public void setInfo(String info) {
+		lInfoTop.setText(info);
+		lInfoBottom.setText(info);
 	}
 }

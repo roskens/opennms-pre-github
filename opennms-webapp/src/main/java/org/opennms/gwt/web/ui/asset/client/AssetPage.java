@@ -37,19 +37,20 @@ import com.google.gwt.user.client.rpc.ServiceDefTarget;
 import com.google.gwt.user.client.ui.RootPanel;
 /**
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- * 
+ * EntryPoint of asset module. Following GWT MVP design.
  */
 public class AssetPage implements EntryPoint {
 
 	private AssetServiceAsync m_assetServiceAsync;
 
 	public void onModuleLoad() {
+		AssetServiceAsync rpcService = getAssetService();
+		HandlerManager eventBus = new HandlerManager(null);
+		AppController appViewer = new AppController(rpcService, eventBus);
+		
 		if (RootPanel.get("opennms-assetNodePage") != null) {
-			AssetServiceAsync rpcService = getAssetService();
-			HandlerManager eventBus = new HandlerManager(null);
-			AppController appViewer = new AppController(rpcService, eventBus);
 			appViewer.go(RootPanel.get("opennms-assetNodePage"));
-		}//not my page to be
+		}
 	}
 
 	private AssetServiceAsync getAssetService() {

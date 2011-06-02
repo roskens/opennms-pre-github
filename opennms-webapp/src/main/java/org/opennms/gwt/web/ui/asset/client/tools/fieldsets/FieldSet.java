@@ -34,29 +34,92 @@ import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.FocusHandler;
 
 /**
- * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- * 
+ * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a> A
+ *         FieldSet is a pair of a describing label/name and a value/input. It's
+ *         intended to make data-input and data-maintenance pages easier. It's
+ *         string based.
  */
 public interface FieldSet extends FocusHandler, ChangeHandler {
 
-	public abstract Boolean getEnabled();
+	/**
+	 * Clears the status changed from a {@link FieldSet}.
+	 */
+	public abstract void clearChanged();
 
-	public abstract void setEnabled(Boolean enabled);
-
-	public abstract String getValue();
-
-	public abstract void setValue(String value);
-
-	public abstract String getLabel();
-
-	public abstract void setLabel(String lable);
-
-	public abstract void setError(String error);
-
+	/**
+	 * clears all error strings from a {@link FieldSet}.
+	 */
 	public abstract void clearErrors();
 
-	public abstract void clearChanged();
-	
+	/**
+	 * clears all warning strings from a {@link FieldSet}.
+	 */
+	public abstract void clearWarnings();
+
+	/**
+	 * @return boolean enabled if writing/changes are allowed/active.
+	 */
+	public abstract Boolean getEnabled();
+
+	/**
+	 * Get the complete error string for the {@link FieldSet}.
+	 * 
+	 * @return String error
+	 */
 	public abstract String getError();
 
+	/**
+	 * Get the description/label text of the {@link FieldSet}.
+	 * 
+	 * @return String label
+	 */
+	public abstract String getLabel();
+
+	/**
+	 * @return actual value of {@link FieldSet}.
+	 */
+	public abstract String getValue();
+
+	/**
+	 * Get the complete warning string for the {@link FieldSet}.
+	 * 
+	 * @return String warning
+	 */
+	public abstract String getWarning();
+
+	/**
+	 * Set the {@link FieldSet} into write/write-protected mode.
+	 * 
+	 * @param enabled
+	 *            to get write-mode disable to get write-protected mode
+	 */
+	public abstract void setEnabled(Boolean enabled);
+
+	/**
+	 * Set a error string to the {@link FieldSet}.
+	 * 
+	 * @param error
+	 */
+	public abstract void setError(String error);
+
+	/**
+	 * Sets a text into the description/label of the {@link FieldSet}.
+	 * 
+	 * @param label
+	 */
+	public abstract void setLabel(String label);
+
+	/**
+	 * Sets a value into the value/input of the {@link FieldSet}.
+	 * 
+	 * @param value
+	 */
+	public abstract void setValue(String value);
+
+	/**
+	 * Set a warning string to the {@link FieldSet}.
+	 * 
+	 * @param warning
+	 */
+	public abstract void setWarning(String warning);
 }

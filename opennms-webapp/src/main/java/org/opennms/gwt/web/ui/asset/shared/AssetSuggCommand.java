@@ -31,18 +31,21 @@
 package org.opennms.gwt.web.ui.asset.shared;
 
 import java.util.Collection;
-import java.util.TreeSet;
 import java.util.Set;
+import java.util.TreeSet;
+
+import org.opennms.gwt.web.ui.asset.client.tools.fieldsets.FieldSetSuggestBox;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 /**
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- * @author <a href="mailto:ronny@opennms.org">Ronny Trommer</a>
- * 
+ * @author <a href="mailto:ronny@opennms.org">Ronny Trommer</a> Command object
+ *         to transfer suggestions for {@link FieldSetSuggestBox}es to ui.
+ *         Contains ordered treesets for each suggestion list.
  */
 public class AssetSuggCommand implements IsSerializable {
-	
+
 	private Set<String> m_additionalhardware;
 
 	private Set<String> m_address1;
@@ -128,471 +131,513 @@ public class AssetSuggCommand implements IsSerializable {
 	private Set<String> m_zip;
 
 	public AssetSuggCommand() {
-		this.m_additionalhardware = new TreeSet<String>();
-		this.m_address1 = new TreeSet<String>();
-		this.m_address2 = new TreeSet<String>();
-		this.m_admin = new TreeSet<String>();
-		this.m_building = new TreeSet<String>();
-		this.m_category = new TreeSet<String>();
-		this.m_circuitId = new TreeSet<String>();
-		this.m_city = new TreeSet<String>();
-		this.m_cpu = new TreeSet<String>();
-		this.m_department = new TreeSet<String>();
-		this.m_description = new TreeSet<String>();
-		this.m_displayCategory = new TreeSet<String>();
-		this.m_division = new TreeSet<String>();
-		this.m_floor = new TreeSet<String>();
-		this.m_hdd1 = new TreeSet<String>();
-		this.m_hdd2 = new TreeSet<String>();
-		this.m_hdd3 = new TreeSet<String>();
-		this.m_hdd4 = new TreeSet<String>();
-		this.m_hdd5 = new TreeSet<String>();
-		this.m_hdd6 = new TreeSet<String>();
-		this.m_inputpower = new TreeSet<String>();
-		this.m_lease = new TreeSet<String>();
-		this.m_maintcontract = new TreeSet<String>();
-		this.m_manufacturer = new TreeSet<String>();
-		this.m_modelNumber = new TreeSet<String>();
-		this.m_notifyCategory = new TreeSet<String>();
-		this.m_numpowersupplies = new TreeSet<String>();
-		this.m_operatingSystem = new TreeSet<String>();
-		this.m_pollerCategory = new TreeSet<String>();
-		this.m_rack = new TreeSet<String>();
-		this.m_ram = new TreeSet<String>();
-		this.m_region = new TreeSet<String>();
-		this.m_room = new TreeSet<String>();
-		this.m_snmpcommunity = new TreeSet<String>();
-		this.m_state = new TreeSet<String>();
-		this.m_storagectrl = new TreeSet<String>();
-		this.m_supportPhone = new TreeSet<String>();
-		this.m_thresholdCategory = new TreeSet<String>();
-		this.m_vendor = new TreeSet<String>();
-		this.m_vendorFax = new TreeSet<String>();
-		this.m_vendorPhone = new TreeSet<String>();
-		this.m_zip = new TreeSet<String>();
+		m_additionalhardware = new TreeSet<String>();
+		m_address1 = new TreeSet<String>();
+		m_address2 = new TreeSet<String>();
+		m_admin = new TreeSet<String>();
+		m_building = new TreeSet<String>();
+		m_category = new TreeSet<String>();
+		m_circuitId = new TreeSet<String>();
+		m_city = new TreeSet<String>();
+		m_cpu = new TreeSet<String>();
+		m_department = new TreeSet<String>();
+		m_description = new TreeSet<String>();
+		m_displayCategory = new TreeSet<String>();
+		m_division = new TreeSet<String>();
+		m_floor = new TreeSet<String>();
+		m_hdd1 = new TreeSet<String>();
+		m_hdd2 = new TreeSet<String>();
+		m_hdd3 = new TreeSet<String>();
+		m_hdd4 = new TreeSet<String>();
+		m_hdd5 = new TreeSet<String>();
+		m_hdd6 = new TreeSet<String>();
+		m_inputpower = new TreeSet<String>();
+		m_lease = new TreeSet<String>();
+		m_maintcontract = new TreeSet<String>();
+		m_manufacturer = new TreeSet<String>();
+		m_modelNumber = new TreeSet<String>();
+		m_notifyCategory = new TreeSet<String>();
+		m_numpowersupplies = new TreeSet<String>();
+		m_operatingSystem = new TreeSet<String>();
+		m_pollerCategory = new TreeSet<String>();
+		m_rack = new TreeSet<String>();
+		m_ram = new TreeSet<String>();
+		m_region = new TreeSet<String>();
+		m_room = new TreeSet<String>();
+		m_snmpcommunity = new TreeSet<String>();
+		m_state = new TreeSet<String>();
+		m_storagectrl = new TreeSet<String>();
+		m_supportPhone = new TreeSet<String>();
+		m_thresholdCategory = new TreeSet<String>();
+		m_vendor = new TreeSet<String>();
+		m_vendorFax = new TreeSet<String>();
+		m_vendorPhone = new TreeSet<String>();
+		m_zip = new TreeSet<String>();
 		initUnchangedEntry();
-	}
-	
-	private void initUnchangedEntry() {
-		this.m_additionalhardware.add("");
-		this.m_address1.add("");
-		this.m_address2.add("");
-		this.m_admin.add("");
-		this.m_building.add("");
-		this.m_category.add("");
-		this.m_circuitId.add("");
-		this.m_city.add("");
-		this.m_cpu.add("");
-		this.m_department.add("");
-		this.m_description.add("");
-		this.m_displayCategory.add("");
-		this.m_division.add("");
-		this.m_floor.add("");
-		this.m_hdd1.add("");
-		this.m_hdd2.add("");
-		this.m_hdd3.add("");
-		this.m_hdd4.add("");
-		this.m_hdd5.add("");
-		this.m_hdd6.add("");
-		this.m_inputpower.add("");
-		this.m_lease.add("");
-		this.m_maintcontract.add("");
-		this.m_manufacturer.add("");
-		this.m_modelNumber.add("");
-		this.m_notifyCategory.add("");
-		this.m_numpowersupplies.add("");
-		this.m_operatingSystem.add("");
-		this.m_pollerCategory.add("");
-		this.m_rack.add("");
-		this.m_ram.add("");
-		this.m_region.add("");
-		this.m_room.add("");
-		this.m_snmpcommunity.add("");
-		this.m_state.add("");
-		this.m_storagectrl.add("");
-		this.m_supportPhone.add("");
-		this.m_thresholdCategory.add("");
-		this.m_vendor.add("");
-		this.m_vendorFax.add("");
-		this.m_vendorPhone.add("");
-		this.m_zip.add("");
-	}
-
-	public Collection<String> getAdditionalhardware() {
-		return this.m_additionalhardware;
-	}
-
-	public Collection<String> getAddress1() {
-		return this.m_address1;
-	}
-
-	public Collection<String> getAddress2() {
-		return this.m_address2;
-	}
-
-	public Collection<String> getAdmin() {
-		return this.m_admin;
-	}
-
-	public Collection<String> getBuilding() {
-		return this.m_building;
-	}
-
-	public Collection<String> getCategory() {
-		return this.m_category;
-	}
-
-	public Collection<String> getCircuitId() {
-		return this.m_circuitId;
-	}
-
-	public Collection<String> getCity() {
-		return this.m_city;
-	}
-
-	public Collection<String> getCpu() {
-		return this.m_cpu;
-	}
-
-	public Collection<String> getDepartment() {
-		return this.m_department;
-	}
-
-	public Collection<String> getDescription() {
-		return this.m_description;
-	}
-
-	public Collection<String> getDisplayCategory() {
-		return this.m_displayCategory;
-	}
-
-	public Collection<String> getDivision() {
-		return this.m_division;
-	}
-
-	public Collection<String> getFloor() {
-		return this.m_floor;
-	}
-
-	public Collection<String> getHdd1() {
-		return this.m_hdd1;
-	}
-
-	public Collection<String> getHdd2() {
-		return this.m_hdd2;
-	}
-
-	public Collection<String> getHdd3() {
-		return this.m_hdd3;
-	}
-
-	public Collection<String> getHdd4() {
-		return this.m_hdd4;
-	}
-
-	public Collection<String> getHdd5() {
-		return this.m_hdd5;
-	}
-
-	public Collection<String> getHdd6() {
-		return this.m_hdd6;
-	}
-
-	public Collection<String> getInputpower() {
-		return this.m_inputpower;
-	}
-
-	public Collection<String> getLease() {
-		return this.m_lease;
-	}
-
-	public Collection<String> getMaintcontract() {
-		return this.m_maintcontract;
-	}
-
-	public Collection<String> getManufacturer() {
-		return this.m_manufacturer;
-	}
-
-	public Collection<String> getModelNumber() {
-		return this.m_modelNumber;
-	}
-
-	public Collection<String> getNotifyCategory() {
-		return this.m_notifyCategory;
-	}
-
-	public Collection<String> getNumpowersupplies() {
-		return this.m_numpowersupplies;
-	}
-
-	public Collection<String> getOperatingSystem() {
-		return this.m_operatingSystem;
-	}
-
-	public Collection<String> getPollerCategory() {
-		return this.m_pollerCategory;
-	}
-
-	public Collection<String> getRack() {
-		return this.m_rack;
-	}
-
-	public Collection<String> getRam() {
-		return this.m_ram;
-	}
-
-	public Collection<String> getRegion() {
-		return this.m_region;
-	}
-
-	public Collection<String> getRoom() {
-		return this.m_room;
-	}
-
-	public Collection<String> getSnmpcommunity() {
-		return this.m_snmpcommunity;
-	}
-
-	public Collection<String> getState() {
-		return this.m_state;
-	}
-
-	public Collection<String> getStoragectrl() {
-		return this.m_storagectrl;
-	}
-
-	public Collection<String> getSupportPhone() {
-		return this.m_supportPhone;
-	}
-
-	public Collection<String> getThresholdCategory() {
-		return this.m_thresholdCategory;
-	}
-
-	public Collection<String> getVendor() {
-		return this.m_vendor;
-	}
-
-	public Collection<String> getVendorFax() {
-		return this.m_vendorFax;
-	}
-
-	public Collection<String> getVendorPhone() {
-		return this.m_vendorPhone;
-	}
-
-	public Collection<String> getZip() {
-		return this.m_zip;
 	}
 
 	public void addAdditionalhardware(String additionalhardware) {
-		if (additionalhardware != null && !"".equals(additionalhardware))
-			this.m_additionalhardware.add(additionalhardware);
+		if ((additionalhardware != null) && !"".equals(additionalhardware)) {
+			m_additionalhardware.add(additionalhardware);
+		}
 	}
 
 	public void addAddress1(String address1) {
-		if (address1 != null && !"".equals(address1))
-			this.m_address1.add(address1);
+		if ((address1 != null) && !"".equals(address1)) {
+			m_address1.add(address1);
+		}
 	}
 
 	public void addAddress2(String address2) {
-		if (address2 != null && !"".equals(address2))
-			this.m_address2.add(address2);
+		if ((address2 != null) && !"".equals(address2)) {
+			m_address2.add(address2);
+		}
 	}
 
 	public void addAdmin(String admin) {
-		if (admin != null && !"".equals(admin))
-			this.m_admin.add(admin);
+		if ((admin != null) && !"".equals(admin)) {
+			m_admin.add(admin);
+		}
 	}
 
 	public void addBuilding(String building) {
-		if (building != null && !"".equals(building))
-			this.m_building.add(building);
+		if ((building != null) && !"".equals(building)) {
+			m_building.add(building);
+		}
 	}
 
 	public void addCategory(String category) {
-		if (category != null && !"".equals(category))
-			this.m_category.add(category);
+		if ((category != null) && !"".equals(category)) {
+			m_category.add(category);
+		}
 	}
 
 	public void addCircuitId(String circuitId) {
-		if (circuitId != null && !"".equals(circuitId))
-			this.m_circuitId.add(circuitId);
+		if ((circuitId != null) && !"".equals(circuitId)) {
+			m_circuitId.add(circuitId);
+		}
 	}
 
 	public void addCity(String city) {
-		if (city != null && !"".equals(city))
-			this.m_city.add(city);
+		if ((city != null) && !"".equals(city)) {
+			m_city.add(city);
+		}
 	}
 
 	public void addCpu(String cpu) {
-		if (cpu != null && !"".equals(cpu))
-			this.m_cpu.add(cpu);
+		if ((cpu != null) && !"".equals(cpu)) {
+			m_cpu.add(cpu);
+		}
 	}
 
 	public void addDepartment(String department) {
-		if (department != null && !"".equals(department))
-			this.m_department.add(department);
+		if ((department != null) && !"".equals(department)) {
+			m_department.add(department);
+		}
 	}
 
 	public void addDescription(String description) {
-		if (description != null && !"".equals(description))
-			this.m_description.add(description);
+		if ((description != null) && !"".equals(description)) {
+			m_description.add(description);
+		}
 	}
 
 	public void addDisplayCategory(String displayCategory) {
-		if (displayCategory != null && !"".equals(displayCategory))
-			this.m_displayCategory.add(displayCategory);
+		if ((displayCategory != null) && !"".equals(displayCategory)) {
+			m_displayCategory.add(displayCategory);
+		}
 	}
 
 	public void addDivision(String division) {
-		if (division != null && !"".equals(division))
-			this.m_division.add(division);
+		if ((division != null) && !"".equals(division)) {
+			m_division.add(division);
+		}
 	}
 
 	public void addFloor(String floor) {
-		if (floor != null && !"".equals(floor))
-			this.m_floor.add(floor);
+		if ((floor != null) && !"".equals(floor)) {
+			m_floor.add(floor);
+		}
 	}
 
 	public void addHdd1(String hdd1) {
-		if (hdd1 != null && !"".equals(hdd1))
-			this.m_hdd1.add(hdd1);
+		if ((hdd1 != null) && !"".equals(hdd1)) {
+			m_hdd1.add(hdd1);
+		}
 	}
 
 	public void addHdd2(String hdd2) {
-		if (hdd2 != null && !"".equals(hdd2))
-			this.m_hdd2.add(hdd2);
+		if ((hdd2 != null) && !"".equals(hdd2)) {
+			m_hdd2.add(hdd2);
+		}
 	}
 
 	public void addHdd3(String hdd3) {
-		if (hdd3 != null && !"".equals(hdd3))
-			this.m_hdd3.add(hdd3);
+		if ((hdd3 != null) && !"".equals(hdd3)) {
+			m_hdd3.add(hdd3);
+		}
 	}
 
 	public void addHdd4(String hdd4) {
-		if (hdd4 != null && !"".equals(hdd4))
-			this.m_hdd4.add(hdd4);
+		if ((hdd4 != null) && !"".equals(hdd4)) {
+			m_hdd4.add(hdd4);
+		}
 	}
 
 	public void addHdd5(String hdd5) {
-		if (hdd5 != null && !"".equals(hdd5))
-			this.m_hdd5.add(hdd5);
+		if ((hdd5 != null) && !"".equals(hdd5)) {
+			m_hdd5.add(hdd5);
+		}
 	}
 
 	public void addHdd6(String hdd6) {
-		if (hdd6 != null && !"".equals(hdd6))
-			this.m_hdd6.add(hdd6);
+		if ((hdd6 != null) && !"".equals(hdd6)) {
+			m_hdd6.add(hdd6);
+		}
 	}
 
 	public void addInputpower(String inputpower) {
-		if (inputpower != null && !"".equals(inputpower))
-			this.m_inputpower.add(inputpower);
+		if ((inputpower != null) && !"".equals(inputpower)) {
+			m_inputpower.add(inputpower);
+		}
 	}
 
 	public void addLease(String lease) {
-		if (lease != null && !"".equals(lease))
-			this.m_lease.add(lease);
+		if ((lease != null) && !"".equals(lease)) {
+			m_lease.add(lease);
+		}
 	}
 
 	public void addMaintcontract(String maintcontract) {
-		if (maintcontract != null && !"".equals(maintcontract))
-			this.m_maintcontract.add(maintcontract);
+		if ((maintcontract != null) && !"".equals(maintcontract)) {
+			m_maintcontract.add(maintcontract);
+		}
 	}
 
 	public void addManufacturer(String manufacturer) {
-		if (manufacturer != null && !"".equals(manufacturer))
-			this.m_manufacturer.add(manufacturer);
+		if ((manufacturer != null) && !"".equals(manufacturer)) {
+			m_manufacturer.add(manufacturer);
+		}
 	}
 
 	public void addModelNumber(String modelNumber) {
-		if (modelNumber != null && !"".equals(modelNumber))
-			this.m_modelNumber.add(modelNumber);
+		if ((modelNumber != null) && !"".equals(modelNumber)) {
+			m_modelNumber.add(modelNumber);
+		}
 	}
 
 	public void addNotifyCategory(String notifyCategory) {
-		if (notifyCategory != null && !"".equals(notifyCategory))
-			this.m_notifyCategory.add(notifyCategory);
+		if ((notifyCategory != null) && !"".equals(notifyCategory)) {
+			m_notifyCategory.add(notifyCategory);
+		}
 	}
 
 	public void addNumpowersupplies(String numpowersupplies) {
-		if (numpowersupplies != null && !"".equals(numpowersupplies))
-			this.m_numpowersupplies.add(numpowersupplies);
+		if ((numpowersupplies != null) && !"".equals(numpowersupplies)) {
+			m_numpowersupplies.add(numpowersupplies);
+		}
 	}
 
 	public void addOperatingSystem(String operatingSystem) {
-		if (operatingSystem != null && !"".equals(operatingSystem))
-			this.m_operatingSystem.add(operatingSystem);
+		if ((operatingSystem != null) && !"".equals(operatingSystem)) {
+			m_operatingSystem.add(operatingSystem);
+		}
 	}
 
 	public void addPollerCategory(String pollerCategory) {
-		if (pollerCategory != null && !"".equals(pollerCategory))
-			this.m_pollerCategory.add(pollerCategory);
+		if ((pollerCategory != null) && !"".equals(pollerCategory)) {
+			m_pollerCategory.add(pollerCategory);
+		}
 	}
 
 	public void addRack(String rack) {
-		if (rack != null && !"".equals(rack))
-			this.m_rack.add(rack);
+		if ((rack != null) && !"".equals(rack)) {
+			m_rack.add(rack);
+		}
 	}
 
 	public void addRam(String ram) {
-		if (ram != null && !"".equals(ram))
-			this.m_ram.add(ram);
+		if ((ram != null) && !"".equals(ram)) {
+			m_ram.add(ram);
+		}
 	}
 
 	public void addRegion(String region) {
-		if (region != null && !"".equals(region))
-			this.m_region.add(region);
+		if ((region != null) && !"".equals(region)) {
+			m_region.add(region);
+		}
 	}
 
 	public void addRoom(String room) {
-		if (room != null && !"".equals(room))
-			this.m_room.add(room);
+		if ((room != null) && !"".equals(room)) {
+			m_room.add(room);
+		}
 	}
 
 	public void addSnmpcommunity(String snmpcommunity) {
-		if (snmpcommunity != null && !"".equals(snmpcommunity))
-			this.m_snmpcommunity.add(snmpcommunity);
+		if ((snmpcommunity != null) && !"".equals(snmpcommunity)) {
+			m_snmpcommunity.add(snmpcommunity);
+		}
 	}
 
 	public void addState(String state) {
-		if (state != null && !"".equals(state))
-			this.m_state.add(state);
+		if ((state != null) && !"".equals(state)) {
+			m_state.add(state);
+		}
 	}
 
 	public void addStoragectrl(String storagectrl) {
-		if (storagectrl != null && !"".equals(storagectrl))
-			this.m_storagectrl.add(storagectrl);
+		if ((storagectrl != null) && !"".equals(storagectrl)) {
+			m_storagectrl.add(storagectrl);
+		}
 	}
 
 	public void addSupportPhone(String supportPhone) {
-		if (supportPhone != null && !"".equals(supportPhone))
-			this.m_supportPhone.add(supportPhone);
+		if ((supportPhone != null) && !"".equals(supportPhone)) {
+			m_supportPhone.add(supportPhone);
+		}
 	}
 
 	public void addThresholdCategory(String thresholdCategory) {
-		if (thresholdCategory != null && !"".equals(thresholdCategory))
-			this.m_thresholdCategory.add(thresholdCategory);
+		if ((thresholdCategory != null) && !"".equals(thresholdCategory)) {
+			m_thresholdCategory.add(thresholdCategory);
+		}
 	}
 
 	public void addVendor(String vendor) {
-		if (vendor != null && !"".equals(vendor))
-			this.m_vendor.add(vendor);
+		if ((vendor != null) && !"".equals(vendor)) {
+			m_vendor.add(vendor);
+		}
 	}
 
 	public void addVendorFax(String vendorFax) {
-		if (vendorFax != null && !"".equals(vendorFax))
-			this.m_vendorFax.add(vendorFax);
+		if ((vendorFax != null) && !"".equals(vendorFax)) {
+			m_vendorFax.add(vendorFax);
+		}
 	}
 
 	public void addVendorPhone(String vendorPhone) {
-		if (vendorPhone != null && !"".equals(vendorPhone))
-			this.m_vendorPhone.add(vendorPhone);
+		if ((vendorPhone != null) && !"".equals(vendorPhone)) {
+			m_vendorPhone.add(vendorPhone);
+		}
 	}
 
 	public void addZip(String zip) {
-		if (zip != null && !"".equals(zip))
-			this.m_zip.add(zip);
+		if ((zip != null) && !"".equals(zip)) {
+			m_zip.add(zip);
+		}
+	}
+
+	public Collection<String> getAdditionalhardware() {
+		return m_additionalhardware;
+	}
+
+	public Collection<String> getAddress1() {
+		return m_address1;
+	}
+
+	public Collection<String> getAddress2() {
+		return m_address2;
+	}
+
+	public Collection<String> getAdmin() {
+		return m_admin;
+	}
+
+	public Collection<String> getBuilding() {
+		return m_building;
+	}
+
+	public Collection<String> getCategory() {
+		return m_category;
+	}
+
+	public Collection<String> getCircuitId() {
+		return m_circuitId;
+	}
+
+	public Collection<String> getCity() {
+		return m_city;
+	}
+
+	public Collection<String> getCpu() {
+		return m_cpu;
+	}
+
+	public Collection<String> getDepartment() {
+		return m_department;
+	}
+
+	public Collection<String> getDescription() {
+		return m_description;
+	}
+
+	public Collection<String> getDisplayCategory() {
+		return m_displayCategory;
+	}
+
+	public Collection<String> getDivision() {
+		return m_division;
+	}
+
+	public Collection<String> getFloor() {
+		return m_floor;
+	}
+
+	public Collection<String> getHdd1() {
+		return m_hdd1;
+	}
+
+	public Collection<String> getHdd2() {
+		return m_hdd2;
+	}
+
+	public Collection<String> getHdd3() {
+		return m_hdd3;
+	}
+
+	public Collection<String> getHdd4() {
+		return m_hdd4;
+	}
+
+	public Collection<String> getHdd5() {
+		return m_hdd5;
+	}
+
+	public Collection<String> getHdd6() {
+		return m_hdd6;
+	}
+
+	public Collection<String> getInputpower() {
+		return m_inputpower;
+	}
+
+	public Collection<String> getLease() {
+		return m_lease;
+	}
+
+	public Collection<String> getMaintcontract() {
+		return m_maintcontract;
+	}
+
+	public Collection<String> getManufacturer() {
+		return m_manufacturer;
+	}
+
+	public Collection<String> getModelNumber() {
+		return m_modelNumber;
+	}
+
+	public Collection<String> getNotifyCategory() {
+		return m_notifyCategory;
+	}
+
+	public Collection<String> getNumpowersupplies() {
+		return m_numpowersupplies;
+	}
+
+	public Collection<String> getOperatingSystem() {
+		return m_operatingSystem;
+	}
+
+	public Collection<String> getPollerCategory() {
+		return m_pollerCategory;
+	}
+
+	public Collection<String> getRack() {
+		return m_rack;
+	}
+
+	public Collection<String> getRam() {
+		return m_ram;
+	}
+
+	public Collection<String> getRegion() {
+		return m_region;
+	}
+
+	public Collection<String> getRoom() {
+		return m_room;
+	}
+
+	public Collection<String> getSnmpcommunity() {
+		return m_snmpcommunity;
+	}
+
+	public Collection<String> getState() {
+		return m_state;
+	}
+
+	public Collection<String> getStoragectrl() {
+		return m_storagectrl;
+	}
+
+	public Collection<String> getSupportPhone() {
+		return m_supportPhone;
+	}
+
+	public Collection<String> getThresholdCategory() {
+		return m_thresholdCategory;
+	}
+
+	public Collection<String> getVendor() {
+		return m_vendor;
+	}
+
+	public Collection<String> getVendorFax() {
+		return m_vendorFax;
+	}
+
+	public Collection<String> getVendorPhone() {
+		return m_vendorPhone;
+	}
+
+	public Collection<String> getZip() {
+		return m_zip;
+	}
+
+	private void initUnchangedEntry() {
+		m_additionalhardware.add("");
+		m_address1.add("");
+		m_address2.add("");
+		m_admin.add("");
+		m_building.add("");
+		m_category.add("");
+		m_circuitId.add("");
+		m_city.add("");
+		m_cpu.add("");
+		m_department.add("");
+		m_description.add("");
+		m_displayCategory.add("");
+		m_division.add("");
+		m_floor.add("");
+		m_hdd1.add("");
+		m_hdd2.add("");
+		m_hdd3.add("");
+		m_hdd4.add("");
+		m_hdd5.add("");
+		m_hdd6.add("");
+		m_inputpower.add("");
+		m_lease.add("");
+		m_maintcontract.add("");
+		m_manufacturer.add("");
+		m_modelNumber.add("");
+		m_notifyCategory.add("");
+		m_numpowersupplies.add("");
+		m_operatingSystem.add("");
+		m_pollerCategory.add("");
+		m_rack.add("");
+		m_ram.add("");
+		m_region.add("");
+		m_room.add("");
+		m_snmpcommunity.add("");
+		m_state.add("");
+		m_storagectrl.add("");
+		m_supportPhone.add("");
+		m_thresholdCategory.add("");
+		m_vendor.add("");
+		m_vendorFax.add("");
+		m_vendorPhone.add("");
+		m_zip.add("");
 	}
 }

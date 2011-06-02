@@ -35,26 +35,30 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- * 
+ * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a> 
+ * </br>
+ * For later use. Don't use it jet!
  */
 public class FlexTableFieldSet extends FlexTable {
 	int activRow = -1;
 	int activCell = -1;
 	int maxCells = 0;
 
-	public FlexTableFieldSet(){
+	public FlexTableFieldSet() {
 		super();
 		this.setStylePrimaryName("FlexTableFieldSet");
 	}
-	
-	public void addSectionHeader(Widget wg) {
+
+	public void addNewRowWidget(Widget wg) {
 		activRow++;
-		wg.setStyleDependentName("SectionHeader", true);
-		setWidget(activRow, 0, new HTML("<h3>" + wg + "</h3>"));
-		getFlexCellFormatter().setColSpan(activRow, 0, 800);
-		activRow++;
-		activCell = -1;
+		activCell = 0;
+		wg.setStyleDependentName("NewRowWidget", true);
+		setWidget(activRow, activCell, wg);
+	}
+
+	public void addNewRowWidget(Widget wg, int colSpan) {
+		addNewRowWidget(wg);
+		getFlexCellFormatter().setColSpan(activRow, activCell, colSpan);
 	}
 
 	public void addNewWidget(Widget wg) {
@@ -71,31 +75,28 @@ public class FlexTableFieldSet extends FlexTable {
 		getFlexCellFormatter().setColSpan(activRow, activCell, colSpan);
 	}
 
-	public void addNewRowWidget(Widget wg) {
+	public void addSectionHeader(Widget wg) {
 		activRow++;
-		activCell = 0;
-		wg.setStyleDependentName("NewRowWidget", true);
-		setWidget(activRow, activCell, wg);
-	}
-
-	public void addNewRowWidget(Widget wg, int colSpan) {
-		addNewRowWidget(wg);
-		getFlexCellFormatter().setColSpan(activRow, activCell, colSpan);
-	}
-
-	public int getActivRow() {
-		return activRow;
-	}
-
-	public void setActivRow(int activRow) {
-		this.activRow = activRow;
+		wg.setStyleDependentName("SectionHeader", true);
+		setWidget(activRow, 0, new HTML("<h3>" + wg + "</h3>"));
+		getFlexCellFormatter().setColSpan(activRow, 0, 800);
+		activRow++;
+		activCell = -1;
 	}
 
 	public int getActivCell() {
 		return activCell;
 	}
 
+	public int getActivRow() {
+		return activRow;
+	}
+
 	public void setActivCell(int activCell) {
 		this.activCell = activCell;
+	}
+
+	public void setActivRow(int activRow) {
+		this.activRow = activRow;
 	}
 }

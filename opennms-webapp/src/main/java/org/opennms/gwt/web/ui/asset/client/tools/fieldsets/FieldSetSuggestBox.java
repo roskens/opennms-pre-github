@@ -49,8 +49,9 @@ import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.SuggestOracle.Suggestion;
 
 /**
- * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- * 
+ * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus
+ *         Neumann</a></br> {@link FieldSet} for displaying and editing text.
+ *         Additional a suggestion box will support the user.
  */
 public class FieldSetSuggestBox extends AbstractFieldSet implements FieldSet, ValueChangeHandler<String>,
 		SelectionHandler<Suggestion>, KeyUpHandler, MouseUpHandler {
@@ -58,12 +59,6 @@ public class FieldSetSuggestBox extends AbstractFieldSet implements FieldSet, Va
 	private SuggestBox suggBox;
 	private Collection<String> suggestions;
 	private MultiWordSuggestOracle oracle = new MultiWordSuggestOracle();
-
-	@UiConstructor
-	public FieldSetSuggestBox(String name, String value, String helpText, int maxLength) {
-		super(name, helpText);
-		init(value, null, maxLength);
-	}
 
 	public FieldSetSuggestBox(String name, String value, String helpText) {
 		super(name, helpText);
@@ -73,6 +68,21 @@ public class FieldSetSuggestBox extends AbstractFieldSet implements FieldSet, Va
 	public FieldSetSuggestBox(String name, String value, String helpText, Collection<String> suggestions) {
 		super(name, helpText);
 		init(value, suggestions, -1);
+	}
+
+	@UiConstructor
+	public FieldSetSuggestBox(String name, String value, String helpText, int maxLength) {
+		super(name, helpText);
+		init(value, null, maxLength);
+	}
+
+	public Collection<String> getSuggestions() {
+		return suggestions;
+	}
+
+	@Override
+	public String getValue() {
+		return suggBox.getText();
 	}
 
 	private void init(String value, Collection<String> suggestions, int maxLength) {
@@ -101,45 +111,9 @@ public class FieldSetSuggestBox extends AbstractFieldSet implements FieldSet, Va
 		panel.add(suggBox);
 	}
 
-	public void setEnabled(Boolean enabled) {
-		suggBox.getTextBox().setEnabled(enabled);
-	}
-
-	public String getValue() {
-		return suggBox.getText();
-	}
-
-	public void setValue(String value) {
-		suggBox.setText(value);
-		inititalValue = value;
-		validate(this.getValue());
-	}
-
-	public Collection<String> getSuggestions() {
-		return suggestions;
-	}
-
-	public void setSuggestions(Collection<String> suggestions) {
-		this.suggestions = suggestions;
-		oracle.clear();
-		if (suggestions != null) {
-			oracle.addAll(suggestions);
-			oracle.setDefaultSuggestionsFromText(suggestions);
-		}
-	}
-
+	@Override
 	public void onFocus(FocusEvent event) {
 		suggBox.showSuggestionList();
-	}
-
-	public void onValueChange(ValueChangeEvent<String> event) {
-		checkField();
-	}
-
-	public void onSelection(SelectionEvent<Suggestion> event) {
-		String selected = event.getSelectedItem().getReplacementString();
-		ValueChangeEvent.fire(suggBox, selected);
-		checkField();
 	}
 
 	/*
@@ -164,5 +138,42 @@ public class FieldSetSuggestBox extends AbstractFieldSet implements FieldSet, Va
 	@Override
 	public void onMouseUp(MouseUpEvent event) {
 		checkField();
+	}
+
+	@Override
+	public void onSelection(SelectionEvent<Suggestion> event) {
+		String selected = event.getSelectedItem().getReplacementString();
+		ValueChangeEvent.fire(suggBox, selected);
+		checkField();
+	}
+
+	@Override
+	public void onValueChange(ValueChangeEvent<String> event) {
+		checkField();
+	}
+
+	@Override
+	public void setEnabled(Boolean enabled) {
+		suggBox.getTextBox().setEnabled(enabled);
+	}
+	
+	/**
+	 * Takes a Collection of Strings as suggestion model to support the uses.
+	 * @param suggestions
+	 */
+	public void setSuggestions(Collection<String> suggestions) {
+		this.suggestions = suggestions;
+		oracle.clear();
+		if (suggestions != null) {
+			oracle.addAll(suggestions);
+			oracle.setDefaultSuggestionsFromText(suggestions);
+		}
+	}
+
+	@Override
+	public void setValue(String value) {
+		suggBox.setText(value);
+		inititalValue = value;
+		validate(this.getValue());
 	}
 }

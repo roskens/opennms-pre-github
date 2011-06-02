@@ -32,9 +32,10 @@ package org.opennms.gwt.web.ui.asset.client.tools.fieldsets;
 
 import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.client.ui.Label;
+
 /**
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- * 
+ *         </br> {@link FieldSet} just for displaying text. No input possible.
  */
 public class FieldSetTextDisplay extends AbstractFieldSet implements FieldSet {
 
@@ -45,23 +46,24 @@ public class FieldSetTextDisplay extends AbstractFieldSet implements FieldSet {
 		super(name, helpText);
 		init(value);
 	}
-	
-	private void init(String value) {
-		textLabel.setText(value);
-		textLabel.setStyleName("textLabel");
-//		textLabel.setSize("300px", "18px");
-		panel.add(textLabel);
-	}
 
-	public void setEnabled(Boolean enabled) {
-	}
-
+	@Override
 	public String getValue() {
 		return textLabel.getText();
 	}
 
+	private void init(String value) {
+		textLabel.setText(value);
+		textLabel.setStyleName("textLabel");
+		panel.add(textLabel);
+	}
+
+	@Override
+	public void setEnabled(Boolean enabled) {
+	}
+
+	@Override
 	public void setValue(String value) {
 		textLabel.setText(value);
-		//validate(this.getValue());
 	}
 }

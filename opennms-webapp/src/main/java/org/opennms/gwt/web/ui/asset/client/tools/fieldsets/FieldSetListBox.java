@@ -31,39 +31,44 @@
 package org.opennms.gwt.web.ui.asset.client.tools.fieldsets;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.client.ui.ListBox;
 
 /**
- * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- * 
+ * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus
+ *         Neumann</a></br> {@link FieldSet} for displaying and selection values
+ *         from a list.
  */
 public class FieldSetListBox extends AbstractFieldSet implements FieldSet {
 
 	private ListBox listBox = new ListBox(false);
 	private ArrayList<String> options;
-	
+
 	@UiConstructor
 	public FieldSetListBox(String name, String value, String helpText) {
 		super(name, helpText);
 		init(value, null);
 	}
-	
+
 	public FieldSetListBox(String name, String value, String helpText, ArrayList<String> options) {
 		super(name, helpText);
 		init(value, options);
 	}
-	
+
+	@Override
+	public String getValue() {
+		return listBox.getItemText(listBox.getSelectedIndex());
+	}
+
 	private void init(String value, ArrayList<String> options) {
 		inititalValue = value;
-		
+
 		this.options = options;
 
 		if (options != null) {
-			for (Iterator<String> optionsIter = options.iterator(); optionsIter.hasNext();) {
-				listBox.addItem(optionsIter.next());
+			for (String string : options) {
+				listBox.addItem(string);
 			}
 			if (options.contains(value)) {
 				listBox.setSelectedIndex(options.indexOf(value));
@@ -87,14 +92,27 @@ public class FieldSetListBox extends AbstractFieldSet implements FieldSet {
 		panel.add(listBox);
 	}
 
+	@Override
 	public void setEnabled(Boolean enabled) {
 		listBox.setEnabled(enabled);
 	}
 
-	public String getValue() {
-		return listBox.getItemText(listBox.getSelectedIndex());
+	/**
+	 * Takes a ArraList of Strings as options. Options will be shown at the
+	 * list.
+	 * 
+	 * @param ArrayList
+	 *            <String> options
+	 */
+	public void setOptions(ArrayList<String> options) {
+		this.options = options;
+		listBox.clear();
+		for (String string : options) {
+			listBox.addItem(string);
+		}
 	}
 
+	@Override
 	public void setValue(String value) {
 		if (options.contains(value)) {
 			listBox.setSelectedIndex(options.indexOf(value));
@@ -105,13 +123,5 @@ public class FieldSetListBox extends AbstractFieldSet implements FieldSet {
 		}
 		inititalValue = value;
 		validate(this.getValue());
-	}
-
-	public void setOptions(ArrayList<String> options) {
-		this.options = options;
-		listBox.clear();
-		for (Iterator<String> optionsIter = options.iterator(); optionsIter.hasNext();) {
-			listBox.addItem(optionsIter.next());
-		}
 	}
 }
