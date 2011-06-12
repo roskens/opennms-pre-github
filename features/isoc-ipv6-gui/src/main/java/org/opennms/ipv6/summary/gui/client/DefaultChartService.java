@@ -15,16 +15,12 @@ public class DefaultChartService implements ChartService {
     @Override
     public void getAllLocationsAvailability(RequestCallback callback) {
         sendRequest(AVAILABILITY_SERVICE_URL, callback);
-        //callback.onResponseReceived(null, new DummyResponse());
     }
 
     @Override
     public void getAvailabilityByLocation(String location, RequestCallback callback) {
         String url = AVAILABILITY_SERVICE_URL + "/" + location;
         sendRequest(url, callback);
-        
-        //Commented out, but used for testing
-        //callback.onResponseReceived(null, new DummyResponse());
     }
 
     
@@ -34,8 +30,6 @@ public class DefaultChartService implements ChartService {
         String url = AVAILABILITY_SERVICE_URL + "/?host=" + participant;
         sendRequest(url, callback);
         
-        //Commented out, but used for testing
-        //callback.onResponseReceived(null, new DummyResponse());
     }
 
     @Override
@@ -43,8 +37,6 @@ public class DefaultChartService implements ChartService {
         String url = AVAILABILITY_SERVICE_URL + "/" + location + "/?host=" + participant;
         sendRequest(url, callback);
         
-        //Commented out, but used for testing
-        //callback.onResponseReceived(null, new DummyResponse());
     }
 
     @Override
@@ -52,8 +44,6 @@ public class DefaultChartService implements ChartService {
         String url = LOCATION_LIST_SERVICE_URL;
         sendRequest(url, callback);
         
-        //Commented out, but used for testing
-        //callback.onResponseReceived(null, new AllLocationsResponse());
     }
 
     @Override
@@ -61,13 +51,14 @@ public class DefaultChartService implements ChartService {
         String url = PARTICIPANT_SERVICE_URL;
         sendRequest(url, callback);
         
-        //Commented out, but used for testing
-        //callback.onResponseReceived(null, new AllParticipantsResponse());
     }
     
     private void sendRequest(String url, RequestCallback callback) {
         RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, URL.encode(url));
         builder.setHeader("Accept", "application/json");
+        
+        builder.setUser("ipv6Rest");
+        builder.setPassword("ipv6Rest");
         try {
             builder.sendRequest(null, callback);
         } catch (RequestException e) {
