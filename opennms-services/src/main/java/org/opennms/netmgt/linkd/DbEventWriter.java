@@ -53,6 +53,9 @@ import org.opennms.netmgt.linkd.snmp.IpNetToMediaTableEntry;
 import org.opennms.netmgt.linkd.snmp.IpRouteCollectorEntry;
 import org.opennms.netmgt.linkd.snmp.QBridgeDot1dTpFdbTableEntry;
 import org.opennms.netmgt.linkd.snmp.VlanCollectorEntry;
+import org.opennms.netmgt.model.OnmsAtInterface;
+import org.opennms.netmgt.model.OnmsStpInterface;
+import org.opennms.netmgt.model.OnmsVlan;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
@@ -88,8 +91,7 @@ public class DbEventWriter implements QueryManager {
     /**
      * Query to select info for specific node
      */
-    private static final String SQL_SELECT_SNMP_NODE = "SELECT nodesysoid, ipaddr FROM node " + "LEFT JOIN ipinterface ON node.nodeid = ipinterface.nodeid "
-            + "WHERE node.nodeid = ? AND nodetype = 'A' AND issnmpprimary = 'P'";
+    private static final String SQL_SELECT_SNMP_NODE = "SELECT nodesysoid, ipaddr FROM node LEFT JOIN ipinterface ON node.nodeid = ipinterface.nodeid WHERE node.nodeid = ? AND nodetype = 'A' AND issnmpprimary = 'P'";
 
     private static final String SQL_SELECT_SNMP_IP_ADDR = "SELECT ipaddr FROM ipinterface WHERE nodeid = ? AND issnmpprimary = 'P'";
 
@@ -315,7 +317,7 @@ public class DbEventWriter implements QueryManager {
                 Iterator<IpNetToMediaTableEntry> ite1 = snmpcoll.getIpNetToMediaTable().getEntries().iterator();
                 LogUtils.debugf(this, "store: saving IpNetToMediaTable to atinterface table in DB");
                 // the AtInterfaces used by LinkableNode where to save info
-                java.util.List<AtInterface> atInterfaces = new java.util.ArrayList<AtInterface>();
+                java.util.List<OnmsAtInterface> atInterfaces = new java.util.ArrayList<OnmsAtInterface>();
                 while (ite1.hasNext()) {
     
                     IpNetToMediaTableEntry ent = ite1.next();
@@ -345,7 +347,7 @@ public class DbEventWriter implements QueryManager {
                     LogUtils.debugf(this, "store: trying save ipNetToMedia info: ipaddr " + ipaddress.getHostName() + " mac address " + physAddr + " ifindex " + ifindex);
     
                     // get an At interface but without setting mac address
-                    AtInterface at = getNodeidIfindexFromIp(dbConn, ipaddress);
+                    OnmsAtInterface at = getNodeidIfindexFromIp(dbConn, ipaddress);
                     if (at == null) {
                         LogUtils.warnf(this, "getNodeidIfindexFromIp: no nodeid found for ipaddress " + ipaddress + ".");
                         sendNewSuspectEvent(ipaddress, snmpcoll.getTarget(), snmpcoll.getPackageName());
@@ -579,7 +581,7 @@ public class DbEventWriter implements QueryManager {
     
             if (snmpcoll.hasVlanTable()) {
     
-                List<Vlan> vlans = new ArrayList<Vlan>();
+                List<OnmsVlan> vlans = new ArrayList<OnmsVlan>();
                 Iterator<SnmpTableEntry> ite3 = snmpcoll.getVlanTable().getEntries().iterator();
                 LogUtils.debugf(this, "store: saving Snmp Vlan Table to vlan table in DB");
                 while (ite3.hasNext()) {
@@ -627,7 +629,7 @@ public class DbEventWriter implements QueryManager {
 
                     // store object in database
                     vlanEntry.store(dbConn);
-                    Vlan vlan = new Vlan(vlanindex, vlanName, vlanstatus, vlantype);
+                    OnmsVlan vlan = new OnmsVlan(vlanindex, vlanName, vlanstatus, vlantype);
     
                     vlans.add(vlan);
                 }
@@ -636,13 +638,13 @@ public class DbEventWriter implements QueryManager {
     
             LogUtils.debugf(this, "store: saving SnmpVlanCollection's in DB");
     
-            Iterator<Entry<Vlan, SnmpVlanCollection>> ite4 = snmpcoll.getSnmpVlanCollections().entrySet().iterator();
+            Iterator<Entry<OnmsVlan, SnmpVlanCollection>> ite4 = snmpcoll.getSnmpVlanCollections().entrySet().iterator();
     
             SnmpVlanCollection snmpVlanColl = null;
-            Vlan vlan = null;
+            OnmsVlan vlan = null;
             while (ite4.hasNext()) {
     
-                Entry<Vlan, SnmpVlanCollection> entry = ite4.next();
+                Entry<OnmsVlan, SnmpVlanCollection> entry = ite4.next();
     
                 vlan = entry.getKey();
     
@@ -784,7 +786,7 @@ public class DbEventWriter implements QueryManager {
                                     LogUtils.warnf(this, "store: " + stpPortDesignatedPort + " designated port is invalid not adding to discoveryLink");
                                     stpPortDesignatedPort = "0000";
                                 } else {
-                                    BridgeStpInterface stpIface = new BridgeStpInterface(stpport, vlanindex);
+                                    OnmsStpInterface stpIface = new OnmsStpInterface(stpport, vlanindex);
                                     stpIface.setStpPortDesignatedBridge(stpPortDesignatedBridge);
                                     stpIface.setStpPortDesignatedPort(stpPortDesignatedPort);
                                     node.addStpInterface(stpIface);
@@ -1184,14 +1186,14 @@ public class DbEventWriter implements QueryManager {
 
     }
 
-    private AtInterface getNodeidIfindexFromIp(Connection dbConn, InetAddress ipaddr) throws SQLException {
+    private OnmsAtInterface getNodeidIfindexFromIp(Connection dbConn, InetAddress ipaddr) throws SQLException {
 
         final String hostAddress = InetAddressUtils.str(ipaddr);
 		if (ipaddr.isLoopbackAddress() || hostAddress.equals("0.0.0.0")) return null;
 
         int atnodeid = -1;
         int atifindex = -1;
-        AtInterface ati = null;
+        OnmsAtInterface ati = null;
 
         final DBUtils d = new DBUtils(getClass());
         try {
@@ -1211,7 +1213,7 @@ public class DbEventWriter implements QueryManager {
             atnodeid = rs.getInt("nodeid");
             if (rs.wasNull()) { return null; }
             // save info for DiscoveryLink
-            ati = new AtInterface(atnodeid, hostAddress);
+            ati = new OnmsAtInterface(atnodeid, hostAddress);
     
             // get ifindex if exists
             atifindex = rs.getInt("ifindex");
@@ -1321,20 +1323,20 @@ public class DbEventWriter implements QueryManager {
         final DBUtils d = new DBUtils(getClass());
         try {
 
-            Connection dbConn = getConnection();
+        	final Connection dbConn = getConnection();
             d.watch(dbConn);
             LinkableNode node = null;
     
-            PreparedStatement stmt = dbConn.prepareStatement(SQL_SELECT_SNMP_NODE);
+            final PreparedStatement stmt = dbConn.prepareStatement(SQL_SELECT_SNMP_NODE);
             d.watch(stmt);
             stmt.setInt(1, nodeid);
-            LogUtils.debugf(this, "getSnmpCollection: execute '" + SQL_SELECT_SNMP_NODE + "' with nodeid =" + nodeid);
+            LogUtils.debugf(this, "getSnmpCollection: execute '" + SQL_SELECT_SNMP_NODE + "' with nodeid = " + nodeid);
     
-            ResultSet rs = stmt.executeQuery();
+            final ResultSet rs = stmt.executeQuery();
             d.watch(rs);
     
             while (rs.next()) {
-                String sysoid = rs.getString("nodesysoid");
+            	String sysoid = rs.getString("nodesysoid");
                 if (sysoid == null) sysoid = "-1";
                 String ipaddr = rs.getString("ipaddr");
                 LogUtils.debugf(this, "getSnmpCollection: found nodeid " + nodeid + " ipaddr " + ipaddr + " sysoid " + sysoid);

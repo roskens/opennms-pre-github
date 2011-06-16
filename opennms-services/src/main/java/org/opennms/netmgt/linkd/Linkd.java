@@ -375,7 +375,7 @@ public class Linkd extends AbstractServiceDaemon {
 		return false;
 	}
 
-	void scheduleNodeCollection(int nodeid) {
+	public boolean scheduleNodeCollection(int nodeid) {
 
 		LinkableNode node = null;
 		// database changed need reload packageiplist
@@ -389,18 +389,18 @@ public class Linkd extends AbstractServiceDaemon {
 			node = m_queryMgr.getSnmpNode(nodeid);
 			if (node == null) {
 			    LogUtils.warnf(this, "scheduleNodeCollection: Failed to get Linkable node from DataBase. Exiting");
-				return;
+				return false;
 			}
-		} catch (SQLException sqlE) {
+		} catch (final SQLException sqlE) {
 		    LogUtils.errorf(this, sqlE, "scheduleNodeCollection: SQL Exception while syncing node object with database information.");
-			return;
+			return false;
 		}
 		synchronized (m_nodes) {
 	        m_nodes.add(node);
         }
 		
 		scheduleCollectionForNode(node);
-
+		return true;
 	}
 
 	void wakeUpNodeCollection(int nodeid) {
@@ -673,9 +673,9 @@ public class Linkd extends AbstractServiceDaemon {
      *
      * @param queryMgr a {@link org.opennms.netmgt.linkd.QueryManager} object.
      */
-    public void setQueryManager(DbEventWriter queryMgr) {
+    public void setQueryManager(QueryManager queryMgr) {
         m_queryMgr = queryMgr;
-        // TODO: Figure out if there's a way to provide this reference via Spring
+        // TODO: Circular; refactor so this can be set in spring
         queryMgr.setLinkd(this);
     }
 

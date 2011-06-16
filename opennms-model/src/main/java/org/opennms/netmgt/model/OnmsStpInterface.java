@@ -1,0 +1,223 @@
+//
+// This file is part of the OpenNMS(R) Application.
+//
+// OpenNMS(R) is Copyright (C) 2006 The OpenNMS Group, Inc.  All rights reserved.
+// OpenNMS(R) is a derivative work, containing both original code, included code and modified
+// code that was published under the GNU General Public License. Copyrights for modified
+// and included code are below.
+//
+// OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+//
+// Original code base Copyright (C) 1999-2001 Oculan Corp.  All rights reserved.
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+//
+// For more information contact:
+//      OpenNMS Licensing       <license@opennms.org>
+//      http://www.opennms.org/
+//      http://www.opennms.com/
+//
+/*
+ * Created on 9-mar-2006
+ *
+ * TODO To change the template for this generated file go to
+ * Window - Preferences - Java - Code Style - Code Templates
+ */
+package org.opennms.netmgt.model;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlIDREF;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
+
+/**
+ * <p>BridgeStpInterface class.</p>
+ *
+ * @author antonio
+ */
+@XmlRootElement(name = "stpInterface")
+@Entity
+@Table(name="stpInterface", uniqueConstraints = {@UniqueConstraint(columnNames={"nodeId", "bridgePort", "stpVlan"})})
+public class OnmsStpInterface {
+
+	private Integer m_nodeId;
+	private OnmsNode m_node;
+	private Integer m_bridgePort;
+	private Integer m_ifIndex = -1;
+	private Integer m_stpPortState;
+	private Integer m_stpPortPathCost;
+	private String m_stpPortDesignatedRoot;
+	private Integer m_stpPortDesignatedCost;
+	private String m_stpPortDesignatedBridge;
+	private String m_stpPortDesignatedPort;
+	private String m_status;
+	private Date m_lastPollTime;
+	private String m_vlan;
+
+    // transient, see getNode()/setNode() below
+    @Transient
+    @XmlTransient
+	public Integer getNodeId() {
+		return m_nodeId;
+	}
+	
+	public void setNodeId(final Integer nodeId) {
+		m_nodeId = nodeId;
+	}
+	
+    @ManyToOne(optional=false, fetch=FetchType.LAZY)
+    @JoinColumn(name="nodeId")
+    @XmlElement(name="nodeId")
+    @XmlIDREF
+    public OnmsNode getNode() {
+        return m_node;
+    }
+
+    public void setNode(org.opennms.netmgt.model.OnmsNode node) {
+        m_node = node;
+        m_nodeId = node == null? null : node.getId();
+    }
+
+    @XmlAttribute
+    @Column(nullable=false)
+	public Integer getIfIndex() {
+		return m_ifIndex;
+	}
+
+	public void setIfIndex(Integer ifIndex) {
+		m_ifIndex = ifIndex;
+	}
+
+	@XmlElement
+	@Column
+	public Integer getStpPortState() {
+		return m_stpPortState;
+	}
+
+	public void setStpPortState(Integer stpPortState) {
+		m_stpPortState = stpPortState;
+	}
+
+	@XmlElement
+	@Column
+	public Integer getStpPortPathCost() {
+		return m_stpPortPathCost;
+	}
+
+	public void setStpPortPathCost(Integer stpPortPathCost) {
+		m_stpPortPathCost = stpPortPathCost;
+	}
+
+	@XmlElement
+	@Column(length=16)
+	public String getStpPortDesignatedRoot() {
+		return m_stpPortDesignatedRoot;
+	}
+
+	public void setStpPortDesignatedRoot(String stpPortDesignatedRoot) {
+		m_stpPortDesignatedRoot = stpPortDesignatedRoot;
+	}
+
+	@XmlElement
+	@Column
+	public Integer getStpPortDesignatedCost() {
+		return m_stpPortDesignatedCost;
+	}
+
+	public void setStpPortDesignatedCost(Integer stpPortDesignatedCost) {
+		m_stpPortDesignatedCost = stpPortDesignatedCost;
+	}
+
+	@XmlAttribute
+	@Column(length=1, nullable=false)
+	public String getStatus() {
+		return m_status;
+	}
+
+	public void setStatus(String status) {
+		m_status = status;
+	}
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable=false)
+    @XmlElement
+	public Date getLastPollTime() {
+		return m_lastPollTime;
+	}
+
+	public void setLastPollTime(Date lastPollTime) {
+		m_lastPollTime = lastPollTime;
+	}
+
+	public OnmsStpInterface(final Integer bridgePort, final String vlan) {
+		m_bridgePort = bridgePort;
+		m_vlan = vlan;
+	}
+
+	@XmlElement
+	@Column(nullable=false)
+	public Integer getBridgePort() {
+		return m_bridgePort;
+	}
+
+	public void setBridgePort(final Integer bridgePort) {
+		m_bridgePort = bridgePort;
+	}
+
+	@XmlElement
+	@Column(length=16)
+	public String getStpPortDesignatedBridge() {
+		return m_stpPortDesignatedBridge;
+	}
+
+	public void setStpPortDesignatedBridge(final String stpPortDesignatedBridge) {
+		m_stpPortDesignatedBridge = stpPortDesignatedBridge;
+	}
+
+	@XmlElement
+	@Column(length=4)
+	public String getStpPortDesignatedPort() {
+		return m_stpPortDesignatedPort;
+	}
+
+	public void setStpPortDesignatedPort(final String stpPortDesignatedPort) {
+		m_stpPortDesignatedPort = stpPortDesignatedPort;
+	}
+
+	@XmlElement(name="stpVlan")
+	@Column(name="stpVlan", nullable=false)
+	public String getVlan() {
+		return m_vlan;
+	}
+	
+	public void setVlan(final String vlan) {
+		m_vlan = vlan;
+	}
+}
+

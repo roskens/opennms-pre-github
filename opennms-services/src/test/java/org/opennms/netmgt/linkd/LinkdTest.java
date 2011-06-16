@@ -28,18 +28,26 @@
 
 package org.opennms.netmgt.linkd;
 
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.opennms.core.test.OpenNMSJUnit4ClassRunner;
+import org.opennms.core.utils.LogUtils;
+import org.opennms.mock.snmp.JUnitSnmpAgent;
 import org.opennms.netmgt.dao.NodeDao;
 import org.opennms.netmgt.dao.db.JUnitConfigurationEnvironment;
 import org.opennms.netmgt.dao.db.JUnitTemporaryDatabase;
 import org.opennms.netmgt.model.NetworkBuilder;
+import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.test.mock.MockLogAppender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionCallback;
+import org.springframework.transaction.support.TransactionTemplate;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations= {
@@ -51,27 +59,29 @@ import org.springframework.test.context.ContextConfiguration;
 		"classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
 		"classpath:/META-INF/opennms/applicationContext-setupIpLike-enabled.xml",
 		"classpath:/META-INF/opennms/applicationContext-linkd.xml",
-		"classpath*:/META-INF/opennms/component-dao.xml"
+		"classpath:/applicationContext-minimal-conf.xml"
 })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class LinkdTest {
 
-	@SuppressWarnings("unused")
     @Autowired
 	private Linkd m_linkd;
 
 	@Autowired
 	private NodeDao m_nodeDao;
 
+	@Autowired
+	private TransactionTemplate m_transactionTemplate;
+	
 	@Before
 	public void setUp() throws Exception {
 		// Use the mock.logLevel system property to control the log level
 		MockLogAppender.setupLogging(true);
 
 		NetworkBuilder nb = new NetworkBuilder();
-		nb.addNode("test.example.com").setForeignSource("rancid").setForeignId("1").setSysObjectId(".1.3");
-		nb.addInterface("192.168.0.1");
+		nb.addNode("test.example.com").setForeignSource("linkd").setForeignId("1").setSysObjectId(".1.3.6.1.4.1.1724.81").setType("A");
+		nb.addInterface("192.168.1.10").setIsSnmpPrimary("P").setIsManaged("M");
 		m_nodeDao.save(nb.getCurrentNode());
 		m_nodeDao.flush();
 
@@ -81,9 +91,24 @@ public class LinkdTest {
 	}
 
 	@Test
-	@Ignore
-	//@JUnitSnmpAgent(resource = "snmpTestData.properties")
-	public void testSomething() throws Exception {
-	    // TODO: Add some functionality tests
+	@Transactional
+	@JUnitSnmpAgent(resource = "/westell-smartjack.properties")
+	public void testWestellSmartjackLldp() throws Exception {
+
+		final OnmsNode node = m_nodeDao.findByForeignId("linkd", "1");
+		LogUtils.debugf(this, "node = %s, primary interface = %s", node, node.getPrimaryInterface());
+
+		m_transactionTemplate.execute(new TransactionCallback<Object>() {
+
+			@Override
+			public Object doInTransaction(final TransactionStatus status) {
+				assertTrue(m_linkd.scheduleNodeCollection(node.getId()));
+				return null;
+			}
+			
+		});
+
+//		Thread.sleep(60000);
+
 	}
 }

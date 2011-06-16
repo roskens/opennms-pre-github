@@ -29,12 +29,18 @@
 
 package org.opennms.netmgt.linkd;
 
+import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+
+import org.opennms.core.utils.InetAddressUtils;
+import org.opennms.netmgt.model.OnmsAtInterface;
+import org.opennms.netmgt.model.OnmsStpInterface;
+import org.opennms.netmgt.model.OnmsVlan;
 
 /**
  * <p>LinkableNode class.</p>
@@ -58,7 +64,7 @@ public class LinkableNode extends Object {
 	
 	boolean m_hasrouteinterfaces = false;
 
-	List<AtInterface> m_atinterfaces = new ArrayList<AtInterface>();
+	List<OnmsAtInterface> m_atinterfaces = new ArrayList<OnmsAtInterface>();
 	
 	boolean m_hasatinterfaces = false;
 
@@ -70,11 +76,11 @@ public class LinkableNode extends Object {
 	 */
 	List<Integer> backBoneBridgePorts = new java.util.ArrayList<Integer>();
 
-	List<Vlan> vlans = new java.util.ArrayList<Vlan>();
+	List<OnmsVlan> vlans = new java.util.ArrayList<OnmsVlan>();
 
 	List<String> bridgeIdentifiers = new java.util.ArrayList<String>();
 	
-	HashMap<String,List<BridgeStpInterface>> BridgeStpInterfaces = new HashMap<String,List<BridgeStpInterface>>();
+	HashMap<String,List<OnmsStpInterface>> BridgeStpInterfaces = new HashMap<String,List<OnmsStpInterface>>();
 
 	HashMap<String,String> vlanBridgeIdentifier = new HashMap<String,String>();
 
@@ -98,6 +104,7 @@ public class LinkableNode extends Object {
 	 * @param nodeId a int.
 	 * @param snmprimaryaddr a {@link java.lang.String} object.
 	 * @param sysoid a {@link java.lang.String} object.
+	 * @deprecated Use the InetAddress form instead.
 	 */
 	public LinkableNode(int nodeId, String snmprimaryaddr,String sysoid) {
 		m_nodeId = nodeId;
@@ -105,6 +112,11 @@ public class LinkableNode extends Object {
 		m_sysoid = sysoid;
 	}
 
+	public LinkableNode(int nodeId, InetAddress snmpPrimaryAddr,String sysoid) {
+		m_nodeId = nodeId;
+		m_snmpprimaryaddr = InetAddressUtils.str(snmpPrimaryAddr);
+		m_sysoid = sysoid;
+	}
 	/**
 	 * <p>toString</p>
 	 *
@@ -195,7 +207,7 @@ public class LinkableNode extends Object {
 	 *
 	 * @return Returns the m_routeinterfaces.
 	 */
-	public List<AtInterface> getAtInterfaces() {
+	public List<OnmsAtInterface> getAtInterfaces() {
 		return m_atinterfaces;
 	}
 	/**
@@ -203,7 +215,7 @@ public class LinkableNode extends Object {
 	 *
 	 * @param m_atinterfaces a {@link java.util.List} object.
 	 */
-	public void setAtInterfaces(List<AtInterface> m_atinterfaces) {
+	public void setAtInterfaces(List<OnmsAtInterface> m_atinterfaces) {
 		if (m_atinterfaces == null || m_atinterfaces.isEmpty()) return;
 		this.m_hasatinterfaces = true;
 		this.m_atinterfaces = m_atinterfaces;
@@ -414,7 +426,7 @@ public class LinkableNode extends Object {
 	 *
 	 * @return Returns the stpInterfaces.
 	 */
-	public HashMap<String,List<BridgeStpInterface>> getStpInterfaces() {
+	public HashMap<String,List<OnmsStpInterface>> getStpInterfaces() {
 		return BridgeStpInterfaces;
 	}
 	/**
@@ -422,18 +434,18 @@ public class LinkableNode extends Object {
 	 *
 	 * @param stpInterfaces The stpInterfaces to set.
 	 */
-	public void setStpInterfaces(HashMap<String,List<BridgeStpInterface>> stpInterfaces) {
+	public void setStpInterfaces(HashMap<String,List<OnmsStpInterface>> stpInterfaces) {
 		BridgeStpInterfaces = stpInterfaces;
 	}
 	
 	/**
 	 * <p>addStpInterface</p>
 	 *
-	 * @param stpIface a {@link org.opennms.netmgt.linkd.BridgeStpInterface} object.
+	 * @param stpIface a {@link org.opennms.netmgt.model.OnmsStpInterface} object.
 	 */
-	public void addStpInterface(BridgeStpInterface stpIface) {
+	public void addStpInterface(OnmsStpInterface stpIface) {
 		String vlanindex = stpIface.getVlan();
-		List<BridgeStpInterface> stpifs = new ArrayList<BridgeStpInterface>();;
+		List<OnmsStpInterface> stpifs = new ArrayList<OnmsStpInterface>();;
 		if (BridgeStpInterfaces.containsKey(vlanindex)) {
 			stpifs = BridgeStpInterfaces.get(vlanindex);
 		}
@@ -464,7 +476,7 @@ public class LinkableNode extends Object {
 	 *
 	 * @return a {@link java.util.List} object.
 	 */
-	public List<Vlan> getVlans() {
+	public List<OnmsVlan> getVlans() {
 		return vlans;
 	}
 
@@ -473,7 +485,7 @@ public class LinkableNode extends Object {
 	 *
 	 * @param vlans a {@link java.util.List} object.
 	 */
-	public void setVlans(List<Vlan> vlans) {
+	public void setVlans(List<OnmsVlan> vlans) {
 		this.vlans = vlans;
 	}
 }

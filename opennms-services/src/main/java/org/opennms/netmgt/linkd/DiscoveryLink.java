@@ -46,6 +46,9 @@ import org.opennms.netmgt.linkd.scheduler.ReadyRunnable;
 import org.opennms.netmgt.linkd.scheduler.Scheduler;
 import org.opennms.netmgt.linkd.snmp.FdbTableGet;
 import org.opennms.netmgt.linkd.snmp.VlanCollectorEntry;
+import org.opennms.netmgt.model.OnmsAtInterface;
+import org.opennms.netmgt.model.OnmsStpInterface;
+import org.opennms.netmgt.model.OnmsVlan;
 import org.opennms.netmgt.snmp.SnmpAgentConfig;
 
 /**
@@ -88,7 +91,7 @@ public final class DiscoveryLink implements ReadyRunnable {
 	// this is tha list of atinterfaces for which to be discovery link
 	// here there aren't the bridge identifier becouse they should be discovered
 	// by main processes. This is used by addlinks method.
-	private Map<String,List<AtInterface>> macToAtinterface = new HashMap<String,List<AtInterface>>();
+	private Map<String,List<OnmsAtInterface>> macToAtinterface = new HashMap<String,List<OnmsAtInterface>>();
 	
 	private boolean enableDownloadDiscovery = false;
 	
@@ -193,7 +196,7 @@ public final class DiscoveryLink implements ReadyRunnable {
 			LogUtils.debugf(this, "run: using atNodes to populate macToAtinterface");
 
 			for (final LinkableNode curNode : atNodes) {
-			    for (final AtInterface at : curNode.getAtInterfaces()) {
+			    for (final OnmsAtInterface at : curNode.getAtInterfaces()) {
 					int nodeid = at.getNodeId();
 					final String ipaddr = at.getIpAddress();
 					final String macAddress = at.getMacAddress();
@@ -213,8 +216,8 @@ public final class DiscoveryLink implements ReadyRunnable {
                        macsExcluded.add(macAddress); 
                        continue; 
                     }
-                    List<AtInterface> ats = macToAtinterface.get(macAddress);
-					if (ats == null) ats = new ArrayList<AtInterface>();
+                    List<OnmsAtInterface> ats = macToAtinterface.get(macAddress);
+					if (ats == null) ats = new ArrayList<OnmsAtInterface>();
 					LogUtils.infof(this, "parseAtNodes: Adding to discoverable atinterface.");
 					ats.add(at);
 					macToAtinterface.put(macAddress, ats);
@@ -330,7 +333,7 @@ public final class DiscoveryLink implements ReadyRunnable {
 
 				LogUtils.debugf(this, "run: parsing %d Vlan.", curNode.getStpInterfaces().size());
 
-				for (final Map.Entry<String,List<BridgeStpInterface>> me : curNode.getStpInterfaces().entrySet()) {
+				for (final Map.Entry<String,List<OnmsStpInterface>> me : curNode.getStpInterfaces().entrySet()) {
 				    final String vlan = me.getKey();
 				    final String curBaseBridgeAddress = curNode.getBridgeIdentifier(vlan);
 
@@ -362,9 +365,9 @@ public final class DiscoveryLink implements ReadyRunnable {
 					// Now parse STP bridge port info to get designated bridge
 					LogUtils.debugf(this, "run: STP designated root is another bridge. %s Parsing Stp Interface", designatedRoot);
 
-					for (final BridgeStpInterface stpIface : me.getValue()) {
+					for (final OnmsStpInterface stpIface : me.getValue()) {
 						// the bridge port number
-					    final int stpbridgeport = stpIface.getBridgeport();
+					    final int stpbridgeport = stpIface.getBridgePort();
 						// if port is a backbone port continue
 						if (curNode.isBackBoneBridgePort(stpbridgeport)) {
 						    LogUtils.debugf(this, "run: bridge port %d already found.  Skipping.", stpbridgeport);
@@ -1174,10 +1177,10 @@ public final class DiscoveryLink implements ReadyRunnable {
 				}
 				
 				if (macToAtinterface.containsKey(curMacAddress)) {
-					List<AtInterface> ats = macToAtinterface.get(curMacAddress);
-					Iterator<AtInterface> ite = ats.iterator();
+					List<OnmsAtInterface> ats = macToAtinterface.get(curMacAddress);
+					Iterator<OnmsAtInterface> ite = ats.iterator();
 					while (ite.hasNext()) {
-						AtInterface at = ite.next();
+						OnmsAtInterface at = ite.next();
 						NodeToNodeLink lNode = new NodeToNodeLink(at.getNodeId(),at.getIfindex());
 						lNode.setNodeparentid(nodeid);
 						lNode.setParentifindex(ifindex);
@@ -1333,9 +1336,9 @@ public final class DiscoveryLink implements ReadyRunnable {
     
     				if (className != null && (className.equals("org.opennms.netmgt.linkd.snmp.CiscoVlanTable") 
     						|| className.equals("org.opennms.netmgt.linkd.snmp.IntelVlanTable"))){
-    					Iterator<Vlan> vlan_ite = curNode.getVlans().iterator();
+    					Iterator<OnmsVlan> vlan_ite = curNode.getVlans().iterator();
     					while (vlan_ite.hasNext()) {
-    						Vlan vlan = vlan_ite.next();
+    						OnmsVlan vlan = vlan_ite.next();
     						if (vlan.getVlanStatus() != VlanCollectorEntry.VLAN_STATUS_OPERATIONAL || vlan.getVlanType() != VlanCollectorEntry.VLAN_TYPE_ETHERNET) {
     						    LogUtils.debugf(this, "parseBridgeNodes: skipping vlan: %s", vlan.getVlanName());
     							continue;

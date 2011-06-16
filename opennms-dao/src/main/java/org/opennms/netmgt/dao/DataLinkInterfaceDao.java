@@ -65,4 +65,6 @@ public interface DataLinkInterfaceDao extends OnmsDao<DataLinkInterface, Integer
      * @return a {@link java.util.Collection} object.
      */
     Collection<DataLinkInterface> findByNodeParentId(Integer nodeParentId);
+
+    void markDeletedIfNodeDeleted();
 }

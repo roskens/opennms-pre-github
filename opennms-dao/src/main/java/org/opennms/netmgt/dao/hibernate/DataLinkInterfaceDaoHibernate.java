@@ -30,9 +30,11 @@ package org.opennms.netmgt.dao.hibernate;
 
 import org.opennms.netmgt.dao.DataLinkInterfaceDao;
 import org.opennms.netmgt.model.DataLinkInterface;
+import org.opennms.netmgt.model.OnmsCriteria;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.hibernate.Session;
 import org.hibernate.HibernateException;
+import org.hibernate.criterion.Restrictions;
 
 import java.util.Collection;
 import java.sql.SQLException;
@@ -73,4 +75,16 @@ public class DataLinkInterfaceDaoHibernate extends AbstractDaoHibernate<DataLink
     public Collection<DataLinkInterface> findByNodeParentId(Integer nodeParentId) {
         return find("from DataLinkInterface as dli where dli.nodeParentId = ?", nodeParentId);
     }
+
+	@Override
+	public void markDeletedIfNodeDeleted() {
+		final OnmsCriteria criteria = new OnmsCriteria(DataLinkInterface.class);
+        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
+        criteria.add(Restrictions.eq("nodeType", "D"));
+        
+        for (final DataLinkInterface dataLinkIface : findMatching(criteria)) {
+        	dataLinkIface.setStatus("D");
+        	saveOrUpdate(dataLinkIface);
+        }
+	}
 }
