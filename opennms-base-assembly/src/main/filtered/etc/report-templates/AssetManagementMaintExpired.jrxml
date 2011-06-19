@@ -283,14 +283,14 @@ ORDER BY
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="137">
+					<jr:column width="132">
 						<jr:tableHeader style="Table-Header" height="20" rowSpan="1">
 							<box>
 								<topPen lineWidth="0.0"/>
 								<bottomPen lineWidth="0.0"/>
 							</box>
 							<staticText>
-								<reportElement style="Sub-sub-header" x="0" y="0" width="137" height="20"/>
+								<reportElement style="Sub-sub-header" x="0" y="0" width="132" height="20"/>
 								<textElement/>
 								<text><![CDATA[Manufacturer]]></text>
 							</staticText>
@@ -298,7 +298,7 @@ ORDER BY
 						<jr:groupHeader groupName="warning">
 							<jr:cell height="20" rowSpan="1">
 								<staticText>
-									<reportElement style="Sub-sub-sub-header" x="0" y="0" width="137" height="20"/>
+									<reportElement style="Sub-sub-sub-header" x="0" y="0" width="132" height="20"/>
 									<textElement/>
 									<text><![CDATA[]]></text>
 								</staticText>
@@ -307,7 +307,7 @@ ORDER BY
 						<jr:groupFooter groupName="warning">
 							<jr:cell height="30" rowSpan="1">
 								<staticText>
-									<reportElement style="Table-Summary" x="0" y="0" width="137" height="20"/>
+									<reportElement style="Table-Summary" x="0" y="0" width="132" height="20"/>
 									<textElement/>
 									<text><![CDATA[]]></text>
 								</staticText>
@@ -319,27 +319,27 @@ ORDER BY
 								<bottomPen lineWidth="0.5" lineColor="#999999"/>
 							</box>
 							<textField>
-								<reportElement style="expire_warning_TD" x="0" y="0" width="137" height="20"/>
+								<reportElement style="expire_warning_TD" x="0" y="0" width="132" height="20"/>
 								<textElement/>
 								<textFieldExpression class="java.lang.String"><![CDATA[$F{manufacturer}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="163">
+					<jr:column width="154">
 						<jr:tableHeader style="Table-Header" height="20" rowSpan="1">
 							<box>
 								<topPen lineWidth="0.0"/>
 								<bottomPen lineWidth="0.0"/>
 							</box>
 							<staticText>
-								<reportElement style="Sub-sub-header" x="0" y="0" width="163" height="20"/>
+								<reportElement style="Sub-sub-header" x="0" y="0" width="154" height="20"/>
 								<textElement/>
 								<text><![CDATA[Maintenance contract]]></text>
 							</staticText>
 						</jr:tableHeader>
-						<jr:tableFooter style="Table-Header" height="22">
+						<jr:tableFooter style="Table-Header" height="22" rowSpan="1">
 							<staticText>
-								<reportElement style="Table-Summary" x="0" y="0" width="163" height="20"/>
+								<reportElement style="Table-Summary" x="0" y="0" width="154" height="20"/>
 								<textElement/>
 								<text><![CDATA[Total maintenance contracts]]></text>
 							</staticText>
@@ -347,7 +347,7 @@ ORDER BY
 						<jr:groupHeader groupName="warning">
 							<jr:cell height="20" rowSpan="1">
 								<staticText>
-									<reportElement style="Sub-sub-sub-header" x="0" y="0" width="163" height="20"/>
+									<reportElement style="Sub-sub-sub-header" x="0" y="0" width="154" height="20"/>
 									<textElement/>
 									<text><![CDATA[]]></text>
 								</staticText>
@@ -356,7 +356,7 @@ ORDER BY
 						<jr:groupFooter groupName="warning">
 							<jr:cell height="30" rowSpan="1">
 								<textField>
-									<reportElement style="Table-Summary" x="0" y="0" width="163" height="20"/>
+									<reportElement style="Table-Summary" x="0" y="0" width="154" height="20"/>
 									<textElement>
 										<font isItalic="true"/>
 									</textElement>
@@ -370,27 +370,27 @@ ORDER BY
 								<bottomPen lineWidth="0.5" lineColor="#999999"/>
 							</box>
 							<textField>
-								<reportElement style="expire_warning_TD" x="0" y="0" width="163" height="20"/>
+								<reportElement style="expire_warning_TD" x="0" y="0" width="154" height="20"/>
 								<textElement/>
 								<textFieldExpression class="java.lang.String"><![CDATA[$F{maintcontract}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="72">
+					<jr:column width="85">
 						<jr:tableHeader style="Table-Header" height="20" rowSpan="1">
 							<box>
 								<topPen lineWidth="0.0"/>
 								<bottomPen lineWidth="0.0"/>
 							</box>
 							<staticText>
-								<reportElement style="Sub-sub-header" x="0" y="0" width="72" height="20"/>
-								<textElement/>
+								<reportElement style="Sub-sub-header" x="0" y="0" width="85" height="20"/>
+								<textElement textAlignment="Center"/>
 								<text><![CDATA[Expire date]]></text>
 							</staticText>
 						</jr:tableHeader>
 						<jr:tableFooter style="Table-Header" height="22" rowSpan="1">
 							<textField>
-								<reportElement style="Table-Summary" x="0" y="0" width="72" height="20"/>
+								<reportElement style="Table-Summary" x="0" y="0" width="85" height="20"/>
 								<textElement textAlignment="Center"/>
 								<textFieldExpression class="java.lang.Integer"><![CDATA[$V{total_SUM}]]></textFieldExpression>
 							</textField>
@@ -398,7 +398,7 @@ ORDER BY
 						<jr:groupHeader groupName="warning">
 							<jr:cell height="20" rowSpan="1">
 								<staticText>
-									<reportElement style="Sub-sub-sub-header" x="0" y="0" width="72" height="20"/>
+									<reportElement style="Sub-sub-sub-header" x="0" y="0" width="85" height="20"/>
 									<textElement/>
 									<text><![CDATA[]]></text>
 								</staticText>
@@ -407,7 +407,7 @@ ORDER BY
 						<jr:groupFooter groupName="warning">
 							<jr:cell height="30" rowSpan="1">
 								<textField>
-									<reportElement style="Table-Summary" x="0" y="0" width="72" height="20"/>
+									<reportElement style="Table-Summary" x="0" y="0" width="85" height="20"/>
 									<textElement textAlignment="Center">
 										<font isItalic="true"/>
 									</textElement>
@@ -421,8 +421,8 @@ ORDER BY
 								<bottomPen lineWidth="0.5" lineColor="#999999"/>
 							</box>
 							<textField pattern="dd/MM/yyyy">
-								<reportElement style="expire_warning_TD" x="0" y="0" width="72" height="20"/>
-								<textElement/>
+								<reportElement style="expire_warning_TD" x="0" y="0" width="85" height="20"/>
+								<textElement textAlignment="Center"/>
 								<textFieldExpression class="java.util.Date"><![CDATA[$F{expire}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
