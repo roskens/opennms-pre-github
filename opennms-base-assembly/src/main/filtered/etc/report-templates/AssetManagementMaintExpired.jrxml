@@ -1,101 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AssetMgmtMaintExpired" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AssetMgmtMaintExpired" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isTitleNewPage="true" isSummaryNewPage="true">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="444"/>
+	<property name="ireport.y" value="470"/>
 	<template><![CDATA["${install.dir}/etc/report-templates/assets/styles/defaultStyles.jrtx"]]></template>
-	<style name="expire_warning" mode="Transparent" hAlign="Center" vAlign="Middle" rotation="Left" markup="styled">
+	<style name="expire_warning_MARK" mode="Transparent" hAlign="Center" vAlign="Middle" rotation="Left" markup="styled">
 		<conditionalStyle>
-			<conditionExpression><![CDATA["WARNING".equals($F{maintcontractstatus})]]></conditionExpression>
+			<conditionExpression><![CDATA["expired".equals($F{maintcontractstatus})]]></conditionExpression>
 			<style mode="Opaque" forecolor="#FF9900" backcolor="#FFCC66" rotation="Left" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
 		</conditionalStyle>
 	</style>
-	<style name="summary_body" vAlign="Middle" isBold="true" isItalic="true" isUnderline="false" isStrikeThrough="false"/>
-	<style name="summary_table">
-		<box>
-			<pen lineWidth="1.0" lineColor="#000000"/>
-			<topPen lineWidth="0.0"/>
-			<leftPen lineWidth="0.0"/>
-			<bottomPen lineWidth="0.0"/>
-			<rightPen lineWidth="0.0"/>
-		</box>
-	</style>
-	<style name="summary_table_TH" mode="Opaque" backcolor="#F0F8FF">
-		<box>
-			<topPen lineWidth="0.5" lineColor="#000000"/>
-			<bottomPen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="summary_table_CH" mode="Opaque" backcolor="#BFE1FF">
-		<box>
-			<topPen lineWidth="0.5" lineColor="#000000"/>
-			<bottomPen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="summary_table_TD" mode="Opaque" backcolor="#FFFFFF" hAlign="Left" vAlign="Middle">
+	<style name="expire_warning_TD" mode="Opaque" backcolor="#FFFFFF" hAlign="Left" vAlign="Middle">
 		<box>
 			<topPen lineWidth="0.5" lineColor="#000000"/>
 			<bottomPen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 		<conditionalStyle>
-			<conditionExpression><![CDATA["WARNING".equals($F{maintcontractstatus})]]></conditionExpression>
+			<conditionExpression><![CDATA["expired".equals($F{maintcontractstatus})]]></conditionExpression>
 			<style mode="Opaque" forecolor="#000000" backcolor="#FFCC66"/>
 		</conditionalStyle>
 	</style>
-	<subDataset name="summaryByManufacturer">
-		<parameter name="DS_WARN_THRESH" class="java.lang.Integer" isForPrompting="false">
-			<defaultValueExpression><![CDATA[30]]></defaultValueExpression>
-		</parameter>
-		<parameter name="DS_DISPLAY_EXPIRED" class="java.lang.String" isForPrompting="false">
-			<defaultValueExpression><![CDATA["true"]]></defaultValueExpression>
-		</parameter>
-		<parameter name="DS_DATE_FORMAT" class="java.lang.String" isForPrompting="false">
-			<defaultValueExpression><![CDATA["YYYY-MM-DD"]]></defaultValueExpression>
-		</parameter>
-		<queryString>
-			<![CDATA[SELECT
-	count(*) as tally,
-	a.manufacturer,
-	a.maintcontract,
-	CASE
-		WHEN
-			to_date(a.maintcontractexpires,'$P!{DS_DATE_FORMAT}') - now() < INTERVAL '0 days'
- 			THEN 'WARNING'
-		ELSE
-			'NORMAL'
-	END AS maintcontractstatus
-FROM
-	public.assets a
-JOIN
-	public.node n
-ON
-	a.nodeid = n.nodeid
-WHERE
-	n.nodetype = 'A' AND
-	a.maintcontract IS NOT NULL  AND
-	a.maintcontractexpires IS NOT NULL  AND
-	a.maintcontractexpires != '' AND
-	a.maintcontractexpires != 'n.v.' AND
-	a.maintcontract != 'n.v.' AND
-	a.maintcontract != '' AND
-	to_date(a.maintcontractexpires,'$P!{DS_DATE_FORMAT}') - now() < INTERVAL '$P!{DS_WARN_THRESH} days'
-GROUP BY
-	a.manufacturer,
-	a.maintcontract,
-	maintcontractstatus
-ORDER BY
-	a.manufacturer ASC,
-	a.maintcontract DESC]]>
-		</queryString>
-		<field name="tally" class="java.lang.Long"/>
-		<field name="manufacturer" class="java.lang.String"/>
-		<field name="maintcontract" class="java.lang.String"/>
-		<field name="maintcontractstatus" class="java.lang.String"/>
-		<variable name="summaryManufacturer_SUM" class="java.lang.Long" calculation="Sum">
-			<variableExpression><![CDATA[$F{tally}]]></variableExpression>
-		</variable>
-		<filterExpression><![CDATA["true".equals($P{DS_DISPLAY_EXPIRED}) ? !"".equals($F{maintcontractstatus}) : "NORMAL".equals($F{maintcontractstatus})]]></filterExpression>
-	</subDataset>
+	<style name="negativ_days" vAlign="Middle">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($F{maintcontractleft}.getDays() < new Integer("0"))]]></conditionExpression>
+			<style forecolor="#CC3300"/>
+		</conditionalStyle>
+	</style>
 	<subDataset name="summaryByNode">
 		<parameter name="DS_DISPLAY_EXPIRED" class="java.lang.String" isForPrompting="false">
 			<defaultValueExpression><![CDATA["true"]]></defaultValueExpression>
@@ -115,10 +45,11 @@ ORDER BY
 	CASE
 		WHEN
 			to_date(a.maintcontractexpires,'$P!{DS_DATE_FORMAT}') - now() < INTERVAL '0 days'
- 			THEN 'WARNING'
+ 			THEN 'expired'
 		ELSE
-			'NORMAL'
-	END AS maintcontractstatus
+			'warning'
+	END AS maintcontractstatus,
+	'1'::INTEGER AS count
 FROM
 	public.assets a
 JOIN
@@ -150,21 +81,32 @@ ORDER BY
 		<field name="maintcontract" class="java.lang.String"/>
 		<field name="expire" class="java.sql.Date"/>
 		<field name="maintcontractstatus" class="java.lang.String"/>
-		<filterExpression><![CDATA["true".equals($P{DS_DISPLAY_EXPIRED}) ? !"".equals($F{maintcontractstatus}) : "NORMAL".equals($F{maintcontractstatus})]]></filterExpression>
+		<field name="count" class="java.lang.Integer"/>
+		<variable name="expired_SUM" class="java.lang.Integer" resetType="Group" resetGroup="warning" calculation="Sum">
+			<variableExpression><![CDATA[$F{count}]]></variableExpression>
+		</variable>
+		<variable name="total_SUM" class="java.lang.Integer" calculation="Sum">
+			<variableExpression><![CDATA[$F{count}]]></variableExpression>
+		</variable>
+		<filterExpression><![CDATA["true".equals($P{DS_DISPLAY_EXPIRED}) ? !"".equals($F{maintcontractstatus}) : "warning".equals($F{maintcontractstatus})]]></filterExpression>
+		<group name="warning">
+			<groupExpression><![CDATA[$F{maintcontractstatus}]]></groupExpression>
+		</group>
 	</subDataset>
 	<parameter name="WARNING_THRESHOLD_DAYS" class="java.lang.Integer">
-		<parameterDescription><![CDATA[Warning threshold for maintenance contract expire.]]></parameterDescription>
+		<parameterDescription><![CDATA[Warning threshold for contract expiration]]></parameterDescription>
 		<defaultValueExpression><![CDATA[30]]></defaultValueExpression>
 	</parameter>
 	<parameter name="DISPLAY_EXPIRED" class="java.lang.String">
-		<parameterDescription><![CDATA[Show mainenance expired reports. Allowed parameter input: true or false as string, default is false.]]></parameterDescription>
+		<parameterDescription><![CDATA[Show expired mainenance contracts (true/false)]]></parameterDescription>
 		<defaultValueExpression><![CDATA["false"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="COMPANY_LOGO" class="java.lang.String">
+		<parameterDescription><![CDATA[Company logo]]></parameterDescription>
 		<defaultValueExpression><![CDATA["${install.dir}/etc/report-templates/assets/images/company-logo.png"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="DATE_FORMAT" class="java.lang.String">
-		<parameterDescription><![CDATA[Your date format in maintenance contracts. Default is "YYYY-MM-DD"]]></parameterDescription>
+		<parameterDescription><![CDATA[Format for expire date. Default: "YYYY-MM-DD"]]></parameterDescription>
 		<defaultValueExpression><![CDATA["YYYY-MM-DD"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
@@ -182,9 +124,9 @@ ORDER BY
 	CASE
 		WHEN
 			to_date(a.maintcontractexpires,'$P!{DATE_FORMAT}') - now() < INTERVAL '$P!{WARNING_THRESHOLD_DAYS}'
- 			THEN 'WARNING'
+ 			THEN 'expired'
 		ELSE
-			'NORMAL'
+			'warning'
 	END AS maintcontractstatus
 FROM
 	public.assets a
@@ -217,7 +159,7 @@ ORDER BY
 	<field name="maintcontractleft" class="org.postgresql.util.PGInterval"/>
 	<field name="maintcontractstatus" class="java.lang.String"/>
 	<variable name="variable1" class="java.lang.String"/>
-	<filterExpression><![CDATA["true".equals($P{DISPLAY_EXPIRED}) ? !"".equals($F{maintcontractstatus}) : "NORMAL".equals($F{maintcontractstatus})]]></filterExpression>
+	<filterExpression><![CDATA["true".equals($P{DISPLAY_EXPIRED}) ? !"".equals($F{maintcontractstatus}) : "warning".equals($F{maintcontractstatus})]]></filterExpression>
 	<group name="manufacturer">
 		<groupExpression><![CDATA[$F{manufacturer}]]></groupExpression>
 		<groupHeader>
@@ -262,7 +204,7 @@ ORDER BY
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="465" splitType="Stretch">
+		<band height="364" splitType="Stretch">
 			<staticText>
 				<reportElement style="Title" x="0" y="182" width="555" height="49"/>
 				<textElement textAlignment="Center"/>
@@ -277,138 +219,13 @@ ORDER BY
 				<textElement textAlignment="Center"/>
 				<textFieldExpression class="java.lang.String"><![CDATA["This operational report shows all maintenance contracts expiring in " + $P{WARNING_THRESHOLD_DAYS} + " days." + ("true".equals($P{DISPLAY_EXPIRED}) ? " Devices with expired maintenance contracts will be marked." : "")]]></textFieldExpression>
 			</textField>
-			<componentElement>
-				<reportElement key="table" style="summary_table" x="0" y="330" width="555" height="50"/>
-				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="summaryByManufacturer">
-						<datasetParameter name="DS_WARN_THRESH">
-							<datasetParameterExpression><![CDATA[$P{WARNING_THRESHOLD_DAYS}]]></datasetParameterExpression>
-						</datasetParameter>
-						<datasetParameter name="DS_DISPLAY_EXPIRED">
-							<datasetParameterExpression><![CDATA[$P{DISPLAY_EXPIRED}]]></datasetParameterExpression>
-						</datasetParameter>
-						<datasetParameter name="DS_DATE_FORMAT">
-							<datasetParameterExpression><![CDATA[$P{DATE_FORMAT}]]></datasetParameterExpression>
-						</datasetParameter>
-						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					</datasetRun>
-					<jr:column width="229">
-						<jr:tableHeader style="summary_table_TH" height="20" rowSpan="1">
-							<box>
-								<topPen lineWidth="0.0"/>
-								<bottomPen lineWidth="0.0"/>
-							</box>
-							<staticText>
-								<reportElement style="Sub-sub-header" x="2" y="0" width="227" height="20"/>
-								<textElement/>
-								<text><![CDATA[Manufacturer]]></text>
-							</staticText>
-						</jr:tableHeader>
-						<jr:tableFooter style="summary_table_TH" height="17" rowSpan="1">
-							<box>
-								<topPen lineWidth="0.0"/>
-								<bottomPen lineWidth="0.0"/>
-							</box>
-						</jr:tableFooter>
-						<jr:detailCell style="summary_table_TD" height="20" rowSpan="1">
-							<box>
-								<pen lineColor="#999999"/>
-								<topPen lineColor="#999999"/>
-								<leftPen lineColor="#999999"/>
-								<bottomPen lineColor="#999999"/>
-								<rightPen lineColor="#999999"/>
-							</box>
-							<textField>
-								<reportElement style="Body" x="2" y="0" width="227" height="20"/>
-								<textElement/>
-								<textFieldExpression class="java.lang.String"><![CDATA[$F{manufacturer}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="239">
-						<jr:tableHeader style="summary_table_TH" height="20" rowSpan="1">
-							<box>
-								<topPen lineWidth="0.0"/>
-								<bottomPen lineWidth="0.0"/>
-							</box>
-							<staticText>
-								<reportElement style="Sub-sub-header" x="2" y="0" width="237" height="20"/>
-								<textElement/>
-								<text><![CDATA[Maintenance contract]]></text>
-							</staticText>
-						</jr:tableHeader>
-						<jr:tableFooter style="summary_table_TH" height="17" rowSpan="1">
-							<box>
-								<topPen lineWidth="0.0"/>
-								<bottomPen lineWidth="0.0"/>
-							</box>
-							<staticText>
-								<reportElement style="summary_body" x="0" y="0" width="239" height="17"/>
-								<textElement/>
-								<text><![CDATA[Maintenance contracts expired total:]]></text>
-							</staticText>
-						</jr:tableFooter>
-						<jr:detailCell style="summary_table_TD" height="20" rowSpan="1">
-							<box>
-								<topPen lineColor="#999999"/>
-								<bottomPen lineColor="#999999"/>
-							</box>
-							<textField>
-								<reportElement style="Body" x="2" y="0" width="237" height="20"/>
-								<textElement/>
-								<textFieldExpression class="java.lang.String"><![CDATA[$F{maintcontract}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="86">
-						<jr:tableHeader style="summary_table_TH" height="20" rowSpan="1">
-							<box>
-								<topPen lineWidth="0.0"/>
-								<bottomPen lineWidth="0.0"/>
-							</box>
-							<staticText>
-								<reportElement style="Sub-sub-header" x="0" y="0" width="86" height="20"/>
-								<textElement textAlignment="Center"/>
-								<text><![CDATA[tally]]></text>
-							</staticText>
-						</jr:tableHeader>
-						<jr:tableFooter style="summary_table_TH" height="17" rowSpan="1">
-							<box>
-								<topPen lineWidth="0.0"/>
-								<bottomPen lineWidth="0.0"/>
-							</box>
-							<textField>
-								<reportElement style="summary_body" x="0" y="0" width="86" height="17"/>
-								<textElement textAlignment="Center"/>
-								<textFieldExpression class="java.lang.Long"><![CDATA[$V{summaryManufacturer_SUM}]]></textFieldExpression>
-							</textField>
-						</jr:tableFooter>
-						<jr:detailCell style="summary_table_TD" height="20" rowSpan="1">
-							<box>
-								<topPen lineColor="#999999"/>
-								<bottomPen lineColor="#999999"/>
-							</box>
-							<textField>
-								<reportElement style="Body" x="0" y="0" width="86" height="20"/>
-								<textElement textAlignment="Center"/>
-								<textFieldExpression class="java.lang.Long"><![CDATA[$F{tally}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-				</jr:table>
-			</componentElement>
 			<staticText>
-				<reportElement style="Body" x="0" y="310" width="555" height="20"/>
-				<textElement/>
-				<text><![CDATA[Maintenance contract overview by manufacturer and ordered by manufacturer.]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="Body" x="0" y="398" width="555" height="20"/>
+				<reportElement style="Body" x="0" y="299" width="555" height="20"/>
 				<textElement/>
 				<text><![CDATA[Maintenance contract overview by node and ordered by expire date.]]></text>
 			</staticText>
 			<componentElement>
-				<reportElement key="table 1" style="Body" x="0" y="418" width="555" height="43"/>
+				<reportElement key="table 1" style="Body" x="0" y="319" width="555" height="43"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="summaryByNode">
 						<datasetParameter name="DS_DISPLAY_EXPIRED">
@@ -423,7 +240,7 @@ ORDER BY
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
 					<jr:column width="183">
-						<jr:tableHeader style="summary_table_TH" height="20" rowSpan="1">
+						<jr:tableHeader style="Table-Header" height="20" rowSpan="1">
 							<box>
 								<topPen lineWidth="0.0"/>
 								<bottomPen lineWidth="0.0"/>
@@ -434,20 +251,40 @@ ORDER BY
 								<text><![CDATA[Node label]]></text>
 							</staticText>
 						</jr:tableHeader>
-						<jr:detailCell style="summary_table_TD" height="20" rowSpan="1">
+						<jr:groupHeader groupName="warning">
+							<jr:cell height="20" rowSpan="1">
+								<textField>
+									<reportElement style="Sub-sub-sub-header" x="2" y="0" width="181" height="20"/>
+									<textElement>
+										<font size="10"/>
+									</textElement>
+									<textFieldExpression class="java.lang.String"><![CDATA["Status: " + $F{maintcontractstatus}]]></textFieldExpression>
+								</textField>
+							</jr:cell>
+						</jr:groupHeader>
+						<jr:groupFooter groupName="warning">
+							<jr:cell height="30" rowSpan="1">
+								<staticText>
+									<reportElement style="Table-Summary" x="0" y="0" width="183" height="20"/>
+									<textElement/>
+									<text><![CDATA[]]></text>
+								</staticText>
+							</jr:cell>
+						</jr:groupFooter>
+						<jr:detailCell style="expire_warning_MARK" height="20" rowSpan="1">
 							<box>
 								<topPen lineWidth="0.5" lineColor="#999999"/>
 								<bottomPen lineWidth="0.5" lineColor="#999999"/>
 							</box>
 							<textField>
-								<reportElement style="summary_table_TD" x="2" y="0" width="181" height="20"/>
+								<reportElement style="expire_warning_TD" x="2" y="0" width="181" height="20"/>
 								<textElement/>
 								<textFieldExpression class="java.lang.String"><![CDATA[$F{nodelabel}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="137">
-						<jr:tableHeader style="summary_table_TH" height="20" rowSpan="1">
+						<jr:tableHeader style="Table-Header" height="20" rowSpan="1">
 							<box>
 								<topPen lineWidth="0.0"/>
 								<bottomPen lineWidth="0.0"/>
@@ -458,20 +295,38 @@ ORDER BY
 								<text><![CDATA[Manufacturer]]></text>
 							</staticText>
 						</jr:tableHeader>
-						<jr:detailCell style="summary_table_TD" height="20" rowSpan="1">
+						<jr:groupHeader groupName="warning">
+							<jr:cell height="20" rowSpan="1">
+								<staticText>
+									<reportElement style="Sub-sub-sub-header" x="0" y="0" width="137" height="20"/>
+									<textElement/>
+									<text><![CDATA[]]></text>
+								</staticText>
+							</jr:cell>
+						</jr:groupHeader>
+						<jr:groupFooter groupName="warning">
+							<jr:cell height="30" rowSpan="1">
+								<staticText>
+									<reportElement style="Table-Summary" x="0" y="0" width="137" height="20"/>
+									<textElement/>
+									<text><![CDATA[]]></text>
+								</staticText>
+							</jr:cell>
+						</jr:groupFooter>
+						<jr:detailCell style="expire_warning_MARK" height="20" rowSpan="1">
 							<box>
 								<topPen lineWidth="0.5" lineColor="#999999"/>
 								<bottomPen lineWidth="0.5" lineColor="#999999"/>
 							</box>
 							<textField>
-								<reportElement style="summary_table_TD" x="0" y="0" width="137" height="20"/>
+								<reportElement style="expire_warning_TD" x="0" y="0" width="137" height="20"/>
 								<textElement/>
 								<textFieldExpression class="java.lang.String"><![CDATA[$F{manufacturer}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="163">
-						<jr:tableHeader style="summary_table_TH" height="20" rowSpan="1">
+						<jr:tableHeader style="Table-Header" height="20" rowSpan="1">
 							<box>
 								<topPen lineWidth="0.0"/>
 								<bottomPen lineWidth="0.0"/>
@@ -482,20 +337,47 @@ ORDER BY
 								<text><![CDATA[Maintenance contract]]></text>
 							</staticText>
 						</jr:tableHeader>
-						<jr:detailCell style="summary_table_TD" height="20" rowSpan="1">
+						<jr:tableFooter style="Table-Header" height="22">
+							<staticText>
+								<reportElement style="Table-Summary" x="0" y="0" width="163" height="20"/>
+								<textElement/>
+								<text><![CDATA[Total maintenance contracts]]></text>
+							</staticText>
+						</jr:tableFooter>
+						<jr:groupHeader groupName="warning">
+							<jr:cell height="20" rowSpan="1">
+								<staticText>
+									<reportElement style="Sub-sub-sub-header" x="0" y="0" width="163" height="20"/>
+									<textElement/>
+									<text><![CDATA[]]></text>
+								</staticText>
+							</jr:cell>
+						</jr:groupHeader>
+						<jr:groupFooter groupName="warning">
+							<jr:cell height="30" rowSpan="1">
+								<textField>
+									<reportElement style="Table-Summary" x="0" y="0" width="163" height="20"/>
+									<textElement>
+										<font isItalic="true"/>
+									</textElement>
+									<textFieldExpression class="java.lang.String"><![CDATA["Total maintenance " + $F{maintcontractstatus}]]></textFieldExpression>
+								</textField>
+							</jr:cell>
+						</jr:groupFooter>
+						<jr:detailCell style="expire_warning_MARK" height="20" rowSpan="1">
 							<box>
 								<topPen lineWidth="0.5" lineColor="#999999"/>
 								<bottomPen lineWidth="0.5" lineColor="#999999"/>
 							</box>
 							<textField>
-								<reportElement style="summary_table_TD" x="0" y="0" width="163" height="20"/>
+								<reportElement style="expire_warning_TD" x="0" y="0" width="163" height="20"/>
 								<textElement/>
 								<textFieldExpression class="java.lang.String"><![CDATA[$F{maintcontract}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="72">
-						<jr:tableHeader style="summary_table_TH" height="20" rowSpan="1">
+						<jr:tableHeader style="Table-Header" height="20" rowSpan="1">
 							<box>
 								<topPen lineWidth="0.0"/>
 								<bottomPen lineWidth="0.0"/>
@@ -506,13 +388,40 @@ ORDER BY
 								<text><![CDATA[Expire date]]></text>
 							</staticText>
 						</jr:tableHeader>
-						<jr:detailCell style="summary_table_TD" height="20" rowSpan="1">
+						<jr:tableFooter style="Table-Header" height="22" rowSpan="1">
+							<textField>
+								<reportElement style="Table-Summary" x="0" y="0" width="72" height="20"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression class="java.lang.Integer"><![CDATA[$V{total_SUM}]]></textFieldExpression>
+							</textField>
+						</jr:tableFooter>
+						<jr:groupHeader groupName="warning">
+							<jr:cell height="20" rowSpan="1">
+								<staticText>
+									<reportElement style="Sub-sub-sub-header" x="0" y="0" width="72" height="20"/>
+									<textElement/>
+									<text><![CDATA[]]></text>
+								</staticText>
+							</jr:cell>
+						</jr:groupHeader>
+						<jr:groupFooter groupName="warning">
+							<jr:cell height="30" rowSpan="1">
+								<textField>
+									<reportElement style="Table-Summary" x="0" y="0" width="72" height="20"/>
+									<textElement textAlignment="Center">
+										<font isItalic="true"/>
+									</textElement>
+									<textFieldExpression class="java.lang.Integer"><![CDATA[$V{expired_SUM}]]></textFieldExpression>
+								</textField>
+							</jr:cell>
+						</jr:groupFooter>
+						<jr:detailCell style="expire_warning_MARK" height="20" rowSpan="1">
 							<box>
 								<topPen lineWidth="0.5" lineColor="#999999"/>
 								<bottomPen lineWidth="0.5" lineColor="#999999"/>
 							</box>
 							<textField pattern="dd/MM/yyyy">
-								<reportElement style="summary_table_TD" x="0" y="0" width="72" height="20"/>
+								<reportElement style="expire_warning_TD" x="0" y="0" width="72" height="20"/>
 								<textElement/>
 								<textFieldExpression class="java.util.Date"><![CDATA[$F{expire}]]></textFieldExpression>
 							</textField>
@@ -521,13 +430,7 @@ ORDER BY
 				</jr:table>
 			</componentElement>
 			<break>
-				<reportElement x="0" y="293" width="100" height="1"/>
-			</break>
-			<break>
-				<reportElement x="0" y="380" width="100" height="1"/>
-			</break>
-			<break>
-				<reportElement x="0" y="461" width="100" height="1"/>
+				<reportElement x="0" y="295" width="100" height="1"/>
 			</break>
 		</band>
 	</title>
@@ -627,12 +530,12 @@ ORDER BY
 				<text><![CDATA[Contract days left:]]></text>
 			</staticText>
 			<textField pattern="">
-				<reportElement style="Body" x="122" y="63" width="167" height="20"/>
+				<reportElement style="negativ_days" x="122" y="63" width="167" height="20"/>
 				<textElement/>
 				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{maintcontractleft}.getDays()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="expire_warning" mode="Opaque" x="0" y="1" width="15" height="106" forecolor="#FFFFFF"/>
+				<reportElement style="expire_warning_MARK" mode="Opaque" x="0" y="1" width="15" height="106" forecolor="#FFFFFF"/>
 				<textElement/>
 				<text><![CDATA[E X P I R E D]]></text>
 			</staticText>
