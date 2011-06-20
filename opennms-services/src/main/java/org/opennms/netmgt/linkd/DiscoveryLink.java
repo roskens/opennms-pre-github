@@ -177,7 +177,7 @@ public final class DiscoveryLink implements ReadyRunnable {
 			for (final LinkableNode curNode : all_snmplinknodes) {
 				LogUtils.debugf(this, "run: Iterating on LinkableNode's found node: %d", curNode.getNodeId());
 
-				if (curNode.isBridgeNode && discoveryUsingBridge) {
+				if (curNode.isBridgeNode() && discoveryUsingBridge) {
 					bridgeNodes.put(new Integer(curNode.getNodeId()), curNode);
 					
 				}
@@ -298,7 +298,7 @@ public final class DiscoveryLink implements ReadyRunnable {
 						LinkableNode targetNode = bridgeNodes.get(new Integer(targetCdpNodeId));
 						add = parseCdpLinkOn(curNode, cdpIfIndex,targetNode, cdpDestIfindex);
 						LogUtils.debugf(this, "run: both node are bridge nodes! Adding: %b", add);
-					} else if (curNode.isBridgeNode) {
+					} else if (curNode.isBridgeNode()) {
 					    LogUtils.debugf(this, "run: source node is bridge node, target node is not bridge node! Adding: %b", add);
 						add = parseCdpLinkOn(curNode,cdpIfIndex,targetCdpNodeId);
 					} else if (isBridgeNode(targetCdpNodeId)) {

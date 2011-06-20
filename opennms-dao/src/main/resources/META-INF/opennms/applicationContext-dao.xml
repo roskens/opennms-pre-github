@@ -265,12 +265,19 @@
 
   <bean id="databaseSchemaConfigFactory" class="org.opennms.netmgt.config.DatabaseSchemaConfigFactory" depends-on="databaseSchemaConfigFactory-init" factory-method="getInstance"/>
 
-  <bean id="filterDao" class="org.opennms.netmgt.dao.support.JdbcFilterDao">
-    <property name="dataSource" ref="dataSource" />
-    <property name="databaseSchemaConfigFactory" ref="databaseSchemaConfigFactory" />
-    <property name="nodeDao" ref="nodeDao" />
+  <bean id="filterDaoFactory-init" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+    <property name="staticMethod"><value>org.opennms.netmgt.filter.FilterDaoFactory.setInstance</value></property>
+    <property name="arguments">
+      <bean id="jdbcFilterDao" class="org.opennms.netmgt.dao.support.JdbcFilterDao">
+        <property name="dataSource" ref="dataSource" />
+        <property name="databaseSchemaConfigFactory" ref="databaseSchemaConfigFactory" />
+        <property name="nodeDao" ref="nodeDao" />
+      </bean>
+    </property>
   </bean>
-
+  
+  <bean id="filterDao" class="org.opennms.netmgt.filter.FilterDaoFactory" depends-on="filterDaoFactory-init" factory-method="getInstance" />
+  
   <bean id="collectdConfig-init" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
     <property name="staticMethod"><value>org.opennms.netmgt.config.CollectdConfigFactory.init</value></property>
   </bean>

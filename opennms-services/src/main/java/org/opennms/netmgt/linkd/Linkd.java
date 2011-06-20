@@ -155,7 +155,7 @@ public class Linkd extends AbstractServiceDaemon {
 	 * when not still activated
 	 * @param node
 	 */
-	private void scheduleCollectionForNode(LinkableNode node) {
+	private void scheduleCollectionForNode(final LinkableNode node) {
 
 		for (final SnmpCollection snmpcoll : getSnmpCollections(node.getSnmpPrimaryIpAddr(), node.getSysoid())) {
 			if (m_activepackages.contains(snmpcoll.getPackageName())) {
@@ -163,11 +163,11 @@ public class Linkd extends AbstractServiceDaemon {
 			} else {
 				// schedule discovery link
 			    LogUtils.debugf(this, "ScheduleCollectionForNode: Schedulink Discovery Link for Active Package: %s", snmpcoll.getPackageName());
-				DiscoveryLink discovery = this.getDiscoveryLink(snmpcoll.getPackageName());
+			    final DiscoveryLink discovery = this.getDiscoveryLink(snmpcoll.getPackageName());
 	   			if (discovery.getScheduler() == null) {
 	   				discovery.setScheduler(m_scheduler);
 	    		}
-	    		discovery.schedule();
+	   			discovery.schedule();
 	    		m_activepackages.add(snmpcoll.getPackageName());
 
 			}
@@ -216,10 +216,7 @@ public class Linkd extends AbstractServiceDaemon {
     public List<SnmpCollection> getSnmpCollections(final String ipaddr, final String sysoid) {
         List<SnmpCollection> snmpcolls = new ArrayList<SnmpCollection>();
 
-        Iterator<String> ite = m_linkdConfig.getAllPackageMatches(ipaddr).iterator();
-        
-        while (ite.hasNext()) {
-            final String pkgName = ite.next();
+        for (final String pkgName : m_linkdConfig.getAllPackageMatches(ipaddr)) {
             snmpcolls.add(getSnmpCollection(ipaddr, sysoid, pkgName));
         }
 
@@ -396,6 +393,7 @@ public class Linkd extends AbstractServiceDaemon {
 			return false;
 		}
 		synchronized (m_nodes) {
+		    LogUtils.debugf(this, "adding node %s to the collection", node);
 	        m_nodes.add(node);
         }
 		

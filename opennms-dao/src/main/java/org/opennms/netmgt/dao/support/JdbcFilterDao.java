@@ -270,7 +270,7 @@ public class JdbcFilterDao implements FilterDao, InitializingBean {
      * {@inheritDoc}
      */
     public List<InetAddress> getActiveIPAddressList(final String rule) throws FilterParseException {
-    	return getIPAddressList(rule, true);
+        return getIPAddressList(rule, true);
     }
 
     /**

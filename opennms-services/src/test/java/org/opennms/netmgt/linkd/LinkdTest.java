@@ -56,7 +56,8 @@ import org.springframework.transaction.annotation.Transactional;
 		"classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
 		"classpath:/META-INF/opennms/applicationContext-setupIpLike-enabled.xml",
 		"classpath:/META-INF/opennms/applicationContext-linkd.xml",
-		"classpath:/applicationContext-minimal-conf.xml"
+		"classpath:/applicationContext-minimal-conf.xml",
+		"classpath:/applicationContext-linkd-test.xml"
 })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
@@ -73,24 +74,25 @@ public class LinkdTest {
 		// Use the mock.logLevel system property to control the log level
 		MockLogAppender.setupLogging(true);
 
-		NetworkBuilder nb = new NetworkBuilder();
-		nb.addNode("test.example.com").setForeignSource("linkd").setForeignId("1").setSysObjectId(".1.3.6.1.4.1.1724.81").setType("A");
-		nb.addInterface("192.168.1.10").setIsSnmpPrimary("P").setIsManaged("M");
-		m_nodeDao.save(nb.getCurrentNode());
-		m_nodeDao.flush();
+        final NetworkBuilder nb = new NetworkBuilder();
+        nb.addNode("test.example.com").setForeignSource("linkd").setForeignId("1").setSysObjectId(".1.3.6.1.4.1.1724.81").setType("A");
+        nb.addInterface("192.168.1.10").setIsSnmpPrimary("P").setIsManaged("M");
+        m_nodeDao.save(nb.getCurrentNode());
+        m_nodeDao.flush();
 	}
 
 	@Test
 	@Transactional
 	@JUnitSnmpAgent(resource = "/westell-smartjack.properties")
 	public void testWestellSmartjackLldp() throws Exception {
-
 		final OnmsNode node = m_nodeDao.findByForeignId("linkd", "1");
 		LogUtils.debugf(this, "node = %s, primary interface = %s", node, node.getPrimaryInterface());
 
+        m_linkd.start();
         assertTrue(m_linkd.scheduleNodeCollection(node.getId()));
 
-//		Thread.sleep(60000);
+		Thread.sleep(30000);
 
+		m_linkd.stop();
 	}
 }
