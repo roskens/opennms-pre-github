@@ -1546,8 +1546,7 @@ create table vlan (
     vlanstatus   integer,
     status		 char(1) not null,
     lastPollTime timestamp not null,
-    constraint pk_vlan primary key (id),
-	constraint c_vlan_node unique (nodeid,vlanid),
+	constraint pk_vlan primary key (nodeid,vlanid),
 	constraint fk_ia_nodeID8 foreign key (nodeid) references node on delete cascade
 );
 
@@ -1614,8 +1613,7 @@ create table stpnode (
     lastPollTime             timestamp not null,
     basevlan                 integer not null,
     basevlanname			 varchar(32),
-    constraint pk_stpnode primary key (id),
-	constraint c_stpnode_vlan unique (nodeid,basevlan),
+    constraint pk_stpnode primary key (nodeid,basevlan),
 	constraint fk_ia_nodeID2 foreign key (nodeid) references node on delete cascade
 );
 
@@ -1684,9 +1682,8 @@ create table stpinterface (
     lastPollTime         timestamp not null,
     stpvlan                 integer not null,
 
-    constraint pk_stpnode primary key (id),
-	constraint c_stpinterface_node_bridgeport_vlan unique (nodeid,bridgeport,stpvlan),
-	constraint fk_ia_nodeID3 foreign key (nodeid) references node on delete cascade
+    constraint pk_stpinterface primary key (nodeid,bridgeport,stpvlan),
+    constraint fk_ia_nodeID3 foreign key (nodeid) references node on delete cascade
 );
 
 create index stpinterface_node_ifindex_idx on stpinterface(nodeid,ifindex);
@@ -1757,6 +1754,7 @@ create index stpinterface_stpdesbridge_idx on stpinterface(stpportdesignatedbrid
 --########################################################################
 
 create table iprouteinterface (
+    id			integer default nextval('opennmsNxtId') not null,
     nodeid		    integer not null,
     routeDest               varchar(16) not null,
     routeMask               varchar(16) not null,
@@ -1772,9 +1770,8 @@ create table iprouteinterface (
     status		    char(1) not null,
     lastPollTime            timestamp not null,
 
-    constraint pk_iprouteinterface primary key (id),
-	constraint c_iprouteinterface_node_routedest unique (nodeid,routedest),
-	constraint fk_ia_nodeID4 foreign key (nodeid) references node on delete cascade
+    constraint pk_iprouteinterface primary key (nodeid,routedest),
+    constraint fk_ia_nodeID4 foreign key (nodeid) references node on delete cascade
 );
 
 create index iprouteinterface_nodeid_idx on iprouteinterface(nodeid);
@@ -1817,8 +1814,8 @@ create table datalinkinterface (
     lastPollTime     timestamp not null,
 
     constraint pk_datalinkinterface primary key (id),
-	constraint fk_ia_nodeID5 foreign key (nodeid) references node on delete cascade,
-	constraint fk_ia_nodeID6 foreign key (nodeparentid) references node (nodeid) ON DELETE CASCADE
+    constraint fk_ia_nodeID5 foreign key (nodeid) references node on delete cascade,
+    constraint fk_ia_nodeID6 foreign key (nodeparentid) references node (nodeid) ON DELETE CASCADE
 );
 
 create index dlint_id_idx on datalinkinterface(id);

@@ -90,7 +90,7 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
         criteria.createAlias("ipInterfaces", "iface", OnmsCriteria.LEFT_JOIN);
         criteria.add(Restrictions.eq("type", "A"));
         criteria.add(Restrictions.eq("iface.isSnmpPrimary", PrimaryType.PRIMARY));
-        criteria.add(Restrictions.eq("nodeId", nodeid));
+        criteria.add(Restrictions.eq("id", nodeid));
         final List<OnmsNode> nodes = m_nodeDao.findMatching(criteria);
 
         if (nodes.size() > 0) {

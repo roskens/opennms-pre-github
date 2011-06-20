@@ -71,6 +71,9 @@ public class OnmsVlan {
 	private Character m_status;
 	private Date m_lastPollTime;	
 
+	public OnmsVlan() {
+	}
+	
 	public OnmsVlan(final int index, final String name, final int status, final int type) {
 		m_vlanId = index;
 		m_vlanName = name;
