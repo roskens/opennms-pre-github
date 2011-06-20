@@ -1164,6 +1164,7 @@ create table assets (
         additionalhardware		varchar(64),
         admin		varchar(32),
         snmpcommunity		varchar(32),
+        rackunitheight		varchar(2),
         
     constraint pk_assetID primary key (id),
 	constraint fk_nodeID5 foreign key (nodeID) references node ON DELETE CASCADE
@@ -1537,6 +1538,7 @@ create index atinterface_atphysaddr_idx on atinterface(atphysaddr);
 --########################################################################
 
 create table vlan (
+    id			integer default nextval('opennmsNxtId') not null,
     nodeid		 integer not null,
     vlanid	     integer not null,
     vlanname     varchar(64) not null,
@@ -1544,7 +1546,8 @@ create table vlan (
     vlanstatus   integer,
     status		 char(1) not null,
     lastPollTime timestamp not null,
-    constraint pk_vlan primary key (nodeid,vlanid),
+    constraint pk_vlan primary key (id),
+	constraint c_vlan_node unique (nodeid,vlanid),
 	constraint fk_ia_nodeID8 foreign key (nodeid) references node on delete cascade
 );
 
@@ -1597,6 +1600,7 @@ create index vlan_vlanname_idx on vlan(vlanname);
 --########################################################################
 
 create table stpnode (
+    id			integer default nextval('opennmsNxtId') not null,
     nodeid		     integer not null,
     baseBridgeAddress	     varchar(12) not null,
     baseNumPorts             integer,
@@ -1610,7 +1614,8 @@ create table stpnode (
     lastPollTime             timestamp not null,
     basevlan                 integer not null,
     basevlanname			 varchar(32),
-    constraint pk_stpnode primary key (nodeid,basevlan),
+    constraint pk_stpnode primary key (id),
+	constraint c_stpnode_vlan unique (nodeid,basevlan),
 	constraint fk_ia_nodeID2 foreign key (nodeid) references node on delete cascade
 );
 
@@ -1665,6 +1670,7 @@ create index stpnode_stpdesignatedroot_idx on stpnode(stpdesignatedroot);
 --########################################################################
 
 create table stpinterface (
+    id			integer default nextval('opennmsNxtId') not null,
     nodeid	            integer not null,
     bridgeport              integer not null,
     ifindex                 integer not null,
@@ -1678,7 +1684,8 @@ create table stpinterface (
     lastPollTime         timestamp not null,
     stpvlan                 integer not null,
 
-    constraint pk_stpinterface primary key (nodeid,bridgeport,stpvlan),
+    constraint pk_stpnode primary key (id),
+	constraint c_stpinterface_node_bridgeport_vlan unique (nodeid,bridgeport,stpvlan),
 	constraint fk_ia_nodeID3 foreign key (nodeid) references node on delete cascade
 );
 
@@ -1765,7 +1772,8 @@ create table iprouteinterface (
     status		    char(1) not null,
     lastPollTime            timestamp not null,
 
-	constraint pk_iprouteinterface primary key (nodeid,routedest),
+    constraint pk_iprouteinterface primary key (id),
+	constraint c_iprouteinterface_node_routedest unique (nodeid,routedest),
 	constraint fk_ia_nodeID4 foreign key (nodeid) references node on delete cascade
 );
 
