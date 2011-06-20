@@ -40,8 +40,11 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -49,6 +52,7 @@ import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -57,9 +61,10 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name="vlan", uniqueConstraints = {@UniqueConstraint(columnNames={"nodeId", "vlanId"})})
 public class OnmsVlan {
+    private Integer m_id;
 	private Integer m_nodeId;
 	private OnmsNode m_node;
-	private Integer m_vlanIndex;
+	private Integer m_vlanId;
 	private String m_vlanName;
 	private Integer m_vlanType = -1;
 	private Integer m_vlanStatus = -1;
@@ -67,18 +72,37 @@ public class OnmsVlan {
 	private Date m_lastPollTime;	
 
 	public OnmsVlan(final int index, final String name, final int status, final int type) {
-		m_vlanIndex = index;
+		m_vlanId = index;
 		m_vlanName = name;
 		m_vlanStatus = status;
 		m_vlanType = type;
 	}
 
 	public OnmsVlan(final int index, final String name, final int status) {
-		m_vlanIndex = index;
+		m_vlanId = index;
 		m_vlanName = name;
 		m_vlanStatus = status;
 	}
 
+    @Id
+    @XmlTransient
+    @SequenceGenerator(name="opennmsSequence", sequenceName="opennmsNxtId")
+    @GeneratedValue(generator="opennmsSequence")    
+    public Integer getId() {
+        return m_id;
+    }
+    
+    @XmlID
+    @XmlAttribute(name="id")
+    @Transient
+    public String getInterfaceId() {
+        return getId().toString();
+    }
+
+    public void setId(final Integer id) {
+        m_id = id;
+    }
+    
     // transient, see getNode()/setNode() below
     @Transient
     @XmlTransient
@@ -113,14 +137,14 @@ public class OnmsVlan {
         m_nodeId = node == null? null : node.getId();
     }
     
-    @XmlAttribute(name="index")
+    @XmlAttribute
     @Column(nullable=false)
-    public Integer getVlanIndex() {
-		return m_vlanIndex;
+    public Integer getVlanId() {
+		return m_vlanId;
 	}
 
-	public void setVlanIndex(final Integer vlanIndex) {
-		m_vlanIndex = vlanIndex;
+	public void setVlanId(final Integer vlanId) {
+		m_vlanId = vlanId;
 	}
 
 	@XmlAttribute(name="name")

@@ -35,10 +35,23 @@
 //
 package org.opennms.netmgt.dao;
 
+import java.sql.Timestamp;
+import java.util.Collection;
+
 import org.opennms.netmgt.model.OnmsAtInterface;
 
 public interface AtInterfaceDao extends OnmsDao<OnmsAtInterface, Integer> {
 
 	void markDeletedIfNodeDeleted();
+
+    void deactivateForNodeIdIfOlderThan(int nodeid, Timestamp scanTime);
+
+    Collection<OnmsAtInterface> findByMacAddress(final String macAddress);
+
+    void setStatusForNode(Integer nodeid, Character action);
+
+    void setStatusForNodeAndIp(Integer nodeid, String ipAddr, Character action);
+
+    void setStatusForNodeAndIfIndex(Integer nodeid, Integer ifIndex, Character action);
 
 }

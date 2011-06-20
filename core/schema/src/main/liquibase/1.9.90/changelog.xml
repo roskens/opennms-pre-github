@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet author="rangerrick" id="1.9.90-add-ids-to-linkd-vlan">
+        <dropPrimaryKey tableName="vlan" constraintName="pk_vlan" />
+        <addColumn tableName="vlan">
+            <column name="id" type="integer">
+                <constraints nullable="false" />
+            </column>
+        </addColumn>
+        <addPrimaryKey tableName="vlan" columnNames="id" constraintName="pk_vlan" />
+        <ext:addAutoIncrement tableName="vlan" columnName="id" columnDataType="integer" sequenceName="opennmsNxtId" />
+        <addUniqueConstraint tableName="vlan" columnNames="nodeid,vlanid" constraintName="c_vlan_node" />
+        
+        <rollback>
+        	<dropUniqueConstraint tableName="vlan" constraintName="c_vlan_node" />
+        	<dropPrimaryKey tableName="vlan" constraintName="pk_vlan" />
+        	<dropColumn tableName="vlan" columnName="id" />
+        	<addPrimaryKey tableName="vlan" columnNames="nodeid,vlanid" constraintName="pk_vlan" />
+        </rollback>
+    </changeSet>
+
+    <changeSet author="rangerrick" id="1.9.90-add-ids-to-linkd-stpNode">
+        <dropPrimaryKey tableName="stpnode" constraintName="pk_stpnode" />
+        <addColumn tableName="stpnode">
+            <column name="id" type="integer">
+                <constraints nullable="false" />
+            </column>
+        </addColumn>
+        <addPrimaryKey tableName="stpnode" columnNames="id" constraintName="pk_stpnode" />
+        <ext:addAutoIncrement tableName="stpnode" columnName="id" columnDataType="integer" sequenceName="opennmsNxtId" />
+        <addUniqueConstraint tableName="stpnode" columnNames="nodeid,basevlan" constraintName="c_stpnode_vlan" />
+        
+        <rollback>
+        	<dropUniqueConstraint tableName="stpnode" constraintName="c_stpnode_vlan" />
+        	<dropPrimaryKey tableName="stpnode" />
+        	<dropColumn tableName="stpnode" columnName="id" />
+        	<addPrimaryKey tableName="stpnode" columnNames="nodeid,basevlan" constraintName="pk_stpnode" />
+        </rollback>
+    </changeSet>
+
+    <changeSet author="rangerrick" id="1.9.90-add-ids-to-linkd-stpInterface">
+        <dropPrimaryKey tableName="stpinterface" constraintName="pk_stpinterface" />
+        <addColumn tableName="stpinterface">
+            <column name="id" type="integer">
+                <constraints nullable="false" />
+            </column>
+        </addColumn>
+        <addPrimaryKey tableName="stpinterface" columnNames="id" constraintName="pk_stpinterface" />
+        <ext:addAutoIncrement tableName="stpinterface" columnName="id" columnDataType="integer" sequenceName="opennmsNxtId" />
+        <addUniqueConstraint tableName="stpinterface" columnNames="nodeid,bridgeport,stpvlan" constraintName="c_stpinterface_node_bridgeport_vlan" />
+        
+        <rollback>
+        	<dropUniqueConstraint tableName="stpinterface" constraintName="c_stpinterface_node_bridgeport_vlan" />
+        	<dropPrimaryKey tableName="stpinterface" />
+        	<dropColumn tableName="stpinterface" columnName="id" />
+        	<addPrimaryKey tableName="stpinterface" columnNames="nodeid,bridgeport,stpvlan" constraintName="pk_stpinterface" />
+        </rollback>
+    </changeSet>
+
+    <changeSet author="rangerrick" id="1.9.90-add-ids-to-linkd-ipRouteInterface">
+        <dropPrimaryKey tableName="iprouteinterface" constraintName="pk_iprouteinterface" />
+        <addColumn tableName="iprouteinterface">
+            <column name="id" type="integer">
+                <constraints nullable="false" />
+            </column>
+        </addColumn>
+        <addPrimaryKey tableName="iprouteinterface" columnNames="id" constraintName="pk_iprouteinterface" />
+        <ext:addAutoIncrement tableName="iprouteinterface" columnName="id" columnDataType="integer" sequenceName="opennmsNxtId" />
+        <addUniqueConstraint tableName="iprouteinterface" columnNames="nodeid,routedest" constraintName="c_iprouteinterface_node_routedest" />
+        
+        <rollback>
+        	<dropUniqueConstraint tableName="iprouteinterface" constraintName="c_iprouteinterface_node_routedest" />
+        	<dropPrimaryKey tableName="iprouteinterface" />
+        	<dropColumn tableName="iprouteinterface" columnName="id" />
+        	<addPrimaryKey tableName="iprouteinterface" columnNames="nodeid,bridgeport,iproutevlan" constraintName="pk_iprouteinterface" />
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

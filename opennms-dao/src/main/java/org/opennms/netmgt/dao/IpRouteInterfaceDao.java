@@ -35,10 +35,18 @@
 //
 package org.opennms.netmgt.dao;
 
+import java.sql.Timestamp;
+
 import org.opennms.netmgt.model.OnmsIpRouteInterface;
 
 public interface IpRouteInterfaceDao extends OnmsDao<OnmsIpRouteInterface, Integer> {
 
 	void markDeletedIfNodeDeleted();
+
+    void deactivateForNodeIdIfOlderThan(int nodeid, Timestamp scanTime);
+
+    void setStatusForNode(Integer nodeid, Character action);
+
+    void setStatusForNodeAndIfIndex(Integer nodeid, Integer ifIndex, Character action);
 
 }

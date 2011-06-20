@@ -37,6 +37,8 @@
 
 package org.opennms.netmgt.dao.hibernate;
 
+import java.sql.Timestamp;
+
 import org.hibernate.criterion.Restrictions;
 import org.opennms.netmgt.dao.StpInterfaceDao;
 import org.opennms.netmgt.model.OnmsCriteria;
@@ -52,12 +54,55 @@ public class StpInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsStpInterf
 	public void markDeletedIfNodeDeleted() {
 		final OnmsCriteria criteria = new OnmsCriteria(OnmsStpInterface.class);
         criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("nodeType", "D"));
+        criteria.add(Restrictions.eq("node.type", "D"));
         
         for (final OnmsStpInterface stpIface : findMatching(criteria)) {
         	stpIface.setStatus('D');
         	saveOrUpdate(stpIface);
         }
 	}
+
+    @Override
+    public void deactivateForNodeIdIfOlderThan(final int nodeid, final Timestamp scanTime) {
+        final OnmsCriteria criteria = new OnmsCriteria(OnmsStpInterface.class);
+        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
+        criteria.add(Restrictions.eq("node.id", nodeid));
+        criteria.add(Restrictions.lt("lastPollTime", scanTime));
+        criteria.add(Restrictions.eq("status", "A"));
+        
+        for (final OnmsStpInterface item : findMatching(criteria)) {
+            item.setStatus('N');
+            saveOrUpdate(item);
+        }
+    }
+
+    @Override
+    public void setStatusForNode(final Integer nodeid, final Character action) {
+        // UPDATE stpinterface set status = ? WHERE nodeid = ?
+
+        final OnmsCriteria criteria = new OnmsCriteria(OnmsStpInterface.class);
+        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
+        criteria.add(Restrictions.eq("node.id", nodeid));
+
+        for (final OnmsStpInterface item : findMatching(criteria)) {
+            item.setStatus(action);
+            saveOrUpdate(item);
+        }
+    }
+
+    @Override
+    public void setStatusForNodeAndIfIndex(final Integer nodeid, final Integer ifIndex, final Character action) {
+        // UPDATE stpinterface set status = ? WHERE nodeid = ? AND ifindex = ?
+
+        final OnmsCriteria criteria = new OnmsCriteria(OnmsStpInterface.class);
+        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
+        criteria.add(Restrictions.eq("node.id", nodeid));
+        criteria.add(Restrictions.eq("ifIndex", ifIndex));
+
+        for (final OnmsStpInterface item : findMatching(criteria)) {
+            item.setStatus(action);
+            saveOrUpdate(item);
+        }
+    }
 
 }

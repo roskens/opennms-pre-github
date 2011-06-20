@@ -64,7 +64,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
  * @author antonio
  * @version $Id: $
  */
-public class DbEventWriter extends AbstractQueryManager implements QueryManager {
+public class DbEventWriter extends AbstractQueryManager {
 
     private JdbcTemplate jdbcTemplate;
 
@@ -134,19 +134,6 @@ public class DbEventWriter extends AbstractQueryManager implements QueryManager 
     private static final String SQL_UPDATE_DATALINKINTERFACE_D = "UPDATE datalinkinterface set status = 'D' WHERE (nodeid IN (SELECT nodeid from node WHERE nodetype = 'D' ) OR nodeparentid IN (SELECT nodeid from node WHERE nodetype = 'D' )) AND status <> 'D'";
 
     /**
-     * update table status for interfaces
-     */
-    private static final String SQL_UPDATE_ATINTERFACE_STATUS_INTFC = "UPDATE atinterface set status = ?  WHERE nodeid = ? AND ipaddr = ?";
-    
-    private static final String SQL_UPDATE_ATINTERFACE_STATUS_SRC_INTFC = "UPDATE atinterface set status = ?  WHERE sourcenodeid = ? AND ifindex = ?";
-
-    private static final String SQL_UPDATE_STPINTERFACE_STATUS_INTFC = "UPDATE stpinterface set status = ? WHERE nodeid = ? AND ifindex = ?";
-
-    private static final String SQL_UPDATE_IPROUTEINTERFACE_STATUS_INTFC = "UPDATE iprouteinterface set status = ? WHERE nodeid = ? AND routeifindex = ?";
-
-    private static final String SQL_UPDATE_DATALINKINTERFACE_STATUS_INTFC = "UPDATE datalinkinterface set status = ? WHERE (nodeid = ? and ifindex = ?) OR (nodeparentid = ? AND parentifindex = ?)";
-
-    /**
      * <p>Constructor for DbEventWriter.</p>
      */
     public DbEventWriter() {
@@ -158,7 +145,7 @@ public class DbEventWriter extends AbstractQueryManager implements QueryManager 
     }
 
     /** {@inheritDoc} */
-    public void storeDiscoveryLink(DiscoveryLink discovery) throws SQLException {
+    public void storeDiscoveryLink(final DiscoveryLink discovery) throws SQLException {
 
         final DBUtils d = new DBUtils(getClass());
         try {
@@ -167,16 +154,15 @@ public class DbEventWriter extends AbstractQueryManager implements QueryManager 
             Timestamp now = new Timestamp(System.currentTimeMillis());
             PreparedStatement stmt = null;
             ResultSet rs = null;
-    
+
             NodeToNodeLink[] links = discovery.getLinks();
     
             LogUtils.debugf(this, "storelink: Storing %d NodeToNodeLink information into database", links.length);
-            for (int i = 0; i < links.length; i++) {
-                NodeToNodeLink lk = links[i];
-                int nodeid = lk.getNodeId();
-                int ifindex = lk.getIfindex();
-                int nodeparentid = lk.getNodeparentid();
-                int parentifindex = lk.getParentifindex();
+            for (final NodeToNodeLink lk : discovery.getLinks()) {
+                final int nodeid = lk.getNodeId();
+                final int ifindex = lk.getIfindex();
+                final int nodeparentid = lk.getNodeparentid();
+                final int parentifindex = lk.getParentifindex();
     
                 DbDataLinkInterfaceEntry dbentry = DbDataLinkInterfaceEntry.get(dbConn, nodeid, ifindex);
                 if (dbentry == null) {
@@ -311,7 +297,7 @@ public class DbEventWriter extends AbstractQueryManager implements QueryManager 
 
             for (final OnmsVlan vlan : snmpcoll.getSnmpVlanCollections().keySet()) {
     
-            	LogUtils.debugf(this, "store: parsing VLAN %s/%s", vlan.getVlanIndex(), vlan.getVlanName());
+            	LogUtils.debugf(this, "store: parsing VLAN %s/%s", vlan.getVlanId(), vlan.getVlanName());
 
                 final SnmpVlanCollection snmpVlanColl = snmpcoll.getSnmpVlanCollections().get(vlan);
     
@@ -319,7 +305,8 @@ public class DbEventWriter extends AbstractQueryManager implements QueryManager 
                 	processDot1DBase(node, snmpcoll, d, dbConn, scanTime, vlan, snmpVlanColl);
                 }
             }
-            update(dbConn, scanTime, node.getNodeId());
+
+            markOldDataInactive(dbConn, scanTime, node.getNodeId());
     
             return node;
         } catch (Throwable e) {
@@ -353,7 +340,7 @@ public class DbEventWriter extends AbstractQueryManager implements QueryManager 
 		atInterfaceEntry.store(dbConn);
 	}
 
-    private void update(Connection dbConn, Timestamp now, int nodeid) throws SQLException {
+    protected void markOldDataInactive(final Connection dbConn, final Timestamp now, final int nodeid) throws SQLException {
 
         final DBUtils d = new DBUtils(getClass());
 
@@ -646,7 +633,7 @@ public class DbEventWriter extends AbstractQueryManager implements QueryManager 
                 LogUtils.infof(this, "getAtInterfaceForAddress: nodeid " + atnodeid + " no ifindex (-1) found for ipaddress " + ipaddr + ".");
             } else {
                 LogUtils.infof(this, "getAtInterfaceForAddress: nodeid " + atnodeid + " ifindex " + atifindex + " found for ipaddress " + ipaddr + ".");
-                ati.setIfindex(atifindex);
+                ati.setIfIndex(atifindex);
             }
         } finally {
             d.cleanUp();
@@ -879,7 +866,7 @@ public class DbEventWriter extends AbstractQueryManager implements QueryManager 
             int i=0;
             if(!EventUtils.isNonIpInterface(ipAddr)) {  
                 // update atinterface
-                ps = dbConn.prepareStatement(SQL_UPDATE_ATINTERFACE_STATUS_INTFC);
+                ps = dbConn.prepareStatement("UPDATE atinterface set status = ?  WHERE nodeid = ? AND ipaddr = ?");
                 d.watch(ps);
                 ps.setString(1, new String(new char[] { status }));
                 ps.setInt(2, nodeId);
@@ -890,7 +877,7 @@ public class DbEventWriter extends AbstractQueryManager implements QueryManager 
             }
             if(ifIndex > -1) {
                  // update atinterface
-                ps = dbConn.prepareStatement(SQL_UPDATE_ATINTERFACE_STATUS_SRC_INTFC);
+                ps = dbConn.prepareStatement("UPDATE atinterface set status = ?  WHERE sourcenodeid = ? AND ifindex = ?");
                 d.watch(ps);
                 ps.setString(1, new String(new char[] { status }));
                 ps.setInt(2, nodeId);
@@ -899,7 +886,7 @@ public class DbEventWriter extends AbstractQueryManager implements QueryManager 
                 LogUtils.infof(this, "updateForInterface: atinterface: source node = " + nodeId
                                + ", ifIndex = " + ifIndex + ", status = " + status + ": updated rows = " + i);
                 // update stpinterface
-                ps = dbConn.prepareStatement(SQL_UPDATE_STPINTERFACE_STATUS_INTFC);
+                ps = dbConn.prepareStatement("UPDATE stpinterface set status = ? WHERE nodeid = ? AND ifindex = ?");
                 d.watch(ps);
                 ps.setString(1, new String(new char[] { status }));
                 ps.setInt(2, nodeId);
@@ -909,7 +896,7 @@ public class DbEventWriter extends AbstractQueryManager implements QueryManager 
                                + ", ifIndex = " + ifIndex  + ", status = " + status + ": updated rows = " + i);
     
                 // update iprouteinterface
-                ps = dbConn.prepareStatement(SQL_UPDATE_IPROUTEINTERFACE_STATUS_INTFC);
+                ps = dbConn.prepareStatement("UPDATE iprouteinterface set status = ? WHERE nodeid = ? AND routeifindex = ?");
                 d.watch(ps);
                 ps.setString(1, new String(new char[] { status }));
                 ps.setInt(2, nodeId);
@@ -919,7 +906,7 @@ public class DbEventWriter extends AbstractQueryManager implements QueryManager 
                                + ", rpouteIfIndex = " + ifIndex  + ", status = " + status + ": updated rows = " + i);
     
                 // update datalinkinterface
-                ps = dbConn.prepareStatement(SQL_UPDATE_DATALINKINTERFACE_STATUS_INTFC);
+                ps = dbConn.prepareStatement("UPDATE datalinkinterface set status = ? WHERE (nodeid = ? and ifindex = ?) OR (nodeparentid = ? AND parentifindex = ?)");
                 d.watch(ps);
                 ps.setString(1, new String(new char[] { status }));
                 ps.setInt(2, nodeId);
@@ -975,7 +962,7 @@ public class DbEventWriter extends AbstractQueryManager implements QueryManager 
         return m_nodeDao;
     }
     
-    public void setNodeDao(NodeDao nodeDao) {
+    public void setNodeDao(final NodeDao nodeDao) {
         m_nodeDao = nodeDao;
     }
     
@@ -1012,10 +999,10 @@ public class DbEventWriter extends AbstractQueryManager implements QueryManager 
 
 	protected void saveVlan(final Connection dbConn, final OnmsVlan vlan) throws SQLException {
 		// always save info to DB
-		DbVlanEntry vlanEntry = DbVlanEntry.get(dbConn, vlan.getNodeId(), vlan.getVlanIndex());
+		DbVlanEntry vlanEntry = DbVlanEntry.get(dbConn, vlan.getNodeId(), vlan.getVlanId());
 		if (vlanEntry == null) {
 		    // Create a new entry
-		    vlanEntry = DbVlanEntry.create(vlan.getNodeId(), vlan.getVlanIndex());
+		    vlanEntry = DbVlanEntry.create(vlan.getNodeId(), vlan.getVlanId());
 		}
 
 		if (vlan.getVlanType() != null) {
@@ -1072,6 +1059,26 @@ public class DbEventWriter extends AbstractQueryManager implements QueryManager 
         dbStpIntEntry.updateStatus(stpInterface.getStatus());
         dbStpIntEntry.set_lastpolltime(stpInterface.getLastPollTime());
         dbStpIntEntry.store(dbConn);
+    }
+
+    protected List<String> getPhysAddrs(final int nodeId, final DBUtils d, final Connection dbConn) throws SQLException {
+        final List<String> physaddrs = new ArrayList<String>();
+
+        // now adding bridge identifier mac addresses of switch from snmpinterface
+        final PreparedStatement stmt = dbConn.prepareStatement("SELECT snmpphysaddr FROM snmpinterface WHERE nodeid = ? AND  snmpphysaddr <> ''");
+        d.watch(stmt);
+        stmt.setInt(1, nodeId);
+
+        final ResultSet rs = stmt.executeQuery();
+        d.watch(rs);
+
+        while (rs.next()) {
+            String macaddr = rs.getString("snmpphysaddr");
+            if (macaddr == null) continue;
+            physaddrs.add(macaddr);
+            LogUtils.debugf(this, "setBridgeIdentifierFromSnmpInterface: found bridge identifier " + macaddr + " from snmpinterface db table");
+        }
+        return physaddrs;
     }
 
 }

@@ -37,6 +37,8 @@
 
 package org.opennms.netmgt.dao.hibernate;
 
+import java.sql.Timestamp;
+
 import org.hibernate.criterion.Restrictions;
 import org.opennms.netmgt.dao.VlanDao;
 import org.opennms.netmgt.model.OnmsCriteria;
@@ -52,12 +54,39 @@ public class VlanDaoHibernate extends AbstractDaoHibernate<OnmsVlan, Integer>  i
 	public void markDeletedIfNodeDeleted() {
 		final OnmsCriteria criteria = new OnmsCriteria(OnmsVlan.class);
         criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("nodeType", "D"));
+        criteria.add(Restrictions.eq("node.type", "D"));
         
         for (final OnmsVlan vlan : findMatching(criteria)) {
         	vlan.setStatus('D');
         	saveOrUpdate(vlan);
         }
 	}
+
+    @Override
+    public void deactivateForNodeIdIfOlderThan(final int nodeid, final Timestamp scanTime) {
+        final OnmsCriteria criteria = new OnmsCriteria(OnmsVlan.class);
+        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
+        criteria.add(Restrictions.eq("node.id", nodeid));
+        criteria.add(Restrictions.lt("lastPollTime", scanTime));
+        criteria.add(Restrictions.eq("status", "A"));
+        
+        for (final OnmsVlan item : findMatching(criteria)) {
+            item.setStatus('N');
+            saveOrUpdate(item);
+        }
+    }
+
+    @Override
+    public void setStatusForNode(final Integer nodeId, final Character action) {
+        final OnmsCriteria criteria = new OnmsCriteria(OnmsVlan.class);
+        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
+        criteria.add(Restrictions.eq("node.id", nodeId));
+        
+        for (final OnmsVlan item : findMatching(criteria)) {
+            item.setStatus(action);
+            saveOrUpdate(item);
+        }
+    }
+
 
 }

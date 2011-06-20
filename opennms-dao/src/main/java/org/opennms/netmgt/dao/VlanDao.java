@@ -35,10 +35,16 @@
 //
 package org.opennms.netmgt.dao;
 
+import java.sql.Timestamp;
+
 import org.opennms.netmgt.model.OnmsVlan;
 
 public interface VlanDao extends OnmsDao<OnmsVlan, Integer> {
 
 	void markDeletedIfNodeDeleted();
+
+    void deactivateForNodeIdIfOlderThan(int nodeid, Timestamp scanTime);
+
+    void setStatusForNode(Integer nodeId, Character action);
 
 }

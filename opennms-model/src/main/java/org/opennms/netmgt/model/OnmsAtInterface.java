@@ -74,7 +74,7 @@ public class OnmsAtInterface {
 	private OnmsNode m_node;
 	private String m_ipAddress;
 	private String m_macAddress;
-	private String m_status;
+	private Character m_status;
 	private Integer m_sourceNodeId;
 	private Integer m_ifIndex;
 	private Date m_lastPollTime;
@@ -197,13 +197,13 @@ public class OnmsAtInterface {
 		this.m_macAddress = macAddress;
 	}
 
-	@XmlAttribute(name="status")
-	@Column(name="status", length=1, nullable=false)
-	public String getStatus() {
+	@XmlAttribute
+	@Column(nullable=false)
+	public Character getStatus() {
 		return m_status;
 	}
 
-	public void setStatus(final String status) {
+	public void setStatus(final Character status) {
 		m_status = status;
 	}
 
@@ -231,10 +231,10 @@ public class OnmsAtInterface {
 	/**
 	 * <p>Setter for the field <code>ifindex</code>.</p>
 	 *
-	 * @param ifindex a int.
+	 * @param ifIndex a int.
 	 */
-	public void setIfindex(final Integer ifindex) {
-		this.m_ifIndex = ifindex;
+	public void setIfIndex(final Integer ifIndex) {
+	    m_ifIndex = ifIndex;
 	}
 
     @Temporal(TemporalType.TIMESTAMP)

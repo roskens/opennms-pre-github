@@ -37,6 +37,8 @@
 
 package org.opennms.netmgt.dao.hibernate;
 
+import java.sql.Timestamp;
+
 import org.hibernate.criterion.Restrictions;
 import org.opennms.netmgt.dao.IpRouteInterfaceDao;
 import org.opennms.netmgt.model.OnmsCriteria;
@@ -52,12 +54,55 @@ public class IpRouteInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsIpRou
 	public void markDeletedIfNodeDeleted() {
 		final OnmsCriteria criteria = new OnmsCriteria(OnmsIpRouteInterface.class);
         criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("nodeType", "D"));
+        criteria.add(Restrictions.eq("node.type", "D"));
         
         for (final OnmsIpRouteInterface ipRouteIface : findMatching(criteria)) {
         	ipRouteIface.setStatus('D');
         	saveOrUpdate(ipRouteIface);
         }
 	}
+
+    @Override
+    public void deactivateForNodeIdIfOlderThan(final int nodeid, final Timestamp scanTime) {
+        final OnmsCriteria criteria = new OnmsCriteria(OnmsIpRouteInterface.class);
+        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
+        criteria.add(Restrictions.eq("node.id", nodeid));
+        criteria.add(Restrictions.lt("lastPollTime", scanTime));
+        criteria.add(Restrictions.eq("status", "A"));
+        
+        for (final OnmsIpRouteInterface item : findMatching(criteria)) {
+            item.setStatus('N');
+            saveOrUpdate(item);
+        }
+    }
+
+    @Override
+    public void setStatusForNode(final Integer nodeid, final Character action) {
+        // UPDATE iprouteinterface set status = ? WHERE nodeid = ?
+
+        final OnmsCriteria criteria = new OnmsCriteria(OnmsIpRouteInterface.class);
+        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
+        criteria.add(Restrictions.eq("node.id", nodeid));
+        
+        for (final OnmsIpRouteInterface item : findMatching(criteria)) {
+            item.setStatus(action);
+            saveOrUpdate(item);
+        }
+    }
+
+    @Override
+    public void setStatusForNodeAndIfIndex(final Integer nodeid, final Integer ifIndex, final Character action) {
+        // UPDATE iprouteinterface set status = ? WHERE nodeid = ? AND routeifindex = ?
+
+        final OnmsCriteria criteria = new OnmsCriteria(OnmsIpRouteInterface.class);
+        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
+        criteria.add(Restrictions.eq("node.id", nodeid));
+        criteria.add(Restrictions.eq("routeIfIndex", ifIndex));
+        
+        for (final OnmsIpRouteInterface item : findMatching(criteria)) {
+            item.setStatus(action);
+            saveOrUpdate(item);
+        }
+    }
 
 }

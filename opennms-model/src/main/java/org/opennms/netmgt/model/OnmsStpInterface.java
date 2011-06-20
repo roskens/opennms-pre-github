@@ -42,8 +42,11 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -51,6 +54,7 @@ import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -66,6 +70,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name="stpInterface", uniqueConstraints = {@UniqueConstraint(columnNames={"nodeId", "bridgePort", "stpVlan"})})
 public class OnmsStpInterface {
 
+    private Integer m_id;
 	private OnmsNode m_node;
 	private Integer m_bridgePort;
 	private Integer m_ifIndex = -1;
@@ -93,6 +98,25 @@ public class OnmsStpInterface {
         m_vlan = vlanIndex;
     }
 
+    @Id
+    @XmlTransient
+    @SequenceGenerator(name="opennmsSequence", sequenceName="opennmsNxtId")
+    @GeneratedValue(generator="opennmsSequence")    
+    public Integer getId() {
+        return m_id;
+    }
+    
+    @XmlID
+    @XmlAttribute(name="id")
+    @Transient
+    public String getInterfaceId() {
+        return getId().toString();
+    }
+
+    public void setId(final Integer id) {
+        m_id = id;
+    }
+    
     // transient, see getNode()/setNode() below
     @Transient
     @XmlTransient

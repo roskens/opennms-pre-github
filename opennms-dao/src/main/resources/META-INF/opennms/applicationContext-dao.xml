@@ -61,6 +61,11 @@
         <value>org.opennms.netmgt.model.OnmsAcknowledgment</value>
         <value>org.opennms.netmgt.model.OnmsLinkState</value>
         <value>org.opennms.netmgt.model.ReportCatalogEntry</value>
+        <value>org.opennms.netmgt.model.OnmsAtInterface</value>
+        <value>org.opennms.netmgt.model.OnmsVlan</value>
+        <value>org.opennms.netmgt.model.OnmsStpNode</value>
+        <value>org.opennms.netmgt.model.OnmsStpInterface</value>
+        <value>org.opennms.netmgt.model.OnmsIpRouteInterface</value>
         <!--
         <value>org.opennms.netmgt.model.OnmsUser</value>
         <value>org.opennms.netmgt.model.OnmsGroup</value>
@@ -163,6 +168,26 @@
   </bean>
 
   <bean id="userNotificationDao" class="org.opennms.netmgt.dao.hibernate.UserNotificationDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+  
+  <bean id="atInterfaceDao" class="org.opennms.netmgt.dao.hibernate.AtInterfaceDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+  
+  <bean id="vlanDao" class="org.opennms.netmgt.dao.hibernate.VlanDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+  
+  <bean id="stpNodeDao" class="org.opennms.netmgt.dao.hibernate.StpNodeDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+  
+  <bean id="stpInterfaceDao" class="org.opennms.netmgt.dao.hibernate.StpInterfaceDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+  
+  <bean id="ipRouteInterfaceDao" class="org.opennms.netmgt.dao.hibernate.IpRouteInterfaceDaoHibernate">
     <property name="sessionFactory" ref="sessionFactory" />
   </bean>
   

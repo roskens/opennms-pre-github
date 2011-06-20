@@ -1343,8 +1343,8 @@ public final class DiscoveryLink implements ReadyRunnable {
     						    LogUtils.debugf(this, "parseBridgeNodes: skipping vlan: %s", vlan.getVlanName());
     							continue;
     						}
-    						agentConfig.setReadCommunity(community+"@"+vlan.getVlanIndex());
-    						curNode = collectMacAddress(agentConfig, curNode, mac, vlan.getVlanIndex());
+    						agentConfig.setReadCommunity(community+"@"+vlan.getVlanId());
+    						curNode = collectMacAddress(agentConfig, curNode, mac, vlan.getVlanId());
     						agentConfig.setReadCommunity(community);
     					}
     				} else {

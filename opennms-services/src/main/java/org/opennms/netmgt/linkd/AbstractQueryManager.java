@@ -4,12 +4,9 @@ import static org.opennms.core.utils.InetAddressUtils.str;
 
 import java.net.InetAddress;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.opennms.core.utils.DBUtils;
@@ -91,6 +88,10 @@ public abstract class AbstractQueryManager implements QueryManager {
 
     protected abstract void saveStpInterface(final Connection dbConn, final OnmsStpInterface stpInterface) throws SQLException;
 
+    protected abstract List<String> getPhysAddrs(final int nodeId, final DBUtils d, final Connection dbConn) throws SQLException;
+
+    protected abstract void markOldDataInactive(final Connection dbConn, final Timestamp now, final int nodeid) throws SQLException;
+
     public OnmsNode getNode(Integer nodeId) throws SQLException {
         return getNodeDao().get(nodeId);
     }
@@ -144,7 +145,7 @@ public abstract class AbstractQueryManager implements QueryManager {
             if (at.getIfIndex() != null && !at.getIfIndex().equals(ifindex)) {
                 LogUtils.warnf(this, "Setting ifIndex to %d but it used to be %s (IP Address = %s, MAC = %s)", ifindex, at.getIfIndex(), hostAddress, physAddr);
             }
-            at.setIfindex(ifindex);
+            at.setIfIndex(ifindex);
 
             // add AtInterface to list of valid interfaces
             atInterfaces.add(at);
@@ -419,69 +420,55 @@ public abstract class AbstractQueryManager implements QueryManager {
         }
 
         if (snmpVlanColl.hasQBridgeDot1dTpFdbTable()) {
-            LogUtils.debugf(this, "store: parsing QBridgeDot1dTpFdbTable");
+            processQBridgeDot1DTpFdbTable(node, vlan, snmpVlanColl);
+        }
 
-            Iterator<QBridgeDot1dTpFdbTableEntry> subite = snmpVlanColl.getQBridgeDot1dFdbTable().getEntries().iterator();
-            while (subite.hasNext()) {
-                QBridgeDot1dTpFdbTableEntry dot1dfdbentry = subite.next();
+        for (final String physaddr : getPhysAddrs(node.getNodeId(), d, dbConn)) {
+            node.addBridgeIdentifier(physaddr);
+        }
 
-                String curMacAddress = dot1dfdbentry.getQBridgeDot1dTpFdbAddress();
+    }
 
-                if (curMacAddress == null || curMacAddress.equals("000000000000")) {
-                    LogUtils.warnf(this, "store: QBridgeDot1dTpFdbTable invalid macaddress " + curMacAddress + " Skipping.");
-                    continue;
-                }
+    protected void processQBridgeDot1DTpFdbTable(final LinkableNode node, final OnmsVlan vlan, final SnmpVlanCollection snmpVlanColl) {
+        LogUtils.debugf(this, "store: parsing QBridgeDot1dTpFdbTable");
 
-                LogUtils.debugf(this, "store: Dot1dTpFdbTable found macaddress " + curMacAddress);
+        for (final QBridgeDot1dTpFdbTableEntry dot1dfdbentry : snmpVlanColl.getQBridgeDot1dFdbTable().getEntries()) {
+            final String curMacAddress = dot1dfdbentry.getQBridgeDot1dTpFdbAddress();
 
-                int fdbport = dot1dfdbentry.getQBridgeDot1dTpFdbPort();
+            if (curMacAddress == null || curMacAddress.equals("000000000000")) {
+                LogUtils.warnf(this, "store: QBridgeDot1dTpFdbTable invalid macaddress %s. Skipping.", curMacAddress);
+                continue;
+            }
 
-                if (fdbport == 0 || fdbport == -1) {
-                    LogUtils.debugf(this, "store: QBridgeDot1dTpFdbTable mac learned on invalid port " + fdbport + " . Skipping");
-                    continue;
-                }
+            LogUtils.debugf(this, "store: Dot1dTpFdbTable found macaddress %s", curMacAddress);
 
-                LogUtils.debugf(this, "store: QBridgeDot1dTpFdbTable mac address found " + " on bridge port " + fdbport);
+            final int fdbport = dot1dfdbentry.getQBridgeDot1dTpFdbPort();
 
-                int curfdbstatus = dot1dfdbentry.getQBridgeDot1dTpFdbStatus();
+            if (fdbport == 0 || fdbport == -1) {
+                LogUtils.debugf(this, "store: QBridgeDot1dTpFdbTable mac learned on invalid port %d. Skipping.", fdbport);
+                continue;
+            }
 
-                if (curfdbstatus == SNMP_DOT1D_FDB_STATUS_LEARNED) {
-                    node.addMacAddress(fdbport, curMacAddress, Integer.toString((int) vlan.getVlanIndex()));
-                    LogUtils.debugf(this, "store: QBridgeDot1dTpFdbTable found learned status" + " on bridge port ");
-                } else if (curfdbstatus == SNMP_DOT1D_FDB_STATUS_SELF) {
-                    node.addBridgeIdentifier(curMacAddress);
-                    LogUtils.debugf(this, "store: QBridgeDot1dTpFdbTable mac is bridge identifier");
-                } else if (curfdbstatus == SNMP_DOT1D_FDB_STATUS_INVALID) {
-                    LogUtils.debugf(this, "store: QBridgeDot1dTpFdbTable found INVALID status. Skipping");
-                } else if (curfdbstatus == SNMP_DOT1D_FDB_STATUS_MGMT) {
-                    LogUtils.debugf(this, "store: QBridgeDot1dTpFdbTable found MGMT status. Skipping");
-                } else if (curfdbstatus == SNMP_DOT1D_FDB_STATUS_OTHER) {
-                    LogUtils.debugf(this, "store: QBridgeDot1dTpFdbTable found OTHER status. Skipping");
-                } else if (curfdbstatus == -1) {
-                    LogUtils.warnf(this, "store: QBridgeDot1dTpFdbTable null status found. Skipping");
-                }
+            LogUtils.debugf(this, "store: QBridgeDot1dTpFdbTable mac address found on bridge port %d.", fdbport);
+
+            final int curfdbstatus = dot1dfdbentry.getQBridgeDot1dTpFdbStatus();
+
+            if (curfdbstatus == SNMP_DOT1D_FDB_STATUS_LEARNED) {
+                node.addMacAddress(fdbport, curMacAddress, Integer.toString((int) vlan.getVlanId()));
+                LogUtils.debugf(this, "store: QBridgeDot1dTpFdbTable found learned status" + " on bridge port ");
+            } else if (curfdbstatus == SNMP_DOT1D_FDB_STATUS_SELF) {
+                node.addBridgeIdentifier(curMacAddress);
+                LogUtils.debugf(this, "store: QBridgeDot1dTpFdbTable mac is bridge identifier");
+            } else if (curfdbstatus == SNMP_DOT1D_FDB_STATUS_INVALID) {
+                LogUtils.debugf(this, "store: QBridgeDot1dTpFdbTable found INVALID status. Skipping");
+            } else if (curfdbstatus == SNMP_DOT1D_FDB_STATUS_MGMT) {
+                LogUtils.debugf(this, "store: QBridgeDot1dTpFdbTable found MGMT status. Skipping");
+            } else if (curfdbstatus == SNMP_DOT1D_FDB_STATUS_OTHER) {
+                LogUtils.debugf(this, "store: QBridgeDot1dTpFdbTable found OTHER status. Skipping");
+            } else if (curfdbstatus == -1) {
+                LogUtils.warnf(this, "store: QBridgeDot1dTpFdbTable null status found. Skipping");
             }
         }
-
-        // now adding bridge identifier mac addresses of switch
-        // from
-        // snmpinterface
-        PreparedStatement stmt = null;
-        stmt = dbConn.prepareStatement("SELECT snmpphysaddr FROM snmpinterface WHERE nodeid = ? AND  snmpphysaddr <> ''");
-        d.watch(stmt);
-        stmt.setInt(1, node.getNodeId());
-
-        ResultSet rs = stmt.executeQuery();
-        d.watch(rs);
-
-        while (rs.next()) {
-            String macaddr = rs.getString("snmpphysaddr");
-            if (macaddr == null)
-                continue;
-            node.addBridgeIdentifier(macaddr);
-            LogUtils.debugf(this, "setBridgeIdentifierFromSnmpInterface: found bridge identifier " + macaddr + " from snmpinterface db table");
-        }
-
     }
 
     protected void processDot1DTpFdbTable(LinkableNode node, final OnmsVlan vlan, final SnmpVlanCollection snmpVlanColl, Timestamp scanTime) {
@@ -506,8 +493,8 @@ public abstract class AbstractQueryManager implements QueryManager {
 
             LogUtils.debugf(this, "store: Dot1dTpFdbTable mac address found " + " on bridge port " + fdbport);
 
-            if (curfdbstatus == SNMP_DOT1D_FDB_STATUS_LEARNED && vlan.getVlanIndex() != null) {
-                node.addMacAddress(fdbport, curMacAddress, vlan.getVlanIndex().toString());
+            if (curfdbstatus == SNMP_DOT1D_FDB_STATUS_LEARNED && vlan.getVlanId() != null) {
+                node.addMacAddress(fdbport, curMacAddress, vlan.getVlanId().toString());
                 LogUtils.debugf(this, "store: Dot1dTpFdbTable found learned status" + " on bridge port ");
             } else if (curfdbstatus == SNMP_DOT1D_FDB_STATUS_SELF) {
                 node.addBridgeIdentifier(curMacAddress);
@@ -537,7 +524,7 @@ public abstract class AbstractQueryManager implements QueryManager {
             }
 
             final OnmsNode onmsNode = getNode(node.getNodeId());
-            OnmsStpInterface stpInterface = new OnmsStpInterface(onmsNode, stpport, vlan.getVlanIndex());
+            OnmsStpInterface stpInterface = new OnmsStpInterface(onmsNode, stpport, vlan.getVlanId());
             stpInterface.setStatus(DbStpNodeEntry.STATUS_ACTIVE);
             stpInterface.setLastPollTime(scanTime);
 
@@ -583,9 +570,9 @@ public abstract class AbstractQueryManager implements QueryManager {
             
             
             if (snmpcoll.getSaveStpInterfaceTable()) {
-                final OnmsStpInterface stpInterface = new OnmsStpInterface(getNode(node.getNodeId()), baseport, vlan.getVlanIndex());
+                final OnmsStpInterface stpInterface = new OnmsStpInterface(getNode(node.getNodeId()), baseport, vlan.getVlanId());
                 stpInterface.setBridgePort(baseport);
-                stpInterface.setVlan(vlan.getVlanIndex());
+                stpInterface.setVlan(vlan.getVlanId());
                 stpInterface.setIfIndex(ifindex);
                 stpInterface.setStatus(DbStpNodeEntry.STATUS_ACTIVE);
                 stpInterface.setLastPollTime(scanTime);
@@ -600,11 +587,11 @@ public abstract class AbstractQueryManager implements QueryManager {
         final Dot1dBaseGroup dod1db = snmpVlanColl.getDot1dBase();
         final String baseBridgeAddress = dod1db.getBridgeAddress();
 
-        if (vlan.getVlanIndex() != null) {
-            node.addBridgeIdentifier(baseBridgeAddress, vlan.getVlanIndex().toString());
+        if (vlan.getVlanId() != null) {
+            node.addBridgeIdentifier(baseBridgeAddress, vlan.getVlanId().toString());
         }
 
-        final OnmsStpNode stpNode = new OnmsStpNode(node.getNodeId(), vlan.getVlanIndex());
+        final OnmsStpNode stpNode = new OnmsStpNode(node.getNodeId(), vlan.getVlanId());
         stpNode.setLastPollTime(scanTime);
         stpNode.setStatus(DbStpNodeEntry.STATUS_ACTIVE);
 
@@ -632,7 +619,7 @@ public abstract class AbstractQueryManager implements QueryManager {
                 stpDesignatedRoot = "0000000000000000";
             } else {
                 if (stpNode.getBaseVlan() != null) {
-                    node.setVlanStpRoot(vlan.getVlanIndex().toString(), stpDesignatedRoot);
+                    node.setVlanStpRoot(vlan.getVlanId().toString(), stpDesignatedRoot);
                 }
             }
             stpNode.setStpDesignatedRoot(stpDesignatedRoot);
