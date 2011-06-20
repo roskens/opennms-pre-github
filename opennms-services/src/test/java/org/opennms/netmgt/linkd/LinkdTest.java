@@ -44,10 +44,7 @@ import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.test.mock.MockLogAppender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.support.TransactionCallback;
-import org.springframework.transaction.support.TransactionTemplate;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations= {
@@ -71,9 +68,6 @@ public class LinkdTest {
 	@Autowired
 	private NodeDao m_nodeDao;
 
-	@Autowired
-	private TransactionTemplate m_transactionTemplate;
-	
 	@Before
 	public void setUp() throws Exception {
 		// Use the mock.logLevel system property to control the log level
@@ -84,10 +78,6 @@ public class LinkdTest {
 		nb.addInterface("192.168.1.10").setIsSnmpPrimary("P").setIsManaged("M");
 		m_nodeDao.save(nb.getCurrentNode());
 		m_nodeDao.flush();
-
-		// Make sure that the localhost SNMP connection config factory has overridden
-		// the normal config factory
-		///assertTrue(m_adapter.getSnmpPeerFactory() instanceof ProxySnmpAgentConfigFactory);
 	}
 
 	@Test
@@ -98,15 +88,7 @@ public class LinkdTest {
 		final OnmsNode node = m_nodeDao.findByForeignId("linkd", "1");
 		LogUtils.debugf(this, "node = %s, primary interface = %s", node, node.getPrimaryInterface());
 
-		m_transactionTemplate.execute(new TransactionCallback<Object>() {
-
-			@Override
-			public Object doInTransaction(final TransactionStatus status) {
-				assertTrue(m_linkd.scheduleNodeCollection(node.getId()));
-				return null;
-			}
-			
-		});
+        assertTrue(m_linkd.scheduleNodeCollection(node.getId()));
 
 //		Thread.sleep(60000);
 
