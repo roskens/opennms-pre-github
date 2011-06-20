@@ -15,6 +15,7 @@
 
     <bean id="queryManager" class="org.opennms.netmgt.linkd.DbEventWriter">
       <property name="jdbcTemplate" ref="jdbcTemplate" />
+      <property name="nodeDao" ref="nodeDao" />
     </bean>
 
     <bean id="scheduler" class="org.opennms.netmgt.linkd.scheduler.Scheduler">

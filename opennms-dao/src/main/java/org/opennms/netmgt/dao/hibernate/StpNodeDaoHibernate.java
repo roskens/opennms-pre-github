@@ -55,7 +55,7 @@ public class StpNodeDaoHibernate extends AbstractDaoHibernate<OnmsStpNode, Integ
         criteria.add(Restrictions.eq("nodeType", "D"));
         
         for (final OnmsStpNode stpNode : findMatching(criteria)) {
-        	stpNode.setStatus("D");
+        	stpNode.setStatus('D');
         	saveOrUpdate(stpNode);
         }
 	}

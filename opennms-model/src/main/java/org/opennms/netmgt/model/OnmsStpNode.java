@@ -74,12 +74,19 @@ public class OnmsStpNode {
 	private String m_stpDesignatedRoot;
 	private Integer m_stpRootCost;
 	private Integer m_stpRootPort;
-	private String m_status;
+	private Character m_status;
 	private Date m_lastPollTime;
 	private Integer m_baseVlan;
 	private String m_baseVlanName;
 
-    // transient, see getNode()/setNode() below
+	public OnmsStpNode() {}
+
+    public OnmsStpNode(final Integer nodeId, final Integer vlanIndex) {
+    	m_nodeId = nodeId;
+    	m_baseVlan = vlanIndex;
+	}
+
+	// transient, see getNode()/setNode() below
     @Transient
     @XmlTransient
 	public Integer getNodeId() {
@@ -184,13 +191,13 @@ public class OnmsStpNode {
 	}
 
     @XmlAttribute
-    @Column(length=1, nullable=false)
-	public String getStatus() {
+    @Column(nullable=false)
+	public Character getStatus() {
 		return m_status;
 	}
 
-	public void setStatus(final String status) {
-		m_status = status;
+	public void setStatus(final Character statusActive) {
+		m_status = statusActive;
 	}
 
     @Temporal(TemporalType.TIMESTAMP)

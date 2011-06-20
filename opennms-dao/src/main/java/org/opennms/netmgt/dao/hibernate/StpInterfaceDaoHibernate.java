@@ -55,7 +55,7 @@ public class StpInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsStpInterf
         criteria.add(Restrictions.eq("nodeType", "D"));
         
         for (final OnmsStpInterface stpIface : findMatching(criteria)) {
-        	stpIface.setStatus("D");
+        	stpIface.setStatus('D');
         	saveOrUpdate(stpIface);
         }
 	}

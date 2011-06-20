@@ -444,7 +444,7 @@ public class LinkableNode extends Object {
 	 * @param stpIface a {@link org.opennms.netmgt.model.OnmsStpInterface} object.
 	 */
 	public void addStpInterface(OnmsStpInterface stpIface) {
-		String vlanindex = stpIface.getVlan();
+		final String vlanindex = stpIface.getVlan() == null? "0" : stpIface.getVlan().toString();
 		List<OnmsStpInterface> stpifs = new ArrayList<OnmsStpInterface>();;
 		if (BridgeStpInterfaces.containsKey(vlanindex)) {
 			stpifs = BridgeStpInterfaces.get(vlanindex);

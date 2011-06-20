@@ -1181,7 +1181,7 @@ public final class DiscoveryLink implements ReadyRunnable {
 					Iterator<OnmsAtInterface> ite = ats.iterator();
 					while (ite.hasNext()) {
 						OnmsAtInterface at = ite.next();
-						NodeToNodeLink lNode = new NodeToNodeLink(at.getNodeId(),at.getIfindex());
+						NodeToNodeLink lNode = new NodeToNodeLink(at.getNodeId(),at.getIfIndex());
 						lNode.setNodeparentid(nodeid);
 						lNode.setParentifindex(ifindex);
 						addNodetoNodeLink(lNode);

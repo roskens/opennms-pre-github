@@ -71,7 +71,6 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 @Table(name="atInterface", uniqueConstraints = {@UniqueConstraint(columnNames={"nodeId", "ipAddr", "atPhysAddr"})})
 public class OnmsAtInterface {
 	private Integer m_id;
-	private Integer m_nodeId;
 	private OnmsNode m_node;
 	private String m_ipAddress;
 	private String m_macAddress;
@@ -85,29 +84,27 @@ public class OnmsAtInterface {
 
 	/**
 	 * <p>Constructor for AtInterface.</p>
-	 *
-	 * @param nodeid a int.
+	 * @param node TODO
 	 * @param ipAddress a {@link java.lang.String} object.
 	 * @param macAddress a {@link java.lang.String} object.
 	 */
-	public OnmsAtInterface(int nodeid, String ipAddress, String macAddress) {
-		this.m_nodeId = nodeid;
-		this.m_macAddress = macAddress;
-		this.m_ipAddress = ipAddress;
-		this.m_ifIndex=-1;
+	public OnmsAtInterface(final OnmsNode node, final String ipAddress, final String macAddress) {
+	    m_node = node;
+		m_macAddress = macAddress;
+		m_ipAddress = ipAddress;
+		m_ifIndex=-1;
 	}
 
 	/**
 	 * <p>Constructor for AtInterface.</p>
-	 *
-	 * @param nodeid a int.
+	 * @param node TODO
 	 * @param ipAddress a {@link java.lang.String} object.
 	 */
-	public OnmsAtInterface(int nodeid, String ipAddress) {
-		this.m_nodeId = nodeid;
-		this.m_macAddress = "";
-		this.m_ipAddress = ipAddress;
-		this.m_ifIndex=-1;
+	public OnmsAtInterface(final OnmsNode node, final String ipAddress) {
+	    m_node = node;
+		m_macAddress = "";
+		m_ipAddress = ipAddress;
+		m_ifIndex=-1;
 	}
 
 	/**
@@ -117,7 +114,7 @@ public class OnmsAtInterface {
 	 */
 	public String toString() {
 		return new ToStringBuilder(this)
-			.append("nodeId", m_nodeId)
+			.append("node", m_node)
 			.append("ipAddress", m_ipAddress)
 			.append("macAddress", m_macAddress)
 			.append("status", m_status)
@@ -150,11 +147,7 @@ public class OnmsAtInterface {
     @Transient
     @XmlTransient
 	public Integer getNodeId() {
-		return m_nodeId;
-	}
-	
-	public void setNodeId(final Integer nodeId) {
-		m_nodeId = nodeId;
+		return m_node == null? null : m_node.getId();
 	}
 	
     @ManyToOne(optional=false, fetch=FetchType.LAZY)
@@ -165,9 +158,8 @@ public class OnmsAtInterface {
         return m_node;
     }
 
-    public void setNode(org.opennms.netmgt.model.OnmsNode node) {
+    public void setNode(OnmsNode node) {
         m_node = node;
-        m_nodeId = node == null? null : node.getId();
     }
 
 	/**
@@ -188,7 +180,7 @@ public class OnmsAtInterface {
 	/**
 	 * <p>Getter for the field <code>macAddress</code>.</p>
 	 *
-	 * @return Returns the ifindex.
+	 * @return Returns the MAC address.
 	 */
 	@XmlElement
 	@Column(name="atPhysAddr", nullable=false)
@@ -232,7 +224,7 @@ public class OnmsAtInterface {
 	 */
 	@XmlAttribute
 	@Column(nullable=false)
-	public Integer getIfindex() {
+	public Integer getIfIndex() {
 		return m_ifIndex;
 	}
 

@@ -35,7 +35,7 @@ public class OnmsIpRouteInterface {
 	private Integer m_routeMetric5;
 	private Integer m_routeType;
 	private Integer m_routeProto;
-	private String m_status;
+	private Character m_status;
 	private Date m_lastPollTime;
 
     // transient, see getNode()/setNode() below
@@ -173,12 +173,12 @@ public class OnmsIpRouteInterface {
 	}
 
     @XmlElement
-    @Column(length=1, nullable=false)
-	public String getStatus() {
+    @Column(nullable=false)
+	public Character getStatus() {
 		return m_status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(final Character status) {
 		m_status = status;
 	}
 

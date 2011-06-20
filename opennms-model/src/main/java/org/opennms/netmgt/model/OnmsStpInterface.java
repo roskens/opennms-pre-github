@@ -66,7 +66,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name="stpInterface", uniqueConstraints = {@UniqueConstraint(columnNames={"nodeId", "bridgePort", "stpVlan"})})
 public class OnmsStpInterface {
 
-	private Integer m_nodeId;
 	private OnmsNode m_node;
 	private Integer m_bridgePort;
 	private Integer m_ifIndex = -1;
@@ -76,21 +75,31 @@ public class OnmsStpInterface {
 	private Integer m_stpPortDesignatedCost;
 	private String m_stpPortDesignatedBridge;
 	private String m_stpPortDesignatedPort;
-	private String m_status;
+	private Character m_status;
 	private Date m_lastPollTime;
-	private String m_vlan;
+	private Integer m_vlan;
+
+	public OnmsStpInterface() {
+	}
+
+	public OnmsStpInterface(final Integer bridgePort, final Integer vlanIndex) {
+		m_bridgePort = bridgePort;
+		m_vlan = vlanIndex;
+	}
+
+    public OnmsStpInterface(final OnmsNode node, final Integer bridgePort, final Integer vlanIndex) {
+        m_node = node;
+        m_bridgePort = bridgePort;
+        m_vlan = vlanIndex;
+    }
 
     // transient, see getNode()/setNode() below
     @Transient
     @XmlTransient
-	public Integer getNodeId() {
-		return m_nodeId;
-	}
-	
-	public void setNodeId(final Integer nodeId) {
-		m_nodeId = nodeId;
-	}
-	
+    public Integer getNodeId() {
+        return m_node == null? null : m_node.getId();
+    }
+    
     @ManyToOne(optional=false, fetch=FetchType.LAZY)
     @JoinColumn(name="nodeId")
     @XmlElement(name="nodeId")
@@ -99,9 +108,8 @@ public class OnmsStpInterface {
         return m_node;
     }
 
-    public void setNode(org.opennms.netmgt.model.OnmsNode node) {
+    public void setNode(OnmsNode node) {
         m_node = node;
-        m_nodeId = node == null? null : node.getId();
     }
 
     @XmlAttribute
@@ -155,12 +163,12 @@ public class OnmsStpInterface {
 	}
 
 	@XmlAttribute
-	@Column(length=1, nullable=false)
-	public String getStatus() {
+	@Column(nullable=false)
+	public Character getStatus() {
 		return m_status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(final Character status) {
 		m_status = status;
 	}
 
@@ -173,11 +181,6 @@ public class OnmsStpInterface {
 
 	public void setLastPollTime(Date lastPollTime) {
 		m_lastPollTime = lastPollTime;
-	}
-
-	public OnmsStpInterface(final Integer bridgePort, final String vlan) {
-		m_bridgePort = bridgePort;
-		m_vlan = vlan;
 	}
 
 	@XmlElement
@@ -212,11 +215,11 @@ public class OnmsStpInterface {
 
 	@XmlElement(name="stpVlan")
 	@Column(name="stpVlan", nullable=false)
-	public String getVlan() {
+	public Integer getVlan() {
 		return m_vlan;
 	}
 	
-	public void setVlan(final String vlan) {
+	public void setVlan(final Integer vlan) {
 		m_vlan = vlan;
 	}
 }

@@ -55,7 +55,7 @@ public class IpRouteInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsIpRou
         criteria.add(Restrictions.eq("nodeType", "D"));
         
         for (final OnmsIpRouteInterface ipRouteIface : findMatching(criteria)) {
-        	ipRouteIface.setStatus("D");
+        	ipRouteIface.setStatus('D');
         	saveOrUpdate(ipRouteIface);
         }
 	}

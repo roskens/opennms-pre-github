@@ -55,7 +55,7 @@ public class VlanDaoHibernate extends AbstractDaoHibernate<OnmsVlan, Integer>  i
         criteria.add(Restrictions.eq("nodeType", "D"));
         
         for (final OnmsVlan vlan : findMatching(criteria)) {
-        	vlan.setStatus("D");
+        	vlan.setStatus('D');
         	saveOrUpdate(vlan);
         }
 	}

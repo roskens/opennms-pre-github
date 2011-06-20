@@ -53,14 +53,6 @@ import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- * <p>
- * Vlan class.
- * </p>
- * 
- * @author <a href="mailto:antonio@opennms.it">Antonio Russo</a>
- * @version $Id: $
- */
 @XmlRootElement(name = "vlan")
 @Entity
 @Table(name="vlan", uniqueConstraints = {@UniqueConstraint(columnNames={"nodeId", "vlanId"})})
@@ -71,7 +63,7 @@ public class OnmsVlan {
 	private String m_vlanName;
 	private Integer m_vlanType = -1;
 	private Integer m_vlanStatus = -1;
-	private String m_status;
+	private Character m_status;
 	private Date m_lastPollTime;	
 
 	public OnmsVlan(final int index, final String name, final int status, final int type) {
@@ -162,12 +154,12 @@ public class OnmsVlan {
 	}
 
 	@XmlAttribute
-	@Column(length=1, nullable=false)
-	public String getStatus() {
+	@Column(nullable=false)
+	public Character getStatus() {
 		return m_status;
 	}
 
-	public void setStatus(final String status) {
+	public void setStatus(final Character status) {
 		m_status = status;
 	}
 
