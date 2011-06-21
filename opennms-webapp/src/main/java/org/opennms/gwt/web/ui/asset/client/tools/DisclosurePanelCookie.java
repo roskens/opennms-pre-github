@@ -53,19 +53,19 @@ public class DisclosurePanelCookie extends Composite implements HasWidgets {
 	private DisclosurePanel panel = new DisclosurePanel();
 
 	@UiConstructor
-	public DisclosurePanelCookie(final String name) {
+	public DisclosurePanelCookie(final String cookieName) {
 		
 		panel.setStyleName("DisclosurePanelCookie");
 		panel.setAnimationEnabled(true);
 
 		if (Cookies.isCookieEnabled()) {
 			// prepare Cookie if not already set
-			if (Cookies.getCookie(name + "Open") == null) {
-				Cookies.setCookie(name + "Open", "true");
+			if (Cookies.getCookie(cookieName + "Open") == null) {
+				Cookies.setCookie(cookieName + "Open", "true");
 			}
 
 			// check cookie and set open/close by cookie-value
-			if (Cookies.getCookie(name + "Open").equals("true")) {
+			if (Cookies.getCookie(cookieName + "Open").equals("true")) {
 				panel.setOpen(true);
 			} else {
 				panel.setOpen(false);
@@ -75,7 +75,7 @@ public class DisclosurePanelCookie extends Composite implements HasWidgets {
 			panel.addOpenHandler(new OpenHandler<DisclosurePanel>() {
 				@Override
 				public void onOpen(OpenEvent<DisclosurePanel> event) {
-					Cookies.setCookie(name + "Open", "true");
+					Cookies.setCookie(cookieName + "Open", "true");
 				}
 			});
 
@@ -83,7 +83,7 @@ public class DisclosurePanelCookie extends Composite implements HasWidgets {
 			panel.addCloseHandler(new CloseHandler<DisclosurePanel>() {
 				@Override
 				public void onClose(CloseEvent<DisclosurePanel> event) {
-					Cookies.setCookie(name + "Open", "false");
+					Cookies.setCookie(cookieName + "Open", "false");
 				}
 			});
 		}
