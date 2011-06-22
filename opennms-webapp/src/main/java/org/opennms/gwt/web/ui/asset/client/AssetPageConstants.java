@@ -51,7 +51,7 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@Key("address1")
 	String address1();
 
-	@DefaultStringValue("Street address of this device (This as if you were in a remote maintenance center & had to dispatch someone here)")
+	@DefaultStringValue("Street address of this device (For technician dispatch)")
 	@Key("address1Help")
 	String address1Help();
 
@@ -67,7 +67,7 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@Key("admin")
 	String admin();
 
-	@DefaultStringValue("Admin of the given location")
+	@DefaultStringValue("Admin contact at the given location")
 	@Key("adminHelp")
 	String adminHelp();
 
@@ -79,7 +79,7 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@Key("assetNumberHelp")
 	String assetNumberHelp();
 
-	@DefaultStringValue("Sorry, can't save. Still Errors on fileds. Please fix your input. ")
+	@DefaultStringValue("Error saving: One or more fields contains an invalid value. Please correct your input and try again. ")
 	@Key("assetPageNotValidDontSave")
 	String assetPageNotValidDontSave();
 
@@ -92,7 +92,7 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@Key("autoEnable")
 	String autoEnable();
 
-	@DefaultStringValue("AutoEnable")
+	@DefaultStringValue("Whether the provided authentication user goes directly into 'enable' mode on this node upon login.")
 	@Key("autoEnableHelp")
 	String autoEnableHelp();
 
@@ -100,7 +100,7 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@Key("building")
 	String building();
 
-	@DefaultStringValue("If this address is part of a complex/campus this field allows additional granularity")
+	@DefaultStringValue("If this address is part of a complex/campus, this field allows additional granularity.")
 	@Key("buildingHelp")
 	String buildingHelp();
 
@@ -108,15 +108,15 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@Key("category")
 	String category();
 
-	@DefaultStringValue("This column is to be used to specify what category of Network Element this device would fall into (E.G. Wan Router, Firewall, Etc.)")
+	@DefaultStringValue("This column is to be used to specify what category of Network Element this device would fall into (E.G. WAN Router, Firewall, Etc.)")
 	@Key("categoryHelp")
 	String categoryHelp();
 
-	@DefaultStringValue("CircuitId")
+	@DefaultStringValue("Circuit ID")
 	@Key("circuitId")
 	String circuitId();
 
-	@DefaultStringValue("This field should be the Circuit ID of the ISP/Carrier's designation that this equipment terminates a connection to, if DSL a Phone Number (or whatever identifying charistic of the LEC should be populated here) to this device's Voice or Data egress")
+	@DefaultStringValue("This field should contain the Circuit ID of the ISP/Carrier's designation to which this equipment terminates a connection. For DSL a phone number (or whatever identifying charistic of the LEC should be populated here) to this device's Voice or Data egress.")
 	@Key("circuitIdHelp")
 	String circuitIdHelp();
 
@@ -132,7 +132,7 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@Key("comment")
 	String comment();
 
-	@DefaultStringValue("Comments for asset")
+	@DefaultStringValue("Comments for this asset")
 	@Key("commentHelp")
 	String commentHelp();
 
@@ -162,11 +162,11 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@Key("contractExpiresHelp")
 	String contractExpiresHelp();
 
-	@DefaultStringValue("Cpu")
+	@DefaultStringValue("CPU")
 	@Key("cpu")
 	String cpu();
 
-	@DefaultStringValue("Cpu")
+	@DefaultStringValue("Type of CPU in this node")
 	@Key("cpuHelp")
 	String cpuHelp();
 
@@ -240,7 +240,7 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@Key("dateInstalled")
 	String dateInstalled();
 
-	@DefaultStringValue("Handy dandy place to keep the date this equipment went into service on just incase the bean counters, or your boss ask you for any particulars on this device")
+	@DefaultStringValue("A handy dandy place to keep the date this equipment went into service, just in case the bean counters or your boss ask you for any particulars on this device")
 	@Key("dateInstalledHelp")
 	String dateInstalledHelp();
 
@@ -264,7 +264,7 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@Key("displayCategory")
 	String displayCat();
 
-	@DefaultStringValue("This column is to be used to specify what category of Network Element this device would fall into (E.G. Wan Router, Firewall, Etc.)")
+	@DefaultStringValue("This column is to be used to specify what category of Network Element this device would fall into (E.G. WAN Router, Firewall, Etc.).")
 	@Key("displayCategoryHelp")
 	String displayCatHelp();
 
@@ -272,7 +272,7 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@Key("division")
 	String division();
 
-	@DefaultStringValue("Standard corporate mumbo jumbo for the bean counters getting more & more granular on where money gets spent, populate as you fee fit, or as dictated to")
+	@DefaultStringValue("Standard corporate mumbo jumbo for the bean counters getting ever more granular on where money gets spent. Populate as you fee fit, or as dictated.")
 	@Key("divisionHelp")
 	String divisionHelp();
 
@@ -280,19 +280,19 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@Key("enablePassword")
 	String enablePassword();
 
-	@DefaultStringValue("Enable Password")
+	@DefaultStringValue("Enable Password: used only if AutoEnable is not set to 'A'")
 	@Key("enablePasswordHelp")
 	String enablePasswordHelp();
 
-	@DefaultStringValue("Error fetching asset data for nodeId: ")
+	@DefaultStringValue("Error fetching asset data for node with ID: ")
 	@Key("errorFatchingAssetData")
 	String errorFatchingAssetData();
 
-	@DefaultStringValue("Error fetching assetSuggestion data for nodeId: ")
+	@DefaultStringValue("Error fetching asset suggestion data for node ID: ")
 	@Key("errorFetchingAssetSuggData")
 	String errorFetchingAssetSuggData();
 
-	@DefaultStringValue("Error saveing asset data for nodeId: ")
+	@DefaultStringValue("Error saving asset data for node ID: ")
 	@Key("errorSavingAssetData")
 	String errorSavingAssetData();
 
@@ -308,7 +308,7 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@Key("floor")
 	String floor();
 
-	@DefaultStringValue("Were still in the dispatching frame of mind here")
+	@DefaultStringValue("Floor on which this node is located, for technician dispatch.")
 	@Key("floorHelp")
 	String floorHelp();
 
@@ -321,7 +321,7 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@Key("hdd")
 	String hdd();
 
-	@DefaultStringValue("HDD")
+	@DefaultStringValue("Hard disk drive information")
 	@Key("hddHelp")
 	String hddHelp();
 
@@ -354,7 +354,7 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@Key("inputpower")
 	String inputpower();
 
-	@DefaultStringValue("Inputpower")
+	@DefaultStringValue("Input power type")
 	@Key("inputpowerHelp")
 	String inputpowerHelp();
 
@@ -370,11 +370,11 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@Key("leaseExpires")
 	String leaseExpires();
 
-	@DefaultStringValue("LeaseExpires -If all goes according to plan, this should be a date after you’ve got new equipment commissioned to take over for the service this equipment provides")
+	@DefaultStringValue("If all goes according to plan, this should be a date after you’ve got new equipment commissioned to take over for the service this equipment provides")
 	@Key("leaseExpiresHelp")
 	String leaseExpiresHelp();
 
-	@DefaultStringValue("Im assuming that this would be a nice spot to populate the name of the leasing company for this equipment")
+	@DefaultStringValue("A nice spot to populate the name of the leasing company or lease ID for this equipment")
 	@Key("leaseHelp")
 	String leaseHelp();
 
@@ -407,7 +407,7 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@Key("maintContract")
 	String maintContract();
 
-	@DefaultStringValue("Number/id of maintenance contract")
+	@DefaultStringValue("Number / ID of maintenance contract")
 	@Key("maintContractHelp")
 	String maintContractHelp();
 
@@ -435,7 +435,7 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@Key("modelNumberHelp")
 	String modelNumberHelp();
 
-	@DefaultStringValue("Node Id: ")
+	@DefaultStringValue("Node ID: ")
 	@Key("nodeIdLabel")
 	String nodeIdLabel();
 
@@ -443,7 +443,7 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@Key("nodeInfoLink")
 	String nodeInfoLink();
 
-	@DefaultStringValue("Parameter node is not an parseabel NodeId: ")
+	@DefaultStringValue("Parameter node is not an parseable Node ID: ")
 	@Key("nodeParamNotValidInt")
 	String nodeParamNotValidInt();
 
@@ -451,7 +451,7 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@Key("notificationCategory")
 	String notificationCat();
 
-	@DefaultStringValue("This could be something like 'serverAdmin' or 'networkAdmin' to be used for directing notifications.")
+	@DefaultStringValue("This could be something like 'serverAdmin' or 'networkAdmin' to be used in filter rules for directing notifications.")
 	@Key("notificationCategoryHelp")
 	String notificationCatHelp();
 
@@ -491,7 +491,7 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@Key("pollerCategory")
 	String pollerCat();
 
-	@DefaultStringValue("This is to be used to define devices in a particular poller package.")
+	@DefaultStringValue("This is to be used in filter rules to define devices in a particular poller package.")
 	@Key("pollerCategoryHelp")
 	String pollerCatHelp();
 
@@ -499,7 +499,7 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@Key("port")
 	String port();
 
-	@DefaultStringValue("Port on a given card or device being surveiled")
+	@DefaultStringValue("Port on a given card or device being monitored")
 	@Key("portHelp")
 	String portHelp();
 
@@ -515,15 +515,15 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@Key("rackUnitHeight")
 	String rackUnitHeight();
 
-	@DefaultStringValue("Rack unit height blockt at rack by Node: 1, 2, 3, ...")
+	@DefaultStringValue("Rack unit height of node: 1, 2, 3, ...")
 	@Key("rackUnitHeightHelp")
 	String rackUnitHeightHelp();
 
-	@DefaultStringValue("Ram")
+	@DefaultStringValue("RAM")
 	@Key("ram")
 	String ram();
 
-	@DefaultStringValue("Ram")
+	@DefaultStringValue("RAM")
 	@Key("ramHelp")
 	String ramHelp();
 
@@ -543,7 +543,7 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@Key("room")
 	String room();
 
-	@DefaultStringValue("Yes, were dialing the location down more after we had dialed it up a piece")
+	@DefaultStringValue("Room number where this node is located, for technician dispatch")
 	@Key("roomHelp")
 	String roomHelp();
 
@@ -564,7 +564,7 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@Key("slot")
 	String slot();
 
-	@DefaultStringValue("This field should be used to designate what slot in a chassis/shelf is being surveiled by this database entry (I feel as though this should be indicative of vertical elevation from the base of the rack as well)")
+	@DefaultStringValue("This field should be used to designate what slot in a chassis/shelf this node occupies")
 	@Key("slotHelp")
 	String slotHelp();
 
@@ -572,7 +572,7 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@Key("snmpcommunity")
 	String snmpcommunity();
 
-	@DefaultStringValue("SNMP community")
+	@DefaultStringValue("SNMP community string")
 	@Key("snmpcommunityHelp")
 	String snmpcommunityHelp();
 
@@ -597,15 +597,15 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@Key("storagectrlHelp")
 	String storagectrlHelp();
 
-	@DefaultStringValue("Can't read given text as date. Please use the Datepicker.")
+	@DefaultStringValue("Can't read given text as date. Please use the date picker.")
 	@Key("stringNotADate")
 	String stringNotADate();
 
-	@DefaultStringValue("Input is not an parseabel as Integer: ")
+	@DefaultStringValue("Input is not an parseable as Integer: ")
 	@Key("stringNoValidInteger")
 	String stringNoValidInteger();
 
-	@DefaultStringValue("The text is to long, maximum is: ")
+	@DefaultStringValue("The text is too long; maximum length is: ")
 	@Key("stringToLongError")
 	String stringToLongError();
 
@@ -613,7 +613,7 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@Key("systemContact")
 	String systemContact();
 
-	@DefaultStringValue("System Contact, information from SNMP-Deamon")
+	@DefaultStringValue("System Contact, information from SNMP agent")
 	@Key("systemContactHelp")
 	String systemContactHelp();
 
@@ -621,7 +621,7 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@Key("systemDescription")
 	String systemDescription();
 
-	@DefaultStringValue("System Description, information from SNMP-Deamon")
+	@DefaultStringValue("System Description, information from SNMP agent")
 	@Key("systemDescriptionHelp")
 	String systemDescriptionHelp();
 
@@ -629,7 +629,7 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@Key("systemId")
 	String systemId();
 
-	@DefaultStringValue("System Id, information from SNMP-Deamon")
+	@DefaultStringValue("System ID, information from SNMP agent")
 	@Key("systemIdHelp")
 	String systemIdHelp();
 
@@ -637,7 +637,7 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@Key("systemLocation")
 	String systemLocation();
 
-	@DefaultStringValue("System Location, information from SNMP-Deamon")
+	@DefaultStringValue("System Location, information from SNMP agent")
 	@Key("systemLocationHelp")
 	String systemLocationHelp();
 
@@ -645,7 +645,7 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@Key("systemName")
 	String systemName();
 
-	@DefaultStringValue("System Name, information from SNMP-Deamon")
+	@DefaultStringValue("System Name, information from SNMP agent")
 	@Key("systemNameHelp")
 	String systemNameHelp();
 
@@ -653,7 +653,7 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@Key("thresholdCategory")
 	String thresholdCat();
 
-	@DefaultStringValue("This is to be used to define devices in a particular thresholding package.")
+	@DefaultStringValue("This is to be used in filter rules to define devices in a particular thresholding package.")
 	@Key("thresholdCategoryHelp")
 	String thresholdCatHelp();
 
@@ -690,7 +690,7 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@Key("zip")
 	String zip();
 
-	@DefaultStringValue("Zip -Zoning ImproveMent code, Yep -you guessed it…   more of the same")
+	@DefaultStringValue("Postal code (ZIP code)")
 	@Key("zipHelp")
 	String zipHelp();
 }
