@@ -39,7 +39,7 @@
 		<g:VerticalPanel ui:field="mainPanel" styleName="mainPanel">
 			<g:Label ui:field="lInfoTop">Hallo Welt</g:Label>
 
-			<onms:DisclosurePanelCookie name="snmp"
+			<onms:DisclosurePanelCookie cookieName="snmp"
 				ui:field="snmpDiscPanel">
 				<g:HTMLPanel styleName="disclosureHeaderPanel">
 					<h3>
@@ -60,7 +60,7 @@
 				</g:HTMLPanel>
 			</onms:DisclosurePanelCookie>
 
-			<onms:DisclosurePanelCookie name="confCat"
+			<onms:DisclosurePanelCookie cookieName="confCat"
 				ui:field="confCatDiscPanel">
 
 				<g:HTMLPanel styleName="disclosureBodyPanel">
@@ -85,7 +85,7 @@
 				</g:HTMLPanel>
 			</onms:DisclosurePanelCookie>
 
-			<onms:DisclosurePanelCookie name="ident"
+			<onms:DisclosurePanelCookie cookieName="ident"
 				ui:field="identDiscPanel">
 				<g:HTMLPanel styleName="disclosureBodyPanel">
 					<h3>
@@ -120,7 +120,7 @@
 				</g:HTMLPanel>
 			</onms:DisclosurePanelCookie>
 
-			<onms:DisclosurePanelCookie name="location"
+			<onms:DisclosurePanelCookie cookieName="location"
 				ui:field="locationDiscPanel">
 
 				<g:HTMLPanel styleName="disclosureBodyPanel">
@@ -180,7 +180,7 @@
 				</g:HTMLPanel>
 			</onms:DisclosurePanelCookie>
 
-			<onms:DisclosurePanelCookie name="vendor"
+			<onms:DisclosurePanelCookie cookieName="vendor"
 				ui:field="vendorDiscPanel">
 				<g:HTMLPanel styleName="disclosureBodyPanel">
 					<h3>
@@ -218,7 +218,7 @@
 			</onms:DisclosurePanelCookie>
 
 
-			<onms:DisclosurePanelCookie name="auth"
+			<onms:DisclosurePanelCookie cookieName="auth"
 				ui:field="authDiscPanel">
 				<g:HTMLPanel styleName="disclosureBodyPanel">
 					<h3>
@@ -245,7 +245,7 @@
 				</g:HTMLPanel>
 			</onms:DisclosurePanelCookie>
 
-			<onms:DisclosurePanelCookie name="hardware"
+			<onms:DisclosurePanelCookie cookieName="hardware"
 				ui:field="hardwareDiscPanel">
 
 				<g:HTMLPanel styleName="disclosureBodyPanel">
@@ -286,7 +286,7 @@
 				</g:HTMLPanel>
 			</onms:DisclosurePanelCookie>
 
-			<onms:DisclosurePanelCookie name="comments"
+			<onms:DisclosurePanelCookie cookieName="comments"
 				ui:field="commentsDiscPanel">
 
 				<g:HTMLPanel styleName="disclosureBodyPanel">
