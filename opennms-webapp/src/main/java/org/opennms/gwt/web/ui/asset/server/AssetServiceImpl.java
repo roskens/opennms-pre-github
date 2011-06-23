@@ -55,16 +55,34 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class AssetServiceImpl extends RemoteServiceServlet implements
 		AssetService {
 
+	/**
+	 * generated serial
+	 */
 	private static final long serialVersionUID = 3847574674959207209L;
 
+	/**
+	 * asset data access object for asset records
+	 */
 	private AssetRecordDao m_assetRecordDao;
 
+	/**
+	 * node data access object for nodes
+	 */
 	private NodeDao m_nodeDao;
 
+	/**
+	 * node object with asset record 
+	 */
 	private OnmsNode m_onmsNode;
 
+	/**
+	 * asset record object
+	 */
 	private OnmsAssetRecord m_onmsAssetRecord;
 
+	/**
+	 * web security context service for user name and role
+	 */
 	private SecurityContextService m_securityContext;
 
 	/** Constant <code>AUTOENABLE="A"</code> */
@@ -82,8 +100,14 @@ public class AssetServiceImpl extends RemoteServiceServlet implements
 	/** Constant <code>RSH_CONNECTION="rsh"</code> */
 	private static final String RSH_CONNECTION = "rsh";
 
+	/**
+	 * ROLE_ADMIN is allowed to edit
+	 */
 	private static final String ALLOW_EDIT_ROLE_ADMIN = "ROLE_ADMIN";
 
+	/**
+	 * ROLE_PROVISIONING is allowed to edit
+	 */
 	private static final String ALLOW_EDIT_ROLE_PROVISION = "ROLE_PROVISION";
 
 	/**
@@ -92,20 +116,26 @@ public class AssetServiceImpl extends RemoteServiceServlet implements
 	 */
 	private static final ArrayList<String> s_connectionOptions = new ArrayList<String>();
 
+	/**
+	 * 
+	 */
 	public AssetServiceImpl() {
 		this.m_securityContext = new SpringSecurityContextService();
-
-		// TODO: Should be configurable
-		/* Init static strings for autoenable option */
+		
+		/* Init static strings for autoenable option 
+		 * TODO: Should be configurable, we take this over from the old JSP version
+		 */
 		s_autoenableOptions.add(AUTOENABLE);
 
-		// TODO: Should be configurable
-		/* Init static strings for connection types */
+		/* Init static strings for connection types 
+		 * TODO: Should be configurable, we take it over from the old JSP version
+		 */
 		s_connectionOptions.add(TELNET_CONNECTION);
 		s_connectionOptions.add(SSH_CONNECTION);
 		s_connectionOptions.add(RSH_CONNECTION);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public AssetCommand getAssetByNodeId(int nodeId) {
 		AssetCommand assetCommand = new AssetCommand();
@@ -143,18 +173,22 @@ public class AssetServiceImpl extends RemoteServiceServlet implements
 			assetCommand.setAllowModify(false);
 		}
 
+		// assign the asset record back to the node
 		this.m_onmsAssetRecord.setNode(this.m_onmsNode);
 		return assetCommand;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public AssetSuggCommand getAssetSuggestions() {
+		// The suggestion model transfered by RPC between webui and service
 		AssetSuggCommand suggestion = new AssetSuggCommand();
+		
+		// a list of all asset records which contains all distinct asset properties for suggestion
 		List<OnmsAssetRecord> distinctAssetProperties = this.m_assetRecordDao
 				.getDistinctProperties();
-
-		// TODO: a lot of mapping code, better using Hibernates
-		// ResultToBeanMapper
+		
+		// Map all distinct asset properties
 		for (OnmsAssetRecord asset : distinctAssetProperties) {
 			suggestion.addAdditionalhardware(asset.getAdditionalhardware());
 			suggestion.addAddress1(asset.getAddress1());
@@ -202,6 +236,7 @@ public class AssetServiceImpl extends RemoteServiceServlet implements
 		return suggestion;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public Boolean saveOrUpdateAssetByNodeId(int nodeId,
 			AssetCommand assetCommand) {
@@ -209,14 +244,18 @@ public class AssetServiceImpl extends RemoteServiceServlet implements
 		this.m_onmsNode = this.m_nodeDao.get(nodeId);
 		this.m_onmsAssetRecord = this.m_onmsNode.getAssetRecord();
 
+		// copy the transfer object for rpc back to the hibernate model
 		BeanUtils.copyProperties(assetCommand, this.m_onmsAssetRecord);
 
+		// set the last modified user from logged in user 
 		this.m_onmsAssetRecord.setLastModifiedBy(this.m_securityContext
 				.getUsername());
 
+		// set last modified date and assign the node for the asset record
 		this.m_onmsAssetRecord.setLastModifiedDate(new Date());
 		this.m_onmsAssetRecord.setNode(this.m_onmsNode);
 
+		// try to persist the asset record from the web ui
 		try {
 			this.m_assetRecordDao.saveOrUpdate(this.m_onmsAssetRecord);
 			isSaved = true;
@@ -226,21 +265,42 @@ public class AssetServiceImpl extends RemoteServiceServlet implements
 			e.printStackTrace();
 		}
 
+		// save was successful
 		return isSaved;
 	}
 
+	/**
+	 * <p>getAssetRecordDao</p>
+	 *  
+	 * @return assetRecordDao a {@link org.opennms.netmgt.model.OnmsAssetRecord} 
+	 */
 	public AssetRecordDao getAssetRecordDao() {
 		return m_assetRecordDao;
 	}
 
+	/**
+	 * <p>setAssetRecordDao</p>
+	 * 
+	 * @param m_assetRecordDao a {@link org.opennms.netmgt.model.OnmsAssetRecord}
+	 */
 	public void setAssetRecordDao(AssetRecordDao m_assetRecordDao) {
 		this.m_assetRecordDao = m_assetRecordDao;
 	}
 
+	/**
+	 * <p>getNodeDao</p>
+	 * 
+	 * @return m_nodeDao a {@link org.opennms.netmgt.dao.NodeDao}
+	 */
 	public NodeDao getNodeDao() {
 		return m_nodeDao;
 	}
 
+	/**
+	 * <p>setNodeDao</p>
+	 * 
+	 * @param m_nodeDao a {@link org.opennms.netmgt.dao.NodeDao}
+	 */
 	public void setNodeDao(NodeDao m_nodeDao) {
 		this.m_nodeDao = m_nodeDao;
 	}
