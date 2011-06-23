@@ -1,35 +1,34 @@
-//
-// This file is part of the OpenNMS(R) Application.
-//
-// OpenNMS(R) is Copyright (C) 2002-2008 The OpenNMS Group, Inc.  All rights reserved.
-// OpenNMS(R) is a derivative work, containing both original code, included code and modified
-// code that was published under the GNU General Public License. Copyrights for modified 
-// and included code are below.
-//
-// OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
-//
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or
-// (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.                                                            
-//
-// You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-//       
-// For more information contact: 
-//      OpenNMS Licensing       <license@opennms.org>
-//      http://www.opennms.org/
-//      http://www.opennms.com/
-//
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2009-2011 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2011 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 
 package org.opennms.netmgt.threshd;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -44,9 +43,11 @@ import java.util.regex.PatternSyntaxException;
 
 import org.opennms.core.utils.ThreadCategory;
 import org.opennms.netmgt.collectd.CollectionAttribute;
+import org.opennms.netmgt.config.PollOutagesConfigFactory;
 import org.opennms.netmgt.config.ThreshdConfigFactory;
 import org.opennms.netmgt.config.ThreshdConfigManager;
 import org.opennms.netmgt.config.ThresholdingConfigFactory;
+import org.opennms.netmgt.config.poller.Outage;
 import org.opennms.netmgt.config.threshd.ResourceFilter;
 import org.opennms.netmgt.model.RrdRepository;
 import org.opennms.netmgt.xml.event.Event;
@@ -71,11 +72,7 @@ public abstract class ThresholdingSet {
     boolean m_hasThresholds = false;
     
     List<ThresholdGroup> m_thresholdGroups;
-
-    /*
-     * Holds collection interval step. Counter attributes values must be returned as rates.
-     */
-    long m_interval;
+    List<String> m_scheduledOutages;
 
     /**
      * <p>Constructor for ThresholdingSet.</p>
@@ -86,12 +83,12 @@ public abstract class ThresholdingSet {
      * @param repository a {@link org.opennms.netmgt.model.RrdRepository} object.
      * @param interval a long.
      */
-    public ThresholdingSet(int nodeId, String hostAddress, String serviceName, RrdRepository repository, long interval) {
+    public ThresholdingSet(int nodeId, String hostAddress, String serviceName, RrdRepository repository) {
         m_nodeId = nodeId;
         m_hostAddress = hostAddress;
         m_serviceName = serviceName;
         m_repository = repository;      
-        m_interval = interval / 1000; // Store interval in seconds
+        m_scheduledOutages = new ArrayList<String>();
         initThresholdsDao();
         initialize();
     }
@@ -117,6 +114,7 @@ public abstract class ThresholdingSet {
             }
         }
         m_hasThresholds = !m_thresholdGroups.isEmpty();
+        updateScheduledOutages();
     }
 
     /**
@@ -128,6 +126,7 @@ public abstract class ThresholdingSet {
         initThresholdsDao();
         mergeThresholdGroups();
         m_hasThresholds = !m_thresholdGroups.isEmpty();
+        updateScheduledOutages();
         ThresholdingEventProxyFactory.getFactory().getProxy().sendAllEvents();
     }
 
@@ -224,6 +223,22 @@ public abstract class ThresholdingSet {
         }
         log().debug("hasThresholds: " + resourceTypeName + "@" + attributeName + "? " + ok);
         return ok;
+    }
+
+    public boolean isNodeInOutage() {
+        PollOutagesConfigFactory outageFactory = PollOutagesConfigFactory.getInstance();
+        boolean outageFound = false;
+        for (String outageName : m_scheduledOutages) {
+            if (outageFactory.isCurTimeInOutage(outageName)) {
+                log().debug("isNodeInOutage[node=" + m_nodeId + "]: current time is on outage using '" + outageName + "'; checking the node with IP " + m_hostAddress);
+                if (outageFactory.isNodeIdInOutage(m_nodeId, outageName) || outageFactory.isInterfaceInOutage(m_hostAddress, outageName)) {
+                    log().debug("isNodeInOutage[node=" + m_nodeId + "]: configured outage '" + outageName + "' applies, interface " + m_hostAddress + " will be ignored for threshold processing");
+                    outageFound = true;
+                    break;
+                }
+            }
+        }
+        return outageFound;
     }
 
     /*
@@ -415,6 +430,26 @@ public abstract class ThresholdingSet {
         }
         
         return groupNameList;
+    }
+
+    protected void updateScheduledOutages() {
+        m_scheduledOutages.clear();
+        for (org.opennms.netmgt.config.threshd.Package pkg : m_configManager.getConfiguration().getPackage()) {
+            for (String outageCal : pkg.getOutageCalendarCollection()) {
+                log().info("updateScheduledOutages[node=" + m_nodeId + "]: checking scheduled outage '" + outageCal + "'");
+                try {
+                    Outage outage = PollOutagesConfigFactory.getInstance().getOutage(outageCal);
+                    if (outage == null) {
+                        log().info("updateScheduledOutages[node=" + m_nodeId + "]: scheduled outage '" + outageCal + "' is not defined.");
+                    } else {
+                        log().debug("updateScheduledOutages[node=" + m_nodeId + "]: outage calendar '" + outage.getName() + "' found on package '" + pkg.getName() + "'");
+                        m_scheduledOutages.add(outageCal);
+                    }
+                } catch (Exception e) {
+                    log().info("updateScheduledOutages[node=" + m_nodeId + "]: scheduled outage '" + outageCal + "' does not exist.");                    
+                }
+            }
+        }
     }
 
     private Map<String, Set<ThresholdEntity>> getEntityMap(ThresholdGroup thresholdGroup, String resourceType) {

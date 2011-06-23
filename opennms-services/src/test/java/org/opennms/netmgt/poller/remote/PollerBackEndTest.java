@@ -1,33 +1,31 @@
 
-//This file is part of the OpenNMS(R) Application.
-
-//OpenNMS(R) is Copyright (C) 2006 The OpenNMS Group, Inc.  All rights reserved.
-//OpenNMS(R) is a derivative work, containing both original code, included code and modified
-//code that was published under the GNU General Public License. Copyrights for modified
-//and included code are below.
-
-//OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
-
-//Original code base Copyright (C) 1999-2001 Oculan Corp.  All rights reserved.
-
-//This program is free software; you can redistribute it and/or modify
-//it under the terms of the GNU General Public License as published by
-//the Free Software Foundation; either version 2 of the License, or
-//(at your option) any later version.
-
-//This program is distributed in the hope that it will be useful,
-//but WITHOUT ANY WARRANTY; without even the implied warranty of
-//MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//GNU General Public License for more details.
-
-//You should have received a copy of the GNU General Public License
-//along with this program; if not, write to the Free Software
-//Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-
-//For more information contact:
-//OpenNMS Licensing       <license@opennms.org>
-//http://www.opennms.org/
-//http://www.opennms.com/
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2006-2011 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2011 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 
 package org.opennms.netmgt.poller.remote;
 
@@ -47,6 +45,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import junit.framework.TestCase;
 
@@ -66,13 +66,13 @@ import org.opennms.netmgt.eventd.EventIpcManager;
 import org.opennms.netmgt.model.NetworkBuilder;
 import org.opennms.netmgt.model.OnmsDistPoller;
 import org.opennms.netmgt.model.OnmsLocationMonitor;
+import org.opennms.netmgt.model.OnmsLocationMonitor.MonitorStatus;
 import org.opennms.netmgt.model.OnmsLocationSpecificStatus;
 import org.opennms.netmgt.model.OnmsMonitoredService;
 import org.opennms.netmgt.model.OnmsMonitoringLocationDefinition;
 import org.opennms.netmgt.model.OnmsServiceType;
 import org.opennms.netmgt.model.PollStatus;
 import org.opennms.netmgt.model.ServiceSelector;
-import org.opennms.netmgt.model.OnmsLocationMonitor.MonitorStatus;
 import org.opennms.netmgt.model.events.EventBuilder;
 import org.opennms.netmgt.model.events.EventUtils;
 import org.opennms.netmgt.poller.DistributionContext;
@@ -430,11 +430,17 @@ public class PollerBackEndTest extends TestCase {
         assertEquals(m_startTime, config.getConfigurationTimestamp());
         assertNotNull(config.getPolledServices());
         assertEquals(2, config.getPolledServices().length);
+
+        Map<String,PolledService> services = new TreeMap<String,PolledService>();
+        for (final PolledService ps : config.getPolledServices()) {
+        	services.put(ps.getSvcName(), ps);
+        }
+
         //Because the config is sorted DNS will change from index 1 to index 0;
-        assertEquals(m_dnsService.getServiceName(), config.getPolledServices()[0].getSvcName());
-        assertEquals(m_httpService.getServiceName(), config.getPolledServices()[1].getSvcName());
-        assertEquals(5678, config.getPolledServices()[0].getPollModel().getPollInterval());
-        assertTrue(config.getPolledServices()[0].getMonitorConfiguration().containsKey("hostname"));
+        assertTrue(services.keySet().contains(m_dnsService.getServiceName()));
+        assertTrue(services.keySet().contains(m_httpService.getServiceName()));
+        assertEquals(5678, services.get("DNS").getPollModel().getPollInterval());
+        assertTrue(services.get("DNS").getMonitorConfiguration().containsKey("hostname"));
     }
 
     public void testGetPollerConfigurationForDeletedMonitor() {

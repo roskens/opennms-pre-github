@@ -1,39 +1,34 @@
-//
-// This file is part of the OpenNMS(R) Application.
-//
-// OpenNMS(R) is Copyright (C) 2002-2008 The OpenNMS Group, Inc.  All rights reserved.
-// OpenNMS(R) is a derivative work, containing both original code, included code and modified
-// code that was published under the GNU General Public License. Copyrights for modified 
-// and included code are below.
-//
-// OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
-//
-// Modifications:
-//
-// 2008 June 11: Correct logic error when checking for generic resource types; update author - jeffg@opennms.org
-//
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or
-// (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.                                                            
-//
-// You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-//       
-// For more information contact: 
-//      OpenNMS Licensing       <license@opennms.org>
-//      http://www.opennms.org/
-//      http://www.opennms.com/
-//
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2008-2011 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2011 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 
 package org.opennms.netmgt.threshd;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +38,7 @@ import org.opennms.core.utils.ThreadCategory;
 import org.opennms.netmgt.collectd.AbstractCollectionSetVisitor;
 import org.opennms.netmgt.collectd.CollectionAttribute;
 import org.opennms.netmgt.collectd.CollectionResource;
+import org.opennms.netmgt.collectd.CollectionSet;
 import org.opennms.netmgt.model.RrdRepository;
 import org.opennms.netmgt.xml.event.Event;
 
@@ -55,16 +51,17 @@ import org.opennms.netmgt.xml.event.Event;
  * Suggested usage is one per CollectableService; this object holds the current state of thresholds
  * for this interface/service combination
  * (so perhaps needs a better name than ThresholdingVisitor)
+ * 
+ * Assumes and requires that the any visitation start at CollectionSet level, so that the collection timestamp can
+ * be recorded. 
  *
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
- * @author <a href="mailto:craig@opennms.org">Craig Miskell</a>
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  * @author <a href="mailto:craig@opennms.org">Craig Miskell</a>
  * @version $Id: $
  */
 public class ThresholdingVisitor extends AbstractCollectionSetVisitor {
-    
-    /*
+
+	/*
      * Holds thresholds configuration for a node/interface/service
      */
     CollectorThresholdingSet m_thresholdingSet;
@@ -73,6 +70,8 @@ public class ThresholdingVisitor extends AbstractCollectionSetVisitor {
      * Holds required attribute from CollectionResource to evaluate thresholds.
      */
     Map<String, CollectionAttribute> m_attributesMap;
+
+	private Date m_collectionTimestamp;
     
     /*
      * Is static because successful creation depends on thresholding-enabled parameter.
@@ -85,10 +84,9 @@ public class ThresholdingVisitor extends AbstractCollectionSetVisitor {
      * @param serviceName a {@link java.lang.String} object.
      * @param repo a {@link org.opennms.netmgt.model.RrdRepository} object.
      * @param roProps a {@link java.util.Map} object.
-     * @param interval a long.
      * @return a {@link org.opennms.netmgt.threshd.ThresholdingVisitor} object.
      */
-    public static ThresholdingVisitor create(int nodeId, String hostAddress, String serviceName, RrdRepository repo, Map<String, Object> roProps, long interval) {
+    public static ThresholdingVisitor create(int nodeId, String hostAddress, String serviceName, RrdRepository repo, Map<String, Object> roProps) {
         ThreadCategory log = ThreadCategory.getInstance(ThresholdingVisitor.class);
 
         String enabled = ParameterMap.getKeyedString(roProps, "thresholding-enabled", null);
@@ -97,7 +95,7 @@ public class ThresholdingVisitor extends AbstractCollectionSetVisitor {
             return null;
         }
 
-        CollectorThresholdingSet thresholdingSet = new CollectorThresholdingSet(nodeId, hostAddress, serviceName, repo, interval, roProps);
+        CollectorThresholdingSet thresholdingSet = new CollectorThresholdingSet(nodeId, hostAddress, serviceName, repo, roProps);
         if (thresholdingSet.hasThresholds()) {
             return new ThresholdingVisitor(thresholdingSet);
         }
@@ -130,6 +128,10 @@ public class ThresholdingVisitor extends AbstractCollectionSetVisitor {
         return m_thresholdingSet.m_thresholdGroups;
     }
     
+    @Override
+	public void visitCollectionSet(CollectionSet set) {
+    	m_collectionTimestamp = set.getCollectionTimestamp();
+	}
     /*
      * Force reload thresholds configuration, and merge threshold states
      */
@@ -139,7 +141,15 @@ public class ThresholdingVisitor extends AbstractCollectionSetVisitor {
     public void reload() {
         m_thresholdingSet.reinitialize();
     }
-    
+
+    public void reloadScheduledOutages() {
+        m_thresholdingSet.updateScheduledOutages();
+    }
+
+    public boolean isNodeInOutage() {
+        return m_thresholdingSet.isNodeInOutage();
+    }
+
     /*
      *  Initialize required attributes map (m_attributesMap)
      */
@@ -177,10 +187,17 @@ public class ThresholdingVisitor extends AbstractCollectionSetVisitor {
     /** {@inheritDoc} */
     @Override
     public void completeResource(CollectionResource resource) {
-        List<Event> eventList = m_thresholdingSet.applyThresholds(resource, m_attributesMap);
+        List<Event> eventList = m_thresholdingSet.applyThresholds(resource, m_attributesMap, m_collectionTimestamp);
         ThresholdingEventProxy proxy = ThresholdingEventProxyFactory.getFactory().getProxy();
         proxy.add(eventList);
         proxy.sendAllEvents();
+    }
+    
+    /*
+     * Return the collection timestamp passed in at construct time.  Typically used by tests, but might be  useful elsewhere
+     */
+    public Date getCollectionTimestamp() {
+    	return this.m_collectionTimestamp;
     }
 
     /** {@inheritDoc} */

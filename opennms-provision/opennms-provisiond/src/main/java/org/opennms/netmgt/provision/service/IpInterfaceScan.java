@@ -1,36 +1,35 @@
-/*
- * This file is part of the OpenNMS(R) Application.
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
  *
- * OpenNMS(R) is Copyright (C) 2010 The OpenNMS Group, Inc.  All rights reserved.
- * OpenNMS(R) is a derivative work, containing both original code, included code and modified
- * code that was published under the GNU General Public License. Copyrights for modified
- * and included code are below.
+ * Copyright (C) 2010-2011 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2011 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful,
+ * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
  *
  * For more information contact:
- * OpenNMS Licensing       <license@opennms.org>
+ *     OpenNMS(R) Licensing <license@opennms.org>
  *     http://www.opennms.org/
  *     http://www.opennms.com/
- */
+ *******************************************************************************/
+
 package org.opennms.netmgt.provision.service;
 
-import static org.opennms.core.utils.LogUtils.debugf;
 import static org.opennms.core.utils.LogUtils.infof;
+import static org.opennms.core.utils.InetAddressUtils.str;
 
 import java.net.InetAddress;
 import java.util.Collection;
@@ -41,7 +40,6 @@ import org.opennms.core.tasks.BatchTask;
 import org.opennms.core.tasks.Callback;
 import org.opennms.core.tasks.RunInBatch;
 import org.opennms.core.tasks.Task;
-import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.netmgt.provision.AsyncServiceDetector;
 import org.opennms.netmgt.provision.ServiceDetector;
 import org.opennms.netmgt.provision.SyncServiceDetector;
@@ -68,7 +66,7 @@ public class IpInterfaceScan implements RunInBatch {
      * @param foreignSource a {@link java.lang.String} object.
      * @param provisionService a {@link org.opennms.netmgt.provision.service.ProvisionService} object.
      */
-    public IpInterfaceScan(Integer nodeId, InetAddress address, String foreignSource, ProvisionService provisionService) {
+    public IpInterfaceScan(final Integer nodeId, final InetAddress address, final String foreignSource, final ProvisionService provisionService) {
         m_nodeId = nodeId;
         m_address = address;
         m_foreignSource = foreignSource;
@@ -117,7 +115,11 @@ public class IpInterfaceScan implements RunInBatch {
      * @return a {@link java.lang.String} object.
      */
     public String toString() {
-        return new ToStringBuilder(this).append("address", m_address).append("foreign source", m_foreignSource).append("node ID", m_nodeId).toString();
+        return new ToStringBuilder(this)
+        	.append("address", m_address)
+        	.append("foreign source", m_foreignSource)
+        	.append("node ID", m_nodeId)
+        	.toString();
     }
 
     /**
@@ -129,25 +131,21 @@ public class IpInterfaceScan implements RunInBatch {
      */
     public Callback<Boolean> servicePersister(final BatchTask currentPhase, final String serviceName) {
         return new Callback<Boolean>() {
-            public void complete(Boolean serviceDetected) {
-                final String hostAddress = InetAddressUtils.str(getAddress());
+            public void complete(final Boolean serviceDetected) {
+                final String hostAddress = str(getAddress());
 				infof(this, "Attempted to detect service %s on address %s: %s", serviceName, hostAddress, serviceDetected);
                 if (serviceDetected) {
 
                     currentPhase.getBuilder().addSequence(
                             new RunInBatch() {
-
-                                public void run(BatchTask batch) {
-
+                                public void run(final BatchTask batch) {
                                     if ("SNMP".equals(serviceName)) {
                                         setupAgentInfo(currentPhase);
                                     }
-
                                 }
                             }, 
                             new RunInBatch() {
-
-                                public void run(BatchTask batch) {
+                                public void run(final BatchTask batch) {
                                     getProvisionService().addMonitoredService(getNodeId(), hostAddress, serviceName);
                                 }
                             });
@@ -158,8 +156,8 @@ public class IpInterfaceScan implements RunInBatch {
                 }
             }
 
-            public void handleException(Throwable t) {
-                infof(this, t, "Exception occurred while trying to detect service %s on address %s", serviceName, InetAddressUtils.str(getAddress()));
+            public void handleException(final Throwable t) {
+                infof(this, t, "Exception occurred while trying to detect service %s on address %s", serviceName, str(getAddress()));
             }
         };
     }
@@ -168,9 +166,9 @@ public class IpInterfaceScan implements RunInBatch {
         return new Runnable() {
             public void run() {
                 try {
-                    infof(this, "Attemping to detect service %s on address %s", detector.getServiceName(), InetAddressUtils.str(getAddress()));
+                    infof(this, "Attemping to detect service %s on address %s", detector.getServiceName(), str(getAddress()));
                     cb.complete(detector.isServiceDetected(getAddress(), new NullDetectorMonitor()));
-                } catch (Throwable t) {
+                } catch (final Throwable t) {
                     cb.handleException(t);
                 } finally {
                     detector.dispose();
@@ -179,17 +177,17 @@ public class IpInterfaceScan implements RunInBatch {
 
             @Override
             public String toString() {
-                return String.format("Run detector %s on address %s", detector.getServiceName(), InetAddressUtils.str(getAddress()));
+                return String.format("Run detector %s on address %s", detector.getServiceName(), str(getAddress()));
             }
 
         };
     }
 
-    Async<Boolean> runDetector(AsyncServiceDetector detector) {
+    Async<Boolean> runDetector(final AsyncServiceDetector detector) {
         return new AsyncDetectorRunner(this, detector);
     }
 
-    Task createDetectorTask(BatchTask currentPhase, ServiceDetector detector) {
+    Task createDetectorTask(final BatchTask currentPhase, final ServiceDetector detector) {
         if (detector instanceof SyncServiceDetector) {
             return createSyncDetectorTask(currentPhase, (SyncServiceDetector) detector);
         } else {
@@ -197,29 +195,28 @@ public class IpInterfaceScan implements RunInBatch {
         }
     }
 
-    private Task createAsyncDetectorTask(BatchTask currentPhase, AsyncServiceDetector asyncDetector) {
+    private Task createAsyncDetectorTask(final BatchTask currentPhase, final AsyncServiceDetector asyncDetector) {
         return currentPhase.getCoordinator().createTask(currentPhase, runDetector(asyncDetector), servicePersister(currentPhase, asyncDetector.getServiceName()));
     }
 
-    private Task createSyncDetectorTask(BatchTask currentPhase, SyncServiceDetector syncDetector) {
+    private Task createSyncDetectorTask(final BatchTask currentPhase, final SyncServiceDetector syncDetector) {
         return currentPhase.getCoordinator().createTask(currentPhase, runDetector(syncDetector, servicePersister(currentPhase, syncDetector.getServiceName())));
     }
 
     /** {@inheritDoc} */
-    public void run(BatchTask currentPhase) {
+    public void run(final BatchTask currentPhase) {
+    	final Collection<ServiceDetector> detectors = getProvisionService().getDetectorsForForeignSource(getForeignSource() == null ? "default" : getForeignSource());
 
-        Collection<ServiceDetector> detectors = getProvisionService().getDetectorsForForeignSource(getForeignSource() == null ? "default" : getForeignSource());
+        infof(this, "Detecting services for node %d/%s on address %s: found %d detectors", getNodeId(), getForeignSource(), str(getAddress()), detectors.size());
 
-        debugf(this, "detectServices for %d : %s: found %d detectors", getNodeId(), InetAddressUtils.str(getAddress()), detectors.size());
-
-        for (ServiceDetector detector : detectors) {
+        for (final ServiceDetector detector : detectors) {
             currentPhase.add(createDetectorTask(currentPhase, detector));
         }
 
     }
 
-    private void setupAgentInfo(BatchTask currentphase) {
-        getProvisionService().setIsPrimaryFlag(getNodeId(), InetAddressUtils.str(getAddress()));
+    private void setupAgentInfo(final BatchTask currentphase) {
+        getProvisionService().setIsPrimaryFlag(getNodeId(), str(getAddress()));
     }
 
 }

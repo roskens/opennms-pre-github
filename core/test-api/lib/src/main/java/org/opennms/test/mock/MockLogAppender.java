@@ -1,43 +1,31 @@
-/*
- * This file is part of the OpenNMS(R) Application.
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
  *
- * OpenNMS(R) is Copyright (C) 2005 The OpenNMS Group, Inc. All rights
- * reserved.
- * OpenNMS(R) is a derivative work, containing both original code, included
- * code and modified
- * code that was published under the GNU General Public License. Copyrights
- * for modified
- * and included code are below.
+ * Copyright (C) 2011 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2011 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
- * Modifications:
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
  *
- * 2007 Apr 23: Java 5 generics, eliminate partially used s_loggingSetup. - dj@opennms.org
- * 2006 Aug 15: fix logger for org.snmp4j - dj@opennms.org
- *
- * Original code base Copyright (C) 1999-2001 Oculan Corp. All rights
- * reserved.
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
+ * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
  *
  * For more information contact:
- *      OpenNMS Licensing <license@opennms.org>
- *      http://www.opennms.org/
- *      http://www.opennms.com/
- */
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
+
 package org.opennms.test.mock;
 
 import java.util.Collections;
@@ -56,6 +44,16 @@ import org.apache.log4j.spi.LoggingEvent;
  * <p>MockLogAppender class. If you do not specify the log level specifically, the level
  * will default to DEBUG and you can control the level by setting the <code>mock.logLevel</code>
  * system property.</p>
+ * 
+ * Used in unit tests to check that the level of logging produced by a test was suitable.
+ * In some cases, the test will be that no messages were logged at a higher priority than
+ * specified, e.g. Error messages logged when only Notice were expected.
+ * 
+ * Some other tests may wish to ensure that an Error or Warn message was indeed logged as expected
+ * 
+ * Remember: "Greater" in regards to level relates to priority; the higher the level, the less should
+ * usually be logged (e.g. Errors (highest) should be only the highest priority messages about really bad things, 
+ * as compared to Debug (lowest) which is any old rubbish that might be interesting to a developer)
  *
  * @author brozow
  * @version $Id: $
@@ -123,6 +121,28 @@ public class MockLogAppender extends AppenderSkeleton {
      * @return an array of {@link org.apache.log4j.spi.LoggingEvent} objects.
      */
     public static LoggingEvent[] getEventsGreaterOrEqual(final Level level) {
+        LinkedList<LoggingEvent> matching = new LinkedList<LoggingEvent>();
+
+        synchronized (s_events) {
+            for (final LoggingEvent event : s_events) {
+                if (event.getLevel().isGreaterOrEqual(level)) {
+                    matching.add(event);
+                }
+            }
+        }
+
+        return matching.toArray(new LoggingEvent[0]);
+    }
+
+    /**
+     * <p>getEventsAtLevel</p>
+     *
+     * Returns events that were logged at the specified level
+     * 
+     * @param level a {@link org.apache.log4j.Level} object.
+     * @return an array of {@link org.apache.log4j.spi.LoggingEvent} objects.
+     */
+    public static LoggingEvent[] getEventsAtLevel(final Level level) {
         LinkedList<LoggingEvent> matching = new LinkedList<LoggingEvent>();
 
         synchronized (s_events) {
@@ -294,4 +314,32 @@ public class MockLogAppender extends AppenderSkeleton {
     public static void assertNoWarningsOrGreater() throws AssertionFailedError {
         assertNotGreaterOrEqual(Level.WARN);
     }
+    
+    /**
+     * <p>assertLogAtLevel</p>
+     * Asserts that a message was logged at the requested level.
+     * 
+     * Useful for testing code that *should* have logged an error message 
+     * (or a notice or some other special case)
+     *
+     * @param level a {@link org.apache.log4j.Level} object.
+     * @throws junit.framework.AssertionFailedError if any.
+     */
+    public static void assertLogAtLevel(final Level level) throws AssertionFailedError {
+        if (!isLoggingSetup()) {
+            throw new AssertionFailedError("MockLogAppender has not been initialized");
+        }
+
+        try {
+            Thread.sleep(500);
+        } catch (final InterruptedException e) {
+                Thread.currentThread().interrupt();
+        }
+        final LoggingEvent[] events = getEventsAtLevel(level);
+        if (events.length == 0) {
+            throw new AssertionFailedError("No messages were received at level " + level);
+        }
+
+    }
+
 }

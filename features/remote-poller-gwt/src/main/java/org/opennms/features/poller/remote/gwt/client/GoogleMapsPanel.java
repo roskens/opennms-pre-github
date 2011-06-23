@@ -1,3 +1,31 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2010-2011 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2011 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
+
 package org.opennms.features.poller.remote.gwt.client;
 
 import static org.opennms.features.poller.remote.gwt.client.utils.GoogleMapsUtils.toGWTBounds;
@@ -78,7 +106,7 @@ public class GoogleMapsPanel extends Composite implements MapPanel {
     }
 
     /** {@inheritDoc} */
-    public void showLocationDetails(String name, String htmlTitle, String htmlContent) {
+    public void showLocationDetails(final String name, final String htmlTitle, final String htmlContent) {
         final Marker m = m_markers.get(name);
 
         getMapWidget().savePosition();
@@ -142,7 +170,7 @@ public class GoogleMapsPanel extends Composite implements MapPanel {
         markerOptions.setClickable(true);
         markerOptions.setTitle(marker.getName());
         markerOptions.setIcon(icon);
-        
+
         Marker m = new Marker(toLatLng(marker.getLatLng()), markerOptions);
         m.setVisible(marker.isVisible());
         m.addMarkerClickHandler(new DefaultMarkerClickHandler(marker));
@@ -158,9 +186,8 @@ public class GoogleMapsPanel extends Composite implements MapPanel {
         	m = createMarker(marker);
         	m_markers.put(marker.getName(), m);
         	addOverlay(m);
-        } else {
-        	updateMarkerFromState(m, marker);
         }
+    	updateMarkerFromState(m, marker);
     }
 
     private void updateMarkerFromState(Marker m, GWTMarkerState marker) {

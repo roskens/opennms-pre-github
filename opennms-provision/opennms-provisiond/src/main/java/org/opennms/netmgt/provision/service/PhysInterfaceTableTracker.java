@@ -1,34 +1,31 @@
-/*
- * This file is part of the OpenNMS(R) Application.
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
  *
- * OpenNMS(R) is Copyright (C) 2009 The OpenNMS Group, Inc.  All rights reserved.
- * OpenNMS(R) is a derivative work, containing both original code, included code and modified
- * code that was published under the GNU General Public License. Copyrights for modified
- * and included code are below.
+ * Copyright (C) 2009-2011 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2011 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
- * Original code base Copyright (C) 1999-2001 Oculan Corp.  All rights reserved.
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
+ * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
  *
  * For more information contact:
- * OpenNMS Licensing       <license@opennms.org>
+ *     OpenNMS(R) Licensing <license@opennms.org>
  *     http://www.opennms.org/
  *     http://www.opennms.com/
- */
+ *******************************************************************************/
+
 package org.opennms.netmgt.provision.service;
 
 import org.opennms.netmgt.model.OnmsSnmpInterface;
@@ -109,17 +106,17 @@ public class PhysInterfaceTableTracker extends TableTracker {
     
     class PhysicalInterfaceRow extends SnmpRowResult {
 
-        public PhysicalInterfaceRow(int columnCount, SnmpInstId instance) {
+        public PhysicalInterfaceRow(final int columnCount, final SnmpInstId instance) {
             super(columnCount, instance);
         }
         
         public Integer getIfIndex() {
-            SnmpValue value = getValue(IF_INDEX);
+        	final SnmpValue value = getValue(IF_INDEX);
             if (value != null) {
                 return value.toInt();
             } else {
-                // ifIndex is the instance id as well
-                SnmpInstId inst = getInstance();
+            	// ifIndex is the instance id as well
+                final SnmpInstId inst = getInstance();
                 if (inst != null && inst.length() == 1) {
                     return inst.toInt();
                 }
@@ -128,53 +125,53 @@ public class PhysInterfaceTableTracker extends TableTracker {
         }
         
         private Integer getIfType() {
-            SnmpValue value = getValue(IF_TYPE);
+            final SnmpValue value = getValue(IF_TYPE);
             return value == null ? null : value.toInt();
 
         }
 
         private Long getIfSpeed() {
-            SnmpValue value = getValue(IF_SPEED);
+            final SnmpValue value = getValue(IF_SPEED);
             return value == null ? null : value.toLong();
         }
         
         private Long getIfHighSpeed() {
-            SnmpValue value = getValue(IF_HIGH_SPEED);
+            final SnmpValue value = getValue(IF_HIGH_SPEED);
             return value == null ? null : value.toLong()*1000000L;
         }
         
         private Long getSpeed() {
-            Long highSpeed = getIfHighSpeed();
+            final Long highSpeed = getIfHighSpeed();
             return highSpeed != null && highSpeed > 0 ? highSpeed : getIfSpeed(); 
         }
 
         private Integer getIfOperStatus() {
-            SnmpValue value = getValue(IF_OPER_STATUS);
+            final SnmpValue value = getValue(IF_OPER_STATUS);
             return value == null ? null : value.toInt();
         }
 
         private String getIfName() {
-            SnmpValue value = getValue(IF_NAME);
+            final SnmpValue value = getValue(IF_NAME);
             return value == null ? null : value.toDisplayString();
         }
 
         private String getIfDescr() {
-            SnmpValue value = getValue(IF_DESCR);
+            final SnmpValue value = getValue(IF_DESCR);
             return value == null ? null : value.toDisplayString();
         }
 
         private String getIfAlias() {
-            SnmpValue value = getValue(IF_ALIAS);
+            final SnmpValue value = getValue(IF_ALIAS);
             return value == null ? null : value.toDisplayString();
         }
 
         private Integer getIfAdminStatus() {
-            SnmpValue value = getValue(IF_ADMIN_STATUS);
+            final SnmpValue value = getValue(IF_ADMIN_STATUS);
             return value == null ? null : value.toInt();
         }
         
         public OnmsSnmpInterface createInterfaceFromRow() {
-            OnmsSnmpInterface snmpIface = new OnmsSnmpInterface(null, getIfIndex());
+            final OnmsSnmpInterface snmpIface = new OnmsSnmpInterface(null, getIfIndex());
             snmpIface.setIfAdminStatus(getIfAdminStatus());
             snmpIface.setIfAlias(getIfAlias());
             snmpIface.setIfDescr(getIfDescr());
@@ -199,19 +196,19 @@ public class PhysInterfaceTableTracker extends TableTracker {
      *
      * @param rowProcessor a {@link org.opennms.netmgt.snmp.RowCallback} object.
      */
-    public PhysInterfaceTableTracker(RowCallback rowProcessor) {
+    public PhysInterfaceTableTracker(final RowCallback rowProcessor) {
         super(rowProcessor, s_tableColumns);
     }
     
     /** {@inheritDoc} */
     @Override
-    public SnmpRowResult createRowResult(int columnCount, SnmpInstId instance) {
+    public SnmpRowResult createRowResult(final int columnCount, final SnmpInstId instance) {
         return new PhysicalInterfaceRow(columnCount, instance);
     }
 
     /** {@inheritDoc} */
     @Override
-    public void rowCompleted(SnmpRowResult row) {
+    public void rowCompleted(final SnmpRowResult row) {
         processPhysicalInterfaceRow((PhysicalInterfaceRow)row);
     }
 
@@ -220,7 +217,7 @@ public class PhysInterfaceTableTracker extends TableTracker {
      *
      * @param row a {@link org.opennms.netmgt.provision.service.PhysInterfaceTableTracker.PhysicalInterfaceRow} object.
      */
-    public void processPhysicalInterfaceRow(PhysicalInterfaceRow row) {
+    public void processPhysicalInterfaceRow(final PhysicalInterfaceRow row) {
         
     }
 

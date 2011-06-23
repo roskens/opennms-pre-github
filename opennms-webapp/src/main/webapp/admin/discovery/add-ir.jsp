@@ -1,43 +1,32 @@
 <%
 
-//
-// This file is part of the OpenNMS(R) Application.
-//
-// OpenNMS(R) is Copyright (C) 2002-2008 The OpenNMS Group, Inc.  All rights reserved.
-// OpenNMS(R) is a derivative work, containing both original code, included code and modified
-// code that was published under the GNU General Public License. Copyrights for modified 
-// and included code are below.
-//
-// OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
-//
-// Modifications:
-//
-// 2003 Feb 07: Fixed URLEncoder issues.
-// 2002 Nov 26: Fixed breadcrumbs issue.
-// 2002 Sep 24: Added a "select" option for SNMP data and a config page.
-// 2002 Sep 19: Added a "delete nodes" page to the webUI.
-// 
-// Original code base Copyright (C) 1999-2001 Oculan Corp.  All rights reserved.
-//
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or
-// (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-//
-// For more information contact:
-//      OpenNMS Licensing       <license@opennms.org>
-//      http://www.opennms.org/
-//      http://www.opennms.com/
-//
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2007-2011 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2011 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 
 %>
 
@@ -61,35 +50,53 @@ DiscoveryConfiguration currConfig  = (DiscoveryConfiguration) sess.getAttribute(
   <title>Add Include Range | Admin | OpenNMS Web Console</title>
   <base href="<%=org.opennms.web.api.Util.calculateUrlBase( request )%>" />
   <link rel="stylesheet" type="text/css" href="css/styles.css" />
+  <script type='text/javascript' src='js/ipv6/ipv6.js'></script>
+  <script type='text/javascript' src='js/ipv6/lib/jsbn.js'></script>
+  <script type='text/javascript' src='js/ipv6/lib/jsbn2.js'></script>
+  <script type='text/javascript' src='js/ipv6/lib/sprintf.js'></script>
 
 </head>
 
 <body>
 <script type="text/javascript">
-function checkIpAddr(ip){
-	var ipArr = ip.split(".");
-	if(ipArr.length!=4)
-		return false;
-	if(isNaN(ipArr[0]) || ipArr[0]=="" || isNaN(ipArr[1]) || ipArr[1]=="" || isNaN(ipArr[2]) || ipArr[2]=="" || isNaN(ipArr[3]) || ipArr[3]=="" || 
-		ipArr[0]<0 || ipArr[0]>255 || ipArr[1]<0 || ipArr[1]>255 || ipArr[2]<0 || ipArr[2]>255 || ipArr[3]<0 || ipArr[3]>255)
-		return false;
-	return true;
+function v4BigInteger(ip) {
+    var a = ip.split('.');
+    return parseInt(a[0])*Math.pow(2,24) + parseInt(a[1])*Math.pow(2,16) + parseInt(a[2])*Math.pow(2,8) + parseInt(a[3]);
+};
+
+function checkIpRange(ip1, ip2){
+    if (verifyIPv4Address(ip1) && verifyIPv4Address(ip2)) {
+        var a = v4BigInteger(ip1);
+        var b = v4BigInteger(ip2);
+        return b > a;
+    }
+    if (verifyIPv6Address(ip1) && verifyIPv6Address(ip2)) {
+        var a = new v6.Address(ip1).bigInteger();
+        var b = new v6.Address(ip2).bigInteger();
+        return b.compareTo(a) > 0;
+    }
+    return false;
 }
 
 function addIncludeRange(){
-	if(!checkIpAddr(document.getElementById("base").value)){
+	if(!isValidIPAddress(document.getElementById("base").value)){
 		alert("Network Address not valid.");
 		document.getElementById("base").focus();
 		return;
 	}
 
-	if(!checkIpAddr(document.getElementById("end").value)){
+	if(!isValidIPAddress(document.getElementById("end").value)){
 		alert("End IP not valid.");
 		document.getElementById("end").focus();
 		return;
 	}
 
-	
+	if(!checkIpRange(document.getElementById("base").value, document.getElementById("end").value)){
+		alert("Address Range not valid.");
+		document.getElementById("end").focus();
+		return;
+	}
+
 	if(isNaN(document.getElementById("timeout").value)){
 		alert("Timeout not valid.");
 		document.getElementById("timeout").focus();

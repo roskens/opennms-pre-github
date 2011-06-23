@@ -1,51 +1,37 @@
-//
-// This file is part of the OpenNMS(R) Application.
-//
-// OpenNMS(R) is Copyright (C) 2006 The OpenNMS Group, Inc.  All rights reserved.
-// OpenNMS(R) is a derivative work, containing both original code, included code and modified
-// code that was published under the GNU General Public License. Copyrights for modified
-// and included code are below.
-//
-// OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
-//
-// Modifications:
-//
-// 2007 Apr 05: Remove unused/deprecated getQueries and supporting
-//              code. - dj@opennms.org
-//
-// Original code base Copyright (C) 1999-2001 Oculan Corp.  All rights reserved.
-//
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or
-// (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-//
-// For more information contact:
-//      OpenNMS Licensing       <license@opennms.org>
-//      http://www.opennms.org/
-//      http://www.opennms.com/
-//
-package org.opennms.netmgt.model;
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2007-2011 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2011 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 
-import java.util.Map;
+package org.opennms.netmgt.model;
 
 /**
  * <p>PrefabGraphType class.</p>
- *
- * @author ranger
- * @version $Id: $
  */
 public class PrefabGraphType {
-    private Map<String, PrefabGraph> m_reportMap;
 
     private String m_defaultReport;
 
@@ -59,11 +45,14 @@ public class PrefabGraphType {
 
     private String m_graphHeight;
 
+    private String m_includeDirectory;
+
+    private int m_includeRescanInterval;
+
     /**
      * <p>Constructor for PrefabGraphType.</p>
      */
     public PrefabGraphType() {
-        
     }
     
     /**
@@ -102,33 +91,6 @@ public class PrefabGraphType {
         return m_defaultReport;
     }
     
-    /**
-     * <p>setReportMap</p>
-     *
-     * @param reportMap a {@link java.util.Map} object.
-     */
-    public void setReportMap(Map<String, PrefabGraph> reportMap) {
-        m_reportMap = reportMap;
-    }
-    
-    /**
-     * <p>getReportMap</p>
-     *
-     * @return a {@link java.util.Map} object.
-     */
-    public Map<String, PrefabGraph> getReportMap() {
-        return m_reportMap;
-    }
-
-    /**
-     * <p>getQuery</p>
-     *
-     * @param queryName a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.model.PrefabGraph} object.
-     */
-    public PrefabGraph getQuery(String queryName) {
-        return m_reportMap.get(queryName);
-    }
     
     /**
      * <p>setGraphWidth</p>
@@ -202,4 +164,36 @@ public class PrefabGraphType {
         return m_outputMimeType;
     }
 
+    /**
+     * Set the directory from which individual graph files should be included
+     * @param includeDirectory - the new path for the include directory 
+     * If not absolute, is a path relative to the directory containing the main configuration file
+     */
+    public void setIncludeDirectory(String includeDirectory) {
+        m_includeDirectory = includeDirectory;
+    }
+    
+    /** 
+     * @return the include directory in which to look for any individual graph files
+     */
+    public String getIncludeDirectory() {
+        return m_includeDirectory;
+    }
+
+    /**
+     * Set the interval between rescans of the include directory, in milliseconds.  
+     * The includeDirectory will only be rescanned for new files if it's been at least 
+     * this long since the last scan, or the initial load.
+     * @param timeout - the new timeout, in milliseconds
+     */
+    public void setIncludeDirectoryRescanInterval(int interval) {
+        m_includeRescanInterval = interval;
+    }
+
+    /**
+     * @return the timeout used
+     */
+    public int getIncludeDirectoryRescanTimeout() {
+        return m_includeRescanInterval;
+    }
 }

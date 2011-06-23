@@ -1,42 +1,31 @@
-//
-// This file is part of the OpenNMS(R) Application.
-//
-// OpenNMS(R) is Copyright (C) 2002-2003 The OpenNMS Group, Inc.  All rights reserved.
-// OpenNMS(R) is a derivative work, containing both original code, included code and modified
-// code that was published under the GNU General Public License. Copyrights for modified 
-// and included code are below.
-//
-// OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
-// 
-// Modifications:
-//
-// 2007 Jun 23: Java 5 generics. - dj@opennms.org
-// 2003 Aug 21: Added the ability to generate a new DatagramSocket on a random
-//		high number port if needed by setting the port to -1.
-//
-// Original code base Copyright (C) 1999-2001 Oculan Corp.  All rights reserved.
-//
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or
-// (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-//
-// For more information contact:
-//      OpenNMS Licensing       <license@opennms.org>
-//      http://www.opennms.org/
-//      http://www.opennms.com/
-//
-// Tab Size = 8
-//
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2011 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2011 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
+
 package org.opennms.protocols.snmp;
 
 import java.io.ByteArrayOutputStream;
@@ -46,6 +35,7 @@ import java.io.PrintStream;
 import java.lang.reflect.Method;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.net.SocketException;
 import java.util.Date;
 import java.util.LinkedList;
@@ -160,8 +150,8 @@ public class SnmpPortal extends Object {
      *                Thrown if any of the parameters are null or invalid.
      * 
      */
-    SnmpPortal(SnmpPacketHandler handler, AsnEncoder encoder, int port) throws SocketException {
-        if (handler == null || encoder == null)
+    SnmpPortal(final SnmpPacketHandler handler, final AsnEncoder encoder, final int port) throws SocketException {
+    	if (handler == null || encoder == null)
             throw new IllegalArgumentException("Invalid argument");
 
         m_handler = handler;
@@ -172,7 +162,30 @@ public class SnmpPortal extends Object {
             m_comm = new DatagramSocket();
         }
 
-        //
+        initializePortal(encoder);
+    }
+
+    SnmpPortal(final SnmpPacketHandler handler, final AsnEncoder encoder, final InetAddress address, final int port) throws SocketException {
+    	if (handler == null || encoder == null)
+            throw new IllegalArgumentException("Invalid argument");
+
+        m_handler = handler;
+
+        if (address == null) {
+	        if (port >= 0) {
+	            m_comm = new DatagramSocket(port);
+	        } else {
+	            m_comm = new DatagramSocket();
+	        }
+        } else {
+        	m_comm = new DatagramSocket(port, address);
+        }
+
+        initializePortal(encoder);
+    }
+    
+	public void initializePortal(final AsnEncoder encoder) throws SocketException {
+		//
         // Determine whether or not it is necessary to use the
         // socket.setSoTimeout()
         // method to set the socket timeout value thereby mimic'ing non-blocking
@@ -219,10 +232,9 @@ public class SnmpPortal extends Object {
         m_encoder = encoder;
 
         m_recvThread.start();
+	}
 
-    }
-
-    /**
+	/**
      * Defines the inner class that monitors the datagram socket and receives
      * all the PDU responses. If an exception is generated then it is saved in
      * m_why and can be re-generated with a call to raise().
@@ -743,5 +755,3 @@ public class SnmpPortal extends Object {
         }
     }
 }
-// vim:tabstop=8:noexpandtab:shiftwidth=8
-

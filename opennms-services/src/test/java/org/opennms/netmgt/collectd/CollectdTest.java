@@ -1,41 +1,31 @@
-/*
- * This file is part of the OpenNMS(R) Application.
- * 
- * OpenNMS(R) is Copyright (C) 2006 The OpenNMS Group, Inc.  All rights reserved.
- * OpenNMS(R) is a derivative work, containing both original code, included code and modified
- * code that was published under the GNU General Public License. Copyrights for modified 
- * and included code are below.
- * 
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2006-2011 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2011 The OpenNMS Group, Inc.
+ *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
- * 
- * Modifications:
  *
- * 2008 Aug 29: collect() can now throw CollectionException. - dj@opennms.org
- * 2008 Feb 09: Fix warnings. - dj@opennms.org
- * 2008 Jan 24: Fix testOneMatchingSpec test. - dj@opennms.org
- * 2007 Jun 30: Make tests work again. - dj@opennms.org
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
  *
- * Original code base Copyright (C) 1999-2001 Oculan Corp.  All rights reserved.
- * 
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
+ * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
  *
  * For more information contact:
- * OpenNMS Licensing       <license@opennms.org>
- * http://www.opennms.org/
- * http://www.opennms.com/
- */
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
+
 
 package org.opennms.netmgt.collectd;
 
@@ -50,6 +40,7 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -331,16 +322,15 @@ public class CollectdTest extends TestCase {
         m_easyMockUtils.verifyAll();
     }
 
-    @SuppressWarnings("unchecked")
     public void testOneMatchingSpec() throws CollectionException {
         String svcName = "SNMP";
         OnmsIpInterface iface = getInterface();
 
         setupCollector(svcName);
         
-        m_collector.initialize(isA(CollectionAgent.class), isA(Map.class));
+        m_collector.initialize(isA(CollectionAgent.class), isAMap(String.class, Object.class));
         CollectionSet collectionSetResult=new CollectionSet() {
-
+        	private Date m_timestamp = new Date();
             public int getStatus() {
                 return ServiceCollector.COLLECTION_SUCCEEDED;
             }
@@ -352,6 +342,10 @@ public class CollectdTest extends TestCase {
 
 			public boolean ignorePersist() {
 				return false;
+			}
+			
+			public Date getCollectionTimestamp() {
+				return m_timestamp;
 			}
         };      
         expect(m_collector.collect(isA(CollectionAgent.class), isA(EventProxy.class), isAMap(String.class, Object.class))).andReturn(collectionSetResult);
@@ -411,7 +405,6 @@ public class CollectdTest extends TestCase {
         expect(m_ipIfDao.load(iface.getId())).andReturn(iface).atLeastOnce();
     }
 
-    @SuppressWarnings("unchecked")
     private void setupCollector(String svcName) {
         Collector collector = new Collector();
         collector.setService(svcName);
@@ -422,7 +415,8 @@ public class CollectdTest extends TestCase {
         EasyMockUtils m_mockUtils = new EasyMockUtils();
         m_collectd.setNodeDao(m_mockUtils.createMock(NodeDao.class));
         // Setup expectation
-        m_collector.initialize(Collections.EMPTY_MAP);
+        Map<String,String> empty = Collections.emptyMap();
+        m_collector.initialize(empty);
 
         
         expect(m_collectorConfigDao.getCollectors()).andReturn(Collections.singleton(collector));

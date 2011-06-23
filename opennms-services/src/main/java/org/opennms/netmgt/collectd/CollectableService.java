@@ -1,43 +1,30 @@
-//
-// This file is part of the OpenNMS(R) Application.
-//
-// OpenNMS(R) is Copyright (C) 2002-2003 The OpenNMS Group, Inc.  All rights reserved.
-// OpenNMS(R) is a derivative work, containing both original code, included code and modified
-// code that was published under the GNU General Public License. Copyrights for modified 
-// and included code are below.
-//
-// OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
-//
-// Modifications:
-//
-// 2008 Aug 29: Update to work with the CollectionException exceptions
-//              that might be called when we call collect(), including
-//              putting the exception message into data collection
-//              failed events. - dj@opennms.org
-// 2006 Aug 15: Be explicit about method visibility. - dj@opennms.org
-// 2003 Jan 31: Cleaned up some unused imports.
-//
-// Original code base Copyright (C) 1999-2001 Oculan Corp.  All rights reserved.
-//
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or
-// (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.                                                            
-//
-// You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-//       
-// For more information contact: 
-//      OpenNMS Licensing       <license@opennms.org>
-//      http://www.opennms.org/
-//      http://www.opennms.com/
-//
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2006-2011 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2011 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 
 package org.opennms.netmgt.collectd;
 
@@ -150,7 +137,7 @@ final class CollectableService implements ReadyRunnable {
         m_params=new ServiceParameters(roProps);
         m_repository=m_spec.getRrdRepository(m_params.getCollectionName());
         
-        m_thresholdVisitor = ThresholdingVisitor.create(m_nodeId, getHostAddress(), m_spec.getServiceName(), m_repository,  roProps, m_spec.getInterval());
+        m_thresholdVisitor = ThresholdingVisitor.create(m_nodeId, getHostAddress(), m_spec.getServiceName(), m_repository,  roProps);
 
     }
     
@@ -216,6 +203,8 @@ final class CollectableService implements ReadyRunnable {
 	 */
 	public void refreshPackage(CollectorConfigDao collectorConfigDao) {
 		m_spec.refresh(collectorConfigDao);
+		if (m_thresholdVisitor != null)
+		    m_thresholdVisitor.reloadScheduledOutages();
 	}
 
     /** {@inheritDoc} */
@@ -393,7 +382,11 @@ final class CollectableService implements ReadyRunnable {
                          * The first person who actually needs to configure that sort of thing on the fly can code it up.
                          */
                         if (m_thresholdVisitor != null) {
-                            result.visit(m_thresholdVisitor);
+                            if (m_thresholdVisitor.isNodeInOutage()) {
+                                log().info("run: the threshold processing will be skipped because the node " + m_nodeId + " is on a scheduled outage.");
+                            } else {
+                                result.visit(m_thresholdVisitor);
+                            }
                         }
                        
                         if (result.getStatus() == ServiceCollector.COLLECTION_SUCCEEDED) {

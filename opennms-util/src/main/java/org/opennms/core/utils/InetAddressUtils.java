@@ -1,38 +1,31 @@
-/*
- * This file is part of the OpenNMS(R) Application.
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
  *
- * OpenNMS(R) is Copyright (C) 2007 The OpenNMS Group, Inc.  All rights reserved.
- * OpenNMS(R) is a derivative work, containing both original code, included code and modified
- * code that was published under the GNU General Public License. Copyrights for modified
- * and included code are below.
+ * Copyright (C) 2007-2011 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2011 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
- * Modifications:
- * 
- * Created: January 7, 2007
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
  *
- * Copyright (C) 2006-2007 The OpenNMS Group, Inc.  All rights reserved.
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
+ * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
  *
  * For more information contact:
- *      OpenNMS Licensing       <license@opennms.org>
- *      http://www.opennms.org/
- *      http://www.opennms.com/
- */
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
+
 package org.opennms.core.utils;
 
 import java.math.BigInteger;
@@ -40,7 +33,15 @@ import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.List;
+
+import org.xbill.DNS.AAAARecord;
+import org.xbill.DNS.ARecord;
+import org.xbill.DNS.Lookup;
+import org.xbill.DNS.Record;
+import org.xbill.DNS.TextParseException;
+import org.xbill.DNS.Type;
 
 /**
  * <p>Abstract InetAddressUtils class.</p>
@@ -148,23 +149,91 @@ abstract public class InetAddressUtils {
      */
     public static InetAddress getInetAddress(final String dottedNotation) {
         try {
-            return getInetAddress(dottedNotation, false);
+            return InetAddress.getByName(dottedNotation);
         } catch (final UnknownHostException e) {
             throw new IllegalArgumentException("Invalid IPAddress " + dottedNotation);
         }
     }
 
-    public static InetAddress getInetAddress(final String hostname, final boolean preferInet6Address) throws UnknownHostException {
-        return getInetAddress(hostname, preferInet6Address, true);
+    public static InetAddress resolveHostname(final String hostname, final boolean preferInet6Address) throws UnknownHostException {
+        return resolveHostname(hostname, preferInet6Address, true);
     }
 
     /**
      * This function is used inside XSLT documents, do a string search before refactoring.
      */
-    public static InetAddress getInetAddress(final String hostname, final boolean preferInet6Address, final boolean throwException) throws UnknownHostException {
+    public static InetAddress resolveHostname(final String hostname, final boolean preferInet6Address, final boolean throwException) throws UnknownHostException {
         InetAddress retval = null;
+        //System.out.println(String.format("%s (%s)", hostname, preferInet6Address ? "6" : "4"));
+
+        // Do a special case for localhost since the DNS server will generally not
+        // return valid A and AAAA records for "localhost".
+        if ("localhost".equals(hostname)) {
+            return preferInet6Address ? InetAddress.getByName("::1") : InetAddress.getByName("127.0.0.1");
+        }
+
         try {
-            InetAddress[] addresses = InetAddress.getAllByName(hostname);
+            // 2011-05-22 - Matt is seeing some platform-specific inconsistencies when using
+            // InetAddress.getAllByName(). It seems to miss some addresses occasionally on Mac.
+            // We need to use dnsjava here instead since it should be 100% reliable.
+            //
+            // InetAddress[] addresses = InetAddress.getAllByName(hostname);
+            //
+            List<InetAddress> v4Addresses = new ArrayList<InetAddress>();
+            try {
+                Record[] aRecs = new Lookup(hostname, Type.A).run();
+                if (aRecs != null) {
+                    for (Record aRec : aRecs) {
+                        if (aRec instanceof ARecord) {
+                            InetAddress addr = ((ARecord)aRec).getAddress();
+                            if (addr instanceof Inet4Address) {
+                                v4Addresses.add(addr);
+                            } else {
+                                // Should never happen
+                                throw new UnknownHostException("Non-IPv4 address found via A record DNS lookup of host: " + hostname + ": " + addr.toString());
+                            }
+                        }
+                    }
+                } else {
+                    //throw new UnknownHostException("No IPv4 addresses found via A record DNS lookup of host: " + hostname);
+                }
+            } catch (TextParseException e) {
+                UnknownHostException ex = new UnknownHostException("Could not perform A record lookup for host: " + hostname);
+                ex.initCause(e);
+                throw ex;
+            }
+
+            List<InetAddress> v6Addresses = new ArrayList<InetAddress>();
+            try {
+                Record[] quadARecs = new Lookup(hostname, Type.AAAA).run();
+                if (quadARecs != null) {
+                    for (Record quadARec : quadARecs) {
+                        InetAddress addr = ((AAAARecord)quadARec).getAddress();
+                        if (addr instanceof Inet6Address) {
+                            v6Addresses.add(addr);
+                        } else {
+                            // Should never happen
+                            throw new UnknownHostException("Non-IPv6 address found via AAAA record DNS lookup of host: " + hostname + ": " + addr.toString());
+                        }
+                    }
+                } else {
+                    // throw new UnknownHostException("No IPv6 addresses found via AAAA record DNS lookup of host: " + hostname);
+                }
+            } catch (TextParseException e) {
+                UnknownHostException ex = new UnknownHostException("Could not perform AAAA record lookup for host: " + hostname);
+                ex.initCause(e);
+                throw ex;
+            }
+
+            List<InetAddress> addresses = new ArrayList<InetAddress>();
+            if (preferInet6Address) {
+                addresses.addAll(v6Addresses);
+                addresses.addAll(v4Addresses);
+            } else {
+                addresses.addAll(v4Addresses);
+                addresses.addAll(v6Addresses);
+            }
+
             for (InetAddress address : addresses) {
                 retval = address;
                 if (!preferInet6Address && retval instanceof Inet4Address) break;
@@ -177,6 +246,8 @@ abstract public class InetAddressUtils {
             if (throwException) {
                 throw e;
             } else {
+                //System.out.println(String.format("UnknownHostException for : %s (%s)", hostname, preferInet6Address ? "6" : "4"));
+                //e.printStackTrace();
                 return null;
             }
         }

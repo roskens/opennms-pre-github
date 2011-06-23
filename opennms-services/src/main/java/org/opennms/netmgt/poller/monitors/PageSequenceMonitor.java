@@ -1,52 +1,41 @@
-//
-// This file is part of the OpenNMS(R) Application.
-//
-// OpenNMS(R) is Copyright (C) 2006-2010 The OpenNMS Group, Inc. All rights reserved.
-// OpenNMS(R) is a derivative work, containing both original code, included code and modified
-// code that was published under the GNU General Public License. Copyrights for modified
-// and included code are below.
-//
-// OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
-//
-// Modifications:
-//
-// 2010 Feb 24: Incorporate ds-name per page as suggested by Jean-Marie
-//              Kubek in bug 3142. - jeffg@opennms.org for bofh.jr@gmail.com
-// 2010 Feb 23: Make it possible to reference the contents of matching groups
-//              from a page's "match" regex in the params and regexes of later
-//              pages in a sequence. - jeffg@opennms.org
-// 2008 Jan 23: Perty things up a bit. - dj@opennms.org
-// 2007 Apr 06: Make sure we close {Input,Output}Streams. - dj@opennms.org
-// 2007 Apr 06: Use getResponseBodyAsStream to get the response from the HTTP
-//              client to avoid a possible WARN message.  Also eliminate a
-//              compile warning. - dj@opennms.org
-//
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or
-// (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-//
-// For more information contact:
-//      OpenNMS Licensing <license@opennms.org>
-//      http://www.opennms.org/
-//
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2006-2011 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2011 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 
 package org.opennms.netmgt.poller.monitors;
 
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
+import java.net.Inet4Address;
+import java.net.InetAddress;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.UnknownHostException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.Provider;
@@ -71,6 +60,7 @@ import javax.net.ssl.SSLSessionContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.http.Header;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
@@ -98,6 +88,7 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
+import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.core.utils.MatchTable;
 import org.opennms.core.utils.ParameterMap;
 import org.opennms.core.utils.PropertiesUtils;
@@ -148,9 +139,6 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
         public double elapsedTimeInMillis() {
             return m_tracker.elapsedTimeInMillis();
         }
-
-        
-        
     }
     
     private static final int DEFAULT_SEQUENCE_RETRY = 0;
@@ -447,15 +435,19 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
 
         @Override
         public String toString() {
-            StringBuffer retval = new StringBuffer();
-            retval.append("HttpPage { ");
-            retval.append("page.host => ").append(m_page.getHost()).append(", ");
-            retval.append("page.port => ").append(m_page.getPort()).append(", ");
-            retval.append("page.path => ").append(m_page.getPath()).append(", ");
-            retval.append("page.successMatch => '").append(m_page.getSuccessMatch()).append("', ");
-            retval.append("page.failureMatch => '").append(m_page.getFailureMatch()).append("', ");
-            retval.append("page.locationMatch => '").append(m_page.getLocationMatch()).append("'");
-            retval.append(" }");
+            ToStringBuilder retval = new ToStringBuilder(this);
+            retval.append("page.httpVersion", m_page.getHttpVersion());
+            retval.append("page.host", m_page.getHost());
+            retval.append("page.requireIPv4", m_page.getRequireIPv4());
+            retval.append("page.requireIPv6", m_page.getRequireIPv6());
+            retval.append("page.port", m_page.getPort());
+            retval.append("page.method", m_page.getMethod());
+            retval.append("page.virtualHost", m_page.getVirtualHost());
+            retval.append("page.path", m_page.getPath());
+            retval.append("page.query", m_page.getQuery());
+            retval.append("page.successMatch", m_page.getSuccessMatch());
+            retval.append("page.failureMatch", m_page.getFailureMatch());
+            retval.append("page.locationMatch", m_page.getLocationMatch());
             return retval.toString();
         }
 
@@ -610,7 +602,26 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
         private URI getURI(MonitoredService svc) throws URISyntaxException {
             Properties svcProps = getServiceProperties(svc);
             Properties seqProps = getSequenceProperties();
-            return URIUtils.createURI(getScheme(), getHost(seqProps, svcProps), getPort(), getPath(seqProps, svcProps), getQuery(seqProps, svcProps), getFragment(seqProps, svcProps));
+            String host = getHost(seqProps, svcProps);
+            if (m_page.getRequireIPv4()) {
+                try {
+                    InetAddress address = InetAddressUtils.resolveHostname(host, false);
+                    if (!(address instanceof Inet4Address)) throw new UnknownHostException();
+                    host = InetAddressUtils.str(address);
+                } catch (UnknownHostException e) {
+                    throw new PageSequenceMonitorException("failed to find IPv4 address for hostname: " + host);
+                }
+            } else if (m_page.getRequireIPv6()) {
+                try {
+                    InetAddress address = InetAddressUtils.resolveHostname(host, true);
+                    host = "[" + InetAddressUtils.str(address) + "]";
+                } catch (UnknownHostException e) {
+                    throw new PageSequenceMonitorException("failed to find IPv6 address for hostname: " + host);
+                }
+            } else {
+                // Just leave the hostname as-is, let httpclient resolve it using the platform preferences
+            }
+            return URIUtils.createURI(getScheme(), host, getPort(), getPath(seqProps, svcProps), getQuery(seqProps, svcProps), getFragment(seqProps, svcProps));
         }
 
         private String getFragment(Properties... p) {
