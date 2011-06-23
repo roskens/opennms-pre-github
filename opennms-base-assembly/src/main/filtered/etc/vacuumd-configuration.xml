@@ -114,10 +114,12 @@
                 action-name="cleanUpRpStatusChanges" />
     
     <!-- Enable these automation for monitoring maintenance contracts -->
+    <!--
     <automation name="maintenanceCheck" interval="84600000" active="true" 
                 trigger-name="selectExpirationMaintenance" 
                 action-name="maintenanceExpirationWarning"
                 action-event="maintenanceExpirationWarning" />
+    -->
   </automations>
   
   <triggers>
@@ -244,6 +246,7 @@
     </trigger>
     
     <!-- Find assets that have maintenance-contract that will expire in less then 30 days -->
+    <!-- 
     <trigger name="selectExpirationMaintenance" operator="&gt;=" row-count="1" >
         <statement>
         SELECT 
@@ -272,6 +275,7 @@
           CAST(a.maintcontractexpires as date) ASC;
         </statement>
     </trigger>
+    -->
   </triggers>
     
   <actions>
@@ -415,10 +419,12 @@
     </action>
     
     <!-- Monitoring maintenance contracts -->
+    <!--
     <action name="maintenanceExpirationWarning" >
       <statement>
       </statement>
     </action>
+    -->
   </actions>
 
   <!--  Deprecating this element... see the new <action-events> element -->    
@@ -463,6 +469,7 @@
     </action-event>
     
     <!-- Monitoring maintenance conracts -->
+    <!--
     <action-event name="maintenanceExpirationWarning" for-each-result="true" >
       <assignment type="field" name="uei" value="uei.opennms.org/asset/maintenance/expirationWarning" />
       <assignment type="field" name="nodeid" value="${nodeid}" />
@@ -471,6 +478,7 @@
       <assignment type="parameter" name="maintcontract" value="${maintcontract}" />
       <assignment type="parameter" name="timeframe" value="${timeframe}" />
     </action-event>
+    -->
   </action-events>
   
 </VacuumdConfiguration>
