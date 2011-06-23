@@ -68,8 +68,4 @@
                 report-service="jasperReportService" description="Snmp Interface Availability Report, shows availability for snmp interfaces with interfaceOperDown outages within the time range" />
         <report id="Event-Analysis" display-name="Event Analysis report" online="true" 
                 report-service="jasperReportService" description="Analyse events based on events source and quantity by nodes." />
-        <report id="Asset-Maint-Expired" display-name="Maintenance contract expired" online="true" 
-                report-service="jasperReportService" description="Shows all devices with expired maintenance contracts." />
-        <report id="Asset-Maint-Strategic" display-name="Maintenance strategic" online="true" 
-                report-service="jasperReportService" description="Shows all maintenance contract expirations in the next year." />
 </database-reports>
