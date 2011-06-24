@@ -43,4 +43,6 @@ public interface StpInterfaceDao extends OnmsDao<OnmsStpInterface, Integer> {
 
     void setStatusForNodeAndIfIndex(Integer nodeid, Integer ifIndex, Character action);
 
+    OnmsStpInterface findByNodeAndVlan(Integer nodeId, Integer bridgePort, Integer vlan);
+
 }

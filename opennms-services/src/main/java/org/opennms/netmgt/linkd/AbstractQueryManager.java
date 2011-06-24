@@ -99,7 +99,7 @@ public abstract class AbstractQueryManager implements QueryManager {
      */
     protected abstract OnmsAtInterface getAtInterfaceForAddress(Connection dbConn, InetAddress ipaddress, LinkableNode node) throws SQLException;
 
-    protected abstract void saveAtInterface(LinkableNode node, Connection dbConn, Timestamp scanTime, int ifindex, String hostAddress, String physAddr, OnmsAtInterface at)
+    protected abstract void saveAtInterface(Connection dbConn, OnmsAtInterface at)
             throws SQLException;
 
     protected abstract RouterInterface getNodeidMaskFromIp(Connection dbConn, InetAddress nexthop) throws SQLException;
@@ -175,10 +175,13 @@ public abstract class AbstractQueryManager implements QueryManager {
             }
             at.setIfIndex(ifindex);
 
+            at.setLastPollTime(scanTime);
+            at.setStatus(DbAtInterfaceEntry.STATUS_ACTIVE);
+
             // add AtInterface to list of valid interfaces
             atInterfaces.add(at);
 
-            saveAtInterface(node, dbConn, scanTime, ifindex, hostAddress, physAddr, at);
+            saveAtInterface(dbConn, at);
         }
         // set AtInterfaces in LinkableNode
         node.setAtInterfaces(atInterfaces);

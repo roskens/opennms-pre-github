@@ -74,7 +74,7 @@ public class AtInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsAtInterfac
 
         final OnmsCriteria criteria = new OnmsCriteria(OnmsAtInterface.class);
         criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("atPhysAddr", macAddress));
+        criteria.add(Restrictions.eq("macAddress", macAddress));
         criteria.add(Restrictions.ne("status", "D"));
 
         return findMatching(criteria);
@@ -121,6 +121,11 @@ public class AtInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsAtInterfac
             iface.setStatus(action);
             saveOrUpdate(iface);
         }
+    }
+
+    @Override
+    public OnmsAtInterface findByNodeAndAddress(final Integer nodeId, final String ipAddress, final String macAddress) {
+        return findUnique("FROM atInterface WHERE node.id = ? AND ipAddress = ? AND macAddress = ?", nodeId, ipAddress, macAddress);
     }
 
 }

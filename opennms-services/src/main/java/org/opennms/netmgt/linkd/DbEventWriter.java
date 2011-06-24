@@ -318,23 +318,22 @@ public class DbEventWriter extends AbstractQueryManager {
 
     }
 
-	protected void saveAtInterface(LinkableNode node,
-			Connection dbConn, Timestamp now, int ifindex,
-			final String hostAddress, String physAddr, OnmsAtInterface at)
+	protected void saveAtInterface(Connection dbConn,
+			OnmsAtInterface at)
 			throws SQLException {
 		// Save in DB
-		DbAtInterfaceEntry atInterfaceEntry = DbAtInterfaceEntry.get(dbConn, at.getNodeId(), hostAddress);
+		DbAtInterfaceEntry atInterfaceEntry = DbAtInterfaceEntry.get(dbConn, at.getNodeId(), at.getIpAddress());
    
 		if (atInterfaceEntry == null) {
-		    atInterfaceEntry = DbAtInterfaceEntry.create(at.getNodeId(), hostAddress);
+		    atInterfaceEntry = DbAtInterfaceEntry.create(at.getNodeId(), at.getIpAddress());
 		}
    
 		// update object
 		atInterfaceEntry.updateAtPhysAddr(at.getMacAddress());
 		atInterfaceEntry.updateSourceNodeId(at.getSourceNodeId());
 		atInterfaceEntry.updateIfIndex(at.getIfIndex());
-		atInterfaceEntry.updateStatus(DbAtInterfaceEntry.STATUS_ACTIVE);
-		atInterfaceEntry.set_lastpolltime(now);
+		atInterfaceEntry.updateStatus(at.getStatus());
+		atInterfaceEntry.set_lastpolltime(at.getLastPollTime());
    
 		// store object in database
 		atInterfaceEntry.store(dbConn);

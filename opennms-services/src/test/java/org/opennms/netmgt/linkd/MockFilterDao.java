@@ -29,7 +29,7 @@
 package org.opennms.netmgt.linkd;
 
 import java.net.InetAddress;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -41,8 +41,15 @@ import org.opennms.netmgt.filter.FilterParseException;
 import org.opennms.netmgt.model.EntityVisitor;
 
 public class MockFilterDao implements FilterDao {
-
-    private List<InetAddress> m_activeAddresses = Collections.singletonList(InetAddressUtils.addr("192.168.1.10"));
+    private final List<InetAddress> m_activeAddresses;
+    
+    public MockFilterDao() {
+        m_activeAddresses = new ArrayList<InetAddress>();
+        m_activeAddresses.add(InetAddressUtils.addr("192.168.1.10"));
+        m_activeAddresses.add(InetAddressUtils.addr("192.168.160.250"));
+        m_activeAddresses.add(InetAddressUtils.addr("192.168.160.251"));
+        m_activeAddresses.add(InetAddressUtils.addr("192.168.160.253"));
+    }
 
     @Override
     public void walkMatchingNodes(final String rule, final EntityVisitor visitor) {

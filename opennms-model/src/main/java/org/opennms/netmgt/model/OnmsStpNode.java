@@ -51,6 +51,8 @@ import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 /**
  * <p>AtInterface class.</p>
  *
@@ -246,5 +248,24 @@ public class OnmsStpNode {
 
 	public void setBaseVlanName(final String baseVlanName) {
 		m_baseVlanName = baseVlanName;
+	}
+	
+	public String toString() {
+	    return new ToStringBuilder(this)
+	        .append("id", m_id)
+	        .append("nodeId", m_nodeId)
+	        .append("baseBridgeAddress", m_baseBridgeAddress)
+	        .append("baseNumPorts", m_baseNumPorts)
+	        .append("baseType", m_baseType)
+	        .append("stpProtocolSpecification", m_stpProtocolSpecification)
+	        .append("stpPriority", m_stpPriority)
+	        .append("stpDesignatedRoot", m_stpDesignatedRoot)
+	        .append("stpRootCost", m_stpRootCost)
+	        .append("stpRootPort", m_stpRootPort)
+	        .append("status", m_status)
+	        .append("lastPollTime", m_lastPollTime)
+	        .append("baseVlan", m_baseVlan)
+	        .append("baseVlanName", m_baseVlanName)
+	        .toString();
 	}
 }

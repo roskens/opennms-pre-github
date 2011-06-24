@@ -47,4 +47,6 @@ public interface AtInterfaceDao extends OnmsDao<OnmsAtInterface, Integer> {
 
     void setStatusForNodeAndIfIndex(Integer nodeid, Integer ifIndex, Character action);
 
+    OnmsAtInterface findByNodeAndAddress(final Integer nodeId, final String ipAddress, final String macAddress);
+
 }

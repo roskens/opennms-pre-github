@@ -29,6 +29,7 @@
 package org.opennms.netmgt.dao.hibernate;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import org.hibernate.criterion.Restrictions;
 import org.opennms.netmgt.dao.StpInterfaceDao;
@@ -94,6 +95,21 @@ public class StpInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsStpInterf
             item.setStatus(action);
             saveOrUpdate(item);
         }
+    }
+
+    @Override
+    public OnmsStpInterface findByNodeAndVlan(final Integer nodeId, final Integer bridgePort, final Integer vlan) {
+        final OnmsCriteria criteria = new OnmsCriteria(OnmsStpInterface.class);
+        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
+        criteria.add(Restrictions.eq("node.id", nodeId));
+        criteria.add(Restrictions.eq("bridgePort", bridgePort));
+        criteria.add(Restrictions.eq("vlan", vlan));
+
+        final List<OnmsStpInterface> stpInterfaces = findMatching(criteria);
+        if (stpInterfaces != null && stpInterfaces.size() > 0) {
+            return stpInterfaces.get(0);
+        }
+        return null;
     }
 
 }

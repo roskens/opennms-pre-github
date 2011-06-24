@@ -54,16 +54,17 @@ import org.opennms.netmgt.model.DataLinkInterface;
 import org.opennms.netmgt.model.OnmsAtInterface;
 import org.opennms.netmgt.model.OnmsCriteria;
 import org.opennms.netmgt.model.OnmsIpInterface;
+import org.opennms.netmgt.model.OnmsIpInterface.PrimaryType;
 import org.opennms.netmgt.model.OnmsIpRouteInterface;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.OnmsSnmpInterface;
 import org.opennms.netmgt.model.OnmsStpInterface;
 import org.opennms.netmgt.model.OnmsStpNode;
 import org.opennms.netmgt.model.OnmsVlan;
-import org.opennms.netmgt.model.OnmsIpInterface.PrimaryType;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 public class HibernateEventWriter extends AbstractQueryManager implements InitializingBean {
@@ -474,27 +475,67 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
     }
 
     @Override
-    protected void saveAtInterface(final LinkableNode node, final Connection dbConn, final Timestamp scanTime, final int ifindex, final String hostAddress, final String physAddr, final OnmsAtInterface at) {
+    @Transactional
+    protected void saveAtInterface(final Connection dbConn, final OnmsAtInterface at) {
+        OnmsAtInterface atInterface = m_atInterfaceDao.findByNodeAndAddress(at.getNodeId(), at.getIpAddress(), at.getMacAddress());
+        if (atInterface == null) {
+            atInterface = at;
+        } else {
+            atInterface.setIfIndex(at.getIfIndex());
+            atInterface.setIpAddress(at.getIpAddress());
+            atInterface.setLastPollTime(at.getLastPollTime());
+            atInterface.setMacAddress(at.getMacAddress());
+            atInterface.setNode(at.getNode());
+            atInterface.setSourceNodeId(at.getSourceNodeId());
+            atInterface.setStatus(at.getStatus());
+        }
+        
+        // "nodeId", "ipAddr", "atPhysAddr
         m_atInterfaceDao.saveOrUpdate(at);
     }
 
 	@Override
+	@Transactional
 	protected void saveIpRouteInterface(final Connection dbConn, final OnmsIpRouteInterface ipRouteInterface) throws SQLException {
 		m_ipRouteInterfaceDao.saveOrUpdate(ipRouteInterface);
 	}
 
 	@Override
+	@Transactional
 	protected void saveVlan(final Connection dbConn, final OnmsVlan vlan) throws SQLException {
 		m_vlanDao.saveOrUpdate(vlan);
 	}
 
 	@Override
+	@Transactional
 	protected void saveStpNode(final Connection dbConn, final OnmsStpNode stpNode) throws SQLException {
+	    LogUtils.debugf(this, "saveStpNode(%s)", stpNode);
+	    if (stpNode.getNode() == null && stpNode.getNodeId() != null) {
+	        stpNode.setNode(m_nodeDao.get(stpNode.getNodeId()));
+	    }
 		m_stpNodeDao.saveOrUpdate(stpNode);
 	}
 
     @Override
-    protected void saveStpInterface(Connection dbConn, OnmsStpInterface stpInterface) throws SQLException {
+    @Transactional
+    protected void saveStpInterface(final Connection dbConn, final OnmsStpInterface stp) throws SQLException {
+        OnmsStpInterface stpInterface = m_stpInterfaceDao.findByNodeAndVlan(stp.getNodeId(), stp.getBridgePort(), stp.getVlan());
+        if (stpInterface == null) {
+            stpInterface = stp;
+        } else {
+            stpInterface.setBridgePort(stp.getBridgePort());
+            stpInterface.setIfIndex(stp.getIfIndex());
+            stpInterface.setLastPollTime(stp.getLastPollTime());
+            stpInterface.setNode(stp.getNode());
+            stpInterface.setStatus(stp.getStatus());
+            stpInterface.setStpPortDesignatedBridge(stp.getStpPortDesignatedBridge());
+            stpInterface.setStpPortDesignatedCost(stp.getStpPortDesignatedCost());
+            stpInterface.setStpPortDesignatedPort(stp.getStpPortDesignatedPort());
+            stpInterface.setStpPortDesignatedRoot(stp.getStpPortDesignatedRoot());
+            stpInterface.setStpPortPathCost(stp.getStpPortPathCost());
+            stpInterface.setStpPortState(stp.getStpPortState());
+            stpInterface.setVlan(stp.getVlan());
+        }
         m_stpInterfaceDao.saveOrUpdate(stpInterface);
     }
 
