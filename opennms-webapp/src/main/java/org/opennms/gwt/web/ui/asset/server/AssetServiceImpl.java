@@ -26,7 +26,6 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-
 package org.opennms.gwt.web.ui.asset.server;
 
 import java.util.ArrayList;
@@ -40,6 +39,7 @@ import org.opennms.netmgt.dao.AssetRecordDao;
 import org.opennms.netmgt.dao.NodeDao;
 import org.opennms.netmgt.model.OnmsAssetRecord;
 import org.opennms.netmgt.model.OnmsNode;
+import org.opennms.web.WebSecurityUtils;
 import org.opennms.web.svclayer.SecurityContextService;
 import org.opennms.web.svclayer.support.SpringSecurityContextService;
 import org.springframework.beans.BeanUtils;
@@ -71,7 +71,7 @@ public class AssetServiceImpl extends RemoteServiceServlet implements
 	private NodeDao m_nodeDao;
 
 	/**
-	 * node object with asset record 
+	 * node object with asset record
 	 */
 	private OnmsNode m_onmsNode;
 
@@ -121,14 +121,16 @@ public class AssetServiceImpl extends RemoteServiceServlet implements
 	 */
 	public AssetServiceImpl() {
 		this.m_securityContext = new SpringSecurityContextService();
-		
-		/* Init static strings for autoenable option 
-		 * TODO: Should be configurable, we take this over from the old JSP version
+
+		/*
+		 * Init static strings for autoenable option TODO: Should be
+		 * configurable, we take this over from the old JSP version
 		 */
 		s_autoenableOptions.add(AUTOENABLE);
 
-		/* Init static strings for connection types 
-		 * TODO: Should be configurable, we take it over from the old JSP version
+		/*
+		 * Init static strings for connection types TODO: Should be
+		 * configurable, we take it over from the old JSP version
 		 */
 		s_connectionOptions.add(TELNET_CONNECTION);
 		s_connectionOptions.add(SSH_CONNECTION);
@@ -159,13 +161,11 @@ public class AssetServiceImpl extends RemoteServiceServlet implements
 		assetCommand.setNodeId(this.m_onmsNode.getNodeId());
 		assetCommand.setNodeLabel(this.m_onmsNode.getLabel());
 
-		// assetCommand.setNextNodeId(this.m_nodeDao.getNextNodeId(nodeId));
-		// assetCommand.setPreviousNodeId(this.m_nodeDao.getPreviousNodeId(nodeId));
-
 		// set user from web ui session
 		assetCommand.setLoggedInUser(this.m_securityContext.getUsername());
-		
-		// This is a poor re-implementation of modify permission based on spring roles
+
+		// This is a poor re-implementation of modify permission based on spring
+		// roles
 		if (this.m_securityContext.hasRole(ALLOW_EDIT_ROLE_ADMIN)
 				|| this.m_securityContext.hasRole(ALLOW_EDIT_ROLE_PROVISION)) {
 			assetCommand.setAllowModify(true);
@@ -183,11 +183,12 @@ public class AssetServiceImpl extends RemoteServiceServlet implements
 	public AssetSuggCommand getAssetSuggestions() {
 		// The suggestion model transfered by RPC between webui and service
 		AssetSuggCommand suggestion = new AssetSuggCommand();
-		
-		// a list of all asset records which contains all distinct asset properties for suggestion
+
+		// a list of all asset records which contains all distinct asset
+		// properties for suggestion
 		List<OnmsAssetRecord> distinctAssetProperties = this.m_assetRecordDao
 				.getDistinctProperties();
-		
+
 		// Map all distinct asset properties
 		for (OnmsAssetRecord asset : distinctAssetProperties) {
 			suggestion.addAdditionalhardware(asset.getAdditionalhardware());
@@ -245,9 +246,11 @@ public class AssetServiceImpl extends RemoteServiceServlet implements
 		this.m_onmsAssetRecord = this.m_onmsNode.getAssetRecord();
 
 		// copy the transfer object for rpc back to the hibernate model
-		BeanUtils.copyProperties(assetCommand, this.m_onmsAssetRecord);
+		BeanUtils.copyProperties(
+				WebSecurityUtils.sanitizeBeanStringProperties(assetCommand),
+				this.m_onmsAssetRecord);
 
-		// set the last modified user from logged in user 
+		// set the last modified user from logged in user
 		this.m_onmsAssetRecord.setLastModifiedBy(this.m_securityContext
 				.getUsername());
 
@@ -270,25 +273,32 @@ public class AssetServiceImpl extends RemoteServiceServlet implements
 	}
 
 	/**
-	 * <p>getAssetRecordDao</p>
-	 *  
-	 * @return assetRecordDao a {@link org.opennms.netmgt.model.OnmsAssetRecord} 
+	 * <p>
+	 * getAssetRecordDao
+	 * </p>
+	 * 
+	 * @return assetRecordDao a {@link org.opennms.netmgt.model.OnmsAssetRecord}
 	 */
 	public AssetRecordDao getAssetRecordDao() {
 		return m_assetRecordDao;
 	}
 
 	/**
-	 * <p>setAssetRecordDao</p>
+	 * <p>
+	 * setAssetRecordDao
+	 * </p>
 	 * 
-	 * @param m_assetRecordDao a {@link org.opennms.netmgt.model.OnmsAssetRecord}
+	 * @param m_assetRecordDao
+	 *            a {@link org.opennms.netmgt.model.OnmsAssetRecord}
 	 */
 	public void setAssetRecordDao(AssetRecordDao m_assetRecordDao) {
 		this.m_assetRecordDao = m_assetRecordDao;
 	}
 
 	/**
-	 * <p>getNodeDao</p>
+	 * <p>
+	 * getNodeDao
+	 * </p>
 	 * 
 	 * @return m_nodeDao a {@link org.opennms.netmgt.dao.NodeDao}
 	 */
@@ -297,9 +307,12 @@ public class AssetServiceImpl extends RemoteServiceServlet implements
 	}
 
 	/**
-	 * <p>setNodeDao</p>
+	 * <p>
+	 * setNodeDao
+	 * </p>
 	 * 
-	 * @param m_nodeDao a {@link org.opennms.netmgt.dao.NodeDao}
+	 * @param m_nodeDao
+	 *            a {@link org.opennms.netmgt.dao.NodeDao}
 	 */
 	public void setNodeDao(NodeDao m_nodeDao) {
 		this.m_nodeDao = m_nodeDao;
