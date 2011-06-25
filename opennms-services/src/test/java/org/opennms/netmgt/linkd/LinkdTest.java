@@ -30,6 +30,7 @@ package org.opennms.netmgt.linkd;
 
 import static org.junit.Assert.assertTrue;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -40,9 +41,11 @@ import org.opennms.core.test.snmp.annotations.JUnitSnmpAgents;
 import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.config.LinkdConfigManager;
+import org.opennms.netmgt.dao.DataLinkInterfaceDao;
 import org.opennms.netmgt.dao.NodeDao;
 import org.opennms.netmgt.dao.db.JUnitConfigurationEnvironment;
 import org.opennms.netmgt.dao.db.JUnitTemporaryDatabase;
+import org.opennms.netmgt.model.DataLinkInterface;
 import org.opennms.netmgt.model.NetworkBuilder;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.snmp.SnmpAgentConfig;
@@ -76,6 +79,9 @@ public class LinkdTest {
 	@Autowired
 	private NodeDao m_nodeDao;
 
+	@Autowired
+	private DataLinkInterfaceDao m_dataLinkInterfaceDao;
+
 	@Before
 	public void setUp() throws Exception {
 		// Use the mock.logLevel system property to control the log level
@@ -97,6 +103,14 @@ public class LinkdTest {
         m_nodeDao.flush();
 	}
 
+	@After
+	public void tearDown() throws Exception {
+	    for (final OnmsNode node : m_nodeDao.findAll()) {
+	        m_nodeDao.delete(node);
+	    }
+	    m_nodeDao.flush();
+	}
+	
 	@Test
 	@Ignore
 	@JUnitSnmpAgent(host="127.0.0.1", resource="classpath:linkd-a-nortelbay470.properties")
@@ -111,7 +125,7 @@ public class LinkdTest {
 	@JUnitSnmpAgent(resource="classpath:westell-smartjack.properties", useMockSnmpStrategy=true)
 	public void testScheduleNodeCollection() throws Exception {
 		final OnmsNode node = m_nodeDao.findByForeignId("linkd", "1");
-		LogUtils.debugf(this, "node = %s, primary interface = %s", node, node.getPrimaryInterface());
+		LogUtils.debugf(this, "node = %s", node);
 
         m_linkd.start();
         assertTrue(m_linkd.scheduleNodeCollection(node.getId()));
@@ -142,8 +156,17 @@ public class LinkdTest {
         m_linkd.getScheduler();
         assertTrue(m_linkd.scheduleNodeCollection(nortel.getId()));
         assertTrue(m_linkd.scheduleNodeCollection(linksys.getId()));
-        
-        Thread.sleep(25000);
+
+        Thread.sleep(30000);
         m_linkd.stop();
+        
+        Thread.sleep(20000);
+
+        for (final DataLinkInterface iface : m_dataLinkInterfaceDao.findAll()) {
+            LogUtils.debugf(this, "iface = %s", iface);
+        }
+        for (final OnmsNode dbNode : m_nodeDao.findAll()) {
+            LogUtils.debugf(this, "node = %s", dbNode);
+        }
     }
 }

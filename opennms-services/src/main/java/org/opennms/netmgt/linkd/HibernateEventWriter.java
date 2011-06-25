@@ -239,6 +239,10 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
 	        iface.setStatus(String.valueOf(DbDataLinkInterfaceEntry.STATUS_ACTIVE));
 	        iface.setLastPollTime(now);
 
+	        if (iface.getNodeId() != null && iface.getNode() == null) {
+	            iface.setNode(m_nodeDao.get(iface.getNodeId()));
+	        }
+
 	        m_dataLinkInterfaceDao.saveOrUpdate(iface);
 
 	        final DataLinkInterface parent = m_dataLinkInterfaceDao.findByNodeIdAndIfIndex(lk.getNodeparentid(), lk.getParentifindex());
@@ -496,7 +500,7 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
 
 	@Override
 	@Transactional
-	protected void saveIpRouteInterface(final Connection dbConn, final OnmsIpRouteInterface ipRouteInterface) throws SQLException {
+	protected synchronized void saveIpRouteInterface(final Connection dbConn, final OnmsIpRouteInterface ipRouteInterface) throws SQLException {
 		m_ipRouteInterfaceDao.saveOrUpdate(ipRouteInterface);
 	}
 
@@ -508,8 +512,26 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
 
 	@Override
 	@Transactional
-	protected void saveStpNode(final Connection dbConn, final OnmsStpNode stpNode) throws SQLException {
-	    LogUtils.debugf(this, "saveStpNode(%s)", stpNode);
+	protected synchronized void saveStpNode(final Connection dbConn, final OnmsStpNode stp) throws SQLException {
+	    OnmsStpNode stpNode = m_stpNodeDao.findByNodeAndVlan(stp.getNodeId(), stp.getBaseVlan());
+	    if (stpNode == null) {
+	        stpNode = stp;
+	    } else {
+	        stpNode.setBaseBridgeAddress(stp.getBaseBridgeAddress());
+	        stpNode.setBaseNumPorts(stp.getBaseNumPorts());
+	        stpNode.setBaseType(stp.getBaseType());
+	        stpNode.setBaseVlan(stp.getBaseVlan());
+	        stpNode.setBaseVlanName(stp.getBaseVlanName());
+	        stpNode.setLastPollTime(stp.getLastPollTime());
+	        stpNode.setNode(stp.getNode());
+	        stpNode.setNodeId(stp.getNodeId());
+	        stpNode.setStatus(stp.getStatus());
+	        stpNode.setStpDesignatedRoot(stp.getStpDesignatedRoot());
+	        stpNode.setStpPriority(stp.getStpPriority());
+	        stpNode.setStpProtocolSpecification(stp.getStpProtocolSpecification());
+	        stpNode.setStpRootCost(stp.getStpRootCost());
+	        stpNode.setStpRootPort(stp.getStpRootPort());
+	    }
 	    if (stpNode.getNode() == null && stpNode.getNodeId() != null) {
 	        stpNode.setNode(m_nodeDao.get(stpNode.getNodeId()));
 	    }

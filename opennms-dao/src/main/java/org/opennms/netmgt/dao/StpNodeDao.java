@@ -40,4 +40,6 @@ public interface StpNodeDao extends OnmsDao<OnmsStpNode, Integer> {
 
     void setStatusForNode(Integer nodeid, Character action);
 
+    OnmsStpNode findByNodeAndVlan(Integer nodeId, Integer baseVlan);
+
 }

@@ -46,6 +46,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.apache.commons.lang.builder.CompareToBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -284,5 +285,18 @@ public class DataLinkInterface  implements Serializable, Comparable<DataLinkInte
             .append(getLastPollTime())
             .append(getLinkTypeId())
             .toHashCode();
+    }
+    
+    public String toString() {
+        return new ToStringBuilder(this)
+            .append("id", m_id)
+            .append("nodeId", m_nodeId)
+            .append("ifIndex", m_ifIndex)
+            .append("nodeParentId", m_nodeParentId)
+            .append("parentIfIndex", m_parentIfIndex)
+            .append("status", m_status)
+            .append("linkTypeId", m_linkTypeId)
+            .append("lastPollTime", m_lastPollTime)
+            .toString();
     }
 }

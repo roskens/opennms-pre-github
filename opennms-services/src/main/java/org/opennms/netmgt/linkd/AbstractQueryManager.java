@@ -555,6 +555,7 @@ public abstract class AbstractQueryManager implements QueryManager {
             }
 
             final OnmsNode onmsNode = getNode(node.getNodeId());
+            if (onmsNode == null) { LogUtils.debugf(this, "no node found!"); }
             OnmsStpInterface stpInterface = new OnmsStpInterface(onmsNode, stpport, vlan.getVlanId());
             stpInterface.setStatus(DbStpNodeEntry.STATUS_ACTIVE);
             stpInterface.setLastPollTime(scanTime);
@@ -601,7 +602,9 @@ public abstract class AbstractQueryManager implements QueryManager {
             
             
             if (snmpcoll.getSaveStpInterfaceTable()) {
-                final OnmsStpInterface stpInterface = new OnmsStpInterface(getNode(node.getNodeId()), baseport, vlan.getVlanId());
+                final OnmsNode onmsNode = getNode(node.getNodeId());
+                if (onmsNode == null) { LogUtils.debugf(this, "no node found!"); }
+                final OnmsStpInterface stpInterface = new OnmsStpInterface(onmsNode, baseport, vlan.getVlanId());
                 stpInterface.setBridgePort(baseport);
                 stpInterface.setVlan(vlan.getVlanId());
                 stpInterface.setIfIndex(ifindex);

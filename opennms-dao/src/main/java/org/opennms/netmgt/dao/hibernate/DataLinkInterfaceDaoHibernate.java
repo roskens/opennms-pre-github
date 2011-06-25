@@ -28,17 +28,18 @@
 
 package org.opennms.netmgt.dao.hibernate;
 
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Collection;
+import java.util.List;
+
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.opennms.netmgt.dao.DataLinkInterfaceDao;
 import org.opennms.netmgt.model.DataLinkInterface;
 import org.opennms.netmgt.model.OnmsCriteria;
 import org.springframework.orm.hibernate3.HibernateCallback;
-import org.hibernate.Session;
-import org.hibernate.HibernateException;
-import org.hibernate.criterion.Restrictions;
-
-import java.util.Collection;
-import java.sql.SQLException;
-import java.sql.Timestamp;
 
 public class DataLinkInterfaceDaoHibernate extends AbstractDaoHibernate<DataLinkInterface, Integer> implements DataLinkInterfaceDao {
     /**
@@ -79,7 +80,16 @@ public class DataLinkInterfaceDaoHibernate extends AbstractDaoHibernate<DataLink
 
     /** {@inheritDoc} */
     public DataLinkInterface findByNodeIdAndIfIndex(final Integer nodeId, final Integer ifIndex) {
-        return findUnique("from DataLinkInterface as dli where dli.nodeId = ? AND dli.ifIndex = ?", nodeId, ifIndex);
+        final OnmsCriteria criteria = new OnmsCriteria(DataLinkInterface.class);
+        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
+        criteria.add(Restrictions.eq("node.id", nodeId));
+        criteria.add(Restrictions.eq("ifIndex", ifIndex));
+
+        final List<DataLinkInterface> interfaces = findMatching(criteria);
+        if (interfaces.size() > 0) {
+            return interfaces.get(0);
+        }
+        return null;
     }
 
 	@Override
