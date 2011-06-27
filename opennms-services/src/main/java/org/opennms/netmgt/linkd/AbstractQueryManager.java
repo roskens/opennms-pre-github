@@ -471,7 +471,7 @@ public abstract class AbstractQueryManager implements QueryManager {
                 continue;
             }
 
-            LogUtils.debugf(this, "store: Dot1dTpFdbTable found macaddress %s", curMacAddress);
+            LogUtils.debugf(this, "store: Dot1dTpFdbTable found mac address %s", curMacAddress);
 
             final int fdbport = dot1dfdbentry.getQBridgeDot1dTpFdbPort();
 

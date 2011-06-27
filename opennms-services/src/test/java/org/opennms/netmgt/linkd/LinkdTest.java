@@ -28,7 +28,10 @@
 
 package org.opennms.netmgt.linkd;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -40,7 +43,6 @@ import org.opennms.core.test.snmp.annotations.JUnitSnmpAgent;
 import org.opennms.core.test.snmp.annotations.JUnitSnmpAgents;
 import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.core.utils.LogUtils;
-import org.opennms.netmgt.config.LinkdConfigManager;
 import org.opennms.netmgt.dao.DataLinkInterfaceDao;
 import org.opennms.netmgt.dao.NodeDao;
 import org.opennms.netmgt.dao.db.JUnitConfigurationEnvironment;
@@ -139,34 +141,16 @@ public class LinkdTest {
         @JUnitSnmpAgent(host="192.168.160.253", port=161, resource="classpath:linkd-b-linksyssrw2048.properties")
     }, useMockSnmpStrategy=true)
     public void testSimpleLink() throws Exception {
-        final OnmsNode node = m_nodeDao.findByForeignId("linkd", "1");
         final OnmsNode nortel = m_nodeDao.findByForeignId("linkd", "nortelbay470");
         final OnmsNode linksys = m_nodeDao.findByForeignId("linkd", "linksyssrw2048");
-        LogUtils.debugf(this, "node = %s", node);
-        LogUtils.debugf(this, "nortel = %s", nortel);
-        LogUtils.debugf(this, "linksys = %s", linksys);
 
-        final LinkdConfigManager manager = (LinkdConfigManager)m_linkd.getLinkdConfig();
-        manager.getConfiguration().setInitial_sleep_time(0);
-        manager.getConfiguration().setSnmp_poll_interval(5000);
-        manager.getConfiguration().setDiscovery_link_interval(5000);
-
-//        m_linkd.init();
-        m_linkd.start();
-        m_linkd.getScheduler();
         assertTrue(m_linkd.scheduleNodeCollection(nortel.getId()));
         assertTrue(m_linkd.scheduleNodeCollection(linksys.getId()));
 
-        Thread.sleep(30000);
-        m_linkd.stop();
-        
-        Thread.sleep(20000);
+        assertTrue(m_linkd.runSingleCollection(nortel.getId()));
+        assertTrue(m_linkd.runSingleCollection(linksys.getId()));
 
-        for (final DataLinkInterface iface : m_dataLinkInterfaceDao.findAll()) {
-            LogUtils.debugf(this, "iface = %s", iface);
-        }
-        for (final OnmsNode dbNode : m_nodeDao.findAll()) {
-            LogUtils.debugf(this, "node = %s", dbNode);
-        }
+        final List<DataLinkInterface> ifaces = m_dataLinkInterfaceDao.findAll();
+        assertEquals("we should have found 1 data link", 1, ifaces.size());
     }
 }

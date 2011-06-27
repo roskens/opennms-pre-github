@@ -174,7 +174,7 @@ public class Linkd extends AbstractServiceDaemon {
 			if (snmpcoll.getScheduler() == null) {
 					snmpcoll.setScheduler(m_scheduler);
 			}
-			LogUtils.debugf(this, "ScheduleCollectionForNode: Schedulink Snmp Collection for Package/Nodeid: %s/%d/%s", snmpcoll.getPackageName(), node.getNodeId(), snmpcoll.getInfo());
+			LogUtils.debugf(this, "ScheduleCollectionForNode: Scheduling SNMP Collection for Package/NodeId: %s/%d/%s", snmpcoll.getPackageName(), node.getNodeId(), snmpcoll.getInfo());
 			snmpcoll.schedule();
 		}
 	}
@@ -401,6 +401,27 @@ public class Linkd extends AbstractServiceDaemon {
 		return true;
 	}
 
+	public boolean runSingleCollection(final int nodeId) {
+	    try {
+            final LinkableNode node = m_queryMgr.getSnmpNode(nodeId);
+
+
+            for (final SnmpCollection snmpColl : getSnmpCollections(node.getSnmpPrimaryIpAddr(), node.getSysoid())) {
+                snmpColl.setScheduler(m_scheduler);
+                snmpColl.run();
+                
+                final DiscoveryLink link = getDiscoveryLink(snmpColl.getPackageName());
+                link.setScheduler(m_scheduler);
+                link.run();
+            }
+
+            return true;
+        } catch (final SQLException e) {
+            LogUtils.debugf(this, "runSingleCollection: unable to get linkable node from database.");
+        }
+        return false;
+	}
+	
 	void wakeUpNodeCollection(int nodeid) {
 
 		LinkableNode node = getNode(nodeid);
@@ -538,8 +559,8 @@ public class Linkd extends AbstractServiceDaemon {
 	 * @param snmpcoll
 	 */
 
-	void updateNodeSnmpCollection(SnmpCollection snmpcoll) {
-
+	void updateNodeSnmpCollection(final SnmpCollection snmpcoll) {
+	    LogUtils.debugf(this, "Updating snmp collection for %s", InetAddressUtils.str(snmpcoll.getTarget()));
 		LinkableNode node = removeNode(InetAddressUtils.str(snmpcoll.getTarget()));
 		if (node == null) {
 		    LogUtils.errorf(this, "No node found for snmp collection: %s unscheduling!", snmpcoll.getInfo());
@@ -664,6 +685,10 @@ public class Linkd extends AbstractServiceDaemon {
 			}
 		}
 		return null;
+	}
+	
+	public QueryManager getQueryManager() {
+	    return m_queryMgr;
 	}
 	
     /**
