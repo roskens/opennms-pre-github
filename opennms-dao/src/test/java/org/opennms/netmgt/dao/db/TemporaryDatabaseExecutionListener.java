@@ -223,21 +223,6 @@ public class TemporaryDatabaseExecutionListener extends AbstractTestExecutionLis
 		
 	}
 
-	private static class CreateNewDatabaseCallable implements Callable<TemporaryDatabase> {
-		
-		private final JUnitTemporaryDatabase m_jtd;
-		
-		public CreateNewDatabaseCallable(JUnitTemporaryDatabase jtd) {
-			m_jtd = jtd;
-		}
-		
-		@Override
-		public TemporaryDatabase call() throws Exception {
-			return createNewDatabase(m_jtd);
-		}
-		
-	}
-
 	private static TemporaryDatabase createNewDatabase(JUnitTemporaryDatabase jtd) {
 		TemporaryDatabase retval;
 		boolean useExisting = false;
