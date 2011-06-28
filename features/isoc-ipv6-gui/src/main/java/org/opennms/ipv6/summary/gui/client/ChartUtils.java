@@ -1,3 +1,31 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2011 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2011 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
+
 package org.opennms.ipv6.summary.gui.client;
 
 import java.util.ArrayList;
@@ -17,17 +45,17 @@ public class ChartUtils {
     public static DataTable convertJSONToDataTable(String text) {
         
         DataTable dataTable = DataTable.create();
-        dataTable.addColumn(ColumnType.DATE, "Date");
-        dataTable.addColumn(ColumnType.NUMBER, "Quad A records");
+        dataTable.addColumn(ColumnType.DATETIME, "Date");
+        dataTable.addColumn(ColumnType.NUMBER, "DNS-AAAA");
         dataTable.addColumn(ColumnType.STRING, "title1");
         dataTable.addColumn(ColumnType.STRING, "text1");
-        dataTable.addColumn(ColumnType.NUMBER, "Single A Records");
+        dataTable.addColumn(ColumnType.NUMBER, "DNS-A");
         dataTable.addColumn(ColumnType.STRING, "title2");
         dataTable.addColumn(ColumnType.STRING, "text2");
-        dataTable.addColumn(ColumnType.NUMBER, "IPv6");
+        dataTable.addColumn(ColumnType.NUMBER, "HTTP-v6");
         dataTable.addColumn(ColumnType.STRING, "title2");
         dataTable.addColumn(ColumnType.STRING, "text2");
-        dataTable.addColumn(ColumnType.NUMBER, "IPv4");
+        dataTable.addColumn(ColumnType.NUMBER, "HTTP-v4");
         dataTable.addColumn(ColumnType.STRING, "title2");
         dataTable.addColumn(ColumnType.STRING, "text2");
         
@@ -77,18 +105,19 @@ public class ChartUtils {
     }
 
     private static void insertApplicationData(DataTable dataTable, int index, JSONObject value, String application) {
-        if(application.equals("IPv6")) {
-            double avail = Double.valueOf(value.get("availability").isString().stringValue());
+        String decimal = value.get("availability").isString().stringValue().substring(0, 2);
+        if(application.equals("HTTP-v6")) {
+            double avail = Double.valueOf(decimal);
             dataTable.setValue(index, 7, avail);
             //dataTable.setValue(index, 1, avail);
-        }else if(application.equals("IPv4")) {
+        }else if(application.equals("HTTP-v4")) {
             double avail = Double.valueOf(value.get("availability").isString().stringValue());
             dataTable.setValue(index, 10, avail);
             //dataTable.setValue(index, 4, avail);
-        }else if(application.equals("Quad A")) {
+        }else if(application.equals("DNS-AAAA")) {
             double avail = Double.valueOf(value.get("availability").isString().stringValue());
             dataTable.setValue(index, 1, avail);
-        }else if(application.equals("Single A")) {
+        }else if(application.equals("DNS-A")) {
             double avail = Double.valueOf(value.get("availability").isString().stringValue());
             dataTable.setValue(index, 4, avail);
         }
@@ -101,7 +130,7 @@ public class ChartUtils {
         if(locationList.get("locations").isArray() != null) {
             JSONArray locations = locationList.get("locations").isArray();
             for(int i = 0; i < locations.size(); i++) {
-                String value = locations.get(i).isObject().get("area").isString().stringValue();
+                String value = locations.get(i).isObject().get("name").isString().stringValue();
                 locs.add(value);
             }
             return locs;

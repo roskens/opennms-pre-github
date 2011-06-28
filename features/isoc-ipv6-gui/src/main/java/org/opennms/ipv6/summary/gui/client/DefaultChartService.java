@@ -1,3 +1,31 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2011 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2011 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
+
 package org.opennms.ipv6.summary.gui.client;
 
 import com.google.gwt.http.client.RequestBuilder;
@@ -15,16 +43,12 @@ public class DefaultChartService implements ChartService {
     @Override
     public void getAllLocationsAvailability(RequestCallback callback) {
         sendRequest(AVAILABILITY_SERVICE_URL, callback);
-        //callback.onResponseReceived(null, new DummyResponse());
     }
 
     @Override
     public void getAvailabilityByLocation(String location, RequestCallback callback) {
         String url = AVAILABILITY_SERVICE_URL + "/" + location;
         sendRequest(url, callback);
-        
-        //Commented out, but used for testing
-        //callback.onResponseReceived(null, new DummyResponse());
     }
 
     
@@ -34,8 +58,6 @@ public class DefaultChartService implements ChartService {
         String url = AVAILABILITY_SERVICE_URL + "/?host=" + participant;
         sendRequest(url, callback);
         
-        //Commented out, but used for testing
-        //callback.onResponseReceived(null, new DummyResponse());
     }
 
     @Override
@@ -43,8 +65,6 @@ public class DefaultChartService implements ChartService {
         String url = AVAILABILITY_SERVICE_URL + "/" + location + "/?host=" + participant;
         sendRequest(url, callback);
         
-        //Commented out, but used for testing
-        //callback.onResponseReceived(null, new DummyResponse());
     }
 
     @Override
@@ -52,8 +72,6 @@ public class DefaultChartService implements ChartService {
         String url = LOCATION_LIST_SERVICE_URL;
         sendRequest(url, callback);
         
-        //Commented out, but used for testing
-        //callback.onResponseReceived(null, new AllLocationsResponse());
     }
 
     @Override
@@ -61,13 +79,14 @@ public class DefaultChartService implements ChartService {
         String url = PARTICIPANT_SERVICE_URL;
         sendRequest(url, callback);
         
-        //Commented out, but used for testing
-        //callback.onResponseReceived(null, new AllParticipantsResponse());
     }
     
     private void sendRequest(String url, RequestCallback callback) {
         RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, URL.encode(url));
         builder.setHeader("Accept", "application/json");
+        
+        builder.setUser("ipv6Rest");
+        builder.setPassword("ipv6Rest");
         try {
             builder.sendRequest(null, callback);
         } catch (RequestException e) {

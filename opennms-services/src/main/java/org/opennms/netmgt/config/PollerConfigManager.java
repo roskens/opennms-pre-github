@@ -1,39 +1,31 @@
-//
-// This file is part of the OpenNMS(R) Application.
-//
-// OpenNMS(R) is Copyright (C) 2005-2006 The OpenNMS Group, Inc.  All rights reserved.
-// OpenNMS(R) is a derivative work, containing both original code, included code and modified
-// code that was published under the GNU General Public License. Copyrights for modified 
-// and included code are below.
-//
-// OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
-//
-// Modifications:
-//
-// 2007 May 06: Eliminate a warning. - dj@opennms.org
-// 2006 Apr 27: Added support for pathOutageEnabled
-//
-// Original code base Copyright (C) 1999-2001 Oculan Corp.  All rights reserved.
-//
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or
-// (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-//
-// For more information contact:
-// OpenNMS Licensing       <license@opennms.org>
-//     http://www.opennms.org/
-//     http://www.opennms.com/
-//
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2006-2011 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2011 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
+
 package org.opennms.netmgt.config;
 
 import static org.opennms.core.utils.InetAddressUtils.addr;
@@ -56,6 +48,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -68,6 +61,7 @@ import org.opennms.core.utils.IpListFromUrl;
 import org.opennms.core.utils.LogUtils;
 import org.opennms.core.xml.CastorUtils;
 import org.opennms.core.xml.MarshallingResourceFailureException;
+import org.opennms.netmgt.config.poller.CriticalService;
 import org.opennms.netmgt.config.poller.ExcludeRange;
 import org.opennms.netmgt.config.poller.IncludeRange;
 import org.opennms.netmgt.config.poller.Monitor;
@@ -179,7 +173,7 @@ abstract public class PollerConfigManager implements PollerConfig {
      * A mapping of the configured package to a list of IPs selected via filter
      * rules, so as to avoid repetitive database access.
      */
-    private Map<Package, List<InetAddress>> m_pkgIpMap;
+    private AtomicReference<Map<Package, List<InetAddress>>> m_pkgIpMap = new AtomicReference<Map<Package, List<InetAddress>>>();;
     /**
      * A mapp of service names to service monitors. Constructed based on data in
      * the configuration file.
@@ -383,7 +377,8 @@ abstract public class PollerConfigManager implements PollerConfig {
     public String getCriticalService() {
         getReadLock().lock();
         try {
-            return m_config.getNodeOutage().getCriticalService().getName();
+            CriticalService service = m_config.getNodeOutage().getCriticalService();
+            return service == null ? null : service.getName();
         } finally {
             getReadLock().unlock();
         }
@@ -450,10 +445,10 @@ abstract public class PollerConfigManager implements PollerConfig {
      * from the database.
      */
     private void createPackageIpListMap() {
-        getWriteLock().lock();
+        getReadLock().lock();
         
         try {
-            m_pkgIpMap = new HashMap<Package, List<InetAddress>>();
+            Map<Package, List<InetAddress>> pkgIpMap = new HashMap<Package, List<InetAddress>>();
             
             for(final Package pkg : packages()) {
         
@@ -465,15 +460,19 @@ abstract public class PollerConfigManager implements PollerConfig {
                     LogUtils.debugf(this, "createPackageIpMap: package %s: ipList size = %d", pkg.getName(), ipList.size());
         
                     if (ipList.size() > 0) {
-                        m_pkgIpMap.put(pkg, ipList);
+                        pkgIpMap.put(pkg, ipList);
                     }
+                    
                 } catch (final Throwable t) {
                     LogUtils.errorf(this, t, "createPackageIpMap: failed to map package: %s to an IP list", pkg.getName());
                 }
-    
+                
             }
+            
+            m_pkgIpMap.set(pkgIpMap);
+            
         } finally {
-            getWriteLock().unlock();
+            getReadLock().unlock();
         }
     }
 
@@ -523,7 +522,7 @@ abstract public class PollerConfigManager implements PollerConfig {
         final InetAddress ifaceAddr = addr(iface);
     
         // get list of IPs in this package
-        final List<InetAddress> ipList = m_pkgIpMap.get(pkg);
+        final List<InetAddress> ipList = m_pkgIpMap.get().get(pkg);
         if (ipList != null && ipList.size() > 0) {
 			filterPassed = ipList.contains(ifaceAddr);
         }
@@ -1101,7 +1100,7 @@ abstract public class PollerConfigManager implements PollerConfig {
 
     /** {@inheritDoc} */
     public void saveResponseTimeData(final String locationMonitor, final OnmsMonitoredService monSvc, final double responseTime, final Package pkg) {
-        getWriteLock().lock();
+        getReadLock().lock();
         try {
             final String svcName = monSvc.getServiceName();
             final Service svc = getServiceInPackage(svcName, pkg);
@@ -1128,7 +1127,7 @@ abstract public class PollerConfigManager implements PollerConfig {
                 throw new PermissionDeniedDataAccessException("Unable to store rrdData from "+locationMonitor+" for service "+monSvc, e);
             }
         } finally {
-            getWriteLock().unlock();
+            getReadLock().unlock();
         }
     }
     
