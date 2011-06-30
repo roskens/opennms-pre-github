@@ -53,7 +53,8 @@ public class MockSnmpValue implements SnmpValue {
     }
 
     public static class HexStringSnmpValue extends MockSnmpValue {
-    	private static final Pattern HEX_PATTERN = Pattern.compile("(..)[ :]?");
+    	private static final Pattern HEX_PATTERN = Pattern.compile("^[a-fA-F0-9 :]*$");
+		private static final Pattern HEX_CHUNK_PATTERN = Pattern.compile("(..)[ :]?");
         private final boolean m_isRaw;
 
     	public HexStringSnmpValue(final byte[] bytes) {
@@ -72,19 +73,15 @@ public class MockSnmpValue implements SnmpValue {
             if (m_isRaw) {
         		return string.getBytes();
         	} else {
-        		if (string.matches("^[a-fA-F0-9[ :]*$")) {
+        		final Matcher hexMatcher = HEX_PATTERN.matcher(string);
+        		if (hexMatcher.matches()) {
 //        		    LogUtils.debugf(this, "%s matches ^[a-fA-F0-9 :]*$", string);
                     final ByteArrayOutputStream os = new ByteArrayOutputStream();
-                    final Matcher m = HEX_PATTERN.matcher(string);
+                    final Matcher m = HEX_CHUNK_PATTERN.matcher(string);
                     while (m.find()) {
-                        LogUtils.debugf(this, "matched: %s", m.group());
-                        os.write(Integer.parseInt(m.group(), 16));
+//                        LogUtils.debugf(this, "matched: %s", m.group(1));
+                        os.write(Integer.parseInt(m.group(1), 16));
                     }
-                    /*
-        			for (final String entry : string.split("(..)[\\ \\:]?")) {
-        				os.write(Integer.parseInt(entry, 16));
-        			}
-        			*/
                     return os.toByteArray();
         		} else {
     		        LogUtils.debugf(this, "Not sure how to decide what to do with %s, just returning raw bytes.", string);

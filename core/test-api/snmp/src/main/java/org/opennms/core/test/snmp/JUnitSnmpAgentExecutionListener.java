@@ -35,8 +35,8 @@ import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-import org.opennms.core.test.snmp.annotations.JUnitSnmpAgent;
 import org.opennms.core.test.snmp.annotations.JUnitMockSnmpStrategyAgents;
+import org.opennms.core.test.snmp.annotations.JUnitSnmpAgent;
 import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.core.utils.LogUtils;
 import org.opennms.mock.snmp.MockSnmpAgent;
@@ -80,7 +80,7 @@ public class JUnitSnmpAgentExecutionListener extends AbstractTestExecutionListen
         if (config == null) return;
 
         boolean useMockSnmpStrategy = config.useMockSnmpStrategy();
-        // if the JUnitSnmpAgents object has set a property, use it globally instead
+        // if the agents object has set a property, use it globally instead
         if (agentsUseMockSnmpStrategy != null) {
             useMockSnmpStrategy = agentsUseMockSnmpStrategy;
         }
