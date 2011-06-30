@@ -64,7 +64,6 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 @Table(name="stpNode", uniqueConstraints = {@UniqueConstraint(columnNames={"nodeId", "baseVlan"})})
 public class OnmsStpNode {
     private Integer m_id;
-	private Integer m_nodeId;
 	private OnmsNode m_node;
 	private String m_baseBridgeAddress;
 	private Integer m_baseNumPorts;
@@ -81,8 +80,8 @@ public class OnmsStpNode {
 
 	public OnmsStpNode() {}
 
-    public OnmsStpNode(final Integer nodeId, final Integer vlanIndex) {
-    	m_nodeId = nodeId;
+    public OnmsStpNode(final OnmsNode node, final Integer vlanIndex) {
+    	m_node = node;
     	m_baseVlan = vlanIndex;
 	}
 
@@ -105,17 +104,6 @@ public class OnmsStpNode {
         m_id = id;
     }
     
-	// transient, see getNode()/setNode() below
-    @Transient
-    @XmlTransient
-	public Integer getNodeId() {
-		return m_nodeId;
-	}
-	
-	public void setNodeId(final Integer nodeId) {
-		m_nodeId = nodeId;
-	}
-	
     @ManyToOne(optional=false, fetch=FetchType.LAZY)
     @JoinColumn(name="nodeId")
     @XmlElement(name="nodeId")
@@ -126,7 +114,6 @@ public class OnmsStpNode {
 
     public void setNode(final OnmsNode node) {
         m_node = node;
-        m_nodeId = node == null? null : node.getId();
     }
 
     @XmlElement
@@ -253,7 +240,7 @@ public class OnmsStpNode {
 	public String toString() {
 	    return new ToStringBuilder(this)
 	        .append("id", m_id)
-	        .append("nodeId", m_nodeId)
+	        .append("node", m_node)
 	        .append("baseBridgeAddress", m_baseBridgeAddress)
 	        .append("baseNumPorts", m_baseNumPorts)
 	        .append("baseType", m_baseType)

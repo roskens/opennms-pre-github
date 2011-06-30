@@ -10,6 +10,7 @@ import java.math.BigInteger;
 import java.net.InetAddress;
 import java.util.Arrays;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.netmgt.snmp.SnmpObjId;
@@ -17,6 +18,7 @@ import org.opennms.netmgt.snmp.SnmpValue;
 import org.opennms.netmgt.snmp.SnmpValueFactory;
 import org.opennms.netmgt.snmp.joesnmp.JoeSnmpValueFactory;
 import org.opennms.netmgt.snmp.snmp4j.Snmp4JValueFactory;
+import org.opennms.test.mock.MockLogAppender;
 
 public class SnmpValueTest {
 	private static final SnmpValueFactory[] m_factories = new SnmpValueFactory[] {
@@ -25,6 +27,11 @@ public class SnmpValueTest {
 		new MockSnmpValueFactory()
 	};
 
+	@Before
+	public void setUp() {
+	    MockLogAppender.setupLogging();
+	}
+	
 	@Test
 	public void testCounter32() {
 		for (final SnmpValueFactory factory : m_factories) {

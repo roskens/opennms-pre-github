@@ -114,13 +114,6 @@ public class OnmsStpInterface {
         m_id = id;
     }
     
-    // transient, see getNode()/setNode() below
-    @Transient
-    @XmlTransient
-    public Integer getNodeId() {
-        return m_node == null? null : m_node.getId();
-    }
-    
     @ManyToOne(optional=false, fetch=FetchType.LAZY)
     @JoinColumn(name="nodeId")
     @XmlElement(name="nodeId")
@@ -129,7 +122,7 @@ public class OnmsStpInterface {
         return m_node;
     }
 
-    public void setNode(OnmsNode node) {
+    public void setNode(final OnmsNode node) {
         m_node = node;
     }
 
@@ -139,7 +132,7 @@ public class OnmsStpInterface {
 		return m_ifIndex;
 	}
 
-	public void setIfIndex(Integer ifIndex) {
+	public void setIfIndex(final Integer ifIndex) {
 		m_ifIndex = ifIndex;
 	}
 
@@ -149,7 +142,7 @@ public class OnmsStpInterface {
 		return m_stpPortState;
 	}
 
-	public void setStpPortState(Integer stpPortState) {
+	public void setStpPortState(final Integer stpPortState) {
 		m_stpPortState = stpPortState;
 	}
 
@@ -159,7 +152,7 @@ public class OnmsStpInterface {
 		return m_stpPortPathCost;
 	}
 
-	public void setStpPortPathCost(Integer stpPortPathCost) {
+	public void setStpPortPathCost(final Integer stpPortPathCost) {
 		m_stpPortPathCost = stpPortPathCost;
 	}
 
@@ -169,7 +162,7 @@ public class OnmsStpInterface {
 		return m_stpPortDesignatedRoot;
 	}
 
-	public void setStpPortDesignatedRoot(String stpPortDesignatedRoot) {
+	public void setStpPortDesignatedRoot(final String stpPortDesignatedRoot) {
 		m_stpPortDesignatedRoot = stpPortDesignatedRoot;
 	}
 
@@ -179,7 +172,7 @@ public class OnmsStpInterface {
 		return m_stpPortDesignatedCost;
 	}
 
-	public void setStpPortDesignatedCost(Integer stpPortDesignatedCost) {
+	public void setStpPortDesignatedCost(final Integer stpPortDesignatedCost) {
 		m_stpPortDesignatedCost = stpPortDesignatedCost;
 	}
 
@@ -200,7 +193,7 @@ public class OnmsStpInterface {
 		return m_lastPollTime;
 	}
 
-	public void setLastPollTime(Date lastPollTime) {
+	public void setLastPollTime(final Date lastPollTime) {
 		m_lastPollTime = lastPollTime;
 	}
 

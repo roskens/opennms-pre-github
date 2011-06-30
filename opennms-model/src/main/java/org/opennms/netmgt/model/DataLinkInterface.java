@@ -85,14 +85,13 @@ public class DataLinkInterface  implements Serializable, Comparable<DataLinkInte
      * @param lastPollTime a {@link java.util.Date} object.
      */
     public DataLinkInterface(final OnmsNode node, int ifIndex, int nodeParentId, int parentIfIndex, String status, Date lastPollTime) {
-//        this.m_nodeId = nodeId;
         m_node = node;
-        this.m_ifIndex = ifIndex;
-        this.m_nodeParentId = nodeParentId;
-        this.m_parentIfIndex = parentIfIndex;
-        this.m_status = status;
-        this.m_lastPollTime = lastPollTime;
-        this.m_linkTypeId = -1;
+        m_ifIndex = ifIndex;
+        m_nodeParentId = nodeParentId;
+        m_parentIfIndex = parentIfIndex;
+        m_status = status;
+        m_lastPollTime = lastPollTime;
+        m_linkTypeId = -1;
     }
 
     /**
@@ -112,8 +111,8 @@ public class DataLinkInterface  implements Serializable, Comparable<DataLinkInte
      *
      * @param id a int.
      */
-    public void setId(int id) {
-        this.m_id = id;
+    public void setId(final int id) {
+        m_id = id;
     }
 
     @ManyToOne(optional=false, fetch=FetchType.LAZY)
@@ -142,8 +141,8 @@ public class DataLinkInterface  implements Serializable, Comparable<DataLinkInte
      *
      * @param ifIndex a int.
      */
-    public void setIfIndex(int ifIndex) {
-        this.m_ifIndex = ifIndex;
+    public void setIfIndex(final int ifIndex) {
+        m_ifIndex = ifIndex;
     }
 
     /**
@@ -160,8 +159,8 @@ public class DataLinkInterface  implements Serializable, Comparable<DataLinkInte
      *
      * @param nodeParentId a int.
      */
-    public void setNodeParentId(int nodeParentId) {
-        this.m_nodeParentId = nodeParentId;
+    public void setNodeParentId(final int nodeParentId) {
+        m_nodeParentId = nodeParentId;
     }
 
     /**
@@ -178,8 +177,8 @@ public class DataLinkInterface  implements Serializable, Comparable<DataLinkInte
      *
      * @param parentIfIndex a int.
      */
-    public void setParentIfIndex(int parentIfIndex) {
-        this.m_parentIfIndex = parentIfIndex;
+    public void setParentIfIndex(final int parentIfIndex) {
+        m_parentIfIndex = parentIfIndex;
     }
 
     /**
@@ -196,8 +195,8 @@ public class DataLinkInterface  implements Serializable, Comparable<DataLinkInte
      *
      * @param status a {@link java.lang.String} object.
      */
-    public void setStatus(String status) {
-        this.m_status = status;
+    public void setStatus(final String status) {
+        m_status = status;
     }
 
     /**
@@ -214,8 +213,8 @@ public class DataLinkInterface  implements Serializable, Comparable<DataLinkInte
      *
      * @param linkTypeId a {@link java.lang.Integer} object.
      */
-    public void setLinkTypeId(Integer linkTypeId) {
-        this.m_linkTypeId = linkTypeId;
+    public void setLinkTypeId(final Integer linkTypeId) {
+        m_linkTypeId = linkTypeId;
     }
 
     /**
@@ -232,8 +231,8 @@ public class DataLinkInterface  implements Serializable, Comparable<DataLinkInte
      *
      * @param lastPollTime a {@link java.util.Date} object.
      */
-    public void setLastPollTime(Date lastPollTime) {
-        this.m_lastPollTime = lastPollTime;
+    public void setLastPollTime(final Date lastPollTime) {
+        m_lastPollTime = lastPollTime;
     }
 
     /**
@@ -242,7 +241,7 @@ public class DataLinkInterface  implements Serializable, Comparable<DataLinkInte
      * @param o a {@link org.opennms.netmgt.model.DataLinkInterface} object.
      * @return a int.
      */
-    public int compareTo(DataLinkInterface o) {
+    public int compareTo(final DataLinkInterface o) {
         return new CompareToBuilder()
             .append(getId(), o.getId())
             .append(getNode(), o.getNode())

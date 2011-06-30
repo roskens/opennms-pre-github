@@ -131,7 +131,7 @@ public class TemporaryDatabaseExecutionListener extends AbstractTestExecutionLis
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void beforeTestMethod(final TestContext testContext) throws Exception {
 		System.err.println(String.format("TemporaryDatabaseExecutionListener.beforeTestMethod(%s)", testContext));
 
@@ -203,9 +203,11 @@ public class TemporaryDatabaseExecutionListener extends AbstractTestExecutionLis
 		if (jtd == null) return;
 
 		m_database = m_databases.remove();
+
 		final LazyConnectionDataSourceProxy proxy = new LazyConnectionDataSourceProxy(m_database);
 		DataSourceFactory.setInstance(proxy);
 		System.err.println(String.format("TemporaryDatabaseExecutionListener.prepareTestInstance(%s) prepared db %s", testContext, m_database.toString()));
+        System.err.println("Temporary Database Name: " + m_database.getTestDatabase());
 	}
 
 	private static class CreateNewDatabaseCallable implements Callable<TemporaryDatabase> {

@@ -192,25 +192,30 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
 		final Timestamp scanTime = new Timestamp(System.currentTimeMillis());
         if (snmpColl.hasIpNetToMediaTable()) {
             processIpNetToMediaTable(node, snmpColl, null, scanTime);
+        } else {
+            LogUtils.debugf(this, "storeSnmpCollection: hasIpNetToMediaTable = false");
         }
 
         if (snmpColl.hasCdpCacheTable()) {
             processCdpCacheTable(node, snmpColl, null, scanTime);
+        } else {
+            LogUtils.debugf(this, "storeSnmpCollection: hasCdpCacheTable = false");
         }
 
         if (snmpColl.hasRouteTable()) {
             processRouteTable(node, snmpColl, null, scanTime);
+        } else {
+            LogUtils.debugf(this, "storeSnmpCollection: hasRouteTable = false");
         }
 
         if (snmpColl.hasVlanTable()) {
             processVlanTable(node, snmpColl, null, scanTime);
+        } else {
+            LogUtils.debugf(this, "storeSnmpCollection: hasVlanTable = false");
         }
 
-        LogUtils.debugf(this, "store: saving SnmpVlanCollection's in DB");
-
         for (final OnmsVlan vlan : snmpColl.getSnmpVlanCollections().keySet()) {
-
-            LogUtils.debugf(this, "store: parsing VLAN %s/%s", vlan.getVlanId(), vlan.getVlanName());
+            LogUtils.debugf(this, "storeSnmpCollection: parsing VLAN %s/%s", vlan.getVlanId(), vlan.getVlanName());
 
             final SnmpVlanCollection snmpVlanColl = snmpColl.getSnmpVlanCollections().get(vlan);
 
@@ -351,8 +356,9 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
 	@Override
 	protected int getIfIndexByName(final Connection dbConn, final int targetCdpNodeId, final String cdpTargetDevicePort) throws SQLException {
         final OnmsCriteria criteria = new OnmsCriteria(OnmsSnmpInterface.class);
+        criteria.createAlias("node", "node");
         criteria.add(Restrictions.eq("node.id", targetCdpNodeId));
-        criteria.add(Restrictions.or(Restrictions.eq("snmpIfName", cdpTargetDevicePort), Restrictions.eq("snmpIfDescr", cdpTargetDevicePort)));
+        criteria.add(Restrictions.or(Restrictions.eq("ifName", cdpTargetDevicePort), Restrictions.eq("ifDescr", cdpTargetDevicePort)));
         final List<OnmsSnmpInterface> interfaces = m_snmpInterfaceDao.findMatching(criteria);
 
         if (interfaces.isEmpty()) {
@@ -391,6 +397,7 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
 	protected RouterInterface getNodeidMaskFromIp(final Connection dbConn, final InetAddress nexthop) throws SQLException {
         final OnmsCriteria criteria = new OnmsCriteria(OnmsIpInterface.class);
         criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
+        criteria.createAlias("snmpInterface", "snmpInterface", OnmsCriteria.LEFT_JOIN);
         criteria.add(Restrictions.eq("ipAddress", nexthop));
         criteria.add(Restrictions.eq("node.type", "A"));
         final List<OnmsIpInterface> interfaces = m_ipInterfaceDao.findMatching(criteria);
@@ -449,9 +456,11 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
 	// SELECT snmpiftype FROM snmpinterface WHERE nodeid = ? AND snmpifindex = ?"
 	@Override
 	protected int getSnmpIfType(final Connection dbConn, final int nodeId, final Integer ifIndex) throws SQLException {
+	    LogUtils.debugf(this, "getSnmpIfType(%d, %s)", nodeId, ifIndex);
         final OnmsCriteria criteria = new OnmsCriteria(OnmsSnmpInterface.class);
+        criteria.createAlias("node", "node");
         criteria.add(Restrictions.eq("node.id", nodeId));
-        criteria.add(Restrictions.eq("snmpIfIndex", ifIndex));
+        criteria.add(Restrictions.eq("ifIndex", ifIndex));
         final List<OnmsSnmpInterface> interfaces = m_snmpInterfaceDao.findMatching(criteria);
         
         if (interfaces.isEmpty()) {
@@ -468,6 +477,7 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
     @Override
     protected List<String> getPhysAddrs(int nodeId, DBUtils d, Connection dbConn) throws SQLException {
         final OnmsCriteria criteria = new OnmsCriteria(OnmsSnmpInterface.class);
+        criteria.createAlias("node", "node");
         criteria.add(Restrictions.eq("node.id", nodeId));
         
         final List<String> addrs = new ArrayList<String>();
@@ -527,7 +537,7 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
 	@Override
 	@Transactional
 	protected synchronized void saveStpNode(final Connection dbConn, final OnmsStpNode stp) throws SQLException {
-	    OnmsStpNode stpNode = m_stpNodeDao.findByNodeAndVlan(stp.getNodeId(), stp.getBaseVlan());
+	    OnmsStpNode stpNode = m_stpNodeDao.findByNodeAndVlan(stp.getNode().getId(), stp.getBaseVlan());
 	    if (stpNode == null) {
 	        stpNode = stp;
 	    } else {
@@ -538,7 +548,6 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
 	        stpNode.setBaseVlanName(stp.getBaseVlanName());
 	        stpNode.setLastPollTime(stp.getLastPollTime());
 	        stpNode.setNode(stp.getNode());
-	        stpNode.setNodeId(stp.getNodeId());
 	        stpNode.setStatus(stp.getStatus());
 	        stpNode.setStpDesignatedRoot(stp.getStpDesignatedRoot());
 	        stpNode.setStpPriority(stp.getStpPriority());
@@ -546,16 +555,13 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
 	        stpNode.setStpRootCost(stp.getStpRootCost());
 	        stpNode.setStpRootPort(stp.getStpRootPort());
 	    }
-	    if (stpNode.getNode() == null && stpNode.getNodeId() != null) {
-	        stpNode.setNode(m_nodeDao.get(stpNode.getNodeId()));
-	    }
 		m_stpNodeDao.saveOrUpdate(stpNode);
 	}
 
     @Override
     @Transactional
     protected void saveStpInterface(final Connection dbConn, final OnmsStpInterface stp) throws SQLException {
-        OnmsStpInterface stpInterface = m_stpInterfaceDao.findByNodeAndVlan(stp.getNodeId(), stp.getBridgePort(), stp.getVlan());
+        OnmsStpInterface stpInterface = m_stpInterfaceDao.findByNodeAndVlan(stp.getNode().getId(), stp.getBridgePort(), stp.getVlan());
         if (stpInterface == null) {
             stpInterface = stp;
         } else {

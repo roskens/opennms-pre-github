@@ -107,7 +107,7 @@ public class OnmsIpRouteInterface {
 		return m_routeDest;
 	}
 
-	public void setRouteDest(String routeDest) {
+	public void setRouteDest(final String routeDest) {
 		m_routeDest = routeDest;
 	}
 
@@ -117,7 +117,7 @@ public class OnmsIpRouteInterface {
 		return m_routeMask;
 	}
 
-	public void setRouteMask(String routeMask) {
+	public void setRouteMask(final String routeMask) {
 		m_routeMask = routeMask;
 	}
 
@@ -127,7 +127,7 @@ public class OnmsIpRouteInterface {
 		return m_routeNextHop;
 	}
 
-	public void setRouteNextHop(String routeNextHop) {
+	public void setRouteNextHop(final String routeNextHop) {
 		m_routeNextHop = routeNextHop;
 	}
 
@@ -137,7 +137,7 @@ public class OnmsIpRouteInterface {
 		return m_routeIfIndex;
 	}
 
-	public void setRouteIfIndex(Integer routeIfIndex) {
+	public void setRouteIfIndex(final Integer routeIfIndex) {
 		m_routeIfIndex = routeIfIndex;
 	}
 
@@ -147,7 +147,7 @@ public class OnmsIpRouteInterface {
 		return m_routeMetric1;
 	}
 
-	public void setRouteMetric1(Integer routeMetric1) {
+	public void setRouteMetric1(final Integer routeMetric1) {
 		m_routeMetric1 = routeMetric1;
 	}
 
@@ -157,7 +157,7 @@ public class OnmsIpRouteInterface {
 		return m_routeMetric2;
 	}
 
-	public void setRouteMetric2(Integer routeMetric2) {
+	public void setRouteMetric2(final Integer routeMetric2) {
 		m_routeMetric2 = routeMetric2;
 	}
 
@@ -167,7 +167,7 @@ public class OnmsIpRouteInterface {
 		return m_routeMetric3;
 	}
 
-	public void setRouteMetric3(Integer routeMetric3) {
+	public void setRouteMetric3(final Integer routeMetric3) {
 		m_routeMetric3 = routeMetric3;
 	}
 
@@ -177,7 +177,7 @@ public class OnmsIpRouteInterface {
 		return m_routeMetric4;
 	}
 
-	public void setRouteMetric4(Integer routeMetric4) {
+	public void setRouteMetric4(final Integer routeMetric4) {
 		m_routeMetric4 = routeMetric4;
 	}
 
@@ -187,7 +187,7 @@ public class OnmsIpRouteInterface {
 		return m_routeMetric5;
 	}
 
-	public void setRouteMetric5(Integer routeMetric5) {
+	public void setRouteMetric5(final Integer routeMetric5) {
 		m_routeMetric5 = routeMetric5;
 	}
 
@@ -197,7 +197,7 @@ public class OnmsIpRouteInterface {
 		return m_routeType;
 	}
 
-	public void setRouteType(Integer routeType) {
+	public void setRouteType(final Integer routeType) {
 		m_routeType = routeType;
 	}
 
@@ -207,7 +207,7 @@ public class OnmsIpRouteInterface {
 		return m_routeProto;
 	}
 
-	public void setRouteProto(Integer routeProto) {
+	public void setRouteProto(final Integer routeProto) {
 		m_routeProto = routeProto;
 	}
 
@@ -228,7 +228,7 @@ public class OnmsIpRouteInterface {
 		return m_lastPollTime;
 	}
 
-	public void setLastPollTime(Date lastPollTime) {
+	public void setLastPollTime(final Date lastPollTime) {
 		m_lastPollTime = lastPollTime;
 	}
 

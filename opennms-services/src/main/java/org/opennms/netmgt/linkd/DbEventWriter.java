@@ -1019,9 +1019,9 @@ public class DbEventWriter extends AbstractQueryManager {
 	}
 
 	protected void saveStpNode(final Connection dbConn, final OnmsStpNode stpNode) throws SQLException {
-		DbStpNodeEntry dbStpNodeEntry = DbStpNodeEntry.get(dbConn, stpNode.getNodeId(), stpNode.getBaseVlan());
+		DbStpNodeEntry dbStpNodeEntry = DbStpNodeEntry.get(dbConn, stpNode.getNode().getId(), stpNode.getBaseVlan());
 		if (dbStpNodeEntry == null) {
-		    dbStpNodeEntry = DbStpNodeEntry.create(stpNode.getNodeId(), stpNode.getBaseVlan());
+		    dbStpNodeEntry = DbStpNodeEntry.create(stpNode.getNode().getId(), stpNode.getBaseVlan());
 		}
 
 		dbStpNodeEntry.updateBaseBridgeAddress(stpNode.getBaseBridgeAddress());
@@ -1039,10 +1039,10 @@ public class DbEventWriter extends AbstractQueryManager {
 	}
 
     protected void saveStpInterface(final Connection dbConn, final OnmsStpInterface stpInterface) throws SQLException {
-        DbStpInterfaceEntry dbStpIntEntry = DbStpInterfaceEntry.get(dbConn, stpInterface.getNodeId(), stpInterface.getBridgePort(), stpInterface.getVlan());
+        DbStpInterfaceEntry dbStpIntEntry = DbStpInterfaceEntry.get(dbConn, stpInterface.getNode().getId(), stpInterface.getBridgePort(), stpInterface.getVlan());
         if (dbStpIntEntry == null) {
             // Create a new entry
-            dbStpIntEntry = DbStpInterfaceEntry.create(stpInterface.getNodeId(), stpInterface.getBridgePort(), stpInterface.getVlan());
+            dbStpIntEntry = DbStpInterfaceEntry.create(stpInterface.getNode().getId(), stpInterface.getBridgePort(), stpInterface.getVlan());
         }
 
         if (stpInterface.getIfIndex() != null) {
