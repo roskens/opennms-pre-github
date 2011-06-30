@@ -542,6 +542,7 @@ public final class SnmpCollection implements ReadyRunnable {
 		    LogUtils.debugf(this, "SnmpCollection.run: no bridge info found");
 		} else {
 		    LogUtils.debugf(this, "SnmpCollection.run: adding bridge info to snmpcollection");
+		    LogUtils.debugf(this, "VLAN = %s, SnmpVlanCollection = %s", vlan, snmpvlancollection);
 			m_snmpVlanCollection.put(vlan,snmpvlancollection);
 		}
 

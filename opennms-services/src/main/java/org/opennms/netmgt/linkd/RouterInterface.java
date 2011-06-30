@@ -26,11 +26,6 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-/*
- * Created on 9-mar-2006
- *
- * Class that holds informations for node bridges
- */
 package org.opennms.netmgt.linkd;
 
 import java.net.InetAddress;

@@ -50,6 +50,8 @@ import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 @XmlRootElement(name = "vlan")
 @Entity
 @Table(name="vlan", uniqueConstraints = {@UniqueConstraint(columnNames={"nodeId", "vlanId"})})
@@ -181,4 +183,17 @@ public class OnmsVlan {
 		m_lastPollTime = lastPollTime;
 	}
 
+	@Override
+	public String toString() {
+	    return new ToStringBuilder(this)
+	        .append("dbId", m_id)
+	        .append("node", m_node)
+	        .append("id", m_vlanId)
+	        .append("name", m_vlanName)
+	        .append("type", m_vlanType)
+	        .append("status", m_vlanStatus)
+	        .append("dbStatus", m_status)
+	        .append("lastPollTime", m_lastPollTime)
+	        .toString();
+	}
 }
