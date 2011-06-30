@@ -64,9 +64,9 @@ public class MockSnmpValue implements SnmpValue {
 
         public byte[] getBytes() {
         	if (m_isRaw) {
-        		return toString().getBytes();
+        		return super.toString().getBytes();
         	} else {
-        		final String value = toString();
+        		final String value = super.toString();
         		final ByteArrayOutputStream os = new ByteArrayOutputStream();
         		if (value.contains(" ") || value.contains(":")) {
         			for (final String entry : value.split("[\\ \\:]")) {
@@ -79,9 +79,9 @@ public class MockSnmpValue implements SnmpValue {
         }
         
         public String toString() {
-        	final byte[] data = super.toString().getBytes();
-
-        	final byte[] results = new byte[data.length];
+            final byte[] data = getBytes();
+            
+            final byte[] results = new byte[data.length];
             for (int i = 0; i < data.length; i++) {
                 results[i] = Character.isISOControl((char)data[i]) ? (byte)'.' : data[i];
             }
@@ -122,7 +122,7 @@ public class MockSnmpValue implements SnmpValue {
         }
 
         public String toHexString() {
-        	final byte[] data = super.toString().getBytes();
+        	final byte[] data = getBytes();
             final StringBuffer b = new StringBuffer();
             for (int i = 0; i < data.length; ++i) {
                 final int x = (int) data[i] & 0xff;

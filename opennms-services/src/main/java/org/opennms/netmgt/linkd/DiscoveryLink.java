@@ -197,7 +197,7 @@ public final class DiscoveryLink implements ReadyRunnable {
 
 			for (final LinkableNode curNode : atNodes) {
 			    for (final OnmsAtInterface at : curNode.getAtInterfaces()) {
-					int nodeid = at.getNodeId();
+					int nodeid = at.getNode().getId();
 					final String ipaddr = at.getIpAddress();
 					final String macAddress = at.getMacAddress();
 					LogUtils.debugf(this, "Parsing at Interface nodeid/ipaddr/macaddr: %d/%s/%s", nodeid, ipaddr, macAddress);
@@ -1181,7 +1181,7 @@ public final class DiscoveryLink implements ReadyRunnable {
 					Iterator<OnmsAtInterface> ite = ats.iterator();
 					while (ite.hasNext()) {
 						OnmsAtInterface at = ite.next();
-						NodeToNodeLink lNode = new NodeToNodeLink(at.getNodeId(),at.getIfIndex());
+						NodeToNodeLink lNode = new NodeToNodeLink(at.getNode().getId(),at.getIfIndex());
 						lNode.setNodeparentid(nodeid);
 						lNode.setParentifindex(ifindex);
 						addNodetoNodeLink(lNode);

@@ -102,6 +102,30 @@ public class LinkdTest {
         nb.addInterface("192.168.160.253").setIsSnmpPrimary("P").setIsManaged("M");
         m_nodeDao.save(nb.getCurrentNode());
 
+        nb.addNode("cisco7200a").setForeignSource("linkd").setForeignId("cisco7200a").setSysObjectId(".1.3.6.1.4.1.9.1.222").setType("A");
+        nb.addInterface("10.1.1.1").setIsSnmpPrimary("P").setIsManaged("M");
+        m_nodeDao.save(nb.getCurrentNode());
+
+        nb.addNode("cisco7200b").setForeignSource("linkd").setForeignId("cisco7200b").setSysObjectId(".1.3.6.1.4.1.9.1.222").setType("A");
+        nb.addInterface("10.1.2.2").setIsSnmpPrimary("P").setIsManaged("M");
+        m_nodeDao.save(nb.getCurrentNode());
+
+        nb.addNode("cisco3700").setForeignSource("linkd").setForeignId("cisco3700").setSysObjectId(".1.3.6.1.4.1.9.1.122").setType("A");
+        nb.addInterface("10.1.3.2").setIsSnmpPrimary("P").setIsManaged("M");
+        m_nodeDao.save(nb.getCurrentNode());
+
+        nb.addNode("cisco2691").setForeignSource("linkd").setForeignId("cisco2691").setSysObjectId(".1.3.6.1.4.1.9.1.122").setType("A");
+        nb.addInterface("10.1.4.2").setIsSnmpPrimary("P").setIsManaged("M");
+        m_nodeDao.save(nb.getCurrentNode());
+
+        nb.addNode("cisco1700").setForeignSource("linkd").setForeignId("cisco1700").setSysObjectId(".1.3.6.1.4.1.9.1.200").setType("A");
+        nb.addInterface("10.1.5.2").setIsSnmpPrimary("P").setIsManaged("M");
+        m_nodeDao.save(nb.getCurrentNode());
+
+        nb.addNode("cisco3600").setForeignSource("linkd").setForeignId("cisco3600").setSysObjectId(".1.3.6.1.4.1.9.1.122").setType("A");
+        nb.addInterface("10.1.6.2").setIsSnmpPrimary("P").setIsManaged("M");
+        m_nodeDao.save(nb.getCurrentNode());
+
         m_nodeDao.flush();
 	}
 
@@ -135,7 +159,6 @@ public class LinkdTest {
 	}
 	
     @Test
-    // @Transactional
     @JUnitSnmpAgents(value={
         @JUnitSnmpAgent(host="192.168.160.250", port=161, resource="classpath:linkd-a-nortelbay470.properties"),
         @JUnitSnmpAgent(host="192.168.160.253", port=161, resource="classpath:linkd-b-linksyssrw2048.properties")
@@ -152,5 +175,40 @@ public class LinkdTest {
 
         final List<DataLinkInterface> ifaces = m_dataLinkInterfaceDao.findAll();
         assertEquals("we should have found 1 data link", 1, ifaces.size());
+    }
+
+    @Test
+    @JUnitSnmpAgents(value={
+        @JUnitSnmpAgent(host="10.1.1.1", port=161, resource="classpath:linkd/cisco7200a.properties"),
+        @JUnitSnmpAgent(host="10.1.2.2", port=161, resource="classpath:linkd/cisco7200b.properties"),
+        @JUnitSnmpAgent(host="10.1.3.2", port=161, resource="classpath:linkd/cisco3700.properties"),
+        @JUnitSnmpAgent(host="10.1.4.2", port=161, resource="classpath:linkd/cisco2691.properties"),
+        @JUnitSnmpAgent(host="10.1.5.2", port=161, resource="classpath:linkd/cisco1700.properties"),
+        @JUnitSnmpAgent(host="10.1.6.2", port=161, resource="classpath:linkd/cisco3600.properties")
+    }, useMockSnmpStrategy=true)
+    public void testFakeCiscoNetwork() throws Exception {
+        final OnmsNode cisco7200a = m_nodeDao.findByForeignId("linkd", "cisco7200a");
+        final OnmsNode cisco7200b = m_nodeDao.findByForeignId("linkd", "cisco7200b");
+        final OnmsNode cisco3700 = m_nodeDao.findByForeignId("linkd", "cisco3700");
+        final OnmsNode cisco2691 = m_nodeDao.findByForeignId("linkd", "cisco2691");
+        final OnmsNode cisco1700 = m_nodeDao.findByForeignId("linkd", "cisco1700");
+        final OnmsNode cisco3600 = m_nodeDao.findByForeignId("linkd", "cisco3600");
+
+        assertTrue(m_linkd.scheduleNodeCollection(cisco7200a.getId()));
+        assertTrue(m_linkd.scheduleNodeCollection(cisco7200b.getId()));
+        assertTrue(m_linkd.scheduleNodeCollection(cisco3700.getId()));
+        assertTrue(m_linkd.scheduleNodeCollection(cisco2691.getId()));
+        assertTrue(m_linkd.scheduleNodeCollection(cisco1700.getId()));
+        assertTrue(m_linkd.scheduleNodeCollection(cisco3600.getId()));
+
+        assertTrue(m_linkd.runSingleCollection(cisco7200a.getId()));
+        assertTrue(m_linkd.runSingleCollection(cisco7200b.getId()));
+        assertTrue(m_linkd.runSingleCollection(cisco3700.getId()));
+        assertTrue(m_linkd.runSingleCollection(cisco2691.getId()));
+        assertTrue(m_linkd.runSingleCollection(cisco1700.getId()));
+        assertTrue(m_linkd.runSingleCollection(cisco3600.getId()));
+
+        final List<DataLinkInterface> ifaces = m_dataLinkInterfaceDao.findAll();
+        assertEquals("we should have found 6 data links", 6, ifaces.size());
     }
 }

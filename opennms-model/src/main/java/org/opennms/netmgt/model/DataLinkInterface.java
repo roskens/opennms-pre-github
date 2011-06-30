@@ -28,28 +28,26 @@
 
 package org.opennms.netmgt.model;
 
+import java.io.Serializable;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlIDREF;
-import javax.xml.bind.annotation.XmlTransient;
 
 import org.apache.commons.lang.builder.CompareToBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
-
-import java.io.Serializable;
-import java.util.Date;
 
 @Entity
 @Table(name = "datalinkinterface")
@@ -57,7 +55,6 @@ public class DataLinkInterface  implements Serializable, Comparable<DataLinkInte
     private static final long serialVersionUID = 5241963830563150843L;
 
     private Integer m_id;
-    private Integer m_nodeId;
     private OnmsNode m_node;
 
     @Column(name="ifindex", nullable=false)
@@ -87,8 +84,9 @@ public class DataLinkInterface  implements Serializable, Comparable<DataLinkInte
      * @param status a {@link java.lang.String} object.
      * @param lastPollTime a {@link java.util.Date} object.
      */
-    public DataLinkInterface(int nodeId, int ifIndex, int nodeParentId, int parentIfIndex, String status, Date lastPollTime) {
-        this.m_nodeId = nodeId;
+    public DataLinkInterface(final OnmsNode node, int ifIndex, int nodeParentId, int parentIfIndex, String status, Date lastPollTime) {
+//        this.m_nodeId = nodeId;
+        m_node = node;
         this.m_ifIndex = ifIndex;
         this.m_nodeParentId = nodeParentId;
         this.m_parentIfIndex = parentIfIndex;
@@ -118,17 +116,6 @@ public class DataLinkInterface  implements Serializable, Comparable<DataLinkInte
         this.m_id = id;
     }
 
-    // transient, see getNode()/setNode() below
-    @Transient
-    @XmlTransient
-    public Integer getNodeId() {
-        return m_nodeId;
-    }
-    
-    public void setNodeId(final Integer nodeId) {
-        m_nodeId = nodeId;
-    }
-    
     @ManyToOne(optional=false, fetch=FetchType.LAZY)
     @JoinColumn(name="nodeId")
     @XmlElement(name="nodeId")
@@ -139,7 +126,6 @@ public class DataLinkInterface  implements Serializable, Comparable<DataLinkInte
 
     public void setNode(final OnmsNode node) {
         m_node = node;
-        m_nodeId = node == null? null : node.getId();
     }
 
     /**
@@ -259,7 +245,7 @@ public class DataLinkInterface  implements Serializable, Comparable<DataLinkInte
     public int compareTo(DataLinkInterface o) {
         return new CompareToBuilder()
             .append(getId(), o.getId())
-            .append(getNodeId(), o.getNodeId())
+            .append(getNode(), o.getNode())
             .append(getIfIndex(), o.getIfIndex())
             .append(getNodeParentId(), o.getNodeParentId())
             .append(getParentIfIndex(), o.getParentIfIndex())
@@ -276,21 +262,21 @@ public class DataLinkInterface  implements Serializable, Comparable<DataLinkInte
      */
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getId())
-            .append(getNodeId())
-            .append(getIfIndex())
-            .append(getNodeParentId())
-            .append(getParentIfIndex())
-            .append(getStatus())
-            .append(getLastPollTime())
-            .append(getLinkTypeId())
+            .append(m_id)
+            .append(m_node)
+            .append(m_ifIndex)
+            .append(m_nodeParentId)
+            .append(m_parentIfIndex)
+            .append(m_status)
+            .append(m_lastPollTime)
+            .append(m_linkTypeId)
             .toHashCode();
     }
     
     public String toString() {
         return new ToStringBuilder(this)
             .append("id", m_id)
-            .append("nodeId", m_nodeId)
+            .append("node", m_node)
             .append("ifIndex", m_ifIndex)
             .append("nodeParentId", m_nodeParentId)
             .append("parentIfIndex", m_parentIfIndex)

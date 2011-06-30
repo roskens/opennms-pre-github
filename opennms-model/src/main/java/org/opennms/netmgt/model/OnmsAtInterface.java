@@ -136,13 +136,6 @@ public class OnmsAtInterface {
 		m_id = id;
 	}
 	
-    // transient, see getNode()/setNode() below
-    @Transient
-    @XmlTransient
-	public Integer getNodeId() {
-		return m_node == null? null : m_node.getId();
-	}
-	
     @ManyToOne(optional=false, fetch=FetchType.LAZY)
     @JoinColumn(name="nodeId")
     @XmlElement(name="nodeId")

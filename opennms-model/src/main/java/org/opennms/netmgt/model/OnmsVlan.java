@@ -55,7 +55,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name="vlan", uniqueConstraints = {@UniqueConstraint(columnNames={"nodeId", "vlanId"})})
 public class OnmsVlan {
     private Integer m_id;
-	private Integer m_nodeId;
 	private OnmsNode m_node;
 	private Integer m_vlanId;
 	private String m_vlanName;
@@ -99,17 +98,6 @@ public class OnmsVlan {
         m_id = id;
     }
     
-    // transient, see getNode()/setNode() below
-    @Transient
-    @XmlTransient
-	public Integer getNodeId() {
-		return m_nodeId;
-	}
-
-	public void setNodeId(final Integer nodeId) {
-		m_nodeId = nodeId;
-	}
-
     /**
      * <p>getNode</p>
      *
@@ -128,9 +116,8 @@ public class OnmsVlan {
      *
      * @param node a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
-    public void setNode(org.opennms.netmgt.model.OnmsNode node) {
+    public void setNode(final OnmsNode node) {
         m_node = node;
-        m_nodeId = node == null? null : node.getId();
     }
     
     @XmlAttribute

@@ -30,6 +30,7 @@ package org.opennms.netmgt.dao.hibernate;
 
 import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.List;
 
 import org.hibernate.criterion.Restrictions;
 import org.opennms.netmgt.dao.AtInterfaceDao;
@@ -125,7 +126,18 @@ public class AtInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsAtInterfac
 
     @Override
     public OnmsAtInterface findByNodeAndAddress(final Integer nodeId, final String ipAddress, final String macAddress) {
-        return findUnique("FROM atInterface WHERE node.id = ? AND ipAddress = ? AND macAddress = ?", nodeId, ipAddress, macAddress);
+        final OnmsCriteria criteria = new OnmsCriteria(OnmsAtInterface.class);
+        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
+        criteria.add(Restrictions.eq("node.id", nodeId));
+        criteria.add(Restrictions.eq("ipAddress", ipAddress));
+        criteria.add(Restrictions.eq("macAddress", macAddress));
+        
+        final List<OnmsAtInterface> ifaces = findMatching(criteria);
+        if (ifaces.size() == 0) {
+            return null;
+        } else {
+            return ifaces.get(0);
+        }
     }
 
 }

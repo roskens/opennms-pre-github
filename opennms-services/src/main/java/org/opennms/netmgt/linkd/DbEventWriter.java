@@ -322,10 +322,10 @@ public class DbEventWriter extends AbstractQueryManager {
 			OnmsAtInterface at)
 			throws SQLException {
 		// Save in DB
-		DbAtInterfaceEntry atInterfaceEntry = DbAtInterfaceEntry.get(dbConn, at.getNodeId(), at.getIpAddress());
+		DbAtInterfaceEntry atInterfaceEntry = DbAtInterfaceEntry.get(dbConn, at.getNode().getId(), at.getIpAddress());
    
 		if (atInterfaceEntry == null) {
-		    atInterfaceEntry = DbAtInterfaceEntry.create(at.getNodeId(), at.getIpAddress());
+		    atInterfaceEntry = DbAtInterfaceEntry.create(at.getNode().getId(), at.getIpAddress());
 		}
    
 		// update object
@@ -971,10 +971,10 @@ public class DbEventWriter extends AbstractQueryManager {
     }
 
 	protected void saveIpRouteInterface(final Connection dbConn, OnmsIpRouteInterface ipRouteInterface) throws SQLException {
-		DbIpRouteInterfaceEntry iprouteInterfaceEntry = DbIpRouteInterfaceEntry.get(dbConn, ipRouteInterface.getNodeId(), ipRouteInterface.getRouteDest());
+		DbIpRouteInterfaceEntry iprouteInterfaceEntry = DbIpRouteInterfaceEntry.get(dbConn, ipRouteInterface.getNode().getId(), ipRouteInterface.getRouteDest());
 		if (iprouteInterfaceEntry == null) {
 		    // Create a new entry
-		    iprouteInterfaceEntry = DbIpRouteInterfaceEntry.create(ipRouteInterface.getNodeId(), ipRouteInterface.getRouteDest());
+		    iprouteInterfaceEntry = DbIpRouteInterfaceEntry.create(ipRouteInterface.getNode().getId(), ipRouteInterface.getRouteDest());
 		}
 		// update object
 		iprouteInterfaceEntry.updateRouteMask(ipRouteInterface.getRouteMask());
@@ -998,10 +998,10 @@ public class DbEventWriter extends AbstractQueryManager {
 
 	protected void saveVlan(final Connection dbConn, final OnmsVlan vlan) throws SQLException {
 		// always save info to DB
-		DbVlanEntry vlanEntry = DbVlanEntry.get(dbConn, vlan.getNodeId(), vlan.getVlanId());
+		DbVlanEntry vlanEntry = DbVlanEntry.get(dbConn, vlan.getNode().getId(), vlan.getVlanId());
 		if (vlanEntry == null) {
 		    // Create a new entry
-		    vlanEntry = DbVlanEntry.create(vlan.getNodeId(), vlan.getVlanId());
+		    vlanEntry = DbVlanEntry.create(vlan.getNode().getId(), vlan.getVlanId());
 		}
 
 		if (vlan.getVlanType() != null) {

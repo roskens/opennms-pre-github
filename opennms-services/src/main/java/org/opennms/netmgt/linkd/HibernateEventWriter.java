@@ -232,16 +232,13 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
 
 	        DataLinkInterface iface = m_dataLinkInterfaceDao.findByNodeIdAndIfIndex(lk.getNodeId(), lk.getIfindex());
 	        if (iface == null) {
-	            iface = new DataLinkInterface(lk.getNodeId(), lk.getIfindex(), lk.getNodeparentid(), lk.getParentifindex(), String.valueOf(DbDataLinkInterfaceEntry.STATUS_ACTIVE), now);
+	            final OnmsNode onmsNode = m_nodeDao.get(lk.getNodeId());
+	            iface = new DataLinkInterface(onmsNode, lk.getIfindex(), lk.getNodeparentid(), lk.getParentifindex(), String.valueOf(DbDataLinkInterfaceEntry.STATUS_ACTIVE), now);
 	        }
 	        iface.setNodeParentId(lk.getNodeparentid());
 	        iface.setParentIfIndex(lk.getParentifindex());
 	        iface.setStatus(String.valueOf(DbDataLinkInterfaceEntry.STATUS_ACTIVE));
 	        iface.setLastPollTime(now);
-
-	        if (iface.getNodeId() != null && iface.getNode() == null) {
-	            iface.setNode(m_nodeDao.get(iface.getNodeId()));
-	        }
 
 	        m_dataLinkInterfaceDao.saveOrUpdate(iface);
 
@@ -276,7 +273,7 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
 	        DataLinkInterface dli = m_dataLinkInterfaceDao.findByNodeIdAndIfIndex(lkm.getNodeparentid(), lkm.getParentifindex());
             if (dli == null) {
                 dli = new DataLinkInterface();
-                dli.setNodeId(atInterface.getNodeId());
+                dli.setNode(atInterface.getNode());
                 dli.setIfIndex(atInterface.getIfIndex());
                 dli.setNodeParentId(lkm.getNodeparentid());
                 dli.setParentIfIndex(lkm.getParentifindex());
@@ -323,8 +320,9 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
 
         // See if we have an existing version of this OnmsAtInterface first
         final OnmsCriteria criteria = new OnmsCriteria(OnmsAtInterface.class);
+        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
         criteria.add(Restrictions.eq("node.type", "A"));
-		criteria.add(Restrictions.eq("ipAddr", addressString));
+		criteria.add(Restrictions.eq("ipAddress", addressString));
         List<OnmsAtInterface> interfaces = m_atInterfaceDao.findMatching(criteria);
 
         if (!interfaces.isEmpty()) {
@@ -371,7 +369,8 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
 	@Override
 	protected int getNodeidFromIp(final Connection dbConn, final InetAddress cdpTargetIpAddr) throws SQLException {
         final OnmsCriteria criteria = new OnmsCriteria(OnmsIpInterface.class);
-        criteria.add(Restrictions.eq("ipAddr", cdpTargetIpAddr));
+        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
+        criteria.add(Restrictions.eq("ipAddress", cdpTargetIpAddr));
         criteria.add(Restrictions.eq("node.type", "A"));
         List<OnmsIpInterface> interfaces = m_ipInterfaceDao.findMatching(criteria);
         
@@ -391,7 +390,8 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
 	@Override
 	protected RouterInterface getNodeidMaskFromIp(final Connection dbConn, final InetAddress nexthop) throws SQLException {
         final OnmsCriteria criteria = new OnmsCriteria(OnmsIpInterface.class);
-        criteria.add(Restrictions.eq("ipAddr", nexthop));
+        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
+        criteria.add(Restrictions.eq("ipAddress", nexthop));
         criteria.add(Restrictions.eq("node.type", "A"));
         final List<OnmsIpInterface> interfaces = m_ipInterfaceDao.findMatching(criteria);
 		
@@ -416,7 +416,8 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
 	@Override
 	protected RouterInterface getNodeFromIp(final Connection dbConn, final InetAddress nexthop) throws SQLException {
         final OnmsCriteria criteria = new OnmsCriteria(OnmsIpInterface.class);
-        criteria.add(Restrictions.eq("ipAddr", nexthop));
+        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
+        criteria.add(Restrictions.eq("ipAddress", nexthop));
         criteria.add(Restrictions.eq("node.type", "A"));
         final List<OnmsIpInterface> interfaces = m_ipInterfaceDao.findMatching(criteria);
 		
@@ -481,7 +482,7 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
     @Override
     @Transactional
     protected void saveAtInterface(final Connection dbConn, final OnmsAtInterface at) {
-        OnmsAtInterface atInterface = m_atInterfaceDao.findByNodeAndAddress(at.getNodeId(), at.getIpAddress(), at.getMacAddress());
+        OnmsAtInterface atInterface = m_atInterfaceDao.findByNodeAndAddress(at.getNode().getId(), at.getIpAddress(), at.getMacAddress());
         if (atInterface == null) {
             atInterface = at;
         } else {
@@ -506,8 +507,21 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
 
 	@Override
 	@Transactional
-	protected void saveVlan(final Connection dbConn, final OnmsVlan vlan) throws SQLException {
-		m_vlanDao.saveOrUpdate(vlan);
+	protected void saveVlan(final Connection dbConn, final OnmsVlan v) throws SQLException {
+	    /*
+	    OnmsVlan vlan = m_vlanDao.findByNodeIdAndVlanId(vlan.getNodeId(), vlan.getVlanId());
+	    if (vlan == null) {
+	        vlan = v;
+	    } else {
+	        vlan.setLastPollTime(v.getLastPollTime());
+	        vlan.setStatus(v.getStatus());
+	        vlan.setVlanId(v.getVlanId());
+	        vlan.setVlanName(v.getVlanName());
+            vlan.setVlanStatus(v.getVlanStatus());
+	        vlan.setVlanType(v.getVlanType());
+	    }
+	    */
+		m_vlanDao.saveOrUpdate(v);
 	}
 
 	@Override

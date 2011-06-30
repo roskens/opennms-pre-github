@@ -359,9 +359,10 @@ public abstract class AbstractQueryManager implements QueryManager {
             // always save info to DB
             if (snmpcoll.getSaveIpRouteTable()) {
 
+                final OnmsNode onmsNode = getNode(node.getNodeId());
                 final OnmsIpRouteInterface ipRouteInterface = new OnmsIpRouteInterface();
                 ipRouteInterface.setLastPollTime(scanTime);
-                ipRouteInterface.setNodeId(node.getNodeId());
+                ipRouteInterface.setNode(onmsNode);
                 ipRouteInterface.setRouteDest(str(routedest));
                 ipRouteInterface.setRouteIfIndex(ifindex);
                 ipRouteInterface.setRouteMask(str(routemask));
@@ -410,9 +411,10 @@ public abstract class AbstractQueryManager implements QueryManager {
                 vlanStatus = DbVlanEntry.VLAN_STATUS_UNKNOWN;
             }
 
+            final OnmsNode onmsNode = getNode(node.getNodeId());
             final OnmsVlan vlan = new OnmsVlan(vlanIndex, vlanName, vlanStatus, vlanType);
             vlan.setLastPollTime(scanTime);
-            vlan.setNodeId(node.getNodeId());
+            vlan.setNode(onmsNode);
             vlan.setStatus(DbVlanEntry.STATUS_ACTIVE);
             vlans.add(vlan);
 
@@ -630,6 +632,7 @@ public abstract class AbstractQueryManager implements QueryManager {
         stpNode.setStatus(DbStpNodeEntry.STATUS_ACTIVE);
 
         if (snmpcoll.getSaveStpNodeTable()) {
+            LogUtils.debugf(this, "baseBridgeAddress = %s", baseBridgeAddress);
             stpNode.setBaseBridgeAddress(baseBridgeAddress);
             stpNode.setBaseNumPorts(dod1db.getNumberOfPorts());
             stpNode.setBaseType(dod1db.getBridgeType());

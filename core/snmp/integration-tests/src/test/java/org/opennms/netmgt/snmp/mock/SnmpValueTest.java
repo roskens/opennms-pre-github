@@ -1,5 +1,6 @@
 package org.opennms.netmgt.snmp.mock;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -188,8 +189,8 @@ public class SnmpValueTest {
 			final String className = factory.getClass().getName();
 
 			final SnmpValue value = factory.getOctetString(rawBytes);
-//			System.err.println("HexString = " + value.toHexString());
-
+			
+			assertArrayEquals(className + ": getOctetString bytes should match", rawBytes, value.getBytes());
 			assertFalse(className + ": getOctetString displayable should be false", value.isDisplayable());
 			assertEquals(className + ": getOctetString to String should return " + stringBytes, stringBytes, value.toString());
 			assertEquals(className + ": getOctetString to DisplayString should return " + stringBytes, stringBytes, value.toDisplayString());
@@ -219,6 +220,7 @@ public class SnmpValueTest {
 
 			final SnmpValue value = factory.getOctetString(rawBytes);
 
+            assertArrayEquals(className + ": getOctetString bytes should match", rawBytes, value.getBytes());
 			assertFalse(className + ": getOctetString displayable should be false", value.isDisplayable());
 			assertEquals(className + ": getOctetString to String should return " + stringBytes, stringBytes, value.toString());
 			assertEquals(className + ": getOctetString to DisplayString should return " + stringBytes, stringBytes, value.toDisplayString());

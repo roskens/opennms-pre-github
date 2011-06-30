@@ -56,7 +56,6 @@ import javax.xml.bind.annotation.XmlTransient;
 public class OnmsIpRouteInterface {
 
     private Integer m_id;
-	private Integer m_nodeId;
 	private OnmsNode m_node;
 	private String m_routeDest;
 	private String m_routeMask;
@@ -90,18 +89,6 @@ public class OnmsIpRouteInterface {
     public void setId(final Integer id) {
         m_id = id;
     }
-    
-    // transient, see getNode()/setNode() below
-    @Transient
-    @XmlTransient
-	public Integer getNodeId() {
-		return m_nodeId;
-	}
-	
-	public void setNodeId(final Integer nodeId) {
-		m_nodeId = nodeId;
-	}
-	
     @ManyToOne(optional=false, fetch=FetchType.LAZY)
     @JoinColumn(name="nodeId")
     @XmlElement(name="nodeId")
@@ -110,9 +97,8 @@ public class OnmsIpRouteInterface {
         return m_node;
     }
 
-    public void setNode(OnmsNode node) {
+    public void setNode(final OnmsNode node) {
         m_node = node;
-        m_nodeId = node == null? null : node.getId();
     }
 
     @XmlElement
