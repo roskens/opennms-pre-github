@@ -6,7 +6,6 @@
     <version>1.11.0-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.opennms</groupId>
   <artifactId>opennms-web-dependencies</artifactId>
   <packaging>pom</packaging>
   <name>OpenNMS Web Dependencies</name>
