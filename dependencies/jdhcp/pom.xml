@@ -6,38 +6,19 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.opennms.dependencies</groupId>
-  <artifactId>snmp-test-dependencies</artifactId>
+  <artifactId>jdhcp-dependencies</artifactId>
   <packaging>pom</packaging>
-  <name>OpenNMS SNMP Test Dependencies</name>
+  <name>OpenNMS JDHCP Dependencies</name>
   <description>
     This module is used to provide a single artifact that the opennms project
-    can depend on to use SNMP
+    can depend on to use JDHCP.
   </description>
 
   <dependencies>
     <dependency>
-      <groupId>org.opennms.dependencies</groupId>
-      <artifactId>snmp-dependencies</artifactId>
-      <type>pom</type>
-    </dependency>
-    <dependency>
-      <groupId>org.opennms.dependencies</groupId>
-      <artifactId>spring-dependencies</artifactId>
-      <type>pom</type>
-    </dependency>
-    <dependency>
-      <groupId>org.opennms.core.snmp</groupId>
-      <artifactId>org.opennms.core.snmp.implementations.mock</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.opennms.core</groupId>
-      <artifactId>org.opennms.core.lib</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.opennms</groupId>
-      <artifactId>opennms-util</artifactId>
-    </dependency>
+      <groupId>org.dhcp.jdhcp</groupId>
+      <artifactId>jdhcp</artifactId>
+      </dependency>
   </dependencies>
   <repositories>
     <repository>

@@ -1,7 +1,5 @@
-#set( $symbol_pound = '#' )
-#set( $symbol_dollar = '$' )
-#set( $symbol_escape = '\' )
 <!DOCTYPE module PUBLIC "//gwt-module/" "http://google-web-toolkit.googlecode.com/svn/tags/1.6.2/distro-source/core/src/gwt-module.dtd">
+<?xml version="1.0" encoding="utf-8"?>
 <module>
 
       <!-- Inherit the core Web Toolkit stuff.                        -->

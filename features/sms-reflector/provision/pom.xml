@@ -55,18 +55,15 @@
     <dependency>
       <groupId>org.opennms.smslib</groupId>
       <artifactId>smslib</artifactId>
-      <version>3.4.3-20100302</version>
-    </dependency>
+      </dependency>
     <dependency>
       <groupId>commons-lang</groupId>
       <artifactId>commons-lang</artifactId>
-      <version>2.4</version>
-    </dependency>
+      </dependency>
     <dependency>
       <groupId>commons-net</groupId>
       <artifactId>commons-net</artifactId>
-      <version>2.0</version>
-    </dependency>
+      </dependency>
     <dependency>
       <groupId>org.springframework.osgi</groupId>
       <artifactId>spring-osgi-extender</artifactId>
@@ -135,8 +132,7 @@
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
-      <version>1.4</version>
-    </dependency>
+      </dependency>
     <dependency>
       <groupId>javax.persistence</groupId>
       <artifactId>com.springsource.javax.persistence</artifactId>
@@ -145,23 +141,19 @@
     <dependency>
       <groupId>org.opennms.features.poller</groupId>
       <artifactId>org.opennms.features.poller.api</artifactId>
-      <version>${project.version}</version>
-    </dependency>
+      </dependency>
     <dependency>
       <groupId>org.opennms.features</groupId>
       <artifactId>org.opennms.features.phonebook</artifactId>
-      <version>${project.version}</version>
-    </dependency>
+      </dependency>
     <dependency>
       <groupId>org.opennms.core</groupId>
       <artifactId>org.opennms.core.api</artifactId>
-      <version>${project.version}</version>
-    </dependency>
+      </dependency>
     <dependency>
       <groupId>org.opennms.core</groupId>
       <artifactId>org.opennms.core.lib</artifactId>
-      <version>${project.version}</version>
-    </dependency>
+      </dependency>
     <dependency>
       <groupId>javax.xml.bind</groupId>
       <artifactId>com.springsource.javax.xml.bind</artifactId>
@@ -195,13 +187,11 @@
     <dependency>
       <groupId>org.opennms.core</groupId>
       <artifactId>org.opennms.core.tasks</artifactId>
-      <version>${project.version}</version>
-    </dependency>
+      </dependency>
     <dependency>
       <groupId>org.opennms.core</groupId>
       <artifactId>org.opennms.core.soa</artifactId>
-      <version>${project.version}</version>
-    </dependency>
+      </dependency>
     <dependency>
       <groupId>org.apache.felix</groupId>
       <artifactId>org.apache.felix.webconsole</artifactId>
