@@ -230,7 +230,7 @@
     <dependency>
       <groupId>org.opennms</groupId>
       <artifactId>opennms-config</artifactId>
-      <version>${project.version}</version>
+      <version>${project.version}</version><!--$NO-MVN-MAN-VER$-->
       <classifier>xsds</classifier>
       </dependency>
 

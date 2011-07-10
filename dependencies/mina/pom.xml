@@ -21,7 +21,6 @@
     <dependency>
       <groupId>org.apache.mina</groupId>
       <artifactId>mina-core</artifactId>
-      <version>${minaVersion}</version>
     </dependency>
 
     <!-- Mina Dependencies -->
