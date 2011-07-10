@@ -154,7 +154,6 @@ public class ChartUtils {
      * @param barChart TODO
      * @param subLabelClass
      */
-    @SuppressWarnings("unchecked")
     private static void addSubLabels(JFreeChart barChart, String subLabelClass) {
         ExtendedCategoryAxis subLabels;
         CategoryPlot plot = barChart.getCategoryPlot();
@@ -178,7 +177,6 @@ public class ChartUtils {
      * @param barChart TODO
      * @param chartConfig
      */
-    @SuppressWarnings("unchecked")
     private static void customizeSeries(JFreeChart barChart, BarChart chartConfig) {
         
         /*

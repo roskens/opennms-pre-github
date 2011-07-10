@@ -80,7 +80,6 @@ public class JBossConnectionFactory {
      * @param address a {@link java.net.InetAddress} object.
      * @return a {@link org.opennms.protocols.jmx.connectors.JBossConnectionWrapper} object.
      */
-    @SuppressWarnings("unchecked")
     public static JBossConnectionWrapper getMBeanServerConnection(Map propertiesMap, InetAddress address) {
         
         JBossConnectionWrapper wrapper = null;

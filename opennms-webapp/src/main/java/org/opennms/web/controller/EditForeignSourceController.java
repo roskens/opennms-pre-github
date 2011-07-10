@@ -251,7 +251,6 @@ public class EditForeignSourceController extends SimpleFormController {
     }
 
     /** {@inheritDoc} */
-    @SuppressWarnings("unchecked")
     @Override
     protected Map referenceData(HttpServletRequest request) throws Exception {
         final Map<String, Object> map = new HashMap<String, Object>();

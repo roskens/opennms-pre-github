@@ -47,7 +47,6 @@ public class CollectionMath {
 	 * @param list the {@link List}
 	 * @return the number of null entries
 	 */
-	@SuppressWarnings("unchecked")
 	public static long countNull(List list) {
 		long count = 0;
 		for (Object entry : list) {
@@ -64,7 +63,6 @@ public class CollectionMath {
 	 * @param list the list
 	 * @return the number of non-null entries
 	 */
-	@SuppressWarnings("unchecked")
 	public static long countNotNull(List list) {
 		return (list.size() - countNull(list));
 	}

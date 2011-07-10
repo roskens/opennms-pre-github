@@ -47,7 +47,6 @@ public interface OnmsWbemObject {
      * @param namedValueSet A list of parameter values.
      * @return The result of the method execution.
      */
-    @SuppressWarnings("unchecked")
     public OnmsWbemObject wmiExecMethod(String methodName, List params, List namedValueSet);
 
     /**

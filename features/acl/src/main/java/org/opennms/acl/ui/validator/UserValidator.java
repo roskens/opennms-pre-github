@@ -61,7 +61,6 @@ import org.springframework.validation.Validator;
 public class UserValidator implements Validator {
 
     /** {@inheritDoc} */
-    @SuppressWarnings("unchecked")
     public boolean supports(Class clazz) {
         return UserDTO.class.isAssignableFrom(clazz);
     }
