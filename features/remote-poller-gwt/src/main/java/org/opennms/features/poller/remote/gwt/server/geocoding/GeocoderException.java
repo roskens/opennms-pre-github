@@ -37,6 +37,11 @@ package org.opennms.features.poller.remote.gwt.server.geocoding;
  */
 public class GeocoderException extends Exception {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * <p>Constructor for GeocoderException.</p>
 	 */
 	public GeocoderException() {

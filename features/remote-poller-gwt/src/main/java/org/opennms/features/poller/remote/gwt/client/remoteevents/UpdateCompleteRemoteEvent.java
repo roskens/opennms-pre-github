@@ -38,6 +38,11 @@ package org.opennms.features.poller.remote.gwt.client.remoteevents;
  */
 public class UpdateCompleteRemoteEvent implements MapRemoteEvent {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * <p>Constructor for UpdateCompleteRemoteEvent.</p>
 	 */
 	public UpdateCompleteRemoteEvent() {
