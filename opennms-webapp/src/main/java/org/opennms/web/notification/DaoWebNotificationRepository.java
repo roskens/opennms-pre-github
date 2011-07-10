@@ -78,7 +78,8 @@ public class DaoWebNotificationRepository implements WebNotificationRepository {
                 // AcknowledgeType.BOTH just adds no restriction
             }
 
-            public void visitGroupBy() throws RuntimeException {
+            @SuppressWarnings("unused")
+			public void visitGroupBy() throws RuntimeException {
             }
 
             public void visitFilter(Filter filter) throws RuntimeException {

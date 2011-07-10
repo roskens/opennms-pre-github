@@ -72,9 +72,11 @@ import org.opennms.netmgt.model.RrdRepository;
 public class XmpCollectionFactory {
 
     /* class variables and methods *********************** */
-    private static XmpCollectionFactory instance;
-    private static boolean loadedFromFile = false;
-    private static boolean initialized = false;
+    private static XmpCollectionFactory instance = null;
+    @SuppressWarnings("unused")
+	private static boolean loadedFromFile = false;
+    @SuppressWarnings("unused")
+	private static boolean initialized = false;
 
     private static XmpDatacollectionConfig config;
 
@@ -131,7 +133,6 @@ public class XmpCollectionFactory {
 
         // list out the collections I've found
         XmpCollection[] collections = config.getXmpCollection();
-        XmpCollection theCollection = null;
         for (XmpCollection coll: collections) {
 
             log().debug("XmpCollectionFactory: found collection "+

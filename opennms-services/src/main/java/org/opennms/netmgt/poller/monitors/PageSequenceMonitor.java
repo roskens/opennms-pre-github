@@ -653,7 +653,8 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
             return properties;
         }
 
-        private String getUserInfo() {
+        @SuppressWarnings("unused")
+		private String getUserInfo() {
             return m_page.getUserInfo();
         }
 

@@ -54,6 +54,7 @@ public class FakeTestGateway extends AGateway
 {
 	private int refCounter = 0;
 
+	@SuppressWarnings("unused")
 	private int counter = 0;
 
 	private class QueueRunner implements Runnable, Delayed {

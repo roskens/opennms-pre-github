@@ -59,7 +59,8 @@ import com.google.gwt.view.client.SingleSelectionModel;
 
 public class ChooseResourceViewImpl extends Composite implements ChooseResourceView {
 
-    private static final int DEFAULT_FAST_FORWARD_ROWS = 0;
+    @SuppressWarnings("unused")
+	private static final int DEFAULT_FAST_FORWARD_ROWS = 0;
 
     private static ChooseResourceViewImplUiBinder uiBinder = GWT.create(ChooseResourceViewImplUiBinder.class);
 

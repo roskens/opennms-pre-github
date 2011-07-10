@@ -40,7 +40,8 @@ public class Service {
     
     private int m_nodeId;
 
-    private int m_ifIndex;
+    @SuppressWarnings("unused")
+	private int m_ifIndex;
 
     private String m_ipAddr;
 

@@ -68,9 +68,11 @@ import org.opennms.netmgt.config.xmpConfig.XmpConfig;
 public class XmpConfigFactory {
 
     /* class variables and methods *********************** */
-    private static XmpConfigFactory instance;
-    private static boolean loadedFromFile = false;
-    private static boolean initialized = false;
+    private static XmpConfigFactory instance = null;
+    @SuppressWarnings("unused")
+	private static boolean loadedFromFile = false;
+    @SuppressWarnings("unused")
+	private static boolean initialized = false;
     private XmpConfig config = null;
 
     // initialize our class for the creation of instances

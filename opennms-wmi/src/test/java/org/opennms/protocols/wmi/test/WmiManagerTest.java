@@ -390,6 +390,7 @@ public class WmiManagerTest extends TestCase {
 			wmiManager.init(m_WmiMock);
 
 			// Perform an operation.
+			@SuppressWarnings("unused")
 			WmiResult res = wmiManager.performOp(params);
             //assertTrue(res)
 

@@ -69,7 +69,8 @@ public class TcpRrdStrategyTest {
     private RrdStrategy<Object,Object> m_strategy;
     private FileAnticipator m_fileAnticipator;
     private static Thread m_listenerThread;
-    private static String m_tempDir;
+    @SuppressWarnings("unused")
+	private static String m_tempDir;
 
     @BeforeClass
     public static void startListenerThread() throws Exception {

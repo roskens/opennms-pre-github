@@ -50,7 +50,8 @@ public class NessusParser {
 
     private static RE semicolonSingle = null;
 
-    private static RE semicolonMulti = null;
+    @SuppressWarnings("unused")
+	private static RE semicolonMulti = null;
 
     private static RE multipleAsterisks = null;
 
@@ -71,7 +72,8 @@ public class NessusParser {
 
     private static RE protocolWithoutPort = null;
 
-    private static RE indeterminate = null;
+    @SuppressWarnings("unused")
+	private static RE indeterminate = null;
 
     // private static RE cleared = null; // Not applicable
     private static RE informational = null;

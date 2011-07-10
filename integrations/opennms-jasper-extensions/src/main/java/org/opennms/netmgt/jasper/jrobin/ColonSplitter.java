@@ -39,7 +39,8 @@ class ColonSplitter {
     String[] split() {
         String[] tokens = cmd.replaceAll("\\\\:", COLON).split(":");
         for (int i = 0; i < tokens.length; i++) {
-            String item = tokens[i];
+            @SuppressWarnings("unused")
+			String item = tokens[i];
             tokens[i] = tokens[i].replaceAll(COLON, ":");
         }
         return tokens;

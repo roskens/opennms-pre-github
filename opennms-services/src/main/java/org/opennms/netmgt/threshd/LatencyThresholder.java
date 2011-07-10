@@ -108,7 +108,8 @@ final class LatencyThresholder implements ServiceThresholder {
     /**
      * Local host name
      */
-    private String m_host;
+    @SuppressWarnings("unused")
+	private String m_host;
 
     /**
      * <P>

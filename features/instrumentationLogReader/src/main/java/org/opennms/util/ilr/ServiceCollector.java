@@ -227,8 +227,4 @@ public class ServiceCollector {
     public int hashCode() {
         return getServiceID().hashCode();
     }
-
-
-
-
 }

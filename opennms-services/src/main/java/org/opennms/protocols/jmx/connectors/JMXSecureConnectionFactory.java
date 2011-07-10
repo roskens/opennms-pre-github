@@ -101,7 +101,6 @@ public class JMXSecureConnectionFactory
                         ks = KeyStore.getInstance(KeyStore.getDefaultType());
                         TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
                         tmf.init(ks);
-                        X509TrustManager defaultTrustManager = (X509TrustManager) tmf.getTrustManagers()[0];
                         tm = new AnyServerX509TrustManager();
                         SSLContext ctx = SSLContext.getInstance("TLSv1");
                         ctx.init(null, new TrustManager[]{tm}, null);

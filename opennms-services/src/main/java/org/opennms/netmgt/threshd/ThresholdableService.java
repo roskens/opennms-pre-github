@@ -86,7 +86,8 @@ final class ThresholdableService extends InetNetworkInterface implements Thresho
     /**
      * The last time a threshold check occurred
      */
-    private long m_lastThresholdCheckTime;
+    @SuppressWarnings("unused")
+	private long m_lastThresholdCheckTime;
 
     /**
      * The last time this service was scheduled for threshold checking.

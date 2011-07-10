@@ -44,7 +44,8 @@ import org.hibernate.type.Type;
  */
 public abstract class IPLikeFilter extends OneArgFilter<String> {
 
-    private static final Type STRING_TYPE = new StringType();
+    @SuppressWarnings("unused")
+	private static final Type STRING_TYPE = new StringType();
 
     /**
      * <p>Constructor for IPLikeFilter.</p>

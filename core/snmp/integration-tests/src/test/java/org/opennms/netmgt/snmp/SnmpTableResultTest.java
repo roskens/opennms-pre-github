@@ -64,7 +64,8 @@ public class SnmpTableResultTest {
             System.err.println("Received Row: "+result);
         }
 
-        public void reset() {
+        @SuppressWarnings("unused")
+		public void reset() {
             m_rowCount = 0;
         }
 
