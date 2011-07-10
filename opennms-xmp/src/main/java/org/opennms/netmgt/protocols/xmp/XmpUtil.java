@@ -31,6 +31,7 @@ package org.opennms.netmgt.protocols.xmp;
 import java.math.BigInteger;
 
 import org.apache.regexp.RE;
+import org.apache.regexp.RESyntaxException;
 import org.krupczak.Xmp.Xmp;
 import org.krupczak.Xmp.XmpMessage;
 import org.krupczak.Xmp.XmpSession;
@@ -64,9 +65,13 @@ public class XmpUtil {
             throws XmpUtilException {
         RE valueRegex = null;
         if (MATCHES.equals(valueOperator)) {
-            valueRegex = new RE(valueOperand);
-            if (!caseSensitive) {
-                valueRegex.setMatchFlags(RE.MATCH_CASEINDEPENDENT);
+            try {
+                valueRegex = new RE(valueOperand);
+                if (!caseSensitive) {
+                    valueRegex.setMatchFlags(RE.MATCH_CASEINDEPENDENT);
+                }
+            } catch (RESyntaxException e) {
+                log.warn("valueOperand is invalid regex");
             }
         }
         

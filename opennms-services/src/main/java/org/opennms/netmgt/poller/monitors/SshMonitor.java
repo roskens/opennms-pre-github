@@ -33,6 +33,7 @@ import java.net.InetAddress;
 import java.util.Map;
 
 import org.apache.regexp.RE;
+import org.apache.regexp.RESyntaxException;
 import org.opennms.core.utils.ParameterMap;
 import org.opennms.core.utils.TimeoutTracker;
 import org.opennms.netmgt.model.PollStatus;
@@ -94,9 +95,17 @@ final public class SshMonitor extends AbstractServiceMonitor {
         if (match == null && (banner == null || banner.equals("*"))) {
             regex = null;
         } else if (match != null) {
-            regex = new RE(match);
+            try {
+                regex = new RE(match);
+            } catch (RESyntaxException e) {
+                log().warn("match is invalid regex");
+            }
         } else if (banner != null) {
-            regex = new RE(banner);
+            try {
+                regex = new RE(banner);
+            } catch (RESyntaxException e) {
+                log().warn("banner is invalid regex");
+            }
         }
 
         for (tracker.reset(); tracker.shouldRetry() && !ps.isAvailable(); tracker.nextAttempt()) {
