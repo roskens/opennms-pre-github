@@ -63,7 +63,8 @@ import org.springframework.web.servlet.view.RedirectView;
  * @since 1.8.1
  */
 public class AcknowledgeEventController extends AbstractController implements InitializingBean {
-    private static final long serialVersionUID = 2L;
+    @SuppressWarnings("unused")
+	private static final long serialVersionUID = 2L;
 
     private WebEventRepository m_webEventRepository;
     
