@@ -47,7 +47,7 @@ import java.util.Collection;
 public class DateProcessRowsCallback extends ProcessRowsCallback
 {
     /** {@inheritDoc} */
-    public Collection filterRows(TableModel model, Collection rows)
+    public Collection<?> filterRows(TableModel model, @SuppressWarnings("rawtypes") Collection rows)
         throws Exception
     {
         boolean filtered = model.getLimit().isFiltered();
@@ -60,7 +60,7 @@ public class DateProcessRowsCallback extends ProcessRowsCallback
 
         if (filtered)
         {
-            Collection collection = new ArrayList();
+            Collection<?> collection = new ArrayList<Object>();
             Predicate filterPredicate = new DateFilterPredicate(model);
             CollectionUtils.select(rows, filterPredicate, collection);
 

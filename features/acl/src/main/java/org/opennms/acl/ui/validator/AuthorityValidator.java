@@ -59,7 +59,7 @@ import org.springframework.validation.Validator;
 public class AuthorityValidator implements Validator {
 
     /** {@inheritDoc} */
-    public boolean supports(Class clazz) {
+    public boolean supports(Class<?> clazz) {
         return AuthorityDTO.class.isAssignableFrom(clazz);
     }
 

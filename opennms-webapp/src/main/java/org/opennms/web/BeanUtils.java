@@ -72,7 +72,7 @@ public class BeanUtils {
     @SuppressWarnings("unchecked")
     public static <T> T getPathValue(Object bean, String path, Class<T> expectedClass) {
         BeanWrapperImpl wrapper = new BeanWrapperImpl(bean);
-        Class propType = wrapper.getPropertyType(path);
+        Class<?> propType = wrapper.getPropertyType(path);
         if (propType == null) {
             // we were unable to find the property
             Assert.notNull(propType, "propType in BeanUtils is null path: " + path); //for debug purposes

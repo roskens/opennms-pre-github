@@ -34,7 +34,7 @@ package org.opennms.web.map.config;
  * @author mmigliore
  * @since 1.8.1
  */
-public class Avail implements Comparable{
+public class Avail implements Comparable<Object> {
 	private int id;
 	private int min;
 	private String color;
