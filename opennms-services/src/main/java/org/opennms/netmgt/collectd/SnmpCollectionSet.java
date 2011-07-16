@@ -542,20 +542,6 @@ public class SnmpCollectionSet implements Collectable, CollectionSet {
         log().info("Unable to locate resource for agent "+getCollectionAgent()+" with instance id "+res.getInstance()+" while collecting attribute "+attrType);
     }
 
-    /* Not used anymore - done in CollectableService
-     void saveAttributes(final ServiceParameters params) {
-        BasePersister persister = createPersister(params);
-        visit(persister);
-    }
-
-    private BasePersister createPersister(ServiceParameters params) {
-        if (Boolean.getBoolean("org.opennms.rrd.storeByGroup")) {
-            return new GroupPersister(params);
-        } else {
-            return new OneToOnePersister(params);
-        }
-    }*/
-
     private NodeResourceType getNodeResourceType() {
         return m_snmpCollection.getNodeResourceType(getCollectionAgent());
     }
