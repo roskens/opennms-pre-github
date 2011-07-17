@@ -46,6 +46,10 @@
           <includes>
             <include>org/opennms/sms/monitor/internal/config/*.java</include>
           </includes>
+          <excludes>
+            <exclude>org/opennms/sms/monitor/internal/config/MobileSequenceNamespacePrefixMapper.java</exclude>
+            <exclude>org/opennms/sms/monitor/internal/config/TriggeredList.java</exclude>
+          </excludes>
           <schemas>
             <schema>
               <namespace>http://xmlns.opennms.org/xsd/config/mobile-sequence</namespace>
