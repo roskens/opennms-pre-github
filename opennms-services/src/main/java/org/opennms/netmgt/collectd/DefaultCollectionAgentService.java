@@ -55,7 +55,7 @@ import org.springframework.transaction.interceptor.TransactionProxyFactoryBean;
 public class DefaultCollectionAgentService implements CollectionAgentService {
 
     /**
-     * 
+     *
      */
     @SuppressWarnings("unused")
 	private static final long serialVersionUID = 6694654071513990997L;
