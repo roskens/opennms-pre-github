@@ -40,8 +40,8 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.opennms.core.test.OpenNMSJUnit4ClassRunner;
-import org.opennms.core.test.snmp.annotations.JUnitMockSnmpStrategyAgents;
 import org.opennms.core.test.snmp.annotations.JUnitSnmpAgent;
+import org.opennms.core.test.snmp.annotations.JUnitSnmpAgents;
 import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.dao.DataLinkInterfaceDao;
@@ -176,7 +176,7 @@ public class LinkdTest {
 	}
 	
 	@Test
-	@JUnitSnmpAgent(resource="classpath:westell-smartjack.properties", useMockSnmpStrategy=true)
+	@JUnitSnmpAgent(host="192.168.1.10", resource="classpath:westell-smartjack.properties")
 	public void testScheduleNodeCollection() throws Exception {
 		final OnmsNode node = m_nodeDao.findByForeignId("linkd", "1");
 		LogUtils.debugf(this, "node = %s", node);
@@ -187,7 +187,7 @@ public class LinkdTest {
 	}
 	
     @Test
-    @JUnitMockSnmpStrategyAgents(value={
+    @JUnitSnmpAgents(value={
         @JUnitSnmpAgent(host="192.168.160.250", port=161, resource="classpath:linkd-a-nortelbay470.properties"),
         @JUnitSnmpAgent(host="192.168.160.253", port=161, resource="classpath:linkd-b-linksyssrw2048.properties")
     })
@@ -206,7 +206,7 @@ public class LinkdTest {
     }
 
     @Test
-    @JUnitMockSnmpStrategyAgents(value={
+    @JUnitSnmpAgents(value={
         @JUnitSnmpAgent(host="10.1.1.1", port=161, resource="classpath:linkd/cisco7200a.properties"),
         @JUnitSnmpAgent(host="10.1.1.2", port=161, resource="classpath:linkd/laptop.properties"),
         @JUnitSnmpAgent(host="10.1.2.2", port=161, resource="classpath:linkd/cisco7200b.properties"),
