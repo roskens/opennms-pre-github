@@ -32,6 +32,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
+import java.util.Properties;
 
 import org.junit.After;
 import org.junit.Before;
@@ -86,8 +87,10 @@ public class LinkdTest {
 
 	@Before
 	public void setUp() throws Exception {
-		// Use the mock.logLevel system property to control the log level
-		MockLogAppender.setupLogging(true);
+//		MockLogAppender.setupLogging(true);
+        Properties p = new Properties();
+        p.setProperty("log4j.logger.org.hibernate.SQL", "WARN");
+		MockLogAppender.setupLogging(p);
 
 		NetworkBuilder nb = new NetworkBuilder();
         nb.addNode("test.example.com").setForeignSource("linkd").setForeignId("1").setSysObjectId(".1.3.6.1.4.1.1724.81").setType("A");
@@ -213,6 +216,8 @@ public class LinkdTest {
         @JUnitSnmpAgent(host="10.1.6.2", port=161, resource="classpath:linkd/cisco3600.properties")
     })
     public void testFakeCiscoNetwork() throws Exception {
+        m_linkd.getLinkdConfig().getConfiguration().setForceIpRouteDiscoveryOnEthernet(true);
+
         final OnmsNode laptop = m_nodeDao.findByForeignId("linkd", "laptop");
         final OnmsNode cisco7200a = m_nodeDao.findByForeignId("linkd", "cisco7200a");
         final OnmsNode cisco7200b = m_nodeDao.findByForeignId("linkd", "cisco7200b");

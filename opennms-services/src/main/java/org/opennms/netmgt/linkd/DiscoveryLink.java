@@ -230,7 +230,7 @@ public final class DiscoveryLink implements ReadyRunnable {
 			//now perform operation to complete
 			if (enableDownloadDiscovery) {
 			    LogUtils.infof(this, "run: get further unknown mac address snmp bridge table info");
-				snmpParseBridgeNodes();
+			    snmpParseBridgeNodes();
 			} else {
 			    LogUtils.infof(this, "run: skipping get further unknown mac address snmp bridge table info");
 			}
@@ -574,7 +574,7 @@ public final class DiscoveryLink implements ReadyRunnable {
 				LogUtils.debugf(this, "run: parsing router nodeid %d ip address %s", curNodeId, curIpAddr);
 
 				final List<RouterInterface> routeInterfaces = curNode.getRouteInterfaces();
-                LogUtils.debugf(this, "run: parsing %d Route Interface.", routeInterfaces.size());
+                LogUtils.debugf(this, "run: parsing %d route interfaces.", routeInterfaces.size());
                 
                 for (final RouterInterface routeIface : routeInterfaces) {
 					LogUtils.debugf(this, "run: parsing RouterInterface: " + routeIface.toString());
@@ -589,7 +589,7 @@ public final class DiscoveryLink implements ReadyRunnable {
 					} else {
 					    final int snmpiftype = routeIface.getSnmpiftype();
 						LogUtils.infof(this, "run: force ip route discovery getting SnmpIfType: " + snmpiftype);
-						
+
 						if (snmpiftype == SNMP_IF_TYPE_ETHERNET) {
 						    LogUtils.infof(this, "run: Ethernet interface for nodeid. Skipping ");
 							continue;
