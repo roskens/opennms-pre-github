@@ -392,25 +392,13 @@
       						<artifactId>gmaven-plugin</artifactId>
       						<versionRange>[1.0,)</versionRange>
       						<goals>
+      							<goal>compile</goal>
+      							<goal>testCompile</goal>
       							<goal>execute</goal>
       						</goals>
       					</pluginExecutionFilter>
       					<action>
-      						<ignore />
-      					</action>
-      				</pluginExecution>
-      				<pluginExecution>
-      					<pluginExecutionFilter>
-      						<groupId>org.codehaus.groovy.maven</groupId>
-      						<artifactId>gmaven-plugin</artifactId>
-      						<versionRange>[1.0,)</versionRange>
-      						<goals>
-      							<goal>compile</goal>
-      							<goal>testCompile</goal>
-      						</goals>
-      					</pluginExecutionFilter>
-      					<action>
-      						<execute />
+      						<execute/>
       					</action>
       				</pluginExecution>
       				<pluginExecution>
@@ -427,7 +415,7 @@
       						</goals>
       					</pluginExecutionFilter>
       					<action>
-      						<ignore></ignore>
+      						<execute/>
       					</action>
       				</pluginExecution>
       				<pluginExecution>
@@ -444,7 +432,7 @@
       						</goals>
       					</pluginExecutionFilter>
       					<action>
-      						<ignore></ignore>
+      						<execute/>
       					</action>
       				</pluginExecution>
       				<pluginExecution>
@@ -461,7 +449,24 @@
       						</goals>
       					</pluginExecutionFilter>
       					<action>
-      						<ignore></ignore>
+      						<execute/>
+      					</action>
+      				</pluginExecution>
+      				<pluginExecution>
+      					<pluginExecutionFilter>
+      						<groupId>org.opennms.core.build</groupId>
+      						<artifactId>
+      							castor-maven-plugin
+      						</artifactId>
+      						<versionRange>
+      							[1.11.0-SNAPSHOT,)
+      						</versionRange>
+      						<goals>
+      							<goal>generate</goal>
+      						</goals>
+      					</pluginExecutionFilter>
+      					<action>
+      						<execute/>
       					</action>
       				</pluginExecution>
       			</pluginExecutions>
