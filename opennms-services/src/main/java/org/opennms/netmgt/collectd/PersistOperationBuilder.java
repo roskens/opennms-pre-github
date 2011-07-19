@@ -145,8 +145,8 @@ public class PersistOperationBuilder {
             return;
         }
         
-        RrdUtils.createRRD(m_resource.getOwnerName(), getResourceDir(m_resource).getAbsolutePath(), m_rrdName, getRepository().getStep(), getDataSources(), getRepository().getRraList());
-        RrdUtils.updateRRD(m_resource.getOwnerName(), getResourceDir(m_resource).getAbsolutePath(), m_rrdName, m_timeKeeper.getCurrentTime(), getValues());
+        RrdUtils.createRRD(getResourceDir(m_resource).getAbsolutePath(), m_rrdName, getRepository().getStep(), getDataSources(), getRepository().getRraList());
+        RrdUtils.updateRRD(getResourceDir(m_resource).getAbsolutePath(), m_rrdName, m_timeKeeper.getCurrentTime(), getValues());
     }
 
     private String getValues() {

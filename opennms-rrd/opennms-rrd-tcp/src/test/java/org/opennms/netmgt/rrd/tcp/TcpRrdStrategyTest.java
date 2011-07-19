@@ -192,16 +192,16 @@ public class TcpRrdStrategyTest {
 
         Object openedFile = m_strategy.openFile(rrdFile.getAbsolutePath());
         long currentTimeInSeconds = (long)(new Date().getTime() / 100);
-        m_strategy.updateFile(openedFile, "huh?", String.valueOf(currentTimeInSeconds - 9) + ":1.234234");
-        m_strategy.updateFile(openedFile, "oh  ", String.valueOf(currentTimeInSeconds - 8) + ":1.234234");
-        m_strategy.updateFile(openedFile, "ok  ", String.valueOf(currentTimeInSeconds - 7) + ":1.234234");
+        m_strategy.updateFile(openedFile, String.valueOf(currentTimeInSeconds - 9) + ":1.234234");
+        m_strategy.updateFile(openedFile, String.valueOf(currentTimeInSeconds - 8) + ":1.234234");
+        m_strategy.updateFile(openedFile, String.valueOf(currentTimeInSeconds - 7) + ":1.234234");
         // Sleep in between updates so that we don't underrun the 1-second step size
         Thread.sleep(5000);
         currentTimeInSeconds = (long)(new Date().getTime() / 100);
-        m_strategy.updateFile(openedFile, "lol ", String.valueOf(currentTimeInSeconds - 6) + ":1.234234");
-        m_strategy.updateFile(openedFile, "lolz", String.valueOf(currentTimeInSeconds - 5) + ":1.234234");
-        m_strategy.updateFile(openedFile, "lolz", String.valueOf(currentTimeInSeconds - 4) + ":1.234234");
-        m_strategy.updateFile(openedFile, "zzzz", String.valueOf(currentTimeInSeconds - 3) + ":1.234234");
+        m_strategy.updateFile(openedFile, String.valueOf(currentTimeInSeconds - 6) + ":1.234234");
+        m_strategy.updateFile(openedFile, String.valueOf(currentTimeInSeconds - 5) + ":1.234234");
+        m_strategy.updateFile(openedFile, String.valueOf(currentTimeInSeconds - 4) + ":1.234234");
+        m_strategy.updateFile(openedFile, String.valueOf(currentTimeInSeconds - 3) + ":1.234234");
         m_strategy.closeFile(openedFile);
         Thread.sleep(1000);
     }
@@ -226,7 +226,7 @@ public class TcpRrdStrategyTest {
         // Create an '/rrd/snmp/1' directory in the temp directory so that the
         // RRDs created by the test will have a realistic path
         File rrdDir = m_fileAnticipator.tempDir(m_fileAnticipator.tempDir(m_fileAnticipator.tempDir(tempDir, "rrd"), "snmp"), "1");
-        Object def = m_strategy.createDefinition("hello!", rrdDir.getAbsolutePath(), rrdFileBase, 300, dataSources, rraList);
+        Object def = m_strategy.createDefinition(rrdDir.getAbsolutePath(), rrdFileBase, 300, dataSources, rraList);
         m_strategy.createFile(def);
 
         return m_fileAnticipator.expecting(rrdDir, rrdFileBase + rrdExtension);

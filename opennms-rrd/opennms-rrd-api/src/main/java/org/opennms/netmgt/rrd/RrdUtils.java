@@ -136,7 +136,6 @@ public abstract class RrdUtils {
     /**
      * <p>createRRD</p>
      *
-     * @param creator a {@link java.lang.String} object.
      * @param directory a {@link java.lang.String} object.
      * @param rrdName a {@link java.lang.String} object.
      * @param step a int.
@@ -145,7 +144,7 @@ public abstract class RrdUtils {
      * @return a boolean.
      * @throws org.opennms.netmgt.rrd.RrdException if any.
      */
-    public static boolean createRRD(String creator, String directory, String rrdName, int step, List<RrdDataSource> dataSources, List<String> rraList) throws RrdException {
+    public static boolean createRRD(String directory, String rrdName, int step, List<RrdDataSource> dataSources, List<String> rraList) throws RrdException {
         String fileName = rrdName + getExtension();
 
         String completePath = directory + File.separator + fileName;
@@ -153,7 +152,7 @@ public abstract class RrdUtils {
         log().info("createRRD: creating RRD file " + completePath);
 
         try {
-            Object def = getStrategy().createDefinition(creator, directory, rrdName, step, dataSources, rraList);
+            Object def = getStrategy().createDefinition(directory, rrdName, step, dataSources, rraList);
             getStrategy().createFile(def);
             return true;
         } catch (Throwable e) {
@@ -181,7 +180,7 @@ public abstract class RrdUtils {
      *            a colon separated list of values representing the updates for datasources for this rrd
      * @throws org.opennms.netmgt.rrd.RrdException if any.
      */
-    public static void updateRRD(String owner, String repositoryDir, String rrdName, long timestamp, String val) throws RrdException {
+    public static void updateRRD(String repositoryDir, String rrdName, long timestamp, String val) throws RrdException {
         // Issue the RRD update
         String rrdFile = repositoryDir + File.separator + rrdName + getExtension();
         long time = (timestamp + 500L) / 1000L;
@@ -193,7 +192,7 @@ public abstract class RrdUtils {
         Object rrd = null;
         try {
             rrd = getStrategy().openFile(rrdFile);
-            getStrategy().updateFile(rrd, owner, updateVal);
+            getStrategy().updateFile(rrd, updateVal);
         } catch (Throwable e) {
             log().error("updateRRD: Error updating RRD file " + rrdFile + " with values '" + updateVal + "': " + e, e);
             throw new org.opennms.netmgt.rrd.RrdException("Error updating RRD file " + rrdFile + " with values '" + updateVal + "': " + e, e);

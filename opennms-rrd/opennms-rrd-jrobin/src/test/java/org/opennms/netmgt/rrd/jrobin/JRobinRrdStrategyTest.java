@@ -167,7 +167,7 @@ public class JRobinRrdStrategyTest {
         File rrdFile = createRrdFile();
         
         RrdDb openedFile = m_strategy.openFile(rrdFile.getAbsolutePath());
-        m_strategy.updateFile(openedFile, "huh?", "N:1.234234");
+        m_strategy.updateFile(openedFile, "N:1.234234");
         m_strategy.closeFile(openedFile);
     }
 
@@ -200,11 +200,11 @@ public class JRobinRrdStrategyTest {
         int startTime = endTime - (200 * 300);
         
         // Got to throw away the first sample
-        m_strategy.updateFile(openedFile, "huh?", (startTime - 300) + ":" + "0.0");
+        m_strategy.updateFile(openedFile, (startTime - 300) + ":" + "0.0");
 
         int sampleTime = startTime;
         for (double val : vals) {
-            m_strategy.updateFile(openedFile, "huh?", sampleTime + ":" + val);
+            m_strategy.updateFile(openedFile, sampleTime + ":" + val);
             sampleTime += 300;
         }
         m_strategy.closeFile(openedFile);
@@ -491,7 +491,7 @@ public class JRobinRrdStrategyTest {
         dataSources.add(new RrdDataSource("bar", "GAUGE", 3000, "U", "U"));
         List<String> rraList = new ArrayList<String>();
         rraList.add("RRA:AVERAGE:0.5:1:2016");
-        RrdDef def = m_strategy.createDefinition("hello!", m_fileAnticipator.getTempDir().getAbsolutePath(), rrdFileBase, 300, dataSources, rraList);
+        RrdDef def = m_strategy.createDefinition(m_fileAnticipator.getTempDir().getAbsolutePath(), rrdFileBase, 300, dataSources, rraList);
         m_strategy.createFile(def);
         
         return m_fileAnticipator.expecting(rrdFileBase + rrdExtension);

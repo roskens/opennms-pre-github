@@ -62,9 +62,6 @@ public interface RrdStrategy<D extends Object,F extends Object> {
      * Create a round robin database definition from the supplied parameters.
      * This definition is used in the createFile call to create the actual file.
      *
-     * @param creator -
-     *            A string representing who is creating this file for use in log
-     *            msgs
      * @param directory -
      *            The directory to create the file in
      * @param rrdName -
@@ -79,7 +76,7 @@ public interface RrdStrategy<D extends Object,F extends Object> {
      * @throws java.lang.Exception
      *             If an error occurs while creating the definition
      */
-    public D createDefinition(String creator, String directory, String rrdName, int step, List<RrdDataSource> dataSources, List<String> rraList) throws Exception;
+    public D createDefinition(String directory, String rrdName, int step, List<RrdDataSource> dataSources, List<String> rraList) throws Exception;
 
     /**
      * Creates the round robin database defined by the supplied definition.
@@ -112,14 +109,12 @@ public interface RrdStrategy<D extends Object,F extends Object> {
      *
      * @param rrd
      *            an rrd object created using openFile
-     * @param owner
-     *            the owner of the rrd
      * @param data
      *            a string of the form <timestamp>: <datavalue>
      * @throws java.lang.Exception
      *             if an error occurs updating the file
      */
-    public void updateFile(F rrd, String owner, String data) throws Exception;
+    public void updateFile(F rrd, String data) throws Exception;
 
     /**
      * This closes the supplied round robin database

@@ -52,8 +52,7 @@ public class NullRrdStrategy implements RrdStrategy<Object,Object> {
 	public void closeFile(Object rrd) throws Exception {
 	}
 
-	public Object createDefinition(String creator, String directory,
-			String rrdName, int step, List<RrdDataSource> dataSources, List<String> rraList)
+	public Object createDefinition(String directory, String rrdName, int step, List<RrdDataSource> dataSources, List<String> rraList)
 			throws Exception {
 		return null;
 	}
@@ -95,7 +94,7 @@ public class NullRrdStrategy implements RrdStrategy<Object,Object> {
 		return null;
 	}
 
-	public void updateFile(Object rrd, String owner, String data)
+	public void updateFile(Object rrd, String data)
 			throws Exception {
 	}
 

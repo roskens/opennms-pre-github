@@ -70,12 +70,11 @@ public class RrdOutputSocket {
      * @param owner a {@link java.lang.String} object.
      * @param data a {@link java.lang.String} object.
      */
-    public void addData(String filename, String owner, String data) {
+    public void addData(String filename, String data) {
         Long timestamp = parseRrdTimestamp(data);
         List<Double> values = parseRrdValues(data);
         m_messages.addMessage(PerformanceDataReading.newBuilder()
                 .setPath(filename)
-                .setOwner(owner)
                 .setTimestamp(timestamp).
                 addAllValue(values)
         );

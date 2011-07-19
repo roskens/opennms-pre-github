@@ -144,7 +144,7 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
     }
 
     /** {@inheritDoc} */
-    public RrdDef createDefinition(final String creator, final String directory, final String rrdName, int step, final List<RrdDataSource> dataSources, final List<String> rraList) throws Exception {
+    public RrdDef createDefinition(final String directory, final String rrdName, int step, final List<RrdDataSource> dataSources, final List<String> rraList) throws Exception {
         File f = new File(directory);
         f.mkdirs();
 
@@ -208,7 +208,7 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
      *
      * Creates a sample from the JRobin RrdDb and passes in the data provided.
      */
-    public void updateFile(final RrdDb rrdFile, final String owner, final String data) throws Exception {
+    public void updateFile(final RrdDb rrdFile, final String data) throws Exception {
         Sample sample = rrdFile.createSample();
         sample.setAndUpdate(data);
     }

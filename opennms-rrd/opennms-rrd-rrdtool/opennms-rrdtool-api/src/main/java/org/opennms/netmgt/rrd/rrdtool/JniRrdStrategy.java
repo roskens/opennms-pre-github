@@ -101,7 +101,7 @@ public class JniRrdStrategy implements RrdStrategy<String,StringBuffer> {
     }
 
     /** {@inheritDoc} */
-    public String createDefinition(String creator, String directory, String rrdName, int step, List<RrdDataSource> dataSources, List<String> rraList) throws Exception {
+    public String createDefinition(String directory, String rrdName, int step, List<RrdDataSource> dataSources, List<String> rraList) throws Exception {
         File f = new File(directory);
         f.mkdirs();
 
@@ -172,7 +172,7 @@ public class JniRrdStrategy implements RrdStrategy<String,StringBuffer> {
      * possibility of getting performance benefit by doing more than one write
      * per open. The updates are all performed at once in the closeFile method.
      */
-    public void updateFile(StringBuffer rrd, String owner, String data) throws Exception {
+    public void updateFile(StringBuffer rrd, String data) throws Exception {
         rrd.append(' ');
         rrd.append(data);
     }

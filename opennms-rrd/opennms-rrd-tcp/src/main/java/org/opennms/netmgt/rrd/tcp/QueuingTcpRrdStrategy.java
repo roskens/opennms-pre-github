@@ -61,18 +61,13 @@ public class QueuingTcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefi
 
     private static class PerformanceDataReading {
         private String m_filename;
-        private String m_owner;
         private String m_data;
-        public PerformanceDataReading(String filename, String owner, String data) {
+        public PerformanceDataReading(String filename, String data) {
             m_filename = filename;
-            m_owner = owner;
             m_data = data;
         }
         public String getFilename() {
             return m_filename;
-        }
-        public String getOwner() {
-            return m_owner;
         }
         public String getData() {
             return m_data;
@@ -95,7 +90,7 @@ public class QueuingTcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefi
                     if (m_myQueue.drainTo(sendMe) > 0) {
                         RrdOutputSocket socket = new RrdOutputSocket(m_strategy.getHost(), m_strategy.getPort());
                         for (PerformanceDataReading reading : sendMe) {
-                            socket.addData(reading.getFilename(), reading.getOwner(), reading.getData());
+                            socket.addData(reading.getFilename(), reading.getData());
                         }
                         socket.writeData();
                     } else {
@@ -136,7 +131,7 @@ public class QueuingTcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefi
     }
 
     /** {@inheritDoc} */
-    public TcpRrdStrategy.RrdDefinition createDefinition(String creator, String directory, String rrdName, int step, List<RrdDataSource> dataSources, List<String> rraList) throws Exception {
+    public TcpRrdStrategy.RrdDefinition createDefinition(String directory, String rrdName, int step, List<RrdDataSource> dataSources, List<String> rraList) throws Exception {
         return new TcpRrdStrategy.RrdDefinition(directory, rrdName);
     }
 
@@ -156,8 +151,8 @@ public class QueuingTcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefi
     }
 
     /** {@inheritDoc} */
-    public void updateFile(String fileName, String owner, String data) throws Exception {
-        if (m_queue.offer(new PerformanceDataReading(fileName, owner, data), 500, TimeUnit.MILLISECONDS)) {
+    public void updateFile(String fileName, String data) throws Exception {
+        if (m_queue.offer(new PerformanceDataReading(fileName, data), 500, TimeUnit.MILLISECONDS)) {
             if (m_skippedReadings > 0) {
                 ThreadCategory.getInstance().warn("Skipped " + m_skippedReadings + " performance data message(s) because of queue overflow");
                 m_skippedReadings = 0;

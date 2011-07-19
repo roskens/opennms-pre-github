@@ -1102,9 +1102,9 @@ abstract public class PollerConfigManager implements PollerConfig {
             try {
                 final File rrdFile = new File(rrdDir, dsName);
                 if (!rrdFile.exists()) {
-                    RrdUtils.createRRD(locationMonitor, rrdDir, dsName, getStep(pkg), Collections.singletonList(new RrdDataSource(dsName, "GAUGE", 600, "U", "U")), getRRAList(pkg));
+                    RrdUtils.createRRD(rrdDir, dsName, getStep(pkg), Collections.singletonList(new RrdDataSource(dsName, "GAUGE", 600, "U", "U")), getRRAList(pkg));
                 }
-                RrdUtils.updateRRD(locationMonitor, rrdDir, dsName, System.currentTimeMillis(), String.valueOf(responseTime));
+                RrdUtils.updateRRD(rrdDir, dsName, System.currentTimeMillis(), String.valueOf(responseTime));
             } catch (final RrdException e) {
                 throw new PermissionDeniedDataAccessException("Unable to store rrdData from "+locationMonitor+" for service "+monSvc, e);
             }

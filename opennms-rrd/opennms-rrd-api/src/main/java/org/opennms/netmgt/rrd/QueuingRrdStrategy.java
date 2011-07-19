@@ -505,7 +505,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Operat
 
             try {
                 // process the update
-                m_delegate.updateFile(rrd, "", update);
+                m_delegate.updateFile(rrd, update);
             } catch (final Throwable e) {
                 final String error = String.format("Error processing update for file %s: %s", getFileName(), update);
                 if (log().isDebugEnabled()) {
@@ -554,7 +554,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Operat
                 String update = ts + ":0";
                 try {
                     // process the update
-                    m_delegate.updateFile(rrd, "", update);
+                    m_delegate.updateFile(rrd, update);
                 } catch (Throwable e) {
                     throw new Exception("Error processing update " + i + " for file " + getFileName() + ": " + update, e);
                 }
@@ -646,11 +646,10 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Operat
      * <p>makeUpdateOperation</p>
      *
      * @param fileName a {@link java.lang.String} object.
-     * @param owner a {@link java.lang.String} object.
      * @param update a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.rrd.QueuingRrdStrategy.Operation} object.
      */
-    public Operation makeUpdateOperation(String fileName, String owner, String update) {
+    public Operation makeUpdateOperation(String fileName, String update) {
         try {
             int colon = update.indexOf(':');
             if ((colon >= 0) && (Double.parseDouble(update.substring(colon + 1)) == 0.0)) {
@@ -971,7 +970,6 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Operat
     /**
      * <p>createDefinition</p>
      *
-     * @param creator a {@link java.lang.String} object.
      * @param directory a {@link java.lang.String} object.
      * @param dsName a {@link java.lang.String} object.
      * @param step a int.
@@ -983,14 +981,14 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Operat
      * @return a {@link org.opennms.netmgt.rrd.QueuingRrdStrategy.Operation} object.
      * @throws java.lang.Exception if any.
      */
-    public Operation createDefinition(String creator, String directory, String dsName, int step, String dsType, int dsHeartbeat, String dsMin, String dsMax, List<String> rraList) throws Exception {
-        return createDefinition(creator, directory, dsName, step, Collections.singletonList(new RrdDataSource(dsName, dsType, dsHeartbeat, dsMin, dsMax)), rraList);
+    public Operation createDefinition(String directory, String dsName, int step, String dsType, int dsHeartbeat, String dsMin, String dsMax, List<String> rraList) throws Exception {
+        return createDefinition(directory, dsName, step, Collections.singletonList(new RrdDataSource(dsName, dsType, dsHeartbeat, dsMin, dsMax)), rraList);
     }
     
     /** {@inheritDoc} */
-    public Operation createDefinition(String creator, String directory, String rrdName, int step, List<RrdDataSource> dataSources, List<String> rraList) throws Exception {
+    public Operation createDefinition(String directory, String rrdName, int step, List<RrdDataSource> dataSources, List<String> rraList) throws Exception {
         String fileName = directory + File.separator + rrdName + RrdUtils.getExtension();
-        Object def = m_delegate.createDefinition(creator, directory, rrdName, step, dataSources, rraList);
+        Object def = m_delegate.createDefinition(directory, rrdName, step, dataSources, rraList);
         return makeCreateOperation(fileName, def);
     }
 
@@ -1027,11 +1025,11 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Operat
     /*
      * (non-Javadoc)
      * 
-     * @see RrdStrategy#updateFile(java.lang.Object, java.lang.String, java.lang.String)
+     * @see RrdStrategy#updateFile(java.lang.Object, java.lang.String)
      */
     /** {@inheritDoc} */
-    public void updateFile(String rrdFile, String owner, String data) throws Exception {
-        addOperation(makeUpdateOperation((String) rrdFile, owner, data));
+    public void updateFile(String rrdFile, String data) throws Exception {
+        addOperation(makeUpdateOperation((String) rrdFile, data));
     }
 
     /** {@inheritDoc} */

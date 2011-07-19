@@ -283,7 +283,7 @@ public class RrdStresser {
             dsName = dsName.substring(0, dsName.length() - EXTENSION.length());
         }
         RrdDataSource rrdDataSource = new RrdDataSource(dsName, "GAUGE", 600, "U", "U");
-		return rrd.createDefinition("stressTest", dir, dsName, 300, Collections.singletonList(rrdDataSource), Arrays.asList(rraList));
+		return rrd.createDefinition(dir, dsName, 300, Collections.singletonList(rrdDataSource), Arrays.asList(rraList));
     }
 
     private static void rrdCreateFile(Object rrdDef) throws Exception {
@@ -303,7 +303,7 @@ public class RrdStresser {
     }
 
     private static void rrdUpdateFile(Object rrdFile, String data) throws Exception {
-        rrd.updateFile(rrdFile, "stressTest", data);
+        rrd.updateFile(rrdFile, data);
 
     }
 

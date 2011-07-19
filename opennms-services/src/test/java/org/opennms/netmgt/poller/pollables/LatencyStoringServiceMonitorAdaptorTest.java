@@ -112,10 +112,10 @@ public class LatencyStoringServiceMonitorAdaptorTest {
         expect(m_pollerConfig.getRRAList(isA(Package.class))).andReturn(new ArrayList<String>(0));
         
         expect(m_rrdStrategy.getDefaultFileExtension()).andReturn(".rrd").anyTimes();
-        expect(m_rrdStrategy.createDefinition(isA(String.class), isA(String.class), isA(String.class), anyInt(), isAList(RrdDataSource.class), isAList(String.class))).andReturn(new Object());
+        expect(m_rrdStrategy.createDefinition(isA(String.class), isA(String.class), anyInt(), isAList(RrdDataSource.class), isAList(String.class))).andReturn(new Object());
         m_rrdStrategy.createFile(isA(Object.class));
         expect(m_rrdStrategy.openFile(isA(String.class))).andReturn(new Object());
-        m_rrdStrategy.updateFile(isA(Object.class), isA(String.class), endsWith(":1.5"));
+        m_rrdStrategy.updateFile(isA(Object.class), endsWith(":1.5"));
         m_rrdStrategy.closeFile(isA(Object.class));
         
         m_mocks.replayAll();
@@ -159,10 +159,10 @@ public class LatencyStoringServiceMonitorAdaptorTest {
         expect(m_pollerConfig.getStep(pkg)).andReturn(step).anyTimes();
         
         expect(m_rrdStrategy.getDefaultFileExtension()).andReturn(".rrd").anyTimes();
-        expect(m_rrdStrategy.createDefinition(isA(String.class), isA(String.class), isA(String.class), anyInt(), isAList(RrdDataSource.class), isAList(String.class))).andReturn(new Object());
+        expect(m_rrdStrategy.createDefinition(isA(String.class), isA(String.class), anyInt(), isAList(RrdDataSource.class), isAList(String.class))).andReturn(new Object());
         m_rrdStrategy.createFile(isA(Object.class));
         expect(m_rrdStrategy.openFile(isA(String.class))).andReturn(new Object());
-        m_rrdStrategy.updateFile(isA(Object.class), isA(String.class), endsWith(":100"));
+        m_rrdStrategy.updateFile(isA(Object.class), endsWith(":100"));
         m_rrdStrategy.closeFile(isA(Object.class));
 
         EventAnticipator anticipator = new EventAnticipator();

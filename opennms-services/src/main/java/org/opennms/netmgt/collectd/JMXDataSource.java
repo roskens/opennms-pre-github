@@ -444,8 +444,8 @@ public class JMXDataSource implements Cloneable {
 	        List<String> rraList = DataCollectionConfigFactory.getInstance().getRRAList(collectionName);
 		boolean result=false;
 		try {
-			RrdUtils.createRRD(owner, repository.getAbsolutePath(), getName(), step, Collections.singletonList(new RrdDataSource(getName(), getType(), getHeartbeat(), getMin(), getMax())), rraList);
-			RrdUtils.updateRRD(owner, repository.getAbsolutePath(), getName(), System.currentTimeMillis(), val);
+			RrdUtils.createRRD(repository.getAbsolutePath(), getName(), step, Collections.singletonList(new RrdDataSource(getName(), getType(), getHeartbeat(), getMin(), getMax())), rraList);
+			RrdUtils.updateRRD(repository.getAbsolutePath(), getName(), System.currentTimeMillis(), val);
 		} catch (RrdException e) {
 			result=true;
 		}

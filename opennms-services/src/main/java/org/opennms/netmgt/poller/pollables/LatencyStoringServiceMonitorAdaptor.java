@@ -230,7 +230,7 @@ public class LatencyStoringServiceMonitorAdaptor implements ServiceMonitor {
                     value.append(":");
                 }
             }
-            RrdUtils.updateRRD(hostAddress, path, rrdBaseName, System.currentTimeMillis(), value.toString());
+            RrdUtils.updateRRD(path, rrdBaseName, System.currentTimeMillis(), value.toString());
 
         } catch (RrdException e) {
             if (log().isEnabledFor(ThreadCategory.Level.ERROR)) {
@@ -280,7 +280,7 @@ public class LatencyStoringServiceMonitorAdaptor implements ServiceMonitor {
         final String hostAddress = InetAddressUtils.str(addr);
 		String path = repository + File.separator + hostAddress;
 
-        return RrdUtils.createRRD(hostAddress, path, rrdBaseName, m_pollerConfig.getStep(m_pkg), dsList, rraList);
+        return RrdUtils.createRRD(path, rrdBaseName, m_pollerConfig.getStep(m_pkg), dsList, rraList);
 
     }
 

@@ -135,7 +135,7 @@ public class TcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefinition,
     }
 
     /** {@inheritDoc} */
-    public RrdDefinition createDefinition(String creator, String directory, String rrdName, int step, List<RrdDataSource> dataSources, List<String> rraList) throws Exception {
+    public RrdDefinition createDefinition(String directory, String rrdName, int step, List<RrdDataSource> dataSources, List<String> rraList) throws Exception {
         return new RrdDefinition(directory, rrdName);
     }
 
@@ -155,8 +155,8 @@ public class TcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefinition,
     }
 
     /** {@inheritDoc} */
-    public void updateFile(RrdOutputSocketWithFilename rrd, String owner, String data) throws Exception {
-        rrd.getSocket().addData(rrd.getFilename(), owner, data);
+    public void updateFile(RrdOutputSocketWithFilename rrd, String data) throws Exception {
+        rrd.getSocket().addData(rrd.getFilename(), data);
     }
 
     /**

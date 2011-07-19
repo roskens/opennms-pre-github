@@ -121,12 +121,12 @@ public class MultiOutputRrdStrategy implements RrdStrategy<List<Object>,List<Obj
     }
 
     /** {@inheritDoc} */
-    public List<Object> createDefinition(String creator, String directory, String rrdName,
+    public List<Object> createDefinition(String directory, String rrdName,
             int step, List<RrdDataSource> dataSources, List<String> rraList)
             throws Exception {
         List<Object> retval = new ArrayList<Object>();
         for (RrdStrategy<Object, Object> strategy : m_strategies) {
-            retval.add(strategy.createDefinition(creator, directory, rrdName, step, dataSources, rraList));
+            retval.add(strategy.createDefinition(directory, rrdName, step, dataSources, rraList));
         }
         return retval;
     }
@@ -241,9 +241,9 @@ public class MultiOutputRrdStrategy implements RrdStrategy<List<Object>,List<Obj
     }
 
     /** {@inheritDoc} */
-    public void updateFile(List<Object> rrd, String owner, String data) throws Exception {
+    public void updateFile(List<Object> rrd, String data) throws Exception {
         for (int i = 0; i < rrd.size(); i++) {
-            m_strategies.get(i).updateFile(rrd.get(i), owner, data);
+            m_strategies.get(i).updateFile(rrd.get(i), data);
         }
     }
 }

@@ -100,10 +100,10 @@ public class SnmpAttributeTest extends TestCase {
         expect(m_ipInterfaceDao.load(1)).andReturn(ipInterface).times(3);
 
         expect(m_rrdStrategy.getDefaultFileExtension()).andReturn(".myLittleEasyMockedStrategyAndMe").anyTimes();
-        expect(m_rrdStrategy.createDefinition(isA(String.class), isA(String.class), isA(String.class), anyInt(), isAList(RrdDataSource.class), isAList(String.class))).andReturn(new Object());
+        expect(m_rrdStrategy.createDefinition(isA(String.class), isA(String.class), anyInt(), isAList(RrdDataSource.class), isAList(String.class))).andReturn(new Object());
         m_rrdStrategy.createFile(isA(Object.class));
         expect(m_rrdStrategy.openFile(isA(String.class))).andReturn(new Object());
-        m_rrdStrategy.updateFile(isA(Object.class), isA(String.class), matches(".*:" + matchValue));
+        m_rrdStrategy.updateFile(isA(Object.class), matches(".*:" + matchValue));
         m_rrdStrategy.closeFile(isA(Object.class));
         
         m_mocks.replayAll();
