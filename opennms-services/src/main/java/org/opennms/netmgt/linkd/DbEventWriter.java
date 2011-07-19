@@ -792,7 +792,7 @@ public class DbEventWriter extends AbstractQueryManager {
     
             }
     
-            LogUtils.debugf(this, "getNodesInfo: found " + linknodes.size() + " snmp primary ip nodes");
+            LogUtils.debugf(this, "getNodesInfo: found " + linknodes.size() + " SNMP primary IP nodes");
     
             return linknodes;
         } finally {
