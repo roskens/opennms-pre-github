@@ -28,11 +28,13 @@
 
 package org.opennms.netmgt.collectd;
 import java.io.File;
+import java.util.Collections;
 import java.util.List;
 
 import org.opennms.core.utils.ThreadCategory;
 import org.opennms.netmgt.config.DataCollectionConfigFactory;
 import org.opennms.netmgt.config.MibObject;
+import org.opennms.netmgt.rrd.RrdDataSource;
 import org.opennms.netmgt.rrd.RrdException;
 import org.opennms.netmgt.rrd.RrdUtils;
 import org.opennms.netmgt.snmp.SnmpValue;
@@ -442,9 +444,8 @@ public class JMXDataSource implements Cloneable {
 	        List<String> rraList = DataCollectionConfigFactory.getInstance().getRRAList(collectionName);
 		boolean result=false;
 		try {
-		        RrdUtils.createRRD(owner, repository.getAbsolutePath(), getName(), step, getType(), getHeartbeat(), getMin(), getMax(), rraList);
-	
-			RrdUtils.updateRRD(owner, repository.getAbsolutePath(), getName(), val);
+			RrdUtils.createRRD(owner, repository.getAbsolutePath(), getName(), step, Collections.singletonList(new RrdDataSource(getName(), getType(), getHeartbeat(), getMin(), getMax())), rraList);
+			RrdUtils.updateRRD(owner, repository.getAbsolutePath(), getName(), System.currentTimeMillis(), val);
 		} catch (RrdException e) {
 			result=true;
 		}

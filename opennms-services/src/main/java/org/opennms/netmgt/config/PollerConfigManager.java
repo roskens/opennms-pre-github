@@ -77,6 +77,7 @@ import org.opennms.netmgt.poller.DistributionContext;
 import org.opennms.netmgt.poller.ServiceMonitor;
 import org.opennms.netmgt.poller.ServiceMonitorLocator;
 import org.opennms.netmgt.rrd.RrdException;
+import org.opennms.netmgt.rrd.RrdDataSource;
 import org.opennms.netmgt.rrd.RrdUtils;
 import org.springframework.dao.PermissionDeniedDataAccessException;
 
@@ -1101,7 +1102,7 @@ abstract public class PollerConfigManager implements PollerConfig {
             try {
                 final File rrdFile = new File(rrdDir, dsName);
                 if (!rrdFile.exists()) {
-                    RrdUtils.createRRD(locationMonitor, rrdDir, dsName, getStep(pkg), "GAUGE", 600, "U", "U", getRRAList(pkg));
+                    RrdUtils.createRRD(locationMonitor, rrdDir, dsName, getStep(pkg), Collections.singletonList(new RrdDataSource(dsName, "GAUGE", 600, "U", "U")), getRRAList(pkg));
                 }
                 RrdUtils.updateRRD(locationMonitor, rrdDir, dsName, System.currentTimeMillis(), String.valueOf(responseTime));
             } catch (final RrdException e) {

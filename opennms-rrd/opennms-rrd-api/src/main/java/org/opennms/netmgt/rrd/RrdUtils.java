@@ -32,7 +32,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import org.opennms.core.utils.ThreadCategory;
@@ -135,36 +134,6 @@ public abstract class RrdUtils {
     }
 
     /**
-     * Create a round robin database file. See the man page for rrdtool create
-     * for definitions of each of these.
-     *
-     * @param creator -
-     *            A string representing who is creating this file for use in log
-     *            msgs
-     * @param directory -
-     *            The directory to create the file in
-     * @param dsName -
-     *            The datasource name for use in the round robin database
-     * @param step -
-     *            the step for the database
-     * @param dsType -
-     *            the type for the datasource
-     * @param dsHeartbeat -
-     *            the heartbeat for the datasouce
-     * @param dsMin -
-     *            the minimum allowable value for the datasource
-     * @param dsMax -
-     *            the maximum allowable value for the datasouce
-     * @param rraList -
-     *            a List of the round robin archives to create in the database
-     * @return true if the file was actually created, false otherwise
-     * @throws org.opennms.netmgt.rrd.RrdException if any.
-     */
-    public static boolean createRRD(String creator, String directory, String dsName, int step, String dsType, int dsHeartbeat, String dsMin, String dsMax, List<String> rraList) throws RrdException {
-        return createRRD(creator, directory, dsName, step, Collections.singletonList(new RrdDataSource(dsName, dsType, dsHeartbeat, dsMin, dsMax)), rraList);
-    }
-
-    /**
      * <p>createRRD</p>
      *
      * @param creator a {@link java.lang.String} object.
@@ -195,23 +164,6 @@ public abstract class RrdUtils {
 
     private static ThreadCategory log() {
         return ThreadCategory.getInstance(RrdUtils.class);
-    }
-
-    /**
-     * Add datapoints to a round robin database using the current system time as the timestamp for the values
-     *
-     * @param owner
-     *            the owner of the file. This is used in log messages
-     * @param repositoryDir
-     *            the directory the file resides in
-     * @param rrdName
-     *            the name for the rrd file.
-     * @param val
-     *            a colon separated list of values representing the updates for datasources for this rrd
-     * @throws org.opennms.netmgt.rrd.RrdException if any.
-     */
-    public static void updateRRD(String owner, String repositoryDir, String rrdName, String val) throws RrdException {
-        updateRRD(owner, repositoryDir, rrdName, System.currentTimeMillis(), val);
     }
 
     /**

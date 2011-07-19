@@ -230,7 +230,7 @@ public class LatencyStoringServiceMonitorAdaptor implements ServiceMonitor {
                     value.append(":");
                 }
             }
-            RrdUtils.updateRRD(hostAddress, path, rrdBaseName, value.toString());
+            RrdUtils.updateRRD(hostAddress, path, rrdBaseName, System.currentTimeMillis(), value.toString());
 
         } catch (RrdException e) {
             if (log().isEnabledFor(ThreadCategory.Level.ERROR)) {
