@@ -207,6 +207,38 @@ public class LinkdTest {
 
     @Test
     @JUnitSnmpAgents(value={
+        @JUnitSnmpAgent(host="10.1.5.1", port=161, resource="classpath:linkd/cisco1700b.properties"),
+        @JUnitSnmpAgent(host="10.1.5.2", port=161, resource="classpath:linkd/cisco1700.properties")
+    })
+    public void testSimpleConnection() throws Exception {
+        m_nodeDao.delete(m_nodeDao.findByForeignId("linkd", "cisco2691"));
+        m_nodeDao.flush();
+
+        final NetworkBuilder nb = new NetworkBuilder();
+        nb.addNode("cisco1700b").setForeignSource("linkd").setForeignId("cisco1700b").setSysObjectId(".1.3.6.1.4.1.9.1.200").setType("A");
+        nb.addInterface("10.1.5.1").setIsSnmpPrimary("P").setIsManaged("M")
+            .addSnmpInterface(2).setIfType(6).setCollectionEnabled(false).setIfSpeed(100000000).setPhysAddr("c00397a70000");
+        m_nodeDao.save(nb.getCurrentNode());
+        m_nodeDao.flush();
+
+        final OnmsNode cisco1700 = m_nodeDao.findByForeignId("linkd", "cisco1700");
+        final OnmsNode cisco1700b = m_nodeDao.findByForeignId("linkd", "cisco1700b");
+
+        LogUtils.debugf(this, "cisco1700  = %s", cisco1700);
+        LogUtils.debugf(this, "cisco1700b = %s", cisco1700b);
+
+        assertTrue(m_linkd.scheduleNodeCollection(cisco1700.getId()));
+        assertTrue(m_linkd.scheduleNodeCollection(cisco1700b.getId()));
+
+        assertTrue(m_linkd.runSingleCollection(cisco1700.getId()));
+        assertTrue(m_linkd.runSingleCollection(cisco1700b.getId()));
+
+        final List<DataLinkInterface> ifaces = m_dataLinkInterfaceDao.findAll();
+        assertEquals("we should have found 2 data link", 2, ifaces.size());
+    }
+
+    @Test
+    @JUnitSnmpAgents(value={
         @JUnitSnmpAgent(host="10.1.1.1", port=161, resource="classpath:linkd/cisco7200a.properties"),
         @JUnitSnmpAgent(host="10.1.1.2", port=161, resource="classpath:linkd/laptop.properties"),
         @JUnitSnmpAgent(host="10.1.2.2", port=161, resource="classpath:linkd/cisco7200b.properties"),
@@ -216,7 +248,7 @@ public class LinkdTest {
         @JUnitSnmpAgent(host="10.1.6.2", port=161, resource="classpath:linkd/cisco3600.properties")
     })
     public void testFakeCiscoNetwork() throws Exception {
-        m_linkd.getLinkdConfig().getConfiguration().setForceIpRouteDiscoveryOnEthernet(true);
+//        m_linkd.getLinkdConfig().getConfiguration().setForceIpRouteDiscoveryOnEthernet(true);
 
         final OnmsNode laptop = m_nodeDao.findByForeignId("linkd", "laptop");
         final OnmsNode cisco7200a = m_nodeDao.findByForeignId("linkd", "cisco7200a");
@@ -242,7 +274,6 @@ public class LinkdTest {
         assertTrue(m_linkd.runSingleCollection(cisco1700.getId()));
         assertTrue(m_linkd.runSingleCollection(cisco3600.getId()));
 
-//        Thread.sleep(60000);
         final List<DataLinkInterface> ifaces = m_dataLinkInterfaceDao.findAll();
         assertEquals("we should have found 6 data links", 6, ifaces.size());
     }

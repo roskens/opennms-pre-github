@@ -324,7 +324,8 @@ public class SnmpUtils {
 				}
 				final Matcher m = HEX_CHUNK_PATTERN.matcher(trimmed);
 				while (m.find()) {
-					bb.put(Byte.valueOf(m.group(1), 16));
+                    short s = Short.valueOf(m.group(1), 16);
+                    bb.put((byte)(s & 0xFF));
 				}
 			}
 			final byte[] parsed = new byte[bb.position()];

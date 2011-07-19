@@ -166,12 +166,12 @@ public abstract class AbstractQueryManager implements QueryManager {
             at.setSourceNodeId(node.getNodeId());
 
             if (at.getMacAddress() != null && !at.getMacAddress().equals(physAddr)) {
-                LogUtils.warnf(this, "processIpNetToMediaTable: Setting MAC address to %s but it used to be %s (IP Address = %s, ifIndex = %d)", physAddr, at.getMacAddress(), hostAddress, ifindex);
+                LogUtils.warnf(this, "processIpNetToMediaTable: Setting MAC address to %s but it used to be '%s' (IP Address = %s, ifIndex = %d)", physAddr, at.getMacAddress(), hostAddress, ifindex);
             }
             at.setMacAddress(physAddr);
 
             if (at.getIfIndex() != null && !at.getIfIndex().equals(ifindex)) {
-                LogUtils.warnf(this, "processIpNetToMediaTable: Setting ifIndex to %d but it used to be %s (IP Address = %s, MAC = %s)", ifindex, at.getIfIndex(), hostAddress, physAddr);
+                LogUtils.warnf(this, "processIpNetToMediaTable: Setting ifIndex to %d but it used to be '%s' (IP Address = %s, MAC = %s)", ifindex, at.getIfIndex(), hostAddress, physAddr);
             }
             at.setIfIndex(ifindex);
 

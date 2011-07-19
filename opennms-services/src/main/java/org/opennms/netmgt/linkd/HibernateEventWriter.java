@@ -260,33 +260,33 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
 	    for (final MacToNodeLink lkm : discoveryLink.getMacLinks()) {
 	        final Collection<OnmsAtInterface> atInterfaces = m_atInterfaceDao.findByMacAddress(lkm.getMacAddress());
 	        if (atInterfaces.size() == 0) {
-                LogUtils.debugf(this, "storelink: no nodeid found on DB for mac address %s on link. Skipping.", lkm.getMacAddress());
+                LogUtils.debugf(this, "storeDiscoveryLink: No nodeid found on DB for mac address %s on link. Skipping.", lkm.getMacAddress());
                 continue;
 	        }
 	        
 	        if (atInterfaces.size() > 1) {
-	            LogUtils.debugf(this, "More than one atInterface returned for the mac address %s. Returning the first.", lkm.getMacAddress());
+	            LogUtils.debugf(this, "storeDiscoveryLink: More than one atInterface returned for the mac address %s. Returning the first.", lkm.getMacAddress());
 	        }
 
 	        final OnmsAtInterface atInterface = atInterfaces.iterator().next();
 	        
 	        if (!m_linkd.isInterfaceInPackage(atInterface.getIpAddress(), discoveryLink.getPackageName())) {
-	            LogUtils.debugf(this, "storelink: IP address %s not found on link.  Skipping.", atInterface.getIpAddress());
+	            LogUtils.debugf(this, "storeDiscoveryLink: IP address %s not found on link.  Skipping.", atInterface.getIpAddress());
 	            continue;
 	        }
 	        
-	        DataLinkInterface dli = m_dataLinkInterfaceDao.findByNodeIdAndIfIndex(lkm.getNodeparentid(), lkm.getParentifindex());
+	        final OnmsNode atInterfaceNode = atInterface.getNode();
+	        DataLinkInterface dli = m_dataLinkInterfaceDao.findByNodeIdAndIfIndex(atInterfaceNode.getId(), atInterface.getIfIndex());
             if (dli == null) {
-                dli = new DataLinkInterface();
-                dli.setNode(atInterface.getNode());
-                dli.setIfIndex(atInterface.getIfIndex());
-                dli.setNodeParentId(lkm.getNodeparentid());
-                dli.setParentIfIndex(lkm.getParentifindex());
-                dli.setStatus(String.valueOf(DbDataLinkInterfaceEntry.STATUS_ACTIVE));
-                dli.setLastPollTime(now);
-                m_dataLinkInterfaceDao.save(dli);
+                dli = new DataLinkInterface(atInterfaceNode, atInterface.getIfIndex(), lkm.getNodeparentid(), lkm.getParentifindex(), String.valueOf(DbDataLinkInterfaceEntry.STATUS_ACTIVE), now);
             }
-    
+            dli.setNodeParentId(lkm.getNodeparentid());
+            dli.setParentIfIndex(lkm.getParentifindex());
+            dli.setStatus(String.valueOf(DbDataLinkInterfaceEntry.STATUS_ACTIVE));
+            dli.setLastPollTime(now);
+            m_dataLinkInterfaceDao.save(dli);
+
+            LogUtils.debugf(this, "storeDiscoveryLink: Storing %s", dli);
             m_dataLinkInterfaceDao.deactivateIfOlderThan(now);
 	    }
 	}

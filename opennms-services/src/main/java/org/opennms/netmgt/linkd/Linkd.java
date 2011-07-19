@@ -589,7 +589,7 @@ public class Linkd extends AbstractServiceDaemon {
 	 * @param discover
 	 */
 
-	void updateDiscoveryLinkCollection(DiscoveryLink discover) {
+	void updateDiscoveryLinkCollection(final DiscoveryLink discover) {
 
 		try {
 			m_queryMgr.storeDiscoveryLink(discover);
