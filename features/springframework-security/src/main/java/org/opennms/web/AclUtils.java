@@ -37,7 +37,8 @@ import javax.servlet.ServletContext;
 
 import org.opennms.netmgt.dao.NodeDao;
 import org.springframework.context.ApplicationContext;
-import org.springframework.security.util.AuthorityUtils;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
@@ -52,7 +53,11 @@ public class AclUtils {
      */
     public static boolean shouldFilter() {
         return System.getProperty("org.opennms.web.aclsEnabled", "false").equalsIgnoreCase("true") 
-            && !AuthorityUtils.userHasAuthority("ROLE_ADMIN");
+            && !userHasAuthority("ROLE_ADMIN");
+    }
+
+    private static boolean userHasAuthority(String authority) {
+        return SecurityContextHolder.getContext().getAuthentication().getAuthorities().contains(authority);
     }
     
     public static interface NodeAccessChecker {

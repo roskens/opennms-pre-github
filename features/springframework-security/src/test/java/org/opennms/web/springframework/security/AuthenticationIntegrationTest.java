@@ -28,12 +28,19 @@
 
 package org.opennms.web.springframework.security;
 
+import java.util.Arrays;
+import java.util.Collection;
+
 import org.opennms.test.ThrowableAnticipator;
-import org.springframework.security.Authentication;
-import org.springframework.security.BadCredentialsException;
-import org.springframework.security.GrantedAuthority;
-import org.springframework.security.providers.UsernamePasswordAuthenticationToken;
-import org.springframework.security.providers.dao.DaoAuthenticationProvider;
+import org.springframework.security.core.Authentication;
+//import org.springframework.security.BadCredentialsException;
+//import org.springframework.security.GrantedAuthority;
+//import org.springframework.security.providers.UsernamePasswordAuthenticationToken;
+//import org.springframework.security.providers.dao.DaoAuthenticationProvider;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
 
 
@@ -58,31 +65,50 @@ public class AuthenticationIntegrationTest extends AbstractDependencyInjectionSp
 	    Authentication authentication = new UsernamePasswordAuthenticationToken("admin", "admin");
 		Authentication authenticated = m_provider.authenticate(authentication);
 		assertNotNull("authenticated Authentication object not null", authenticated);
-		GrantedAuthority[] authorities = authenticated.getAuthorities();
+		Collection<GrantedAuthority> authorities = authenticated.getAuthorities();
 		assertNotNull("GrantedAuthorities should not be null", authorities);
-		assertEquals("GrantedAuthorities size", 2, authorities.length);
-		assertEquals("GrantedAuthorities zero role", "ROLE_USER", authorities[0].getAuthority());
-		assertEquals("GrantedAuthorities two name", "ROLE_ADMIN", authorities[1].getAuthority());
+		assertEquals("GrantedAuthorities size", 2, authorities.size());
+		
+		boolean foundUser = false;
+		boolean foundAdmin = false;
+		
+		for (GrantedAuthority authority : authorities) {
+			if ("ROLE_USER".equals(authority.getAuthority())) {
+				foundUser = true;
+			} else if ("ROLE_ADMIN".equals(authority.getAuthority())) {
+				foundAdmin = true;
+			} else { 
+				fail("Found an authority other than ROLE_USER or ROLE_ADMIN: '" + authority.getAuthority() + "'");
+			}
+		}
+		
+		if (!foundUser) {
+			fail("Did not find ROLE_USER authority");
+		}
+		
+		if (!foundAdmin) {
+			fail("Did not find ROLE_ADMIN authority");
+		}
 	}
 	
 	public void testAuthenticateRtc() {
 		Authentication authentication = new UsernamePasswordAuthenticationToken("rtc", "rtc");
 		Authentication authenticated = m_provider.authenticate(authentication);
 		assertNotNull("authenticated Authentication object not null", authenticated);
-		GrantedAuthority[] authorities = authenticated.getAuthorities();
+		Collection<GrantedAuthority> authorities = authenticated.getAuthorities();
 		assertNotNull("GrantedAuthorities should not be null", authorities);
-		assertEquals("GrantedAuthorities size", 1, authorities.length);
-		assertEquals("GrantedAuthorities one name", "ROLE_RTC", authorities[0].getAuthority());
+		assertEquals("GrantedAuthorities size", 1, authorities.size());
+		assertEquals("GrantedAuthorities one name", "ROLE_RTC", authorities.iterator().next().getAuthority());
 	}
 	
 	public void testAuthenticateTempUser() {
 		Authentication authentication = new UsernamePasswordAuthenticationToken("tempuser", "mike");
 		Authentication authenticated = m_provider.authenticate(authentication);
 		assertNotNull("authenticated Authentication object not null", authenticated);
-		GrantedAuthority[] authorities = authenticated.getAuthorities();
+		Collection<GrantedAuthority> authorities = authenticated.getAuthorities();
 		assertNotNull("GrantedAuthorities should not be null", authorities);
-		assertEquals("GrantedAuthorities size", 1, authorities.length);
-		assertEquals("GrantedAuthorities zero role", "ROLE_USER", authorities[0].getAuthority());
+		assertEquals("GrantedAuthorities size", 1, authorities.size());
+		assertEquals("GrantedAuthorities zero role", "ROLE_USER", authorities.iterator().next().getAuthority());
 	}
 	
 	public void testAuthenticateBadUsername() {

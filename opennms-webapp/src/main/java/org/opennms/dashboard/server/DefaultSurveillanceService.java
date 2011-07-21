@@ -69,10 +69,10 @@ import org.opennms.web.svclayer.support.RtcNodeModel;
 import org.opennms.web.svclayer.support.RtcNodeModel.RtcNode;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.orm.ObjectRetrievalFailureException;
-import org.springframework.security.Authentication;
-import org.springframework.security.context.SecurityContext;
-import org.springframework.security.context.SecurityContextHolder;
-import org.springframework.security.userdetails.UserDetails;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 

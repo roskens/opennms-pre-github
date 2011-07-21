@@ -33,11 +33,14 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 import org.opennms.core.utils.BundleLists;
 import org.opennms.core.utils.ThreadCategory;
@@ -50,8 +53,8 @@ import org.opennms.netmgt.config.users.Userinfo;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.dao.DataRetrievalFailureException;
-import org.springframework.security.GrantedAuthority;
-import org.springframework.security.GrantedAuthorityImpl;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.util.Assert;
 
 /**
@@ -87,7 +90,7 @@ public class UserDaoImpl implements UserDao, InitializingBean {
      */
     private Map<String, org.opennms.web.springframework.security.User> m_magicUsers = null;
 
-    private Map<String, GrantedAuthority[]> m_roles = null;
+    private Map<String, Collection<GrantedAuthority>> m_roles = null;
     
     private long m_magicUsersLastModified;
 
@@ -187,7 +190,7 @@ public class UserDaoImpl implements UserDao, InitializingBean {
      */
     private void parseMagicUsers() throws DataRetrievalFailureException {
         HashMap<String, org.opennms.web.springframework.security.User> magicUsers = new HashMap<String, org.opennms.web.springframework.security.User>();
-        HashMap<String, GrantedAuthority[]> roles = new HashMap<String, GrantedAuthority[]>();
+        HashMap<String, Collection<GrantedAuthority>> roles = new HashMap<String, Collection<GrantedAuthority>>();
 
         long lastModified = new File(m_magicUsersConfigurationFile).lastModified();
 
@@ -262,7 +265,7 @@ public class UserDaoImpl implements UserDao, InitializingBean {
         m_roles = roles;
     }
 
-    private GrantedAuthority[] getAuthorityListFromRoleList(LinkedList<String> roleList, Map<String, Boolean> roleAddDefaultMap) {
+    private Collection<GrantedAuthority> getAuthorityListFromRoleList(LinkedList<String> roleList, Map<String, Boolean> roleAddDefaultMap) {
         boolean addToDefaultGroup = false;
         
         for (String role : roleList) {
@@ -272,7 +275,7 @@ public class UserDaoImpl implements UserDao, InitializingBean {
             }
         }
         
-        List<GrantedAuthority> authorities = new LinkedList<GrantedAuthority>();
+        Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
         if (addToDefaultGroup) {
             authorities.add(ROLE_USER);
         }
@@ -281,7 +284,7 @@ public class UserDaoImpl implements UserDao, InitializingBean {
             authorities.add(new GrantedAuthorityImpl(role));
         }
 
-        return authorities.toArray(new GrantedAuthority[authorities.size()]);
+        return authorities;
     }
 
     /**
@@ -290,11 +293,11 @@ public class UserDaoImpl implements UserDao, InitializingBean {
      * @param user a {@link java.lang.String} object.
      * @return an array of {@link org.springframework.security.GrantedAuthority} objects.
      */
-    protected GrantedAuthority[] getAuthoritiesByUsername(String user) {
+    protected Collection<GrantedAuthority> getAuthoritiesByUsername(String user) {
         if (m_roles.containsKey(user)) {
             return m_roles.get(user);
         } else {
-            return new GrantedAuthority[] { ROLE_USER };
+            return Collections.singleton(ROLE_USER);
         }
     }
 

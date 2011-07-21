@@ -33,21 +33,22 @@ import java.util.List;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 
 import org.opennms.netmgt.config.GroupDao;
 import org.opennms.netmgt.config.groups.Group;
 import org.opennms.netmgt.model.FilterManager;
 import org.opennms.web.AclUtils;
-import org.springframework.security.context.SecurityContextHolder;
-import org.springframework.security.ui.FilterChainOrder;
-import org.springframework.security.ui.SpringSecurityFilter;
+import org.springframework.security.core.context.SecurityContextHolder;
+//import org.springframework.security.ui.FilterChainOrder;
+//import org.springframework.security.web.SpringSecurityFilter;
+import org.springframework.web.filter.GenericFilterBean;
 
 /**
  * <p>AuthFilterEnabler class.</p>
  */
-public class AuthFilterEnabler extends SpringSecurityFilter {
+public class AuthFilterEnabler extends GenericFilterBean {
     
     private FilterManager m_filterManager;
     
@@ -76,7 +77,7 @@ public class AuthFilterEnabler extends SpringSecurityFilter {
      */
     /** {@inheritDoc} */
     @Override
-    protected void doFilterHttp(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
         
         boolean shouldFilter = AclUtils.shouldFilter();
@@ -108,16 +109,16 @@ public class AuthFilterEnabler extends SpringSecurityFilter {
         
     }
 
-    /* (non-Javadoc)
-     * @see org.springframework.core.Ordered#getOrder()
-     */
-    /**
-     * <p>getOrder</p>
-     *
-     * @return a int.
-     */
-    public int getOrder() {
-        return FilterChainOrder.getOrder("LAST");
-    }
+//    /* (non-Javadoc)
+//     * @see org.springframework.core.Ordered#getOrder()
+//     */
+//    /**
+//     * <p>getOrder</p>
+//     *
+//     * @return a int.
+//     */
+//    public int getOrder() {
+//        return FilterChainOrder.getOrder("LAST");
+//    }
 
 }

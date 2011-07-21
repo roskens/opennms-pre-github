@@ -28,8 +28,10 @@
 
 package org.opennms.web.springframework.security;
 
-import org.springframework.security.GrantedAuthority;
-import org.springframework.security.userdetails.UserDetails;
+import java.util.Collection;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * <p>User class.</p>
@@ -46,7 +48,7 @@ public class User implements UserDetails {
 	private String m_password;
 	//private Set m_contactInformation;
 	//private Set m_dutySchedules;
-	private GrantedAuthority[] m_authorities;
+	private Collection<GrantedAuthority> m_authorities;
 	
 	/**
 	 * <p>getComments</p>
@@ -134,7 +136,7 @@ public class User implements UserDetails {
 	 *
 	 * @return an array of {@link org.springframework.security.GrantedAuthority} objects.
 	 */
-	public GrantedAuthority[] getAuthorities() {
+	public Collection<GrantedAuthority> getAuthorities() {
 		return m_authorities;
 	}
 	
@@ -143,7 +145,7 @@ public class User implements UserDetails {
 	 *
 	 * @param authorities an array of {@link org.springframework.security.GrantedAuthority} objects.
 	 */
-	public void setAuthorities(GrantedAuthority[] authorities) {
+	public void setAuthorities(Collection<GrantedAuthority> authorities) {
 		m_authorities = authorities;
 	}
 

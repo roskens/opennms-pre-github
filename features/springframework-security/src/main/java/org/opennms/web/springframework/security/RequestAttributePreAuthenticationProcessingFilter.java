@@ -30,9 +30,8 @@ package org.opennms.web.springframework.security;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.security.ui.FilterChainOrder;
-import org.springframework.security.ui.preauth.AbstractPreAuthenticatedProcessingFilter;
-import org.springframework.security.ui.preauth.PreAuthenticatedCredentialsNotFoundException;
+import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
+import org.springframework.security.web.authentication.preauth.PreAuthenticatedCredentialsNotFoundException;
 import org.springframework.util.Assert;
 
 /**
@@ -92,13 +91,13 @@ public class RequestAttributePreAuthenticationProcessingFilter extends AbstractP
         m_credentialsRequestAttribute = credentialsRequestAttribute;
     }
 
-    /**
-     * <p>getOrder</p>
-     *
-     * @return a int.
-     */
-    public int getOrder() {
-        return FilterChainOrder.PRE_AUTH_FILTER;
-    }
+//    /**
+//     * <p>getOrder</p>
+//     *
+//     * @return a int.
+//     */
+//    public int getOrder() {
+//        return FilterChainOrder.PRE_AUTH_FILTER;
+//    }
 
 }

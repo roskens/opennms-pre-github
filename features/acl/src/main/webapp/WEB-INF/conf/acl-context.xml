@@ -9,7 +9,7 @@ xmlns:tx="http://www.springframework.org/schema/tx"
 xsi:schemaLocation="http://www.springframework.org/schema/beans 
 http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
 http://www.springframework.org/schema/security 
-http://www.springframework.org/schema/security/spring-security-2.0.4.xsd
+http://www.springframework.org/schema/security/spring-security-3.0.4.xsd
 http://www.springframework.org/schema/tx 
 http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
 http://www.springframework.org/schema/aop 
@@ -70,15 +70,17 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 		<sec:logout logout-url="/logout.jsp" invalidate-session="true" logout-success-url="/login.jsp" />
 	</sec:http>
 
-	<sec:authentication-provider user-service-ref="userDetailsService">
-		<sec:password-encoder hash="sha" />
-	</sec:authentication-provider>
+    <sec:authentication-manager>
+	    <sec:authentication-provider user-service-ref="userDetailsService">
+		    <sec:password-encoder hash="sha" />
+		</sec:authentication-provider>
+	</sec:authentication-manager>
 
-	<bean id="accessManager" class="org.springframework.security.vote.AffirmativeBased">
+	<bean id="accessManager" class="org.springframework.security.access.vote.AffirmativeBased">
 		<property name="decisionVoters">
 			<list>
-				<bean id="roleVoter" class="org.springframework.security.vote.RoleVoter"/>
-				<bean class="org.springframework.security.vote.AuthenticatedVoter" />
+				<bean id="roleVoter" class="org.springframework.security.access.vote.RoleVoter"/>
+				<bean class="org.springframework.security.access.vote.AuthenticatedVoter" />
 			</list>
 		</property>
 	</bean>
@@ -96,7 +98,7 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 
     <!-- CACHE -->
     
-    <bean id="aclCache" class="org.springframework.security.acls.jdbc.EhCacheBasedAclCache">
+    <bean id="aclCache" class="org.springframework.security.acls.domain.EhCacheBasedAclCache">
         <constructor-arg ref="aclEhCache" />
     </bean>
 

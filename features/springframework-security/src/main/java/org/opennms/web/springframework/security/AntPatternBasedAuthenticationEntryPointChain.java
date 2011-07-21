@@ -29,21 +29,24 @@
 package org.opennms.web.springframework.security;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.opennms.core.utils.ThreadCategory;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.security.AuthenticationException;
-import org.springframework.security.ui.AbstractProcessingFilter;
-import org.springframework.security.ui.AuthenticationEntryPoint;
-import org.springframework.security.ui.savedrequest.SavedRequest;
-import org.springframework.security.util.AntUrlPathMatcher;
-import org.springframework.security.util.PortResolverImpl;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.PortResolverImpl;
+import org.springframework.security.web.WebAttributes;
+import org.springframework.security.web.savedrequest.SavedRequest;
+import org.springframework.security.web.savedrequest.DefaultSavedRequest;
+import org.springframework.security.web.util.AntUrlPathMatcher;
 import org.springframework.util.Assert;
 
 /**
@@ -107,17 +110,19 @@ public class AntPatternBasedAuthenticationEntryPointChain implements Authenticat
     }
 
     /** {@inheritDoc} */
-    public void commence(ServletRequest request, ServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         
-        String url = getUrl(request);
+        String relativePath = getRelativePath(request);
 
-        AuthenticationEntryPoint entryPoint = getAppropriateEntryPoint(url);
+        AuthenticationEntryPoint entryPoint = getAppropriateEntryPoint(relativePath);
+        
+        log().debug("Commencing entry to " + entryPoint + " for " + relativePath);
         
         entryPoint.commence(request, response, authException);
         
     }
     
-    private AuthenticationEntryPoint getAppropriateEntryPoint(String url) {
+	private AuthenticationEntryPoint getAppropriateEntryPoint(String url) {
         for (String pattern : m_patterns) {
             if (m_urlPathMatcher.pathMatchesUrl(m_urlPathMatcher.compile(pattern), url)) {
                 return m_matchingEntryPoint;
@@ -128,21 +133,41 @@ public class AntPatternBasedAuthenticationEntryPointChain implements Authenticat
         
     }
     
-    private String getUrl(ServletRequest request) {
-        return getSavedRequest(request).getRequestUrl();
+	/**
+	 * Returns the relative path for the saved request that failed authorization.
+	 * Strips off all but the path of the URL and then attempts to remove the context path
+	 * from the beginning as well.  This assumes that the current context path is the same
+	 * as the context path of the saved request.
+	 * 
+	 * @param request
+	 * @return
+	 * @throws MalformedURLException
+	 */
+    private String getRelativePath(HttpServletRequest request) throws MalformedURLException {
+    	String path = new URL(getSavedRequest(request).getRedirectUrl()).getPath();
+    	if (path.startsWith(request.getContextPath())) {
+        	return path.substring(request.getContextPath().length());
+    	} else {
+    		return path;
+    	}
     }
     
-    private SavedRequest getSavedRequest(ServletRequest request) {
-        HttpServletRequest httpRequest = (HttpServletRequest) request;
-        
-        HttpSession httpSession = httpRequest.getSession(false);
+    private SavedRequest getSavedRequest(HttpServletRequest request) {
+        HttpSession httpSession = request.getSession(false);
         if (httpSession == null) {
-            return new SavedRequest(httpRequest, new PortResolverImpl());
+            return new DefaultSavedRequest(request, new PortResolverImpl());
         } else {
-            return (SavedRequest) httpSession.getAttribute(AbstractProcessingFilter.SPRING_SECURITY_SAVED_REQUEST_KEY);
+            return (SavedRequest) httpSession.getAttribute(WebAttributes.SAVED_REQUEST);
         }
         
     }
 
-
+    /**
+     * <p>log</p>
+     *
+     * @return a {@link org.opennms.core.utils.ThreadCategory} object.
+     */
+    protected ThreadCategory log() {
+        return ThreadCategory.getInstance(getClass());
+    }
 }

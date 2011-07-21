@@ -20,7 +20,7 @@
     <property name="serviceUrl" value="http://localhost:9162/simpleBackEnd"/>
     <property name="serviceInterface" value="org.opennms.poller.remote.SimpleBackEnd"/>
     <property name="httpInvokerRequestExecutor">
-      <bean class="org.springframework.security.context.httpinvoker.AuthenticationSimpleHttpInvokerRequestExecutor"/>
+      <bean class="org.springframework.security.remoting.httpinvoker.AuthenticationSimpleHttpInvokerRequestExecutor"/>
     </property>
   </bean>
   

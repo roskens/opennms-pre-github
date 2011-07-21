@@ -28,6 +28,7 @@
 	<webflow:flow-builder-services id="flowBuilderServices" conversion-service="conversionService" />
 	<bean id="conversionService" class="org.opennms.web.svclayer.ApplicationConversionService" />
 	-->
-	<bean id="securityFlowExecutionListener" class="org.springframework.webflow.security.SecurityFlowExecutionListener" />
+	<!-- <bean id="securityFlowExecutionListener" class="org.springframework.webflow.security.SecurityFlowExecutionListener" /> -->
+	<bean id="securityFlowExecutionListener" class="org.opennms.web.webflow.SpringSecurity3SecurityFlowExecutionListener"/>
 	
 </beans>

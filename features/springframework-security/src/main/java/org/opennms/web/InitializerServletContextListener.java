@@ -28,6 +28,7 @@
 
 package org.opennms.web;
 
+import java.lang.reflect.UndeclaredThrowableException;
 import java.net.ConnectException;
 import java.util.Date;
 import java.util.Timer;
@@ -60,6 +61,8 @@ public class InitializerServletContextListener implements ServletContextListener
     /** {@inheritDoc} */
     public void contextInitialized(ServletContextEvent event) {
         try {
+        	log().info("Starting initialization of servlet systems");
+        	
             /*
              * Initialize the scarce resource policies (db connections) and
              * common configuration.
@@ -69,8 +72,10 @@ public class InitializerServletContextListener implements ServletContextListener
             log().info("Initialized servlet systems successfully");
         } catch (ServletException e) {
             log().error("Error while initializing servlet systems: " + e, e);
+            throw new UndeclaredThrowableException(e);
         } catch (Throwable e) {
             log().error("Error while initializing user, group, or view factory: " + e, e);
+            throw new UndeclaredThrowableException(e);
         }
 
         try {
@@ -78,6 +83,7 @@ public class InitializerServletContextListener implements ServletContextListener
             rtcCheckTimer.schedule(new RTCPostSubscriberTimerTask(), new Date(), 130000);
         } catch (ServletException e) {
             log().error("Error while initializing RTC check timer: " + e, e);
+            throw new UndeclaredThrowableException(e);
         }
     }
 

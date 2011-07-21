@@ -2,8 +2,10 @@
 <beans:beans xmlns="http://www.springframework.org/schema/security"
   xmlns:beans="http://www.springframework.org/schema/beans"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-              http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.4.xsd"> 
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security-3.0.3.xsd"> 
               
           
   <http access-denied-page="/accessDenied.jsp" realm="OpenNMS Realm" entry-point-ref="mappedEntryPoint">
@@ -42,8 +44,8 @@
     <intercept-url pattern="/**" access="ROLE_USER" />
     
     <form-login login-page="/login.jsp" authentication-failure-url="/login.jsp?login_error=1" />
-    <anonymous />
-    <http-basic />
+    <anonymous/>
+    <http-basic entry-point-ref="basicAuthenticationEntryPoint"/>
     <logout logout-success-url="/logoff.jsp" />
     <!-- 
     
@@ -54,11 +56,22 @@
         
     <remember-me />
     -->
+    <custom-filter position="LAST" ref="authFilterEnabler"/>
   </http>
   
-   <authentication-provider user-service-ref="openNMSUserDetailsService">
-     <password-encoder ref="upperCaseMd5PasswordEncoder" />
-   </authentication-provider>
+  <beans:bean id="basicAuthenticationEntryPoint" class="org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint" >
+    <beans:property name="realmName" value="OpenNMS"/>
+  </beans:bean>
+  
+  <beans:bean id="formLoginEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+    <beans:property name="loginFormUrl" value="/login.jsp"/>
+  </beans:bean>
+
+  <authentication-manager>  
+    <authentication-provider user-service-ref="openNMSUserDetailsService">
+      <password-encoder ref="upperCaseMd5PasswordEncoder" />
+    </authentication-provider>
+  </authentication-manager>
    
   <beans:bean id="mappedEntryPoint" class="org.opennms.web.springframework.security.AntPatternBasedAuthenticationEntryPointChain">
     <beans:property name="patterns">
@@ -68,14 +81,13 @@
       </beans:list>
     </beans:property>
     <!-- This bean is the entry point defined by the <http-basic> element above -->
-    <beans:property name="matchingEntryPoint" ref="_basicAuthenticationEntryPoint" />
+    <beans:property name="matchingEntryPoint" ref="basicAuthenticationEntryPoint" />
     <!-- This bean is the entry point defined by the <form-login> element above -->
-    <beans:property name="nonMatchingEntryPoint" ref="_formLoginEntryPoint" />
+    <beans:property name="nonMatchingEntryPoint" ref="formLoginEntryPoint" />
   </beans:bean>
 
    <!--  This filter is used to setup the Hibernate query filtering to authorized nodes only -->
    <beans:bean id="authFilterEnabler" class="org.opennms.web.springframework.security.AuthFilterEnabler">
-     <custom-filter position="LAST"/>
      <beans:property name="filterManager" ref="filterManager" />
      <beans:property name="groupDao" ref="groupDao" />
    </beans:bean>
