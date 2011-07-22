@@ -145,20 +145,21 @@ public abstract class RrdUtils {
      * @throws org.opennms.netmgt.rrd.RrdException if any.
      */
     public static boolean createRRD(String directory, String rrdName, int step, List<RrdDataSource> dataSources, List<String> rraList) throws RrdException {
-        String fileName = rrdName + getExtension();
-
-        String completePath = directory + File.separator + fileName;
+        String completePath = directory + File.separator + rrdName + getExtension();
+        if (new File(completePath).exists()) {
+        	return true;
+        }
 
         log().info("createRRD: creating RRD file " + completePath);
 
         try {
             Object def = getStrategy().createDefinition(directory, rrdName, step, dataSources, rraList);
             getStrategy().createFile(def);
-            return true;
         } catch (Throwable e) {
             log().error("createRRD: An error occured creating rrdfile " + completePath + ": "  + e, e);
             throw new org.opennms.netmgt.rrd.RrdException("An error occured creating rrdfile " + completePath + ": " + e, e);
         }
+        return true;
     }
 
     private static ThreadCategory log() {
