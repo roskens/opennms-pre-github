@@ -67,7 +67,6 @@ import org.opennms.netmgt.config.collector.Persister;
 import org.opennms.netmgt.config.collector.ServiceParameters;
 import org.opennms.netmgt.model.RrdRepository;
 import org.opennms.netmgt.model.events.EventProxy;
-import org.opennms.netmgt.rrd.RrdConstants;
 import org.opennms.protocols.jmx.connectors.ConnectionWrapper;
 
 /**
