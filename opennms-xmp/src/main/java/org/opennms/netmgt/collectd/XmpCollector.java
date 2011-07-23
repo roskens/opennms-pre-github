@@ -543,12 +543,6 @@ public class XmpCollector implements ServiceCollector {
                                  agent.getInetAddress(),
                                  xmpPort,authenUser);
 
-        if (session == null) {
-            // send event saying collection failed
-            log().warn("collect unable to get XMP session with "+agent);
-            return collectionSet;
-        }
-
         if (session.isClosed()) {
             log().warn("collect unable to open XMP session with "+agent);
             return collectionSet;

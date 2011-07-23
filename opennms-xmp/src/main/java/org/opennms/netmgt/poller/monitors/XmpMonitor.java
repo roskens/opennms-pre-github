@@ -226,10 +226,6 @@ public class XmpMonitor extends AbstractServiceMonitor {
         sockopts.setConnectTimeout(timeout);
         
         session = new XmpSession(sockopts, ipaddr, port, authenUser);
-        if (session == null) {
-            log.info("XMP connection failed to " + ipaddr + ":" + port + " with user " + authenUser + " and " + sockopts);
-            status = PollStatus.unavailable("XMP session failed to " + ipaddr + ":" + port + " for service ");
-        }
 
         boolean result = false;
         if (requestType.equalsIgnoreCase("SelectTableRequest")) {

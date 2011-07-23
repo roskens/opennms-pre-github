@@ -183,11 +183,6 @@ public class CiscoIpSlaPlugin extends SnmpPlugin {
                                         + agentConfig);
                 }
 
-                if (adminTag == null) {
-                    log().warn("poll: No admin tag defined! ");
-                    return status;
-                }
-
                 /*
                  * Get two maps one with all configured admin tags and one of
                  * oper state

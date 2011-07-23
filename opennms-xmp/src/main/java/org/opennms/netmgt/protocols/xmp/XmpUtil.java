@@ -160,18 +160,11 @@ public class XmpUtil {
                     log.error("Value operator '" + valueOperator + "' does not apply for non-numeric value operand '" + valueOperand + "', giving up");
                     throw new XmpUtilException("Value operator '" + valueOperator + "' does not apply for non-numeric value operand '" + valueOperand + "'");
                 }
-                if (valueOperand != null) {
-                    if (caseSensitive) {
-                        return valueOperand.equals(replyVar.getValue());                        
-                    } else {
-                        return valueOperand.equalsIgnoreCase(replyVar.getValue());
-                    }
-                } else {
-                    if (log.isDebugEnabled()) {
-                        log.debug("valueMeetsCriteria: operand is null, considering observed value |" + replyVar.getValue() + "| a match!");
-                    }
-                    return true;
-                }
+				if (caseSensitive) {
+					return valueOperand.equals(replyVar.getValue());
+				} else {
+					return valueOperand.equalsIgnoreCase(replyVar.getValue());
+				}
             }
         } else {
             if (log.isDebugEnabled()) {
@@ -212,7 +205,7 @@ public class XmpUtil {
         }
         
         replyVars = reply.getMIBVars();
-        if (reply == null) {
+        if (replyVars == null) {
             log.warn("handleScalarQuery: query for object " + object + " from MIB " + mib + " failed, " + Xmp.errorStatusToString(session.getErrorStatus()));
             throw new XmpUtilException("XMP query failed (MIB " + mib + ", object " + object + "): " + Xmp.errorStatusToString(session.getErrorStatus()));
         }
