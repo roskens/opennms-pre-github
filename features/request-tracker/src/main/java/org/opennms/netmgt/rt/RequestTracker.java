@@ -43,6 +43,7 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
@@ -403,7 +404,6 @@ public class RequestTracker {
         return ticketAttributes;
     }
 
-    @SuppressWarnings("unchecked")
     protected Map<String,String> parseResponseStream(final InputStream responseStream) throws IOException {
         final Map<String,String> ticketAttributes = new HashMap<String,String>();
         
@@ -453,8 +453,9 @@ public class RequestTracker {
                 if (responseCode != HttpStatus.SC_OK) {
                     throw new RequestTrackerException("Received a non-200 response code from the server: " + responseCode);
                 } else {
-                	if (response.getEntity() != null) {
-                		response.getEntity().consumeContent();
+                	HttpEntity entity = response.getEntity();
+                	if (entity != null) {
+                		entity.getContent().close();
                 	}
                     LogUtils.warnf(this, "got user session for username: %s", m_user);
                 }

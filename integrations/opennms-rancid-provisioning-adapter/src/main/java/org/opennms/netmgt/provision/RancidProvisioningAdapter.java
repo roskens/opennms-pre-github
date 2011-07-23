@@ -37,6 +37,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.TimeUnit;
 
+import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.core.utils.LogUtils;
 import org.opennms.core.utils.ThreadCategory;
 import org.opennms.netmgt.EventConstants;
@@ -543,17 +544,22 @@ public class RancidProvisioningAdapter extends SimpleQueuedProvisioningAdapter i
             Set<OnmsIpInterface> ipInterfaces = node.getIpInterfaces();
             for (OnmsIpInterface onmsIpInterface : ipInterfaces) {
                 log().debug("getSuitableIpForRancid: trying Interface with id: " + onmsIpInterface.getId());
-                if (onmsIpInterface.getIpAddressAsString() != null) 
-                    ipaddr = onmsIpInterface.getIpAddressAsString();
+                if (onmsIpInterface.getIpAddress() != null) {
+                    String t_ipaddr = InetAddressUtils.toIpAddrString(onmsIpInterface.getIpAddress());
+                    if (t_ipaddr != null)
+                    	ipaddr = t_ipaddr;
+                }
                 else 
                     log().debug("getSuitableIpForRancid: found null ip address on Interface with id: " + onmsIpInterface.getId());
 
             }
         } else {        
             log().debug("getSuitableIpForRancid: found SNMP Primary Interface");
-            if (primaryInterface.getIpAddressAsString() != null )
-                ipaddr = primaryInterface.getIpAddressAsString();
-            else 
+            if (primaryInterface.getIpAddress() != null ) {
+                String t_ipaddr = InetAddressUtils.toIpAddrString(primaryInterface.getIpAddress());
+                if (t_ipaddr != null)
+                	ipaddr = t_ipaddr;
+            } else 
                 log().debug("getSuitableIpForRancid: found null ip address on Primary Interface");
         }
         return ipaddr;

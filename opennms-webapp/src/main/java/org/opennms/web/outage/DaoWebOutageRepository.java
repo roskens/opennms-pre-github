@@ -39,6 +39,7 @@ import java.util.Map;
 
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.netmgt.dao.NodeDao;
 import org.opennms.netmgt.dao.OutageDao;
 import org.opennms.netmgt.model.OnmsCriteria;
@@ -157,8 +158,8 @@ public class DaoWebOutageRepository implements WebOutageRepository {
         if(onmsOutage != null){
             Outage outage = new Outage();    
             outage.outageId = onmsOutage.getId();
-            outage.ipAddress = onmsOutage.getIpAddressAsString();
-            outage.hostname = onmsOutage.getIpAddressAsString();
+            outage.ipAddress = InetAddressUtils.toIpAddrString(onmsOutage.getIpAddress());
+            outage.hostname = InetAddressUtils.toIpAddrString(onmsOutage.getIpAddress());
             outage.lostServiceEventId = onmsOutage.getServiceLostEvent() != null ? onmsOutage.getServiceLostEvent().getId() : 0;
             //outage.lostServiceNotificationAcknowledgedBy = 
             outage.lostServiceTime = onmsOutage.getIfLostService();

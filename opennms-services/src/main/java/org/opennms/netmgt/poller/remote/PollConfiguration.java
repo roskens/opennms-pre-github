@@ -30,6 +30,7 @@ package org.opennms.netmgt.poller.remote;
 
 import java.util.Map;
 
+import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.netmgt.model.OnmsMonitoredService;
 
 /**
@@ -109,7 +110,7 @@ public class PollConfiguration {
 	 * @return a {@link java.lang.String} object.
 	 */
 	public String getId() {
-		return m_monitoredService.getNodeId()+":"+m_monitoredService.getIpAddressAsString()+":"+m_monitoredService.getServiceName();
+		return m_monitoredService.getNodeId()+":"+InetAddressUtils.toIpAddrString(m_monitoredService.getIpAddress())+":"+m_monitoredService.getServiceName();
 	}
 
 }

@@ -28,6 +28,7 @@
 
 package org.opennms.web.svclayer.support;
 
+import java.net.InetAddress;
 import java.util.Date;
 
 import org.opennms.netmgt.dao.DemandPollDao;
@@ -86,7 +87,7 @@ public class DefaultDemandPollService implements DemandPollService {
 	}
 	
 	/** {@inheritDoc} */
-	public DemandPoll pollMonitoredService(int nodeId, String ipAddr, int ifIndex, int serviceId) {
+	public DemandPoll pollMonitoredService(int nodeId, InetAddress ipAddr, int ifIndex, int serviceId) {
 		DemandPoll demandPoll = new DemandPoll();
 		demandPoll.setRequestTime(new Date());
 		

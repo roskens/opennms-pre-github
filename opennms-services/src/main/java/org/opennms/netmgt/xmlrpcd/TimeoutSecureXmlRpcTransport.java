@@ -35,27 +35,13 @@ public class TimeoutSecureXmlRpcTransport extends DefaultXmlRpcTransport {
     protected int m_timeout = 0;
 
     /**
-     * Create a new TimeoutSecureXmlRpcTransport with the specified URL and
-     * basic authorization string.
-     *
-     * @deprecated Use setBasicAuthentication instead of passing an encoded authentication String.
-     * @param url the url to POST XML-RPC requests to.
-     * @param auth the Base64 encoded HTTP Basic authentication value.
-     * @param timeout a int.
-     */
-    public TimeoutSecureXmlRpcTransport(final URL url, final String auth, final int timeout) {
-        super(url, auth);
-        this.m_timeout = timeout;
-    }
-
-    /**
      * Create a new DefaultXmlRpcTransport with the specified URL.
      *
      * @param url the url to POST XML-RPC requests to.
      * @param timeout a int.
      */
     public TimeoutSecureXmlRpcTransport(final URL url, final int timeout) {
-        super(url, null);
+        super(url);
         this.m_timeout = timeout;
     }
 

@@ -495,7 +495,7 @@ public class DefaultResourceDaoTest extends TestCase {
         File response = m_fileAnticipator.tempDir("response");
         File distributed = m_fileAnticipator.tempDir(response, "distributed");
         File locMonDir = m_fileAnticipator.tempDir(distributed, locMon.getId().toString());
-        File ipDir = m_fileAnticipator.tempDir(locMonDir, ip.getIpAddressAsString());
+        File ipDir = m_fileAnticipator.tempDir(locMonDir, InetAddressUtils.toIpAddrString(ip.getIpAddress()));
         m_fileAnticipator.tempFile(ipDir, "http" + RrdUtils.getExtension());
         
         ArrayList<LocationMonitorIpInterface> locationMonitorInterfaces = new ArrayList<LocationMonitorIpInterface>();

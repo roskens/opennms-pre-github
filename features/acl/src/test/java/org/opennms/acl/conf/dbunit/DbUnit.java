@@ -74,20 +74,14 @@ public abstract class DbUnit extends DBTestCase {
                 dbConn = new DatabaseConnection(jdbcConnection);
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
+            } catch (DatabaseUnitException e) {
+            	e.printStackTrace();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
         return dbConn;
 
-    }
-
-    public IDatabaseConnection getConnection() throws Exception {
-
-        if (null == dbConn) {
-            dbConn = setUpConnection();
-        }
-        return dbConn;
     }
 
     public static void main(String[] args) throws Exception {

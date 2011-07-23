@@ -28,6 +28,8 @@
 
 package org.opennms.web.svclayer;
 
+import java.net.InetAddress;
+
 import org.opennms.netmgt.model.DemandPoll;
 
 /**
@@ -43,12 +45,12 @@ public interface DemandPollService {
 	  * <p>pollMonitoredService</p>
 	  *
 	  * @param nodeid a int.
-	  * @param ipAddr a {@link java.lang.String} object.
+	  * @param ipAddr a {@link java.net.InetAddress} object.
 	  * @param ifIndex a int.
 	  * @param serviceId a int.
 	  * @return a {@link org.opennms.netmgt.model.DemandPoll} object.
 	  */
-	 DemandPoll pollMonitoredService(int nodeid, String ipAddr, int ifIndex, int serviceId);
+	 DemandPoll pollMonitoredService(int nodeid, InetAddress ipAddr, int ifIndex, int serviceId);
 	 
 	 /**
 	  * <p>getUpdatedResults</p>

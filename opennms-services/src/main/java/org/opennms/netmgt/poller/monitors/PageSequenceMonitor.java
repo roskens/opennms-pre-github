@@ -471,12 +471,9 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
                         SchemeRegistry registry = client.getConnectionManager().getSchemeRegistry();
                         Scheme https = registry.getScheme("https");
                         // Override the trust validation with a lenient implementation
-                        SSLSocketFactory factory = new SSLSocketFactory(SSLContext.getInstance(EmptyKeyRelaxedTrustSSLContext.ALGORITHM));
+                        SSLSocketFactory factory = new SSLSocketFactory(SSLContext.getInstance(EmptyKeyRelaxedTrustSSLContext.ALGORITHM), SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
 
-                        // @see http://hc.apache.org/httpcomponents-client-4.0.1/tutorial/html/connmgmt.html
-                        factory.setHostnameVerifier(SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
-
-                        Scheme lenient = new Scheme(https.getName(), factory, https.getDefaultPort());
+                        Scheme lenient = new Scheme(https.getName(), https.getDefaultPort(), factory);
                         // This will replace the existing "https" schema
                         registry.register(lenient);
                     }

@@ -46,19 +46,6 @@ public class TimeoutSecureXmlRpcTransportFactory extends DefaultXmlRpcTransportF
     }
     
     /**
-     * Contructor taking a Base64 encoded Basic Authentication string.
-     *
-     * @deprecated use setBasicAuthentication method instead
-     * @param url a {@link java.net.URL} object.
-     * @param auth a {@link java.lang.String} object.
-     * @param timeout a int.
-     */
-    public TimeoutSecureXmlRpcTransportFactory(final URL url, final String auth, final int timeout) {
-        this(url, timeout);
-        this.auth = auth;
-    }
-    
-    /**
      * <p>createTransport</p>
      *
      * @return a {@link org.apache.xmlrpc.XmlRpcTransport} object.
@@ -70,9 +57,9 @@ public class TimeoutSecureXmlRpcTransportFactory extends DefaultXmlRpcTransportF
             {
                 throw new XmlRpcClientException("Timeouts not supported under https.", null);
             }
-            return new DefaultXmlRpcTransport(url, auth);
+            return new DefaultXmlRpcTransport(url);
         }
         
-        return new TimeoutSecureXmlRpcTransport(url, auth, timeout);
+        return new TimeoutSecureXmlRpcTransport(url, timeout);
     }
 }

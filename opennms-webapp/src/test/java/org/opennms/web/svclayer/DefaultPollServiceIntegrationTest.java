@@ -38,6 +38,7 @@ import org.junit.runner.RunWith;
 import org.opennms.netmgt.dao.db.JUnitConfigurationEnvironment;
 import org.opennms.netmgt.dao.db.JUnitTemporaryDatabase;
 import org.opennms.core.test.OpenNMSJUnit4ClassRunner;
+import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.netmgt.model.DemandPoll;
 import org.opennms.web.services.PollerService;
 import org.opennms.web.svclayer.support.DefaultDemandPollService;
@@ -69,7 +70,7 @@ public class DefaultPollServiceIntegrationTest {
         PollerService api = createMock(PollerService.class);
         ((DefaultDemandPollService)m_demandPollService).setPollerAPI(api);
 
-        DemandPoll poll = m_demandPollService.pollMonitoredService(1, "192.168.2.100", 1, 1);
+        DemandPoll poll = m_demandPollService.pollMonitoredService(1,  InetAddressUtils.addr("192.168.2.100"), 1, 1);
         assertNotNull("DemandPoll should not be null", poll);
         assertTrue("Polled service addr doesn't match...", poll.getId() >= 1);
     }

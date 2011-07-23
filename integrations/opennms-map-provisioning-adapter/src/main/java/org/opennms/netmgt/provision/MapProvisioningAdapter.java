@@ -40,6 +40,7 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.core.utils.LogUtils;
 import org.opennms.core.utils.ThreadCategory;
 import org.opennms.netmgt.EventConstants;
@@ -816,11 +817,11 @@ public class MapProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
         if (primaryInterface == null) {
             final Set<OnmsIpInterface> ipInterfaces = node.getIpInterfaces();
             for (final OnmsIpInterface onmsIpInterface : ipInterfaces) {
-                    return onmsIpInterface.getIpAddressAsString();
+                    return InetAddressUtils.toIpAddrString(onmsIpInterface.getIpAddress());
             }
             return "0.0.0.0";
         }
-        return primaryInterface.getIpAddressAsString();
+        return InetAddressUtils.toIpAddrString(primaryInterface.getIpAddress());
     }
     
     private String getLabel(final String FQDN) {

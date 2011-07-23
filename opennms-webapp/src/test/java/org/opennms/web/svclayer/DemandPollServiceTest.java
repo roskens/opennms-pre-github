@@ -182,7 +182,7 @@ public class DemandPollServiceTest extends TestCase {
 		iface.setSnmpInterface(snmpIface);
 		OnmsMonitoredService monSvc = new OnmsMonitoredService(iface, svcType);
 
-		expect(m_monitoredServiceDao.get(1, "192.168.1.1", 1, 3)).andReturn(monSvc);
+		expect(m_monitoredServiceDao.get(1, iface.getIpAddress(), 1, 3)).andReturn(monSvc);
 
 		m_pollerService.poll(monSvc, expectedResultId);
 		
@@ -190,7 +190,7 @@ public class DemandPollServiceTest extends TestCase {
 		replay(m_monitoredServiceDao);
 		replay(m_pollerService);
 		
-		DemandPoll result = m_demandPollService.pollMonitoredService(1, "192.168.1.1", 1, 3);
+		DemandPoll result = m_demandPollService.pollMonitoredService(1, iface.getIpAddress(), 1, 3);
 
 		verify(m_demandPollDao);
 		verify(m_monitoredServiceDao);

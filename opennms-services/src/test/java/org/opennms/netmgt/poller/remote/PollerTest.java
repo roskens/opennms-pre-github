@@ -43,6 +43,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 import org.junit.Test;
+import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.netmgt.model.OnmsIpInterface;
 import org.opennms.netmgt.model.OnmsMonitoredService;
 import org.opennms.netmgt.model.OnmsNode;
@@ -122,7 +123,7 @@ public class PollerTest {
         node.setId(1);
         OnmsIpInterface iface = new OnmsIpInterface("::1", node);
         // Make sure that the address is being converted into fully-qualified format
-        assertEquals("0000:0000:0000:0000:0000:0000:0000:0001", iface.getIpAddressAsString());
+        assertEquals("0000:0000:0000:0000:0000:0000:0000:0001", InetAddressUtils.toIpAddrString(iface.getIpAddress()));
         OnmsServiceType svcType = new OnmsServiceType("HTTP");
         OnmsMonitoredService svc = new OnmsMonitoredService(iface, svcType);
         return svc;

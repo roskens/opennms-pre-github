@@ -43,6 +43,7 @@ import java.util.TreeSet;
 import java.util.concurrent.CountDownLatch;
 
 import org.hibernate.criterion.Restrictions;
+import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.core.utils.LogUtils;
 import org.opennms.features.poller.remote.gwt.client.AppStatusDetailsComputer;
 import org.opennms.features.poller.remote.gwt.client.ApplicationDetails;
@@ -748,7 +749,7 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
             if (ipi.getNode() != null) {
                 service.setNodeId(ipi.getNode().getId());
             }
-            service.setIpAddress(ipi.getIpAddressAsString());
+            service.setIpAddress(InetAddressUtils.toIpAddrString(ipi.getIpAddress()));
             service.setHostname(ipi.getIpHostName());
             final OnmsSnmpInterface snmpi = ipi.getSnmpInterface();
             if (snmpi != null) {

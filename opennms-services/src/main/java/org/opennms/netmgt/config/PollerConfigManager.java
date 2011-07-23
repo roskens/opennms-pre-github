@@ -56,6 +56,7 @@ import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.Marshaller;
 import org.exolab.castor.xml.ValidationException;
 import org.opennms.core.utils.ByteArrayComparator;
+import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.core.utils.IpListFromUrl;
 import org.opennms.core.utils.LogUtils;
 import org.opennms.core.xml.CastorUtils;
@@ -1098,7 +1099,7 @@ abstract public class PollerConfigManager implements PollerConfig {
                 return;
             }
             
-            final String rrdDir = rrdRepository+File.separatorChar+"distributed"+File.separatorChar+locationMonitor+File.separator+monSvc.getIpAddressAsString();
+            final String rrdDir = rrdRepository+File.separatorChar+"distributed"+File.separatorChar+locationMonitor+File.separatorChar+InetAddressUtils.toIpAddrString(monSvc.getIpAddress());
     
             try {
                 final File rrdFile = new File(rrdDir, dsName);
