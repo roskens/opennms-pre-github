@@ -29,7 +29,8 @@
 package org.opennms.netmgt.jasper.jrobin;
 
 import java.io.File;
-import java.util.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -94,8 +95,11 @@ public class JRobinQueryExecuterTest {
         long start = System.currentTimeMillis();
         Map<String,Object> params = new HashMap<String,Object>();
         params.put("rrdDir", "src/test/resources");
-        params.put("startDate", new Date("Wed Oct 13 17:25:00 EDT 2010"));
-        params.put("endDate", new Date("Wed Oct 13 21:16:30 EDT 2010"));
+        try {
+			params.put("startDate", DateFormat.getInstance().parse("Wed Oct 13 17:25:00 EDT 2010"));
+	        params.put("endDate", DateFormat.getInstance().parse("Wed Oct 13 21:16:30 EDT 2010"));
+		} catch (ParseException e) {
+		}
         m_jasperPrint = JasperFillManager.fillReport(m_jasperReport, params);
         System.err.println("Filling time : " + (System.currentTimeMillis() - start));
     }
