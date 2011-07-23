@@ -1,7 +1,8 @@
+<%--
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2010-2011 The OpenNMS Group, Inc.
+ * Copyright (C) 2006-2011 The OpenNMS Group, Inc.
  * OpenNMS(R) is Copyright (C) 1999-2011 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
@@ -26,37 +27,39 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.features.poller.remote.gwt.client.remoteevents;
+--%>
+
+<%@page language="java"
+	contentType="text/html"
+	session="true"
+	
+	
+%>
+
+<jsp:include page="/includes/header.jsp" flush="false" >
+  <jsp:param name="title" value="Error" />
+  <jsp:param name="headTitle" value="Service ID Not Found" />
+  <jsp:param name="breadcrumb" value="Error" />
+</jsp:include>
 
 
-/**
- * <p>UpdateCompleteRemoteEvent class.</p>
- *
- * @author ranger
- * @version $Id: $
- * @since 1.8.1
- */
-public class UpdateCompleteRemoteEvent implements MapRemoteEvent {
 
-	private static final long serialVersionUID = -5806025139074592617L;
 
-	/**
-	 * <p>Constructor for UpdateCompleteRemoteEvent.</p>
-	 */
-	public UpdateCompleteRemoteEvent() {
-	}
 
-	/** {@inheritDoc} */
-	public void dispatch(final MapRemoteEventHandler locationManager) {
-		locationManager.updateComplete();
-	}
+<h1>Service  Not Found</h1>
 
-	/**
-	 * <p>toString</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	public String toString() {
-		return "UpdateCompleteRemoteEvent[]";
-	}
-}
+<p>
+  The service is invalid. No such service in database with service ID ${ifServiceId}
+  <br/>
+  
+  
+  
+</p>
+
+
+
+
+
+<jsp:include page="/includes/footer.jsp" flush="false" />
+
+
