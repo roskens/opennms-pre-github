@@ -42,6 +42,7 @@ import org.opennms.netmgt.config.collector.CollectionResource;
 import org.opennms.netmgt.dao.support.ResourceTypeUtils;
 import org.opennms.netmgt.model.RrdRepository;
 import org.opennms.netmgt.poller.LatencyCollectionResource;
+import org.opennms.netmgt.rrd.RrdConstants;
 
 /**
  * <p>CollectionResourceWrapper class.</p>
@@ -303,7 +304,7 @@ public class CollectionResourceWrapper {
         }
         String id = m_resource.toString() + "." + ds;
         Double current = Double.parseDouble(numValue);
-        if (m_attributes.get(ds).getType().toLowerCase().startsWith("counter") == false) {
+        if (m_attributes.get(ds).getType().toUpperCase().startsWith(RrdConstants.DST_COUNTER) == false) {
             if (log().isDebugEnabled()) {
                 log().debug("getAttributeValue: id=" + id + ", value= " + current);
             }

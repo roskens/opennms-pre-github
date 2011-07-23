@@ -29,10 +29,12 @@
 package org.opennms.netmgt.collectd;
 
 
+import org.opennms.core.utils.ConfigFileConstants;
 import org.opennms.netmgt.config.MibObject;
 import org.opennms.netmgt.config.collector.AttributeGroupType;
 import org.opennms.netmgt.config.collector.CollectionAttribute;
 import org.opennms.netmgt.config.collector.Persister;
+import org.opennms.netmgt.rrd.RrdConstants;
 
 /**
  * <p>NumericAttributeType class.</p>
@@ -42,8 +44,6 @@ import org.opennms.netmgt.config.collector.Persister;
  */
 public class NumericAttributeType extends SnmpAttributeType {
     
-    private static String[] s_supportedTypes = new String[] { "counter", "gauge", "timeticks", "integer", "octetstring" };
-    
     /**
      * <p>supportsType</p>
      *
@@ -52,17 +52,14 @@ public class NumericAttributeType extends SnmpAttributeType {
      */
     public static boolean supportsType(String rawType) {
         String type = rawType.toLowerCase();
-        for (int i = 0; i < s_supportedTypes.length; i++) {
-            String supportedType = s_supportedTypes[i];
+        for (int i = 0; i < RrdConstants.s_supportedObjectTypes.length; i++) {
+            String supportedType = RrdConstants.s_supportedObjectTypes[i];
             if (type.startsWith(supportedType))
                 return true;
         }
         return false;
     }
 
-
-
-    static final String DST_COUNTER = "COUNTER";
     /**
      * <p>Constructor for NumericAttributeType.</p>
      *
@@ -83,7 +80,7 @@ public class NumericAttributeType extends SnmpAttributeType {
             }
             
             String alias = getAlias();
-            if (alias.length() > PersistOperationBuilder.MAX_DS_NAME_LENGTH) {
+            if (alias.length() > ConfigFileConstants.RRD_DS_MAX_SIZE) {
                 logNameTooLong();
             }
 
@@ -99,7 +96,7 @@ public class NumericAttributeType extends SnmpAttributeType {
         log().warn(
                 "buildDataSourceList: Mib object name/alias '"
                 + getAlias()
-                + "' exceeds 19 char maximum for RRD data source names, truncating.");
+                + "' exceeds " + ConfigFileConstants.RRD_DS_MAX_SIZE + " char maximum for RRD data source names, truncating.");
    }
 
 

@@ -36,6 +36,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.opennms.core.utils.ConfigFileConstants;
 import org.opennms.core.utils.DefaultTimeKeeper;
 import org.opennms.core.utils.StringUtils;
 import org.opennms.core.utils.TimeKeeper;
@@ -43,6 +44,7 @@ import org.opennms.netmgt.config.collector.AttributeDefinition;
 import org.opennms.netmgt.config.collector.ByNameComparator;
 import org.opennms.netmgt.config.collector.ResourceIdentifier;
 import org.opennms.netmgt.model.RrdRepository;
+import org.opennms.netmgt.rrd.RrdConstants;
 import org.opennms.netmgt.rrd.RrdDataSource;
 import org.opennms.netmgt.rrd.RrdException;
 import org.opennms.netmgt.rrd.RrdUtils;
@@ -61,15 +63,6 @@ public class PersistOperationBuilder {
     private Map<AttributeDefinition, String> m_declarations = new TreeMap<AttributeDefinition, String>(new ByNameComparator());
     private TimeKeeper m_timeKeeper = new DefaultTimeKeeper();
     
-    /**
-     * RRDTool defined Data Source Types NOTE: "DERIVE" and "ABSOLUTE" not
-     * currently supported.
-     */
-    static final String DST_GAUGE = "GAUGE";
-    static final String DST_COUNTER = "COUNTER";
-    /** Constant <code>MAX_DS_NAME_LENGTH=19</code> */
-    public static final int MAX_DS_NAME_LENGTH = 19;
-
     /**
      * <p>Constructor for PersistOperationBuilder.</p>
      *
@@ -127,11 +120,11 @@ public class PersistOperationBuilder {
      * @return RRD type string or NULL object type is not supported.
      */
     public static String mapType(String objectType) {
-        if (objectType.toLowerCase().startsWith("counter")) {
-            return PersistOperationBuilder.DST_COUNTER;
+        if (objectType.toUpperCase().startsWith(RrdConstants.DST_COUNTER)) {
+            return RrdConstants.DST_COUNTER;
         }
         
-        return PersistOperationBuilder.DST_GAUGE;
+        return RrdConstants.DST_GAUGE;
     }
 
     /**
@@ -176,7 +169,7 @@ public class PersistOperationBuilder {
                 minval = ((NumericAttributeType) attrDef).getMinval() != null ? ((NumericAttributeType) attrDef).getMinval() : "U";
                 maxval = ((NumericAttributeType) attrDef).getMaxval() != null ? ((NumericAttributeType) attrDef).getMaxval() : "U";
             }
-            RrdDataSource rrdDataSource = new RrdDataSource(StringUtils.truncate(attrDef.getName(), PersistOperationBuilder.MAX_DS_NAME_LENGTH), PersistOperationBuilder.mapType(attrDef.getType()), getRepository().getHeartBeat(), minval, maxval);
+            RrdDataSource rrdDataSource = new RrdDataSource(StringUtils.truncate(attrDef.getName(), ConfigFileConstants.RRD_DS_MAX_SIZE), PersistOperationBuilder.mapType(attrDef.getType()), getRepository().getHeartBeat(), minval, maxval);
 
             dataSources.add(rrdDataSource);
         }

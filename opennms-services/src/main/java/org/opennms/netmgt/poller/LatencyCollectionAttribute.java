@@ -34,6 +34,7 @@ import org.opennms.netmgt.config.collector.CollectionResource;
 import org.opennms.netmgt.config.collector.CollectionSetVisitor;
 import org.opennms.netmgt.config.collector.Persister;
 import org.opennms.netmgt.config.collector.ServiceParameters;
+import org.opennms.netmgt.rrd.RrdConstants;
 
 /**
  * <p>LatencyCollectionAttribute class.</p>
@@ -112,7 +113,7 @@ public class LatencyCollectionAttribute implements CollectionAttribute {
      * @return a {@link java.lang.String} object.
      */
     public String getType() {
-        return "gauge";
+        return RrdConstants.DST_GAUGE;
     }
 
     /** {@inheritDoc} */

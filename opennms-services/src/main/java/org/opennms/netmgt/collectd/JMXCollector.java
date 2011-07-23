@@ -49,6 +49,7 @@ import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
 import javax.management.openmbean.CompositeData;
 
+import org.opennms.core.utils.ConfigFileConstants;
 import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.core.utils.LogUtils;
 import org.opennms.core.utils.ParameterMap;
@@ -66,6 +67,7 @@ import org.opennms.netmgt.config.collector.Persister;
 import org.opennms.netmgt.config.collector.ServiceParameters;
 import org.opennms.netmgt.model.RrdRepository;
 import org.opennms.netmgt.model.events.EventProxy;
+import org.opennms.netmgt.rrd.RrdConstants;
 import org.opennms.protocols.jmx.connectors.ConnectionWrapper;
 
 /**
@@ -122,11 +124,6 @@ public abstract class JMXCollector implements ServiceCollector {
      * hold data about each interface on a particular node.
      */
     static String IF_MAP_KEY = "org.opennms.netmgt.collectd.JBossCollector.ifMap";
-
-    /**
-     * RRD data source name max length.
-     */
-    private static final int MAX_DS_NAME_LENGTH = 19;
 
     /**
      * In some circumstances there may be many instances of a given service
@@ -636,11 +633,10 @@ public abstract class JMXCollector implements ServiceCollector {
                      * max for RRD data source names.
                      */
                     String ds_name = attr.getAlias();
-                    if (ds_name.length() > MAX_DS_NAME_LENGTH) {
-                        LogUtils.warnf(this, "buildDataSourceList: alias '%s' exceeds 19 char maximum for RRD data source names, truncating.", attr.getAlias());
+                    if (ds_name.length() > ConfigFileConstants.RRD_DS_MAX_SIZE) {
+                        LogUtils.warnf(this, "buildDataSourceList: alias '%s' exceeds " + ConfigFileConstants.RRD_DS_MAX_SIZE + " char maximum for RRD data source names, truncating.", attr.getAlias());
                         char[] temp = ds_name.toCharArray();
-                        ds_name = String.copyValueOf(temp, 0,
-                                                     MAX_DS_NAME_LENGTH);
+                        ds_name = String.copyValueOf(temp, 0, ConfigFileConstants.RRD_DS_MAX_SIZE);
                     }
                     ds.setName(ds_name);
 

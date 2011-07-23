@@ -76,6 +76,7 @@ import org.opennms.netmgt.poller.Distributable;
 import org.opennms.netmgt.poller.DistributionContext;
 import org.opennms.netmgt.poller.ServiceMonitor;
 import org.opennms.netmgt.poller.ServiceMonitorLocator;
+import org.opennms.netmgt.rrd.RrdConstants;
 import org.opennms.netmgt.rrd.RrdException;
 import org.opennms.netmgt.rrd.RrdDataSource;
 import org.opennms.netmgt.rrd.RrdUtils;
@@ -1102,7 +1103,7 @@ abstract public class PollerConfigManager implements PollerConfig {
             try {
                 final File rrdFile = new File(rrdDir, dsName);
                 if (!rrdFile.exists()) {
-                    RrdUtils.createRRD(rrdDir, dsName, getStep(pkg), Collections.singletonList(new RrdDataSource(dsName, "GAUGE", 600, "U", "U")), getRRAList(pkg));
+                    RrdUtils.createRRD(rrdDir, dsName, getStep(pkg), Collections.singletonList(new RrdDataSource(dsName, RrdConstants.DST_GAUGE, 600, "U", "U")), getRRAList(pkg));
                 }
                 RrdUtils.updateRRD(rrdDir, dsName, System.currentTimeMillis(), String.valueOf(responseTime));
             } catch (final RrdException e) {

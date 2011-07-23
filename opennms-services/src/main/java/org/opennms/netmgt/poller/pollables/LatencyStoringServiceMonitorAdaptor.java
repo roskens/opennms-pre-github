@@ -48,6 +48,7 @@ import org.opennms.netmgt.model.PollStatus;
 import org.opennms.netmgt.model.RrdRepository;
 import org.opennms.netmgt.poller.MonitoredService;
 import org.opennms.netmgt.poller.ServiceMonitor;
+import org.opennms.netmgt.rrd.RrdConstants;
 import org.opennms.netmgt.rrd.RrdDataSource;
 import org.opennms.netmgt.rrd.RrdException;
 import org.opennms.netmgt.rrd.RrdUtils;
@@ -203,7 +204,7 @@ public class LatencyStoringServiceMonitorAdaptor implements ServiceMonitor {
             // Create RRD if it doesn't already exist
             List<RrdDataSource> dsList = new ArrayList<RrdDataSource>(entries.size());
             for (String dsName : entries.keySet()) {
-                dsList.add(new RrdDataSource(dsName, "GAUGE", m_pollerConfig.getStep(m_pkg)*2, "U", "U"));
+                dsList.add(new RrdDataSource(dsName, RrdConstants.DST_GAUGE, m_pollerConfig.getStep(m_pkg)*2, "U", "U"));
             }
             createRRD(repository, addr, rrdBaseName, dsList);
 
@@ -255,7 +256,7 @@ public class LatencyStoringServiceMonitorAdaptor implements ServiceMonitor {
      * @throws org.opennms.netmgt.rrd.RrdException if any.
      */
     public boolean createRRD(String repository, InetAddress addr, String rrdBaseName, String dsName) throws RrdException {
-        List<RrdDataSource> dsList = Collections.singletonList(new RrdDataSource(dsName, "GAUGE", m_pollerConfig.getStep(m_pkg)*2, "U", "U"));
+        List<RrdDataSource> dsList = Collections.singletonList(new RrdDataSource(dsName, RrdConstants.DST_GAUGE, m_pollerConfig.getStep(m_pkg)*2, "U", "U"));
         return createRRD(repository, addr, rrdBaseName, dsList);
 
     }

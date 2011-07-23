@@ -31,9 +31,11 @@ import java.io.File;
 import java.util.Collections;
 import java.util.List;
 
+import org.opennms.core.utils.ConfigFileConstants;
 import org.opennms.core.utils.ThreadCategory;
 import org.opennms.netmgt.config.DataCollectionConfigFactory;
 import org.opennms.netmgt.config.MibObject;
+import org.opennms.netmgt.rrd.RrdConstants;
 import org.opennms.netmgt.rrd.RrdDataSource;
 import org.opennms.netmgt.rrd.RrdException;
 import org.opennms.netmgt.rrd.RrdUtils;
@@ -54,20 +56,8 @@ import org.opennms.netmgt.snmp.SnmpValue;
  * @version 1.1.1.1
  */
 public class JMXDataSource implements Cloneable {
-	private static final int MAX_DS_NAME_LENGTH = 19;
 	/** Constant <code>RRD_ERROR="RRD_ERROR"</code> */
 	public static final String RRD_ERROR = "RRD_ERROR";
-
-    /**
-     * Defines the list of supported (MIB) object types which may be mapped to
-     * one of the supported RRD data source types. Currently the only two
-     * supported RRD data source types are: COUNTER & GAUGE. A simple string
-     * comparison is performed against this list of supported types to determine
-     * if an object can be represented by an RRD data source. NOTE: String
-     * comparison uses String.startsWith() method so "counter32" & "counter64"
-     * values will match "counter" entry. Comparison is case sensitive.
-     */
-    private static final String[] supportedObjectTypes = new String[] { "counter", "gauge", "timeticks", "integer", "octetstring" };
 
     /**
      * Index of data type in supportedObjectTypes string array.
@@ -81,17 +71,6 @@ public class JMXDataSource implements Cloneable {
     private static final int INTEGER_INDEX = 3;
 
     private static final int OCTETSTRING_INDEX = 4;
-
-    /**
-     * RRDTool defined Data Source Types NOTE: "DERIVE" and "ABSOLUTE" not
-     * currently supported.
-     */
-    private static final String DST_GAUGE = "GAUGE";
-
-    private static final String DST_COUNTER = "COUNTER";
-
-    // private static final String DST_DERIVE = "DERIVE";
-    // private static final String DST_ABSOLUTE = "ABSOLUTE";
 
     /**
      * Data Source Type. This must be one of the available RRDTool data source
@@ -152,15 +131,15 @@ public class JMXDataSource implements Cloneable {
         objectType = objectType.toLowerCase();
 
         int index;
-        for (index = 0; index < supportedObjectTypes.length; index++) {
-            if (objectType.startsWith(supportedObjectTypes[index]))
+        for (index = 0; index < RrdConstants.s_supportedObjectTypes.length; index++) {
+            if (objectType.startsWith(RrdConstants.s_supportedObjectTypes[index]))
                 break;
         }
 
         switch (index) {
         // counter maps to RRD data source type COUNTER.
         case COUNTER_INDEX:
-            rrdType = DST_COUNTER;
+            rrdType = RrdConstants.DST_COUNTER;
             break;
         // gauge, timeticks, and integer types all map to RRD
         // data source type GAUGE.
@@ -168,7 +147,7 @@ public class JMXDataSource implements Cloneable {
         case TIMETICKS_INDEX:
         case INTEGER_INDEX:
         case GAUGE_INDEX:
-            rrdType = DST_GAUGE;
+            rrdType = RrdConstants.DST_GAUGE;
             break;
         // no match, object data type is NOT supported
         default:
@@ -210,14 +189,14 @@ public class JMXDataSource implements Cloneable {
 
                 // Truncate MIB object name/alias if it exceeds the 19 char max for
                 // RRD data source names.
-                if (this.getName().length() > MAX_DS_NAME_LENGTH) {
+                if (this.getName().length() > ConfigFileConstants.RRD_DS_MAX_SIZE) {
                         if (log.isEnabledFor(ThreadCategory.Level.WARN))
                                 log.warn(
                                         "buildDataSourceList: Mib object name/alias '"
                                                 + obj.getAlias()
-                                                + "' exceeds 19 char maximum for RRD data source names, truncating.");
+                                                + "' exceeds " + ConfigFileConstants.RRD_DS_MAX_SIZE + " char maximum for RRD data source names, truncating.");
                         char[] temp = this.getName().toCharArray();
-                        this.setName(String.copyValueOf(temp, 0, MAX_DS_NAME_LENGTH));
+                        this.setName(String.copyValueOf(temp, 0, ConfigFileConstants.RRD_DS_MAX_SIZE));
                 }
 
                 // Map MIB object data type to RRD data type
