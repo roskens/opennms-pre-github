@@ -146,7 +146,7 @@
       <groupId>org.opennms</groupId>
       <artifactId>opennms-config</artifactId>
       <classifier>xsds</classifier>
-      <version>${project.version}</version>
+      <version>${project.version}</version><!--$NO-MVN-MAN-VER$-->
     </dependency>
 
     <dependency>

@@ -88,7 +88,7 @@ public class EventConfData extends Object {
         while (keysetIter.hasNext() && maskMatch) {
             String key = keysetIter.next();
 
-            List maskValues = (List) eventKey.get(key);
+            List<String> maskValues = (List<String>) eventKey.get(key);
 
             // get the event value for this key
             String eventvalue = EventKey.getMaskElementValue(event, key);

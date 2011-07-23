@@ -73,8 +73,8 @@ public class AvailCalculatorTest {
         
         calculator.onStatusChange(statusChange);
         
-        
-        TimeChunk chunk = chunker.getNextSegment();
+        @SuppressWarnings("unused")
+		TimeChunk chunk = chunker.getNextSegment();
         double uptimePercent = calculator.getAvailabilityFor(getServices(), 0);
         assertEquals(0.5, uptimePercent, 0.00);
     }

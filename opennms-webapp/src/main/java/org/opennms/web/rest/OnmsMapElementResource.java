@@ -63,9 +63,11 @@ public class OnmsMapElementResource extends OnmsRestService {
     private OnmsMapDao m_mapDao;
 
     @Autowired
+    @SuppressWarnings("unused")
     private OnmsMapElementDao m_mapElementDao;
 
-    @Autowired
+	@Autowired
+    @SuppressWarnings("unused")
     private EventProxy m_eventProxy;
 
     @Context

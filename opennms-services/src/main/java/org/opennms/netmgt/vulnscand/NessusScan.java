@@ -153,6 +153,7 @@ class NessusScan implements Runnable {
      * Update the timestamps in an open vulnerability for which the rescan
      * failed.
      */
+    @SuppressWarnings("unused")
     private static final String VULNERABILITY_SCAN_ATTEMPTED = "UPDATE vulnerabilities SET lastattempttime = ? " + "WHERE vulnerabilityid = ?";
 
     /**
@@ -539,7 +540,8 @@ class NessusScan implements Runnable {
         return (NTP_CLIENT_ENTITY + NTP_SEP + "STOP_WHOLE_TEST" + NTP_SEP + NTP_CLIENT_ENTITY + "\n");
     }
 
-    private String buildStopScanString() {
+    @SuppressWarnings("unused")
+	private String buildStopScanString() {
         return (NTP_CLIENT_ENTITY + NTP_SEP + "STOP_ATTACK" + config.targetAddress.toString() + NTP_SEP + NTP_CLIENT_ENTITY + "\n");
     }
 
@@ -582,7 +584,8 @@ class NessusScan implements Runnable {
     private int processScanMessage(String message) {
         ThreadCategory log = ThreadCategory.getInstance(getClass());
 
-        int vulnerabilityId = -1;
+        @SuppressWarnings("unused")
+		int vulnerabilityId = -1;
 
         // DB connection; is connected and disconnected as necessary
         Connection conn = null;
@@ -609,7 +612,8 @@ class NessusScan implements Runnable {
                 int pluginId = -1, pluginSubId = -1;
                 String pluginLogmsg = "";
 
-                String hostname = tokens[i++];
+                @SuppressWarnings("unused")
+				String hostname = tokens[i++];
 
                 String portString = tokens[i++];
                 try {
@@ -808,9 +812,11 @@ class NessusScan implements Runnable {
                 NessusParser parser = NessusParser.getInstance();
 
                 PortValues portvals = null;
-                int pluginId = -1, pluginSubId = -1;
+                @SuppressWarnings("unused")
+				int pluginId = -1, pluginSubId = -1;
 
-                String hostname = tokens[i++];
+                @SuppressWarnings("unused")
+				String hostname = tokens[i++];
 
                 String portString = tokens[i++];
                 try {
@@ -973,7 +979,8 @@ class NessusScan implements Runnable {
             message = message.substring("s:".length()).trim();
 
             StringTokenizer parts = new StringTokenizer(message, ":");
-            String type, hostname;
+            @SuppressWarnings("unused")
+			String type, hostname;
             int last, total;
 
             try {

@@ -47,8 +47,8 @@ import java.util.Collection;
 public class DateProcessRowsCallback extends ProcessRowsCallback
 {
     /** {@inheritDoc} */
-    @SuppressWarnings("unchecked")
-    public Collection filterRows(TableModel model, Collection rows)
+    @SuppressWarnings("rawtypes")
+	public Collection filterRows(TableModel model, Collection rows)
         throws Exception
     {
         boolean filtered = model.getLimit().isFiltered();

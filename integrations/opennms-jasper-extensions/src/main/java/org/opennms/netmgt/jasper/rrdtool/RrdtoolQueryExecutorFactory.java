@@ -37,7 +37,7 @@ import net.sf.jasperreports.engine.query.JRQueryExecuterFactory;
 
 public class RrdtoolQueryExecutorFactory implements JRQueryExecuterFactory {
 
-    public JRQueryExecuter createQueryExecuter(JRDataset dataset, Map parameters)throws JRException {
+    public JRQueryExecuter createQueryExecuter(JRDataset dataset, @SuppressWarnings("rawtypes") Map parameters)throws JRException {
         return new RrdtoolQueryExecutor(dataset, parameters);
     }
 

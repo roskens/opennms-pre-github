@@ -59,8 +59,7 @@ import org.springframework.validation.Validator;
 public class AuthorityValidator implements Validator {
 
     /** {@inheritDoc} */
-    @SuppressWarnings("unchecked")
-    public boolean supports(Class clazz) {
+    public boolean supports(@SuppressWarnings("rawtypes") Class clazz) {
         return AuthorityDTO.class.isAssignableFrom(clazz);
     }
 

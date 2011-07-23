@@ -219,7 +219,8 @@ public class OnmsSnmpInterfaceResource extends OnmsRestService {
         for(String key : params.keySet()) {
             if (wrapper.isWritableProperty(key)) {
                 String stringValue = params.getFirst(key);
-                Object value = wrapper.convertIfNecessary(stringValue, wrapper.getPropertyType(key));
+                @SuppressWarnings("unchecked")
+				Object value = wrapper.convertIfNecessary(stringValue, wrapper.getPropertyType(key));
                 wrapper.setPropertyValue(key, value);
             }
         }

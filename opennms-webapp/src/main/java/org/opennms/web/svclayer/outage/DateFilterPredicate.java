@@ -93,7 +93,8 @@ public class DateFilterPredicate implements Predicate
 
         try
         {
-            Iterator<Column> iter = model.getColumnHandler().getColumns().iterator();
+            @SuppressWarnings("unchecked")
+			Iterator<Column> iter = model.getColumnHandler().getColumns().iterator();
 
             while (iter.hasNext())
             {

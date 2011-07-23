@@ -400,7 +400,8 @@ final class BroadcastEventProcessor implements EventListener {
         // event parms.
         //
         String oldPrimaryIfAddr = null;
-        String newPrimaryIfAddr = null;
+        @SuppressWarnings("unused")
+		String newPrimaryIfAddr = null;
         Parms parms = event.getParms();
         if (parms != null) {
             String parmName = null;

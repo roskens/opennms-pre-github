@@ -275,6 +275,7 @@ public class JaxbUtils {
 		*/
 	}
 
+	@SuppressWarnings("unused")
 	private static Schema getValidatorFor(final Class<?> origClazz) {
 		final Class<?> clazz = (Class<?>)(origClazz instanceof Class<?> ? origClazz : origClazz.getClass());
 		LogUtils.tracef(clazz, "finding XSD for class %s", clazz);

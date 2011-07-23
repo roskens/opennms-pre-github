@@ -34,8 +34,8 @@ package org.opennms.web.map.config;
  * @author mmigliore
  * @since 1.8.1
  */
-@SuppressWarnings("unchecked")
-public class Avail implements Comparable{
+@SuppressWarnings("rawtypes")
+public class Avail implements Comparable {
 	private int id;
 	private int min;
 	private String color;

@@ -205,7 +205,6 @@ public class XmpCollector implements ServiceCollector {
             XmpSession session, 
             XmpVar[] queryVars)
     {
-        XmpCollectionResource aRow;
         int numColumns,numRows;
         XmpMessage reply;
         int i,j;

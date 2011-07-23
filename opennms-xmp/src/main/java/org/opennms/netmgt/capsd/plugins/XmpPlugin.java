@@ -180,7 +180,8 @@ public final class XmpPlugin extends AbstractPlugin {
         XmpSession session;
         SocketOpts sockopts = new SocketOpts();
         // TODO how to apply timeout and retry to XMP operations?
-        int retry = protoConfig.hasRetry() ? protoConfig.getRetry() : DEFAULT_RETRY;
+        @SuppressWarnings("unused")
+		int retry = protoConfig.hasRetry() ? protoConfig.getRetry() : DEFAULT_RETRY;
         int timeout = protoConfig.hasTimeout() ? protoConfig.getTimeout() : DEFAULT_TIMEOUT;
         int port = DEFAULT_PORT;
         String authenUser = DEFAULT_AUTHEN_USER;

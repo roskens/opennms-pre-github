@@ -411,9 +411,12 @@ public abstract class JMXThresholder implements ServiceThresholder {
         Integer nodeId = (Integer) iface.getAttribute(NODE_ID_KEY);
 
         // node and interface ThresholdEntity map attributes
-        Map<Object,ThresholdEntity> nodeMap   = (Map<Object,ThresholdEntity>) iface.getAttribute(NODE_THRESHOLD_MAP_KEY);
-        Map<String,ThresholdEntity> baseIfMap = (Map<String,ThresholdEntity>) iface.getAttribute(BASE_IF_THRESHOLD_MAP_KEY);
-        Map<String,Map<String,ThresholdEntity>> allIfMap  = (Map<String, Map<String, ThresholdEntity>>)iface.getAttribute(ALL_IF_THRESHOLD_MAP_KEY);
+        @SuppressWarnings("unchecked")
+		Map<Object,ThresholdEntity> nodeMap   = (Map<Object,ThresholdEntity>) iface.getAttribute(NODE_THRESHOLD_MAP_KEY);
+        @SuppressWarnings("unchecked")
+		Map<String,ThresholdEntity> baseIfMap = (Map<String,ThresholdEntity>) iface.getAttribute(BASE_IF_THRESHOLD_MAP_KEY);
+        @SuppressWarnings("unchecked")
+		Map<String,Map<String,ThresholdEntity>> allIfMap  = (Map<String, Map<String, ThresholdEntity>>)iface.getAttribute(ALL_IF_THRESHOLD_MAP_KEY);
 
         // -----------------------------------------------------------
         // 

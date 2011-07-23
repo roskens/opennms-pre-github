@@ -353,7 +353,7 @@ public class ForeignSourceRestService extends OnmsRestService {
      * @param params a {@link org.opennms.web.rest.MultivaluedMapImpl} object.
      * @return a {@link javax.ws.rs.core.Response} object.
      */
-    @PUT
+	@PUT
     @Path("{foreignSource}")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Transactional
@@ -364,9 +364,9 @@ public class ForeignSourceRestService extends OnmsRestService {
         wrapper.registerCustomEditor(Duration.class, new StringIntervalPropertyEditor());
         for(String key : params.keySet()) {
             if (wrapper.isWritableProperty(key)) {
-                Object value = null;
                 String stringValue = params.getFirst(key);
-                value = wrapper.convertIfNecessary(stringValue, wrapper.getPropertyType(key));
+                @SuppressWarnings("unchecked")
+                Object value = wrapper.convertIfNecessary(stringValue, wrapper.getPropertyType(key));
                 wrapper.setPropertyValue(key, value);
             }
         }

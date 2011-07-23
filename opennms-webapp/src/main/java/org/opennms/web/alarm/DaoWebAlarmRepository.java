@@ -245,7 +245,8 @@ public class DaoWebAlarmRepository implements WebAlarmRepository {
     @Transactional
     public int[] countMatchingAlarmsBySeverity(AlarmCriteria criteria) {
         OnmsCriteria crit = getOnmsCriteria(criteria).setProjection(Projections.groupProperty("severityId"));
-        List<OnmsAlarm> alarms = m_alarmDao.findMatching(crit);
+        @SuppressWarnings("unused")
+		List<OnmsAlarm> alarms = m_alarmDao.findMatching(crit);
         
         int[] alarmCounts = new int[8];
         alarmCounts[OnmsSeverity.CLEARED.getId()] = m_alarmDao.countMatching(getOnmsCriteria(criteria).add(Restrictions.eq("severityId", OnmsSeverity.CLEARED.getId())));

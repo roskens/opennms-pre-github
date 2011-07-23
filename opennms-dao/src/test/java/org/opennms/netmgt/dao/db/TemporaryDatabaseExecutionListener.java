@@ -131,7 +131,7 @@ public class TemporaryDatabaseExecutionListener extends AbstractTestExecutionLis
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void beforeTestMethod(final TestContext testContext) throws Exception {
 		System.err.println(String.format("TemporaryDatabaseExecutionListener.beforeTestMethod(%s)", testContext));
 

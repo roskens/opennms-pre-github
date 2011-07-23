@@ -75,7 +75,8 @@ public class CurrentOutageParseResponse {
      */
     public static  Map<String,String> findSelectedOutagesIDs(HttpServletRequest request, OutageService outageService) {
         Map<String, String> myOutages = new HashMap<String, String>();
-        Enumeration<String> parameterNames = request.getParameterNames();
+        @SuppressWarnings("unchecked")
+		Enumeration<String> parameterNames = request.getParameterNames();
 
         while (parameterNames.hasMoreElements()) {
             String parameterName = parameterNames.nextElement();

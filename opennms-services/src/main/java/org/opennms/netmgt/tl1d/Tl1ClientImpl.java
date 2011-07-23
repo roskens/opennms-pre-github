@@ -411,7 +411,8 @@ public class Tl1ClientImpl implements Tl1Client {
 
     private class TimeoutSleeper {
 
-        public void sleep() throws InterruptedException {
+        @SuppressWarnings("unused")
+		public void sleep() throws InterruptedException {
             Thread.sleep(m_reconnectionDelay);
         }
 

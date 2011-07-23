@@ -177,9 +177,8 @@ public class ProvisioningGroupsController extends SimpleFormController {
     }
 
     /** {@inheritDoc} */
-    @SuppressWarnings("unchecked")
     @Override
-    protected Map referenceData(HttpServletRequest request) throws Exception {
+    protected Map<String, Object> referenceData(HttpServletRequest request) throws Exception {
         Map<String, Object> refData = new HashMap<String, Object>();
 
         Set<String>               names          = new TreeSet<String>();

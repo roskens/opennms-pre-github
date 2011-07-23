@@ -364,7 +364,8 @@ public class JasperReportService implements ReportService {
         JasperReport jasperReport = null;
         String outputFileName = null;
         String sourceFileName = m_jasperReportConfigDao.getTemplateLocation(reportId);
-        HashMap<String, Object> jrReportParms;
+        @SuppressWarnings("unused")
+		HashMap<String, Object> jrReportParms;
 
         if (sourceFileName != null) {
 

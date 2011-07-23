@@ -31,8 +31,6 @@ package org.opennms.web.filter;
 import org.hibernate.Hibernate;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.type.StringType;
-import org.hibernate.type.Type;
 
 
 /**
@@ -43,9 +41,6 @@ import org.hibernate.type.Type;
  * @since 1.8.1
  */
 public abstract class IPLikeFilter extends OneArgFilter<String> {
-
-    private static final Type STRING_TYPE = new StringType();
-
     /**
      * <p>Constructor for IPLikeFilter.</p>
      *

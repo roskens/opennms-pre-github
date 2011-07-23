@@ -155,7 +155,7 @@
       <groupId>org.opennms</groupId>
       <artifactId>opennms-model</artifactId>
       <classifier>xsds</classifier>
-      <version>${project.version}</version>
+      <version>${project.version}</version><!--$NO-MVN-MAN-VER$-->
       <scope>test</scope>
     </dependency>
     <dependency>

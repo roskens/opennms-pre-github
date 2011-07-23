@@ -83,7 +83,7 @@ public class WmiMonitor extends AbstractServiceMonitor {
 	 */
 	@SuppressWarnings("unchecked")
     @Override
-	public PollStatus poll(final MonitoredService svc, final Map parameters) {
+	public PollStatus poll(final MonitoredService svc, @SuppressWarnings("rawtypes") final Map parameters) {
 		// Holds the response reason.
 		String reason = null;
 		// Used to exit the retry loop early, if possible.
@@ -92,7 +92,7 @@ public class WmiMonitor extends AbstractServiceMonitor {
 		WmiResult response = null;
 		// Used to track how long the request took.
 		Double responseTime = null;
-		final NetworkInterface iface = svc.getNetInterface();
+		final NetworkInterface<InetAddress> iface = svc.getNetInterface();
 		// Get the address we're going to poll.
 		final InetAddress ipv4Addr = (InetAddress) iface.getAddress();
 		

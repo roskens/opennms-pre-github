@@ -71,7 +71,8 @@ import org.springframework.osgi.context.BundleContextAware;
 public class SmsCommands implements CommandProvider, BundleContextAware
 {
     // Unused?
-    private String m_port;
+    @SuppressWarnings("unused")
+	private String m_port;
     private Service m_service;
     private OutboundNotification m_outboundNotification;
     private InboundNotification m_inboundNotification;
@@ -425,7 +426,8 @@ public class SmsCommands implements CommandProvider, BundleContextAware
             String prefix = intp.nextArgument();
 
             Configuration config = m_configAdmin.getConfiguration("org.ops4j.pax.logging", null);
-            Dictionary properties = config.getProperties();
+            @SuppressWarnings("rawtypes")
+			Dictionary properties = config.getProperties();
             if (level == null) {
                 if (properties == null) {
                     intp.println("Not current configuration");

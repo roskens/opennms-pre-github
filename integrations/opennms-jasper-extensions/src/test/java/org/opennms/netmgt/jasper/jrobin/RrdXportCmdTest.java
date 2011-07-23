@@ -53,7 +53,8 @@ public class RrdXportCmdTest {
         return "--start 1287005100 --end 1287018990 DEF:xx=src/test/resources/http-8980.jrb:http-8980:AVERAGE DEF:zz=src/test/resources/ssh.jrb:ssh:AVERAGE XPORT:xx:HttpLatency XPORT:zz:SshLatency";
     }
     
-    private String getWindowsString() {
+    @SuppressWarnings("unused")
+	private String getWindowsString() {
         return "--start 1287005100 --end 1287018990 DEF:xx=\\jrbs\\http-8980.jrb:http-8980:AVERAGE DEF:zz=\\jrbs\\ssh.jrb:ssh:AVERAGE XPORT:xx:HttpLatency XPORT:zz:SshLatency";
     }
     

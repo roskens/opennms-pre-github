@@ -262,7 +262,6 @@ public class SpikeHunter {
 		long startTime = 0;
 		long endTime = 0;
 		FetchData data = null;
-		Robin robin = null;
 
 		try {
 			consolFun = arc.getConsolFun();

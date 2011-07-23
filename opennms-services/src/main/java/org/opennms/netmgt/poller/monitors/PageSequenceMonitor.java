@@ -653,7 +653,8 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
             return properties;
         }
 
-        private String getUserInfo() {
+        @SuppressWarnings("unused")
+		private String getUserInfo() {
             return m_page.getUserInfo();
         }
 
@@ -715,7 +716,7 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
         public static final String KEY = PageSequenceMonitorParameters.class.getName();
 
         @SuppressWarnings("unchecked")
-        static synchronized PageSequenceMonitorParameters get(Map paramterMap) {
+        static synchronized PageSequenceMonitorParameters get(@SuppressWarnings("rawtypes") Map paramterMap) {
             PageSequenceMonitorParameters parms = (PageSequenceMonitorParameters) paramterMap.get(KEY);
             if (parms == null) {
                 parms = new PageSequenceMonitorParameters(paramterMap);
@@ -728,7 +729,8 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
         private final HttpParams m_clientParams;
         private final HttpPageSequence m_pageSequence;
 
-        PageSequenceMonitorParameters(Map<String, String> parameterMap) {
+        @SuppressWarnings("unchecked")
+		PageSequenceMonitorParameters(Map<String, String> parameterMap) {
             m_parameterMap = parameterMap;
             String pageSequence = getStringParm("page-sequence", null);
             if (pageSequence == null) {

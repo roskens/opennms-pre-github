@@ -68,7 +68,8 @@ public class JMXSecureConnectionFactory
      * @param address a {@link java.net.InetAddress} object.
      * @return a {@link org.opennms.protocols.jmx.connectors.Jsr160ConnectionWrapper} object.
      */
-    public static Jsr160ConnectionWrapper getMBeanServerConnection(Map<?,?> propertiesMap, InetAddress address)
+    @SuppressWarnings("restriction")
+	public static Jsr160ConnectionWrapper getMBeanServerConnection(Map<?,?> propertiesMap, InetAddress address)
     {
         Jsr160ConnectionWrapper connectionWrapper = null;
 
@@ -101,7 +102,8 @@ public class JMXSecureConnectionFactory
                         ks = KeyStore.getInstance(KeyStore.getDefaultType());
                         TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
                         tmf.init(ks);
-                        X509TrustManager defaultTrustManager = (X509TrustManager) tmf.getTrustManagers()[0];
+                        @SuppressWarnings("unused")
+						X509TrustManager defaultTrustManager = (X509TrustManager) tmf.getTrustManagers()[0];
                         tm = new AnyServerX509TrustManager();
                         SSLContext ctx = SSLContext.getInstance("TLSv1");
                         ctx.init(null, new TrustManager[]{tm}, null);

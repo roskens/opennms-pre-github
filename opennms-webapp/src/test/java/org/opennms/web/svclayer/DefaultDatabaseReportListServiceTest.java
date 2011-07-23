@@ -42,9 +42,13 @@ import org.springframework.core.io.Resource;
 
 public class DefaultDatabaseReportListServiceTest {
     
+    @SuppressWarnings("unused")
     private static final String ID = "defaultCalendarReport";
+    @SuppressWarnings("unused")
     private static final String DESCRIPTION = "default calendar report";
-    private static final String DATE_DISPLAY_NAME = "end date";
+    @SuppressWarnings("unused")
+	private static final String DATE_DISPLAY_NAME = "end date";
+    @SuppressWarnings("unused")
     private static final String DATE_NAME = "endDate";
     
     private DefaultDatabaseReportConfigDao m_dao;

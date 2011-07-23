@@ -68,7 +68,8 @@ public class AvailabilityCalculatorImpl implements AvailabilityCalculator {
 
     private static final String LOG4J_CATEGORY = "OpenNMS.Report";
 
-    private static final String XML_FORMAT = "xml";
+    @SuppressWarnings("unused")
+	private static final String XML_FORMAT = "xml";
 
     // String of Months
 

@@ -108,7 +108,8 @@ public class Tl1AutonomousMessageProcessorTest extends TestCase {
     }
     
     public void testInstanitateClass() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        Tl1Client client = (Tl1Client) Class.forName("org.opennms.netmgt.tl1d.Tl1ClientImpl").newInstance();
+        @SuppressWarnings("unused")
+		Tl1Client client = (Tl1Client) Class.forName("org.opennms.netmgt.tl1d.Tl1ClientImpl").newInstance();
     }
 
 }

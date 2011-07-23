@@ -60,7 +60,8 @@ public class Capsd extends AbstractServiceDaemon {
     /**
      * The log4j category used to log messages.
      */
-    private static final String LOG4J_CATEGORY = "OpenNMS.Capsd";
+    @SuppressWarnings("unused")
+	private static final String LOG4J_CATEGORY = "OpenNMS.Capsd";
 
     /**
      * Database synchronization lock for synchronizing write access to the

@@ -94,57 +94,67 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
 		public void setCiscoPingSerialNumber(int ciscoPingSerialNumber) {
 			m_ciscoPingSerialNumber = ciscoPingSerialNumber;
 		}
+		@SuppressWarnings("unused")
 		public int getCiscoPingProtocol() {
 			return m_ciscoPingProtocol;
 		}
 		public void setCiscoPingProtocol(int ciscoPingProtocol) {
 			m_ciscoPingProtocol = ciscoPingProtocol;
 		}
+		@SuppressWarnings("unused")
 		public InetAddress getCiscoPingAddress() {
 			return m_ciscoPingAddress;
 		}
+		@SuppressWarnings("unused")
 		public byte[] getCiscoPingAddressBytes() {
 			return m_ciscoPingAddress.getAddress();
 		}
 		public void setCiscoPingAddress(InetAddress ciscoPingAddress) {
 			m_ciscoPingAddress = ciscoPingAddress;
 		}
+		@SuppressWarnings("unused")
 		public int getCiscoPingPacketCount() {
 			return m_ciscoPingPacketCount;
 		}
 		public void setCiscoPingPacketCount(int ciscoPingPacketCount) {
 			m_ciscoPingPacketCount = ciscoPingPacketCount;
 		}
+		@SuppressWarnings("unused")
 		public int getCiscoPingPacketSize() {
 			return m_ciscoPingPacketSize;
 		}
 		public void setCiscoPingPacketSize(int ciscoPingPacketSize) {
 			m_ciscoPingPacketSize = ciscoPingPacketSize;
 		}
+		@SuppressWarnings("unused")
 		public int getCiscoPingPacketTimeout() {
 			return m_ciscoPingPacketTimeout;
 		}
 		public void setCiscoPingPacketTimeout(int ciscoPingPacketTimeout) {
 			m_ciscoPingPacketTimeout = ciscoPingPacketTimeout;
 		}
+		@SuppressWarnings("unused")
 		public int getCiscoPingPacketDelay() {
 			return m_ciscoPingPacketDelay;
 		}
 		public void setCiscoPingPacketDelay(int ciscoPingPacketDelay) {
 			m_ciscoPingPacketDelay = ciscoPingPacketDelay;
 		}
+		@SuppressWarnings("unused")
 		public String getCiscoPingEntryOwner() {
 			return m_ciscoPingEntryOwner;
 		}
 		public void setCiscoPingEntryOwner(String ciscoPingEntryOwner) {
 			m_ciscoPingEntryOwner = ciscoPingEntryOwner;
 		}
+		@SuppressWarnings("unused")
 		public String getCiscoPingVrfName() {
 			return m_ciscoPingVrfName;
 		}
 		public void setCiscoPingVrfName(String ciscoPingVrfName) {
 			m_ciscoPingVrfName = ciscoPingVrfName;
 		}
+		@SuppressWarnings("unused")
 		public int getCiscoPingEntryStatus() {
 			return m_ciscoPingEntryStatus;
 		}
@@ -254,6 +264,7 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
                                                                                 // ciscoPingMIB / ciscoPingMIBObjects /
                                                                                 // ciscoPingTable / ciscoPingEntry
     
+	@SuppressWarnings("unused")
     private static final String PING_SERIAL = "1";
     private static final String PING_PROTOCOL = "2";
     private static final String PING_ADDRESS = "3";
@@ -271,10 +282,14 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
     private static final String PING_ENTRY_STATUS = "16";
     private static final String PING_VRF_NAME = "17";
     
+	@SuppressWarnings("unused")
     private static final int ROWSTATUS_ACTIVE = 1;
+	@SuppressWarnings("unused")
     private static final int ROWSTATUS_NOT_IN_SERVICE = 2;
+	@SuppressWarnings("unused")
     private static final int ROWSTATUS_NOT_READY = 3;
     private static final int ROWSTATUS_CREATE_AND_GO = 4;
+	@SuppressWarnings("unused")
     private static final int ROWSTATUS_CREATE_WAIT = 5;
     private static final int ROWSTATUS_DESTROY = 6;
     
@@ -424,6 +439,7 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
         
         int minSuccessPercent = ParameterMap.getKeyedInteger(parameters, PARM_SUCCESS_PERCENT, PARM_SUCCESS_PERCENT_DEFAULT);
         
+		@SuppressWarnings("unused")
         int cleanupInterval = ParameterMap.getKeyedInteger(parameters, PARM_CLEANUP_INTERVAL, PARM_CLEANUP_INTERVAL_DEFAULT);
         
         // Determine the node to use as our IOS ping proxy

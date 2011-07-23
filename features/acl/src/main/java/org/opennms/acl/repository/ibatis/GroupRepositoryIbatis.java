@@ -131,7 +131,6 @@ public class GroupRepositoryIbatis extends SqlMapClientTemplate implements Group
     public Boolean saveGroups(final String username, final List<Integer> groups) {
 
         return execute(new SqlMapClientCallback<Boolean>() {
-            @SuppressWarnings("unchecked")
             public Boolean doInSqlMapClient(SqlMapExecutor executor) {
                 int ris = 0;
                 try {
@@ -140,7 +139,7 @@ public class GroupRepositoryIbatis extends SqlMapClientTemplate implements Group
                     Iterator<Integer> iter = groups.iterator();
 
                     while (iter.hasNext()) {
-                        Map params = new HashMap();
+                    	Map<String,Object> params = new HashMap<String,Object>();
                         params.put("username", username);
                         params.put("id", iter.next());
                         executor.insert("insertGroupUser", params);
@@ -160,7 +159,7 @@ public class GroupRepositoryIbatis extends SqlMapClientTemplate implements Group
     /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public List<GroupDTO> getGroups(Pager pager) {
-        Map params = new HashMap();
+    	Map<String,Object> params = new HashMap<String,Object>();
         params.put("limit", pager.getItemsNumberOnPage());
         params.put("offset", pager.getPage() * pager.getItemsNumberOnPage());
         return queryForList("getGroups", params);
@@ -222,7 +221,7 @@ public class GroupRepositoryIbatis extends SqlMapClientTemplate implements Group
                     Iterator<Integer> iter = (Iterator<Integer>) authorities.iterator();
 
                     while (iter.hasNext()) {
-                        Map params = new HashMap();
+                    	Map<String,Object> params = new HashMap<String,Object>();
                         params.put("id", iter.next());
                         params.put("groupId", group);
                         executor.update("updateGroupAuthority", params);

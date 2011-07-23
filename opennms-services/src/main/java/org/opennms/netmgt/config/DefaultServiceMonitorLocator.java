@@ -62,16 +62,10 @@ public class DefaultServiceMonitorLocator implements ServiceMonitorLocator, Seri
      * FIXME The use of CastorObjectRetrievalFailureException doesn't seem
      * appropriate below, as I don't see Castor being used at all. - dj@opennms.org
      */
-    /**
-     * <p>getServiceMonitor</p>
-     *
-     * @return a {@link org.opennms.netmgt.poller.ServiceMonitor} object.
-     */
-    @SuppressWarnings("unchecked")
     public ServiceMonitor getServiceMonitor() {
         try {
             ServiceMonitor mon = m_serviceClass.newInstance();
-            mon.initialize((Map)null);
+            mon.initialize((Map<String,Object>)null);
             return mon;
         } catch (InstantiationException e) {
             throw new CastorObjectRetrievalFailureException("Unable to instantiate monitor for service "

@@ -59,7 +59,8 @@ import com.google.gwt.view.client.SingleSelectionModel;
 
 public class ChooseResourceViewImpl extends Composite implements ChooseResourceView {
 
-    private static final int DEFAULT_FAST_FORWARD_ROWS = 0;
+    @SuppressWarnings("unused")
+	private static final int DEFAULT_FAST_FORWARD_ROWS = 0;
 
     private static ChooseResourceViewImplUiBinder uiBinder = GWT.create(ChooseResourceViewImplUiBinder.class);
 
@@ -207,7 +208,8 @@ public class ChooseResourceViewImpl extends Composite implements ChooseResourceV
     
     @UiHandler("m_viewChildResourceBtn")
     protected void handleViewChildResourceClicked(ClickEvent event) {
-        SingleSelectionModel<ResourceListItem> selectionModel = (SingleSelectionModel<ResourceListItem>) getCellTable().getSelectionModel();
+        @SuppressWarnings("unchecked")
+		SingleSelectionModel<ResourceListItem> selectionModel = (SingleSelectionModel<ResourceListItem>) getCellTable().getSelectionModel();
         if(selectionModel.getSelectedObject() != null){
                 navigateTo("customGraphChooseResource.htm?selectedResourceId=&resourceId=" + selectionModel.getSelectedObject().getId());
         }else{
@@ -217,7 +219,8 @@ public class ChooseResourceViewImpl extends Composite implements ChooseResourceV
 
     @UiHandler("m_chooseChildResourceBtn")
     protected void handleChooseChildResourceClicked(ClickEvent event) {
-        SingleSelectionModel<ResourceListItem> selectionModel = (SingleSelectionModel<ResourceListItem>) getCellTable().getSelectionModel();
+        @SuppressWarnings("unchecked")
+		SingleSelectionModel<ResourceListItem> selectionModel = (SingleSelectionModel<ResourceListItem>) getCellTable().getSelectionModel();
         if(selectionModel.getSelectedObject() != null){
                 navigateTo("customGraphEditDetails.htm?resourceId=" + selectionModel.getSelectedObject().getId()); 
         }else {

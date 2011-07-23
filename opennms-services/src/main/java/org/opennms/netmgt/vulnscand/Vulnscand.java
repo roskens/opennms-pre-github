@@ -80,7 +80,8 @@ public class Vulnscand extends AbstractServiceDaemon {
     /**
      * The log4j category used to log messages.
      */
-    private static final String LOG4J_CATEGORY = "OpenNMS.Vulnscand";
+    @SuppressWarnings("unused")
+	private static final String LOG4J_CATEGORY = "OpenNMS.Vulnscand";
 
     /**
      * Singleton instance of the Vulnscand class

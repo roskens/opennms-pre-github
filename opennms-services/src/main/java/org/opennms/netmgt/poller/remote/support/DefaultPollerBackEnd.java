@@ -114,7 +114,8 @@ public class DefaultPollerBackEnd implements PollerBackEnd, SpringServiceDaemon 
             return m_serverTime;
         }
         
-        public void setServerTime(long serverTime) {
+        @SuppressWarnings("unused")
+		public void setServerTime(long serverTime) {
             m_serverTime = serverTime;
         }
 

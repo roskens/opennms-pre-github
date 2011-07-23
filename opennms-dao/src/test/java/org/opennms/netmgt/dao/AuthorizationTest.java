@@ -80,7 +80,8 @@ public class AuthorizationTest implements InitializingBean {
     }
 
     private static boolean m_populated = false;
-    private static DatabasePopulator m_lastPopulator;
+    @SuppressWarnings("unused")
+	private static DatabasePopulator m_lastPopulator;
     
     @BeforeTransaction
     public void setUp() {

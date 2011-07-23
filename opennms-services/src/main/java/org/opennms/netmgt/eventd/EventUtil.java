@@ -653,7 +653,8 @@ public final class EventUtil {
      * @return All event parameter values as a String
      */
     private static String getAllParamValues(Event event) {
-        String retParmVal = null;
+        @SuppressWarnings("unused")
+		String retParmVal = null;
         if (event.getParmCollection().size() < 1) {
             return null;
         } else {

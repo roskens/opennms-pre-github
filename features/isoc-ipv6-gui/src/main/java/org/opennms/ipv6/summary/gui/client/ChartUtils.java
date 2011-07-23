@@ -166,7 +166,8 @@ public class ChartUtils {
         }
     }
 
-    private static List<String> parseJSONArrayToList(JSONArray participants) {
+    @SuppressWarnings("unused")
+	private static List<String> parseJSONArrayToList(JSONArray participants) {
         if(participants != null) {
             List<String> locs = new ArrayList<String>();
             for(int i = 0; i < participants.size(); i++) {

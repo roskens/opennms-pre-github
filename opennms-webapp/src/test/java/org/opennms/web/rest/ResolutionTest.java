@@ -41,7 +41,8 @@ public class ResolutionTest {
     @Test
     public void testResolution() {
         Date startDate = new Date(new Date().getTime() - 300000);
-        long startTime = startDate.getTime();
+        @SuppressWarnings("unused")
+		long startTime = startDate.getTime();
         long endTime = startDate.getTime() + 300000;
         
         TimeChunker resolution = new TimeChunker(TimeChunker.MINUTE, startDate, new Date(endTime));

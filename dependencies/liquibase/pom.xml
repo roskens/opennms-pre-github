@@ -24,7 +24,7 @@
     <dependency>
       <groupId>org.liquibase</groupId>
       <artifactId>liquibase-core</artifactId>
-      <version>${liquibaseVersion}</version>
+      <version>${liquibaseVersion}</version><!--$NO-MVN-MAN-VER$-->
     </dependency>
   </dependencies>
   <repositories>

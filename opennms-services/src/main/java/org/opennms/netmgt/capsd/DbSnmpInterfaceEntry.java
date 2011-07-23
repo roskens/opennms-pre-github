@@ -473,7 +473,8 @@ public final class DbSnmpInterfaceEntry {
             throw new IllegalStateException("The record does not exists in the database");
         }
 
-        ThreadCategory log = ThreadCategory.getInstance(getClass());
+        @SuppressWarnings("unused")
+		ThreadCategory log = ThreadCategory.getInstance(getClass());
 
         // create the Prepared statement and then start setting the query values
         PreparedStatement stmt = null;

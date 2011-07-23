@@ -192,7 +192,8 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
                 long startMillis = System.currentTimeMillis() - 12000;
                 long totalTime = new Date().getTime() - startMillis;
                 TimeChunker timeChunker = new TimeChunker((int)totalTime, new Date(System.currentTimeMillis() - 12000), new Date());
-                final TimeChunk timeChunk = timeChunker.getNextSegment();
+                @SuppressWarnings("unused")
+				final TimeChunk timeChunk = timeChunker.getNextSegment();
                 Collection<OnmsLocationSpecificStatus> allStatusChanges = m_locationMonitorDao.getStatusChangesForApplicationBetween(new Date(startMillis), new Date(), "IPv6");
                 
                 final AvailCalculator calc = new AvailCalculator(timeChunker);

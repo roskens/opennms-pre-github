@@ -70,7 +70,7 @@ public class MailTransportParameters {
     }
     
     @SuppressWarnings("unchecked")
-    static synchronized MailTransportParameters get(Map parameterMap) {
+    static synchronized MailTransportParameters get(@SuppressWarnings("rawtypes") Map parameterMap) {
         MailTransportParameters parms = (MailTransportParameters)parameterMap.get(KEY);
         if (parms == null) {
             parms = new MailTransportParameters(parameterMap);

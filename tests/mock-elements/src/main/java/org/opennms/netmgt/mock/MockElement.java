@@ -137,8 +137,8 @@ abstract public class MockElement {
      *
      * @param newParent a {@link org.opennms.netmgt.mock.MockContainer} object.
      */
-    @SuppressWarnings({ "unchecked" })
-	public void moveTo(MockContainer newParent) {
+	@SuppressWarnings("unchecked")
+	public void moveTo(@SuppressWarnings("rawtypes") MockContainer newParent) {
         m_parent.removeMember(this);
         newParent.addMember(this);
     }

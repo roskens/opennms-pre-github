@@ -225,7 +225,8 @@ public class CriteriaAddingVisitor implements Visitor, InitializingBean {
             m_name = name;
         }
         
-        public String getName() {
+        @SuppressWarnings("unused")
+		public String getName() {
             return m_name;
         }
 
@@ -253,11 +254,13 @@ public class CriteriaAddingVisitor implements Visitor, InitializingBean {
             return m_columns.getAllValues();
         }
         
-        public Set<String> getCategoriesForColumns(Collection<? extends String> columns) {
+        @SuppressWarnings("unused")
+		public Set<String> getCategoriesForColumns(Collection<? extends String> columns) {
             return m_columns.getValuesForKeys(columns);
         }
         
-        public Set<String> getCategoriesForRows(Collection<? extends String> rows) {
+        @SuppressWarnings("unused")
+		public Set<String> getCategoriesForRows(Collection<? extends String> rows) {
             return m_rows.getValuesForKeys(rows);
         }
     }

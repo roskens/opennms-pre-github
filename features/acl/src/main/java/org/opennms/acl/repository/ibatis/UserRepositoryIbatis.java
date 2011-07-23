@@ -136,7 +136,7 @@ public class UserRepositoryIbatis extends SqlMapClientTemplate implements UserRe
     /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public List<UserDTOLight> getDisabledUsers(Pager pager) {
-        Map params = new HashMap();
+    	Map<String,Object> params = new HashMap<String,Object>();
         params.put("limit", pager.getItemsNumberOnPage());
         params.put("offset", pager.getPage() * pager.getItemsNumberOnPage());
         return queryForList("getDisabledUsers", params);
@@ -145,7 +145,7 @@ public class UserRepositoryIbatis extends SqlMapClientTemplate implements UserRe
     /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public List<UserDTOLight> getEnabledUsers(Pager pager) {
-        Map params = new HashMap();
+    	Map<String,Object> params = new HashMap<String,Object>();
         params.put("limit", pager.getItemsNumberOnPage());
         params.put("offset", pager.getPage() * pager.getItemsNumberOnPage());
         return queryForList("getEnabledUsers", params);
@@ -184,7 +184,7 @@ public class UserRepositoryIbatis extends SqlMapClientTemplate implements UserRe
                     Iterator<Integer> iter = (Iterator<Integer>) items.iterator();
 
                     while (iter.hasNext()) {
-                        Map params = new HashMap();
+                    	Map<String,Object> params = new HashMap<String,Object>();
                         params.put("id", iter.next());
                         params.put("username", username);
                         executor.insert("insertUserItem", params);

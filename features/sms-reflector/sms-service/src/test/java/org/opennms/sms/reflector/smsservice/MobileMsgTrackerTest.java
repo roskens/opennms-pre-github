@@ -61,11 +61,13 @@ import org.smslib.USSDSessionStatus;
  */
 public class MobileMsgTrackerTest {
     
+	@SuppressWarnings("unused")
 	private static final String PHONE_NUMBER = "+19195551212";
     public static final String TMOBILE_RESPONSE = "37.28 received on 08/31/09. For continued service through 10/28/09, please pay 79.56 by 09/28/09.    ";
     public static final String TMOBILE_USSD_MATCH = "^.*[\\d\\.]+ received on \\d\\d/\\d\\d/\\d\\d. For continued service through \\d\\d/\\d\\d/\\d\\d, please pay [\\d\\.]+ by \\d\\d/\\d\\d/\\d\\d.*$";
 
-    private final class LatencyCallback implements Callback<MobileMsgResponse> {
+    @SuppressWarnings("unused")
+	private final class LatencyCallback implements Callback<MobileMsgResponse> {
 		private final AtomicLong m_start = new AtomicLong();
 		private final AtomicLong m_end = new AtomicLong();
 

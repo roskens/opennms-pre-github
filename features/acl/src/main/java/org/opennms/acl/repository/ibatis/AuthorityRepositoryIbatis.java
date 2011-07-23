@@ -133,7 +133,6 @@ public class AuthorityRepositoryIbatis extends SqlMapClientTemplate implements A
     public Boolean saveAuthorities(final Integer groupId, final List<Integer> authorities) {
 
         return execute(new SqlMapClientCallback<Boolean>() {
-            @SuppressWarnings("unchecked")
             public Boolean doInSqlMapClient(SqlMapExecutor executor) {
                 int ris = 0;
                 try {
@@ -142,7 +141,7 @@ public class AuthorityRepositoryIbatis extends SqlMapClientTemplate implements A
                     Iterator<Integer> iter = authorities.iterator();
 
                     while (iter.hasNext()) {
-                        Map params = new HashMap();
+                        Map<String,Integer> params = new HashMap<String,Integer>();
                         params.put("group_id", groupId);
                         params.put("id", iter.next());
                         executor.insert("updateGroupAuthority", params);
@@ -171,7 +170,7 @@ public class AuthorityRepositoryIbatis extends SqlMapClientTemplate implements A
                     Iterator<Integer> iter = (Iterator<Integer>) items.iterator();
 
                     while (iter.hasNext()) {
-                        Map params = new HashMap();
+                    	Map<String,Integer> params = new HashMap<String,Integer>();
                         params.put("categoryId", iter.next());
                         params.put("authorityId", authority);
                         executor.insert("inserAuthorityItem", params);
@@ -205,7 +204,7 @@ public class AuthorityRepositoryIbatis extends SqlMapClientTemplate implements A
     /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public List<AuthorityDTO> getAuthorities(Pager pager) {
-        Map params = new HashMap();
+    	Map<String,Integer> params = new HashMap<String,Integer>();
         params.put("limit", pager.getItemsNumberOnPage());
         params.put("offset", pager.getPage() * pager.getItemsNumberOnPage());
         return queryForList("getAllAuthorities", params);

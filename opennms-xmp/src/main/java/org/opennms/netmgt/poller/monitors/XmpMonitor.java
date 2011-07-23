@@ -57,7 +57,8 @@ public class XmpMonitor extends AbstractServiceMonitor {
     /**
      * The protocol supported by the plugin
      */
-    private final static String PROTOCOL_NAME = "XMP";
+    @SuppressWarnings("unused")
+	private final static String PROTOCOL_NAME = "XMP";
     
     /**
      * The default port to use for XMP
@@ -148,7 +149,8 @@ public class XmpMonitor extends AbstractServiceMonitor {
         XmpSession session;
         SocketOpts sockopts = new SocketOpts();
         // TODO how to apply timeout and retry to XMP operations?
-        int retry = protoConfig.hasRetry() ? protoConfig.getRetry() : DEFAULT_RETRY;
+        @SuppressWarnings("unused")
+		int retry = protoConfig.hasRetry() ? protoConfig.getRetry() : DEFAULT_RETRY;
         int timeout = protoConfig.hasTimeout() ? protoConfig.getTimeout() : DEFAULT_TIMEOUT;
         int port = DEFAULT_PORT; 
         String authenUser = DEFAULT_AUTHEN_USER;
