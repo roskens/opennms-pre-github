@@ -24,6 +24,7 @@
           <artifactId>spring-aop</artifactId>
         </exclusion>
         <exclusion>
+          <!--  FIXME: This is not required directly by any of the Spring Security POMs -->
           <groupId>org.springframework</groupId>
           <artifactId>spring-beans</artifactId>
         </exclusion>
@@ -33,11 +34,15 @@
         </exclusion>
         <exclusion>
           <groupId>org.springframework</groupId>
+          <artifactId>spring-context-support</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.springframework</groupId>
           <artifactId>spring-core</artifactId>
         </exclusion>
         <exclusion>
           <groupId>org.springframework</groupId>
-          <artifactId>spring-dao</artifactId>
+          <artifactId>spring-expression</artifactId>
         </exclusion>
         <exclusion>
           <groupId>org.springframework</groupId>
@@ -45,15 +50,11 @@
         </exclusion>
         <exclusion>
           <groupId>org.springframework</groupId>
-          <artifactId>spring-mock</artifactId>
+          <artifactId>spring-test</artifactId>
         </exclusion>
         <exclusion>
           <groupId>org.springframework</groupId>
-          <artifactId>spring-remoting</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-support</artifactId>
+          <artifactId>spring-tx</artifactId>
         </exclusion>
         <exclusion>
           <groupId>org.springframework</groupId>
@@ -75,6 +76,7 @@
           <artifactId>spring-aop</artifactId>
         </exclusion>
         <exclusion>
+          <!--  FIXME: This is not required directly by any of the Spring Security POMs -->
           <groupId>org.springframework</groupId>
           <artifactId>spring-beans</artifactId>
         </exclusion>
@@ -84,11 +86,15 @@
         </exclusion>
         <exclusion>
           <groupId>org.springframework</groupId>
+          <artifactId>spring-context-support</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.springframework</groupId>
           <artifactId>spring-core</artifactId>
         </exclusion>
         <exclusion>
           <groupId>org.springframework</groupId>
-          <artifactId>spring-dao</artifactId>
+          <artifactId>spring-expression</artifactId>
         </exclusion>
         <exclusion>
           <groupId>org.springframework</groupId>
@@ -96,15 +102,11 @@
         </exclusion>
         <exclusion>
           <groupId>org.springframework</groupId>
-          <artifactId>spring-mock</artifactId>
+          <artifactId>spring-test</artifactId>
         </exclusion>
         <exclusion>
           <groupId>org.springframework</groupId>
-          <artifactId>spring-remoting</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-support</artifactId>
+          <artifactId>spring-tx</artifactId>
         </exclusion>
         <exclusion>
           <groupId>org.springframework</groupId>
@@ -126,6 +128,7 @@
           <artifactId>spring-aop</artifactId>
         </exclusion>
         <exclusion>
+          <!--  FIXME: This is not required directly by any of the Spring Security POMs -->
           <groupId>org.springframework</groupId>
           <artifactId>spring-beans</artifactId>
         </exclusion>
@@ -135,11 +138,15 @@
         </exclusion>
         <exclusion>
           <groupId>org.springframework</groupId>
+          <artifactId>spring-context-support</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.springframework</groupId>
           <artifactId>spring-core</artifactId>
         </exclusion>
         <exclusion>
           <groupId>org.springframework</groupId>
-          <artifactId>spring-dao</artifactId>
+          <artifactId>spring-expression</artifactId>
         </exclusion>
         <exclusion>
           <groupId>org.springframework</groupId>
@@ -147,15 +154,11 @@
         </exclusion>
         <exclusion>
           <groupId>org.springframework</groupId>
-          <artifactId>spring-mock</artifactId>
+          <artifactId>spring-test</artifactId>
         </exclusion>
         <exclusion>
           <groupId>org.springframework</groupId>
-          <artifactId>spring-remoting</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-support</artifactId>
+          <artifactId>spring-tx</artifactId>
         </exclusion>
         <exclusion>
           <groupId>org.springframework</groupId>
@@ -177,6 +180,7 @@
           <artifactId>spring-aop</artifactId>
         </exclusion>
         <exclusion>
+          <!--  FIXME: This is not required directly by any of the Spring Security POMs -->
           <groupId>org.springframework</groupId>
           <artifactId>spring-beans</artifactId>
         </exclusion>
@@ -186,11 +190,15 @@
         </exclusion>
         <exclusion>
           <groupId>org.springframework</groupId>
+          <artifactId>spring-context-support</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.springframework</groupId>
           <artifactId>spring-core</artifactId>
         </exclusion>
         <exclusion>
           <groupId>org.springframework</groupId>
-          <artifactId>spring-dao</artifactId>
+          <artifactId>spring-expression</artifactId>
         </exclusion>
         <exclusion>
           <groupId>org.springframework</groupId>
@@ -198,15 +206,11 @@
         </exclusion>
         <exclusion>
           <groupId>org.springframework</groupId>
-          <artifactId>spring-mock</artifactId>
+          <artifactId>spring-test</artifactId>
         </exclusion>
         <exclusion>
           <groupId>org.springframework</groupId>
-          <artifactId>spring-remoting</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-support</artifactId>
+          <artifactId>spring-tx</artifactId>
         </exclusion>
         <exclusion>
           <groupId>org.springframework</groupId>
@@ -228,6 +232,7 @@
           <artifactId>spring-aop</artifactId>
         </exclusion>
         <exclusion>
+          <!--  FIXME: This is not required directly by any of the Spring Security POMs -->
           <groupId>org.springframework</groupId>
           <artifactId>spring-beans</artifactId>
         </exclusion>
@@ -237,11 +242,15 @@
         </exclusion>
         <exclusion>
           <groupId>org.springframework</groupId>
+          <artifactId>spring-context-support</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.springframework</groupId>
           <artifactId>spring-core</artifactId>
         </exclusion>
         <exclusion>
           <groupId>org.springframework</groupId>
-          <artifactId>spring-dao</artifactId>
+          <artifactId>spring-expression</artifactId>
         </exclusion>
         <exclusion>
           <groupId>org.springframework</groupId>
@@ -249,15 +258,11 @@
         </exclusion>
         <exclusion>
           <groupId>org.springframework</groupId>
-          <artifactId>spring-mock</artifactId>
+          <artifactId>spring-test</artifactId>
         </exclusion>
         <exclusion>
           <groupId>org.springframework</groupId>
-          <artifactId>spring-remoting</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-support</artifactId>
+          <artifactId>spring-tx</artifactId>
         </exclusion>
         <exclusion>
           <groupId>org.springframework</groupId>
@@ -279,6 +284,7 @@
           <artifactId>spring-aop</artifactId>
         </exclusion>
         <exclusion>
+          <!--  FIXME: This is not required directly by any of the Spring Security POMs -->
           <groupId>org.springframework</groupId>
           <artifactId>spring-beans</artifactId>
         </exclusion>
@@ -288,11 +294,15 @@
         </exclusion>
         <exclusion>
           <groupId>org.springframework</groupId>
+          <artifactId>spring-context-support</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.springframework</groupId>
           <artifactId>spring-core</artifactId>
         </exclusion>
         <exclusion>
           <groupId>org.springframework</groupId>
-          <artifactId>spring-dao</artifactId>
+          <artifactId>spring-expression</artifactId>
         </exclusion>
         <exclusion>
           <groupId>org.springframework</groupId>
@@ -300,15 +310,11 @@
         </exclusion>
         <exclusion>
           <groupId>org.springframework</groupId>
-          <artifactId>spring-mock</artifactId>
+          <artifactId>spring-test</artifactId>
         </exclusion>
         <exclusion>
           <groupId>org.springframework</groupId>
-          <artifactId>spring-remoting</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-support</artifactId>
+          <artifactId>spring-tx</artifactId>
         </exclusion>
         <exclusion>
           <groupId>org.springframework</groupId>
