@@ -1563,6 +1563,7 @@ create table vlan (
 	constraint fk_ia_nodeID8 foreign key (nodeid) references node on delete cascade
 );
 
+create unique index vlan_id_key on vlan(id);
 create index vlan_vlanname_idx on vlan(vlanname);
 
 
@@ -1630,6 +1631,7 @@ create table stpnode (
 	constraint fk_ia_nodeID2 foreign key (nodeid) references node on delete cascade
 );
 
+create unique index stpnode_id_key on stpnode(id);
 create index stpnode_nodeid_idx on stpnode(nodeid);
 create index stpnode_baseBridgeAddress_idx on stpnode(baseBridgeAddress);
 create index stpnode_stpdesignatedroot_idx on stpnode(stpdesignatedroot);
@@ -1699,6 +1701,7 @@ create table stpinterface (
     constraint fk_ia_nodeID3 foreign key (nodeid) references node on delete cascade
 );
 
+create unique index stpinterface_id_key on stpinterface(id);
 create index stpinterface_node_ifindex_idx on stpinterface(nodeid,ifindex);
 create index stpinterface_node_idx on stpinterface(nodeid);
 create index stpinterface_stpvlan_idx on stpinterface(stpvlan);
@@ -1787,6 +1790,7 @@ create table iprouteinterface (
     constraint fk_ia_nodeID4 foreign key (nodeid) references node on delete cascade
 );
 
+create unique index iprouteinterface_id_key on iprouteinterface(id);
 create index iprouteinterface_nodeid_idx on iprouteinterface(nodeid);
 create index iprouteinterface_node_ifdex_idx on iprouteinterface(nodeid,routeifindex);
 create index iprouteinterface_rnh_idx on iprouteinterface(routenexthop);
