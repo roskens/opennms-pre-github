@@ -8,6 +8,9 @@ fi
 DIRNAME=`dirname $0`
 ME=`cd $DIRNAME; pwd`
 
+if [ -z "$MATCH_RPM" ]; then
+	MATCH_RPM=no
+fi
 OPENNMS_HOME=/opt/opennms
 SOURCEDIR="$ME/opennms-source"
 
@@ -64,20 +67,28 @@ get_source() {
 			git branch -t "$RPM_BRANCH" origin/"$RPM_BRANCH"
 			git checkout "$RPM_BRANCH" || die "Unable to check out $RPM_BRANCH branch."
 		fi
-		git pull || die "Unable to pull latest code."
 		git clean -fdx || die "Unable to clean source tree."
-		git reset --hard `get_hash_from_rpm` || die "Unable to reset git tree."
+		git reset --hard HEAD
+		git pull || die "Unable to pull latest code."
+
+		# if $MATCH_RPM is set to "yes", then reset the code to the git hash the RPM was built from
+		case $MATCH_RPM in
+			yes|y)
+				git reset --hard `get_hash_from_rpm` || die "Unable to reset git tree."
+				;;
+		esac
 	popd
 }
 
 configure_opennms() {
 	banner "Configuring OpenNMS"
 
-	pushd "$OPENNMS_HOME"
-		cat <<END >"$OPENNMS_HOME/etc/opennms.conf"
-START_TIMEOUT=60
-STATUS_WAIT=5
-END
+	pushd opennms-home
+		find * -type f | sort -u | while read FILE; do
+			dir=`dirname "$FILE"`
+			mkdir -p "$dir"
+			install -c "$FILE" "$OPENNMS_HOME/$FILE"
+		done
 	popd
 
 	/opt/opennms/bin/runjava -s || die "'runjava -s' failed."
