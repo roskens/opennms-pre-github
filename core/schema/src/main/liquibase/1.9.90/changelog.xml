@@ -23,7 +23,7 @@
     <changeSet author="rangerrick" id="1.9.90-add-ids-to-linkd-vlan">
         <addColumn tableName="vlan">
             <column name="id" type="integer">
-                <constraints nullable="false" />
+                <constraints nullable="false" unique="true" />
             </column>
         </addColumn>
         <ext:addAutoIncrement tableName="vlan" columnName="id" columnDataType="integer" sequenceName="opennmsNxtId" />
@@ -36,7 +36,7 @@
     <changeSet author="rangerrick" id="1.9.90-add-ids-to-linkd-stpNode">
         <addColumn tableName="stpnode">
             <column name="id" type="integer">
-                <constraints nullable="false" />
+                <constraints nullable="false" unique="true" />
             </column>
         </addColumn>
         <ext:addAutoIncrement tableName="stpnode" columnName="id" columnDataType="integer" sequenceName="opennmsNxtId" />
@@ -49,7 +49,7 @@
     <changeSet author="rangerrick" id="1.9.90-add-ids-to-linkd-stpInterface">
         <addColumn tableName="stpinterface">
             <column name="id" type="integer">
-                <constraints nullable="false" />
+                <constraints nullable="false" unique="true" />
             </column>
         </addColumn>
         <ext:addAutoIncrement tableName="stpinterface" columnName="id" columnDataType="integer" sequenceName="opennmsNxtId" />
@@ -62,7 +62,7 @@
     <changeSet author="rangerrick" id="1.9.90-add-ids-to-linkd-ipRouteInterface">
         <addColumn tableName="iprouteinterface">
             <column name="id" type="integer">
-                <constraints nullable="false" />
+                <constraints nullable="false" unique="true" />
             </column>
         </addColumn>
         <ext:addAutoIncrement tableName="iprouteinterface" columnName="id" columnDataType="integer" sequenceName="opennmsNxtId" />
