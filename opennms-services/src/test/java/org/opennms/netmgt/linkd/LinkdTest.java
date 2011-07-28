@@ -42,7 +42,6 @@ import org.junit.runner.RunWith;
 import org.opennms.core.test.OpenNMSJUnit4ClassRunner;
 import org.opennms.core.test.snmp.annotations.JUnitSnmpAgent;
 import org.opennms.core.test.snmp.annotations.JUnitSnmpAgents;
-import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.dao.DataLinkInterfaceDao;
 import org.opennms.netmgt.dao.NodeDao;
@@ -51,10 +50,6 @@ import org.opennms.netmgt.dao.db.JUnitTemporaryDatabase;
 import org.opennms.netmgt.model.DataLinkInterface;
 import org.opennms.netmgt.model.NetworkBuilder;
 import org.opennms.netmgt.model.OnmsNode;
-import org.opennms.netmgt.snmp.SnmpAgentConfig;
-import org.opennms.netmgt.snmp.SnmpObjId;
-import org.opennms.netmgt.snmp.SnmpUtils;
-import org.opennms.netmgt.snmp.SnmpValue;
 import org.opennms.test.mock.MockLogAppender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -95,14 +90,6 @@ public class LinkdTest {
 		NetworkBuilder nb = new NetworkBuilder();
         nb.addNode("test.example.com").setForeignSource("linkd").setForeignId("1").setSysObjectId(".1.3.6.1.4.1.1724.81").setType("A");
         nb.addInterface("192.168.1.10").setIsSnmpPrimary("P").setIsManaged("M");
-        m_nodeDao.save(nb.getCurrentNode());
-
-        nb.addNode("nortel.example.com").setForeignSource("linkd").setForeignId("nortelbay470").setSysObjectId(".1.3.6.1.4.1.45.3.46.1").setType("A");
-        nb.addInterface("192.168.160.250").setIsSnmpPrimary("P").setIsManaged("M");
-        m_nodeDao.save(nb.getCurrentNode());
-
-        nb.addNode("linksys.example.com").setForeignSource("linkd").setForeignId("linksyssrw2048").setSysObjectId(".1.3.6.1.4.1.3955.6.1.2048.1").setType("A");
-        nb.addInterface("192.168.160.253").setIsSnmpPrimary("P").setIsManaged("M");
         m_nodeDao.save(nb.getCurrentNode());
 
         nb.addNode("laptop").setForeignSource("linkd").setForeignId("laptop").setSysObjectId(".1.3.6.1.4.1.8072.3.2.255").setType("A");
@@ -165,47 +152,8 @@ public class LinkdTest {
 	    m_nodeDao.flush();
 	}
 	
-	@Test
-	@Ignore
-	@JUnitSnmpAgent(host="127.0.0.1", resource="classpath:linkd-a-nortelbay470.properties")
-	public void testGetHexString() throws Exception {
-	    final SnmpAgentConfig config = new SnmpAgentConfig(InetAddressUtils.addr("127.0.0.1"));
-	    config.setPort(9161);
-        final SnmpValue value = SnmpUtils.get(config, SnmpObjId.get(".1.3.6.1.2.1.17.2.15.1.6.34"));
-	    LogUtils.debugf(this, "value = %s", value.toHexString());
-	}
-	
-	@Test
-	@JUnitSnmpAgent(host="192.168.1.10", resource="classpath:westell-smartjack.properties")
-	public void testScheduleNodeCollection() throws Exception {
-		final OnmsNode node = m_nodeDao.findByForeignId("linkd", "1");
-		LogUtils.debugf(this, "node = %s", node);
-
-        m_linkd.start();
-        assertTrue(m_linkd.scheduleNodeCollection(node.getId()));
-		m_linkd.stop();
-	}
-	
     @Test
-    @JUnitSnmpAgents(value={
-        @JUnitSnmpAgent(host="192.168.160.250", port=161, resource="classpath:linkd-a-nortelbay470.properties"),
-        @JUnitSnmpAgent(host="192.168.160.253", port=161, resource="classpath:linkd-b-linksyssrw2048.properties")
-    })
-    public void testSimpleLink() throws Exception {
-        final OnmsNode nortel = m_nodeDao.findByForeignId("linkd", "nortelbay470");
-        final OnmsNode linksys = m_nodeDao.findByForeignId("linkd", "linksyssrw2048");
-
-        assertTrue(m_linkd.scheduleNodeCollection(nortel.getId()));
-        assertTrue(m_linkd.scheduleNodeCollection(linksys.getId()));
-
-        assertTrue(m_linkd.runSingleCollection(nortel.getId()));
-        assertTrue(m_linkd.runSingleCollection(linksys.getId()));
-
-        final List<DataLinkInterface> ifaces = m_dataLinkInterfaceDao.findAll();
-        assertEquals("we should have found 1 data link", 1, ifaces.size());
-    }
-
-    @Test
+    @Ignore
     @JUnitSnmpAgents(value={
         @JUnitSnmpAgent(host="10.1.5.1", port=161, resource="classpath:linkd/cisco1700b.properties"),
         @JUnitSnmpAgent(host="10.1.5.2", port=161, resource="classpath:linkd/cisco1700.properties")
@@ -238,6 +186,7 @@ public class LinkdTest {
     }
 
     @Test
+    @Ignore
     @JUnitSnmpAgents(value={
         @JUnitSnmpAgent(host="10.1.1.1", port=161, resource="classpath:linkd/cisco7200a.properties"),
         @JUnitSnmpAgent(host="10.1.1.2", port=161, resource="classpath:linkd/laptop.properties"),
@@ -248,8 +197,6 @@ public class LinkdTest {
         @JUnitSnmpAgent(host="10.1.6.2", port=161, resource="classpath:linkd/cisco3600.properties")
     })
     public void testFakeCiscoNetwork() throws Exception {
-//        m_linkd.getLinkdConfig().getConfiguration().setForceIpRouteDiscoveryOnEthernet(true);
-
         final OnmsNode laptop = m_nodeDao.findByForeignId("linkd", "laptop");
         final OnmsNode cisco7200a = m_nodeDao.findByForeignId("linkd", "cisco7200a");
         final OnmsNode cisco7200b = m_nodeDao.findByForeignId("linkd", "cisco7200b");
