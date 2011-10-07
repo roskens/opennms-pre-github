@@ -11,13 +11,19 @@
   <name>OpenNMS Enterprise Reporting</name>
   <modules>
     <module>opennms-reportd</module>
+    <module>reportservice</module>
   </modules>
   <dependencyManagement>
     <dependencies>
       <dependency>
-	<groupId>org.opennms</groupId>
-	<artifactId>opennms-reportd</artifactId>
-	<version>${project.version}</version>
+				<groupId>org.opennms</groupId>
+				<artifactId>opennms-reportd</artifactId>
+				<version>${project.version}</version>
+      </dependency>
+      <dependency>
+				<groupId>org.opennms</groupId>
+				<artifactId>reportservice</artifactId>
+				<version>${project.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

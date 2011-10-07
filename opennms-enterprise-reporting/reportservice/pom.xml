@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v
+4_0_0.xsd">
+	<parent>
+		<groupId>org.opennms</groupId>
+		<artifactId>opennms-enterprise-reporting</artifactId>
+		<version>1.9.92-SNAPSHOT</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>reportservice</artifactId>
+	<name>OpenNMS Reportservice</name>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>org.opennms.connect.reports</groupId>
+			<artifactId>connect-reports-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.opennms.core</groupId>
+			<artifactId>org.opennms.core.lib</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.opennms.dependencies</groupId>
+			<artifactId>jasper-dependencies</artifactId>
+			<type>pom</type>
+		</dependency>
+		<dependency>
+			<groupId>org.opennms.dependencies</groupId>
+			<artifactId>jersey-dependencies</artifactId>
+			<type>pom</type>
+		</dependency>
+
+	</dependencies>
+</project>
+

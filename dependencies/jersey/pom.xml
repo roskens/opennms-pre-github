@@ -26,6 +26,17 @@
     </dependency>
     <dependency>
       <groupId>com.sun.jersey</groupId>
+      <artifactId>jersey-apache-client</artifactId>
+      <version>${jerseyVersion}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.jersey</groupId>
       <artifactId>jersey-server</artifactId>
       <version>${jerseyVersion}</version>
       <exclusions>
@@ -105,8 +116,7 @@
     </dependency>
     <dependency>
       <groupId>org.opennms.dependencies</groupId>
-      <artifactId>spring-web-dependencies</artifactId>
-      <version>${project.version}</version>
+      <artifactId>spring-dependencies</artifactId>
       <type>pom</type>
     </dependency>
   </dependencies>

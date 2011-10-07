@@ -51,6 +51,11 @@
       <type>pom</type>
     </dependency>
 
+    <dependency>
+			<groupId>org.opennms</groupId>
+			<artifactId>reportservice</artifactId>
+    </dependency>
+
     <!-- runtime only dependencies -->
     <dependency>
       <groupId>org.opennms</groupId>

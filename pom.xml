@@ -795,6 +795,7 @@
    <minaVersion>2.0.2</minaVersion>
    <oroVersion>2.0.8</oroVersion>
    <xercesVersion>2.9.1</xercesVersion>
+   <connectVersion>0.1-SNAPSHOT</connectVersion>
   </properties>
 
   <profiles>
@@ -1562,6 +1563,33 @@
         <artifactId>opennms-reportd</artifactId>
         <version>${project.version}</version>
       </dependency>
+
+      <!--dependency>
+        <groupId>org.opennms</groupId>
+        <artifactId>opennms-connect</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms.connect.reports</groupId>
+        <artifactId>connect-reports</artifactId>
+        <version>${project.version}</version>
+      </dependency-->
+      <dependency>
+	<groupId>org.opennms.connect.reports</groupId>
+	<artifactId>connect-reports-api</artifactId>
+        <version>${connectVersion}</version>
+      </dependency>
+      <!--dependency>
+	<groupId>org.opennms.connect.reports</groupId>
+	<artifactId>connect-reports-impl</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms</groupId>
+        <artifactId>reportservice</artifactId>
+        <version>${project.version}</version>
+      </dependency-->
+
       <dependency>
         <groupId>org.opennms</groupId>
         <artifactId>opennms-rrd-api</artifactId>
@@ -2260,7 +2288,7 @@
       <releases><enabled>true</enabled><updatePolicy>${updatePolicy}</updatePolicy></releases>
       <id>maven-repo</id>
       <name>Maven Central</name>
-      <url>http://repo1.maven.org/maven2</url>
+			<url>http://repo1.maven.org/maven2</url>
     </pluginRepository>
     <pluginRepository>
       <snapshots><enabled>false</enabled></snapshots>
