@@ -55,7 +55,7 @@ public class DefaultDatabaseReportListService implements
     public List<DatabaseReportDescription> getAll() {
         
         List <DatabaseReportDescription> allReports = new ArrayList<DatabaseReportDescription>();
-        
+        //FIXME Tak: it's not using the new repository code. It's using configuration DAO directly.
         for(Report report : m_dao.getReports()) {
             DatabaseReportDescription summary = new DatabaseReportDescription();
             summary.setId(report.getId());

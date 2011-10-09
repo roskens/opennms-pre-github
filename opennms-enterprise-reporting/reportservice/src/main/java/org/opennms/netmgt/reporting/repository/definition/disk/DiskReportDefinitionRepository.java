@@ -11,6 +11,7 @@ import org.apache.commons.io.FileUtils;
 import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.reporting.repository.definition.ReportDefinition;
 import org.opennms.netmgt.reporting.repository.definition.ReportDefinitionRepository;
+import org.opennms.netmgt.reporting.repository.definition.RepositoryTyp;
 
 /**
  * Provides access to the report-templates from the local opennms
@@ -22,7 +23,7 @@ public class DiskReportDefinitionRepository implements
         ReportDefinitionRepository {
 
     // FIXME thargor: DiskReportRepositoryConfig template directory
-    //System.getProperty("opennms.home")
+    // FIXME thargor: System.getProperty("opennms.home")
     private static final String TEMPLATE_DIR = "/tmp" 
             + File.separator
             + "etc"
@@ -42,6 +43,7 @@ public class DiskReportDefinitionRepository implements
         reportDefinition.setName("Trivial Report");
         reportDefinition.setTemplateName("trivial-report");
         reportDefinition.setDescription("for testing purpose...");
+        reportDefinition.setRepositoryTyp(RepositoryTyp.DISK);
         reportDefs.add(reportDefinition);
 
         reportDefinition = new ReportDefinition();
@@ -49,10 +51,13 @@ public class DiskReportDefinitionRepository implements
         reportDefinition.setName("Not Subscribed Report");
         reportDefinition.setTemplateName("trivial-report");
         reportDefinition.setDescription("for testing purpose...");
+        reportDefinition.setRepositoryTyp(RepositoryTyp.DISK);
         reportDefs.add(reportDefinition);
     }
 
     private List<ReportDefinition> getReportDefs() {
+        
+        //FIXME Tak: read list of reports and there definitions from xml config
         return reportDefs;
     }
 
