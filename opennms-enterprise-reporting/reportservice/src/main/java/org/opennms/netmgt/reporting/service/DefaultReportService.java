@@ -38,6 +38,7 @@ import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.reporting.repository.definition.ReportDefinition;
 import org.opennms.netmgt.reporting.repository.definition.ReportDefinitionRepository;
 import org.opennms.netmgt.reporting.repository.definition.RepositoryTyp;
+import org.opennms.netmgt.reporting.repository.definition.disk.DiskReportDefinitionRepository;
 
 /**
  * Implementation of the report service
@@ -52,8 +53,11 @@ public class DefaultReportService implements ReportService {
     // get stored
     private static final String REPORT_STORE_PATH = "/tmp/reports/";
 
-    private ReportDefinitionRepository m_diskRDRepository;
-    private ReportDefinitionRepository m_connectRDRepository;
+	// FIXME: Add Spring dependency injection
+    private ReportDefinitionRepository m_diskRDRepository = new DiskReportDefinitionRepository();
+    
+	// FIXME: Add Spring dependency injection
+    private ReportDefinitionRepository m_connectRDRepository = new DiskReportDefinitionRepository();
 
     /**
      * Returns repo-instance for the report repo-typ
@@ -70,7 +74,6 @@ public class DefaultReportService implements ReportService {
             throw new IllegalStateException("unhandled repository typ: ["
                     + typ + "]");
         }
-
     }
 
     @Override
