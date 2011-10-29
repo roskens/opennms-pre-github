@@ -384,6 +384,12 @@
       <scope>test</scope>
     </dependency>
 
-    
+    <!-- for connect reporting repositories -->
+    <dependency>
+      <groupId>org.opennms</groupId>
+      <artifactId>reportservice</artifactId>
+      <type>jar</type>
+      <version>${project.version}</version>
+    </dependency>
   </dependencies>
 </project>
