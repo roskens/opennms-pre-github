@@ -14,139 +14,127 @@ import org.opennms.netmgt.reporting.repository.definition.ReportDefinitionReposi
 import org.opennms.netmgt.reporting.repository.definition.RepositoryTyp;
 
 /**
- * Provides access to the report-templates from the local opennms
- * installation.
+ * Provides access to the report-templates from the local opennms installation.
  * 
  * @author thargor
  */
 public class DiskReportDefinitionRepository implements
-        ReportDefinitionRepository {
+		ReportDefinitionRepository {
 
-    // FIXME thargor: DiskReportRepositoryConfig template directory
-    // FIXME thargor: System.getProperty("opennms.home")
-    private static final String TEMPLATE_DIR = "/tmp" 
-            + File.separator
-            + "etc"
-            + File.separator
-            + "report-templates"
-            + File.separator;
+	private static final String TEMPLATE_DIR = System
+			.getProperty("opennms.home")
+			+ File.separator
+			+ "etc"
+			+ File.separator + "report-templates" + File.separator;
 
-    // FIXME thargor: DiskReportRepositoryConfig, list of reports and their
-    // descriptions
-    private static final List<ReportDefinition> reportDefs = new ArrayList<ReportDefinition>();
+	private static final String TEMPLATE_SUFFIX = ".jrxml";
+	
+	// FIXME Tak: Inject me
+	private ReportDiskRepositoryConfigDao reportDiskRepositoryConfigDao = new DefaultReportDiskRepositoryConfigDao();
 
-    private static final String TEMPLATE_SUFFIX = ".jrxml";
+	private List<ReportDefinition> getReportDefs() {
+		List<ReportDefinition> reportDefs = reportDiskRepositoryConfigDao.getReportDefinitions();
+		for (ReportDefinition report : reportDefs) {
+			report.setRepositoryTyp(RepositoryTyp.DISK);
+		}
+		return reportDefs;
+	}
 
-    static {
-        ReportDefinition reportDefinition = new ReportDefinition();
-        reportDefinition.setId(1);
-        reportDefinition.setName("Trivial Report");
-        reportDefinition.setTemplateName("trivial-report");
-        reportDefinition.setDescription("for testing purpose...");
-        reportDefinition.setRepositoryTyp(RepositoryTyp.DISK);
-        reportDefs.add(reportDefinition);
+	@Override
+	public Collection<ReportDefinition> getAllReportDefinitions() {
 
-        reportDefinition = new ReportDefinition();
-        reportDefinition.setId(2);
-        reportDefinition.setName("Not Subscribed Report");
-        reportDefinition.setTemplateName("trivial-report");
-        reportDefinition.setDescription("for testing purpose...");
-        reportDefinition.setRepositoryTyp(RepositoryTyp.DISK);
-        reportDefs.add(reportDefinition);
-    }
+		for (ReportDefinition rd : getReportDefs()) {
+			rd.setEngineVersions(getVersions(rd));
+		}
 
-    private List<ReportDefinition> getReportDefs() {
-        
-        //FIXME Tak: read list of reports and there definitions from xml config
-        return reportDefs;
-    }
+		return getReportDefs();
+	}
 
-    @Override
-    public Collection<ReportDefinition> getAllReportDefinitions() {
+	@Override
+	public ReportDefinition getReportDefinition(String name) {
 
-        for (ReportDefinition rd : getReportDefs()) {
-            rd.setEngineVersions(getVersions(rd));
-        }
+		for (ReportDefinition rd : getReportDefs()) {
+			if (rd.getTemplateName().equals(name)) {
+				getVersions(rd);
+				return rd;
+			}
+		}
 
-        return getReportDefs();
-    }
+		return null;
+	}
 
-    @Override
-    public ReportDefinition getReportDefinition(String name) {
+	@Override
+	public InputStream getReportTemplate(Integer id, String version)
+			throws IOException {
 
-        for (ReportDefinition rd : getReportDefs()) {
-            if (rd.getTemplateName().equals(name)) {
-                getVersions(rd);
-                return rd;
-            }
-        }
+		ReportDefinition reportDefinition = getReportDefinition(id);
+		if (reportDefinition != null) {
+			if (reportDefinition.getEngineVersions().contains(version)) {
+				String versionPath;
+				if (VERSION_NONE.equals(version))
+					versionPath = "";
+				else {
+					versionPath = version + File.separator;
+				}
+				File file = new File(TEMPLATE_DIR + versionPath
+						+ reportDefinition.getTemplateName() + TEMPLATE_SUFFIX);
 
-        return null;
-    }
+				return FileUtils.openInputStream(file);
+			}
+		}
 
-    @Override
-    public InputStream getReportTemplate(Integer id, String version)
-            throws IOException {
+		return null;
+	}
 
-        ReportDefinition reportDefinition = getReportDefinition(id);
-        if (reportDefinition != null) {
-            if (reportDefinition.getEngineVersions().contains(version)) {
-                String versionPath;
-                if (VERSION_NONE.equals(version))
-                    versionPath = "";
-                else {
-                    versionPath = version + File.separator;
-                }
-                File file = new File(TEMPLATE_DIR + versionPath
-                        + reportDefinition.getTemplateName()
-                        + TEMPLATE_SUFFIX);
+	@Override
+	public ReportDefinition getReportDefinition(Integer id) {
+		for (ReportDefinition rd : getReportDefs()) {
+			if (rd.getId().equals(id)) {
+				getVersions(rd);
+				return rd;
+			}
+		}
+		return null;
+	}
 
-                return FileUtils.openInputStream(file);
-            }
-        }
+	/**
+	 * @param rd
+	 * @return
+	 */
+	private List<String> getVersions(ReportDefinition rd) {
 
-        return null;
-    }
+		List<String> versions = new ArrayList<String>();
+		File rootDir = new File(TEMPLATE_DIR);
+		if (rootDir.exists() && rootDir.isDirectory() && rootDir.canRead()) {
+			for (File versionDir : rootDir.listFiles()) {
+				if (versionDir.isDirectory() && versionDir.canRead()) {
+					File templateFile = new File(versionDir,
+							rd.getTemplateName() + TEMPLATE_SUFFIX);
+					if (templateFile.exists())
+						versions.add(versionDir.getName());
+				}
+			}
+		} else {
+			LogUtils.warnf(this,
+					"report template directory can't be read [%s]",
+					TEMPLATE_DIR);
+		}
 
-    @Override
-    public ReportDefinition getReportDefinition(Integer id) {
-        for (ReportDefinition rd : getReportDefs()) {
-            if (rd.getId().equals(id)) {
-                getVersions(rd);
-                return rd;
-            }
-        }
-        return null;
-    }
+		File templateFile = new File(rootDir, rd.getTemplateName()
+				+ TEMPLATE_SUFFIX);
+		if (templateFile.exists() && templateFile.canRead())
+			versions.add(VERSION_NONE);
 
-    /**
-     * @param rd
-     * @return
-     */
-    private List<String> getVersions(ReportDefinition rd) {
+		return versions;
+	}
 
-        List<String> versions = new ArrayList<String>();
-        File rootDir = new File(TEMPLATE_DIR);
-        if (rootDir.exists() && rootDir.isDirectory() && rootDir.canRead()) {
-            for (File versionDir : rootDir.listFiles()) {
-                if (versionDir.isDirectory() && versionDir.canRead()) {
-                    File templateFile = new File(versionDir,
-                                                 rd.getTemplateName()
-                                                         + TEMPLATE_SUFFIX);
-                    if (templateFile.exists())
-                        versions.add(versionDir.getName());
-                }
-            }
-        } else {
-            LogUtils.warnf(this,
-                           "report template directory can't be read [%s]",
-                           TEMPLATE_DIR);
-        }
+	public ReportDiskRepositoryConfigDao getReportDiskRepositoryConfigDao() {
+		return reportDiskRepositoryConfigDao;
+	}
 
-        File templateFile = new File(rootDir, rd.getTemplateName() + TEMPLATE_SUFFIX);
-        if (templateFile.exists() && templateFile.canRead())
-            versions.add(VERSION_NONE);
+	public void setReportDiskRepositoryConfigDao(
+			ReportDiskRepositoryConfigDao reportDiskRepositoryConfigDao) {
+		this.reportDiskRepositoryConfigDao = reportDiskRepositoryConfigDao;
+	}
 
-        return versions;
-    }
 }
