@@ -49,7 +49,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @since 1.8.1
  */
 public class OnlineReportListController extends AbstractController {
-
+	
 	// FIXME: Add Spring dependency injection
 	private ReportService m_reportService = new DefaultReportService();
 
@@ -63,7 +63,7 @@ public class OnlineReportListController extends AbstractController {
         PagedListHolder<ReportDefinition> pagedListHolder = new PagedListHolder<ReportDefinition>((List<ReportDefinition>) m_reportService.getReportDefinitions());
         pagedListHolder.setPageSize(m_pageSize);
         int page = ServletRequestUtils.getIntParameter(request, "p", 0);
-        pagedListHolder.setPage(page); 
+        pagedListHolder.setPage(page);
         modelAndView.addObject("pagedListHolder", pagedListHolder);  
 
         return modelAndView;

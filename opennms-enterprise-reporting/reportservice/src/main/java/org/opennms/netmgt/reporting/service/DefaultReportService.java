@@ -39,6 +39,7 @@ import org.opennms.netmgt.reporting.repository.definition.ReportDefinition;
 import org.opennms.netmgt.reporting.repository.definition.ReportDefinitionRepository;
 import org.opennms.netmgt.reporting.repository.definition.RepositoryTyp;
 import org.opennms.netmgt.reporting.repository.definition.disk.DiskReportDefinitionRepository;
+import org.opennms.netmgt.reporting.repository.definition.disk.MockupReportDiskRepositoryConfigDao;
 
 /**
  * Implementation of the report service
@@ -52,13 +53,21 @@ public class DefaultReportService implements ReportService {
     // FIXME thargor: should be configured for reportservice, so all report
     // get stored
     private static final String REPORT_STORE_PATH = "/tmp/reports/";
-
-	// FIXME: Add Spring dependency injection
-    private ReportDefinitionRepository m_diskRDRepository = new DiskReportDefinitionRepository();
     
-	// FIXME: Add Spring dependency injection
-    private ReportDefinitionRepository m_connectRDRepository = new DiskReportDefinitionRepository();
+    private MockupReportDiskRepositoryConfigDao reportDiskRepositoryConfigDao = new MockupReportDiskRepositoryConfigDao();
 
+	// FIXME indigo: Add Spring dependency injection
+    private DiskReportDefinitionRepository m_diskRDRepository = new DiskReportDefinitionRepository();
+    
+	// FIXME indigo: Add Spring dependency injection
+    private DiskReportDefinitionRepository m_connectRDRepository = new DiskReportDefinitionRepository();
+
+    public DefaultReportService () {
+        // FIXME indigo: Interface for ReoprtDefinitionRepository need some config dao
+    	m_diskRDRepository.setReportDiskRepositoryConfigDao(reportDiskRepositoryConfigDao);
+    	m_connectRDRepository.setReportDiskRepositoryConfigDao(reportDiskRepositoryConfigDao);
+    }
+    
     /**
      * Returns repo-instance for the report repo-typ
      * 

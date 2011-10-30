@@ -67,14 +67,18 @@
 				<tr>
 					<th>name</th>
 					<th>description</th>
+					<th>type</th>
+					<th>template name</th>
 					<th>action</th>
 				</tr>
 			</thead>
 			<%-- // show only current page worth of data --%>
 			<c:forEach items="${pagedListHolder.pageList}" var="report">
 				<tr>
-					<td>${report.displayName}</td>
+					<td>${report.name}</td>
 					<td>${report.description}</td>
+					<td>${report.repositoryType}</td>
+					<td>${report.templateName}</td>
 					<td><a href="report/database/onlineReport.htm?reportId=${report.id}">execute</a></td>
 				</tr>
 			</c:forEach>

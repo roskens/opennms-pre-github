@@ -33,11 +33,7 @@ public class DiskReportDefinitionRepository implements
 	private ReportDiskRepositoryConfigDao reportDiskRepositoryConfigDao = new DefaultReportDiskRepositoryConfigDao();
 
 	private List<ReportDefinition> getReportDefs() {
-		List<ReportDefinition> reportDefs = reportDiskRepositoryConfigDao.getReportDefinitions();
-		for (ReportDefinition report : reportDefs) {
-			report.setRepositoryTyp(RepositoryTyp.DISK);
-		}
-		return reportDefs;
+		return reportDiskRepositoryConfigDao.getReportDefinitions();
 	}
 
 	@Override

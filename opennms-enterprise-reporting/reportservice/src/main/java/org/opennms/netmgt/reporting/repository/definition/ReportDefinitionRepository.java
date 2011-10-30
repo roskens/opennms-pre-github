@@ -55,5 +55,4 @@ public interface ReportDefinitionRepository {
      * @throws IOException 
      */
     InputStream getReportTemplate(Integer id, String engineVersion) throws IOException;
-
 }
