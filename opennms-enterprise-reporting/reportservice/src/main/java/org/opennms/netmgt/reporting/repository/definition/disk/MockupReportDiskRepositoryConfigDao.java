@@ -6,6 +6,9 @@ import java.util.List;
 import org.opennms.netmgt.reporting.repository.definition.ReportDefinition;
 import org.opennms.netmgt.reporting.repository.definition.RepositoryTyp;
 
+//FIXME Tak: Move Mockup into src/test/java. +
+// It's her to be reachable during build time. 
+// It's used as hard reference at the moment.
 public class MockupReportDiskRepositoryConfigDao implements
 		ReportDiskRepositoryConfigDao {
 
@@ -27,7 +30,7 @@ public class MockupReportDiskRepositoryConfigDao implements
 		reportDefinition.setDescription("for testing purpose...");
 		reportDefinition.setRepositoryTyp(RepositoryTyp.DISK);
 		reportDefs.add(reportDefinition);
-		
+
 		reportDefinition = new ReportDefinition();
 		reportDefinition.setId(3);
 		reportDefinition.setName("So damn subscribed");

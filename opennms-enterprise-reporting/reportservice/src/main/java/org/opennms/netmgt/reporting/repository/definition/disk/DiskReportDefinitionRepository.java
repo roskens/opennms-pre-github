@@ -11,7 +11,6 @@ import org.apache.commons.io.FileUtils;
 import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.reporting.repository.definition.ReportDefinition;
 import org.opennms.netmgt.reporting.repository.definition.ReportDefinitionRepository;
-import org.opennms.netmgt.reporting.repository.definition.RepositoryTyp;
 
 /**
  * Provides access to the report-templates from the local opennms installation.

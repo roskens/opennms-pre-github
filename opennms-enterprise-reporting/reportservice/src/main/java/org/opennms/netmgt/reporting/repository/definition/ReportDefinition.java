@@ -14,61 +14,60 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement(name = "reportDefinition")
 public class ReportDefinition {
 
-    private Integer m_id;
-    private RepositoryTyp m_repositoryTyp;
-    private String m_name;
-    private String m_description;
-    private String m_templateName;
+	private Integer m_id;
+	private RepositoryTyp m_repositoryTyp;
+	private String m_name;
+	private String m_description;
+	private String m_templateName;
 
-    @XmlTransient
-    private List<String> m_engineVersions = new ArrayList<String>();
+	@XmlTransient
+	private List<String> m_engineVersions = new ArrayList<String>();
 
-    public Integer getId() {
-        return m_id;
-    }
+	public Integer getId() {
+		return m_id;
+	}
 
-    public void setId(Integer id) {
-        m_id = id;
-    }
+	public void setId(Integer id) {
+		m_id = id;
+	}
 
-    public RepositoryTyp getRepositoryTyp() {
-        return m_repositoryTyp;
-    }
+	public RepositoryTyp getRepositoryTyp() {
+		return m_repositoryTyp;
+	}
 
-    public void setRepositoryTyp(RepositoryTyp repositoryTyp) {
-        m_repositoryTyp = repositoryTyp;
-    }
+	public void setRepositoryTyp(RepositoryTyp repositoryTyp) {
+		m_repositoryTyp = repositoryTyp;
+	}
 
-    public String getName() {
-        return m_name;
-    }
+	public String getName() {
+		return m_name;
+	}
 
-    public void setName(String name) {
-        m_name = name;
-    }
+	public void setName(String name) {
+		m_name = name;
+	}
 
-    public String getDescription() {
-        return m_description;
-    }
+	public String getDescription() {
+		return m_description;
+	}
 
-    public void setDescription(String description) {
-        m_description = description;
-    }
+	public void setDescription(String description) {
+		m_description = description;
+	}
 
-    public String getTemplateName() {
-        return m_templateName;
-    }
+	public String getTemplateName() {
+		return m_templateName;
+	}
 
-    public void setTemplateName(String templateName) {
-        m_templateName = templateName;
-    }
+	public void setTemplateName(String templateName) {
+		m_templateName = templateName;
+	}
 
-    public List<String> getEngineVersions() {
-        return m_engineVersions;
-    }
+	public List<String> getEngineVersions() {
+		return m_engineVersions;
+	}
 
-    public void setEngineVersions(List<String> versions) {
-        m_engineVersions = versions;
-    }
-
+	public void setEngineVersions(List<String> versions) {
+		m_engineVersions = versions;
+	}
 }
