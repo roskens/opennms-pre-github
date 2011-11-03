@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ReportDefinitions>
+    <ReportDefinition>
+        <description>Super Report Description</description>
+        <id>0</id>
+        <name>Super Report</name>
+        <repositoryTyp>DISK</repositoryTyp>
+        <templateName>SuperReport.jrxml</templateName>
+    </ReportDefinition>
+    <ReportDefinition>
+        <description>Mega Report Description</description>
+        <id>1</id>
+        <name>Mega Report</name>
+        <repositoryTyp>CONNECT</repositoryTyp>
+        <templateName>MegaReport.jrxml</templateName>
+    </ReportDefinition>
+</ReportDefinitions>
