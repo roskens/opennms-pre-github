@@ -34,12 +34,12 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.export.JRCsvExporter;
 
-import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.reporting.repository.definition.ReportDefinition;
 import org.opennms.netmgt.reporting.repository.definition.ReportDefinitionRepository;
 import org.opennms.netmgt.reporting.repository.definition.RepositoryTyp;
+import org.opennms.netmgt.reporting.repository.definition.disk.DefaultReportDiskRepositoryConfigDao;
 import org.opennms.netmgt.reporting.repository.definition.disk.DiskReportDefinitionRepository;
-import org.opennms.netmgt.reporting.repository.definition.disk.MockupReportDiskRepositoryConfigDao;
+import org.opennms.netmgt.reporting.repository.definition.disk.ReportDiskRepositoryConfigDao;
 
 /**
  * Implementation of the report service
@@ -54,7 +54,8 @@ public class DefaultReportService implements ReportService {
     // get stored
     private static final String REPORT_STORE_PATH = "/tmp/reports/";
     
-    private MockupReportDiskRepositoryConfigDao reportDiskRepositoryConfigDao = new MockupReportDiskRepositoryConfigDao();
+    // FIXME indigo: Add Spring dependency injection
+    private ReportDiskRepositoryConfigDao reportDiskRepositoryConfigDao = new DefaultReportDiskRepositoryConfigDao();
 
 	// FIXME indigo: Add Spring dependency injection
     private DiskReportDefinitionRepository m_diskRDRepository = new DiskReportDefinitionRepository();
@@ -128,8 +129,8 @@ public class DefaultReportService implements ReportService {
                 try {
                     reportTemplate.close();
                 } catch (IOException e) {
-                    LogUtils.errorf(this,
-                                    "closing template inputstrean failed");
+//                    LogUtils.errorf(this,
+//                                    "closing template inputstrean failed");
                 }
             }
         }

@@ -4,7 +4,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.connect.reports.remote.api.RemoteReportDefinitionRepository;
 import org.opennms.netmgt.connect.reports.remote.api.model.ReportDefinitionSDO;
 import org.opennms.netmgt.reporting.repository.definition.ReportDefinition;
@@ -84,6 +83,6 @@ public class ConnectReportDefinitionRepository implements
     }
 
     private void logNotActive() {
-        LogUtils.infof(this, "ConnectReportDefinitionRepository not active");
+//        LogUtils.infof(this, "ConnectReportDefinitionRepository not active");
     }
 }

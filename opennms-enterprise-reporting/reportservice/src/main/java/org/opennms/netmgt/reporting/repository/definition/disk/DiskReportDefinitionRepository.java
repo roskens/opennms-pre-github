@@ -8,7 +8,6 @@ import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
-import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.reporting.repository.definition.ReportDefinition;
 import org.opennms.netmgt.reporting.repository.definition.ReportDefinitionRepository;
 
@@ -32,7 +31,7 @@ public class DiskReportDefinitionRepository implements
 	private ReportDiskRepositoryConfigDao reportDiskRepositoryConfigDao = new DefaultReportDiskRepositoryConfigDao();
 
 	private List<ReportDefinition> getReportDefs() {
-		return reportDiskRepositoryConfigDao.getReportDefinitions();
+		return reportDiskRepositoryConfigDao.getReportDefinitionList();
 	}
 
 	@Override
@@ -110,9 +109,9 @@ public class DiskReportDefinitionRepository implements
 				}
 			}
 		} else {
-			LogUtils.warnf(this,
-					"report template directory can't be read [%s]",
-					TEMPLATE_DIR);
+//			LogUtils.warnf(this,
+//					"report template directory can't be read [%s]",
+//					TEMPLATE_DIR);
 		}
 
 		File templateFile = new File(rootDir, rd.getTemplateName()

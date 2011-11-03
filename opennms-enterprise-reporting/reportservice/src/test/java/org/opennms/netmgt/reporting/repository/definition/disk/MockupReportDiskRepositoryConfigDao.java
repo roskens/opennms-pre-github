@@ -6,14 +6,11 @@ import java.util.List;
 import org.opennms.netmgt.reporting.repository.definition.ReportDefinition;
 import org.opennms.netmgt.reporting.repository.definition.RepositoryTyp;
 
-//FIXME Tak: Move Mockup into src/test/java. +
-// It's her to be reachable during build time. 
-// It's used as hard reference at the moment.
 public class MockupReportDiskRepositoryConfigDao implements
 		ReportDiskRepositoryConfigDao {
 
 	@Override
-	public List<ReportDefinition> getReportDefinitions() {
+	public List<ReportDefinition> getReportDefinitionList() {
 		List<ReportDefinition> reportDefs = new ArrayList<ReportDefinition>();
 		ReportDefinition reportDefinition = new ReportDefinition();
 		reportDefinition.setId(1);

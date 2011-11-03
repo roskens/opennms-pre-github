@@ -11,5 +11,5 @@ public interface ReportDiskRepositoryConfigDao {
 	 * 
 	 * @return a {@link java.util.List} object.
 	 */
-	List<ReportDefinition> getReportDefinitions();
+	List<ReportDefinition> getReportDefinitionList();
 }
