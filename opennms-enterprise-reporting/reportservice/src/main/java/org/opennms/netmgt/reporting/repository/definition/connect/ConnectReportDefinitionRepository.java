@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.connect.reports.remote.api.RemoteReportDefinitionRepository;
 import org.opennms.netmgt.connect.reports.remote.api.model.ReportDefinitionSDO;
 import org.opennms.netmgt.reporting.repository.definition.ReportDefinition;
@@ -22,14 +23,18 @@ import com.sun.jersey.client.apache.config.DefaultApacheHttpClientConfig;
 public class ConnectReportDefinitionRepository implements
         ReportDefinitionRepository {
 
+	private ReportConnectRepositoryConfigDao configDao = new DefaultReportConnectRepositoryConfigDao();
+	// FIXME Tak: Inject configDao;
+	// private ReportConnectRepositoryConfigDao configDao;
+	
     // FIXME thargor: ConnectConfig
-    private static final String LOGIN = "okay";
-    private static final String PASSWORD = "okay";
-
+    //private static final String LOGIN = "okay";
+	//private static final String PASSWORD = "okay";
+	//private static final Boolean active = true;
+	
     // FIXME thargor: ConnectReportRepositoryConfig
     private static final String URL = "http://localhost/opennms/rest/connect/reports";
-    private static final Boolean active = true;
-
+    
     // FIXME thargor: Inject Webservice stub
     private RemoteReportDefinitionRepository m_remoteReportRepository;
 
@@ -38,15 +43,17 @@ public class ConnectReportDefinitionRepository implements
     public Collection<ReportDefinition> getAllReportDefinitions() {
         Collection<ReportDefinition> result = new ArrayList<ReportDefinition>();
 
-        if (Boolean.TRUE.equals(active)) {
-//            result = ReportDefinitionSDOMapper.fromCollection(m_remoteReportRepository.getAvailableReportDefinitions());
-            
-            DefaultApacheHttpClientConfig config = new DefaultApacheHttpClientConfig();
-            config.getState().setCredentials(null, null, -1, LOGIN, PASSWORD);
-            ApacheHttpClient c = ApacheHttpClient.create(config);
-            WebResource r = c.resource(URL);
-            Collection<?> restResult = r.get(Collection.class);
-            result = ReportDefinitionSDOMapper.fromCollection((Collection<ReportDefinitionSDO>) restResult);
+        if (configDao != null && Boolean.TRUE.equals(configDao.getReportingActive())) {
+         
+        	result = ReportDefinitionSDOMapper.fromCollection(m_remoteReportRepository.getAvailableReportDefinitions());
+
+//TODO Tak: move that code into a remoteReportRepository implementation?       
+//            DefaultApacheHttpClientConfig config = new DefaultApacheHttpClientConfig();
+//            config.getState().setCredentials(null, null, -1, configDao.getUserName(), configDao.getConnectReportPassword());
+//            ApacheHttpClient c = ApacheHttpClient.create(config);
+//            WebResource r = c.resource(URL);
+//            Collection<?> restResult = r.get(Collection.class);
+//            result = ReportDefinitionSDOMapper.fromCollection((Collection<ReportDefinitionSDO>) restResult);
             
         } else {
             logNotActive();
@@ -63,7 +70,7 @@ public class ConnectReportDefinitionRepository implements
 
     @Override
     public InputStream getReportTemplate(Integer id, String version) {
-        if (Boolean.TRUE.equals(active)) {
+        if (configDao != null && Boolean.TRUE.equals(configDao.getReportingActive())) {
             return m_remoteReportRepository.getReportTemplate(id, version);
         } else {
             logNotActive();
@@ -74,7 +81,7 @@ public class ConnectReportDefinitionRepository implements
 
     @Override
     public ReportDefinition getReportDefinition(Integer id) {
-        if (Boolean.TRUE.equals(active)) {
+        if (configDao != null && Boolean.TRUE.equals(configDao.getReportingActive())) {
             return ReportDefinitionSDOMapper.fromSDO(m_remoteReportRepository.getReportDefinition(id));
         } else {
             logNotActive();
@@ -83,6 +90,23 @@ public class ConnectReportDefinitionRepository implements
     }
 
     private void logNotActive() {
-//        LogUtils.infof(this, "ConnectReportDefinitionRepository not active");
+        LogUtils.infof(this, "ConnectReportDefinitionRepository not active");
     }
+
+	public ReportConnectRepositoryConfigDao getConfigDao() {
+		return configDao;
+	}
+
+	public void setConfigDao(ReportConnectRepositoryConfigDao configDao) {
+		this.configDao = configDao;
+	}
+
+	public RemoteReportDefinitionRepository getRemoteReportRepository() {
+		return m_remoteReportRepository;
+	}
+
+	public void setRemoteReportRepository(
+			RemoteReportDefinitionRepository remoteReportRepository) {
+		this.m_remoteReportRepository = remoteReportRepository;
+	}
 }
