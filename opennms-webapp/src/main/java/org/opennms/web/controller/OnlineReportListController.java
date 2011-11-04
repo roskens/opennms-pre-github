@@ -80,7 +80,7 @@ public class OnlineReportListController extends AbstractController {
     /**
      * <p>setDatabaseReportListService</p>
      *
-     * @param listService a {@link org.opennms.netmgt.reporting.service.ReportService} object.
+     * @param reportService a {@link org.opennms.netmgt.reporting.service.ReportService} object.
      */
     public void setReportService(ReportService reportService) {
         m_reportService = reportService;
