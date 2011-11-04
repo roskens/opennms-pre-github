@@ -37,9 +37,7 @@ import net.sf.jasperreports.engine.export.JRCsvExporter;
 import org.opennms.netmgt.reporting.repository.definition.ReportDefinition;
 import org.opennms.netmgt.reporting.repository.definition.ReportDefinitionRepository;
 import org.opennms.netmgt.reporting.repository.definition.RepositoryTyp;
-import org.opennms.netmgt.reporting.repository.definition.disk.DefaultReportDiskRepositoryConfigDao;
 import org.opennms.netmgt.reporting.repository.definition.disk.DiskReportDefinitionRepository;
-import org.opennms.netmgt.reporting.repository.definition.disk.ReportDiskRepositoryConfigDao;
 
 /**
  * Implementation of the report service
@@ -49,25 +47,18 @@ import org.opennms.netmgt.reporting.repository.definition.disk.ReportDiskReposit
 public class DefaultReportService implements ReportService {
 
     // FIXME thargor: version of jasper has to be configured
+	// it's the jasper version of the running system that is used to generate the report result
     private static final String JASPER_VERSION = "3.7.6";
+    
     // FIXME thargor: should be configured for reportservice, so all report
     // get stored
     private static final String REPORT_STORE_PATH = "/tmp/reports/";
     
-    // FIXME indigo: Add Spring dependency injection
-    private ReportDiskRepositoryConfigDao reportDiskRepositoryConfigDao = new DefaultReportDiskRepositoryConfigDao();
-
 	// FIXME indigo: Add Spring dependency injection
-    private DiskReportDefinitionRepository m_diskRDRepository = new DiskReportDefinitionRepository();
+    private ReportDefinitionRepository m_diskRDRepository = new DiskReportDefinitionRepository();
     
 	// FIXME indigo: Add Spring dependency injection
-    private DiskReportDefinitionRepository m_connectRDRepository = new DiskReportDefinitionRepository();
-
-    public DefaultReportService () {
-        // FIXME indigo: Interface for ReoprtDefinitionRepository need some config dao
-    	m_diskRDRepository.setReportDiskRepositoryConfigDao(reportDiskRepositoryConfigDao);
-    	m_connectRDRepository.setReportDiskRepositoryConfigDao(reportDiskRepositoryConfigDao);
-    }
+    private ReportDefinitionRepository m_connectRDRepository = new DiskReportDefinitionRepository();
     
     /**
      * Returns repo-instance for the report repo-typ
@@ -195,6 +186,24 @@ public class DefaultReportService implements ReportService {
         return result;
     }
 
+    public ReportDefinitionRepository getDiskRDRepository() {
+		return m_diskRDRepository;
+	}
+
+	public void setDiskRDRepository(
+			ReportDefinitionRepository diskRDRepository) {
+		this.m_diskRDRepository = diskRDRepository;
+	}
+
+	public ReportDefinitionRepository getConnectRDRepository() {
+		return m_connectRDRepository;
+	}
+
+	public void setConnectRDRepository(
+			ReportDefinitionRepository connectRDRepository) {
+		this.m_connectRDRepository = connectRDRepository;
+	}
+    
     /**
      * Generates a path to store the report result to, containing the report
      * name, the current date and time and the format as suffix

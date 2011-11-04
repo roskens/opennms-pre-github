@@ -34,7 +34,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.opennms.netmgt.reporting.repository.definition.ReportDefinition;
-import org.opennms.netmgt.reporting.service.DefaultReportService;
 import org.opennms.netmgt.reporting.service.ReportService;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.web.bind.ServletRequestUtils;
@@ -51,7 +50,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
 public class OnlineReportListController extends AbstractController {
 	
 	// FIXME: Add Spring dependency injection
-	private ReportService m_reportService = new DefaultReportService();
+	private ReportService m_reportService;
 
     private int m_pageSize;
     
