@@ -216,8 +216,15 @@
   </bean>
 
   <!-- Connect Reporting repository injection -->
+
+
   <bean id="diskReportDefinitionRepository" class="org.opennms.netmgt.reporting.repository.definition.disk.DiskReportDefinitionRepository" />
-  <bean id="connectReportDefinitionRepository" class="org.opennms.netmgt.reporting.repository.definition.connect.ConnectReportDefinitionRepository" />
+
+  <bean id="connectReportRepositoryConfigDao" class="org.opennms.netmgt.reporting.repository.definition.connect.DefaultConnectReportRepositoryConfigDao" />
+
+  <bean id="connectReportDefinitionRepository" class="org.opennms.netmgt.reporting.repository.definition.connect.ConnectReportDefinitionRepository">
+      <property name="connectReportRepositoryConfigDao" ref="connectReportRepositoryConfigDao"/>
+  </bean>
 
   <bean id="reportService" class="org.opennms.netmgt.reporting.service.DefaultReportService">
     <property name="connectReportDefinitionRepository" ref="connectReportDefinitionRepository" />

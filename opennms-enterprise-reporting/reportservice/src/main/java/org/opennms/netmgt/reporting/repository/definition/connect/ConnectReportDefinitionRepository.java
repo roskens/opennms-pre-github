@@ -18,21 +18,17 @@ import org.opennms.netmgt.reporting.repository.definition.ReportDefinitionReposi
 public class ConnectReportDefinitionRepository implements
         ReportDefinitionRepository {
 
-    private ConnectReportRepositoryConfigDao m_connectReportRepositoryConfigDao = new DefaultConnectReportRepositoryConfigDao();
+    private ConnectReportRepositoryConfigDao m_connectReportRepositoryConfigDao;
 
-
-	// FIXME Tak: Inject configDao;
-	// private ConnectReportRepositoryConfigDao connectReportRepositoryConfigDao;
-	
-    // FIXME thargor: ConnectConfig
+    // TODO thargor: ConnectConfig
     //private static final String LOGIN = "okay";
 	//private static final String PASSWORD = "okay";
 	//private static final Boolean active = true;
 	
-    // FIXME thargor: ConnectReportRepositoryConfig
+    // TODO thargor: ConnectReportRepositoryConfig
     private static final String URL = "http://localhost/opennms/rest/connect/reports";
     
-    // FIXME thargor: Inject Webservice stub
+    // TODO thargor: Inject Webservice stub
     private RemoteReportDefinitionRepository m_remoteReportRepository;
 
     @SuppressWarnings("unchecked")
