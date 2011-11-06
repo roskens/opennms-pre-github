@@ -6,13 +6,8 @@ import java.util.Collection;
 
 import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.connect.reports.remote.api.RemoteReportDefinitionRepository;
-import org.opennms.netmgt.connect.reports.remote.api.model.ReportDefinitionSDO;
 import org.opennms.netmgt.reporting.repository.definition.ReportDefinition;
 import org.opennms.netmgt.reporting.repository.definition.ReportDefinitionRepository;
-
-import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.client.apache.ApacheHttpClient;
-import com.sun.jersey.client.apache.config.DefaultApacheHttpClientConfig;
 
 /**
  * Provides access to the report-templates from the opennms connect server.
@@ -23,9 +18,11 @@ import com.sun.jersey.client.apache.config.DefaultApacheHttpClientConfig;
 public class ConnectReportDefinitionRepository implements
         ReportDefinitionRepository {
 
-	private ReportConnectRepositoryConfigDao configDao = new DefaultReportConnectRepositoryConfigDao();
+    private ConnectReportRepositoryConfigDao m_connectReportRepositoryConfigDao = new DefaultConnectReportRepositoryConfigDao();
+
+
 	// FIXME Tak: Inject configDao;
-	// private ReportConnectRepositoryConfigDao configDao;
+	// private ConnectReportRepositoryConfigDao connectReportRepositoryConfigDao;
 	
     // FIXME thargor: ConnectConfig
     //private static final String LOGIN = "okay";
@@ -43,7 +40,7 @@ public class ConnectReportDefinitionRepository implements
     public Collection<ReportDefinition> getAllReportDefinitions() {
         Collection<ReportDefinition> result = new ArrayList<ReportDefinition>();
 
-        if (configDao != null && Boolean.TRUE.equals(configDao.getReportingActive())) {
+        if (m_connectReportRepositoryConfigDao != null && Boolean.TRUE.equals(m_connectReportRepositoryConfigDao.getReportingActive())) {
          
         	result = ReportDefinitionSDOMapper.fromCollection(m_remoteReportRepository.getAvailableReportDefinitions());
 
@@ -70,7 +67,7 @@ public class ConnectReportDefinitionRepository implements
 
     @Override
     public InputStream getReportTemplate(Integer id, String version) {
-        if (configDao != null && Boolean.TRUE.equals(configDao.getReportingActive())) {
+        if (m_connectReportRepositoryConfigDao != null && Boolean.TRUE.equals(m_connectReportRepositoryConfigDao.getReportingActive())) {
             return m_remoteReportRepository.getReportTemplate(id, version);
         } else {
             logNotActive();
@@ -81,7 +78,7 @@ public class ConnectReportDefinitionRepository implements
 
     @Override
     public ReportDefinition getReportDefinition(Integer id) {
-        if (configDao != null && Boolean.TRUE.equals(configDao.getReportingActive())) {
+        if (m_connectReportRepositoryConfigDao != null && Boolean.TRUE.equals(m_connectReportRepositoryConfigDao.getReportingActive())) {
             return ReportDefinitionSDOMapper.fromSDO(m_remoteReportRepository.getReportDefinition(id));
         } else {
             logNotActive();
@@ -93,12 +90,12 @@ public class ConnectReportDefinitionRepository implements
         LogUtils.infof(this, "ConnectReportDefinitionRepository not active");
     }
 
-	public ReportConnectRepositoryConfigDao getConfigDao() {
-		return configDao;
+	public ConnectReportRepositoryConfigDao getConnectReportRepositoryConfigDao() {
+		return m_connectReportRepositoryConfigDao;
 	}
 
-	public void setConfigDao(ReportConnectRepositoryConfigDao configDao) {
-		this.configDao = configDao;
+	public void setConnectReportRepositoryConfigDao(ConnectReportRepositoryConfigDao connectReportRepositoryConfigDao) {
+		this.m_connectReportRepositoryConfigDao = connectReportRepositoryConfigDao;
 	}
 
 	public RemoteReportDefinitionRepository getRemoteReportRepository() {

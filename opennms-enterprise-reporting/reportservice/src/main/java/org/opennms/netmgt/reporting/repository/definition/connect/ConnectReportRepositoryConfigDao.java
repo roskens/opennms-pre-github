@@ -14,4 +14,6 @@ public interface ConnectReportRepositoryConfigDao {
     public String getConnectApiKey ();
 
     public String getCredentials ();
+
+    public Boolean getReportingActive();
 }

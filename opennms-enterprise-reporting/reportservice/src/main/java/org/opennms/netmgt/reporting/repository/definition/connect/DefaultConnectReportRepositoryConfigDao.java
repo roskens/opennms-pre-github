@@ -9,13 +9,14 @@ import javax.xml.bind.annotation.XmlTransient;
 import java.io.File;
 import java.io.FileReader;
 
-@XmlRootElement(name = "ConnectConfiguration")
+//TODO Tak: constructor is loading in instance of it's own type from filesystem... hmpf split into model and dao
+@XmlRootElement(name = "ConnectReportConfiguration")
 public class DefaultConnectReportRepositoryConfigDao implements ConnectReportRepositoryConfigDao{
-	private static final String CONNECT_CONFIGURATION_XML = System
+	private static final String CONNECT_REPORT_REPOSITORY_XML = System
 			.getProperty("opennms.home")
 			+ File.separator
 			+ "etc"
-			+ File.separator + "opennms-connect-configuration.xml";
+			+ File.separator + "connect-report-repository.xml";
 
     private UriInfo m_uriInfo;
 
@@ -23,11 +24,11 @@ public class DefaultConnectReportRepositoryConfigDao implements ConnectReportRep
 
     private String m_credentials;
 
-    private Boolean m_reportingActive;
+    private Boolean m_reportingActive = Boolean.FALSE;
 
     private DefaultConnectReportRepositoryConfigDao m_defaultConnectReportRepositoryConfigDao;
 
-    @XmlElement(name = "serverURI")
+    @XmlElement(name = "serverUri")
     @Override
     public UriInfo getConnectServerURI() {
         unmarshallConfig();
@@ -69,7 +70,7 @@ public class DefaultConnectReportRepositoryConfigDao implements ConnectReportRep
                     .newInstance(DefaultConnectReportRepositoryConfigDao.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
             m_defaultConnectReportRepositoryConfigDao = (DefaultConnectReportRepositoryConfigDao) unmarshaller
-                    .unmarshal(new FileReader(CONNECT_CONFIGURATION_XML));
+                    .unmarshal(new FileReader(CONNECT_REPORT_REPOSITORY_XML));
         } catch (Exception e) {
             // TODO indigo: error handling
             e.printStackTrace();

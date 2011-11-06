@@ -15,15 +15,15 @@ import org.opennms.netmgt.reporting.repository.definition.ReportDefinition;
 public class ConnectReportDefinitionRepositoryTest {
 
 	ConnectReportDefinitionRepository repo = new ConnectReportDefinitionRepository();
-	ReportConnectRepositoryConfigDao mockDao;
+    ConnectReportRepositoryConfigDao mockDao;
 	RemoteReportDefinitionRepository mockRemoteRepo;
 	
 	@Before
 	public void setUp() throws Exception {
-		mockDao = createMock(ReportConnectRepositoryConfigDao.class);
+		mockDao = createMock(ConnectReportRepositoryConfigDao.class);
 		mockRemoteRepo = createMock(RemoteReportDefinitionRepository.class);
 		repo.setRemoteReportRepository(mockRemoteRepo);
-		repo.setConfigDao(mockDao);
+		repo.setConnectReportRepositoryConfigDao(mockDao);
 	}
 
 	@Test
