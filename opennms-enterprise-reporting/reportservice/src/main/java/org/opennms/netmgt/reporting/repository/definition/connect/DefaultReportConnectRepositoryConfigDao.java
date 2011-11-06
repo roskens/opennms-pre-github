@@ -7,7 +7,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlRootElement;
 
-//FIXME Tak: constructor is loading in instance of it's own type from filesystem... hmpf
+//FIXME Tak: constructor is loading in instance of it's own type from filesystem... hmpf split into model and dao
 
 @XmlRootElement(name = "ReportConnectConfig")
 public class DefaultReportConnectRepositoryConfigDao implements

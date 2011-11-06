@@ -49,7 +49,6 @@ import org.springframework.web.servlet.mvc.AbstractController;
  */
 public class OnlineReportListController extends AbstractController {
 	
-	// FIXME: Add Spring dependency injection
 	private ReportService m_reportService;
 
     private int m_pageSize;
