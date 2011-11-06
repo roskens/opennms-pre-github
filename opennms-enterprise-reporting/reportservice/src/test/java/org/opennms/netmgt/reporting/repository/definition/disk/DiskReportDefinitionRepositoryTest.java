@@ -1,13 +1,13 @@
 package org.opennms.netmgt.reporting.repository.definition.disk;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.Test;
+import org.opennms.netmgt.reporting.repository.definition.ReportDefinition;
+import org.opennms.netmgt.reporting.repository.definition.RepositoryTyp;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Test;
-import org.opennms.netmgt.reporting.repository.definition.ReportDefinition;
-import org.opennms.netmgt.reporting.repository.definition.RepositoryTyp;
+import static org.junit.Assert.assertEquals;
 
 public class DiskReportDefinitionRepositoryTest {
 
@@ -16,7 +16,7 @@ public class DiskReportDefinitionRepositoryTest {
     @Test
     public final void testGetAllReportDefinitions() {
     	
-    	diskRepo.setReportDiskRepositoryConfigDao(new MockupReportDiskRepositoryConfigDao());
+    	diskRepo.setDiskReportRepositoryConfigDao(new MockupDiskReportRepositoryConfigDao());
         List<ReportDefinition> reportDefinisions = (ArrayList<ReportDefinition>) diskRepo.getAllReportDefinitions();
         
         assertEquals("number of reports found", 3, reportDefinisions.size());

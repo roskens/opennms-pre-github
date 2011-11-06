@@ -6,8 +6,8 @@ import java.util.List;
 import org.opennms.netmgt.reporting.repository.definition.ReportDefinition;
 import org.opennms.netmgt.reporting.repository.definition.RepositoryTyp;
 
-public class MockupReportDiskRepositoryConfigDao implements
-		ReportDiskRepositoryConfigDao {
+public class MockupDiskReportRepositoryConfigDao implements
+        DiskReportRepositoryConfigDao {
 
 	@Override
 	public List<ReportDefinition> getReportDefinitionList() {

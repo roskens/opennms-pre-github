@@ -215,13 +215,16 @@
     <property name="databaseReportConfigDao" ref="databaseReportConfigDao"/>
   </bean>
 
+  <!-- Connect Reporting repository injection -->
+  <bean id="diskReportDefinitionRepository" class="org.opennms.netmgt.reporting.repository.definition.disk.DiskReportDefinitionRepository" />
+  <bean id="connectReportDefinitionRepository" class="org.opennms.netmgt.reporting.repository.definition.connect.ConnectReportDefinitionRepository" />
+
   <bean id="reportService" class="org.opennms.netmgt.reporting.service.DefaultReportService">
- 	<!-- TODO TAK some thing like property name="diskRDRepository" ref="reportDefinitionRepository"/ -->
- 	<!-- TODO TAK some thing like property name="connectRDRepository" ref="reportDefinitionRepository"/ -->
- 	<!-- TODO TAK add a default injection for reportDefinitionRepository that points on DiskRepo -->
-    <!-- property name="databaseReportConfigDao" ref="databaseReportConfigDao"/ -->
+    <property name="connectReportDefinitionRepository" ref="connectReportDefinitionRepository" />
+    <property name="diskReportDefinitionRepository" ref="diskReportDefinitionRepository" />
   </bean>
-  
+
+  <!-- Web UI reporting integration -->
   <bean id="reportSchedulerService" class="org.opennms.web.svclayer.support.DefaultSchedulerService">
 	<property name="scheduler">
 		<ref local="schedulerFactory" />

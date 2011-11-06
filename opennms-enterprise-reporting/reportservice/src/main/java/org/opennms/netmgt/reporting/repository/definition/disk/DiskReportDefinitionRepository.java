@@ -27,11 +27,11 @@ public class DiskReportDefinitionRepository implements
 
 	private static final String TEMPLATE_SUFFIX = ".jrxml";
 	
-	// FIXME Tak: Inject me
-	private ReportDiskRepositoryConfigDao reportDiskRepositoryConfigDao = new DefaultReportDiskRepositoryConfigDao();
+	// TODO Tak: Inject me
+	private DiskReportRepositoryConfigDao diskReportRepositoryConfigDao = new DefaultDiskReportRepositoryConfigDao();
 
 	private List<ReportDefinition> getReportDefs() {
-		return reportDiskRepositoryConfigDao.getReportDefinitionList();
+		return diskReportRepositoryConfigDao.getReportDefinitionList();
 	}
 
 	@Override
@@ -122,13 +122,13 @@ public class DiskReportDefinitionRepository implements
 		return versions;
 	}
 
-	public ReportDiskRepositoryConfigDao getReportDiskRepositoryConfigDao() {
-		return reportDiskRepositoryConfigDao;
+	public DiskReportRepositoryConfigDao getDiskReportRepositoryConfigDao() {
+		return diskReportRepositoryConfigDao;
 	}
 
-	public void setReportDiskRepositoryConfigDao(
-			ReportDiskRepositoryConfigDao reportDiskRepositoryConfigDao) {
-		this.reportDiskRepositoryConfigDao = reportDiskRepositoryConfigDao;
+	public void setDiskReportRepositoryConfigDao(
+            DiskReportRepositoryConfigDao diskReportRepositoryConfigDao) {
+		this.diskReportRepositoryConfigDao = diskReportRepositoryConfigDao;
 	}
 
 }

@@ -54,11 +54,9 @@ public class DefaultReportService implements ReportService {
     // get stored
     private static final String REPORT_STORE_PATH = "/tmp/reports/";
     
-	// FIXME indigo: Add Spring dependency injection
-    private ReportDefinitionRepository m_diskRDRepository = new DiskReportDefinitionRepository();
+    private ReportDefinitionRepository m_diskReportDefinitionRepository;
     
-	// FIXME indigo: Add Spring dependency injection
-    private ReportDefinitionRepository m_connectRDRepository = new DiskReportDefinitionRepository();
+    private ReportDefinitionRepository m_connectReportDefinitionRepository;
     
     /**
      * Returns repo-instance for the report repo-typ
@@ -68,9 +66,9 @@ public class DefaultReportService implements ReportService {
      */
     private ReportDefinitionRepository getRepo(RepositoryTyp typ) {
         if (RepositoryTyp.CONNECT == typ) {
-            return m_connectRDRepository;
+            return m_connectReportDefinitionRepository;
         } else if (RepositoryTyp.DISK == typ) {
-            return m_diskRDRepository;
+            return m_diskReportDefinitionRepository;
         } else {
             throw new IllegalStateException("unhandled repository typ: ["
                     + typ + "]");
@@ -187,21 +185,21 @@ public class DefaultReportService implements ReportService {
     }
 
     public ReportDefinitionRepository getDiskRDRepository() {
-		return m_diskRDRepository;
+		return m_diskReportDefinitionRepository;
 	}
 
 	public void setDiskRDRepository(
 			ReportDefinitionRepository diskRDRepository) {
-		this.m_diskRDRepository = diskRDRepository;
+		this.m_diskReportDefinitionRepository = diskRDRepository;
 	}
 
 	public ReportDefinitionRepository getConnectRDRepository() {
-		return m_connectRDRepository;
+		return m_connectReportDefinitionRepository;
 	}
 
 	public void setConnectRDRepository(
 			ReportDefinitionRepository connectRDRepository) {
-		this.m_connectRDRepository = connectRDRepository;
+		this.m_connectReportDefinitionRepository = connectRDRepository;
 	}
     
     /**
@@ -220,4 +218,19 @@ public class DefaultReportService implements ReportService {
                 + reportFormat;
     }
 
+    public ReportDefinitionRepository getDiskReportDefinitionRepository() {
+        return m_diskReportDefinitionRepository;
+    }
+
+    public void setDiskReportDefinitionRepository(ReportDefinitionRepository diskReportDefinitionRepository) {
+        this.m_diskReportDefinitionRepository = diskReportDefinitionRepository;
+    }
+
+    public ReportDefinitionRepository getConnectReportDefinitionRepository() {
+        return m_connectReportDefinitionRepository;
+    }
+
+    public void setConnectReportDefinitionRepository(ReportDefinitionRepository connectReportDefinitionRepository) {
+        this.m_diskReportDefinitionRepository = connectReportDefinitionRepository;
+    }
 }

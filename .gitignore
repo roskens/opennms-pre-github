@@ -15,3 +15,5 @@ build.properties
 *.iml
 *.ipr
 *.iws
+.*.launch
+.*/bin/

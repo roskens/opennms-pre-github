@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.opennms.netmgt.reporting.repository.definition.ReportDefinition;
 
-public interface ReportDiskRepositoryConfigDao {
+public interface DiskReportRepositoryConfigDao {
 
 	/**
 	 * <p>getReportDefinitions</p>

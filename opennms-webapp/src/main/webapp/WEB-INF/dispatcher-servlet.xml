@@ -513,8 +513,7 @@
   
   <bean name="/report/database/onlineList.htm"
   		class="org.opennms.web.controller.OnlineReportListController">
-  		<property name="reportService" ref="reportService"/>
-  	<!-- property name="databaseReportListService" ref="databaseReportListService"/ -->
+  	<property name="reportService" ref="reportService"/>
   	<property name="pageSize" value="10"/>
   </bean>
   

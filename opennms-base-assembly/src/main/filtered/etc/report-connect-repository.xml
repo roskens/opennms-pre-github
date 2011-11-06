@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ConnectConfiguration>
+    <serverURI>http://connect.opennms.com</serverURI>
+    <apiKey>12345</apiKey>
+    <credentials>user:pass</credentials>
+    <reportingActive>true</reportingActive>
+</ConnectConfiguration>
