@@ -70,4 +70,16 @@ public class ReportDefinition {
 	public void setEngineVersions(List<String> versions) {
 		m_engineVersions = versions;
 	}
+
+    @Override
+    public String toString() {
+        return "ReportDefinition{" +
+                "m_id=" + m_id +
+                ", m_repositoryTyp=" + m_repositoryTyp +
+                ", m_name='" + m_name + '\'' +
+                ", m_description='" + m_description + '\'' +
+                ", m_templateName='" + m_templateName + '\'' +
+                ", m_engineVersions=" + m_engineVersions +
+                '}';
+    }
 }
