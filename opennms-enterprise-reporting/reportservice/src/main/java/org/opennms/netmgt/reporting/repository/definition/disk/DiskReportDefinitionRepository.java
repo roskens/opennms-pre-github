@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.opennms.core.utils.LogUtils;
 import org.apache.commons.io.FileUtils;
 import org.opennms.netmgt.reporting.repository.definition.ReportDefinition;
 import org.opennms.netmgt.reporting.repository.definition.ReportDefinitionRepository;
@@ -19,8 +20,6 @@ import org.opennms.netmgt.reporting.repository.definition.ReportDefinitionReposi
 public class DiskReportDefinitionRepository implements
 		ReportDefinitionRepository {
 
-    public DiskReportDefinitionRepository () {}
-
 	private static final String TEMPLATE_DIR = System
 			.getProperty("opennms.home")
 			+ File.separator
@@ -28,14 +27,27 @@ public class DiskReportDefinitionRepository implements
 			+ File.separator + "report-templates" + File.separator;
 
 	private static final String TEMPLATE_SUFFIX = ".jrxml";
+	
+	// TODO Tak: Inject me
+	private DiskReportRepositoryConfigDao diskReportRepositoryConfigDao = new DefaultDiskReportRepositoryConfigDao();
 
-	private DiskReportRepositoryConfigDao m_diskReportRepositoryConfigDao;
+    private List<ReportDefinition> getReportDefs() {
+        List<ReportDefinition> resultList = new ArrayList<ReportDefinition>();
+        if (diskReportRepositoryConfigDao != null) {
+            Object temp = diskReportRepositoryConfigDao.getReportDefinitionList();
+            if (temp != null) {
+                resultList = (List<ReportDefinition>) temp;
+                return resultList;
+            } else {
+                LogUtils.warnf(this, "get ReportDefinitions from DiskReportRepositoryConfigDao causes problems [%s]", temp);
+                return resultList;
+            }
+        } else {
+            LogUtils.warnf(this, "DiskReportRepositoryConfigDao is null");
+            return resultList;
+        }
+    }
 
-	private List<ReportDefinition> getReportDefs() {
-		return m_diskReportRepositoryConfigDao.getReportDefinitionList();
-	}
-
-	@Override
 	public Collection<ReportDefinition> getAllReportDefinitions() {
 
 		for (ReportDefinition rd : getReportDefs()) {
@@ -45,7 +57,6 @@ public class DiskReportDefinitionRepository implements
 		return getReportDefs();
 	}
 
-	@Override
 	public ReportDefinition getReportDefinition(String name) {
 
 		for (ReportDefinition rd : getReportDefs()) {
@@ -58,7 +69,6 @@ public class DiskReportDefinitionRepository implements
 		return null;
 	}
 
-	@Override
 	public InputStream getReportTemplate(Integer id, String version)
 			throws IOException {
 
@@ -81,7 +91,6 @@ public class DiskReportDefinitionRepository implements
 		return null;
 	}
 
-	@Override
 	public ReportDefinition getReportDefinition(Integer id) {
 		for (ReportDefinition rd : getReportDefs()) {
 			if (rd.getId().equals(id)) {
@@ -110,9 +119,7 @@ public class DiskReportDefinitionRepository implements
 				}
 			}
 		} else {
-//			LogUtils.warnf(this,
-//					"report template directory can't be read [%s]",
-//					TEMPLATE_DIR);
+			LogUtils.warnf(this, "report template directory can't be read [%s]", TEMPLATE_DIR);
 		}
 
 		File templateFile = new File(rootDir, rd.getTemplateName()
@@ -124,12 +131,12 @@ public class DiskReportDefinitionRepository implements
 	}
 
 	public DiskReportRepositoryConfigDao getDiskReportRepositoryConfigDao() {
-		return m_diskReportRepositoryConfigDao;
+		return diskReportRepositoryConfigDao;
 	}
 
 	public void setDiskReportRepositoryConfigDao(
             DiskReportRepositoryConfigDao diskReportRepositoryConfigDao) {
-		this.m_diskReportRepositoryConfigDao = diskReportRepositoryConfigDao;
+		this.diskReportRepositoryConfigDao = diskReportRepositoryConfigDao;
 	}
 
 }

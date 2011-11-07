@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 import org.opennms.netmgt.connect.reports.remote.api.RemoteReportDefinitionRepository;
@@ -16,12 +15,13 @@ import org.opennms.netmgt.reporting.repository.definition.ReportDefinition;
 
 public class ConnectReportDefinitionRepositoryTest {
 
-	ConnectReportDefinitionRepository repo = new ConnectReportDefinitionRepository();
+	ConnectReportDefinitionRepository repo;
     ConnectReportRepositoryConfigDao mockDao;
 	RemoteReportDefinitionRepository mockRemoteRepo;
 	
 	@Before
 	public void setUp() throws Exception {
+        repo = new ConnectReportDefinitionRepository();
         mockDao = createMock(ConnectReportRepositoryConfigDao.class);
 		mockRemoteRepo = createMock(RemoteReportDefinitionRepository.class);
 		repo.setRemoteReportRepository(mockRemoteRepo);

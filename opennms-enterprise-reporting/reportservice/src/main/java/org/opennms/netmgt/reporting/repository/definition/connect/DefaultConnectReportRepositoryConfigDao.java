@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import java.io.File;
 import java.io.FileReader;
 
-//TODO Tak: constructor is loading in instance of it's own type from filesystem... hmpf split into model and dao
+//TODO Tak: split dao and data
 @XmlRootElement(name = "ConnectReportConfiguration")
 public class DefaultConnectReportRepositoryConfigDao implements ConnectReportRepositoryConfigDao{
 	private static final String CONNECT_REPORT_REPOSITORY_XML = System
@@ -29,21 +29,18 @@ public class DefaultConnectReportRepositoryConfigDao implements ConnectReportRep
     private DefaultConnectReportRepositoryConfigDao m_defaultConnectReportRepositoryConfigDao;
 
     @XmlElement(name = "serverUri")
-    @Override
     public UriInfo getConnectServerURI() {
         unmarshallConfig();
         return m_defaultConnectReportRepositoryConfigDao.getConnectServerURI();
     }
 
     @XmlElement(name = "apiKey")
-    @Override
     public String getConnectApiKey() {
         unmarshallConfig();
         return m_defaultConnectReportRepositoryConfigDao.getConnectApiKey();
     }
 
     @XmlElement(name = "credentials")
-    @Override
     public String getCredentials() {
         unmarshallConfig();
         return m_defaultConnectReportRepositoryConfigDao.getCredentials();
