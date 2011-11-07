@@ -29,7 +29,7 @@ public class DiskReportDefinitionRepositoryTest {
         //mockReportDefinition = createMock("mockReportDefinition", ReportDefinition.class);
 
         diskRepo = new DiskReportDefinitionRepository();
-        diskRepo.setDiskReportRepositoryConfigDao(mockDao);
+        diskRepo.setM_diskReportRepositoryConfigDao(mockDao);
     }
 
     @After
@@ -50,7 +50,7 @@ public class DiskReportDefinitionRepositoryTest {
 
     @Test
     public final void testGetAllReportDefinitionsIfconfigIsNull() {
-        diskRepo.setDiskReportRepositoryConfigDao(null);
+        diskRepo.setM_diskReportRepositoryConfigDao(null);
         Collection<ReportDefinition> results;
         results = diskRepo.getAllReportDefinitions();
         assertEquals("number of reports found", 0, results.size());

@@ -19,7 +19,11 @@ public class DefaultDiskReportRepositoryConfigDao implements
 			+ "etc"
 			+ File.separator + "report-disk-repository.xml";
 
-	private DiskReportRepositoryConfig m_diskReportDefinitionConfig = new DiskReportRepositoryConfig();
+	private DiskReportRepositoryConfig m_diskReportDefinitionConfig;
+
+    public DefaultDiskReportRepositoryConfigDao () {
+        this.m_diskReportDefinitionConfig = new DiskReportRepositoryConfig();
+    }
 
 	public List<ReportDefinition> getReportDefinitionList() {
 		try {

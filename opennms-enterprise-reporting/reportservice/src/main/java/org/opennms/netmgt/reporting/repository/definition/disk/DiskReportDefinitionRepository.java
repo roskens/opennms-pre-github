@@ -27,14 +27,16 @@ public class DiskReportDefinitionRepository implements
 			+ File.separator + "report-templates" + File.separator;
 
 	private static final String TEMPLATE_SUFFIX = ".jrxml";
-	
-	// TODO Tak: Inject me
-	private DiskReportRepositoryConfigDao diskReportRepositoryConfigDao = new DefaultDiskReportRepositoryConfigDao();
+
+	private DiskReportRepositoryConfigDao m_diskReportRepositoryConfigDao;
+
+    public DiskReportDefinitionRepository(){
+    }
 
     private List<ReportDefinition> getReportDefs() {
         List<ReportDefinition> resultList = new ArrayList<ReportDefinition>();
-        if (diskReportRepositoryConfigDao != null) {
-            Object temp = diskReportRepositoryConfigDao.getReportDefinitionList();
+        if (m_diskReportRepositoryConfigDao != null) {
+            Object temp = m_diskReportRepositoryConfigDao.getReportDefinitionList();
             if (temp != null) {
                 resultList = (List<ReportDefinition>) temp;
                 return resultList;
@@ -131,12 +133,12 @@ public class DiskReportDefinitionRepository implements
 	}
 
 	public DiskReportRepositoryConfigDao getDiskReportRepositoryConfigDao() {
-		return diskReportRepositoryConfigDao;
+		return m_diskReportRepositoryConfigDao;
 	}
 
 	public void setDiskReportRepositoryConfigDao(
             DiskReportRepositoryConfigDao diskReportRepositoryConfigDao) {
-		this.diskReportRepositoryConfigDao = diskReportRepositoryConfigDao;
+		this.m_diskReportRepositoryConfigDao = diskReportRepositoryConfigDao;
 	}
 
 }

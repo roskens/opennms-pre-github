@@ -28,6 +28,9 @@ public class DefaultConnectReportRepositoryConfigDao implements ConnectReportRep
 
     private DefaultConnectReportRepositoryConfigDao m_defaultConnectReportRepositoryConfigDao;
 
+    public DefaultConnectReportRepositoryConfigDao() {
+    }
+
     @XmlElement(name = "serverUri")
     public UriInfo getConnectServerURI() {
         unmarshallConfig();
