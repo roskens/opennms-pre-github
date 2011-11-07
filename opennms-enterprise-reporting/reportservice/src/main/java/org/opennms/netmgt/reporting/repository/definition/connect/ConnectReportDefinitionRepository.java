@@ -27,6 +27,9 @@ public class ConnectReportDefinitionRepository implements
     // TODO thargor: Inject Webservice stub
     private RemoteReportDefinitionRepository m_remoteReportRepository;
 
+    public ConnectReportDefinitionRepository () {
+    }
+
     @SuppressWarnings("unchecked")
     public Collection<ReportDefinition> getAllReportDefinitions() {
         Collection<ReportDefinition> result = new ArrayList<ReportDefinition>();

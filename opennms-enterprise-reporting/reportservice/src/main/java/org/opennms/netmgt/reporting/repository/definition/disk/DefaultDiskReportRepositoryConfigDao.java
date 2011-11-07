@@ -25,6 +25,9 @@ public class DefaultDiskReportRepositoryConfigDao implements
 
 	private List<ReportDefinition> m_reportDefs = new ArrayList<ReportDefinition>();
 
+    public DefaultDiskReportRepositoryConfigDao(){
+    }
+
 	@XmlElement(name = "ReportDefinition")
 	public List<ReportDefinition> getReportDefinitions() {
 		return m_reportDefs;

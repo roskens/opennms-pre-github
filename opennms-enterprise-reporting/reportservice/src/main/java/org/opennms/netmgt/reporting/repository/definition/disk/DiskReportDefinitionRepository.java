@@ -19,6 +19,8 @@ import org.opennms.netmgt.reporting.repository.definition.ReportDefinitionReposi
 public class DiskReportDefinitionRepository implements
 		ReportDefinitionRepository {
 
+    public DiskReportDefinitionRepository () {}
+
 	private static final String TEMPLATE_DIR = System
 			.getProperty("opennms.home")
 			+ File.separator
@@ -26,12 +28,11 @@ public class DiskReportDefinitionRepository implements
 			+ File.separator + "report-templates" + File.separator;
 
 	private static final String TEMPLATE_SUFFIX = ".jrxml";
-	
-	// TODO Tak: Inject me
-	private DiskReportRepositoryConfigDao diskReportRepositoryConfigDao = new DefaultDiskReportRepositoryConfigDao();
+
+	private DiskReportRepositoryConfigDao m_diskReportRepositoryConfigDao;
 
 	private List<ReportDefinition> getReportDefs() {
-		return diskReportRepositoryConfigDao.getReportDefinitionList();
+		return m_diskReportRepositoryConfigDao.getReportDefinitionList();
 	}
 
 	@Override
@@ -123,12 +124,12 @@ public class DiskReportDefinitionRepository implements
 	}
 
 	public DiskReportRepositoryConfigDao getDiskReportRepositoryConfigDao() {
-		return diskReportRepositoryConfigDao;
+		return m_diskReportRepositoryConfigDao;
 	}
 
 	public void setDiskReportRepositoryConfigDao(
             DiskReportRepositoryConfigDao diskReportRepositoryConfigDao) {
-		this.diskReportRepositoryConfigDao = diskReportRepositoryConfigDao;
+		this.m_diskReportRepositoryConfigDao = diskReportRepositoryConfigDao;
 	}
 
 }

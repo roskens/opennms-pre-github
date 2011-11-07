@@ -57,6 +57,9 @@ public class DefaultReportService implements ReportService {
     private ReportDefinitionRepository m_diskReportDefinitionRepository;
     
     private ReportDefinitionRepository m_connectReportDefinitionRepository;
+
+    public DefaultReportService(){
+    }
     
     /**
      * Returns repo-instance for the report repo-typ
@@ -231,6 +234,6 @@ public class DefaultReportService implements ReportService {
     }
 
     public void setConnectReportDefinitionRepository(ReportDefinitionRepository connectReportDefinitionRepository) {
-        this.m_diskReportDefinitionRepository = connectReportDefinitionRepository;
+        this.m_connectReportDefinitionRepository = connectReportDefinitionRepository;
     }
 }

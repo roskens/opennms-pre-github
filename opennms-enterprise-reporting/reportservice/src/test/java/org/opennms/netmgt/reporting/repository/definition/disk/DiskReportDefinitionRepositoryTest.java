@@ -16,7 +16,7 @@ public class DiskReportDefinitionRepositoryTest {
     @Test
     public final void testGetAllReportDefinitions() {
     	
-    	diskRepo.setDiskReportRepositoryConfigDao(new MockupDiskReportRepositoryConfigDao());
+    	diskRepo.setM_diskReportRepositoryConfigDao(new MockupDiskReportRepositoryConfigDao());
         List<ReportDefinition> reportDefinisions = (ArrayList<ReportDefinition>) diskRepo.getAllReportDefinitions();
         
         assertEquals("number of reports found", 3, reportDefinisions.size());
