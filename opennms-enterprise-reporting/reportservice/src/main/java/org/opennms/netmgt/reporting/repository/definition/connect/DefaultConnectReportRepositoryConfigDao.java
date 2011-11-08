@@ -26,32 +26,33 @@ public class DefaultConnectReportRepositoryConfigDao implements ConnectReportRep
 
     private Boolean m_reportingActive = Boolean.FALSE;
 
-    private DefaultConnectReportRepositoryConfigDao m_defaultConnectReportRepositoryConfigDao;
+    private ConnectReportRepositoryConfigDao m_connectReportRepositoryConfigDao;
 
     public DefaultConnectReportRepositoryConfigDao() {
+        this.m_connectReportRepositoryConfigDao = new DefaultConnectReportRepositoryConfigDao();
     }
 
     @XmlElement(name = "serverUri")
     public UriInfo getConnectServerURI() {
         unmarshallConfig();
-        return m_defaultConnectReportRepositoryConfigDao.getConnectServerURI();
+        return m_connectReportRepositoryConfigDao.getConnectServerURI();
     }
 
     @XmlElement(name = "apiKey")
     public String getConnectApiKey() {
         unmarshallConfig();
-        return m_defaultConnectReportRepositoryConfigDao.getConnectApiKey();
+        return m_connectReportRepositoryConfigDao.getConnectApiKey();
     }
 
     @XmlElement(name = "credentials")
     public String getCredentials() {
         unmarshallConfig();
-        return m_defaultConnectReportRepositoryConfigDao.getCredentials();
+        return m_connectReportRepositoryConfigDao.getCredentials();
     }
 
     @XmlElement(name = "reportingActive")
     public Boolean getReportingActive() {
-        return m_defaultConnectReportRepositoryConfigDao.getReportingActive();
+        return m_connectReportRepositoryConfigDao.getReportingActive();
     }
 
 	@Override
@@ -69,7 +70,7 @@ public class DefaultConnectReportRepositoryConfigDao implements ConnectReportRep
             JAXBContext context = JAXBContext
                     .newInstance(DefaultConnectReportRepositoryConfigDao.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
-            m_defaultConnectReportRepositoryConfigDao = (DefaultConnectReportRepositoryConfigDao) unmarshaller
+            m_connectReportRepositoryConfigDao = (DefaultConnectReportRepositoryConfigDao) unmarshaller
                     .unmarshal(new FileReader(CONNECT_REPORT_REPOSITORY_XML));
         } catch (Exception e) {
             // TODO indigo: error handling
