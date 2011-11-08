@@ -187,24 +187,6 @@ public class DefaultReportService implements ReportService {
         return result;
     }
 
-    public ReportDefinitionRepository getDiskRDRepository() {
-		return m_diskReportDefinitionRepository;
-	}
-
-	public void setDiskRDRepository(
-			ReportDefinitionRepository diskRDRepository) {
-		this.m_diskReportDefinitionRepository = diskRDRepository;
-	}
-
-	public ReportDefinitionRepository getConnectRDRepository() {
-		return m_connectReportDefinitionRepository;
-	}
-
-	public void setConnectRDRepository(
-			ReportDefinitionRepository connectRDRepository) {
-		this.m_connectReportDefinitionRepository = connectRDRepository;
-	}
-    
     /**
      * Generates a path to store the report result to, containing the report
      * name, the current date and time and the format as suffix
