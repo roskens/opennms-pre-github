@@ -9,8 +9,6 @@ import javax.xml.bind.annotation.XmlTransient;
 import java.io.File;
 import java.io.FileReader;
 
-//TODO Tak: split dao and data
-@XmlRootElement(name = "ConnectReportConfiguration")
 public class DefaultConnectReportRepositoryConfigDao implements ConnectReportRepositoryConfigDao{
 	private static final String CONNECT_REPORT_REPOSITORY_XML = System
 			.getProperty("opennms.home")
@@ -18,51 +16,11 @@ public class DefaultConnectReportRepositoryConfigDao implements ConnectReportRep
 			+ "etc"
 			+ File.separator + "connect-report-repository.xml";
 
-    private UriInfo m_uriInfo;
-
-    private String m_apiKey;
-
-    private String m_credentials;
-
-    private Boolean m_reportingActive = Boolean.FALSE;
-
-    private ConnectReportRepositoryConfigDao m_connectReportRepositoryConfigDao;
+    private ConnectReportRepositoryConfig m_connectReportRepositoryConfig;
 
     public DefaultConnectReportRepositoryConfigDao() {
-        this.m_connectReportRepositoryConfigDao = new DefaultConnectReportRepositoryConfigDao();
+        this.m_connectReportRepositoryConfig = new ConnectReportRepositoryConfig();
     }
-
-    @XmlElement(name = "serverUri")
-    public UriInfo getConnectServerURI() {
-        unmarshallConfig();
-        return m_connectReportRepositoryConfigDao.getConnectServerURI();
-    }
-
-    @XmlElement(name = "apiKey")
-    public String getConnectApiKey() {
-        unmarshallConfig();
-        return m_connectReportRepositoryConfigDao.getConnectApiKey();
-    }
-
-    @XmlElement(name = "credentials")
-    public String getCredentials() {
-        unmarshallConfig();
-        return m_connectReportRepositoryConfigDao.getCredentials();
-    }
-
-    @XmlElement(name = "reportingActive")
-    public Boolean getReportingActive() {
-        return m_connectReportRepositoryConfigDao.getReportingActive();
-    }
-
-	@Override
-	public String toString() {
-		String result = "DefaultConnectRepositoryConfigDao [opennmsConnectConfiguration=";
-
-        result = "Connect server URI: " + getConnectServerURI() + "; Connect API key: " + getConnectApiKey() + "; " + "Connect REST credentials: " + getCredentials();
-
-		return result;
-	}
 
     @XmlTransient
     private void unmarshallConfig() {
@@ -70,11 +28,35 @@ public class DefaultConnectReportRepositoryConfigDao implements ConnectReportRep
             JAXBContext context = JAXBContext
                     .newInstance(DefaultConnectReportRepositoryConfigDao.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
-            m_connectReportRepositoryConfigDao = (DefaultConnectReportRepositoryConfigDao) unmarshaller
+            this.m_connectReportRepositoryConfig = (ConnectReportRepositoryConfig) unmarshaller
                     .unmarshal(new FileReader(CONNECT_REPORT_REPOSITORY_XML));
         } catch (Exception e) {
             // TODO indigo: error handling
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public UriInfo getConnectServerURI() {
+        unmarshallConfig();
+        return this.m_connectReportRepositoryConfig.getConnectServerURI();
+    }
+
+    @Override
+    public String getConnectApiKey() {
+        unmarshallConfig();
+        return this.m_connectReportRepositoryConfig.getConnectApiKey();
+    }
+
+    @Override
+    public String getCredentials() {
+        unmarshallConfig();
+        return this.m_connectReportRepositoryConfig.getCredentials();
+    }
+
+    @Override
+    public Boolean getReportingActive() {
+        unmarshallConfig();
+        return this.m_connectReportRepositoryConfig.getReportingActive();
     }
 }

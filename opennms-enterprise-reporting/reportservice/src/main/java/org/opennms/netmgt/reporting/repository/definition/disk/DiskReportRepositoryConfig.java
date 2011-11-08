@@ -12,7 +12,6 @@ public class DiskReportRepositoryConfig {
 
     private List<ReportDefinition> m_reportDefinitions = new ArrayList<ReportDefinition>();
 
-
     @XmlElement(name = "ReportDefinition")
     public List<ReportDefinition> getReportDefinitions() {
 
