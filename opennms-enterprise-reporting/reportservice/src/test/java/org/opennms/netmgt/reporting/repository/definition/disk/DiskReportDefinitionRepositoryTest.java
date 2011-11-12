@@ -4,6 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.opennms.netmgt.reporting.repository.definition.ReportDefinition;
+import org.opennms.netmgt.reporting.repository.disk.dao.DiskReportRepositoryConfigDao;
 
 import static org.easymock.EasyMock.*;
 

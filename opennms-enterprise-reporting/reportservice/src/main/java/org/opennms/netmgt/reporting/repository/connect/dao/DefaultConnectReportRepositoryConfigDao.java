@@ -1,15 +1,15 @@
-package org.opennms.netmgt.reporting.repository.definition.connect;
+package org.opennms.netmgt.reporting.repository.connect.dao;
+
+import org.opennms.netmgt.reporting.repository.definition.connect.ConnectReportRepositoryConfig;
 
 import javax.ws.rs.core.UriInfo;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import java.io.File;
 import java.io.FileReader;
 
-public class DefaultConnectReportRepositoryConfigDao implements ConnectReportRepositoryConfigDao{
+public class DefaultConnectReportRepositoryConfigDao implements ConnectReportRepositoryConfigDao {
 	private static final String CONNECT_REPORT_REPOSITORY_XML = System
 			.getProperty("opennms.home")
 			+ File.separator

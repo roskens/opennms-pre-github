@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.opennms.netmgt.connect.reports.remote.api.RemoteReportDefinitionRepository;
 import org.opennms.netmgt.connect.reports.remote.api.model.ReportDefinitionSDO;
+import org.opennms.netmgt.reporting.repository.connect.dao.ConnectReportRepositoryConfigDao;
 import org.opennms.netmgt.reporting.repository.definition.ReportDefinition;
 
 public class ConnectReportDefinitionRepositoryTest {

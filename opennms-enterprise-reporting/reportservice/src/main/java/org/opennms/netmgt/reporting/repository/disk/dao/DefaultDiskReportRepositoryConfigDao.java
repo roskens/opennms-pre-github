@@ -1,4 +1,4 @@
-package org.opennms.netmgt.reporting.repository.definition.disk;
+package org.opennms.netmgt.reporting.repository.disk.dao;
 
 import java.io.File;
 import java.io.FileReader;
@@ -9,6 +9,8 @@ import javax.xml.bind.Unmarshaller;
 
 import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.reporting.repository.definition.ReportDefinition;
+import org.opennms.netmgt.reporting.repository.definition.disk.DiskReportRepositoryConfig;
+import org.opennms.netmgt.reporting.repository.disk.dao.DiskReportRepositoryConfigDao;
 
 public class DefaultDiskReportRepositoryConfigDao implements
         DiskReportRepositoryConfigDao {

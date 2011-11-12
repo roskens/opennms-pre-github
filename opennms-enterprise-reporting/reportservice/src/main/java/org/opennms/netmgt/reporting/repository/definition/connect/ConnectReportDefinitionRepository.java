@@ -7,6 +7,7 @@ import java.util.Collection;
 import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.connect.reports.remote.api.RemoteReportDefinitionRepository;
 import org.opennms.netmgt.connect.reports.remote.api.model.ReportDefinitionSDO;
+import org.opennms.netmgt.reporting.repository.connect.dao.ConnectReportRepositoryConfigDao;
 import org.opennms.netmgt.reporting.repository.definition.ReportDefinition;
 import org.opennms.netmgt.reporting.repository.definition.ReportDefinitionRepository;
 

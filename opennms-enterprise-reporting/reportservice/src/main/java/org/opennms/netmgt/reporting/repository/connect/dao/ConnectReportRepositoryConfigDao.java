@@ -1,4 +1,4 @@
-package org.opennms.netmgt.reporting.repository.definition.connect;
+package org.opennms.netmgt.reporting.repository.connect.dao;
 
 import org.apache.commons.httpclient.URI;
 import org.opennms.netmgt.reporting.repository.definition.ReportDefinition;

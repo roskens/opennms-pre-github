@@ -1,4 +1,4 @@
-package org.opennms.netmgt.reporting.repository.definition.disk;
+package org.opennms.netmgt.reporting.repository.disk.dao;
 
 import java.util.List;
 
