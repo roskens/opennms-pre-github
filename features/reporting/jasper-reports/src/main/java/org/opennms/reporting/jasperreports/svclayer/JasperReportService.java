@@ -97,6 +97,7 @@ public class JasperReportService implements ReportService {
     }
 
     /** {@inheritDoc} */
+    // FIXME thargor: unused param
     public List<ReportFormat> getFormats(String reportId) {
         List<ReportFormat> formats = new ArrayList<ReportFormat>();
         formats.add(ReportFormat.PDF);
@@ -479,6 +480,7 @@ public class JasperReportService implements ReportService {
                 }
 
             }
+            // FIXME thargor: else?
 
         }
 
@@ -495,6 +497,7 @@ public class JasperReportService implements ReportService {
                 break;
     
             default:
+                // FIXME thargor: Exception, unkown format, see get
                 break;
         }
         
@@ -531,7 +534,7 @@ public class JasperReportService implements ReportService {
                             + " is not for prompting - continuing");
                 	continue;
                 }
-
+ 
                 if (onmsReportParms.containsKey(parmName) == false)
                     throw new ReportException("Required parameter "
                             + parmName
@@ -603,7 +606,7 @@ public class JasperReportService implements ReportService {
     /** {@inheritDoc} */
     public boolean validate(HashMap<String, Object> reportParms,
             String reportId) {
-        // returns true until we can take parameters
+        // FIXME returns true until we can take parameters, we can ...
         return true;
     }
 

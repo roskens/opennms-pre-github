@@ -2,6 +2,7 @@ package org.opennms.netmgt.reporting.repository.definition.disk;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.opennms.netmgt.reporting.repository.definition.ReportDefinition;
 
@@ -9,6 +10,7 @@ import java.util.List;
 
 import static junit.framework.Assert.*;
 
+@Ignore
 public class DefaultDiskReportRepositoryConfigDaoTest {
     private DefaultDiskReportRepositoryConfigDao dao;
 
