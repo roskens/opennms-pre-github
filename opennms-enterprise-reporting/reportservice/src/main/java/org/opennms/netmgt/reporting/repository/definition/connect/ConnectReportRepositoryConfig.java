@@ -20,7 +20,7 @@ public class ConnectReportRepositoryConfig {
         return this.m_uri;
     }
 
-    public void setUriInfo(UriInfo uri) {
+    public void setConnectServerURI(UriInfo uri) {
         this.m_uri = uri;
     }
 
