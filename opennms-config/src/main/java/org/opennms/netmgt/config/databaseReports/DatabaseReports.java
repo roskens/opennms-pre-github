@@ -1,44 +1,42 @@
 package org.opennms.netmgt.config.databaseReports;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Reader;
+
 /**
  * Report Configuration for database reports
- *  
  * 
  * @version $Revision$ $Date$
  */
 @XmlRootElement(name="database-reports")
 @XmlAccessorType(XmlAccessType.FIELD)
-@SuppressWarnings("all") 
 public class DatabaseReports implements java.io.Serializable {
 
-
-      //--------------------------/
-     //- Class/Member Variables -/
-    //--------------------------/
-
+    private static Reader reader;
     /**
      * A report definition
      */
     private java.util.List<org.opennms.netmgt.config.databaseReports.Report> _reportList;
 
-
-      //----------------/
-     //- Constructors -/
-    //----------------/
+    private JAXBContext m_jaxbContext;
 
     public DatabaseReports() {
         super();
         this._reportList = new java.util.ArrayList<org.opennms.netmgt.config.databaseReports.Report>();
+        try {
+            this.m_jaxbContext = JAXBContext.newInstance(DatabaseReports.class);
+        } catch (JAXBException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
     }
 
-
-      //-----------/
-     //- Methods -/
-    //-----------/
-
     /**
-     * 
-     * 
      * @param vReport
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -50,8 +48,6 @@ public class DatabaseReports implements java.io.Serializable {
     }
 
     /**
-     * 
-     * 
      * @param index
      * @param vReport
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -181,21 +177,6 @@ public class DatabaseReports implements java.io.Serializable {
     }
 
     /**
-     * Method isValid.
-     * 
-     * @return true if this object is valid according to the schema
-     */
-    public boolean isValid(
-    ) {
-        try {
-            validate();
-        } catch (org.exolab.castor.xml.ValidationException vex) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
      * Method iterateReport.
      * 
      * @return an Iterator over all possible elements in this
@@ -215,27 +196,9 @@ public class DatabaseReports implements java.io.Serializable {
      * @throws org.exolab.castor.xml.ValidationException if this
      * object is an invalid instance according to the schema
      */
-    public void marshal(
-            final java.io.Writer out)
-    throws org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
-        Marshaller.marshal(this, out);
-    }
-
-    /**
-     * 
-     * 
-     * @param handler
-     * @throws java.io.IOException if an IOException occurs during
-     * marshaling
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
-     * @throws org.exolab.castor.xml.MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     */
-    public void marshal(
-            final org.xml.sax.ContentHandler handler)
-    throws java.io.IOException, org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
-        Marshaller.marshal(this, handler);
+    public void marshal(final java.io.Writer out) throws JAXBException {
+        Marshaller marshaller = createMarshaller();
+        marshaller.marshal(this, out);
     }
 
     /**
@@ -298,7 +261,7 @@ public class DatabaseReports implements java.io.Serializable {
             final org.opennms.netmgt.config.databaseReports.Report[] vReportArray) {
         //-- copy array
         _reportList.clear();
-        
+
         for (int i = 0; i < vReportArray.length; i++) {
                 this._reportList.add(vReportArray[i]);
         }
@@ -341,23 +304,16 @@ public class DatabaseReports implements java.io.Serializable {
      * @return the unmarshaled
      * org.opennms.netmgt.config.databaseReports.DatabaseReports
      */
-    public static org.opennms.netmgt.config.databaseReports.DatabaseReports unmarshal(
-            final java.io.Reader reader)
-    throws org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
-        return (org.opennms.netmgt.config.databaseReports.DatabaseReports) Unmarshaller.unmarshal(org.opennms.netmgt.config.databaseReports.DatabaseReports.class, reader);
+    public DatabaseReports unmarshal(final Reader reader) throws JAXBException {
+        Unmarshaller unmarshaller = createUnmarshaller();
+        return (DatabaseReports) unmarshaller.unmarshal(reader);
     }
 
-    /**
-     * 
-     * 
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
-     */
-    public void validate(
-    )
-    throws org.exolab.castor.xml.ValidationException {
-        org.exolab.castor.xml.Validator validator = new org.exolab.castor.xml.Validator();
-        validator.validate(this);
+    private Marshaller createMarshaller() throws JAXBException {
+        return this.m_jaxbContext.createMarshaller();
     }
 
+    private Unmarshaller createUnmarshaller () throws JAXBException {
+        return this.m_jaxbContext.createUnmarshaller();
+    }
 }
