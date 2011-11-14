@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.opennms.core.utils.LogUtils;
 import org.apache.commons.io.FileUtils;
 import org.opennms.netmgt.reporting.repository.definition.ReportDefinition;
 import org.opennms.netmgt.reporting.repository.definition.ReportDefinitionRepository;
-import org.opennms.netmgt.reporting.repository.disk.dao.DiskReportRepositoryConfigDao;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Provides access to the report-templates from the local opennms installation.
@@ -20,6 +20,8 @@ import org.opennms.netmgt.reporting.repository.disk.dao.DiskReportRepositoryConf
  */
 public class DiskReportDefinitionRepository implements
 		ReportDefinitionRepository {
+    
+    private static final Logger log = LoggerFactory.getLogger(DiskReportDefinitionRepository.class);
 
 	private static final String TEMPLATE_DIR = System
 			.getProperty("opennms.home")
@@ -42,11 +44,11 @@ public class DiskReportDefinitionRepository implements
                 resultList = (List<ReportDefinition>) temp;
                 return resultList;
             } else {
-                LogUtils.warnf(this, "get ReportDefinitions from DiskReportRepositoryConfigDao causes problems [%s]", temp);
+                log.warn("get ReportDefinitions from DiskReportRepositoryConfigDao causes problems [{}]", temp);
                 return resultList;
             }
         } else {
-            LogUtils.warnf(this, "DiskReportRepositoryConfigDao is null");
+            log.warn("DiskReportRepositoryConfigDao is null");
             return resultList;
         }
     }
@@ -122,7 +124,7 @@ public class DiskReportDefinitionRepository implements
 				}
 			}
 		} else {
-			LogUtils.warnf(this, "report template directory can't be read [%s]", TEMPLATE_DIR);
+		    log.warn("report template directory can't be read [{}]", TEMPLATE_DIR);
 		}
 
 		File templateFile = new File(rootDir, rd.getTemplateName()
