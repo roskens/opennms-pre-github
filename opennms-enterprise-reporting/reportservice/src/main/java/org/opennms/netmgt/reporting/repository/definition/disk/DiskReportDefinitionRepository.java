@@ -10,6 +10,7 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.opennms.netmgt.reporting.repository.definition.ReportDefinition;
 import org.opennms.netmgt.reporting.repository.definition.ReportDefinitionRepository;
+import org.opennms.netmgt.reporting.repository.disk.dao.DiskReportRepositoryConfigDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
