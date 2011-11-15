@@ -1,5 +1,7 @@
 package org.opennms.netmgt.config.databaseReports;
 
+import org.opennms.core.xml.ValidateUsing;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -14,8 +16,9 @@ import java.io.Reader;
  * 
  * @version $Revision$ $Date$
  */
-@XmlRootElement(name="database-reports")
+@XmlRootElement(name="database-reports", namespace="http://xmlns.opennms.org/xsd/config/database-reports")
 @XmlAccessorType(XmlAccessType.FIELD)
+@ValidateUsing("database-reports.xsd")
 public class DatabaseReports implements java.io.Serializable {
 
     private static Reader reader;

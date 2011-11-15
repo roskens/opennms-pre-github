@@ -26,6 +26,6 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-@XmlSchema(namespace = "http://xmlns.opennms.org/xsd/config/databaseReports", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
+@XmlSchema(namespace = "http://xmlns.opennms.org/xsd/config/database-reports", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
 package org.opennms.netmgt.config.databaseReports;
 import javax.xml.bind.annotation.XmlSchema;

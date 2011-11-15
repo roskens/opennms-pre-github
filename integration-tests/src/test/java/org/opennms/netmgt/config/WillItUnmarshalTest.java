@@ -252,7 +252,7 @@ public class WillItUnmarshalTest {
     }
     @Test
     public void testDatabaseReportsConfiguration() throws Exception {
-        unmarshal("database-reports.xml", DatabaseReports.class);
+        unmarshalJaxb("database-reports.xml", DatabaseReports.class);
     }
     @Test
     public void testDatabaseSchema() throws Exception {
