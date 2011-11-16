@@ -49,7 +49,8 @@ public class DefaultDatabaseReportConfigDao extends AbstractCastorConfigDao<Data
     /** {@inheritDoc} */
     @Override
     public List<Report> translateConfig(DatabaseReports castorConfig) {
-        return Collections.unmodifiableList(castorConfig.getReportCollection());
+        //return Collections.unmodifiableList(castorConfig.getReportCollection());
+        return null; //sorry temporary not available
     }
     
     

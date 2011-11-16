@@ -121,6 +121,7 @@ import org.opennms.netmgt.config.wmi.WmiDatacollectionConfig;
 import org.opennms.netmgt.config.xmlrpcd.XmlrpcdConfiguration;
 import org.opennms.netmgt.config.xmpConfig.XmpConfig;
 import org.opennms.netmgt.config.xmpDataCollection.XmpDatacollectionConfig;
+import org.opennms.netmgt.dao.castor.statsd.Report;
 import org.opennms.netmgt.provision.persist.requisition.Requisition;
 import org.opennms.netmgt.xml.eventconf.Events;
 import org.opennms.test.ConfigurationTestUtils;
@@ -252,7 +253,14 @@ public class WillItUnmarshalTest {
     }
     @Test
     public void testDatabaseReportsConfiguration() throws Exception {
-        unmarshalJaxb("database-reports.xml", DatabaseReports.class);
+        List<org.opennms.netmgt.config.databaseReports.Report> reports = unmarshalJaxb("database-reports.xml", DatabaseReports.class).getReportList();
+        System.out.println("WTF NUMBER OF REPORTS: " + reports.size());
+        for (org.opennms.netmgt.config.databaseReports.Report report : reports) {
+            //System.out.println(report.getClass().getName());
+            System.out.println(report.toString());
+            //System.out.println("ID: " + report.getId() + "\t" + report.getDisplayName() + "\t" + report.getDescription());
+        }
+
     }
     @Test
     public void testDatabaseSchema() throws Exception {
