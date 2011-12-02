@@ -139,6 +139,11 @@ public class TcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefinition,
         return new RrdDefinition(directory, rrdName);
     }
 
+    /** {@inheritDoc} */
+    public void initializeRrdRepository(String dirName) throws Exception {
+        // Do nothing
+    }
+
     /**
      * <p>createFile</p>
      *
@@ -149,6 +154,11 @@ public class TcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefinition,
         // Do nothing
     }
 
+    /** {@inheritDoc} */
+    public boolean fileExists(String fileName) throws Exception {
+       	return false;
+    }
+    
     /** {@inheritDoc} */
     public RrdOutputSocketWithFilename openFile(String fileName) throws Exception {
         return new RrdOutputSocketWithFilename(new RrdOutputSocket(m_host, m_port), fileName);

@@ -127,6 +127,27 @@ public interface RrdStrategy<D extends Object,F extends Object> {
     public void closeFile(F rrd) throws Exception;
 
     /**
+     * Determines whether the filename exists in our underlying storage.
+     *
+     * @param fileName
+     *            the name of the associated rrd file
+     * @return boolean whether the filename exists
+     * @throws java.lang.Exception
+     *             if an error occurs create the file
+     */
+    public boolean fileExists(String fileName) throws Exception;
+
+    /**
+     * initializes a directory in the underlying storage
+     *
+     * @param dirName
+     *            the name of the directory rrd file
+     * @throws java.lang.Exception
+     *             if an error occurs creating the directory
+     */
+    public void initializeRrdRepository(String dirName) throws Exception;
+    
+   /**
      * Fetches the last value from the round robin database with the given name.
      * The interval passed in should be the interval associated with the round
      * robin database.

@@ -28,7 +28,6 @@
 
 package org.opennms.netmgt.collectd;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.UndeclaredThrowableException;
@@ -46,7 +45,6 @@ import org.opennms.netmgt.collectd.wmi.WmiCollectionResource;
 import org.opennms.netmgt.collectd.wmi.WmiCollectionSet;
 import org.opennms.netmgt.collectd.wmi.WmiMultiInstanceCollectionResource;
 import org.opennms.netmgt.collectd.wmi.WmiSingleInstanceCollectionResource;
-import org.opennms.netmgt.config.DataCollectionConfigFactory;
 import org.opennms.netmgt.config.DataSourceFactory;
 import org.opennms.netmgt.config.WmiDataCollectionConfigFactory;
 import org.opennms.netmgt.config.WmiPeerFactory;
@@ -57,6 +55,8 @@ import org.opennms.netmgt.config.wmi.WmiCollection;
 import org.opennms.netmgt.config.wmi.Wpm;
 import org.opennms.netmgt.model.RrdRepository;
 import org.opennms.netmgt.model.events.EventProxy;
+import org.opennms.netmgt.rrd.RrdException;
+import org.opennms.netmgt.rrd.RrdUtils;
 import org.opennms.protocols.wmi.WmiClient;
 import org.opennms.protocols.wmi.WmiException;
 import org.opennms.protocols.wmi.WmiManager;
@@ -290,12 +290,15 @@ public class WmiCollector implements ServiceCollector {
          * If the RRD file repository directory does NOT already exist, create
          * it.
          */
-        final File f = new File(WmiDataCollectionConfigFactory.getInstance().getRrdPath());
-        if (!f.isDirectory()) {
-            if (!f.mkdirs()) {
-                throw new RuntimeException("Unable to create RRD file repository.  Path doesn't already exist and could not make directory: " + DataCollectionConfigFactory.getInstance().getRrdPath());
-            }
-        }
+        try {
+			RrdUtils.initializeRrdRepository(WmiDataCollectionConfigFactory.getInstance().getRrdPath());
+		} catch (RrdException e) {
+			StringBuffer sb = new StringBuffer();
+            sb.append("initializeRrdDirs: Unable to create RRD file repository.  Path doesn't already exist and could not make directory: ");
+            sb.append(WmiDataCollectionConfigFactory.getInstance().getRrdPath());
+            LogUtils.errorf(this, e, sb.toString());
+            throw new RuntimeException(sb.toString());
+		}
     }
 
     private void initDatabaseConnectionFactory() {

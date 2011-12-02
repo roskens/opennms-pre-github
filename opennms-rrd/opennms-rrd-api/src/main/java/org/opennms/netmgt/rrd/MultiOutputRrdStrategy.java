@@ -121,6 +121,13 @@ public class MultiOutputRrdStrategy implements RrdStrategy<List<Object>,List<Obj
     }
 
     /** {@inheritDoc} */
+    public void initializeRrdRepository(String dirName) throws Exception {
+        for (RrdStrategy<Object, Object> strategy : m_strategies) {
+            strategy.initializeRrdRepository(dirName);
+        }
+    }
+
+    /** {@inheritDoc} */
     public List<Object> createDefinition(String directory, String rrdName,
             int step, List<RrdDataSource> dataSources, List<String> rraList)
             throws Exception {
@@ -233,6 +240,17 @@ public class MultiOutputRrdStrategy implements RrdStrategy<List<Object>,List<Obj
         return retval;
     }
 
+    /** {@inheritDoc} */
+    public boolean fileExists(String fileName) throws Exception {
+        boolean retval = false;
+        for (RrdStrategy<Object, Object> strategy : m_strategies) {
+            if (!retval) {
+            	retval = strategy.fileExists(fileName);
+            }
+        }
+    	return retval;
+    }
+    
     /** {@inheritDoc} */
     public void promoteEnqueuedFiles(Collection<String> rrdFiles) {
         for (RrdStrategy<Object, Object> strategy : m_strategies) {

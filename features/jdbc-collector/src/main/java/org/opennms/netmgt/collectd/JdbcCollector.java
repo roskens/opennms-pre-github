@@ -29,7 +29,6 @@
 package org.opennms.netmgt.collectd;
 
 import java.beans.PropertyVetoException;
-import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.sql.Connection;
@@ -61,6 +60,8 @@ import org.opennms.netmgt.config.jdbc.JdbcQuery;
 import org.opennms.netmgt.dao.JdbcDataCollectionConfigDao;
 import org.opennms.netmgt.model.RrdRepository;
 import org.opennms.netmgt.model.events.EventProxy;
+import org.opennms.netmgt.rrd.RrdException;
+import org.opennms.netmgt.rrd.RrdUtils;
 
 public class JdbcCollector implements ServiceCollector {
     private JdbcDataCollectionConfigDao m_jdbcCollectionDao;
@@ -115,12 +116,15 @@ public class JdbcCollector implements ServiceCollector {
          * it.
          */
         log().debug("initializeRrdRepository: Initializing RRD repo from JdbcCollector...");
-        File f = new File(m_jdbcCollectionDao.getConfig().getRrdRepository());
-        if (!f.isDirectory()) {
-            if (!f.mkdirs()) {
-                throw new RuntimeException("Unable to create RRD file " + "repository.  Path doesn't already exist and could not make directory: " + m_jdbcCollectionDao.getConfig().getRrdRepository());
-            }
-        }
+        try {
+			RrdUtils.initializeRrdRepository(m_jdbcCollectionDao.getConfig().getRrdRepository());
+		} catch (RrdException e) {
+			StringBuffer sb = new StringBuffer();
+            sb.append("initializeRrdDirs: Unable to create RRD file repository.  Path doesn't already exist and could not make directory: ");
+            sb.append(m_jdbcCollectionDao.getConfig().getRrdRepository());
+            log().error(sb.toString());
+            throw new RuntimeException(sb.toString());
+		}
     }
 
     private void initDatabaseConnectionFactory() {

@@ -146,6 +146,16 @@ public class QueuingTcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefi
     }
 
     /** {@inheritDoc} */
+    public boolean fileExists(String fileName) throws Exception {
+       	return false;
+    }
+    
+    /** {@inheritDoc} */
+    public void initializeRrdRepository(String dirName) throws Exception {
+        // Do nothing
+    }
+    
+    /** {@inheritDoc} */
     public String openFile(String fileName) throws Exception {
         return fileName;
     }

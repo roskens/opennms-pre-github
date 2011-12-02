@@ -37,11 +37,12 @@ import java.util.Properties;
 import net.sf.jasperreports.engine.util.JRProperties;
 
 import org.opennms.core.utils.RrdLabelUtils;
+import org.opennms.netmgt.dao.support.ResourceTypeUtils;
 
 public class JRobinDirectoryUtil {
     
     public boolean isStoreByGroup() {
-        return JRProperties.getBooleanProperty("org.opennms.rrd.storeByGroup") || Boolean.getBoolean("org.opennms.rrd.storeByGroup");
+        return JRProperties.getBooleanProperty("org.opennms.rrd.storeByGroup") || ResourceTypeUtils.isStoreByGroup();
     }
     
     public String getIfInOctetsJrb(String rrdDirectory, String nodeId,String iFace) throws FileNotFoundException, IOException {

@@ -100,10 +100,15 @@ public class JniRrdStrategy implements RrdStrategy<String,StringBuffer> {
         }
     }
 
+	public void initializeRrdRepository(String dirName) throws Exception {
+        File f = new File(dirName);
+        if (!f.isDirectory())
+        	f.mkdirs();
+	}
+
     /** {@inheritDoc} */
     public String createDefinition(String directory, String rrdName, int step, List<RrdDataSource> dataSources, List<String> rraList) throws Exception {
-        File f = new File(directory);
-        f.mkdirs();
+    	initializeRrdRepository(directory);
 
         String fileName = directory + File.separator + rrdName + RrdUtils.getExtension();
         
@@ -151,6 +156,11 @@ public class JniRrdStrategy implements RrdStrategy<String,StringBuffer> {
         Interface.launch(rrdDef);
     }
 
+    /** {@inheritDoc} */
+    public boolean fileExists(String fileName) throws Exception {
+       	return new File(fileName).exists();
+    }
+    
     /**
      * {@inheritDoc}
      *

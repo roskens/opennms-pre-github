@@ -962,6 +962,11 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Operat
         // no need to do anything here
     }
 
+    /** {@inheritDoc} */
+	public void initializeRrdRepository(String dirName) throws Exception {
+		m_delegate.initializeRrdRepository(dirName);
+	}
+
     /*
      * (non-Javadoc)
      * 
@@ -1012,6 +1017,11 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Operat
         }
     }
 
+    /** {@inheritDoc} */
+    public boolean fileExists(String fileName) throws Exception {
+       	return m_delegate.fileExists(fileName);
+    }
+    
     /*
      * (non-Javadoc)
      * 

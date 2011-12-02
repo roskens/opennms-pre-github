@@ -133,6 +133,14 @@ public abstract class RrdUtils {
         m_rrdStrategy = strategy;
     }
 
+    public static void initializeRrdRepository(String dirName) throws RrdException {
+    	try {
+			getStrategy().initializeRrdRepository(dirName);
+		} catch (Exception e) {
+			throw new org.opennms.netmgt.rrd.RrdException("An error occured initializing rrd repository " + dirName + ": " + e, e);
+		}
+    }
+    
     /**
      * <p>createRRD</p>
      *
@@ -146,15 +154,14 @@ public abstract class RrdUtils {
      */
     public static boolean createRRD(String directory, String rrdName, int step, List<RrdDataSource> dataSources, List<String> rraList) throws RrdException {
         String completePath = directory + File.separator + rrdName + getExtension();
-        if (new File(completePath).exists()) {
-        	return true;
-        }
-
-        log().info("createRRD: creating RRD file " + completePath);
 
         try {
-            Object def = getStrategy().createDefinition(directory, rrdName, step, dataSources, rraList);
-            getStrategy().createFile(def);
+            if (!getStrategy().fileExists(completePath)) {
+            	log().info("createRRD: creating RRD file " + completePath);
+
+            	Object def = getStrategy().createDefinition(directory, rrdName, step, dataSources, rraList);
+            	getStrategy().createFile(def);
+            }
         } catch (Throwable e) {
             log().error("createRRD: An error occured creating rrdfile " + completePath + ": "  + e, e);
             throw new org.opennms.netmgt.rrd.RrdException("An error occured creating rrdfile " + completePath + ": " + e, e);

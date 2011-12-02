@@ -144,9 +144,15 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
     }
 
     /** {@inheritDoc} */
+	public void initializeRrdRepository(String dirName) throws Exception {
+        File f = new File(dirName);
+        if (!f.isDirectory())
+        	f.mkdirs();
+	}
+
+    /** {@inheritDoc} */
     public RrdDef createDefinition(final String directory, final String rrdName, int step, final List<RrdDataSource> dataSources, final List<String> rraList) throws Exception {
-        File f = new File(directory);
-        f.mkdirs();
+    	initializeRrdRepository(directory);
 
         String fileName = directory + File.separator + rrdName + RrdUtils.getExtension();
         
@@ -193,6 +199,11 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
         rrd.close();
     }
 
+    /** {@inheritDoc} */
+    public boolean fileExists(String fileName) throws Exception {
+       	return new File(fileName).exists();
+    }
+    
     /**
      * {@inheritDoc}
      *

@@ -56,8 +56,15 @@ public class NullRrdStrategy implements RrdStrategy<Object,Object> {
 			throws Exception {
 		return null;
 	}
+	
+	public void initializeRrdRepository(String dirName) throws Exception {
+	}
 
 	public void createFile(Object rrdDef) throws Exception {
+	}
+
+	public boolean fileExists(String fileName) throws Exception {
+		return false;
 	}
 
     public InputStream createGraph(String command, File workDir)

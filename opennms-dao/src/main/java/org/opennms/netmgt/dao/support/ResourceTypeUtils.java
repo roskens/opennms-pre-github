@@ -71,14 +71,12 @@ public class ResourceTypeUtils {
      * @return a {@link java.util.Set} object.
      */
     public static Set<OnmsAttribute> getAttributesAtRelativePath(File rrdDirectory, String relativePath) {
-        
         Set<OnmsAttribute> attributes =  new HashSet<OnmsAttribute>();
 
         loadRrdAttributes(rrdDirectory, relativePath, attributes);
         loadStringAttributes(rrdDirectory, relativePath, attributes);
         
         return attributes;
-        
     }
 
     private static void loadStringAttributes(File rrdDirectory,
@@ -95,16 +93,20 @@ public class ResourceTypeUtils {
         int suffixLength = RrdFileConstants.getRrdSuffix().length();
         File resourceDir = new File(rrdDirectory, relativePath);
         File[] files = resourceDir.listFiles(RrdFileConstants.RRD_FILENAME_FILTER);
-        
+
         if (files == null) {
             return;
         }
-        
+
+        Properties props = null;
         for (final File file : files) {
             String fileName = file.getName();
             if (isStoreByGroup() && !isResponseTime(relativePath)) {
                 String groupName = fileName.substring(0, fileName.length() - suffixLength);
-                Properties props = getDsProperties(resourceDir);
+                if (props == null) {
+                	props = getDsProperties(resourceDir);
+                }
+
                 for (Object o : props.keySet()) {
                     String dsName = (String)o;
                     if (props.getProperty(dsName).equals(groupName)) {

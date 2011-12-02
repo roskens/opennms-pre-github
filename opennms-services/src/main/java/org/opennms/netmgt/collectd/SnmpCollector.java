@@ -45,6 +45,8 @@ import org.opennms.netmgt.config.collector.CollectionSet;
 import org.opennms.netmgt.config.collector.ServiceParameters;
 import org.opennms.netmgt.model.RrdRepository;
 import org.opennms.netmgt.model.events.EventProxy;
+import org.opennms.netmgt.rrd.RrdException;
+import org.opennms.netmgt.rrd.RrdUtils;
 
 /**
  * <P>
@@ -206,39 +208,32 @@ public class SnmpCollector implements ServiceCollector {
      */
     public void initialize(Map<String, String> parameters) {
     	initSnmpPeerFactory();
-        //initDataCollectionConfig();
         initDatabaseConnectionFactory();
         
         // Get path to RRD repository
-        //initializeRrdRepository();
-
+        initializeRrdRepository();
     }
 
-    /*private void initializeRrdRepository() {
-
+    private void initializeRrdRepository() {
+        log().debug("initializeRrdRepository: Initializing RRD repo from NSClientCollector...");
         initializeRrdDirs();
-
-        initializeRrdInterface();
     }
 
     private void initializeRrdDirs() {
-        File f = new File(DataCollectionConfigFactory.getInstance().getRrdPath());
-        if (!f.isDirectory()) {
-            if (!f.mkdirs()) {
-                throw new RuntimeException("Unable to create RRD file "
-                                           + "repository.  Path doesn't already exist and could not make directory: " + DataCollectionConfigFactory.getInstance().getRrdPath());
-            }
-        }
-    }
-
-    private void initializeRrdInterface() {
+        /*
+         * If the RRD file repository directory does NOT already exist, create
+         * it.
+         */
         try {
-            RrdUtils.initialize();
-        } catch (RrdException e) {
-            log().error("initializeRrdInterface: Unable to initialize RrdUtils", e);
-            throw new RuntimeException("Unable to initialize RrdUtils", e);
-        }
-    }*/
+			RrdUtils.initializeRrdRepository(DataCollectionConfigFactory.getInstance().getRrdPath());
+		} catch (RrdException e) {
+			StringBuffer sb = new StringBuffer();
+            sb.append("initializeRrdDirs: Unable to create RRD file repository.  Path doesn't already exist and could not make directory: ");
+            sb.append(DataCollectionConfigFactory.getInstance().getRrdPath());
+            log().error(sb.toString());
+            throw new RuntimeException(sb.toString());
+		}
+    }
 
     private void initDatabaseConnectionFactory() {
         try {
@@ -263,17 +258,6 @@ public class SnmpCollector implements ServiceCollector {
             throw new UndeclaredThrowableException(e);
         }
     }
-
-    /*
-    private void initDataCollectionConfig() {
-        try {
-            DataCollectionConfigFactory.init();
-        } catch (Throwable e) {
-            log().fatal("initDataCollectionConfig: Failed to load data collection configuration: " + e, e);
-            throw new UndeclaredThrowableException(e);
-        }
-    }
-    */
 
     private void initSnmpPeerFactory() {
         try {
@@ -377,24 +361,6 @@ public class SnmpCollector implements ServiceCollector {
         }
     }
 
-    /*private void persistData(ServiceParameters params, SnmpCollectionSet collectionSet) {
-        Collectd.instrumentation().beginPersistingServiceData(collectionSet.getCollectionAgent().getNodeId(), collectionSet.getCollectionAgent().getHostAddress(), serviceName());
-        try {
-            collectionSet.saveAttributes(params);
-        } finally {
-            Collectd.instrumentation().endPersistingServiceData(collectionSet.getCollectionAgent().getNodeId(), collectionSet.getCollectionAgent().getHostAddress(), serviceName());
-        }
-    }*/
-
-    /*private void collectData(SnmpCollectionSet collectionSet) throws CollectionWarning {
-        Collectd.instrumentation().beginCollectingServiceData(collectionSet.getCollectionAgent().getNodeId(), collectionSet.getCollectionAgent().getHostAddress(), serviceName());
-        try {
-            collectionSet.collect();
-        } finally {
-            Collectd.instrumentation().endCollectingServiceData(collectionSet.getCollectionAgent().getNodeId(), collectionSet.getCollectionAgent().getHostAddress(), serviceName());
-        }
-    }*/
-
     private void logNoDataToCollect(CollectionAgent agent) {
         log().info("agent "+agent+" defines no data to collect.  Skipping.");
     }
@@ -402,12 +368,6 @@ public class SnmpCollector implements ServiceCollector {
     private ThreadCategory log() {
         return ThreadCategory.getInstance(getClass());
     }
-
-    // Unused
-//    int unexpected(CollectionAgent agent, Throwable t) {
-//        log().error("Unexpected error during node SNMP collection for " + agent.getHostAddress(), t);
-//        return ServiceCollector.COLLECTION_FAILED;
-//    }
 
     /** {@inheritDoc} */
     public RrdRepository getRrdRepository(String collectionName) {

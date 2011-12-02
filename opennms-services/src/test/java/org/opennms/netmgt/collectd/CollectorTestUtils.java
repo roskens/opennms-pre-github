@@ -40,6 +40,7 @@ import org.opennms.netmgt.config.collectd.Parameter;
 import org.opennms.netmgt.config.collectd.Service;
 import org.opennms.netmgt.config.collector.CollectionSet;
 import org.opennms.netmgt.config.collector.ServiceParameters;
+import org.opennms.netmgt.dao.support.ResourceTypeUtils;
 import org.opennms.netmgt.model.RrdRepository;
 import org.opennms.netmgt.rrd.RrdUtils;
 import org.opennms.test.FileAnticipator;
@@ -70,7 +71,7 @@ public class CollectorTestUtils {
         ServiceParameters params=new ServiceParameters(spec.getReadOnlyPropertyMap());
         System.err.println("service parameters = " + params);
         BasePersister persister;
-        if (Boolean.getBoolean("org.opennms.rrd.storeByGroup")) {
+        if (ResourceTypeUtils.isStoreByGroup()) {
             persister=new GroupPersister(params, repository);
         } else {
             persister=new OneToOnePersister(params, repository);

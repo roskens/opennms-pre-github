@@ -29,7 +29,6 @@
 package org.opennms.netmgt.collectd;
 
 import java.beans.PropertyVetoException;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.UndeclaredThrowableException;
@@ -43,7 +42,6 @@ import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
 import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.core.utils.ThreadCategory;
-import org.opennms.netmgt.config.DataCollectionConfigFactory;
 import org.opennms.netmgt.config.DataSourceFactory;
 import org.opennms.netmgt.config.NSClientDataCollectionConfigFactory;
 import org.opennms.netmgt.config.NSClientPeerFactory;
@@ -65,6 +63,8 @@ import org.opennms.netmgt.poller.nsclient.NsclientCheckParams;
 import org.opennms.netmgt.poller.nsclient.NsclientException;
 import org.opennms.netmgt.poller.nsclient.NsclientManager;
 import org.opennms.netmgt.poller.nsclient.NsclientPacket;
+import org.opennms.netmgt.rrd.RrdException;
+import org.opennms.netmgt.rrd.RrdUtils;
 
 /**
  * <p>NSClientCollector class.</p>
@@ -367,12 +367,15 @@ public class NSClientCollector implements ServiceCollector {
          * If the RRD file repository directory does NOT already exist, create
          * it.
          */
-        File f = new File(NSClientDataCollectionConfigFactory.getInstance().getRrdPath());
-        if (!f.isDirectory()) {
-            if (!f.mkdirs()) {
-                throw new RuntimeException("Unable to create RRD file " + "repository.  Path doesn't already exist and could not make directory: " + DataCollectionConfigFactory.getInstance().getRrdPath());
-            }
-        }
+        try {
+			RrdUtils.initializeRrdRepository(NSClientDataCollectionConfigFactory.getInstance().getRrdPath());
+		} catch (RrdException e) {
+			StringBuffer sb = new StringBuffer();
+            sb.append("initializeRrdDirs: Unable to create RRD file repository.  Path doesn't already exist and could not make directory: ");
+            sb.append(NSClientDataCollectionConfigFactory.getInstance().getRrdPath());
+            log().error(sb.toString());
+            throw new RuntimeException(sb.toString());
+		}
     }
 
     private void initDatabaseConnectionFactory() {

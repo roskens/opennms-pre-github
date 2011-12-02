@@ -40,6 +40,7 @@ import org.opennms.netmgt.config.collector.CollectionSet;
 import org.opennms.netmgt.config.collector.ServiceParameters;
 import org.opennms.netmgt.dao.CollectorConfigDao;
 import org.opennms.netmgt.dao.IpInterfaceDao;
+import org.opennms.netmgt.dao.support.ResourceTypeUtils;
 import org.opennms.netmgt.eventd.EventIpcManagerFactory;
 import org.opennms.netmgt.model.OnmsIpInterface;
 import org.opennms.netmgt.model.RrdRepository;
@@ -349,7 +350,7 @@ final class CollectableService implements ReadyRunnable {
     }
 
         private BasePersister createPersister(ServiceParameters params, RrdRepository repository) {
-            if (Boolean.getBoolean("org.opennms.rrd.storeByGroup")) {
+            if (ResourceTypeUtils.isStoreByGroup()) {
                 return new GroupPersister(params, repository);
             } else {
                 return new OneToOnePersister(params, repository);
