@@ -2,18 +2,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <parent>
     <groupId>org.opennms</groupId>
-    <artifactId>opennms</artifactId>
+    <artifactId>opennms-alarm-handling</artifactId>
     <version>1.9.94-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>opennms-alarm-handling</artifactId>
-  <name>OpenNMS Alarm Handling</name>
-  <packaging>pom</packaging>
+  <artifactId>opennms-alarm-api</artifactId>
+  <name>OpenNMS Alarm API</name>
 
-  <modules>
-    <module>api</module>
-    <module>daemon</module>
-    <module>http-northbounder</module>
-    <module>jms-northbounder</module>
-  </modules>
+  <dependencies>
+
+    <dependency>
+      <groupId>org.opennms</groupId>
+      <artifactId>opennms-model</artifactId>
+    </dependency>
+
+  </dependencies>
 </project>
