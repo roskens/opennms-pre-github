@@ -26,7 +26,7 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.netmgt.alarmd.api;
+package org.opennms.netmgt.alarmd.api.support;
 
 import static org.junit.Assert.*;
 
@@ -35,10 +35,10 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
-import org.opennms.netmgt.alarmd.api.AbstractNorthbounder;
 import org.opennms.netmgt.alarmd.api.Alarm;
+import org.opennms.netmgt.alarmd.api.NorthbounderException;
+import org.opennms.netmgt.alarmd.api.support.AbstractNorthbounder;
 import org.opennms.netmgt.alarmd.api.support.NorthboundAlarm;
-import org.opennms.netmgt.alarmd.api.support.NorthbounderException;
 import org.opennms.netmgt.model.OnmsAlarm;
 
 /**

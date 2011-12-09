@@ -28,7 +28,6 @@
 
 package org.opennms.netmgt.alarmd.api;
 
-import org.opennms.netmgt.alarmd.api.support.NorthbounderException;
 
 
 /**

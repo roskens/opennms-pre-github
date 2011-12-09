@@ -26,7 +26,7 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.netmgt.alarmd.api.support.http;
+package org.opennms.netmgt.alarmd.northbounder.http;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -64,10 +64,10 @@ import org.opennms.core.utils.EmptyKeyRelaxedTrustProvider;
 import org.opennms.core.utils.EmptyKeyRelaxedTrustSSLContext;
 import org.opennms.core.utils.HttpResponseRange;
 import org.opennms.core.utils.LogUtils;
-import org.opennms.netmgt.alarmd.api.AbstractNorthbounder;
 import org.opennms.netmgt.alarmd.api.Alarm;
-import org.opennms.netmgt.alarmd.api.support.NorthbounderException;
-import org.opennms.netmgt.alarmd.api.support.http.HttpNorthbounderConfig.HttpMethod;
+import org.opennms.netmgt.alarmd.api.NorthbounderException;
+import org.opennms.netmgt.alarmd.api.support.AbstractNorthbounder;
+import org.opennms.netmgt.alarmd.northbounder.http.HttpNorthbounderConfig.HttpMethod;
 
 /**
  * Forwards north bound alarms via HTTP.

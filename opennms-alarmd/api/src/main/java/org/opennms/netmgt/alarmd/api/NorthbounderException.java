@@ -26,7 +26,7 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.netmgt.alarmd.api.support;
+package org.opennms.netmgt.alarmd.api;
 
 /**
  * North bound Interface API Exception

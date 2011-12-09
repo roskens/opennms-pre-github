@@ -26,11 +26,13 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.netmgt.alarmd.api;
+package org.opennms.netmgt.alarmd.api.support;
 
 import java.util.List;
 
-import org.opennms.netmgt.alarmd.api.support.NorthbounderException;
+import org.opennms.netmgt.alarmd.api.Alarm;
+import org.opennms.netmgt.alarmd.api.Northbounder;
+import org.opennms.netmgt.alarmd.api.NorthbounderException;
 
 
 /**

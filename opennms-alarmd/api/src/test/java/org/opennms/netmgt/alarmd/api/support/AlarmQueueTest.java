@@ -26,7 +26,7 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.netmgt.alarmd.api;
+package org.opennms.netmgt.alarmd.api.support;
 
 import static org.junit.Assert.*;
 
@@ -34,7 +34,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.opennms.netmgt.alarmd.api.Alarm;
-import org.opennms.netmgt.alarmd.api.AlarmQueue;
+import org.opennms.netmgt.alarmd.api.support.AlarmQueue;
 import org.opennms.netmgt.alarmd.api.support.NorthboundAlarm;
 import org.opennms.netmgt.model.OnmsAlarm;
 

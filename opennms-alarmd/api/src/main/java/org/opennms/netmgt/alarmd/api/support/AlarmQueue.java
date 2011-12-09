@@ -26,7 +26,7 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.netmgt.alarmd.api;
+package org.opennms.netmgt.alarmd.api.support;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -36,7 +36,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
-import org.opennms.netmgt.alarmd.api.support.StatusAlarm;
+import org.opennms.netmgt.alarmd.api.Alarm;
 
 /**
  * Based on Matt's queue implementation of event forwarding in opennmsd (OVAPI daemon)

@@ -26,7 +26,7 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.netmgt.alarmd.api.support.jms;
+package org.opennms.netmgt.alarmd.northbounder.jms;
 
 import java.util.List;
 
@@ -36,9 +36,9 @@ import javax.jms.Message;
 import javax.jms.Queue;
 import javax.jms.Session;
 
-import org.opennms.netmgt.alarmd.api.AbstractNorthbounder;
 import org.opennms.netmgt.alarmd.api.Alarm;
-import org.opennms.netmgt.alarmd.api.support.NorthbounderException;
+import org.opennms.netmgt.alarmd.api.NorthbounderException;
+import org.opennms.netmgt.alarmd.api.support.AbstractNorthbounder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;

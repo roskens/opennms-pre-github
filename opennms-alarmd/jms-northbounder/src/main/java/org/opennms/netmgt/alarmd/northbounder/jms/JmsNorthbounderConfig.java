@@ -26,7 +26,7 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.netmgt.alarmd.api.support.jms;
+package org.opennms.netmgt.alarmd.northbounder.jms;
 
 /**
  * Configuration for the JMS NBI

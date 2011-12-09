@@ -26,7 +26,7 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.netmgt.alarmd.api.support.http;
+package org.opennms.netmgt.alarmd.northbounder.http;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,8 +34,9 @@ import org.opennms.core.test.OpenNMSJUnit4ClassRunner;
 import org.opennms.core.test.annotations.JUnitHttpServer;
 import org.opennms.netmgt.alarmd.api.Alarm;
 import org.opennms.netmgt.alarmd.api.support.NorthboundAlarm;
-import org.opennms.netmgt.alarmd.api.support.http.HttpNorthbounderConfig.HttpMethod;
-import org.opennms.netmgt.dao.db.JUnitConfigurationEnvironment;
+import org.opennms.netmgt.alarmd.northbounder.http.HttpNorthbounder;
+import org.opennms.netmgt.alarmd.northbounder.http.HttpNorthbounderConfig;
+import org.opennms.netmgt.alarmd.northbounder.http.HttpNorthbounderConfig.HttpMethod;
 import org.opennms.netmgt.model.OnmsAlarm;
 import org.springframework.test.context.ContextConfiguration;
 

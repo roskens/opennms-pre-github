@@ -26,7 +26,7 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.netmgt.alarmd.api.support.http;
+package org.opennms.netmgt.alarmd.northbounder.http;
 
 import java.io.Serializable;
 import java.net.URI;
@@ -38,7 +38,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.opennms.netmgt.alarmd.api.support.NorthbounderException;
+import org.opennms.netmgt.alarmd.api.NorthbounderException;
 
 /**
  * Configuration for HTTP NBI implementation.

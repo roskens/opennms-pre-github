@@ -47,7 +47,7 @@ import org.opennms.core.soa.ServiceRegistry;
 import org.opennms.core.test.OpenNMSJUnit4ClassRunner;
 import org.opennms.netmgt.alarmd.api.Alarm;
 import org.opennms.netmgt.alarmd.api.Northbounder;
-import org.opennms.netmgt.alarmd.api.support.NorthbounderException;
+import org.opennms.netmgt.alarmd.api.NorthbounderException;
 import org.opennms.netmgt.dao.NodeDao;
 import org.opennms.netmgt.dao.db.JUnitConfigurationEnvironment;
 import org.opennms.netmgt.dao.db.JUnitTemporaryDatabase;
