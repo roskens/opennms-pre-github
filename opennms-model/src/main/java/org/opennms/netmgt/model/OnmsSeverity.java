@@ -40,6 +40,7 @@ import java.util.Map;
  */
 public enum OnmsSeverity implements Serializable {
     // Keep this ordered by ID so we can use the internal enum compareTo
+    INVALID(0, "Invalid", "lightblue"),
     INDETERMINATE(1, "Indeterminate", "lightblue"),
     CLEARED(2, "Cleared", "white"),
     NORMAL(3, "Normal", "green"),

@@ -36,8 +36,6 @@ import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -440,7 +438,8 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * @return a {@link org.opennms.netmgt.model.OnmsSeverity} object.
      */
     @Column(name="severity", nullable=false)
-    @Enumerated(EnumType.ORDINAL)
+    // @Enumerated(EnumType.ORDINAL)
+    @Type(type="org.opennms.netmgt.model.OnmsSeverityUserType")
     @XmlTransient
     public OnmsSeverity getSeverity() {
         return this.m_severity;
