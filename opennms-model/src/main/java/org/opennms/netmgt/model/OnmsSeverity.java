@@ -33,14 +33,11 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.persistence.Transient;
-
 /**
  * OpenNMS severity enumeration.
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
-// @Embeddable
 public enum OnmsSeverity implements Serializable {
     // Keep this ordered by ID so we can use the internal enum compareTo
     INDETERMINATE(1, "Indeterminate", "lightblue"),
@@ -75,13 +72,8 @@ public enum OnmsSeverity implements Serializable {
      *
      * @return a int.
      */
-    @Transient
     public int getId() {
         return m_id;
-    }
-    
-    public void setId(final int id) {
-        
     }
     
     /**
@@ -89,7 +81,6 @@ public enum OnmsSeverity implements Serializable {
      *
      * @return a {@link java.lang.String} object.
      */
-    @Transient
     public String getLabel() {
         return m_label;
     }
@@ -99,7 +90,6 @@ public enum OnmsSeverity implements Serializable {
      *
      * @return a {@link java.lang.String} object.
      */
-    @Transient
     public String getColor() {
         return m_color;
     }
