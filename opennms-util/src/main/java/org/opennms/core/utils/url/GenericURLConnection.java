@@ -9,70 +9,70 @@ import java.util.Map;
 
 public abstract class GenericURLConnection extends URLConnection {
 
-	public GenericURLConnection(URL url) {
-		super(url);
-	}
+    protected GenericURLConnection(URL url) {
+        super(url);
+    }
 
-	private String getUsername(URL url) {
-		String userInfo = url.getUserInfo();
-		if (userInfo != null) {
-			if (userInfo.contains(":")) {
-				String[] userPass = userInfo.split(":");
-				return userPass[0];
-			} else {
-				return userInfo;
-			}
-		} else {
-			return null;
-		}
-	}
+    protected String getUsername(URL url) {
+        String userInfo = url.getUserInfo();
+        if (userInfo != null) {
+            if (userInfo.contains(":")) {
+                String[] userPass = userInfo.split(":");
+                return userPass[0];
+            } else {
+                return userInfo;
+            }
+        } else {
+            return null;
+        }
+    }
 
-	private String getPassword() {
-		String userInfo = url.getUserInfo();
-		if (userInfo != null) {
-			if (userInfo.contains(":")) {
-				String[] userPass = userInfo.split(":");
-				return userPass[1];
-			} else {
-				return userInfo;
-			}
-		} else {
-			return null;
-		}
-	}
+    protected String getPassword(URL url) {
+        String userInfo = url.getUserInfo();
+        if (userInfo != null) {
+            if (userInfo.contains(":")) {
+                String[] userPass = userInfo.split(":");
+                return userPass[1];
+            } else {
+                return userInfo;
+            }
+        } else {
+            return null;
+        }
+    }
 
-	private Map<String, String> getQueryArgs(URL url) {
-		HashMap<String, String> hashMap = new HashMap<String, String>();
+    protected Map<String, String> getQueryArgs(URL url) {
+        HashMap<String, String> hashMap = new HashMap<String, String>();
 
-		String queryString = url.getQuery();
+        String queryString = url.getQuery();
 
-		if (queryString != null) {
+        if (queryString != null) {
 
-			try {
-				queryString = URLDecoder.decode(queryString, "UTF-8");
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
+            try {
+                queryString = URLDecoder.decode(queryString, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
 
-			String[] queryArgs = queryString.split("&");
+            String[] queryArgs = queryString.split("&");
 
-			for (String queryArg : queryArgs) {
+            for (String queryArg : queryArgs) {
 
-				String key = queryArg;
-				String value = "";
+                String key = queryArg;
+                String value = "";
 
-				if (queryArg.contains("=")) {
-					String[] keyValue = queryArg.split("=");
+                if (queryArg.contains("=")) {
+                    String[] keyValue = queryArg.split("=");
 
-					key = keyValue[0];
-					value = keyValue[1];
+                    key = keyValue[0];
+                    value = keyValue[1];
 
-				}
+                }
 
-				if (!"".equals(key))
-					hashMap.put(key, value);
-			}
-		}
-		return hashMap;
-	}
+                if (!"".equals(key))
+                    hashMap.put(key, value);
+            }
+        }
+        return hashMap;
+    }
 }

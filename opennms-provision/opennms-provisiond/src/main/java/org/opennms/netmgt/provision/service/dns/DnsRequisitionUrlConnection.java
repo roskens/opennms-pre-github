@@ -113,7 +113,7 @@ public class DnsRequisitionUrlConnection extends URLConnection {
      * @param url a {@link java.net.URL} object.
      * @throws java.net.MalformedURLException if any.
      */
-    protected DnsRequisitionUrlConnection(URL url) throws MalformedURLException {
+    public DnsRequisitionUrlConnection(URL url) throws MalformedURLException {
         super(url);
         
         m_args = getUrlArgs(url);

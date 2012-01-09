@@ -1,15 +1,12 @@
 package org.opennms.netmgt.provision.service.vmware;
 
-import com.vmware.vim25.CustomFieldDef;
-import com.vmware.vim25.CustomFieldStringValue;
-import com.vmware.vim25.CustomFieldValue;
-import com.vmware.vim25.GuestNicInfo;
-import com.vmware.vim25.HostVirtualNic;
+import com.vmware.vim25.*;
 import com.vmware.vim25.mo.*;
 import org.apache.commons.io.IOExceptionWithCause;
-import org.apache.commons.lang.StringUtils;
+import org.opennms.core.utils.url.GenericURLConnection;
 import org.opennms.core.xml.JaxbUtils;
 import org.opennms.netmgt.provision.persist.requisition.Requisition;
+import org.opennms.netmgt.provision.persist.requisition.RequisitionAsset;
 import org.opennms.netmgt.provision.persist.requisition.RequisitionInterface;
 import org.opennms.netmgt.provision.persist.requisition.RequisitionNode;
 import org.slf4j.Logger;
@@ -19,14 +16,11 @@ import javax.xml.bind.JAXBException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.*;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.UnknownHostException;
 import java.rmi.RemoteException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -34,269 +28,235 @@ import java.util.Set;
  * Created by IntelliJ IDEA. User: indigo Date: 1/4/12 Time: 2:24 PM To change
  * this template use File | Settings | File Templates.
  */
-public class VMwareRequisitionUrlConnection extends URLConnection {
-	private Logger logger = LoggerFactory.getLogger(VMwareRequisitionUrlConnection.class);
+public class VMwareRequisitionUrlConnection extends GenericURLConnection {
+    private Logger logger = LoggerFactory.getLogger(VMwareRequisitionUrlConnection.class);
 
-	private static final String QUERY_ARG_SEPARATOR = "&";
+    private String m_hostname = null;
+    private String m_username = null;
+    private String m_password = null;
+    private String m_foreignSource = null;
 
-	/** Constant <code>URL_SCHEME="vmware://"</code> */
-	public static final String URL_SCHEME = "vmware://";
+    private static Map<String, String> m_args = null;
 
-	/** Constant <code>PROTOCOL="dns"</code> */
-	public static final String PROTOCOL = "vmware";
+    private ServiceInstance m_serviceInstance = null;
+    private Requisition m_requisition = null;
 
-	private String m_hostname = null;
+    public VMwareRequisitionUrlConnection(URL url) throws MalformedURLException, RemoteException {
+        super(url);
 
-	private String m_foreignSource = null;
+        m_hostname = url.getHost();
+        m_username = getUsername(url);
+        m_password = getPassword(url);
 
-	private static Map<String, String> m_args = null;
+        m_args = getQueryArgs(url);
 
-	private ServiceInstance m_serviceInstance = null;
+        m_serviceInstance = new ServiceInstance(new URL("https://" + m_hostname + "/sdk"), m_username, m_password, true);
 
-	private Requisition m_requisition = null;
+        m_foreignSource = "vmware-" + m_hostname;
+    }
 
-	protected VMwareRequisitionUrlConnection(URL url) throws MalformedURLException, RemoteException {
-		super(url);
-		m_args = getUrlArgs(url);
-		m_hostname = url.getHost();
-		// TODO indigo: not so nice ;)
-		String username = url.getAuthority().split("@")[0].split(":")[0];
-		String password = url.getAuthority().split("@")[0].split(":")[1];
+    @Override
+    public void connect() throws IOException {
+        // To change body of implemented methods use File | Settings | File
+        // Templates.
+    }
 
-		m_serviceInstance = new ServiceInstance(new URL("https://" + m_hostname + "/sdk"), username, password, true);
+    private RequisitionNode createRequisitionNode(Set<String> ipAddresses, ManagedEntity managedEntity) {
+        RequisitionNode requisitionNode = new RequisitionNode();
 
-		m_foreignSource = "vmware-" + m_hostname;
-	}
+        // Setting the node label
+        requisitionNode.setNodeLabel(managedEntity.getName());
 
-	@Override
-	public void connect() throws IOException {
-		// To change body of implemented methods use File | Settings | File
-		// Templates.
-	}
+        // Foreign Id consisting of vcenter Ip and managed entity Id
+        requisitionNode.setForeignId(m_hostname + "/" + managedEntity.getMOR().getVal());
 
-	protected Map<String, String> getUrlArgs(URL url) {
+        boolean primary = true;
 
-		if (url.getQuery() == null) {
-			return new HashMap<String, String>();
-		}
+        // add all given interfaces
+        for (String ipAddress : ipAddresses) {
+            RequisitionInterface requisitionInterface = new RequisitionInterface();
+            requisitionInterface.setIpAddr(ipAddress);
 
-		// TODO: need to throw exception if query is null
-		String query = decodeQueryString(url);
+            //  the first one will be primary
+            if (primary) {
+                requisitionInterface.setSnmpPrimary("P");
+                primary = false;
+            }
 
-		// TODO: need to handle exception
-		List<String> queryArgs = tokenizeQueryArgs(query);
-		Map<String, String> args = new HashMap<String, String>();
-		for (String queryArg : queryArgs) {
-			String[] argTokens = StringUtils.split(queryArg, '=');
+            requisitionInterface.setManaged(Boolean.TRUE);
+            requisitionInterface.setStatus(Integer.valueOf(1));
+            requisitionNode.putInterface(requisitionInterface);
+        }
+        /* For now we use displaycategory, notifycategory and pollercategory for storing
+         * the vcenter Ip address, the username and the password
+         */
 
-			if (argTokens.length < 2) {
-				logger.warn("getUrlArgs: syntax error in URL query string, missing '=' in query argument: '{}'", queryArg);
-			} else {
-				logger.debug("adding arg tokens '{}', '{}'", argTokens[0].toLowerCase(), argTokens[1]);
-				args.put(argTokens[0].toLowerCase(), argTokens[1]);
-			}
-		}
-		return args;
-	}
+        RequisitionAsset requisitionAssetHostname = new RequisitionAsset("displayCategory", m_hostname);
+        requisitionNode.putAsset(requisitionAssetHostname);
 
-	private RequisitionNode createRequisitionNode(Set<String> ipAddresses, ManagedEntity managedEntity) {
-		RequisitionNode rnode = new RequisitionNode();
-		rnode.setNodeLabel(managedEntity.getName());
-		rnode.setForeignId(m_hostname + "/" + managedEntity.getMOR().getVal());
+        RequisitionAsset requisitionAssetUsername = new RequisitionAsset("notifyCategory", m_username);
+        requisitionNode.putAsset(requisitionAssetUsername);
 
-		boolean primary = true;
+        RequisitionAsset requisitionAssetPassword = new RequisitionAsset("pollerCategory", m_password);
+        requisitionNode.putAsset(requisitionAssetPassword);
 
-		for (String ipAddress : ipAddresses) {
-			RequisitionInterface requisitionInterface = new RequisitionInterface();
-			requisitionInterface.setIpAddr(ipAddress);
-			if (primary) {
-				requisitionInterface.setSnmpPrimary("P");
-				primary = false;
-			}
-			requisitionInterface.setManaged(Boolean.TRUE);
-			requisitionInterface.setStatus(Integer.valueOf(1));
-			rnode.putInterface(requisitionInterface);
-		}
+        return requisitionNode;
+    }
 
-		return rnode;
-	}
+    private Requisition buildVMwareRequisition() throws UnknownHostException, RemoteException {
+        // for now, set the foreign source to the specified vcenter host
+        m_requisition = new Requisition(m_foreignSource);
 
-	private Requisition buildVMwareRequisition() throws UnknownHostException, RemoteException {
-		// for now, set the foreign source to the specified vcenter host
-		m_requisition = new Requisition(getForeignSource());
+        iterateHostSystems();
+        iterateVirtualMachines();
 
-		importHostSystems();
-		importVirtualMachines();
+        return m_requisition;
+    }
 
-		return m_requisition;
-	}
+    private void iterateHostSystems() throws RemoteException, UnknownHostException {
+        ManagedEntity[] hostSystems;
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * Creates a ByteArrayInputStream implementation of InputStream of the XML
-	 * marshaled version of the Requisition class. Calling close on this stream
-	 * is safe.
-	 */
-	@Override
-	public InputStream getInputStream() throws IOException {
+        // search for host systems (esx hosts)
+        hostSystems = new InventoryNavigator(m_serviceInstance.getRootFolder()).searchManagedEntities("HostSystem");
 
-		InputStream stream = null;
+        if (hostSystems != null) {
 
-		try {
-			Requisition r = buildVMwareRequisition();
-			stream = new ByteArrayInputStream(jaxBMarshal(r).getBytes());
-		} catch (IOException e) {
-			logger.warn("getInputStream: Problem getting input stream: '{}'", e);
-			throw e;
-		} catch (Throwable e) {
-			logger.warn("Problem getting input stream: '{}'", e);
-			throw new IOExceptionWithCause("Problem getting input stream: " + e, e);
-		}
+            for (ManagedEntity managedEntity : hostSystems) {
+                HostSystem hostSystem = (HostSystem) managedEntity;
 
-		return stream;
-	}
+                // check for correct key/value-pair
+                if (checkForAttribute(hostSystem)) {
+                    logger.debug("Adding Host System '{}'", hostSystem.getName());
 
-	/**
-	 * Utility to marshal the Requisition class into XML.
-	 * 
-	 * @param r
-	 * @return a String of XML encoding the Requisition class
-	 * 
-	 * @throws javax.xml.bind.JAXBException
-	 */
-	private String jaxBMarshal(Requisition r) throws JAXBException {
-		return JaxbUtils.marshal(r);
-	}
+                    // iterate over all service console networks and add interface Ip addresses
+                    LinkedHashSet<String> ipAddresses = new LinkedHashSet<String>();
 
-	/**
-	 * <p>
-	 * decodeQueryString
-	 * </p>
-	 * 
-	 * @param url
-	 *            a {@link java.net.URL} object.
-	 * @return a {@link java.lang.String} object.
-	 */
-	protected String decodeQueryString(URL url) {
-		if (url == null || url.getQuery() == null) {
-			throw new IllegalArgumentException("The URL or the URL query is null: " + url);
-		}
+                    for (HostVirtualNic hostVirtualNic : hostSystem.getHostNetworkSystem().getNetworkInfo().getConsoleVnic()) {
+                        ipAddresses.add(hostVirtualNic.getSpec().getIp().getIpAddress());
+                    }
 
-		String query = null;
-		try {
-			query = URLDecoder.decode(url.getQuery(), "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			logger.error("decodeQueryString: '{}'", e);
-		}
+                    // create the new node...
+                    RequisitionNode node = createRequisitionNode(ipAddresses, hostSystem);
 
-		return query;
-	}
+                    // ...and add it to the requisition
+                    m_requisition.insertNode(node);
+                }
+            }
+        }
+    }
 
-	private List<String> tokenizeQueryArgs(String query) throws IllegalArgumentException {
+    private void iterateVirtualMachines() throws RemoteException, UnknownHostException {
+        ManagedEntity[] virtualMachines;
 
-		if (query == null) {
-			throw new IllegalArgumentException("The URL query is null");
-		}
+        // search for all virtual machines
+        virtualMachines = new InventoryNavigator(m_serviceInstance.getRootFolder()).searchManagedEntities("VirtualMachine");
 
-		return Arrays.asList(StringUtils.split(query, QUERY_ARG_SEPARATOR));
-	}
+        if (virtualMachines != null) {
 
-	public Map<String, String> getArgs() {
-		return m_args;
-	}
+            // check for correct key/value-pair
+            for (ManagedEntity managedEntity : virtualMachines) {
+                VirtualMachine virtualMachine = (VirtualMachine) managedEntity;
 
-	/**
-	 * <p>
-	 * getForeignSource
-	 * </p>
-	 * 
-	 * @return a {@link java.lang.String} object.
-	 */
-	public String getForeignSource() {
-		return m_foreignSource;
-	}
+                if (checkForAttribute(virtualMachine)) {
+                    logger.debug("Adding Virtual Machine '{}'", virtualMachine.getName());
 
-	private void importHostSystems() throws RemoteException, UnknownHostException {
-		ManagedEntity[] hostSystems;
+                    LinkedHashSet<String> ipAddresses = new LinkedHashSet<String>();
 
-		hostSystems = new InventoryNavigator(m_serviceInstance.getRootFolder()).searchManagedEntities("HostSystem");
+                    // add the Ip address reported by VMware tools, this should be primary
+                    ipAddresses.add(virtualMachine.getGuest().getIpAddress());
 
-		if (hostSystems != null) {
+                    // if possible, iterate over all virtual networks networks and add interface Ip addresses
+                    if (virtualMachine.getGuest().getNet() != null) {
+                        for (GuestNicInfo guestNicInfo : virtualMachine.getGuest().getNet()) {
+                            for (String ipAddress : guestNicInfo.getIpAddress())
+                                ipAddresses.add(ipAddress);
+                        }
+                    }
 
-			for (int i = 0; i < hostSystems.length; i++) {
-				HostSystem hostSystem = (HostSystem) hostSystems[i];
+                    // create the new node...
+                    RequisitionNode node = createRequisitionNode(ipAddresses, virtualMachine);
 
-				if (checkForAttribute(hostSystem)) {
-					logger.debug("Adding Host System '{}'", hostSystem.getName());
+                    // add the operating system
+                    if (virtualMachine.getGuest().getGuestFullName() != null) {
+                        RequisitionAsset requisitionAsset = new RequisitionAsset("operatingSystem", virtualMachine.getGuest().getGuestFullName());
+                        node.putAsset(requisitionAsset);
+                    }
 
-					LinkedHashSet<String> ipAddresses = new LinkedHashSet<String>();
+                    // ...and add it to the requisition
+                    m_requisition.insertNode(node);
+                }
+            }
+        }
+    }
 
-					for (HostVirtualNic hostVirtualNic : hostSystem.getHostNetworkSystem().getNetworkInfo().getConsoleVnic()) {
-						ipAddresses.add(hostVirtualNic.getSpec().getIp().getIpAddress());
-					}
+    private boolean checkForAttribute(ManagedEntity managedEntity) throws RemoteException {
+        String key = m_args.get("key");
+        String value = m_args.get("value");
 
-					RequisitionNode node = createRequisitionNode(ipAddresses, hostSystem);
-					m_requisition.insertNode(node);
-				}
-			}
-		}
-	}
+        // if key/value is not set, return true
+        if (key == null && value == null)
+            return true;
 
-	private void importVirtualMachines() throws RemoteException, UnknownHostException {
-		ManagedEntity[] virtualMachines;
+        // if only key or value is set, return false
+        if (key == null || value == null)
+            return false;
 
-		virtualMachines = new InventoryNavigator(m_serviceInstance.getRootFolder()).searchManagedEntities("VirtualMachine");
+        // get available values
+        CustomFieldValue[] values = managedEntity.getCustomValue();
+        // get available definitions
+        CustomFieldDef[] defs = managedEntity.getAvailableField();
 
-		if (virtualMachines != null) {
-			for (int i = 0; i < virtualMachines.length; i++) {
-				VirtualMachine virtualMachine = (VirtualMachine) virtualMachines[i];
-				if (checkForAttribute(virtualMachine)) {
-					logger.debug("Adding Virtual Machine '{}'", virtualMachine.getName());
+        // now search for the correct key/value pair
+        for (int i = 0; defs != null && i < defs.length; i++) {
+            if (key.equals(defs[i].getName())) {
 
-					LinkedHashSet<String> ipAddresses = new LinkedHashSet<String>();
+                int targetIndex = defs[i].getKey();
 
-					ipAddresses.add(virtualMachine.getGuest().getIpAddress());
+                for (int j = 0; j < values.length; j++) {
+                    if (targetIndex == values[j].getKey()) {
+                        return value.equals(((CustomFieldStringValue) values[j]).value);
+                    }
+                }
+            }
+        }
 
-					if (virtualMachine.getGuest().getNet() != null) {
-						for (GuestNicInfo guestNicInfo : virtualMachine.getGuest().getNet()) {
-							for (String ipAddress : guestNicInfo.getIpAddress())
-								ipAddresses.add(ipAddress);
-						}
-					}
+        return false;
+    }
 
-					RequisitionNode node = createRequisitionNode(ipAddresses, virtualMachine);
-					m_requisition.insertNode(node);
-				}
-			}
-		}
-	}
+    /**
+     * {@inheritDoc}
+     * <p/>
+     * Creates a ByteArrayInputStream implementation of InputStream of the XML
+     * marshaled version of the Requisition class. Calling close on this stream
+     * is safe.
+     */
+    @Override
+    public InputStream getInputStream() throws IOException {
 
-	private boolean checkForAttribute(ManagedEntity managedEntity) throws RemoteException {
-		String key = getArgs().get("key");
-		String value = getArgs().get("value");
+        InputStream stream = null;
 
-		if (key == null && value == null)
-			return true;
+        try {
+            Requisition r = buildVMwareRequisition();
+            stream = new ByteArrayInputStream(jaxBMarshal(r).getBytes());
+        } catch (IOException e) {
+            logger.warn("getInputStream: Problem getting input stream: '{}'", e);
+            throw e;
+        } catch (Throwable e) {
+            logger.warn("Problem getting input stream: '{}'", e);
+            throw new IOExceptionWithCause("Problem getting input stream: " + e, e);
+        }
 
-		if (key == null || value == null)
-			return false;
+        return stream;
+    }
 
-		CustomFieldValue[] values = managedEntity.getCustomValue();
-		CustomFieldDef[] defs = managedEntity.getAvailableField();
-
-		for (int i = 0; defs != null && i < defs.length; i++) {
-			if (key.equals(defs[i].getName())) {
-
-				int targetIndex = defs[i].getKey();
-
-				for (int j = 0; j < values.length; j++) {
-					if (targetIndex == values[j].getKey()) {
-						return value.equals(((CustomFieldStringValue) values[j]).value);
-					}
-				}
-			}
-		}
-		return false;
-	}
+    /**
+     * Utility to marshal the Requisition class into XML.
+     *
+     * @param r
+     * @return a String of XML encoding the Requisition class
+     * @throws javax.xml.bind.JAXBException
+     */
+    private String jaxBMarshal(Requisition r) throws JAXBException {
+        return JaxbUtils.marshal(r);
+    }
 }
