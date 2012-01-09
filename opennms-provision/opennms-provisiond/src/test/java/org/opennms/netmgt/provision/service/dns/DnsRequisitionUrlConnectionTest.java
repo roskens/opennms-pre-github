@@ -50,6 +50,7 @@ import org.opennms.core.test.JUnitDNSServerExecutionListener;
 import org.opennms.core.test.annotations.DNSEntry;
 import org.opennms.core.test.annotations.DNSZone;
 import org.opennms.core.test.annotations.JUnitDNSServer;
+import org.opennms.core.utils.url.GenericURLFactory;
 import org.opennms.netmgt.provision.persist.requisition.Requisition;
 import org.opennms.test.mock.MockLogAppender;
 import org.springframework.core.io.Resource;
@@ -80,13 +81,7 @@ public class DnsRequisitionUrlConnectionTest {
 
     @Before
     public void registerFactory() {
-        
-        try {
-            new URL(TEST_URL);
-        } catch (MalformedURLException e) {
-            URL.setURLStreamHandlerFactory(new DnsUrlFactory());
-        }
-        
+        GenericURLFactory.initialize();
     }
     
     @Test

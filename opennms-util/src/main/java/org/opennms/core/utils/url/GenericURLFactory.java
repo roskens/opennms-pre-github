@@ -16,8 +16,8 @@ public class GenericURLFactory implements URLStreamHandlerFactory {
 
         // Map the protocol against the implementation
         // TODO indigo: maybe a way we can configure it with spring?
-        urlConnections.put("dns", "DnsURLConnection");
-        urlConnections.put("vmware", "VMwareURLConnection");
+        urlConnections.put("dns", "org.opennms.netmgt.provision.service.dns.DnsRequisitionUrlConnection");
+        //urlConnections.put("vmware", "VMwareURLConnection");
     }
 
     public static void initialize() {
@@ -25,6 +25,21 @@ public class GenericURLFactory implements URLStreamHandlerFactory {
             genericUrlFactory = new GenericURLFactory();
             URL.setURLStreamHandlerFactory(genericUrlFactory);
         }
+    }
+
+    public static GenericURLFactory getInstance() {
+        if (genericUrlFactory == null)
+            initialize();
+        return genericUrlFactory;
+    }
+
+    public void addURLConnection(String protocol, String classname) {
+        urlConnections.put(protocol, classname);
+    }
+
+    public void removeURLConnection(String protocol) {
+        if (urlConnections.containsKey(protocol))
+            urlConnections.remove(protocol);
     }
 
     public URLStreamHandler createURLStreamHandler(String protocol) {
