@@ -29,20 +29,37 @@
 package org.opennms.netmgt.dao.support;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 
+import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.dao.ResourceDao;
 import org.opennms.netmgt.model.OnmsAttribute;
 import org.opennms.netmgt.model.OnmsResource;
 import org.opennms.netmgt.model.OnmsResourceType;
+import org.opennms.netmgt.model.RrdGraphAttribute;
 import org.springframework.orm.ObjectRetrievalFailureException;
+
+import org.opennms.netmgt.config.attrmap.Attrmap;
+import org.opennms.netmgt.config.attrmap.Filelink;
+import org.opennms.netmgt.config.attrmap.Datasource;
+import org.apache.commons.io.IOUtils;
+import org.opennms.core.xml.CastorUtils;
+
+import org.exolab.castor.xml.MarshalException;
+import org.exolab.castor.xml.Marshaller;
+import org.exolab.castor.xml.ValidationException;
 
 public class NodeSnmpResourceType implements OnmsResourceType {
 
     private ResourceDao m_resourceDao;
+    public static String ATTRMAP_XML_FILE = "attrmap.xml";
 
     /**
      * <p>Constructor for NodeSnmpResourceType.</p>
@@ -99,6 +116,22 @@ public class NodeSnmpResourceType implements OnmsResourceType {
         ArrayList<OnmsResource> resources = new ArrayList<OnmsResource>();
 
         Set<OnmsAttribute> attributes = ResourceTypeUtils.getAttributesAtRelativePath(m_resourceDao.getRrdDirectory(), getRelativePathForResource(nodeId));
+        loadMappedAttributes(m_resourceDao.getRrdDirectory(), getRelativePathForResource(nodeId), attributes);
+	for(OnmsAttribute attr : attributes) {
+	    OnmsResource res = attr.getResource();
+            if (res == null) {
+                LogUtils.debugf(this, "%d: attr[%s]", nodeId, attr.getName());
+            } else {
+                LogUtils.debugf(this, "%d: attr[%s]: resource: %s", nodeId, attr.getName(), res.toString());
+            }
+
+            try {
+                RrdGraphAttribute rga = (RrdGraphAttribute) attr;
+                LogUtils.debugf(this, "%d: rga[%s]: %s", nodeId, rga.toString(), rga.getRrdRelativePath());
+            } catch (Exception e) {
+                LogUtils.debugf(this, "%d: attr[%s] through exception", nodeId, attr.getName());
+            }
+        }
         
         OnmsResource resource = new OnmsResource("", "Node-level Performance Data", this, attributes);
         resources.add(resource);
@@ -128,5 +161,83 @@ public class NodeSnmpResourceType implements OnmsResourceType {
     /** {@inheritDoc} */
     public String getLinkForResource(OnmsResource resource) {
         return null;
+    }
+
+    private void loadMappedAttributes(File rrdDirectory, String relativePath, Set<OnmsAttribute> attributes) {
+        int suffixLength = RrdFileConstants.getRrdSuffix().length();
+        File resourceDir = new File(rrdDirectory, relativePath);
+        File attrMapFile = new File(resourceDir, ATTRMAP_XML_FILE);
+
+        if (! attrMapFile.exists()) { return; }
+        try {
+            LogUtils.debugf(this, "attrMapFile.exists(): true [%s]", attrMapFile.getCanonicalPath());
+        } catch (IOException e) {
+        }
+
+        try {
+            final InputStream is = new FileInputStream(attrMapFile);
+            Attrmap am = CastorUtils.unmarshal(Attrmap.class, is);
+            IOUtils.closeQuietly(is);
+
+            for (Filelink fl : am.getFilelinkCollection()) {
+            try {
+		LogUtils.debugf(this, "link: %s -> %s", fl.getName(), fl.getRealpath());
+
+                if (fl.getDatasourceCount() == 0) {
+		    LogUtils.debugf(this, "link[%s] has no datasources", fl.getName());
+                    /*
+		     * Add all datasources for the real file.
+                     */
+                    if (ResourceTypeUtils.isStoreByGroup()) {
+		        LogUtils.debugf(this, "ResourceTypeUtils.isStoreByGroup(): true");
+                        File realParentDir = new File(rrdDirectory, fl.getRealpath());
+
+                        String groupName = fl.getName().substring(0, fl.getName().length() - suffixLength);
+	                LogUtils.debugf(this, "groupName: %s", groupName);
+
+                        Properties props = ResourceTypeUtils.getDsProperties(realParentDir);
+                        for (Object o : props.keySet()) {
+                            String dsName = (String)o;
+                            if (props.getProperty(dsName).equals(groupName)) {
+                                LogUtils.debugf(this, "RrdGraphAttribute('%s', '%s', '%s')", dsName, fl.getRealpath(), fl.getName());
+                                attributes.add(new RrdGraphAttribute(dsName, fl.getRealpath(), fl.getName()));
+                            }
+                        }
+                    } else {
+		        LogUtils.debugf(this, "ResourceTypeUtils.isStoreByGroup(): false");
+                        File realFile = new File(fl.getRealpath(), fl.getName());
+                        String dsName = fl.getName();
+			if (dsName.endsWith(RrdFileConstants.getRrdSuffix())) {
+                            dsName = dsName.substring(0, dsName.length() - suffixLength);
+			}
+
+		        LogUtils.debugf(this, "RrdGraphAttribute('%s', '%s', '%s')", dsName, fl.getRealpath(), fl.getName());
+                        attributes.add(new RrdGraphAttribute(dsName, fl.getRealpath(), fl.getName()));
+                    }
+                } else {
+		    LogUtils.debugf(this, "link[%s] has %d datasources", fl.getName(), fl.getDatasourceCount());
+		    /*
+		     * Our file link has a list of datasource mappings
+		     */
+/*
+                    for (Datasource ds : fl.getDatasourceCollection()) {
+			// ds.getName()
+			// ds.getOrigName()
+                        String dsName = fileName.substring(0, fileName.length() - suffixLength);
+                        attributes.add(new RrdGraphAttribute(dsName, relativePath, fileName));
+                    }
+
+                    if (ResourceTypeUtils.isStoreByGroup()) {
+                    } else {
+                    }
+*/
+                }
+            } catch (Exception e) {
+                LogUtils.debugf(this, "e: %s", e.getMessage());
+            }
+            }
+        } catch (Exception e) {
+            LogUtils.debugf(this, "e: %s", e.getMessage());
+        }
     }
 }

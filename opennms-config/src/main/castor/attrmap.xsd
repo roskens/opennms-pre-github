@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="http://xmlns.opennms.org/xsd/config/attrmap"
+  xmlns:tns="http://xmlns.opennms.org/xsd/config/attrmap"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:this="http://xmlns.opennms.org/xsd/config/attrmap"
+  xmlns:ns2="http://www.w3.org/1999/xhtml"
+  xmlns:ns="http://www.w3.org/2001/XMLSchema"
+  xmlns:hfp="http://www.w3.org/2001/XMLSchema-hasFacetAndProperty"
+  elementFormDefault="qualified">
+
+  <annotation>
+    <documentation>
+      XML Schema for the attrmap.xml configuration file.
+    </documentation>
+  </annotation>
+
+  <element name="attrmap">
+    <annotation>
+      <documentation>
+        This is the top-level element for attrmap.xml.
+      </documentation>
+    </annotation>
+    <complexType>
+      <sequence>
+        <element maxOccurs="unbounded" minOccurs="0" ref="this:filelink">
+          <annotation>
+            <documentation>Virtual file names
+            </documentation>
+          </annotation>
+        </element>
+      </sequence>
+    </complexType>
+  </element>
+
+  <element name="filelink">
+    <annotation>
+      <documentation>Virtual file entry</documentation>
+    </annotation>
+
+    <complexType>
+      <sequence>
+        <element maxOccurs="unbounded" minOccurs="0" ref="this:datasource">
+          <annotation>
+            <documentation>Datasource name mappings
+            </documentation>
+          </annotation>
+        </element>
+      </sequence>
+      <attribute name="name" type="string" use="required">
+        <annotation>
+          <documentation>virtual file name</documentation>
+        </annotation>
+      </attribute>
+
+      <attribute name="realpath" type="string" use="required">
+        <annotation>
+          <documentation>rrd relative path for the real file name</documentation>
+        </annotation>
+      </attribute>
+    </complexType>
+  </element>
+
+  <element name="datasource">
+    <annotation>
+      <documentation>Virtual file datasource</documentation>
+    </annotation>
+
+    <complexType>
+      <attribute name="name" type="string" use="required">
+        <annotation>
+          <documentation>virtual file datasource</documentation>
+        </annotation>
+      </attribute>
+
+      <attribute name="origname" type="string" use="required">
+        <annotation>
+          <documentation>real file datasource</documentation>
+        </annotation>
+      </attribute>
+    </complexType>
+  </element>
+
+</schema>
