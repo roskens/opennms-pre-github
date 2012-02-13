@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <parent>
+        <artifactId>opennms</artifactId>
+        <groupId>org.opennms</groupId>
+        <version>1.9.94-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>opennms-vmware</artifactId>
+    <name>OpenNMS VMware Library</name>
+    <dependencies>
+        <dependency>
+            <groupId>org.opennms</groupId>
+            <artifactId>opennms-config</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.opennms</groupId>
+            <artifactId>opennms-config-utils</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.opennms</groupId>
+            <artifactId>opennms-model</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.opennms</groupId>
+            <artifactId>opennms-services</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.easymock</groupId>
+            <artifactId>easymock</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.opennms.dependencies</groupId>
+            <artifactId>spring-dependencies</artifactId>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.opennms</groupId>
+            <artifactId>opennms-dao</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.opennms</groupId>
+            <artifactId>opennms-dao</artifactId>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.opennms</groupId>
+            <artifactId>opennms-provision-persistence</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <!-- VMware Infrastructure API -->
+        <dependency>
+            <groupId>com.vmware</groupId>
+            <artifactId>vijava</artifactId>
+            <version>520110926</version>
+        </dependency>
+	<!-- Attention this is EPL license -->
+        <dependency>
+            <groupId>org.sblim.slp</groupId>
+            <artifactId>sblimSLPClient</artifactId>
+            <version>1.17</version>
+        </dependency>
+        <dependency>
+            <groupId>org.sblim.wbem</groupId>
+            <artifactId>sblimCIMClient</artifactId>
+            <version>1.17</version>
+        </dependency>
+    </dependencies>
+</project>
