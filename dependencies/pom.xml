@@ -12,6 +12,7 @@
   <modules>
     <module>asterisk</module>
     <module>castor</module>
+    <module>cassandra</module>
     <module>dbpool</module>
     <module>dnsjava</module>
     <module>drools</module>

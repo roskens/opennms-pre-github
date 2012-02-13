@@ -26,7 +26,7 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.netmgt.rrd.jrobin;
+package org.opennms.netmgt.rrd.cassandra;
 
 import java.awt.Color;
 import java.io.File;
@@ -41,6 +41,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.cassandra.thrift.Column;
+import org.apache.cassandra.thrift.ConsistencyLevel;
+import org.apache.cassandra.thrift.SlicePredicate;
+import org.apache.cassandra.thrift.SuperColumn;
 import org.jrobin.core.FetchData;
 import org.jrobin.core.RrdDb;
 import org.jrobin.core.RrdDef;
@@ -56,6 +60,10 @@ import org.opennms.netmgt.rrd.RrdDataSource;
 import org.opennms.netmgt.rrd.RrdGraphDetails;
 import org.opennms.netmgt.rrd.RrdStrategy;
 import org.opennms.netmgt.rrd.RrdUtils;
+import org.scale7.cassandra.pelops.Bytes;
+import org.scale7.cassandra.pelops.Cluster;
+import org.scale7.cassandra.pelops.Pelops;
+import org.scale7.cassandra.pelops.Selector;
 
 /**
  * Provides a JRobin based implementation of RrdStrategy. It uses JRobin 1.4 in
@@ -65,9 +73,46 @@ import org.opennms.netmgt.rrd.RrdUtils;
  * @author ranger
  * @version $Id: $
  */
-public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
-    private static final String BACKEND_FACTORY_PROPERTY = "org.jrobin.core.RrdBackendFactory";
-    private static final String DEFAULT_BACKEND_FACTORY = "FILE";
+public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
+	
+	public static final String KEYSPACE_NAME_PROPERTY = "org.opennms.netmgt.rrd.cassandra.keyspace"; 
+	private static final String DEFAULT_KEYSPACE = "OpenNMSDataCollectionV1";
+	
+	
+	
+	// Data column must be create with a structure like this:
+	// create column family Data with column_type='Super' \
+	//     and key_validation_class=UTF8Type \
+	//     and comparator=LongType \
+	//     and subcomparator=UTF8Type \ 
+	//     and default_validation_class=DoubleType;
+	public static final String DATA_COLUMN_FAMILY_NAME_PROPERTY = "org.opennms.netmgt.rrd.cassandra.dataColumnFamily";
+	private static final String DEFAULT_DATA_COLUMN = "datapoints";
+	
+	public static final String POOL_NAME_PROPERTY = "org.opennms.netmgt.rrd.cassandra.poolName";
+	private static final String DEFAULT_POOL_NAME = "datacollectionPool";
+	
+	// comma separated list of hosts
+	public static final String CLUSTER_HOSTS_PROPERTY = "org.opennms.netmgt.rrd.cassandra.clusterHosts";
+	private static final String DEFAULT_CLUSER_HOSTS = "localhost";
+	
+	// time to live in seconds
+	public static final String TTL_PROPERTY = "org.opennms.netmgt.rrd.cassandra.timeToLive";
+	private static final String DEFAULT_TTL = "31622400";
+	
+	
+	public static final String THRIFT_PORT_PROPERTY = "org.opennms.netmgt.rrd.cassandra.thriftPort";
+	private static final String DEFAULT_THRIFT_PORT = "9160";
+
+	public static final String DYNAMIC_DISCOVERY_PROPERTY = "org.opennms.netmgt.rrd.cassandra.dynamicDiscovery";
+	private static final String DEFAULT_DYNAMIC_DISCOVERY = "false";
+	
+	public static final String RRA_LIST_PROPERTY = "org.opennms.netmgmt.rrd.cassandra.rraList";
+	public static final String DEFAULT_RRA_LIST = "RRA:AVERAGE:0.5:1:2016,RRA:AVERAGE:0.5:12:1488,RRA:AVERAGE:0.5:288:366,RRA:MAX:0.5:288:366,RRA:MIN:0.5:288:366";
+
+	
+
+			
 
     /*
      * Ensure that we only initialize certain things *once* per
@@ -76,6 +121,17 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
     private static boolean s_initialized = false;
 
     private Properties m_configurationProperties;
+    
+    private String m_keyspace;
+    private String m_columnFamily;
+    private String m_poolName;
+    private String m_clusterHosts;
+    private int m_thriftPort;
+    private boolean m_dynamicDiscovery;
+    private String[] m_rraList;
+    private int m_ttl;
+    
+    private Persister m_persister;
     
     /**
      * An extremely simple Plottable for holding static datasources that
@@ -117,26 +173,27 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
     /** {@inheritDoc} */
     public void setConfigurationProperties(final Properties configurationParameters) {
         m_configurationProperties = configurationParameters;
-        if(!s_initialized) {
-            String factory = null;
-            if (m_configurationProperties == null) {
-                factory = DEFAULT_BACKEND_FACTORY;
-            } else {
-                factory = (String)m_configurationProperties.get(BACKEND_FACTORY_PROPERTY);
-            }
-            try {
-                RrdDb.setDefaultFactory(factory);
-                s_initialized=true;
-            } catch (RrdException e) {
-                log().error("Could not set default JRobin RRD factory: " + e.getMessage(), e);
-            }
-        }
+        
+        m_keyspace = getProperty(KEYSPACE_NAME_PROPERTY, DEFAULT_KEYSPACE);
+        m_columnFamily = getProperty(DATA_COLUMN_FAMILY_NAME_PROPERTY, DEFAULT_DATA_COLUMN);
+        m_poolName = getProperty(POOL_NAME_PROPERTY, DEFAULT_POOL_NAME);
+        
+        m_clusterHosts = getProperty(CLUSTER_HOSTS_PROPERTY, DEFAULT_CLUSER_HOSTS);
+        m_thriftPort = Integer.parseInt(getProperty(THRIFT_PORT_PROPERTY, DEFAULT_THRIFT_PORT));
+        m_dynamicDiscovery = Boolean.parseBoolean(getProperty(DYNAMIC_DISCOVERY_PROPERTY, DEFAULT_DYNAMIC_DISCOVERY));
+        
+        m_rraList = getProperty(RRA_LIST_PROPERTY, DEFAULT_RRA_LIST).trim().split(",");
+        m_ttl = Integer.parseInt(getProperty(TTL_PROPERTY, DEFAULT_TTL));
+       
+        Cluster cluster = new Cluster(m_clusterHosts, m_thriftPort, m_dynamicDiscovery);
+        
+        Pelops.addPool(m_poolName, cluster, m_keyspace);
+        
+        m_persister = new Persister(m_poolName, m_columnFamily, m_ttl);
     }
     
-    public String getExtension() {
-    	return m_configurationProperties == null 
-    		? getDefaultFileExtension()
-    	    : m_configurationProperties.getProperty("org.opennms.rrd.fileExtension", getDefaultFileExtension());
+    private String getProperty(String key, String defaultValue) {
+    	return m_configurationProperties == null ? defaultValue : m_configurationProperties.getProperty(key, defaultValue);
     }
 
     /**
@@ -145,27 +202,15 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
      * @param rrdFile a {@link org.jrobin.core.RrdDb} object.
      * @throws java.lang.Exception if any.
      */
-    public void closeFile(final RrdDb rrdFile) throws Exception {
+    public void closeFile(final CassRrd rrdFile) throws Exception {
         rrdFile.close();
     }
 
     /** {@inheritDoc} */
-    public RrdDef createDefinition(final String creator, final String directory, final String rrdName, int step, final List<RrdDataSource> dataSources, final List<String> rraList) throws Exception {
-        File f = new File(directory);
-        f.mkdirs();
-
-        String fileName = directory + File.separator + rrdName + getExtension();
-        
-        if (new File(fileName).exists()) {
-            return null;
-        }
-
-        RrdDef def = new RrdDef(fileName);
-
-        // def.setStartTime(System.currentTimeMillis()/1000L - 2592000L);
-        def.setStartTime(1000);
-        def.setStep(step);
-        
+    public CassRrdDef createDefinition(final String creator, final String directory, final String rrdName, int step, final List<RrdDataSource> dataSources, final List<String> rraList) throws Exception {
+    	
+    	CassRrdDef def = new CassRrdDef(creator, directory, rrdName, step);
+    	
         for (RrdDataSource dataSource : dataSources) {
             String dsMin = dataSource.getMin();
             String dsMax = dataSource.getMax();
@@ -190,13 +235,12 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
      * @param rrdDef a {@link org.jrobin.core.RrdDef} object.
      * @throws java.lang.Exception if any.
      */
-    public void createFile(final RrdDef rrdDef) throws Exception {
+    public void createFile(final CassRrdDef rrdDef) throws Exception {
         if (rrdDef == null) {
             return;
         }
         
-        RrdDb rrd = new RrdDb(rrdDef);
-        rrd.close();
+        rrdDef.create();
     }
 
     /**
@@ -204,8 +248,8 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
      *
      * Opens the JRobin RrdDb by name and returns it.
      */
-    public RrdDb openFile(final String fileName) throws Exception {
-        RrdDb rrd = new RrdDb(fileName);
+    public CassRrd openFile(final String fileName) throws Exception {
+        CassRrd rrd = new CassRrd(fileName);
         return rrd;
     }
 
@@ -214,9 +258,21 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
      *
      * Creates a sample from the JRobin RrdDb and passes in the data provided.
      */
-    public void updateFile(final RrdDb rrdFile, final String owner, final String data) throws Exception {
-        Sample sample = rrdFile.createSample();
-        sample.setAndUpdate(data);
+    public void updateFile(final CassRrd rrdFile, final String owner, final String data) throws Exception {
+
+    	String[] tokens = data.split(":");
+    	long timestamp = Long.parseLong(tokens[0]);
+    	double value = Double.parseDouble(tokens[1]);
+    	
+    	String fileName = rrdFile.getFileName();
+    	
+    	String[] components = fileName.split("/");
+    	String dsName = components[components.length-1];
+    	
+		Datapoint dp = new Datapoint(fileName, dsName, timestamp, value);
+		
+		m_persister.persist(dp);
+
     }
 
     /**
@@ -225,7 +281,7 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
      *
      * @throws java.lang.Exception if any.
      */
-    public JRobinRrdStrategy() throws Exception {
+    public CassandraRrdStrategy() throws Exception {
         String home = System.getProperty("opennms.home");
         System.setProperty("jrobin.fontdir", home + File.separator + "etc");
     }
@@ -370,7 +426,7 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
              * used.  If they just call RrdGraphDetails.getPrintLines, though,
              * we don't want to throw an exception.
              */
-            return new JRobinRrdGraphDetails(graph, command);
+            return new CassandraRrdGraphDetails(graph, command);
         } catch (Throwable e) {
             log().error("JRobin: exception occurred creating graph: " + e.getMessage(), e);
             throw new org.opennms.netmgt.rrd.RrdException("An exception occurred creating the graph: " + e.getMessage(), e);
@@ -562,7 +618,8 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
                 String definition = arg.substring("DEF:".length());
                 String[] def = splitDef(definition);
                 String[] ds = def[0].split("=");
-                File dsFile = new File(workDir, ds[1].replace("\\", ""));
+                String relpath = ds[1].replace("\\", "");
+				File dsFile = getRrdFile(workDir, relpath, start, end, def[1], def[2]);
                 graphDef.datasource(ds[0], dsFile.getAbsolutePath(), def[1], def[2]);
                 List<String> defBits = new ArrayList<String>();
                 defBits.add(dsFile.getAbsolutePath());
@@ -663,6 +720,61 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
         log().debug("large font = " + graphDef.getLargeFont() + ", small font = " + graphDef.getSmallFont());
         return graphDef;
     }
+
+	private File getRrdFile(final File workDir, String relpath, long start, long end, String dsName, String consolFun) throws RrdException {
+		try {
+		String path = workDir.getAbsolutePath();
+		String key = path+"/"+relpath;
+
+		Selector selector = Pelops.createSelector(m_poolName);
+    	SlicePredicate timestamps = Selector.newColumnsPredicate(Bytes.fromLong(start), Bytes.fromLong(end), false, Integer.MAX_VALUE);
+
+    	List<SuperColumn> datapoints = selector.getSuperColumnsFromRow(m_columnFamily, key, timestamps, ConsistencyLevel.ONE);
+
+    	System.err.println("Found " + datapoints.size() + " datapoints (" + (end - start) + " ms)");
+
+    	for(SuperColumn datapoint : datapoints) {
+    		System.err.print("collectTime = "	+ Bytes.fromByteArray(datapoint.getName()).toLong());
+    		List<Column> datasources = datapoint.getColumns();
+    		for(Column ds : datasources) {
+    			System.err.print(" " + Bytes.fromByteArray(ds.getName()).toUTF8() + " = " + Bytes.fromByteArray(ds.getValue()).toDouble());
+    		}
+    		System.err.println();
+    	}
+    	
+    	File file = File.createTempFile("crrd", ".jrb");
+    	//file.deleteOnExit();
+    	
+    	System.err.println("Creating temporary rrd " + file + " with " + datapoints.size() + " datapoints");
+    	
+    	RrdDef def = new RrdDef(file.getAbsolutePath());
+    	def.setStartTime(1000);
+    	def.setStep(300);
+    	def.addDatasource(dsName, "COUNTER", 600, Double.NaN, Double.NaN);
+    	for(String rra : m_rraList) {
+    		def.addArchive(rra);
+    	}
+    	
+    	RrdDb db = new RrdDb(def);
+    	
+    	for(SuperColumn datapoint : datapoints) {
+    		long ts = Bytes.fromByteArray(datapoint.getName()).toLong();
+    		Column ds = datapoint.getColumns().get(0);
+    		double val = Bytes.fromByteArray(ds.getValue()).toDouble();
+
+    		Sample sample = db.createSample(ts);
+    		
+    		sample.setValue(0, val);
+    		sample.update();
+    		
+    	}
+    	
+    	return file;
+		} catch (IOException e) {
+			throw new RrdException(e);
+		}
+		
+	}
 
 	private String[] splitDef(final String definition) {
 		return definition.split("(?<!\\\\):");
