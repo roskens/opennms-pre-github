@@ -264,6 +264,15 @@ public class OnmsAssetRecord implements Serializable {
 
     private String m_managedObjectInstance;
 
+    /** VMware managed Object ID */
+    private String m_vmwareManagedObjectId;
+
+    /** VMware managed entity Type (virtualMachine | hostSystem) */
+    private String m_vmwareManagedEntityType;
+    
+    /** VMware management Server */
+    private String m_vmwareManagementServer;
+
     /**
      * default constructor
      */
@@ -1488,6 +1497,75 @@ public class OnmsAssetRecord implements Serializable {
             m_storagectrl = storagectrl;
     }
 
+    /**
+     * <p>setVmwareManagedEntityType</p>
+     * 
+     * Set the VMware management entity type defines if the machine is a virtual machine or a host system 
+     * 
+     * @param vmwareManagedEntityType a {@link java.lang.String} object
+     */
+    public void setVmwareManagedEntityType(String vmwareManagedEntityType) {
+        m_vmwareManagedEntityType = vmwareManagedEntityType;
+    }
+
+    /**
+     * <p>getVmwareManagedEntityType</p>
+     *
+     * Set the VMware management entity type defines if the machine is a virtual machine or a host system
+     * 
+     * @return a {@link java.lang.String} object
+     */
+    @Column(name="vmwareManagedEntityType", length=70)
+    public String getVmwareManagedEntityType () {
+        return m_vmwareManagedEntityType;
+    }
+
+    /**
+     * <p>setVmwareManagedObjectId</p>
+     *
+     * Set the VMware managed object ID as a unique identifier for VMware API
+     *
+     * @return a {@link java.lang.String} object
+     */
+    public void setVmwareManagedObjectId(String vmwareManagedObjectId) {
+        m_vmwareManagedObjectId = vmwareManagedObjectId;
+    }
+
+    /**
+     * <p>getVmwareManagedObjectId</p>
+     * 
+     * Get the VMware managed object ID as a unique identifier for VMware API
+     * 
+     * @return a {@link java.lang.String} object
+     */
+    @Column(name="vmwareManagedObjectId", length=70)
+    public String getVmwareManagedObjectId () {
+        return m_vmwareManagedObjectId;
+    }
+
+    /**
+     * <p>setVmwareManagementServer</p>
+     *
+     * Set the vCenter host or ip address
+     * 
+     * @param vmwareManagementServer a {@link java.lang.String} object
+     */
+    public void setVmwareManagementServer(String vmwareManagementServer) {
+        m_vmwareManagementServer = vmwareManagementServer;
+    }
+
+    /**
+     * <p>getVmwareManagementServer</p>
+     * 
+     * Get the vCenter host or ip address
+     * 
+     * @return a {@link java.lang.String} object
+     */
+    @Column(name="vmwareManagementServer", length=70)
+    public String getVmwareManagementServer () {
+        return m_vmwareManagementServer;
+    }
+    
     /** {@inheritDoc} */
     @Override
     public String toString() {
@@ -1551,6 +1629,9 @@ public class OnmsAssetRecord implements Serializable {
             .append("admin", getAdmin())
             .append("snmpcommunity", getSnmpcommunity())
             .append("rackunitheight", getRackunitheight())
+            .append("vmwareManagedObjectId", getVmwareManagedObjectId())
+            .append("vmwareManagedEntityType", getVmwareManagedEntityType())
+            .append("vmwareManagementServer", getVmwareManagementServer())
             .toString();
     }
 

@@ -236,6 +236,13 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
 	@UiField
 	FieldSetSuggestBox sHdd6;
 
+    @UiField
+    FieldSetSuggestBox sVmwareManagedObjectId;
+    @UiField
+    FieldSetSuggestBox sVmwareManagedEntityType;
+    @UiField
+    FieldSetSuggestBox sVmwareManagementServer;
+
 	@UiField
 	FieldSetTextArea sComment;
 
@@ -252,7 +259,7 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
 	public AssetNodePageImpl() {
 		initWidget(uiBinder.createAndBindUi(this));
 		
-		//avoid whitespaces and umlauts at categroiefields to prevent config-file problems
+		//avoid whitespaces and umlauts at category fields to prevent config-file problems
 		sDisplayCat.addWarningValidator(new StringBasicValidator());
 		sNotificationCat.addWarningValidator(new StringBasicValidator());
 		sThresholdCat.addWarningValidator(new StringBasicValidator());
@@ -261,7 +268,7 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
 		
 		sRackUnitHight.addErrorValidator(new StringAsIntegerValidator());
 		sNumpowersupplies.addErrorValidator(new StringAsIntegerValidator());
-		sInputpower.addWarningValidator(new StringAsIntegerValidator());
+		sInputpower.addErrorValidator(new StringAsIntegerValidator());
 		initUiElementList();
 	}
 
@@ -286,6 +293,7 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
 		saveDataAuthentication();
 		saveDataHardware();
 		saveDataComments();
+        saveDataVmware();
 
 		return m_asset;
 	}
@@ -373,6 +381,10 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
 		fieldSetList.add(sHdd4);
 		fieldSetList.add(sHdd5);
 		fieldSetList.add(sHdd6);
+
+        fieldSetList.add(sVmwareManagedObjectId);
+        fieldSetList.add(sVmwareManagedEntityType);
+        fieldSetList.add(sVmwareManagementServer);
 
 		fieldSetList.add(sComment);
 	}
@@ -466,6 +478,12 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
 		m_asset.setSupportPhone(sMaintPhone.getValue());
 	}
 
+    private void saveDataVmware() {
+        m_asset.setVmwareManagedObjectId(sVmwareManagedObjectId.getValue());
+        m_asset.setVmwareManagedEntityType(sVmwareManagedEntityType.getValue());
+        m_asset.setVmwareManagementServer(sVmwareManagementServer.getValue());
+    }
+
 	@Override
 	public void setData(AssetCommand asset) {
 		m_asset = asset;
@@ -481,6 +499,7 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
 		setDataAuthentication(m_asset);
 		setDataHardware(m_asset);
 		setDataComments(m_asset);
+        setDataVmware(m_asset);
 		DateTimeFormat m_formater = DateTimeFormat.getFormat(PredefinedFormat.DATE_TIME_MEDIUM);
 		lastModified.setText(con.lastModified() + " " + m_formater.format(asset.getLastModifiedDate()) + " | "
 				+ asset.getLastModifiedBy());
@@ -576,6 +595,7 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
 		setDataSuggVendor(assetSugg);
 		setDataSuggAuth(assetSugg);
 		setDataSuggHardware(assetSugg);
+        setDataSuggVmware(assetSugg);
 	}
 
 	private void setDataSuggAuth(AssetSuggCommand assetSugg) {
@@ -649,6 +669,18 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
 		sContractExpires.setValue(asset.getMaintContractExpiration());
 		sMaintPhone.setValue(asset.getSupportPhone());
 	}
+    
+    private void setDataSuggVmware(AssetSuggCommand assetSugg) {
+        sVmwareManagedObjectId.setSuggestions(assetSugg.getVmwareManagedObjectId());
+        sVmwareManagedEntityType.setSuggestions(assetSugg.getVmwareManagedEntityType());
+        sVmwareManagementServer.setSuggestions(assetSugg.getVmwareManagementServer());
+    }
+
+    private void setDataVmware(AssetCommand asset) {
+        sVmwareManagedObjectId.setValue(asset.getVmwareManagedObjectId());
+        sVmwareManagedEntityType.setValue(asset.getVmwareManagedEntityType());
+        sVmwareManagementServer.setValue(asset.getVmwareManagementServer());
+    }
 
 	@Override
 	public void setEnable(Boolean enabled) {

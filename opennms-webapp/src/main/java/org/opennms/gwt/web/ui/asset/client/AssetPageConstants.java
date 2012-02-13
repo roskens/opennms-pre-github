@@ -704,4 +704,33 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
 	@DefaultStringValue("Postal code (ZIP code)")
 	@Key("zipHelp")
 	String zipHelp();
+
+    /* VMware asset fields */
+    @DefaultStringValue("VMware")
+    @Key("vmwareHeader")
+    String vmwareHeader();
+
+    @DefaultStringValue("VMware managed object ID")
+    @Key("vmwareManagedObjectId")
+    String vmwareManagedObjectId();
+
+    @DefaultStringValue("Internal id in VMware vCenter")
+    @Key("vmwareManagedObjectIdHelp")
+    String vmwareManagedObjectIdHelp();
+
+    @DefaultStringValue("VMware managed entity type")
+    @Key("vmwareManagedEntityType")
+    String vmwareManagedEntityType();
+
+    @DefaultStringValue("Defines a VMware host system or virtual machine")
+    @Key("vmwareManagedEntityTypeHelp")
+    String vmwareManagedEntityTypeHelp();
+
+    @DefaultStringValue("VMware management server")
+    @Key("vmwareManagementServer")
+    String vmwareManagementServer();
+
+    @DefaultStringValue("VMware vCenter host")
+    @Key("vmwareManagementServerHelp")
+    String vmwareManagementServerHelp();
 }

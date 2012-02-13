@@ -28,11 +28,7 @@
 
 package org.opennms.gwt.web.ui.asset.server;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-
+import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import org.opennms.gwt.web.ui.asset.client.AssetService;
 import org.opennms.gwt.web.ui.asset.shared.AssetCommand;
 import org.opennms.gwt.web.ui.asset.shared.AssetSuggCommand;
@@ -46,7 +42,10 @@ import org.opennms.web.svclayer.support.SpringSecurityContextService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
 
 /**
  * @author <a href="mailto:ronny@opennms.org">Ronny Trommer</a>
@@ -241,6 +240,9 @@ public class AssetServiceImpl extends RemoteServiceServlet implements
 			suggestion.addVendorFax(asset.getVendorFax());
 			suggestion.addVendorPhone(asset.getVendorPhone());
 			suggestion.addZip(asset.getZip());
+            suggestion.addVmwareManagedObjectId(asset.getVmwareManagedObjectId());
+            suggestion.addVmwareManagedEntityType(asset.getVmwareManagedEntityType());
+            suggestion.addVmwareManagementServer(asset.getVmwareManagementServer());
 		}
 		return suggestion;
 	}

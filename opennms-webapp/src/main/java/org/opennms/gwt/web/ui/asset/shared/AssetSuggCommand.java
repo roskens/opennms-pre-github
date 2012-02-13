@@ -29,13 +29,12 @@
 
 package org.opennms.gwt.web.ui.asset.shared;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
+import org.opennms.gwt.web.ui.asset.client.tools.fieldsets.FieldSetSuggestBox;
+
 import java.util.Collection;
 import java.util.Set;
 import java.util.TreeSet;
-
-import org.opennms.gwt.web.ui.asset.client.tools.fieldsets.FieldSetSuggestBox;
-
-import com.google.gwt.user.client.rpc.IsSerializable;
 
 /**
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
@@ -129,6 +128,15 @@ public class AssetSuggCommand implements IsSerializable {
 
 	private Set<String> m_zip;
 
+    /** VMware managed Object ID */
+    private Set<String> m_vmwareManagedObjectId;
+
+    /** VMware managed entity Type (virtualMachine | hostSystem) */
+    private Set<String> m_vmwareManagedEntityType;
+
+    /** VMware management Server */
+    private Set<String> m_vmwareManagementServer;
+
 	public AssetSuggCommand() {
 		m_additionalhardware = new TreeSet<String>();
 		m_address1 = new TreeSet<String>();
@@ -172,6 +180,9 @@ public class AssetSuggCommand implements IsSerializable {
 		m_vendorFax = new TreeSet<String>();
 		m_vendorPhone = new TreeSet<String>();
 		m_zip = new TreeSet<String>();
+        m_vmwareManagedObjectId = new TreeSet<String>();
+        m_vmwareManagedEntityType = new TreeSet<String>();
+        m_vmwareManagementServer = new TreeSet<String>();
 		initUnchangedEntry();
 	}
 
@@ -427,6 +438,24 @@ public class AssetSuggCommand implements IsSerializable {
 		}
 	}
 
+    public void addVmwareManagedObjectId(String vmwareManagedObjectId) {
+        if ((vmwareManagedObjectId != null) && !"".equals(vmwareManagedObjectId)) {
+            m_vmwareManagedObjectId.add(vmwareManagedObjectId);
+        }
+    }
+
+    public void addVmwareManagedEntityType(String vmwareManagedEntityType) {
+        if ((vmwareManagedEntityType != null) && !"".equals(vmwareManagedEntityType)) {
+            m_vmwareManagedEntityType.add(vmwareManagedEntityType);
+        }
+    }
+
+    public void addVmwareManagementServer(String vmwareManagementServer) {
+        if ((vmwareManagementServer != null) && !"".equals(vmwareManagementServer)) {
+            m_vmwareManagementServer.add(vmwareManagementServer);
+        }
+    }
+
 	public Collection<String> getAdditionalhardware() {
 		return m_additionalhardware;
 	}
@@ -595,6 +624,18 @@ public class AssetSuggCommand implements IsSerializable {
 		return m_zip;
 	}
 
+    public Collection<String> getVmwareManagedObjectId() {
+        return m_vmwareManagedObjectId;
+    }
+
+    public Collection<String> getVmwareManagedEntityType() {
+        return m_vmwareManagedEntityType;
+    }
+
+    public Collection<String> getVmwareManagementServer() {
+        return m_vmwareManagementServer;
+    }
+
 	private void initUnchangedEntry() {
 		m_additionalhardware.add("");
 		m_address1.add("");
@@ -638,5 +679,8 @@ public class AssetSuggCommand implements IsSerializable {
 		m_vendorFax.add("");
 		m_vendorPhone.add("");
 		m_zip.add("");
+        m_vmwareManagedObjectId.add("");
+        m_vmwareManagedEntityType.add("");
+        m_vmwareManagementServer.add("");
 	}
 }
