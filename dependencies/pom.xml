@@ -16,6 +16,7 @@
     <module>camel</module>
     <module>camel-test</module>
     <module>castor</module>
+    <module>cassandra</module>
     <module>dbpool</module>
     <module>dnsjava</module>
     <module>drools</module>

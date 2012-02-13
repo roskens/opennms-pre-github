@@ -1436,6 +1436,12 @@
       </dependency>
       <dependency>
         <groupId>org.opennms.dependencies</groupId>
+        <artifactId>cassandra-dependencies</artifactId>
+        <version>${project.version}</version>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms.dependencies</groupId>
         <artifactId>liquibase-dependencies</artifactId>
         <version>${project.version}</version>
         <type>pom</type>
@@ -1878,6 +1884,11 @@
       <dependency>
         <groupId>org.opennms</groupId>
         <artifactId>opennms-rrd-tcp</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms</groupId>
+        <artifactId>opennms-rrd-cassandra</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
