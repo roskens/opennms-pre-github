@@ -29,8 +29,6 @@
 package org.opennms.netmgt.provision.service;
 
 import java.net.InetAddress;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +42,7 @@ import org.opennms.core.tasks.DefaultTaskCoordinator;
 import org.opennms.core.tasks.Task;
 import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.core.utils.ThreadCategory;
+import org.opennms.core.utils.url.GenericURLFactory;
 import org.opennms.netmgt.EventConstants;
 import org.opennms.netmgt.config.SnmpAgentConfigFactory;
 import org.opennms.netmgt.daemon.SpringServiceDaemon;
@@ -54,7 +53,6 @@ import org.opennms.netmgt.model.events.EventForwarder;
 import org.opennms.netmgt.model.events.EventUtils;
 import org.opennms.netmgt.model.events.annotations.EventHandler;
 import org.opennms.netmgt.model.events.annotations.EventListener;
-import org.opennms.netmgt.provision.service.dns.DnsUrlFactory;
 import org.opennms.netmgt.provision.service.lifecycle.LifeCycleInstance;
 import org.opennms.netmgt.provision.service.lifecycle.LifeCycleRepository;
 import org.opennms.netmgt.provision.service.operations.NoOpProvisionMonitor;
@@ -201,16 +199,9 @@ public class Provisioner implements SpringServiceDaemon {
         Assert.notNull(m_importActivities, "importActivities property must be set");
         Assert.notNull(m_taskCoordinator, "taskCoordinator property must be set");
         Assert.notNull(m_agentConfigFactory, "agentConfigFactory property must be set");
-        
 
-        //since this class depends on the Import Schedule, the UrlFactory should already
-        //be registered in the URL class.. but, just in-case...
-        try {
-            new URL("dns://localhost/localhost");
-        } catch (MalformedURLException e) {
-            URL.setURLStreamHandlerFactory(new DnsUrlFactory());
-        }
-            
+
+        GenericURLFactory.initialize();
     }
     
     /**
