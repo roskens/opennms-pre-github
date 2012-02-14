@@ -92,12 +92,12 @@ class Persister implements Runnable {
 				datapoint.perist(mutator, m_columnFamily, m_ttl);
 			}
 
-			mutator.execute(ConsistencyLevel.ONE);
+			mutator.execute(ConsistencyLevel.ANY);
 			long end = System.currentTimeMillis();
 
 			System.err.println((end - start) + " ms.");
 
-		} catch (InterruptedException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
