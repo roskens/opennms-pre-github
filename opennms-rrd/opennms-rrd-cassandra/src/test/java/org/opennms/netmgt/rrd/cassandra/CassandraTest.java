@@ -33,8 +33,8 @@ import org.scale7.cassandra.pelops.Selector;
 public class CassandraTest {
 
     private static final String POOL_NAME = "datacollection_pool";
-    private static final String KEYSPACE = "DataCollection";
-    private static final String COLUMN_FAMILY = "Data";
+    private static final String KEYSPACE = "OpenNMSDataCollectionV1";
+    private static final String COLUMN_FAMILY = "datapoints";
 
 
     private static final long MILLIS_PER_HOUR = 3600L * 1000L;
@@ -219,7 +219,7 @@ public class CassandraTest {
 
 
     @Test
-    @Ignore
+    //@Ignore
     public void testWriteDataToSuperColumn() throws InterruptedException {
 
 	/*
@@ -228,11 +228,11 @@ public class CassandraTest {
 	 * create column family Data with column_type='Super' with key_validation_class=UTF8Type and comparator=LongType and subcomparator=UTF8Type and default_validation_class=DoubleType;
 	 */
 
-	Cluster cluster = new Cluster("localhost", 9160);
+	Cluster cluster = new Cluster("192.168.2.1", 9160);
 	Pelops.addPool(POOL_NAME, cluster, KEYSPACE);
 
 	// only let data live for 30 seconds
-	Persister persister = new Persister(POOL_NAME, COLUMN_FAMILY, 30);
+	Persister persister = new Persister(POOL_NAME, COLUMN_FAMILY, 86400);
 
 
 	Timer writeTime = new Timer();
@@ -240,7 +240,7 @@ public class CassandraTest {
 	writeTime.start();
 	for(int f = 1; f <= 1000000; f++) {
 
-		Metric metric = constRateCounter("latency/10.1.1."+f+"/icmp", "icmp", 5000, 1000, 1);
+		Metric metric = constRateCounter("latency/10.1.4."+f+"/icmp", "icmp", 5000, 1000, 1);
 
 		for(int i = 0; i < 2; i++) {
 
@@ -262,7 +262,7 @@ public class CassandraTest {
 
 	Timer queryTime = new Timer();
 	queryTime.start();
-	List<SuperColumn> datapoints = selector.getSuperColumnsFromRow(COLUMN_FAMILY, "latency/10.1.1.254/icmp", timestamps, ConsistencyLevel.ONE);
+	List<SuperColumn> datapoints = selector.getSuperColumnsFromRow(COLUMN_FAMILY, "latency/10.1.4.254/icmp", timestamps, ConsistencyLevel.ONE);
 	queryTime.end();
 
 	System.err.println("Found " + datapoints.size() + " datapoints (" + queryTime + ")");
