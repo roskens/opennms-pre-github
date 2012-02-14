@@ -124,6 +124,7 @@
     <module>opennms-webapp</module>
     <module>opennms-wmi</module>
     <module>opennms-asterisk</module>
+    <module>opennms-vmware</module>
   </modules>
   <build>
     <extensions>
@@ -1684,6 +1685,11 @@
       <dependency>
         <groupId>org.opennms</groupId>
         <artifactId>opennms-wmi</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms</groupId>
+        <artifactId>opennms-vmware</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>

@@ -59,6 +59,8 @@
     <include-collection dataCollectionGroup="WMI"/>
     <include-collection dataCollectionGroup="XMP"/>
     <include-collection dataCollectionGroup="Zeus"/>
+    <include-collection dataCollectionGroup="VMware"/>
+    <include-collection dataCollectionGroup="VMware-Cim"/>
   </snmp-collection>
 
 </datacollection-config>
