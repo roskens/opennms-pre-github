@@ -1,7 +1,15 @@
 package org.opennms.netmgt.rrd.cassandra;
 
-import org.scale7.cassandra.pelops.Bytes;
-import org.scale7.cassandra.pelops.Mutator;
+import java.util.Collections;
+
+import me.prettyprint.cassandra.serializers.DoubleSerializer;
+import me.prettyprint.cassandra.serializers.LongSerializer;
+import me.prettyprint.cassandra.serializers.StringSerializer;
+import me.prettyprint.hector.api.beans.HColumn;
+import me.prettyprint.hector.api.beans.HSuperColumn;
+import me.prettyprint.hector.api.factory.HFactory;
+import me.prettyprint.hector.api.mutation.Mutator;
+
 
 class Datapoint {
 	String m_metricName;
@@ -20,6 +28,10 @@ class Datapoint {
 		return m_metricName;
 	}
 
+	public String getDsName() {
+		return m_dsName;
+	}
+
 	public long getTimestamp() {
 		return m_timestamp;
 	}
@@ -28,15 +40,11 @@ class Datapoint {
 		return m_value;
 	}
 
-	public void perist(Mutator mutator, String columnFamily, int ttl) {
-		mutator.writeSubColumns(
-				columnFamily,
-				m_metricName,
-				Bytes.fromLong(m_timestamp),
-				mutator.newColumnList(
-						mutator.newColumn(m_dsName, Bytes.fromDouble(m_value), ttl)
-				)
-		);
+	public void perist(Mutator<String> mutator, String columnFamily, int ttl) {
+		HColumn<String, Double> c = HFactory.createColumn(getDsName(), getValue(), ttl, StringSerializer.get(), DoubleSerializer.get());
+		HSuperColumn<Long, String, Double> superColumn = HFactory.createSuperColumn(Long.valueOf(getTimestamp()), Collections.singletonList(c), LongSerializer.get(), StringSerializer.get(), DoubleSerializer.get());
+		mutator.addInsertion(getName(), columnFamily, superColumn);
+
 	}
 
 	public String toString() {

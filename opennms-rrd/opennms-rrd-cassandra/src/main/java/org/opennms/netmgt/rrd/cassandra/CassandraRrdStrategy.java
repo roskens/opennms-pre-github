@@ -41,10 +41,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import org.apache.cassandra.thrift.Column;
-import org.apache.cassandra.thrift.ConsistencyLevel;
-import org.apache.cassandra.thrift.SlicePredicate;
-import org.apache.cassandra.thrift.SuperColumn;
+import me.prettyprint.cassandra.serializers.DoubleSerializer;
+import me.prettyprint.cassandra.serializers.LongSerializer;
+import me.prettyprint.cassandra.serializers.StringSerializer;
+import me.prettyprint.cassandra.service.CassandraHostConfigurator;
+import me.prettyprint.hector.api.Cluster;
+import me.prettyprint.hector.api.Keyspace;
+import me.prettyprint.hector.api.beans.HColumn;
+import me.prettyprint.hector.api.beans.HSuperColumn;
+import me.prettyprint.hector.api.beans.SuperSlice;
+import me.prettyprint.hector.api.ddl.ColumnFamilyDefinition;
+import me.prettyprint.hector.api.ddl.ColumnType;
+import me.prettyprint.hector.api.ddl.ComparatorType;
+import me.prettyprint.hector.api.ddl.KeyspaceDefinition;
+import me.prettyprint.hector.api.factory.HFactory;
+import me.prettyprint.hector.api.query.QueryResult;
+import me.prettyprint.hector.api.query.SuperSliceQuery;
+
 import org.jrobin.core.FetchData;
 import org.jrobin.core.RrdDb;
 import org.jrobin.core.RrdDef;
@@ -59,11 +72,6 @@ import org.opennms.core.utils.ThreadCategory;
 import org.opennms.netmgt.rrd.RrdDataSource;
 import org.opennms.netmgt.rrd.RrdGraphDetails;
 import org.opennms.netmgt.rrd.RrdStrategy;
-import org.opennms.netmgt.rrd.RrdUtils;
-import org.scale7.cassandra.pelops.Bytes;
-import org.scale7.cassandra.pelops.Cluster;
-import org.scale7.cassandra.pelops.Pelops;
-import org.scale7.cassandra.pelops.Selector;
 
 /**
  * Provides a JRobin based implementation of RrdStrategy. It uses JRobin 1.4 in
@@ -89,8 +97,8 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
 	public static final String DATA_COLUMN_FAMILY_NAME_PROPERTY = "org.opennms.netmgt.rrd.cassandra.dataColumnFamily";
 	private static final String DEFAULT_DATA_COLUMN = "datapoints";
 
-	public static final String POOL_NAME_PROPERTY = "org.opennms.netmgt.rrd.cassandra.poolName";
-	private static final String DEFAULT_POOL_NAME = "datacollectionPool";
+	public static final String CLUSTER_NAME_PROPERTY = "org.opennms.netmgt.rrd.cassandra.clusterName";
+	private static final String DEFAULT_CLUSTER_NAME = "datacollectionCluster";
 
 	// comma separated list of hosts
 	public static final String CLUSTER_HOSTS_PROPERTY = "org.opennms.netmgt.rrd.cassandra.clusterHosts";
@@ -122,9 +130,9 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
 
     private Properties m_configurationProperties;
 
-    private String m_keyspace;
+    private String m_keyspaceName;
     private String m_columnFamily;
-    private String m_poolName;
+    private String m_clusterName;
     private String m_clusterHosts;
     private int m_thriftPort;
     private boolean m_dynamicDiscovery;
@@ -132,6 +140,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
     private int m_ttl;
 
     private Persister m_persister;
+	private Keyspace m_keyspace;
 
     /**
      * An extremely simple Plottable for holding static datasources that
@@ -174,9 +183,9 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
     public void setConfigurationProperties(final Properties configurationParameters) {
         m_configurationProperties = configurationParameters;
 
-        m_keyspace = getProperty(KEYSPACE_NAME_PROPERTY, DEFAULT_KEYSPACE);
+        m_keyspaceName = getProperty(KEYSPACE_NAME_PROPERTY, DEFAULT_KEYSPACE);
         m_columnFamily = getProperty(DATA_COLUMN_FAMILY_NAME_PROPERTY, DEFAULT_DATA_COLUMN);
-        m_poolName = getProperty(POOL_NAME_PROPERTY, DEFAULT_POOL_NAME);
+        m_clusterName = getProperty(CLUSTER_NAME_PROPERTY, DEFAULT_CLUSTER_NAME);
 
         m_clusterHosts = getProperty(CLUSTER_HOSTS_PROPERTY, DEFAULT_CLUSER_HOSTS);
         m_thriftPort = Integer.parseInt(getProperty(THRIFT_PORT_PROPERTY, DEFAULT_THRIFT_PORT));
@@ -185,11 +194,26 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
         m_rraList = getProperty(RRA_LIST_PROPERTY, DEFAULT_RRA_LIST).trim().split(",");
         m_ttl = Integer.parseInt(getProperty(TTL_PROPERTY, DEFAULT_TTL));
 
-        Cluster cluster = new Cluster(m_clusterHosts, m_thriftPort, m_dynamicDiscovery);
+	Cluster cluster = HFactory.getOrCreateCluster(m_clusterName, new CassandraHostConfigurator(m_clusterHosts));
 
-        Pelops.addPool(m_poolName, cluster, m_keyspace);
+	KeyspaceDefinition ksDef = cluster.describeKeyspace(m_keyspaceName);
 
-        m_persister = new Persister(m_poolName, m_columnFamily, m_ttl);
+	if (ksDef == null) {
+
+		ColumnFamilyDefinition cfDef = HFactory.createColumnFamilyDefinition(m_keyspaceName, m_columnFamily, ComparatorType.LONGTYPE);
+		cfDef.setColumnType(ColumnType.SUPER);
+		cfDef.setSubComparatorType(ComparatorType.UTF8TYPE);
+		cfDef.setKeyValidationClass("org.apache.cassandra.db.marshal.UTF8Type");
+		cfDef.setDefaultValidationClass("org.apache.cassandra.db.marshal.DoubleType");
+
+		ksDef = HFactory.createKeyspaceDefinition(m_keyspaceName, "org.apache.cassandra.locator.SimpleStrategy", 1, Arrays.asList(cfDef));
+
+		cluster.addKeyspace(ksDef, true);
+	}
+
+	m_keyspace = HFactory.createKeyspace(m_keyspaceName, cluster);
+
+        m_persister = new Persister(m_keyspace, m_columnFamily, m_ttl);
     }
 
     private String getProperty(String key, String defaultValue) {
@@ -723,53 +747,48 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
 
 	private File getRrdFile(final File workDir, String relpath, long start, long end, String dsName, String consolFun) throws RrdException {
 		try {
-		String path = workDir.getAbsolutePath();
-		String key = path+"/"+relpath;
+			String path = workDir.getAbsolutePath();
+			String key = path+"/"+relpath;
 
-		Selector selector = Pelops.createSelector(m_poolName);
-	SlicePredicate timestamps = Selector.newColumnsPredicate(Bytes.fromLong(start), Bytes.fromLong(end), false, Integer.MAX_VALUE);
+			SuperSliceQuery<String,Long,String,Double> query = HFactory.createSuperSliceQuery(m_keyspace, StringSerializer.get(), LongSerializer.get(), StringSerializer.get(), DoubleSerializer.get());
 
-	List<SuperColumn> datapoints = selector.getSuperColumnsFromRow(m_columnFamily, key, timestamps, ConsistencyLevel.ONE);
+			query.setColumnFamily(m_columnFamily);
+			query.setKey(key);
+			query.setRange(start, end, false, Integer.MAX_VALUE);
 
-	System.err.println("Found " + datapoints.size() + " datapoints (" + (end - start) + " ms)");
 
-	for(SuperColumn datapoint : datapoints) {
-		System.err.print("collectTime = "	+ Bytes.fromByteArray(datapoint.getName()).toLong());
-		List<Column> datasources = datapoint.getColumns();
-		for(Column ds : datasources) {
-			System.err.print(" " + Bytes.fromByteArray(ds.getName()).toUTF8() + " = " + Bytes.fromByteArray(ds.getValue()).toDouble());
-		}
-		System.err.println();
-	}
+			QueryResult<SuperSlice<Long,String,Double>> results = query.execute();
 
-	File file = File.createTempFile("crrd", ".jrb");
-	//file.deleteOnExit();
+			List<HSuperColumn<Long, String, Double>> datapoints = results.get().getSuperColumns();
 
-	System.err.println("Creating temporary rrd " + file + " with " + datapoints.size() + " datapoints");
+			File file = File.createTempFile("crrd", ".jrb");
+			//file.deleteOnExit();
 
-	RrdDef def = new RrdDef(file.getAbsolutePath());
-	def.setStartTime(1000);
-	def.setStep(300);
-	def.addDatasource(dsName, "COUNTER", 600, Double.NaN, Double.NaN);
-	for(String rra : m_rraList) {
-		def.addArchive(rra);
-	}
+			System.err.println("Creating temporary rrd " + file + " with " + datapoints.size() + " datapoints");
 
-	RrdDb db = new RrdDb(def);
+			RrdDef def = new RrdDef(file.getAbsolutePath());
+			def.setStartTime(1000);
+			def.setStep(300);
+			def.addDatasource(dsName, "COUNTER", 600, Double.NaN, Double.NaN);
+			for(String rra : m_rraList) {
+				def.addArchive(rra);
+			}
 
-	for(SuperColumn datapoint : datapoints) {
-		long ts = Bytes.fromByteArray(datapoint.getName()).toLong();
-		Column ds = datapoint.getColumns().get(0);
-		double val = Bytes.fromByteArray(ds.getValue()).toDouble();
+			RrdDb db = new RrdDb(def);
 
-		Sample sample = db.createSample(ts);
+			for(HSuperColumn<Long, String, Double> datapoint : datapoints) {
+				long timestamp = datapoint.getName();
+				HColumn<String, Double> ds = datapoint.getColumns().get(0);
+				double val = ds.getValue();
 
-		sample.setValue(0, val);
-		sample.update();
+				Sample sample = db.createSample(timestamp);
+				sample.setValue(0, val);
 
-	}
+				sample.update();
+			}
 
-	return file;
+
+			return file;
 		} catch (IOException e) {
 			throw new RrdException(e);
 		}

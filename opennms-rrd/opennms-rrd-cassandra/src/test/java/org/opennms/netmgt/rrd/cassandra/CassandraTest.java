@@ -7,13 +7,30 @@ import java.awt.Paint;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.cassandra.thrift.Column;
-import org.apache.cassandra.thrift.ConsistencyLevel;
-import org.apache.cassandra.thrift.SlicePredicate;
-import org.apache.cassandra.thrift.SuperColumn;
+import me.prettyprint.cassandra.serializers.DoubleSerializer;
+import me.prettyprint.cassandra.serializers.LongSerializer;
+import me.prettyprint.cassandra.serializers.StringSerializer;
+import me.prettyprint.hector.api.Cluster;
+import me.prettyprint.hector.api.Keyspace;
+import me.prettyprint.hector.api.Serializer;
+import me.prettyprint.hector.api.beans.HColumn;
+import me.prettyprint.hector.api.beans.HSuperColumn;
+import me.prettyprint.hector.api.beans.SuperSlice;
+import me.prettyprint.hector.api.ddl.ColumnFamilyDefinition;
+import me.prettyprint.hector.api.ddl.ColumnType;
+import me.prettyprint.hector.api.ddl.ComparatorType;
+import me.prettyprint.hector.api.ddl.KeyspaceDefinition;
+import me.prettyprint.hector.api.factory.HFactory;
+import me.prettyprint.hector.api.mutation.Mutator;
+import me.prettyprint.hector.api.query.QueryResult;
+import me.prettyprint.hector.api.query.SubColumnQuery;
+import me.prettyprint.hector.api.query.SubSliceQuery;
+import me.prettyprint.hector.api.query.SuperSliceQuery;
+
 import org.jrobin.core.RrdBackendFactory;
 import org.jrobin.core.RrdDb;
 import org.jrobin.core.RrdDef;
@@ -24,11 +41,6 @@ import org.jrobin.graph.RrdGraph;
 import org.jrobin.graph.RrdGraphDef;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.scale7.cassandra.pelops.Bytes;
-import org.scale7.cassandra.pelops.Cluster;
-import org.scale7.cassandra.pelops.Mutator;
-import org.scale7.cassandra.pelops.Pelops;
-import org.scale7.cassandra.pelops.Selector;
 
 public class CassandraTest {
 
@@ -228,11 +240,30 @@ public class CassandraTest {
 	 * create column family Data with column_type='Super' with key_validation_class=UTF8Type and comparator=LongType and subcomparator=UTF8Type and default_validation_class=DoubleType;
 	 */
 
-	Cluster cluster = new Cluster("192.168.2.1", 9160);
-	Pelops.addPool(POOL_NAME, cluster, KEYSPACE);
+	Cluster cluster = HFactory.getOrCreateCluster("test-cluster", "192.168.2.1:9160");
 
-	// only let data live for 30 seconds
-	Persister persister = new Persister(POOL_NAME, COLUMN_FAMILY, 86400);
+	KeyspaceDefinition ksDef = cluster.describeKeyspace(KEYSPACE);
+
+	if (ksDef == null) {
+
+		ColumnFamilyDefinition cfDef = HFactory.createColumnFamilyDefinition(KEYSPACE, COLUMN_FAMILY, ComparatorType.LONGTYPE);
+		cfDef.setColumnType(ColumnType.SUPER);
+		cfDef.setSubComparatorType(ComparatorType.UTF8TYPE);
+		cfDef.setKeyValidationClass("org.apache.cassandra.db.marshal.UTF8Type");
+		cfDef.setDefaultValidationClass("org.apache.cassandra.db.marshal.DoubleType");
+
+		ksDef = HFactory.createKeyspaceDefinition(KEYSPACE, "org.apache.cassandra.locator.SimpleStrategy", 1, Arrays.asList(cfDef));
+
+		cluster.addKeyspace(ksDef, true);
+	}
+
+	Keyspace keyspace = HFactory.createKeyspace(KEYSPACE, cluster);
+
+
+
+
+
+	Persister persister = new Persister(keyspace, COLUMN_FAMILY, 86400);
 
 
 	Timer writeTime = new Timer();
@@ -243,10 +274,35 @@ public class CassandraTest {
 		Metric metric = constRateCounter("latency/10.1.4."+f+"/icmp", "icmp", 5000, 1000, 1);
 
 		for(int i = 0; i < 2; i++) {
+			/*
+			 * 		mutator.writeSubColumns(
+				columnFamily,
+				m_metricName,
+				Bytes.fromLong(m_timestamp),
+				mutator.newColumnList(
+						mutator.newColumn(m_dsName, Bytes.fromDouble(m_value), ttl)
+				)
+		);
 
-			Datapoint datapoint = metric.getNextDatapoint();
-			//System.err.println(datapoint);
-				persister.persist(datapoint);
+			 */
+
+			persister.persist(metric.getNextDatapoint());
+
+//    			Timer dpTime = new Timer();
+//    			dpTime.start();
+//    			Datapoint dp = metric.getNextDatapoint();
+//
+//    	    	Mutator<String> mutator = HFactory.createMutator(keyspace, new StringSerializer());
+//
+//    	    	HColumn<String, Double> c = HFactory.createColumn(dp.getDsName(), dp.getValue(), StringSerializer.get(), DoubleSerializer.get());
+//    	    	HSuperColumn<Long, String, Double> superColumn = HFactory.createSuperColumn(Long.valueOf(dp.getTimestamp()), Arrays.asList(c), LongSerializer.get(), StringSerializer.get(), DoubleSerializer.get());
+//    	    	mutator.addInsertion(dp.getName(), COLUMN_FAMILY, superColumn);
+//
+//    	    	mutator.execute();
+//
+//    	    	dpTime.end();
+
+		//System.err.println("Time to write item number " + (++count) + " was " + dpTime);
 		}
 
 	}
@@ -256,29 +312,29 @@ public class CassandraTest {
 
 	System.err.println(String.format("Time to write all of the data: %s", writeTime));
 
-	// read back the data we just wrote
-	Selector selector = Pelops.createSelector(POOL_NAME);
-	SlicePredicate timestamps = Selector.newColumnsPredicate(Bytes.fromLong(1), Bytes.fromLong(333), false, Integer.MAX_VALUE);
-
-	Timer queryTime = new Timer();
-	queryTime.start();
-	List<SuperColumn> datapoints = selector.getSuperColumnsFromRow(COLUMN_FAMILY, "latency/10.1.4.254/icmp", timestamps, ConsistencyLevel.ONE);
-	queryTime.end();
-
-	System.err.println("Found " + datapoints.size() + " datapoints (" + queryTime + ")");
-
-	for(SuperColumn datapoint : datapoints) {
-		System.err.print("collectTime = "	+ Bytes.fromByteArray(datapoint.getName()).toLong());
-		List<Column> datasources = datapoint.getColumns();
-		for(Column ds : datasources) {
-			System.err.print(" " + Bytes.fromByteArray(ds.getName()).toUTF8() + " = " + Bytes.fromByteArray(ds.getValue()).toDouble());
-		}
-		System.err.println();
-	}
-
-
-	// shut down the pool
-	Pelops.shutdown();
+//    	// read back the data we just wrote
+//    	Selector selector = Pelops.createSelector(POOL_NAME);
+//    	SlicePredicate timestamps = Selector.newColumnsPredicate(Bytes.fromLong(1), Bytes.fromLong(333), false, Integer.MAX_VALUE);
+//
+//    	Timer queryTime = new Timer();
+//    	queryTime.start();
+//    	List<SuperColumn> datapoints = selector.getSuperColumnsFromRow(COLUMN_FAMILY, "latency/10.1.4.254/icmp", timestamps, ConsistencyLevel.ONE);
+//    	queryTime.end();
+//
+//    	System.err.println("Found " + datapoints.size() + " datapoints (" + queryTime + ")");
+//
+//    	for(SuperColumn datapoint : datapoints) {
+//    		System.err.print("collectTime = "	+ Bytes.fromByteArray(datapoint.getName()).toLong());
+//    		List<Column> datasources = datapoint.getColumns();
+//    		for(Column ds : datasources) {
+//    			System.err.print(" " + Bytes.fromByteArray(ds.getName()).toUTF8() + " = " + Bytes.fromByteArray(ds.getValue()).toDouble());
+//    		}
+//    		System.err.println();
+//    	}
+//
+//
+//    	// shut down the pool
+//    	Pelops.shutdown();
 
 
     }
@@ -306,18 +362,33 @@ public class CassandraTest {
 	 */
 
 
-	Cluster cluster = new Cluster("localhost", 9160);
-	Pelops.addPool(POOL_NAME, cluster, KEYSPACE);
+	Cluster cluster = HFactory.getOrCreateCluster("test-cluster", "192.168.2.1:9160");
+
+	KeyspaceDefinition ksDef = cluster.describeKeyspace(KEYSPACE);
+
+	if (ksDef == null) {
+
+		ColumnFamilyDefinition cfDef = HFactory.createColumnFamilyDefinition(KEYSPACE, COLUMN_FAMILY, ComparatorType.LONGTYPE);
+		cfDef.setColumnType(ColumnType.SUPER);
+		cfDef.setSubComparatorType(ComparatorType.UTF8TYPE);
+		cfDef.setKeyValidationClass("org.apache.cassandra.db.marshal.UTF8Type");
+		cfDef.setDefaultValidationClass("org.apache.cassandra.db.marshal.DoubleType");
+
+		ksDef = HFactory.createKeyspaceDefinition(KEYSPACE, "org.apache.cassandra.locator.SimpleStrategy", 1, Arrays.asList(cfDef));
+
+		cluster.addKeyspace(ksDef, true);
+	}
+
+	Keyspace keyspace = HFactory.createKeyspace(KEYSPACE, cluster);
+
 
 	// only let data live for 30 seconds
-	Persister persister = new Persister(POOL_NAME, COLUMN_FAMILY, 30);
+	Persister persister = new Persister(keyspace, COLUMN_FAMILY, 30);
 
 	Timer writeTime = new Timer();
 
 	writeTime.start();
 
-
-	int numMetrics = 10;
 
 	Metric[] metrics = new Metric[10];
 
@@ -357,17 +428,17 @@ public class CassandraTest {
 
 	for(int i = 0; i < metrics.length; i++) {
 		Metric m = metrics[i];
-		graphData(m.getName(), m.getType(), graphStartMillis, graphEndMillis, "/tmp/metric"+(i+1)+".png");
+		graphData(keyspace, m.getName(), m.getType(), graphStartMillis, graphEndMillis, "/tmp/metric"+(i+1)+".png");
 	}
 
 	// shut down the pool
-	Pelops.shutdown();
+	//Pelops.shutdown();
 
 
     }
 
-	private void graphData(final String name, final String type, final long graphStartMillis, final long graphEndMillis, final String fileName) throws Exception, RrdException {
-		apply(name, graphStartMillis/1000, graphEndMillis/1000, new ForEachDatapoint() {
+	private void graphData(Keyspace keyspace, final String name, final String type, final long graphStartMillis, final long graphEndMillis, final String fileName) throws Exception, RrdException {
+		apply(keyspace, name, graphStartMillis/1000, graphEndMillis/1000, new ForEachDatapoint() {
 		RrdMemoryBackendFactory m_factory = (RrdMemoryBackendFactory) RrdBackendFactory.getFactory("MEMORY");
 		RrdDb m_rrd;
 		Timer m_rrdWriteTime = new Timer();
@@ -461,35 +532,65 @@ public class CassandraTest {
 		});
 	}
 
-    public void apply(String name, long startSecond, long endSecond, ForEachDatapoint processor) throws Exception {
+    public void apply(Keyspace keyspace, String name, long startSecond, long endSecond, ForEachDatapoint processor) throws Exception {
 
-	Selector selector = Pelops.createSelector(POOL_NAME);
+	SuperSliceQuery<String,Long,String,Double> query = HFactory.createSuperSliceQuery(keyspace, StringSerializer.get(), LongSerializer.get(), StringSerializer.get(), DoubleSerializer.get());
 
-	SlicePredicate timestamps = Selector.newColumnsPredicate(Bytes.fromLong(startSecond), Bytes.fromLong(endSecond), false, Integer.MAX_VALUE);
+	query.setColumnFamily(COLUMN_FAMILY);
+	query.setKey(name);
+	query.setRange(startSecond, endSecond, false, Integer.MAX_VALUE);
+
 
 	Timer queryTimer = new Timer();
 	queryTimer.start();
-	List<SuperColumn> datapoints = selector.getSuperColumnsFromRow(COLUMN_FAMILY, name, timestamps, ConsistencyLevel.ONE);
+	QueryResult<SuperSlice<Long,String,Double>> results = query.execute();
 	queryTimer.end();
+
+	List<HSuperColumn<Long, String, Double>> datapoints = results.get().getSuperColumns();
 
 	System.err.println(String.format("Found %d datapoints in range[%d,%d] (%s)", datapoints.size(), startSecond, endSecond, queryTimer));
 
 	Timer processingTimer = new Timer();
 	processingTimer.start();
 	processor.start(name);
-	for(SuperColumn datapoint : datapoints) {
-		long timestamp = Bytes.fromByteArray(datapoint.getName()).toLong();
-		List<Column> datasources = datapoint.getColumns();
-		for(Column ds : datasources) {
-			String dsName = Bytes.fromByteArray(ds.getName()).toUTF8();
-				double value = Bytes.fromByteArray(ds.getValue()).toDouble();
-				processor.withDatapoint(name, timestamp, value);
+		for(HSuperColumn<Long, String, Double> datapoint : datapoints) {
+		long timestamp = datapoint.getName();
+		for(HColumn<String, Double> ds : datapoint.getColumns()) {
+			String dsName = ds.getName();
+			double value = ds.getValue();
+			processor.withDatapoint(name, timestamp, value);
 		}
 	}
+
 	processor.finish(name);
 	processingTimer.end();
 
 	System.err.println("Time taken to process all " + datapoints.size() + " datapoints: " + processingTimer);
+
+
+//    	Selector selector = Pelops.createSelector(POOL_NAME);
+//
+//    	SlicePredicate timestamps = Selector.newColumnsPredicate(Bytes.fromLong(startSecond), Bytes.fromLong(endSecond), false, Integer.MAX_VALUE);
+//
+//    	queryTimer.start();
+//    	List<SuperColumn> datapoints = selector.getSuperColumnsFromRow(COLUMN_FAMILY, name, timestamps, ConsistencyLevel.ONE);
+//    	queryTimer.end();
+//
+//    	System.err.println(String.format("Found %d datapoints in range[%d,%d] (%s)", datapoints.size(), startSecond, endSecond, queryTimer));
+//
+//    	for(SuperColumn datapoint : datapoints) {
+//    		long timestamp = Bytes.fromByteArray(datapoint.getName()).toLong();
+//    		List<Column> datasources = datapoint.getColumns();
+//    		for(Column ds : datasources) {
+//    			String dsName = Bytes.fromByteArray(ds.getName()).toUTF8();
+//				double value = Bytes.fromByteArray(ds.getValue()).toDouble();
+//				processor.withDatapoint(name, timestamp, value);
+//    		}
+//    	}
+//    	processor.finish(name);
+//    	processingTimer.end();
+//
+//    	System.err.println("Time taken to process all " + datapoints.size() + " datapoints: " + processingTimer);
     }
 
     interface ForEachDatapoint {
@@ -499,60 +600,5 @@ public class CassandraTest {
     }
 
 
-	@Test
-    @Ignore
-	public void testWriteDataToColumn() {
-
-		/*
-		 * create keyspace DataCollection;
-		 * use DataCollection;
-		 * create column family Data  with key_validation_class=UTF8Type and comparator=LongType and default_validation_class=DoubleType;
-		 */
-
-		String pool = "dataCollection";
-		String keyspace = "DataCollection";
-		String colFamily = "Data";
-
-		Cluster cluster = new Cluster("localhost", 9160);
-		Pelops.addPool(pool, cluster, keyspace);
-
-		// write out some data
-		Mutator mutator = Pelops.createMutator(pool);
-
-		for(int f = 1; f <= 255; f++) {
-
-			long start = System.currentTimeMillis();
-			System.err.print("Creating RRD file 10.1.1." + f + "...");
-
-			for(int i = 0; i < 1000; i++) {
-
-				mutator.writeColumn(
-						colFamily,
-						"latency/10.1.1."+f+"/icmp",
-						mutator.newColumn(Bytes.fromLong(i), Bytes.fromDouble(i))
-						);
-
-
-
-			}
-
-			mutator.execute(ConsistencyLevel.ANY);
-
-			long end = System.currentTimeMillis();
-			System.err.println((end-start) + " ms.");
-		}
-		//		// read back the data we just wrote
-		//		Selector selector = Pelops.createSelector(pool);
-		//		List<Column> columns = selector.getColumnsFromRow(colFamily, rowKey, false, ConsistencyLevel.ONE);
-		//
-		//		System.out.println("Name: " + Selector.getColumnStringValue(columns, "name"));
-		//		System.out.println("Age: " + Selector.getColumnValue(columns, "age").toInt());
-
-		// shut down the pool
-
-		Pelops.shutdown();
-
-
-	}
 
 }
