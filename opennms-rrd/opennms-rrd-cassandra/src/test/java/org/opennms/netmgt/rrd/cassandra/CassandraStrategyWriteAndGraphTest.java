@@ -101,7 +101,7 @@ public class CassandraStrategyWriteAndGraphTest {
 	System.err.println("Time to create rrd: " + createTime);
 
 	final int daysToWrite = 365*2;
-	final int daysToGraph = 62;
+	final int daysToGraph = 60;
 
         long step = 300000;
         final long end = System.currentTimeMillis()/step * step;
