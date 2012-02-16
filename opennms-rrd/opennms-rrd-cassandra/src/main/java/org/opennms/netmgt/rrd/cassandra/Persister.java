@@ -8,12 +8,14 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import org.apache.cassandra.thrift.ConsistencyLevel;
-import org.scale7.cassandra.pelops.Mutator;
-import org.scale7.cassandra.pelops.Pelops;
+import me.prettyprint.cassandra.serializers.StringSerializer;
+import me.prettyprint.hector.api.Keyspace;
+import me.prettyprint.hector.api.factory.HFactory;
+import me.prettyprint.hector.api.mutation.Mutator;
+
 
 class Persister implements Runnable {
-	String m_poolName;
+	Keyspace m_keyspace;
 	String m_columnFamily;
 	int m_ttl;
 	BlockingQueue<Datapoint> m_queue = new LinkedBlockingQueue<Datapoint>();
@@ -23,8 +25,8 @@ class Persister implements Runnable {
 	AtomicBoolean m_finish = new AtomicBoolean(false);
 	CountDownLatch m_finishLatch = new CountDownLatch(1);
 
-	Persister(String poolName, String columnFamily, int ttl) {
-		m_poolName = poolName;
+	Persister(Keyspace keyspace, String columnFamily, int ttl) {
+		m_keyspace = keyspace;
 		m_columnFamily = columnFamily;
 		m_ttl = ttl;
 		m_thread = new Thread(this, "Cassandra-Persister");
@@ -86,13 +88,14 @@ class Persister implements Runnable {
 			System.err.print("Writing " + datapoints.size() + " datapoints...");
 
 			long start = System.currentTimeMillis();
-			Mutator mutator = Pelops.createMutator(m_poolName);
+
+			Mutator<String> mutator = HFactory.createMutator(m_keyspace, new StringSerializer());
 
 			for(Datapoint datapoint : datapoints) {
 				datapoint.perist(mutator, m_columnFamily, m_ttl);
 			}
 
-			mutator.execute(ConsistencyLevel.ANY);
+			mutator.execute();
 			long end = System.currentTimeMillis();
 
 			System.err.println((end - start) + " ms.");
