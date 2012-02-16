@@ -117,6 +117,7 @@ import java.io.IOException;
 import java.util.*;
 
 import static org.junit.Assert.*;
+import org.opennms.netmgt.config.collectd.jmx.JmxDatacollectionConfig;
 
 /**
  * The name of this class is a tribute to
