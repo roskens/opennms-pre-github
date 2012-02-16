@@ -11,6 +11,9 @@ package org.opennms.netmgt.config.collectd.jmx;
  //- Imported classes and packages -/
 //---------------------------------/
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -60,6 +63,10 @@ import org.exolab.castor.xml.Unmarshaller;
     @XmlElement(name="mbeans")
     private Mbeans _mbeans;
 
+    /** Import Groups List. */
+    @XmlElement(name="import-mbeans", required=false)
+    private List<String> m_importMbeansList = new ArrayList<String>();
+
 
       //----------------/
      //- Constructors -/
@@ -73,6 +80,34 @@ import org.exolab.castor.xml.Unmarshaller;
       //-----------/
      //- Methods -/
     //-----------/
+
+    /**
+     * Gets the import MBeans list.
+     *
+     * @return the import MBeans list
+     */
+    @XmlTransient
+    public List<String> getImportGroupsList() {
+        return m_importMbeansList;
+    }
+
+    /**
+     * Sets the import MBeans list.
+     *
+     * @param importMbeansList the new import MBeans list
+     */
+    public void setImportGroupsList(List<String> importMbeansList) {
+        this.m_importMbeansList = importMbeansList;
+    }
+
+    /**
+     * Checks for import MBeans.
+     *
+     * @return true, if successful
+     */
+    public boolean hasImportMbeans() {
+        return m_importMbeansList != null && !m_importMbeansList.isEmpty();
+    }
 
     /**
      * Overrides the java.lang.Object.equals method.

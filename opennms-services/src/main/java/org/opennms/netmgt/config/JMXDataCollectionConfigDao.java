@@ -28,8 +28,15 @@
 
 package org.opennms.netmgt.config;
 
+import java.io.File;
+
+import org.opennms.core.utils.ConfigFileConstants;
+import org.opennms.core.xml.JaxbUtils;
+import org.opennms.netmgt.config.collectd.jmx.JmxCollection;
 import org.opennms.netmgt.config.collectd.jmx.JmxDatacollectionConfig;
+import org.opennms.netmgt.config.collectd.jmx.Mbeans;
 import org.opennms.netmgt.dao.AbstractJaxbConfigDao;
+import org.springframework.core.io.FileSystemResource;
 
 /**
  * JAXB Based JMX Data Collection Config DAO
@@ -44,12 +51,23 @@ public class JMXDataCollectionConfigDao extends AbstractJaxbConfigDao<JmxDatacol
 
     @Override
     public JmxDatacollectionConfig translateConfig(JmxDatacollectionConfig config) {
-        
-        // FIXME Add Split Feature Here
-        
+        for (JmxCollection collection : config.getJmxCollection()) {
+            if (collection.getMbeans() == null) {
+                collection.setMbeans(new Mbeans());
+            }
+            if (collection.hasImportMbeans()) {
+                for (String importMbeans : collection.getImportGroupsList()) {
+                    File file = new File(ConfigFileConstants.getHome(), "/etc/" + importMbeans);
+                    log().debug("parseJmxMbeans: parsing " + file);
+                    Mbeans mbeans = JaxbUtils.unmarshal(Mbeans.class, new FileSystemResource(file));
+                    // TODO: What if there are some mbeans in the group ?
+                    collection.getMbeans().getMbeanCollection().addAll(mbeans.getMbeanCollection());
+                }
+            }
+        }
         return config;
     }
-    
+
     public JmxDatacollectionConfig getConfig() {
         return getContainer().getObject();
     }
