@@ -310,6 +310,10 @@ public class VmwareViJavaAccess {
 
         CIMNameSpace ns = new CIMNameSpace(cimAgentAddress, namespace);
         CIMClient cimClient = new CIMClient(ns, userPr, pwCred);
+
+        // very important to query esx5 hosts
+        cimClient.useMPost(false);
+
         CIMObjectPath rpCOP = new CIMObjectPath(cimClass);
 
         Enumeration rpEnm = cimClient.enumerateInstances(rpCOP);
