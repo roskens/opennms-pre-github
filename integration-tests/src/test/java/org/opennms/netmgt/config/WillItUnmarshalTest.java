@@ -49,7 +49,7 @@ import org.opennms.netmgt.config.capsd.CapsdConfiguration;
 import org.opennms.netmgt.config.categories.Catinfo;
 import org.opennms.netmgt.config.charts.ChartConfiguration;
 import org.opennms.netmgt.config.collectd.CollectdConfiguration;
-import org.opennms.netmgt.config.collectd.JmxDatacollectionConfig;
+import org.opennms.netmgt.config.collectd.jmx.JmxDatacollectionConfig;
 import org.opennms.netmgt.config.datacollection.DatacollectionConfig;
 import org.opennms.netmgt.config.datacollection.DatacollectionGroup;
 import org.opennms.netmgt.config.destinationPaths.DestinationPaths;
@@ -117,7 +117,6 @@ import java.io.IOException;
 import java.util.*;
 
 import static org.junit.Assert.*;
-import org.opennms.netmgt.config.collectd.jmx.JmxDatacollectionConfig;
 
 /**
  * The name of this class is a tribute to
