@@ -28,18 +28,7 @@
 
 package org.opennms.netmgt.provision.service.dns;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-
 import junit.framework.Assert;
-
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
 import org.junit.Before;
@@ -58,6 +47,15 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 
 /**
  * This class tests the new "dns" protocol handling created for the Provisioner.
