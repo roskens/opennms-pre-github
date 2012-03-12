@@ -125,6 +125,17 @@ public class GenericURLFactory implements URLStreamHandlerFactory {
     }
 
     /**
+     * <p>getURLConnections</p>
+     *
+     * Get the map with protocol and implementation classes for customized URL connections
+     *
+     * @return a {@link java.util.HashMap} object
+     */
+    public HashMap<String,String> getURLConnections () {
+        return urlConnections;
+    }
+
+    /**
      * <p>createURLStreamHandler</p>
      * <p/>
      * Create stream handler
