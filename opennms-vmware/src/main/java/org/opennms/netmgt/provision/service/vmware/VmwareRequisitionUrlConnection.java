@@ -8,6 +8,7 @@ import org.exolab.castor.xml.ValidationException;
 import org.opennms.core.utils.LogUtils;
 import org.opennms.core.utils.url.GenericURLConnection;
 import org.opennms.core.xml.JaxbUtils;
+import org.opennms.netmgt.model.OnmsIpInterface.PrimaryType;
 import org.opennms.netmgt.collectd.vmware.VmwareViJavaAccess;
 import org.opennms.netmgt.provision.persist.requisition.*;
 import org.slf4j.Logger;
@@ -118,7 +119,7 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
 
                     //  the first one will be primary
                     if (primary) {
-                        requisitionInterface.setSnmpPrimary("P");
+                        requisitionInterface.setSnmpPrimary(PrimaryType.PRIMARY);
 
                         if (managedEntityType == VMWARE_HOSTSYSTEM) {
                             for (String service : m_hostSystemServices) {
@@ -134,7 +135,7 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
 
                         primary = false;
                     } else {
-                        requisitionInterface.setSnmpPrimary("S");
+                        requisitionInterface.setSnmpPrimary(PrimaryType.SECONDARY);
                     }
 
                     requisitionInterface.setManaged(Boolean.TRUE);
