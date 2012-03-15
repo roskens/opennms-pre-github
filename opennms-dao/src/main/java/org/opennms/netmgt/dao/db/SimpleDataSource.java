@@ -32,6 +32,7 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.SQLFeatureNotSupportedException;
 import java.util.Properties;
 import java.util.Map.Entry;
 
@@ -209,6 +210,10 @@ public class SimpleDataSource implements DataSource {
         return m_properties;
     }
     
+    public java.util.logging.Logger getParentLogger() throws SQLFeatureNotSupportedException {
+        throw new SQLFeatureNotSupportedException("java.util.logging not used in OpenNMS");
+    }
+
     /**
      * <p>toString</p>
      *

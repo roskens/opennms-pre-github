@@ -100,7 +100,7 @@
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
+        <artifactId>maven-jarsigner-plugin</artifactId>
         <executions>
           <execution>
             <phase>package</phase>
@@ -114,7 +114,6 @@
           <keypass>${webstart.keypass}</keypass>
           <storepass>${webstart.storepass}</storepass>
           <alias>${webstart.keyalias}</alias>
-          <dnameCn>${webstart.dnameCn}</dnameCn>
           <dnameCn>${webstart.dnameCn}</dnameCn>
           <jarPath>${project.build.directory}/${project.build.FinalName}.one-jar.${project.packaging}</jarPath>
           <signedjar>${project.build.directory}/${project.build.FinalName}-signed-${project.packaging}-with-dependencies.${project.packaging}</signedjar>

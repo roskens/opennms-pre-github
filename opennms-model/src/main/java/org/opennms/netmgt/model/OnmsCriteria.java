@@ -81,7 +81,7 @@ public class OnmsCriteria {
      * @param clazz a {@link java.lang.Class} object.
      */
     public OnmsCriteria(Class<?> clazz) {
-        this(clazz.getName(), OnmsDetachedCriteria.forClass(clazz));
+        this(clazz.getName(), OnmsDetachedCriteria.onmsCriteriaForClass(clazz));
     }
     
     /**
@@ -91,7 +91,7 @@ public class OnmsCriteria {
      * @param alias a {@link java.lang.String} object.
      */
     public OnmsCriteria(Class<?> clazz, String alias) {
-        this(clazz.getName(), OnmsDetachedCriteria.forClass(clazz, alias));
+        this(clazz.getName(), OnmsDetachedCriteria.onmsCriteriaForClass(clazz, alias));
     }
     
     /**
@@ -338,11 +338,11 @@ public class OnmsCriteria {
             return new OnmsDetachedCriteria(entityName, alias);
         }
         
-        public static OnmsDetachedCriteria forClass(Class<?> clazz) {
+        public static OnmsDetachedCriteria onmsCriteriaForClass(Class<?> clazz) {
             return new OnmsDetachedCriteria(clazz.getName());
         }
         
-        public static OnmsDetachedCriteria forClass(Class<?> clazz, String alias) {
+        public static OnmsDetachedCriteria onmsCriteriaForClass(Class<?> clazz, String alias) {
             return new OnmsDetachedCriteria(clazz.getName() , alias);
         }
         

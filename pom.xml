@@ -295,6 +295,11 @@
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jarsign-plugin</artifactId>
+        <version>1.2</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-project-info-reports-plugin</artifactId>
         <version>2.4</version>
       </plugin>
@@ -413,7 +418,7 @@
       				<pluginExecution>
       					<pluginExecutionFilter>
       						<groupId>
-      							org.codehaus.mojo.webstart
+      							org.codehaus.mojo
       						</groupId>
       						<artifactId>
       							webstart-maven-plugin

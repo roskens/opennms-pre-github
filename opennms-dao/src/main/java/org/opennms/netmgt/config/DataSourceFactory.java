@@ -36,6 +36,7 @@ import java.io.PrintWriter;
 import java.lang.reflect.Constructor;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.SQLFeatureNotSupportedException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -412,5 +413,9 @@ public final class DataSourceFactory implements DataSource {
      */
     public boolean isWrapperFor(final Class<?> iface) throws SQLException {
         return false;  //TODO
+    }
+
+    public java.util.logging.Logger getParentLogger() throws SQLFeatureNotSupportedException {
+        throw new SQLFeatureNotSupportedException("java.util.logging not used in OpenNMS");
     }
 }

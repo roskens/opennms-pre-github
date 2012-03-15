@@ -35,6 +35,7 @@ import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.SQLFeatureNotSupportedException;
 import java.sql.Statement;
 import java.util.Comparator;
 import java.util.Date;
@@ -548,6 +549,10 @@ public class TemporaryDatabase implements DataSource {
         return m_url;
     }
     
+    public java.util.logging.Logger getParentLogger() throws SQLFeatureNotSupportedException {
+        throw new SQLFeatureNotSupportedException("java.util.logging not used in OpenNMS");
+    }
+
     public String toString() {
         return new ToStringBuilder(this)
             .append("driver", m_driver)

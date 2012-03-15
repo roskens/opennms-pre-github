@@ -31,6 +31,7 @@ package org.opennms.netmgt.config.tester;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.SQLFeatureNotSupportedException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,5 +84,9 @@ class ConfigTesterDataSource implements DataSource {
 	
 	public List<SQLException> getConnectionGetAttempts() {
 		return m_connectionGetAttempts;
+	}
+
+	public java.util.logging.Logger getParentLogger() throws SQLFeatureNotSupportedException {
+		throw new SQLFeatureNotSupportedException("java.util.logging not used in OpenNMS");
 	}
 }

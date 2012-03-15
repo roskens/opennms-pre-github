@@ -35,6 +35,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.SQLFeatureNotSupportedException;
 
 import javax.sql.DataSource;
 
@@ -187,5 +188,9 @@ public abstract class BaseConnectionFactory implements ClosableDataSource {
      */
     public boolean isWrapperFor(final Class<?> iface) throws SQLException {
         return false;  //TODO
+    }
+    
+    public java.util.logging.Logger getParentLogger() throws SQLFeatureNotSupportedException {
+        throw new SQLFeatureNotSupportedException("java.util.logging not used in OpenNMS");
     }
 }
