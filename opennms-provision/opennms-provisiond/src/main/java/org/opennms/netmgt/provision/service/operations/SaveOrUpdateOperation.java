@@ -34,10 +34,10 @@ import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.model.OnmsCategory;
 import org.opennms.netmgt.model.OnmsIpInterface;
-import org.opennms.netmgt.model.OnmsIpInterface.PrimaryType;
 import org.opennms.netmgt.model.OnmsMonitoredService;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.OnmsServiceType;
+import org.opennms.netmgt.model.PrimaryType;
 import org.opennms.netmgt.provision.service.ProvisionService;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeansException;
@@ -189,12 +189,12 @@ public abstract class SaveOrUpdateOperation extends ImportOperation {
      * @param name a {@link java.lang.String} object.
      * @param value a {@link java.lang.String} object.
      */
-    public void foundAsset(String name, String value) {
-        BeanWrapper w = PropertyAccessorFactory.forBeanPropertyAccess(m_node.getAssetRecord());
+    public void foundAsset(final String name, final String value) {
+        final BeanWrapper w = PropertyAccessorFactory.forBeanPropertyAccess(m_node.getAssetRecord());
         try {
             w.setPropertyValue(name, value);
-        } catch (BeansException e) {
-            log().error("Could not set property on object of type " + m_node.getClass().getName() + ": " + name, e);
+        } catch (final BeansException e) {
+            log().warn("Could not set property on object of type " + m_node.getClass().getName() + ": " + name, e);
         }
     }
 }

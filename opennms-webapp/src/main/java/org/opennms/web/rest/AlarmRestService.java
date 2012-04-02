@@ -86,7 +86,12 @@ public class AlarmRestService extends AlarmRestServiceBase {
     @Path("{alarmId}")
     @Transactional
     public OnmsAlarm getAlarm(@PathParam("alarmId") final String alarmId) {
-    	return m_alarmDao.get(new Integer(alarmId));
+        readLock();
+        try {
+            return m_alarmDao.get(new Integer(alarmId));
+        } finally {
+            readUnlock();
+        }
     }
     
     /**
@@ -99,7 +104,12 @@ public class AlarmRestService extends AlarmRestServiceBase {
     @Path("count")
     @Transactional
     public String getCount() {
-    	return Integer.toString(m_alarmDao.countAll());
+        readLock();
+        try {
+            return Integer.toString(m_alarmDao.countAll());
+        } finally {
+            readUnlock();
+        }
     }
 
     /**
@@ -111,14 +121,20 @@ public class AlarmRestService extends AlarmRestServiceBase {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Transactional
     public OnmsAlarmCollection getAlarms() {
-        final CriteriaBuilder builder = getCriteriaBuilder(m_uriInfo.getQueryParameters(), false);
-        builder.distinct();
-        final OnmsAlarmCollection coll = new OnmsAlarmCollection(m_alarmDao.findMatching(builder.toCriteria()));
-
-        //For getting totalCount
-        coll.setTotalCount(m_alarmDao.countMatching(builder.clearOrder().limit(0).offset(0).toCriteria()));
-
-        return coll;
+        readLock();
+        
+        try {
+            final CriteriaBuilder builder = getCriteriaBuilder(m_uriInfo.getQueryParameters(), false);
+            builder.distinct();
+            final OnmsAlarmCollection coll = new OnmsAlarmCollection(m_alarmDao.findMatching(builder.toCriteria()));
+    
+            //For getting totalCount
+            coll.setTotalCount(m_alarmDao.countMatching(builder.clearOrder().limit(0).offset(0).toCriteria()));
+    
+            return coll;
+        } finally {
+            readUnlock();
+        }
     }
     
     /**
@@ -132,11 +148,17 @@ public class AlarmRestService extends AlarmRestServiceBase {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Transactional
 	public void updateAlarm(@PathParam("alarmId") final String alarmId, @FormParam("ack") final Boolean ack) {
-    	final OnmsAlarm alarm = m_alarmDao.get(new Integer(alarmId));
-		if (ack == null) {
-			throw new IllegalArgumentException("Must supply the 'ack' parameter, set to either 'true' or 'false'");
-		}
-		processAlarmAck(alarm, ack);
+        writeLock();
+        
+        try {
+        	final OnmsAlarm alarm = m_alarmDao.get(new Integer(alarmId));
+    		if (ack == null) {
+    			throw new IllegalArgumentException("Must supply the 'ack' parameter, set to either 'true' or 'false'");
+    		}
+    		processAlarmAck(alarm, ack);
+        } finally {
+            writeUnlock();
+        }
 	}
 
 	/**
@@ -148,20 +170,25 @@ public class AlarmRestService extends AlarmRestServiceBase {
 	@Transactional
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public void updateAlarms(final MultivaluedMapImpl formProperties) {
-
-		Boolean ack=false;
-		if(formProperties.containsKey("ack")) {
-			ack="true".equals(formProperties.getFirst("ack"));
-			formProperties.remove("ack");
-		}
-		
-		final CriteriaBuilder builder = getCriteriaBuilder(formProperties, false);
-		builder.distinct();
-		builder.limit(0);
-		builder.offset(0);
-		for (final OnmsAlarm alarm : m_alarmDao.findMatching(builder.toCriteria())) {
-			processAlarmAck(alarm, ack);
-		}
+	    writeLock();
+	    
+	    try {
+    		Boolean ack=false;
+    		if(formProperties.containsKey("ack")) {
+    			ack="true".equals(formProperties.getFirst("ack"));
+    			formProperties.remove("ack");
+    		}
+    		
+    		final CriteriaBuilder builder = getCriteriaBuilder(formProperties, false);
+    		builder.distinct();
+    		builder.limit(0);
+    		builder.offset(0);
+    		for (final OnmsAlarm alarm : m_alarmDao.findMatching(builder.toCriteria())) {
+    			processAlarmAck(alarm, ack);
+    		}
+	    } finally {
+	        writeUnlock();
+	    }
 	}
 
 	private void processAlarmAck(final OnmsAlarm alarm, final Boolean ack) {
