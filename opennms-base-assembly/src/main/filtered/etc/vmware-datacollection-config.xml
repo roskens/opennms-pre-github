@@ -175,7 +175,7 @@
             <vmware-group name="Cpu" resourceType="Cpu">
                 <!-- <attrib name="instanceName" alias="CpuName" type="String"/> -->
                 <attrib name="cpu.idle.summation" alias="CpuIdleSum" type="Gauge"/>
-                <attrib name="cpu.usage.none" alias="CpuUsageNon" type="Gauge"/>
+                <!-- <attrib name="cpu.usage.none" alias="CpuUsageNon" type="Gauge"/> -->
                 <attrib name="cpu.used.summation" alias="CpuUsedSum" type="Gauge"/>
             </vmware-group>
 

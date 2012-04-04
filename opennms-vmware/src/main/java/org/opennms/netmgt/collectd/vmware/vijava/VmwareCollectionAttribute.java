@@ -112,6 +112,6 @@ public class VmwareCollectionAttribute extends AbstractCollectionAttribute imple
      * @return a {@link java.lang.String} object.
      */
     public String toString() {
-        return "VmwareCimCollectionAttribute " + m_alias+"=" + m_value;
+        return "VmwareCollectionAttribute " + m_alias+"=" + m_value;
     }
 }

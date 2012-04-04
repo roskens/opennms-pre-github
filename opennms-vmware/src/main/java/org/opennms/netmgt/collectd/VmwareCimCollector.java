@@ -289,15 +289,6 @@ public class VmwareCimCollector implements ServiceCollector {
         return collectionSet;
     }
 
-    private void initializeRrdDirectory(String path) {
-        final File f = new File(path);
-        if (!f.isDirectory()) {
-            if (!f.mkdirs()) {
-                throw new RuntimeException("Unable to create RRD file repository.  Path doesn't already exist and could not make directory: " + DataCollectionConfigFactory.getInstance().getRrdPath());
-            }
-        }
-    }
-
     public RrdRepository getRrdRepository(final String collectionName) {
         return VmwareCimDataCollectionConfigFactory.getInstance().getRrdRepository(collectionName);
     }
