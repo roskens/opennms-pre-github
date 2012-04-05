@@ -294,7 +294,7 @@ public class VmwareCollector implements ServiceCollector {
 
                     if (vmwarePerformanceValues.hasInstances(attrib.getName())) {
                         // warning
-                        LogUtils.warnf(this, "Warning! Found multi instance value '%s' defined as single instance attribute", attrib.getName());
+                        LogUtils.warnf(this, "Warning! Found multi instance value '%s' defined as single instance attribute for node %d", attrib.getName(), agent.getNodeId());
                     } else {
                         final VmwareCollectionAttributeType attribType = new VmwareCollectionAttributeType(attrib, attribGroupType);
                         LogUtils.debugf(this, "Storing single instance value %s='%s' for node %d", attrib.getName(), String.valueOf(vmwarePerformanceValues.getValue(attrib.getName())), agent.getNodeId());
@@ -313,7 +313,7 @@ public class VmwareCollector implements ServiceCollector {
                 for (Attrib attrib : vmwareGroup.getAttrib()) {
                     if (!vmwarePerformanceValues.hasInstances(attrib.getName())) {
                         // warning
-                        LogUtils.warnf(this, "Warning! Found single instance value '%s' defined as multi instance attribute", attrib.getName());
+                        LogUtils.warnf(this, "Warning! Found single instance value '%s' defined as multi instance attribute for node %d", attrib.getName(), agent.getNodeId());
                     } else {
 
                         instanceSet = vmwarePerformanceValues.getInstances(attrib.getName());
@@ -341,10 +341,9 @@ public class VmwareCollector implements ServiceCollector {
                         resources.get(instance).setAttributeValue(attribType, instance);
                     }
 
-                }
-
-                for (String instance : resources.keySet()) {
-                    collectionSet.getResources().add(resources.get(instance));
+                    for (String instance : resources.keySet()) {
+                        collectionSet.getResources().add(resources.get(instance));
+                    }
                 }
             }
         }

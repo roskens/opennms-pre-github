@@ -11,7 +11,7 @@
 
         <vmware-groups>
 
-            <vmware-group name="Node" resourceType="node">
+            <vmware-group name="Node" resourceType="Node">
                 <attrib name="mem.active.none" alias="MemActiveNon" type="Gauge"/>
                 <attrib name="mem.consumed.none" alias="MemConsumedNon" type="Gauge"/>
                 <attrib name="mem.granted.none" alias="MemGrantedNon" type="Gauge"/>
@@ -66,7 +66,6 @@
                 <attrib name="cpu.guaranteed.latest" alias="CpuGuaranteedLat" type="Gauge"/>
                 <attrib name="cpu.ready.summation" alias="CpuReadySum" type="Gauge"/>
                 <attrib name="cpu.system.summation" alias="CpuSystemSum" type="Gauge"/>
-                <!-- <attrib name="cpu.usagemhz.none" alias="CpuUsagemhzNon" type="Gauge"/> -->
                 <attrib name="cpu.used.summation" alias="CpuUsedSum" type="Gauge"/>
                 <attrib name="cpu.wait.summation" alias="CpuWaitSum" type="Gauge"/>
             </vmware-group>
@@ -93,7 +92,7 @@
 
         <vmware-groups>
 
-            <vmware-group name="Node" resourceType="node">
+            <vmware-group name="Node" resourceType="Node">
                 <attrib name="mem.active.none" alias="MemActiveNon" type="Gauge"/>
                 <attrib name="mem.consumed.none" alias="MemConsumedNon" type="Gauge"/>
                 <attrib name="mem.granted.none" alias="MemGrantedNon" type="Gauge"/>
@@ -176,7 +175,6 @@
             <vmware-group name="Cpu" resourceType="Cpu">
                 <!-- <attrib name="instanceName" alias="CpuName" type="String"/> -->
                 <attrib name="cpu.idle.summation" alias="CpuIdleSum" type="Gauge"/>
-                <!-- <attrib name="cpu.usage.none" alias="CpuUsageNon" type="Gauge"/> -->
                 <attrib name="cpu.used.summation" alias="CpuUsedSum" type="Gauge"/>
             </vmware-group>
 

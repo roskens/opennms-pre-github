@@ -59,7 +59,7 @@ public class VmwareCimCollectionSet implements CollectionSet {
     public void visit(final CollectionSetVisitor visitor) {
         visitor.visitCollectionSet(this);
 
-        for(final CollectionResource resource : getResources()) {
+        for (final CollectionResource resource : getResources()) {
             resource.visit(visitor);
         }
 

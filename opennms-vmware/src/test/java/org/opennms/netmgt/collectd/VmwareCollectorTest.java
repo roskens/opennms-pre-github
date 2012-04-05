@@ -53,7 +53,7 @@ public class VmwareCollectorTest {
 //            Assert.assertTrue(jrb.getDsCount() > 1);
             count++;
         }
-        Assert.assertEquals(7, count);
+        Assert.assertEquals(5, count);
     }
 
     @Test
@@ -73,16 +73,14 @@ public class VmwareCollectorTest {
             count++;
         }
 //        Assert.assertEquals(53, count);
-        Assert.assertEquals(70, count);
+        Assert.assertEquals(58, count);
     }
 
     public CollectionSet executeCollector() throws Exception {
         // Global Properties
-        //String vcenterAddress = "192.168.32.134";
-        //String managedObjectId = "vm-13";
-                                 /*
-        String vcenterAddress = "193.174.29.3";
-        String managedObjectId = "vm-1006";
+
+        String vcenterAddress = "192.168.1.23";
+        String managedObjectId = "vm-1234";
 
         // Creating collection agent and parameters
         CollectionAgent agent = new MockCollectionAgent(1, vcenterAddress);
@@ -94,24 +92,6 @@ public class VmwareCollectorTest {
         // Creating VMWare Collector and retrieving CollectionSet
         LogUtils.infof(this, "Collecting data using " + parameters);
         VmwareCollector collector = new VmwareCollector();        
-        CollectionSet collectionSet = collector.collect(agent, null, parameters);
-        Assert.assertNotNull(collectionSet);
-        Assert.assertEquals(ServiceCollector.COLLECTION_SUCCEEDED, collectionSet.getStatus());
-        return collectionSet;
-                             */
-        String vcenterAddress = "193.174.29.3";
-        String managedObjectId = "host-8";
-
-        // Creating collection agent and parameters
-        CollectionAgent agent = new MockCollectionAgent(1, vcenterAddress);
-        Map<String, Object> parameters = new HashMap<String, Object>();
-        parameters.put("collection", "default-HostSystem");
-        parameters.put("vmwareManagementServer", vcenterAddress);
-        parameters.put("vmwareManagedObjectId", managedObjectId);
-
-        // Creating VMWare Collector and retrieving CollectionSet
-        LogUtils.infof(this, "Collecting data using " + parameters);
-        VmwareCollector collector = new VmwareCollector();
         CollectionSet collectionSet = collector.collect(agent, null, parameters);
         Assert.assertNotNull(collectionSet);
         Assert.assertEquals(ServiceCollector.COLLECTION_SUCCEEDED, collectionSet.getStatus());
