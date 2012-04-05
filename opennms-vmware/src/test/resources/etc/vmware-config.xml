@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
 <vmware-config>
-    <vmware-server hostname="192.168.32.134" username="opennms" password="Op3nNMS;"/>
+    <vmware-server hostname="193.174.29.3" username="OpenNMS" password="200Puls"/>
 </vmware-config>
 

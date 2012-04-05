@@ -106,7 +106,7 @@ public class VmwareCollector implements ServiceCollector {
     public void release(CollectionAgent agent) {
     }
 
-    public CollectionSet collect(CollectionAgent agent, EventProxy eproxy, Map<String, Object> parameters) throws CollectionException {
+    public CollectionSet collect2(CollectionAgent agent, EventProxy eproxy, Map<String, Object> parameters) throws CollectionException {
 
         String collectionName = ParameterMap.getKeyedString(parameters, "collection", ParameterMap.getKeyedString(parameters, "vmware-collection", null));
 
@@ -221,7 +221,7 @@ public class VmwareCollector implements ServiceCollector {
         return collectionSet;
     }
 
-    public CollectionSet collect2(CollectionAgent agent, EventProxy eproxy, Map<String, Object> parameters) throws CollectionException {
+    public CollectionSet collect(CollectionAgent agent, EventProxy eproxy, Map<String, Object> parameters) throws CollectionException {
 
         String collectionName = ParameterMap.getKeyedString(parameters, "collection", ParameterMap.getKeyedString(parameters, "vmware-collection", null));
 
@@ -288,39 +288,44 @@ public class VmwareCollector implements ServiceCollector {
             if ("node".equalsIgnoreCase(vmwareGroup.getName())) {
                 // single instance value
 
+                VmwareCollectionResource vmwareCollectionResource = new VmwareSingleInstanceCollectionResource(agent);
+
                 for (Attrib attrib : vmwareGroup.getAttrib()) {
+
                     if (vmwarePerformanceValues.hasInstances(attrib.getName())) {
                         // warning
                         LogUtils.warnf(this, "Warning! Found multi instance value '%s' defined as single instance attribute", attrib.getName());
                     } else {
-                        final VmwareCollectionResource vmwareCollectionResource = new VmwareSingleInstanceCollectionResource(agent);
                         final VmwareCollectionAttributeType attribType = new VmwareCollectionAttributeType(attrib, attribGroupType);
-                        LogUtils.debugf(this, "Storing instance value %s='%s' for node %d", attrib.getName(), String.valueOf(vmwarePerformanceValues.getValue(attrib.getName())), agent.getNodeId());
+                        LogUtils.debugf(this, "Storing single instance value %s='%s' for node %d", attrib.getName(), String.valueOf(vmwarePerformanceValues.getValue(attrib.getName())), agent.getNodeId());
                         vmwareCollectionResource.setAttributeValue(attribType, String.valueOf(vmwarePerformanceValues.getValue(attrib.getName())));
-                        collectionSet.getResources().add(vmwareCollectionResource);
                     }
                 }
+
+                collectionSet.getResources().add(vmwareCollectionResource);
             } else {
                 // multi instance value
 
                 Set<String> instanceSet = null;
+
+                HashMap<String, VmwareMultiInstanceCollectionResource> resources = new HashMap<String, VmwareMultiInstanceCollectionResource>();
 
                 for (Attrib attrib : vmwareGroup.getAttrib()) {
                     if (!vmwarePerformanceValues.hasInstances(attrib.getName())) {
                         // warning
                         LogUtils.warnf(this, "Warning! Found single instance value '%s' defined as multi instance attribute", attrib.getName());
                     } else {
-                        VmwareCollectionResource vmwareCollectionResource = new VmwareMultiInstanceCollectionResource(agent, attrib.getName(), vmwareGroup.getResourceType());
 
                         instanceSet = vmwarePerformanceValues.getInstances(attrib.getName());
 
                         for (String instance : instanceSet) {
-                            final VmwareCollectionAttributeType attribType = new VmwareCollectionAttributeType(attrib, attribGroupType);
-                            LogUtils.debugf(this, "Storing instance value %s[%s]='%s' for node %d", attrib.getName(), instance, String.valueOf(vmwarePerformanceValues.getValue(attrib.getName(), instance)), agent.getNodeId());
-                            vmwareCollectionResource.setAttributeValue(attribType, String.valueOf(vmwarePerformanceValues.getValue(attrib.getName(), instance)));
-                        }
+                            if (!resources.containsKey(instance))
+                                resources.put(instance, new VmwareMultiInstanceCollectionResource(agent, instance, vmwareGroup.getResourceType()));
 
-                        collectionSet.getResources().add(vmwareCollectionResource);
+                            final VmwareCollectionAttributeType attribType = new VmwareCollectionAttributeType(attrib, attribGroupType);
+                            LogUtils.debugf(this, "Storing multi instance value %s[%s]='%s' for node %d", attrib.getName(), instance, String.valueOf(vmwarePerformanceValues.getValue(attrib.getName(), instance)), agent.getNodeId());
+                            resources.get(instance).setAttributeValue(attribType, String.valueOf(vmwarePerformanceValues.getValue(attrib.getName(), instance)));
+                        }
                     }
                 }
 
@@ -330,15 +335,16 @@ public class VmwareCollector implements ServiceCollector {
                     attrib.setAlias(vmwareGroup.getResourceType() + "Name");
                     attrib.setType("String");
 
-                    VmwareCollectionResource vmwareCollectionResource = new VmwareMultiInstanceCollectionResource(agent, attrib.getName(), vmwareGroup.getResourceType());
-
                     for (String instance : instanceSet) {
                         final VmwareCollectionAttributeType attribType = new VmwareCollectionAttributeType(attrib, attribGroupType);
-                        LogUtils.debugf(this, "Storing instance value %s[%s]='%s' for node %d", attrib.getName(), instance, instance, agent.getNodeId());
-                        vmwareCollectionResource.setAttributeValue(attribType, instance);
+                        LogUtils.debugf(this, "Storing multi instance value %s[%s]='%s' for node %d", attrib.getName(), instance, instance, agent.getNodeId());
+                        resources.get(instance).setAttributeValue(attribType, instance);
                     }
 
-                    collectionSet.getResources().add(vmwareCollectionResource);
+                }
+
+                for (String instance : resources.keySet()) {
+                    collectionSet.getResources().add(resources.get(instance));
                 }
             }
         }
