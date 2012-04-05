@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <datacollection-group name="VMware">
 
-    <resourceType name="Cpu" label="VMware Cpu" resourceLabel="CPU ${CpuName}">
+    <resourceType name="Cpu" label="VMware Cpu" resourceLabel="${CpuName}">
         <persistenceSelectorStrategy class="org.opennms.netmgt.collectd.PersistAllSelectorStrategy"/>
         <storageStrategy class="org.opennms.netmgt.dao.support.IndexStorageStrategy"/>
     </resourceType>

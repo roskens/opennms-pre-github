@@ -267,17 +267,17 @@ public class VmwareCimCollector implements ServiceCollector {
 
                     if (addObject) {
                         String instance = getPropertyOfCimObject(cimObject, instanceAttribute);
+                        VmwareCimCollectionResource vmwareCollectionResource = new VmwareCimMultiInstanceCollectionResource(agent, instance, vmwareCimGroup.getResourceType());
 
                         for (Attrib attrib : vmwareCimGroup.getAttrib()) {
                             final VmwareCimCollectionAttributeType attribType = m_attribTypeList.get(attrib.getName());
 
-                            VmwareCimCollectionResource vmwareCollectionResource = new VmwareCimMultiInstanceCollectionResource(agent, instance, vmwareCimGroup.getResourceType());
                             vmwareCollectionResource.setAttributeValue(attribType, getPropertyOfCimObject(cimObject, attrib.getName()));
 
                             LogUtils.debugf(this, "Storing multi instance value " + attrib.getName() + "[" + instance + "]='" + getPropertyOfCimObject(cimObject, attrib.getName()) + "' for node " + agent.getNodeId());
 
-                            collectionSet.getResources().add(vmwareCollectionResource);
                         }
+                        collectionSet.getResources().add(vmwareCollectionResource);
                     }
                 }
             }

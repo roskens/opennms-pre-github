@@ -65,7 +65,7 @@
                 <attrib name="cpu.guaranteed.latest" alias="CpuGuaranteedLat" type="Gauge"/>
                 <attrib name="cpu.ready.summation" alias="CpuReadySum" type="Gauge"/>
                 <attrib name="cpu.system.summation" alias="CpuSystemSum" type="Gauge"/>
-                <attrib name="cpu.usagemhz.none" alias="CpuUsagemhzNon" type="Gauge"/>
+                <!-- <attrib name="cpu.usagemhz.none" alias="CpuUsagemhzNon" type="Gauge"/> -->
                 <attrib name="cpu.used.summation" alias="CpuUsedSum" type="Gauge"/>
                 <attrib name="cpu.wait.summation" alias="CpuWaitSum" type="Gauge"/>
             </vmware-group>
