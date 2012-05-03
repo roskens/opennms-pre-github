@@ -10,45 +10,49 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.opennms.core.utils.BeanUtils;
 import org.opennms.core.utils.LogUtils;
-import org.opennms.netmgt.config.VmwareDataCollectionConfigFactory;
 import org.opennms.netmgt.config.collector.CollectionSet;
 import org.opennms.netmgt.config.collector.ServiceParameters;
+import org.opennms.netmgt.dao.VmwareDatacollectionConfigDao;
 import org.opennms.test.mock.MockLogAppender;
 
 public class VmwareCollectorTest {
-    
+
     private static final String COLLECTION_NAME = "default-VirtualMachine";
+    private VmwareDatacollectionConfigDao m_vmwareDatacollectionConfigDao;
 
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
         System.setProperty("opennms.home", "src/test/resources");
-        VmwareDataCollectionConfigFactory.setInstance(new VmwareDataCollectionConfigFactory("src/test/resources/etc/vmware-datacollection-config.xml"));
+        if (m_vmwareDatacollectionConfigDao == null)
+            m_vmwareDatacollectionConfigDao = BeanUtils.getBean("daoContext", "vmwareDatacollectionConfigDao", VmwareDatacollectionConfigDao.class);
+
         FileUtils.deleteDirectory(new File("target/1"));
     }
-    
+
     @After
     public void tearDown() throws Exception {
         MockLogAppender.assertNoWarningsOrGreater();
     }
-    
+
     @Test
     public void testCollectorWithStoreByGroup() throws Exception {
         System.setProperty("org.opennms.rrd.storeByGroup", "true");
         CollectionSet collectionSet = executeCollector();
-        
+
         // Verifying collection set structure
         VmwareCollectionSetVerifier verifier = new VmwareCollectionSetVerifier();
         collectionSet.visit(verifier);
 
         // Persisting data
-        GroupPersister persister = new GroupPersister(new ServiceParameters(new HashMap<String,Object>()), VmwareDataCollectionConfigFactory.getInstance().getRrdRepository(COLLECTION_NAME));
+        GroupPersister persister = new GroupPersister(new ServiceParameters(new HashMap<String, Object>()), m_vmwareDatacollectionConfigDao.getRrdRepository(COLLECTION_NAME));
         collectionSet.visit(persister);
 
         // Verify JRBs
         int count = 0;
-        for (Object o : FileUtils.listFiles(new File("target/1"), new String[] { "jrb" }, true)) {
+        for (Object o : FileUtils.listFiles(new File("target/1"), new String[]{"jrb"}, true)) {
             RrdDb jrb = new RrdDb((File) o);
 //            Assert.assertTrue(jrb.getDsCount() > 1);
             count++;
@@ -60,14 +64,14 @@ public class VmwareCollectorTest {
     public void testCollectorWithoutStoreByGroup() throws Exception {
         System.setProperty("org.opennms.rrd.storeByGroup", "false");
         CollectionSet collectionSet = executeCollector();
-        
+
         // Persisting data
-        OneToOnePersister persister = new OneToOnePersister(new ServiceParameters(new HashMap<String,Object>()), VmwareDataCollectionConfigFactory.getInstance().getRrdRepository(COLLECTION_NAME));
+        OneToOnePersister persister = new OneToOnePersister(new ServiceParameters(new HashMap<String, Object>()), m_vmwareDatacollectionConfigDao.getRrdRepository(COLLECTION_NAME));
         collectionSet.visit(persister);
 
         // Verify JRBs
         int count = 0;
-        for (Object o : FileUtils.listFiles(new File("target/1"), new String[] { "jrb" }, true)) {
+        for (Object o : FileUtils.listFiles(new File("target/1"), new String[]{"jrb"}, true)) {
             RrdDb jrb = new RrdDb((File) o);
             Assert.assertTrue(jrb.getDsCount() == 1);
             count++;
@@ -91,7 +95,7 @@ public class VmwareCollectorTest {
 
         // Creating VMWare Collector and retrieving CollectionSet
         LogUtils.infof(this, "Collecting data using " + parameters);
-        VmwareCollector collector = new VmwareCollector();        
+        VmwareCollector collector = new VmwareCollector();
         CollectionSet collectionSet = collector.collect(agent, null, parameters);
         Assert.assertNotNull(collectionSet);
         Assert.assertEquals(ServiceCollector.COLLECTION_SUCCEEDED, collectionSet.getStatus());

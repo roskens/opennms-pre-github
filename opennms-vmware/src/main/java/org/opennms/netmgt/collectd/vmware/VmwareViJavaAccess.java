@@ -8,10 +8,11 @@ import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
+import org.opennms.core.utils.BeanUtils;
 import org.opennms.core.utils.EmptyKeyRelaxedTrustSSLContext;
 import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.collectd.vmware.vijava.VmwarePerformanceValues;
-import org.opennms.netmgt.config.VmwareConfigFactory;
+import org.opennms.netmgt.dao.VmwareDatacollectionConfigDao;
 import org.sblim.wbem.cim.CIMException;
 import org.sblim.wbem.cim.CIMNameSpace;
 import org.sblim.wbem.cim.CIMObject;
@@ -19,6 +20,7 @@ import org.sblim.wbem.cim.CIMObjectPath;
 import org.sblim.wbem.client.CIMClient;
 import org.sblim.wbem.client.PasswordCredential;
 import org.sblim.wbem.client.UserPrincipal;
+import org.opennms.netmgt.dao.VmwareConfigDao;
 
 import javax.net.ssl.*;
 import java.io.IOException;
@@ -31,6 +33,8 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
+
+import static junit.framework.Assert.assertNotNull;
 
 /**
  * Created by IntelliJ IDEA.
@@ -59,6 +63,9 @@ public class VmwareViJavaAccess {
 
     */
 
+    // the config dao
+    private VmwareConfigDao m_vmwareConfigDao;
+
     private String m_hostname;
 
     private String m_username;
@@ -82,9 +89,14 @@ public class VmwareViJavaAccess {
     }
 
     public VmwareViJavaAccess(String hostname) throws MarshalException, ValidationException, IOException {
+        if (m_vmwareConfigDao == null)
+            m_vmwareConfigDao = BeanUtils.getBean("daoContext", "vmwareConfigDao", VmwareConfigDao.class);
+
+        assertNotNull("vmwareConfigDao should be a non-null value.", m_vmwareConfigDao);
+
         this.m_hostname = hostname;
-        this.m_username = VmwareConfigFactory.getInstance().getServerMap().get(m_hostname).getUsername();
-        this.m_password = VmwareConfigFactory.getInstance().getServerMap().get(m_hostname).getPassword();
+        this.m_username = m_vmwareConfigDao.getServerMap().get(m_hostname).getUsername();
+        this.m_password = m_vmwareConfigDao.getServerMap().get(m_hostname).getPassword();
     }
 
     public void connect() throws MalformedURLException, RemoteException {

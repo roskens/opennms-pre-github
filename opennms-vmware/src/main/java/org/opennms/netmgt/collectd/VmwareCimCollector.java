@@ -11,20 +11,18 @@ import org.opennms.netmgt.collectd.vmware.cim.VmwareCimCollectionAttributeType;
 import org.opennms.netmgt.collectd.vmware.cim.VmwareCimCollectionResource;
 import org.opennms.netmgt.collectd.vmware.cim.VmwareCimCollectionSet;
 import org.opennms.netmgt.collectd.vmware.cim.VmwareCimMultiInstanceCollectionResource;
-import org.opennms.netmgt.config.DataCollectionConfigFactory;
 import org.opennms.netmgt.config.DataSourceFactory;
-import org.opennms.netmgt.config.VmwareCimDataCollectionConfigFactory;
 import org.opennms.netmgt.config.collector.AttributeGroupType;
 import org.opennms.netmgt.config.collector.CollectionSet;
 import org.opennms.netmgt.config.vmware.cim.*;
 import org.opennms.netmgt.dao.NodeDao;
+import org.opennms.netmgt.dao.VmwareCimDatacollectionConfigDao;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.RrdRepository;
 import org.opennms.netmgt.model.events.EventProxy;
 import org.sblim.wbem.cim.*;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.net.MalformedURLException;
@@ -44,32 +42,22 @@ public class VmwareCimCollector implements ServiceCollector {
     // the node dao object for retrieving assets
     private NodeDao m_nodeDao = null;
 
+    // the config dao
+    VmwareCimDatacollectionConfigDao m_vmwareCimDatacollectionConfigDao;
+
     public void initialize(Map<String, String> parameters) throws CollectionInitializationException {
-        m_nodeDao = BeanUtils.getBean("daoContext", "nodeDao", NodeDao.class);
+        if (m_nodeDao == null)
+            m_nodeDao = BeanUtils.getBean("daoContext", "nodeDao", NodeDao.class);
+
         assertNotNull("Node dao should be a non-null value.", m_nodeDao);
 
-        initVmwareCimCollectionConfig();
+        if (m_vmwareCimDatacollectionConfigDao == null)
+            m_vmwareCimDatacollectionConfigDao = BeanUtils.getBean("daoContext", "vmwareCimDatacollectionConfigDao", VmwareCimDatacollectionConfigDao.class);
+
+        assertNotNull("vmwareCimDatacollectionConfigDao should be a non-null value.", m_vmwareCimDatacollectionConfigDao);
+
         initDatabaseConnectionFactory();
         initializeRrdRepository();
-    }
-
-    private void initVmwareCimCollectionConfig() {
-        LogUtils.debugf(this, "initialize: Initializing collector: %s", getClass());
-        try {
-            VmwareCimDataCollectionConfigFactory.init();
-        } catch (final MarshalException e) {
-            LogUtils.errorf(this, e, "initialize: Error marshalling configuration.");
-            throw new UndeclaredThrowableException(e);
-        } catch (ValidationException e) {
-            LogUtils.errorf(this, e, "initialize: Error validating configuration.");
-            throw new UndeclaredThrowableException(e);
-        } catch (FileNotFoundException e) {
-            LogUtils.errorf(this, e, "initialize: Error locating configuration.");
-            throw new UndeclaredThrowableException(e);
-        } catch (IOException e) {
-            LogUtils.errorf(this, e, "initialize: Error reading configuration.");
-            throw new UndeclaredThrowableException(e);
-        }
     }
 
     private void initializeRrdRepository() {
@@ -78,10 +66,10 @@ public class VmwareCimCollector implements ServiceCollector {
     }
 
     private void initializeRrdDirs() {
-        final File f = new File(VmwareCimDataCollectionConfigFactory.getInstance().getRrdPath());
+        final File f = new File(m_vmwareCimDatacollectionConfigDao.getRrdPath());
         if (!f.isDirectory()) {
             if (!f.mkdirs()) {
-                throw new RuntimeException("Unable to create RRD file repository.  Path doesn't already exist and could not make directory: " + DataCollectionConfigFactory.getInstance().getRrdPath());
+                throw new RuntimeException("Unable to create RRD file repository.  Path doesn't already exist and could not make directory: " + m_vmwareCimDatacollectionConfigDao.getRrdPath());
             }
         }
     }
@@ -158,7 +146,7 @@ public class VmwareCimCollector implements ServiceCollector {
     public CollectionSet collect(CollectionAgent agent, EventProxy eproxy, Map<String, Object> parameters) throws CollectionException {
         String collectionName = ParameterMap.getKeyedString(parameters, "collection", ParameterMap.getKeyedString(parameters, "vmware-collection", null));
 
-        final VmwareCimCollection collection = VmwareCimDataCollectionConfigFactory.getInstance().getVmwareCimCollection(collectionName);
+        final VmwareCimCollection collection = m_vmwareCimDatacollectionConfigDao.getVmwareCimCollection(collectionName);
 
         String vmwareManagementServer = (String) parameters.get("vmwareManagementServer");
         String vmwareManagedObjectId = (String) parameters.get("vmwareManagedObjectId");
@@ -290,7 +278,7 @@ public class VmwareCimCollector implements ServiceCollector {
     }
 
     public RrdRepository getRrdRepository(final String collectionName) {
-        return VmwareCimDataCollectionConfigFactory.getInstance().getRrdRepository(collectionName);
+        return m_vmwareCimDatacollectionConfigDao.getRrdRepository(collectionName);
     }
 
     public void setNodeDao(NodeDao nodeDao) {

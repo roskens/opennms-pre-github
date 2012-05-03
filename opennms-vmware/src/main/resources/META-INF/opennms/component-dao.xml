@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="vmwareDatacollectionConfigResourceLocation" class="java.lang.String">
+        <constructor-arg value="file:${opennms.home}/etc/vmware-datacollection-config.xml"/>
+    </bean>
+
+    <bean id="vmwareDatacollectionConfigDao" class="org.opennms.netmgt.dao.castor.DefaultVmwareDatacollectionConfigDao">
+        <property name="configResource" ref="vmwareDatacollectionConfigResourceLocation"/>
+        <property name="reloadCheckInterval" value="10000"/>
+    </bean>
+
+    <bean id="vmwareCimDatacollectionConfigResourceLocation" class="java.lang.String">
+        <constructor-arg value="file:${opennms.home}/etc/vmware-cim-datacollection-config.xml"/>
+    </bean>
+
+    <bean id="vmwareCimDatacollectionConfigDao" class="org.opennms.netmgt.dao.castor.DefaultVmwareCimDatacollectionConfigDao">
+        <property name="configResource" ref="vmwareCimDatacollectionConfigResourceLocation"/>
+        <property name="reloadCheckInterval" value="10000"/>
+    </bean>
+
+    <bean id="vmwareConfigResourceLocation" class="java.lang.String">
+        <constructor-arg value="file:${opennms.home}/etc/vmware-config.xml"/>
+    </bean>
+
+    <bean id="vmwareConfigDao" class="org.opennms.netmgt.dao.castor.DefaultVmwareConfigDao">
+        <property name="configResource" ref="vmwareConfigResourceLocation"/>
+        <property name="reloadCheckInterval" value="10000"/>
+    </bean>
+
+</beans>

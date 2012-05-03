@@ -475,21 +475,6 @@ public final class ConfigFileConstants {
      */
     public static final int JDBC_COLLECTION_CONFIG_FILE_NAME;
 
-    /**
-     * The VMware collection configuration file
-     */
-    public static final int VMWARE_COLLECTION_CONFIG_FILE_NAME;
-
-    /**
-     * The VMware Cim collection configuration file
-     */
-    public static final int VMWARE_CIM_COLLECTION_CONFIG_FILE_NAME;
-
-    /**
-     * The VMware collection configuration file
-     */
-    public static final int VMWARE_CONFIG_FILE_NAME;
-
     //
     // Initialize the class data. This section is used to initialize the
     // integer constants to their final values and to build the array
@@ -620,16 +605,11 @@ public final class ConfigFileConstants {
         SNMP_ASSET_ADAPTER_CONFIG_FILE_NAME = 79;
         
         JDBC_COLLECTION_CONFIG_FILE_NAME = 80;
-
-        VMWARE_COLLECTION_CONFIG_FILE_NAME = 81;
-
-        VMWARE_CONFIG_FILE_NAME = 82;
-
-        VMWARE_CIM_COLLECTION_CONFIG_FILE_NAME = 83;
+        
         
         // Allocate and build the mapping of identifiers to names
         //
-        FILE_ID_TO_NAME = new String[84];
+        FILE_ID_TO_NAME = new String[81];
 
         FILE_ID_TO_NAME[DB_CONFIG_FILE_NAME] = "opennms-database.xml";
         FILE_ID_TO_NAME[JMS_CONFIG_FILE_NAME] = "opennms-jms.xml";
@@ -726,9 +706,6 @@ public final class ConfigFileConstants {
         FILE_ID_TO_NAME[MICROBLOG_CONFIG_FILE_NAME] = "microblog-configuration.xml";
         FILE_ID_TO_NAME[SNMP_ASSET_ADAPTER_CONFIG_FILE_NAME] = "snmp-asset-adapter-configuration.xml";
         FILE_ID_TO_NAME[JDBC_COLLECTION_CONFIG_FILE_NAME] = "jdbc-datacollection-config.xml";
-        FILE_ID_TO_NAME[VMWARE_COLLECTION_CONFIG_FILE_NAME] = "vmware-datacollection-config.xml";
-        FILE_ID_TO_NAME[VMWARE_CONFIG_FILE_NAME] = "vmware-config.xml";
-        FILE_ID_TO_NAME[VMWARE_CIM_COLLECTION_CONFIG_FILE_NAME] = "vmware-cim-datacollection-config.xml";
     }
 
     /**
