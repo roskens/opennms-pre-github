@@ -30,6 +30,7 @@ package org.opennms.netmgt.dao;
 
 import org.opennms.netmgt.config.vmware.cim.VmwareCimDatacollectionConfig;
 import org.opennms.netmgt.config.vmware.cim.VmwareCimCollection;
+import org.opennms.netmgt.model.RrdRepository;
 
 /**
  * The Interface VmwareCimDatacollectionConfigDao
@@ -54,4 +55,19 @@ public interface VmwareCimDatacollectionConfigDao {
      * @return the Cim collection object
      */
     VmwareCimCollection getVmwareCimCollection(String collectionName);
+
+    /**
+     * Returns the Rrd repository for a given collection name.
+     *
+     * @param collectionName the collection's name
+     * @return the repository
+     */
+    public RrdRepository getRrdRepository(String collectionName);
+
+    /**
+     * Returns the base Rrd's path.
+     *
+     * @return the Rrd's path
+     */
+    public String getRrdPath();
 }

@@ -143,7 +143,7 @@ public class DefaultVmwareCimDatacollectionConfigDao extends AbstractCastorConfi
      *
      * @return the Rrd's path
      */
-    private String getRrdPath() {
+    public String getRrdPath() {
         String rrdPath = getConfig().getRrdRepository();
         if (rrdPath == null) {
             throw new RuntimeException("Configuration error, failed to "

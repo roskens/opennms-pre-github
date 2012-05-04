@@ -143,17 +143,13 @@ public class DefaultVmwareDatacollectionConfigDao extends AbstractCastorConfigDa
      *
      * @return the Rrd's path
      */
-    private String getRrdPath() {
+    public String getRrdPath() {
         String rrdPath = getConfig().getRrdRepository();
         if (rrdPath == null) {
             throw new RuntimeException("Configuration error, failed to "
                     + "retrieve path to RRD repository.");
         }
 
-        /*
-        * TODO: make a path utils class that has the below in it strip the
-        * File.separator char off of the end of the path.
-        */
         if (rrdPath.endsWith(File.separator)) {
             rrdPath = rrdPath.substring(0, (rrdPath.length() - File.separator.length()));
         }
