@@ -1,3 +1,31 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2009-2011 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2011 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
+
 package org.opennms.netmgt.provision.service.vmware;
 
 import com.vmware.vim25.*;
@@ -28,10 +56,16 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Created by IntelliJ IDEA. User: indigo Date: 1/4/12 Time: 2:24 PM To change
- * this template use File | Settings | File Templates.
+ * The Class VmwareRequisitionUrlConnection
+ * <p/>
+ * This class is used for the automtic requisition of Vmware related entities.
+ *
+ * @author Christian Pape <Christian.Pape@informatik.hs-fulda.de>
  */
 public class VmwareRequisitionUrlConnection extends GenericURLConnection {
+    /**
+     * the logger
+     */
     private Logger logger = LoggerFactory.getLogger(VmwareRequisitionUrlConnection.class);
 
     private static final int VMWARE_HOSTSYSTEM = 1;
@@ -54,10 +88,23 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
     private boolean m_importHostStandBy = false;
     private boolean m_importHostUnknown = false;
 
+    /**
+     * the query args
+     */
     private static Map<String, String> m_args = null;
 
+    /**
+     * requisition object
+     */
     private Requisition m_requisition = null;
 
+    /**
+     * Constructor for creating an instance of this class.
+     *
+     * @param url the URL to use
+     * @throws MalformedURLException
+     * @throws RemoteException
+     */
     public VmwareRequisitionUrlConnection(URL url) throws MalformedURLException, RemoteException {
         super(url);
 
@@ -80,6 +127,13 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
         m_foreignSource = "vmware-" + m_hostname;
     }
 
+    /**
+     * Returns a boolean representation for a given on/off parameter.
+     *
+     * @param key          the parameter's name
+     * @param defaultValue the default value to use
+     * @return the boolean value
+     */
     private boolean queryParameter(String key, boolean defaultValue) {
         if (m_args.get(key) == null) {
             return defaultValue;
@@ -96,6 +150,14 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
         // Templates.
     }
 
+    /**
+     * Creates a requisition node for the given managed entity and type.
+     *
+     * @param ipAddresses       the set of Ip addresses
+     * @param managedEntity     the managed entity
+     * @param managedEntityType the type of entity
+     * @return the generated requisition node
+     */
     private RequisitionNode createRequisitionNode(Set<String> ipAddresses, ManagedEntity managedEntity, int managedEntityType) {
         RequisitionNode requisitionNode = new RequisitionNode();
 
@@ -162,6 +224,11 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
         return requisitionNode;
     }
 
+    /**
+     * Builds the complete requisition object.
+     *
+     * @return the requisition object
+     */
     private Requisition buildVMwareRequisition() {
         VmwareViJavaAccess vmwareViJavaAccess = null;
 
@@ -208,6 +275,12 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
         return m_requisition;
     }
 
+    /**
+     * Checks whether the host system should be imported into the requisition.
+     *
+     * @param hostSystem the system to check
+     * @return true for import, false otherwise
+     */
     private boolean checkHostPowerState(HostSystem hostSystem) {
         String powerState = hostSystem.getSummary().runtime.getPowerState().toString();
 
@@ -223,6 +296,12 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
         return false;
     }
 
+    /**
+     * Checks whether the virtual machine should be imported into the requisition.
+     *
+     * @param virtualMachine the system to check
+     * @return true for import, false otherwise
+     */
     private boolean checkVMPowerState(VirtualMachine virtualMachine) {
         String powerState = virtualMachine.getSummary().runtime.getPowerState().toString();
 
@@ -236,6 +315,12 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
         return false;
     }
 
+    /**
+     * Iterates through the host systems and adds them to the requisition object.
+     *
+     * @param vmwareViJavaAccess the access/connection to use
+     * @throws RemoteException
+     */
     private void iterateHostSystems(VmwareViJavaAccess vmwareViJavaAccess) throws RemoteException {
         ManagedEntity[] hostSystems;
 
@@ -286,6 +371,12 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
         }
     }
 
+    /**
+     * Iterates through the virtual machines and adds them to the requisition object.
+     *
+     * @param vmwareViJavaAccess the access/connection to use
+     * @throws RemoteException
+     */
     private void iterateVirtualMachines(VmwareViJavaAccess vmwareViJavaAccess) throws RemoteException {
         ManagedEntity[] virtualMachines;
 
@@ -333,6 +424,13 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
         }
     }
 
+    /**
+     * Checks whether an attribute/value is defined by a managed entity.
+     *
+     * @param managedEntity the managed entity to check
+     * @return true if present and value is equal, false otherwise
+     * @throws RemoteException
+     */
     private boolean checkForAttribute(ManagedEntity managedEntity) throws RemoteException {
         String key = m_args.get("key");
         String value = m_args.get("value");
@@ -393,7 +491,7 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
     /**
      * Utility to marshal the Requisition class into XML.
      *
-     * @param r
+     * @param r the requisition object
      * @return a String of XML encoding the Requisition class
      * @throws javax.xml.bind.JAXBException
      */

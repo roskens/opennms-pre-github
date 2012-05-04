@@ -1,3 +1,31 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2009-2011 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2011 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
+
 package org.opennms.netmgt.collectd;
 
 import com.vmware.vim25.mo.HostSystem;
@@ -33,18 +61,33 @@ import static junit.framework.Assert.assertNotNull;
 
 public class VmwareCimCollector implements ServiceCollector {
 
-    // the attribute groups
+    /**
+     * the attribute groups
+     */
     private HashMap<String, AttributeGroupType> m_groupTypeList = new HashMap<String, AttributeGroupType>();
 
-    // the attribute types
+    /**
+     * the attribute types
+     */
     private HashMap<String, VmwareCimCollectionAttributeType> m_attribTypeList = new HashMap<String, VmwareCimCollectionAttributeType>();
 
-    // the node dao object for retrieving assets
+    /**
+     * the node dao object for retrieving assets
+     */
     private NodeDao m_nodeDao = null;
 
-    // the config dao
+    /**
+     * the config dao
+     */
     VmwareCimDatacollectionConfigDao m_vmwareCimDatacollectionConfigDao;
 
+    /**
+     * Initializes this instance with a given parameter map.
+     *
+     * @param parameters the parameter map to use
+     * @throws CollectionInitializationException
+     *
+     */
     public void initialize(Map<String, String> parameters) throws CollectionInitializationException {
         if (m_nodeDao == null)
             m_nodeDao = BeanUtils.getBean("daoContext", "nodeDao", NodeDao.class);
@@ -60,11 +103,17 @@ public class VmwareCimCollector implements ServiceCollector {
         initializeRrdRepository();
     }
 
+    /**
+     * Initializes the Rrd repository.
+     */
     private void initializeRrdRepository() {
         LogUtils.debugf(this, "initializeRrdRepository: Initializing RRD repo from WmiCollector...");
         initializeRrdDirs();
     }
 
+    /**
+     * Initializes the Rrd directories.
+     */
     private void initializeRrdDirs() {
         final File f = new File(m_vmwareCimDatacollectionConfigDao.getRrdPath());
         if (!f.isDirectory()) {
@@ -74,6 +123,9 @@ public class VmwareCimCollector implements ServiceCollector {
         }
     }
 
+    /**
+     * Initializes the database connection factory.
+     */
     private void initDatabaseConnectionFactory() {
         try {
             DataSourceFactory.init();
@@ -83,7 +135,11 @@ public class VmwareCimCollector implements ServiceCollector {
         }
     }
 
-
+    /**
+     * Initializes the attribute group list for a given collection name.
+     *
+     * @param collection the collection's name
+     */
     private void loadAttributeGroupList(final VmwareCimCollection collection) {
         for (final VmwareCimGroup vpm : collection.getVmwareCimGroups().getVmwareCimGroup()) {
             final AttributeGroupType attribGroupType1 = new AttributeGroupType(vpm.getName(), "all");
@@ -91,6 +147,11 @@ public class VmwareCimCollector implements ServiceCollector {
         }
     }
 
+    /**
+     * Initializes the attribute type list for a given collection name.
+     *
+     * @param collection the collection's name
+     */
     private void loadAttributeTypeList(final VmwareCimCollection collection) {
         for (final VmwareCimGroup vpm : collection.getVmwareCimGroups().getVmwareCimGroup()) {
             for (final Attrib attrib : vpm.getAttrib()) {
@@ -101,6 +162,14 @@ public class VmwareCimCollector implements ServiceCollector {
         }
     }
 
+    /**
+     * Initializes this instance for a given collection agent and a parameter map.
+     *
+     * @param agent      the collection agent
+     * @param parameters the parameter map
+     * @throws CollectionInitializationException
+     *
+     */
     public void initialize(CollectionAgent agent, Map<String, Object> parameters) throws CollectionInitializationException {
         OnmsNode onmsNode = m_nodeDao.get(agent.getNodeId());
 
@@ -114,35 +183,29 @@ public class VmwareCimCollector implements ServiceCollector {
         parameters.put("vmwareManagedObjectId", vmwareManagedObjectId);
     }
 
+    /**
+     * This method is used for cleanup.
+     */
     public void release() {
     }
 
+    /**
+     * This method is used for cleanup for a given collection agent.
+     *
+     * @param agent the collection agent
+     */
     public void release(CollectionAgent agent) {
     }
 
-    private String getPropertyOfCimObject(CIMObject cimObject, String propertyName) {
-        if (cimObject == null) {
-            return null;
-        } else {
-            CIMProperty cimProperty = cimObject.getProperty(propertyName);
-            if (cimProperty == null) {
-                return null;
-            } else {
-                CIMValue cimValue = cimProperty.getValue();
-                if (cimValue == null) {
-                    return null;
-                } else {
-                    Object object = cimValue.getValue();
-                    if (object == null) {
-                        return null;
-                    } else {
-                        return object.toString();
-                    }
-                }
-            }
-        }
-    }
-
+    /**
+     * This method collect the data for a given collection agent.
+     *
+     * @param agent      the collection agent
+     * @param eproxy     the event proxy
+     * @param parameters the parameters map
+     * @return the generated collection set
+     * @throws CollectionException
+     */
     public CollectionSet collect(CollectionAgent agent, EventProxy eproxy, Map<String, Object> parameters) throws CollectionException {
         String collectionName = ParameterMap.getKeyedString(parameters, "collection", ParameterMap.getKeyedString(parameters, "vmware-collection", null));
 
@@ -237,12 +300,12 @@ public class VmwareCimCollector implements ServiceCollector {
                 String instanceAttribute = vmwareCimGroup.getInstance();
 
                 for (CIMObject cimObject : cimVector) {
-                    String sensorType = getPropertyOfCimObject(cimObject, "SensorType");
+                    String sensorType = vmwareViJavaAccess.getPropertyOfCimObject(cimObject, "SensorType");
 
                     boolean addObject = false;
 
                     if (keyAttribute != null && attributeValue != null) {
-                        String cimObjectValue = getPropertyOfCimObject(cimObject, keyAttribute);
+                        String cimObjectValue = vmwareViJavaAccess.getPropertyOfCimObject(cimObject, keyAttribute);
 
                         if (attributeValue.equals(cimObjectValue)) {
                             addObject = true;
@@ -254,15 +317,15 @@ public class VmwareCimCollector implements ServiceCollector {
                     }
 
                     if (addObject) {
-                        String instance = getPropertyOfCimObject(cimObject, instanceAttribute);
+                        String instance = vmwareViJavaAccess.getPropertyOfCimObject(cimObject, instanceAttribute);
                         VmwareCimCollectionResource vmwareCollectionResource = new VmwareCimMultiInstanceCollectionResource(agent, instance, vmwareCimGroup.getResourceType());
 
                         for (Attrib attrib : vmwareCimGroup.getAttrib()) {
                             final VmwareCimCollectionAttributeType attribType = m_attribTypeList.get(attrib.getName());
 
-                            vmwareCollectionResource.setAttributeValue(attribType, getPropertyOfCimObject(cimObject, attrib.getName()));
+                            vmwareCollectionResource.setAttributeValue(attribType, vmwareViJavaAccess.getPropertyOfCimObject(cimObject, attrib.getName()));
 
-                            LogUtils.debugf(this, "Storing multi instance value " + attrib.getName() + "[" + instance + "]='" + getPropertyOfCimObject(cimObject, attrib.getName()) + "' for node " + agent.getNodeId());
+                            LogUtils.debugf(this, "Storing multi instance value " + attrib.getName() + "[" + instance + "]='" + vmwareViJavaAccess.getPropertyOfCimObject(cimObject, attrib.getName()) + "' for node " + agent.getNodeId());
 
                         }
                         collectionSet.getResources().add(vmwareCollectionResource);
@@ -277,10 +340,22 @@ public class VmwareCimCollector implements ServiceCollector {
         return collectionSet;
     }
 
+
+    /**
+     * Returns the Rrd repository for this object.
+     *
+     * @param collectionName the collection's name
+     * @return the Rrd repository
+     */
     public RrdRepository getRrdRepository(final String collectionName) {
         return m_vmwareCimDatacollectionConfigDao.getRrdRepository(collectionName);
     }
 
+    /**
+     * Sets the NodeDao object for this instance.
+     *
+     * @param nodeDao the NodeDao object to use
+     */
     public void setNodeDao(NodeDao nodeDao) {
         m_nodeDao = nodeDao;
     }

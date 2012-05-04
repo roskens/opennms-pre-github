@@ -1,3 +1,31 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2009-2011 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2011 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
+
 package org.opennms.netmgt.collectd.vmware;
 
 import com.vmware.vim25.*;
@@ -13,10 +41,7 @@ import org.opennms.core.utils.EmptyKeyRelaxedTrustSSLContext;
 import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.collectd.vmware.vijava.VmwarePerformanceValues;
 import org.opennms.netmgt.dao.VmwareDatacollectionConfigDao;
-import org.sblim.wbem.cim.CIMException;
-import org.sblim.wbem.cim.CIMNameSpace;
-import org.sblim.wbem.cim.CIMObject;
-import org.sblim.wbem.cim.CIMObjectPath;
+import org.sblim.wbem.cim.*;
 import org.sblim.wbem.client.CIMClient;
 import org.sblim.wbem.client.PasswordCredential;
 import org.sblim.wbem.client.UserPrincipal;
@@ -37,11 +62,11 @@ import java.util.Vector;
 import static junit.framework.Assert.assertNotNull;
 
 /**
- * Created by IntelliJ IDEA.
- * User: chris
- * Date: 23.01.12
- * Time: 08:37
- * To change this template use File | Settings | File Templates.
+ * The Class VmwareViJavaAccess
+ * <p/>
+ * This class provides all the functionality to query Vmware infrastructure components.
+ *
+ * @author Christian Pape <Christian.Pape@informatik.hs-fulda.de>
  */
 public class VmwareViJavaAccess {
     /*
@@ -60,16 +85,15 @@ public class VmwareViJavaAccess {
 
        private static String rateUnitsDesc[] = {"None", "Per MicroSecond", "Per MilliSecond", "Per Second", "Per Minute", "Per Hour", "Per Day", "Per Week", "Per Month", "Per Year"};
 
-
     */
 
-    // the config dao
+    /**
+     * the config dao
+     */
     private VmwareConfigDao m_vmwareConfigDao;
 
     private String m_hostname;
-
     private String m_username;
-
     private String m_password;
 
     private ServiceInstance m_serviceInstance = null;
@@ -82,12 +106,28 @@ public class VmwareViJavaAccess {
 
     private Map<HostSystem, String> m_hostSystemCimUrls = new HashMap<HostSystem, String>();
 
+    /**
+     * Constructor for creating a instance for a given server and credentials.
+     *
+     * @param hostname the vCenter's hostname
+     * @param username the username
+     * @param password the password
+     */
     public VmwareViJavaAccess(String hostname, String username, String password) {
         this.m_hostname = hostname;
         this.m_username = username;
         this.m_password = password;
     }
 
+    /**
+     * Constructor for creating a instance for a given server. Checks whether credentials
+     * are available in the Vmware config file.
+     *
+     * @param hostname the vCenter's hostname
+     * @throws MarshalException
+     * @throws ValidationException
+     * @throws IOException
+     */
     public VmwareViJavaAccess(String hostname) throws MarshalException, ValidationException, IOException {
         if (m_vmwareConfigDao == null)
             m_vmwareConfigDao = BeanUtils.getBean("daoContext", "vmwareConfigDao", VmwareConfigDao.class);
@@ -99,32 +139,29 @@ public class VmwareViJavaAccess {
         this.m_password = m_vmwareConfigDao.getServerMap().get(m_hostname).getPassword();
     }
 
+    /**
+     * Connects to the server.
+     *
+     * @throws MalformedURLException
+     * @throws RemoteException
+     */
     public void connect() throws MalformedURLException, RemoteException {
         relax();
 
         m_serviceInstance = new ServiceInstance(new URL("https://" + m_hostname + "/sdk"), m_username, m_password);
     }
 
+    /**
+     * Disconnects from the server.
+     */
     public void disconnect() {
         m_serviceInstance.getServerConnection().logout();
     }
 
+    /**
+     * This method is used to "relax" the policies concerning self-signed certificates.
+     */
     private void relax() {
-        /*
-        DefaultHttpClient client = new DefaultHttpClient();
-
-        final SchemeRegistry registry = client.getConnectionManager().getSchemeRegistry();
-        final Scheme https = registry.getScheme("https");
-
-        try {
-            final org.apache.http.conn.ssl.SSLSocketFactory factory = new org.apache.http.conn.ssl.SSLSocketFactory(SSLContext.getInstance(EmptyKeyRelaxedTrustSSLContext.ALGORITHM), org.apache.http.conn.ssl.SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
-            final Scheme lenient = new Scheme(https.getName(), https.getDefaultPort(), factory);
-            registry.register(lenient);
-        } catch (NoSuchAlgorithmException noSuchAlgorithmException) {
-            LogUtils.warnf(this, "Error setting relaxed https policy'" + noSuchAlgorithmException.getMessage() + "'");
-        }
-
-        */
 
         TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
             public java.security.cert.X509Certificate[] getAcceptedIssuers() {
@@ -167,9 +204,13 @@ public class VmwareViJavaAccess {
                 return true;
             }
         });
-
     }
 
+    /**
+     * Retrieves the performance manager for this instance.
+     *
+     * @return the performance manager
+     */
     private PerformanceManager getPerformanceManager() {
         if (m_performanceManager == null)
             m_performanceManager = m_serviceInstance.getPerformanceManager();
@@ -177,6 +218,11 @@ public class VmwareViJavaAccess {
         return m_performanceManager;
     }
 
+    /**
+     * This method retrieves the performance counters available.
+     *
+     * @return a map of performance counters
+     */
     public Map<Integer, PerfCounterInfo> getPerfCounterInfoMap() {
         if (m_perfCounterInfoMap == null) {
             m_perfCounterInfoMap = new HashMap<Integer, PerfCounterInfo>();
@@ -190,6 +236,12 @@ public class VmwareViJavaAccess {
         return m_perfCounterInfoMap;
     }
 
+    /**
+     * Returns a managed entitiy for a given managed object Id.
+     *
+     * @param managedObjectId the managed object Id
+     * @return the managed entity
+     */
     public ManagedEntity getManagedEntityByManagedObjectId(String managedObjectId) {
         ManagedObjectReference managedObjectReference = new ManagedObjectReference();
 
@@ -201,6 +253,12 @@ public class VmwareViJavaAccess {
         return managedEntity;
     }
 
+    /**
+     * Returns a virtual machine by a given managed object Id.
+     *
+     * @param managedObjectId the managed object Id
+     * @return the virtual machine object
+     */
     public VirtualMachine getVirtualMachineByManagedObjectId(String managedObjectId) {
         ManagedObjectReference managedObjectReference = new ManagedObjectReference();
 
@@ -212,6 +270,12 @@ public class VmwareViJavaAccess {
         return virtualMachine;
     }
 
+    /**
+     * Returns a host system by a given managed object Id.
+     *
+     * @param managedObjectId the managed object Id
+     * @return the host system object
+     */
     public HostSystem getHostSystemByManagedObjectId(String managedObjectId) {
         ManagedObjectReference managedObjectReference = new ManagedObjectReference();
 
@@ -223,10 +287,23 @@ public class VmwareViJavaAccess {
         return hostSystem;
     }
 
+    /**
+     * Generates a human-readable name for a performance counter.
+     *
+     * @param perfCounterInfo the perfomance counter info object
+     * @return a string-representation of the performance counter's name
+     */
     private String getHumanReadableName(PerfCounterInfo perfCounterInfo) {
         return perfCounterInfo.getGroupInfo().getKey() + "." + perfCounterInfo.getNameInfo().getKey() + "." + perfCounterInfo.getRollupType().toString();
     }
 
+    /**
+     * This method queries performance values for a given managed entity.
+     *
+     * @param managedEntity the managed entity to query
+     * @return the perfomance values
+     * @throws RemoteException
+     */
     public VmwarePerformanceValues queryPerformanceValues(ManagedEntity managedEntity) throws RemoteException {
 
         VmwarePerformanceValues vmwarePerformanceValues = new VmwarePerformanceValues();
@@ -272,6 +349,15 @@ public class VmwareViJavaAccess {
         return vmwarePerformanceValues;
     }
 
+    /**
+     * Queries a host system for Cim data.
+     *
+     * @param hostSystem the host system to query
+     * @param cimClass   the class of Cim objects to retrieve
+     * @return the list of Cim objects
+     * @throws RemoteException
+     * @throws CIMException
+     */
     public Vector<CIMObject> queryCimObjects(HostSystem hostSystem, String cimClass) throws RemoteException, CIMException {
         Vector<CIMObject> cimObjects = new Vector<CIMObject>();
 
@@ -339,7 +425,44 @@ public class VmwareViJavaAccess {
         return cimObjects;
     }
 
+    /**
+     * Searches for a managed entity by a given type.
+     *
+     * @param type the type string to search for
+     * @return the list of managed entities found
+     * @throws RemoteException
+     */
     public ManagedEntity[] searchManagedEntities(String type) throws RemoteException {
         return (new InventoryNavigator(m_serviceInstance.getRootFolder())).searchManagedEntities(type);
+    }
+
+    /**
+     * Returns the value of a given cim object and property.
+     *
+     * @param cimObject    the Cim object
+     * @param propertyName the property's name
+     * @return the value
+     */
+    public String getPropertyOfCimObject(CIMObject cimObject, String propertyName) {
+        if (cimObject == null) {
+            return null;
+        } else {
+            CIMProperty cimProperty = cimObject.getProperty(propertyName);
+            if (cimProperty == null) {
+                return null;
+            } else {
+                CIMValue cimValue = cimProperty.getValue();
+                if (cimValue == null) {
+                    return null;
+                } else {
+                    Object object = cimValue.getValue();
+                    if (object == null) {
+                        return null;
+                    } else {
+                        return object.toString();
+                    }
+                }
+            }
+        }
     }
 }

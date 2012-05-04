@@ -34,37 +34,22 @@ import org.opennms.netmgt.config.collector.CollectionAttributeType;
 import org.opennms.netmgt.config.collector.Persister;
 import org.opennms.netmgt.config.vmware.vijava.Attrib;
 
-/**
- * <p>WmiCollectionAttributeType class.</p>
- *
- * @author ranger
- * @version $Id: $
- */
 public class VmwareCollectionAttributeType implements CollectionAttributeType {
     Attrib m_attribute;
     AttributeGroupType m_groupType;
 
-    /**
-     * <p>Constructor for WmiCollectionAttributeType.</p>
-     *
-     * @param attribute a {@link org.opennms.netmgt.config.wmi.Attrib} object.
-     * @param groupType a {@link org.opennms.netmgt.config.collector.AttributeGroupType} object.
-     */
     public VmwareCollectionAttributeType(final Attrib attribute, final AttributeGroupType groupType) {
         m_groupType = groupType;
         m_attribute = attribute;
     }
 
-    /**
-     * <p>getGroupType</p>
-     *
-     * @return a {@link org.opennms.netmgt.config.collector.AttributeGroupType} object.
-     */
     public AttributeGroupType getGroupType() {
         return m_groupType;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public void storeAttribute(final CollectionAttribute attribute, final Persister persister) {
         if ("string".equalsIgnoreCase(m_attribute.getType())) {
             persister.persistStringAttribute(attribute);
@@ -73,20 +58,10 @@ public class VmwareCollectionAttributeType implements CollectionAttributeType {
         }
     }
 
-    /**
-     * <p>getName</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
     public String getName() {
         return m_attribute.getAlias();
     }
 
-    /**
-     * <p>getType</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
     public String getType() {
         return m_attribute.getType();
     }

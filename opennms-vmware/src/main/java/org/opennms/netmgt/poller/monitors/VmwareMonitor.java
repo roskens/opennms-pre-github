@@ -1,3 +1,31 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2009-2011 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2011 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
+
 package org.opennms.netmgt.poller.monitors;
 
 import com.vmware.vim25.mo.HostSystem;
@@ -20,20 +48,43 @@ import java.util.Map;
 
 import static junit.framework.Assert.assertNotNull;
 
+/**
+ * The Class VmwareMonitor
+ * <p/>
+ * This class represents a monitor for Vmware related queries
+ *
+ * @author Christian Pape <Christian.Pape@informatik.hs-fulda.de>
+ */
 public class VmwareMonitor extends AbstractServiceMonitor {
 
-    // map for accessing the vmware-server parameters
+    /**
+     * map for accessing the vmware-server parameters
+     */
     private Map<String, VmwareServer> vmwareServerMap = null;
 
-    // the node dao object for retrieving assets
+    /**
+     * the node dao object for retrieving assets
+     */
     private NodeDao m_nodeDao = null;
 
+    /**
+     * Initializes this object with a given parameter map.
+     *
+     * @param parameters the parameter map to use
+     */
     public void initialize(Map<String, Object> parameters) {
         m_nodeDao = BeanUtils.getBean("daoContext", "nodeDao", NodeDao.class);
 
         assertNotNull("Node dao should be a non-null value.", m_nodeDao);
     }
 
+    /**
+     * This method queries the Vmware vCenter server for sensor data.
+     *
+     * @param svc        the monitored service
+     * @param parameters the parameter map
+     * @return the poll status for this system
+     */
     public PollStatus poll(MonitoredService svc, Map<String, Object> parameters) {
         OnmsNode onmsNode = m_nodeDao.get(svc.getNodeId());
 
@@ -102,6 +153,11 @@ public class VmwareMonitor extends AbstractServiceMonitor {
         return serviceStatus;
     }
 
+    /**
+     * Sets the NodeDao object for this instance.
+     *
+     * @param nodeDao the NodeDao object to use
+     */
     public void setNodeDao(NodeDao nodeDao) {
         m_nodeDao = nodeDao;
     }

@@ -48,7 +48,6 @@
             </vmware-group>
 
             <vmware-group name="Disk" resourceType="Disk">
-                <!-- <attrib name="instanceName" alias="DiskName" type="String"/> -->
                 <attrib name="disk.busResets.summation" alias="DiskBusResetsSum" type="Gauge"/>
                 <attrib name="disk.commands.summation" alias="DiskCmdsSum" type="Gauge"/>
                 <attrib name="disk.commandsAborted.summation" alias="DiskCmdsAbdSum" type="Gauge"/>
@@ -59,7 +58,6 @@
             </vmware-group>
 
             <vmware-group name="Cpu" resourceType="Cpu">
-                <!-- <attrib name="instanceName" alias="CpuName" type="String"/> -->
                 <attrib name="cpu.extra.summation" alias="CpuExtraSum" type="Gauge"/>
                 <attrib name="cpu.guaranteed.latest" alias="CpuGuaranteedLat" type="Gauge"/>
                 <attrib name="cpu.ready.summation" alias="CpuReadySum" type="Gauge"/>
@@ -69,7 +67,6 @@
             </vmware-group>
 
             <vmware-group name="Net" resourceType="Net">
-                <!-- <attrib name="instanceName" alias="NetName" type="String"/> -->
                 <attrib name="net.packetsRx.summation" alias="NetPacketsRxSum" type="Gauge"/>
                 <attrib name="net.packetsTx.summation" alias="NetPacketsTxSum" type="Gauge"/>
                 <attrib name="net.received.average" alias="NetReceivedAvg" type="Gauge"/>
@@ -143,12 +140,10 @@
             </vmware-group>
 
             <vmware-group name="Sys" resourceType="Sys">
-                <!-- <attrib name="instanceName" alias="SysName" type="String"/> -->
                 <attrib name="sys.resourceCpuUsage.none" alias="SysRscCpuUsageNon" type="Gauge"/>
             </vmware-group>
 
             <vmware-group name="Disk" resourceType="Disk">
-                <!-- <attrib name="instanceName" alias="DiskName" type="String"/> -->
                 <attrib name="disk.busResets.summation" alias="DiskBusResetsSum" type="Gauge"/>
                 <attrib name="disk.commands.summation" alias="DiskCmdsSum" type="Gauge"/>
                 <attrib name="disk.commandsAborted.summation" alias="DiskCmdsAbdSum" type="Gauge"/>
@@ -171,13 +166,11 @@
             </vmware-group>
 
             <vmware-group name="Cpu" resourceType="Cpu">
-                <!-- <attrib name="instanceName" alias="CpuName" type="String"/> -->
                 <attrib name="cpu.idle.summation" alias="CpuIdleSum" type="Gauge"/>
                 <attrib name="cpu.used.summation" alias="CpuUsedSum" type="Gauge"/>
             </vmware-group>
 
             <vmware-group name="Net" resourceType="Net">
-                <!-- <attrib name="instanceName" alias="NetName" type="String"/> -->
                 <attrib name="net.packetsRx.summation" alias="NetPacketsRxSum" type="Gauge"/>
                 <attrib name="net.packetsTx.summation" alias="NetPacketsTxSum" type="Gauge"/>
                 <attrib name="net.received.average" alias="NetReceivedAvg" type="Gauge"/>

@@ -41,77 +41,44 @@ public class VmwareCollectionAttribute extends AbstractCollectionAttribute imple
     CollectionAttributeType m_attribType;
 
     public VmwareCollectionAttribute(final VmwareCollectionResource resource, final CollectionAttributeType attribType, final String alias, final String value) {
-        m_resource=resource;
-        m_attribType=attribType;
+        m_resource = resource;
+        m_attribType = attribType;
         m_alias = alias;
         m_value = value;
     }
 
-    /**
-     * <p>getAttributeType</p>
-     *
-     * @return a {@link org.opennms.netmgt.config.collector.CollectionAttributeType} object.
-     */
     public CollectionAttributeType getAttributeType() {
         return m_attribType;
     }
 
-    /**
-     * <p>getName</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
     public String getName() {
         return m_alias;
     }
 
-    /**
-     * <p>getNumericValue</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
     public String getNumericValue() {
         return m_value;
     }
 
-    /**
-     * <p>getResource</p>
-     *
-     * @return a {@link org.opennms.netmgt.config.collector.CollectionResource} object.
-     */
     public CollectionResource getResource() {
         return m_resource;
     }
 
-    /**
-     * <p>getStringValue</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
     public String getStringValue() {
         return m_value; //Should this be null instead?
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public boolean shouldPersist(final ServiceParameters params) {
         return true;
     }
 
-    /**
-     * <p>getType</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
     public String getType() {
         return m_attribType.getType();
     }
 
-    /**
-     * <p>toString</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
     public String toString() {
-        return "VmwareCollectionAttribute " + m_alias+"=" + m_value;
+        return "VmwareCollectionAttribute " + m_alias + "=" + m_value;
     }
 }
