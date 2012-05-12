@@ -764,7 +764,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
 			File file = File.createTempFile("crrd", ".jrb");
 			//file.deleteOnExit();
 
-			System.err.println("Creating temporary rrd " + file + " with " + datapoints.size() + " datapoints");
+			log().debug("Creating temporary rrd " + file + " with " + datapoints.size() + " datapoints");
 
 			RrdDef def = new RrdDef(file.getAbsolutePath());
 			def.setStartTime(1000);

@@ -13,6 +13,7 @@ import me.prettyprint.hector.api.Keyspace;
 import me.prettyprint.hector.api.factory.HFactory;
 import me.prettyprint.hector.api.mutation.Mutator;
 
+import org.opennms.core.utils.ThreadCategory;
 
 class Persister implements Runnable {
 	Keyspace m_keyspace;
@@ -85,8 +86,6 @@ class Persister implements Runnable {
 			List<Datapoint> datapoints = getDatapoints();
 			if (datapoints == null) continue;
 
-			System.err.print("Writing " + datapoints.size() + " datapoints...");
-
 			long start = System.currentTimeMillis();
 
 			Mutator<String> mutator = HFactory.createMutator(m_keyspace, new StringSerializer());
@@ -98,7 +97,7 @@ class Persister implements Runnable {
 			mutator.execute();
 			long end = System.currentTimeMillis();
 
-			System.err.println((end - start) + " ms.");
+			log().debug("Wrote " + datapoints.size() + " datapoints in "+ (end-start) + " ms.");
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -117,4 +116,8 @@ class Persister implements Runnable {
 		m_finishLatch.await();
 	}
 
+
+	private final ThreadCategory log() {
+		return ThreadCategory.getInstance(getClass());
+	}
 }
