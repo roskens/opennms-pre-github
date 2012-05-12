@@ -290,7 +290,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
 
 	String fileName = rrdFile.getFileName();
 
-	String[] components = fileName.split("/");
+	String[] components = fileName.split(File.pathSeparator);
 	String dsName = components[components.length-1];
 
 		Datapoint dp = new Datapoint(fileName, dsName, timestamp, value);
@@ -748,7 +748,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
 	private File getRrdFile(final File workDir, String relpath, long start, long end, String dsName, String consolFun) throws RrdException {
 		try {
 			String path = workDir.getAbsolutePath();
-			String key = path+"/"+relpath;
+			String key = path+File.pathSeparator+relpath;
 
 			SuperSliceQuery<String,Long,String,Double> query = HFactory.createSuperSliceQuery(m_keyspace, StringSerializer.get(), LongSerializer.get(), StringSerializer.get(), DoubleSerializer.get());
 
