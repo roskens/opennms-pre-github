@@ -282,6 +282,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
      * {@inheritDoc}
      *
      * Creates a sample from the JRobin RrdDb and passes in the data provided.
+     * XXX: does not handle storeByGroup
      */
     public void updateFile(final CassRrd rrdFile, final String owner, final String data) throws Exception {
 
