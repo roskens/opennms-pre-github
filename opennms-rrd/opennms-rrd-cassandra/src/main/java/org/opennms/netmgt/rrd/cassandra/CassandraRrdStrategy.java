@@ -86,8 +86,6 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
 	public static final String KEYSPACE_NAME_PROPERTY = "org.opennms.netmgt.rrd.cassandra.keyspace";
 	private static final String DEFAULT_KEYSPACE = "OpenNMSDataCollectionV1";
 
-
-
 	// Data column must be create with a structure like this:
 	// create column family Data with column_type='Super' \
 	//     and key_validation_class=UTF8Type \
@@ -134,6 +132,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
     private String m_columnFamily;
     private String m_clusterName;
     private String m_clusterHosts;
+    private String m_opennmsRrdDir;
     private int m_thriftPort;
     private boolean m_dynamicDiscovery;
     private String[] m_rraList;
@@ -193,6 +192,8 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
 
         m_rraList = getProperty(RRA_LIST_PROPERTY, DEFAULT_RRA_LIST).trim().split(",");
         m_ttl = Integer.parseInt(getProperty(TTL_PROPERTY, DEFAULT_TTL));
+
+	m_opennmsRrdDir = System.getProperty("opennms.home") + File.separator + "share" + File.separator + "rrd";
 
 	Cluster cluster = HFactory.getOrCreateCluster(m_clusterName, new CassandraHostConfigurator(m_clusterHosts));
 
@@ -289,6 +290,9 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
 	double value = Double.parseDouble(tokens[1]);
 
 	String fileName = rrdFile.getFileName();
+	if (fileName.startsWith(m_opennmsRrdDir + File.separator)) {
+		fileName = fileName.substring(m_opennmsRrdDir.length()+1);
+	}
 
 	String[] components = fileName.split(File.pathSeparator);
 	String dsName = components[components.length-1];
