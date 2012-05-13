@@ -301,16 +301,21 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
 	double value = Double.parseDouble(tokens[1]);
 
 	String fileName = rrdFile.getFileName();
+/*
 	if (fileName.startsWith(m_opennmsRrdDir + File.separator)) {
 		fileName = fileName.substring(m_opennmsRrdDir.length()+1);
 	}
+*/
 
 	String[] components = fileName.split(File.pathSeparator);
 	String dsName = components[components.length-1];
+	if (dsName.endsWith(getDefaultFileExtension())) {
+		dsName = dsName.substring(0, dsName.lastIndexOf(getDefaultFileExtension()));
+	}
 
-		Datapoint dp = new Datapoint(fileName, dsName, timestamp, value);
+	Datapoint dp = new Datapoint(fileName, dsName, timestamp, value);
 
-		m_persister.persist(dp);
+	m_persister.persist(dp);
 
     }
 
