@@ -1,6 +1,9 @@
 package org.opennms.netmgt.rrd.cassandra;
+
 import java.io.File;
 import java.io.IOException;
+
+import org.opennms.core.utils.LogUtils;
 
 public class CassRrdDef {
 	private String m_fileName;
@@ -21,8 +24,10 @@ public class CassRrdDef {
 	public void create() {
 		//throw new UnsupportedOperationException("CassRrdDef.create is not yet implemented.");
 		File f = new File(m_fileName);
+		if (f.exists()) { return; }
 		try {
 			f.createNewFile();
+			LogUtils.debugf(this, "Created new CassRrd file %s", m_fileName);
 		} catch (IOException e) {
 		}
 	}
