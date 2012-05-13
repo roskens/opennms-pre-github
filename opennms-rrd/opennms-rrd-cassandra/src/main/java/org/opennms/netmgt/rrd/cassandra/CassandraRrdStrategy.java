@@ -239,7 +239,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
 	File f = new File(directory);
 	f.mkdirs();
 
-	String fileName = directory + File.separator + rrdName + getExtension();
+	String fileName = directory + File.separator + rrdName + getDefaultFileExtension();
         if (new File(fileName).exists()) {
             return null;
         }
