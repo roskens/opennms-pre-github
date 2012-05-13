@@ -233,8 +233,18 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
 
     /** {@inheritDoc} */
     public CassRrdDef createDefinition(final String creator, final String directory, final String rrdName, int step, final List<RrdDataSource> dataSources, final List<String> rraList) throws Exception {
+	/**
+         * XXX: opennms-dao classes rely upon being able to list the rrd files directly.
+         */
+	File f = new File(directory);
+	f.mkdirs();
 
-	CassRrdDef def = new CassRrdDef(creator, directory, rrdName, step);
+	String fileName = directory + File.separator + rrdName + getExtension();
+        if (new File(fileName).exists()) {
+            return null;
+        }
+
+	CassRrdDef def = new CassRrdDef(creator, fileName, step);
 
         for (RrdDataSource dataSource : dataSources) {
             String dsMin = dataSource.getMin();
@@ -1091,6 +1101,12 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
             ConstantStaticDef csDef = new ConstantStaticDef((long)start, (long)end, result);
             graphDef.datasource(sourceName, csDef);
         }
+    }
+
+    public String getExtension() {
+        return m_configurationProperties == null
+                ? getDefaultFileExtension()
+            : m_configurationProperties.getProperty("org.opennms.rrd.fileExtension", getDefaultFileExtension());
     }
 
 }
