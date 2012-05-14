@@ -91,7 +91,7 @@ class Persister implements Runnable {
 			Mutator<String> mutator = HFactory.createMutator(m_keyspace, new StringSerializer());
 
 			for(Datapoint datapoint : datapoints) {
-				datapoint.perist(mutator, m_columnFamily, m_ttl);
+				datapoint.persist(mutator, m_columnFamily, m_ttl);
 			}
 
 			mutator.execute();
