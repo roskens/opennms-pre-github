@@ -52,11 +52,12 @@ public class CassRrdDef {
         //throw new UnsupportedOperationException("CassRrdDef.create is not yet implemented.");
         // TODO: Only need this while ResourceTypeUtils does file system scans for datasources.
         File f = new File(m_fileName);
-        if (f.exists()) { return; }
-        try {
-            f.createNewFile();
-            LogUtils.debugf(this, "Created new CassRrd file %s", m_fileName);
-        } catch (IOException e) {
+        if (!f.exists()) {
+            try {
+                f.createNewFile();
+                LogUtils.debugf(this, "Created new CassRrd file %s", m_fileName);
+            } catch (IOException e) {
+            }
         }
 
         Mutator<String> mutator = HFactory.createMutator(keyspace, StringSerializer.get());
