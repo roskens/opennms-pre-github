@@ -1,7 +1,7 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2006-2011 The OpenNMS Group, Inc.
+ * Copyright (C) 2007-2011 The OpenNMS Group, Inc.
  * OpenNMS(R) is Copyright (C) 1999-2011 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
@@ -35,6 +35,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -74,84 +75,98 @@ import org.opennms.netmgt.rrd.RrdGraphDetails;
 import org.opennms.netmgt.rrd.RrdStrategy;
 
 /**
- * Provides a JRobin based implementation of RrdStrategy. It uses JRobin 1.4 in
- * FILE mode (NIO is too memory consuming for the large number of files that we
- * open)
- *
  * @author ranger
  * @version $Id: $
  */
-public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
+public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
 
-	public static final String KEYSPACE_NAME_PROPERTY = "org.opennms.netmgt.rrd.cassandra.keyspace";
-	private static final String DEFAULT_KEYSPACE = "OpenNMSDataCollectionV1";
+    public static final String KEYSPACE_NAME_PROPERTY = "org.opennms.netmgt.rrd.cassandra.keyspace";
 
-	// Data column must be create with a structure like this:
-	// create column family Data with column_type='Super' \
-	//     and key_validation_class=UTF8Type \
-	//     and comparator=LongType \
-	//     and subcomparator=UTF8Type \
-	//     and default_validation_class=DoubleType;
-	public static final String DATA_COLUMN_FAMILY_NAME_PROPERTY = "org.opennms.netmgt.rrd.cassandra.dataColumnFamily";
-	private static final String DEFAULT_DATA_COLUMN = "datapoints";
+    private static final String DEFAULT_KEYSPACE = "OpenNMSDataCollectionV1";
 
-	public static final String CLUSTER_NAME_PROPERTY = "org.opennms.netmgt.rrd.cassandra.clusterName";
-	private static final String DEFAULT_CLUSTER_NAME = "datacollectionCluster";
+    // Data column must be create with a structure like this:
+    // create column family Data with column_type='Super' \
+    // and key_validation_class=UTF8Type \
+    // and comparator=LongType \
+    // and subcomparator=UTF8Type \
+    // and default_validation_class=DoubleType;
+    public static final String DATA_COLUMN_FAMILY_NAME_PROPERTY = "org.opennms.netmgt.rrd.cassandra.dataColumnFamily";
 
-	// comma separated list of hosts
-	public static final String CLUSTER_HOSTS_PROPERTY = "org.opennms.netmgt.rrd.cassandra.clusterHosts";
-	private static final String DEFAULT_CLUSER_HOSTS = "localhost";
+    private static final String DEFAULT_DATA_COLUMN = "datapoints";
 
-	// time to live in seconds
-	public static final String TTL_PROPERTY = "org.opennms.netmgt.rrd.cassandra.timeToLive";
-	private static final String DEFAULT_TTL = "31622400";
+    public static final String CLUSTER_NAME_PROPERTY = "org.opennms.netmgt.rrd.cassandra.clusterName";
 
+    private static final String DEFAULT_CLUSTER_NAME = "datacollectionCluster";
 
-	public static final String THRIFT_PORT_PROPERTY = "org.opennms.netmgt.rrd.cassandra.thriftPort";
-	private static final String DEFAULT_THRIFT_PORT = "9160";
+    // comma separated list of hosts
+    public static final String CLUSTER_HOSTS_PROPERTY = "org.opennms.netmgt.rrd.cassandra.clusterHosts";
 
-	public static final String DYNAMIC_DISCOVERY_PROPERTY = "org.opennms.netmgt.rrd.cassandra.dynamicDiscovery";
-	private static final String DEFAULT_DYNAMIC_DISCOVERY = "false";
+    private static final String DEFAULT_CLUSER_HOSTS = "localhost";
 
-	public static final String RRA_LIST_PROPERTY = "org.opennms.netmgmt.rrd.cassandra.rraList";
-	public static final String DEFAULT_RRA_LIST = "RRA:AVERAGE:0.5:1:2016,RRA:AVERAGE:0.5:12:1488,RRA:AVERAGE:0.5:288:366,RRA:MAX:0.5:288:366,RRA:MIN:0.5:288:366";
+    // time to live in seconds
+    public static final String TTL_PROPERTY = "org.opennms.netmgt.rrd.cassandra.timeToLive";
 
+    private static final String DEFAULT_TTL = "31622400";
 
+    public static final String THRIFT_PORT_PROPERTY = "org.opennms.netmgt.rrd.cassandra.thriftPort";
 
+    private static final String DEFAULT_THRIFT_PORT = "9160";
 
+    public static final String DYNAMIC_DISCOVERY_PROPERTY = "org.opennms.netmgt.rrd.cassandra.dynamicDiscovery";
+
+    private static final String DEFAULT_DYNAMIC_DISCOVERY = "false";
+
+    public static final String RRA_LIST_PROPERTY = "org.opennms.netmgt.rrd.cassandra.rraList";
+
+    public static final String DEFAULT_RRA_LIST = "RRA:AVERAGE:0.5:1:2016,RRA:AVERAGE:0.5:12:1488,RRA:AVERAGE:0.5:288:366,RRA:MAX:0.5:288:366,RRA:MIN:0.5:288:366";
+
+    public static final String POOLSIZE_PROPERTY = "org.opennms.netmgt.rrd.cassandra.rrdfile-poolsize";
+    private static final String DEFAULT_RRDFILE_POOLSIZE = "100";
 
     /*
-     * Ensure that we only initialize certain things *once* per
-     * Java VM, not once per instantiation of this class.
+     * Ensure that we only initialize certain things *once* per Java VM, not
+     * once per instantiation of this class.
      */
     private static boolean s_initialized = false;
 
     private Properties m_configurationProperties;
 
     private String m_keyspaceName;
+
     private String m_columnFamily;
+
     private String m_clusterName;
+
     private String m_clusterHosts;
+
     private String m_opennmsRrdDir;
+
     private int m_thriftPort;
+
     private boolean m_dynamicDiscovery;
+
     private String[] m_rraList;
+
     private int m_ttl;
 
     private Persister m_persister;
-	private Keyspace m_keyspace;
+
+    private Keyspace m_keyspace;
+
+    private CassRrdPool m_rrdFilePool;
 
     /**
-     * An extremely simple Plottable for holding static datasources that
-     * can't be represented with an SDEF -- currently used only for PERCENT
+     * An extremely simple Plottable for holding static datasources that can't
+     * be represented with an SDEF -- currently used only for PERCENT
      * pseudo-VDEFs
      *
      * @author jeffg
-     *
      */
     class ConstantStaticDef extends Plottable {
         private double m_startTime = Double.NEGATIVE_INFINITY;
+
         private double m_endTime = Double.POSITIVE_INFINITY;
+
         private double m_value = Double.NaN;
 
         ConstantStaticDef(long startTime, long endTime, double value) {
@@ -170,7 +185,9 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
     }
 
     /**
-     * <p>getConfigurationProperties</p>
+     * <p>
+     * getConfigurationProperties
+     * </p>
      *
      * @return a {@link java.util.Properties} object.
      */
@@ -193,95 +210,104 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
         m_rraList = getProperty(RRA_LIST_PROPERTY, DEFAULT_RRA_LIST).trim().split(",");
         m_ttl = Integer.parseInt(getProperty(TTL_PROPERTY, DEFAULT_TTL));
 
-	m_opennmsRrdDir = System.getProperty("opennms.home") + File.separator + "share" + File.separator + "rrd";
+        int poolsize = Integer.parseInt(getProperty(POOLSIZE_PROPERTY, DEFAULT_RRDFILE_POOLSIZE));
 
-	Cluster cluster = HFactory.getOrCreateCluster(m_clusterName, new CassandraHostConfigurator(m_clusterHosts));
+        m_opennmsRrdDir = System.getProperty("opennms.home") + File.separator + "share" + File.separator + "rrd";
 
-	KeyspaceDefinition ksDef = cluster.describeKeyspace(m_keyspaceName);
+        Cluster cluster = HFactory.getOrCreateCluster(m_clusterName, new CassandraHostConfigurator(m_clusterHosts));
 
-	if (ksDef == null) {
+        KeyspaceDefinition ksDef = cluster.describeKeyspace(m_keyspaceName);
 
-		ColumnFamilyDefinition cfDef = HFactory.createColumnFamilyDefinition(m_keyspaceName, m_columnFamily, ComparatorType.LONGTYPE);
-		cfDef.setColumnType(ColumnType.SUPER);
-		cfDef.setSubComparatorType(ComparatorType.UTF8TYPE);
-		cfDef.setKeyValidationClass("org.apache.cassandra.db.marshal.UTF8Type");
-		cfDef.setDefaultValidationClass("org.apache.cassandra.db.marshal.DoubleType");
+        if (ksDef == null) {
 
-		ksDef = HFactory.createKeyspaceDefinition(m_keyspaceName, "org.apache.cassandra.locator.SimpleStrategy", 1, Arrays.asList(cfDef));
+            ColumnFamilyDefinition cfDef = HFactory.createColumnFamilyDefinition(m_keyspaceName, m_columnFamily,
+                                                                                 ComparatorType.LONGTYPE);
+            cfDef.setColumnType(ColumnType.SUPER);
+            cfDef.setSubComparatorType(ComparatorType.UTF8TYPE);
+            cfDef.setKeyValidationClass("org.apache.cassandra.db.marshal.UTF8Type");
+            cfDef.setDefaultValidationClass("org.apache.cassandra.db.marshal.DoubleType");
 
-		cluster.addKeyspace(ksDef, true);
-	}
+            ColumnFamilyDefinition cfMDDef = HFactory.createColumnFamilyDefinition(m_keyspaceName, "metadata",
+                                                                                 ComparatorType.BYTESTYPE);
+            cfMDDef.setColumnType(ColumnType.SUPER);
+            cfMDDef.setSubComparatorType(ComparatorType.UTF8TYPE);
+            cfMDDef.setKeyValidationClass("org.apache.cassandra.db.marshal.UTF8Type");
+            cfMDDef.setDefaultValidationClass("org.apache.cassandra.db.marshal.StringType");
 
-	m_keyspace = HFactory.createKeyspace(m_keyspaceName, cluster);
+            ksDef = HFactory.createKeyspaceDefinition(m_keyspaceName, "org.apache.cassandra.locator.SimpleStrategy", 1,
+                                                      Arrays.asList(cfDef, cfMDDef));
+
+            cluster.addKeyspace(ksDef, true);
+        }
+
+        m_keyspace = HFactory.createKeyspace(m_keyspaceName, cluster);
 
         m_persister = new Persister(m_keyspace, m_columnFamily, m_ttl);
+
+        m_rrdFilePool = new CassRrdPool( poolsize );
     }
 
     private String getProperty(String key, String defaultValue) {
-	return m_configurationProperties == null ? defaultValue : m_configurationProperties.getProperty(key, defaultValue);
+        return m_configurationProperties == null ? defaultValue : m_configurationProperties.getProperty(key, defaultValue);
     }
 
     /**
      * Closes the JRobin RrdDb.
      *
-     * @param rrdFile a {@link org.jrobin.core.RrdDb} object.
-     * @throws java.lang.Exception if any.
+     * @param rrdFile
+     *            a {@link org.jrobin.core.RrdDb} object.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public void closeFile(final CassRrd rrdFile) throws Exception {
         rrdFile.close();
     }
 
     /** {@inheritDoc} */
-    public CassRrdDef createDefinition(final String creator, final String directory, final String rrdName, int step, final List<RrdDataSource> dataSources, final List<String> rraList) throws Exception {
-	/**
+    public CassRrdDef createDefinition(final String creator, final String directory, final String rrdName, int step,
+            final List<RrdDataSource> dataSources, final List<String> rraList) throws Exception {
+        /**
          * XXX: opennms-dao classes rely upon being able to list the rrd files directly.
          */
-	File f = new File(directory);
-	f.mkdirs();
+        File f = new File(directory);
+        f.mkdirs();
 
-	String fileName = directory + File.separator + rrdName + getDefaultFileExtension();
+        String fileName = directory + File.separator + rrdName + getDefaultFileExtension();
         if (new File(fileName).exists()) {
             return null;
         }
 
-	CassRrdDef def = new CassRrdDef(creator, fileName, step);
+        CassRrdDef def = new CassRrdDef(creator, fileName, step);
 
-        for (RrdDataSource dataSource : dataSources) {
-            String dsMin = dataSource.getMin();
-            String dsMax = dataSource.getMax();
-            double min = (dsMin == null || "U".equals(dsMin) ? Double.NaN : Double.parseDouble(dsMin));
-            double max = (dsMax == null || "U".equals(dsMax) ? Double.NaN : Double.parseDouble(dsMax));
-            def.addDatasource(dataSource.getName(), dataSource.getType(), dataSource.getHeartBeat(), min, max);
-        }
-
-        for (String rra : rraList) {
-            def.addArchive(rra);
-        }
+        def.addDatasources(dataSources);
+        def.addArchives(rraList);
 
         return def;
     }
 
-
     /**
      * Creates the JRobin RrdDb from the def by opening the file and then
-     * closing. TODO: Change the interface here to create the file and return it
-     * opened.
+     * closing.
+     * TODO: Change the interface here to create the file and return it opened.
      *
-     * @param rrdDef a {@link org.jrobin.core.RrdDef} object.
-     * @throws java.lang.Exception if any.
+     * @param rrdDef
+     *            a {@link org.jrobin.core.RrdDef} object.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public void createFile(final CassRrdDef rrdDef) throws Exception {
         if (rrdDef == null) {
             return;
         }
 
-        rrdDef.create();
+        // TODO: We should store our Rrd definition as metadata inside cassandra.
+
+
+        rrdDef.create(m_keyspace);
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Opens the JRobin RrdDb by name and returns it.
+     * {@inheritDoc} Opens the JRobin RrdDb by name and returns it.
      */
     public CassRrd openFile(final String fileName) throws Exception {
         CassRrd rrd = new CassRrd(fileName);
@@ -289,33 +315,31 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc} Creates a sample from the JRobin RrdDb and passes in the
+     * data provided.
      *
-     * Creates a sample from the JRobin RrdDb and passes in the data provided.
-     * XXX: does not handle storeByGroup
+     *  XXX: does not handle storeByGroup
      */
     public void updateFile(final CassRrd rrdFile, final String owner, final String data) throws Exception {
 
-	String[] tokens = data.split(":");
-	long timestamp = Long.parseLong(tokens[0]);
-	double value = Double.parseDouble(tokens[1]);
+        String[] tokens = data.split(":");
+        long timestamp = Long.parseLong(tokens[0]);
+        double value = Double.parseDouble(tokens[1]);
 
-	String fileName = rrdFile.getFileName();
-/*
-	if (fileName.startsWith(m_opennmsRrdDir + File.separator)) {
-		fileName = fileName.substring(m_opennmsRrdDir.length()+1);
-	}
-*/
+        String fileName = rrdFile.getFileName();
+        if (fileName.startsWith(m_opennmsRrdDir + File.separator)) {
+            // fileName = fileName.substring(m_opennmsRrdDir.length()+1);
+        }
 
-	String[] components = fileName.split(File.pathSeparator);
-	String dsName = components[components.length-1];
-	if (dsName.endsWith(getDefaultFileExtension())) {
-		dsName = dsName.substring(0, dsName.lastIndexOf(getDefaultFileExtension()));
-	}
+        String[] components = fileName.split(File.separator);
+        String dsName = components[components.length - 1];
+        if (dsName.endsWith(getDefaultFileExtension())) {
+            dsName = dsName.substring(0, dsName.lastIndexOf(getDefaultFileExtension()));
+        }
 
-	Datapoint dp = new Datapoint(fileName, dsName, timestamp, value);
+        Datapoint dp = new Datapoint(fileName, dsName, timestamp, value);
 
-	m_persister.persist(dp);
+        m_persister.persist(dp);
 
     }
 
@@ -323,7 +347,8 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
      * Initialized the RrdDb to use the FILE factory because the NIO factory
      * uses too much memory for our implementation.
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public CassandraRrdStrategy() throws Exception {
         String home = System.getProperty("opennms.home");
@@ -331,11 +356,10 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Fetch the last value from the JRobin RrdDb file.
+     * {@inheritDoc} Fetch the last value from the JRobin RrdDb file.
      */
-    public Double fetchLastValue(final String fileName, final String ds, final int interval) throws NumberFormatException, org.opennms.netmgt.rrd.RrdException {
+    public Double fetchLastValue(final String fileName, final String ds, final int interval) throws NumberFormatException,
+            org.opennms.netmgt.rrd.RrdException {
         return fetchLastValue(fileName, ds, "AVERAGE", interval);
     }
 
@@ -348,9 +372,10 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
             long collectTime = (now - (now % interval)) / 1000L;
             rrd = new RrdDb(fileName);
             FetchData data = rrd.createFetchRequest(consolidationFunction, collectTime, collectTime).fetchData();
-            if(log().isDebugEnabled()) {
-		//The "toString" method of FetchData is quite computationally expensive;
-		log().debug(data.toString());
+            if (log().isDebugEnabled()) {
+                // The "toString" method of FetchData is quite computationally
+                // expensive;
+                log().debug(data.toString());
             }
             double[] vals = data.getValues(ds);
             if (vals.length > 0) {
@@ -373,35 +398,37 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
     }
 
     /** {@inheritDoc} */
-    public Double fetchLastValueInRange(final String fileName, final String ds, final int interval, final int range) throws NumberFormatException, org.opennms.netmgt.rrd.RrdException {
+    public Double fetchLastValueInRange(final String fileName, final String ds, final int interval, final int range)
+            throws NumberFormatException, org.opennms.netmgt.rrd.RrdException {
         RrdDb rrd = null;
         try {
-		rrd = new RrdDb(fileName);
-		long now = System.currentTimeMillis();
+            rrd = new RrdDb(fileName);
+            long now = System.currentTimeMillis();
             long latestUpdateTime = (now - (now % interval)) / 1000L;
             long earliestUpdateTime = ((now - (now % interval)) - range) / 1000L;
             if (log().isDebugEnabled()) {
-		log().debug("fetchInRange: fetching data from " + earliestUpdateTime + " to " + latestUpdateTime);
+                log().debug("fetchInRange: fetching data from " + earliestUpdateTime + " to " + latestUpdateTime);
             }
 
             FetchData data = rrd.createFetchRequest("AVERAGE", earliestUpdateTime, latestUpdateTime).fetchData();
 
-		    double[] vals = data.getValues(ds);
-		    long[] times = data.getTimestamps();
+            double[] vals = data.getValues(ds);
+            long[] times = data.getTimestamps();
 
-		    // step backwards through the array of values until we get something that's a number
+            // step backwards through the array of values until we get
+            // something that's a number
 
-		    for(int i = vals.length - 1; i >= 0; i--) {
-		if ( Double.isNaN(vals[i]) ) {
-			if (log().isDebugEnabled()) {
-				log().debug("fetchInRange: Got a NaN value at interval: " + times[i] + " continuing back in time");
-			}
-		} else {
-			if (log().isDebugEnabled()) {
-				log().debug("Got a non NaN value at interval: " + times[i] + " : " + vals[i] );
-			}
-			return new Double(vals[i]);
-		}
+            for (int i = vals.length - 1; i >= 0; i--) {
+                if (Double.isNaN(vals[i])) {
+                    if (log().isDebugEnabled()) {
+                        log().debug("fetchInRange: Got a NaN value at interval: " + times[i] + " continuing back in time");
+                    }
+                } else {
+                    if (log().isDebugEnabled()) {
+                        log().debug("Got a non NaN value at interval: " + times[i] + " : " + vals[i]);
+                    }
+                    return new Double(vals[i]);
+                }
             }
             return null;
         } catch (IOException e) {
@@ -435,21 +462,22 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
     }
 
     /** {@inheritDoc} */
-    public InputStream createGraph(final String command, final File workDir) throws IOException, org.opennms.netmgt.rrd.RrdException {
+    public InputStream createGraph(final String command, final File workDir) throws IOException,
+            org.opennms.netmgt.rrd.RrdException {
         return createGraphReturnDetails(command, workDir).getInputStream();
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * This constructs a graphDef by parsing the rrdtool style command and using
-     * the values to create the JRobin graphDef. It does not understand the 'AT
-     * style' time arguments however. Also there may be some rrdtool parameters
-     * that it does not understand. These will be ignored. The graphDef will be
-     * used to construct an RrdGraph and a PNG image will be created. An input
-     * stream returning the bytes of the PNG image is returned.
+     * {@inheritDoc} This constructs a graphDef by parsing the rrdtool style
+     * command and using the values to create the JRobin graphDef. It does not
+     * understand the 'AT style' time arguments however. Also there may be
+     * some rrdtool parameters that it does not understand. These will be
+     * ignored. The graphDef will be used to construct an RrdGraph and a PNG
+     * image will be created. An input stream returning the bytes of the PNG
+     * image is returned.
      */
-    public RrdGraphDetails createGraphReturnDetails(final String command, final File workDir) throws IOException, org.opennms.netmgt.rrd.RrdException {
+    public RrdGraphDetails createGraphReturnDetails(final String command, final File workDir) throws IOException,
+            org.opennms.netmgt.rrd.RrdException {
 
         try {
             String[] commandArray = tokenize(command, " \t", false);
@@ -463,11 +491,10 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
              * We use a custom RrdGraphDetails object here instead of the
              * DefaultRrdGraphDetails because we won't have an InputStream
              * available if no graphing commands were used, e.g.: if we only
-             * use PRINT or if the user goofs up a graph definition.
-             *
-             * We want to throw an RrdException if the caller calls
+             * use PRINT or if the user goofs up a graph definition. We want
+             * to throw an RrdException if the caller calls
              * RrdGraphDetails.getInputStream and no graphing commands were
-             * used.  If they just call RrdGraphDetails.getPrintLines, though,
+             * used. If they just call RrdGraphDetails.getPrintLines, though,
              * we don't want to throw an exception.
              */
             return new CassandraRrdGraphDetails(graph, command);
@@ -482,14 +509,18 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
         // no need to do anything since this strategy doesn't queue
     }
 
-
     /**
-     * <p>createGraphDef</p>
+     * <p>
+     * createGraphDef
+     * </p>
      *
-     * @param workDir a {@link java.io.File} object.
-     * @param commandArray an array of {@link java.lang.String} objects.
+     * @param workDir
+     *            a {@link java.io.File} object.
+     * @param commandArray
+     *            an array of {@link java.lang.String} objects.
      * @return a {@link org.jrobin.graph.RrdGraphDef} object.
-     * @throws org.jrobin.core.RrdException if any.
+     * @throws org.jrobin.core.RrdException
+     *             if any.
      */
     protected RrdGraphDef createGraphDef(final File workDir, final String[] inputArray) throws RrdException {
         RrdGraphDef graphDef = new RrdGraphDef();
@@ -501,14 +532,15 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
         double lowerLimit = Double.NaN;
         double upperLimit = Double.NaN;
         boolean rigid = false;
-        Map<String,List<String>> defs = new LinkedHashMap<String,List<String>>();
-        // Map<String,List<String>> cdefs = new HashMap<String,List<String>>();
+        Map<String, List<String>> defs = new LinkedHashMap<String, List<String>>();
+        // Map<String,List<String>> cdefs = new
+        // HashMap<String,List<String>>();
 
         final String[] commandArray;
         if (inputArray[0].contains("rrdtool") && inputArray[1].equals("graph") && inputArray[2].equals("-")) {
-		commandArray = Arrays.copyOfRange(inputArray, 3, inputArray.length);
+            commandArray = Arrays.copyOfRange(inputArray, 3, inputArray.length);
         } else {
-		commandArray = inputArray;
+            commandArray = inputArray;
         }
         for (int i = 0; i < commandArray.length; i++) {
             String arg = commandArray[i];
@@ -567,11 +599,11 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
             } else if (arg.startsWith("--height=")) {
                 String[] argParm = tokenize(arg, "=", true);
                 height = Integer.parseInt(argParm[1]);
-                log().debug("JRobin height: "+height);
+                log().debug("JRobin height: " + height);
             } else if (arg.equals("--height")) {
                 if (i + 1 < commandArray.length) {
                     height = Integer.parseInt(commandArray[++i]);
-                    log().debug("JRobin height: "+height);
+                    log().debug("JRobin height: " + height);
                 } else {
                     throw new IllegalArgumentException("--height must be followed by a number");
                 }
@@ -579,11 +611,11 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
             } else if (arg.startsWith("--width=")) {
                 String[] argParm = tokenize(arg, "=", true);
                 width = Integer.parseInt(argParm[1]);
-                log().debug("JRobin width: "+width);
+                log().debug("JRobin width: " + width);
             } else if (arg.equals("--width")) {
                 if (i + 1 < commandArray.length) {
                     width = Integer.parseInt(commandArray[++i]);
-                    log().debug("JRobin width: "+width);
+                    log().debug("JRobin width: " + width);
                 } else {
                     throw new IllegalArgumentException("--width must be followed by a number");
                 }
@@ -591,12 +623,12 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
             } else if (arg.startsWith("--units-exponent=")) {
                 String[] argParm = tokenize(arg, "=", true);
                 int exponent = Integer.parseInt(argParm[1]);
-                log().debug("JRobin units exponent: "+exponent);
+                log().debug("JRobin units exponent: " + exponent);
                 graphDef.setUnitsExponent(exponent);
             } else if (arg.equals("--units-exponent")) {
                 if (i + 1 < commandArray.length) {
                     int exponent = Integer.parseInt(commandArray[++i]);
-                    log().debug("JRobin units exponent: "+exponent);
+                    log().debug("JRobin units exponent: " + exponent);
                     graphDef.setUnitsExponent(exponent);
                 } else {
                     throw new IllegalArgumentException("--units-exponent must be followed by a number");
@@ -605,11 +637,11 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
             } else if (arg.startsWith("--lower-limit=")) {
                 String[] argParm = tokenize(arg, "=", true);
                 lowerLimit = Double.parseDouble(argParm[1]);
-                log().debug("JRobin lower limit: "+lowerLimit);
+                log().debug("JRobin lower limit: " + lowerLimit);
             } else if (arg.equals("--lower-limit")) {
                 if (i + 1 < commandArray.length) {
                     lowerLimit = Double.parseDouble(commandArray[++i]);
-                    log().debug("JRobin lower limit: "+lowerLimit);
+                    log().debug("JRobin lower limit: " + lowerLimit);
                 } else {
                     throw new IllegalArgumentException("--lower-limit must be followed by a number");
                 }
@@ -617,11 +649,11 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
             } else if (arg.startsWith("--upper-limit=")) {
                 String[] argParm = tokenize(arg, "=", true);
                 upperLimit = Double.parseDouble(argParm[1]);
-                log().debug("JRobin upp limit: "+upperLimit);
+                log().debug("JRobin upp limit: " + upperLimit);
             } else if (arg.equals("--upper-limit")) {
                 if (i + 1 < commandArray.length) {
                     upperLimit = Double.parseDouble(commandArray[++i]);
-                    log().debug("JRobin upper limit: "+upperLimit);
+                    log().debug("JRobin upper limit: " + upperLimit);
                 } else {
                     throw new IllegalArgumentException("--upper-limit must be followed by a number");
                 }
@@ -637,20 +669,20 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
                 }
 
             } else if (arg.startsWith("--font=")) {
-		String[] argParm = tokenize(arg, "=", true);
-		processRrdFontArgument(graphDef, argParm[1]);
+                String[] argParm = tokenize(arg, "=", true);
+                processRrdFontArgument(graphDef, argParm[1]);
             } else if (arg.equals("--font")) {
                 if (i + 1 < commandArray.length) {
-			processRrdFontArgument(graphDef, commandArray[++i]);
+                    processRrdFontArgument(graphDef, commandArray[++i]);
                 } else {
                     throw new IllegalArgumentException("--font must be followed by an argument");
                 }
             } else if (arg.startsWith("--imgformat=")) {
-		String[] argParm = tokenize(arg, "=", true);
-		graphDef.setImageFormat(argParm[1]);
+                String[] argParm = tokenize(arg, "=", true);
+                graphDef.setImageFormat(argParm[1]);
             } else if (arg.equals("--imgformat")) {
                 if (i + 1 < commandArray.length) {
-			graphDef.setImageFormat(commandArray[++i]);
+                    graphDef.setImageFormat(commandArray[++i]);
                 } else {
                     throw new IllegalArgumentException("--imgformat must be followed by an argument");
                 }
@@ -663,7 +695,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
                 String[] def = splitDef(definition);
                 String[] ds = def[0].split("=");
                 String relpath = ds[1].replace("\\", "");
-				File dsFile = getRrdFile(workDir, relpath, start, end, def[1], def[2]);
+                File dsFile = getRrdFile(workDir, relpath, start, end, def[1], def[2]);
                 graphDef.datasource(ds[0], dsFile.getAbsolutePath(), def[1], def[2]);
                 List<String> defBits = new ArrayList<String>();
                 defBits.add(dsFile.getAbsolutePath());
@@ -705,10 +737,11 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
                 String definition = arg.substring("GPRINT:".length());
                 String gprint[] = tokenize(definition, ":", true);
                 String format = gprint[2];
-                //format = format.replaceAll("%(\\d*\\.\\d*)lf", "@$1");
-                //format = format.replaceAll("%s", "@s");
-                //format = format.replaceAll("%%", "%");
-                //log.debug("gprint: oldformat = " + gprint[2] + " newformat = " + format);
+                // format = format.replaceAll("%(\\d*\\.\\d*)lf", "@$1");
+                // format = format.replaceAll("%s", "@s");
+                // format = format.replaceAll("%%", "%");
+                // log.debug("gprint: oldformat = " + gprint[2] +
+                // " newformat = " + format);
                 format = format.replaceAll("\\n", "\\\\l");
                 graphDef.gprint(gprint[0], gprint[1], format);
 
@@ -716,10 +749,11 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
                 String definition = arg.substring("PRINT:".length());
                 String print[] = tokenize(definition, ":", true);
                 String format = print[2];
-                //format = format.replaceAll("%(\\d*\\.\\d*)lf", "@$1");
-                //format = format.replaceAll("%s", "@s");
-                //format = format.replaceAll("%%", "%");
-                //log.debug("gprint: oldformat = " + print[2] + " newformat = " + format);
+                // format = format.replaceAll("%(\\d*\\.\\d*)lf", "@$1");
+                // format = format.replaceAll("%s", "@s");
+                // format = format.replaceAll("%%", "%");
+                // log.debug("gprint: oldformat = " + print[2] +
+                // " newformat = " + format);
                 format = format.replaceAll("\\n", "\\\\l");
                 graphDef.print(print[0], print[1], format);
 
@@ -744,7 +778,8 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
                 graphDef.stack(color[0], getColor(color[1]), (stack.length > 1 ? stack[1] : ""));
 
             } else if (arg.endsWith("/rrdtool") || arg.equals("graph") || arg.equals("-")) {
-		// ignore, this is just a leftover from the rrdtool-specific options
+                // ignore, this is just a leftover from the rrdtool-specific
+                // options
 
             } else {
                 log().warn("JRobin: Unrecognized graph argument: " + arg);
@@ -765,87 +800,104 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
         return graphDef;
     }
 
-	private File getRrdFile(final File workDir, String relpath, long start, long end, String dsName, String consolFun) throws RrdException {
-		try {
-			String path = workDir.getAbsolutePath();
-			String key = path+File.pathSeparator+relpath;
+    private File getRrdFile(final File workDir, String relpath, long start, long end, String dsName, String consolFun)
+            throws RrdException {
+        try {
+            String path = workDir.getAbsolutePath();
+            String key = path + File.separator + relpath;
+            //log().debug("getRrdFile(): path="+path);
+            //log().debug("getRrdFile(): relpath="+relpath);
+            //log().debug("getRrdFile(): key="+key);
 
-			SuperSliceQuery<String,Long,String,Double> query = HFactory.createSuperSliceQuery(m_keyspace, StringSerializer.get(), LongSerializer.get(), StringSerializer.get(), DoubleSerializer.get());
+            // Get metadata for the datasource from Cassandra
+            // STEP:
+            // CONSOLEFUNCTION:
+            // MINUMUM:
+            // MAXIMUM:
 
-			query.setColumnFamily(m_columnFamily);
-			query.setKey(key);
-			query.setRange(start, end, false, Integer.MAX_VALUE);
+            SuperSliceQuery<String, Long, String, Double> query = HFactory.createSuperSliceQuery(m_keyspace,
+                                                                                                 StringSerializer.get(),
+                                                                                                 LongSerializer.get(),
+                                                                                                 StringSerializer.get(),
+                                                                                                 DoubleSerializer.get());
 
+            query.setColumnFamily(m_columnFamily);
+            query.setKey(relpath);
+            query.setRange(start, end, false, Integer.MAX_VALUE);
 
-			QueryResult<SuperSlice<Long,String,Double>> results = query.execute();
+            QueryResult<SuperSlice<Long, String, Double>> results = query.execute();
 
-			List<HSuperColumn<Long, String, Double>> datapoints = results.get().getSuperColumns();
+            List<HSuperColumn<Long, String, Double>> datapoints = results.get().getSuperColumns();
+            File file;
 
-			File file = File.createTempFile("crrd", ".jrb");
-			//file.deleteOnExit();
+            synchronized(m_rrdFilePool) {
+                file = m_rrdFilePool.get(relpath);
+                if (file == null || !file.exists()) {
+                    // XXX: Should we offer the ability to store the files outside of /tmp?
+                    file = File.createTempFile("crrd", ".jrb");
+                    log().debug("Creating temporary rrd " + file + " with " + datapoints.size() + " datapoints");
+                    m_rrdFilePool.put(relpath, file);
+                }
+            }
 
-			log().debug("Creating temporary rrd " + file + " with " + datapoints.size() + " datapoints");
+            RrdDef def = new RrdDef(file.getAbsolutePath());
+            def.setStartTime(1000);
+            def.setStep(300);
+            def.addDatasource(dsName, "COUNTER", 600, Double.NaN, Double.NaN);
+            for (String rra : m_rraList) {
+                def.addArchive(rra);
+            }
 
-			RrdDef def = new RrdDef(file.getAbsolutePath());
-			def.setStartTime(1000);
-			def.setStep(300);
-			def.addDatasource(dsName, "COUNTER", 600, Double.NaN, Double.NaN);
-			for(String rra : m_rraList) {
-				def.addArchive(rra);
-			}
+            RrdDb db = new RrdDb(def);
 
-			RrdDb db = new RrdDb(def);
+            for (HSuperColumn<Long, String, Double> datapoint : datapoints) {
+                long timestamp = datapoint.getName();
+                HColumn<String, Double> ds = datapoint.getColumns().get(0);
+                double val = ds.getValue();
 
-			for(HSuperColumn<Long, String, Double> datapoint : datapoints) {
-				long timestamp = datapoint.getName();
-				HColumn<String, Double> ds = datapoint.getColumns().get(0);
-				double val = ds.getValue();
+                Sample sample = db.createSample(timestamp);
+                sample.setValue(0, val);
 
-				Sample sample = db.createSample(timestamp);
-				sample.setValue(0, val);
+                sample.update();
+            }
 
-				sample.update();
-			}
+            return file;
+        } catch (IOException e) {
+            throw new RrdException(e);
+        }
 
+    }
 
-			return file;
-		} catch (IOException e) {
-			throw new RrdException(e);
-		}
+    private String[] splitDef(final String definition) {
+        return definition.split("(?<!\\\\):");
+    }
 
-	}
-
-	private String[] splitDef(final String definition) {
-		return definition.split("(?<!\\\\):");
-	}
-
-	private void processRrdFontArgument(RrdGraphDef graphDef, String argParm) {
-		/*
-		String[] argValue = tokenize(argParm, ":", true);
-		if (argValue[0].equals("DEFAULT")) {
-			int newPointSize = Integer.parseInt(argValue[1]);
-			graphDef.setSmallFont(graphDef.getSmallFont().deriveFont(newPointSize));
-		} else if (argValue[0].equals("TITLE")) {
-			int newPointSize = Integer.parseInt(argValue[1]);
-			graphDef.setLargeFont(graphDef.getLargeFont().deriveFont(newPointSize));
-		} else {
-			try {
-				Font font = Font.createFont(Font.TRUETYPE_FONT, new File(argValue[0]));
-			} catch (Throwable e) {
-				// oh well, fall back to existing font stuff
-				log().warn("unable to create font from font argument " + argParm, e);
-			}
-		}
-		*/
-	}
+    private void processRrdFontArgument(RrdGraphDef graphDef, String argParm) {
+        /*
+         * String[] argValue = tokenize(argParm, ":", true); if
+         * (argValue[0].equals("DEFAULT")) { int newPointSize =
+         * Integer.parseInt(argValue[1]);
+         * graphDef.setSmallFont(graphDef.getSmallFont
+         * ().deriveFont(newPointSize)); } else if
+         * (argValue[0].equals("TITLE")) { int newPointSize =
+         * Integer.parseInt(argValue[1]);
+         * graphDef.setLargeFont(graphDef.getLargeFont
+         * ().deriveFont(newPointSize)); } else { try { Font font =
+         * Font.createFont(Font.TRUETYPE_FONT, new File(argValue[0])); } catch
+         * (Throwable e) { // oh well, fall back to existing font stuff
+         * log().warn("unable to create font from font argument " + argParm,
+         * e); } }
+         */
+    }
 
     private String[] tokenize(final String line, final String delimiters, final boolean processQuotes) {
-        String passthroughTokens = "lcrjgsJ"; /* see org.jrobin.graph.RrdGraphConstants.MARKERS */
+        String passthroughTokens = "lcrjgsJ"; // see org.jrobin.graph.RrdGraphConstants.MARKERS
         return tokenizeWithQuotingAndEscapes(line, delimiters, processQuotes, passthroughTokens);
     }
 
     /**
-     * @param colorArg Should have the form COLORTAG#RRGGBB
+     * @param colorArg
+     *            Should have the form COLORTAG#RRGGBB
      * @see http://www.jrobin.org/support/man/rrdgraph.html
      */
     private void parseGraphColor(final RrdGraphDef graphDef, final String colorArg) throws IllegalArgumentException {
@@ -872,32 +924,23 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
         try {
             if (colorTag.equals("BACK")) {
                 graphDef.setColor("BACK", color);
-            }
-            else if (colorTag.equals("CANVAS")) {
+            } else if (colorTag.equals("CANVAS")) {
                 graphDef.setColor("CANVAS", color);
-            }
-            else if (colorTag.equals("SHADEA")) {
+            } else if (colorTag.equals("SHADEA")) {
                 graphDef.setColor("SHADEA", color);
-            }
-            else if (colorTag.equals("SHADEB")) {
+            } else if (colorTag.equals("SHADEB")) {
                 graphDef.setColor("SHADEB", color);
-            }
-            else if (colorTag.equals("GRID")) {
+            } else if (colorTag.equals("GRID")) {
                 graphDef.setColor("GRID", color);
-            }
-            else if (colorTag.equals("MGRID")) {
+            } else if (colorTag.equals("MGRID")) {
                 graphDef.setColor("MGRID", color);
-            }
-            else if (colorTag.equals("FONT")) {
+            } else if (colorTag.equals("FONT")) {
                 graphDef.setColor("FONT", color);
-            }
-            else if (colorTag.equals("FRAME")) {
+            } else if (colorTag.equals("FRAME")) {
                 graphDef.setColor("FRAME", color);
-            }
-            else if (colorTag.equals("ARROW")) {
+            } else if (colorTag.equals("ARROW")) {
                 graphDef.setColor("ARROW", color);
-            }
-            else {
+            } else {
                 throw new org.jrobin.core.RrdException("Unknown color tag " + colorTag);
             }
         } catch (Throwable e) {
@@ -918,7 +961,9 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
      * These offsets work for ranger@ with Safari and JRobin 1.5.8.
      */
     /**
-     * <p>getGraphLeftOffset</p>
+     * <p>
+     * getGraphLeftOffset
+     * </p>
      *
      * @return a int.
      */
@@ -927,7 +972,9 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
     }
 
     /**
-     * <p>getGraphRightOffset</p>
+     * <p>
+     * getGraphRightOffset
+     * </p>
      *
      * @return a int.
      */
@@ -936,7 +983,9 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
     }
 
     /**
-     * <p>getGraphTopOffsetWithText</p>
+     * <p>
+     * getGraphTopOffsetWithText
+     * </p>
      *
      * @return a int.
      */
@@ -945,7 +994,9 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
     }
 
     /**
-     * <p>getDefaultFileExtension</p>
+     * <p>
+     * getDefaultFileExtension
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -958,11 +1009,16 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
     }
 
     /**
-     * <p>tokenizeWithQuotingAndEscapes</p>
+     * <p>
+     * tokenizeWithQuotingAndEscapes
+     * </p>
      *
-     * @param line a {@link java.lang.String} object.
-     * @param delims a {@link java.lang.String} object.
-     * @param processQuoted a boolean.
+     * @param line
+     *            a {@link java.lang.String} object.
+     * @param delims
+     *            a {@link java.lang.String} object.
+     * @param processQuoted
+     *            a boolean.
      * @return an array of {@link java.lang.String} objects.
      */
     public static String[] tokenizeWithQuotingAndEscapes(String line, String delims, boolean processQuoted) {
@@ -973,17 +1029,20 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
      * Tokenize a {@link String} into an array of {@link String}s.
      *
      * @param line
-     *          the string to tokenize
+     *            the string to tokenize
      * @param delims
-     *          a string containing zero or more characters to treat as a delimiter
+     *            a string containing zero or more characters to treat as a
+     *            delimiter
      * @param processQuoted
-     *          whether or not to process escaped values inside quotes
+     *            whether or not to process escaped values inside quotes
      * @param tokens
-     *          custom escaped tokens to pass through, escaped.  For example, if tokens contains "lsg", then \l, \s, and \g
-     *          will be passed through unescaped.
+     *            custom escaped tokens to pass through, escaped. For example,
+     *            if tokens contains "lsg", then \l, \s, and \g will be passed
+     *            through unescaped.
      * @return an array of {@link java.lang.String} objects.
      */
-    public static String[] tokenizeWithQuotingAndEscapes(final String line, final String delims, final boolean processQuoted, final String tokens) {
+    public static String[] tokenizeWithQuotingAndEscapes(final String line, final String delims, final boolean processQuoted,
+            final String tokens) {
         ThreadCategory log = ThreadCategory.getInstance(StringUtils.class);
         List<String> tokenList = new LinkedList<String>();
 
@@ -1013,7 +1072,8 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
                     } else if (currToken.toString().startsWith("DEF:")) {
                         currToken.append('\\').append(ch);
                     } else {
-                        // silently pass through the character *without* the \ in front of it
+                        // silently pass through the character *without* the \
+                        // in front of it
                         currToken.append(ch);
                     }
                 }
@@ -1066,28 +1126,35 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
     }
 
     /**
-     * <p>escapeIfNotPathSepInDEF</p>
+     * <p>
+     * escapeIfNotPathSepInDEF
+     * </p>
      *
-     * @param encountered a char.
-     * @param escaped a char.
-     * @param currToken a {@link java.lang.StringBuffer} object.
+     * @param encountered
+     *            a char.
+     * @param escaped
+     *            a char.
+     * @param currToken
+     *            a {@link java.lang.StringBuffer} object.
      * @return an array of char.
      */
     public static char[] escapeIfNotPathSepInDEF(final char encountered, final char escaped, final StringBuffer currToken) {
-	if ( ('\\' != File.separatorChar) || (! currToken.toString().startsWith("DEF:")) ) {
-		return new char[] { escaped };
-	} else {
-		return new char[] { '\\', encountered };
-	}
+        if (('\\' != File.separatorChar) || (!currToken.toString().startsWith("DEF:"))) {
+            return new char[] { escaped };
+        } else {
+            return new char[] { '\\', encountered };
+        }
     }
 
-    protected void addVdefDs(RrdGraphDef graphDef, String sourceName, String[] rhs, double start, double end, Map<String,List<String>> defs) throws RrdException {
+    protected void addVdefDs(RrdGraphDef graphDef, String sourceName, String[] rhs, double start, double end,
+            Map<String, List<String>> defs) throws RrdException {
         if (rhs.length == 2) {
             graphDef.datasource(sourceName, rhs[0], rhs[1]);
         } else if (rhs.length == 3 && "PERCENT".equals(rhs[2])) {
-            // Is there a better way to do this than with a separate DataProcessor?
+            // Is there a better way to do this than with a separate
+            // DataProcessor?
             double pctRank = Double.valueOf(rhs[1]);
-            DataProcessor dataProcessor = new DataProcessor((int)start, (int)end);
+            DataProcessor dataProcessor = new DataProcessor((int) start, (int) end);
             for (String dsName : defs.keySet()) {
                 List<String> thisDef = defs.get(dsName);
                 if (thisDef.size() == 3) {
@@ -1103,14 +1170,13 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef,CassRrd> {
             }
 
             double result = dataProcessor.getPercentile(rhs[0], pctRank);
-            ConstantStaticDef csDef = new ConstantStaticDef((long)start, (long)end, result);
+            ConstantStaticDef csDef = new ConstantStaticDef((long) start, (long) end, result);
             graphDef.datasource(sourceName, csDef);
         }
     }
 
     public String getExtension() {
-        return m_configurationProperties == null
-                ? getDefaultFileExtension()
+        return m_configurationProperties == null ? getDefaultFileExtension()
             : m_configurationProperties.getProperty("org.opennms.rrd.fileExtension", getDefaultFileExtension());
     }
 
