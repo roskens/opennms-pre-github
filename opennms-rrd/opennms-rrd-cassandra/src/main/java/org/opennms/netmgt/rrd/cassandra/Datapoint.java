@@ -11,13 +11,13 @@ import me.prettyprint.hector.api.factory.HFactory;
 import me.prettyprint.hector.api.mutation.Mutator;
 
 class Datapoint {
-    String m_metricName;
+    private String m_metricName;
 
-    String m_dsName;
+    private String m_dsName;
 
-    long m_timestamp;
+    private long m_timestamp;
 
-    double m_value;
+    private double m_value;
 
     Datapoint(String metricName, String dsName, long timestamp, double value) {
         m_metricName = metricName;

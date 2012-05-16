@@ -85,11 +85,17 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
     private static final String DEFAULT_KEYSPACE = "OpenNMSDataCollectionV1";
 
     // Data column must be create with a structure like this:
-    // create column family Data with column_type='Super' \
+    // create column family datapoints with column_type='Super' \
     // and key_validation_class=UTF8Type \
     // and comparator=LongType \
     // and subcomparator=UTF8Type \
     // and default_validation_class=DoubleType;
+
+    /**
+     * create column family metadata with column_type='Super'
+     * with comparator = UTF8Type;
+     */
+
     public static final String DATA_COLUMN_FAMILY_NAME_PROPERTY = "org.opennms.netmgt.rrd.cassandra.dataColumnFamily";
 
     private static final String DEFAULT_DATA_COLUMN = "datapoints";
@@ -228,11 +234,11 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
             cfDef.setDefaultValidationClass("org.apache.cassandra.db.marshal.DoubleType");
 
             ColumnFamilyDefinition cfMDDef = HFactory.createColumnFamilyDefinition(m_keyspaceName, "metadata",
-                                                                                 ComparatorType.BYTESTYPE);
+                                                                                 ComparatorType.ASCIITYPE);
             cfMDDef.setColumnType(ColumnType.SUPER);
-            cfMDDef.setSubComparatorType(ComparatorType.UTF8TYPE);
-            cfMDDef.setKeyValidationClass("org.apache.cassandra.db.marshal.UTF8Type");
-            cfMDDef.setDefaultValidationClass("org.apache.cassandra.db.marshal.StringType");
+            cfMDDef.setSubComparatorType(ComparatorType.ASCIITYPE);
+            cfMDDef.setKeyValidationClass("org.apache.cassandra.db.marshal.AsciiType");
+            cfMDDef.setDefaultValidationClass("org.apache.cassandra.db.marshal.AsciiType");
 
             ksDef = HFactory.createKeyspaceDefinition(m_keyspaceName, "org.apache.cassandra.locator.SimpleStrategy", 1,
                                                       Arrays.asList(cfDef, cfMDDef));
