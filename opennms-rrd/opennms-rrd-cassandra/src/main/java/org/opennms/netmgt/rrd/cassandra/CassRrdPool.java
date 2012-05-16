@@ -17,14 +17,11 @@ public class CassRrdPool {
     public CassRrdPool(final int size) {
         m_maxEntries = size;
         m_pool = new LinkedHashMap<String,File>(m_maxEntries, 0.75f, true) {
-            /**
-             *
-             */
             private static final long serialVersionUID = 1L;
 
             @Override
             protected boolean removeEldestEntry(Map.Entry<String,File> eldest) {
-                LogUtils.debugf(this, "removeEldestEntry(%s)", eldest.getKey());
+                LogUtils.debugf(this, "removeEldestEntry(key='%s', file='%s')", eldest.getKey(), eldest.getValue().getAbsolutePath());
 
                 return size() > m_maxEntries;
             }
