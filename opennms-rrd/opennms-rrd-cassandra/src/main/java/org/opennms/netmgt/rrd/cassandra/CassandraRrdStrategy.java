@@ -73,6 +73,7 @@ import org.opennms.core.utils.ThreadCategory;
 import org.opennms.netmgt.rrd.RrdDataSource;
 import org.opennms.netmgt.rrd.RrdGraphDetails;
 import org.opennms.netmgt.rrd.RrdStrategy;
+import org.opennms.core.utils.LogUtils;
 
 /**
  * @author ranger
@@ -204,6 +205,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
     /** {@inheritDoc} */
     public void setConfigurationProperties(final Properties configurationParameters) {
         m_configurationProperties = configurationParameters;
+	LogUtils.debugf(this, "start");
 
         m_keyspaceName = getProperty(KEYSPACE_NAME_PROPERTY, DEFAULT_KEYSPACE);
         m_columnFamily = getProperty(DATA_COLUMN_FAMILY_NAME_PROPERTY, DEFAULT_DATA_COLUMN);
@@ -220,12 +222,17 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
 
         m_opennmsRrdDir = System.getProperty("opennms.home") + File.separator + "share" + File.separator + "rrd";
 
+	LogUtils.debugf(this, "start cassandra");
+
         Cluster cluster = HFactory.getOrCreateCluster(m_clusterName, new CassandraHostConfigurator(m_clusterHosts));
 
+	LogUtils.debugf(this, "describe keyspace");
         KeyspaceDefinition ksDef = cluster.describeKeyspace(m_keyspaceName);
 
         if (ksDef == null) {
+	    LogUtils.debugf(this, "keyspace definition null");
 
+	    LogUtils.debugf(this, "create column family %s", m_columnFamily);
             ColumnFamilyDefinition cfDef = HFactory.createColumnFamilyDefinition(m_keyspaceName, m_columnFamily,
                                                                                  ComparatorType.LONGTYPE);
             cfDef.setColumnType(ColumnType.SUPER);
@@ -233,24 +240,32 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
             cfDef.setKeyValidationClass("org.apache.cassandra.db.marshal.UTF8Type");
             cfDef.setDefaultValidationClass("org.apache.cassandra.db.marshal.DoubleType");
 
-            ColumnFamilyDefinition cfMDDef = HFactory.createColumnFamilyDefinition(m_keyspaceName, "metadata",
-                                                                                 ComparatorType.ASCIITYPE);
+	    LogUtils.debugf(this, "create column family metadata");
+            ColumnFamilyDefinition cfMDDef = HFactory.createColumnFamilyDefinition(m_keyspaceName, "metadata", ComparatorType.ASCIITYPE);
             cfMDDef.setColumnType(ColumnType.SUPER);
             cfMDDef.setSubComparatorType(ComparatorType.ASCIITYPE);
-            cfMDDef.setKeyValidationClass("org.apache.cassandra.db.marshal.AsciiType");
+            cfMDDef.setKeyValidationClass    ("org.apache.cassandra.db.marshal.AsciiType");
             cfMDDef.setDefaultValidationClass("org.apache.cassandra.db.marshal.AsciiType");
 
+	    LogUtils.debugf(this, "create keyspace definition");
             ksDef = HFactory.createKeyspaceDefinition(m_keyspaceName, "org.apache.cassandra.locator.SimpleStrategy", 1,
                                                       Arrays.asList(cfDef, cfMDDef));
 
+	    LogUtils.debugf(this, "add keyspace");
             cluster.addKeyspace(ksDef, true);
         }
 
+        LogUtils.debugf(this, "create keyspace");
         m_keyspace = HFactory.createKeyspace(m_keyspaceName, cluster);
 
+        LogUtils.debugf(this, "create persister");
         m_persister = new Persister(m_keyspace, m_columnFamily, m_ttl);
 
+        LogUtils.debugf(this, "create cassrrdpool");
         m_rrdFilePool = new CassRrdPool( poolsize );
+
+	LogUtils.debugf(this, "end cassandra");
+	LogUtils.debugf(this, "end");
     }
 
     private String getProperty(String key, String defaultValue) {
@@ -381,7 +396,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
             if (log().isDebugEnabled()) {
                 // The "toString" method of FetchData is quite computationally
                 // expensive;
-                log().debug(data.toString());
+                LogUtils.debugf(this, data.toString());
             }
             double[] vals = data.getValues(ds);
             if (vals.length > 0) {
@@ -397,7 +412,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
                 try {
                     rrd.close();
                 } catch (IOException e) {
-                    log().error("Failed to close rrd file: " + fileName, e);
+                    LogUtils.errorf(this, "Failed to close rrd file: %s", fileName, e);
                 }
             }
         }
@@ -413,7 +428,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
             long latestUpdateTime = (now - (now % interval)) / 1000L;
             long earliestUpdateTime = ((now - (now % interval)) - range) / 1000L;
             if (log().isDebugEnabled()) {
-                log().debug("fetchInRange: fetching data from " + earliestUpdateTime + " to " + latestUpdateTime);
+                LogUtils.debugf(this, "fetchInRange: fetching data from %ld to %ld", earliestUpdateTime, latestUpdateTime);
             }
 
             FetchData data = rrd.createFetchRequest("AVERAGE", earliestUpdateTime, latestUpdateTime).fetchData();
@@ -427,11 +442,11 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
             for (int i = vals.length - 1; i >= 0; i--) {
                 if (Double.isNaN(vals[i])) {
                     if (log().isDebugEnabled()) {
-                        log().debug("fetchInRange: Got a NaN value at interval: " + times[i] + " continuing back in time");
+                        LogUtils.debugf(this,"fetchInRange: Got a NaN value at interval: %s continuing back in time", times[i]);
                     }
                 } else {
                     if (log().isDebugEnabled()) {
-                        log().debug("Got a non NaN value at interval: " + times[i] + " : " + vals[i]);
+                        LogUtils.debugf(this,"Got a non NaN value at interval: %ld : %f", times[i], vals[i]);
                     }
                     return new Double(vals[i]);
                 }
@@ -446,7 +461,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
                 try {
                     rrd.close();
                 } catch (IOException e) {
-                    log().error("Failed to close rrd file: " + fileName, e);
+                    LogUtils.errorf(this, "Failed to close rrd file: %s", fileName, e);
                 }
             }
         }
@@ -505,7 +520,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
              */
             return new CassandraRrdGraphDetails(graph, command);
         } catch (Throwable e) {
-            log().error("JRobin: exception occurred creating graph: " + e.getMessage(), e);
+            LogUtils.errorf(this, "JRobin: exception occurred creating graph: %s", e);
             throw new org.opennms.netmgt.rrd.RrdException("An exception occurred creating the graph: " + e.getMessage(), e);
         }
     }
@@ -552,22 +567,22 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
             String arg = commandArray[i];
             if (arg.startsWith("--start=")) {
                 start = Long.parseLong(arg.substring("--start=".length()));
-                log().debug("JRobin start time: " + start);
+                LogUtils.debugf(this, "JRobin start time: " + start);
             } else if (arg.equals("--start")) {
                 if (i + 1 < commandArray.length) {
                     start = Long.parseLong(commandArray[++i]);
-                    log().debug("JRobin start time: " + start);
+                    LogUtils.debugf(this,"JRobin start time: " + start);
                 } else {
                     throw new IllegalArgumentException("--start must be followed by a start time");
                 }
 
             } else if (arg.startsWith("--end=")) {
                 end = Long.parseLong(arg.substring("--end=".length()));
-                log().debug("JRobin end time: " + end);
+                LogUtils.debugf(this,"JRobin end time: " + end);
             } else if (arg.equals("--end")) {
                 if (i + 1 < commandArray.length) {
                     end = Long.parseLong(commandArray[++i]);
-                    log().debug("JRobin end time: " + end);
+                    LogUtils.debugf(this,"JRobin end time: " + end);
                 } else {
                     throw new IllegalArgumentException("--end must be followed by an end time");
                 }
@@ -605,11 +620,11 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
             } else if (arg.startsWith("--height=")) {
                 String[] argParm = tokenize(arg, "=", true);
                 height = Integer.parseInt(argParm[1]);
-                log().debug("JRobin height: " + height);
+                LogUtils.debugf(this,"JRobin height: " + height);
             } else if (arg.equals("--height")) {
                 if (i + 1 < commandArray.length) {
                     height = Integer.parseInt(commandArray[++i]);
-                    log().debug("JRobin height: " + height);
+                    LogUtils.debugf(this,"JRobin height: " + height);
                 } else {
                     throw new IllegalArgumentException("--height must be followed by a number");
                 }
@@ -617,11 +632,11 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
             } else if (arg.startsWith("--width=")) {
                 String[] argParm = tokenize(arg, "=", true);
                 width = Integer.parseInt(argParm[1]);
-                log().debug("JRobin width: " + width);
+                LogUtils.debugf(this,"JRobin width: " + width);
             } else if (arg.equals("--width")) {
                 if (i + 1 < commandArray.length) {
                     width = Integer.parseInt(commandArray[++i]);
-                    log().debug("JRobin width: " + width);
+                    LogUtils.debugf(this,"JRobin width: " + width);
                 } else {
                     throw new IllegalArgumentException("--width must be followed by a number");
                 }
@@ -629,12 +644,12 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
             } else if (arg.startsWith("--units-exponent=")) {
                 String[] argParm = tokenize(arg, "=", true);
                 int exponent = Integer.parseInt(argParm[1]);
-                log().debug("JRobin units exponent: " + exponent);
+                LogUtils.debugf(this,"JRobin units exponent: " + exponent);
                 graphDef.setUnitsExponent(exponent);
             } else if (arg.equals("--units-exponent")) {
                 if (i + 1 < commandArray.length) {
                     int exponent = Integer.parseInt(commandArray[++i]);
-                    log().debug("JRobin units exponent: " + exponent);
+                    LogUtils.debugf(this,"JRobin units exponent: " + exponent);
                     graphDef.setUnitsExponent(exponent);
                 } else {
                     throw new IllegalArgumentException("--units-exponent must be followed by a number");
@@ -643,11 +658,11 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
             } else if (arg.startsWith("--lower-limit=")) {
                 String[] argParm = tokenize(arg, "=", true);
                 lowerLimit = Double.parseDouble(argParm[1]);
-                log().debug("JRobin lower limit: " + lowerLimit);
+                LogUtils.debugf(this,"JRobin lower limit: " + lowerLimit);
             } else if (arg.equals("--lower-limit")) {
                 if (i + 1 < commandArray.length) {
                     lowerLimit = Double.parseDouble(commandArray[++i]);
-                    log().debug("JRobin lower limit: " + lowerLimit);
+                    LogUtils.debugf(this,"JRobin lower limit: " + lowerLimit);
                 } else {
                     throw new IllegalArgumentException("--lower-limit must be followed by a number");
                 }
@@ -655,11 +670,11 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
             } else if (arg.startsWith("--upper-limit=")) {
                 String[] argParm = tokenize(arg, "=", true);
                 upperLimit = Double.parseDouble(argParm[1]);
-                log().debug("JRobin upp limit: " + upperLimit);
+                LogUtils.debugf(this,"JRobin upp limit: " + upperLimit);
             } else if (arg.equals("--upper-limit")) {
                 if (i + 1 < commandArray.length) {
                     upperLimit = Double.parseDouble(commandArray[++i]);
-                    log().debug("JRobin upper limit: " + upperLimit);
+                    LogUtils.debugf(this,"JRobin upper limit: " + upperLimit);
                 } else {
                     throw new IllegalArgumentException("--upper-limit must be followed by a number");
                 }
@@ -801,8 +816,8 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
         // graphDef.setSmallFont(new Font("Monospaced", Font.PLAIN, 10));
         // graphDef.setLargeFont(new Font("Monospaced", Font.PLAIN, 12));
 
-        log().debug("JRobin Finished tokenizing checking: start time: " + start + "; end time: " + end);
-        log().debug("large font = " + graphDef.getLargeFont() + ", small font = " + graphDef.getSmallFont());
+        LogUtils.debugf(this,"JRobin Finished tokenizing checking: start time: " + start + "; end time: " + end);
+        LogUtils.debugf(this,"large font = " + graphDef.getLargeFont() + ", small font = " + graphDef.getSmallFont());
         return graphDef;
     }
 
@@ -811,9 +826,9 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
         try {
             String path = workDir.getAbsolutePath();
             String key = path + File.separator + relpath;
-            //log().debug("getRrdFile(): path="+path);
-            //log().debug("getRrdFile(): relpath="+relpath);
-            //log().debug("getRrdFile(): key="+key);
+            //LogUtils.debugf(this,"getRrdFile(): path="+path);
+            //LogUtils.debugf(this,"getRrdFile(): relpath="+relpath);
+            //LogUtils.debugf(this,"getRrdFile(): key="+key);
 
             // Get metadata for the datasource from Cassandra
             // STEP:
@@ -828,7 +843,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
                                                                                                  DoubleSerializer.get());
 
             query.setColumnFamily(m_columnFamily);
-            query.setKey(relpath);
+            query.setKey(key);
             query.setRange(start, end, false, Integer.MAX_VALUE);
 
             QueryResult<SuperSlice<Long, String, Double>> results = query.execute();
@@ -841,7 +856,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
                 if (file == null || !file.exists()) {
                     // XXX: Should we offer the ability to store the files outside of /tmp?
                     file = File.createTempFile("crrd", ".jrb");
-                    log().debug("Creating temporary rrd " + file + " with " + datapoints.size() + " datapoints");
+                    LogUtils.debugf(this,"Creating temporary rrd " + file + " with " + datapoints.size() + " datapoints");
                     m_rrdFilePool.put(relpath, file);
                 }
             }
