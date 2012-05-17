@@ -29,7 +29,9 @@ public class CassRrdPool {
     }
 
     public synchronized void put(String key, File file) {
-        m_pool.put(key, file);
+        LogUtils.debugf(this, "m_pool.size(): %d", m_pool.size());
+        File old = m_pool.put(key, file);
+        LogUtils.debugf(this, "key='%s', file='%s', old='%s'", key, file.getAbsolutePath(), old != null ? old.getAbsolutePath() : "<null>");
     }
 
     public synchronized File get(String key) {
