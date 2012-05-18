@@ -10,6 +10,8 @@ import me.prettyprint.hector.api.beans.HSuperColumn;
 import me.prettyprint.hector.api.factory.HFactory;
 import me.prettyprint.hector.api.mutation.Mutator;
 
+import org.opennms.core.utils.LogUtils;
+
 class Datapoint {
     private String m_metricName;
 
@@ -43,19 +45,19 @@ class Datapoint {
     }
 
     public void persist(Mutator<String> mutator, String columnFamily, int ttl) {
+        LogUtils.debugf(this, "datapoint['%s']['%s'][ %d ] = %f", getName(), getDsName(), getTimestamp(), getValue());
 
-        HColumn<String, Double> c = HFactory.createColumn(getDsName(),
+        HColumn<Long, Double> c = HFactory.createColumn(Long.valueOf(getTimestamp()),
                                                           getValue(),
                                                           ttl,
-                                                          StringSerializer.get(),
+                                                          LongSerializer.get(),
                                                           DoubleSerializer.get());
-        HSuperColumn<Long, String, Double> superColumn = HFactory.createSuperColumn(Long.valueOf(getTimestamp()),
+        HSuperColumn<String, Long, Double> superColumn = HFactory.createSuperColumn(getDsName(),
                                                                                     Collections.singletonList(c),
-                                                                                    LongSerializer.get(),
                                                                                     StringSerializer.get(),
+                                                                                    LongSerializer.get(),
                                                                                     DoubleSerializer.get());
         mutator.addInsertion(getName(), columnFamily, superColumn);
-
     }
 
     public String toString() {

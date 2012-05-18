@@ -114,10 +114,10 @@ public class CassRrdDef {
 	try {
             ResultStatus result = mutator.execute();
             if (result == null) {
-                LogUtils.errorf(this, "result was null after execute()");
+                LogUtils.warnf(this, "result was null after execute()");
             }
 	} catch (HectorException e) {
-            LogUtils.errorf(this, "exception", e);
+            LogUtils.errorf(this, e, "exception");
         }
         LogUtils.debugf(this, "finished");
     }
