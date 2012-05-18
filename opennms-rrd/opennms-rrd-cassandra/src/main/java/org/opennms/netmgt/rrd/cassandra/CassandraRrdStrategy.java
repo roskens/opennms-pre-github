@@ -834,9 +834,9 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
         try {
             String path = workDir.getAbsolutePath();
             String key = path + File.separator + relpath;
-            //LogUtils.debugf(this,"getRrdFile(): path="+path);
-            //LogUtils.debugf(this,"getRrdFile(): relpath="+relpath);
-            //LogUtils.debugf(this,"getRrdFile(): key="+key);
+            //LogUtils.debugf(this,"getRrdFile(): path=%s",path);
+            //LogUtils.debugf(this,"getRrdFile(): relpath=%s",relpath);
+            LogUtils.debugf(this,"getRrdFile(): key=%s",key);
 
             // Get metadata for the datasource from Cassandra
             // STEP:
@@ -848,21 +848,26 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
                                                                                                  StringSerializer.get(),
                                                                                                  StringSerializer.get(),
                                                                                                  StringSerializer.get());
-            query.setColumnFamily("metadata");
-            query.setKey(key);
-            query.setRange(null, "ZZZZZZ", false, Integer.MAX_VALUE);
+            mdQuery.setColumnFamily("metadata");
+            mdQuery.setKey(key);
+            mdQuery.setRange(dsName, "ZZZZZZ", false, Integer.MAX_VALUE);
             QueryResult<SuperSlice<String, String, String>> mdResults = mdQuery.execute();
+            List<HSuperColumn<String, String, String>> mdList = mdResults.get().getSuperColumns();
 
-            List<HSuperColumn<String, String, String>> metadata = mdResults.get().getSuperColumns();
-            for (HSuperColumn<String, String, String> mdata : metadata) {
-                LogUtils.debugf(this, "metadata['%s']['%s'] = '%s'",
-                    metadata.getName(),
-                    md.getName(),
-                    md.getValue(),
-                );
+            LogUtils.debugf(this, "metadata: %d results returned", mdList.size());
+
+            for (HSuperColumn<String, String, String> metadata : mdList) {
+                LogUtils.debugf(this, "metadata['%s'](%d)", metadata.getName(), metadata.getSize());
+                for (HColumn<String, String> mdata : metadata.getColumns()) {
+                    LogUtils.debugf(this, "metadata['%s']['%s'] = '%s'",
+                        metadata.getName(),
+                        mdata.getName(),
+                        mdata.getValue()
+                    );
+                }
             }
 
-            SuperSliceQuery<String, Long, String, Double> query = HFactory.createSuperSliceQuery(m_keyspace,
+            SubSliceQuery<String, Long, String, Double> query = HFactory.createSubSliceQuery(m_keyspace,
                                                                                                  StringSerializer.get(),
                                                                                                  LongSerializer.get(),
                                                                                                  StringSerializer.get(),
@@ -870,6 +875,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
 
             query.setColumnFamily(m_columnFamily);
             query.setKey(key);
+            query.setColumnNames(Collections.singletonList(dsName));
             query.setRange(start, end, false, Integer.MAX_VALUE);
 
             QueryResult<SuperSlice<Long, String, Double>> results = query.execute();
