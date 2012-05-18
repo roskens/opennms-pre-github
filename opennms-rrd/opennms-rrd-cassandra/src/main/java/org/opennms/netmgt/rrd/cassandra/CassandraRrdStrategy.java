@@ -287,6 +287,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
     /** {@inheritDoc} */
     public CassRrdDef createDefinition(final String creator, final String directory, final String rrdName, int step,
             final List<RrdDataSource> dataSources, final List<String> rraList) throws Exception {
+        LogUtils.debugf(this, "begin");
         /**
          * XXX: opennms-dao classes rely upon being able to list the rrd files directly.
          */
@@ -295,6 +296,8 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
 
         String fileName = directory + File.separator + rrdName + getDefaultFileExtension();
         if (new File(fileName).exists()) {
+            LogUtils.debugf(this, "file %s exists", fileName);
+            LogUtils.debugf(this, "finish");
             return null;
         }
 
@@ -303,6 +306,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
         def.addDatasources(dataSources);
         def.addArchives(rraList);
 
+        LogUtils.debugf(this, "finish");
         return def;
     }
 
@@ -317,14 +321,18 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
      *             if any.
      */
     public void createFile(final CassRrdDef rrdDef) throws Exception {
+        LogUtils.debugf(this, "begin");
         if (rrdDef == null) {
+            LogUtils.debugf(this, "finish");
             return;
         }
 
         // TODO: We should store our Rrd definition as metadata inside cassandra.
 
-
+        LogUtils.debugf(this, "rrdDef.create(m_keyspace)");
         rrdDef.create(m_keyspace);
+
+        LogUtils.debugf(this, "finish");
     }
 
     /**
@@ -835,6 +843,24 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
             // CONSOLEFUNCTION:
             // MINUMUM:
             // MAXIMUM:
+            SuperSliceQuery<String, String, String, String> mdQuery = HFactory.createSuperSliceQuery(m_keyspace,
+                                                                                                 StringSerializer.get(),
+                                                                                                 StringSerializer.get(),
+                                                                                                 StringSerializer.get(),
+                                                                                                 StringSerializer.get());
+            query.setColumnFamily("metadata");
+            query.setKey(key);
+            query.setRange(null, "ZZZZZZ", false, Integer.MAX_VALUE);
+            QueryResult<SuperSlice<String, String, String>> mdResults = mdQuery.execute();
+
+            List<HSuperColumn<String, String, String>> metadata = mdResults.get().getSuperColumns();
+            for (HSuperColumn<String, String, String> mdata : metadata) {
+                LogUtils.debugf(this, "metadata['%s']['%s'] = '%s'",
+                    metadata.getName(),
+                    md.getName(),
+                    md.getValue(),
+                );
+            }
 
             SuperSliceQuery<String, Long, String, Double> query = HFactory.createSuperSliceQuery(m_keyspace,
                                                                                                  StringSerializer.get(),
