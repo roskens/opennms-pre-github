@@ -97,7 +97,7 @@ class Persister implements Runnable {
 			mutator.execute();
 			long end = System.currentTimeMillis();
 
-			LogUtils.debugf(this, "Wrote %d datapoints in %ld ms.", datapoints.size(), end-start);
+			LogUtils.debugf(this, "Wrote %d datapoints in %d ms.", datapoints.size(), end-start);
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
