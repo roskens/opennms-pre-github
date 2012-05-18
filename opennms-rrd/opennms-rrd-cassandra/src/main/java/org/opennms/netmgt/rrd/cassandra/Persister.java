@@ -13,7 +13,7 @@ import me.prettyprint.hector.api.Keyspace;
 import me.prettyprint.hector.api.factory.HFactory;
 import me.prettyprint.hector.api.mutation.Mutator;
 
-import org.opennms.core.utils.ThreadCategory;
+import org.opennms.core.utils.LogUtils;
 
 class Persister implements Runnable {
 	Keyspace m_keyspace;
@@ -97,11 +97,11 @@ class Persister implements Runnable {
 			mutator.execute();
 			long end = System.currentTimeMillis();
 
-			log().debug("Wrote " + datapoints.size() + " datapoints in "+ (end-start) + " ms.");
+			LogUtils.debugf(this, "Wrote %d datapoints in %ld ms.", datapoints.size(), end-start);
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LogUtils.errorf(this, e, "failure?");
 		}
 		}
 
@@ -114,10 +114,5 @@ class Persister implements Runnable {
 	public void waitForFinish() throws InterruptedException {
 		m_finish.set(true);
 		m_finishLatch.await();
-	}
-
-
-	private final ThreadCategory log() {
-		return ThreadCategory.getInstance(getClass());
 	}
 }

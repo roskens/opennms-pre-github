@@ -57,6 +57,7 @@ import me.prettyprint.hector.api.ddl.ComparatorType;
 import me.prettyprint.hector.api.ddl.KeyspaceDefinition;
 import me.prettyprint.hector.api.factory.HFactory;
 import me.prettyprint.hector.api.query.QueryResult;
+import me.prettyprint.hector.api.query.SubSliceQuery;
 import me.prettyprint.hector.api.query.SuperSliceQuery;
 
 import org.jrobin.core.FetchData;
@@ -234,10 +235,10 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
 
 	    LogUtils.debugf(this, "create column family %s", m_columnFamily);
             ColumnFamilyDefinition cfDef = HFactory.createColumnFamilyDefinition(m_keyspaceName, m_columnFamily,
-                                                                                 ComparatorType.LONGTYPE);
+                                                                                 ComparatorType.ASCIITYPE);
             cfDef.setColumnType(ColumnType.SUPER);
-            cfDef.setSubComparatorType(ComparatorType.UTF8TYPE);
-            cfDef.setKeyValidationClass("org.apache.cassandra.db.marshal.UTF8Type");
+            cfDef.setSubComparatorType(ComparatorType.LONGTYPE);
+            cfDef.setKeyValidationClass("org.apache.cassandra.db.marshal.LongType");
             cfDef.setDefaultValidationClass("org.apache.cassandra.db.marshal.DoubleType");
 
 	    LogUtils.debugf(this, "create column family metadata");
@@ -420,7 +421,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
                 try {
                     rrd.close();
                 } catch (IOException e) {
-                    LogUtils.errorf(this, "Failed to close rrd file: %s", fileName, e);
+                    LogUtils.errorf(this, e, "Failed to close rrd file: %s", fileName);
                 }
             }
         }
@@ -469,7 +470,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
                 try {
                     rrd.close();
                 } catch (IOException e) {
-                    LogUtils.errorf(this, "Failed to close rrd file: %s", fileName, e);
+                    LogUtils.errorf(this, e, "Failed to close rrd file: %s", fileName);
                 }
             }
         }
@@ -528,7 +529,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
              */
             return new CassandraRrdGraphDetails(graph, command);
         } catch (Throwable e) {
-            LogUtils.errorf(this, "JRobin: exception occurred creating graph: %s", e);
+            LogUtils.errorf(this, e, "JRobin: exception occurred creating graph");
             throw new org.opennms.netmgt.rrd.RrdException("An exception occurred creating the graph: " + e.getMessage(), e);
         }
     }
@@ -867,20 +868,19 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
                 }
             }
 
-            SubSliceQuery<String, Long, String, Double> query = HFactory.createSubSliceQuery(m_keyspace,
+            SuperSliceQuery<String, String, Long, Double> query = HFactory.createSuperSliceQuery(m_keyspace,
+                                                                                                 StringSerializer.get(),
                                                                                                  StringSerializer.get(),
                                                                                                  LongSerializer.get(),
-                                                                                                 StringSerializer.get(),
                                                                                                  DoubleSerializer.get());
 
             query.setColumnFamily(m_columnFamily);
             query.setKey(key);
-            query.setColumnNames(Collections.singletonList(dsName));
-            query.setRange(start, end, false, Integer.MAX_VALUE);
+            query.setRange(dsName, dsName, false, Integer.MAX_VALUE);
 
-            QueryResult<SuperSlice<Long, String, Double>> results = query.execute();
+            QueryResult<SuperSlice<String, Long, Double>> results = query.execute();
 
-            List<HSuperColumn<Long, String, Double>> datapoints = results.get().getSuperColumns();
+            List<HSuperColumn<String, Long, Double>> datapoints = results.get().getSuperColumns();
             File file;
 
             synchronized(m_rrdFilePool) {
@@ -903,15 +903,19 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
 
             RrdDb db = new RrdDb(def);
 
-            for (HSuperColumn<Long, String, Double> datapoint : datapoints) {
-                long timestamp = datapoint.getName();
-                HColumn<String, Double> ds = datapoint.getColumns().get(0);
-                double val = ds.getValue();
+            LogUtils.debugf(this, "found %d datapoint super columns", datapoints.size());
+            for (HSuperColumn<String, Long, Double> datapoint : datapoints) {
+                List<HColumn<Long, Double>> dpoints = datapoint.getColumns();
+                LogUtils.debugf(this, "found %d datapoints for super column %s", dpoints.size(), datapoint.getName());
+                for(HColumn<Long, Double> ds : dpoints) {
+                    long timestamp = ds.getName();
+                    double val = ds.getValue();
 
-                Sample sample = db.createSample(timestamp);
-                sample.setValue(0, val);
+                    Sample sample = db.createSample(timestamp);
+                    sample.setValue(0, val);
 
-                sample.update();
+                    sample.update();
+                }
             }
 
             return file;
