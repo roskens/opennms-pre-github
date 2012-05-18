@@ -84,7 +84,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
 
     public static final String KEYSPACE_NAME_PROPERTY = "org.opennms.netmgt.rrd.cassandra.keyspace";
 
-    private static final String DEFAULT_KEYSPACE = "OpenNMSDataCollectionV1";
+    private static final String DEFAULT_KEYSPACE = "OpenNMS";
 
     // Data column must be create with a structure like this:
     // create column family datapoints with column_type='Super' \
@@ -234,11 +234,10 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
 	    LogUtils.debugf(this, "keyspace definition null");
 
 	    LogUtils.debugf(this, "create column family %s", m_columnFamily);
-            ColumnFamilyDefinition cfDef = HFactory.createColumnFamilyDefinition(m_keyspaceName, m_columnFamily,
-                                                                                 ComparatorType.ASCIITYPE);
+            ColumnFamilyDefinition cfDef = HFactory.createColumnFamilyDefinition(m_keyspaceName, m_columnFamily, ComparatorType.ASCIITYPE);
             cfDef.setColumnType(ColumnType.SUPER);
             cfDef.setSubComparatorType(ComparatorType.LONGTYPE);
-            cfDef.setKeyValidationClass("org.apache.cassandra.db.marshal.LongType");
+            cfDef.setKeyValidationClass    ("org.apache.cassandra.db.marshal.AsciiType");
             cfDef.setDefaultValidationClass("org.apache.cassandra.db.marshal.DoubleType");
 
 	    LogUtils.debugf(this, "create column family metadata");
