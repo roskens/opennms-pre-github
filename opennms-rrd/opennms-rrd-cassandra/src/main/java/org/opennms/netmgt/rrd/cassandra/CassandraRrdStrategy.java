@@ -436,7 +436,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
             long latestUpdateTime = (now - (now % interval)) / 1000L;
             long earliestUpdateTime = ((now - (now % interval)) - range) / 1000L;
             if (log().isDebugEnabled()) {
-                LogUtils.debugf(this, "fetchInRange: fetching data from %ld to %ld", earliestUpdateTime, latestUpdateTime);
+                LogUtils.debugf(this, "fetchInRange: fetching data from %d to %d", earliestUpdateTime, latestUpdateTime);
             }
 
             FetchData data = rrd.createFetchRequest("AVERAGE", earliestUpdateTime, latestUpdateTime).fetchData();
@@ -454,7 +454,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
                     }
                 } else {
                     if (log().isDebugEnabled()) {
-                        LogUtils.debugf(this,"Got a non NaN value at interval: %ld : %f", times[i], vals[i]);
+                        LogUtils.debugf(this,"Got a non NaN value at interval: %d : %f", times[i], vals[i]);
                     }
                     return new Double(vals[i]);
                 }
