@@ -13,24 +13,6 @@
     <name>OpenNMS VMware Library</name>
     <dependencies>
         <dependency>
-            <groupId>org.powermock</groupId>
-            <artifactId>powermock-module-junit4</artifactId>
-            <version>1.4.12</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.powermock</groupId>
-            <artifactId>powermock-api-easymock</artifactId>
-            <version>1.4.12</version>
-            <scope>test</scope>
-        </dependency>
-<!--        <dependency>
-            <groupId>org.easymock</groupId>
-            <artifactId>easymock</artifactId>
-            <version>3.1</version>
-            <scope>test</scope>
-        </dependency> -->
-        <dependency>
             <groupId>org.opennms</groupId>
             <artifactId>opennms-config</artifactId>
             <scope>compile</scope>
@@ -94,6 +76,24 @@
         </dependency>
         <!-- JUnit tests -->
         <dependency>
+            <groupId>org.easymock</groupId>
+            <artifactId>easymock</artifactId>
+            <version>3.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-module-junit4</artifactId>
+            <version>1.4.12</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-api-easymock</artifactId>
+            <version>1.4.12</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.opennms</groupId>
             <artifactId>opennms-test</artifactId>
             <scope>test</scope>
@@ -103,10 +103,12 @@
             <artifactId>opennms-rrd-jrobin</artifactId>
             <scope>test</scope>
         </dependency>
+        <!--
         <dependency>
             <groupId>org.opennms.dependencies</groupId>
             <artifactId>spring-dependencies</artifactId>
             <type>pom</type>
         </dependency>
+        -->
     </dependencies>
 </project>
