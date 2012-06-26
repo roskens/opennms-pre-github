@@ -1,21 +1,21 @@
 package org.opennms.netmgt.collectd;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.commons.io.FileUtils;
 import org.jrobin.core.RrdDb;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.opennms.core.test.MockLogAppender;
 import org.opennms.core.utils.BeanUtils;
 import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.config.collector.CollectionSet;
 import org.opennms.netmgt.config.collector.ServiceParameters;
 import org.opennms.netmgt.dao.VmwareDatacollectionConfigDao;
-import org.opennms.test.mock.MockLogAppender;
+
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 public class VmwareCollectorTest {
 
