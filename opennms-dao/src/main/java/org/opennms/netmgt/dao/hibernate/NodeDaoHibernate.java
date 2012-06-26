@@ -31,6 +31,7 @@ package org.opennms.netmgt.dao.hibernate;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -262,7 +263,7 @@ public class NodeDaoHibernate extends AbstractDaoHibernate<OnmsNode, Integer> im
                                 return new SimpleSurveillanceStatus((Number)tuple[0], (Number)tuple[1], (Number)tuple[2]);
                             }
 
-                            @SuppressWarnings("rawtypes")
+                            @SuppressWarnings("unchecked")
                             public List transformList(List collection) {
                                 return collection;
                             }
@@ -284,7 +285,7 @@ public class NodeDaoHibernate extends AbstractDaoHibernate<OnmsNode, Integer> im
         for (Object[] pair : pairs) {
             foreignIdMap.put((String)pair[1], (Integer)pair[0]);
         }
-        return foreignIdMap;
+        return Collections.unmodifiableMap(foreignIdMap);
     }
 
     /** {@inheritDoc} */

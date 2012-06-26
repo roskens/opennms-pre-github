@@ -28,10 +28,7 @@
 
 package org.opennms.web.rest;
 
-import java.util.Date;
-
 import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -44,8 +41,12 @@ import javax.ws.rs.core.UriInfo;
 
 import org.opennms.core.criteria.CriteriaBuilder;
 import org.opennms.netmgt.dao.AlarmDao;
+import org.opennms.netmgt.model.AckAction;
+import org.opennms.netmgt.model.OnmsAcknowledgment;
 import org.opennms.netmgt.model.OnmsAlarm;
 import org.opennms.netmgt.model.OnmsAlarmCollection;
+import org.opennms.netmgt.model.acknowledgments.AckService;
+import org.opennms.web.springframework.security.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -54,13 +55,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sun.jersey.spi.resource.PerRequest;
 
 @Component
-/**
- * <p>AlarmRestService class.</p>
- *
- * @author ranger
- * @version $Id: $
- * @since 1.8.1
- */
 @PerRequest
 @Scope("prototype")
 @Path("alarms")
@@ -69,6 +63,9 @@ public class AlarmRestService extends AlarmRestServiceBase {
     @Autowired
     private AlarmDao m_alarmDao;
     
+    @Autowired
+    private AckService m_ackService;
+
     @Context 
     UriInfo m_uriInfo;
 
@@ -145,17 +142,53 @@ public class AlarmRestService extends AlarmRestServiceBase {
      */
     @PUT
 	@Path("{alarmId}")
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Transactional
-	public void updateAlarm(@PathParam("alarmId") final String alarmId, @FormParam("ack") final Boolean ack) {
+	public void updateAlarm(@PathParam("alarmId") final Integer alarmId, final MultivaluedMapImpl formProperties) {
         writeLock();
-        
-        try {
-        	final OnmsAlarm alarm = m_alarmDao.get(new Integer(alarmId));
-    		if (ack == null) {
-    			throw new IllegalArgumentException("Must supply the 'ack' parameter, set to either 'true' or 'false'");
+
+    	try {
+    		if (alarmId == null) {
+    			throw new IllegalArgumentException("Unable to determine alarm ID to update based on query path.");
     		}
-    		processAlarmAck(alarm, ack);
+
+    		final String ackValue = formProperties.getFirst("ack");
+            formProperties.remove("ack");
+            final String escalateValue = formProperties.getFirst("escalate");
+            formProperties.remove("escalate");
+            final String clearValue = formProperties.getFirst("clear");
+            formProperties.remove("clear");
+            final String ackUserValue = formProperties.getFirst("ackUser");
+            formProperties.remove("ackUser");
+            
+    		final OnmsAlarm alarm = m_alarmDao.get(alarmId);
+        	if (alarm == null) {
+        		throw new IllegalArgumentException("Unable to locate alarm with ID '" + alarmId + "'");
+        	}
+
+    		final String ackUser = ackUserValue == null? m_securityContext.getUserPrincipal().getName() : ackUserValue;
+    		assertUserCredentials(ackUser);
+
+    		final OnmsAcknowledgment acknowledgement = new OnmsAcknowledgment(alarm, ackUser);
+    		acknowledgement.setAckAction(AckAction.UNSPECIFIED);
+    		if (ackValue != null) {
+    			if (Boolean.parseBoolean(ackValue)) {
+        			acknowledgement.setAckAction(AckAction.ACKNOWLEDGE);
+        		} else {
+        			acknowledgement.setAckAction(AckAction.UNACKNOWLEDGE);
+        		}
+    		} else if (escalateValue != null) {
+    			if (Boolean.parseBoolean(escalateValue)) {
+    				acknowledgement.setAckAction(AckAction.ESCALATE);
+    			}
+    		} else if (clearValue != null) {
+    			if (Boolean.parseBoolean(clearValue)) {
+    				acknowledgement.setAckAction(AckAction.CLEAR);
+    			}
+    		} else {
+    			throw new IllegalArgumentException("Must supply one of the 'ack', 'escalate', or 'clear' parameters, set to either 'true' or 'false'.");
+    		}
+    		m_ackService.processAck(acknowledgement);
         } finally {
             writeUnlock();
         }
@@ -173,33 +206,54 @@ public class AlarmRestService extends AlarmRestServiceBase {
 	    writeLock();
 	    
 	    try {
-    		Boolean ack=false;
-    		if(formProperties.containsKey("ack")) {
-    			ack="true".equals(formProperties.getFirst("ack"));
-    			formProperties.remove("ack");
-    		}
-    		
-    		final CriteriaBuilder builder = getCriteriaBuilder(formProperties, false);
+			final String ackValue = formProperties.getFirst("ack");
+			formProperties.remove("ack");
+			final String escalateValue = formProperties.getFirst("escalate");
+			formProperties.remove("escalate");
+			final String clearValue = formProperties.getFirst("clear");
+			formProperties.remove("clear");
+
+			final CriteriaBuilder builder = getCriteriaBuilder(formProperties, false);
     		builder.distinct();
     		builder.limit(0);
     		builder.offset(0);
+
+    		final String ackUser = formProperties.containsKey("ackUser")? formProperties.getFirst("ackUser") : m_securityContext.getUserPrincipal().getName();
+    		formProperties.remove("ackUser");
+			assertUserCredentials(ackUser);
+
     		for (final OnmsAlarm alarm : m_alarmDao.findMatching(builder.toCriteria())) {
-    			processAlarmAck(alarm, ack);
+        		final OnmsAcknowledgment acknowledgement = new OnmsAcknowledgment(alarm, ackUser);
+        		acknowledgement.setAckAction(AckAction.UNSPECIFIED);
+        		if (ackValue != null) {
+        			if (Boolean.parseBoolean(ackValue)) {
+	        			acknowledgement.setAckAction(AckAction.ACKNOWLEDGE);
+	        		} else {
+	        			acknowledgement.setAckAction(AckAction.UNACKNOWLEDGE);
+	        		}
+        		} else if (escalateValue != null) {
+        			if (Boolean.parseBoolean(escalateValue)) {
+        				acknowledgement.setAckAction(AckAction.ESCALATE);
+        			}
+        		} else if (clearValue != null) {
+        			if (Boolean.parseBoolean(clearValue)) {
+        				acknowledgement.setAckAction(AckAction.CLEAR);
+        			}
+        		} else {
+        			throw new IllegalArgumentException("Must supply one of the 'ack', 'escalate', or 'clear' parameters, set to either 'true' or 'false'.");
+        		}
+        		m_ackService.processAck(acknowledgement);
     		}
 	    } finally {
 	        writeUnlock();
 	    }
 	}
 
-	private void processAlarmAck(final OnmsAlarm alarm, final Boolean ack) {
-		if (ack) {
-			alarm.setAlarmAckTime(new Date());
-			alarm.setAlarmAckUser(m_securityContext.getUserPrincipal().getName());
-		} else {
-			alarm.setAlarmAckTime(null);
-			alarm.setAlarmAckUser(null);
+	private void assertUserCredentials(final String ackUser) {
+		final String currentUser = m_securityContext.getUserPrincipal().getName();
+		if (!(m_securityContext.isUserInRole(Authentication.ROLE_ADMIN)) && !(ackUser.equals(currentUser))) {
+			throw new IllegalArgumentException("You are logged in as non-admin user '" + currentUser + "', but you are trying to update an alarm as another user ('" + ackUser + "')!");
 		}
-		m_alarmDao.save(alarm);
 	}
-
+	
 }

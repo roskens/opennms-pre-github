@@ -29,7 +29,6 @@
 package org.opennms.web.rest;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -164,45 +163,47 @@ public class AcknowledgmentRestService extends OnmsRestService {
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Transactional
-    public OnmsAcknowledgment acknowledge(@FormParam("alarmId") String alarmId, @FormParam("notifId") String notifId, @FormParam("action") String action) {
-        writeLock();
-        
-        try {
-        	OnmsAcknowledgment ack = null;
-        	if (alarmId == null && notifId == null) {
-        		throw new IllegalArgumentException("You must supply either an alarmId or notifId!");
-        	} else if (alarmId != null && notifId != null) {
-        		throw new IllegalArgumentException("You cannot supply both an alarmId and a notifId!");
-        	} else if (alarmId != null) {
-        		final OnmsAlarm alarm = m_alarmDao.get(Integer.valueOf(alarmId));
-                ack = new OnmsAcknowledgment(alarm);
-        	} else if (notifId != null) {
-        		final OnmsNotification notification = m_notificationDao.get(Integer.valueOf(notifId));
-        		ack = new OnmsAcknowledgment(notification);
-        	}
-            
-            if (action == null) {
-                action = "ack";
-            }
-            
-            if ("ack".equals(action)) {
-                ack.setAckAction(AckAction.ACKNOWLEDGE);
-            } else if ("unack".equals(action)) {
-                ack.setAckAction(AckAction.UNACKNOWLEDGE);
-            } else if ("clear".equals(action)) {
-                ack.setAckAction(AckAction.CLEAR);
-            } else if ("esc".equals(action)) {
-                ack.setAckAction(AckAction.ESCALATE);
-            } else {
-                throw new IllegalArgumentException(
-                "Must supply the 'action' parameter, set to either 'ack, 'unack', 'clear', or 'esc'");
-            }
-            
-            m_ackSvc.processAck(ack);
-            return ack;
-        } finally {
-            writeUnlock();
-        }
+    public OnmsAcknowledgment acknowledge(MultivaluedMap<String, String> formParams) {
+    	writeLock();
+    	
+    	try {
+	        String alarmId = formParams.getFirst("alarmId");
+	        String notifId = formParams.getFirst("notifId");
+	        String action = formParams.getFirst("action");
+	        if (action == null) {
+	            action = "ack";
+	        }
+	    	OnmsAcknowledgment ack = null;
+	    	if (alarmId == null && notifId == null) {
+	    		throw new IllegalArgumentException("You must supply either an alarmId or notifId!");
+	    	} else if (alarmId != null && notifId != null) {
+	    		throw new IllegalArgumentException("You cannot supply both an alarmId and a notifId!");
+	    	} else if (alarmId != null) {
+	    		final OnmsAlarm alarm = m_alarmDao.get(Integer.valueOf(alarmId));
+	            ack = new OnmsAcknowledgment(alarm);
+	    	} else if (notifId != null) {
+	    		final OnmsNotification notification = m_notificationDao.get(Integer.valueOf(notifId));
+	    		ack = new OnmsAcknowledgment(notification);
+	    	}
+	        
+	        if ("ack".equals(action)) {
+	            ack.setAckAction(AckAction.ACKNOWLEDGE);
+	        } else if ("unack".equals(action)) {
+	            ack.setAckAction(AckAction.UNACKNOWLEDGE);
+	        } else if ("clear".equals(action)) {
+	            ack.setAckAction(AckAction.CLEAR);
+	        } else if ("esc".equals(action)) {
+	            ack.setAckAction(AckAction.ESCALATE);
+	        } else {
+	            throw new IllegalArgumentException(
+	            "Must supply the 'action' parameter, set to either 'ack, 'unack', 'clear', or 'esc'");
+	        }
+
+	        m_ackSvc.processAck(ack);
+	        return ack;
+    	} finally {
+    		writeUnlock();
+    	}
     }
 
     private CriteriaBuilder getQueryFilters(MultivaluedMap<String,String> params) {

@@ -30,6 +30,8 @@ package org.opennms.protocols.radius.springsecurity;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 
 import net.jradius.client.RadiusClient;
@@ -48,15 +50,16 @@ import net.jradius.packet.attribute.RadiusAttribute;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.opennms.core.utils.InetAddressUtils;
-import org.springframework.security.AuthenticationException;
-import org.springframework.security.AuthenticationServiceException;
-import org.springframework.security.BadCredentialsException;
-import org.springframework.security.GrantedAuthority;
-import org.springframework.security.GrantedAuthorityImpl;
-import org.springframework.security.providers.UsernamePasswordAuthenticationToken;
-import org.springframework.security.providers.dao.AbstractUserDetailsAuthenticationProvider;
-import org.springframework.security.userdetails.User;
-import org.springframework.security.userdetails.UserDetails;
+import org.opennms.web.springframework.security.Authentication;
+import org.springframework.security.authentication.AuthenticationServiceException;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
@@ -81,7 +84,7 @@ public class RadiusAuthenticationProvider extends AbstractUserDetailsAuthenticat
      */
     private RadiusAuthenticator authTypeClass = null;
 
-    private String defaultRoles = "ROLE_USER", rolesAttribute;
+    private String defaultRoles = Authentication.ROLE_USER, rolesAttribute;
 
     /**
      * Create an instance using the supplied server and shared secret.
@@ -101,6 +104,7 @@ public class RadiusAuthenticationProvider extends AbstractUserDetailsAuthenticat
      *
      * @throws java.lang.Exception if any.
      */
+    @Override
     protected void doAfterPropertiesSet() throws Exception {
         Assert.notNull(this.port, "A port number must be specified");
         Assert.notNull(this.timeout, "A timeout must be specified");
@@ -273,9 +277,9 @@ public class RadiusAuthenticationProvider extends AbstractUserDetailsAuthenticat
         }
 
         String[] rolesArray = roles.replaceAll("\\s*","").split(",");
-        GrantedAuthority[] authorities = new GrantedAuthority[rolesArray.length];
-        for (int i = 0; i < rolesArray.length; i++) {
-            authorities[i] = new GrantedAuthorityImpl(rolesArray[i]);
+        Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>(rolesArray.length);
+        for (String role : rolesArray) {
+            authorities.add(new SimpleGrantedAuthority(role));
         }
         if(logger.isDebugEnabled()) {
             StringBuffer readRoles = new StringBuffer();

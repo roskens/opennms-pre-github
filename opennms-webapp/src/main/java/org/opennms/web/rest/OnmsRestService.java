@@ -155,12 +155,8 @@ public class OnmsRestService {
 		}
 		builder.match(matchType);
 
-		final BeanWrapper wrapper = new BeanWrapperImpl(builder.toCriteria().getCriteriaClass());
-        wrapper.registerCustomEditor(XMLGregorianCalendar.class, new StringXmlCalendarPropertyEditor());
-		wrapper.registerCustomEditor(java.util.Date.class, new ISO8601DateEditor());
-		wrapper.registerCustomEditor(java.net.InetAddress.class, new InetAddressTypeEditor());
-		wrapper.registerCustomEditor(OnmsSeverity.class, new OnmsSeverityEditor());
-		wrapper.registerCustomEditor(PrimaryType.class, new PrimaryTypeEditor());
+		final Class<?> criteriaClass = builder.toCriteria().getCriteriaClass();
+		final BeanWrapper wrapper = getBeanWrapperForClass(criteriaClass);
 
 		final String comparatorParam = removeParameter(params, "comparator", "eq").toLowerCase();
 		final Criteria currentCriteria = builder.toCriteria();
@@ -206,6 +202,16 @@ public class OnmsRestService {
 			}
 		}
     }
+
+	protected BeanWrapper getBeanWrapperForClass(final Class<?> criteriaClass) {
+		final BeanWrapper wrapper = new BeanWrapperImpl(criteriaClass);
+		wrapper.registerCustomEditor(XMLGregorianCalendar.class, new StringXmlCalendarPropertyEditor());
+		wrapper.registerCustomEditor(java.util.Date.class, new ISO8601DateEditor());
+		wrapper.registerCustomEditor(java.net.InetAddress.class, new InetAddressTypeEditor());
+		wrapper.registerCustomEditor(OnmsSeverity.class, new OnmsSeverityEditor());
+		wrapper.registerCustomEditor(PrimaryType.class, new PrimaryTypeEditor());
+		return wrapper;
+	}
 
 
     protected String removeParameter(final MultivaluedMap<java.lang.String, java.lang.String> params, final String key) {

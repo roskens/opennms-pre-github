@@ -42,9 +42,9 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.opennms.core.utils.url.GenericURLFactory;
 import org.opennms.core.xml.CastorUtils;
+import org.opennms.core.test.MockLogAppender;
 import org.opennms.netmgt.provision.persist.MockForeignSourceRepository;
 import org.opennms.netmgt.provision.persist.requisition.Requisition;
-import org.opennms.test.mock.MockLogAppender;
 import org.springframework.core.io.UrlResource;
 
 public class HandlerTest {

@@ -32,6 +32,7 @@ import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Iterator;
 
+import org.opennms.core.utils.BeanUtils;
 import org.opennms.core.utils.ThreadCategory;
 import org.opennms.core.utils.url.GenericURLFactory;
 import org.opennms.netmgt.config.provisiond.RequisitionDef;
@@ -83,7 +84,9 @@ public class ImportScheduler implements InitializingBean {
     /**
      * <p>afterPropertiesSet</p>
      */
-    public void afterPropertiesSet() {
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        BeanUtils.assertAutowiring(this);
         
         try {
             getScheduler().setJobFactory(getImportJobFactory());

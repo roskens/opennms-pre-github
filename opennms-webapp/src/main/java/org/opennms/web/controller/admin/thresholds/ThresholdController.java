@@ -40,6 +40,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.opennms.core.utils.InetAddressUtils;
+import org.opennms.core.utils.WebSecurityUtils;
 import org.opennms.netmgt.EventConstants;
 import org.opennms.netmgt.config.EventconfFactory;
 import org.opennms.netmgt.config.ThresholdingConfigFactory;
@@ -54,7 +55,6 @@ import org.opennms.netmgt.model.OnmsResourceType;
 import org.opennms.netmgt.model.events.EventBuilder;
 import org.opennms.netmgt.xml.event.Event;
 import org.opennms.netmgt.xml.eventconf.Logmsg;
-import org.opennms.web.WebSecurityUtils;
 import org.opennms.web.api.Util;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.web.servlet.ModelAndView;
@@ -565,7 +565,7 @@ public class ThresholdController extends AbstractController implements Initializ
             event.setUei(uei);
             event.setEventLabel("User-defined threshold event "+uei);
             event.setDescr("Threshold "+typeDesc+" for %service% datasource " +
-                        "%parm[ds]% on interface %interface%, parms: %parm[all]");
+                        "%parm[ds]% on interface %interface%, parms: %parm[all]%");
             Logmsg logmsg=new Logmsg();
             logmsg.setDest("logndisplay");
             logmsg.setContent("Threshold "+typeDesc+" for %service% datasource %parm[ds]% on interface %interface%, parms: %parm[all]%");
@@ -689,6 +689,7 @@ public class ThresholdController extends AbstractController implements Initializ
      *
      * @throws java.lang.Exception if any.
      */
+    @Override
     public void afterPropertiesSet() throws Exception {
         //Check all properties set (see example if needed)
         /*if (m_resourceService == null) {

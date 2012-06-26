@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.opennms</groupId>
     <artifactId>opennms</artifactId>
-    <version>1.10.1-SNAPSHOT</version>
+    <version>1.11.1-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
   <groupId>org.opennms</groupId>
@@ -333,6 +333,13 @@
     </dependency>
     <dependency>
       <groupId>org.opennms.protocols</groupId>
+      <artifactId>org.opennms.protocols.dhcp</artifactId>
+      <version>${project.version}</version>
+      <type>tar.gz</type>
+      <classifier>lib</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.opennms.protocols</groupId>
       <artifactId>org.opennms.protocols.nsclient</artifactId>
       <version>${project.version}</version>
     </dependency>
@@ -381,12 +388,60 @@
     </dependency>
     <dependency>
       <groupId>org.opennms.protocols</groupId>
+      <artifactId>org.opennms.protocols.xmp</artifactId>
+      <version>${project.version}</version>
+      <type>tar.gz</type>
+      <classifier>lib</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.opennms.protocols</groupId>
       <artifactId>selenium-monitor</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>org.opennms.protocols</groupId>
       <artifactId>selenium-monitor</artifactId>
+      <version>${project.version}</version>
+      <type>tar.gz</type>
+      <classifier>etc</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.opennms.protocols</groupId>
+      <artifactId>selenium-monitor</artifactId>
+      <version>${project.version}</version>
+      <type>tar.gz</type>
+      <classifier>lib</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.opennms.features.ncs</groupId>
+      <artifactId>ncs-model</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.opennms.features.ncs</groupId>
+      <artifactId>ncs-persistence</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.opennms.features.ncs</groupId>
+      <artifactId>ncs-drools</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.opennms.features.ncs</groupId>
+      <artifactId>ncs-drools</artifactId>
+      <version>${project.version}</version>
+      <type>tar.gz</type>
+      <classifier>etc</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.opennms.features.ncs</groupId>
+      <artifactId>ncs-northbounder</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.opennms.features.ncs</groupId>
+      <artifactId>ncs-northbounder</artifactId>
       <version>${project.version}</version>
       <type>tar.gz</type>
       <classifier>etc</classifier>

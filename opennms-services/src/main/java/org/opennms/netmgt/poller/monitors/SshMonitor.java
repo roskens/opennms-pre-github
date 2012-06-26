@@ -92,20 +92,18 @@ final public class SshMonitor extends AbstractServiceMonitor {
         ssh.setClientBanner(clientBanner);
 
         RE regex = null;
-        if (match == null && (banner == null || banner.equals("*"))) {
-            regex = null;
-        } else if (match != null) {
-            try {
-                regex = new RE(match);
-            } catch (final RESyntaxException e) {
-                LogUtils.warnf(this, e, "Error parsing regular expression match '%s' for host '%s'", match, address);
-            }
-        } else if (banner != null) {
-            try {
-                regex = new RE(banner);
-            } catch (final RESyntaxException e) {
-                LogUtils.warnf(this, e, "Error parsing regular expression banner '%s' for host '%s'", banner, address);
-            }
+        try {
+	        if (match == null && (banner == null || banner.equals("*"))) {
+	            regex = null;
+	        } else if (match != null) {
+	            regex = new RE(match);
+	        } else if (banner != null) {
+	            regex = new RE(banner);
+	        }
+        } catch (final RESyntaxException e) {
+        	final String matchString = match == null? banner : match;
+        	LogUtils.infof(this, "Invalid regular expression for SSH banner match /%s/: %s", matchString, e.getMessage());
+        	LogUtils.debugf(this, e, "Invalid Regular expression for SSH banner match /%s/", matchString);
         }
 
         for (tracker.reset(); tracker.shouldRetry() && !ps.isAvailable(); tracker.nextAttempt()) {
