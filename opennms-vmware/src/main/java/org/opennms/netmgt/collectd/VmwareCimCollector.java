@@ -49,6 +49,8 @@ import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.RrdRepository;
 import org.opennms.netmgt.model.events.EventProxy;
 import org.sblim.wbem.cim.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -57,9 +59,12 @@ import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.util.*;
 
-import static junit.framework.Assert.assertNotNull;
-
 public class VmwareCimCollector implements ServiceCollector {
+
+    /**
+     * logging for VMware CIM data collection
+     */
+    private final Logger logger = LoggerFactory.getLogger("OpenNMS.VMware." + VmwareCimCollector.class.getName());
 
     /**
      * the attribute groups
@@ -92,12 +97,16 @@ public class VmwareCimCollector implements ServiceCollector {
         if (m_nodeDao == null)
             m_nodeDao = BeanUtils.getBean("daoContext", "nodeDao", NodeDao.class);
 
-        assertNotNull("Node dao should be a non-null value.", m_nodeDao);
+        if (m_nodeDao == null) {
+            logger.error("Node dao should be a non-null value.");
+        }
 
         if (m_vmwareCimDatacollectionConfigDao == null)
             m_vmwareCimDatacollectionConfigDao = BeanUtils.getBean("daoContext", "vmwareCimDatacollectionConfigDao", VmwareCimDatacollectionConfigDao.class);
 
-        assertNotNull("vmwareCimDatacollectionConfigDao should be a non-null value.", m_vmwareCimDatacollectionConfigDao);
+        if (m_nodeDao == null) {
+            logger.error("vmwareCimDatacollectionConfigDao should be a non-null value.");
+        }
 
         initDatabaseConnectionFactory();
         initializeRrdRepository();

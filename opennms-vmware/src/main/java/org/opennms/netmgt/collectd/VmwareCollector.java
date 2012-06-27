@@ -39,31 +39,40 @@ import org.opennms.netmgt.collectd.vmware.vijava.*;
 import org.opennms.netmgt.config.DataSourceFactory;
 import org.opennms.netmgt.config.collector.AttributeGroupType;
 import org.opennms.netmgt.config.collector.CollectionSet;
-import org.opennms.netmgt.config.vmware.vijava.*;
+import org.opennms.netmgt.config.vmware.vijava.Attrib;
+import org.opennms.netmgt.config.vmware.vijava.VmwareCollection;
+import org.opennms.netmgt.config.vmware.vijava.VmwareGroup;
 import org.opennms.netmgt.dao.NodeDao;
 import org.opennms.netmgt.dao.VmwareDatacollectionConfigDao;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.RrdRepository;
 import org.opennms.netmgt.model.events.EventProxy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
-import java.util.*;
-import java.util.Map.Entry;
-
-import static junit.framework.Assert.assertNotNull;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * The Class VmwareCollector
- *
+ * <p/>
  * This class is used to collect data from a Vmware vCenter server.
  *
  * @author Christian Pape <Christian.Pape@informatik.hs-fulda.de>
  */
 public class VmwareCollector implements ServiceCollector {
+
+    /**
+     * logging for VMware data collection
+     */
+    private final Logger logger = LoggerFactory.getLogger("OpenNMS.VMware." + VmwareCollector.class.getName());
 
     /**
      * the node dao object for retrieving assets
@@ -80,18 +89,24 @@ public class VmwareCollector implements ServiceCollector {
      *
      * @param parameters the parameter map to use
      * @throws CollectionInitializationException
+     *
      */
     public void initialize(Map<String, String> parameters) throws CollectionInitializationException {
 
-        if (m_nodeDao == null)
+        if (m_nodeDao == null) {
             m_nodeDao = BeanUtils.getBean("daoContext", "nodeDao", NodeDao.class);
+        }
 
-        assertNotNull("Node dao should be a non-null value.", m_nodeDao);
+        if (m_nodeDao == null) {
+            logger.error("Node dao should be a non-null value.");
+        }
 
         if (m_vmwareDatacollectionConfigDao == null)
             m_vmwareDatacollectionConfigDao = BeanUtils.getBean("daoContext", "vmwareDatacollectionConfigDao", VmwareDatacollectionConfigDao.class);
 
-        assertNotNull("vmwareDatacollectionConfigDao should be a non-null value.", m_vmwareDatacollectionConfigDao);
+        if (m_vmwareDatacollectionConfigDao == null) {
+            logger.error("vmwareDatacollectionConfigDao should be a non-null value.");
+        }
 
         initDatabaseConnectionFactory();
         initializeRrdRepository();
@@ -132,9 +147,10 @@ public class VmwareCollector implements ServiceCollector {
     /**
      * Initializes this instance for a given collection agent and a parameter map.
      *
-     * @param agent the collection agent
+     * @param agent      the collection agent
      * @param parameters the parameter map
      * @throws CollectionInitializationException
+     *
      */
     public void initialize(CollectionAgent agent, Map<String, Object> parameters) throws CollectionInitializationException {
         OnmsNode onmsNode = m_nodeDao.get(agent.getNodeId());
@@ -166,8 +182,8 @@ public class VmwareCollector implements ServiceCollector {
     /**
      * This method collect the data for a given collection agent.
      *
-     * @param agent the collection agent
-     * @param eproxy the event proxy
+     * @param agent      the collection agent
+     * @param eproxy     the event proxy
      * @param parameters the parameters map
      * @return the generated collection set
      * @throws CollectionException

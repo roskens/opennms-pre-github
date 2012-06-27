@@ -31,35 +31,29 @@ package org.opennms.netmgt.collectd.vmware;
 import com.vmware.vim25.*;
 import com.vmware.vim25.mo.*;
 import com.vmware.vim25.mo.util.MorUtil;
-import org.apache.http.conn.scheme.Scheme;
-import org.apache.http.conn.scheme.SchemeRegistry;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
 import org.opennms.core.utils.BeanUtils;
-import org.opennms.core.utils.EmptyKeyRelaxedTrustSSLContext;
 import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.collectd.vmware.vijava.VmwarePerformanceValues;
-import org.opennms.netmgt.dao.VmwareDatacollectionConfigDao;
+import org.opennms.netmgt.dao.VmwareConfigDao;
 import org.sblim.wbem.cim.*;
 import org.sblim.wbem.client.CIMClient;
 import org.sblim.wbem.client.PasswordCredential;
 import org.sblim.wbem.client.UserPrincipal;
-import org.opennms.netmgt.dao.VmwareConfigDao;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.net.ssl.*;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
-
-import static junit.framework.Assert.assertNotNull;
 
 /**
  * The Class VmwareViJavaAccess
@@ -86,6 +80,11 @@ public class VmwareViJavaAccess {
        private static String rateUnitsDesc[] = {"None", "Per MicroSecond", "Per MilliSecond", "Per Second", "Per Minute", "Per Hour", "Per Day", "Per Week", "Per Month", "Per Year"};
 
     */
+
+    /**
+     * logging for VMware library VI Java
+     */
+    private final Logger logger = LoggerFactory.getLogger("OpenNMS.VMware." + VmwareViJavaAccess.class.getName());
 
     /**
      * the config dao
@@ -132,7 +131,9 @@ public class VmwareViJavaAccess {
         if (m_vmwareConfigDao == null)
             m_vmwareConfigDao = BeanUtils.getBean("daoContext", "vmwareConfigDao", VmwareConfigDao.class);
 
-        assertNotNull("vmwareConfigDao should be a non-null value.", m_vmwareConfigDao);
+        if (m_vmwareConfigDao == null) {
+            logger.error("vmwareConfigDao should be a non-null value.");
+        }
 
         this.m_hostname = hostname;
         this.m_username = m_vmwareConfigDao.getServerMap().get(m_hostname).getUsername();

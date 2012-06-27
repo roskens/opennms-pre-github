@@ -40,13 +40,13 @@ import org.opennms.netmgt.dao.NodeDao;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.PollStatus;
 import org.opennms.netmgt.poller.MonitoredService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.util.Map;
-
-import static junit.framework.Assert.assertNotNull;
 
 /**
  * The Class VmwareMonitor
@@ -56,6 +56,11 @@ import static junit.framework.Assert.assertNotNull;
  * @author Christian Pape <Christian.Pape@informatik.hs-fulda.de>
  */
 public class VmwareMonitor extends AbstractServiceMonitor {
+
+    /**
+     * logging for VMware monitor
+     */
+    private final Logger logger = LoggerFactory.getLogger("OpenNMS.VMware." + VmwareMonitor.class.getName());
 
     /**
      * map for accessing the vmware-server parameters
@@ -75,7 +80,10 @@ public class VmwareMonitor extends AbstractServiceMonitor {
     public void initialize(Map<String, Object> parameters) {
         m_nodeDao = BeanUtils.getBean("daoContext", "nodeDao", NodeDao.class);
 
-        assertNotNull("Node dao should be a non-null value.", m_nodeDao);
+        if (m_nodeDao == null) {
+            logger.error("Node dao should be a non-null value.");
+        }
+
     }
 
     /**

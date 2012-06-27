@@ -39,6 +39,8 @@ import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.PollStatus;
 import org.opennms.netmgt.poller.MonitoredService;
 import org.sblim.wbem.cim.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -46,8 +48,6 @@ import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
-
-import static junit.framework.Assert.assertNotNull;
 
 /**
  * The Class VmwareCimMonitor
@@ -57,6 +57,11 @@ import static junit.framework.Assert.assertNotNull;
  * @author Christian Pape <Christian.Pape@informatik.hs-fulda.de>
  */
 public class VmwareCimMonitor extends AbstractServiceMonitor {
+
+    /**
+     * logging for VMware data collection
+     */
+    private final Logger logger = LoggerFactory.getLogger("OpenNMS.VMware." + VmwareCimMonitor.class.getName());
 
     /**
      * the node dao object for retrieving assets
@@ -91,7 +96,9 @@ public class VmwareCimMonitor extends AbstractServiceMonitor {
      */
     public void initialize(Map<String, Object> parameters) {
         m_nodeDao = BeanUtils.getBean("daoContext", "nodeDao", NodeDao.class);
-        assertNotNull("Node dao should be a non-null value.", m_nodeDao);
+        if (m_nodeDao == null) {
+            logger.error("Node dao should be a non-null value.");
+        }
     }
 
     /**
