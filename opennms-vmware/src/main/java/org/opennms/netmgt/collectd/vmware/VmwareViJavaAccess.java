@@ -310,8 +310,6 @@ public class VmwareViJavaAccess {
 
         int refreshRate = getPerformanceManager().queryPerfProviderSummary(managedEntity).getRefreshRate();
 
-        PerfMetricId[] perfMetricIds = getPerformanceManager().queryAvailablePerfMetric(managedEntity, null, null, refreshRate);
-
         PerfQuerySpec perfQuerySpec = new PerfQuerySpec();
         perfQuerySpec.setEntity(managedEntity.getMOR());
         perfQuerySpec.setMaxSample(new
