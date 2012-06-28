@@ -9,6 +9,7 @@ import com.vmware.vim25.*;
 import com.vmware.vim25.mo.*;
 
 import com.vmware.vim25.mo.util.MorUtil;
+import com.vmware.vim25.ws.WSClient;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.Assert;
@@ -16,209 +17,103 @@ import org.junit.runner.RunWith;
 import org.opennms.netmgt.collectd.vmware.vijava.VmwarePerformanceValues;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+import org.sblim.wbem.cim.*;
+import org.sblim.wbem.client.CIMClient;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.util.Map;
-import java.util.Set;
+import java.security.Principal;
+import java.util.*;
 
-import static org.easymock.EasyMock.anyObject;
-import static org.easymock.EasyMock.createMock;
 import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.anyObject;
 import static org.powermock.api.easymock.PowerMock.*;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({ServiceInstance.class, PerformanceManager.class, VmwareViJavaAccess.class, MorUtil.class, PerfProviderSummary.class})
+@PrepareForTest({ServiceInstance.class, PerformanceManager.class, VmwareViJavaAccess.class, MorUtil.class, PerfProviderSummary.class, HostSystem.class, HostNetworkSystem.class, CIMClient.class})
 public class VmwareViJavaAccessTest {
+
+    private VmwareViJavaAccess vmwareViJavaAccess;
+    private PerformanceManager mockPerformanceManager;
+    private ServiceInstance mockServiceInstance;
+    private ServerConnection mockServerConnection;
+    private PerfProviderSummary mockPerfProviderSummary;
+    private HostNetworkSystem mockHostNetworkSystem;
+    private HostSystem mockHostSystem;
+    private CIMClient mockCIMClient;
+
+    private ManagedObjectReference managedObjectReferenceVirtualMachine;
+    private ManagedObjectReference managedObjectReferenceHostSystem;
+    private ManagedObjectReference managedObjectReferenceManagedEntity;
+
+    private VirtualMachine virtualMachine;
+    private HostSystem hostSystem;
+    private ManagedEntity managedEntity;
+
+    private PerfEntityMetricBase[] perfEntityMetricBases;
+    private PerfCounterInfo[] perfCounterInfos;
+    private PerfQuerySpec perfQuerySpec;
+    private Vector<CIMObject> cimObjects;
 
     @Before
     public void setUp() throws Exception {
-    }
+        // setup required objects
 
-    @Test
-    public void testGetPerfCounterInfoMap() {
-        VmwareViJavaAccess vmwareViJavaAccessMock = createPartialMock(VmwareViJavaAccess.class, new String[]{"getPerformanceManager"});
+        managedObjectReferenceManagedEntity = new ManagedObjectReference();
+        managedObjectReferenceManagedEntity.setType("ManagedEntity");
+        managedObjectReferenceManagedEntity.setVal("moIdMe");
 
-        PerformanceManager mockPerformanceManager = createMock(PerformanceManager.class);
+        managedObjectReferenceVirtualMachine = new ManagedObjectReference();
+        managedObjectReferenceVirtualMachine.setType("VirtualMachine");
+        managedObjectReferenceVirtualMachine.setVal("moIdVm");
 
-        try {
-            expectPrivate(vmwareViJavaAccessMock, "getPerformanceManager").andReturn(mockPerformanceManager);
-        } catch (Exception e) {
-            e.printStackTrace();
-            Assert.fail(e.getMessage());
-        }
+        managedObjectReferenceHostSystem = new ManagedObjectReference();
+        managedObjectReferenceHostSystem.setType("HostSystem");
+        managedObjectReferenceHostSystem.setVal("moIdHs");
 
-        PerfCounterInfo[] perfCounterInfos = new PerfCounterInfo[3];
+        // setup VmwareViJavaAccess
+        vmwareViJavaAccess = new VmwareViJavaAccess("hostname", "username", "password");
 
-        for (int i = 0; i < 3; i++) {
-            PerfCounterInfo perfCounterInfo = new PerfCounterInfo();
-            perfCounterInfo.setKey(i);
-            perfCounterInfos[i] = perfCounterInfo;
-        }
+        // setup PerformanceManager
+        mockPerformanceManager = createMock(PerformanceManager.class);
 
-        expect(mockPerformanceManager.getPerfCounter()).andReturn(perfCounterInfos);
+        // setup ServiceInstance mock
+        mockServiceInstance = createMock(ServiceInstance.class);
 
-        replayAll();
+        // setup ServerConnection
+        mockServerConnection = new ServerConnection(new URL("https://hostname/sdk"), new VimPortType(new WSClient("https://hostname/sdk")), mockServiceInstance);
 
-        Map<Integer, PerfCounterInfo> perfCounterInfoMap = vmwareViJavaAccessMock.getPerfCounterInfoMap();
+        expectNew(ServiceInstance.class, new Class<?>[]{URL.class, String.class, String.class}, new URL("https://hostname/sdk"), "username", "password").andReturn(mockServiceInstance).anyTimes();
+        expect(mockServiceInstance.getServerConnection()).andReturn(mockServerConnection).anyTimes();
+        expect(mockServiceInstance.getPerformanceManager()).andReturn(mockPerformanceManager).anyTimes();
 
-        Assert.assertEquals(perfCounterInfoMap.size(), 3);
+        managedEntity = new ManagedEntity(null, managedObjectReferenceManagedEntity);
+        virtualMachine = new VirtualMachine(null, managedObjectReferenceVirtualMachine);
+        hostSystem = new HostSystem(null, managedObjectReferenceHostSystem);
 
-        for (int i : perfCounterInfoMap.keySet()) {
-            Assert.assertEquals(perfCounterInfoMap.get(i), perfCounterInfos[i]);
-        }
-
-        verifyAll();
-    }
-
-    @Test
-    public void testGetManagedEntityByManagedObjectId() {
-        ManagedObjectReference managedObjectReference = new ManagedObjectReference();
-
-        managedObjectReference.setType("ManagedEntity");
-        managedObjectReference.setVal("moId");
-
-        ManagedEntity expectedManagedEntity = new ManagedEntity(null, managedObjectReference);
+        // setup MorUtil
 
         mockStatic(MorUtil.class);
-        expect(MorUtil.createExactManagedEntity(null, managedObjectReference)).andReturn(expectedManagedEntity);
+        expect(MorUtil.createExactManagedEntity(mockServerConnection, managedObjectReferenceManagedEntity)).andReturn(managedEntity).anyTimes();
+        expect(MorUtil.createExactManagedEntity(mockServerConnection, managedObjectReferenceVirtualMachine)).andReturn(virtualMachine).anyTimes();
+        expect(MorUtil.createExactManagedEntity(mockServerConnection, managedObjectReferenceHostSystem)).andReturn(hostSystem).anyTimes();
 
-        VmwareViJavaAccess vmwareViJavaAccess = new VmwareViJavaAccess("hostname", "username", "password");
-
-        ServiceInstance serviceInstanceMock = createMock(ServiceInstance.class);
-
-        try {
-            expectNew(ServiceInstance.class, new Class<?>[]{URL.class, String.class, String.class}, new URL("https://hostname/sdk"), "username", "password").andReturn(serviceInstanceMock);
-
-            expect(serviceInstanceMock.getServerConnection()).andReturn(null);
-
-            replay(ServiceInstance.class, serviceInstanceMock, MorUtil.class);
-
-            vmwareViJavaAccess.connect();
-        } catch (Exception e) {
-            e.printStackTrace();
-            Assert.fail(e.getMessage());
-        }
-
-        ManagedEntity returnedManagedEntity = vmwareViJavaAccess.getManagedEntityByManagedObjectId("moId");
-
-        Assert.assertNotNull(returnedManagedEntity);
-        Assert.assertNotNull(expectedManagedEntity);
-        Assert.assertEquals(expectedManagedEntity.getMOR().getVal(), returnedManagedEntity.getMOR().getVal());
-
-        verify(ServiceInstance.class, serviceInstanceMock, MorUtil.class);
-    }
-
-    @Test
-    public void testGetVirtualMachineByManagedObjectId() throws Exception {
-        ManagedObjectReference managedObjectReference = new ManagedObjectReference();
-
-        managedObjectReference.setType("VirtualMachine");
-        managedObjectReference.setVal("moId");
-
-        VirtualMachine expectedVirtualMachine = new VirtualMachine(null, managedObjectReference);
-
-        mockStatic(MorUtil.class);
-        expect(MorUtil.createExactManagedEntity(null, managedObjectReference)).andReturn(expectedVirtualMachine);
-
-        VmwareViJavaAccess vmwareViJavaAccess = new VmwareViJavaAccess("hostname", "username", "password");
-
-        ServiceInstance serviceInstanceMock = createMock(ServiceInstance.class);
-
-        try {
-            expectNew(ServiceInstance.class, new Class<?>[]{URL.class, String.class, String.class}, new URL("https://hostname/sdk"), "username", "password").andReturn(serviceInstanceMock);
-
-            expect(serviceInstanceMock.getServerConnection()).andReturn(null);
-
-            replay(ServiceInstance.class, serviceInstanceMock, MorUtil.class);
-
-            vmwareViJavaAccess.connect();
-        } catch (Exception e) {
-            e.printStackTrace();
-            Assert.fail(e.getMessage());
-        }
-
-        VirtualMachine returnedVirtualMachine = vmwareViJavaAccess.getVirtualMachineByManagedObjectId("moId");
-
-        Assert.assertNotNull(returnedVirtualMachine);
-        Assert.assertNotNull(expectedVirtualMachine);
-        Assert.assertEquals(expectedVirtualMachine.getMOR().getVal(), returnedVirtualMachine.getMOR().getVal());
-
-        verify(ServiceInstance.class, serviceInstanceMock, MorUtil.class);
-    }
-
-    @Test
-    public void testGetHostSystemByManagedObjectId() throws Exception {
-        ManagedObjectReference managedObjectReference = new ManagedObjectReference();
-
-        managedObjectReference.setType("HostSystem");
-        managedObjectReference.setVal("moId");
-
-        HostSystem expectedHostSystem = new HostSystem(null, managedObjectReference);
-
-        mockStatic(MorUtil.class);
-        expect(MorUtil.createExactManagedEntity(null, managedObjectReference)).andReturn(expectedHostSystem);
-
-        VmwareViJavaAccess vmwareViJavaAccess = new VmwareViJavaAccess("hostname", "username", "password");
-
-        ServiceInstance serviceInstanceMock = createMock(ServiceInstance.class);
-
-        try {
-            expectNew(ServiceInstance.class, new Class<?>[]{URL.class, String.class, String.class}, new URL("https://hostname/sdk"), "username", "password").andReturn(serviceInstanceMock);
-
-            expect(serviceInstanceMock.getServerConnection()).andReturn(null);
-
-            replay(ServiceInstance.class, serviceInstanceMock, MorUtil.class);
-
-            vmwareViJavaAccess.connect();
-        } catch (Exception e) {
-            e.printStackTrace();
-            Assert.fail(e.getMessage());
-        }
-
-        HostSystem returnedHostSystem = vmwareViJavaAccess.getHostSystemByManagedObjectId("moId");
-
-        Assert.assertNotNull(returnedHostSystem);
-        Assert.assertNotNull(expectedHostSystem);
-        Assert.assertEquals(expectedHostSystem.getMOR().getVal(), returnedHostSystem.getMOR().getVal());
-
-        verify(ServiceInstance.class, serviceInstanceMock, MorUtil.class);
-    }
-
-    @Test
-    public void testQueryPerformanceValues() throws Exception {
-        VmwareViJavaAccess vmwareViJavaAccessMock = createPartialMock(VmwareViJavaAccess.class, new String[]{"getPerformanceManager"});
-
-        PerformanceManager performanceManagerMock = createMock(PerformanceManager.class);
-
-        PerfProviderSummary perfProviderSummaryMock = createMock(PerfProviderSummary.class);
-
-        ManagedObjectReference managedObjectReference = new ManagedObjectReference();
-
-        managedObjectReference.setType("ManagedEntity");
-        managedObjectReference.setVal("moId");
-
-        ManagedEntity managedEntity = new ManagedEntity(null, managedObjectReference) {
-            public String toString() {
-                return "";
-            }
-        };
+        // setup performance data
 
         int refreshRate = 100;
+        int metricCount = 15;
+        int instanceModifier = 5;
 
-        PerfQuerySpec perfQuerySpec = new PerfQuerySpec();
+        perfQuerySpec = new PerfQuerySpec();
         perfQuerySpec.setEntity(managedEntity.getMOR());
         perfQuerySpec.setMaxSample(new
                 Integer(1)
         );
         perfQuerySpec.setIntervalId(refreshRate);
 
-        int metricCount = 15;
-        int instanceCount = 5;
-
-        PerfEntityMetricBase[] perfEntityMetricBases = new PerfEntityMetricBase[metricCount];
-        PerfCounterInfo[] perfCounterInfos = new PerfCounterInfo[metricCount];
+        perfEntityMetricBases = new PerfEntityMetricBase[metricCount];
+        perfCounterInfos = new PerfCounterInfo[metricCount];
 
         for (int i = 0; i < metricCount; i++) {
             ElementDescription groupInfo = new ElementDescription();
@@ -237,47 +132,205 @@ public class VmwareViJavaAccessTest {
 
             PerfMetricIntSeries[] perfMetricIntSeries;
 
-            if (i % 3 < 2)
-                perfMetricIntSeries = new PerfMetricIntSeries[1];
-            else
-                perfMetricIntSeries = new PerfMetricIntSeries[instanceCount];
+            int instanceCount = (i % instanceModifier) + 1;
 
+            perfMetricIntSeries = new PerfMetricIntSeries[instanceCount];
 
-            for (int b = 0; b < (i % 3 < 2 ? 1 : instanceCount); b++) {
+            for (int b = 0; b < instanceCount; b++) {
                 PerfMetricId perfMetricId = new PerfMetricId();
                 perfMetricId.setCounterId(i);
 
-                if (i % 3 == 0) {
+                if (instanceCount == 1) {
                     perfMetricId.setInstance(null);
                 } else {
-                    if (i % 3 == 1) {
-                        perfMetricId.setInstance("");
-                    } else {
-                        perfMetricId.setInstance("instance" + b);
-                    }
+                    perfMetricId.setInstance("instance" + b);
                 }
 
                 perfMetricIntSeries[b] = new PerfMetricIntSeries();
-                perfMetricIntSeries[b].setValue(new long[]{(long) 123});
+                perfMetricIntSeries[b].setValue(new long[]{(long) 42});
                 perfMetricIntSeries[b].setId(perfMetricId);
             }
 
             ((PerfEntityMetric) perfEntityMetricBases[i]).setValue(perfMetricIntSeries);
         }
 
-        expectPrivate(vmwareViJavaAccessMock, "getPerformanceManager").andReturn(performanceManagerMock).anyTimes();
-        expect(performanceManagerMock.queryPerfProviderSummary(managedEntity)).andReturn(perfProviderSummaryMock);
-        expect(perfProviderSummaryMock.getRefreshRate()).andReturn(refreshRate);
-        expect(performanceManagerMock.getPerfCounter()).andReturn(perfCounterInfos).anyTimes();
-        expect(performanceManagerMock.queryPerf(anyObject(PerfQuerySpec[].class))).andReturn(perfEntityMetricBases);
+        // setup PerfProviderSummary
+        mockPerfProviderSummary = createMock(PerfProviderSummary.class);
 
-        replayAll(performanceManagerMock, perfProviderSummaryMock, vmwareViJavaAccessMock);
+        expect(mockPerformanceManager.queryPerfProviderSummary(managedEntity)).andReturn(mockPerfProviderSummary).anyTimes();
+        expect(mockPerfProviderSummary.getRefreshRate()).andReturn(refreshRate).anyTimes();
+        expect(mockPerformanceManager.getPerfCounter()).andReturn(perfCounterInfos).anyTimes();
+        expect(mockPerformanceManager.queryPerf(anyObject(PerfQuerySpec[].class))).andReturn(perfEntityMetricBases).anyTimes();
 
-        VmwarePerformanceValues vmwarePerformanceValues = vmwareViJavaAccessMock.queryPerformanceValues(managedEntity);
+        // setup network info
+
+        HostNetworkInfo hostNetworkInfo = new HostNetworkInfo();
+
+        int numberOfVnics = 3;
+
+        HostVirtualNic[] hostVirtualNics = new HostVirtualNic[numberOfVnics];
+
+        for (int i = 0; i < numberOfVnics; i++) {
+            HostVirtualNicSpec hostVirtualNicSpec = new HostVirtualNicSpec();
+            HostIpConfig hostIpConfig = new HostIpConfig();
+            hostIpConfig.setIpAddress("192.168.1." + (i + 1));
+            hostVirtualNicSpec.setIp(hostIpConfig);
+            hostVirtualNics[i] = new HostVirtualNic();
+            hostVirtualNics[i].setSpec(hostVirtualNicSpec);
+        }
+
+        hostNetworkInfo.setVnic(hostVirtualNics);
+
+        HostVirtualNic[] hostVirtualConsoleNics = new HostVirtualNic[numberOfVnics];
+
+        for (int i = 0; i < numberOfVnics; i++) {
+            HostVirtualNicSpec hostVirtualNicSpec = new HostVirtualNicSpec();
+            HostIpConfig hostIpConfig = new HostIpConfig();
+            hostIpConfig.setIpAddress("192.168.2." + (i + 1));
+            hostVirtualNicSpec.setIp(hostIpConfig);
+            hostVirtualConsoleNics[i] = new HostVirtualNic();
+            hostVirtualConsoleNics[i].setSpec(hostVirtualNicSpec);
+        }
+
+        hostNetworkInfo.setConsoleVnic(hostVirtualConsoleNics);
+
+        HostServiceTicket hostServiceTicket = new HostServiceTicket();
+        hostServiceTicket.setSessionId("sessionId");
+
+        // setup HostSystem
+        mockHostSystem = createMock(HostSystem.class);
+
+        // setup HostNetworkSystem
+        mockHostNetworkSystem = createMock(HostNetworkSystem.class);
+
+        // setup CIMClient
+        mockCIMClient = createPartialMock(CIMClient.class, "enumerateInstances");
+
+        // setup the cim objects
+
+        cimObjects = new Vector<CIMObject>();
+
+        int cimObjectCount = 5;
+
+        for (int i = 0; i < cimObjectCount; i++) {
+            CIMInstance cimInstance = new CIMInstance();
+            cimInstance.setName("cimInstance" + i);
+            cimObjects.add(cimInstance);
+        }
+
+        expect(mockHostSystem.getHostNetworkSystem()).andReturn(mockHostNetworkSystem).anyTimes();
+        expect(mockHostSystem.acquireCimServicesTicket()).andReturn(hostServiceTicket).anyTimes();
+        expect(mockHostNetworkSystem.getNetworkInfo()).andReturn(hostNetworkInfo).anyTimes();
+        expectNew(CIMClient.class, new Class<?>[]{CIMNameSpace.class, Principal.class, Object.class}, anyObject(), anyObject(), anyObject()).andReturn(mockCIMClient).anyTimes();
+
+        suppress(method(CIMClient.class, "useMPost"));
+
+        expect(mockCIMClient.enumerateInstances(new CIMObjectPath("cimClass"))).andReturn(cimObjects.elements()).anyTimes();
+    }
+
+    @Test
+    public void testGetPerfCounterInfoMap() {
+
+        replay(mockPerformanceManager, mockServiceInstance, ServiceInstance.class);
+
+        try {
+            vmwareViJavaAccess.connect();
+        } catch (MalformedURLException e) {
+            Assert.fail(e.getMessage());
+        } catch (RemoteException e) {
+            Assert.fail(e.getMessage());
+        }
+
+        Map<Integer, PerfCounterInfo> returnedPerfCounterInfoMap = vmwareViJavaAccess.getPerfCounterInfoMap();
+
+        Assert.assertEquals(returnedPerfCounterInfoMap.size(), perfCounterInfos.length);
+
+        for (int i : returnedPerfCounterInfoMap.keySet()) {
+            Assert.assertEquals(returnedPerfCounterInfoMap.get(i), perfCounterInfos[i]);
+        }
+
+        verify(mockPerformanceManager, mockServiceInstance, ServiceInstance.class);
+    }
+
+    @Test
+    public void testGetManagedEntityByManagedObjectId() {
+        replay(mockServiceInstance, MorUtil.class, ServiceInstance.class);
+
+        try {
+            vmwareViJavaAccess.connect();
+        } catch (MalformedURLException e) {
+            Assert.fail(e.getMessage());
+        } catch (RemoteException e) {
+            Assert.fail(e.getMessage());
+        }
+
+        ManagedEntity returnedManagedEntity = vmwareViJavaAccess.getManagedEntityByManagedObjectId("moIdMe");
+
+        Assert.assertNotNull(returnedManagedEntity);
+        Assert.assertEquals(managedEntity.getMOR().getVal(), returnedManagedEntity.getMOR().getVal());
+
+        verify(mockServiceInstance, MorUtil.class, ServiceInstance.class);
+    }
+
+    @Test
+    public void testGetVirtualMachineByManagedObjectId() throws Exception {
+        replay(mockServiceInstance, MorUtil.class, ServiceInstance.class);
+
+        try {
+            vmwareViJavaAccess.connect();
+        } catch (MalformedURLException e) {
+            Assert.fail(e.getMessage());
+        } catch (RemoteException e) {
+            Assert.fail(e.getMessage());
+        }
+
+        VirtualMachine returnedVirtualMachine = vmwareViJavaAccess.getVirtualMachineByManagedObjectId("moIdVm");
+
+        Assert.assertNotNull(returnedVirtualMachine);
+        Assert.assertEquals(virtualMachine.getMOR().getVal(), returnedVirtualMachine.getMOR().getVal());
+
+        verify(mockServiceInstance, MorUtil.class, ServiceInstance.class);
+    }
+
+    @Test
+    public void testGetHostSystemByManagedObjectId() throws Exception {
+        replay(mockServiceInstance, MorUtil.class, ServiceInstance.class);
+
+        try {
+            vmwareViJavaAccess.connect();
+        } catch (MalformedURLException e) {
+            Assert.fail(e.getMessage());
+        } catch (RemoteException e) {
+            Assert.fail(e.getMessage());
+        }
+
+        HostSystem returnedHostSystem = vmwareViJavaAccess.getHostSystemByManagedObjectId("moIdHs");
+
+        Assert.assertNotNull(returnedHostSystem);
+        Assert.assertEquals(hostSystem.getMOR().getVal(), returnedHostSystem.getMOR().getVal());
+
+        verify(mockServiceInstance, MorUtil.class, ServiceInstance.class);
+    }
+
+    @Test
+    public void testQueryPerformanceValues() {
+        replay(mockPerformanceManager, mockPerfProviderSummary, mockServiceInstance, ServiceInstance.class);
+
+        VmwarePerformanceValues vmwarePerformanceValues = null;
+
+        try {
+            vmwareViJavaAccess.connect();
+
+            vmwarePerformanceValues = vmwareViJavaAccess.queryPerformanceValues(managedEntity);
+        } catch (MalformedURLException e) {
+            Assert.fail(e.getMessage());
+        } catch (RemoteException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Assert.assertNotNull(vmwarePerformanceValues);
 
-        for (int i = 0; i < metricCount; i++) {
+        for (int i = 0; i < perfCounterInfos.length; i++) {
             PerfCounterInfo perfCounterInfo = perfCounterInfos[i];
 
             String expectedName = perfCounterInfo.getGroupInfo().getKey() + "." + perfCounterInfo.getNameInfo().getKey() + "." + perfCounterInfo.getRollupType().toString();
@@ -297,22 +350,93 @@ public class VmwareViJavaAccessTest {
             }
         }
 
-        verifyAll();
+        verify(mockPerformanceManager, mockPerfProviderSummary, mockServiceInstance, ServiceInstance.class);
     }
 
-
     @Test
-    public void testQueryCimObjects() throws Exception {
+    public void testQueryCimObjects() {
+        replay(mockPerformanceManager, mockHostSystem, mockHostNetworkSystem, mockCIMClient, CIMClient.class, mockServiceInstance, ServiceInstance.class);
 
+        try {
+            vmwareViJavaAccess.connect();
+        } catch (MalformedURLException e) {
+            Assert.fail(e.getMessage());
+        } catch (RemoteException e) {
+            Assert.fail(e.getMessage());
+        }
+
+        Vector<CIMObject> returnedCimObjects = null;
+
+        try {
+            returnedCimObjects = vmwareViJavaAccess.queryCimObjects(mockHostSystem, "cimClass");
+        } catch (RemoteException e) {
+            Assert.fail(e.getMessage());
+        }
+
+        Assert.assertNotNull(returnedCimObjects);
+        Assert.assertEquals(returnedCimObjects.size(), cimObjects.size());
+
+        for (CIMObject cimObject : cimObjects) {
+            Assert.assertTrue(returnedCimObjects.contains(cimObject));
+
+        }
+
+        verify(mockPerformanceManager, mockHostSystem, mockHostNetworkSystem, mockCIMClient, CIMClient.class, mockServiceInstance, ServiceInstance.class);
     }
 
     @Test
     public void testSearchManagedEntities() throws Exception {
-
+        // noop
     }
+
+    /*
+            if (cimObject == null) {
+            return null;
+        } else {
+            CIMProperty cimProperty = cimObject.getProperty(propertyName);
+            if (cimProperty == null) {
+                return null;
+            } else {
+                CIMValue cimValue = cimProperty.getValue();
+                if (cimValue == null) {
+                    return null;
+                } else {
+                    Object object = cimValue.getValue();
+                    if (object == null) {
+                        return null;
+                    } else {
+                        return object.toString();
+                    }
+                }
+            }
+        }
+    }
+     */
 
     @Test
     public void testGetPropertyOfCimObject() throws Exception {
 
+        CIMObject obj1 = new CIMInstance();
+
+        CIMProperty cimProperty1 = new CIMProperty();
+        cimProperty1.setName("theKey");
+        cimProperty1.setValue(new CIMValue("theValue", CIMDataType.getPredefinedType(CIMDataType.STRING)));
+        obj1.addProperty(cimProperty1);
+
+        CIMObject obj2 = new CIMInstance();
+
+        CIMProperty cimProperty2 = new CIMProperty();
+        cimProperty2.setName("theKey");
+        cimProperty2.setValue(new CIMValue(null, CIMDataType.getPredefinedType(CIMDataType.STRING)));
+        obj2.addProperty(cimProperty2);
+
+        CIMObject obj3 = new CIMInstance();
+
+        CIMProperty cimProperty3 = new CIMProperty();
+        obj3.addProperty(cimProperty3);
+
+        Assert.assertEquals(vmwareViJavaAccess.getPropertyOfCimObject(obj1, "theKey"), "theValue");
+        Assert.assertNull(vmwareViJavaAccess.getPropertyOfCimObject(obj2, "theKey"));
+        Assert.assertNull(vmwareViJavaAccess.getPropertyOfCimObject(obj3, "theKey"));
     }
 }

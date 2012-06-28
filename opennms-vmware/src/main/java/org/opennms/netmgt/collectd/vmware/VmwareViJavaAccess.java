@@ -63,23 +63,6 @@ import java.util.Vector;
  * @author Christian Pape <Christian.Pape@informatik.hs-fulda.de>
  */
 public class VmwareViJavaAccess {
-    /*
-
-       private static String baseUnitsDesc[] = {"Unknown", "Other", "Degrees C", "Degrees F", "Degrees K", "Volts", "Amps", "Watts", "Joules", "Coulombs", "VA", "Nits", "Lumens",
-               "Lux", "Candelas", "kPa", "PSI", "Newtons", "CFM", "RPM", "Hertz", "Seconds", "Minutes", "Hours", "Days", "Weeks", "Mils", "Inches", "Feet", "Cubic Inches", "Cubic Feet",
-               "Meters", "Cubic Centimeters", "Cubic Meters", "Liters", "Fluid Ounces", "Radians", "Steradians", "Revolutions", "Cycles", "Gravities", "Ounces", "Pounds", "Foot-Pounds",
-               "Ounce-Inches", "Gauss", "Gilberts", "Henries", "Farads", "Ohms", "Siemens", "Moles", "Becquerels", "PPM (parts/million)", "Decibels", "DbA", "DbC", "Grays", "Sieverts",
-               "Color Temperature Degrees K", "Bits", "Bytes", "Words (data)", "DoubleWords", "QuadWords", "Percentage", "Pascals"};
-
-       private static String sensorTypesDesc[] = {"Unknown", "Other", "Temperature", "Voltage", "Current", "Tachometer", "Counter", "Switch", "Lock", "Humidity", "Smoke Detection",
-               "Presence", "Air Flow", "Power Consumption", "Power Production", "Pressure", "DMTF Reserved", "Vendor Reserved"};
-
-       private static String supportedThresholdsDesc[] = {"LowerThresholdNonCritical", "UpperThresholdNonCritical", "LowerThresholdCritical", "UpperThresholdCritical",
-               "LowerThresholdFatal", "UpperThresholdFatal"};
-
-       private static String rateUnitsDesc[] = {"None", "Per MicroSecond", "Per MilliSecond", "Per Second", "Per Minute", "Per Hour", "Per Day", "Per Week", "Per Month", "Per Year"};
-
-    */
 
     /**
      * logging for VMware library VI Java
