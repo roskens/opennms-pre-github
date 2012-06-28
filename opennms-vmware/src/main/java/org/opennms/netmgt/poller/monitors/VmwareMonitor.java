@@ -33,7 +33,6 @@ import com.vmware.vim25.mo.VirtualMachine;
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
 import org.opennms.core.utils.BeanUtils;
-import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.collectd.vmware.VmwareViJavaAccess;
 import org.opennms.netmgt.config.vmware.VmwareServer;
 import org.opennms.netmgt.dao.NodeDao;
@@ -108,23 +107,23 @@ public class VmwareMonitor extends AbstractServiceMonitor {
         try {
             vmwareViJavaAccess = new VmwareViJavaAccess(vmwareManagementServer);
         } catch (MarshalException e) {
-            LogUtils.warnf(this, "Error initialising VMware connection to '" + vmwareManagementServer + "': " + e.getMessage());
+            logger.warn("Error initialising VMware connection to '{}': '{}'", vmwareManagementServer, e.getMessage());
             return PollStatus.unavailable("Error initialising VMware connection to '" + vmwareManagementServer + "'");
         } catch (ValidationException e) {
-            LogUtils.warnf(this, "Error initialising VMware connection to '" + vmwareManagementServer + "': " + e.getMessage());
+            logger.warn("Error initialising VMware connection to '{}': '{}'", vmwareManagementServer, e.getMessage());
             return PollStatus.unavailable("Error initialising VMware connection to '" + vmwareManagementServer + "'");
         } catch (IOException e) {
-            LogUtils.warnf(this, "Error initialising VMware connection to '" + vmwareManagementServer + "': " + e.getMessage());
+            logger.warn("Error initialising VMware connection to '{}': '{}'", vmwareManagementServer, e.getMessage());
             return PollStatus.unavailable("Error initialising VMware connection to '" + vmwareManagementServer + "'");
         }
 
         try {
             vmwareViJavaAccess.connect();
         } catch (MalformedURLException e) {
-            LogUtils.warnf(this, "Error connecting VMware management server '" + vmwareManagementServer + "': " + e.getMessage());
+            logger.warn("Error connecting VMware management server '{}': '{}'",vmwareManagementServer,e.getMessage());
             return PollStatus.unavailable("Error connecting VMware management server '" + vmwareManagementServer + "'");
         } catch (RemoteException e) {
-            LogUtils.warnf(this, "Error connecting VMware management server '" + vmwareManagementServer + "': " + e.getMessage());
+            logger.warn("Error connecting VMware management server '{}': '{}'",vmwareManagementServer,e.getMessage());
             return PollStatus.unavailable("Error connecting VMware management server '" + vmwareManagementServer + "'");
         }
 
@@ -139,7 +138,7 @@ public class VmwareMonitor extends AbstractServiceMonitor {
                 VirtualMachine virtualMachine = vmwareViJavaAccess.getVirtualMachineByManagedObjectId(vmwareManagedObjectId);
                 powerState = virtualMachine.getSummary().runtime.getPowerState().toString();
             } else {
-                LogUtils.warnf(this, "Error getting '" + vmwareManagedEntityType + "' for '" + vmwareManagedObjectId + "'");
+                logger.warn("Error getting '{}' for '{}'",vmwareManagedEntityType, vmwareManagedObjectId);
 
                 vmwareViJavaAccess.disconnect();
 

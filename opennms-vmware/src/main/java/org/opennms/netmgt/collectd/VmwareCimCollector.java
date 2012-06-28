@@ -32,7 +32,6 @@ import com.vmware.vim25.mo.HostSystem;
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
 import org.opennms.core.utils.BeanUtils;
-import org.opennms.core.utils.LogUtils;
 import org.opennms.core.utils.ParameterMap;
 import org.opennms.netmgt.collectd.vmware.VmwareViJavaAccess;
 import org.opennms.netmgt.collectd.vmware.cim.VmwareCimCollectionAttributeType;
@@ -42,13 +41,16 @@ import org.opennms.netmgt.collectd.vmware.cim.VmwareCimMultiInstanceCollectionRe
 import org.opennms.netmgt.config.DataSourceFactory;
 import org.opennms.netmgt.config.collector.AttributeGroupType;
 import org.opennms.netmgt.config.collector.CollectionSet;
-import org.opennms.netmgt.config.vmware.cim.*;
+import org.opennms.netmgt.config.vmware.cim.Attrib;
+import org.opennms.netmgt.config.vmware.cim.VmwareCimCollection;
+import org.opennms.netmgt.config.vmware.cim.VmwareCimGroup;
 import org.opennms.netmgt.dao.NodeDao;
 import org.opennms.netmgt.dao.VmwareCimDatacollectionConfigDao;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.RrdRepository;
 import org.opennms.netmgt.model.events.EventProxy;
-import org.sblim.wbem.cim.*;
+import org.sblim.wbem.cim.CIMException;
+import org.sblim.wbem.cim.CIMObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,7 +59,10 @@ import java.io.IOException;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Vector;
 
 public class VmwareCimCollector implements ServiceCollector {
 
@@ -94,15 +99,17 @@ public class VmwareCimCollector implements ServiceCollector {
      *
      */
     public void initialize(Map<String, String> parameters) throws CollectionInitializationException {
-        if (m_nodeDao == null)
+        if (m_nodeDao == null) {
             m_nodeDao = BeanUtils.getBean("daoContext", "nodeDao", NodeDao.class);
+        }
 
         if (m_nodeDao == null) {
             logger.error("Node dao should be a non-null value.");
         }
 
-        if (m_vmwareCimDatacollectionConfigDao == null)
+        if (m_vmwareCimDatacollectionConfigDao == null) {
             m_vmwareCimDatacollectionConfigDao = BeanUtils.getBean("daoContext", "vmwareCimDatacollectionConfigDao", VmwareCimDatacollectionConfigDao.class);
+        }
 
         if (m_nodeDao == null) {
             logger.error("vmwareCimDatacollectionConfigDao should be a non-null value.");
@@ -116,7 +123,7 @@ public class VmwareCimCollector implements ServiceCollector {
      * Initializes the Rrd repository.
      */
     private void initializeRrdRepository() {
-        LogUtils.debugf(this, "initializeRrdRepository: Initializing RRD repo from WmiCollector...");
+        logger.debug("initializeRrdRepository: Initializing RRD repo from VmwareCimCollector...");
         initializeRrdDirs();
     }
 
@@ -139,7 +146,7 @@ public class VmwareCimCollector implements ServiceCollector {
         try {
             DataSourceFactory.init();
         } catch (final Exception e) {
-            LogUtils.errorf(this, e, "initDatabaseConnectionFactory: Error initializing DataSourceFactory.");
+            logger.error("initDatabaseConnectionFactory: Error initializing DataSourceFactory. Error message: '{}'", e.getMessage());
             throw new UndeclaredThrowableException(e);
         }
     }
@@ -228,6 +235,7 @@ public class VmwareCimCollector implements ServiceCollector {
         } else {
             if ("".equals(vmwareManagementServer) || "".equals(vmwareManagedObjectId))
                 return null;
+
         }
 
         // Load the attribute group types.
@@ -247,31 +255,36 @@ public class VmwareCimCollector implements ServiceCollector {
         try {
             vmwareViJavaAccess = new VmwareViJavaAccess(vmwareManagementServer);
         } catch (MarshalException e) {
-            LogUtils.warnf(this, "Error initialising VMware connection to '" + vmwareManagementServer + "': " + e.getMessage());
+            logger.warn("Error initialising VMware connection to '{}': '{}'", vmwareManagementServer, e.getMessage());
             return collectionSet;
+
         } catch (ValidationException e) {
-            LogUtils.warnf(this, "Error initialising VMware connection to '" + vmwareManagementServer + "': " + e.getMessage());
+            logger.warn("Error initialising VMware connection to '{}': '{}'", vmwareManagementServer, e.getMessage());
             return collectionSet;
+
         } catch (IOException e) {
-            LogUtils.warnf(this, "Error initialising VMware connection to '" + vmwareManagementServer + "': " + e.getMessage());
+            logger.warn("Error initialising VMware connection to '{}': '{}'", vmwareManagementServer, e.getMessage());
             return collectionSet;
+
         }
 
         try {
             vmwareViJavaAccess.connect();
         } catch (MalformedURLException e) {
-            LogUtils.warnf(this, "Error connecting VMware management server '" + vmwareManagementServer + "': " + e.getMessage());
+            logger.warn("Error connection VMware management server '{}': '{}'", vmwareManagementServer, e.getMessage());
             return collectionSet;
+
         } catch (RemoteException e) {
-            LogUtils.warnf(this, "Error connecting VMware management server '" + vmwareManagementServer + "': " + e.getMessage());
+            logger.warn("Error connection VMware management server '{}': '{}'", vmwareManagementServer, e.getMessage());
             return collectionSet;
+
         }
 
         HostSystem hostSystem = vmwareViJavaAccess.getHostSystemByManagedObjectId(vmwareManagedObjectId);
 
         String powerState = hostSystem.getSummary().runtime.getPowerState().toString();
 
-        LogUtils.debugf(this, "The power state for host system '" + vmwareManagedObjectId + "' is '" + powerState + "'");
+        logger.debug("The power state for host system '{}' is '{}'", vmwareManagedObjectId, powerState);
 
         if ("poweredOn".equals(powerState)) {
             HashMap<String, Vector<CIMObject>> cimObjects = new HashMap<String, Vector<CIMObject>>();
@@ -285,10 +298,10 @@ public class VmwareCimCollector implements ServiceCollector {
                     try {
                         cimVector = vmwareViJavaAccess.queryCimObjects(hostSystem, cimClass);
                     } catch (RemoteException e) {
-                        LogUtils.warnf(this, "Error retrieving cim values from host system '" + vmwareManagedObjectId + "'", e.getMessage());
+                        logger.warn("Error retrieving cim values from host system '{}'. Error message: '{}'", vmwareManagedObjectId, e.getMessage());
                         return collectionSet;
                     } catch (CIMException e) {
-                        LogUtils.warnf(this, "Error retrieving cim values from host system '" + vmwareManagedObjectId + "'", e.getMessage());
+                        logger.warn("Error retrieving CIM values from host system '{}'. Error message: '{}'", vmwareManagedObjectId, e.getMessage());
                         return collectionSet;
                     } finally {
                         vmwareViJavaAccess.disconnect();
@@ -299,9 +312,9 @@ public class VmwareCimCollector implements ServiceCollector {
                 final Vector<CIMObject> cimVector = cimObjects.get(cimClass);
 
                 if (cimVector == null) {
-                    LogUtils.warnf(this, "Error getting objects of cim class '" + cimClass + "' from host system '" + vmwareManagedObjectId + "'");
-
+                    logger.warn("Error getting objects of CIM class '{}' from host system '{}'", cimClass, vmwareManagedObjectId);
                     continue;
+
                 }
 
                 String keyAttribute = vmwareCimGroup.getKey();
@@ -331,11 +344,8 @@ public class VmwareCimCollector implements ServiceCollector {
 
                         for (Attrib attrib : vmwareCimGroup.getAttrib()) {
                             final VmwareCimCollectionAttributeType attribType = m_attribTypeList.get(attrib.getName());
-
                             vmwareCollectionResource.setAttributeValue(attribType, vmwareViJavaAccess.getPropertyOfCimObject(cimObject, attrib.getName()));
-
-                            LogUtils.debugf(this, "Storing multi instance value " + attrib.getName() + "[" + instance + "]='" + vmwareViJavaAccess.getPropertyOfCimObject(cimObject, attrib.getName()) + "' for node " + agent.getNodeId());
-
+                            logger.debug("Storing multi instance value " + attrib.getName() + "[" + instance + "]='" + vmwareViJavaAccess.getPropertyOfCimObject(cimObject, attrib.getName()) + "' for node " + agent.getNodeId());
                         }
                         collectionSet.getResources().add(vmwareCollectionResource);
                     }
@@ -347,6 +357,7 @@ public class VmwareCimCollector implements ServiceCollector {
         vmwareViJavaAccess.disconnect();
 
         return collectionSet;
+
     }
 
 

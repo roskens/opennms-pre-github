@@ -32,7 +32,6 @@ import com.vmware.vim25.mo.ManagedEntity;
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
 import org.opennms.core.utils.BeanUtils;
-import org.opennms.core.utils.LogUtils;
 import org.opennms.core.utils.ParameterMap;
 import org.opennms.netmgt.collectd.vmware.VmwareViJavaAccess;
 import org.opennms.netmgt.collectd.vmware.vijava.*;
@@ -116,7 +115,7 @@ public class VmwareCollector implements ServiceCollector {
      * Initializes the Rrd repository.
      */
     private void initializeRrdRepository() {
-        LogUtils.debugf(this, "initializeRrdRepository: Initializing RRD repo from WmiCollector...");
+        logger.debug("initializeRrdRepository: Initializing RRD repo from VmwareCollector...");
         initializeRrdDirs();
     }
 
@@ -139,7 +138,7 @@ public class VmwareCollector implements ServiceCollector {
         try {
             DataSourceFactory.init();
         } catch (final Exception e) {
-            LogUtils.errorf(this, e, "initDatabaseConnectionFactory: Error initializing DataSourceFactory.");
+            logger.error("initDatabaseConnectionFactory: Error initializing DataSourceFactory. Error message: '{}'", e.getMessage());
             throw new UndeclaredThrowableException(e);
         }
     }
@@ -215,23 +214,23 @@ public class VmwareCollector implements ServiceCollector {
         try {
             vmwareViJavaAccess = new VmwareViJavaAccess(vmwareManagementServer);
         } catch (MarshalException e) {
-            LogUtils.warnf(this, "Error initialising VMware connection to '" + vmwareManagementServer + "': " + e.getMessage());
+            logger.warn("Error initialising VMware connection to '{}': '{}'", vmwareManagementServer, e.getMessage());
             return collectionSet;
         } catch (ValidationException e) {
-            LogUtils.warnf(this, "Error initialising VMware connection to '" + vmwareManagementServer + "': " + e.getMessage());
+            logger.warn("Error initialising VMware connection to '{}': '{}'", vmwareManagementServer, e.getMessage());
             return collectionSet;
         } catch (IOException e) {
-            LogUtils.warnf(this, "Error initialising VMware connection to '" + vmwareManagementServer + "': " + e.getMessage());
+            logger.warn("Error initialising VMware connection to '{}': '{}'", vmwareManagementServer, e.getMessage());
             return collectionSet;
         }
 
         try {
             vmwareViJavaAccess.connect();
         } catch (MalformedURLException e) {
-            LogUtils.warnf(this, "Error connecting VMware management server '" + vmwareManagementServer + "': " + e.getMessage());
+            logger.warn("Error connecting VMware management server '{}': '{}'", vmwareManagementServer, e.getMessage());
             return collectionSet;
         } catch (RemoteException e) {
-            LogUtils.warnf(this, "Error connecting VMware management server '" + vmwareManagementServer + "': " + e.getMessage());
+            logger.warn("Error connecting VMware management server '{}': '{}'", vmwareManagementServer, e.getMessage());
             return collectionSet;
         }
 
@@ -242,7 +241,7 @@ public class VmwareCollector implements ServiceCollector {
         try {
             vmwarePerformanceValues = vmwareViJavaAccess.queryPerformanceValues(managedEntity);
         } catch (RemoteException e) {
-            LogUtils.warnf(this, "Error retrieving performance values from VMware management server '" + vmwareManagementServer + "' for managed object '" + vmwareManagedObjectId + "'", e.getMessage());
+            logger.warn("Error retrieving performance values from VMware management server '" + vmwareManagementServer + "' for managed object '" + vmwareManagedObjectId + "'", e.getMessage());
 
             vmwareViJavaAccess.disconnect();
 
@@ -261,10 +260,10 @@ public class VmwareCollector implements ServiceCollector {
 
                     if (vmwarePerformanceValues.hasInstances(attrib.getName())) {
                         // warning
-                        LogUtils.warnf(this, "Warning! Found multi instance value '%s' defined as single instance attribute for node %d", attrib.getName(), agent.getNodeId());
+                        logger.warn("Warning! Found multi instance value '{}' defined as single instance attribute for node '{}'", attrib.getName(), agent.getNodeId());
                     } else {
                         final VmwareCollectionAttributeType attribType = new VmwareCollectionAttributeType(attrib, attribGroupType);
-                        LogUtils.debugf(this, "Storing single instance value %s='%s' for node %d", attrib.getName(), String.valueOf(vmwarePerformanceValues.getValue(attrib.getName())), agent.getNodeId());
+                        logger.debug("Storing single instance value " + attrib.getName() + "='" + String.valueOf(vmwarePerformanceValues.getValue(attrib.getName()) + "for node " + agent.getNodeId()));
                         vmwareCollectionResource.setAttributeValue(attribType, String.valueOf(vmwarePerformanceValues.getValue(attrib.getName())));
                     }
                 }
@@ -280,7 +279,7 @@ public class VmwareCollector implements ServiceCollector {
                 for (Attrib attrib : vmwareGroup.getAttrib()) {
                     if (!vmwarePerformanceValues.hasInstances(attrib.getName())) {
                         // warning
-                        LogUtils.warnf(this, "Warning! Found single instance value '%s' defined as multi instance attribute for node %d", attrib.getName(), agent.getNodeId());
+                        logger.warn("Warning! Found single instance value '{}' defined as multi instance attribute for node {}", attrib.getName(), agent.getNodeId());
                     } else {
 
                         instanceSet = vmwarePerformanceValues.getInstances(attrib.getName());
@@ -290,8 +289,8 @@ public class VmwareCollector implements ServiceCollector {
                                 resources.put(instance, new VmwareMultiInstanceCollectionResource(agent, instance, vmwareGroup.getResourceType()));
 
                             final VmwareCollectionAttributeType attribType = new VmwareCollectionAttributeType(attrib, attribGroupType);
-                            LogUtils.debugf(this, "Storing multi instance value %s[%s]='%s' for node %d", attrib.getName(), instance, String.valueOf(vmwarePerformanceValues.getValue(attrib.getName(), instance)), agent.getNodeId());
-                            resources.get(instance).setAttributeValue(attribType, String.valueOf(vmwarePerformanceValues.getValue(attrib.getName(), instance)));
+                            logger.debug("Storing multi instance value " + attrib.getName() + "[" + instance + "]='" + String.valueOf(vmwarePerformanceValues.getValue(attrib.getName())) + "' for node " +
+                                    agent.getNodeId());
                         }
                     }
                 }
@@ -304,7 +303,8 @@ public class VmwareCollector implements ServiceCollector {
 
                     for (String instance : instanceSet) {
                         final VmwareCollectionAttributeType attribType = new VmwareCollectionAttributeType(attrib, attribGroupType);
-                        LogUtils.debugf(this, "Storing multi instance value %s[%s]='%s' for node %d", attrib.getName(), instance, instance, agent.getNodeId());
+                        //TODO indigo: check if instance / instance is right
+                        logger.debug("Storing multi instance value " + attrib.getName() + "[" + instance + "]='" + instance + "' for node " + agent.getNodeId());
                         resources.get(instance).setAttributeValue(attribType, instance);
                     }
 

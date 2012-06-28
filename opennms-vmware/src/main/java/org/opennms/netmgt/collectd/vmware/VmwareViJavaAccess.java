@@ -34,7 +34,6 @@ import com.vmware.vim25.mo.util.MorUtil;
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
 import org.opennms.core.utils.BeanUtils;
-import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.collectd.vmware.vijava.VmwarePerformanceValues;
 import org.opennms.netmgt.dao.VmwareConfigDao;
 import org.sblim.wbem.cim.*;
@@ -180,7 +179,7 @@ public class VmwareViJavaAccess {
             sslContext.init(null, trustAllCerts, new SecureRandom());
             HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.getSocketFactory());
         } catch (Exception exception) {
-            LogUtils.warnf(this, "Error setting relaxed SSL policy", exception);
+            logger.warn("Error setting relaxed SSL policy", exception);
         }
 
         HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
@@ -374,7 +373,7 @@ public class VmwareViJavaAccess {
             }
 
             if (ipAddress == null) {
-                LogUtils.warnf(this, "Cannot determine ip address for host system " + hostSystem.getMOR().getVal());
+                logger.warn("Cannot determine ip address for host system '{}'", hostSystem.getMOR().getVal());
                 return cimObjects;
             }
 
