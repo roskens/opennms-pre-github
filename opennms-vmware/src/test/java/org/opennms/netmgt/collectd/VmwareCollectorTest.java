@@ -8,16 +8,22 @@ import org.junit.Before;
 import org.junit.Test;
 import org.opennms.core.test.MockLogAppender;
 import org.opennms.core.utils.BeanUtils;
-import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.config.collector.CollectionSet;
 import org.opennms.netmgt.config.collector.ServiceParameters;
 import org.opennms.netmgt.dao.VmwareDatacollectionConfigDao;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
 public class VmwareCollectorTest {
+
+    /**
+     * logging for VMware library VI Java
+     */
+    private final Logger logger = LoggerFactory.getLogger("OpenNMS.VMware." + VmwareCollectorTest.class.getName());
 
     private static final String COLLECTION_NAME = "default-VirtualMachine";
     private VmwareDatacollectionConfigDao m_vmwareDatacollectionConfigDao;
@@ -94,7 +100,7 @@ public class VmwareCollectorTest {
         parameters.put("vmwareManagedObjectId", managedObjectId);
 
         // Creating VMWare Collector and retrieving CollectionSet
-        LogUtils.infof(this, "Collecting data using " + parameters);
+        logger.info("Collectiong data using '{}'", parameters);
         VmwareCollector collector = new VmwareCollector();
         CollectionSet collectionSet = collector.collect(agent, null, parameters);
         Assert.assertNotNull(collectionSet);

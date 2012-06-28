@@ -1,17 +1,15 @@
 package org.opennms.netmgt.collectd;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import org.junit.Assert;
-import org.opennms.core.utils.LogUtils;
-import org.opennms.netmgt.config.collector.AttributeGroup;
-import org.opennms.netmgt.config.collector.CollectionAttribute;
-import org.opennms.netmgt.config.collector.CollectionResource;
-import org.opennms.netmgt.config.collector.CollectionSet;
-import org.opennms.netmgt.config.collector.CollectionSetVisitor;
+import org.opennms.netmgt.config.collector.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class VmwareCollectionSetVerifier implements CollectionSetVisitor {
+    /**
+     * logging for VMware library VI Java
+     */
+    private final Logger logger = LoggerFactory.getLogger("OpenNMS.VMware." + VmwareCollectionSetVerifier.class.getName());
 
     @Override
     public void visitCollectionSet(CollectionSet set) {
@@ -25,7 +23,7 @@ public class VmwareCollectionSetVerifier implements CollectionSetVisitor {
 
     @Override
     public void visitGroup(AttributeGroup group) {
-        LogUtils.infof(this, "Found %d attributes for group %s.", group.getAttributes().size(), group.getName());
+        logger.info("Found '{}' attributes for group '{}'", group.getAttributes().size(), group.getName());
         Assert.assertTrue(group.getAttributes().size() > 1);
     }
 

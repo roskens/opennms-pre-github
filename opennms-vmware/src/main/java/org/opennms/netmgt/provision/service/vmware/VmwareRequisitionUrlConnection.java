@@ -33,7 +33,6 @@ import com.vmware.vim25.mo.*;
 import org.apache.commons.io.IOExceptionWithCause;
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
-import org.opennms.core.utils.LogUtils;
 import org.opennms.core.utils.url.GenericURLConnection;
 import org.opennms.core.xml.JaxbUtils;
 import org.opennms.netmgt.model.PrimaryType;
@@ -239,13 +238,13 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
             try {
                 vmwareViJavaAccess = new VmwareViJavaAccess(m_hostname);
             } catch (MarshalException e) {
-                LogUtils.warnf(this, "Error initialising VMware connection to '" + m_hostname + "': " + e.getMessage());
+                logger.warn("Error initialising VMware connection to '{}': '{}'", m_hostname, e.getMessage());
                 return m_requisition;
             } catch (ValidationException e) {
-                LogUtils.warnf(this, "Error initialising VMware connection to '" + m_hostname + "': " + e.getMessage());
+                logger.warn("Error initialising VMware connection to '{}': '{}'", m_hostname, e.getMessage());
                 return m_requisition;
             } catch (IOException e) {
-                LogUtils.warnf(this, "Error initialising VMware connection to '" + m_hostname + "': " + e.getMessage());
+                logger.warn("Error initialising VMware connection to '{}': '{}'", m_hostname, e.getMessage());
                 return m_requisition;
             }
         } else {
@@ -255,10 +254,10 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
         try {
             vmwareViJavaAccess.connect();
         } catch (MalformedURLException e) {
-            LogUtils.warnf(this, "Error connecting VMware management server '" + m_hostname + "': " + e.getMessage());
+            logger.warn("Error connecting VMware management server '{}': '{}'", m_hostname, e.getMessage());
             return m_requisition;
         } catch (RemoteException e) {
-            LogUtils.warnf(this, "Error connecting VMware management server '" + m_hostname + "': " + e.getMessage());
+            logger.warn("Error connecting VMware management server '{}': '{}'", m_hostname, e.getMessage());
             return m_requisition;
         }
 
@@ -266,7 +265,7 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
             iterateHostSystems(vmwareViJavaAccess);
             iterateVirtualMachines(vmwareViJavaAccess);
         } catch (RemoteException e) {
-            LogUtils.warnf(this, "Error retrieving managed objects from VMware management server '" + m_hostname + "': " + e.getMessage());
+            logger.warn("Error retrieving managed objects from VMware management server '{}': '{}'", m_hostname, e.getMessage());
             return m_requisition;
         } finally {
             vmwareViJavaAccess.disconnect();
