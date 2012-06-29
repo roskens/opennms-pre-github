@@ -54,7 +54,7 @@ public abstract class GenericURLConnection extends URLConnection {
                 e.printStackTrace();
             }
 
-            String[] queryArgs = queryString.split("&");
+            String[] queryArgs = queryString.split("[&;]");
 
             for (String queryArg : queryArgs) {
 
