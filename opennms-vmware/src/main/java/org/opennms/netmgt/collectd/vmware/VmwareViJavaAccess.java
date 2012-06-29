@@ -144,7 +144,7 @@ public class VmwareViJavaAccess {
     /**
      * This method is used to "relax" the policies concerning self-signed certificates.
      */
-    private void relax() {
+    protected void relax() {
 
         TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
             public java.security.cert.X509Certificate[] getAcceptedIssuers() {
