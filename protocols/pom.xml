@@ -15,6 +15,7 @@
     <module>radius</module>
     <module>xml</module>
     <module>xmp</module>
+    <module>xmpp</module>
     <module>selenium-monitor</module>
   </modules>
 </project>
