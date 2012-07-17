@@ -116,7 +116,7 @@ public class LinkdNms10205Test extends LinkdNms10205NetworkBuilder implements In
     @Test
     @JUnitSnmpAgents(value={
             @JUnitSnmpAgent(host=MUMBAI_IP, port=161, resource="classpath:linkd/nms10205/"+ MUMBAI_IP +"-walk.txt"),
-            @JUnitSnmpAgent(host=CHENNAI_IP, port=161,resource="classpath:linkd/nms10205/"+ CHENNAI_IP+"-walk.txt"),
+            @JUnitSnmpAgent(host=CHENNAI_IP, port=161,resource="classpath:linkd/nms10205/"+ CHENNAI_IP+"-walk.txt")
     })
     public void testLinkMumbaiChennai() throws Exception {
         m_nodeDao.save(getMumbai());
@@ -136,6 +136,7 @@ public class LinkdNms10205Test extends LinkdNms10205NetworkBuilder implements In
         juniper.addSpecific("2.9");
         iproutes.addVendor(juniper);
         m_linkdConfig.getConfiguration().setIproutes(iproutes);
+        m_linkdConfig.update();
 
         
         final OnmsNode mumbai = m_nodeDao.findByForeignId("linkd", MUMBAI_NAME);
@@ -157,6 +158,4 @@ public class LinkdNms10205Test extends LinkdNms10205NetworkBuilder implements In
         assertEquals(0,links.size());
                 
     }
-    
-   
 }
