@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="http://xmlns.opennms.org/xsd/config/attrmap"
+  xmlns:tns="http://xmlns.opennms.org/xsd/config/attrmap"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:this="http://xmlns.opennms.org/xsd/config/attrmap"
+  xmlns:ns2="http://www.w3.org/1999/xhtml"
+  xmlns:ns="http://www.w3.org/2001/XMLSchema"
+  xmlns:hfp="http://www.w3.org/2001/XMLSchema-hasFacetAndProperty"
+  elementFormDefault="qualified">
+
+  <annotation>
+    <documentation>
+      XML Schema for the attrmap.xml configuration file.
+    </documentation>
+  </annotation>
+
+  <element name="attrmap">
+    <annotation>
+      <documentation>
+        This is the top-level element for attrmap.xml.
+      </documentation>
+    </annotation>
+    <complexType>
+      <sequence>
+        <element maxOccurs="unbounded" minOccurs="0" ref="this:datasource">
+          <annotation>
+            <documentation>Virtual Datasources for this node.</documentation>
+          </annotation>
+        </element>
+      </sequence>
+    </complexType>
+  </element>
+
+  <element name="datasource">
+    <annotation>
+      <documentation>Virtual datasource</documentation>
+    </annotation>
+    <complexType>
+      <attribute name="ds-name" type="string" use="required">
+        <annotation>
+          <documentation>virtual datasource</documentation>
+        </annotation>
+      </attribute>
+      <attribute name="ds-type" type="string" use="required">
+        <annotation>
+          <documentation>datasource type: (snmp | response)</documentation>
+        </annotation>
+        <simpleType>
+          <restriction base="string">
+            <pattern value="(snmp|response)"/>
+          </restriction>
+        </simpleType>
+      </attribute>
+      <attribute name="real-node" type="string" use="required">
+        <annotation>
+          <documentation>real nodeid or ip address</documentation>
+        </annotation>
+      </attribute>
+      <attribute name="real-datasource" type="string" use="required">
+        <annotation>
+          <documentation>real node's datasource or real ip address's datasource</documentation>
+        </annotation>
+      </attribute>
+    </complexType>
+  </element>
+</schema>

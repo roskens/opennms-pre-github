@@ -29,9 +29,13 @@
 package org.opennms.netmgt.dao.support;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 
 import org.opennms.netmgt.dao.ResourceDao;
@@ -39,11 +43,20 @@ import org.opennms.netmgt.dao.support.RrdFileConstants;
 import org.opennms.netmgt.model.OnmsAttribute;
 import org.opennms.netmgt.model.OnmsResource;
 import org.opennms.netmgt.model.OnmsResourceType;
+import org.opennms.netmgt.model.RrdGraphAttribute;
 import org.springframework.orm.ObjectRetrievalFailureException;
+import org.springframework.dao.DataAccessException;
+
+import org.opennms.netmgt.config.attrmap.Attrmap;
+import org.opennms.netmgt.config.attrmap.Datasource;
+import org.apache.commons.io.IOUtils;
+import org.opennms.core.utils.LogUtils;
+import org.opennms.core.xml.CastorUtils;
 
 public class NodeSnmpResourceType implements OnmsResourceType {
 
     private ResourceDao m_resourceDao;
+    public static String ATTRMAP_XML_FILE = "attrmap.xml";
 
     /**
      * <p>Constructor for NodeSnmpResourceType.</p>
@@ -100,7 +113,8 @@ public class NodeSnmpResourceType implements OnmsResourceType {
         ArrayList<OnmsResource> resources = new ArrayList<OnmsResource>();
 
         Set<OnmsAttribute> attributes = ResourceTypeUtils.getAttributesAtRelativePath(m_resourceDao.getRrdDirectory(), getRelativePathForResource(nodeId));
-        
+        loadMappedAttributes(m_resourceDao.getRrdDirectory(), getRelativePathForResource(nodeId), attributes);
+
         OnmsResource resource = new OnmsResource("", "Node-level Performance Data", this, attributes);
         resources.add(resource);
         return resources;
@@ -151,6 +165,43 @@ public class NodeSnmpResourceType implements OnmsResourceType {
         OnmsResource resource = new OnmsResource("", "Node-level Performance Data", this, attributes);
         resources.add(resource);
         return resources;
+    }
+
+    private void loadMappedAttributes(File rrdDirectory, String relativePath, Set<OnmsAttribute> attributes) {
+        File resourceDir = new File(rrdDirectory, relativePath);
+        File attrMapFile = new File(resourceDir, ATTRMAP_XML_FILE);
+        InputStream is = null;
+
+        if (! attrMapFile.exists()) { return; }
+
+        try {
+            is = new FileInputStream(attrMapFile);
+            Attrmap am = CastorUtils.unmarshalWithTranslatedExceptions(Attrmap.class, is);
+
+            for (Datasource ds : am.getDatasourceCollection()) {
+                String dsName = ds.getDsName();
+                String relPath = ds.getDsType() + File.separator + ds.getRealNode();
+
+                if (ResourceTypeUtils.isStoreByGroup()) {
+                    Properties props = ResourceTypeUtils.getDsProperties(new File(rrdDirectory, relPath));
+                    if (props.containsKey(ds.getRealDatasource())) {
+                        attributes.add(new RrdGraphAttribute(dsName, relPath, props.getProperty(ds.getRealDatasource()) + RrdFileConstants.getRrdSuffix()));
+                    }
+                } else {
+                    attributes.add(new RrdGraphAttribute(dsName, relPath, ds.getRealDatasource() + RrdFileConstants.getRrdSuffix()));
+                }
+            }
+        } catch (FileNotFoundException e) {
+            // Required to catch this, but should never execute this block.
+        } catch (DataAccessException e) {
+            // Failed parsing input file
+            LogUtils.warnf(this, "Failed to parse %s: %s", attrMapFile.getAbsolutePath(), e.getMessage());
+
+        } finally {
+            if (is != null) {
+                IOUtils.closeQuietly(is);
+            }
+        }
     }
 
 }
