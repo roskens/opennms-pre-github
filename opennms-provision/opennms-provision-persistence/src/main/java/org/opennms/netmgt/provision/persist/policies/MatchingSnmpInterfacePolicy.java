@@ -30,6 +30,7 @@ package org.opennms.netmgt.provision.persist.policies;
 
 
 import org.opennms.core.utils.LogUtils;
+import org.opennms.netmgt.model.OnmsCategory;
 import org.opennms.netmgt.model.OnmsSnmpInterface;
 import org.opennms.netmgt.provision.BasePolicy;
 import org.opennms.netmgt.provision.SnmpInterfacePolicy;
@@ -49,16 +50,18 @@ import org.springframework.stereotype.Component;
 @Policy("Match SNMP Interface")
 public class MatchingSnmpInterfacePolicy extends BasePolicy<OnmsSnmpInterface> implements SnmpInterfacePolicy {
     
-    public static enum Action { ENABLE_COLLECTION, DISABLE_COLLECTION, DO_NOT_PERSIST, ENABLE_POLLING, DISABLE_POLLING };
+    public static enum Action { ENABLE_COLLECTION, DISABLE_COLLECTION, DO_NOT_PERSIST, ENABLE_POLLING, DISABLE_POLLING, ADD_CATEGORY };
     
     private Action m_action = Action.DO_NOT_PERSIST;
+
+    private String m_category;
 
     /**
      * <p>getAction</p>
      *
      * @return a {@link java.lang.String} object.
      */
-    @Require({"ENABLE_COLLECTION", "DISABLE_COLLECTION", "DO_NOT_PERSIST", "ENABLE_POLLING", "DISABLE_POLLING"})
+    @Require({"ENABLE_COLLECTION", "DISABLE_COLLECTION", "DO_NOT_PERSIST", "ENABLE_POLLING", "DISABLE_POLLING", "ADD_CATEGORY"})
     public String getAction() {
         return m_action.toString();
     }
@@ -77,6 +80,8 @@ public class MatchingSnmpInterfacePolicy extends BasePolicy<OnmsSnmpInterface> i
             m_action = Action.ENABLE_POLLING;
         } else if (action != null && action.toUpperCase().equals("DISABLE_POLLING")) {
             m_action = Action.DISABLE_POLLING;
+        } else if (action != null && action.toUpperCase().equals("ADD_CATEGORY")) {
+            m_action = Action.ADD_CATEGORY;
         } else {
             m_action = Action.DO_NOT_PERSIST;
         }
@@ -104,6 +109,13 @@ public class MatchingSnmpInterfacePolicy extends BasePolicy<OnmsSnmpInterface> i
         case DISABLE_POLLING:
             iface.setPoll("N");
             LogUtils.debugf(this, "Disabled polling for %s according to policy", iface);
+            return iface;
+        case ADD_CATEGORY:
+            if (getCategory() != null) {
+                OnmsCategory category = new OnmsCategory(getCategory());
+                LogUtils.debugf(this, "Adding category %s for %s according to policy", getCategory(), iface);
+                iface.getNode().addCategory(category);
+            }
             return iface;
         default:
             return iface;    
@@ -272,5 +284,24 @@ public class MatchingSnmpInterfacePolicy extends BasePolicy<OnmsSnmpInterface> i
         putCriteria("ifAlias", ifAlias);
     }
     
-    
+    /**
+     * <p>getCategory</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    @Require(value = { })
+    public String getCategory() {
+        return m_category;
+    }
+
+    /**
+     * <p>setCategory</p>
+     *
+     * @param category a {@link java.lang.String} object.
+     */
+    public void setCategory(String category) {
+        m_category = category;
+    }
+
+
 }

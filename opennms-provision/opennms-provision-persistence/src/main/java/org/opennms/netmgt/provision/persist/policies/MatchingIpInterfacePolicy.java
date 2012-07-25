@@ -29,6 +29,7 @@
 package org.opennms.netmgt.provision.persist.policies;
 
 import org.opennms.core.utils.LogUtils;
+import org.opennms.netmgt.model.OnmsCategory;
 import org.opennms.netmgt.model.OnmsIpInterface;
 import org.opennms.netmgt.model.OnmsSnmpInterface;
 import org.opennms.netmgt.provision.BasePolicy;
@@ -49,18 +50,18 @@ import org.springframework.stereotype.Component;
 @Policy("Match IP Interface")
 public class MatchingIpInterfacePolicy extends BasePolicy<OnmsIpInterface> implements IpInterfacePolicy {
     
-    
-
-    public static enum Action { MANAGE, UNMANAGE, DO_NOT_PERSIST, ENABLE_SNMP_POLL,DISABLE_SNMP_POLL, ENABLE_COLLECTION, DISABLE_COLLECTION };
+    public static enum Action { MANAGE, UNMANAGE, DO_NOT_PERSIST, ENABLE_SNMP_POLL,DISABLE_SNMP_POLL, ENABLE_COLLECTION, DISABLE_COLLECTION, ADD_CATEGORY };
     
     private Action m_action = Action.DO_NOT_PERSIST;
+
+    private String m_category;
 
     /**
      * <p>getAction</p>
      *
      * @return a {@link java.lang.String} object.
      */
-    @Require({"MANAGE", "UNMANAGE", "DO_NOT_PERSIST", "ENABLE_SNMP_POLL", "DISABLE_SNMP_POLL", "ENABLE_COLLECTION", "DISABLE_COLLECTION"})
+    @Require({"MANAGE", "UNMANAGE", "DO_NOT_PERSIST", "ENABLE_SNMP_POLL", "DISABLE_SNMP_POLL", "ENABLE_COLLECTION", "DISABLE_COLLECTION", "ADD_CATEGORY"})
     public String getAction() {
         return m_action.toString();
     }
@@ -83,6 +84,8 @@ public class MatchingIpInterfacePolicy extends BasePolicy<OnmsIpInterface> imple
             m_action = Action.ENABLE_COLLECTION;
         } else if (action != null && action.toUpperCase().equals("DISABLE_COLLECTION")) {
             m_action = Action.DISABLE_COLLECTION;
+        } else if (action != null && action.toUpperCase().equals("ADD_CATEGORY")) {
+            m_action = Action.ADD_CATEGORY;
         } else {
             m_action = Action.DO_NOT_PERSIST;
         }
@@ -124,11 +127,37 @@ public class MatchingIpInterfacePolicy extends BasePolicy<OnmsIpInterface> imple
             snmpiface.setCollectionEnabled(true);
             iface.setSnmpInterface(snmpiface);
             return iface;
+        case ADD_CATEGORY:
+            if (getCategory() != null) {
+                OnmsCategory category = new OnmsCategory(getCategory());
+                LogUtils.debugf(this, "Adding category %s for %s according to policy", getCategory(), iface);
+                iface.getNode().addCategory(category);
+            }
+            return iface;
         default:
             return iface;    
         }
     }
     
+    /**
+     * <p>getCategory</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    @Require(value = { })
+    public String getCategory() {
+        return m_category;
+    }
+
+    /**
+     * <p>setCategory</p>
+     *
+     * @param category a {@link java.lang.String} object.
+     */
+    public void setCategory(String category) {
+        m_category = category;
+    }
+
     /**
      * <p>setIpAddress</p>
      *

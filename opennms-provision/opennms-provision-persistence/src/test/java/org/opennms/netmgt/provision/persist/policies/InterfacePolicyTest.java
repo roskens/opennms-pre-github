@@ -43,6 +43,7 @@ import org.opennms.netmgt.dao.IpInterfaceDao;
 import org.opennms.netmgt.dao.db.JUnitConfigurationEnvironment;
 import org.opennms.netmgt.dao.db.JUnitTemporaryDatabase;
 import org.opennms.core.test.OpenNMSJUnit4ClassRunner;
+import org.opennms.netmgt.model.OnmsCategory;
 import org.opennms.netmgt.model.OnmsIpInterface;
 import org.opennms.test.mock.MockLogAppender;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,6 +100,37 @@ public class InterfacePolicyTest {
             }
         }
         
+        assertEquals(populatedInterfaces, matchedInterfaces);
+    }
+
+    @Test
+    @Transactional
+    public void testCategoryMatchingPolicy() {
+        OnmsIpInterface o = null;
+
+        final MatchingIpInterfacePolicy p = new MatchingIpInterfacePolicy();
+        p.setAction("ADD_CATEGORY");
+        p.setCategory("PolicyCategoryTest");
+        p.setMatchBehavior("ALL_PARAMETERS");
+        p.setIpAddress("~^10\\..*$");
+
+        OnmsCategory c = new OnmsCategory(p.getCategory());
+
+        final List<OnmsIpInterface> populatedInterfaces = new ArrayList<OnmsIpInterface>();
+        final List<OnmsIpInterface> matchedInterfaces = new ArrayList<OnmsIpInterface>();
+
+        for (final OnmsIpInterface iface : m_interfaces) {
+            o = p.apply(iface);
+            if (o != null && o.getNode().getCategories().contains(c)) {
+                matchedInterfaces.add(o);
+            }
+            InetAddress addr = iface.getIpAddress();
+
+            if (str(addr).startsWith("10.")) {
+                populatedInterfaces.add(iface);
+            }
+        }
+
         assertEquals(populatedInterfaces, matchedInterfaces);
     }
 
