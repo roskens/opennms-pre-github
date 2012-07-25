@@ -38,5 +38,5 @@ public class TopologyWidgetTestApplicationFactory implements ApplicationFactory 
     public void setTopologyProvider(TopologyProvider topologyProvider) {
         m_topologyProvider = topologyProvider;
     }
-
+    
 }

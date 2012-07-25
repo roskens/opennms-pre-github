@@ -12,9 +12,9 @@ import org.opennms.features.topology.app.internal.gwt.client.d3.D3;
 import org.opennms.features.topology.app.internal.gwt.client.d3.D3Behavior;
 import org.opennms.features.topology.app.internal.gwt.client.d3.D3Drag;
 import org.opennms.features.topology.app.internal.gwt.client.d3.D3Events;
+import org.opennms.features.topology.app.internal.gwt.client.d3.D3Events.Handler;
 import org.opennms.features.topology.app.internal.gwt.client.d3.D3Transform;
 import org.opennms.features.topology.app.internal.gwt.client.d3.Func;
-import org.opennms.features.topology.app.internal.gwt.client.d3.D3Events.Handler;
 import org.opennms.features.topology.app.internal.gwt.client.svg.SVGElement;
 import org.opennms.features.topology.app.internal.gwt.client.svg.SVGGElement;
 import org.opennms.features.topology.app.internal.gwt.client.svg.SVGMatrix;
@@ -825,6 +825,10 @@ public class VTopologyComponent extends Composite implements Paintable, ActionOw
 				group.setSelected(booleanAttribute);
 				group.setIcon(child.getStringAttribute("iconUrl"));
 				group.setSemanticZoomLevel(child.getIntAttribute("semanticZoomLevel"));
+				
+				if (child.hasAttribute("label")) {
+					group.setLabel(child.getStringAttribute("label"));
+				}
 				graphConverted.addGroup(group);
 				
 				if(m_client != null) {
@@ -834,7 +838,7 @@ public class VTopologyComponent extends Composite implements Paintable, ActionOw
         		
         	}else if(child.getTag().equals("vertex")) {
         		
-        		GWTVertex vertex = GWTVertex.create(child.getStringAttribute("id"), child.getIntAttribute("x"), child.getIntAttribute("y"));
+        		GWTVertex vertex = GWTVertex.create(child.getStringAttribute("key"), child.getIntAttribute("x"), child.getIntAttribute("y"));
         		boolean booleanAttribute = child.getBooleanAttribute("selected");
         		String[] actionKeys = child.getStringArrayAttribute("actionKeys");
         		vertex.setSemanticZoomLevel(child.getIntAttribute("semanticZoomLevel"));
@@ -849,6 +853,11 @@ public class VTopologyComponent extends Composite implements Paintable, ActionOw
         		
 				vertex.setSelected(booleanAttribute);
 				vertex.setIcon(child.getStringAttribute("iconUrl"));
+
+				if (child.hasAttribute("label")) {
+					vertex.setLabel(child.getStringAttribute("label"));
+				}
+				
 				graphConverted.addVertex(vertex);
 				
 				if(m_client != null) {
@@ -857,7 +866,8 @@ public class VTopologyComponent extends Composite implements Paintable, ActionOw
 				}
         		
         	}else if(child.getTag().equals("edge")) {
-        		GWTEdge edge = GWTEdge.create(graphConverted.findVertexById(child.getStringAttribute("source")), graphConverted.findVertexById( child.getStringAttribute("target") ));
+        		GWTVertex source = graphConverted.findVertexById(child.getStringAttribute("source"));
+                GWTEdge edge = GWTEdge.create(child.getStringAttribute("key"), source, graphConverted.findVertexById( child.getStringAttribute("target") ));
         		String[] actionKeys = child.getStringArrayAttribute("actionKeys");
         		edge.setActionKeys(actionKeys);
         		graphConverted.addEdge(edge);
