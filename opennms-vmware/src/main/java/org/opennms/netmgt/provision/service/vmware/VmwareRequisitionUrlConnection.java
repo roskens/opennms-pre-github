@@ -123,7 +123,22 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
         m_importHostStandBy = queryParameter("importHostStandBy", false);
         m_importHostUnknown = queryParameter("importHostUnknown", false);
 
-        m_foreignSource = "vmware-" + m_hostname;
+        String path = url.getPath();
+
+        path = path.replaceAll("^/", "");
+        path = path.replaceAll("/$", "");
+
+        String pathElements[] = path.split("/");
+
+        if (pathElements.length == 1) {
+            if ("".equals(pathElements[0])) {
+                m_foreignSource = "vmware-" + m_hostname;
+            } else {
+                m_foreignSource = pathElements[0];
+            }
+        } else {
+            throw new MalformedURLException("Error processing path element of URL (vmware://username:password@host[/foreign-source]?keyA=valueA;keyB=valueB;...)");
+        }
     }
 
     /**
