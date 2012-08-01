@@ -1,7 +1,7 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2009-2011 The OpenNMS Group, Inc.
+ * Copyright (C) 2006-2011 The OpenNMS Group, Inc.
  * OpenNMS(R) is Copyright (C) 1999-2011 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
@@ -28,117 +28,148 @@
 
 package org.opennms.core.utils.url;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.net.URL;
 import java.net.URLStreamHandler;
 import java.net.URLStreamHandlerFactory;
 import java.util.HashMap;
 
 /**
- * Generate an URL with a customized protocol. The protocol is mapped against a Java class.
+ * Convenience factory class to generate URL connections with customized protocol handler.
  *
  * @author <a href="mailto:christian.pape@informatik.hs-fulda.de">Christian Pape</a>
  * @author <a href="mailto:ronny@opennms.org">Ronny Trommer</a>
  */
 public class GenericURLFactory implements URLStreamHandlerFactory {
 
-    // Map to assign protocol and Java class
-    private HashMap<String, String> urlConnections = null;
-
-    // Factory as singleton
-    private static GenericURLFactory genericUrlFactory = null;
+    /**
+     * Logging to output.log
+     */
+    private final Logger logger = LoggerFactory.getLogger("OpenNMS.Output." + GenericURLFactory.class.getName());
 
     /**
-     * Constructor initialize maps for current provisioning URL requisitions
+     * Map with protocol and URL connections
+     */
+    private HashMap<String, String> urlConnections = new HashMap<String, String>();
+
+    /**
+     * Map with protocol and URL default ports
+     */
+    private HashMap<String, Integer> urlDefaultPorts = new HashMap<String, Integer>();
+
+    /**
+     * URL factory
+     */
+    private static GenericURLFactory genericUrlFactory = new GenericURLFactory();
+
+    /**
+     * Default constructor to initialize URL connections
      */
     private GenericURLFactory() {
-        urlConnections = new HashMap<String, String>();
-
-        // Map the protocol against the implementation
-        // TODO indigo: maybe a way we can configure it with spring?
-
-        // Used in DNS URL requisition in Provisiond
-        urlConnections.put("dns", "org.opennms.netmgt.provision.service.dns.DnsRequisitionUrlConnection");
-
-        // Used in VMware URL requisition in Provisiond
-        urlConnections.put("vmware", "org.opennms.netmgt.provision.service.vmware.VmwareRequisitionUrlConnection");
+        // Map the protocol dns against the DNS implementation
+        addURLConnection("dns", "org.opennms.netmgt.provision.service.dns.DnsRequisitionUrlConnection", 53);
     }
 
     /**
      * <p>initialize</p>
      * <p/>
-     * Initialize the factory
+     * Initializing the URL Factory
      */
     public static void initialize() {
-        if (genericUrlFactory == null) {
-            // We have no factory, instantiate one
-            genericUrlFactory = new GenericURLFactory();
+        try {
             URL.setURLStreamHandlerFactory(genericUrlFactory);
+        } catch (Error exception) {
+            // ignore error concerning resetting the URLStreamHandlerFactory
         }
     }
 
     /**
      * <p>getInstance</p>
      * <p/>
-     * Singleton pattern to get an instance of GenericURLFactory
+     * Implement the GenericURLFactory as singleton
      *
-     * @return a {@org.opennms.utils.dns.GenericURLFactory} object.
+     * @return a {org.opennms.core.utils.url.GenericURLFactory} object.
      */
     public static GenericURLFactory getInstance() {
-        if (genericUrlFactory == null) {
-            initialize();
-        }
         return genericUrlFactory;
     }
 
     /**
      * <p>addURLConnection</p>
      * <p/>
-     * Add a mapping with protocol name and an implementation.
+     * Add protocol URL connection handler with specific class name
      *
-     * @param protocol  a name a {@java.lang.String} object.
-     * @param classname the full qualified class name as {@java.lang.String} object.
+     * @param protocol    name as {@link java.lang.String} object.
+     * @param classname   full qualified classname as {@link java.lang.String} object.
+     * @param defaultPort the default port for given protocol as {@java.lang.int} object.
+     */
+    public void addURLConnection(String protocol, String classname, int defaultPort) {
+        urlConnections.put(protocol, classname);
+        urlDefaultPorts.put(protocol, defaultPort);
+    }
+
+    /**
+     * <p>addURLConnection</p>
+     * <p/>
+     * Add protocol URL connection handler with specific class name
+     *
+     * @param protocol  name as {@link java.lang.String} object.
+     * @param classname full qualified classname as {@link java.lang.String} object.
      */
     public void addURLConnection(String protocol, String classname) {
-        urlConnections.put(protocol, classname);
+        addURLConnection(protocol, classname, -1);
     }
 
     /**
      * <p>removeURLConnection</p>
      * <p/>
-     * Remove a protocol -> class mapping
+     * Remove a protocol URL connection handler
      *
-     * @param protocol name of the protocol to remove as {@java.lang.String} object.
+     * @param protocol name as {@link java.lang.String} object.
      */
     public void removeURLConnection(String protocol) {
         if (urlConnections.containsKey(protocol)) {
-            urlConnections.remove(protocol);
+            urlConnections.remove(protocol); // remove protocol class mapping
+            logger.debug("Remove existing protocol: '{}'", protocol);
         }
+        // else nothing to do
+    }
+
+    /**
+     * <p>getURLConnections</p>
+     * <p/>
+     * Get the map with protocol and implementation classes for customized URL connections
+     *
+     * @return a {@link java.util.HashMap} object
+     */
+    public HashMap<String, String> getURLConnections() {
+        return urlConnections;
     }
 
     /**
      * <p>createURLStreamHandler</p>
      * <p/>
-     * Create a URL stream handler for the customized protocol.
+     * Create stream handler
      *
-     * @param protocol protocol name as {@java.lang.String} object.
-     * @return a {@java.lang.URLStreamHandler} object.
+     * @param protocol name as {@link java.lang.String} object.
+     * @return a {@java.net.URLStreamHandler} object.
      */
     public URLStreamHandler createURLStreamHandler(String protocol) {
-        Class c;
+        Class c = null;
 
-        // Check if we have a protocol with the given name
         if (!urlConnections.containsKey(protocol)) {
-            return null;
+            logger.warn("No protocol mapping with '{}' found. Return null", protocol);
+            return null; // No existing protocol mapping
         }
 
-        // Try to create a class mapped by protocol name
         try {
             c = Class.forName(urlConnections.get(protocol));
-
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            return null;
+            logger.error("Class not found for protocol '{}' and return null. Error message: '{}'", protocol, e.getMessage());
+            return null; // We couldn't load a class for the protocol
         }
-        return new GenericURLStreamHandler(c);
+        return new GenericURLStreamHandler(c, urlDefaultPorts.get(protocol)); // Return the stream handler for the customized protocol
     }
 }

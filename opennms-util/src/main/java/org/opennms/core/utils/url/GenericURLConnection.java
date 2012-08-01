@@ -1,7 +1,7 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2009-2011 The OpenNMS Group, Inc.
+ * Copyright (C) 2006-2011 The OpenNMS Group, Inc.
  * OpenNMS(R) is Copyright (C) 1999-2011 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
@@ -28,6 +28,9 @@
 
 package org.opennms.core.utils.url;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -35,113 +38,139 @@ import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 
-
 /**
- * Extending the URL connection with functionality to get username, password and the query map.
+ * Convenience classes to provide additional functions on URL connections.
  *
  * @author <a href="mailto:christian.pape@informatik.hs-fulda.de">Christian Pape</a>
  * @author <a href="mailto:ronny@opennms.org">Ronny Trommer</a>
  */
 public abstract class GenericURLConnection extends URLConnection {
 
+    /**
+     * Logging to output.log
+     */
+    private final Logger logger = LoggerFactory.getLogger("OpenNMS.Output." + GenericURLConnection.class.getName());
+
+    /**
+     * URL for connection
+     */
+    private URL m_url;
+
+    /**
+     * User and password delimiter for URL user:pass@host
+     */
+    private static final String USERINFO_DELIMITER = ":";
+
+    /**
+     * Default encoding for URL
+     */
+    private static final String UTF8_ENCODING = "UTF-8";
+
+    /**
+     * Delimiter for URL arguments
+     */
+    private static final String URL_QUERY_ARGS_DELIMITER = "&";
+
+    /**
+     * Delimiter for argument and values
+     */
+    private static final String KEY_VALUE_DELIMITER = "=";
+
+    /**
+     * Empty String
+     */
+    private static final String EMPTY_STRING = "";
+
+    /**
+     * Default constructor
+     *
+     * @param url a {java.net.URL} object
+     */
     protected GenericURLConnection(URL url) {
         super(url);
+        this.m_url = url;
     }
 
     /**
-     * <p>getUsername</p>
-     * <p/>
-     * Get username from given URL.
+     * Get user name from a given URL
      *
-     * @param url URL with credentials as {@java.net.URL} object.
-     * @return username as {@java.lang.String} object.
+     * @return a {@link java.lang.String} user name
      */
-    protected String getUsername(URL url) {
-        String userInfo = url.getUserInfo();
+    protected String getUsername() {
+        String userInfo = this.m_url.getUserInfo();
         if (userInfo != null) {
-            if (userInfo.contains(":")) {
-                // user info given with user:pass, return user
-                String[] userPass = userInfo.split(":");
-                return userPass[0];
+            if (userInfo.contains(USERINFO_DELIMITER)) {
+                String[] userName = userInfo.split(USERINFO_DELIMITER);
+                return userName[0]; // return the user name
             } else {
-                // user info without pass
-                return userInfo;
+                logger.warn("Only user name without password configured. Return user info: '{}'", userInfo);
+                return userInfo; // no password just a user name
             }
         } else {
-            // no user info available
-            return null;
+            logger.warn("No credentials for URL connection configured.");
+            return null; // no user info
         }
     }
 
     /**
-     * <p>getPassword</p>
-     * <p/>
-     * Get password from given URL.
+     * Get password from a given url
      *
-     * @param url URL with credentials as {@java.lang.URL} object.
-     * @return password in plaintext as {@java.lang.String} object.
+     * @return a {@link java.lang.String} password
      */
-    protected String getPassword(URL url) {
-        String userInfo = url.getUserInfo();
+    protected String getPassword() {
+        String userInfo = this.m_url.getUserInfo();
         if (userInfo != null) {
-            if (userInfo.contains(":")) {
-                // user info given with user:pass, return pass
-                String[] userPass = userInfo.split(":");
-                return userPass[1];
+            if (userInfo.contains(USERINFO_DELIMITER)) {
+                String[] userPass = userInfo.split(USERINFO_DELIMITER);
+                return userPass[1];  // return password
             } else {
-                // user info without pass, returns the username
-                return userInfo;
+                logger.warn("Only user name without password configured. Return empty string as password");
+                return EMPTY_STRING; // user name defined without password
             }
         } else {
-            // no user infor available
-            return null;
+            logger.warn("No credentials for URL connection configured.");
+            return null; // no user info
         }
     }
 
     /**
-     * <p>getQueryArgs</p>
-     * <p/>
-     * Get the URL query arguments as Map.
+     * Get all URL query arguments
      *
-     * @param url URL with query arguments as {@java.net.URL} object.
-     * @return query arguments as key value {@java.util.Map} object.
+     * @return a {@link java.util.HashMap} with arguments as key value map
      */
-    protected Map<String, String> getQueryArgs(URL url) {
-        // initialize
+    protected Map<String, String> getQueryArgs() {
         HashMap<String, String> hashMap = new HashMap<String, String>();
 
-        // get the whole query string
-        String queryString = url.getQuery();
+        String queryString = this.m_url.getQuery();
 
         if (queryString != null) {
-            // query string is available
+
             try {
-                // decode query string as UTF-8
-                queryString = URLDecoder.decode(queryString, "UTF-8");
+                queryString = URLDecoder.decode(queryString, UTF8_ENCODING);
             } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
+                // Your system does not support UTF-8 encoding
+                logger.error("Unsupported " + UTF8_ENCODING + " encoding for URL query string: '{}'. Error message: '{}'", queryString, e.getMessage());
             }
 
-            // Parse string and tokenize by &
-            String[] queryArgs = queryString.split("[&;]");
+            // queryString is everthing behind "?"
+            String[] queryArgs = queryString.split(URL_QUERY_ARGS_DELIMITER);
 
-            // loop to every argument and assign key, values from query string in a HashMap
             for (String queryArg : queryArgs) {
 
                 String key = queryArg;
-                String value = "";
+                String value = EMPTY_STRING;
 
-                // extract key and value from query string
-                if (queryArg.contains("=")) {
-                    String[] keyValue = queryArg.split("=");
+                if (queryArg.contains(KEY_VALUE_DELIMITER)) {
+                    String[] keyValue = queryArg.split(KEY_VALUE_DELIMITER);
 
+                    // Assign key[KEY_VALUE_DELIMITER]value
                     key = keyValue[0];
                     value = keyValue[1];
                 }
 
-                // assign to Map
-                if (!"".equals(key)) {
+                if (!EMPTY_STRING.equals(key)) {
                     hashMap.put(key, value);
+                    logger.debug("Key: '{}' : Value: '{}'", key, value);
                 }
             }
         }

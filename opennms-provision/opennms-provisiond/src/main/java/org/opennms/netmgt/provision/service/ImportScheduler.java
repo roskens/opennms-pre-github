@@ -28,6 +28,8 @@
 
 package org.opennms.netmgt.provision.service;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -94,9 +96,8 @@ public class ImportScheduler implements InitializingBean {
             log().fatal("afterPropertiesSet: couldn't set proper JobFactory for scheduler: "+e, e);
         }
 
-
         GenericURLFactory.initialize();
-        
+
         buildImportSchedule();
     }
     

@@ -1,7 +1,7 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2009-2011 The OpenNMS Group, Inc.
+ * Copyright (C) 2007-2011 The OpenNMS Group, Inc.
  * OpenNMS(R) is Copyright (C) 1999-2011 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
@@ -26,40 +26,29 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.netmgt.provision.service.dns;
+package org.opennms.core.utils.url;
 
-import static org.junit.Assert.*;
+import java.io.IOException;
+import java.net.URL;
 
-import java.net.URLStreamHandler;
+/**
+ * <p>ProtectedStubGenericURLConnection class.</p>
+ * <p/>
+ * Protected stub implementation for GenericURLConnection. It is used to provocate no such method exceptions for the
+ * GenericURLFactory feature.
+ *
+ * @author Ronny Trommer <ronny@opennms.org>
+ * @version $Id: $
+ * @since 1.8.1
+ */
+public class ProtectedStubGenericURLConnection extends GenericURLConnection {
 
-import org.junit.Before;
-import org.junit.Test;
-import org.opennms.core.utils.url.GenericURLFactory;
-import org.opennms.core.utils.url.GenericURLStreamHandler;
-import org.opennms.core.test.MockLogAppender;
-
-public class FactoryTest {
-
-    @Before
-    public void setUp() {
-        MockLogAppender.setupLogging();
+    protected ProtectedStubGenericURLConnection(URL url) {
+        super(url);
     }
 
-    @Test
-    public void dwCreateURLStreamHandler() {
-
-        GenericURLFactory genericURLFactory = GenericURLFactory.getInstance();
-
-        URLStreamHandler handler = genericURLFactory.createURLStreamHandler("abc");
-        assertNull(handler);
-
-        handler = genericURLFactory.createURLStreamHandler("dns");
-
-        assertNotNull(handler);
-
-        assertTrue(handler instanceof java.net.URLStreamHandler);
-        assertTrue(handler instanceof GenericURLStreamHandler);
-
+    @Override
+    public void connect() throws IOException {
+        // No operation for JUnit test
     }
-
 }
