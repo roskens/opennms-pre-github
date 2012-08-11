@@ -29,7 +29,7 @@
         </service>
 
         <service name="VMwareCim-HostSystem" interval="300000" user-defined="false" status="on">
-            <parameter key="collection" value="default-HostSystem"/>
+            <parameter key="collection" value="default-ESX-HostSystem"/>
             <parameter key="thresholding-enabled" value="true"/>
         </service>
 
