@@ -138,7 +138,19 @@ public class VmwareViJavaAccess {
      * Disconnects from the server.
      */
     public void disconnect() {
-        m_serviceInstance.getServerConnection().logout();
+        if (m_serviceInstance == null) {
+            // not connected
+            return ;
+        } else {
+            ServerConnection serverConnection = m_serviceInstance.getServerConnection();
+
+            if (serverConnection == null) {
+                // not connected
+                return ;
+            } else {
+                m_serviceInstance.getServerConnection().logout();
+            }
+        }
     }
 
     /**
