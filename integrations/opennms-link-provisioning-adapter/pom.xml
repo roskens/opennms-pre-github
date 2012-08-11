@@ -10,14 +10,16 @@
   <name>OpenNMS Link Provisioning Adaptor</name>
   <packaging>bundle</packaging>
   <build>
-   <plugins>
+    <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
         <executions>
           <execution>
             <phase>test-compile</phase>
-            <goals><goal>copy</goal></goals>
+            <goals>
+              <goal>copy</goal>
+            </goals>
           </execution>
         </executions>
         <configuration>
@@ -119,40 +121,48 @@
         </executions>
       </plugin>
     </plugins>
-   <pluginManagement>
-   	<plugins>
-   		<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-   		<plugin>
-   			<groupId>org.eclipse.m2e</groupId>
-   			<artifactId>lifecycle-mapping</artifactId>
-   			<version>1.0.0</version>
-   			<configuration>
-   				<lifecycleMappingMetadata>
-   					<pluginExecutions>
-   						<pluginExecution>
-   							<pluginExecutionFilter>
-   								<groupId>
-   									org.apache.maven.plugins
-   								</groupId>
-   								<artifactId>
-   									maven-dependency-plugin
-   								</artifactId>
-   								<versionRange>[2.4,)</versionRange>
-   								<goals>
-   									<goal>copy</goal>
-   								</goals>
-   							</pluginExecutionFilter>
-   							<action>
-   								<ignore></ignore>
-   							</action>
-   						</pluginExecution>
-   					</pluginExecutions>
-   				</lifecycleMappingMetadata>
-   			</configuration>
-   		</plugin>
-   	</plugins>
-   </pluginManagement>
   </build>
+  <profiles>
+    <profile>
+      <id>m2e</id>
+      <activation>
+        <property>
+          <name>m2e.version</name>
+        </property>
+      </activation>
+      <build>
+        <pluginManagement>
+          <plugins>
+            <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself. -->
+            <plugin>
+              <groupId>org.eclipse.m2e</groupId>
+              <artifactId>lifecycle-mapping</artifactId>
+              <version>1.0.0</version>
+              <configuration>
+                <lifecycleMappingMetadata>
+                  <pluginExecutions>
+                    <pluginExecution>
+                      <pluginExecutionFilter>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <versionRange>[2.4,)</versionRange>
+                        <goals>
+                          <goal>copy</goal>
+                        </goals>
+                      </pluginExecutionFilter>
+                      <action>
+                        <ignore></ignore>
+                      </action>
+                    </pluginExecution>
+                  </pluginExecutions>
+                </lifecycleMappingMetadata>
+              </configuration>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+      </build>
+    </profile>
+  </profiles>
   <dependencies>
     <dependency>
       <groupId>org.opennms.features.poller</groupId>
@@ -170,7 +180,7 @@
       <groupId>org.opennms</groupId>
       <artifactId>opennms-dao</artifactId>
     </dependency>
-    <!-- 
+    <!--
       We have to use a different version of the JAXB implementation
       here because the NamespacePrefixMapper class isn't accessible
       from the JAXB implementation inside the Java6 JVM.

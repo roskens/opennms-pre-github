@@ -1,32 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-
   <parent>
     <relativePath>../../poms/compiled/</relativePath>
     <groupId>org.opennms.features.topology.build</groupId>
     <artifactId>compiled-bundle-settings</artifactId>
     <version>1.11.93-SNAPSHOT</version>
   </parent>
-
   <properties>
     <bundle.symbolicName>org.opennms.features.topology.plugins.ncs</bundle.symbolicName>
     <bundle.namespace>org.opennms.features.topology.plugins.ncs</bundle.namespace>
   </properties>
-
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.opennms.features.topology.plugins</groupId>
   <artifactId>ncs</artifactId>
-
   <name>${bundle.symbolicName}</name>
-
   <packaging>bundle</packaging>
-
   <build>
     <plugins>
       <plugin>
         <groupId>org.apache.servicemix.tooling</groupId>
         <artifactId>depends-maven-plugin</artifactId>
-				<version>1.2</version>
+        <version>1.2</version>
         <executions>
           <execution>
             <id>generate-depends-file</id>
@@ -37,43 +31,48 @@
         </executions>
       </plugin>
     </plugins>
-    <pluginManagement>
-    	<plugins>
-    		<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-    		<plugin>
-    			<groupId>org.eclipse.m2e</groupId>
-    			<artifactId>lifecycle-mapping</artifactId>
-    			<version>1.0.0</version>
-    			<configuration>
-    				<lifecycleMappingMetadata>
-    					<pluginExecutions>
-    						<pluginExecution>
-    							<pluginExecutionFilter>
-    								<groupId>
-    									org.apache.servicemix.tooling
-    								</groupId>
-    								<artifactId>
-    									depends-maven-plugin
-    								</artifactId>
-    								<versionRange>[1.2,)</versionRange>
-    								<goals>
-    									<goal>
-    										generate-depends-file
-    									</goal>
-    								</goals>
-    							</pluginExecutionFilter>
-    							<action>
-    								<execute />
-    							</action>
-    						</pluginExecution>
-    					</pluginExecutions>
-    				</lifecycleMappingMetadata>
-    			</configuration>
-    		</plugin>
-    	</plugins>
-    </pluginManagement>
   </build>
-
+  <profiles>
+    <profile>
+      <id>m2e</id>
+      <activation>
+        <property>
+          <name>m2e.version</name>
+        </property>
+      </activation>
+      <build>
+        <pluginManagement>
+          <plugins>
+            <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself. -->
+            <plugin>
+              <groupId>org.eclipse.m2e</groupId>
+              <artifactId>lifecycle-mapping</artifactId>
+              <version>1.0.0</version>
+              <configuration>
+                <lifecycleMappingMetadata>
+                  <pluginExecutions>
+                    <pluginExecution>
+                      <pluginExecutionFilter>
+                        <groupId>org.apache.servicemix.tooling</groupId>
+                        <artifactId> depends-maven-plugin</artifactId>
+                        <versionRange>[1.2,)</versionRange>
+                        <goals>
+                          <goal>generate-depends-file</goal>
+                        </goals>
+                      </pluginExecutionFilter>
+                      <action>
+                        <execute />
+                      </action>
+                    </pluginExecution>
+                  </pluginExecutions>
+                </lifecycleMappingMetadata>
+              </configuration>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+      </build>
+    </profile>
+  </profiles>
   <dependencies>
     <!--
      | uncomment to add all imported (non-local) bundles to your compilation classpath
@@ -109,7 +108,6 @@
       <artifactId>org.osgi.enterprise</artifactId>
       <scope>provided</scope>
     </dependency>
-
     <dependency>
       <groupId>org.opennms.features.topology</groupId>
       <artifactId>api</artifactId>
@@ -128,7 +126,6 @@
       <artifactId>slf4j-api</artifactId>
       <scope>provided</scope>
     </dependency>
-
     <dependency>
       <groupId>org.opennms.features.ncs</groupId>
       <artifactId>ncs-persistence</artifactId>
@@ -148,7 +145,6 @@
       <type>tar.gz</type>
       <scope>test</scope>
     </dependency>
-
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -171,7 +167,7 @@
       <version>2.3.0</version>
       <scope>test</scope>
     </dependency>
-    <!-- 
+    <!--
     <dependency>
       <groupId>org.ops4j.pax.exam</groupId>
       <artifactId>pax-exam-container-native</artifactId>
@@ -180,9 +176,9 @@
     </dependency>
     -->
     <dependency>
-    	<groupId>org.apache.karaf.jaas</groupId>
-    	<artifactId>org.apache.karaf.jaas.boot</artifactId>
-    	<version>${karafVersion}</version>
+      <groupId>org.apache.karaf.jaas</groupId>
+      <artifactId>org.apache.karaf.jaas.boot</artifactId>
+      <version>${karafVersion}</version>
     </dependency>
     <dependency>
       <groupId>org.ops4j.pax.exam</groupId>
@@ -233,5 +229,4 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
 </project>
