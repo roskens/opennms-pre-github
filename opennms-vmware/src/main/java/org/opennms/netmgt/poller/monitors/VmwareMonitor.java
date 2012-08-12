@@ -33,6 +33,7 @@ import com.vmware.vim25.mo.VirtualMachine;
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
 import org.opennms.core.utils.BeanUtils;
+import org.opennms.core.utils.TimeoutTracker;
 import org.opennms.netmgt.collectd.vmware.VmwareViJavaAccess;
 import org.opennms.netmgt.config.vmware.VmwareServer;
 import org.opennms.netmgt.dao.NodeDao;
@@ -71,6 +72,16 @@ public class VmwareMonitor extends AbstractServiceMonitor {
      */
     private NodeDao m_nodeDao = null;
 
+    /*
+    * default retries
+    */
+    private static final int DEFAULT_RETRY = 0;
+
+    /*
+     * default timeout
+     */
+    private static final int DEFAULT_TIMEOUT = 3000;
+
     /**
      * Initializes this object with a given parameter map.
      *
@@ -100,62 +111,71 @@ public class VmwareMonitor extends AbstractServiceMonitor {
         String vmwareManagedEntityType = onmsNode.getAssetRecord().getVmwareManagedEntityType();
         String vmwareManagedObjectId = onmsNode.getAssetRecord().getVmwareManagedObjectId();
 
+        TimeoutTracker tracker = new TimeoutTracker(parameters, DEFAULT_RETRY, DEFAULT_TIMEOUT);
+
         PollStatus serviceStatus = PollStatus.unknown();
 
-        VmwareViJavaAccess vmwareViJavaAccess = null;
+        for (tracker.reset(); tracker.shouldRetry() && !serviceStatus.isAvailable(); tracker.nextAttempt()) {
 
-        try {
-            vmwareViJavaAccess = new VmwareViJavaAccess(vmwareManagementServer);
-        } catch (MarshalException e) {
-            logger.warn("Error initialising VMware connection to '{}': '{}'", vmwareManagementServer, e.getMessage());
-            return PollStatus.unavailable("Error initialising VMware connection to '" + vmwareManagementServer + "'");
-        } catch (ValidationException e) {
-            logger.warn("Error initialising VMware connection to '{}': '{}'", vmwareManagementServer, e.getMessage());
-            return PollStatus.unavailable("Error initialising VMware connection to '" + vmwareManagementServer + "'");
-        } catch (IOException e) {
-            logger.warn("Error initialising VMware connection to '{}': '{}'", vmwareManagementServer, e.getMessage());
-            return PollStatus.unavailable("Error initialising VMware connection to '" + vmwareManagementServer + "'");
-        }
+            VmwareViJavaAccess vmwareViJavaAccess = null;
 
-        try {
-            vmwareViJavaAccess.connect();
-        } catch (MalformedURLException e) {
-            logger.warn("Error connecting VMware management server '{}': '{}'",vmwareManagementServer,e.getMessage());
-            return PollStatus.unavailable("Error connecting VMware management server '" + vmwareManagementServer + "'");
-        } catch (RemoteException e) {
-            logger.warn("Error connecting VMware management server '{}': '{}'",vmwareManagementServer,e.getMessage());
-            return PollStatus.unavailable("Error connecting VMware management server '" + vmwareManagementServer + "'");
-        }
-
-        String powerState = null;
-
-        if ("HostSystem".equals(vmwareManagedEntityType)) {
-            HostSystem hostSystem = vmwareViJavaAccess.getHostSystemByManagedObjectId(vmwareManagedObjectId);
-            powerState = hostSystem.getSummary().runtime.getPowerState().toString();
-
-        } else {
-            if ("VirtualMachine".equals(vmwareManagedEntityType)) {
-                VirtualMachine virtualMachine = vmwareViJavaAccess.getVirtualMachineByManagedObjectId(vmwareManagedObjectId);
-                powerState = virtualMachine.getSummary().runtime.getPowerState().toString();
-            } else {
-                logger.warn("Error getting '{}' for '{}'",vmwareManagedEntityType, vmwareManagedObjectId);
-
-                vmwareViJavaAccess.disconnect();
-
-                return serviceStatus;
+            try {
+                vmwareViJavaAccess = new VmwareViJavaAccess(vmwareManagementServer);
+            } catch (MarshalException e) {
+                logger.warn("Error initialising VMware connection to '{}': '{}'", vmwareManagementServer, e.getMessage());
+                return PollStatus.unavailable("Error initialising VMware connection to '" + vmwareManagementServer + "'");
+            } catch (ValidationException e) {
+                logger.warn("Error initialising VMware connection to '{}': '{}'", vmwareManagementServer, e.getMessage());
+                return PollStatus.unavailable("Error initialising VMware connection to '" + vmwareManagementServer + "'");
+            } catch (IOException e) {
+                logger.warn("Error initialising VMware connection to '{}': '{}'", vmwareManagementServer, e.getMessage());
+                return PollStatus.unavailable("Error initialising VMware connection to '" + vmwareManagementServer + "'");
             }
+
+            try {
+                vmwareViJavaAccess.connect();
+            } catch (MalformedURLException e) {
+                logger.warn("Error connecting VMware management server '{}': '{}'", vmwareManagementServer, e.getMessage());
+                return PollStatus.unavailable("Error connecting VMware management server '" + vmwareManagementServer + "'");
+            } catch (RemoteException e) {
+                logger.warn("Error connecting VMware management server '{}': '{}'", vmwareManagementServer, e.getMessage());
+                return PollStatus.unavailable("Error connecting VMware management server '" + vmwareManagementServer + "'");
+            }
+
+            if (!vmwareViJavaAccess.setTimeout(tracker.getConnectionTimeout())) {
+                logger.warn("Error setting connection timeout for VMware management server '{}'", vmwareManagementServer);
+            }
+
+            String powerState = null;
+
+            if ("HostSystem".equals(vmwareManagedEntityType)) {
+                HostSystem hostSystem = vmwareViJavaAccess.getHostSystemByManagedObjectId(vmwareManagedObjectId);
+                powerState = hostSystem.getSummary().runtime.getPowerState().toString();
+
+            } else {
+                if ("VirtualMachine".equals(vmwareManagedEntityType)) {
+                    VirtualMachine virtualMachine = vmwareViJavaAccess.getVirtualMachineByManagedObjectId(vmwareManagedObjectId);
+                    powerState = virtualMachine.getSummary().runtime.getPowerState().toString();
+                } else {
+                    logger.warn("Error getting '{}' for '{}'", vmwareManagedEntityType, vmwareManagedObjectId);
+
+                    vmwareViJavaAccess.disconnect();
+
+                    return serviceStatus;
+                }
+            }
+
+            if (powerState == null)
+                powerState = "unknown";
+
+            if ("poweredOn".equals(powerState)) {
+                serviceStatus = PollStatus.available();
+            } else {
+                serviceStatus = PollStatus.unavailable("The system's state is '" + powerState + "'");
+            }
+
+            vmwareViJavaAccess.disconnect();
         }
-
-        if (powerState == null)
-            powerState = "unknown";
-
-        if ("poweredOn".equals(powerState)) {
-            serviceStatus = PollStatus.available();
-        } else {
-            serviceStatus = PollStatus.unavailable("The system's state is '" + powerState + "'");
-        }
-
-        vmwareViJavaAccess.disconnect();
 
         return serviceStatus;
     }

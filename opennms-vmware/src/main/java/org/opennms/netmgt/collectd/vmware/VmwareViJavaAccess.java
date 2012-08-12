@@ -31,6 +31,7 @@ package org.opennms.netmgt.collectd.vmware;
 import com.vmware.vim25.*;
 import com.vmware.vim25.mo.*;
 import com.vmware.vim25.mo.util.MorUtil;
+import com.vmware.vim25.ws.WSClient;
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
 import org.opennms.core.utils.BeanUtils;
@@ -135,18 +136,42 @@ public class VmwareViJavaAccess {
     }
 
     /**
+     * Sets the timeout for server connections.
+     *
+     * @param timeout the timeout to be used for connecting
+     * @return true, if the operation was successful
+     */
+    public boolean setTimeout(int timeout) {
+        if (m_serviceInstance != null) {
+            ServerConnection serverConnection = m_serviceInstance.getServerConnection();
+            if (serverConnection != null) {
+                VimPortType vimService = serverConnection.getVimService();
+                if (vimService != null) {
+                    WSClient wsClient = vimService.getWsc();
+                    if (wsClient != null) {
+                        wsClient.setConnectTimeout(timeout);
+                        wsClient.setReadTimeout(timeout);
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
      * Disconnects from the server.
      */
     public void disconnect() {
         if (m_serviceInstance == null) {
             // not connected
-            return ;
+            return;
         } else {
             ServerConnection serverConnection = m_serviceInstance.getServerConnection();
 
             if (serverConnection == null) {
                 // not connected
-                return ;
+                return;
             } else {
                 m_serviceInstance.getServerConnection().logout();
             }
