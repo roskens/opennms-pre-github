@@ -70,8 +70,11 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
     private static final int VMWARE_HOSTSYSTEM = 1;
     private static final int VMWARE_VIRTUALMACHINE = 2;
 
-    private static final String[] m_hostSystemServices = {"VMware-ManagedEntity", "VMware-HostSystem", "VMwareCim-HostSystem"};
-    private static final String[] m_virtualMachineServices = {"VMware-ManagedEntity", "VMware-VirtualMachine"};
+    private final static String VMWARE_HOSTSYSTEM_SERVICES = "hostSystemServices";
+    private final static String VMWARE_VIRTUALMACHINE_SERVICES = "virtualMachineServices";
+
+    private String[] m_hostSystemServices; // default = {"VMware-ManagedEntity", "VMware-HostSystem", "VMwareCim-HostSystem"};
+    private String[] m_virtualMachineServices; // default = {"VMware-ManagedEntity", "VMware-VirtualMachine"};
 
     private String m_hostname = null;
     private String m_username = null;
@@ -123,6 +126,12 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
         m_importHostStandBy = queryParameter("importHostStandBy", false);
         m_importHostUnknown = queryParameter("importHostUnknown", false);
 
+        // get services to be added to host systems
+        m_hostSystemServices = getHostSystemServices();
+
+        // get services to be added to virtual machines
+        m_virtualMachineServices = getVirtualMachineServices();
+
         String path = url.getPath();
 
         path = path.replaceAll("^/", "");
@@ -139,6 +148,32 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
         } else {
             throw new MalformedURLException("Error processing path element of URL (vmware://username:password@host[/foreign-source]?keyA=valueA;keyB=valueB;...)");
         }
+    }
+
+    /**
+     * Determine services for host systems to be provisioned from URL
+     *
+     * @return a String[] of opennms service names
+     */
+    private String[] getHostSystemServices() {
+        String[] hostSystemsServices = new String[] {"VMware-ManagedEntity", "VMware-HostSystem", "VMwareCim-HostSystem"};
+        if (m_args != null && m_args.get(VMWARE_HOSTSYSTEM_SERVICES) != null) {
+            hostSystemsServices = m_args.get(VMWARE_HOSTSYSTEM_SERVICES).split(",");
+        }
+        return hostSystemsServices;
+    }
+
+    /**
+     * Determine services for virtual machines to be provisioned from URL
+     *
+     * @return a String[] of opennms service names
+     */
+    private String[] getVirtualMachineServices() {
+        String[] virtualMachineServices = new String[] {"VMware-ManagedEntity", "VMware-VirtualMachine"};
+        if (m_args != null && m_args.get(VMWARE_VIRTUALMACHINE_SERVICES) != null) {
+            virtualMachineServices = m_args.get(VMWARE_VIRTUALMACHINE_SERVICES).split(",");
+        }
+        return virtualMachineServices;
     }
 
     /**
