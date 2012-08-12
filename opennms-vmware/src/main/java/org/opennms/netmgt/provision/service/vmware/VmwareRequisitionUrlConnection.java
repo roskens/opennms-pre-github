@@ -112,10 +112,10 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
 
         m_hostname = url.getHost();
 
-        m_username = getUsername(url);
-        m_password = getPassword(url);
+        m_username = getUsername();
+        m_password = getPassword();
 
-        m_args = getQueryArgs(url);
+        m_args = getQueryArgs();
 
         m_importVMPoweredOn = queryParameter("importVMPoweredOn", true);
         m_importVMPoweredOff = queryParameter("importVMPoweredOff", false);
