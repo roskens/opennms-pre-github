@@ -23,7 +23,7 @@
            <parameter key="timeout" value="3000"/>
            <parameter key="ds-name" value="icmp"/>
        </service>
-       <outage-calendar>zzz from poll-outages.xml zzz</outage-calendar>
+       <outage-id>1</outage-id>
 
        <downtime interval="30000" begin="0" end="300000"/>       <!-- 30s, 0, 5m -->
        <downtime interval="300000" begin="300000" end="43200000"/>   <!-- 5m, 5m, 12h -->

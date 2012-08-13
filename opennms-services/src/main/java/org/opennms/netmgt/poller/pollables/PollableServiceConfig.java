@@ -235,16 +235,16 @@ public class PollableServiceConfig implements PollConfig, ScheduleInterval {
      */
     public boolean scheduledSuspension() {
         long nodeId=m_service.getNodeId();
-        for (String outageName : m_pkg.getOutageCalendarCollection()) {
+        for (Long outageId : m_pkg.getOutageIdCollection()) {
             // Does the outage apply to the current time?
-            if (m_pollOutagesConfig.isTimeInOutage(m_timer.getCurrentTime(), outageName)) {
+            if (m_pollOutagesConfig.isTimeInOutage(m_timer.getCurrentTime(), outageId)) {
                 // Does the outage apply to this interface?
     
-                if (m_pollOutagesConfig.isNodeIdInOutage(nodeId, outageName) || 
-                    (m_pollOutagesConfig.isInterfaceInOutage(m_service.getIpAddr(), outageName)) || 
-                        (m_pollOutagesConfig.isInterfaceInOutage("match-any", outageName))) {
+                if (m_pollOutagesConfig.isNodeIdInOutage(nodeId, outageId) ||
+                    (m_pollOutagesConfig.isInterfaceInOutage(m_service.getIpAddr(), outageId)) ||
+                        (m_pollOutagesConfig.isInterfaceInOutage("match-any", outageId))) {
                     if (ThreadCategory.getInstance(getClass()).isDebugEnabled())
-                        ThreadCategory.getInstance(getClass()).debug("scheduledOutage: configured outage '" + outageName + "' applies, " + m_configService + " will not be polled.");
+                        ThreadCategory.getInstance(getClass()).debug("scheduledOutage: configured outage id '" + outageId + "' applies, " + m_configService + " will not be polled.");
                     return true;
                 }
             }

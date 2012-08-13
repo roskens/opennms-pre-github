@@ -12,7 +12,7 @@
            <parameter key="thresholding-group" value="netsnmp-mem8"/>
            <parameter key="thresholding-group" value="netsnmp-swap10"/>
        </service>
-       <outage-calendar>zzz from poll-outages.xml zzz</outage-calendar>
+       <outage-id>1</outage-id>
    </package>
 
 </threshd-configuration>

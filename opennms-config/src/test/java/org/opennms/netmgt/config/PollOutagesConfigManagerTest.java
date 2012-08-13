@@ -53,7 +53,7 @@ public class PollOutagesConfigManagerTest extends TestCase {
         
         String xml = "<?xml version=\"1.0\"?>\n" + 
                 "<outages>\n" + 
-                "   <outage name=\"one\" type=\"weekly\">\n" + 
+                "   <outage id=\"1\" name=\"one\" type=\"weekly\">\n" +
                 "       <time day=\"sunday\" begins=\"12:30:00\" ends=\"12:45:00\"/>\n" + 
                 "       <time day=\"sunday\" begins=\"13:30:00\" ends=\"14:45:00\"/>\n" + 
                 "       <time day=\"monday\" begins=\"13:30:00\" ends=\"14:45:00\"/>\n" + 
@@ -63,7 +63,7 @@ public class PollOutagesConfigManagerTest extends TestCase {
                 "       <interface address=\"192.168.0.38\"/>\n" + 
                 "   </outage>\n" + 
                 "\n" + 
-                "   <outage name=\"two\" type=\"monthly\">\n" + 
+                "   <outage id=\"2\" name=\"two\" type=\"monthly\">\n" +
                 "       <time day=\"1\" begins=\"23:30:00\" ends=\"23:45:00\"/>\n" + 
                 "       <time day=\"15\" begins=\"21:30:00\" ends=\"21:45:00\"/>\n" + 
                 "       <time day=\"15\" begins=\"23:30:00\" ends=\"23:45:00\"/>\n" + 
@@ -77,7 +77,7 @@ public class PollOutagesConfigManagerTest extends TestCase {
                 "       <interface address=\"192.168.107.254\"/>\n" + 
                 "   </outage>\n" + 
                 "\n" + 
-                "   <outage name=\"three\" type=\"specific\">\n" + 
+                "   <outage id=\"3\" name=\"three\" type=\"specific\">\n" +
                 "       <time begins=\"21-Feb-2005 05:30:00\" ends=\"21-Feb-2005 15:00:00\"/>\n" + 
                 "       <interface address=\"192.168.0.1\"/>\n" + 
                 "   </outage>\n" + 
@@ -103,21 +103,21 @@ public class PollOutagesConfigManagerTest extends TestCase {
     
     public void testIsTimeInOutageWeekly() throws Exception {
 
-        assertTrue(m_manager.isTimeInOutage(getTime("21-FEB-2005 14:00:00"), "one"));
-        assertFalse(m_manager.isTimeInOutage(getTime("21-FEB-2005 14:00:00"), "two"));
-        assertTrue(m_manager.isTimeInOutage(getTime("21-FEB-2005 14:00:00"), "three"));
+        assertTrue(m_manager.isTimeInOutage(getTime("21-FEB-2005 14:00:00"), 1));
+        assertFalse(m_manager.isTimeInOutage(getTime("21-FEB-2005 14:00:00"), 2));
+        assertTrue(m_manager.isTimeInOutage(getTime("21-FEB-2005 14:00:00"), 3));
         
-        assertTrue(m_manager.isTimeInOutage(getTime("15-FEB-2005 14:00:00"), "one"));
-        assertFalse(m_manager.isTimeInOutage(getTime("15-FEB-2005 14:00:00"), "two"));
-        assertFalse(m_manager.isTimeInOutage(getTime("15-FEB-2005 14:00:00"), "three"));
+        assertTrue(m_manager.isTimeInOutage(getTime("15-FEB-2005 14:00:00"), 1));
+        assertFalse(m_manager.isTimeInOutage(getTime("15-FEB-2005 14:00:00"), 2));
+        assertFalse(m_manager.isTimeInOutage(getTime("15-FEB-2005 14:00:00"), 3));
         
-        assertFalse(m_manager.isTimeInOutage(getTime("15-FEB-2005 23:37:00"), "one"));
-        assertTrue(m_manager.isTimeInOutage(getTime("15-FEB-2005 23:37:00"), "two"));
-        assertFalse(m_manager.isTimeInOutage(getTime("15-FEB-2005 23:37:00"), "three"));
+        assertFalse(m_manager.isTimeInOutage(getTime("15-FEB-2005 23:37:00"), 1));
+        assertTrue(m_manager.isTimeInOutage(getTime("15-FEB-2005 23:37:00"), 2));
+        assertFalse(m_manager.isTimeInOutage(getTime("15-FEB-2005 23:37:00"), 3));
         
-        assertFalse(m_manager.isTimeInOutage(getTime("21-FEB-2005 16:00:00"), "one"));
-        assertFalse(m_manager.isTimeInOutage(getTime("21-FEB-2005 16:00:00"), "two"));
-        assertFalse(m_manager.isTimeInOutage(getTime("21-FEB-2005 16:00:00"), "three"));
+        assertFalse(m_manager.isTimeInOutage(getTime("21-FEB-2005 16:00:00"), 1));
+        assertFalse(m_manager.isTimeInOutage(getTime("21-FEB-2005 16:00:00"), 2));
+        assertFalse(m_manager.isTimeInOutage(getTime("21-FEB-2005 16:00:00"), 3));
         
         
     }

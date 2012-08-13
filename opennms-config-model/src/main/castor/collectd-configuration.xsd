@@ -177,13 +177,7 @@
           </annotation>
         </element>
 
-        <element maxOccurs="unbounded" minOccurs="0" name="outage-calendar"
-                 type="string">
-          <annotation>
-            <documentation>Scheduled outages - data collection is not
-            performed during scheduled outages</documentation>
-          </annotation>
-        </element>
+        <element maxOccurs="unbounded" minOccurs="0" ref="this:outage-id" />
       </sequence>
 
       <attribute name="name" type="string" use="required">
@@ -321,4 +315,11 @@
       <attribute name="value" type="string" use="required"/>
     </complexType>
   </element>
+
+  <element name="outage-id" type="long">
+    <annotation>
+      <documentation>Scheduled outage id</documentation>
+    </annotation>
+  </element>
+
 </schema>

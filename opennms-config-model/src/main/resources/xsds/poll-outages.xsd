@@ -97,6 +97,12 @@
       </element>
     </sequence>
 
+    <attribute name="id" type="long" use="required">
+      <annotation>
+        <documentation>outage name</documentation>
+      </annotation>
+    </attribute>
+
     <attribute name="name" type="string" use="required">
       <annotation>
         <documentation>outage name</documentation>

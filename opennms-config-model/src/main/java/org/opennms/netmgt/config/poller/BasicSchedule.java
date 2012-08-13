@@ -61,7 +61,13 @@ import org.xml.sax.ContentHandler;
 @XmlAccessorType(XmlAccessType.FIELD)
 @ValidateUsing("poll-outages.xsd")
 public class BasicSchedule implements java.io.Serializable {
-    private static final long serialVersionUID = 8140458365613931426L;
+    private static final long serialVersionUID = 8140458365613931427L;
+
+    /**
+     * outage id
+     */
+    @XmlAttribute(name="id")
+    private long _id;
 
     /**
      * outage name
@@ -85,6 +91,7 @@ public class BasicSchedule implements java.io.Serializable {
     public BasicSchedule() {
         super();
         this._timeList = new ArrayList<Time>();
+        this._id = 0;
     }
 
     /**
@@ -231,6 +238,16 @@ public class BasicSchedule implements java.io.Serializable {
      */
     public String getType() {
         return this._type;
+    }
+
+    /**
+     * Returns the value of field 'id'. The field 'id' has the
+     * following description: outage id
+     *
+     * @return the value of field 'Id'.
+     */
+    public long getId() {
+        return this._id;
     }
 
     /**
@@ -410,6 +427,16 @@ public class BasicSchedule implements java.io.Serializable {
      */
     public void setType(final String type) {
         this._type = type;
+    }
+
+    /**
+     * Sets the value of field 'id'. The field 'id' has the
+     * following description: outage id
+     *
+     * @param name the value of field 'id'.
+     */
+    public void setId(final long id) {
+        this._id = id;
     }
 
     /**

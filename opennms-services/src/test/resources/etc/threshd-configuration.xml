@@ -36,8 +36,8 @@
                         <parameter key="thresholding-group" value="dhcp-latency"/>
                 </service>
 
-       <outage-calendar>zzz from poll-outages.xml zzz</outage-calendar>
-       <outage-calendar>junit outage</outage-calendar>
+       <outage-id>1</outage-id>
+       <outage-id>2</outage-id>
    </package>
    
    <thresholder service="SNMP"   class-name="org.opennms.netmgt.threshd.SnmpThresholder"/>

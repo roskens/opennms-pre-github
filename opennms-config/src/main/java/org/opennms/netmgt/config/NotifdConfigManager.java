@@ -264,14 +264,14 @@ public abstract class NotifdConfigManager {
     }
 
     /**
-     * <p>getOutageCalendarNames</p>
+     * <p>getOutageIds</p>
      *
      * @return a {@link java.util.Collection} object.
      * @throws org.exolab.castor.xml.MarshalException if any.
      * @throws org.exolab.castor.xml.ValidationException if any.
      * @throws java.io.IOException if any.
      */
-    public Collection<String> getOutageCalendarNames() throws MarshalException, ValidationException, IOException {
-        return getConfiguration().getOutageCalendarCollection();
+    public Collection<Long> getOutageIds() throws MarshalException, ValidationException, IOException {
+        return getConfiguration().getOutageIdCollection();
     }
 }

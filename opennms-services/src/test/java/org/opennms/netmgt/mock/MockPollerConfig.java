@@ -127,7 +127,7 @@ public class MockPollerConfig extends PollOutagesConfigManager implements Poller
      * @param end - time, in seconds since the epoch, when the outage ends
      * @param nodeid - the node the outage applies to
      */
-    public void addScheduledOutage(Package pkg, String outageName, long begin, long end, int nodeid) {
+    public long addScheduledOutage(Package pkg, String outageName, long begin, long end, int nodeid) {
 
         Outage outage = new Outage();
         outage.setName(outageName);
@@ -144,9 +144,12 @@ public class MockPollerConfig extends PollOutagesConfigManager implements Poller
     
         outage.addTime(time);
     
+        synchronized (this) {
+             outage.setId(getNextPollOutageId());
         getConfig().addOutage(outage);
-    
-        pkg.addOutageCalendar(outageName);
+             pkg.addOutageId(outage.getId());
+        }
+        return outage.getId();
     }
     
     /**
@@ -156,12 +159,12 @@ public class MockPollerConfig extends PollOutagesConfigManager implements Poller
      * @param end - time, in seconds since the epoch, when the outage ends
      * @param nodeid - the node the outage applies to
      */
-    public void addScheduledOutage(String outageName, long begin, long end, int nodeid) {
-        addScheduledOutage(m_currentPkg, outageName, begin, end, nodeid);
+    public long addScheduledOutage(String outageName, long begin, long end, int nodeid) {
+        return addScheduledOutage(m_currentPkg, outageName, begin, end, nodeid);
     }
     
     
-    public void addScheduledOutage(Package pkg, String outageName, long begin, long end, String ipAddr) {
+    public long addScheduledOutage(Package pkg, String outageName, long begin, long end, String ipAddr) {
         Outage outage = new Outage();
         outage.setName(outageName);
 
@@ -178,17 +181,19 @@ public class MockPollerConfig extends PollOutagesConfigManager implements Poller
 
         outage.addTime(time);
 
+        synchronized (this) {
+            outage.setId(getNextPollOutageId());
         getConfig().addOutage(outage);
-
-        pkg.addOutageCalendar(outageName);
-
+            pkg.addOutageId(outage.getId());
+       }
+       return outage.getId();
     }
 
-    public void addScheduledOutage(String outageName, long begin, long end, String ipAddr) {
-        addScheduledOutage(m_currentPkg, outageName, begin, end, ipAddr);
+    public long addScheduledOutage(String outageName, long begin, long end, String ipAddr) {
+        return addScheduledOutage(m_currentPkg, outageName, begin, end, ipAddr);
     }
 
-    public void addScheduledOutage(Package pkg, String outageName, String dayOfWeek, String beginTime, String endTime, String ipAddr) {
+    public long addScheduledOutage(Package pkg, String outageName, String dayOfWeek, String beginTime, String endTime, String ipAddr) {
         Outage outage = new Outage();
         outage.setName(outageName);
         outage.setType("weekly");
@@ -205,13 +210,16 @@ public class MockPollerConfig extends PollOutagesConfigManager implements Poller
 
         outage.addTime(time);
 
+        synchronized (this) {
+            outage.setId(getNextPollOutageId());
         getConfig().addOutage(outage);
-
-        pkg.addOutageCalendar(outageName);
+            pkg.addOutageId(outage.getId());
+       }
+       return outage.getId();
     }
 
-    public void addScheduledOutage(String outageName, String dayOfWeek, String beginTime, String endTime, String ipAddr) {
-        addScheduledOutage(m_currentPkg, outageName, dayOfWeek, beginTime, endTime, ipAddr);
+    public long addScheduledOutage(String outageName, String dayOfWeek, String beginTime, String endTime, String ipAddr) {
+        return addScheduledOutage(m_currentPkg, outageName, dayOfWeek, beginTime, endTime, ipAddr);
     }
 
 

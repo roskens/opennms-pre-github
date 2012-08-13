@@ -28,7 +28,6 @@
 
 package org.opennms.netmgt.config;
 
-
 /**
  * <p>PollOutagesConfig interface.</p>
  *
@@ -45,42 +44,42 @@ public interface PollOutagesConfig {
      *
      * @param lnodeid
      *            the nodeid to be checked
-     * @param outName
-     *            the outage name
+     * @param outageId
+     *            the outage id
      * @return the node is part of the specified outage
      */
-    public abstract boolean isNodeIdInOutage(long lnodeid, String outName);
+    public abstract boolean isNodeIdInOutage(long lnodeid, long outageId);
 
     /**
      * Return if interfaces is part of specified outage.
      *
      * @param linterface
      *            the interface to be looked up
-     * @param outName
-     *            the outage name
+     * @param outageId
+     *            the outage id
      * @return the interface is part of the specified outage
      */
-    public abstract boolean isInterfaceInOutage(String linterface, String outName);
+    public abstract boolean isInterfaceInOutage(String linterface, long outageId);
 
     /**
      * Return if current time is part of specified outage.
      *
-     * @param outName
-     *            the outage name
+     * @param outageId
+     *            the outage id
      * @return true if current time is in outage
      */
-    public abstract boolean isCurTimeInOutage(String outName);
+    public abstract boolean isCurTimeInOutage(long outageId);
     
     /**
      * Return if time is part of specified outage.
      *
      * @param time
      *            the time in millis to look up
-     * @param outName
-     *            the outage name
+     * @param outageId
+     *            the outage id
      * @return true if time is in outage
      */
-    public abstract boolean isTimeInOutage(long time, String outName);
+    public abstract boolean isTimeInOutage(long time, long outageId);
 
     /**
      * <p>update</p>

@@ -71,7 +71,7 @@ public class ThresholdingSet {
     protected boolean m_hasThresholds = false;
     
     protected List<ThresholdGroup> m_thresholdGroups = new LinkedList<ThresholdGroup>();
-    protected final List<String> m_scheduledOutages = new ArrayList<String>();
+    protected final List<Long> m_scheduledOutages = new ArrayList<Long>();
 
     /**
      * <p>Constructor for ThresholdingSet.</p>
@@ -226,11 +226,11 @@ public class ThresholdingSet {
     public boolean isNodeInOutage() {
         PollOutagesConfigFactory outageFactory = PollOutagesConfigFactory.getInstance();
         boolean outageFound = false;
-        for (String outageName : m_scheduledOutages) {
-            if (outageFactory.isCurTimeInOutage(outageName)) {
-                log().debug("isNodeInOutage[node=" + m_nodeId + "]: current time is on outage using '" + outageName + "'; checking the node with IP " + m_hostAddress);
-                if (outageFactory.isNodeIdInOutage(m_nodeId, outageName) || outageFactory.isInterfaceInOutage(m_hostAddress, outageName)) {
-                    log().debug("isNodeInOutage[node=" + m_nodeId + "]: configured outage '" + outageName + "' applies, interface " + m_hostAddress + " will be ignored for threshold processing");
+        for (long outageId : m_scheduledOutages) {
+            if (outageFactory.isCurTimeInOutage(outageId)) {
+                log().debug("isNodeInOutage[node=" + m_nodeId + "]: current time is on outage using '" + outageId + "'; checking the node with IP " + m_hostAddress);
+                if (outageFactory.isNodeIdInOutage(m_nodeId, outageId) || outageFactory.isInterfaceInOutage(m_hostAddress, outageId)) {
+                    log().debug("isNodeInOutage[node=" + m_nodeId + "]: configured outage '" + outageId + "' applies, interface " + m_hostAddress + " will be ignored for threshold processing");
                     outageFound = true;
                     break;
                 }
@@ -424,18 +424,18 @@ public class ThresholdingSet {
         m_scheduledOutages.clear();
         ThreshdConfigManager configManager = ThreshdConfigFactory.getInstance();
         for (org.opennms.netmgt.config.threshd.Package pkg : configManager.getConfiguration().getPackage()) {
-            for (String outageCal : pkg.getOutageCalendarCollection()) {
-                log().info("updateScheduledOutages[node=" + m_nodeId + "]: checking scheduled outage '" + outageCal + "'");
+            for (long outageId : pkg.getOutageIdCollection()) {
+                log().info("updateScheduledOutages[node=" + m_nodeId + "]: checking scheduled outage '" + outageId + "'");
                 try {
-                    Outage outage = PollOutagesConfigFactory.getInstance().getOutage(outageCal);
+                    Outage outage = PollOutagesConfigFactory.getInstance().getOutage(outageId);
                     if (outage == null) {
-                        log().info("updateScheduledOutages[node=" + m_nodeId + "]: scheduled outage '" + outageCal + "' is not defined.");
+                        log().info("updateScheduledOutages[node=" + m_nodeId + "]: scheduled outage '" + outageId + "' is not defined.");
                     } else {
                         log().debug("updateScheduledOutages[node=" + m_nodeId + "]: outage calendar '" + outage.getName() + "' found on package '" + pkg.getName() + "'");
-                        m_scheduledOutages.add(outageCal);
+                        m_scheduledOutages.add(outageId);
                     }
                 } catch (Exception e) {
-                    log().info("updateScheduledOutages[node=" + m_nodeId + "]: scheduled outage '" + outageCal + "' does not exist.");                    
+                    log().info("updateScheduledOutages[node=" + m_nodeId + "]: scheduled outage '" + outageId + "' does not exist.");
                 }
             }
         }

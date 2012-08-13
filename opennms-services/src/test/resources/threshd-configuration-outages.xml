@@ -12,7 +12,7 @@
        <service name="HTTP" interval="300000" user-defined="false" status="on">
            <parameter key="thresholding-group" value="http-latency"/>
        </service>       
-       <outage-calendar>junit outage</outage-calendar>
+       <outage-id>1</outage-id>
    </package>
 
 </threshd-configuration>

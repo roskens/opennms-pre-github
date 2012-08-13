@@ -285,15 +285,15 @@ public class CollectionSpecification {
          * interface then break and return true. Otherwise process the
          * next outage.
          */ 
-        for (String outageName : m_package.getPackage().getOutageCalendarCollection()) {
+        for (long outageId : m_package.getPackage().getOutageIdCollection()) {
             // Does the outage apply to the current time?
-            if (outageFactory.isCurTimeInOutage(outageName)) {
+            if (outageFactory.isCurTimeInOutage(outageId)) {
                 // Does the outage apply to this interface?
-                if ((outageFactory.isNodeIdInOutage(agent.getNodeId(), outageName)) ||
-                        (outageFactory.isInterfaceInOutage(agent.getHostAddress(), outageName)))
+                if ((outageFactory.isNodeIdInOutage(agent.getNodeId(), outageId)) ||
+                        (outageFactory.isInterfaceInOutage(agent.getHostAddress(), outageId)))
                 {
                     if (log().isDebugEnabled()) {
-                        log().debug("scheduledOutage: configured outage '" + outageName + "' applies, interface " + agent.getHostAddress() + " will not be collected for " + this);
+                        log().debug("scheduledOutage: configured outage id '" + outageId + "' applies, interface " + agent.getHostAddress() + " will not be collected for " + this);
                     }
                     outageFound = true;
                     break;

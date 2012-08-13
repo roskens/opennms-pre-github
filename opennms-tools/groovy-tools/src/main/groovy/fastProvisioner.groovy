@@ -277,7 +277,7 @@ class ThreshdConfiguration extends XMLConfigurationFile {
             specific("0.0.0.0")
             'include-range'(begin:"1.1.1.1", end:"254.254.254.254")
             'include-url'("file:/space/svn/trunk/target/opennms-1.3.3-SNAPSHOT/etc/include")
-            'outage-calendar'("zzz from poll-outages.xml zzz")
+            'outage-id'("1")
         }
     }
 
@@ -480,7 +480,7 @@ class CollectdConfiguration extends XMLConfigurationFile {
             specific("0.0.0.0")
             'include-range'(begin:"1.1.1.1", end:"254.254.254.254")
             'include-url'("file:/space/svn/trunk/target/opennms-1.3.3-SNAPSHOT/etc/include")
-            'outage-calendar'("zzz from poll-outages.xml zzz")
+            'outage-id'("1")
         }
     }
     

@@ -68,6 +68,50 @@ import org.opennms.netmgt.config.poller.BasicSchedule;
         org.exolab.castor.xml.FieldValidator               fieldValidator = null;
         //-- initialize attribute descriptors
         
+        //-- _id
+        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.Long.class, "_id", "id", org.exolab.castor.xml.NodeType.Attribute);
+        desc.setImmutable(true);
+        handler = new org.exolab.castor.xml.XMLFieldHandler() {
+            @Override
+            public java.lang.Object getValue( java.lang.Object object )
+                throws IllegalStateException
+            {
+                BasicSchedule target = (BasicSchedule) object;
+                return target.getId();
+            }
+            @Override
+            public void setValue( java.lang.Object object, java.lang.Object value)
+                throws IllegalStateException, IllegalArgumentException
+            {
+                try {
+                    BasicSchedule target = (BasicSchedule) object;
+                    target.setId( (java.lang.Long) value);
+                } catch (java.lang.Exception ex) {
+                    throw new IllegalStateException(ex.toString());
+                }
+            }
+            @Override
+            @SuppressWarnings("unused")
+            public java.lang.Object newInstance(java.lang.Object parent) {
+                return null;
+            }
+        };
+        desc.setSchemaType("long");
+        desc.setHandler(handler);
+        desc.setRequired(true);
+        desc.setMultivalued(false);
+        addFieldDescriptor(desc);
+
+        //-- validation code for: _id
+        fieldValidator = new org.exolab.castor.xml.FieldValidator();
+        fieldValidator.setMinOccurs(1);
+        { //-- local scope
+            org.exolab.castor.xml.validators.LongValidator typeValidator;
+            typeValidator = new org.exolab.castor.xml.validators.LongValidator();
+            fieldValidator.setValidator(typeValidator);
+        }
+        desc.setValidator(fieldValidator);
+
         //-- _name
         desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.String.class, "_name", "name", org.exolab.castor.xml.NodeType.Attribute);
         desc.setImmutable(true);

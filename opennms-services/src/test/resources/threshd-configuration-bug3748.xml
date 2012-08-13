@@ -9,7 +9,7 @@
        <service name="SNMP" interval="300000" user-defined="false" status="on">
            <parameter key="thresholding-group" value="absolute-test"/>
        </service>
-       <outage-calendar>zzz from poll-outages.xml zzz</outage-calendar>
+       <outage-id>1</outage-id>
    </package>
 
 </threshd-configuration>

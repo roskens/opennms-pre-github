@@ -40,6 +40,7 @@ import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.netmgt.EventConstants;
 import org.opennms.netmgt.config.PollOutagesConfig;
 import org.opennms.netmgt.config.PollerConfig;
+import org.opennms.netmgt.config.poller.Outage;
 import org.opennms.netmgt.config.poller.Package;
 import org.opennms.netmgt.config.poller.Service;
 import org.opennms.netmgt.eventd.mock.EventAnticipator;
@@ -528,34 +529,34 @@ public class MockNetworkTest extends TestCase {
         long now = System.currentTimeMillis();
         long tenMinutes = 600000L;
 
-        m_pollerConfig.addScheduledOutage("outage1", now - tenMinutes, now + tenMinutes, "192.168.1.1");
-        m_pollerConfig.addScheduledOutage("outage2", now - tenMinutes, now, "192.168.1.2");
-        m_pollerConfig.addScheduledOutage("outage3", now - tenMinutes, now, 1);
-        m_pollerConfig.addScheduledOutage("outage4", now - tenMinutes, now, 2);
+        long outage1_id = m_pollerConfig.addScheduledOutage("outage1", now - tenMinutes, now + tenMinutes, "192.168.1.1");
+        long outage2_id = m_pollerConfig.addScheduledOutage("outage2", now - tenMinutes, now, "192.168.1.2");
+        long outage3_id = m_pollerConfig.addScheduledOutage("outage3", now - tenMinutes, now, 1);
+        long outage4_id = m_pollerConfig.addScheduledOutage("outage4", now - tenMinutes, now, 2);
         
         try { Thread.sleep(1000); } catch (InterruptedException e) {}
 
         Package pkg = m_pollerConfig.getPackage("TestPackage");
         assertNotNull(pkg);
 
-        Collection<String> outages = pkg.getOutageCalendarCollection();
-        assertTrue(outages.contains("outage1"));
-        assertTrue(outages.contains("outage2"));
+        Collection<Long> outages = pkg.getOutageIdCollection();
+        assertTrue(outages.contains(outage1_id));
+        assertTrue(outages.contains(outage2_id));
 
         // test isInterfaceInOutage
-        assertTrue(m_pollerConfig.isInterfaceInOutage("192.168.1.1", "outage1"));
-        assertFalse(m_pollerConfig.isInterfaceInOutage("192.168.1.2", "outage1"));
-        assertTrue(m_pollerConfig.isInterfaceInOutage("192.168.1.2", "outage2"));
-        assertFalse(m_pollerConfig.isInterfaceInOutage("192.168.1.1", "outage2"));
+        assertTrue(m_pollerConfig.isInterfaceInOutage("192.168.1.1", outage1_id));
+        assertFalse(m_pollerConfig.isInterfaceInOutage("192.168.1.2", outage1_id));
+        assertTrue(m_pollerConfig.isInterfaceInOutage("192.168.1.2", outage2_id));
+        assertFalse(m_pollerConfig.isInterfaceInOutage("192.168.1.1", outage2_id));
 
         // test isCurTimeInOutage
-        assertTrue(m_pollerConfig.isCurTimeInOutage("outage1"));
-        assertFalse(m_pollerConfig.isCurTimeInOutage("outage2"));
+        assertTrue(m_pollerConfig.isCurTimeInOutage(outage1_id));
+        assertFalse(m_pollerConfig.isCurTimeInOutage(outage2_id));
 
         // test isNodeIdInOutage
-        assertFalse(m_pollerConfig.isNodeIdInOutage(1, "outage1"));
-        assertTrue(m_pollerConfig.isNodeIdInOutage(1, "outage3"));
-        assertFalse(m_pollerConfig.isNodeIdInOutage(1, "outage4"));
+        assertFalse(m_pollerConfig.isNodeIdInOutage(1, outage1_id));
+        assertTrue(m_pollerConfig.isNodeIdInOutage(1, outage3_id));
+        assertFalse(m_pollerConfig.isNodeIdInOutage(1, outage4_id));
     }
 
     private void testServicePoll(MockElement element) throws UnknownHostException {

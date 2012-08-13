@@ -563,8 +563,8 @@ public final class BroadcastEventProcessor implements EventListener {
                         long startTime = System.currentTimeMillis() + TimeConverter.convertToMillis(initialDelay);
                         // Find the first outage which applies at this time
 
-                        String scheduledOutageName = scheduledOutage(nodeid, ipaddr);
-                        if (scheduledOutageName != null) {
+                        Long scheduledOutageId = scheduledOutage(nodeid, ipaddr);
+                        if (scheduledOutageId != null) {
                             // This event occurred during a scheduled outage.
                             // Must decide what to do
                             if (autoAckExistsForEvent(event.getUei())) {
@@ -572,7 +572,7 @@ public final class BroadcastEventProcessor implements EventListener {
                                 // if the auto ack catches the other event
                                 // before then,
                                 // then the page will not be sent
-                                Calendar endOfOutage = getPollOutagesConfigManager().getEndOfOutage(scheduledOutageName);
+                                Calendar endOfOutage = getPollOutagesConfigManager().getEndOfOutage(scheduledOutageId);
                                 startTime = endOfOutage.getTime().getTime();
                             } else {
                                 // No auto-ack exists - there's no point
@@ -958,7 +958,7 @@ public final class BroadcastEventProcessor implements EventListener {
      * @param nodeId a long.
      * @param theInterface a {@link java.lang.String} object.
      */
-    public String scheduledOutage(long nodeId, String theInterface) {
+    public Long scheduledOutage(long nodeId, String theInterface) {
         try {
 
             PollOutagesConfigManager outageFactory = getPollOutagesConfigManager();
@@ -969,18 +969,18 @@ public final class BroadcastEventProcessor implements EventListener {
             // interface then break and return true. Otherwise process the
             // next outage.
             //
-            Collection<String> outageCalendarNames = getNotifdConfigManager().getOutageCalendarNames();
-            for (String outageName : outageCalendarNames) {
+            Collection<Long> outageIds = getNotifdConfigManager().getOutageIds();
+            for (long outageId : outageIds) {
 
                 // Does the outage apply to the current time?
-                if (outageFactory.isCurTimeInOutage(outageName)) {
+                if (outageFactory.isCurTimeInOutage(outageId)) {
                     // Does the outage apply to this interface or node?
 
-                    if ((outageFactory.isNodeIdInOutage(nodeId, outageName)) || (outageFactory.isInterfaceInOutage(theInterface, outageName)) || (outageFactory.isInterfaceInOutage("match-any", outageName))) {
+                    if ((outageFactory.isNodeIdInOutage(nodeId, outageId)) || (outageFactory.isInterfaceInOutage(theInterface, outageId)) || (outageFactory.isInterfaceInOutage("match-any", outageId))) {
                         if (log().isDebugEnabled()) {
-                            log().debug("scheduledOutage: configured outage '" + outageName + "' applies, notification for interface " + theInterface + " on node " + nodeId + " will not be sent");
+                            log().debug("scheduledOutage: configured outage id '" + outageId + "' applies, notification for interface " + theInterface + " on node " + nodeId + " will not be sent");
                         }
-                        return outageName;
+                        return outageId;
                     }
                 }
             }

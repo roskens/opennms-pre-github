@@ -198,16 +198,32 @@
 		return;
 	}
 
-	String nameParam = request.getParameter("name");
-	if (nameParam != null) {
+	Long outageId = null;
+	String idParam = request.getParameter("id");
+	if (idParam != null) {
+
+	try {
+		outageId = Long.valueOf(idParam);
+	} catch (NumberFormatException e) {
+%>
+<html>
+<body>
+Invalid outage id parameter <%= idParam %>, could not convert to long integer.
+<br />
+</body>
+</html>
+<%
+		return;
+	}
+
 		//first time in - name is passed as a param.  Find the outage, copy it, and shove it in the session
 		//Also keep a copy of the name, for later saving (replacing the original with the edited copy)
-		Outage tempOutage = pollFactory.getOutage(nameParam);
+		Outage tempOutage = pollFactory.getOutage(outageId);
 		CharArrayWriter writer = new CharArrayWriter();
 		tempOutage.marshal(writer);
 		theOutage = (Outage) Outage.unmarshal(new CharArrayReader(writer.toCharArray()));
 		request.getSession().setAttribute("opennms.editoutage", theOutage);
-		request.getSession().setAttribute("opennms.editoutage.origname", nameParam);
+		request.getSession().setAttribute("opennms.editoutage.origid", idParam);
 	} else if ("true".equals(request.getParameter("addNew"))) {
 		theOutage = new Outage();
 		String nodes[] = request.getParameterValues("nodeID");
@@ -218,7 +234,7 @@
 		theOutage.setName(request.getParameter("newName").trim());
 		
 		request.getSession().setAttribute("opennms.editoutage", theOutage);
-		request.getSession().removeAttribute("opennms.editoutage.origname");
+		request.getSession().removeAttribute("opennms.editoutage.origid");
 		if (nodes != null) {
 			for(int i = 0 ; i < nodes.length; i++ ) {
 				int node = WebSecurityUtils.safeParseInt(nodes[i]);
@@ -248,7 +264,6 @@ Could not find an outage to edit because no outage name parameter was specified 
 </html>
 <%
 	return;
-
 		}
 	}
 	//Load the initial set of enabled outages from the external configurations
@@ -257,42 +272,46 @@ Could not find an outage to edit because no outage name parameter was specified 
 	Set<String> enabledOutages = new HashSet<String>();
 
 	// ******* Notification outages config *********
-	Collection<String> notificationOutages = NotifdConfigFactory.getInstance().getConfiguration().getOutageCalendarCollection();
-	if (notificationOutages.contains(theOutage.getName())) {
+	Set<Long> notificationOutages = new HashSet<Long>(NotifdConfigFactory.getInstance().getConfiguration().getOutageIdCollection());
+	if (notificationOutages.contains(theOutage.getId())) {
 		enabledOutages.add("notifications");
 	}
 
+%><%
 	// ******* Threshd outages config *********
 	ThreshdConfigFactory.init();
-	Map<org.opennms.netmgt.config.threshd.Package, List<String>> thresholdOutages = new HashMap<org.opennms.netmgt.config.threshd.Package, List<String>>();
+	Map<org.opennms.netmgt.config.threshd.Package, HashSet<Long>> thresholdOutages = new HashMap<org.opennms.netmgt.config.threshd.Package, HashSet<Long>>();
 	for (org.opennms.netmgt.config.threshd.Package thisPackage : ThreshdConfigFactory.getInstance().getConfiguration().getPackage()) {
-		thresholdOutages.put(thisPackage, thisPackage.getOutageCalendarCollection());
-		if (thisPackage.getOutageCalendarCollection().contains(theOutage.getName())) {
+		thresholdOutages.put(thisPackage, new HashSet<Long>(thisPackage.getOutageIdCollection()));
+		if (thisPackage.getOutageIdCollection().contains(theOutage.getId())) {
 			enabledOutages.add("threshold-" + thisPackage.getName());
 		}
 	}
 
+%><%
 	// ******* Polling outages config *********
 	PollerConfigFactory.init();
-	Map<org.opennms.netmgt.config.poller.Package, List<String>> pollingOutages = new HashMap<org.opennms.netmgt.config.poller.Package, List<String>>();
+	Map<org.opennms.netmgt.config.poller.Package, HashSet<Long>> pollingOutages = new HashMap<org.opennms.netmgt.config.poller.Package, HashSet<Long>>();
 	for (org.opennms.netmgt.config.poller.Package thisPackage : PollerConfigFactory.getInstance().getConfiguration().getPackage()) {
-		pollingOutages.put(thisPackage, thisPackage.getOutageCalendarCollection());
-		if (thisPackage.getOutageCalendarCollection().contains(theOutage.getName())) {
+		pollingOutages.put(thisPackage, new HashSet<Long>(thisPackage.getOutageIdCollection()));
+		if (thisPackage.getOutageIdCollection().contains(theOutage.getId())) {
 			enabledOutages.add("polling-" + thisPackage.getName());
 		}
 	}
 
+%><%
 	// ******* Collectd outages config *********
 	CollectdConfigFactory.init();
-	Map<org.opennms.netmgt.config.collectd.Package, List<String>> collectionOutages = new HashMap<org.opennms.netmgt.config.collectd.Package, List<String>>();
+	Map<org.opennms.netmgt.config.collectd.Package, HashSet<Long>> collectionOutages = new HashMap<org.opennms.netmgt.config.collectd.Package, HashSet<Long>>();
 	for (CollectdPackage pkg : CollectdConfigFactory.getInstance().getCollectdConfig().getPackages()) {
 		org.opennms.netmgt.config.collectd.Package thisPackage = pkg.getPackage();
-		collectionOutages.put(thisPackage, thisPackage.getOutageCalendarCollection());
-		if (thisPackage.getOutageCalendarCollection().contains(theOutage.getName())) {
+		collectionOutages.put(thisPackage, new HashSet<Long>(thisPackage.getOutageIdCollection()));
+		if (thisPackage.getOutageIdCollection().contains(theOutage.getId())) {
 			enabledOutages.add("collect-" + thisPackage.getName());
 		}
 	}
 
+%><%
 	if (request.getParameter("deleteOutageType") != null) {
 		theOutage.setType(null);
 		theOutage.removeAllTime();
@@ -302,6 +321,7 @@ Could not find an outage to edit because no outage name parameter was specified 
 	    }
 	}
 	
+%><%
 	String isFormSubmission = request.getParameter("formSubmission");
 	if ("true".equals(isFormSubmission)) {
 
@@ -315,6 +335,7 @@ Could not find an outage to edit because no outage name parameter was specified 
 	
 			//Now handle any buttons that were clicked.  There should be only one
 			//If there is more than one, we use the first and ignore the rest.
+%><%
 			if (request.getParameter("saveButton") != null) {
 				//Save was clicked - save 
 	
@@ -359,64 +380,63 @@ Could not find an outage to edit because no outage name parameter was specified 
 				}
 	
 				//Check if the outage is a new one, or an edited old one
-				String origname = (String) request.getSession().getAttribute("opennms.editoutage.origname");
-				if (origname == null) {
+				if (theOutage.getId() == 0) {
 					//A new outage - just plonk it in place
 					pollFactory.addOutage(theOutage);
 				} else {
 					//An edited outage - replace the old one
-					pollFactory.replaceOutage(pollFactory.getOutage(origname), theOutage);
+					pollFactory.replaceOutage(pollFactory.getOutage(theOutage.getId()), theOutage);
 				}
 				//Push the enabledOutages into the actual configuration of the various packages
 				//Don't do until after we've successfully put the outage into the polloutages configuration (for coherency)
 				if (enabledOutages.contains("notifications")) {
 					if (!notificationOutages.contains(theOutage.getName())) {
-						NotifdConfigFactory.getInstance().getConfiguration().addOutageCalendar(theOutage.getName());
+						NotifdConfigFactory.getInstance().getConfiguration().addOutageId(theOutage.getId());
 					}
 				} else {
 					if (notificationOutages.contains(theOutage.getName())) {
-						NotifdConfigFactory.getInstance().getConfiguration().removeOutageCalendar(theOutage.getName());
+						NotifdConfigFactory.getInstance().getConfiguration().removeOutageId(theOutage.getId());
 					}
 				}
 	
 				for (org.opennms.netmgt.config.poller.Package thisKey : pollingOutages.keySet()) {
-					Collection<String> pollingPackage = pollingOutages.get(thisKey);
+					Collection<Long> pollingPackage = pollingOutages.get(thisKey);
 					String name = "polling-" + thisKey.getName();
 					if (enabledOutages.contains(name)) {
-						if (!pollingPackage.contains(theOutage.getName())) {
-							thisKey.addOutageCalendar(theOutage.getName());
+						if (!pollingPackage.contains(theOutage.getId())) {
+							thisKey.addOutageId(theOutage.getId());
 						}
 					} else {
-						if (pollingPackage.contains(theOutage.getName())) {
-							thisKey.removeOutageCalendar(theOutage.getName());
+						if (pollingPackage.contains(theOutage.getId())) {
+							thisKey.removeOutageId(theOutage.getId());
 						}
 					}
 				}
 	
 				for (org.opennms.netmgt.config.threshd.Package thisKey : thresholdOutages.keySet()) {
-					Collection<String> thresholdPackage = thresholdOutages.get(thisKey);
+					Collection<Long> thresholdPackage = thresholdOutages.get(thisKey);
 					String name = "threshold-" + thisKey.getName();
 					if (enabledOutages.contains(name)) {
-						if (!thresholdPackage.contains(theOutage.getName())) {
-							thisKey.addOutageCalendar(theOutage.getName());
+						if (!thresholdPackage.contains(theOutage.getId())) {
+							thisKey.addOutageId(theOutage.getId());
 						}
 					} else {
-						if (thresholdPackage.contains(theOutage.getName())) {
-							thisKey.removeOutageCalendar(theOutage.getName());
+						if (thresholdPackage.contains(theOutage.getId())) {
+							thisKey.removeOutageId(theOutage.getId());
 						}
 					}
 				}
 	
 				for (org.opennms.netmgt.config.collectd.Package thisKey : collectionOutages.keySet()) {
-					Collection<String> collectPackage = collectionOutages.get(thisKey);
+					Collection<Long> collectPackage = collectionOutages.get(thisKey);
 					String name = "collect-" + thisKey.getName();
 					if (enabledOutages.contains(name)) {
-						if (!collectPackage.contains(theOutage.getName())) {
-							thisKey.addOutageCalendar(theOutage.getName());
+						if (!collectPackage.contains(theOutage.getId())) {
+							thisKey.addOutageId(theOutage.getId());
 						}
 					} else {
-						if (collectPackage.contains(theOutage.getName())) {
-							thisKey.removeOutageCalendar(theOutage.getName());
+						if (collectPackage.contains(theOutage.getId())) {
+							thisKey.removeOutageId(theOutage.getId());
 						}
 					}
 				}
@@ -434,6 +454,7 @@ Could not find an outage to edit because no outage name parameter was specified 
 				response.sendRedirect("index.jsp");
 				// dispatcher.forward(request, response);
 				return;
+%><%
 			} else if (request.getParameter("addNodeButton") != null) {
 				String newNode = request.getParameter("newNode");
 				if (newNode == null || "".equals(newNode.trim())) {

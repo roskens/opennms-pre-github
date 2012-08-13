@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <outages>
-	<outage name="global" type="weekly">
+	<outage outage-id="1" name="global" type="weekly">
 		<time day="sunday" begins="12:30:00" ends="12:45:00"/>
 		<time day="sunday" begins="13:30:00" ends="14:45:00"/>
 		<time day="monday" begins="13:30:00" ends="14:45:00"/>
@@ -10,7 +10,7 @@
 		<interface address="192.168.0.38"/>
 	</outage>
 
-	<outage name="hub maintaince" type="monthly">
+	<outage outage-id="2" name="hub maintaince" type="monthly">
 		<time day="1" begins="23:30:00" ends="23:45:00"/>
 		<time day="15" begins="21:30:00" ends="21:45:00"/>
 		<time day="15" begins="23:30:00" ends="23:45:00"/>
@@ -24,7 +24,7 @@
 		<interface address="192.168.107.254"/>
 	</outage>
 
-	<outage name="proxy server tuning" type="specific">
+	<outage outage-id="3" name="proxy server tuning" type="specific">
 		<time begins="10-Nov-2001 17:30:00" ends="11-Nov-2001 08:00:00"/>
 		<interface address="192.168.0.1"/>
 	</outage>

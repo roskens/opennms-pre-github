@@ -53,6 +53,11 @@ abstract public class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
     private final Lock m_readLock = m_globalLock.readLock();
     private final Lock m_writeLock = m_globalLock.writeLock();
     
+    /**
+     * The next poll-outage id
+     */
+    private long m_outageIdNext = 0;
+
     public PollOutagesConfigManager() {
         super(Outages.class, "poll outage configuration");
     }
@@ -118,17 +123,35 @@ abstract public class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
     }
 
     /**
+     * Return next outage id.
+     *
+     * @return next outage id
+     */
+    public long getNextPollOutageId() {
+        if (m_outageIdNext == 0) {
+            for(Outage out : getConfig().getOutageCollection()) {
+                if (out.getId() > m_outageIdNext) {
+                    m_outageIdNext = out.getId();
+                }
+            }
+        }
+        m_outageIdNext = m_outageIdNext + 1;
+
+        return m_outageIdNext;
+    }
+
+    /**
      * Return the specified outage.
      *
-     * @param name
+     * @param outageId
      *            the outage that is to be looked up
      * @return the specified outage, null if not found
      */
-    public Outage getOutage(final String name) {
+    public Outage getOutage(final long outageId) {
         getReadLock().lock();
         try {
             for (final Outage out : getConfig().getOutageCollection()) {
-                if (BasicScheduleUtils.getBasicOutageSchedule(out).getName().equals(name)) {
+                if (out.getId() == outageId) {
                     return out;
                 }
             }
@@ -141,12 +164,12 @@ abstract public class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
     /**
      * Return the type for specified outage.
      *
-     * @param name
+     * @param id
      *            the outage that is to be looked up
      * @return the type for the specified outage, null if not found
      */
-    public String getOutageType(final String name) {
-        final Outage out = getOutage(name);
+    public String getOutageType(final long outageId) {
+        final Outage out = getOutage(outageId);
         if (out == null) return null;
         return out.getType();
     }
@@ -158,8 +181,8 @@ abstract public class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
      *            the outage that is to be looked up
      * @return the outage times for the specified outage, null if not found
      */
-    public Time[] getOutageTimes(final String name) {
-        final Outage out = getOutage(name);
+    public Time[] getOutageTimes(final long outageId) {
+        final Outage out = getOutage(outageId);
         if (out == null) return null;
         return out.getTime();
     }
@@ -171,8 +194,8 @@ abstract public class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
      *            the outage that is to be looked up
      * @return the interfaces for the specified outage, null if not found
      */
-    public Interface[] getInterfaces(final String name) {
-        final Outage out = getOutage(name);
+    public Interface[] getInterfaces(final long outageId) {
+        final Outage out = getOutage(outageId);
         if (out == null) return null;
         return out.getInterface();
     }
@@ -182,8 +205,8 @@ abstract public class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
      *
      * Return if interfaces is part of specified outage.
      */
-    public boolean isInterfaceInOutage(final String linterface, final String outName) {
-        final Outage out = getOutage(outName);
+    public boolean isInterfaceInOutage(final String linterface, final long outageId) {
+        final Outage out = getOutage(outageId);
         if (out == null) return false;
         return isInterfaceInOutage(linterface, out);
     }
@@ -214,8 +237,8 @@ abstract public class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
      *
      * Return if time is part of specified outage.
      */
-    public boolean isTimeInOutage(final Calendar cal, final String outName) {
-        final Outage out = getOutage(outName);
+    public boolean isTimeInOutage(final Calendar cal, final long outageId) {
+        final Outage out = getOutage(outageId);
         if (out == null) return false;
 
         return isTimeInOutage(cal, out);
@@ -226,8 +249,8 @@ abstract public class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
      *
      * Return if time is part of specified outage.
      */
-    public boolean isTimeInOutage(final long time, final String outName) {
-        final Outage out = getOutage(outName);
+    public boolean isTimeInOutage(final long time, final long outageId) {
+        final Outage out = getOutage(outageId);
         if (out == null) return false;
 
         final Calendar cal = Calendar.getInstance();
@@ -254,8 +277,8 @@ abstract public class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
      *
      * Return if current time is part of specified outage.
      */
-    public boolean isCurTimeInOutage(final String outName) {
-        return isTimeInOutage(new GregorianCalendar(), outName);
+    public boolean isCurTimeInOutage(final long outageId) {
+        return isTimeInOutage(new GregorianCalendar(), outageId);
     }
 
     /**
@@ -275,6 +298,9 @@ abstract public class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
      * @param getOutageSchedule(newOutage) a {@link org.opennms.netmgt.config.poller.Outage} object.
      */
     public void addOutage(final Outage newOutage) {
+        if (newOutage.getId() == 0) {
+            newOutage.setId(getNextPollOutageId());
+        }
         getConfig().addOutage(newOutage);
     }
 
@@ -283,8 +309,8 @@ abstract public class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
      *
      * @param outageName a {@link java.lang.String} object.
      */
-    public void removeOutage(final String outageName) {
-        getConfig().removeOutage(getOutage(outageName));
+    public void removeOutage(final long outageId) {
+        getConfig().removeOutage(getOutage(outageId));
     }
 
     /**
@@ -325,8 +351,8 @@ abstract public class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
      * @param name a {@link java.lang.String} object.
      * @return an array of {@link org.opennms.netmgt.config.poller.Node} objects.
      */
-    public Node[] getNodeIds(final String name) {
-        final Outage out = getOutage(name);
+    public Node[] getNodeIds(final long outageId) {
+        final Outage out = getOutage(outageId);
         if (BasicScheduleUtils.getBasicOutageSchedule(out) == null) return null;
         return out.getNode();
     }
@@ -338,8 +364,8 @@ abstract public class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
      * Return if nodeid is part of specified outage
      * </p>
      */
-    public boolean isNodeIdInOutage(final long lnodeid, final String outName) {
-        final Outage out = getOutage(outName);
+    public boolean isNodeIdInOutage(final long lnodeid, final long outageId) {
+        final Outage out = getOutage(outageId);
         if (out == null) return false;
         return isNodeIdInOutage(lnodeid, out);
     }
@@ -350,8 +376,8 @@ abstract public class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
      * @param outName a {@link java.lang.String} object.
      * @return a {@link java.util.Calendar} object.
      */
-    public Calendar getEndOfOutage(final String outName) {
-        final Outage out = getOutage(outName);
+    public Calendar getEndOfOutage(final long outageId) {
+        final Outage out = getOutage(outageId);
         if (out == null) return null;
         return getEndOfOutage(out);
     }

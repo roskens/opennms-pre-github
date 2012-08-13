@@ -25,8 +25,7 @@
 
         <element maxOccurs="unbounded" minOccurs="1" ref="this:queue"/>
 
-        <element maxOccurs="unbounded" minOccurs="0" name="outage-calendar"
-                 type="string"/>
+        <element maxOccurs="unbounded" minOccurs="0" ref="this:outage-id"/>
       </sequence>
 
       <attribute name="status" type="string" use="required"/>
@@ -103,4 +102,11 @@
       </sequence>
     </complexType>
   </element>
+
+  <element name="outage-id" type="long">
+    <annotation>
+      <documentation>Scheduled outage id</documentation>
+    </annotation>
+  </element>
+
 </schema>

@@ -44,6 +44,7 @@ public class OutageTest extends XmlTest<Outage> {
     @Parameters
     public static Collection<Object[]> data() throws ParseException {
         final Outage outage = new Outage();
+        outage.setId(1);
         outage.setName("junit test");
         outage.setType("weekly");
         final Interface intf = new Interface();
@@ -58,7 +59,7 @@ public class OutageTest extends XmlTest<Outage> {
         return Arrays.asList(new Object[][] {
             {
                 outage,
-                "<outage name='junit test' type='weekly'>\n" +
+                "<outage id='1' name='junit test' type='weekly'>\n" +
                 "    <time day='monday' begins='13:30:00' ends='14:45:00'/>\n" +
                 "    <interface address='match-any'/>\n" +
                 "</outage>\n",

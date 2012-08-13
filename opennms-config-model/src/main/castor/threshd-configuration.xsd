@@ -127,10 +127,9 @@
           </annotation>
         </element>
 
-        <element maxOccurs="unbounded" minOccurs="0" name="outage-calendar"
-                 type="string">
+        <element maxOccurs="unbounded" minOccurs="0" ref="this:outage-id">
           <annotation>
-            <documentation>Scheduled outages. Thresholding is not performed
+            <documentation>Scheduled outage id. Thresholding is not performed
             during scheduled outages.</documentation>
           </annotation>
         </element>
@@ -272,4 +271,11 @@
       <attribute name="value" type="string" use="required"/>
     </complexType>
   </element>
+
+  <element name="outage-id" type="long">
+    <annotation>
+      <documentation>Scheduled outage id</documentation>
+    </annotation>
+  </element>
+
 </schema>

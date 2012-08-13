@@ -64,30 +64,47 @@
 	NotifdConfigFactory.init(); //Must do this early on - if it fails, then just throw the exception to the web gui
 	PollOutagesConfigFactory.init(); // Only init - do *not* reload
 	PollOutagesConfigFactory pollFactory = PollOutagesConfigFactory.getInstance();
-	String deleteName = request.getParameter("deleteOutage");
-	if (deleteName != null) {
+	String idParam = request.getParameter("deleteOutage");
+	if (idParam != null) {
+        Long outageId = null;
+
+        try {
+            outageId = Long.valueOf(idParam);
+        } catch (NumberFormatException e) {
+%>
+<html>
+<body>
+	Invalid outage id parameter
+	<%=idParam%>, could not convert to Long.
+	<br />
+</body>
+</html>
+<%
+            return;
+        }
+
 		pollFactory.getWriteLock().lock();
 		try {
-			pollFactory.removeOutage(deleteName);
+            pollFactory.removeOutage(outageId);
 			//Remove from all the package configurations as well
 			org.opennms.netmgt.config.threshd.Package[] thresholdingPackages = ThreshdConfigFactory.getInstance().getConfiguration().getPackage();
 			for (int i = 0; i < thresholdingPackages.length; i++) {
 				org.opennms.netmgt.config.threshd.Package thisPackage = thresholdingPackages[i];
-				thisPackage.removeOutageCalendar(deleteName); //Will quietly do nothing if outage doesn't exist
+                thisPackage.removeOutageId(outageId); //Will quietly do nothing if outage doesn't exist
 			}
 	
 			org.opennms.netmgt.config.poller.Package[] pollingPackages = PollerConfigFactory.getInstance().getConfiguration().getPackage();
 			for (int i = 0; i < pollingPackages.length; i++) {
 				org.opennms.netmgt.config.poller.Package thisPackage = pollingPackages[i];
-				thisPackage.removeOutageCalendar(deleteName); //Will quietly do nothing if outage doesn't exist
+                thisPackage.removeOutageId(outageId); //Will quietly do nothing if outage doesn't exist
 			}
 	
 			for (Iterator iter = CollectdConfigFactory.getInstance().getCollectdConfig().getPackages().iterator(); iter.hasNext();) {
 				org.opennms.netmgt.config.collectd.Package thisPackage = ((CollectdPackage) iter.next()).getPackage();
-				thisPackage.removeOutageCalendar(deleteName); //Will quietly do nothing if outage doesn't exist
+                thisPackage.removeOutageId(outageId); //Will quietly do nothing if outage doesn't exist
 			}
 	
-			NotifdConfigFactory.getInstance().getConfiguration().removeOutageCalendar(deleteName);
+            NotifdConfigFactory.getInstance().getConfiguration().removeOutageId(outageId);
 	
 			pollFactory.saveCurrent();
 			NotifdConfigFactory.getInstance().saveCurrent();
@@ -115,11 +132,12 @@
 
 <table id="outages" border="1" cellpadding="5">
 	<tr>
-		<th colspan="4">&nbsp;</th>
+		<th colspan="5">&nbsp;</th>
 		<th colspan="4">Affects...</th>
 		<th colspan="2"></th>
 	</tr>
 	<tr>
+		<th>Id</th>
 		<th>Name</th>
 		<th>Type</th>
 		<th>Nodes/Interfaces</th>
@@ -149,47 +167,48 @@
 		try {
 			Outage[] outages = pollFactory.getOutages();
 	
-			Collection<String> notificationOutages = NotifdConfigFactory.getInstance().getConfiguration().getOutageCalendarCollection();
+			Collection<Long> notificationOutages = NotifdConfigFactory.getInstance().getConfiguration().getOutageIdCollection();
 	
 			PollerConfigFactory.init(); //Force init
 	
-			List<String> pollingOutages = new ArrayList<String>();
+			List<Long> pollingOutages = new ArrayList<Long>();
 			org.opennms.netmgt.config.poller.Package[] pollingPackages = PollerConfigFactory.getInstance().getConfiguration().getPackage();
 			for (int i = 0; i < pollingPackages.length; i++) {
-				pollingOutages.addAll(pollingPackages[i].getOutageCalendarCollection());
+				pollingOutages.addAll(pollingPackages[i].getOutageIdCollection());
 			}
 	
 			ThreshdConfigFactory.init();
-			List<String> thresholdingOutages = new ArrayList<String>();
+			List<Long> thresholdingOutages = new ArrayList<Long>();
 			org.opennms.netmgt.config.threshd.Package[] thresholdingPackages = ThreshdConfigFactory.getInstance().getConfiguration().getPackage();
 			for (int i = 0; i < thresholdingPackages.length; i++) {
-				thresholdingOutages.addAll(thresholdingPackages[i].getOutageCalendarCollection());
+				thresholdingOutages.addAll(thresholdingPackages[i].getOutageIdCollection());
 			}
 	
 			CollectdConfigFactory.init();
-			List<String> collectionOutages = new ArrayList<String>();
+			List<Long> collectionOutages = new ArrayList<Long>();
 	
 			for (Iterator iter = CollectdConfigFactory.getInstance().getCollectdConfig().getPackages().iterator(); iter.hasNext();) {
 				org.opennms.netmgt.config.collectd.Package thisPackage = ((CollectdPackage) iter.next()).getPackage();
-				collectionOutages.addAll(thisPackage.getOutageCalendarCollection());
+				collectionOutages.addAll(thisPackage.getOutageIdCollection());
 			}
 	
 			for (int i = 0; i < outages.length; i++) {
 				Outage thisOutage = outages[i];
+				Long outageId = thisOutage.getId();
 				String outageName = thisOutage.getName();
 	%>
 	<tr valign="top">
 		<td><%=outageName%></td>
-		<td><%=pollFactory.getOutageType(outageName)%></td>
+		<td><%=pollFactory.getOutageType(outageId)%></td>
 		<td>
 		<%
-			org.opennms.netmgt.config.poller.Node[] nodeList = pollFactory.getNodeIds(outageName);
+			org.opennms.netmgt.config.poller.Node[] nodeList = pollFactory.getNodeIds(outageId);
 				for (int j = 0; j < nodeList.length; j++) {
 					OnmsNode elementNode = NetworkElementFactory.getInstance(getServletContext()).getNode(nodeList[j].getId());
 		%> <%=elementNode == null || elementNode.getType().charAt(0) == 'D' ? "Node: Node ID " + nodeList[j].getId() + " Not Found" : "Node: " + elementNode.getLabel()%><br/>
 		<%
 			}
-				org.opennms.netmgt.config.poller.Interface[] interfaceList = pollFactory.getInterfaces(outageName);
+				org.opennms.netmgt.config.poller.Interface[] interfaceList = pollFactory.getInterfaces(outageId);
 				for (int j = 0; j < interfaceList.length; j++) {
 					StringBuffer display;
 					String rawAddress = interfaceList[j].getAddress();
@@ -226,35 +245,35 @@
 		</td>
 		<td noWrap>
 		<%
-			org.opennms.netmgt.config.poller.Time[] outageTimes = pollFactory.getOutageTimes(outageName);
+			org.opennms.netmgt.config.poller.Time[] outageTimes = pollFactory.getOutageTimes(outageId);
 				for (int j = 0; j < outageTimes.length; j++) {
 					org.opennms.netmgt.config.poller.Time thisOutageTime = outageTimes[j];
 					String rawDay = thisOutageTime.getDay();
 					String day = rawDay;
-					if ("daily".equals(pollFactory.getOutageType(outageName)))
+					if ("daily".equals(pollFactory.getOutageType(outageId)))
 						day = "";
-					if ("weekly".equals(pollFactory.getOutageType(outageName)))
+					if ("weekly".equals(pollFactory.getOutageType(outageId)))
 						day = (rawDay == null) ? "" : (String) shortDayNames.get(rawDay);
-					if ("specific".equals(pollFactory.getOutageType(outageName)))
+					if ("specific".equals(pollFactory.getOutageType(outageId)))
 						day = "";
-		%><%=day%> <%=thisOutageTime.getBegins()%> -<%="specific".equals(pollFactory.getOutageType(outageName)) ? "<br/>" : ""%>
+		%><%=day%> <%=thisOutageTime.getBegins()%> -<%="specific".equals(pollFactory.getOutageType(outageId)) ? "<br/>" : ""%>
 		<%=thisOutageTime.getEnds()%><br/>
 		<%
 			}
 		%>
 		</td>
 		<td align="center"><img
-			src="<%=(notificationOutages.contains(outageName))?outageOnImageUrl:outageOffImageUrl%>"></td>
+			src="<%=(notificationOutages.contains(outageId))?outageOnImageUrl:outageOffImageUrl%>"></td>
 		<td align="center"><img
-			src="<%=(pollingOutages.contains(outageName))?outageOnImageUrl:outageOffImageUrl%>"></td>
+			src="<%=(pollingOutages.contains(outageId))?outageOnImageUrl:outageOffImageUrl%>"></td>
 		<td align="center"><img
-			src="<%=(thresholdingOutages.contains(outageName))?outageOnImageUrl:outageOffImageUrl%>"></td>
+			src="<%=(thresholdingOutages.contains(outageId))?outageOnImageUrl:outageOffImageUrl%>"></td>
 		<td align="center"><img
-			src="<%=(collectionOutages.contains(outageName))?outageOnImageUrl:outageOffImageUrl%>"></td>
-		<td><a id="<%=outageName%>.edit"
-			href="admin/sched-outages/editoutage.jsp?name=<%=java.net.URLEncoder.encode(outageName, "UTF-8")%>">Edit</a></td>
-		<td><a id="<%=outageName%>.delete"
-			href="admin/sched-outages/index.jsp?deleteOutage=<%=java.net.URLEncoder.encode(outageName, "UTF-8")%>"
+			src="<%=(collectionOutages.contains(outageId))?outageOnImageUrl:outageOffImageUrl%>"></td>
+		<td><a id="<%=outageId%>.edit"
+			href="admin/sched-outages/editoutage.jsp?id=<%=outageId%>">Edit</a></td>
+		<td><a id="<%=outageId%>.delete"
+			href="admin/sched-outages/index.jsp?deleteOutage=<%=outageId%>"
 			onClick="if(!confirm('Are you sure you wish to delete this outage?')) {return false;}">Delete</a></td>
 	</tr>
 

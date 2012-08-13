@@ -404,12 +404,12 @@ final class ThresholdableService extends InetNetworkInterface implements Thresho
         // interface then break and return true. Otherwise process the
         // next outage.
         // 
-        for (final String outageName : m_package.getOutageCalendarCollection()) {
+        for (final long outageId : m_package.getOutageIdCollection()) {
             // Does the outage apply to the current time?
-            if (outageFactory.isCurTimeInOutage(outageName)) {
+            if (outageFactory.isCurTimeInOutage(outageId)) {
                 // Does the outage apply to this interface?
-                if ((outageFactory.isNodeIdInOutage((long) m_nodeId, outageName)) || (outageFactory.isInterfaceInOutage(getHostAddress(), outageName))) {
-                    LogUtils.debugf(this, "scheduledOutage: configured outage '%s' applies, interface %s will not be thresholded for %s", outageName, getHostAddress(), m_service);
+                if ((outageFactory.isNodeIdInOutage((long) m_nodeId, outageId)) || (outageFactory.isInterfaceInOutage(getHostAddress(), outageId))) {
+                    LogUtils.debugf(this, "scheduledOutage: configured outage id %d applies, interface %s will not be thresholded for %s", outageId, getHostAddress(), m_service);
                     outageFound = true;
                     break;
                 }
