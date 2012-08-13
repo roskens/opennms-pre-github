@@ -63,11 +63,6 @@ public class VmwareMonitor extends AbstractServiceMonitor {
     private final Logger logger = LoggerFactory.getLogger("OpenNMS.VMware." + VmwareMonitor.class.getName());
 
     /**
-     * map for accessing the vmware-server parameters
-     */
-    private Map<String, VmwareServer> vmwareServerMap = null;
-
-    /**
      * the node dao object for retrieving assets
      */
     private NodeDao m_nodeDao = null;

@@ -119,8 +119,20 @@ public class VmwareViJavaAccess {
         }
 
         this.m_hostname = hostname;
+
         this.m_username = m_vmwareConfigDao.getServerMap().get(m_hostname).getUsername();
+
+        if (this.m_username == null) {
+            logger.error("Error getting username for VMware management server '{}'.", m_hostname);
+            this.m_username = "";
+        }
+
         this.m_password = m_vmwareConfigDao.getServerMap().get(m_hostname).getPassword();
+
+        if (this.m_password == null) {
+            logger.error("Error getting password for VMware management server '{}'.", m_hostname);
+            this.m_password = "";
+        }
     }
 
     /**

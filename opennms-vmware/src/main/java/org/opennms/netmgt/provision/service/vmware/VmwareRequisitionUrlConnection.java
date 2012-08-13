@@ -156,7 +156,7 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
      * @return a String[] of opennms service names
      */
     private String[] getHostSystemServices() {
-        String[] hostSystemsServices = new String[] {"VMware-ManagedEntity", "VMware-HostSystem", "VMwareCim-HostSystem"};
+        String[] hostSystemsServices = new String[]{"VMware-ManagedEntity", "VMware-HostSystem", "VMwareCim-HostSystem"};
         if (m_args != null && m_args.get(VMWARE_HOSTSYSTEM_SERVICES) != null) {
             hostSystemsServices = m_args.get(VMWARE_HOSTSYSTEM_SERVICES).split(",");
         }
@@ -169,7 +169,7 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
      * @return a String[] of opennms service names
      */
     private String[] getVirtualMachineServices() {
-        String[] virtualMachineServices = new String[] {"VMware-ManagedEntity", "VMware-VirtualMachine"};
+        String[] virtualMachineServices = new String[]{"VMware-ManagedEntity", "VMware-VirtualMachine"};
         if (m_args != null && m_args.get(VMWARE_VIRTUALMACHINE_SERVICES) != null) {
             virtualMachineServices = m_args.get(VMWARE_VIRTUALMACHINE_SERVICES).split(",");
         }
@@ -213,8 +213,16 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
         // Setting the node label
         requisitionNode.setNodeLabel(managedEntity.getName());
 
-        // Foreign Id consisting of vcenter Ip and managed entity Id
-        requisitionNode.setForeignId(m_hostname + "/" + managedEntity.getMOR().getVal());
+        // Foreign Id consisting of managed entity Id
+        requisitionNode.setForeignId(managedEntity.getMOR().getVal());
+
+        /*
+         * Original version:
+         *
+         * Foreign Id consisting of VMware management server's hostname and managed entity id
+         *
+         * requisitionNode.setForeignId(m_hostname + "/" + managedEntity.getMOR().getVal());
+         */
 
         boolean primary = true;
 
@@ -234,15 +242,13 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
 
                         if (managedEntityType == VMWARE_HOSTSYSTEM) {
                             for (String service : m_hostSystemServices) {
-                                requisitionInterface.insertMonitoredService(new RequisitionMonitoredService(service));
+                                requisitionInterface.insertMonitoredService(new RequisitionMonitoredService(service.trim()));
                             }
                         } else {
                             for (String service : m_virtualMachineServices) {
-                                requisitionInterface.insertMonitoredService(new RequisitionMonitoredService(service));
+                                requisitionInterface.insertMonitoredService(new RequisitionMonitoredService(service.trim()));
                             }
                         }
-
-                        requisitionInterface.insertMonitoredService(new RequisitionMonitoredService("VMware-ManagedEntity"));
 
                         primary = false;
                     } else {
