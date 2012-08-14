@@ -82,7 +82,7 @@
      Examples for import-url-resource:
        vmware://vcenter.mydomain.org?importHostPoweredOff=true
        vmware://172.16.123.100/vCenterImport?key=shouldImport;value=1
-       vmware://vcenter.mydomain.org?virtualMachineServices=VM-SERVICE1,VM-SERVICE2
+       vmware://[2001:db8:0:8d3:0:8a2e:70:7344]?virtualMachineServices=VM-SERVICE1,VM-SERVICE2
 
   <requisition-def import-name="the-import-name-to-use" import-url-resource="vmware://ip-address-or-hostname/foreignSource-Name?parameters">
     <cron-schedule>0 0 0 * * ? *</cron-schedule>
