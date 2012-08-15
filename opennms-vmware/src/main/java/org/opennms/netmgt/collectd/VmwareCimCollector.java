@@ -192,7 +192,8 @@ public class VmwareCimCollector implements ServiceCollector {
         // retrieve the assets and
         String vmwareManagementServer = onmsNode.getAssetRecord().getVmwareManagementServer();
         String vmwareManagedEntityType = onmsNode.getAssetRecord().getVmwareManagedEntityType();
-        String vmwareManagedObjectId = onmsNode.getAssetRecord().getVmwareManagedObjectId();
+        //String vmwareManagedObjectId = onmsNode.getAssetRecord().getVmwareManagedObjectId();
+        String vmwareManagedObjectId = onmsNode.getForeignId();
 
         parameters.put("vmwareManagementServer", vmwareManagementServer);
         parameters.put("vmwareManagedEntityType", vmwareManagedEntityType);

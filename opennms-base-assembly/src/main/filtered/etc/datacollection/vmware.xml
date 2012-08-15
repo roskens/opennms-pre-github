@@ -1,12 +1,19 @@
 <?xml version="1.0"?>
+
+<!--
+Configuration file generated for:
+
+Full name.......: VMware vCenter Server 5.0.0 build-755629
+API type........: VirtualCenter
+API version.....: 5.0
+Product name....: VMware VirtualCenter Server
+Product version.: 5.0
+OS type.........: linux-x64
+-->
+
 <datacollection-group name="VMware">
 
     <resourceType name="Cpu" label="VMware Cpu" resourceLabel="${CpuName}">
-        <persistenceSelectorStrategy class="org.opennms.netmgt.collectd.PersistAllSelectorStrategy"/>
-        <storageStrategy class="org.opennms.netmgt.dao.support.IndexStorageStrategy"/>
-    </resourceType>
-
-    <resourceType name="Disk" label="VMware Disk" resourceLabel="${DiskName}">
         <persistenceSelectorStrategy class="org.opennms.netmgt.collectd.PersistAllSelectorStrategy"/>
         <storageStrategy class="org.opennms.netmgt.dao.support.IndexStorageStrategy"/>
     </resourceType>
@@ -16,7 +23,47 @@
         <storageStrategy class="org.opennms.netmgt.dao.support.IndexStorageStrategy"/>
     </resourceType>
 
-    <resourceType name="MgtAgt" label="VMware MgtAgt" resourceLabel="${MgtAgtName}">
+    <resourceType name="VrtDisk" label="VMware VrtDisk" resourceLabel="${VrtDiskName}">
+        <persistenceSelectorStrategy class="org.opennms.netmgt.collectd.PersistAllSelectorStrategy"/>
+        <storageStrategy class="org.opennms.netmgt.dao.support.IndexStorageStrategy"/>
+    </resourceType>
+
+    <resourceType name="Disk" label="VMware Disk" resourceLabel="${DiskName}">
+        <persistenceSelectorStrategy class="org.opennms.netmgt.collectd.PersistAllSelectorStrategy"/>
+        <storageStrategy class="org.opennms.netmgt.dao.support.IndexStorageStrategy"/>
+    </resourceType>
+
+    <resourceType name="DaSt" label="VMware DaSt" resourceLabel="${DaStName}">
+        <persistenceSelectorStrategy class="org.opennms.netmgt.collectd.PersistAllSelectorStrategy"/>
+        <storageStrategy class="org.opennms.netmgt.dao.support.IndexStorageStrategy"/>
+    </resourceType>
+
+    <resourceType name="StAdptr" label="VMware StAdptr" resourceLabel="${StAdptrName}">
+        <persistenceSelectorStrategy class="org.opennms.netmgt.collectd.PersistAllSelectorStrategy"/>
+        <storageStrategy class="org.opennms.netmgt.dao.support.IndexStorageStrategy"/>
+    </resourceType>
+
+    <resourceType name="Cpu" label="VMware Cpu" resourceLabel="${CpuName}">
+        <persistenceSelectorStrategy class="org.opennms.netmgt.collectd.PersistAllSelectorStrategy"/>
+        <storageStrategy class="org.opennms.netmgt.dao.support.IndexStorageStrategy"/>
+    </resourceType>
+
+    <resourceType name="Net" label="VMware Net" resourceLabel="${NetName}">
+        <persistenceSelectorStrategy class="org.opennms.netmgt.collectd.PersistAllSelectorStrategy"/>
+        <storageStrategy class="org.opennms.netmgt.dao.support.IndexStorageStrategy"/>
+    </resourceType>
+
+    <resourceType name="Disk" label="VMware Disk" resourceLabel="${DiskName}">
+        <persistenceSelectorStrategy class="org.opennms.netmgt.collectd.PersistAllSelectorStrategy"/>
+        <storageStrategy class="org.opennms.netmgt.dao.support.IndexStorageStrategy"/>
+    </resourceType>
+
+    <resourceType name="StPth" label="VMware StPth" resourceLabel="${StPthName}">
+        <persistenceSelectorStrategy class="org.opennms.netmgt.collectd.PersistAllSelectorStrategy"/>
+        <storageStrategy class="org.opennms.netmgt.dao.support.IndexStorageStrategy"/>
+    </resourceType>
+
+    <resourceType name="DaSt" label="VMware DaSt" resourceLabel="${DaStName}">
         <persistenceSelectorStrategy class="org.opennms.netmgt.collectd.PersistAllSelectorStrategy"/>
         <storageStrategy class="org.opennms.netmgt.dao.support.IndexStorageStrategy"/>
     </resourceType>
