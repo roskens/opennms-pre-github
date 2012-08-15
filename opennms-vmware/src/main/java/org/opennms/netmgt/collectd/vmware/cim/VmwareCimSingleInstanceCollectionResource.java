@@ -31,7 +31,6 @@ package org.opennms.netmgt.collectd.vmware.cim;
 import org.opennms.netmgt.collectd.CollectionAgent;
 
 public class VmwareCimSingleInstanceCollectionResource extends VmwareCimCollectionResource {
-
     public VmwareCimSingleInstanceCollectionResource(final CollectionAgent agent) {
         super(agent);
     }
@@ -47,5 +46,4 @@ public class VmwareCimSingleInstanceCollectionResource extends VmwareCimCollecti
     public String toString() {
         return "Node[" + m_agent.getNodeId() + "]/type[node]";
     }
-
 }
