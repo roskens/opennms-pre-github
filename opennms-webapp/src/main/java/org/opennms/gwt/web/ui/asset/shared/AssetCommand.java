@@ -193,11 +193,19 @@ public class AssetCommand implements IsSerializable {
 
     private String m_vmwareManagementServer;
 
+    private String m_vmwareNetworks;
+
+    private String m_vmwareDatastores;
+
+    private String m_vmwareRuntimeInformation;
+
     public AssetCommand() {
         m_autoenableOptions = new ArrayList<String>();
         m_connectionOptions = new ArrayList<String>();
         m_lastModifiedDate = new Date();
     }
+
+    // --- Getter ---
 
     public String getAdditionalhardware() {
         return m_additionalhardware;
@@ -503,6 +511,20 @@ public class AssetCommand implements IsSerializable {
         return m_vmwareManagementServer;
     }
 
+    public String getVmwareNetworks() {
+        return m_vmwareNetworks;
+    }
+
+    public String getVmwareDatastores() {
+        return m_vmwareDatastores;
+    }
+
+    public String getVmwareRuntimeInformation() {
+        return m_vmwareRuntimeInformation;
+    }
+
+    // --- Setter ---
+
     public void setAdditionalhardware(String additionalhardware) {
         m_additionalhardware = additionalhardware;
     }
@@ -807,6 +829,19 @@ public class AssetCommand implements IsSerializable {
         m_vmwareManagementServer = vmwareManagementServer;
     }
 
+    public void setVmwareNetworks(String vmwareNetworks) {
+        m_vmwareNetworks = vmwareNetworks;
+    }
+
+    public void setVmwareDatastores(String vmwareDatastores) {
+        m_vmwareDatastores = vmwareDatastores;
+    }
+
+    public void setVmwareRuntimeInformation(String vmwareRuntimeInformation) {
+        m_vmwareRuntimeInformation = vmwareRuntimeInformation;
+    }
+
+    // --- nice toString() ---
     @Override
     public String toString() {
         return "AssetCommand [m_additionalhardware=" + m_additionalhardware + ", m_address1=" + m_address1
@@ -837,6 +872,8 @@ public class AssetCommand implements IsSerializable {
                 + m_vendor + ", m_vendorAssetNumber=" + m_vendorAssetNumber + ", m_vendorFax=" + m_vendorFax
                 + ", m_vendorPhone=" + m_vendorPhone + ", m_zip=" + m_zip + ", m_vmwareManagedObjectId="
                 + m_vmwareManagedObjectId + ", m_vmwareManagedEntityType=" + m_vmwareManagedEntityType
-                + ", m_vmwareManagementServer=" + m_vmwareManagementServer + "]";
+                + ", m_vmwareManagementServer=" + m_vmwareManagementServer + ", m_vmwareNetworks=" + m_vmwareNetworks +
+                ", m_vmwareDatastores=" + m_vmwareDatastores + ", m_vmwareRuntimeInformation=" +
+                m_vmwareRuntimeInformation + "]";
     }
 }

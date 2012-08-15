@@ -733,4 +733,16 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
     @DefaultStringValue("VMware vCenter host")
     @Key("vmwareManagementServerHelp")
     String vmwareManagementServerHelp();
+
+    @DefaultStringValue("VMware networks")
+    @Key("vmwareNetworksHelp")
+    String vmwareNetworksHelp();
+
+    @DefaultStringValue("VMware datastores")
+    @Key("vmwareDatastoresHelp")
+    String vmwareDatastoresHelp();
+
+    @DefaultStringValue("VMware Runtime Information")
+    @Key("vmwareRuntimeInformationHelp")
+    String vmwareRuntimeInformationHelp();
 }
