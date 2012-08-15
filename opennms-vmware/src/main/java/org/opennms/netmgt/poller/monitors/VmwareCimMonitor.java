@@ -123,8 +123,9 @@ public class VmwareCimMonitor extends AbstractServiceMonitor {
 
         // retrieve the assets and
         String vmwareManagementServer = onmsNode.getAssetRecord().getVmwareManagementServer();
-        // String vmwareManagedEntityType = onmsNode.getAssetRecord().getVmwareManagedEntityType();
-        String vmwareManagedObjectId = onmsNode.getAssetRecord().getVmwareManagedObjectId();
+        //String vmwareManagedEntityType = onmsNode.getAssetRecord().getVmwareManagedEntityType();
+        //String vmwareManagedObjectId = onmsNode.getAssetRecord().getVmwareManagedObjectId();
+        String vmwareManagedObjectId = onmsNode.getForeignId();
 
         TimeoutTracker tracker = new TimeoutTracker(parameters, DEFAULT_RETRY, DEFAULT_TIMEOUT);
 
