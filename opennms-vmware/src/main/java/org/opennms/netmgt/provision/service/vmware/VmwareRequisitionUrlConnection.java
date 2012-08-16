@@ -263,9 +263,65 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
                 logger.warn("Invalid IP address '{}'", unknownHostException.getMessage());
             }
         }
-        /* For now we use displaycategory, notifycategory and pollercategory for storing
+        /*
+         * For now we use displaycategory, notifycategory and pollercategory for storing
          * the vcenter Ip address, the username and the password
          */
+
+        String vmNetworks = "";
+        String vmDatastores = "";
+        String vmRuntimeInformation = "";
+
+        if (managedEntityType == VMWARE_HOSTSYSTEM) {
+            HostSystem hostSystem = (HostSystem) managedEntity;
+
+            try {
+                for (Datastore datastore : hostSystem.getDatastores()) {
+                    if (!"".equals(vmDatastores)) {
+                        vmDatastores += ", ";
+                    }
+                    vmDatastores += datastore.getMOR().getVal();
+                }
+            } catch (RemoteException e) {
+                logger.warn("Cannot retrieve datastores for managedEntity '{}': '{}'", managedEntity.getMOR().getVal(), e.getMessage());
+            }
+            try {
+                for (Network network : hostSystem.getNetworks()) {
+                    if (!"".equals(vmNetworks)) {
+                        vmNetworks += ", ";
+                    }
+                    vmNetworks += network.getMOR().getVal();
+                }
+            } catch (RemoteException e) {
+                logger.warn("Cannot retrieve networks for managedEntity '{}': '{}'", managedEntity.getMOR().getVal(), e.getMessage());
+            }
+        } else {
+            VirtualMachine virtualMachine = (VirtualMachine) managedEntity;
+
+            try {
+                for (Datastore datastore : virtualMachine.getDatastores()) {
+                    if (!"".equals(vmDatastores)) {
+                        vmDatastores += ", ";
+                    }
+                    vmDatastores += datastore.getMOR().getVal();
+                }
+            } catch (RemoteException e) {
+                logger.warn("Cannot retrieve datastores for managedEntity '{}': '{}'", managedEntity.getMOR().getVal(), e.getMessage());
+            }
+            try {
+                for (Network network : virtualMachine.getNetworks()) {
+                    if (!"".equals(vmNetworks)) {
+                        vmNetworks += ", ";
+                    }
+                    vmNetworks += network.getMOR().getVal();
+                }
+            } catch (RemoteException e) {
+                logger.warn("Cannot retrieve networks for managedEntity '{}': '{}'", managedEntity.getMOR().getVal(), e.getMessage());
+            }
+
+            vmRuntimeInformation = virtualMachine.getRuntime().getHost().getVal();
+        }
+
 
         RequisitionAsset requisitionAssetHostname = new RequisitionAsset("vmwareManagementServer", m_hostname);
         requisitionNode.putAsset(requisitionAssetHostname);
@@ -275,6 +331,15 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
 
         RequisitionAsset requisitionAssetId = new RequisitionAsset("vmwareManagedObjectId", managedEntity.getMOR().getVal());
         requisitionNode.putAsset(requisitionAssetId);
+
+        RequisitionAsset requisitionAssetDatastores = new RequisitionAsset("vmwareDatastores", vmDatastores);
+        requisitionNode.putAsset(requisitionAssetDatastores);
+
+        RequisitionAsset requisitionAssetNetworks = new RequisitionAsset("vmwareNetworks", vmNetworks);
+        requisitionNode.putAsset(requisitionAssetNetworks);
+
+        RequisitionAsset requisitionAssetRuntimeInformation = new RequisitionAsset("vmwareRuntimeInformation", vmRuntimeInformation);
+        requisitionNode.putAsset(requisitionAssetRuntimeInformation);
 
         return requisitionNode;
     }
