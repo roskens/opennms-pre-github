@@ -40,14 +40,29 @@
           <version>2.3.7</version>
           <extensions>true</extensions>
         </plugin>
-         <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-         <plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+  <profiles>
+  <profile>
+    <id>m2e</id>
+    <activation>
+      <property>
+        <name>m2e.version</name>
+      </property>
+    </activation>
+    <build>
+      <pluginManagement>
+        <plugins>
+          <!--This plugin's configuration is used to store Eclipse m2e settings
+            only. It has no influence on the Maven build itself. -->
+          <plugin>
             <groupId>org.eclipse.m2e</groupId>
             <artifactId>lifecycle-mapping</artifactId>
             <version>1.0.0</version>
             <configuration>
-               <lifecycleMappingMetadata>
-                  <pluginExecutions>
+              <lifecycleMappingMetadata>
+                <pluginExecutions>
                      <pluginExecution>
                         <pluginExecutionFilter>
                            <groupId>
@@ -86,13 +101,15 @@
                            <ignore></ignore>
                         </action>
                      </pluginExecution>
-                  </pluginExecutions>
-               </lifecycleMappingMetadata>
+                </pluginExecutions>
+              </lifecycleMappingMetadata>
             </configuration>
-         </plugin>
-      </plugins>
-    </pluginManagement>
-  </build>
+          </plugin>
+        </plugins>
+      </pluginManagement>
+    </build>
+  </profile>
+  </profiles>
 
   <dependencyManagement>
     <dependencies>
