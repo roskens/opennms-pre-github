@@ -4,10 +4,11 @@ xsi:schemaLocation="
 http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
 http://www.osgi.org/xmlns/blueprint-ext/v1.1.0 https://svn.apache.org/repos/asf/aries/tags/blueprint-0.3.1/blueprint-core/src/main/resources/org/apache/aries/blueprint/ext/blueprint-ext.xsd">
 
-    <bean id="simpleTopologyProvider" class="org.opennms.features.topology.plugins.topo.vmware.internal.SimpleTopologyProvider" />
+    <bean id="vmwareTopologyProvider" class="org.opennms.features.topology.plugins.topo.vmware.internal.VmwareTopologyProvider" />
     
-    <service interface="org.opennms.features.topology.api.TopologyProvider" ref="simpleTopologyProvider"/>
-    
+    <service interface="org.opennms.features.topology.api.TopologyProvider" ref="vmwareTopologyProvider"/>
+
+    <!--
     <service interface="org.opennms.features.topology.api.Operation" >
         <service-properties>
             <entry key="operation.menuLocation" value="Edit"/>
@@ -83,5 +84,5 @@ http://www.osgi.org/xmlns/blueprint-ext/v1.1.0 https://svn.apache.org/repos/asf/
             <argument ref="simpleTopologyProvider"/>
         </bean>
     </service>
-    
+    -->
 </blueprint>

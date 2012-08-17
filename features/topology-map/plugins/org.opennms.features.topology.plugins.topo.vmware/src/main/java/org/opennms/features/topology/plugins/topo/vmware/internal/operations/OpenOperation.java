@@ -4,14 +4,14 @@ import java.util.List;
 
 import org.opennms.features.topology.api.Operation;
 import org.opennms.features.topology.api.OperationContext;
-import org.opennms.features.topology.plugins.topo.vmware.internal.SimpleTopologyProvider;
+import org.opennms.features.topology.plugins.topo.vmware.internal.VmwareTopologyProvider;
 
 
 public class OpenOperation implements Operation {
     
-    SimpleTopologyProvider m_topologyProvider;
+    VmwareTopologyProvider m_topologyProvider;
     
-    public OpenOperation(SimpleTopologyProvider topologyProvider) {
+    public OpenOperation(VmwareTopologyProvider topologyProvider) {
         m_topologyProvider = topologyProvider;
     }
     

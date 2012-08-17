@@ -23,7 +23,7 @@ import org.opennms.features.topology.api.OperationContext;
 import org.opennms.features.topology.api.VertexContainer;
 import org.opennms.features.topology.plugins.topo.vmware.internal.SimpleGroup;
 import org.opennms.features.topology.plugins.topo.vmware.internal.SimpleLeafVertex;
-import org.opennms.features.topology.plugins.topo.vmware.internal.SimpleTopologyProvider;
+import org.opennms.features.topology.plugins.topo.vmware.internal.VmwareTopologyProvider;
 import org.opennms.features.topology.plugins.topo.vmware.internal.SimpleVertexContainer;
 import org.opennms.features.topology.plugins.topo.vmware.internal.operations.AddVertexOperation;
 import org.opennms.features.topology.plugins.topo.vmware.internal.operations.ConnectOperation;
@@ -174,12 +174,12 @@ public class SimpleTopologyProviderTest {
         
     }
     
-    private SimpleTopologyProvider m_topologyProvider;
+    private VmwareTopologyProvider m_topologyProvider;
     
     @Before
     public void setUp() {
         if(m_topologyProvider == null) {
-            m_topologyProvider = new SimpleTopologyProvider();
+            m_topologyProvider = new VmwareTopologyProvider();
         }
     }
     
@@ -192,7 +192,7 @@ public class SimpleTopologyProviderTest {
     
 	@Test
 	public void test() {
-		SimpleTopologyProvider topologyProvider = new SimpleTopologyProvider();
+		VmwareTopologyProvider topologyProvider = new VmwareTopologyProvider();
 		
 		String vertexA = (String) topologyProvider.addVertex(50, 100, SERVER_ICON);
 		String vertexB = (String) topologyProvider.addVertex(100, 50, SERVER_ICON);
