@@ -122,7 +122,6 @@
     <module>opennms-webapp</module>
     <module>opennms-wmi</module>
     <module>opennms-asterisk</module>
-    <module>opennms-vmware</module>
   </modules>
   <build>
   <extensions>
