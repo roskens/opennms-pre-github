@@ -19,20 +19,35 @@ import com.vaadin.data.Item;
 import com.vaadin.data.Property;
 import com.vaadin.data.util.BeanContainer;
 import com.vaadin.data.util.BeanItem;
+import org.opennms.netmgt.dao.NodeDao;
 
-public class SimpleTopologyProvider implements TopologyProvider{
-    
+public class VmwareTopologyProvider implements TopologyProvider{
+
+    private NodeDao m_nodeDao;
 
     private SimpleVertexContainer m_vertexContainer;
     private BeanContainer<String, SimpleEdge> m_edgeContainer;
     private int m_counter = 0;
     private int m_edgeCounter = 0;
     private int m_groupCounter = 0;
-    
-    public SimpleTopologyProvider() {
+
+
+    public VmwareTopologyProvider() {
         m_vertexContainer = new SimpleVertexContainer();
         m_edgeContainer = new BeanContainer<String, SimpleEdge>(SimpleEdge.class);
         m_edgeContainer.setBeanIdProperty("id");
+
+        addVertex(100, 100, "VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/server.png");
+        addVertex(150,150, "VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/server.png");
+        addVertex(300,300, "VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/server.png");
+    }
+
+    public NodeDao getNodeDao() {
+        return m_nodeDao;
+    }
+
+    public void setNodeDao(NodeDao nodeDao) {
+        m_nodeDao = nodeDao;
     }
 
     public SimpleVertexContainer getVertexContainer() {
@@ -247,7 +262,7 @@ public class SimpleTopologyProvider implements TopologyProvider{
     
     
     public Object addVertex(int x, int y, String icon) {
-        System.err.println("Adding vertex in SimpleTopologyProvider with icon: " + icon);
+        System.err.println("Adding vertex in VmwareTopologyProvider with icon: " + icon);
         String nextVertexId = getNextVertexId();
 //        addVertex(nextVertexId, x, y, icon, "Vertex " + nextVertexId, "127.0.0.1", -1);
         /* 
@@ -258,7 +273,7 @@ public class SimpleTopologyProvider implements TopologyProvider{
         return nextVertexId;
     }
 
-    @Override
+    //@Override
     public void setParent(Object vertexId, Object parentId) {
         m_vertexContainer.setParent(vertexId, parentId);
     }
@@ -269,14 +284,14 @@ public class SimpleTopologyProvider implements TopologyProvider{
         return nextEdgeId;
     }
 
-    @Override
+    //@Override
     public Object addGroup(String groupIcon) {
         String nextGroupId = getNextGroupId();
         addGroup(nextGroupId, groupIcon, "Group " + nextGroupId);
         return nextGroupId;
     }
 
-    @Override
+    //@Override
     public boolean containsVertexId(Object vertexId) {
         return m_vertexContainer.containsId(vertexId);
     }

@@ -5,14 +5,14 @@ import java.util.List;
 import org.opennms.features.topology.api.DisplayState;
 import org.opennms.features.topology.api.Operation;
 import org.opennms.features.topology.api.OperationContext;
-import org.opennms.features.topology.plugins.topo.vmware.internal.SimpleTopologyProvider;
+import org.opennms.features.topology.plugins.topo.vmware.internal.VmwareTopologyProvider;
 
 
 public class ResetOperation implements Constants, Operation{
     
-    SimpleTopologyProvider m_topologyProvider;
+    VmwareTopologyProvider m_topologyProvider;
     
-    public ResetOperation(SimpleTopologyProvider topologyProvider) {
+    public ResetOperation(VmwareTopologyProvider topologyProvider) {
         m_topologyProvider = topologyProvider;
     }
 

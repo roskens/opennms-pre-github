@@ -33,6 +33,12 @@
     </dependency>
     -->
     <dependency>
+       <groupId>org.opennms</groupId>
+       <artifactId>opennms-dao</artifactId>
+       <scope>compile</scope>
+       <version>${project.version}</version>
+    </dependency>
+    <dependency>
       <groupId>org.opennms.features.topology</groupId>
       <artifactId>api</artifactId>
       <version>${project.version}</version>
