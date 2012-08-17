@@ -21,6 +21,14 @@
     <bundle.namespace>org.opennms.features.topology.helloworld</bundle.namespace>
   </properties>
 
+<profiles>
+  <profile>
+    <id>m2e</id>
+    <activation>
+      <property>
+        <name>m2e.version</name>
+      </property>
+    </activation>
   <build>
     <pluginManagement>
     	<plugins>
@@ -56,7 +64,8 @@
     	</plugins>
     </pluginManagement>
   </build>
-
+</profile>
+</profiles>
   <dependencies>
     <dependency>
       <groupId>javax.servlet</groupId>
