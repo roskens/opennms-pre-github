@@ -1814,11 +1814,6 @@
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>org.opennms</groupId>
-        <artifactId>opennms-vmware</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
         <groupId>org.opennms.dependencies</groupId>
         <artifactId>rancid-dependencies</artifactId>
         <version>${project.version}</version>
