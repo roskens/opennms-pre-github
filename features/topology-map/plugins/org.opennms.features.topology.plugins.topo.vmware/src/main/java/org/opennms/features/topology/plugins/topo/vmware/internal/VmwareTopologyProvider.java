@@ -19,21 +19,35 @@ import com.vaadin.data.Item;
 import com.vaadin.data.Property;
 import com.vaadin.data.util.BeanContainer;
 import com.vaadin.data.util.BeanItem;
+import org.opennms.netmgt.dao.NodeDao;
 
 public class VmwareTopologyProvider implements TopologyProvider{
-    
+
+    private NodeDao m_nodeDao;
 
     private SimpleVertexContainer m_vertexContainer;
     private BeanContainer<String, SimpleEdge> m_edgeContainer;
     private int m_counter = 0;
     private int m_edgeCounter = 0;
     private int m_groupCounter = 0;
-    
+
+
     public VmwareTopologyProvider() {
         m_vertexContainer = new SimpleVertexContainer();
         m_edgeContainer = new BeanContainer<String, SimpleEdge>(SimpleEdge.class);
         m_edgeContainer.setBeanIdProperty("id");
-        addVertex(100,100, "VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/server.png");
+
+        addVertex(100, 100, "VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/server.png");
+        addVertex(150,150, "VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/server.png");
+        addVertex(300,300, "VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/server.png");
+    }
+
+    public NodeDao getNodeDao() {
+        return m_nodeDao;
+    }
+
+    public void setNodeDao(NodeDao nodeDao) {
+        m_nodeDao = nodeDao;
     }
 
     public SimpleVertexContainer getVertexContainer() {

@@ -16,6 +16,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.easymock.EasyMock;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.opennms.features.topology.api.GraphContainer;
 import org.opennms.features.topology.api.LayoutAlgorithm;
@@ -37,6 +38,7 @@ import com.vaadin.data.Property;
 import com.vaadin.data.util.BeanContainer;
 import com.vaadin.ui.Window;
 
+@Ignore
 public class SimpleTopologyProviderTest {
     
     public class TestVertex {
