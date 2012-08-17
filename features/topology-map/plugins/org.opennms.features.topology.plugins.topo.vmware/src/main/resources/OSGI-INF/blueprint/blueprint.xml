@@ -10,7 +10,6 @@ http://www.osgi.org/xmlns/blueprint-ext/v1.1.0 https://svn.apache.org/repos/asf/
         <property name="nodeDao" ref="nodeDao" />
     </bean>
 
-
     <service interface="org.opennms.features.topology.api.TopologyProvider" ref="vmwareTopologyProvider"/>
 
     <!--

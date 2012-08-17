@@ -20,10 +20,11 @@ import com.vaadin.data.Property;
 import com.vaadin.data.util.BeanContainer;
 import com.vaadin.data.util.BeanItem;
 import org.opennms.netmgt.dao.NodeDao;
+import org.opennms.netmgt.model.OnmsNode;
 
 public class VmwareTopologyProvider implements TopologyProvider{
 
-    private NodeDao m_nodeDao;
+    NodeDao m_nodeDao;
 
     private SimpleVertexContainer m_vertexContainer;
     private BeanContainer<String, SimpleEdge> m_edgeContainer;
@@ -37,9 +38,13 @@ public class VmwareTopologyProvider implements TopologyProvider{
         m_edgeContainer = new BeanContainer<String, SimpleEdge>(SimpleEdge.class);
         m_edgeContainer.setBeanIdProperty("id");
 
-        addVertex(100, 100, "VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/server.png");
-        addVertex(150,150, "VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/server.png");
-        addVertex(300,300, "VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/server.png");
+        //String label = onmsNode.getLabel();
+        //String ipAddress = onmsNode.getAssetRecord().getVmwareDatastores();
+        //int nodeId = 15;
+
+        addVertex("id", 100, 100, "VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/server.png","", "", 15);
+        //addVertex(150,150, "VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/server.png");
+        //addVertex(300,300, "VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/server.png");
     }
 
     public NodeDao getNodeDao() {
@@ -114,6 +119,10 @@ public class VmwareTopologyProvider implements TopologyProvider{
         vertex.setLabel(label);
         vertex.setIpAddr(ipAddr);
         vertex.setNodeID(nodeID);
+
+        OnmsNode onmsNode = m_nodeDao.get(15);
+        //vertex.setLabel(onmsNode.getLabel());
+
         return m_vertexContainer.addBean(vertex);
     }
     
