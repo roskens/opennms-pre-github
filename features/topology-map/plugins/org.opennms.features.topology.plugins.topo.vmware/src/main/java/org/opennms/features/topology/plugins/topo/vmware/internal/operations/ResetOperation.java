@@ -19,12 +19,13 @@ public class ResetOperation implements Constants, Operation{
     @Override
     public Undoer execute(List<Object> targets,
             OperationContext operationContext) {
+
         DisplayState graphContainer = operationContext.getGraphContainer();
-        
-        m_topologyProvider.resetContainer();
         Object groupId = m_topologyProvider.addGroup(GROUP_ICON);
         Object vertexId = m_topologyProvider.addVertex(50, 50, SERVER_ICON);
         m_topologyProvider.setParent(vertexId, groupId);
+        m_topologyProvider.resetContainer();
+
         return null;
     }
 

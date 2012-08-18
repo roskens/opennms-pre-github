@@ -7,11 +7,11 @@ import org.opennms.features.topology.api.OperationContext;
 import org.opennms.features.topology.plugins.topo.vmware.internal.VmwareTopologyProvider;
 
 
-public class OpenOperation implements Operation {
+public class GenerateOperation implements Operation {
     
     VmwareTopologyProvider m_topologyProvider;
     
-    public OpenOperation(VmwareTopologyProvider topologyProvider) {
+    public GenerateOperation(VmwareTopologyProvider topologyProvider) {
         m_topologyProvider = topologyProvider;
     }
     
@@ -19,8 +19,8 @@ public class OpenOperation implements Operation {
     public Undoer execute(List<Object> targets,
             OperationContext operationContext) {
         
-        m_topologyProvider.load("graph.xml");
-        //graphContainer.load("graph.xml");
+        m_topologyProvider.generate();
+
         return null;
     }
 
