@@ -69,18 +69,18 @@ http://www.osgi.org/xmlns/blueprint-ext/v1.1.0 https://svn.apache.org/repos/asf/
             <argument ref="simpleTopologyProvider"/>
         </bean>
     </service>
-    -->
+
     <service interface="org.opennms.features.topology.api.Operation" >
         <service-properties>
             <entry key="operation.menuLocation" value="Edit"/>
             <entry key="operation.label" value="Reset"/>
-            <!-- <entry key="operation.contextMenuLocation" value=""/> -->
+            <entry key="operation.contextMenuLocation" value=""/>
         </service-properties>
         <bean class="org.opennms.features.topology.plugins.topo.vmware.internal.operations.ResetOperation">
             <argument ref="vmwareTopologyProvider"/>
         </bean>
     </service>
-    <!--
+
     <service interface="org.opennms.features.topology.api.Operation" >
         <service-properties>
             <entry key="operation.menuLocation" value="File"/>

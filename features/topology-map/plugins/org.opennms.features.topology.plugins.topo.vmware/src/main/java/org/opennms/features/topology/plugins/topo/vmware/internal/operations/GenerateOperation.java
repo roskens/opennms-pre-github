@@ -8,17 +8,17 @@ import org.opennms.features.topology.plugins.topo.vmware.internal.VmwareTopology
 
 
 public class GenerateOperation implements Operation {
-    
+
     VmwareTopologyProvider m_topologyProvider;
-    
+
     public GenerateOperation(VmwareTopologyProvider topologyProvider) {
         m_topologyProvider = topologyProvider;
     }
-    
-	@Override
+
+    @Override
     public Undoer execute(List<Object> targets,
-            OperationContext operationContext) {
-        
+                          OperationContext operationContext) {
+
         m_topologyProvider.generate();
 
         return null;
@@ -31,7 +31,7 @@ public class GenerateOperation implements Operation {
 
     @Override
     public boolean enabled(List<Object> targets, OperationContext operationContext) {
-        return true;
+        return !m_topologyProvider.isGenerated();
     }
 
     @Override
