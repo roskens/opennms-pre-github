@@ -26,7 +26,7 @@ public class VmwareTopologyProvider implements TopologyProvider {
     private int m_counter = 0;
     private int m_edgeCounter = 0;
     private int m_groupCounter = 0;
-    private boolean m_generated=false;
+    private boolean m_generated = false;
 
     public VmwareTopologyProvider() {
         m_vertexContainer = new SimpleVertexContainer();
@@ -66,6 +66,57 @@ public class VmwareTopologyProvider implements TopologyProvider {
         System.err.println(" '- parent: " + (simpleVertex.getParent() == null ? null : simpleVertex.getParent().getId()));
     }
 
+    public SimpleGroup addDatacenterGroup(String groupId, String groupName) {
+        if (!m_vertexContainer.containsId(groupId)) {
+            addGroup(groupId, Constants.DATACENTER_ICON, groupName);
+        }
+        return (SimpleGroup) getRequiredVertex(groupId);
+    }
+
+    public SimpleVertex addNetworkVertex(String vertexId, String vertexName) {
+        if (!m_vertexContainer.containsId(vertexId)) {
+            addVertex(vertexId, 50, 50, Constants.NETWORK_ICON, vertexName, "", -1);
+        }
+        return getRequiredVertex(vertexId);
+    }
+
+    public SimpleVertex addDatastoreVertex(String vertexId, String vertexName) {
+        if (!m_vertexContainer.containsId(vertexId)) {
+            addVertex(vertexId, 50, 50, Constants.DATASTORE_ICON, vertexName, "", -1);
+        }
+        return getRequiredVertex(vertexId);
+    }
+
+    public SimpleVertex addVirtualMachineVertex(String vertexId, String vertexName, String primaryInterface, int id, String powerState) {
+        String icon = Constants.VIRTUALMACHINE_ICON_UNKNOWN;
+
+        if ("poweredOn".equals(powerState))
+            icon = Constants.VIRTUALMACHINE_ICON_ON;
+        if ("poweredOff".equals(powerState))
+            icon = Constants.VIRTUALMACHINE_ICON_OFF;
+        if ("suspended".equals(powerState))
+            icon = Constants.VIRTUALMACHINE_ICON_SUSPENDED;
+
+        addVertex(vertexId, 50, 50, Constants.VIRTUALMACHINE_ICON_ON, vertexName, primaryInterface, id);
+
+        return getRequiredVertex(vertexId);
+    }
+
+    public SimpleVertex addHostSystemVertex(String vertexId, String vertexName, String primaryInterface, int id, String powerState) {
+        String icon = Constants.HOSTSYSTEM_ICON_UNKOWN;
+
+        if ("poweredOn".equals(powerState))
+            icon = Constants.HOSTSYSTEM_ICON_ON;
+        if ("poweredOff".equals(powerState))
+            icon = Constants.HOSTSYSTEM_ICON_OFF;
+        if ("standBy".equals(powerState))
+            icon = Constants.HOSTSYSTEM_ICON_STANDBY;
+
+        addVertex(vertexId, 50, 50, Constants.VIRTUALMACHINE_ICON_ON, vertexName, primaryInterface, id);
+
+        return getRequiredVertex(vertexId);
+    }
+
     public void addHostSystem(OnmsNode hostSystem) {
         // getting data for nodes
 
@@ -73,11 +124,9 @@ public class VmwareTopologyProvider implements TopologyProvider {
         String vmwareNetworks = hostSystem.getAssetRecord().getVmwareNetworks().trim();
         String vmwareDatastores = hostSystem.getAssetRecord().getVmwareDatastores().trim();
         String vmwareManagedObjectId = hostSystem.getAssetRecord().getVmwareManagedObjectId().trim();
+        String vmwarePowerState = hostSystem.getAssetRecord().getVmwareRuntimeInformation();
 
-        if (getVertex(vmwareManagementServer, false) == null) {
-            // create Datacenter vertex if it does not exist
-            addGroup(vmwareManagementServer, Constants.DATACENTER_ICON, "Datacenter (" + vmwareManagementServer + ")");
-        }
+        SimpleGroup datacenterVertex = addDatacenterGroup(vmwareManagementServer, "Datacenter (" + vmwareManagementServer + ")");
 
         String primaryInterface = "unknown";
 
@@ -87,29 +136,21 @@ public class VmwareTopologyProvider implements TopologyProvider {
             primaryInterface = hostSystem.getPrimaryInterface().getIpHostName();
         }
 
-        addVertex(vmwareManagementServer + "/" + vmwareManagedObjectId, 50, 50, Constants.HOSTSYSTEM_ICON, hostSystem.getLabel(), primaryInterface, hostSystem.getId());
+        SimpleVertex hostSystemVertex = addHostSystemVertex(vmwareManagementServer + "/" + vmwareManagedObjectId, hostSystem.getLabel(), primaryInterface, hostSystem.getId(), vmwarePowerState);
 
         // set the parent vertex
-        getRequiredVertex(vmwareManagementServer + "/" + vmwareManagedObjectId).setParent((SimpleGroup) getRequiredVertex(vmwareManagementServer));
+        hostSystemVertex.setParent(datacenterVertex);
 
         for (String network : vmwareNetworks.split("[, ]+")) {
-            if (getVertex(vmwareManagementServer + "/" + network, false) == null) {
-                addVertex(vmwareManagementServer + "/" + network, 50, 50, Constants.NETWORK_ICON, network, "", -1);
-                // and set the parent vertex
-                getRequiredVertex(vmwareManagementServer + "/" + network).setParent((SimpleGroup) getRequiredVertex(vmwareManagementServer));
-            }
+            SimpleVertex networkVertex = addNetworkVertex(vmwareManagementServer + "/" + network, network);
+            networkVertex.setParent(datacenterVertex);
             connectVertices(vmwareManagementServer + "/" + vmwareManagedObjectId + "->" + network, vmwareManagementServer + "/" + vmwareManagedObjectId, vmwareManagementServer + "/" + network);
         }
         for (String datastore : vmwareDatastores.split("[, ]+")) {
-            if (getVertex(vmwareManagementServer + "/" + datastore, false) == null) {
-                addVertex(vmwareManagementServer + "/" + datastore, 50, 50, Constants.DATASTORE_ICON, datastore, "", -1);
-                // and set the parent vertex
-                getRequiredVertex(vmwareManagementServer + "/" + datastore).setParent((SimpleGroup) getRequiredVertex(vmwareManagementServer));
-            }
+            SimpleVertex datastoreVertex = addDatastoreVertex(vmwareManagementServer + "/" + datastore, datastore);
+            datastoreVertex.setParent(datacenterVertex);
             connectVertices(vmwareManagementServer + "/" + vmwareManagedObjectId + "->" + datastore, vmwareManagementServer + "/" + vmwareManagedObjectId, vmwareManagementServer + "/" + datastore);
         }
-
-        // debug(vmwareManagementServer + "/" + vmwareManagedObjectId);
     }
 
     public void addVirtualMachine(OnmsNode virtualMachine) {
@@ -118,6 +159,13 @@ public class VmwareTopologyProvider implements TopologyProvider {
         String vmwareManagementServer = virtualMachine.getAssetRecord().getVmwareManagementServer().trim();
         String vmwareRuntimeInformation = virtualMachine.getAssetRecord().getVmwareRuntimeInformation().trim();
         String vmwareManagedObjectId = virtualMachine.getAssetRecord().getVmwareManagedObjectId().trim();
+
+        String splittedData[] = vmwareRuntimeInformation.split("[, ]*");
+
+        String vmwareHostSystem = splittedData[0];
+        String vmwarePowerState = splittedData[1];
+
+        SimpleGroup datacenterVertex = addDatacenterGroup(vmwareManagementServer, "Datacenter (" + vmwareManagementServer + ")");
 
         String primaryInterface = "unknown";
 
@@ -128,15 +176,13 @@ public class VmwareTopologyProvider implements TopologyProvider {
         }
 
         // add a vertex for the virtual machine
-        addVertex(vmwareManagementServer + "/" + vmwareManagedObjectId, 50, 50, Constants.VIRTUALMACHINE_ICON, virtualMachine.getLabel(), primaryInterface, virtualMachine.getId());
+        SimpleVertex virtualMachineVertex = addVirtualMachineVertex(vmwareManagementServer + "/" + vmwareManagedObjectId, virtualMachine.getLabel(), primaryInterface, virtualMachine.getId(), vmwarePowerState);
 
         // and set the parent vertex
-        getRequiredVertex(vmwareManagementServer + "/" + vmwareManagedObjectId).setParent((SimpleGroup) getRequiredVertex(vmwareManagementServer));
+        virtualMachineVertex.setParent(datacenterVertex);
 
         // connect the virtual machine to the host system
         connectVertices(vmwareManagementServer + "/" + vmwareManagedObjectId + "->" + vmwareManagementServer + "/" + vmwareRuntimeInformation, vmwareManagementServer + "/" + vmwareManagedObjectId, vmwareManagementServer + "/" + vmwareRuntimeInformation);
-
-        // debug(vmwareManagementServer + "/" + vmwareManagedObjectId);
     }
 
     public void generate() {

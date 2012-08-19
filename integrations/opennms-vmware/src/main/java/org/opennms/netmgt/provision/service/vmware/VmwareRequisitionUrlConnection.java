@@ -271,9 +271,12 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
         String vmNetworks = "";
         String vmDatastores = "";
         String vmRuntimeInformation = "";
+        String vmPowerState = "unknown";
 
         if (managedEntityType == VMWARE_HOSTSYSTEM) {
             HostSystem hostSystem = (HostSystem) managedEntity;
+
+            vmPowerState = hostSystem.getSummary().getRuntime().getPowerState().toString();
 
             try {
                 for (Datastore datastore : hostSystem.getDatastores()) {
@@ -297,6 +300,8 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
             }
         } else {
             VirtualMachine virtualMachine = (VirtualMachine) managedEntity;
+
+            vmPowerState = virtualMachine.getSummary().getRuntime().getPowerState().toString();
 
             try {
                 for (Datastore datastore : virtualMachine.getDatastores()) {
@@ -322,7 +327,6 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
             vmRuntimeInformation = virtualMachine.getRuntime().getHost().getVal();
         }
 
-
         RequisitionAsset requisitionAssetHostname = new RequisitionAsset("vmwareManagementServer", m_hostname);
         requisitionNode.putAsset(requisitionAssetHostname);
 
@@ -338,7 +342,7 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
         RequisitionAsset requisitionAssetNetworks = new RequisitionAsset("vmwareNetworks", vmNetworks);
         requisitionNode.putAsset(requisitionAssetNetworks);
 
-        RequisitionAsset requisitionAssetRuntimeInformation = new RequisitionAsset("vmwareRuntimeInformation", vmRuntimeInformation);
+        RequisitionAsset requisitionAssetRuntimeInformation = new RequisitionAsset("vmwareRuntimeInformation", ("".equals(vmRuntimeInformation) ? vmPowerState : vmRuntimeInformation + ", " + vmPowerState));
         requisitionNode.putAsset(requisitionAssetRuntimeInformation);
 
         return requisitionNode;
