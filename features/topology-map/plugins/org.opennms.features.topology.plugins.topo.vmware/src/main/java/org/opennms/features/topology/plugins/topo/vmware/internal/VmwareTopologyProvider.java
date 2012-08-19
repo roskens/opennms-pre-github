@@ -97,7 +97,7 @@ public class VmwareTopologyProvider implements TopologyProvider {
         if ("suspended".equals(powerState))
             icon = Constants.VIRTUALMACHINE_ICON_SUSPENDED;
 
-        addVertex(vertexId, 50, 50, Constants.VIRTUALMACHINE_ICON_ON, vertexName, primaryInterface, id);
+        addVertex(vertexId, 50, 50, icon, vertexName, primaryInterface, id);
 
         return getRequiredVertex(vertexId);
     }
@@ -112,7 +112,7 @@ public class VmwareTopologyProvider implements TopologyProvider {
         if ("standBy".equals(powerState))
             icon = Constants.HOSTSYSTEM_ICON_STANDBY;
 
-        addVertex(vertexId, 50, 50, Constants.VIRTUALMACHINE_ICON_ON, vertexName, primaryInterface, id);
+        addVertex(vertexId, 50, 50, icon, vertexName, primaryInterface, id);
 
         return getRequiredVertex(vertexId);
     }
@@ -160,7 +160,7 @@ public class VmwareTopologyProvider implements TopologyProvider {
         String vmwareRuntimeInformation = virtualMachine.getAssetRecord().getVmwareRuntimeInformation().trim();
         String vmwareManagedObjectId = virtualMachine.getAssetRecord().getVmwareManagedObjectId().trim();
 
-        String splittedData[] = vmwareRuntimeInformation.split("[, ]*");
+        String splittedData[] = vmwareRuntimeInformation.split("[, ]+");
 
         String vmwareHostSystem = splittedData[0];
         String vmwarePowerState = splittedData[1];
@@ -182,7 +182,7 @@ public class VmwareTopologyProvider implements TopologyProvider {
         virtualMachineVertex.setParent(datacenterVertex);
 
         // connect the virtual machine to the host system
-        connectVertices(vmwareManagementServer + "/" + vmwareManagedObjectId + "->" + vmwareManagementServer + "/" + vmwareRuntimeInformation, vmwareManagementServer + "/" + vmwareManagedObjectId, vmwareManagementServer + "/" + vmwareRuntimeInformation);
+        connectVertices(vmwareManagementServer + "/" + vmwareManagedObjectId + "->" + vmwareManagementServer + "/" + vmwareHostSystem, vmwareManagementServer + "/" + vmwareManagedObjectId, vmwareManagementServer + "/" + vmwareHostSystem);
     }
 
     public void generate() {
@@ -217,7 +217,6 @@ public class VmwareTopologyProvider implements TopologyProvider {
             debug(id);
         }
     }
-
 
     public SimpleVertexContainer getVertexContainer() {
         return m_vertexContainer;
