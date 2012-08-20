@@ -33,6 +33,7 @@ import com.vmware.vim25.mo.*;
 import org.apache.commons.io.IOExceptionWithCause;
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
+import org.opennms.core.utils.Base64;
 import org.opennms.core.utils.url.GenericURLConnection;
 import org.opennms.core.xml.JaxbUtils;
 import org.opennms.netmgt.model.PrimaryType;
@@ -268,32 +269,41 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
          * the vcenter Ip address, the username and the password
          */
 
-        String vmNetworks = "";
-        String vmDatastores = "";
-        String vmRuntimeInformation = "";
-        String vmPowerState = "unknown";
+        String vmState = "unknown";
+        String vmwareTopologyInfo = "";
+
+        // putting parents to topology information
+        ManagedEntity parentEntity = managedEntity.getParent();
+
+        do {
+            if (!"".equals(vmwareTopologyInfo)) {
+                vmwareTopologyInfo += ", ";
+            }
+            vmwareTopologyInfo += parentEntity.getMOR().getVal()+"/"+Base64.encodeBase64(parentEntity.getName().toString().getBytes());
+            parentEntity = parentEntity.getParent();
+        } while (parentEntity!=null);
 
         if (managedEntityType == VMWARE_HOSTSYSTEM) {
             HostSystem hostSystem = (HostSystem) managedEntity;
 
-            vmPowerState = hostSystem.getSummary().getRuntime().getPowerState().toString();
+            vmState = hostSystem.getSummary().getRuntime().getPowerState().toString();
 
             try {
                 for (Datastore datastore : hostSystem.getDatastores()) {
-                    if (!"".equals(vmDatastores)) {
-                        vmDatastores += ", ";
+                    if (!"".equals(vmwareTopologyInfo)) {
+                        vmwareTopologyInfo += ", ";
                     }
-                    vmDatastores += datastore.getMOR().getVal();
+                    vmwareTopologyInfo += datastore.getMOR().getVal()+"/"+Base64.encodeBase64(datastore.getName().toString().getBytes());
                 }
             } catch (RemoteException e) {
                 logger.warn("Cannot retrieve datastores for managedEntity '{}': '{}'", managedEntity.getMOR().getVal(), e.getMessage());
             }
             try {
                 for (Network network : hostSystem.getNetworks()) {
-                    if (!"".equals(vmNetworks)) {
-                        vmNetworks += ", ";
+                    if (!"".equals(vmwareTopologyInfo)) {
+                        vmwareTopologyInfo += ", ";
                     }
-                    vmNetworks += network.getMOR().getVal();
+                    vmwareTopologyInfo += network.getMOR().getVal()+"/"+Base64.encodeBase64(network.getName().toString().getBytes());
                 }
             } catch (RemoteException e) {
                 logger.warn("Cannot retrieve networks for managedEntity '{}': '{}'", managedEntity.getMOR().getVal(), e.getMessage());
@@ -301,31 +311,36 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
         } else {
             VirtualMachine virtualMachine = (VirtualMachine) managedEntity;
 
-            vmPowerState = virtualMachine.getSummary().getRuntime().getPowerState().toString();
+            vmState = virtualMachine.getSummary().getRuntime().getPowerState().toString();
 
             try {
                 for (Datastore datastore : virtualMachine.getDatastores()) {
-                    if (!"".equals(vmDatastores)) {
-                        vmDatastores += ", ";
+                    if (!"".equals(vmwareTopologyInfo)) {
+                        vmwareTopologyInfo += ", ";
                     }
-                    vmDatastores += datastore.getMOR().getVal();
+                    vmwareTopologyInfo += datastore.getMOR().getVal()+"/"+Base64.encodeBase64(datastore.getName().toString().getBytes());
                 }
             } catch (RemoteException e) {
                 logger.warn("Cannot retrieve datastores for managedEntity '{}': '{}'", managedEntity.getMOR().getVal(), e.getMessage());
             }
             try {
                 for (Network network : virtualMachine.getNetworks()) {
-                    if (!"".equals(vmNetworks)) {
-                        vmNetworks += ", ";
+                    if (!"".equals(vmwareTopologyInfo)) {
+                        vmwareTopologyInfo += ", ";
                     }
-                    vmNetworks += network.getMOR().getVal();
+                    vmwareTopologyInfo += network.getMOR().getVal()+"/"+Base64.encodeBase64(network.getName().toString().getBytes());
                 }
             } catch (RemoteException e) {
                 logger.warn("Cannot retrieve networks for managedEntity '{}': '{}'", managedEntity.getMOR().getVal(), e.getMessage());
             }
 
-            vmRuntimeInformation = virtualMachine.getRuntime().getHost().getVal();
+            if (!"".equals(vmwareTopologyInfo)) {
+                vmwareTopologyInfo += ", ";
+            }
+
+            vmwareTopologyInfo = virtualMachine.getRuntime().getHost().getVal();
         }
+
 
         RequisitionAsset requisitionAssetHostname = new RequisitionAsset("vmwareManagementServer", m_hostname);
         requisitionNode.putAsset(requisitionAssetHostname);
@@ -336,14 +351,11 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
         RequisitionAsset requisitionAssetId = new RequisitionAsset("vmwareManagedObjectId", managedEntity.getMOR().getVal());
         requisitionNode.putAsset(requisitionAssetId);
 
-        RequisitionAsset requisitionAssetDatastores = new RequisitionAsset("vmwareDatastores", vmDatastores);
-        requisitionNode.putAsset(requisitionAssetDatastores);
+        RequisitionAsset requisitionAssetTopologyInfo = new RequisitionAsset("vmwareTopologyInfo", vmwareTopologyInfo);
+        requisitionNode.putAsset(requisitionAssetTopologyInfo);
 
-        RequisitionAsset requisitionAssetNetworks = new RequisitionAsset("vmwareNetworks", vmNetworks);
-        requisitionNode.putAsset(requisitionAssetNetworks);
-
-        RequisitionAsset requisitionAssetRuntimeInformation = new RequisitionAsset("vmwareRuntimeInformation", ("".equals(vmRuntimeInformation) ? vmPowerState : vmRuntimeInformation + ", " + vmPowerState));
-        requisitionNode.putAsset(requisitionAssetRuntimeInformation);
+        RequisitionAsset requisitionAssetState = new RequisitionAsset("vmwareState", vmState);
+        requisitionNode.putAsset(requisitionAssetState);
 
         return requisitionNode;
     }

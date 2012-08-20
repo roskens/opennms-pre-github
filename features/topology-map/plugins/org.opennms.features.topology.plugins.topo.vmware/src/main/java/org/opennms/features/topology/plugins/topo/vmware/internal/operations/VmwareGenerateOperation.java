@@ -19,7 +19,7 @@ public class VmwareGenerateOperation implements Operation {
     public Undoer execute(List<Object> targets,
                           OperationContext operationContext) {
 
-        m_topologyProvider.generate();
+        m_topologyProvider.generateNew();
 
         return null;
     }

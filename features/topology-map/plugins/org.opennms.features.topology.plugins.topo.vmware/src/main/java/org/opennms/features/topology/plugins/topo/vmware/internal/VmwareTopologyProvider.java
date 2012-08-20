@@ -12,12 +12,37 @@ import org.opennms.netmgt.model.OnmsNode;
 import javax.xml.bind.JAXB;
 import javax.xml.bind.annotation.*;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class VmwareTopologyProvider implements TopologyProvider {
+
+    private interface VmwareEntityTypeHandler {
+        public void handleEntity(String managedObjectId, String managedEntityType, String managementServer, VmwareVertex entityVertex, VmwareTopologyEntity vmwareTopologyEntity, HashMap<String, ArrayList<VmwareTopologyEntity>> vmwareTopologyEntities);
+    }
+
+    private class VmwareTopologyEntity {
+        private String id, name, type;
+
+        public VmwareTopologyEntity(String id, String type, String name) {
+            this.id = id;
+            this.type = type;
+            this.name = name;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public String getName() {
+            return name;
+        }
+    }
+
+    private HashMap<String, VmwareEntityTypeHandler> m_entityHandlers = new HashMap<String, VmwareEntityTypeHandler>();
 
     NodeDao m_nodeDao;
 
@@ -34,6 +59,237 @@ public class VmwareTopologyProvider implements TopologyProvider {
         m_edgeContainer.setBeanIdProperty("id");
 
         resetContainer();
+
+        addEntityHandler("datacenter", new VmwareEntityTypeHandler() {
+            public void handleEntity(String managedObjectId, String managedEntityType, String managementServer, VmwareVertex entityVertex, VmwareTopologyEntity vmwareTopologyEntity, HashMap<String, ArrayList<VmwareTopologyEntity>> vmwareTopologyEntities) {
+                // create the datacenter if it does not exist already
+                VmwareGroup datacenterVertex = addEntityVertexGroup(managementServer + "/" + vmwareTopologyEntity.getId(), vmwareTopologyEntity.getName(), "DATACENTER_ICON");
+
+                // if this entity is a virtual machine, do nothing
+                if ("VirtualMachine".equals(managedEntityType)) {
+                    return;
+                } else {
+                    // if cluster entries exist, do nothing
+                    if (vmwareTopologyEntities.containsKey("cluster")) {
+                        return;
+                    } else {
+                        // set the entity's parent to this datacenter vertex
+                        entityVertex.setParent(datacenterVertex);
+                    }
+                }
+            }
+        });
+
+        addEntityHandler("cluster", new VmwareEntityTypeHandler() {
+            public void handleEntity(String managedObjectId, String managedEntityType, String managementServer, VmwareVertex entityVertex, VmwareTopologyEntity vmwareTopologyEntity, HashMap<String, ArrayList<VmwareTopologyEntity>> vmwareTopologyEntities) {
+                // create cluster if it does not exist already
+                VmwareGroup clusterVertex = addEntityVertexGroup(managementServer + "/" + vmwareTopologyEntity.getId(), vmwareTopologyEntity.getName(), "CLUSTER_ICON");
+
+                // check for the datacenter entries
+                ArrayList<VmwareTopologyEntity> datacenterEntities = vmwareTopologyEntities.get("datacenter");
+
+                for (VmwareTopologyEntity datacenterEntity : datacenterEntities) {
+                    // add them if they do not exist already
+                    VmwareGroup datacenterVertex = addEntityVertexGroup(managementServer + "/" + datacenterEntity.getId(), datacenterEntity.getName(), "DATACENTER_ICON");
+
+                    // and set the parent of the cluster to the datacenter
+                    clusterVertex.setParent(datacenterVertex);
+                }
+
+                // this entity's parent is the cluster vertex
+                entityVertex.setParent(clusterVertex);
+            }
+        });
+
+        addEntityHandler("host", new VmwareEntityTypeHandler() {
+            public void handleEntity(String managedObjectId, String managedEntityType, String managementServer, VmwareVertex entityVertex, VmwareTopologyEntity vmwareTopologyEntity, HashMap<String, ArrayList<VmwareTopologyEntity>> vmwareTopologyEntities) {
+                // - a host entity does only exists on virtual machines
+                // - host systems have no direct relationship to other host systems, they have possibly the same parent entity (datacenter, cluster, folder)
+
+                // the host system must exist already, because host systems vertices are created first
+
+                // so, if entity is a virtual machine connect it to the host system
+                if ("VirtualMachine".equals(managedEntityType)) {
+                    connectVertices(managementServer + "/" + managedObjectId + "->" + managementServer + "/" + vmwareTopologyEntity.getId(), managementServer + "/" + managedObjectId, managementServer + "/" + vmwareTopologyEntity.getId());
+
+                    ArrayList<VmwareTopologyEntity> hostEntities = vmwareTopologyEntities.get("host");
+
+                    if (hostEntities != null) {
+                        for (VmwareTopologyEntity hostEntity : hostEntities) {
+                            entityVertex.setParent((VmwareGroup) getRequiredVertex(managementServer + "/" + hostEntity.getId()));
+                        }
+                    }
+
+                }
+            }
+        });
+
+        addEntityHandler("network", new VmwareEntityTypeHandler() {
+            public void handleEntity(String managedObjectId, String managedEntityType, String managementServer, VmwareVertex entityVertex, VmwareTopologyEntity vmwareTopologyEntity, HashMap<String, ArrayList<VmwareTopologyEntity>> vmwareTopologyEntities) {
+                // create the network, if it does not exist already
+                VmwareVertex networkVertex = addEntityVertex(managementServer + "/" + vmwareTopologyEntity.getId(), vmwareTopologyEntity.getName(), "NETWORK_ICON");
+
+                ArrayList<VmwareTopologyEntity> entities = vmwareTopologyEntities.get("cluster");
+
+                if (entities == null)
+                    entities = vmwareTopologyEntities.get("datacenter");
+
+                if (entities != null) {
+                    for (VmwareTopologyEntity entity : entities) {
+                        networkVertex.setParent((VmwareGroup) getRequiredVertex(managementServer + "/" + entity.getId()));
+                    }
+                }
+
+                // connect it to this vertex
+                connectVertices(managementServer + "/" + managedObjectId + "->" + vmwareTopologyEntity.getId(), managementServer + "/" + managedObjectId, managementServer + "/" + vmwareTopologyEntity.getId());
+            }
+        });
+
+        addEntityHandler("datastore", new VmwareEntityTypeHandler() {
+            public void handleEntity(String managedObjectId, String managedEntityType, String managementServer, VmwareVertex entityVertex, VmwareTopologyEntity vmwareTopologyEntity, HashMap<String, ArrayList<VmwareTopologyEntity>> vmwareTopologyEntities) {
+                // create the network, if it does not exist already
+                VmwareVertex datastoreVertex = addEntityVertex(managementServer + "/" + vmwareTopologyEntity.getId(), vmwareTopologyEntity.getName(), "NETWORK_ICON");
+
+                ArrayList<VmwareTopologyEntity> entities = vmwareTopologyEntities.get("cluster");
+
+                if (entities == null)
+                    entities = vmwareTopologyEntities.get("datacenter");
+
+                if (entities != null) {
+                    for (VmwareTopologyEntity entity : entities) {
+                        datastoreVertex.setParent((VmwareGroup) getRequiredVertex(managementServer + "/" + entity.getId()));
+                    }
+                }
+
+                // connect it to this vertex
+                connectVertices(managementServer + "/" + managedObjectId + "->" + vmwareTopologyEntity.getId(), managementServer + "/" + managedObjectId, managementServer + "/" + vmwareTopologyEntity.getId());
+            }
+        });
+    }
+
+    public void generateNew() {
+        m_generated = true;
+
+        // reset container
+        resetContainer();
+
+        // get all host systems
+        List<OnmsNode> hostSystems = m_nodeDao.findAllByVarCharAssetColumn("vmwareManagedEntityType", "HostSystem");
+
+        if (hostSystems.size() == 0) {
+            System.err.println("No host systems with defined VMware assets fields found!");
+        } else {
+            for (OnmsNode hostSystem : hostSystems) {
+
+                String vmwareManagementServer = hostSystem.getAssetRecord().getVmwareManagementServer().trim();
+                String vmwareManagedObjectId = hostSystem.getAssetRecord().getVmwareManagedObjectId().trim();
+                String vmwareTopologyInfo = hostSystem.getAssetRecord().getVmwareTopologyInfo().trim();
+                String vmwareState = hostSystem.getAssetRecord().getVmwareState().trim();
+
+                String primaryInterface = "unknown";
+
+                // get the primary interface ip address
+
+                if (hostSystem.getPrimaryInterface() != null) {
+                    primaryInterface = hostSystem.getPrimaryInterface().getIpHostName();
+                }
+
+                VmwareVertex hostSystemVertex = addHostSystemVertex(vmwareManagementServer + "/" + vmwareManagedObjectId, hostSystem.getLabel(), primaryInterface, hostSystem.getId(), vmwareState);
+
+                handleEntities(vmwareManagedObjectId, "HostSystem", vmwareManagementServer, vmwareTopologyInfo, hostSystemVertex);
+            }
+        }
+
+        // get all host systems
+        List<OnmsNode> virtualMachines = m_nodeDao.findAllByVarCharAssetColumn("vmwareManagedEntityType", "VirtualMachine");
+
+        if (virtualMachines.size() == 0) {
+            System.err.println("No virtual machines with defined VMware assets fields found!");
+        } else {
+            for (OnmsNode virtualMachine : virtualMachines) {
+
+                String vmwareManagementServer = virtualMachine.getAssetRecord().getVmwareManagementServer().trim();
+                String vmwareManagedObjectId = virtualMachine.getAssetRecord().getVmwareManagedObjectId().trim();
+                String vmwareTopologyInfo = virtualMachine.getAssetRecord().getVmwareTopologyInfo().trim();
+                String vmwareState = virtualMachine.getAssetRecord().getVmwareState().trim();
+
+                String primaryInterface = "unknown";
+
+                // get the primary interface ip address
+
+                if (virtualMachine.getPrimaryInterface() != null) {
+                    primaryInterface = virtualMachine.getPrimaryInterface().getIpHostName();
+                }
+
+                VmwareVertex virtualMachineVertex = addVirtualMachineVertex(vmwareManagementServer + "/" + vmwareManagedObjectId, virtualMachine.getLabel(), primaryInterface, virtualMachine.getId(), vmwareState);
+
+                handleEntities(vmwareManagedObjectId, "VirtualMachine", vmwareManagementServer, vmwareTopologyInfo, virtualMachineVertex);
+            }
+        }
+
+        for (String id : m_vertexContainer.getItemIds()) {
+            debug(id);
+        }
+    }
+
+    public void prepareGroupTree(String managedObjectId, String managedEntityType, String managementServer, HashMap<String, ArrayList<VmwareTopologyEntity>> vmwareTopologyEntities) {
+
+        ArrayList<VmwareTopologyEntity> datacenterEntities = vmwareTopologyEntities.get("datacenter");
+
+        for (VmwareTopologyEntity datacenterEntity : datacenterEntities) {
+            addEntityVertexGroup(managementServer + "/" + datacenterEntity.getId(), datacenterEntity.getName(), "DATACENTER_ICON");
+        }
+
+        ArrayList<VmwareTopologyEntity> clusterEntities = vmwareTopologyEntities.get("cluster");
+
+        for (VmwareTopologyEntity clusterEntity : clusterEntities) {
+            addEntityVertexGroup(managementServer + "/" + clusterEntity.getId(), clusterEntity.getName(), "CLUSTER_ICON");
+        }
+    }
+
+    HashMap<String, ArrayList<VmwareTopologyEntity>> prepareEntities(String entitiesString) {
+        HashMap<String, ArrayList<VmwareTopologyEntity>> vmwareTopologyEntities = new HashMap<String, ArrayList<VmwareTopologyEntity>>();
+
+        String entitites[] = entitiesString.split("[, ]+");
+
+        for (String entityAndName : entitites) {
+            String splitBySlash[] = entityAndName.split("/");
+            String entityId = splitBySlash[0];
+
+            String entityName = new String(splitBySlash[1]);
+
+            String entityType = entityId.split("-")[0];
+
+            if (!vmwareTopologyEntities.containsKey(entityType)) {
+                vmwareTopologyEntities.put(entityType, new ArrayList<VmwareTopologyEntity>());
+            }
+
+            vmwareTopologyEntities.get(entityType).add(new VmwareTopologyEntity(entityId, entityType, entityName));
+        }
+
+        return vmwareTopologyEntities;
+    }
+
+    public void handleEntities(String managedObjectId, String managedEntityType, String managementServer, String entitiesString, VmwareVertex vmwareVertex) {
+        HashMap<String, ArrayList<VmwareTopologyEntity>> vmwareTopologyEntities = prepareEntities(entitiesString);
+
+        for (String type : vmwareTopologyEntities.keySet()) {
+            ArrayList<VmwareTopologyEntity> entities = vmwareTopologyEntities.get(type);
+
+            for (VmwareTopologyEntity vmwareTopologyEntity : entities) {
+
+                VmwareEntityTypeHandler vmwareEntityTypeHandler = m_entityHandlers.get(vmwareTopologyEntity.getType());
+                if (vmwareEntityTypeHandler == null) {
+                    System.err.println("A handler for EntityType '" + vmwareTopologyEntity.getType() + "' not implemented.");
+                } else {
+                    vmwareEntityTypeHandler.handleEntity(managedObjectId, managedEntityType, managementServer, vmwareVertex, vmwareTopologyEntity, vmwareTopologyEntities);
+                }
+            }
+        }
+    }
+
+    public void addEntityHandler(String entityType, VmwareEntityTypeHandler vmwareEntityTypeHandler) {
+        m_entityHandlers.put(entityType, vmwareEntityTypeHandler);
     }
 
     public NodeDao getNodeDao() {
@@ -49,6 +305,7 @@ public class VmwareTopologyProvider implements TopologyProvider {
     }
 
     public void debug(String id) {
+
         VmwareVertex vmwareVertex = getRequiredVertex(id);
 
         System.err.println("-+- id: " + vmwareVertex.getId());
@@ -78,6 +335,20 @@ public class VmwareTopologyProvider implements TopologyProvider {
             addVertex(vertexId, 50, 50, "NETWORK_ICON", vertexName, "", -1);
         }
         return getRequiredVertex(vertexId);
+    }
+
+    public VmwareVertex addEntityVertex(String vertexId, String vertexName, String iconId) {
+        if (!m_vertexContainer.containsId(vertexId)) {
+            addVertex(vertexId, 50, 50, iconId, vertexName, "", -1);
+        }
+        return getRequiredVertex(vertexId);
+    }
+
+    public VmwareGroup addEntityVertexGroup(String vertexId, String vertexName, String iconId) {
+        if (!m_vertexContainer.containsId(vertexId)) {
+            addGroup(vertexId, iconId, vertexName);
+        }
+        return (VmwareGroup) getRequiredVertex(vertexId);
     }
 
     public VmwareVertex addDatastoreVertex(String vertexId, String vertexName) {
@@ -117,107 +388,108 @@ public class VmwareTopologyProvider implements TopologyProvider {
         return getRequiredVertex(vertexId);
     }
 
-    public void addHostSystem(OnmsNode hostSystem) {
-        // getting data for nodes
+    /*
+        public void addHostSystem(OnmsNode hostSystem) {
+            // getting data for nodes
 
-        String vmwareManagementServer = hostSystem.getAssetRecord().getVmwareManagementServer().trim();
-        String vmwareNetworks = hostSystem.getAssetRecord().getVmwareNetworks().trim();
-        String vmwareDatastores = hostSystem.getAssetRecord().getVmwareDatastores().trim();
-        String vmwareManagedObjectId = hostSystem.getAssetRecord().getVmwareManagedObjectId().trim();
-        String vmwarePowerState = hostSystem.getAssetRecord().getVmwareRuntimeInformation();
+            String vmwareManagementServer = hostSystem.getAssetRecord().getVmwareManagementServer().trim();
+            String vmwareNetworks = hostSystem.getAssetRecord().getVmwareNetworks().trim();
+            String vmwareDatastores = hostSystem.getAssetRecord().getVmwareDatastores().trim();
+            String vmwareManagedObjectId = hostSystem.getAssetRecord().getVmwareManagedObjectId().trim();
+            String vmwarePowerState = hostSystem.getAssetRecord().getVmwareRuntimeInformation();
 
-        VmwareGroup datacenterVertex = addDatacenterGroup(vmwareManagementServer, "Datacenter (" + vmwareManagementServer + ")");
+            VmwareGroup datacenterVertex = addDatacenterGroup(vmwareManagementServer, "Datacenter (" + vmwareManagementServer + ")");
 
-        String primaryInterface = "unknown";
+            String primaryInterface = "unknown";
 
-        // get the primary interface ip address
+            // get the primary interface ip address
 
-        if (hostSystem.getPrimaryInterface() != null) {
-            primaryInterface = hostSystem.getPrimaryInterface().getIpHostName();
-        }
+            if (hostSystem.getPrimaryInterface() != null) {
+                primaryInterface = hostSystem.getPrimaryInterface().getIpHostName();
+            }
 
-        VmwareVertex hostSystemVertex = addHostSystemVertex(vmwareManagementServer + "/" + vmwareManagedObjectId, hostSystem.getLabel(), primaryInterface, hostSystem.getId(), vmwarePowerState);
+            VmwareVertex hostSystemVertex = addHostSystemVertex(vmwareManagementServer + "/" + vmwareManagedObjectId, hostSystem.getLabel(), primaryInterface, hostSystem.getId(), vmwarePowerState);
 
-        // set the parent vertex
-        hostSystemVertex.setParent(datacenterVertex);
+            // set the parent vertex
+            hostSystemVertex.setParent(datacenterVertex);
 
-        for (String network : vmwareNetworks.split("[, ]+")) {
-            VmwareVertex networkVertex = addNetworkVertex(vmwareManagementServer + "/" + network, network);
-            networkVertex.setParent(datacenterVertex);
-            connectVertices(vmwareManagementServer + "/" + vmwareManagedObjectId + "->" + network, vmwareManagementServer + "/" + vmwareManagedObjectId, vmwareManagementServer + "/" + network);
-        }
-        for (String datastore : vmwareDatastores.split("[, ]+")) {
-            VmwareVertex datastoreVertex = addDatastoreVertex(vmwareManagementServer + "/" + datastore, datastore);
-            datastoreVertex.setParent(datacenterVertex);
-            connectVertices(vmwareManagementServer + "/" + vmwareManagedObjectId + "->" + datastore, vmwareManagementServer + "/" + vmwareManagedObjectId, vmwareManagementServer + "/" + datastore);
-        }
-    }
-
-    public void addVirtualMachine(OnmsNode virtualMachine) {
-        // getting data for nodes
-
-        String vmwareManagementServer = virtualMachine.getAssetRecord().getVmwareManagementServer().trim();
-        String vmwareRuntimeInformation = virtualMachine.getAssetRecord().getVmwareRuntimeInformation().trim();
-        String vmwareManagedObjectId = virtualMachine.getAssetRecord().getVmwareManagedObjectId().trim();
-
-        String splittedData[] = vmwareRuntimeInformation.split("[, ]+");
-
-        String vmwareHostSystem = splittedData[0];
-        String vmwarePowerState = splittedData[1];
-
-        VmwareGroup datacenterVertex = addDatacenterGroup(vmwareManagementServer, "Datacenter (" + vmwareManagementServer + ")");
-
-        String primaryInterface = "unknown";
-
-        // get the primary interface ip address
-
-        if (virtualMachine.getPrimaryInterface() != null) {
-            primaryInterface = virtualMachine.getPrimaryInterface().getIpHostName();
-        }
-
-        // add a vertex for the virtual machine
-        VmwareVertex virtualMachineVertex = addVirtualMachineVertex(vmwareManagementServer + "/" + vmwareManagedObjectId, virtualMachine.getLabel(), primaryInterface, virtualMachine.getId(), vmwarePowerState);
-
-        // and set the parent vertex
-        virtualMachineVertex.setParent(datacenterVertex);
-
-        // connect the virtual machine to the host system
-        connectVertices(vmwareManagementServer + "/" + vmwareManagedObjectId + "->" + vmwareManagementServer + "/" + vmwareHostSystem, vmwareManagementServer + "/" + vmwareManagedObjectId, vmwareManagementServer + "/" + vmwareHostSystem);
-    }
-
-    public void generate() {
-        m_generated = true;
-
-        // reset container
-        resetContainer();
-
-        // get all host systems
-        List<OnmsNode> hostSystems = m_nodeDao.findAllByVarCharAssetColumn("vmwareManagedEntityType", "HostSystem");
-
-        if (hostSystems.size() == 0) {
-            System.err.println("No host systems with defined VMware assets fields found!");
-        } else {
-            for (OnmsNode hostSystem : hostSystems) {
-                addHostSystem(hostSystem);
+            for (String network : vmwareNetworks.split("[, ]+")) {
+                VmwareVertex networkVertex = addNetworkVertex(vmwareManagementServer + "/" + network, network);
+                networkVertex.setParent(datacenterVertex);
+                connectVertices(vmwareManagementServer + "/" + vmwareManagedObjectId + "->" + network, vmwareManagementServer + "/" + vmwareManagedObjectId, vmwareManagementServer + "/" + network);
+            }
+            for (String datastore : vmwareDatastores.split("[, ]+")) {
+                VmwareVertex datastoreVertex = addDatastoreVertex(vmwareManagementServer + "/" + datastore, datastore);
+                datastoreVertex.setParent(datacenterVertex);
+                connectVertices(vmwareManagementServer + "/" + vmwareManagedObjectId + "->" + datastore, vmwareManagementServer + "/" + vmwareManagedObjectId, vmwareManagementServer + "/" + datastore);
             }
         }
 
-        // get all virtual machines
-        List<OnmsNode> virtualMachines = m_nodeDao.findAllByVarCharAssetColumn("vmwareManagedEntityType", "VirtualMachine");
+        public void addVirtualMachine(OnmsNode virtualMachine) {
+            // getting data for nodes
 
-        if (virtualMachines.size() == 0) {
-            System.err.println("No virtual machines with defined VMware assets fields found!");
-        } else {
-            for (OnmsNode virtualMachine : virtualMachines) {
-                addVirtualMachine(virtualMachine);
+            String vmwareManagementServer = virtualMachine.getAssetRecord().getVmwareManagementServer().trim();
+            String vmwareRuntimeInformation = virtualMachine.getAssetRecord().getVmwareRuntimeInformation().trim();
+            String vmwareManagedObjectId = virtualMachine.getAssetRecord().getVmwareManagedObjectId().trim();
+
+            String splittedData[] = vmwareRuntimeInformation.split("[, ]+");
+
+            String vmwareHostSystem = splittedData[0];
+            String vmwarePowerState = splittedData[1];
+
+            VmwareGroup datacenterVertex = addDatacenterGroup(vmwareManagementServer, "Datacenter (" + vmwareManagementServer + ")");
+
+            String primaryInterface = "unknown";
+
+            // get the primary interface ip address
+
+            if (virtualMachine.getPrimaryInterface() != null) {
+                primaryInterface = virtualMachine.getPrimaryInterface().getIpHostName();
+            }
+
+            // add a vertex for the virtual machine
+            VmwareVertex virtualMachineVertex = addVirtualMachineVertex(vmwareManagementServer + "/" + vmwareManagedObjectId, virtualMachine.getLabel(), primaryInterface, virtualMachine.getId(), vmwarePowerState);
+
+            // and set the parent vertex
+            virtualMachineVertex.setParent(datacenterVertex);
+
+            // connect the virtual machine to the host system
+            connectVertices(vmwareManagementServer + "/" + vmwareManagedObjectId + "->" + vmwareManagementServer + "/" + vmwareHostSystem, vmwareManagementServer + "/" + vmwareManagedObjectId, vmwareManagementServer + "/" + vmwareHostSystem);
+        }
+
+        public void generate() {
+            m_generated = true;
+
+            // reset container
+            resetContainer();
+
+            // get all host systems
+            List<OnmsNode> hostSystems = m_nodeDao.findAllByVarCharAssetColumn("vmwareManagedEntityType", "HostSystem");
+
+            if (hostSystems.size() == 0) {
+                System.err.println("No host systems with defined VMware assets fields found!");
+            } else {
+                for (OnmsNode hostSystem : hostSystems) {
+                    addHostSystem(hostSystem);
+                }
+            }
+
+            // get all virtual machines
+            List<OnmsNode> virtualMachines = m_nodeDao.findAllByVarCharAssetColumn("vmwareManagedEntityType", "VirtualMachine");
+
+            if (virtualMachines.size() == 0) {
+                System.err.println("No virtual machines with defined VMware assets fields found!");
+            } else {
+                for (OnmsNode virtualMachine : virtualMachines) {
+                    addVirtualMachine(virtualMachine);
+                }
+            }
+
+            for (String id : m_vertexContainer.getItemIds()) {
+                debug(id);
             }
         }
-
-        for (String id : m_vertexContainer.getItemIds()) {
-            debug(id);
-        }
-    }
-
+    */
     public VmwareVertexContainer getVertexContainer() {
         return m_vertexContainer;
     }
@@ -395,7 +667,7 @@ public class VmwareTopologyProvider implements TopologyProvider {
         m_edgeContainer.removeAllItems();
         m_edgeContainer.addAll(graph.m_edges);
         */
-        generate();
+        generateNew();
     }
 
     private <T> List<T> getBeans(BeanContainer<?, T> container) {
