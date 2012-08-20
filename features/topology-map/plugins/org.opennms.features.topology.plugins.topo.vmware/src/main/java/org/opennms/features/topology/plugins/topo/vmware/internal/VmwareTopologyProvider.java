@@ -279,7 +279,9 @@ public class VmwareTopologyProvider implements TopologyProvider {
         System.err.println("Adding a vertex: " + id);
         SimpleVertex vertex = new SimpleLeafVertex(id, x, y);
 
+        vertex.setIconKey(icon);
         vertex.setIcon(icon);
+
         vertex.setLabel(label);
         vertex.setIpAddr(ipAddr);
         vertex.setNodeID(nodeID);
@@ -294,7 +296,9 @@ public class VmwareTopologyProvider implements TopologyProvider {
         System.err.println("Adding a group: " + groupId);
         SimpleVertex vertex = new SimpleGroup(groupId);
 
+        vertex.setIconKey(icon);
         vertex.setIcon(icon);
+
         vertex.setLabel(label);
 
         return m_vertexContainer.addBean(vertex);
