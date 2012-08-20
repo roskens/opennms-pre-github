@@ -68,34 +68,34 @@ public class VmwareTopologyProvider implements TopologyProvider {
 
     public SimpleGroup addDatacenterGroup(String groupId, String groupName) {
         if (!m_vertexContainer.containsId(groupId)) {
-            addGroup(groupId, Constants.DATACENTER_ICON, groupName);
+            addGroup(groupId, "DATACENTER_ICON", groupName);
         }
         return (SimpleGroup) getRequiredVertex(groupId);
     }
 
     public SimpleVertex addNetworkVertex(String vertexId, String vertexName) {
         if (!m_vertexContainer.containsId(vertexId)) {
-            addVertex(vertexId, 50, 50, Constants.NETWORK_ICON, vertexName, "", -1);
+            addVertex(vertexId, 50, 50, "NETWORK_ICON", vertexName, "", -1);
         }
         return getRequiredVertex(vertexId);
     }
 
     public SimpleVertex addDatastoreVertex(String vertexId, String vertexName) {
         if (!m_vertexContainer.containsId(vertexId)) {
-            addVertex(vertexId, 50, 50, Constants.DATASTORE_ICON, vertexName, "", -1);
+            addVertex(vertexId, 50, 50, "DATASTORE_ICON", vertexName, "", -1);
         }
         return getRequiredVertex(vertexId);
     }
 
     public SimpleVertex addVirtualMachineVertex(String vertexId, String vertexName, String primaryInterface, int id, String powerState) {
-        String icon = Constants.VIRTUALMACHINE_ICON_UNKNOWN;
+        String icon = "VIRTUALMACHINE_ICON_UNKNOWN";
 
         if ("poweredOn".equals(powerState))
-            icon = Constants.VIRTUALMACHINE_ICON_ON;
+            icon = "VIRTUALMACHINE_ICON_ON";
         if ("poweredOff".equals(powerState))
-            icon = Constants.VIRTUALMACHINE_ICON_OFF;
+            icon = "VIRTUALMACHINE_ICON_OFF";
         if ("suspended".equals(powerState))
-            icon = Constants.VIRTUALMACHINE_ICON_SUSPENDED;
+            icon = "VIRTUALMACHINE_ICON_SUSPENDED";
 
         addVertex(vertexId, 50, 50, icon, vertexName, primaryInterface, id);
 
@@ -103,14 +103,14 @@ public class VmwareTopologyProvider implements TopologyProvider {
     }
 
     public SimpleVertex addHostSystemVertex(String vertexId, String vertexName, String primaryInterface, int id, String powerState) {
-        String icon = Constants.HOSTSYSTEM_ICON_UNKOWN;
+        String icon = "HOSTSYSTEM_ICON_UNKOWN";
 
         if ("poweredOn".equals(powerState))
-            icon = Constants.HOSTSYSTEM_ICON_ON;
+            icon = "HOSTSYSTEM_ICON_ON";
         if ("poweredOff".equals(powerState))
-            icon = Constants.HOSTSYSTEM_ICON_OFF;
+            icon = "HOSTSYSTEM_ICON_OFF";
         if ("standBy".equals(powerState))
-            icon = Constants.HOSTSYSTEM_ICON_STANDBY;
+            icon = "HOSTSYSTEM_ICON_STANDBY";
 
         addVertex(vertexId, 50, 50, icon, vertexName, primaryInterface, id);
 

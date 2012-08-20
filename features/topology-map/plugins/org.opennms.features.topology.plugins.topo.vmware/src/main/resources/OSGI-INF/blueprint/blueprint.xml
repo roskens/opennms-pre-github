@@ -48,6 +48,34 @@ http://www.osgi.org/xmlns/blueprint-ext/v1.1.0 https://svn.apache.org/repos/asf/
     </service>
     -->
 
+    <!-- Icon Repository Manager -->
+    <bean id="iconRepoManager" class="org.opennms.features.topology.app.internal.support.IconRepositoryManager"/>
+
+    <reference-list interface="org.opennms.features.topology.app.internal.support.IconRepository" availability="optional">
+        <reference-listener bind-method="onBind" unbind-method="onUnbind" ref="iconRepoManager">
+        </reference-listener>
+    </reference-list>
+
+    <service interface="org.opennms.features.topology.app.internal.support.IconRepository">
+        <bean class="org.opennms.features.topology.app.internal.support.DefaultIconRepository">
+            <property name="iconMap">
+                <map>
+                    <entry key="NETWORK_ICON" value="VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/vmware-network.png"/>
+                    <entry key="HOSTSYSTEM_ICON_ON" value="VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/vmware-hostsystem-on.png"/>
+                    <entry key="HOSTSYSTEM_ICON_OFF" value="VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/vmware-hostsystem-off.png"/>
+                    <entry key="HOSTSYSTEM_ICON_STANDBY" value="VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/vmware-hostsystem-standby.png"/>
+                    <entry key="HOSTSYSTEM_ICON_UNKOWN" value="VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/vmware-hostsystem-unkown.png"/>
+                    <entry key="VIRTUALMACHINE_ICON_ON" value="VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/vmware-virtualmachine-on.png"/>
+                    <entry key="VIRTUALMACHINE_ICON_OFF" value="VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/vmware-virtualmachine-off.png"/>
+                    <entry key="VIRTUALMACHINE_ICON_SUSPENDED" value="VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/vmware-virtualmachine-suspended.png"/>
+                    <entry key="VIRTUALMACHINE_ICON_UNKNOWN" value="VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/vmware-virtualmachine-unknown.png"/>
+                    <entry key="DATASTORE_ICON" value="VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/vmware-datastore.png"/>
+                    <entry key="DATACENTER_ICON" value="VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/vmware-datacenter.png"/>
+                </map>
+            </property>
+        </bean>
+    </service>
+
     <service interface="org.opennms.features.topology.api.Operation" >
         <service-properties>
             <entry key="operation.menuLocation" value="File"/>
