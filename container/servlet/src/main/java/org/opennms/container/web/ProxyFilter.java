@@ -48,26 +48,17 @@ public final class ProxyFilter implements Filter {
         } catch (final Exception e) {
             throw new ServletException("Unable to create dispatcher m_dispatcherTracker.", e);
         }
-        filterConfig.getServletContext().log("opening dispatcher m_dispatcherTracker");
         this.m_dispatcherTracker.open();
-        filterConfig.getServletContext().log("finished initializing");
     }
 
     @Override
     public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain) throws IOException, ServletException {
-        m_filterConfig.getServletContext().log("doFilter() called.");
-        m_filterConfig.getServletContext().log("request: " + request);
-        m_filterConfig.getServletContext().log("response: " + response);
-        m_filterConfig.getServletContext().log("filter chain: " + chain);
-
         final Filter dispatcher = this.m_dispatcherTracker.getDispatcher();
-        m_filterConfig.getServletContext().log("dispatcher: " + dispatcher);
         if (dispatcher != null) {
             dispatcher.doFilter(request, response, chain);
         } else {
             chain.doFilter(request, response);
         }
-        m_filterConfig.getServletContext().log("doFilter() finished.");
     }
 
     private BundleContext getBundleContext(final ServletContext servletContext) throws ServletException {

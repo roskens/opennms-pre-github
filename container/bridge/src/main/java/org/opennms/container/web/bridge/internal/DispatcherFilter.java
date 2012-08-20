@@ -35,17 +35,14 @@ public class DispatcherFilter implements Filter {
 
     @Override
     public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain) throws IOException, ServletException {
-        m_filterConfig.getServletContext().log("DispatchFilter: doFilter() called.");
         final ServletRequestEvent sre = new ServletRequestEvent(m_filterConfig.getServletContext(), request);
         m_controller.getRequestListener().requestInitialized(sre);
         try
         {
             if (request instanceof HttpServletRequest && response instanceof HttpServletResponse) {
-                m_filterConfig.getServletContext().log("DispatchFilter: request is an HttpServletRequest, dispatching.");
                 final HttpServletRequest req = new AttributeEventRequest(m_filterConfig.getServletContext(), m_controller.getRequestAttributeListener(), (HttpServletRequest)request);
                 m_controller.getDispatcher().dispatch(req, (HttpServletResponse)response, chain);
             } else {
-                m_filterConfig.getServletContext().log("Request or response were not 'HTTP', falling through to default filter chain.");
                 chain.doFilter(request, response);
             }
         } catch (final Exception e) {
@@ -55,7 +52,6 @@ public class DispatcherFilter implements Filter {
         {
             m_controller.getRequestListener().requestDestroyed(sre);
         }
-        m_filterConfig.getServletContext().log("DispatchFilter: doFilter() complete.");
     }
 
     @Override
@@ -71,7 +67,6 @@ public class DispatcherFilter implements Filter {
 
         public AttributeEventRequest(ServletContext servletContext, ServletRequestAttributeListenerManager requestAttributeListener, HttpServletRequest request) {
             super(request);
-            servletContext.log("AttributeEventRequest: request = " + request);
             this.servletContext = servletContext;
             this.requestAttributeListener = requestAttributeListener;
         }

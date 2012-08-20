@@ -105,7 +105,6 @@ public final class DispatcherTracker
         str.append(javax.servlet.Filter.class.getName()).append(")");
         str.append(filter != null ? filter : DEFAULT_FILTER).append(")");
         final String filterText = str.toString();
-        servletContext.log("creating filter: " + filterText);
         return context.createFilter(filterText);
     }
 }
