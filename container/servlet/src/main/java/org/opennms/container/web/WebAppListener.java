@@ -99,7 +99,7 @@ public class WebAppListener implements ServletContextListener {
             m_bridge.stop(m_framework);
             // TODO unregister services form both registries with the osgi container stops
             
-            m_servletContext("contextDestroyed");
+            m_servletContext.log("contextDestroyed");
             if (main != null) {
                 main.destroy();
             }
