@@ -7,16 +7,20 @@ import org.opennms.features.topology.api.OperationContext;
 import org.opennms.features.topology.plugins.topo.vmware.internal.VmwareTopologyProvider;
 
 
-public class SaveOperation implements Operation {
-    
+public class VmwareGenerateOperation implements Operation {
+
     VmwareTopologyProvider m_topologyProvider;
-	public SaveOperation(VmwareTopologyProvider topologyProvider) {
+
+    public VmwareGenerateOperation(VmwareTopologyProvider topologyProvider) {
         m_topologyProvider = topologyProvider;
     }
 
     @Override
-    public Undoer execute(List<Object> targets, OperationContext operationContext) {
-        m_topologyProvider.save("graph.xml");
+    public Undoer execute(List<Object> targets,
+                          OperationContext operationContext) {
+
+        m_topologyProvider.generate();
+
         return null;
     }
 
@@ -27,7 +31,7 @@ public class SaveOperation implements Operation {
 
     @Override
     public boolean enabled(List<Object> targets, OperationContext operationContext) {
-        return true;
+        return !m_topologyProvider.isGenerated();
     }
 
     @Override

@@ -12,83 +12,14 @@ http://www.osgi.org/xmlns/blueprint-ext/v1.1.0 https://svn.apache.org/repos/asf/
 
     <service interface="org.opennms.features.topology.api.TopologyProvider" ref="vmwareTopologyProvider"/>
 
-    <!--
-    <service interface="org.opennms.features.topology.api.Operation" >
-        <service-properties>
-            <entry key="operation.menuLocation" value="Edit"/>
-            <entry key="operation.contextMenuLocation" value=""/>
-            <entry key="operation.label" value="Add Vertex"/>
-        </service-properties>
-        <bean class="org.opennms.features.topology.plugins.topo.vmware.internal.operations.AddVertexOperation">
-            <argument value="VAADIN/widgetsets/org.opennms.features.topology.app.internal.gwt.TopologyWidget/topologywidget/images/server.png"/>
-            <argument ref="simpleTopologyProvider"/>
-        </bean>
-    </service>
-    
-    <service interface="org.opennms.features.topology.api.Operation" >
-        <service-properties>
-            <entry key="operation.menuLocation" value="Edit"/>
-            <entry key="operation.label" value="Connect"/>
-            <entry key="operation.contextMenuLocation" value=""/>
-        </service-properties>
-        <bean class="org.opennms.features.topology.plugins.topo.vmware.internal.operations.ConnectOperation">
-            <argument ref="simpleTopologyProvider"/>
-        </bean>
-    </service>
-    
-    <service interface="org.opennms.features.topology.api.Operation" >
-        <service-properties>
-            <entry key="operation.menuLocation" value="Edit"/>
-            <entry key="operation.label" value="Create Group"/>
-            <entry key="operation.contextMenuLocation" value=""/>
-        </service-properties>
-        <bean class="org.opennms.features.topology.plugins.topo.vmware.internal.operations.CreateGroupOperation">
-            <argument ref="simpleTopologyProvider"/>
-        </bean>
-    </service>
-    -->
-
     <service interface="org.opennms.features.topology.api.Operation" >
         <service-properties>
             <entry key="operation.menuLocation" value="File"/>
             <entry key="operation.label" value="Generate"/>
         </service-properties>
-        <bean class="org.opennms.features.topology.plugins.topo.vmware.internal.operations.GenerateOperation">
+        <bean class="org.opennms.features.topology.plugins.topo.vmware.internal.operations.VmwareGenerateOperation">
             <argument ref="vmwareTopologyProvider"/>
         </bean>
     </service>
 
-    <!--
-    <service interface="org.opennms.features.topology.api.Operation" >
-        <service-properties>
-            <entry key="operation.menuLocation" value="Edit"/>
-            <entry key="operation.label" value="Remove Vertex"/>
-            <entry key="operation.contextMenuLocation" value=""/>
-        </service-properties>
-        <bean class="org.opennms.features.topology.plugins.topo.vmware.internal.operations.RemoveVertexOperation">
-            <argument ref="simpleTopologyProvider"/>
-        </bean>
-    </service>
-
-    <service interface="org.opennms.features.topology.api.Operation" >
-        <service-properties>
-            <entry key="operation.menuLocation" value="Edit"/>
-            <entry key="operation.label" value="Reset"/>
-            <entry key="operation.contextMenuLocation" value=""/>
-        </service-properties>
-        <bean class="org.opennms.features.topology.plugins.topo.vmware.internal.operations.ResetOperation">
-            <argument ref="vmwareTopologyProvider"/>
-        </bean>
-    </service>
-
-    <service interface="org.opennms.features.topology.api.Operation" >
-        <service-properties>
-            <entry key="operation.menuLocation" value="File"/>
-            <entry key="operation.label" value="Save"/>
-        </service-properties>
-        <bean class="org.opennms.features.topology.plugins.topo.vmware.internal.operations.SaveOperation">
-            <argument ref="simpleTopologyProvider"/>
-        </bean>
-    </service>
-    -->
 </blueprint>

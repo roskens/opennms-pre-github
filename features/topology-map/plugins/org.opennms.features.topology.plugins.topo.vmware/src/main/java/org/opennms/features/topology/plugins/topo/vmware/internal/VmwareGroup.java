@@ -7,14 +7,14 @@ import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name="group")
-public class SimpleGroup extends SimpleVertex {
+public class VmwareGroup extends VmwareVertex {
 
-	List<SimpleVertex> m_members = new ArrayList<SimpleVertex>();
+	List<VmwareVertex> m_members = new ArrayList<VmwareVertex>();
 	
 	
-	public SimpleGroup() {}
+	public VmwareGroup() {}
 	
-	public SimpleGroup(String id) {
+	public VmwareGroup(String id) {
 		super(id);
 	}
 
@@ -24,15 +24,15 @@ public class SimpleGroup extends SimpleVertex {
 	}
 	
 	@XmlIDREF
-	public List<SimpleVertex> getMembers() {
+	public List<VmwareVertex> getMembers() {
 		return m_members;
 	}
 	
-	public void addMember(SimpleVertex v) {
+	public void addMember(VmwareVertex v) {
 		m_members.add(v);
 	}
 	
-	public void removeMember(SimpleVertex v) {
+	public void removeMember(VmwareVertex v) {
 		m_members.remove(v);
 	}
 

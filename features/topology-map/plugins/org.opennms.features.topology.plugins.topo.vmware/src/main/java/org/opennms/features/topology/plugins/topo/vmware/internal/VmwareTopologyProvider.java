@@ -5,7 +5,7 @@ import com.vaadin.data.Property;
 import com.vaadin.data.util.BeanContainer;
 import com.vaadin.data.util.BeanItem;
 import org.opennms.features.topology.api.TopologyProvider;
-import org.opennms.features.topology.plugins.topo.vmware.internal.operations.Constants;
+import org.opennms.features.topology.plugins.topo.vmware.internal.operations.VmwareConstants;
 import org.opennms.netmgt.dao.NodeDao;
 import org.opennms.netmgt.model.OnmsNode;
 
@@ -21,16 +21,16 @@ public class VmwareTopologyProvider implements TopologyProvider {
 
     NodeDao m_nodeDao;
 
-    private SimpleVertexContainer m_vertexContainer;
-    private BeanContainer<String, SimpleEdge> m_edgeContainer;
+    private VmwareVertexContainer m_vertexContainer;
+    private BeanContainer<String, VmwareEdge> m_edgeContainer;
     private int m_counter = 0;
     private int m_edgeCounter = 0;
     private int m_groupCounter = 0;
     private boolean m_generated = false;
 
     public VmwareTopologyProvider() {
-        m_vertexContainer = new SimpleVertexContainer();
-        m_edgeContainer = new BeanContainer<String, SimpleEdge>(SimpleEdge.class);
+        m_vertexContainer = new VmwareVertexContainer();
+        m_edgeContainer = new BeanContainer<String, VmwareEdge>(VmwareEdge.class);
         m_edgeContainer.setBeanIdProperty("id");
 
         resetContainer();
@@ -49,45 +49,45 @@ public class VmwareTopologyProvider implements TopologyProvider {
     }
 
     public void debug(String id) {
-        SimpleVertex simpleVertex = getRequiredVertex(id);
+        VmwareVertex vmwareVertex = getRequiredVertex(id);
 
-        System.err.println("-+- id: " + simpleVertex.getId());
-        System.err.println(" |- hashCode: " + simpleVertex.hashCode());
-        System.err.println(" |- label: " + simpleVertex.getLabel());
-        System.err.println(" |- ip: " + simpleVertex.getIpAddr());
-        System.err.println(" |- nodeId: " + simpleVertex.getNodeID());
+        System.err.println("-+- id: " + vmwareVertex.getId());
+        System.err.println(" |- hashCode: " + vmwareVertex.hashCode());
+        System.err.println(" |- label: " + vmwareVertex.getLabel());
+        System.err.println(" |- ip: " + vmwareVertex.getIpAddr());
+        System.err.println(" |- nodeId: " + vmwareVertex.getNodeID());
 
-        for (SimpleEdge simpleEdge : simpleVertex.getEdges()) {
-            String edgeTo = simpleEdge.getTarget().getId();
+        for (VmwareEdge vmwareEdge : vmwareVertex.getEdges()) {
+            String edgeTo = vmwareEdge.getTarget().getId();
             if (id.equals(edgeTo))
-                edgeTo = simpleEdge.getSource().getId();
+                edgeTo = vmwareEdge.getSource().getId();
             System.err.println(" |- edgeTo: " + edgeTo);
         }
-        System.err.println(" '- parent: " + (simpleVertex.getParent() == null ? null : simpleVertex.getParent().getId()));
+        System.err.println(" '- parent: " + (vmwareVertex.getParent() == null ? null : vmwareVertex.getParent().getId()));
     }
 
-    public SimpleGroup addDatacenterGroup(String groupId, String groupName) {
+    public VmwareGroup addDatacenterGroup(String groupId, String groupName) {
         if (!m_vertexContainer.containsId(groupId)) {
             addGroup(groupId, "DATACENTER_ICON", groupName);
         }
-        return (SimpleGroup) getRequiredVertex(groupId);
+        return (VmwareGroup) getRequiredVertex(groupId);
     }
 
-    public SimpleVertex addNetworkVertex(String vertexId, String vertexName) {
+    public VmwareVertex addNetworkVertex(String vertexId, String vertexName) {
         if (!m_vertexContainer.containsId(vertexId)) {
             addVertex(vertexId, 50, 50, "NETWORK_ICON", vertexName, "", -1);
         }
         return getRequiredVertex(vertexId);
     }
 
-    public SimpleVertex addDatastoreVertex(String vertexId, String vertexName) {
+    public VmwareVertex addDatastoreVertex(String vertexId, String vertexName) {
         if (!m_vertexContainer.containsId(vertexId)) {
             addVertex(vertexId, 50, 50, "DATASTORE_ICON", vertexName, "", -1);
         }
         return getRequiredVertex(vertexId);
     }
 
-    public SimpleVertex addVirtualMachineVertex(String vertexId, String vertexName, String primaryInterface, int id, String powerState) {
+    public VmwareVertex addVirtualMachineVertex(String vertexId, String vertexName, String primaryInterface, int id, String powerState) {
         String icon = "VIRTUALMACHINE_ICON_UNKNOWN";
 
         if ("poweredOn".equals(powerState))
@@ -102,7 +102,7 @@ public class VmwareTopologyProvider implements TopologyProvider {
         return getRequiredVertex(vertexId);
     }
 
-    public SimpleVertex addHostSystemVertex(String vertexId, String vertexName, String primaryInterface, int id, String powerState) {
+    public VmwareVertex addHostSystemVertex(String vertexId, String vertexName, String primaryInterface, int id, String powerState) {
         String icon = "HOSTSYSTEM_ICON_UNKOWN";
 
         if ("poweredOn".equals(powerState))
@@ -126,7 +126,7 @@ public class VmwareTopologyProvider implements TopologyProvider {
         String vmwareManagedObjectId = hostSystem.getAssetRecord().getVmwareManagedObjectId().trim();
         String vmwarePowerState = hostSystem.getAssetRecord().getVmwareRuntimeInformation();
 
-        SimpleGroup datacenterVertex = addDatacenterGroup(vmwareManagementServer, "Datacenter (" + vmwareManagementServer + ")");
+        VmwareGroup datacenterVertex = addDatacenterGroup(vmwareManagementServer, "Datacenter (" + vmwareManagementServer + ")");
 
         String primaryInterface = "unknown";
 
@@ -136,18 +136,18 @@ public class VmwareTopologyProvider implements TopologyProvider {
             primaryInterface = hostSystem.getPrimaryInterface().getIpHostName();
         }
 
-        SimpleVertex hostSystemVertex = addHostSystemVertex(vmwareManagementServer + "/" + vmwareManagedObjectId, hostSystem.getLabel(), primaryInterface, hostSystem.getId(), vmwarePowerState);
+        VmwareVertex hostSystemVertex = addHostSystemVertex(vmwareManagementServer + "/" + vmwareManagedObjectId, hostSystem.getLabel(), primaryInterface, hostSystem.getId(), vmwarePowerState);
 
         // set the parent vertex
         hostSystemVertex.setParent(datacenterVertex);
 
         for (String network : vmwareNetworks.split("[, ]+")) {
-            SimpleVertex networkVertex = addNetworkVertex(vmwareManagementServer + "/" + network, network);
+            VmwareVertex networkVertex = addNetworkVertex(vmwareManagementServer + "/" + network, network);
             networkVertex.setParent(datacenterVertex);
             connectVertices(vmwareManagementServer + "/" + vmwareManagedObjectId + "->" + network, vmwareManagementServer + "/" + vmwareManagedObjectId, vmwareManagementServer + "/" + network);
         }
         for (String datastore : vmwareDatastores.split("[, ]+")) {
-            SimpleVertex datastoreVertex = addDatastoreVertex(vmwareManagementServer + "/" + datastore, datastore);
+            VmwareVertex datastoreVertex = addDatastoreVertex(vmwareManagementServer + "/" + datastore, datastore);
             datastoreVertex.setParent(datacenterVertex);
             connectVertices(vmwareManagementServer + "/" + vmwareManagedObjectId + "->" + datastore, vmwareManagementServer + "/" + vmwareManagedObjectId, vmwareManagementServer + "/" + datastore);
         }
@@ -165,7 +165,7 @@ public class VmwareTopologyProvider implements TopologyProvider {
         String vmwareHostSystem = splittedData[0];
         String vmwarePowerState = splittedData[1];
 
-        SimpleGroup datacenterVertex = addDatacenterGroup(vmwareManagementServer, "Datacenter (" + vmwareManagementServer + ")");
+        VmwareGroup datacenterVertex = addDatacenterGroup(vmwareManagementServer, "Datacenter (" + vmwareManagementServer + ")");
 
         String primaryInterface = "unknown";
 
@@ -176,7 +176,7 @@ public class VmwareTopologyProvider implements TopologyProvider {
         }
 
         // add a vertex for the virtual machine
-        SimpleVertex virtualMachineVertex = addVirtualMachineVertex(vmwareManagementServer + "/" + vmwareManagedObjectId, virtualMachine.getLabel(), primaryInterface, virtualMachine.getId(), vmwarePowerState);
+        VmwareVertex virtualMachineVertex = addVirtualMachineVertex(vmwareManagementServer + "/" + vmwareManagedObjectId, virtualMachine.getLabel(), primaryInterface, virtualMachine.getId(), vmwarePowerState);
 
         // and set the parent vertex
         virtualMachineVertex.setParent(datacenterVertex);
@@ -218,11 +218,11 @@ public class VmwareTopologyProvider implements TopologyProvider {
         }
     }
 
-    public SimpleVertexContainer getVertexContainer() {
+    public VmwareVertexContainer getVertexContainer() {
         return m_vertexContainer;
     }
 
-    public BeanContainer<String, SimpleEdge> getEdgeContainer() {
+    public BeanContainer<String, VmwareEdge> getEdgeContainer() {
         return m_edgeContainer;
     }
 
@@ -244,7 +244,7 @@ public class VmwareTopologyProvider implements TopologyProvider {
 
     public Collection<?> getEndPointIdsForEdge(Object edgeId) {
 
-        SimpleEdge edge = getRequiredEdge(edgeId);
+        VmwareEdge edge = getRequiredEdge(edgeId);
 
         List<Object> endPoints = new ArrayList<Object>(2);
 
@@ -256,11 +256,11 @@ public class VmwareTopologyProvider implements TopologyProvider {
 
     public Collection<?> getEdgeIdsForVertex(Object vertexId) {
 
-        SimpleVertex vertex = getRequiredVertex(vertexId);
+        VmwareVertex vertex = getRequiredVertex(vertexId);
 
         List<Object> edges = new ArrayList<Object>(vertex.getEdges().size());
 
-        for (SimpleEdge e : vertex.getEdges()) {
+        for (VmwareEdge e : vertex.getEdges()) {
 
             Object edgeId = e.getId();
 
@@ -277,10 +277,10 @@ public class VmwareTopologyProvider implements TopologyProvider {
             throw new IllegalArgumentException("A vertex or group with id " + id + " already exists!");
         }
         System.err.println("Adding a vertex: " + id);
-        SimpleVertex vertex = new SimpleLeafVertex(id, x, y);
+        VmwareVertex vertex = new VmwareLeafVertex(id, x, y);
 
         vertex.setIconKey(icon);
-        vertex.setIcon(icon);
+        vertex.setIcon(VmwareConstants.ICONS.get(icon));
 
         vertex.setLabel(label);
         vertex.setIpAddr(ipAddr);
@@ -294,10 +294,10 @@ public class VmwareTopologyProvider implements TopologyProvider {
             throw new IllegalArgumentException("A vertex or group with id " + groupId + " already exists!");
         }
         System.err.println("Adding a group: " + groupId);
-        SimpleVertex vertex = new SimpleGroup(groupId);
+        VmwareVertex vertex = new VmwareGroup(groupId);
 
         vertex.setIconKey(icon);
-        vertex.setIcon(icon);
+        vertex.setIcon(VmwareConstants.ICONS.get(icon));
 
         vertex.setLabel(label);
 
@@ -305,32 +305,32 @@ public class VmwareTopologyProvider implements TopologyProvider {
     }
 
     private void connectVertices(String id, Object sourceVertextId, Object targetVertextId) {
-        SimpleVertex source = getRequiredVertex(sourceVertextId);
-        SimpleVertex target = getRequiredVertex(targetVertextId);
+        VmwareVertex source = getRequiredVertex(sourceVertextId);
+        VmwareVertex target = getRequiredVertex(targetVertextId);
 
-        SimpleEdge edge = new SimpleEdge(id, source, target);
+        VmwareEdge edge = new VmwareEdge(id, source, target);
 
         m_edgeContainer.addBean(edge);
     }
 
     public void removeVertex(Object vertexId) {
 
-        SimpleVertex vertex = getVertex(vertexId, false);
+        VmwareVertex vertex = getVertex(vertexId, false);
         if (vertex == null) return;
 
         m_vertexContainer.removeItem(vertexId);
 
-        for (SimpleEdge e : vertex.getEdges()) {
+        for (VmwareEdge e : vertex.getEdges()) {
             m_edgeContainer.removeItem(e.getId());
         }
     }
 
-    private SimpleVertex getRequiredVertex(Object vertexId) {
+    public VmwareVertex getRequiredVertex(Object vertexId) {
         return getVertex(vertexId, true);
     }
 
-    private SimpleVertex getVertex(Object vertexId, boolean required) {
-        BeanItem<SimpleVertex> item = m_vertexContainer.getItem(vertexId);
+    public VmwareVertex getVertex(Object vertexId, boolean required) {
+        BeanItem<VmwareVertex> item = m_vertexContainer.getItem(vertexId);
         if (required && item == null) {
             throw new IllegalArgumentException("required vertex " + vertexId + " not found.");
         }
@@ -338,12 +338,12 @@ public class VmwareTopologyProvider implements TopologyProvider {
         return item == null ? null : item.getBean();
     }
 
-    private SimpleEdge getRequiredEdge(Object edgeId) {
+    private VmwareEdge getRequiredEdge(Object edgeId) {
         return getEdge(edgeId, true);
     }
 
-    private SimpleEdge getEdge(Object edgeId, boolean required) {
-        BeanItem<SimpleEdge> item = m_edgeContainer.getItem(edgeId);
+    private VmwareEdge getEdge(Object edgeId, boolean required) {
+        BeanItem<VmwareEdge> item = m_edgeContainer.getItem(edgeId);
         if (required && item == null) {
             throw new IllegalArgumentException("required edge " + edgeId + " not found.");
         }
@@ -357,19 +357,19 @@ public class VmwareTopologyProvider implements TopologyProvider {
     private static class SimpleGraph {
 
         @XmlElements({
-                @XmlElement(name = "vertex", type = SimpleLeafVertex.class),
-                @XmlElement(name = "group", type = SimpleGroup.class)
+                @XmlElement(name = "vertex", type = VmwareLeafVertex.class),
+                @XmlElement(name = "group", type = VmwareGroup.class)
         })
-        List<SimpleVertex> m_vertices = new ArrayList<SimpleVertex>();
+        List<VmwareVertex> m_vertices = new ArrayList<VmwareVertex>();
 
         @XmlElement(name = "edge")
-        List<SimpleEdge> m_edges = new ArrayList<SimpleEdge>();
+        List<VmwareEdge> m_edges = new ArrayList<VmwareEdge>();
 
         @SuppressWarnings("unused")
         public SimpleGraph() {
         }
 
-        public SimpleGraph(List<SimpleVertex> vertices, List<SimpleEdge> edges) {
+        public SimpleGraph(List<VmwareVertex> vertices, List<VmwareEdge> edges) {
             m_vertices = vertices;
             m_edges = edges;
         }
@@ -377,8 +377,8 @@ public class VmwareTopologyProvider implements TopologyProvider {
     }
 
     public void save(String filename) {
-        List<SimpleVertex> vertices = getBeans(m_vertexContainer);
-        List<SimpleEdge> edges = getBeans(m_edgeContainer);
+        List<VmwareVertex> vertices = getBeans(m_vertexContainer);
+        List<VmwareEdge> edges = getBeans(m_edgeContainer);
 
         SimpleGraph graph = new SimpleGraph(vertices, edges);
 

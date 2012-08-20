@@ -10,9 +10,9 @@ import java.util.List;
 
 import org.opennms.features.topology.api.VertexContainer;
 
-public class SimpleVertexContainer extends VertexContainer<String, SimpleVertex> {
-	public SimpleVertexContainer() {
-		super(SimpleVertex.class);
+public class VmwareVertexContainer extends VertexContainer<String, VmwareVertex> {
+	public VmwareVertexContainer() {
+		super(VmwareVertex.class);
 		setBeanIdProperty("id");
 	}
 	
@@ -22,20 +22,20 @@ public class SimpleVertexContainer extends VertexContainer<String, SimpleVertex>
 
 	public boolean areChildrenAllowed(Object itemId) {
 		if (!containsId(itemId)) return false;
-		SimpleVertex v = getItem(itemId).getBean();
+		VmwareVertex v = getItem(itemId).getBean();
 		return !v.isLeaf();
 	}
 
 	public Collection<?> getChildren(Object itemId) {
 		if (!containsId(itemId)) return Collections.EMPTY_LIST;
-		SimpleVertex v = getItem(itemId).getBean();
+		VmwareVertex v = getItem(itemId).getBean();
 		if (v.isLeaf()) {
 			return Collections.EMPTY_LIST;
 		}
 		else {
-			SimpleGroup g = (SimpleGroup)v;
+			VmwareGroup g = (VmwareGroup)v;
 			List<String> memberIds = new ArrayList<String>();
-			for(SimpleVertex member : g.getMembers()) {
+			for(VmwareVertex member : g.getMembers()) {
 				memberIds.add(member.getId());
 			}
 			return memberIds;
@@ -45,13 +45,13 @@ public class SimpleVertexContainer extends VertexContainer<String, SimpleVertex>
 	public Object getParent(Object itemId) {
 		if (!containsId(itemId)) return null;
 		
-		SimpleGroup g = getItem(itemId).getBean().getParent();
+		VmwareGroup g = getItem(itemId).getBean().getParent();
 		return g == null ? null : g.getId();
 	}
 
 	public boolean hasChildren(Object itemId) {
 		if (!containsId(itemId)) return false;
-		SimpleVertex v = getItem(itemId).getBean();
+		VmwareVertex v = getItem(itemId).getBean();
 		return !v.isLeaf();
 	}
 
@@ -79,7 +79,7 @@ public class SimpleVertexContainer extends VertexContainer<String, SimpleVertex>
 	public boolean setParent(Object itemId, Object newParentId) throws UnsupportedOperationException {
 		if (!containsId(itemId)) return false;
 		
-		SimpleVertex v  = getItem(itemId).getBean();
+		VmwareVertex v  = getItem(itemId).getBean();
 		
 		if (newParentId == null) {
 			v.setParent(null);
@@ -89,11 +89,11 @@ public class SimpleVertexContainer extends VertexContainer<String, SimpleVertex>
 		
 		if (!containsId(newParentId)) return false;
 		
-		SimpleVertex p = getItem(newParentId).getBean();
+		VmwareVertex p = getItem(newParentId).getBean();
 		
 		if (p.isLeaf()) return false;
 		
-		SimpleGroup g = (SimpleGroup)p;
+		VmwareGroup g = (VmwareGroup)p;
 		
 		v.setParent(g);
 		fireItemSetChange();

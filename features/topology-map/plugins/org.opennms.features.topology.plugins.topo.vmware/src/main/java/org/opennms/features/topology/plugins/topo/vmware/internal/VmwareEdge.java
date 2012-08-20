@@ -8,15 +8,15 @@ import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name="edge")
-public class SimpleEdge {
+public class VmwareEdge {
 	String m_id;
-	SimpleVertex m_source;
-	SimpleVertex m_target;
+	VmwareVertex m_source;
+	VmwareVertex m_target;
 	
-	public SimpleEdge() {}
+	public VmwareEdge() {}
 	
 	
-	public SimpleEdge(String id, SimpleVertex source, SimpleVertex target) {
+	public VmwareEdge(String id, VmwareVertex source, VmwareVertex target) {
 		m_id = id;
 		m_source = source;
 		m_target = target;
@@ -35,21 +35,21 @@ public class SimpleEdge {
 	}
 	
 	@XmlIDREF
-	public SimpleVertex getSource() {
+	public VmwareVertex getSource() {
 		return m_source;
 	}
 
-	public void setSource(SimpleVertex source) {
+	public void setSource(VmwareVertex source) {
 		m_source = source;
 		m_source.addEdge(this);
 	}
 
 	@XmlIDREF
-	public SimpleVertex getTarget() {
+	public VmwareVertex getTarget() {
 		return m_target;
 	}
 
-	public void setTarget(SimpleVertex target) {
+	public void setTarget(VmwareVertex target) {
 		m_target = target;
 		m_target.addEdge(this);
 	}
@@ -70,7 +70,7 @@ public class SimpleEdge {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		SimpleEdge other = (SimpleEdge) obj;
+		VmwareEdge other = (VmwareEdge) obj;
 		if (m_id == null) {
 			if (other.m_id != null)
 				return false;

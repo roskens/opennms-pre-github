@@ -8,11 +8,11 @@ import org.opennms.features.topology.api.OperationContext;
 import org.opennms.features.topology.plugins.topo.vmware.internal.VmwareTopologyProvider;
 
 
-public class ResetOperation implements Constants, Operation{
+public class VmwareResetOperation implements Operation{
     
     VmwareTopologyProvider m_topologyProvider;
     
-    public ResetOperation(VmwareTopologyProvider topologyProvider) {
+    public VmwareResetOperation(VmwareTopologyProvider topologyProvider) {
         m_topologyProvider = topologyProvider;
     }
 

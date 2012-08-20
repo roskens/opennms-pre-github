@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlTransient;
 
 
-abstract public class SimpleVertex {
+abstract public class VmwareVertex {
     String m_id;
     int m_x;
     int m_y;
@@ -19,31 +19,31 @@ abstract public class SimpleVertex {
     boolean m_locked = false;
     String m_icon;
     String m_label = "none provided";
-    SimpleGroup m_parent = null;
-    List<SimpleEdge> m_edges = new ArrayList<SimpleEdge>();
+    VmwareGroup m_parent = null;
+    List<VmwareEdge> m_edges = new ArrayList<VmwareEdge>();
     private String m_ipAddr ="127.0.0.1";
     private int m_nodeID = -1;
     //	private int m_semanticZoomLevel = -1;
     private String m_iconKey;
 
-    public SimpleVertex() {}
+    public VmwareVertex() {}
 
-    public SimpleVertex(String id) {
+    public VmwareVertex(String id) {
         m_id = id;
     }
 
-    public SimpleVertex(String id, int x, int y) {
+    public VmwareVertex(String id, int x, int y) {
         m_id = id;
         m_x = x;
         m_y = y;
     }
 
     @XmlIDREF
-    public SimpleGroup getParent() {
+    public VmwareGroup getParent() {
         return m_parent;
     }
 
-    public void setParent(SimpleGroup parent) {
+    public void setParent(VmwareGroup parent) {
         if (m_parent != null) {
             m_parent.removeMember(this);
         }
@@ -133,15 +133,15 @@ abstract public class SimpleVertex {
     }
 
     @XmlTransient
-    public List<SimpleEdge> getEdges() {
+    public List<VmwareEdge> getEdges() {
         return m_edges;
     }
 
-    void addEdge(SimpleEdge edge) {
+    void addEdge(VmwareEdge edge) {
         m_edges.add(edge);
     }
 
-    void removeEdge(SimpleEdge edge) {
+    void removeEdge(VmwareEdge edge) {
         m_edges.remove(edge);
     }
 
@@ -161,7 +161,7 @@ abstract public class SimpleVertex {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        SimpleVertex other = (SimpleVertex) obj;
+        VmwareVertex other = (VmwareVertex) obj;
         if (m_id == null) {
             if (other.m_id != null)
                 return false;
@@ -186,7 +186,7 @@ abstract public class SimpleVertex {
 //				: m_parent.getSemanticZoomLevel() + 1;
 //	}
 
-//	public SimpleVertex getDisplayVertex(int semanticZoomLevel) {
+//	public VmwareVertex getDisplayVertex(int semanticZoomLevel) {
 //		if(getParent() == null || getSemanticZoomLevel() <= semanticZoomLevel) {
 //			return this;
 //		}else {
