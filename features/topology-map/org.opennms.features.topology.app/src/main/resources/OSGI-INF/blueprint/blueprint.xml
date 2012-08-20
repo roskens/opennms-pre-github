@@ -32,6 +32,17 @@ http://www.osgi.org/xmlns/blueprint-ext/v1.1.0 https://svn.apache.org/repos/asf/
             <property name="iconMap">
                 <map>
                     <entry key="server" value="VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/server.png"/>
+                    <entry key="NETWORK_ICON" value="VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/vmware-network.png"/>
+                    <entry key="HOSTSYSTEM_ICON_ON" value="VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/vmware-hostsystem-on.png"/>
+                    <entry key="HOSTSYSTEM_ICON_OFF" value="VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/vmware-hostsystem-off.png"/>
+                    <entry key="HOSTSYSTEM_ICON_STANDBY" value="VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/vmware-hostsystem-standby.png"/>
+                    <entry key="HOSTSYSTEM_ICON_UNKOWN" value="VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/vmware-hostsystem-unkown.png"/>
+                    <entry key="VIRTUALMACHINE_ICON_ON" value="VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/vmware-virtualmachine-on.png"/>
+                    <entry key="VIRTUALMACHINE_ICON_OFF" value="VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/vmware-virtualmachine-off.png"/>
+                    <entry key="VIRTUALMACHINE_ICON_SUSPENDED" value="VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/vmware-virtualmachine-suspended.png"/>
+                    <entry key="VIRTUALMACHINE_ICON_UNKNOWN" value="VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/vmware-virtualmachine-unknown.png"/>
+                    <entry key="DATASTORE_ICON" value="VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/vmware-datastore.png"/>
+                    <entry key="DATACENTER_ICON" value="VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/vmware-datacenter.png"/>
                 </map>
             </property>
         </bean>
