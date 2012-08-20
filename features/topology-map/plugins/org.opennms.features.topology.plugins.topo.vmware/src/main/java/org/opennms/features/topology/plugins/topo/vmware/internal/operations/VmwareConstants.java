@@ -24,6 +24,7 @@ public class VmwareConstants {
         ICONS.put("VIRTUALMACHINE_ICON_UNKNOWN", "/opennms/osgi/VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/vmware-virtualmachine-unknown.png");
         ICONS.put("DATASTORE_ICON", "/opennms/osgi/VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/vmware-datastore.png");
         ICONS.put("DATACENTER_ICON", "/opennms/osgi/VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/vmware-datacenter.png");
+        ICONS.put("CLUSTER_ICON", "/opennms/osgi/VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/vmware-cluster.png");
     }
 
 

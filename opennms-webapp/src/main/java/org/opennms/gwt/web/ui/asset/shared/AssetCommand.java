@@ -823,8 +823,8 @@ public class AssetCommand implements IsSerializable {
         m_vmwareManagementServer = vmwareManagementServer;
     }
 
-    public void setVmwareTopology(String vmwareTopology) {
-        m_vmwareTopologyInfo = vmwareTopology;
+    public void setVmwareTopologyInfo(String vmwareTopologyInfo) {
+        m_vmwareTopologyInfo = vmwareTopologyInfo;
     }
 
     public void setVmwareState(String vmwareState) {

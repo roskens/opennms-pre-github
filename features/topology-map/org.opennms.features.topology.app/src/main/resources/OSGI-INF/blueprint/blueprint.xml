@@ -43,6 +43,7 @@ http://www.osgi.org/xmlns/blueprint-ext/v1.1.0 https://svn.apache.org/repos/asf/
                     <entry key="VIRTUALMACHINE_ICON_UNKNOWN" value="/opennms/osgi/VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/vmware-virtualmachine-unknown.png"/>
                     <entry key="DATASTORE_ICON" value="/opennms/osgi/VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/vmware-datastore.png"/>
                     <entry key="DATACENTER_ICON" value="/opennms/osgi/VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/vmware-datacenter.png"/>
+                    <entry key="CLUSTER_ICON" value="/opennms/osgi/VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/vmware-cluster.png"/>
                 </map>
             </property>
         </bean>

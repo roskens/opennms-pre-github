@@ -30,14 +30,14 @@ package org.opennms.netmgt.provision.service.vmware;
 
 import com.vmware.vim25.*;
 import com.vmware.vim25.mo.*;
+import com.vmware.vim25.mo.util.MorUtil;
 import org.apache.commons.io.IOExceptionWithCause;
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
-import org.opennms.core.utils.Base64;
 import org.opennms.core.utils.url.GenericURLConnection;
 import org.opennms.core.xml.JaxbUtils;
-import org.opennms.netmgt.model.PrimaryType;
 import org.opennms.netmgt.collectd.vmware.VmwareViJavaAccess;
+import org.opennms.netmgt.model.PrimaryType;
 import org.opennms.netmgt.provision.persist.requisition.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,11 +46,10 @@ import javax.xml.bind.JAXBException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.InetAddress;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.UnknownHostException;
+import java.io.UnsupportedEncodingException;
+import java.net.*;
 import java.rmi.RemoteException;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
@@ -90,6 +89,12 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
     private boolean m_importHostPoweredOff = false;
     private boolean m_importHostStandBy = false;
     private boolean m_importHostUnknown = false;
+
+    /*
+     * Host system managedObjectId to name mapping
+     */
+
+    private HashMap<String, String> m_hostSystemMap = new HashMap<String, String>();
 
     /**
      * the query args
@@ -279,9 +284,13 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
             if (!"".equals(vmwareTopologyInfo)) {
                 vmwareTopologyInfo += ", ";
             }
-            vmwareTopologyInfo += parentEntity.getMOR().getVal()+"/"+Base64.encodeBase64(parentEntity.getName().toString().getBytes());
+            try {
+                vmwareTopologyInfo += parentEntity.getMOR().getVal() + "/" + URLEncoder.encode(parentEntity.getName(), "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
             parentEntity = parentEntity.getParent();
-        } while (parentEntity!=null);
+        } while (parentEntity != null);
 
         if (managedEntityType == VMWARE_HOSTSYSTEM) {
             HostSystem hostSystem = (HostSystem) managedEntity;
@@ -293,7 +302,11 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
                     if (!"".equals(vmwareTopologyInfo)) {
                         vmwareTopologyInfo += ", ";
                     }
-                    vmwareTopologyInfo += datastore.getMOR().getVal()+"/"+Base64.encodeBase64(datastore.getName().toString().getBytes());
+                    try {
+                        vmwareTopologyInfo += datastore.getMOR().getVal() + "/" + URLEncoder.encode(datastore.getSummary().getName(), "UTF-8");
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
                 }
             } catch (RemoteException e) {
                 logger.warn("Cannot retrieve datastores for managedEntity '{}': '{}'", managedEntity.getMOR().getVal(), e.getMessage());
@@ -303,7 +316,11 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
                     if (!"".equals(vmwareTopologyInfo)) {
                         vmwareTopologyInfo += ", ";
                     }
-                    vmwareTopologyInfo += network.getMOR().getVal()+"/"+Base64.encodeBase64(network.getName().toString().getBytes());
+                    try {
+                        vmwareTopologyInfo += network.getMOR().getVal() + "/" + URLEncoder.encode(network.getSummary().getName(), "UTF-8");
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
                 }
             } catch (RemoteException e) {
                 logger.warn("Cannot retrieve networks for managedEntity '{}': '{}'", managedEntity.getMOR().getVal(), e.getMessage());
@@ -318,7 +335,11 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
                     if (!"".equals(vmwareTopologyInfo)) {
                         vmwareTopologyInfo += ", ";
                     }
-                    vmwareTopologyInfo += datastore.getMOR().getVal()+"/"+Base64.encodeBase64(datastore.getName().toString().getBytes());
+                    try {
+                        vmwareTopologyInfo += datastore.getMOR().getVal() + "/" + URLEncoder.encode(datastore.getSummary().getName(), "UTF-8");
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
                 }
             } catch (RemoteException e) {
                 logger.warn("Cannot retrieve datastores for managedEntity '{}': '{}'", managedEntity.getMOR().getVal(), e.getMessage());
@@ -328,7 +349,11 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
                     if (!"".equals(vmwareTopologyInfo)) {
                         vmwareTopologyInfo += ", ";
                     }
-                    vmwareTopologyInfo += network.getMOR().getVal()+"/"+Base64.encodeBase64(network.getName().toString().getBytes());
+                    try {
+                        vmwareTopologyInfo += network.getMOR().getVal() + "/" + URLEncoder.encode(network.getSummary().getName(), "UTF-8");
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
                 }
             } catch (RemoteException e) {
                 logger.warn("Cannot retrieve networks for managedEntity '{}': '{}'", managedEntity.getMOR().getVal(), e.getMessage());
@@ -338,7 +363,11 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
                 vmwareTopologyInfo += ", ";
             }
 
-            vmwareTopologyInfo = virtualMachine.getRuntime().getHost().getVal();
+            try {
+                vmwareTopologyInfo += virtualMachine.getRuntime().getHost().getVal() + "/" + URLEncoder.encode(m_hostSystemMap.get(virtualMachine.getRuntime().getHost().getVal()), "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
         }
 
 
@@ -467,6 +496,8 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
 
             for (ManagedEntity managedEntity : hostSystems) {
                 HostSystem hostSystem = (HostSystem) managedEntity;
+
+                m_hostSystemMap.put(hostSystem.getMOR().getVal(), hostSystem.getName());
 
                 // check for correct key/value-pair
                 if (checkHostPowerState(hostSystem) && checkForAttribute(hostSystem)) {

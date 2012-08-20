@@ -475,7 +475,7 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
         m_asset.setVmwareManagedObjectId(sVmwareManagedObjectId.getValue());
         m_asset.setVmwareManagedEntityType(sVmwareManagedEntityType.getValue());
         m_asset.setVmwareManagementServer(sVmwareManagementServer.getValue());
-        m_asset.setVmwareTopology(sVmwareTopologyInfo.getValue());
+        m_asset.setVmwareTopologyInfo(sVmwareTopologyInfo.getValue());
         m_asset.setVmwareState(sVmwareState.getValue());
     }
 
@@ -669,6 +669,8 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
         sVmwareManagedObjectId.setSuggestions(assetSugg.getVmwareManagedObjectId());
         sVmwareManagedEntityType.setSuggestions(assetSugg.getVmwareManagedEntityType());
         sVmwareManagementServer.setSuggestions(assetSugg.getVmwareManagementServer());
+        sVmwareTopologyInfo.setSuggestions(assetSugg.getVmwareTopologyInfo());
+        sVmwareState.setSuggestions(assetSugg.getVmwareState());
     }
 
     private void setDataVmware(AssetCommand asset) {
