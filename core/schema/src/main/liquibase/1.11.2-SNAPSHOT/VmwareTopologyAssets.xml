@@ -11,9 +11,8 @@
     -->
     <changeSet author="ronny" id="1.11.2-SNAPSHOT-addAssetFieldsForVmwareTopologyProvider">
         <addColumn tableName="assets">
-            <column name="vmwarenetworks" type="varchar(255)" />
-            <column name="vmwaredatastores" type="varchar(255)" />
-            <column name="vmwareruntimeinformation" type="varchar(255)" />
+            <column name="vmwareTopologyInfo" type="varchar(1023)" />
+            <column name="vmwareState" type="varchar(255)" />
         </addColumn>
     </changeSet>
 </databaseChangeLog>

@@ -734,27 +734,19 @@ public interface AssetPageConstants extends com.google.gwt.i18n.client.Constants
     @Key("vmwareManagementServerHelp")
     String vmwareManagementServerHelp();
 
-    @DefaultStringValue("VMware networks")
-    @Key("vmwareNetworks")
-    String vmwareNetworks();
+    @DefaultStringValue("VMware Topology Info")
+    @Key("vmwareTopologyInfo")
+    String vmwareTopologyInfo();
 
-    @DefaultStringValue("VMware networks assigned to this node")
-    @Key("vmwareNetworksHelp")
-    String vmwareNetworksHelp();
+    @DefaultStringValue("VMware topology information")
+    @Key("vmwareTopologyInfoHelp")
+    String vmwareTopologyInfoHelp();
 
-    @DefaultStringValue("VMware datastores")
-    @Key("vmwareDatastores")
-    String vmwareDatastores();
+    @DefaultStringValue("VMware state")
+    @Key("vmwareState")
+    String vmwareState();
 
-    @DefaultStringValue("VMware datastores assigned to this node")
-    @Key("vmwareDatastoresHelp")
-    String vmwareDatastoresHelp();
-
-    @DefaultStringValue("VMware Runtime Information")
-    @Key("vmwareRuntimeInformation")
-    String vmwareRuntimeInformation();
-
-    @DefaultStringValue("VMware Runtime Information on this node")
-    @Key("vmwareRuntimeInformationHelp")
-    String vmwareRuntimeInformationHelp();
+    @DefaultStringValue("VMware managed entity state")
+    @Key("vmwareStateHelp")
+    String vmwareStateHelp();
 }

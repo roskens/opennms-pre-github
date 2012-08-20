@@ -282,9 +282,8 @@ public class AssetServiceImpl extends RemoteServiceServlet implements
             suggestion.addVmwareManagementServer(asset.getVmwareManagementServer());
 
             // VMware topology assets
-            suggestion.addVmwareNetworks(asset.getVmwareNetworks());
-            suggestion.addVmwareDatastores(asset.getVmwareDatastores());
-            suggestion.addVmwareRuntimeInformation(asset.getVmwareRuntimeInformation());
+            suggestion.addVmwareTopologyInfo(asset.getVmwareTopologyInfo());
+            suggestion.addVmwareState(asset.getState());
         }
         return suggestion;
     }

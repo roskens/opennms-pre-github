@@ -304,14 +304,11 @@
                     <onms_fs:FieldSetSuggestBox ui:field="sVmwareManagementServer"
                                               name="{con.vmwareManagementServer}" value="" helpText="{con.vmwareManagementServerHelp}"
                                               maxLength="70" />
-                    <onms_fs:FieldSetSuggestBox ui:field="sVmwareNetworks"
-                                                name="{con.vmwareNetworks}" value="" helpText="{con.vmwareNetworksHelp}"
-                                                maxLength="255" />
-                    <onms_fs:FieldSetSuggestBox ui:field="sVmwareDatastores"
-                                                name="{con.vmwareDatastores}" value="" helpText="{con.vmwareDatastoresHelp}"
-                                                maxLength="255" />
-                    <onms_fs:FieldSetSuggestBox ui:field="sVmwareRuntimeInformation"
-                                                name="{con.vmwareRuntimeInformation}" value="" helpText="{con.vmwareRuntimeInformationHelp}"
+                    <onms_fs:FieldSetSuggestBox ui:field="sVmwareTopologyInfo"
+                                                name="{con.vmwareTopologyInfo}" value="" helpText="{con.vmwareTopologyInfoHelp}"
+                                                maxLength="1023" />
+                    <onms_fs:FieldSetSuggestBox ui:field="sVmwareState"
+                                                name="{con.vmwareState}" value="" helpText="{con.vmwareStateHelp}"
                                                 maxLength="255" />
                 </g:HTMLPanel>
             </onms:DisclosurePanelCookie>

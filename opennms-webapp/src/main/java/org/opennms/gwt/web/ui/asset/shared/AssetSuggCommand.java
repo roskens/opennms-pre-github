@@ -144,19 +144,14 @@ public class AssetSuggCommand implements IsSerializable {
     private Set<String> m_vmwareManagementServer;
 
     /**
-     * VMware networks
+     * VMware topology info
      */
-    private Set<String> m_vmwareNetworks;
+    private Set<String> m_vmwareTopologyInfo;
 
     /**
-     * VMware datastores
+     * VMware managed entity state
      */
-    private Set<String> m_vmwareDatastores;
-
-    /**
-     * VMware runtime information
-     */
-    private Set<String> m_vmwareRuntimeInformation;
+    private Set<String> m_vmwareState;
 
     public AssetSuggCommand() {
         m_additionalhardware = new TreeSet<String>();
@@ -204,9 +199,8 @@ public class AssetSuggCommand implements IsSerializable {
         m_vmwareManagedObjectId = new TreeSet<String>();
         m_vmwareManagedEntityType = new TreeSet<String>();
         m_vmwareManagementServer = new TreeSet<String>();
-        m_vmwareNetworks = new TreeSet<String>();
-        m_vmwareDatastores = new TreeSet<String>();
-        m_vmwareRuntimeInformation = new TreeSet<String>();
+        m_vmwareTopologyInfo = new TreeSet<String>();
+        m_vmwareState = new TreeSet<String>();
         initUnchangedEntry();
     }
 
@@ -480,21 +474,15 @@ public class AssetSuggCommand implements IsSerializable {
         }
     }
 
-    public void addVmwareNetworks(String vmwareNetworks) {
-        if ((vmwareNetworks != null) && !"".equals(vmwareNetworks)) {
-            m_vmwareNetworks.add(vmwareNetworks);
+    public void addVmwareTopologyInfo(String vmwareTopologyInfo) {
+        if ((vmwareTopologyInfo != null) && !"".equals(vmwareTopologyInfo)) {
+            m_vmwareTopologyInfo.add(vmwareTopologyInfo);
         }
     }
 
-    public void addVmwareDatastores(String vmwareDatastores) {
-        if ((vmwareDatastores != null) && !"".equals(vmwareDatastores)) {
-            m_vmwareDatastores.add(vmwareDatastores);
-        }
-    }
-
-    public void addVmwareRuntimeInformation(String vmwareRuntimeInformation) {
-        if ((vmwareRuntimeInformation != null) && !"".equals(vmwareRuntimeInformation)) {
-            m_vmwareRuntimeInformation.add(vmwareRuntimeInformation);
+    public void addVmwareState(String vmwareState) {
+        if ((vmwareState != null) && !"".equals(vmwareState)) {
+            m_vmwareState.add(vmwareState);
         }
     }
 
@@ -678,16 +666,12 @@ public class AssetSuggCommand implements IsSerializable {
         return m_vmwareManagementServer;
     }
 
-    public Collection<String> getVmwareNetworks() {
-        return m_vmwareNetworks;
+    public Collection<String> getVmwareTopologyInfo() {
+        return m_vmwareTopologyInfo;
     }
 
-    public Collection<String> getVmwareDatastores() {
-        return m_vmwareDatastores;
-    }
-
-    public Collection<String> getVmwareRuntimeInformation() {
-        return m_vmwareRuntimeInformation;
+    public Collection<String> getVmwareState() {
+        return m_vmwareState;
     }
 
     private void initUnchangedEntry() {
@@ -736,8 +720,7 @@ public class AssetSuggCommand implements IsSerializable {
         m_vmwareManagedObjectId.add("");
         m_vmwareManagedEntityType.add("");
         m_vmwareManagementServer.add("");
-        m_vmwareNetworks.add("");
-        m_vmwareDatastores.add("");
-        m_vmwareRuntimeInformation.add("");
+        m_vmwareTopologyInfo.add("");
+        m_vmwareState.add("");
     }
 }

@@ -397,19 +397,14 @@ public class OnmsAssetRecord implements Serializable {
     private String m_vmwareManagementServer;
 
     /**
-     * VMware management Server
+     * VMware composite field for topology information
      */
-    private String m_vmwareNetworks;
+    private String m_vmwareTopologyInfo;
 
     /**
-     * VMware management Server
+     * VMware managed entity state
      */
-    private String m_vmwareDatastores;
-
-    /**
-     * VMware management Server
-     */
-    private String m_vmwareRuntimeInformation;
+    private String m_vmwareState;
 
     /**
      * default constructor
@@ -1725,72 +1720,49 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setVmwareNetworks</p>
+     * <p>setVmwareTopologyInfo</p>
      * <p/>
-     * Set the VMware network
+     * Set the VMware topology information
      *
-     * @param vmwareNetworks a {@link java.lang.String} object
+     * @param vmwareTopologyInfo a {@link java.lang.String} object
      */
-    public void setVmwareNetworks(String vmwareNetworks) {
-        m_vmwareNetworks = vmwareNetworks;
+    public void setVmwareTopologyInfo(String vmwareTopologyInfo) {
+        m_vmwareTopologyInfo = vmwareTopologyInfo;
     }
 
     /**
-     * <p>getVmwareNetworks</p>
+     * <p>getVmwareTopologyInfo</p>
      * <p/>
-     * Get the VMware network
+     * Get the VMware topology information
      *
      * @return a {@link java.lang.String} object
      */
-    @Column(name = "vmwarenetworks", length = 255)
-    public String getVmwareNetworks() {
-        return m_vmwareNetworks;
+    @Column(name = "vmwareTopologyInfo", length = 1023)
+    public String getVmwareTopologyInfo() {
+        return m_vmwareTopologyInfo;
     }
 
     /**
-     * <p>setVmwareRuntimeInformation</p>
+     * <p>setVmwareState</p>
      * <p/>
-     * Set the VMware runtime information
+     * Set the VMware managed entity state
      *
-     * @param vmwareRuntimeInformation a {@link java.lang.String} object
+     * @param vmwareState a {@link java.lang.String} object
      */
-    public void setVmwareRuntimeInformation(String vmwareRuntimeInformation) {
-        m_vmwareRuntimeInformation = vmwareRuntimeInformation;
+    public void setVmwareState(String vmwareState) {
+        m_vmwareState = vmwareState;
     }
 
     /**
-     * <p>getVmwareRuntimeInformation</p>
+     * <p>getVmwareState</p>
      * <p/>
-     * Get the VMware runtime information
-     *
-     * @return a {@link java.lang.String} object
-     */
-    @Column(name = "vmwareruntimeinformation", length = 255)
-    public String getVmwareRuntimeInformation() {
-        return m_vmwareRuntimeInformation;
-    }
-
-    /**
-     * <p>setVmwareRuntimeInformation</p>
-     * <p/>
-     * Set the VMware runtime information
-     *
-     * @param vmwareDatastores a {@link java.lang.String} object
-     */
-    public void setVmwareDatastores(String vmwareDatastores) {
-        m_vmwareDatastores = vmwareDatastores;
-    }
-
-    /**
-     * <p>getVmwareDatastores</p>
-     * <p/>
-     * Get the VMware datastores
+     * Get the VMware managed entity state
      *
      * @return a {@link java.lang.String} object
      */
-    @Column(name = "vmwaredatastores", length = 255)
-    public String getVmwareDatastores() {
-        return m_vmwareDatastores;
+    @Column(name = "vmwareState", length = 255)
+    public String getVmwareState() {
+        return m_vmwareState;
     }
 
     /**
@@ -1861,9 +1833,8 @@ public class OnmsAssetRecord implements Serializable {
                 .append("vmwareManagedObjectId", getVmwareManagedObjectId())
                 .append("vmwareManagedEntityType", getVmwareManagedEntityType())
                 .append("vmwareManagementServer", getVmwareManagementServer())
-                .append("vmwareNetworks", getVmwareNetworks())
-                .append("vmwareDatastores", getVmwareDatastores())
-                .append("vmwareRuntimeInformation", getVmwareRuntimeInformation())
+                .append("vmwareTopologyInfo", getVmwareTopologyInfo())
+                .append("vmwareState", getVmwareState())
                 .toString();
     }
 

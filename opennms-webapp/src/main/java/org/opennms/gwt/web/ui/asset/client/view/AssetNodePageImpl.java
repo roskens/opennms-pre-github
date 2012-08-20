@@ -228,13 +228,10 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
     FieldSetSuggestBox sVmwareManagementServer;
 
     @UiField
-    FieldSetSuggestBox sVmwareNetworks;
+    FieldSetSuggestBox sVmwareTopologyInfo;
 
     @UiField
-    FieldSetSuggestBox sVmwareDatastores;
-
-    @UiField
-    FieldSetSuggestBox sVmwareRuntimeInformation;
+    FieldSetSuggestBox sVmwareState;
 
     @UiField
     FieldSetTextArea sComment;
@@ -379,9 +376,8 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
         fieldSetList.add(sVmwareManagedEntityType);
         fieldSetList.add(sVmwareManagementServer);
 
-        fieldSetList.add(sVmwareNetworks);
-        fieldSetList.add(sVmwareDatastores);
-        fieldSetList.add(sVmwareRuntimeInformation);
+        fieldSetList.add(sVmwareTopologyInfo);
+        fieldSetList.add(sVmwareState);
 
         fieldSetList.add(sComment);
     }
@@ -479,9 +475,8 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
         m_asset.setVmwareManagedObjectId(sVmwareManagedObjectId.getValue());
         m_asset.setVmwareManagedEntityType(sVmwareManagedEntityType.getValue());
         m_asset.setVmwareManagementServer(sVmwareManagementServer.getValue());
-        m_asset.setVmwareNetworks(sVmwareNetworks.getValue());
-        m_asset.setVmwareDatastores(sVmwareDatastores.getValue());
-        m_asset.setVmwareRuntimeInformation(sVmwareRuntimeInformation.getValue());
+        m_asset.setVmwareTopology(sVmwareTopologyInfo.getValue());
+        m_asset.setVmwareState(sVmwareState.getValue());
     }
 
     @Override
@@ -680,9 +675,8 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
         sVmwareManagedObjectId.setValue(asset.getVmwareManagedObjectId());
         sVmwareManagedEntityType.setValue(asset.getVmwareManagedEntityType());
         sVmwareManagementServer.setValue(asset.getVmwareManagementServer());
-        sVmwareNetworks.setValue(asset.getVmwareNetworks());
-        sVmwareDatastores.setValue(asset.getVmwareDatastores());
-        sVmwareRuntimeInformation.setValue(asset.getVmwareRuntimeInformation());
+        sVmwareTopologyInfo.setValue(asset.getVmwareTopologyInfo());
+        sVmwareState.setValue(asset.getVmwareState());
     }
 
     @Override

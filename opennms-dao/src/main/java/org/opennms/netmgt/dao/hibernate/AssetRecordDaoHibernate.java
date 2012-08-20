@@ -180,9 +180,8 @@ public class AssetRecordDaoHibernate extends AbstractDaoHibernate<OnmsAssetRecor
         projList.add(Projections.alias(Projections.property("vmwareManagedObjectId"), "vmwareManagedObjectId"));
         projList.add(Projections.alias(Projections.property("vmwareManagedEntityType"), "vmwareManagedEntityType"));
         projList.add(Projections.alias(Projections.property("vmwareManagementServer"), "vmwareManagementServer"));
-        projList.add(Projections.alias(Projections.property("vmwareNetworks"), "vmwareNetworks"));
-        projList.add(Projections.alias(Projections.property("vmwareDatastores"), "vmwareDatastores"));
-        projList.add(Projections.alias(Projections.property("vmwareRuntimeInformation"), "vmwareRuntimeInformation"));
+        projList.add(Projections.alias(Projections.property("vmwareTopologyInfo"), "vmwareTopologyInfo"));
+        projList.add(Projections.alias(Projections.property("vmwareState"), "vmwareState"));
         criteria.setProjection(Projections.distinct(projList));
         criteria.setResultTransformer(Transformers
                 .aliasToBean(OnmsAssetRecord.class));

@@ -193,11 +193,9 @@ public class AssetCommand implements IsSerializable {
 
     private String m_vmwareManagementServer;
 
-    private String m_vmwareNetworks;
+    private String m_vmwareTopologyInfo;
 
-    private String m_vmwareDatastores;
-
-    private String m_vmwareRuntimeInformation;
+    private String m_vmwareState;
 
     public AssetCommand() {
         m_autoenableOptions = new ArrayList<String>();
@@ -511,16 +509,12 @@ public class AssetCommand implements IsSerializable {
         return m_vmwareManagementServer;
     }
 
-    public String getVmwareNetworks() {
-        return m_vmwareNetworks;
+    public String getVmwareTopologyInfo() {
+        return m_vmwareTopologyInfo;
     }
 
-    public String getVmwareDatastores() {
-        return m_vmwareDatastores;
-    }
-
-    public String getVmwareRuntimeInformation() {
-        return m_vmwareRuntimeInformation;
+    public String getVmwareState() {
+        return m_vmwareState;
     }
 
     // --- Setter ---
@@ -829,16 +823,12 @@ public class AssetCommand implements IsSerializable {
         m_vmwareManagementServer = vmwareManagementServer;
     }
 
-    public void setVmwareNetworks(String vmwareNetworks) {
-        m_vmwareNetworks = vmwareNetworks;
+    public void setVmwareTopology(String vmwareTopology) {
+        m_vmwareTopologyInfo = vmwareTopology;
     }
 
-    public void setVmwareDatastores(String vmwareDatastores) {
-        m_vmwareDatastores = vmwareDatastores;
-    }
-
-    public void setVmwareRuntimeInformation(String vmwareRuntimeInformation) {
-        m_vmwareRuntimeInformation = vmwareRuntimeInformation;
+    public void setVmwareState(String vmwareState) {
+        m_vmwareState = vmwareState;
     }
 
     // --- nice toString() ---
@@ -872,8 +862,7 @@ public class AssetCommand implements IsSerializable {
                 + m_vendor + ", m_vendorAssetNumber=" + m_vendorAssetNumber + ", m_vendorFax=" + m_vendorFax
                 + ", m_vendorPhone=" + m_vendorPhone + ", m_zip=" + m_zip + ", m_vmwareManagedObjectId="
                 + m_vmwareManagedObjectId + ", m_vmwareManagedEntityType=" + m_vmwareManagedEntityType
-                + ", m_vmwareManagementServer=" + m_vmwareManagementServer + ", m_vmwareNetworks=" + m_vmwareNetworks +
-                ", m_vmwareDatastores=" + m_vmwareDatastores + ", m_vmwareRuntimeInformation=" +
-                m_vmwareRuntimeInformation + "]";
+                + ", m_vmwareManagementServer=" + m_vmwareManagementServer + ", m_vmwareTopologyInfo=" + m_vmwareTopologyInfo +
+                ", m_vmwareState=" + m_vmwareState + "]";
     }
 }
