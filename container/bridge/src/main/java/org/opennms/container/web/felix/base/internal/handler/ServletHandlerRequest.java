@@ -29,12 +29,10 @@ final class ServletHandlerRequest
     private String contextPath;
     private String pathInfo;
     private boolean pathInfoCalculated = false;
-    private ServletContext context;
 
-    public ServletHandlerRequest(HttpServletRequest req, String alias, ServletContext servletContext)
+    public ServletHandlerRequest(HttpServletRequest req, String alias)
     {
         super(req);
-        this.context = servletContext;
         this.alias = alias;
     }
 
@@ -47,7 +45,7 @@ final class ServletHandlerRequest
             authType = super.getAuthType();
         }
         
-        this.context.log("getAuthType() == " + authType);
+        System.err.println("ServletHandlerRequest: getAuthType() == " + authType);
         return authType;
     }
 
@@ -60,7 +58,13 @@ final class ServletHandlerRequest
          */
         if (contextPath == null) {
             final String context = super.getContextPath();
-            final String servlet = super.getServletPath();
+            String servlet = super.getServletPath();
+            System.err.println("ServletHandlerRequest: super.context = " + context + ", super.servlet = " + servlet);
+            if (servlet.startsWith(alias)) {
+                servlet = servlet.substring(alias.length());
+                if ("/".equals(servlet)) servlet = "";
+                System.err.println("ServletHandlerRequest: rewrote servlet to: " + servlet);
+            }
             if (context.length() == 0) {
                 contextPath = servlet;
             } else if (servlet.length() == 0) {
@@ -68,9 +72,9 @@ final class ServletHandlerRequest
             } else {
                 contextPath = context + servlet;
             }
+            System.err.println("ServletHandlerRequest: getContextPath() == " + contextPath);
         }
 
-        this.context.log("getContextPath() == " + contextPath);
         return contextPath;
     }
 
@@ -82,7 +86,7 @@ final class ServletHandlerRequest
             this.pathInfoCalculated = true;
         }
 
-        this.context.log("getPathInfo() == " + this.pathInfo);
+        System.err.println("ServletHandlerRequest: getPathInfo() == " + this.pathInfo);
         return this.pathInfo;
     }
 
@@ -94,7 +98,7 @@ final class ServletHandlerRequest
             info = getRealPath(info); 
         }
 
-        this.context.log("getPathTranslated() == " + info);
+        System.err.println("ServletHandlerRequest: getPathTranslated() == " + info);
         return info;
     }
 
@@ -107,7 +111,7 @@ final class ServletHandlerRequest
             remoteUser = super.getRemoteUser();
         }
 
-        this.context.log("getRemoteUser() == " + remoteUser);
+        System.err.println("ServletHandlerRequest: getRemoteUser() == " + remoteUser);
         return remoteUser;
     }
 
@@ -119,7 +123,7 @@ final class ServletHandlerRequest
             path = "";
         }
 
-        this.context.log("getServletPath() == " + path);
+        System.err.println("ServletHandlerRequest: getServletPath() == " + path);
         return path;
     }
 

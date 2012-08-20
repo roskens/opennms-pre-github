@@ -16,15 +16,15 @@
  */
 package org.opennms.container.web.felix.base.internal.handler;
 
+import java.io.IOException;
+
 import javax.servlet.Servlet;
-import javax.servlet.ServletException;
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.opennms.container.web.felix.base.internal.context.ExtServletContext;
-
-import java.io.IOException;
 
 public final class ServletHandler
     extends AbstractHandler implements Comparable<ServletHandler>
@@ -96,7 +96,7 @@ public final class ServletHandler
             // reset status to OK for further processing
             res.setStatus(HttpServletResponse.SC_OK);
 
-            this.servlet.service(new ServletHandlerRequest(req, this.alias, getContext()), res);
+            this.servlet.service(new ServletHandlerRequest(req, this.alias), res);
         }
     }
 
