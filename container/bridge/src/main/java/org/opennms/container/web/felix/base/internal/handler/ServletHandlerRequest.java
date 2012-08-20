@@ -45,7 +45,6 @@ final class ServletHandlerRequest
             authType = super.getAuthType();
         }
         
-        System.err.println("ServletHandlerRequest: getAuthType() == " + authType);
         return authType;
     }
 
@@ -59,11 +58,9 @@ final class ServletHandlerRequest
         if (contextPath == null) {
             final String context = super.getContextPath();
             String servlet = super.getServletPath();
-            System.err.println("ServletHandlerRequest: super.context = " + context + ", super.servlet = " + servlet);
             if (servlet.startsWith(alias)) {
                 servlet = servlet.substring(alias.length());
                 if ("/".equals(servlet)) servlet = "";
-                System.err.println("ServletHandlerRequest: rewrote servlet to: " + servlet);
             }
             if (context.length() == 0) {
                 contextPath = servlet;
@@ -72,7 +69,6 @@ final class ServletHandlerRequest
             } else {
                 contextPath = context + servlet;
             }
-            System.err.println("ServletHandlerRequest: getContextPath() == " + contextPath);
         }
 
         return contextPath;
@@ -86,7 +82,6 @@ final class ServletHandlerRequest
             this.pathInfoCalculated = true;
         }
 
-        System.err.println("ServletHandlerRequest: getPathInfo() == " + this.pathInfo);
         return this.pathInfo;
     }
 
@@ -98,7 +93,6 @@ final class ServletHandlerRequest
             info = getRealPath(info); 
         }
 
-        System.err.println("ServletHandlerRequest: getPathTranslated() == " + info);
         return info;
     }
 
@@ -111,7 +105,6 @@ final class ServletHandlerRequest
             remoteUser = super.getRemoteUser();
         }
 
-        System.err.println("ServletHandlerRequest: getRemoteUser() == " + remoteUser);
         return remoteUser;
     }
 
@@ -123,7 +116,6 @@ final class ServletHandlerRequest
             path = "";
         }
 
-        System.err.println("ServletHandlerRequest: getServletPath() == " + path);
         return path;
     }
 
