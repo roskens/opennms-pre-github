@@ -1,32 +1,55 @@
-/**
- * 
- */
-package org.opennms.features.topology.plugins.topo.vmware.internal;
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2009-2011 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2011 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 
-import java.util.ArrayList;
-import java.util.List;
+package org.opennms.features.topology.plugins.topo.vmware.internal;
 
 import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlTransient;
-
+import java.util.ArrayList;
+import java.util.List;
 
 abstract public class VmwareVertex {
-    String m_id;
-    int m_x;
-    int m_y;
-    boolean m_selected;
-    boolean m_locked = false;
-    String m_icon;
-    String m_label = "none provided";
-    VmwareGroup m_parent = null;
-    List<VmwareEdge> m_edges = new ArrayList<VmwareEdge>();
-    private String m_ipAddr ="127.0.0.1";
-    private int m_nodeID = -1;
-    //	private int m_semanticZoomLevel = -1;
+    private String m_id = "-1";
+    private int m_x = 0;
+    private int m_y = 0;
+    private boolean m_selected = false;
+    private boolean m_locked = false;
+    private String m_icon = "";
     private String m_iconKey;
+    private String m_label = "Unknown";
+    private VmwareGroup m_parent = null;
+    private List<VmwareEdge> m_edges = new ArrayList<VmwareEdge>();
+    private String m_ipAddr = "127.0.0.1";
+    private int m_nodeID = -1;
 
-    public VmwareVertex() {}
+    public VmwareVertex() {
+    }
 
     public VmwareVertex(String id) {
         m_id = id;
@@ -120,7 +143,7 @@ abstract public class VmwareVertex {
         return m_ipAddr;
     }
 
-    public void setIpAddr(String ipAddr){
+    public void setIpAddr(String ipAddr) {
         m_ipAddr = ipAddr;
     }
 
@@ -177,23 +200,4 @@ abstract public class VmwareVertex {
     public String getIconKey() {
         return m_iconKey;
     }
-
-//	public int getSemanticZoomLevel() {
-//		return m_semanticZoomLevel >= 0
-//				? m_semanticZoomLevel
-//				: m_parent == null 
-//				? 0 
-//				: m_parent.getSemanticZoomLevel() + 1;
-//	}
-
-//	public VmwareVertex getDisplayVertex(int semanticZoomLevel) {
-//		if(getParent() == null || getSemanticZoomLevel() <= semanticZoomLevel) {
-//			return this;
-//		}else {
-//			return getParent().getDisplayVertex(semanticZoomLevel);
-//		}
-//
-//	}
-
-
 }

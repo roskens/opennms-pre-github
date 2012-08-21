@@ -22,4 +22,24 @@ http://www.osgi.org/xmlns/blueprint-ext/v1.1.0 https://svn.apache.org/repos/asf/
         </bean>
     </service>
 
+    <service interface="org.opennms.features.topology.api.Operation" >
+        <service-properties>
+            <entry key="operation.menuLocation" value="File"/>
+            <entry key="operation.label" value="Save"/>
+        </service-properties>
+        <bean class="org.opennms.features.topology.plugins.topo.vmware.internal.operations.VmwareLoadOperation">
+            <argument ref="vmwareTopologyProvider"/>
+        </bean>
+    </service>
+
+    <service interface="org.opennms.features.topology.api.Operation" >
+        <service-properties>
+            <entry key="operation.menuLocation" value="File"/>
+            <entry key="operation.label" value="Load"/>
+        </service-properties>
+        <bean class="org.opennms.features.topology.plugins.topo.vmware.internal.operations.VmwareSaveOperation">
+            <argument ref="vmwareTopologyProvider"/>
+        </bean>
+    </service>
+
 </blueprint>

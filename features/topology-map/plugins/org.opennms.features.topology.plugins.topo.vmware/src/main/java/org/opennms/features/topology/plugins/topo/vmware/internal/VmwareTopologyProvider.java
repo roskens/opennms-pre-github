@@ -1,3 +1,31 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2009-2011 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2011 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
+
 package org.opennms.features.topology.plugins.topo.vmware.internal;
 
 import com.vaadin.data.Item;
@@ -20,7 +48,7 @@ public class VmwareTopologyProvider implements TopologyProvider {
 
     private final String SPLIT_REGEXP = " *, *";
 
-    NodeDao m_nodeDao;
+    private NodeDao m_nodeDao;
 
     private VmwareVertexContainer m_vertexContainer;
     private BeanContainer<String, VmwareEdge> m_edgeContainer;
@@ -51,7 +79,6 @@ public class VmwareTopologyProvider implements TopologyProvider {
     }
 
     public void debug(String id) {
-
         VmwareVertex vmwareVertex = getRequiredVertex(id);
 
         System.err.println("-+- id: " + vmwareVertex.getId());
@@ -81,20 +108,6 @@ public class VmwareTopologyProvider implements TopologyProvider {
             addVertex(vertexId, 50, 50, "NETWORK_ICON", vertexName, "", -1);
         }
         return getRequiredVertex(vertexId);
-    }
-
-    public VmwareVertex addEntityVertex(String vertexId, String vertexName, String iconId) {
-        if (!m_vertexContainer.containsId(vertexId)) {
-            addVertex(vertexId, 50, 50, iconId, vertexName, "", -1);
-        }
-        return getRequiredVertex(vertexId);
-    }
-
-    public VmwareGroup addEntityVertexGroup(String vertexId, String vertexName, String iconId) {
-        if (!m_vertexContainer.containsId(vertexId)) {
-            addGroup(vertexId, iconId, vertexName);
-        }
-        return (VmwareGroup) getRequiredVertex(vertexId);
     }
 
     public VmwareVertex addDatastoreVertex(String vertexId, String vertexName) {
@@ -346,7 +359,6 @@ public class VmwareTopologyProvider implements TopologyProvider {
     }
 
     public Collection<?> getEndPointIdsForEdge(Object edgeId) {
-
         VmwareEdge edge = getRequiredEdge(edgeId);
 
         List<Object> endPoints = new ArrayList<Object>(2);
@@ -358,7 +370,6 @@ public class VmwareTopologyProvider implements TopologyProvider {
     }
 
     public Collection<?> getEdgeIdsForVertex(Object vertexId) {
-
         VmwareVertex vertex = getRequiredVertex(vertexId);
 
         List<Object> edges = new ArrayList<Object>(vertex.getEdges().size());
@@ -368,11 +379,9 @@ public class VmwareTopologyProvider implements TopologyProvider {
             Object edgeId = e.getId();
 
             edges.add(edgeId);
-
         }
 
         return edges;
-
     }
 
     private Item addVertex(String id, int x, int y, String icon, String label, String ipAddr, int nodeID) {
@@ -417,9 +426,10 @@ public class VmwareTopologyProvider implements TopologyProvider {
     }
 
     public void removeVertex(Object vertexId) {
-
         VmwareVertex vertex = getVertex(vertexId, false);
-        if (vertex == null) return;
+
+        if (vertex == null)
+            return;
 
         m_vertexContainer.removeItem(vertexId);
 
@@ -458,7 +468,6 @@ public class VmwareTopologyProvider implements TopologyProvider {
     @XmlRootElement(name = "graph")
     @XmlAccessorType(XmlAccessType.FIELD)
     private static class SimpleGraph {
-
         @XmlElements({
                 @XmlElement(name = "vertex", type = VmwareLeafVertex.class),
                 @XmlElement(name = "group", type = VmwareGroup.class)
@@ -476,7 +485,6 @@ public class VmwareTopologyProvider implements TopologyProvider {
             m_vertices = vertices;
             m_edges = edges;
         }
-
     }
 
     public void save(String filename) {
@@ -489,7 +497,6 @@ public class VmwareTopologyProvider implements TopologyProvider {
     }
 
     public void load(String filename) {
-        /*
         SimpleGraph graph = JAXB.unmarshal(new File(filename), SimpleGraph.class);
 
         m_vertexContainer.removeAllItems();
@@ -497,8 +504,6 @@ public class VmwareTopologyProvider implements TopologyProvider {
 
         m_edgeContainer.removeAllItems();
         m_edgeContainer.addAll(graph.m_edges);
-        */
-        generate();
     }
 
     private <T> List<T> getBeans(BeanContainer<?, T> container) {
@@ -540,15 +545,9 @@ public class VmwareTopologyProvider implements TopologyProvider {
         return null;
     }
 
-
     public Object addVertex(int x, int y, String icon) {
         System.err.println("Adding vertex in VmwareTopologyProvider with icon: " + icon);
         String nextVertexId = getNextVertexId();
-//        addVertex(nextVertexId, x, y, icon, "Vertex " + nextVertexId, "127.0.0.1", -1);
-        /*
-        * Passing a nodeID of -1 will disable the Events/Alarms, Node Info, and
-        * Resource Graphs windows in the context menus
-        */
         addVertex(nextVertexId, x, y, icon, "Vertex " + nextVertexId, "64.146.64.214", -1);
         return nextVertexId;
     }
@@ -575,5 +574,4 @@ public class VmwareTopologyProvider implements TopologyProvider {
     public boolean containsVertexId(Object vertexId) {
         return m_vertexContainer.containsId(vertexId);
     }
-
 }

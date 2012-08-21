@@ -35,25 +35,21 @@ import org.opennms.features.topology.plugins.topo.vmware.internal.VmwareTopology
 import java.util.List;
 
 
-public class VmwareResetOperation implements Operation {
+public class VmwareLoadOperation implements Operation {
 
     VmwareTopologyProvider m_topologyProvider;
 
-    public VmwareResetOperation(VmwareTopologyProvider topologyProvider) {
+    public VmwareLoadOperation(VmwareTopologyProvider topologyProvider) {
         m_topologyProvider = topologyProvider;
     }
 
     @Override
     public Undoer execute(List<Object> targets,
                           OperationContext operationContext) {
-        /*
-        DisplayState graphContainer = operationContext.getGraphContainer();
-        Object groupId = m_topologyProvider.addGroup(GROUP_ICON);
-        Object vertexId = m_topologyProvider.addVertex(50, 50, SERVER_ICON);
-        m_topologyProvider.setParent(vertexId, groupId);
-        */
 
-        m_topologyProvider.resetContainer();
+        m_topologyProvider.load("graph-vmware.xml");
+
+        //graphContainer.load("graph-vmware.xml");
 
         return null;
     }
