@@ -46,6 +46,11 @@
          Controls whether suspended machines should be imported.
          Default: false
 
+       importVMAll -
+         Imports all virtual machines and ignores importVMPoweredOn,
+         importVMPoweredOff and importVMSuspended parameters
+         Default: false
+
        importHostPoweredOn -
          Controls whether powered on host systems should be imported.
          Default: true
@@ -60,6 +65,11 @@
 
        importHostUnknown -
          Controls whether host systems with a unknown power state should be imported.
+         Default: false
+
+       importHostAll -
+         Imports all host systems and ignores importHostPoweredOn,
+         importHostPoweredOff and importHostSuspended parameters
          Default: false
 
        key -

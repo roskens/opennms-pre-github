@@ -85,6 +85,7 @@ public class VmwareTopologyProvider implements TopologyProvider {
         System.err.println(" |- hashCode: " + vmwareVertex.hashCode());
         System.err.println(" |- label: " + vmwareVertex.getLabel());
         System.err.println(" |- ip: " + vmwareVertex.getIpAddr());
+        System.err.println(" |- iconKey: " + vmwareVertex.getIconKey());
         System.err.println(" |- nodeId: " + vmwareVertex.getNodeID());
 
         for (VmwareEdge vmwareEdge : vmwareVertex.getEdges()) {
@@ -94,6 +95,12 @@ public class VmwareTopologyProvider implements TopologyProvider {
             System.err.println(" |- edgeTo: " + edgeTo);
         }
         System.err.println(" '- parent: " + (vmwareVertex.getParent() == null ? null : vmwareVertex.getParent().getId()));
+    }
+
+    public void debugAll() {
+        for (String id : m_vertexContainer.getItemIds()) {
+            debug(id);
+        }
     }
 
     public VmwareGroup addDatacenterGroup(String groupId, String groupName) {
@@ -118,32 +125,34 @@ public class VmwareTopologyProvider implements TopologyProvider {
     }
 
     public VmwareVertex addVirtualMachineVertex(String vertexId, String vertexName, String primaryInterface, int id, String powerState) {
-        String icon = "VIRTUALMACHINE_ICON_UNKNOWN";
+        if (!m_vertexContainer.containsId(vertexId)) {
+            String icon = "VIRTUALMACHINE_ICON_UNKNOWN";
 
-        if ("poweredOn".equals(powerState))
-            icon = "VIRTUALMACHINE_ICON_ON";
-        if ("poweredOff".equals(powerState))
-            icon = "VIRTUALMACHINE_ICON_OFF";
-        if ("suspended".equals(powerState))
-            icon = "VIRTUALMACHINE_ICON_SUSPENDED";
+            if ("poweredOn".equals(powerState))
+                icon = "VIRTUALMACHINE_ICON_ON";
+            if ("poweredOff".equals(powerState))
+                icon = "VIRTUALMACHINE_ICON_OFF";
+            if ("suspended".equals(powerState))
+                icon = "VIRTUALMACHINE_ICON_SUSPENDED";
 
-        addVertex(vertexId, 50, 50, icon, vertexName, primaryInterface, id);
-
+            addVertex(vertexId, 50, 50, icon, vertexName, primaryInterface, id);
+        }
         return getRequiredVertex(vertexId);
     }
 
     public VmwareVertex addHostSystemVertex(String vertexId, String vertexName, String primaryInterface, int id, String powerState) {
-        String icon = "HOSTSYSTEM_ICON_UNKOWN";
+        if (!m_vertexContainer.containsId(vertexId)) {
+            String icon = "HOSTSYSTEM_ICON_UNKNOWN";
 
-        if ("poweredOn".equals(powerState))
-            icon = "HOSTSYSTEM_ICON_ON";
-        if ("poweredOff".equals(powerState))
-            icon = "HOSTSYSTEM_ICON_OFF";
-        if ("standBy".equals(powerState))
-            icon = "HOSTSYSTEM_ICON_STANDBY";
+            if ("poweredOn".equals(powerState))
+                icon = "HOSTSYSTEM_ICON_ON";
+            if ("poweredOff".equals(powerState))
+                icon = "HOSTSYSTEM_ICON_OFF";
+            if ("standBy".equals(powerState))
+                icon = "HOSTSYSTEM_ICON_STANDBY";
 
-        addVertex(vertexId, 50, 50, icon, vertexName, primaryInterface, id);
-
+            addVertex(vertexId, 50, 50, icon, vertexName, primaryInterface, id);
+        }
         return getRequiredVertex(vertexId);
     }
 
@@ -294,8 +303,12 @@ public class VmwareTopologyProvider implements TopologyProvider {
         // add a vertex for the virtual machine
         VmwareVertex virtualMachineVertex = addVirtualMachineVertex(vmwareManagementServer + "/" + vmwareManagedObjectId, virtualMachine.getLabel(), primaryInterface, virtualMachine.getId(), vmwareState);
 
-        // and set the parent vertex
-        virtualMachineVertex.setParent(datacenterVertex);
+        if (m_vertexContainer.containsId(vmwareManagementServer + "/" + vmwareHostSystemId)) {
+            // and set the parent vertex
+            virtualMachineVertex.setParent(datacenterVertex);
+        } else {
+            VmwareVertex hostSystemVertex = addHostSystemVertex(vmwareManagementServer + "/" + vmwareHostSystemId, moIdToName.get(vmwareHostSystemId) + " (not in database)", "", -1, "unknown");
+        }
 
         // connect the virtual machine to the host system
         connectVertices(vmwareManagementServer + "/" + vmwareManagedObjectId + "->" + vmwareManagementServer + "/" + vmwareHostSystemId, vmwareManagementServer + "/" + vmwareManagedObjectId, vmwareManagementServer + "/" + vmwareHostSystemId);
@@ -329,9 +342,7 @@ public class VmwareTopologyProvider implements TopologyProvider {
             }
         }
 
-        for (String id : m_vertexContainer.getItemIds()) {
-            debug(id);
-        }
+        debugAll();
     }
 
     public VmwareVertexContainer getVertexContainer() {
@@ -392,7 +403,7 @@ public class VmwareTopologyProvider implements TopologyProvider {
         VmwareVertex vertex = new VmwareLeafVertex(id, x, y);
 
         vertex.setIconKey(icon);
-        vertex.setIcon(VmwareConstants.ICONS.get(icon));
+        //vertex.setIcon(VmwareConstants.ICONS.get(icon));
 
         vertex.setLabel(label);
         vertex.setIpAddr(ipAddr);
@@ -409,7 +420,7 @@ public class VmwareTopologyProvider implements TopologyProvider {
         VmwareVertex vertex = new VmwareGroup(groupId);
 
         vertex.setIconKey(icon);
-        vertex.setIcon(VmwareConstants.ICONS.get(icon));
+        //vertex.setIcon(VmwareConstants.ICONS.get(icon));
 
         vertex.setLabel(label);
 
@@ -445,7 +456,9 @@ public class VmwareTopologyProvider implements TopologyProvider {
     public VmwareVertex getVertex(Object vertexId, boolean required) {
         BeanItem<VmwareVertex> item = m_vertexContainer.getItem(vertexId);
         if (required && item == null) {
-            throw new IllegalArgumentException("required vertex " + vertexId + " not found.");
+            System.out.println("Error: required vertex '" + vertexId + "' not found");
+            debugAll();
+//            throw new IllegalArgumentException("required vertex " + vertexId + " not found.");
         }
 
         return item == null ? null : item.getBean();
@@ -458,7 +471,9 @@ public class VmwareTopologyProvider implements TopologyProvider {
     private VmwareEdge getEdge(Object edgeId, boolean required) {
         BeanItem<VmwareEdge> item = m_edgeContainer.getItem(edgeId);
         if (required && item == null) {
-            throw new IllegalArgumentException("required edge " + edgeId + " not found.");
+            System.out.println("Error: required edge '" + edgeId + "' not found");
+            debugAll();
+            //throw new IllegalArgumentException("required edge " + edgeId + " not found.");
         }
 
         return item == null ? null : item.getBean();

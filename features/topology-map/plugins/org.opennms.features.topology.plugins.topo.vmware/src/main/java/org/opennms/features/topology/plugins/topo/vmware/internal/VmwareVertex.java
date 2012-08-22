@@ -40,12 +40,12 @@ abstract public class VmwareVertex {
     private int m_y = 0;
     private boolean m_selected = false;
     private boolean m_locked = false;
-    private String m_icon = "";
-    private String m_iconKey;
+    private String m_icon = null;
+    private String m_iconKey = null;
     private String m_label = "Unknown";
     private VmwareGroup m_parent = null;
     private List<VmwareEdge> m_edges = new ArrayList<VmwareEdge>();
-    private String m_ipAddr = "127.0.0.1";
+    private String m_ipAddr = "";
     private int m_nodeID = -1;
 
     public VmwareVertex() {

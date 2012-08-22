@@ -132,6 +132,19 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
         m_importHostStandBy = queryParameter("importHostStandBy", false);
         m_importHostUnknown = queryParameter("importHostUnknown", false);
 
+        if (queryParameter("importHostAll", false)) {
+            m_importHostPoweredOn = true;
+            m_importHostPoweredOff = true;
+            m_importHostStandBy = true;
+            m_importHostUnknown = true;
+        }
+
+        if (queryParameter("importVMAll", false)) {
+            m_importVMPoweredOff = true;
+            m_importVMPoweredOn = true;
+            m_importVMSuspended = true;
+        }
+
         // get services to be added to host systems
         m_hostSystemServices = getHostSystemServices();
 

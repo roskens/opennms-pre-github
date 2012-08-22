@@ -34,6 +34,17 @@ http://www.osgi.org/xmlns/blueprint-ext/v1.1.0 https://svn.apache.org/repos/asf/
             <property name="iconMap">
                 <map>
                     <entry key="server" value="theme://images/server.png"/>
+                    <entry key="NETWORK_ICON" value="theme://images/vmware-network.png"/>
+                    <entry key="HOSTSYSTEM_ICON_ON" value="theme://images/vmware-hostsystem-on.png"/>
+                    <entry key="HOSTSYSTEM_ICON_OFF" value="theme://images/vmware-hostsystem-off.png"/>
+                    <entry key="HOSTSYSTEM_ICON_STANDBY" value="theme://images/vmware-hostsystem-standby.png"/>
+                    <entry key="HOSTSYSTEM_ICON_UNKNOWN" value="theme://images/vmware-hostsystem-unknown.png"/>
+                    <entry key="VIRTUALMACHINE_ICON_ON" value="theme://images/vmware-virtualmachine-on.png"/>
+                    <entry key="VIRTUALMACHINE_ICON_OFF" value="theme://images/vmware-virtualmachine-off.png"/>
+                    <entry key="VIRTUALMACHINE_ICON_SUSPENDED" value="theme://images/vmware-virtualmachine-suspended.png"/>
+                    <entry key="VIRTUALMACHINE_ICON_UNKNOWN" value="theme://images/vmware-virtualmachine-unknown.png"/>
+                    <entry key="DATASTORE_ICON" value="theme://images/vmware-datastore.png"/>
+                    <entry key="DATACENTER_ICON" value="theme://images/vmware-datacenter.png"/>
                 </map>
             </property>
         </bean>
