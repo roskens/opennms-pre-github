@@ -21,7 +21,7 @@ http://www.osgi.org/xmlns/blueprint-ext/v1.1.0 https://svn.apache.org/repos/asf/
             <argument ref="vmwareTopologyProvider"/>
         </bean>
     </service>
-
+    <!--
     <service interface="org.opennms.features.topology.api.Operation" >
         <service-properties>
             <entry key="operation.menuLocation" value="File"/>
@@ -41,5 +41,5 @@ http://www.osgi.org/xmlns/blueprint-ext/v1.1.0 https://svn.apache.org/repos/asf/
             <argument ref="vmwareTopologyProvider"/>
         </bean>
     </service>
-
+    -->
 </blueprint>
