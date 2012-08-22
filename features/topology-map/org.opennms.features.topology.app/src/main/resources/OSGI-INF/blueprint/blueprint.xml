@@ -8,6 +8,7 @@ http://www.osgi.org/xmlns/blueprint-ext/v1.1.0 https://svn.apache.org/repos/asf/
         <cm:default-properties>
             <cm:property name="servletAlias" value="/topology"/>
             <cm:property name="widgetset" value="org.opennms.features.topology.widgetset.gwt.TopologyWidgetset"/>
+            <cm:property name="theme" value="topo_default" />
         </cm:default-properties>
     </cm:property-placeholder>
     
@@ -15,6 +16,7 @@ http://www.osgi.org/xmlns/blueprint-ext/v1.1.0 https://svn.apache.org/repos/asf/
         <property name="commandManager" ref="commandManager"/>
         <property name="topologyProvider" ref="topologyProvider"/>
         <property name="iconRepositoryManager" ref="iconRepoManager"/>
+        <property name="theme" value="${servletAlias}"/>
     </bean>
     
     <reference id="topologyProvider" interface="org.opennms.features.topology.api.TopologyProvider" availability="mandatory" />
@@ -22,28 +24,16 @@ http://www.osgi.org/xmlns/blueprint-ext/v1.1.0 https://svn.apache.org/repos/asf/
     <!-- Icon Repository Manager -->
     <bean id="iconRepoManager" class="org.opennms.features.topology.app.internal.support.IconRepositoryManager"/>
     
-    <reference-list interface="org.opennms.features.topology.app.internal.support.IconRepository" availability="optional">
+    <reference-list interface="org.opennms.features.topology.api.IconRepository" availability="optional">
         <reference-listener bind-method="onBind" unbind-method="onUnbind" ref="iconRepoManager">
         </reference-listener>
     </reference-list>
     
-    <service interface="org.opennms.features.topology.app.internal.support.IconRepository">
+    <service interface="org.opennms.features.topology.api.IconRepository">
         <bean class="org.opennms.features.topology.app.internal.support.DefaultIconRepository">
             <property name="iconMap">
                 <map>
-                    <entry key="server" value="VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/server.png"/>
-                    <entry key="NETWORK_ICON" value="/opennms/osgi/VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/vmware-network.png"/>
-                    <entry key="HOSTSYSTEM_ICON_ON" value="/opennms/osgi/VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/vmware-hostsystem-on.png"/>
-                    <entry key="HOSTSYSTEM_ICON_OFF" value="/opennms/osgi/VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/vmware-hostsystem-off.png"/>
-                    <entry key="HOSTSYSTEM_ICON_STANDBY" value="/opennms/osgi/VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/vmware-hostsystem-standby.png"/>
-                    <entry key="HOSTSYSTEM_ICON_UNKOWN" value="/opennms/osgi/VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/vmware-hostsystem-unkown.png"/>
-                    <entry key="VIRTUALMACHINE_ICON_ON" value="/opennms/osgi/VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/vmware-virtualmachine-on.png"/>
-                    <entry key="VIRTUALMACHINE_ICON_OFF" value="/opennms/osgi/VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/vmware-virtualmachine-off.png"/>
-                    <entry key="VIRTUALMACHINE_ICON_SUSPENDED" value="/opennms/osgi/VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/vmware-virtualmachine-suspended.png"/>
-                    <entry key="VIRTUALMACHINE_ICON_UNKNOWN" value="/opennms/osgi/VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/vmware-virtualmachine-unknown.png"/>
-                    <entry key="DATASTORE_ICON" value="/opennms/osgi/VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/vmware-datastore.png"/>
-                    <entry key="DATACENTER_ICON" value="/opennms/osgi/VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/vmware-datacenter.png"/>
-                    <entry key="CLUSTER_ICON" value="/opennms/osgi/VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/vmware-cluster.png"/>
+                    <entry key="server" value="theme://images/server.png"/>
                 </map>
             </property>
         </bean>
