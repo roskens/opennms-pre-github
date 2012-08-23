@@ -32,6 +32,7 @@ import org.opennms.features.topology.api.Operation;
 import org.opennms.features.topology.api.OperationContext;
 import org.opennms.features.topology.plugins.topo.vmware.internal.VmwareTopologyProvider;
 
+import java.io.File;
 import java.util.List;
 
 
@@ -61,7 +62,7 @@ public class VmwareLoadOperation implements Operation {
 
     @Override
     public boolean enabled(List<Object> targets, OperationContext operationContext) {
-        return true;
+        return (new File("graph-vmware.xml").exists());
     }
 
     @Override

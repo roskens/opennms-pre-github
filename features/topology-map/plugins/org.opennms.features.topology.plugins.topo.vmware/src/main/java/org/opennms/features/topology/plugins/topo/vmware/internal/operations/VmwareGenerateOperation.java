@@ -56,7 +56,7 @@ public class VmwareGenerateOperation implements Operation {
 
     @Override
     public boolean enabled(List<Object> targets, OperationContext operationContext) {
-        return !m_topologyProvider.isGenerated();
+        return true;
     }
 
     @Override

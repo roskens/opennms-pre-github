@@ -55,7 +55,7 @@ public class VmwareSaveOperation implements Operation {
 
     @Override
     public boolean enabled(List<Object> targets, OperationContext operationContext) {
-        return m_topologyProvider.isGenerated();
+        return m_topologyProvider.getVertexContainer().size() > 0;
     }
 
     @Override

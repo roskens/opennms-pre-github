@@ -21,13 +21,13 @@ http://www.osgi.org/xmlns/blueprint-ext/v1.1.0 https://svn.apache.org/repos/asf/
             <argument ref="vmwareTopologyProvider"/>
         </bean>
     </service>
-    <!--
+
     <service interface="org.opennms.features.topology.api.Operation" >
         <service-properties>
             <entry key="operation.menuLocation" value="File"/>
             <entry key="operation.label" value="Save"/>
         </service-properties>
-        <bean class="org.opennms.features.topology.plugins.topo.vmware.internal.operations.VmwareLoadOperation">
+        <bean class="org.opennms.features.topology.plugins.topo.vmware.internal.operations.VmwareSaveOperation">
             <argument ref="vmwareTopologyProvider"/>
         </bean>
     </service>
@@ -37,7 +37,18 @@ http://www.osgi.org/xmlns/blueprint-ext/v1.1.0 https://svn.apache.org/repos/asf/
             <entry key="operation.menuLocation" value="File"/>
             <entry key="operation.label" value="Load"/>
         </service-properties>
-        <bean class="org.opennms.features.topology.plugins.topo.vmware.internal.operations.VmwareSaveOperation">
+        <bean class="org.opennms.features.topology.plugins.topo.vmware.internal.operations.VmwareLoadOperation">
+            <argument ref="vmwareTopologyProvider"/>
+        </bean>
+    </service>
+    <!--
+    <service interface="org.opennms.features.topology.api.Operation" >
+        <service-properties>
+            <entry key="operation.menuLocation" value="Edit"/>
+            <entry key="operation.label" value="Reset"/>
+            <entry key="operation.contextMenuLocation" value=""/>
+        </service-properties>
+        <bean class="org.opennms.features.topology.plugins.topo.vmware.internal.operations.VmwareResetOperation">
             <argument ref="vmwareTopologyProvider"/>
         </bean>
     </service>
