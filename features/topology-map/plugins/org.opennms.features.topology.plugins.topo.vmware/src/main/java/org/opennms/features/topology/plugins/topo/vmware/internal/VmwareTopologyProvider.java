@@ -53,8 +53,8 @@ public class VmwareTopologyProvider implements TopologyProvider {
     private VmwareVertexContainer m_vertexContainer;
     private BeanContainer<String, VmwareEdge> m_edgeContainer;
 
-    private int m_counter = 0;
-    private int m_edgeCounter = 0;
+    //private int m_counter = 0;
+    //private int m_edgeCounter = 0;
     private int m_groupCounter = 0;
     private boolean m_generated = false;
 
@@ -532,14 +532,6 @@ public class VmwareTopologyProvider implements TopologyProvider {
         return beans;
     }
 
-    public String getNextVertexId() {
-        return "v" + m_counter++;
-    }
-
-    public String getNextEdgeId() {
-        return "e" + m_edgeCounter++;
-    }
-
     public String getNextGroupId() {
         return "g" + m_groupCounter++;
     }
@@ -548,8 +540,8 @@ public class VmwareTopologyProvider implements TopologyProvider {
         getVertexContainer().removeAllItems();
         getEdgeContainer().removeAllItems();
 
-        m_counter = 0;
-        m_edgeCounter = 0;
+        //m_counter = 0;
+        //m_edgeCounter = 0;
     }
 
     public Collection<?> getPropertyIds() {
@@ -560,16 +552,32 @@ public class VmwareTopologyProvider implements TopologyProvider {
         return null;
     }
 
-    public Object addVertex(int x, int y, String icon) {
-        System.err.println("Adding vertex in VmwareTopologyProvider with icon: " + icon);
-        String nextVertexId = getNextVertexId();
-        addVertex(nextVertexId, x, y, icon, "Vertex " + nextVertexId, "64.146.64.214", -1);
-        return nextVertexId;
-    }
 
     //@Override
     public void setParent(Object vertexId, Object parentId) {
         m_vertexContainer.setParent(vertexId, parentId);
+    }
+
+    //@Override
+    public boolean containsVertexId(Object vertexId) {
+        return m_vertexContainer.containsId(vertexId);
+    }
+
+    /*
+
+    public String getNextVertexId() {
+        return "v" + m_counter++;
+    }
+
+    public String getNextEdgeId() {
+        return "e" + m_edgeCounter++;
+    }
+
+      public Object addVertex(int x, int y, String icon) {
+        System.err.println("Adding vertex in VmwareTopologyProvider with icon: " + icon);
+        String nextVertexId = getNextVertexId();
+        addVertex(nextVertexId, x, y, icon, "Vertex " + nextVertexId, "64.146.64.214", -1);
+        return nextVertexId;
     }
 
     public Object connectVertices(Object sourceVertextId, Object targetVertextId) {
@@ -577,16 +585,12 @@ public class VmwareTopologyProvider implements TopologyProvider {
         connectVertices(nextEdgeId, sourceVertextId, targetVertextId);
         return nextEdgeId;
     }
+    */
 
     //@Override
     public Object addGroup(String groupIcon) {
         String nextGroupId = getNextGroupId();
         addGroup(nextGroupId, groupIcon, "Group " + nextGroupId);
         return nextGroupId;
-    }
-
-    //@Override
-    public boolean containsVertexId(Object vertexId) {
-        return m_vertexContainer.containsId(vertexId);
     }
 }
