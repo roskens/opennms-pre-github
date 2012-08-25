@@ -35,7 +35,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -57,7 +56,6 @@ import me.prettyprint.hector.api.ddl.ComparatorType;
 import me.prettyprint.hector.api.ddl.KeyspaceDefinition;
 import me.prettyprint.hector.api.factory.HFactory;
 import me.prettyprint.hector.api.query.QueryResult;
-import me.prettyprint.hector.api.query.SubSliceQuery;
 import me.prettyprint.hector.api.query.SuperSliceQuery;
 
 import org.jrobin.core.FetchData;
@@ -109,20 +107,16 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
     // comma separated list of hosts
     public static final String CLUSTER_HOSTS_PROPERTY = "org.opennms.netmgt.rrd.cassandra.clusterHosts";
 
-    private static final String DEFAULT_CLUSER_HOSTS = "localhost";
+    private static final String DEFAULT_CLUSER_HOSTS = "localhost:9160";
 
     // time to live in seconds
     public static final String TTL_PROPERTY = "org.opennms.netmgt.rrd.cassandra.timeToLive";
 
     private static final String DEFAULT_TTL = "31622400";
 
-    public static final String THRIFT_PORT_PROPERTY = "org.opennms.netmgt.rrd.cassandra.thriftPort";
+    public static final String DYNAMIC_AUTO_PROPERTY = "org.opennms.netmgt.rrd.cassandra.autoDiscovery";
 
-    private static final String DEFAULT_THRIFT_PORT = "9160";
-
-    public static final String DYNAMIC_DISCOVERY_PROPERTY = "org.opennms.netmgt.rrd.cassandra.dynamicDiscovery";
-
-    private static final String DEFAULT_DYNAMIC_DISCOVERY = "false";
+    private static final String DEFAULT_AUTO_DISCOVERY = "false";
 
     public static final String RRA_LIST_PROPERTY = "org.opennms.netmgt.rrd.cassandra.rraList";
 
@@ -149,9 +143,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
 
     private String m_opennmsRrdDir;
 
-    private int m_thriftPort;
-
-    private boolean m_dynamicDiscovery;
+    private boolean m_autoDiscovery;
 
     private String[] m_rraList;
 
@@ -213,8 +205,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
         m_clusterName = getProperty(CLUSTER_NAME_PROPERTY, DEFAULT_CLUSTER_NAME);
 
         m_clusterHosts = getProperty(CLUSTER_HOSTS_PROPERTY, DEFAULT_CLUSER_HOSTS);
-        m_thriftPort = Integer.parseInt(getProperty(THRIFT_PORT_PROPERTY, DEFAULT_THRIFT_PORT));
-        m_dynamicDiscovery = Boolean.parseBoolean(getProperty(DYNAMIC_DISCOVERY_PROPERTY, DEFAULT_DYNAMIC_DISCOVERY));
+        m_autoDiscovery = Boolean.parseBoolean(getProperty(DYNAMIC_AUTO_PROPERTY, DEFAULT_AUTO_DISCOVERY));
 
         m_rraList = getProperty(RRA_LIST_PROPERTY, DEFAULT_RRA_LIST).trim().split(",");
         m_ttl = Integer.parseInt(getProperty(TTL_PROPERTY, DEFAULT_TTL));
@@ -225,7 +216,12 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
 
 	LogUtils.debugf(this, "start cassandra");
 
-        Cluster cluster = HFactory.getOrCreateCluster(m_clusterName, new CassandraHostConfigurator(m_clusterHosts));
+	CassandraHostConfigurator clusterConfig = new CassandraHostConfigurator(m_clusterHosts);
+	if (m_autoDiscovery) {
+	    clusterConfig.setAutoDiscoverHosts(m_autoDiscovery);
+	}
+
+        Cluster cluster = HFactory.getOrCreateCluster(m_clusterName, clusterConfig);
 
 	LogUtils.debugf(this, "describe keyspace");
         KeyspaceDefinition ksDef = cluster.describeKeyspace(m_keyspaceName);
