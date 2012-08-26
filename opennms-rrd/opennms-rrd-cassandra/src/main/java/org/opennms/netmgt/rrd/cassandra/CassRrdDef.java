@@ -68,7 +68,7 @@ public class CassRrdDef {
         m_archives.addAll(rraList);
     }
 
-    public void create(Keyspace keyspace) {
+    public void create(Keyspace keyspace, String mdColumnFamily) {
         LogUtils.debugf(this, "begin");
         //throw new UnsupportedOperationException("CassRrdDef.create is not yet implemented.");
         // TODO: Only need this while ResourceTypeUtils does file system scans for datasources.
@@ -89,7 +89,7 @@ public class CassRrdDef {
 
         List<HColumn<String,String>> mdColumns = new ArrayList<HColumn<String,String>>();
         mdColumns.add(HFactory.createStringColumn("step", Integer.toString(m_step)));
-        mutator.addInsertion(m_fileName, "metadata",
+        mutator.addInsertion(m_fileName, mdColumnFamily,
                 HFactory.createSuperColumn("fileinfo", mdColumns, StringSerializer.get(), StringSerializer.get(), StringSerializer.get())
         );
 
@@ -101,7 +101,7 @@ public class CassRrdDef {
             mdColumns.add(HFactory.createStringColumn("min", ds.getMin()));
             mdColumns.add(HFactory.createStringColumn("max", ds.getMax()));
 
-            mutator.addInsertion(m_fileName, "metadata",
+            mutator.addInsertion(m_fileName, mdColumnFamily,
                     HFactory.createSuperColumn("ds:"+ds.getName(), mdColumns, StringSerializer.get(), StringSerializer.get(), StringSerializer.get())
             );
         }
@@ -116,7 +116,7 @@ public class CassRrdDef {
                 mdColumns.add(HFactory.createStringColumn("steps", a[3]));
                 mdColumns.add(HFactory.createStringColumn("rows",  a[4]));
             }
-            mutator.addInsertion(m_fileName, "metadata",
+            mutator.addInsertion(m_fileName, mdColumnFamily,
                 HFactory.createSuperColumn("archives["+i+"]", mdColumns, StringSerializer.get(), StringSerializer.get(), StringSerializer.get())
             );
         }
