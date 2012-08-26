@@ -18,14 +18,36 @@ import org.opennms.netmgt.rrd.RrdDataSource;
 
 public class CassRrdDef {
     private String m_fileName;
+    private int m_step;
     private List<RrdDataSource> m_datasources;
     private List<String> m_archives;
 
     public CassRrdDef(String creator, String fileName, int step) {
         //throw new UnsupportedOperationException("CassRrdDef constructor is not yet implemented.");
         m_fileName = fileName;
+        m_step = step;
         m_datasources = new ArrayList<RrdDataSource>();
         m_archives = new ArrayList<String>();
+    }
+
+    public String getFileName() {
+        return m_fileName;
+    }
+
+    public int getStep() {
+        return m_step;
+    }
+
+    public List<String> getDatasourceNames() {
+        List<String> dsNames = new ArrayList<String>();
+        for(RrdDataSource ds : m_datasources) {
+            dsNames.add(ds.getName());
+        }
+        return dsNames;
+    }
+
+    public List<String> getArchiveNames() {
+        return m_archives;
     }
 
     public void addDatasource(String name, String type, int heartBeat, Double dsMin, Double dsMax) {
@@ -65,45 +87,37 @@ public class CassRrdDef {
         // metadata[$m_fileName][ds:$dsname][type=type, heartbeat=${heartBeat}, min=${dsMin}, max=${dsMax}]
         // metadata[$m_fileName][rra:${rra}][consolefun, xff, steps, rows]
 
-/*
-        HColumn<String, Double> c = HFactory.createColumn(m_fileName,
-                                                          getValue(),
-                                                          StringSerializer.get(),
-                                                          DoubleSerializer.get());
-        HSuperColumn<Long, String, Double> superColumn = HFactory.createSuperColumn(Long.valueOf(getTimestamp()),
-                                                                                    Collections.singletonList(c),
-                                                                                    LongSerializer.get(),
-                                                                                    StringSerializer.get(),
-                                                                                    DoubleSerializer.get());
-*/
+        List<HColumn<String,String>> mdColumns = new ArrayList<HColumn<String,String>>();
+        mdColumns.add(HFactory.createStringColumn("step", Integer.toString(m_step)));
+        mutator.addInsertion(m_fileName, "metadata",
+                HFactory.createSuperColumn("fileinfo", mdColumns, StringSerializer.get(), StringSerializer.get(), StringSerializer.get())
+        );
 
         LogUtils.debugf(this, "do datasources");
-        List<HColumn<String,String>> dsColumns = new ArrayList<HColumn<String,String>>();
         for(RrdDataSource ds : m_datasources) {
-            dsColumns.clear();
-            dsColumns.add(HFactory.createStringColumn("type", ds.getType()));
-            dsColumns.add(HFactory.createStringColumn("heartbeat", Integer.toString(ds.getHeartBeat())));
-            dsColumns.add(HFactory.createStringColumn("min", ds.getMin()));
-            dsColumns.add(HFactory.createStringColumn("max", ds.getMax()));
+            mdColumns.clear();
+            mdColumns.add(HFactory.createStringColumn("type", ds.getType()));
+            mdColumns.add(HFactory.createStringColumn("heartbeat", Integer.toString(ds.getHeartBeat())));
+            mdColumns.add(HFactory.createStringColumn("min", ds.getMin()));
+            mdColumns.add(HFactory.createStringColumn("max", ds.getMax()));
 
             mutator.addInsertion(m_fileName, "metadata",
-                    HFactory.createSuperColumn("ds:"+ds.getName(), dsColumns, StringSerializer.get(), StringSerializer.get(), StringSerializer.get())
+                    HFactory.createSuperColumn("ds:"+ds.getName(), mdColumns, StringSerializer.get(), StringSerializer.get(), StringSerializer.get())
             );
         }
 
         LogUtils.debugf(this, "do archives");
-        List<HColumn<String,String>> arcColumns = new ArrayList<HColumn<String,String>>();
         for(int i = 0; i < m_archives.size(); i++) {
-            arcColumns.clear();
+            mdColumns.clear();
             String[] a = m_archives.get(i).split(":");
             if (a.length == 5) {
-                arcColumns.add(HFactory.createStringColumn("cfun",  a[1]));
-                arcColumns.add(HFactory.createStringColumn("xff",   a[2]));
-                arcColumns.add(HFactory.createStringColumn("steps", a[3]));
-                arcColumns.add(HFactory.createStringColumn("rows",  a[4]));
+                mdColumns.add(HFactory.createStringColumn("cfun",  a[1]));
+                mdColumns.add(HFactory.createStringColumn("xff",   a[2]));
+                mdColumns.add(HFactory.createStringColumn("steps", a[3]));
+                mdColumns.add(HFactory.createStringColumn("rows",  a[4]));
             }
             mutator.addInsertion(m_fileName, "metadata",
-                HFactory.createSuperColumn("archives["+i+"]", arcColumns, StringSerializer.get(), StringSerializer.get(), StringSerializer.get())
+                HFactory.createSuperColumn("archives["+i+"]", mdColumns, StringSerializer.get(), StringSerializer.get(), StringSerializer.get())
             );
         }
         LogUtils.debugf(this, "mutator.execute()");

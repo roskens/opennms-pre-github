@@ -48,10 +48,10 @@ class Datapoint {
         LogUtils.debugf(this, "datapoint['%s']['%s'][ %d ] = %f", getName(), getDsName(), getTimestamp(), getValue());
 
         HColumn<Long, Double> c = HFactory.createColumn(Long.valueOf(getTimestamp()),
-                                                          getValue(),
-                                                          ttl,
-                                                          LongSerializer.get(),
-                                                          DoubleSerializer.get());
+                                                        getValue(),
+                                                        ttl,
+                                                        LongSerializer.get(),
+                                                        DoubleSerializer.get());
         HSuperColumn<String, Long, Double> superColumn = HFactory.createSuperColumn(getDsName(),
                                                                                     Collections.singletonList(c),
                                                                                     StringSerializer.get(),
