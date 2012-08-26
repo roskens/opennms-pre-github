@@ -40,6 +40,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.TreeMap;
 
 import me.prettyprint.cassandra.serializers.DoubleSerializer;
 import me.prettyprint.cassandra.serializers.LongSerializer;
@@ -60,10 +61,9 @@ import me.prettyprint.hector.api.query.SuperSliceQuery;
 
 import org.jrobin.core.FetchData;
 import org.jrobin.core.RrdDb;
-import org.jrobin.core.RrdDef;
 import org.jrobin.core.RrdException;
-import org.jrobin.core.Sample;
 import org.jrobin.data.DataProcessor;
+import org.jrobin.data.LinearInterpolator;
 import org.jrobin.data.Plottable;
 import org.jrobin.graph.RrdGraph;
 import org.jrobin.graph.RrdGraphDef;
@@ -118,13 +118,6 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
 
     private static final String DEFAULT_AUTO_DISCOVERY = "false";
 
-    public static final String RRA_LIST_PROPERTY = "org.opennms.netmgt.rrd.cassandra.rraList";
-
-    public static final String DEFAULT_RRA_LIST = "RRA:AVERAGE:0.5:1:2016,RRA:AVERAGE:0.5:12:1488,RRA:AVERAGE:0.5:288:366,RRA:MAX:0.5:288:366,RRA:MIN:0.5:288:366";
-
-    public static final String POOLSIZE_PROPERTY = "org.opennms.netmgt.rrd.cassandra.rrdfile-poolsize";
-    private static final String DEFAULT_RRDFILE_POOLSIZE = "100";
-
     /*
      * Ensure that we only initialize certain things *once* per Java VM, not
      * once per instantiation of this class.
@@ -141,19 +134,13 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
 
     private String m_clusterHosts;
 
-    private String m_opennmsRrdDir;
-
     private boolean m_autoDiscovery;
-
-    private String[] m_rraList;
 
     private int m_ttl;
 
     private Persister m_persister;
 
     private Keyspace m_keyspace;
-
-    private CassRrdPool m_rrdFilePool;
 
     /**
      * An extremely simple Plottable for holding static datasources that can't
@@ -207,12 +194,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
         m_clusterHosts = getProperty(CLUSTER_HOSTS_PROPERTY, DEFAULT_CLUSER_HOSTS);
         m_autoDiscovery = Boolean.parseBoolean(getProperty(DYNAMIC_AUTO_PROPERTY, DEFAULT_AUTO_DISCOVERY));
 
-        m_rraList = getProperty(RRA_LIST_PROPERTY, DEFAULT_RRA_LIST).trim().split(",");
         m_ttl = Integer.parseInt(getProperty(TTL_PROPERTY, DEFAULT_TTL));
-
-        int poolsize = Integer.parseInt(getProperty(POOLSIZE_PROPERTY, DEFAULT_RRDFILE_POOLSIZE));
-
-        m_opennmsRrdDir = System.getProperty("opennms.home") + File.separator + "share" + File.separator + "rrd";
 
 	LogUtils.debugf(this, "start cassandra");
 
@@ -256,9 +238,6 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
 
         LogUtils.debugf(this, "create persister");
         m_persister = new Persister(m_keyspace, m_columnFamily, m_ttl);
-
-        LogUtils.debugf(this, "create cassrrdpool");
-        m_rrdFilePool = new CassRrdPool( poolsize );
 
 	LogUtils.debugf(this, "end cassandra");
 	LogUtils.debugf(this, "end");
@@ -309,7 +288,6 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
     /**
      * Creates the JRobin RrdDb from the def by opening the file and then
      * closing.
-     * TODO: Change the interface here to create the file and return it opened.
      *
      * @param rrdDef
      *            a {@link org.jrobin.core.RrdDef} object.
@@ -322,8 +300,6 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
             LogUtils.debugf(this, "finish");
             return;
         }
-
-        // TODO: We should store our Rrd definition as metadata inside cassandra.
 
         LogUtils.debugf(this, "rrdDef.create(m_keyspace)");
         rrdDef.create(m_keyspace);
@@ -346,15 +322,11 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
      *  XXX: does not handle storeByGroup
      */
     public void updateFile(final CassRrd rrdFile, final String owner, final String data) throws Exception {
-
         String[] tokens = data.split(":");
         long timestamp = Long.parseLong(tokens[0]);
         double value = Double.parseDouble(tokens[1]);
 
         String fileName = rrdFile.getFileName();
-        if (fileName.startsWith(m_opennmsRrdDir + File.separator)) {
-            // fileName = fileName.substring(m_opennmsRrdDir.length()+1);
-        }
 
         String[] components = fileName.split(File.separator);
         String dsName = components[components.length - 1];
@@ -365,7 +337,6 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
         Datapoint dp = new Datapoint(fileName, dsName, timestamp, value);
 
         m_persister.persist(dp);
-
     }
 
     /**
@@ -558,8 +529,6 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
         double upperLimit = Double.NaN;
         boolean rigid = false;
         Map<String, List<String>> defs = new LinkedHashMap<String, List<String>>();
-        // Map<String,List<String>> cdefs = new
-        // HashMap<String,List<String>>();
 
         final String[] commandArray;
         if (inputArray[0].contains("rrdtool") && inputArray[1].equals("graph") && inputArray[2].equals("-")) {
@@ -720,12 +689,11 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
                 String[] def = splitDef(definition);
                 String[] ds = def[0].split("=");
                 String relpath = ds[1].replace("\\", "");
-                File dsFile = getRrdFile(workDir, relpath, start, end, def[1], def[2]);
-                graphDef.datasource(ds[0], dsFile.getAbsolutePath(), def[1], def[2]);
+                Plottable p = getRrdPlottable(workDir, relpath, start, end, def[1], def[2]);
+                graphDef.datasource(ds[0], p);
+                String fullpath = workDir.getAbsolutePath() + File.separator + relpath;
                 List<String> defBits = new ArrayList<String>();
-                defBits.add(dsFile.getAbsolutePath());
-                defBits.add(def[1]);
-                defBits.add(def[2]);
+                defBits.add(fullpath);
                 defs.put(ds[0], defBits);
 
             } else if (arg.startsWith("CDEF:")) {
@@ -825,99 +793,81 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
         return graphDef;
     }
 
-    private File getRrdFile(final File workDir, String relpath, long start, long end, String dsName, String consolFun)
+    private Plottable getRrdPlottable(final File workDir, String relpath, long start, long end, String dsName, String consolFun)
             throws RrdException {
+        LinearInterpolator plottable = null;
+        String path = workDir.getAbsolutePath();
+        String key = path + File.separator + relpath;
+        LogUtils.debugf(this,"getRrdPlottable(): key=%s",key);
+
         try {
-            String path = workDir.getAbsolutePath();
-            String key = path + File.separator + relpath;
-            //LogUtils.debugf(this,"getRrdFile(): path=%s",path);
-            //LogUtils.debugf(this,"getRrdFile(): relpath=%s",relpath);
-            LogUtils.debugf(this,"getRrdFile(): key=%s",key);
 
-            // Get metadata for the datasource from Cassandra
-            // STEP:
-            // CONSOLEFUNCTION:
-            // MINUMUM:
-            // MAXIMUM:
-            SuperSliceQuery<String, String, String, String> mdQuery = HFactory.createSuperSliceQuery(m_keyspace,
-                                                                                                 StringSerializer.get(),
-                                                                                                 StringSerializer.get(),
-                                                                                                 StringSerializer.get(),
-                                                                                                 StringSerializer.get());
-            mdQuery.setColumnFamily("metadata");
-            mdQuery.setKey(key);
-            mdQuery.setRange(dsName, "ZZZZZZ", false, Integer.MAX_VALUE);
-            QueryResult<SuperSlice<String, String, String>> mdResults = mdQuery.execute();
-            List<HSuperColumn<String, String, String>> mdList = mdResults.get().getSuperColumns();
+        // Get metadata for the datasource from Cassandra
+        // STEP:
+        // CONSOLEFUNCTION:
+        // MINUMUM:
+        // MAXIMUM:
+        SuperSliceQuery<String, String, String, String> mdQuery = HFactory.createSuperSliceQuery(m_keyspace,
+                                                                                             StringSerializer.get(),
+                                                                                             StringSerializer.get(),
+                                                                                             StringSerializer.get(),
+                                                                                             StringSerializer.get());
+        mdQuery.setColumnFamily("metadata");
+        mdQuery.setKey(key);
+        mdQuery.setRange("", "", false, Integer.MAX_VALUE);
+        QueryResult<SuperSlice<String, String, String>> mdResults = mdQuery.execute();
+        List<HSuperColumn<String, String, String>> mdList = mdResults.get().getSuperColumns();
 
-            LogUtils.debugf(this, "metadata: %d results returned", mdList.size());
+        LogUtils.debugf(this, "metadata: %d results returned", mdList.size());
 
-            for (HSuperColumn<String, String, String> metadata : mdList) {
-                LogUtils.debugf(this, "metadata['%s'](%d)", metadata.getName(), metadata.getSize());
-                for (HColumn<String, String> mdata : metadata.getColumns()) {
-                    LogUtils.debugf(this, "metadata['%s']['%s'] = '%s'",
-                        metadata.getName(),
-                        mdata.getName(),
-                        mdata.getValue()
-                    );
-                }
+        for (HSuperColumn<String, String, String> metadata : mdList) {
+            LogUtils.debugf(this, "metadata['%s'](%d)", metadata.getName(), metadata.getSize());
+            for (HColumn<String, String> mdata : metadata.getColumns()) {
+                LogUtils.debugf(this, "metadata['%s']['%s'] = '%s'",
+                    metadata.getName(),
+                    mdata.getName(),
+                    mdata.getValue()
+                );
             }
-
-            SuperSliceQuery<String, String, Long, Double> query = HFactory.createSuperSliceQuery(m_keyspace,
-                                                                                                 StringSerializer.get(),
-                                                                                                 StringSerializer.get(),
-                                                                                                 LongSerializer.get(),
-                                                                                                 DoubleSerializer.get());
-
-            query.setColumnFamily(m_columnFamily);
-            query.setKey(key);
-            query.setRange(dsName, dsName, false, Integer.MAX_VALUE);
-
-            QueryResult<SuperSlice<String, Long, Double>> results = query.execute();
-
-            List<HSuperColumn<String, Long, Double>> datapoints = results.get().getSuperColumns();
-            File file;
-
-            synchronized(m_rrdFilePool) {
-                file = m_rrdFilePool.get(relpath);
-                if (file == null || !file.exists()) {
-                    // XXX: Should we offer the ability to store the files outside of /tmp?
-                    file = File.createTempFile("crrd", ".jrb");
-                    LogUtils.debugf(this,"Creating temporary rrd " + file + " with " + datapoints.size() + " datapoints");
-                    m_rrdFilePool.put(relpath, file);
-                }
-            }
-
-            RrdDef def = new RrdDef(file.getAbsolutePath());
-            def.setStartTime(1000);
-            def.setStep(300);
-            def.addDatasource(dsName, "COUNTER", 600, Double.NaN, Double.NaN);
-            for (String rra : m_rraList) {
-                def.addArchive(rra);
-            }
-
-            RrdDb db = new RrdDb(def);
-
-            LogUtils.debugf(this, "found %d datapoint super columns", datapoints.size());
-            for (HSuperColumn<String, Long, Double> datapoint : datapoints) {
-                List<HColumn<Long, Double>> dpoints = datapoint.getColumns();
-                LogUtils.debugf(this, "found %d datapoints for super column %s", dpoints.size(), datapoint.getName());
-                for(HColumn<Long, Double> ds : dpoints) {
-                    long timestamp = ds.getName();
-                    double val = ds.getValue();
-
-                    Sample sample = db.createSample(timestamp);
-                    sample.setValue(0, val);
-
-                    sample.update();
-                }
-            }
-
-            return file;
-        } catch (IOException e) {
-            throw new RrdException(e);
         }
 
+        SuperSliceQuery<String, String, Long, Double> query = HFactory.createSuperSliceQuery(m_keyspace,
+                                                                                             StringSerializer.get(),
+                                                                                             StringSerializer.get(),
+                                                                                             LongSerializer.get(),
+                                                                                             DoubleSerializer.get());
+
+        query.setColumnFamily(m_columnFamily);
+        query.setKey(key);
+        query.setRange(dsName, dsName, false, Integer.MAX_VALUE);
+
+        QueryResult<SuperSlice<String, Long, Double>> results = query.execute();
+
+        List<HSuperColumn<String, Long, Double>> datapoints = results.get().getSuperColumns();
+
+        TreeMap<Long, Double> map = new TreeMap<Long, Double>();
+
+        LogUtils.debugf(this, "found %d datapoint super columns", datapoints.size());
+        for (HSuperColumn<String, Long, Double> datapoint : datapoints) {
+            List<HColumn<Long, Double>> dpoints = datapoint.getColumns();
+            LogUtils.debugf(this, "found %d datapoints for super column %s", dpoints.size(), datapoint.getName());
+            for(HColumn<Long, Double> ds : dpoints) {
+                map.put(ds.getName(), ds.getValue());
+            }
+        }
+        long[] timestamps = new long[map.size()];
+        double[] values = new double[map.size()];
+        int i = 0;
+        for(Map.Entry<Long,Double> e : map.entrySet()) {
+            timestamps[i] = e.getKey().longValue();
+            values[i] = e.getValue().doubleValue();
+            i++;
+        }
+        plottable = new LinearInterpolator(timestamps, values);
+        } catch (Exception e) {
+
+        }
+        return plottable;
     }
 
     private String[] splitDef(final String definition) {
