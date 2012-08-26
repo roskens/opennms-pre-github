@@ -329,7 +329,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
      * {@inheritDoc} Opens the JRobin RrdDb by name and returns it.
      */
     public CassRrd openFile(final String fileName) throws Exception {
-        CassRrd rrd = new CassRrd(fileName);
+        CassRrd rrd = new CassRrd(m_keyspace, m_mdColumnFamily, fileName);
         return rrd;
     }
 
