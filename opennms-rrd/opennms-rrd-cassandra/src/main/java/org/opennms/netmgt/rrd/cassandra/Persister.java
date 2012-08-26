@@ -17,7 +17,7 @@ import org.opennms.core.utils.LogUtils;
 
 class Persister implements Runnable {
 	Keyspace m_keyspace;
-	String m_columnFamily;
+	String m_dpColumnFamily;
 	int m_ttl;
 	BlockingQueue<Datapoint> m_queue = new LinkedBlockingQueue<Datapoint>();
 	int m_maxBatchSize = 100000;
@@ -26,9 +26,9 @@ class Persister implements Runnable {
 	AtomicBoolean m_finish = new AtomicBoolean(false);
 	CountDownLatch m_finishLatch = new CountDownLatch(1);
 
-	Persister(Keyspace keyspace, String columnFamily, int ttl) {
+	Persister(Keyspace keyspace, String dpColumnFamily, int ttl) {
 		m_keyspace = keyspace;
-		m_columnFamily = columnFamily;
+		m_dpColumnFamily = dpColumnFamily;
 		m_ttl = ttl;
 		m_thread = new Thread(this, "Cassandra-Persister");
 		m_thread.setDaemon(true);
@@ -91,7 +91,7 @@ class Persister implements Runnable {
 			Mutator<String> mutator = HFactory.createMutator(m_keyspace, new StringSerializer());
 
 			for(Datapoint datapoint : datapoints) {
-				datapoint.persist(mutator, m_columnFamily, m_ttl);
+				datapoint.persist(mutator, m_dpColumnFamily, m_ttl);
 			}
 
 			mutator.execute();
