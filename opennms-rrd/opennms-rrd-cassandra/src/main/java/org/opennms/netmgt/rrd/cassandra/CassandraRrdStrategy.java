@@ -84,21 +84,13 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
 
     private static final String DEFAULT_KEYSPACE = "OpenNMS";
 
-    // Data column must be create with a structure like this:
-    // create column family datapoints with column_type='Super' \
-    // and key_validation_class=UTF8Type \
-    // and comparator=LongType \
-    // and subcomparator=UTF8Type \
-    // and default_validation_class=DoubleType;
-
-    /**
-     * create column family metadata with column_type='Super'
-     * with comparator = UTF8Type;
-     */
-
     public static final String DATA_COLUMN_FAMILY_NAME_PROPERTY = "org.opennms.netmgt.rrd.cassandra.dataColumnFamily";
 
     private static final String DEFAULT_DATA_COLUMN = "datapoints";
+
+    public static final String META_DATA_FAMILY_NAME_PROPERTY = "org.opennms.netmgt.rrd.cassandra.metadataColumnFamily";
+
+    private static final String DEFAULT_METADATA_COLUMN = "metadata";
 
     public static final String CLUSTER_NAME_PROPERTY = "org.opennms.netmgt.rrd.cassandra.clusterName";
 
@@ -128,7 +120,9 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
 
     private String m_keyspaceName;
 
-    private String m_columnFamily;
+    private String m_dpColumnFamily;
+    
+    private String m_mdColumnFamily;
 
     private String m_clusterName;
 
@@ -188,7 +182,8 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
 	LogUtils.debugf(this, "start");
 
         m_keyspaceName = getProperty(KEYSPACE_NAME_PROPERTY, DEFAULT_KEYSPACE);
-        m_columnFamily = getProperty(DATA_COLUMN_FAMILY_NAME_PROPERTY, DEFAULT_DATA_COLUMN);
+        m_dpColumnFamily = getProperty(DATA_COLUMN_FAMILY_NAME_PROPERTY, DEFAULT_DATA_COLUMN);
+        m_mdColumnFamily = getProperty(META_DATA_FAMILY_NAME_PROPERTY, DEFAULT_METADATA_COLUMN);
         m_clusterName = getProperty(CLUSTER_NAME_PROPERTY, DEFAULT_CLUSTER_NAME);
 
         m_clusterHosts = getProperty(CLUSTER_HOSTS_PROPERTY, DEFAULT_CLUSER_HOSTS);
@@ -211,19 +206,42 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
         if (ksDef == null) {
 	    LogUtils.debugf(this, "keyspace definition null");
 
-	    LogUtils.debugf(this, "create column family %s", m_columnFamily);
-            ColumnFamilyDefinition cfDef = HFactory.createColumnFamilyDefinition(m_keyspaceName, m_columnFamily, ComparatorType.ASCIITYPE);
-            cfDef.setColumnType(ColumnType.SUPER);
-            cfDef.setSubComparatorType(ComparatorType.LONGTYPE);
-            cfDef.setKeyValidationClass    ("org.apache.cassandra.db.marshal.AsciiType");
-            cfDef.setDefaultValidationClass("org.apache.cassandra.db.marshal.DoubleType");
+            /*
+             * MetaData column must be created with a structure like this:
+             * 
+             * create column family metadata
+             * with column_type = 'Super'
+             * and comparator = 'AsciiType'
+             * and subcomparator = 'AsciiType'
+             * and default_validation_class = 'AsciiType'
+             * and key_validation_class = 'AsciiType';
+             * 
+             */
 
-	    LogUtils.debugf(this, "create column family metadata");
-            ColumnFamilyDefinition cfMDDef = HFactory.createColumnFamilyDefinition(m_keyspaceName, "metadata", ComparatorType.ASCIITYPE);
+	    LogUtils.debugf(this, "create column family %s", m_mdColumnFamily);
+            ColumnFamilyDefinition cfMDDef = HFactory.createColumnFamilyDefinition(m_keyspaceName, m_mdColumnFamily, ComparatorType.ASCIITYPE);
             cfMDDef.setColumnType(ColumnType.SUPER);
             cfMDDef.setSubComparatorType(ComparatorType.ASCIITYPE);
             cfMDDef.setKeyValidationClass    ("org.apache.cassandra.db.marshal.AsciiType");
             cfMDDef.setDefaultValidationClass("org.apache.cassandra.db.marshal.AsciiType");
+
+            /*
+             * Data column must be create with a structure like this:
+             * 
+             * create column family datapoints
+             * with column_type = 'Super'
+             * and comparator = 'AsciiType'
+             * and subcomparator = 'LongType'
+             * and default_validation_class = 'DoubleType'
+             * and key_validation_class = 'AsciiType'
+             */
+
+	    LogUtils.debugf(this, "create column family %s", m_dpColumnFamily);
+            ColumnFamilyDefinition cfDef = HFactory.createColumnFamilyDefinition(m_keyspaceName, m_dpColumnFamily, ComparatorType.ASCIITYPE);
+            cfDef.setColumnType(ColumnType.SUPER);
+            cfDef.setSubComparatorType(ComparatorType.LONGTYPE);
+            cfDef.setKeyValidationClass    ("org.apache.cassandra.db.marshal.AsciiType");
+            cfDef.setDefaultValidationClass("org.apache.cassandra.db.marshal.DoubleType");
 
 	    LogUtils.debugf(this, "create keyspace definition");
             ksDef = HFactory.createKeyspaceDefinition(m_keyspaceName, "org.apache.cassandra.locator.SimpleStrategy", 1,
@@ -237,7 +255,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
         m_keyspace = HFactory.createKeyspace(m_keyspaceName, cluster);
 
         LogUtils.debugf(this, "create persister");
-        m_persister = new Persister(m_keyspace, m_columnFamily, m_ttl);
+        m_persister = new Persister(m_keyspace, m_dpColumnFamily, m_ttl);
 
 	LogUtils.debugf(this, "end cassandra");
 	LogUtils.debugf(this, "end");
@@ -302,7 +320,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
         }
 
         LogUtils.debugf(this, "rrdDef.create(m_keyspace)");
-        rrdDef.create(m_keyspace);
+        rrdDef.create(m_keyspace, m_mdColumnFamily);
 
         LogUtils.debugf(this, "finish");
     }
@@ -812,7 +830,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
                                                                                              StringSerializer.get(),
                                                                                              StringSerializer.get(),
                                                                                              StringSerializer.get());
-        mdQuery.setColumnFamily("metadata");
+        mdQuery.setColumnFamily(m_mdColumnFamily);
         mdQuery.setKey(key);
         mdQuery.setRange("", "", false, Integer.MAX_VALUE);
         QueryResult<SuperSlice<String, String, String>> mdResults = mdQuery.execute();
@@ -837,7 +855,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
                                                                                              LongSerializer.get(),
                                                                                              DoubleSerializer.get());
 
-        query.setColumnFamily(m_columnFamily);
+        query.setColumnFamily(m_dpColumnFamily);
         query.setKey(key);
         query.setRange(dsName, dsName, false, Integer.MAX_VALUE);
 
