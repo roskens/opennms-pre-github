@@ -255,16 +255,15 @@ public abstract class RrdUtils {
      */
     public static boolean createRRD(String creator, String directory, String rrdName, int step, List<RrdDataSource> dataSources, List<String> rraList, Map<String, String> attributeMappings) throws RrdException {
     	Object def = null;
-    	
+        String path = directory + File.separator + rrdName + getStrategy().getDefaultFileExtension();
         try {
-            def = getStrategy().createDefinition(creator, directory, rrdName, step, dataSources, rraList);
-            // def can be null if the rrd-db exists already, but doesn't have to be (see MultiOutput/QueuingRrdStrategy
-            getStrategy().createFile(def, attributeMappings);
-
+            if (!getStrategy().fileExists(path)) {
+                def = getStrategy().createDefinition(creator, directory, rrdName, step, dataSources, rraList);
+                getStrategy().createFile(def, attributeMappings);
+            }
             return true;
         } catch (Throwable e) {
-            String path = directory + File.separator + rrdName + getStrategy().getDefaultFileExtension();
-			log().error("createRRD: An error occured creating rrdfile " + path + ": " + e, e);
+            log().error("createRRD: An error occured creating rrdfile " + path + ": " + e, e);
             throw new org.opennms.netmgt.rrd.RrdException("An error occured creating rrdfile " + path + ": " + e, e);
         }
     }

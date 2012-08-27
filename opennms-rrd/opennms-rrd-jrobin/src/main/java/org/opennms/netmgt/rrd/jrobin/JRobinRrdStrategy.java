@@ -190,6 +190,10 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
         return def;
     }
 
+    /** {@inheritDoc} */
+    public boolean fileExists(String fileName) {
+        return new File(fileName).exists();
+    }
 
     /**
      * Creates the JRobin RrdDb from the def by opening the file and then

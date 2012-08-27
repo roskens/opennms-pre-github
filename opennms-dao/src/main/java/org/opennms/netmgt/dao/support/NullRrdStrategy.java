@@ -63,8 +63,12 @@ public class NullRrdStrategy implements RrdStrategy<Object,Object> {
 	}
 
     @Override
-	public void createFile(Object rrdDef, Map<String, String> attrMapping) throws Exception {
-	}
+    public boolean fileExists(String fileName) {
+        return false;
+    }
+
+    public void createFile(Object rrdDef, Map<String, String> attrMapping) throws Exception {
+    }
 
     @Override
     public InputStream createGraph(String command, File workDir)

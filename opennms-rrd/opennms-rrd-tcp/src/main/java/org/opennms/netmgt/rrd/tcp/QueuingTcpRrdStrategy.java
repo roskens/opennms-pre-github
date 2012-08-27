@@ -149,6 +149,11 @@ public class QueuingTcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefi
         return new TcpRrdStrategy.RrdDefinition(directory, rrdName);
     }
 
+    /** {@inheritDoc} */
+    public boolean fileExists(String fileName) {
+        return true;
+    }
+
     /**
      * <p>createFile</p>
      *

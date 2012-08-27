@@ -136,6 +136,15 @@ public class MultiOutputRrdStrategy implements RrdStrategy<List<Object>,List<Obj
         return retval;
     }
 
+    public boolean fileExists(String fileName) {
+        boolean ok = true;
+        for (RrdStrategy<Object, Object> strategy : m_strategies) {
+            ok = strategy.fileExists(fileName);
+            if(!ok) break;
+        }
+        return ok;
+    }
+
     /** {@inheritDoc} */
     @Override
     public void createFile(List<Object> rrdDef, Map<String, String> attributeMappings) throws Exception {

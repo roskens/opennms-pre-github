@@ -956,6 +956,11 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
         return m_delegate;
     }
 
+    @Override
+    public boolean fileExists(String fileName) {
+        return m_delegate.fileExists(fileName);
+    }
+
     //
     // RrdStrategy Implementation.. These methods just enqueue the calls as
     // operations
@@ -1535,6 +1540,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
 	public void setStartTime(long updateStart) {
 		m_startTime = updateStart;
 	}
+
 
 
 }
