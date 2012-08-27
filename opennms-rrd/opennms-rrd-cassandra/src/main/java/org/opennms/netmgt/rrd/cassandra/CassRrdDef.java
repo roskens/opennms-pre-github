@@ -17,13 +17,18 @@ import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.rrd.RrdDataSource;
 
 public class CassRrdDef {
-    private String m_fileName;
-    private int m_step;
-    private List<RrdDataSource> m_datasources;
-    private List<String> m_archives;
+    /**
+     * default RRD step to be used if not specified in constructor (300 seconds)
+     */
+    public static final long DEFAULT_STEP = 300L;
 
-    public CassRrdDef(String creator, String fileName, int step) {
-        //throw new UnsupportedOperationException("CassRrdDef constructor is not yet implemented.");
+    private String m_fileName;
+    private long m_step = DEFAULT_STEP;
+    private ArrayList<RrdDataSource> m_datasources = new ArrayList<RrdDataSource>();
+    private ArrayList<String> m_archives = new ArrayList<String>();
+
+
+    public CassRrdDef(String fileName, int step) {
         m_fileName = fileName;
         m_step = step;
         m_datasources = new ArrayList<RrdDataSource>();
@@ -34,7 +39,7 @@ public class CassRrdDef {
         return m_fileName;
     }
 
-    public int getStep() {
+    public long getStep() {
         return m_step;
     }
 
@@ -88,7 +93,7 @@ public class CassRrdDef {
         // metadata[$m_fileName][rra:${rra}][consolefun, xff, steps, rows]
 
         List<HColumn<String,String>> mdColumns = new ArrayList<HColumn<String,String>>();
-        mdColumns.add(HFactory.createStringColumn("step", Integer.toString(m_step)));
+        mdColumns.add(HFactory.createStringColumn("step", Long.toString(m_step)));
         mutator.addInsertion(m_fileName, mdColumnFamily,
                 HFactory.createSuperColumn("fileinfo", mdColumns, StringSerializer.get(), StringSerializer.get(), StringSerializer.get())
         );
