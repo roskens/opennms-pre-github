@@ -294,7 +294,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
             return null;
         }
 
-        CassRrdDef def = new CassRrdDef(creator, fileName, step);
+        CassRrdDef def = new CassRrdDef(fileName, step);
 
         def.addDatasources(dataSources);
         def.addArchives(rraList);

@@ -17,7 +17,7 @@ public class CassRrd {
 
     private String m_fileName;
 
-    private int m_step;
+    private long m_step;
 
     private List<String> m_dsNames;
 
@@ -73,7 +73,7 @@ public class CassRrd {
         return m_fileName;
     }
 
-    public int getStep() {
+    public long getStep() {
         return m_step;
     }
 
