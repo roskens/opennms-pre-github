@@ -303,6 +303,37 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
         return def;
     }
 
+    /** {@inheritDoc} */
+    public boolean fileExists(String fileName) {
+        boolean found = false;
+        
+        try {
+            SuperSliceQuery<String, String, String, String> mdQuery = HFactory.createSuperSliceQuery(m_keyspace,
+                                                                                                     StringSerializer.get(),
+                                                                                                     StringSerializer.get(),
+                                                                                                     StringSerializer.get(),
+                                                                                                     StringSerializer.get());
+            mdQuery.setColumnFamily(m_mdColumnFamily);
+            mdQuery.setKey(fileName);
+            mdQuery.setRange("", "", false, Integer.MAX_VALUE); // Return all results.
+
+            QueryResult<SuperSlice<String, String, String>> mdResults = mdQuery.execute();
+            List<HSuperColumn<String, String, String>> mdList = mdResults.get().getSuperColumns();
+            if (mdList.size() > 0) {
+                LogUtils.debugf(this, "found %d results for fileName %s, assuming 'file' exists", mdList.size(), fileName);
+                found = true;
+            } else {
+                LogUtils.debugf(this, "found %d results for fileName %s, assuming 'file' does not exist", mdList.size(), fileName);
+            }
+
+        } catch (Exception e) {
+            LogUtils.errorf(this, e, "exception on search");
+        }
+        
+        return found;
+    }
+
+
     /**
      * Creates the JRobin RrdDb from the def by opening the file and then
      * closing.

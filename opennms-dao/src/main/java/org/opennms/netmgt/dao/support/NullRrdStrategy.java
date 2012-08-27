@@ -57,6 +57,10 @@ public class NullRrdStrategy implements RrdStrategy<Object,Object> {
 			throws Exception {
 		return null;
 	}
+	
+	public boolean fileExists(String fileName) {
+	    return false;
+	}
 
 	public void createFile(Object rrdDef) throws Exception {
 	}
