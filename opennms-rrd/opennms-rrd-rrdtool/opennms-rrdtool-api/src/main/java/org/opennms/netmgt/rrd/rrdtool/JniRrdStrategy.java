@@ -136,6 +136,10 @@ public class JniRrdStrategy implements RrdStrategy<String,StringBuffer> {
         return createCmd.toString();
     }
 
+    /** {@inheritDoc} */
+    public boolean fileExists(String fileName) {
+        return new File(fileName).exists();
+    }
 
     /**
      * Creates a the rrd file from the rrdDefinition. Since this definition is

@@ -139,6 +139,11 @@ public class TcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefinition,
         return new RrdDefinition(directory, rrdName);
     }
 
+    /** {@inheritDoc} */
+    public boolean fileExists(String fileName) {
+        return true;
+    }
+
     /**
      * <p>createFile</p>
      *
