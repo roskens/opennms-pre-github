@@ -34,17 +34,19 @@ import org.opennms.features.topology.plugins.topo.vmware.internal.VmwareTopology
 
 import java.util.List;
 
-public class VmwareGenerateOperation implements Operation {
+public class VmwareUpdateOperation implements Operation {
 
     VmwareTopologyProvider m_topologyProvider;
 
-    public VmwareGenerateOperation(VmwareTopologyProvider topologyProvider) {
+    public VmwareUpdateOperation(VmwareTopologyProvider topologyProvider) {
         m_topologyProvider = topologyProvider;
     }
 
     @Override
     public Undoer execute(List<Object> targets, OperationContext operationContext) {
         m_topologyProvider.generate();
+
+        operationContext.getGraphContainer().redoLayout();
 
         return null;
     }

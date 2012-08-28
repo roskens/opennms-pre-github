@@ -33,7 +33,6 @@ import com.vaadin.data.Property;
 import com.vaadin.data.util.BeanContainer;
 import com.vaadin.data.util.BeanItem;
 import org.opennms.features.topology.api.TopologyProvider;
-import org.opennms.features.topology.plugins.topo.vmware.internal.operations.VmwareConstants;
 import org.opennms.netmgt.dao.NodeDao;
 import org.opennms.netmgt.model.OnmsNode;
 
@@ -53,8 +52,6 @@ public class VmwareTopologyProvider implements TopologyProvider {
     private VmwareVertexContainer m_vertexContainer;
     private BeanContainer<String, VmwareEdge> m_edgeContainer;
 
-    //private int m_counter = 0;
-    //private int m_edgeCounter = 0;
     private int m_groupCounter = 0;
     private boolean m_generated = false;
 
@@ -539,9 +536,6 @@ public class VmwareTopologyProvider implements TopologyProvider {
     public void resetContainer() {
         getVertexContainer().removeAllItems();
         getEdgeContainer().removeAllItems();
-
-        //m_counter = 0;
-        //m_edgeCounter = 0;
     }
 
     public Collection<?> getPropertyIds() {
@@ -562,30 +556,6 @@ public class VmwareTopologyProvider implements TopologyProvider {
     public boolean containsVertexId(Object vertexId) {
         return m_vertexContainer.containsId(vertexId);
     }
-
-    /*
-
-    public String getNextVertexId() {
-        return "v" + m_counter++;
-    }
-
-    public String getNextEdgeId() {
-        return "e" + m_edgeCounter++;
-    }
-
-      public Object addVertex(int x, int y, String icon) {
-        System.err.println("Adding vertex in VmwareTopologyProvider with icon: " + icon);
-        String nextVertexId = getNextVertexId();
-        addVertex(nextVertexId, x, y, icon, "Vertex " + nextVertexId, "64.146.64.214", -1);
-        return nextVertexId;
-    }
-
-    public Object connectVertices(Object sourceVertextId, Object targetVertextId) {
-        String nextEdgeId = getNextEdgeId();
-        connectVertices(nextEdgeId, sourceVertextId, targetVertextId);
-        return nextEdgeId;
-    }
-    */
 
     //@Override
     public Object addGroup(String groupIcon) {

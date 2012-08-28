@@ -1,28 +1,35 @@
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
-xsi:schemaLocation="
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
+           xsi:schemaLocation="
 http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
 http://www.osgi.org/xmlns/blueprint-ext/v1.1.0 https://svn.apache.org/repos/asf/aries/tags/blueprint-0.3.1/blueprint-core/src/main/resources/org/apache/aries/blueprint/ext/blueprint-ext.xsd">
 
-    <reference id="nodeDao" interface="org.opennms.netmgt.dao.NodeDao" availability="mandatory" />
+    <reference id="nodeDao" interface="org.opennms.netmgt.dao.NodeDao" availability="mandatory"/>
 
-    <bean id="vmwareTopologyProvider" class="org.opennms.features.topology.plugins.topo.vmware.internal.VmwareTopologyProvider">
-        <property name="nodeDao" ref="nodeDao" />
+    <bean id="vmwareTopologyProvider"
+          class="org.opennms.features.topology.plugins.topo.vmware.internal.VmwareTopologyProvider">
+        <property name="nodeDao" ref="nodeDao"/>
     </bean>
 
-    <service interface="org.opennms.features.topology.api.TopologyProvider" ref="vmwareTopologyProvider"/>
+    <service interface="org.opennms.features.topology.api.TopologyProvider" ref="vmwareTopologyProvider">
+        <service-properties>
+            <entry key="label" value="VMware"/>
+        </service-properties>
+    </service>
 
-    <service interface="org.opennms.features.topology.api.Operation" >
+    <service interface="org.opennms.features.topology.api.Operation">
         <service-properties>
             <entry key="operation.menuLocation" value="File"/>
-            <entry key="operation.label" value="Generate"/>
+            <entry key="operation.label" value="Update VMware Topology"/>
         </service-properties>
-        <bean class="org.opennms.features.topology.plugins.topo.vmware.internal.operations.VmwareGenerateOperation">
+        <bean class="org.opennms.features.topology.plugins.topo.vmware.internal.operations.VmwareUpdateOperation">
             <argument ref="vmwareTopologyProvider"/>
         </bean>
     </service>
 
-    <service interface="org.opennms.features.topology.api.Operation" >
+    <!--
+    <service interface="org.opennms.features.topology.api.Operation">
         <service-properties>
             <entry key="operation.menuLocation" value="File"/>
             <entry key="operation.label" value="Save"/>
@@ -32,7 +39,7 @@ http://www.osgi.org/xmlns/blueprint-ext/v1.1.0 https://svn.apache.org/repos/asf/
         </bean>
     </service>
 
-    <service interface="org.opennms.features.topology.api.Operation" >
+    <service interface="org.opennms.features.topology.api.Operation">
         <service-properties>
             <entry key="operation.menuLocation" value="File"/>
             <entry key="operation.label" value="Load"/>
@@ -41,6 +48,8 @@ http://www.osgi.org/xmlns/blueprint-ext/v1.1.0 https://svn.apache.org/repos/asf/
             <argument ref="vmwareTopologyProvider"/>
         </bean>
     </service>
+    -->
+
     <!--
     <service interface="org.opennms.features.topology.api.Operation" >
         <service-properties>
