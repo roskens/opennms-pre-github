@@ -56,6 +56,7 @@ import me.prettyprint.hector.api.ddl.ColumnType;
 import me.prettyprint.hector.api.ddl.ComparatorType;
 import me.prettyprint.hector.api.ddl.KeyspaceDefinition;
 import me.prettyprint.hector.api.factory.HFactory;
+import me.prettyprint.hector.api.query.ColumnQuery;
 import me.prettyprint.hector.api.query.QueryResult;
 import me.prettyprint.hector.api.query.SuperSliceQuery;
 
@@ -210,9 +211,8 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
              * MetaData column must be created with a structure like this:
              *
              * create column family metadata
-             * with column_type = 'Super'
+             * with column_type = 'Standard'
              * and comparator = 'AsciiType'
-             * and subcomparator = 'AsciiType'
              * and default_validation_class = 'AsciiType'
              * and key_validation_class = 'AsciiType';
              *
@@ -220,8 +220,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
 
 	    LogUtils.debugf(this, "create column family %s", m_mdColumnFamily);
             ColumnFamilyDefinition cfMDDef = HFactory.createColumnFamilyDefinition(m_keyspaceName, m_mdColumnFamily, ComparatorType.ASCIITYPE);
-            cfMDDef.setColumnType(ColumnType.SUPER);
-            cfMDDef.setSubComparatorType(ComparatorType.ASCIITYPE);
+            cfMDDef.setColumnType(ColumnType.STANDARD);
             cfMDDef.setKeyValidationClass    ("org.apache.cassandra.db.marshal.AsciiType");
             cfMDDef.setDefaultValidationClass("org.apache.cassandra.db.marshal.AsciiType");
 
@@ -308,22 +307,17 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
         boolean found = false;
 
         try {
-            SuperSliceQuery<String, String, String, String> mdQuery = HFactory.createSuperSliceQuery(m_keyspace,
-                                                                                                     StringSerializer.get(),
-                                                                                                     StringSerializer.get(),
-                                                                                                     StringSerializer.get(),
-                                                                                                     StringSerializer.get());
-            mdQuery.setColumnFamily(m_mdColumnFamily);
-            mdQuery.setKey(fileName);
-            mdQuery.setRange("", "", false, Integer.MAX_VALUE); // Return all results.
+            ColumnQuery<String, String, String> columnQuery = HFactory.createStringColumnQuery(m_keyspace);
+            columnQuery.setColumnFamily(m_mdColumnFamily).setKey(fileName).setName(fileName);
+            QueryResult<HColumn<String, String>> result = columnQuery.execute();
 
-            QueryResult<SuperSlice<String, String, String>> mdResults = mdQuery.execute();
-            List<HSuperColumn<String, String, String>> mdList = mdResults.get().getSuperColumns();
-            if (mdList.size() > 0) {
-                LogUtils.debugf(this, "found %d results for fileName %s, assuming 'file' exists", mdList.size(), fileName);
+            HColumn<String, String> hc = result.get();
+
+            if (hc != null) {
+                LogUtils.debugf(this, "found a result for fileName %s, assuming 'file' exists", fileName);
                 found = true;
             } else {
-                LogUtils.debugf(this, "found %d results for fileName %s, assuming 'file' does not exist", mdList.size(), fileName);
+                LogUtils.debugf(this, "found no results for fileName %s, assuming 'file' does not exist", fileName);
             }
 
         } catch (Exception e) {
@@ -847,72 +841,42 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
         LinearInterpolator plottable = null;
         String path = workDir.getAbsolutePath();
         String key = path + File.separator + relpath;
-        LogUtils.debugf(this,"getRrdPlottable(): key=%s",key);
+        LogUtils.debugf(this, "getRrdPlottable(): key=%s", key);
 
         try {
+            SuperSliceQuery<String, String, Long, Double> query = HFactory.createSuperSliceQuery(m_keyspace,
+                                                                                                 StringSerializer.get(),
+                                                                                                 StringSerializer.get(),
+                                                                                                 LongSerializer.get(),
+                                                                                                 DoubleSerializer.get());
 
-        // Get metadata for the datasource from Cassandra
-        // STEP:
-        // CONSOLEFUNCTION:
-        // MINUMUM:
-        // MAXIMUM:
-        SuperSliceQuery<String, String, String, String> mdQuery = HFactory.createSuperSliceQuery(m_keyspace,
-                                                                                             StringSerializer.get(),
-                                                                                             StringSerializer.get(),
-                                                                                             StringSerializer.get(),
-                                                                                             StringSerializer.get());
-        mdQuery.setColumnFamily(m_mdColumnFamily);
-        mdQuery.setKey(key);
-        mdQuery.setRange("", "", false, Integer.MAX_VALUE);
-        QueryResult<SuperSlice<String, String, String>> mdResults = mdQuery.execute();
-        List<HSuperColumn<String, String, String>> mdList = mdResults.get().getSuperColumns();
+            query.setColumnFamily(m_dpColumnFamily);
+            query.setKey(key);
+            query.setRange(dsName, dsName, false, Integer.MAX_VALUE);
 
-        LogUtils.debugf(this, "metadata: %d results returned", mdList.size());
+            QueryResult<SuperSlice<String, Long, Double>> results = query.execute();
 
-        for (HSuperColumn<String, String, String> metadata : mdList) {
-            LogUtils.debugf(this, "metadata['%s'](%d)", metadata.getName(), metadata.getSize());
-            for (HColumn<String, String> mdata : metadata.getColumns()) {
-                LogUtils.debugf(this, "metadata['%s']['%s'] = '%s'",
-                    metadata.getName(),
-                    mdata.getName(),
-                    mdata.getValue()
-                );
+            List<HSuperColumn<String, Long, Double>> datapoints = results.get().getSuperColumns();
+
+            TreeMap<Long, Double> map = new TreeMap<Long, Double>();
+
+            LogUtils.debugf(this, "found %d datapoint super columns", datapoints.size());
+            for (HSuperColumn<String, Long, Double> datapoint : datapoints) {
+                List<HColumn<Long, Double>> dpoints = datapoint.getColumns();
+                LogUtils.debugf(this, "found %d datapoints for super column %s", dpoints.size(), datapoint.getName());
+                for (HColumn<Long, Double> ds : dpoints) {
+                    map.put(ds.getName(), ds.getValue());
+                }
             }
-        }
-
-        SuperSliceQuery<String, String, Long, Double> query = HFactory.createSuperSliceQuery(m_keyspace,
-                                                                                             StringSerializer.get(),
-                                                                                             StringSerializer.get(),
-                                                                                             LongSerializer.get(),
-                                                                                             DoubleSerializer.get());
-
-        query.setColumnFamily(m_dpColumnFamily);
-        query.setKey(key);
-        query.setRange(dsName, dsName, false, Integer.MAX_VALUE);
-
-        QueryResult<SuperSlice<String, Long, Double>> results = query.execute();
-
-        List<HSuperColumn<String, Long, Double>> datapoints = results.get().getSuperColumns();
-
-        TreeMap<Long, Double> map = new TreeMap<Long, Double>();
-
-        LogUtils.debugf(this, "found %d datapoint super columns", datapoints.size());
-        for (HSuperColumn<String, Long, Double> datapoint : datapoints) {
-            List<HColumn<Long, Double>> dpoints = datapoint.getColumns();
-            LogUtils.debugf(this, "found %d datapoints for super column %s", dpoints.size(), datapoint.getName());
-            for(HColumn<Long, Double> ds : dpoints) {
-                map.put(ds.getName(), ds.getValue());
+            long[] timestamps = new long[map.size()];
+            double[] values = new double[map.size()];
+            int i = 0;
+            for (Map.Entry<Long, Double> e : map.entrySet()) {
+                timestamps[i] = e.getKey().longValue();
+                values[i] = e.getValue().doubleValue();
+                i++;
             }
-        }
-        long[] timestamps = new long[map.size()];
-        double[] values = new double[map.size()];
-        int i = 0;
-        for(Map.Entry<Long,Double> e : map.entrySet()) {
-            timestamps[i] = e.getKey().longValue();
-            values[i] = e.getValue().doubleValue();
-            i++;
-        }
-        plottable = new LinearInterpolator(timestamps, values);
+            plottable = new LinearInterpolator(timestamps, values);
         } catch (Exception e) {
 
         }
