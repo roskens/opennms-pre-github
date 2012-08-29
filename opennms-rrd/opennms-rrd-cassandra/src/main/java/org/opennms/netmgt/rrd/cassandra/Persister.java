@@ -26,6 +26,8 @@ class Persister implements Runnable {
 	AtomicBoolean m_finish = new AtomicBoolean(false);
 	CountDownLatch m_finishLatch = new CountDownLatch(1);
 
+	private static final StringSerializer s_ss = StringSerializer.get();
+
 	Persister(Keyspace keyspace, String dpColumnFamily, int ttl) {
 		m_keyspace = keyspace;
 		m_dpColumnFamily = dpColumnFamily;
@@ -88,7 +90,7 @@ class Persister implements Runnable {
 
 			long start = System.currentTimeMillis();
 
-			Mutator<String> mutator = HFactory.createMutator(m_keyspace, new StringSerializer());
+			Mutator<String> mutator = HFactory.createMutator(m_keyspace, s_ss);
 
 			for(Datapoint datapoint : datapoints) {
 				datapoint.persist(mutator, m_dpColumnFamily, m_ttl);
