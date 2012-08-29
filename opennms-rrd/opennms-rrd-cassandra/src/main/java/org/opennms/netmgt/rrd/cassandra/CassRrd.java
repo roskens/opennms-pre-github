@@ -176,6 +176,14 @@ public class CassRrd {
         return dsNames;
     }
 
+    public String getDsName(int i) {
+        return m_datasources.get(i).getName();
+    }
+
+    public int getDsCount() {
+        return m_datasources.size();
+    }
+
     public void close() {
     }
 
