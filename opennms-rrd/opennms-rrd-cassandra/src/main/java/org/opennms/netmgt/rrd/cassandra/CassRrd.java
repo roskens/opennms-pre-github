@@ -15,6 +15,7 @@ import javax.xml.xpath.XPathFactory;
 
 import me.prettyprint.hector.api.Keyspace;
 import me.prettyprint.hector.api.beans.HColumn;
+import me.prettyprint.hector.api.exceptions.HectorException;
 import me.prettyprint.hector.api.factory.HFactory;
 import me.prettyprint.hector.api.query.ColumnQuery;
 import me.prettyprint.hector.api.query.QueryResult;
@@ -61,14 +62,17 @@ public class CassRrd {
             LogUtils.debugf(this, "xml: %s", hc.getValue());
             parseXml(hc.getValue());
 
+        } catch (HectorException e) {
+            LogUtils.errorf(this, e, "exception on search");
+            throw new RrdException(e.getMessage());
         } catch (Exception e) {
             LogUtils.errorf(this, e, "exception on search");
             throw e;
         }
 
     }
-  
-    private void parseXml(String xmlInput) {
+
+    private void parseXml(String xmlInput) throws RrdException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         XPath xpath = XPathFactory.newInstance().newXPath();
 
@@ -144,17 +148,13 @@ public class CassRrd {
             }
             
         } catch (ParserConfigurationException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            throw new RrdException(e.getMessage());
         } catch (SAXException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            throw new RrdException(e.getMessage());
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            throw new RrdException(e.getMessage());
         } catch (XPathExpressionException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            throw new RrdException(e.getMessage());
         }
 
     }
