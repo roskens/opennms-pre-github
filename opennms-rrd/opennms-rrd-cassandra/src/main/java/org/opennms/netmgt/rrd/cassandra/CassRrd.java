@@ -37,7 +37,7 @@ public class CassRrd {
     private ArrayList<RrdDataSource> m_datasources = new ArrayList<RrdDataSource>();
 
     private ArrayList<String> m_archives = new ArrayList<String>();
-
+    
     public CassRrd(CassRrdDef def) {
         m_fileName = def.getFileName();
         m_step = def.getStep();
@@ -174,6 +174,14 @@ public class CassRrd {
             dsNames.add(ds.getName());
         }
         return dsNames;
+    }
+    
+    public String getDsName(int i) {
+        return m_datasources.get(i).getName();
+    }
+    
+    public int getDsCount() {
+        return m_datasources.size();
     }
 
     public void close() {
