@@ -354,32 +354,15 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
      * {@inheritDoc} Opens the JRobin RrdDb by name and returns it.
      */
     public CassRrd openFile(final String fileName) throws Exception {
-        CassRrd rrd = new CassRrd(m_keyspace, m_mdColumnFamily, fileName);
+        CassRrd rrd = new CassRrd(m_keyspace, m_mdColumnFamily, fileName, m_persister);
         return rrd;
     }
 
     /**
-     * {@inheritDoc} Creates a sample from the JRobin RrdDb and passes in the
-     * data provided.
-     *
-     *  XXX: does not handle storeByGroup
+     * {@inheritDoc}
      */
     public void updateFile(final CassRrd rrdFile, final String owner, final String data) throws Exception {
-        String[] tokens = data.split(":");
-        long timestamp = Long.parseLong(tokens[0]);
-        double value = Double.parseDouble(tokens[1]);
-
-        String fileName = rrdFile.getFileName();
-
-        String[] components = fileName.split(File.separator);
-        String dsName = components[components.length - 1];
-        if (dsName.endsWith(getDefaultFileExtension())) {
-            dsName = dsName.substring(0, dsName.lastIndexOf(getDefaultFileExtension()));
-        }
-
-        Datapoint dp = new Datapoint(fileName, dsName, timestamp, value);
-
-        m_persister.persist(dp);
+        rrdFile.storeValues(data);
     }
 
     /**
