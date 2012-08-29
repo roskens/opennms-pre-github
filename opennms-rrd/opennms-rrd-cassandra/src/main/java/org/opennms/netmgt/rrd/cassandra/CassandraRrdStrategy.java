@@ -40,28 +40,24 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.TreeMap;
-
 import me.prettyprint.cassandra.serializers.DoubleSerializer;
 import me.prettyprint.cassandra.serializers.LongSerializer;
 import me.prettyprint.cassandra.serializers.StringSerializer;
 import me.prettyprint.cassandra.service.CassandraHostConfigurator;
 import me.prettyprint.hector.api.Cluster;
 import me.prettyprint.hector.api.Keyspace;
+import me.prettyprint.hector.api.beans.ColumnSlice;
 import me.prettyprint.hector.api.beans.HColumn;
-import me.prettyprint.hector.api.beans.HSuperColumn;
-import me.prettyprint.hector.api.beans.SuperSlice;
 import me.prettyprint.hector.api.ddl.ColumnFamilyDefinition;
 import me.prettyprint.hector.api.ddl.ColumnType;
 import me.prettyprint.hector.api.ddl.ComparatorType;
 import me.prettyprint.hector.api.ddl.KeyspaceDefinition;
+import me.prettyprint.hector.api.exceptions.HectorException;
 import me.prettyprint.hector.api.factory.HFactory;
 import me.prettyprint.hector.api.query.ColumnQuery;
 import me.prettyprint.hector.api.query.QueryResult;
-import me.prettyprint.hector.api.query.SuperSliceQuery;
+import me.prettyprint.hector.api.query.SubSliceQuery;
 
-import org.jrobin.core.FetchData;
-import org.jrobin.core.RrdDb;
 import org.jrobin.core.RrdException;
 import org.jrobin.data.DataProcessor;
 import org.jrobin.data.LinearInterpolator;
@@ -136,6 +132,10 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
     private Persister m_persister;
 
     private Keyspace m_keyspace;
+
+    private static final StringSerializer s_ss = StringSerializer.get();
+    private static final LongSerializer s_ls = LongSerializer.get();
+    private static final DoubleSerializer s_ds = DoubleSerializer.get();
 
     /**
      * An extremely simple Plottable for holding static datasources that can't
@@ -388,84 +388,77 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
     /** {@inheritDoc} */
     public Double fetchLastValue(final String fileName, final String ds, final String consolidationFunction, final int interval)
             throws org.opennms.netmgt.rrd.RrdException {
-        RrdDb rrd = null;
+        LogUtils.debugf(this, "fetchLastValue(): fileName=%s, datasource=%s", fileName, ds);
+        Double dval = null;
+
         try {
             long now = System.currentTimeMillis();
-            long collectTime = (now - (now % interval)) / 1000L;
-            rrd = new RrdDb(fileName);
-            FetchData data = rrd.createFetchRequest(consolidationFunction, collectTime, collectTime).fetchData();
-            if (log().isDebugEnabled()) {
-                // The "toString" method of FetchData is quite computationally
-                // expensive;
-                LogUtils.debugf(this, data.toString());
-            }
-            double[] vals = data.getValues(ds);
-            if (vals.length > 0) {
-                return new Double(vals[vals.length - 1]);
-            }
-            return null;
-        } catch (IOException e) {
-            throw new org.opennms.netmgt.rrd.RrdException("Exception occurred fetching data from " + fileName, e);
-        } catch (RrdException e) {
-            throw new org.opennms.netmgt.rrd.RrdException("Exception occurred fetching data from " + fileName, e);
-        } finally {
-            if (rrd != null) {
-                try {
-                    rrd.close();
-                } catch (IOException e) {
-                    LogUtils.errorf(this, e, "Failed to close rrd file: %s", fileName);
+            Long collectTime = Long.valueOf((now - (now % interval)) / 1000L);
+            SubSliceQuery<String, String, Long, Double> ssquery = HFactory.createSubSliceQuery(m_keyspace,
+                                                                                               s_ss,
+                                                                                               s_ss,
+                                                                                               s_ls,
+                                                                                               s_ds);
+            ssquery.setColumnFamily(m_dpColumnFamily);
+            ssquery.setKey(fileName);
+            ssquery.setSuperColumn(ds);
+            ssquery.setRange(collectTime, collectTime, false, Integer.MAX_VALUE);
+
+            QueryResult<ColumnSlice<Long, Double>> ssresults = ssquery.execute();
+
+            List<HColumn<Long, Double>> ssdatapoints = ssresults.get().getColumns();
+
+            LogUtils.debugf(this, "found %d datapoints\n", ssdatapoints.size());
+            for (HColumn<Long, Double> dp : ssdatapoints) {
+                if(!dp.getValue().isNaN()) {
+                    LogUtils.debugf(this, "datapoint[%d]: %f\n", dp.getName(), dp.getValue());
+                    dval = dp.getValue();
+                    break;
                 }
             }
+        } catch (HectorException e) {
+            throw new org.opennms.netmgt.rrd.RrdException(e.getMessage());
         }
+        return dval;
     }
 
     /** {@inheritDoc} */
     public Double fetchLastValueInRange(final String fileName, final String ds, final int interval, final int range)
             throws NumberFormatException, org.opennms.netmgt.rrd.RrdException {
-        RrdDb rrd = null;
+        LogUtils.debugf(this, "fetchLastValue(): fileName=%s, datasource=%s", fileName, ds);
+        Double dval = null;
+
         try {
-            rrd = new RrdDb(fileName);
             long now = System.currentTimeMillis();
-            long latestUpdateTime = (now - (now % interval)) / 1000L;
-            long earliestUpdateTime = ((now - (now % interval)) - range) / 1000L;
-            if (log().isDebugEnabled()) {
-                LogUtils.debugf(this, "fetchInRange: fetching data from %d to %d", earliestUpdateTime, latestUpdateTime);
-            }
+            Long latestUpdateTime = Long.valueOf((now - (now % interval)) / 1000L);
+            Long earliestUpdateTime = Long.valueOf(((now - (now % interval)) - range) / 1000L);
+            SubSliceQuery<String, String, Long, Double> ssquery = HFactory.createSubSliceQuery(m_keyspace,
+                                                                                               s_ss,
+                                                                                               s_ss,
+                                                                                               s_ls,
+                                                                                               s_ds);
+            ssquery.setColumnFamily(m_dpColumnFamily);
+            ssquery.setKey(fileName);
+            ssquery.setSuperColumn(ds);
+            ssquery.setRange(earliestUpdateTime, latestUpdateTime, false, Integer.MAX_VALUE);
 
-            FetchData data = rrd.createFetchRequest("AVERAGE", earliestUpdateTime, latestUpdateTime).fetchData();
+            QueryResult<ColumnSlice<Long, Double>> ssresults = ssquery.execute();
 
-            double[] vals = data.getValues(ds);
-            long[] times = data.getTimestamps();
+            List<HColumn<Long, Double>> ssdatapoints = ssresults.get().getColumns();
 
-            // step backwards through the array of values until we get
-            // something that's a number
-
-            for (int i = vals.length - 1; i >= 0; i--) {
-                if (Double.isNaN(vals[i])) {
-                    if (log().isDebugEnabled()) {
-                        LogUtils.debugf(this,"fetchInRange: Got a NaN value at interval: %s continuing back in time", times[i]);
-                    }
-                } else {
-                    if (log().isDebugEnabled()) {
-                        LogUtils.debugf(this,"Got a non NaN value at interval: %d : %f", times[i], vals[i]);
-                    }
-                    return new Double(vals[i]);
+            LogUtils.debugf(this, "found %d datapoints\n", ssdatapoints.size());
+            for (HColumn<Long, Double> dp : ssdatapoints) {
+                if(!dp.getValue().isNaN()) {
+                    LogUtils.debugf(this, "datapoint[%d]: %f\n", dp.getName(), dp.getValue());
+                    dval = dp.getValue();
+                    break;
                 }
             }
-            return null;
-        } catch (IOException e) {
-            throw new org.opennms.netmgt.rrd.RrdException("Exception occurred fetching data from " + fileName, e);
-        } catch (RrdException e) {
-            throw new org.opennms.netmgt.rrd.RrdException("Exception occurred fetching data from " + fileName, e);
-        } finally {
-            if (rrd != null) {
-                try {
-                    rrd.close();
-                } catch (IOException e) {
-                    LogUtils.errorf(this, e, "Failed to close rrd file: %s", fileName);
-                }
-            }
+
+        } catch (HectorException e) {
+            throw new org.opennms.netmgt.rrd.RrdException(e.getMessage());
         }
+        return dval;
     }
 
     private Color getColor(final String colorValue) {
@@ -827,38 +820,31 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
         LogUtils.debugf(this, "getRrdPlottable(): key=%s", key);
 
         try {
-            SuperSliceQuery<String, String, Long, Double> query = HFactory.createSuperSliceQuery(m_keyspace,
-                                                                                                 StringSerializer.get(),
-                                                                                                 StringSerializer.get(),
-                                                                                                 LongSerializer.get(),
-                                                                                                 DoubleSerializer.get());
+            SubSliceQuery<String, String, Long, Double> ssquery = HFactory.createSubSliceQuery(m_keyspace,
+                                                                                               s_ss,
+                                                                                               s_ss,
+                                                                                               s_ls,
+                                                                                               s_ds);
+            ssquery.setColumnFamily(m_dpColumnFamily);
+            ssquery.setKey(key);
+            ssquery.setSuperColumn(dsName);
+            ssquery.setRange(start, end, false, Integer.MAX_VALUE);
 
-            query.setColumnFamily(m_dpColumnFamily);
-            query.setKey(key);
-            query.setRange(dsName, dsName, false, Integer.MAX_VALUE);
+            QueryResult<ColumnSlice<Long, Double>> ssresults = ssquery.execute();
 
-            QueryResult<SuperSlice<String, Long, Double>> results = query.execute();
+            List<HColumn<Long, Double>> ssdatapoints = ssresults.get().getColumns();
 
-            List<HSuperColumn<String, Long, Double>> datapoints = results.get().getSuperColumns();
+            LogUtils.debugf(this, "found %d datapoints\n", ssdatapoints.size());
 
-            TreeMap<Long, Double> map = new TreeMap<Long, Double>();
-
-            LogUtils.debugf(this, "found %d datapoint super columns", datapoints.size());
-            for (HSuperColumn<String, Long, Double> datapoint : datapoints) {
-                List<HColumn<Long, Double>> dpoints = datapoint.getColumns();
-                LogUtils.debugf(this, "found %d datapoints for super column %s", dpoints.size(), datapoint.getName());
-                for (HColumn<Long, Double> ds : dpoints) {
-                    map.put(ds.getName(), ds.getValue());
-                }
-            }
-            long[] timestamps = new long[map.size()];
-            double[] values = new double[map.size()];
+            long[] timestamps = new long[ssdatapoints.size()];
+            double[] values = new double[ssdatapoints.size()];
             int i = 0;
-            for (Map.Entry<Long, Double> e : map.entrySet()) {
-                timestamps[i] = e.getKey().longValue();
-                values[i] = e.getValue().doubleValue();
+            for (HColumn<Long, Double> dp : ssdatapoints) {
+                timestamps[i] = dp.getName().longValue();
+                values[i] = dp.getValue().doubleValue();
                 i++;
             }
+
             plottable = new LinearInterpolator(timestamps, values);
         } catch (Exception e) {
 

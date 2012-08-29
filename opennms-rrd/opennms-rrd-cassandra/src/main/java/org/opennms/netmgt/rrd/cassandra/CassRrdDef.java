@@ -30,6 +30,8 @@ public class CassRrdDef {
 
     private ArrayList<String> m_archives = new ArrayList<String>();
 
+    private static final StringSerializer s_ss = StringSerializer.get();
+
     public CassRrdDef(String fileName, int step) {
         m_fileName = fileName;
         m_step = step;
@@ -97,7 +99,7 @@ public class CassRrdDef {
 
         // metadata[$m_fileName][$m_fileName] = (rrd def as xml)
 
-        Mutator<String> mutator = HFactory.createMutator(keyspace, StringSerializer.get());
+        Mutator<String> mutator = HFactory.createMutator(keyspace, s_ss);
         mutator.insert(m_fileName, mdColumnFamily, HFactory.createStringColumn(m_fileName, toXml()));
 
         try {

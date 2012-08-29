@@ -21,6 +21,12 @@ class Datapoint {
 
     private double m_value;
 
+    private static final StringSerializer s_ss = StringSerializer.get();
+
+    private static final LongSerializer s_ls = LongSerializer.get();
+
+    private static final DoubleSerializer s_ds = DoubleSerializer.get();
+
     Datapoint(String fileName, String dsName, long timestamp, double value) {
         m_fileName = fileName;
         m_dsName = dsName;
@@ -47,16 +53,9 @@ class Datapoint {
     public void persist(Mutator<String> mutator, String columnFamily, int ttl) {
         LogUtils.debugf(this, "datapoint['%s']['%s'][ %d ] = %f", getName(), getDsName(), getTimestamp(), getValue());
 
-        HColumn<Long, Double> c = HFactory.createColumn(Long.valueOf(getTimestamp()),
-                                                        getValue(),
-                                                        ttl,
-                                                        LongSerializer.get(),
-                                                        DoubleSerializer.get());
-        HSuperColumn<String, Long, Double> superColumn = HFactory.createSuperColumn(getDsName(),
-                                                                                    Collections.singletonList(c),
-                                                                                    StringSerializer.get(),
-                                                                                    LongSerializer.get(),
-                                                                                    DoubleSerializer.get());
+        HColumn<Long, Double> c = HFactory.createColumn(Long.valueOf(getTimestamp()), getValue(), ttl, s_ls, s_ds);
+        HSuperColumn<String, Long, Double> superColumn = HFactory.createSuperColumn(getDsName(), Collections.singletonList(c),
+                                                                                    s_ss, s_ls, s_ds);
         mutator.addInsertion(getName(), columnFamily, superColumn);
     }
 
