@@ -13,7 +13,7 @@ import me.prettyprint.hector.api.mutation.Mutator;
 import org.opennms.core.utils.LogUtils;
 
 class Datapoint {
-    private String m_metricName;
+    private String m_fileName;
 
     private String m_dsName;
 
@@ -21,15 +21,15 @@ class Datapoint {
 
     private double m_value;
 
-    Datapoint(String metricName, String dsName, long timestamp, double value) {
-        m_metricName = metricName;
+    Datapoint(String fileName, String dsName, long timestamp, double value) {
+        m_fileName = fileName;
         m_dsName = dsName;
         m_timestamp = timestamp;
         m_value = value;
     }
 
     public String getName() {
-        return m_metricName;
+        return m_fileName;
     }
 
     public String getDsName() {
@@ -62,7 +62,7 @@ class Datapoint {
 
     public String toString() {
         StringBuilder buf = new StringBuilder();
-        buf.append(m_metricName).append("(").append(m_dsName).append("):");
+        buf.append(m_fileName).append("(").append(m_dsName).append("):");
         buf.append(m_timestamp).append("=").append(m_value);
         return buf.toString();
     }
