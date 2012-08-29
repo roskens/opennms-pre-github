@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -38,15 +39,21 @@ public class CassRrd {
 
     private ArrayList<String> m_archives = new ArrayList<String>();
     
+    Persister m_persister;
+    
     public CassRrd(CassRrdDef def) {
         m_fileName = def.getFileName();
         m_step = def.getStep();
         m_datasources = def.getDatasources();
         m_archives = def.getArchives();
     }
-
     public CassRrd(Keyspace keyspace, String mdColumnFamily, String fileName) throws Exception {
+        this(keyspace, mdColumnFamily, fileName, null);
+    }
+        
+    public CassRrd(Keyspace keyspace, String mdColumnFamily, String fileName, Persister persister) throws Exception {
         m_fileName = fileName;
+        m_persister = persister;
 
         try {
             ColumnQuery<String, String, String> columnQuery = HFactory.createStringColumnQuery(keyspace);
@@ -70,7 +77,10 @@ public class CassRrd {
             LogUtils.errorf(this, e, "exception on search");
             throw e;
         }
-
+    }
+    
+    public void setPersister(Persister persister) {
+        m_persister = persister;
     }
 
     private void parseXml(String xmlInput) throws RrdException {
@@ -186,6 +196,41 @@ public class CassRrd {
 
     public void close() {
     }
+    
+    public void storeValues(String timeAndValues) throws RrdException {
+        long timestamp;
+
+        final StringTokenizer tokenizer = new StringTokenizer(timeAndValues, ":", false);
+        final int tokenCount = tokenizer.countTokens();
+        if (tokenCount > getDsCount() + 1) {
+            throw new RrdException("Invalid number of values specified (found " + (tokenCount - 1) + ", "
+                    + getDsCount() + " allowed)");
+        }
+        final String timeToken = tokenizer.nextToken();
+        try {
+            timestamp = Long.parseLong(timeToken);
+        } catch (final NumberFormatException nfe) {
+            if (timeToken.equalsIgnoreCase("N") || timeToken.equalsIgnoreCase("NOW")) {
+                timestamp = (System.currentTimeMillis() + 500L) / 1000L;
+            } else {
+                throw new RrdException("Invalid sample timestamp: " + timeToken);
+            }
+        }
+        timestamp = normalize(timestamp, getStep());
+        
+        for (int i = 0; tokenizer.hasMoreTokens(); i++) {
+            try {
+                Double value = Double.parseDouble(tokenizer.nextToken());
+                Datapoint dp = new Datapoint(getFileName(), getDsName(i), timestamp, value);
+
+                m_persister.persist(dp);
+            } catch (final NumberFormatException nfe) {
+                // NOP, value is already set to NaN
+            }
+        }
+        
+    }
+    
 
     public String toXml() {
         StringBuilder sb = new StringBuilder();
@@ -215,6 +260,19 @@ public class CassRrd {
         sb.append("</rrd_def>");
 
         return sb.toString();
+    }
+    
+    /**
+     * Rounds the given timestamp to the nearest whole &quote;step&quote;. Rounded value is obtained
+     * from the following expression:<p>
+     * <code>timestamp - timestamp % step;</code><p>
+     *
+     * @param timestamp Timestamp in seconds
+     * @param step    Step in seconds
+     * @return "Rounded" timestamp
+     */
+    private static long normalize(long timestamp, long step) {
+            return timestamp - timestamp % step;
     }
 
 }
