@@ -87,8 +87,9 @@ public class VmwareTopologyProvider implements TopologyProvider {
 
         for (VmwareEdge vmwareEdge : vmwareVertex.getEdges()) {
             String edgeTo = vmwareEdge.getTarget().getId();
-            if (id.equals(edgeTo))
+            if (id.equals(edgeTo)) {
                 edgeTo = vmwareEdge.getSource().getId();
+            }
             System.err.println(" |- edgeTo: " + edgeTo);
         }
         System.err.println(" '- parent: " + (vmwareVertex.getParent() == null ? null : vmwareVertex.getParent().getId()));
@@ -125,12 +126,15 @@ public class VmwareTopologyProvider implements TopologyProvider {
         if (!m_vertexContainer.containsId(vertexId)) {
             String icon = "VIRTUALMACHINE_ICON_UNKNOWN";
 
-            if ("poweredOn".equals(powerState))
+            if ("poweredOn".equals(powerState)) {
                 icon = "VIRTUALMACHINE_ICON_ON";
-            if ("poweredOff".equals(powerState))
+            }
+            if ("poweredOff".equals(powerState)) {
                 icon = "VIRTUALMACHINE_ICON_OFF";
-            if ("suspended".equals(powerState))
+            }
+            if ("suspended".equals(powerState)) {
                 icon = "VIRTUALMACHINE_ICON_SUSPENDED";
+            }
 
             addVertex(vertexId, 50, 50, icon, vertexName, primaryInterface, id);
         }
@@ -141,12 +145,15 @@ public class VmwareTopologyProvider implements TopologyProvider {
         if (!m_vertexContainer.containsId(vertexId)) {
             String icon = "HOSTSYSTEM_ICON_UNKNOWN";
 
-            if ("poweredOn".equals(powerState))
+            if ("poweredOn".equals(powerState)) {
                 icon = "HOSTSYSTEM_ICON_ON";
-            if ("poweredOff".equals(powerState))
+            }
+            if ("poweredOff".equals(powerState)) {
                 icon = "HOSTSYSTEM_ICON_OFF";
-            if ("standBy".equals(powerState))
+            }
+            if ("standBy".equals(powerState)) {
                 icon = "HOSTSYSTEM_ICON_STANDBY";
+            }
 
             addVertex(vertexId, 50, 50, icon, vertexName, primaryInterface, id);
         }
@@ -188,20 +195,24 @@ public class VmwareTopologyProvider implements TopologyProvider {
 
             String entityType = entityId.split("-")[0];
 
-            if ("network".equals(entityType))
+            if ("network".equals(entityType)) {
                 networks.add(entityId);
+            }
 
-            if ("datastore".equals(entityType))
+            if ("datastore".equals(entityType)) {
                 datastores.add(entityId);
+            }
 
-            if ("datacenter".equals(entityType))
+            if ("datacenter".equals(entityType)) {
                 datacenterMoId = entityId;
+            }
 
             moIdToName.put(entityId, entityName);
         }
 
-        if (datacenterMoId != null)
+        if (datacenterMoId != null) {
             datacenterName = moIdToName.get(datacenterMoId) + " (" + vmwareManagementServer + ")";
+        }
 
         VmwareGroup datacenterVertex = addDatacenterGroup(vmwareManagementServer, datacenterName);
 
@@ -266,26 +277,32 @@ public class VmwareTopologyProvider implements TopologyProvider {
 
             String entityType = entityId.split("-")[0];
 
-            if ("network".equals(entityType))
+            if ("network".equals(entityType)) {
                 networks.add(entityId);
+            }
 
-            if ("datastore".equals(entityType))
+            if ("datastore".equals(entityType)) {
                 datastores.add(entityId);
+            }
 
-            if ("datacenter".equals(entityType))
+            if ("datacenter".equals(entityType)) {
                 datacenterMoId = entityId;
+            }
 
-            if ("host".equals(entityType))
+            if ("host".equals(entityType)) {
                 vmwareHostSystemId = entityId;
+            }
 
             moIdToName.put(entityId, entityName);
         }
 
-        if (datacenterMoId != null)
+        if (datacenterMoId != null) {
             datacenterName = moIdToName.get(datacenterMoId) + " (" + vmwareManagementServer + ")";
+        }
 
-        if (vmwareHostSystemId == null)
+        if (vmwareHostSystemId == null) {
             System.err.println("Cannot find host system id for virtual machine " + vmwareManagementServer + "/" + vmwareManagedObjectId);
+        }
 
         VmwareGroup datacenterVertex = addDatacenterGroup(vmwareManagementServer, datacenterName);
 
@@ -436,8 +453,9 @@ public class VmwareTopologyProvider implements TopologyProvider {
     public void removeVertex(Object vertexId) {
         VmwareVertex vertex = getVertex(vertexId, false);
 
-        if (vertex == null)
+        if (vertex == null) {
             return;
+        }
 
         m_vertexContainer.removeItem(vertexId);
 

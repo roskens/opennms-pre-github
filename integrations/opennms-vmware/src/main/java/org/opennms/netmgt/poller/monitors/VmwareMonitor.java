@@ -87,7 +87,6 @@ public class VmwareMonitor extends AbstractServiceMonitor {
         if (m_nodeDao == null) {
             logger.error("Node dao should be a non-null value.");
         }
-
     }
 
     /**
@@ -160,8 +159,9 @@ public class VmwareMonitor extends AbstractServiceMonitor {
                 }
             }
 
-            if (powerState == null)
+            if (powerState == null) {
                 powerState = "unknown";
+            }
 
             if ("poweredOn".equals(powerState)) {
                 serviceStatus = PollStatus.available();

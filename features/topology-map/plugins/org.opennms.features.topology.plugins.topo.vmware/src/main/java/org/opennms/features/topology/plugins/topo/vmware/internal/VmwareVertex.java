@@ -178,18 +178,23 @@ abstract public class VmwareVertex {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         VmwareVertex other = (VmwareVertex) obj;
         if (m_id == null) {
-            if (other.m_id != null)
+            if (other.m_id != null) {
                 return false;
-        } else if (!m_id.equals(other.m_id))
+            }
+        } else if (!m_id.equals(other.m_id)) {
             return false;
+        }
         return true;
     }
 

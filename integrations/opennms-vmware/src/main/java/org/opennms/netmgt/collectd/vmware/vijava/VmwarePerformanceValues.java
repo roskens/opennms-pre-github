@@ -40,8 +40,9 @@ public class VmwarePerformanceValues {
     public void addValue(String name, String instance, long value) {
         Object object = values.get(name);
 
-        if (object == null && instance != null && !"".equals(instance))
+        if (object == null && instance != null && !"".equals(instance)) {
             object = new HashMap<String, Long>();
+        }
 
         if (object instanceof HashMap) {
             ((HashMap) object).put(instance, new Long(value));
@@ -65,27 +66,30 @@ public class VmwarePerformanceValues {
     public Set<String> getInstances(String name) {
         Object object = values.get(name);
 
-        if (object != null && object instanceof HashMap)
+        if (object != null && object instanceof HashMap) {
             return ((HashMap) object).keySet();
-        else
+        } else {
             return null;
+        }
     }
 
     public Long getValue(String name) {
         Object object = values.get(name);
 
-        if (object != null && object instanceof Long)
+        if (object != null && object instanceof Long) {
             return (Long) object;
-        else
+        } else {
             return null;
+        }
     }
 
     public Long getValue(String name, String instance) {
         Object object = values.get(name);
 
-        if (object != null && object instanceof HashMap)
+        if (object != null && object instanceof HashMap) {
             return (Long) ((HashMap) object).get(instance);
-        else
+        } else {
             return null;
+        }
     }
 }

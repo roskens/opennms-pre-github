@@ -46,13 +46,17 @@ public class VmwareVertexContainer extends VertexContainer<String, VmwareVertex>
     }
 
     public boolean areChildrenAllowed(Object itemId) {
-        if (!containsId(itemId)) return false;
+        if (!containsId(itemId)) {
+            return false;
+        }
         VmwareVertex v = getItem(itemId).getBean();
         return !v.isLeaf();
     }
 
     public Collection<?> getChildren(Object itemId) {
-        if (!containsId(itemId)) return Collections.EMPTY_LIST;
+        if (!containsId(itemId)) {
+            return Collections.EMPTY_LIST;
+        }
         VmwareVertex v = getItem(itemId).getBean();
         if (v.isLeaf()) {
             return Collections.EMPTY_LIST;
@@ -67,20 +71,26 @@ public class VmwareVertexContainer extends VertexContainer<String, VmwareVertex>
     }
 
     public Object getParent(Object itemId) {
-        if (!containsId(itemId)) return null;
+        if (!containsId(itemId)) {
+            return null;
+        }
 
         VmwareGroup g = getItem(itemId).getBean().getParent();
         return g == null ? null : g.getId();
     }
 
     public boolean hasChildren(Object itemId) {
-        if (!containsId(itemId)) return false;
+        if (!containsId(itemId)) {
+            return false;
+        }
         VmwareVertex v = getItem(itemId).getBean();
         return !v.isLeaf();
     }
 
     public boolean isRoot(Object itemId) {
-        if (!containsId(itemId)) return false;
+        if (!containsId(itemId)) {
+            return false;
+        }
 
         return (getParent(itemId) == null);
     }
@@ -101,8 +111,9 @@ public class VmwareVertexContainer extends VertexContainer<String, VmwareVertex>
     }
 
     public boolean setParent(Object itemId, Object newParentId) throws UnsupportedOperationException {
-        if (!containsId(itemId))
+        if (!containsId(itemId)) {
             return false;
+        }
 
         VmwareVertex v = getItem(itemId).getBean();
 
@@ -112,13 +123,15 @@ public class VmwareVertexContainer extends VertexContainer<String, VmwareVertex>
             return true;
         }
 
-        if (!containsId(newParentId))
+        if (!containsId(newParentId)) {
             return false;
+        }
 
         VmwareVertex p = getItem(newParentId).getBean();
 
-        if (p.isLeaf())
+        if (p.isLeaf()) {
             return false;
+        }
 
         VmwareGroup g = (VmwareGroup) p;
 

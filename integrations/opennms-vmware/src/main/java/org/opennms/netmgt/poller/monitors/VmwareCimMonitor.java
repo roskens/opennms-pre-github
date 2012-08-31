@@ -47,8 +47,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Vector;
 
 /**
  * The Class VmwareCimMonitor
@@ -168,7 +168,7 @@ public class VmwareCimMonitor extends AbstractServiceMonitor {
             String powerState = hostSystem.getSummary().runtime.getPowerState().toString();
 
             if ("poweredOn".equals(powerState)) {
-                Vector<CIMObject> cimObjects = null;
+                List<CIMObject> cimObjects = null;
                 try {
                     cimObjects = vmwareViJavaAccess.queryCimObjects(hostSystem, "CIM_NumericSensor");
                 } catch (RemoteException e) {
@@ -197,16 +197,18 @@ public class VmwareCimMonitor extends AbstractServiceMonitor {
 
                         if (healthStateInt != 5) {
 
-                            if (!success)
+                            if (!success) {
                                 reason += ", ";
+                            }
 
                             success = false;
                             reason += cimObjectName + " ";
 
-                            if (m_healthStates.containsKey(healthStateInt))
+                            if (m_healthStates.containsKey(healthStateInt)) {
                                 reason += "(" + m_healthStates.get(healthStateInt) + ")";
-                            else
+                            } else {
                                 reason += "(" + healthStateInt + ")";
+                            }
                         }
                     }
 

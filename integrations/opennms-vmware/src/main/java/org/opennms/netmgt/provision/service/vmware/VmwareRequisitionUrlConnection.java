@@ -98,7 +98,7 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
     /**
      * the query args
      */
-    private static Map<String, String> m_args = null;
+    private Map<String, String> m_args = null;
 
     /**
      * requisition object
@@ -461,14 +461,18 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
     private boolean checkHostPowerState(HostSystem hostSystem) {
         String powerState = hostSystem.getSummary().runtime.getPowerState().toString();
 
-        if ("poweredOn".equals(powerState) && m_importHostPoweredOn)
+        if ("poweredOn".equals(powerState) && m_importHostPoweredOn) {
             return true;
-        if ("poweredOff".equals(powerState) && m_importHostPoweredOff)
+        }
+        if ("poweredOff".equals(powerState) && m_importHostPoweredOff) {
             return true;
-        if ("standBy".equals(powerState) && m_importHostStandBy)
+        }
+        if ("standBy".equals(powerState) && m_importHostStandBy) {
             return true;
-        if ("unknown".equals(powerState) && m_importHostUnknown)
+        }
+        if ("unknown".equals(powerState) && m_importHostUnknown) {
             return true;
+        }
 
         return false;
     }
@@ -482,12 +486,15 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
     private boolean checkVMPowerState(VirtualMachine virtualMachine) {
         String powerState = virtualMachine.getSummary().runtime.getPowerState().toString();
 
-        if ("poweredOn".equals(powerState) && m_importVMPoweredOn)
+        if ("poweredOn".equals(powerState) && m_importVMPoweredOn) {
             return true;
-        if ("poweredOff".equals(powerState) && m_importVMPoweredOff)
+        }
+        if ("poweredOff".equals(powerState) && m_importVMPoweredOff) {
             return true;
-        if ("suspended".equals(powerState) && m_importVMSuspended)
+        }
+        if ("suspended".equals(powerState) && m_importVMSuspended) {
             return true;
+        }
 
         return false;
     }
@@ -581,8 +588,9 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
                     if (virtualMachine.getGuest().getNet() != null) {
                         for (GuestNicInfo guestNicInfo : virtualMachine.getGuest().getNet()) {
                             if (guestNicInfo.getIpAddress() != null) {
-                                for (String ipAddress : guestNicInfo.getIpAddress())
+                                for (String ipAddress : guestNicInfo.getIpAddress()) {
                                     ipAddresses.add(ipAddress);
+                                }
                             }
                         }
                     }
@@ -615,12 +623,14 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
         String value = m_args.get("value");
 
         // if key/value is not set, return true
-        if (key == null && value == null)
+        if (key == null && value == null) {
             return true;
+        }
 
         // if only key or value is set, return false
-        if (key == null || value == null)
+        if (key == null || value == null) {
             return false;
+        }
 
         // get available values
         CustomFieldValue[] values = managedEntity.getCustomValue();

@@ -61,8 +61,8 @@ import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Vector;
 
 public class VmwareCimCollector implements ServiceCollector {
 
@@ -234,9 +234,9 @@ public class VmwareCimCollector implements ServiceCollector {
         if (vmwareManagementServer == null || vmwareManagedObjectId == null) {
             return null;
         } else {
-            if ("".equals(vmwareManagementServer) || "".equals(vmwareManagedObjectId))
+            if ("".equals(vmwareManagementServer) || "".equals(vmwareManagedObjectId)) {
                 return null;
-
+            }
         }
 
         // Load the attribute group types.
@@ -288,16 +288,16 @@ public class VmwareCimCollector implements ServiceCollector {
         logger.debug("The power state for host system '{}' is '{}'", vmwareManagedObjectId, powerState);
 
         if ("poweredOn".equals(powerState)) {
-            HashMap<String, Vector<CIMObject>> cimObjects = new HashMap<String, Vector<CIMObject>>();
+            HashMap<String, List<CIMObject>> cimObjects = new HashMap<String, List<CIMObject>>();
 
             for (final VmwareCimGroup vmwareCimGroup : collection.getVmwareCimGroups().getVmwareCimGroup()) {
 
                 String cimClass = vmwareCimGroup.getCimClass();
 
                 if (!cimObjects.containsKey(cimClass)) {
-                    Vector<CIMObject> cimVector = null;
+                    List<CIMObject> cimList = null;
                     try {
-                        cimVector = vmwareViJavaAccess.queryCimObjects(hostSystem, cimClass);
+                        cimList = vmwareViJavaAccess.queryCimObjects(hostSystem, cimClass);
                     } catch (RemoteException e) {
                         logger.warn("Error retrieving cim values from host system '{}'. Error message: '{}'", vmwareManagedObjectId, e.getMessage());
                         return collectionSet;
@@ -307,12 +307,12 @@ public class VmwareCimCollector implements ServiceCollector {
                     } finally {
                         vmwareViJavaAccess.disconnect();
                     }
-                    cimObjects.put(cimClass, cimVector);
+                    cimObjects.put(cimClass, cimList);
                 }
 
-                final Vector<CIMObject> cimVector = cimObjects.get(cimClass);
+                final List<CIMObject> cimList = cimObjects.get(cimClass);
 
-                if (cimVector == null) {
+                if (cimList == null) {
                     logger.warn("Error getting objects of CIM class '{}' from host system '{}'", cimClass, vmwareManagedObjectId);
                     continue;
 
@@ -322,7 +322,7 @@ public class VmwareCimCollector implements ServiceCollector {
                 String attributeValue = vmwareCimGroup.getValue();
                 String instanceAttribute = vmwareCimGroup.getInstance();
 
-                for (CIMObject cimObject : cimVector) {
+                for (CIMObject cimObject : cimList) {
                     String sensorType = vmwareViJavaAccess.getPropertyOfCimObject(cimObject, "SensorType");
 
                     boolean addObject = false;

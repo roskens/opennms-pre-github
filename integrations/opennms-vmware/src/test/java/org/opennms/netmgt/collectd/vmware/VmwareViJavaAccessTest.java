@@ -46,9 +46,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.security.Principal;
-import java.util.Map;
-import java.util.Set;
-import java.util.Vector;
+import java.util.*;
 
 import static org.easymock.EasyMock.anyObject;
 import static org.easymock.EasyMock.expect;
@@ -78,7 +76,7 @@ public class VmwareViJavaAccessTest {
     private PerfEntityMetricBase[] perfEntityMetricBases;
     private PerfCounterInfo[] perfCounterInfos;
     private PerfQuerySpec perfQuerySpec;
-    private Vector<CIMObject> cimObjects;
+    private List<CIMObject> cimObjects;
 
     @Before
     public void setUp() throws Exception {
@@ -236,7 +234,7 @@ public class VmwareViJavaAccessTest {
 
         // setup the cim objects
 
-        cimObjects = new Vector<CIMObject>();
+        cimObjects = new ArrayList<CIMObject>();
 
         int cimObjectCount = 5;
 
@@ -253,7 +251,7 @@ public class VmwareViJavaAccessTest {
 
         suppress(method(CIMClient.class, "useMPost"));
 
-        expect(mockCIMClient.enumerateInstances(new CIMObjectPath("cimClass"))).andReturn(cimObjects.elements()).anyTimes();
+        expect(mockCIMClient.enumerateInstances(new CIMObjectPath("cimClass"))).andReturn(Collections.enumeration(cimObjects)).anyTimes();
     }
 
     @Test
@@ -393,7 +391,7 @@ public class VmwareViJavaAccessTest {
             Assert.fail(e.getMessage());
         }
 
-        Vector<CIMObject> returnedCimObjects = null;
+        List<CIMObject> returnedCimObjects = null;
 
         try {
             returnedCimObjects = vmwareViJavaAccess.queryCimObjects(mockHostSystem, "cimClass");

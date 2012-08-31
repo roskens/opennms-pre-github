@@ -50,10 +50,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.security.SecureRandom;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Vector;
+import java.util.*;
 
 /**
  * The Class VmwareViJavaAccess
@@ -111,8 +108,9 @@ public class VmwareViJavaAccess {
      * @throws IOException
      */
     public VmwareViJavaAccess(String hostname) throws MarshalException, ValidationException, IOException {
-        if (m_vmwareConfigDao == null)
+        if (m_vmwareConfigDao == null) {
             m_vmwareConfigDao = BeanUtils.getBean("daoContext", "vmwareConfigDao", VmwareConfigDao.class);
+        }
 
         if (m_vmwareConfigDao == null) {
             logger.error("vmwareConfigDao should be a non-null value.");
@@ -244,8 +242,9 @@ public class VmwareViJavaAccess {
      * @return the performance manager
      */
     private PerformanceManager getPerformanceManager() {
-        if (m_performanceManager == null)
+        if (m_performanceManager == null) {
             m_performanceManager = m_serviceInstance.getPerformanceManager();
+        }
 
         return m_performanceManager;
     }
@@ -366,10 +365,11 @@ public class VmwareViJavaAccess {
                             String instance = perfMetricSeries[j].getId().getInstance();
                             String name = getHumanReadableName(perfCounterInfo);
 
-                            if (instance != null && !"".equals(instance))
+                            if (instance != null && !"".equals(instance)) {
                                 vmwarePerformanceValues.addValue(name, instance, longs[0]);
-                            else
+                            } else {
                                 vmwarePerformanceValues.addValue(name, longs[0]);
+                            }
                         }
                     }
                 }
@@ -388,11 +388,12 @@ public class VmwareViJavaAccess {
      * @throws RemoteException
      * @throws CIMException
      */
-    public Vector<CIMObject> queryCimObjects(HostSystem hostSystem, String cimClass) throws RemoteException, CIMException {
-        Vector<CIMObject> cimObjects = new Vector<CIMObject>();
+    public List<CIMObject> queryCimObjects(HostSystem hostSystem, String cimClass) throws RemoteException, CIMException {
+        List<CIMObject> cimObjects = new ArrayList<CIMObject>();
 
-        if (!m_hostServiceTickets.containsKey(hostSystem))
+        if (!m_hostServiceTickets.containsKey(hostSystem)) {
             m_hostServiceTickets.put(hostSystem, hostSystem.acquireCimServicesTicket());
+        }
 
         HostServiceTicket hostServiceTicket = m_hostServiceTickets.get(hostSystem);
 

@@ -100,8 +100,9 @@ public class VmwareCollector implements ServiceCollector {
             logger.error("Node dao should be a non-null value.");
         }
 
-        if (m_vmwareDatacollectionConfigDao == null)
+        if (m_vmwareDatacollectionConfigDao == null) {
             m_vmwareDatacollectionConfigDao = BeanUtils.getBean("daoContext", "vmwareDatacollectionConfigDao", VmwareDatacollectionConfigDao.class);
+        }
 
         if (m_vmwareDatacollectionConfigDao == null) {
             logger.error("vmwareDatacollectionConfigDao should be a non-null value.");
@@ -200,8 +201,9 @@ public class VmwareCollector implements ServiceCollector {
         if (vmwareManagementServer == null || vmwareManagedObjectId == null) {
             return null;
         } else {
-            if ("".equals(vmwareManagementServer) || "".equals(vmwareManagedObjectId))
+            if ("".equals(vmwareManagementServer) || "".equals(vmwareManagedObjectId)) {
                 return null;
+            }
         }
 
         VmwareCollectionSet collectionSet = new VmwareCollectionSet(agent);
@@ -286,8 +288,9 @@ public class VmwareCollector implements ServiceCollector {
                         instanceSet = vmwarePerformanceValues.getInstances(attrib.getName());
 
                         for (String instance : instanceSet) {
-                            if (!resources.containsKey(instance))
+                            if (!resources.containsKey(instance)) {
                                 resources.put(instance, new VmwareMultiInstanceCollectionResource(agent, instance, vmwareGroup.getResourceType()));
+                            }
 
                             final VmwareCollectionAttributeType attribType = new VmwareCollectionAttributeType(attrib, attribGroupType);
                             logger.debug("Storing multi instance value " + attrib.getName() + "[" + instance + "]='" + String.valueOf(vmwarePerformanceValues.getValue(attrib.getName())) + "' for node " +
