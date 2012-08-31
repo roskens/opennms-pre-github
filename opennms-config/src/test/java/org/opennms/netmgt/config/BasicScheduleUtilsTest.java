@@ -29,6 +29,9 @@
 package org.opennms.netmgt.config;
 
 import static org.junit.Assert.assertNotNull;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
@@ -47,14 +50,27 @@ import org.opennms.core.utils.Owner;
 import org.opennms.core.utils.TimeInterval;
 import org.opennms.core.xml.CastorUtils;
 import org.opennms.netmgt.config.groups.Schedule;
+import org.opennms.test.mock.MockUtil;
 
 public class BasicScheduleUtilsTest extends IntervalTestCase {
 
+    @Before
+    protected void setUp() throws Exception {
+        MockLogAppender.setupLogging();
+    }
+
+    @After
+    protected void tearDown() throws Exception {
+        MockLogAppender.assertNoWarningsOrGreater();
+        MockUtil.println("\n");
+    }
+
     @Test
     public void testSimpleScheduleExcluded() throws Exception {
-        String schedSpec = 
+        MockUtil.println("#### testSimpleScheduleExcluded() ####");
+        String schedSpec =
             "           <schedule name=\"simple\" type=\"specific\">" +
-            "               <time begins=\"20-Aug-2005 13:00:00\" ends=\"20-Aug-2005 14:00:00\"/>\n" + 
+            "               <time begins=\"20-Aug-2005 13:00:00\" ends=\"20-Aug-2005 14:00:00\"/>\n" +
             "           </schedule>";
         Schedule simpleSchedule = CastorUtils.unmarshal(Schedule.class, new ByteArrayInputStream(schedSpec.getBytes()));
         
@@ -67,9 +83,10 @@ public class BasicScheduleUtilsTest extends IntervalTestCase {
 
     @Test
     public void testSimpleScheduleIncluded() throws Exception {
-        String schedSpec = 
+        MockUtil.println("#### testSimpleScheduleIncluded() ####");
+        String schedSpec =
             "           <schedule name=\"simple\" type=\"specific\">" +
-            "               <time begins=\"18-Aug-2005 13:00:00\" ends=\"18-Aug-2005 14:00:00\"/>\n" + 
+            "               <time begins=\"18-Aug-2005 13:00:00\" ends=\"18-Aug-2005 14:00:00\"/>\n" +
             "           </schedule>";
         Schedule simpleSchedule = CastorUtils.unmarshal(Schedule.class, new ByteArrayInputStream(schedSpec.getBytes()));
         
@@ -82,9 +99,10 @@ public class BasicScheduleUtilsTest extends IntervalTestCase {
     
     @Test
     public void testDoubleScheduleIncluded() throws Exception {
-        String schedSpec = 
+        MockUtil.println("#### testDoubleScheduleIncluded() ####");
+        String schedSpec =
             "           <schedule name=\"double\" type=\"specific\">" +
-            "               <time begins=\"18-Aug-2005 13:00:00\" ends=\"18-Aug-2005 14:00:00\"/>\n" + 
+            "               <time begins=\"18-Aug-2005 13:00:00\" ends=\"18-Aug-2005 14:00:00\"/>\n" +
             "               <time begins=\"18-Aug-2005 16:00:00\" ends=\"18-Aug-2005 17:00:00\"/>\n" + 
             "           </schedule>";
         Schedule simpleSchedule = CastorUtils.unmarshal(Schedule.class, new ByteArrayInputStream(schedSpec.getBytes()));
@@ -98,9 +116,10 @@ public class BasicScheduleUtilsTest extends IntervalTestCase {
     
     @Test
     public void testComplexScheduleIncluded() throws Exception {
-        String schedSpec = 
+        MockUtil.println("#### testComplexScheduleIncluded() ####");
+        String schedSpec =
             "           <schedule name=\"complex\" type=\"specific\">" +
-            "               <time day=\"thursday\" begins=\"13:00:00\" ends=\"14:00:00\"/>\n" + 
+            "               <time day=\"thursday\" begins=\"13:00:00\" ends=\"14:00:00\"/>\n" +
             "               <time day=\"friday\" begins=\"07:00:00\" ends=\"08:00:00\"/>\n" + 
             "               <time day=\"18\" begins=\"19:00:00\" ends=\"20:00:00\"/>\n" + 
             "               <time day=\"19\" begins=\"09:00:00\" ends=\"10:00:00\"/>\n" + 
@@ -124,9 +143,10 @@ public class BasicScheduleUtilsTest extends IntervalTestCase {
     
     @Test
     public void testSpecificInterval() throws Exception {
-        String schedSpec = 
+        MockUtil.println("#### testSpecificInterval() ####");
+        String schedSpec =
             "           <schedule name=\"simple\" type=\"specific\">" +
-            "               <time begins=\"18-Aug-2005 13:00:00\" ends=\"18-Aug-2005 14:00:00\"/>\n" + 
+            "               <time begins=\"18-Aug-2005 13:00:00\" ends=\"18-Aug-2005 14:00:00\"/>\n" +
             "           </schedule>";
         Schedule simpleSchedule = CastorUtils.unmarshal(Schedule.class, new ByteArrayInputStream(schedSpec.getBytes()));
         BasicSchedule basicSchedule = BasicScheduleUtils.getGroupSchedule(simpleSchedule);
@@ -135,14 +155,15 @@ public class BasicScheduleUtilsTest extends IntervalTestCase {
         TimeInterval interval = BasicScheduleUtils.getInterval(new Date(), basicSchedule.getTime(0), owner);
         assertNotNull(interval);
         assertInterval(owned(owner, aug(18, 13, 14)), interval);
-        
+
     }
     
     @Test
     public void testMonthlyInterval() throws Exception {
-        String schedSpec = 
+        MockUtil.println("#### testMonthlyInterval() ####");
+        String schedSpec =
             "           <schedule name=\"simple\" type=\"specific\">" +
-            "               <time day=\"18\" begins=\"13:00:00\" ends=\"14:00:00\"/>\n" + 
+            "               <time day=\"18\" begins=\"13:00:00\" ends=\"14:00:00\"/>\n" +
             "           </schedule>";
         Schedule simpleSchedule = CastorUtils.unmarshal(Schedule.class, new ByteArrayInputStream(schedSpec.getBytes()));
         BasicSchedule basicSchedule = BasicScheduleUtils.getGroupSchedule(simpleSchedule);
@@ -151,14 +172,15 @@ public class BasicScheduleUtilsTest extends IntervalTestCase {
         TimeInterval interval = BasicScheduleUtils.getInterval(aug(18).getStart(), basicSchedule.getTime(0), owner);
         assertNotNull(interval);
         assertInterval(owned(owner, aug(18, 13, 14)), interval);
-        
+
     }
 
     @Test
     public void testWeeklyInterval() throws Exception {
-        String schedSpec = 
+        MockUtil.println("#### testWeeklyInterval() ####");
+        String schedSpec =
             "           <schedule name=\"simple\" type=\"specific\">" +
-            "               <time day=\"thursday\" begins=\"13:00:00\" ends=\"14:00:00\"/>\n" + 
+            "               <time day=\"thursday\" begins=\"13:00:00\" ends=\"14:00:00\"/>\n" +
             "           </schedule>";
         Schedule simpleSchedule = CastorUtils.unmarshal(Schedule.class, new ByteArrayInputStream(schedSpec.getBytes()));
         BasicSchedule basicSchedule = BasicScheduleUtils.getGroupSchedule(simpleSchedule);
@@ -167,14 +189,15 @@ public class BasicScheduleUtilsTest extends IntervalTestCase {
         TimeInterval interval = BasicScheduleUtils.getInterval(aug(18).getStart(), basicSchedule.getTime(0), owner);
         assertNotNull(interval);
         assertInterval(owned(owner, aug(18, 13, 14)), interval);
-        
+
     }
 
     @Test
     public void testGetIntervalsWeekly() throws Exception {
-        String schedSpec = 
+        MockUtil.println("#### testGetIntervalsWeekly() ####");
+        String schedSpec =
             "           <schedule name=\"simple\" type=\"weekly\">" +
-            "               <time day=\"thursday\" begins=\"11:00:00\" ends=\"14:00:00\"/>\n" + 
+            "               <time day=\"thursday\" begins=\"11:00:00\" ends=\"14:00:00\"/>\n" +
             "           </schedule>";
         Schedule simpleSchedule = CastorUtils.unmarshal(Schedule.class, new ByteArrayInputStream(schedSpec.getBytes()));
         BasicSchedule basicSchedule = BasicScheduleUtils.getGroupSchedule(simpleSchedule);
@@ -195,9 +218,10 @@ public class BasicScheduleUtilsTest extends IntervalTestCase {
 
     @Test
     public void testGetIntervalsMonthly() throws Exception {
-        String schedSpec = 
+        MockUtil.println("#### testGetIntervalsMonthly() ####");
+        String schedSpec =
             "           <schedule name=\"simple\" type=\"monthly\">" +
-            "               <time day=\"7\" begins=\"11:00:00\" ends=\"14:00:00\"/>\n" + 
+            "               <time day=\"7\" begins=\"11:00:00\" ends=\"14:00:00\"/>\n" +
             "           </schedule>";
         Schedule simpleSchedule = CastorUtils.unmarshal(Schedule.class, new ByteArrayInputStream(schedSpec.getBytes()));
         BasicSchedule basicSchedule = BasicScheduleUtils.getGroupSchedule(simpleSchedule);
@@ -220,9 +244,10 @@ public class BasicScheduleUtilsTest extends IntervalTestCase {
     
     @Test
     public void testGetIntervalsDaily() throws Exception {
-        String schedSpec = 
+        MockUtil.println("#### testGetIntervalsDaily() ####");
+        String schedSpec =
             "           <schedule name=\"simple\" type=\"daily\">" +
-            "               <time begins=\"11:00:00\" ends=\"14:00:00\"/>\n" + 
+            "               <time begins=\"11:00:00\" ends=\"14:00:00\"/>\n" +
             "           </schedule>";
         Schedule simpleSchedule = CastorUtils.unmarshal(Schedule.class, new ByteArrayInputStream(schedSpec.getBytes()));
         BasicSchedule basicSchedule = BasicScheduleUtils.getGroupSchedule(simpleSchedule);
@@ -233,13 +258,16 @@ public class BasicScheduleUtilsTest extends IntervalTestCase {
 
         List<OwnedInterval> expected = new ArrayList<OwnedInterval>();
         for (int i = 1; i < 31; i++) {
-        	expected.add(owned(owner, jun(i, 11, i, 14)));
+		expected.add(owned(owner, jun(i, 11, i, 14)));
         }
-        
+
+        MockUtil.println(expected.toString());
         assertTimeIntervalSequence(expected.toArray(new OwnedInterval[]{}), intervals);
     }
 
+    @Test
     public void testDailyConsecutivePeriods() throws Exception {
+        MockUtil.println("#### testDailyConsecutivePeriods() ####");
         String schedSpec =
             "<schedule name=\"simple\" type=\"daily\">" +
             "    <time begins=\"17:00:00\" ends=\"17:59:59\"/>\n" +
@@ -248,44 +276,28 @@ public class BasicScheduleUtilsTest extends IntervalTestCase {
         Schedule simpleSchedule = CastorUtils.unmarshal(Schedule.class, new ByteArrayInputStream(schedSpec.getBytes()));
         BasicSchedule basicSchedule = BasicScheduleUtils.getGroupSchedule(simpleSchedule);
         long dayTime = getTimeStampFor("23-AUG-2012 17:03:08");
-        long endTime = getTimeStampFor("24-AUG-2012 19:00:00");
-        System.err.println("dayTime: " + dayTime);
-        System.err.println("endTime: " + endTime);
+        long endTime = getTimeStampFor("23-AUG-2012 19:00:00");
         Calendar dayCal = new GregorianCalendar();
         dayCal.setTimeInMillis(dayTime);
+        MockUtil.println("dayTime: " + dayCal.getTimeInMillis());
+        MockUtil.println("dayTime: " + dayCal.getTime());
         Calendar endCal = new GregorianCalendar();
         endCal.setTimeInMillis(endTime);
+        MockUtil.println("endTime: " + endCal.getTimeInMillis());
+        MockUtil.println("endTime: " + endCal.getTime());
 
         Calendar cal = BasicScheduleUtils.getEndOfSchedule(dayCal, basicSchedule);
+        if (cal == null)
+            MockUtil.println("cal was null");
         assertNotNull(cal);
-        System.err.println("calTime: " + cal.getTimeInMillis());
+        MockUtil.println("calTime: " + cal.getTimeInMillis());
+        MockUtil.println("calTime: " + cal.getTime());
         assertEquals(endTime, cal.getTimeInMillis());
     }
 
-    public void testWeeklyConsecutivePeriods() throws Exception {
-        String schedSpec =
-            "<schedule name=\"simple\" type=\"weekly\">" +
-            "    <time day=\"thursday\" begins=\"17:00:00\" ends=\"17:59:59\"/>\n" +
-            "    <time day=\"friday\" begins=\"18:00:00\" ends=\"18:59:59\"/>\n" +
-            "</schedule>";
-        Schedule simpleSchedule = CastorUtils.unmarshal(Schedule.class, new ByteArrayInputStream(schedSpec.getBytes()));
-        BasicSchedule basicSchedule = BasicScheduleUtils.getGroupSchedule(simpleSchedule);
-        long dayTime = getTimeStampFor("30-AUG-2012 17:03:08");
-        long endTime = getTimeStampFor("31-AUG-2012 19:00:00");
-        System.err.println("dayTime: " + dayTime);
-        System.err.println("endTime: " + endTime);
-        Calendar dayCal = new GregorianCalendar();
-        dayCal.setTimeInMillis(dayTime);
-        Calendar endCal = new GregorianCalendar();
-        endCal.setTimeInMillis(endTime);
-
-        Calendar cal = BasicScheduleUtils.getEndOfSchedule(dayCal, basicSchedule);
-        assertNotNull(cal);
-        System.err.println("calTime: " + cal.getTimeInMillis());
-        assertEquals(endTime, cal.getTimeInMillis());
-    }
-
+    @Test
     public void testDailyOverNightPeriod() throws Exception {
+        MockUtil.println("#### testDailyOverNightPeriod() ####");
         String schedSpec =
             "<schedule name=\"simple\" type=\"daily\">" +
             "    <time begins=\"23:00:00\" ends=\"23:59:59\"/>\n" +
@@ -295,20 +307,58 @@ public class BasicScheduleUtilsTest extends IntervalTestCase {
         BasicSchedule basicSchedule = BasicScheduleUtils.getGroupSchedule(simpleSchedule);
         long dayTime = getTimeStampFor("23-AUG-2012 23:03:08");
         long endTime = getTimeStampFor("24-AUG-2012 01:00:00");
-        System.err.println("dayTime: " + dayTime);
-        System.err.println("endTime: " + endTime);
         Calendar dayCal = new GregorianCalendar();
         dayCal.setTimeInMillis(dayTime);
+        MockUtil.println("dayTime: " + dayCal.getTimeInMillis());
+        MockUtil.println("dayTime: " + dayCal.getTime());
         Calendar endCal = new GregorianCalendar();
         endCal.setTimeInMillis(endTime);
+        MockUtil.println("endTime: " + endCal.getTimeInMillis());
+        MockUtil.println("endTime: " + endCal.getTime());
 
         Calendar cal = BasicScheduleUtils.getEndOfSchedule(dayCal, basicSchedule);
+        if (cal == null)
+            MockUtil.println("cal was null");
         assertNotNull(cal);
-        System.err.println("calTime: " + cal.getTimeInMillis());
+        MockUtil.println("calTime: " + cal.getTimeInMillis());
+        MockUtil.println("calTime: " + cal.getTime());
         assertEquals(endTime, cal.getTimeInMillis());
     }
 
+    @Test
+    public void testWeeklyConsecutivePeriods() throws Exception {
+        MockUtil.println("#### testWeeklyConsecutivePeriods() ####");
+        String schedSpec =
+            "<schedule name=\"simple\" type=\"weekly\">" +
+            "    <time day=\"thursday\" begins=\"17:00:00\" ends=\"17:59:59\"/>\n" +
+            "    <time day=\"thursday\" begins=\"18:00:00\" ends=\"18:59:59\"/>\n" +
+            "</schedule>";
+        Schedule simpleSchedule = CastorUtils.unmarshal(Schedule.class, new ByteArrayInputStream(schedSpec.getBytes()));
+        BasicSchedule basicSchedule = BasicScheduleUtils.getGroupSchedule(simpleSchedule);
+        long dayTime = getTimeStampFor("30-AUG-2012 17:03:08");
+        long endTime = getTimeStampFor("30-AUG-2012 19:00:00");
+        Calendar dayCal = new GregorianCalendar();
+        dayCal.setTimeInMillis(dayTime);
+        MockUtil.println("dayTime: " + dayCal.getTimeInMillis());
+        MockUtil.println("dayTime: " + dayCal.getTime());
+        Calendar endCal = new GregorianCalendar();
+        endCal.setTimeInMillis(endTime);
+        MockUtil.println("endTime: " + endCal.getTimeInMillis());
+        MockUtil.println("endTime: " + endCal.getTime());
+
+        Calendar cal = BasicScheduleUtils.getEndOfSchedule(dayCal, basicSchedule);
+        if (cal == null)
+            MockUtil.println("cal was null");
+        assertNotNull(cal);
+        MockUtil.println("endTime: " + endCal.getTimeInMillis());
+        MockUtil.println("calTime: " + cal.getTimeInMillis());
+        MockUtil.println("calTime: " + cal.getTime());
+        assertEquals(endTime, cal.getTimeInMillis());
+    }
+
+    @Test
     public void testWeeklyOverNightPeriod() throws Exception {
+        MockUtil.println("#### testWeeklyOverNightPeriod() ####");
         String schedSpec =
             "<schedule name=\"simple\" type=\"weekly\">" +
             "    <time day=\"saturday\" begins=\"23:00:00\" ends=\"23:59:59\"/>\n" +
@@ -316,18 +366,56 @@ public class BasicScheduleUtilsTest extends IntervalTestCase {
             "</schedule>";
         Schedule simpleSchedule = CastorUtils.unmarshal(Schedule.class, new ByteArrayInputStream(schedSpec.getBytes()));
         BasicSchedule basicSchedule = BasicScheduleUtils.getGroupSchedule(simpleSchedule);
-        long dayTime = getTimeStampFor("23-AUG-2012 23:03:08");
-        long endTime = getTimeStampFor("24-AUG-2012 01:00:00");
-        System.err.println("dayTime: " + dayTime);
-        System.err.println("endTime: " + endTime);
+        long dayTime = getTimeStampFor("25-AUG-2012 23:03:08");
+        long endTime = getTimeStampFor("26-AUG-2012 01:00:00");
         Calendar dayCal = new GregorianCalendar();
+        dayCal.clear();
+        if (dayCal.isSet(Calendar.ERA))
+            MockUtil.println("dayTime: fields are set");
         dayCal.setTimeInMillis(dayTime);
+        MockUtil.println("dayTime: " + dayCal.getTimeInMillis());
+        MockUtil.println("dayTime: " + dayCal.getTime());
         Calendar endCal = new GregorianCalendar();
         endCal.setTimeInMillis(endTime);
+        MockUtil.println("endTime: " + endCal.getTimeInMillis());
+        MockUtil.println("endTime: " + endCal.getTime());
 
         Calendar cal = BasicScheduleUtils.getEndOfSchedule(dayCal, basicSchedule);
+        if (cal == null)
+            MockUtil.println("cal was null");
         assertNotNull(cal);
-        System.err.println("calTime: " + cal.getTimeInMillis());
+        MockUtil.println("calTime: " + cal.getTimeInMillis());
+        MockUtil.println("calTime: " + cal.getTime());
+        assertEquals(endTime, cal.getTimeInMillis());
+    }
+
+    @Test
+    public void testDailyOverlappingPeriods() throws Exception {
+        MockUtil.println("#### testOverlappingPeriods() ####");
+        String schedSpec =
+            "<schedule name=\"simple\" type=\"daily\">" +
+            "    <time begins=\"17:00:00\" ends=\"17:59:59\"/>\n" +
+            "    <time begins=\"17:30:00\" ends=\"18:59:59\"/>\n" +
+            "</schedule>";
+        Schedule simpleSchedule = CastorUtils.unmarshal(Schedule.class, new ByteArrayInputStream(schedSpec.getBytes()));
+        BasicSchedule basicSchedule = BasicScheduleUtils.getGroupSchedule(simpleSchedule);
+        long dayTime = getTimeStampFor("23-AUG-2012 17:03:08");
+        long endTime = getTimeStampFor("23-AUG-2012 19:00:00");
+        Calendar dayCal = new GregorianCalendar();
+        dayCal.setTimeInMillis(dayTime);
+        MockUtil.println("dayTime: " + dayCal.getTimeInMillis());
+        MockUtil.println("dayTime: " + dayCal.getTime());
+        Calendar endCal = new GregorianCalendar();
+        endCal.setTimeInMillis(endTime);
+        MockUtil.println("endTime: " + endCal.getTimeInMillis());
+        MockUtil.println("endTime: " + endCal.getTime());
+
+        Calendar cal = BasicScheduleUtils.getEndOfSchedule(dayCal, basicSchedule);
+        if (cal == null)
+            MockUtil.println("cal was null");
+        assertNotNull(cal);
+        MockUtil.println("calTime: " + cal.getTimeInMillis());
+        MockUtil.println("calTime: " + cal.getTime());
         assertEquals(endTime, cal.getTimeInMillis());
     }
 
