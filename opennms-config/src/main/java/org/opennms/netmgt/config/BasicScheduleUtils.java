@@ -226,15 +226,30 @@ public abstract class BasicScheduleUtils {
      * @return a {@link java.util.Calendar} object.
      */
     public static Calendar getEndOfSchedule(final BasicSchedule out) {
-        long curCalTime = System.currentTimeMillis();
         Calendar cal = new GregorianCalendar();
-        cal.setTimeInMillis(curCalTime);
+        return getEndOfSchedule(cal, out);
+    }
+
+    /**
+     * <p>getEndOfSchedule</p>
+     *
+     * @param out a {@link org.opennms.netmgt.config.common.BasicSchedule} object.
+     * @return a {@link java.util.Calendar} object.
+     */
+    public static Calendar getEndOfSchedule(final Calendar cal, final BasicSchedule out) {
+        LogUtils.debugf(BasicScheduleUtils.class, "getEndOfSchedule: checking for time '%s' in schedule '%s'", cal.getTime(), out.getName());
+        if (cal == null || out == null) return null;
+
+        Calendar outCalBegin = new GregorianCalendar();
+        Calendar outCalEnd = new GregorianCalendar();
+
+        long curCalTime = cal.getTimeInMillis();
         // check if day is part of outage
         boolean inOutage = false;
         Enumeration<Time> en = out.enumerateTime();
         while (en.hasMoreElements() && !inOutage) {
-            Calendar outCalBegin = new GregorianCalendar();
-            Calendar outCalEnd = new GregorianCalendar();
+            outCalBegin.setTimeInMillis(curCalTime);
+            outCalEnd.setTimeInMillis(curCalTime);
     
             Time oTime = (Time) en.nextElement();
     
