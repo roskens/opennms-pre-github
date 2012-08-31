@@ -34,6 +34,10 @@ import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import org.junit.Test;
 import org.opennms.core.test.IntervalTestCase;
@@ -235,5 +239,99 @@ public class BasicScheduleUtilsTest extends IntervalTestCase {
         assertTimeIntervalSequence(expected.toArray(new OwnedInterval[]{}), intervals);
     }
 
+    public void testDailyConsecutivePeriods() throws Exception {
+        String schedSpec =
+            "<schedule name=\"simple\" type=\"daily\">" +
+            "    <time begins=\"17:00:00\" ends=\"17:59:59\"/>\n" +
+            "    <time begins=\"18:00:00\" ends=\"18:59:59\"/>\n" +
+            "</schedule>";
+        Schedule simpleSchedule = CastorUtils.unmarshal(Schedule.class, new ByteArrayInputStream(schedSpec.getBytes()));
+        BasicSchedule basicSchedule = BasicScheduleUtils.getGroupSchedule(simpleSchedule);
+        long dayTime = getTimeStampFor("23-AUG-2012 17:03:08");
+        long endTime = getTimeStampFor("24-AUG-2012 19:00:00");
+        System.err.println("dayTime: " + dayTime);
+        System.err.println("endTime: " + endTime);
+        Calendar dayCal = new GregorianCalendar();
+        dayCal.setTimeInMillis(dayTime);
+        Calendar endCal = new GregorianCalendar();
+        endCal.setTimeInMillis(endTime);
+
+        Calendar cal = BasicScheduleUtils.getEndOfSchedule(dayCal, basicSchedule);
+        assertNotNull(cal);
+        System.err.println("calTime: " + cal.getTimeInMillis());
+        assertEquals(endTime, cal.getTimeInMillis());
+    }
+
+    public void testWeeklyConsecutivePeriods() throws Exception {
+        String schedSpec =
+            "<schedule name=\"simple\" type=\"weekly\">" +
+            "    <time day=\"thursday\" begins=\"17:00:00\" ends=\"17:59:59\"/>\n" +
+            "    <time day=\"friday\" begins=\"18:00:00\" ends=\"18:59:59\"/>\n" +
+            "</schedule>";
+        Schedule simpleSchedule = CastorUtils.unmarshal(Schedule.class, new ByteArrayInputStream(schedSpec.getBytes()));
+        BasicSchedule basicSchedule = BasicScheduleUtils.getGroupSchedule(simpleSchedule);
+        long dayTime = getTimeStampFor("30-AUG-2012 17:03:08");
+        long endTime = getTimeStampFor("31-AUG-2012 19:00:00");
+        System.err.println("dayTime: " + dayTime);
+        System.err.println("endTime: " + endTime);
+        Calendar dayCal = new GregorianCalendar();
+        dayCal.setTimeInMillis(dayTime);
+        Calendar endCal = new GregorianCalendar();
+        endCal.setTimeInMillis(endTime);
+
+        Calendar cal = BasicScheduleUtils.getEndOfSchedule(dayCal, basicSchedule);
+        assertNotNull(cal);
+        System.err.println("calTime: " + cal.getTimeInMillis());
+        assertEquals(endTime, cal.getTimeInMillis());
+    }
+
+    public void testDailyOverNightPeriod() throws Exception {
+        String schedSpec =
+            "<schedule name=\"simple\" type=\"daily\">" +
+            "    <time begins=\"23:00:00\" ends=\"23:59:59\"/>\n" +
+            "    <time begins=\"00:00:00\" ends=\"00:59:59\"/>\n" +
+            "</schedule>";
+        Schedule simpleSchedule = CastorUtils.unmarshal(Schedule.class, new ByteArrayInputStream(schedSpec.getBytes()));
+        BasicSchedule basicSchedule = BasicScheduleUtils.getGroupSchedule(simpleSchedule);
+        long dayTime = getTimeStampFor("23-AUG-2012 23:03:08");
+        long endTime = getTimeStampFor("24-AUG-2012 01:00:00");
+        System.err.println("dayTime: " + dayTime);
+        System.err.println("endTime: " + endTime);
+        Calendar dayCal = new GregorianCalendar();
+        dayCal.setTimeInMillis(dayTime);
+        Calendar endCal = new GregorianCalendar();
+        endCal.setTimeInMillis(endTime);
+
+        Calendar cal = BasicScheduleUtils.getEndOfSchedule(dayCal, basicSchedule);
+        assertNotNull(cal);
+        System.err.println("calTime: " + cal.getTimeInMillis());
+        assertEquals(endTime, cal.getTimeInMillis());
+    }
+
+    public void testWeeklyOverNightPeriod() throws Exception {
+        String schedSpec =
+            "<schedule name=\"simple\" type=\"weekly\">" +
+            "    <time day=\"saturday\" begins=\"23:00:00\" ends=\"23:59:59\"/>\n" +
+            "    <time day=\"sunday\" begins=\"00:00:00\" ends=\"00:59:59\"/>\n" +
+            "</schedule>";
+        Schedule simpleSchedule = CastorUtils.unmarshal(Schedule.class, new ByteArrayInputStream(schedSpec.getBytes()));
+        BasicSchedule basicSchedule = BasicScheduleUtils.getGroupSchedule(simpleSchedule);
+        long dayTime = getTimeStampFor("23-AUG-2012 23:03:08");
+        long endTime = getTimeStampFor("24-AUG-2012 01:00:00");
+        System.err.println("dayTime: " + dayTime);
+        System.err.println("endTime: " + endTime);
+        Calendar dayCal = new GregorianCalendar();
+        dayCal.setTimeInMillis(dayTime);
+        Calendar endCal = new GregorianCalendar();
+        endCal.setTimeInMillis(endTime);
+
+        Calendar cal = BasicScheduleUtils.getEndOfSchedule(dayCal, basicSchedule);
+        assertNotNull(cal);
+        System.err.println("calTime: " + cal.getTimeInMillis());
+        assertEquals(endTime, cal.getTimeInMillis());
+    }
+
+    private long getTimeStampFor(String timeString) throws ParseException {
+        return new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss").parse(timeString).getTime();
+    }
 }
- 
