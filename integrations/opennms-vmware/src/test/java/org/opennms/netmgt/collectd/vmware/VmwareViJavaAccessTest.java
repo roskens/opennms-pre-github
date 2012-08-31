@@ -28,19 +28,13 @@
 
 package org.opennms.netmgt.collectd.vmware;
 
-import com.vmware.vim25.ElementDescription;
-import com.vmware.vim25.ManagedObjectReference;
-import com.vmware.vim25.PerfCounterInfo;
-import com.vmware.vim25.mo.PerformanceManager;
-import com.vmware.vim25.mo.ServiceInstance;
 import com.vmware.vim25.*;
 import com.vmware.vim25.mo.*;
-
 import com.vmware.vim25.mo.util.MorUtil;
 import com.vmware.vim25.ws.WSClient;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.Assert;
 import org.junit.runner.RunWith;
 import org.opennms.netmgt.collectd.vmware.vijava.VmwarePerformanceValues;
 import org.powermock.core.classloader.annotations.PrepareForTest;
@@ -52,10 +46,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.security.Principal;
-import java.util.*;
+import java.util.Map;
+import java.util.Set;
+import java.util.Vector;
 
-import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.anyObject;
+import static org.easymock.EasyMock.expect;
 import static org.powermock.api.easymock.PowerMock.*;
 
 @RunWith(PowerMockRunner.class)

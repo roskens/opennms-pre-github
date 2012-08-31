@@ -53,11 +53,13 @@ public class VmwareUpdateOperation implements Operation {
 
     @Override
     public boolean display(List<Object> targets, OperationContext operationContext) {
+        System.err.println("display(): getDataSource() == "+operationContext.getGraphContainer().getDataSource().getClass().getName());
         return true;
     }
 
     @Override
     public boolean enabled(List<Object> targets, OperationContext operationContext) {
+        System.err.println("enabled(): getDataSource() == "+operationContext.getGraphContainer().getDataSource().getClass().getName());
         return true;
     }
 

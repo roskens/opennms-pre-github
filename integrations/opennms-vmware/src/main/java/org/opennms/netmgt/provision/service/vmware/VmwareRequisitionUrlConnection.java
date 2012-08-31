@@ -30,7 +30,6 @@ package org.opennms.netmgt.provision.service.vmware;
 
 import com.vmware.vim25.*;
 import com.vmware.vim25.mo.*;
-import com.vmware.vim25.mo.util.MorUtil;
 import org.apache.commons.io.IOExceptionWithCause;
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;

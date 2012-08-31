@@ -35,7 +35,6 @@ import org.exolab.castor.xml.ValidationException;
 import org.opennms.core.utils.BeanUtils;
 import org.opennms.core.utils.TimeoutTracker;
 import org.opennms.netmgt.collectd.vmware.VmwareViJavaAccess;
-import org.opennms.netmgt.config.vmware.VmwareServer;
 import org.opennms.netmgt.dao.NodeDao;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.PollStatus;

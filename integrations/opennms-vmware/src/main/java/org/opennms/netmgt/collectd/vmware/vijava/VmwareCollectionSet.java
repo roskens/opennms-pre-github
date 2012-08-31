@@ -34,9 +34,9 @@ import org.opennms.netmgt.config.collector.CollectionResource;
 import org.opennms.netmgt.config.collector.CollectionSet;
 import org.opennms.netmgt.config.collector.CollectionSetVisitor;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.ArrayList;
 
 public class VmwareCollectionSet implements CollectionSet {
     private int m_status;
@@ -59,7 +59,7 @@ public class VmwareCollectionSet implements CollectionSet {
     public void visit(final CollectionSetVisitor visitor) {
         visitor.visitCollectionSet(this);
 
-        for(final CollectionResource resource : getResources()) {
+        for (final CollectionResource resource : getResources()) {
             resource.visit(visitor);
         }
 
