@@ -68,6 +68,6 @@ public class VmwareCollectionAttributeType implements CollectionAttributeType {
 
     @Override
     public String getAttributeId() {
-        return "Not supported yet._" + "VMware_" + getName();
+        return "Vmware_"+m_groupType.getName()+"/"+m_attribute.getName();
     }
 }
