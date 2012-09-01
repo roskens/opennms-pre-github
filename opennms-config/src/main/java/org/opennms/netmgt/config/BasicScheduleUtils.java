@@ -220,15 +220,30 @@ public abstract class BasicScheduleUtils {
      * @return a {@link java.util.Calendar} object.
      */
     public static Calendar getEndOfSchedule(final BasicSchedule out) {
-        long curCalTime = System.currentTimeMillis();
         Calendar cal = new GregorianCalendar();
-        cal.setTimeInMillis(curCalTime);
+        return getEndOfSchedule(cal, out);
+    }
+
+    /**
+     * <p>getEndOfSchedule</p>
+     *
+     * @param out a {@link org.opennms.netmgt.config.common.BasicSchedule} object.
+     * @return a {@link java.util.Calendar} object.
+     */
+    public static Calendar getEndOfSchedule(final Calendar cal, final BasicSchedule out) {
+        LogUtils.debugf(BasicScheduleUtils.class, "getEndOfSchedule: checking for time '%s' in schedule '%s'", cal.getTime(), out.getName());
+        if (cal == null || out == null) return null;
+
+        Calendar outCalBegin = new GregorianCalendar();
+        Calendar outCalEnd = new GregorianCalendar();
+        Calendar retCal = null;
+
+        long curCalTime = cal.getTimeInMillis();
         // check if day is part of outage
-        boolean inOutage = false;
         Enumeration<Time> en = out.enumerateTime();
-        while (en.hasMoreElements() && !inOutage) {
-            Calendar outCalBegin = new GregorianCalendar();
-            Calendar outCalEnd = new GregorianCalendar();
+        while (en.hasMoreElements()) {
+            outCalBegin.setTimeInMillis(curCalTime);
+            outCalEnd.setTimeInMillis(curCalTime);
     
             Time oTime = (Time) en.nextElement();
     
@@ -241,8 +256,8 @@ public abstract class BasicScheduleUtils {
                 Integer dayInMap = getDayOfWeekIndex(oTimeDay);
                 if (dayInMap != null) {
                     // check if value specified matches current date
-                    if (cal.get(Calendar.DAY_OF_WEEK) == dayInMap.intValue())
-                        inOutage = true;
+                    if (cal.get(Calendar.DAY_OF_WEEK) != dayInMap.intValue())
+                        continue;
     
                     outCalBegin.set(Calendar.DAY_OF_WEEK, dayInMap.intValue());
                     outCalEnd.set(Calendar.DAY_OF_WEEK, dayInMap.intValue());
@@ -250,28 +265,44 @@ public abstract class BasicScheduleUtils {
                 else {
                     int intOTimeDay = (new Integer(oTimeDay)).intValue();
     
-                    if (cal.get(Calendar.DAY_OF_MONTH) == intOTimeDay)
-                        inOutage = true;
+                    if (cal.get(Calendar.DAY_OF_MONTH) != intOTimeDay)
+                        continue;
     
                     outCalBegin.set(Calendar.DAY_OF_MONTH, intOTimeDay);
                     outCalEnd.set(Calendar.DAY_OF_MONTH, intOTimeDay);
                 }
             }
     
-            // if time of day was specified and did not match, continue
-            if (oTimeDay != null && !inOutage) {
-                continue;
-            }
             // set time in out calendars
             setOutCalTime(outCalBegin, begins);
             setOutCalTime(outCalEnd, ends);
+
+            LogUtils.debugf(BasicScheduleUtils.class, "getEndOfSchedule: checking begin/end time...\n current: %s\n begin: %s\n end: %s", cal.getTime(), outCalBegin.getTime(), outCalEnd.getTime());
     
             long outCalBeginTime = outCalBegin.getTime().getTime() / 1000 * 1000;
             long outCalEndTime = (outCalEnd.getTime().getTime() / 1000 + 1) * 1000;
     
-            if (curCalTime >= outCalBeginTime && curCalTime < outCalEndTime)
-                return outCalEnd;
+            if (curCalTime >= outCalBeginTime && curCalTime < outCalEndTime) {
+                if (retCal == null) {
+                    retCal = new GregorianCalendar();
+                } else {
+                    LogUtils.debugf(BasicScheduleUtils.class, "getEndOfSchedule: end: %d -> %d", retCal.getTimeInMillis(), outCalEndTime);
+                }
+                retCal.setTimeInMillis(outCalEndTime);
+                LogUtils.debugf(BasicScheduleUtils.class, "getEndOfSchedule: end: %s", retCal.getTime());
+            }
         }
+        if (retCal != null) {
+           LogUtils.debugf(BasicScheduleUtils.class, "getEndOfSchedule: foundMatch: true");
+           // XXX: Can we restart this in the loop instead of recursively calling our method?
+           Calendar newCal = getEndOfSchedule(retCal, out);
+           if (newCal != null)
+               LogUtils.debugf(BasicScheduleUtils.class, "getEndOfSchedule: new: %s", newCal.getTime());
+           LogUtils.debugf(BasicScheduleUtils.class, "getEndOfSchedule: return: %s", retCal.getTime());
+           return (newCal == null) ? retCal : newCal;
+        }
+        LogUtils.debugf(BasicScheduleUtils.class, "getEndOfSchedule: no match for time '%s' in schedule '%s'", cal.getTime(), out.getName());
+
         return null; // Couldn't find a time period that matches
     }
 
