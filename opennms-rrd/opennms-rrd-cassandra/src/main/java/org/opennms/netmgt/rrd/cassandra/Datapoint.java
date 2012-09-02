@@ -12,14 +12,10 @@ import me.prettyprint.hector.api.mutation.Mutator;
 
 import org.opennms.core.utils.LogUtils;
 
-class Datapoint {
+public class Datapoint extends TimeSeriesPoint {
     private String m_fileName;
 
     private String m_dsName;
-
-    private long m_timestamp;
-
-    private double m_value;
 
     private static final StringSerializer s_ss = StringSerializer.get();
 
@@ -28,10 +24,9 @@ class Datapoint {
     private static final DoubleSerializer s_ds = DoubleSerializer.get();
 
     Datapoint(String fileName, String dsName, long timestamp, double value) {
+        super(timestamp, value);
         m_fileName = fileName;
         m_dsName = dsName;
-        m_timestamp = timestamp;
-        m_value = value;
     }
 
     public String getName() {
@@ -40,14 +35,6 @@ class Datapoint {
 
     public String getDsName() {
         return m_dsName;
-    }
-
-    public long getTimestamp() {
-        return m_timestamp;
-    }
-
-    public double getValue() {
-        return m_value;
     }
 
     public void persist(Mutator<String> mutator, String columnFamily, int ttl) {
@@ -62,7 +49,7 @@ class Datapoint {
     public String toString() {
         StringBuilder buf = new StringBuilder();
         buf.append(m_fileName).append("(").append(m_dsName).append("):");
-        buf.append(m_timestamp).append("=").append(m_value);
+        buf.append(getTimestamp()).append("=").append(getValue());
         return buf.toString();
     }
 }
