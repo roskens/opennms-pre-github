@@ -252,6 +252,8 @@ public abstract class RrdUtils {
      */
     public static boolean createRRD(String creator, String directory, String rrdName, int step, List<RrdDataSource> dataSources, List<String> rraList, Map<String, String> attributeMappings) throws RrdException {
     	Object def = null;
+    	String fileName = rrdName + getExtension();
+    	String completePath = directory + File.separator + fileName;
     	
         try {
             if (!getStrategy().fileExists(completePath)) {
