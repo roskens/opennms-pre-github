@@ -68,8 +68,8 @@ public class CassRrdDef {
         ds.setName(name);
         ds.setType(type);
         ds.setHeartbeat(Long.valueOf(heartBeat));
-        ds.setMin(dsMin == null || dsMin.isNaN() ? "U" : dsMin.toString());
-        ds.setMax(dsMax == null || dsMax.isNaN() ? "U" : dsMax.toString());
+        ds.setMin((dsMin == null || dsMin.isNaN()) ? "U" : dsMin.toString());
+        ds.setMax((dsMax == null || dsMax.isNaN()) ? "U" : dsMax.toString());
         m_rrddef.addDatasource(ds);
     }
 
