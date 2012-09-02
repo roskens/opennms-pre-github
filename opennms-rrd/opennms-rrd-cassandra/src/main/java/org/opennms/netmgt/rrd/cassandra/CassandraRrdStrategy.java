@@ -62,6 +62,7 @@ import org.opennms.core.utils.ThreadCategory;
 import org.opennms.netmgt.rrd.RrdDataSource;
 import org.opennms.netmgt.rrd.RrdGraphDetails;
 import org.opennms.netmgt.rrd.RrdStrategy;
+import org.opennms.netmgt.rrd.RrdUtils;
 import org.opennms.core.utils.LogUtils;
 
 /**
@@ -309,13 +310,22 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
      * @throws java.lang.Exception
      *             if any.
      */
-    public void createFile(final CassRrdDef rrdDef) throws Exception {
+    public void createFile(final CassRrdDef rrdDef, final Map<String, String> attributeMappings) throws Exception {
         if (rrdDef == null) {
+            LogUtils.debugf(this, "createRRD: skipping RRD file");
             return;
         }
 
-        LogUtils.debugf(this, "rrdDef.create(m_keyspace)");
+        LogUtils.debugf(this, "createRRD: creating RRD file " + rrdDef.getFileName());
         rrdDef.create(m_connection);
+
+        String filenameWithoutExtension = rrdDef.getFileName().replace(RrdUtils.getExtension(), "");
+        int lastIndexOfSeparator = filenameWithoutExtension.lastIndexOf(File.separator);
+
+        RrdUtils.createMetaDataFile(
+                                    filenameWithoutExtension.substring(0, lastIndexOfSeparator),
+                                    filenameWithoutExtension.substring(lastIndexOfSeparator),
+                                    attributeMappings);
     }
 
     /**
