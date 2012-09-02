@@ -3,13 +3,29 @@
   <parent>
     <artifactId>opennms-rrd</artifactId>
     <groupId>org.opennms</groupId>
+<<<<<<< HEAD
     <version>1.11.2-SNAPSHOT</version>
+=======
+    <version>1.11.3-SNAPSHOT</version>
+>>>>>>> local-dev/elfin/features/cassandra-rrd-backend
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>opennms-rrd-cassandra</artifactId>
   <name>OpenNMS Cassandra RRD Implementation</name>
   <dependencies>
     <dependency>
+<<<<<<< HEAD
+=======
+      <groupId>org.opennms.dependencies</groupId>
+      <artifactId>jaxb-dependencies</artifactId>
+      <type>pom</type>
+    </dependency>
+    <dependency>
+      <groupId>org.opennms.core</groupId>
+      <artifactId>org.opennms.core.xml</artifactId>
+    </dependency>
+    <dependency>
+>>>>>>> local-dev/elfin/features/cassandra-rrd-backend
       <groupId>org.opennms</groupId>
       <artifactId>opennms-rrd-api</artifactId>
     </dependency>

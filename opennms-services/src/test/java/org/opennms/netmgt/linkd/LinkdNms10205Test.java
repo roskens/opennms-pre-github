@@ -249,28 +249,29 @@ public class LinkdNms10205Test extends LinkdNms10205NetworkBuilder implements In
         // no routing entry and no bridge 
         // forwarding
         
+        int start = getStartPoint(links);
         for (final DataLinkInterface datalinkinterface: links) {
-            switch(datalinkinterface.getId().intValue()) {
-                case 915: checkLink(delhi, mumbai, 28503, 519, datalinkinterface);
-                break;
-                case 916: checkLink(bangalore, mumbai, 2401, 507, datalinkinterface);
-                break;
-                case 917: checkLink(bagmane, mumbai, 534, 977, datalinkinterface);
-                break;
-                case 918: checkLink(mysore, mumbai, 508, 978, datalinkinterface);
-                break;
-                case 919: checkLink(chennai, mumbai, 528, 520, datalinkinterface);
-                break;
-                case 920: checkLink(mysore, chennai, 505, 517, datalinkinterface);
-                break;
-                case 921: checkLink(bangalore, delhi, 2397, 3674, datalinkinterface);
-                break;
-                case 922: checkLink(bagmane, bangalore, 1732, 2396, datalinkinterface);
-                break;
-                case 923: checkLink(mysore, bagmane, 520, 654, datalinkinterface);
-                break;
-                default: checkLink(mumbai,mumbai,-1,-1,datalinkinterface);
-                break;                
+            int id = datalinkinterface.getId().intValue();
+            if (start == id ) {
+                checkLink(delhi, mumbai, 28503, 519, datalinkinterface);
+            } else if (start+1 == id ) {
+                checkLink(bangalore, mumbai, 2401, 507, datalinkinterface);
+            } else if (start+2 == id ) {
+                checkLink(bagmane, mumbai, 534, 977, datalinkinterface);
+            } else if (start+3 == id ) {
+                checkLink(mysore, mumbai, 508, 978, datalinkinterface);
+            } else if (start+4 == id ) {
+                checkLink(chennai, mumbai, 528, 520, datalinkinterface);
+            } else if (start+5 == id ) {
+                checkLink(mysore, chennai, 505, 517, datalinkinterface);
+            } else if (start+6 == id ) {
+               checkLink(bangalore, delhi, 2397, 3674, datalinkinterface);
+            } else if (start+7 == id ) {
+                checkLink(bagmane, bangalore, 1732, 2396, datalinkinterface);
+            } else if (start+8 == id ) {
+                checkLink(mysore, bagmane, 520, 654, datalinkinterface);
+            } else {
+                checkLink(mumbai,mumbai,-1,-1,datalinkinterface);
             }
         }
     }
