@@ -130,14 +130,41 @@ public class CassRrd {
 
         for (int i = 0; tokenizer.hasMoreTokens(); i++) {
             try {
-                Double value = Double.parseDouble(tokenizer.nextToken());
-                Datapoint dp = new Datapoint(getFileName(), getDsName(i), timestamp, value);
+                Datasource ds = getDatasource(i);
+                Double minVal = convertToDouble(ds.getMin());
+                Double maxVal = convertToDouble(ds.getMax());
+
+                Double value = convertToDouble(tokenizer.nextToken());
+
+                // Handle min/max
+                if (!Double.isNaN(value)) {
+                    if (!Double.isNaN(minVal) && value < minVal) {
+                        value = Double.NaN;
+                    }
+                    if (!Double.isNaN(maxVal) && value > maxVal) {
+                        value = Double.NaN;
+                    }
+                }
+
+                Datapoint dp = new Datapoint(getFileName(), ds.getName(), timestamp, value);
 
                 m_connection.persist(dp);
             } catch (final NumberFormatException nfe) {
                 // NOP, value is already set to NaN
             }
         }
+    }
+
+    private Double convertToDouble(final String input) {
+        Double val = Double.NaN;
+        try {
+            if (input != null) {
+                val = Double.parseDouble(input);
+            }
+        } catch (final NumberFormatException nfe) {
+            // NOP, value is already set to NaN
+        }
+        return val;
     }
 
     public String toXml() {
