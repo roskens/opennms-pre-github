@@ -88,12 +88,20 @@ public class CassRrd {
         return dsNames;
     }
 
+    public Datasource getDatasource(int i) {
+        return m_rrddef.getDatasource(i);
+    }
+
     public String getDsName(int i) {
         return m_rrddef.getDatasource(i).getName();
     }
 
     public int getDsCount() {
         return m_rrddef.getDatasourceCount();
+    }
+
+    public int getArcCount() {
+        return m_rrddef.getArchiveCount();
     }
 
     public void close() {
