@@ -257,17 +257,9 @@ public abstract class RrdUtils {
     	
         try {
             if (!getStrategy().fileExists(completePath)) {
-<<<<<<< HEAD
-                Object def = getStrategy().createDefinition(creator, directory, rrdName, step, dataSources, rraList);
-                if (def != null) {
-                    log().info("createRRD: creating RRD file " + completePath);
-                }
-                getStrategy().createFile(def);
-=======
                 def = getStrategy().createDefinition(creator, directory, rrdName, step, dataSources, rraList);
                 // def can be null if the rrd-db exists already, but doesn't have to be (see MultiOutput/QueuingRrdStrategy
                 getStrategy().createFile(def, attributeMappings);
->>>>>>> local-dev/elfin/features/cassandra-rrd-backend
             }
             return true;
         } catch (Throwable e) {

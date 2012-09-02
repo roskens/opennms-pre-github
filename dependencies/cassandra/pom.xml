@@ -3,11 +3,7 @@
   <parent>
     <artifactId>dependencies</artifactId>
     <groupId>org.opennms</groupId>
-<<<<<<< HEAD
-    <version>1.11.2-SNAPSHOT</version>
-=======
     <version>1.11.3-SNAPSHOT</version>
->>>>>>> local-dev/elfin/features/cassandra-rrd-backend
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.opennms.dependencies</groupId>

@@ -142,21 +142,13 @@ public interface RrdStrategy<D extends Object,F extends Object> {
 
     /**
      * This checks whether the round robin database exists
-<<<<<<< HEAD
-     * 
-=======
      *
->>>>>>> local-dev/elfin/features/cassandra-rrd-backend
      * @param fileName
      *            the name of the associated rrd file
      * @return true / false for whether the rrd file exists or not.
      */
     public boolean fileExists(String fileName);
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> local-dev/elfin/features/cassandra-rrd-backend
     /**
      * Fetches the last value from the round robin database with the given name.
      * The interval passed in should be the interval associated with the round

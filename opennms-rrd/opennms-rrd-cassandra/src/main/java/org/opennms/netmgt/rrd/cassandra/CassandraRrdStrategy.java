@@ -40,23 +40,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-<<<<<<< HEAD
-import java.util.TreeMap;
-
-import me.prettyprint.cassandra.serializers.DoubleSerializer;
-import me.prettyprint.cassandra.serializers.LongSerializer;
-import me.prettyprint.cassandra.serializers.StringSerializer;
-import me.prettyprint.cassandra.service.CassandraHostConfigurator;
-import me.prettyprint.hector.api.Cluster;
-import me.prettyprint.hector.api.Keyspace;
-import me.prettyprint.hector.api.beans.HColumn;
-import me.prettyprint.hector.api.beans.HSuperColumn;
-import me.prettyprint.hector.api.beans.SuperSlice;
-=======
 import me.prettyprint.cassandra.service.CassandraHostConfigurator;
 import me.prettyprint.hector.api.Cluster;
 import me.prettyprint.hector.api.beans.HColumn;
->>>>>>> local-dev/elfin/features/cassandra-rrd-backend
 import me.prettyprint.hector.api.ddl.ColumnFamilyDefinition;
 import me.prettyprint.hector.api.ddl.ColumnType;
 import me.prettyprint.hector.api.ddl.ComparatorType;
@@ -64,14 +50,7 @@ import me.prettyprint.hector.api.ddl.KeyspaceDefinition;
 import me.prettyprint.hector.api.factory.HFactory;
 import me.prettyprint.hector.api.query.ColumnQuery;
 import me.prettyprint.hector.api.query.QueryResult;
-<<<<<<< HEAD
-import me.prettyprint.hector.api.query.SuperSliceQuery;
 
-import org.jrobin.core.FetchData;
-import org.jrobin.core.RrdDb;
-=======
-
->>>>>>> local-dev/elfin/features/cassandra-rrd-backend
 import org.jrobin.core.RrdException;
 import org.jrobin.data.DataProcessor;
 import org.jrobin.data.LinearInterpolator;
@@ -83,10 +62,7 @@ import org.opennms.core.utils.ThreadCategory;
 import org.opennms.netmgt.rrd.RrdDataSource;
 import org.opennms.netmgt.rrd.RrdGraphDetails;
 import org.opennms.netmgt.rrd.RrdStrategy;
-<<<<<<< HEAD
-=======
 import org.opennms.netmgt.rrd.RrdUtils;
->>>>>>> local-dev/elfin/features/cassandra-rrd-backend
 import org.opennms.core.utils.LogUtils;
 
 /**
@@ -136,11 +112,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
     private String m_keyspaceName;
 
     private String m_dpColumnFamily;
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> local-dev/elfin/features/cassandra-rrd-backend
     private String m_mdColumnFamily;
 
     private String m_clusterName;
@@ -151,15 +123,8 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
 
     private int m_ttl;
 
-<<<<<<< HEAD
-    private Persister m_persister;
-
-    private Keyspace m_keyspace;
-
-=======
     private CassandraRrdConnection m_connection;
     
->>>>>>> local-dev/elfin/features/cassandra-rrd-backend
     /**
      * An extremely simple Plottable for holding static datasources that can't
      * be represented with an SDEF -- currently used only for PERCENT
@@ -203,86 +168,6 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
     /** {@inheritDoc} */
     public void setConfigurationProperties(final Properties configurationParameters) {
         m_configurationProperties = configurationParameters;
-<<<<<<< HEAD
-	LogUtils.debugf(this, "start");
-
-        m_keyspaceName = getProperty(KEYSPACE_NAME_PROPERTY, DEFAULT_KEYSPACE);
-        m_dpColumnFamily = getProperty(DATA_COLUMN_FAMILY_NAME_PROPERTY, DEFAULT_DATA_COLUMN);
-        m_mdColumnFamily = getProperty(META_DATA_FAMILY_NAME_PROPERTY, DEFAULT_METADATA_COLUMN);
-        m_clusterName = getProperty(CLUSTER_NAME_PROPERTY, DEFAULT_CLUSTER_NAME);
-
-        m_clusterHosts = getProperty(CLUSTER_HOSTS_PROPERTY, DEFAULT_CLUSER_HOSTS);
-        m_autoDiscovery = Boolean.parseBoolean(getProperty(DYNAMIC_AUTO_PROPERTY, DEFAULT_AUTO_DISCOVERY));
-
-        m_ttl = Integer.parseInt(getProperty(TTL_PROPERTY, DEFAULT_TTL));
-
-	LogUtils.debugf(this, "start cassandra");
-
-	CassandraHostConfigurator clusterConfig = new CassandraHostConfigurator(m_clusterHosts);
-	if (m_autoDiscovery) {
-	    clusterConfig.setAutoDiscoverHosts(m_autoDiscovery);
-	}
-
-        Cluster cluster = HFactory.getOrCreateCluster(m_clusterName, clusterConfig);
-
-	LogUtils.debugf(this, "describe keyspace");
-        KeyspaceDefinition ksDef = cluster.describeKeyspace(m_keyspaceName);
-
-        if (ksDef == null) {
-	    LogUtils.debugf(this, "keyspace definition null");
-
-            /*
-             * MetaData column must be created with a structure like this:
-             * 
-             * create column family metadata
-             * with column_type = 'Standard'
-             * and comparator = 'AsciiType'
-             * and default_validation_class = 'AsciiType'
-             * and key_validation_class = 'AsciiType';
-             * 
-             */
-
-	    LogUtils.debugf(this, "create column family %s", m_mdColumnFamily);
-            ColumnFamilyDefinition cfMDDef = HFactory.createColumnFamilyDefinition(m_keyspaceName, m_mdColumnFamily, ComparatorType.ASCIITYPE);
-            cfMDDef.setColumnType(ColumnType.STANDARD);
-            cfMDDef.setKeyValidationClass    ("org.apache.cassandra.db.marshal.AsciiType");
-            cfMDDef.setDefaultValidationClass("org.apache.cassandra.db.marshal.AsciiType");
-
-            /*
-             * Data column must be create with a structure like this:
-             * 
-             * create column family datapoints
-             * with column_type = 'Super'
-             * and comparator = 'AsciiType'
-             * and subcomparator = 'LongType'
-             * and default_validation_class = 'DoubleType'
-             * and key_validation_class = 'AsciiType'
-             */
-
-	    LogUtils.debugf(this, "create column family %s", m_dpColumnFamily);
-            ColumnFamilyDefinition cfDef = HFactory.createColumnFamilyDefinition(m_keyspaceName, m_dpColumnFamily, ComparatorType.ASCIITYPE);
-            cfDef.setColumnType(ColumnType.SUPER);
-            cfDef.setSubComparatorType(ComparatorType.LONGTYPE);
-            cfDef.setKeyValidationClass    ("org.apache.cassandra.db.marshal.AsciiType");
-            cfDef.setDefaultValidationClass("org.apache.cassandra.db.marshal.DoubleType");
-
-	    LogUtils.debugf(this, "create keyspace definition");
-            ksDef = HFactory.createKeyspaceDefinition(m_keyspaceName, "org.apache.cassandra.locator.SimpleStrategy", 1,
-                                                      Arrays.asList(cfDef, cfMDDef));
-
-	    LogUtils.debugf(this, "add keyspace");
-            cluster.addKeyspace(ksDef, true);
-        }
-
-        LogUtils.debugf(this, "create keyspace");
-        m_keyspace = HFactory.createKeyspace(m_keyspaceName, cluster);
-
-        LogUtils.debugf(this, "create persister");
-        m_persister = new Persister(m_keyspace, m_dpColumnFamily, m_ttl);
-
-	LogUtils.debugf(this, "end cassandra");
-	LogUtils.debugf(this, "end");
-=======
 
         if (!s_initialized) {
 
@@ -348,7 +233,6 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
                                                       m_dpColumnFamily, m_ttl);
             s_initialized = true;
         }
->>>>>>> local-dev/elfin/features/cassandra-rrd-backend
     }
 
     private String getProperty(String key, String defaultValue) {
@@ -370,10 +254,6 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
     /** {@inheritDoc} */
     public CassRrdDef createDefinition(final String creator, final String directory, final String rrdName, int step,
             final List<RrdDataSource> dataSources, final List<String> rraList) throws Exception {
-<<<<<<< HEAD
-        LogUtils.debugf(this, "begin");
-=======
->>>>>>> local-dev/elfin/features/cassandra-rrd-backend
         /**
          * XXX: opennms-dao classes rely upon being able to list the rrd files directly.
          */
@@ -383,10 +263,6 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
         String fileName = directory + File.separator + rrdName + getDefaultFileExtension();
         if (new File(fileName).exists()) {
             LogUtils.debugf(this, "file %s exists", fileName);
-<<<<<<< HEAD
-            LogUtils.debugf(this, "finish");
-=======
->>>>>>> local-dev/elfin/features/cassandra-rrd-backend
             return null;
         }
 
@@ -395,18 +271,6 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
         def.addDatasources(dataSources);
         def.addArchives(rraList);
 
-<<<<<<< HEAD
-        LogUtils.debugf(this, "finish");
-        return def;
-    }
-
-    /** {@inheritDoc} */
-    public boolean fileExists(String fileName) {
-        boolean found = false;
-        
-        try {
-            ColumnQuery<String, String, String> columnQuery = HFactory.createStringColumnQuery(m_keyspace);
-=======
         return def;
     }
 
@@ -417,16 +281,11 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
 
         try {
             ColumnQuery<String, String, String> columnQuery = HFactory.createStringColumnQuery(m_connection.getKeyspace());
->>>>>>> local-dev/elfin/features/cassandra-rrd-backend
             columnQuery.setColumnFamily(m_mdColumnFamily).setKey(fileName).setName(fileName);
             QueryResult<HColumn<String, String>> result = columnQuery.execute();
 
             HColumn<String, String> hc = result.get();
-<<<<<<< HEAD
-            
-=======
 
->>>>>>> local-dev/elfin/features/cassandra-rrd-backend
             if (hc != null) {
                 LogUtils.debugf(this, "found a result for fileName %s, assuming 'file' exists", fileName);
                 found = true;
@@ -437,11 +296,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
         } catch (Exception e) {
             LogUtils.errorf(this, e, "exception on search");
         }
-<<<<<<< HEAD
-        
-=======
 
->>>>>>> local-dev/elfin/features/cassandra-rrd-backend
         return found;
     }
 
@@ -455,19 +310,6 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
      * @throws java.lang.Exception
      *             if any.
      */
-<<<<<<< HEAD
-    public void createFile(final CassRrdDef rrdDef) throws Exception {
-        LogUtils.debugf(this, "begin");
-        if (rrdDef == null) {
-            LogUtils.debugf(this, "finish");
-            return;
-        }
-
-        LogUtils.debugf(this, "rrdDef.create(m_keyspace)");
-        rrdDef.create(m_keyspace, m_mdColumnFamily);
-
-        LogUtils.debugf(this, "finish");
-=======
     public void createFile(final CassRrdDef rrdDef, final Map<String, String> attributeMappings) throws Exception {
         if (rrdDef == null) {
             LogUtils.debugf(this, "createRRD: skipping RRD file");
@@ -484,18 +326,13 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
                                     filenameWithoutExtension.substring(0, lastIndexOfSeparator),
                                     filenameWithoutExtension.substring(lastIndexOfSeparator),
                                     attributeMappings);
->>>>>>> local-dev/elfin/features/cassandra-rrd-backend
     }
 
     /**
      * {@inheritDoc} Opens the JRobin RrdDb by name and returns it.
      */
     public CassRrd openFile(final String fileName) throws Exception {
-<<<<<<< HEAD
-        CassRrd rrd = new CassRrd(m_keyspace, m_mdColumnFamily, fileName, m_persister);
-=======
         CassRrd rrd = new CassRrd(m_connection, fileName);
->>>>>>> local-dev/elfin/features/cassandra-rrd-backend
         return rrd;
     }
 
@@ -529,37 +366,6 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
     /** {@inheritDoc} */
     public Double fetchLastValue(final String fileName, final String ds, final String consolidationFunction, final int interval)
             throws org.opennms.netmgt.rrd.RrdException {
-<<<<<<< HEAD
-        RrdDb rrd = null;
-        try {
-            long now = System.currentTimeMillis();
-            long collectTime = (now - (now % interval)) / 1000L;
-            rrd = new RrdDb(fileName);
-            FetchData data = rrd.createFetchRequest(consolidationFunction, collectTime, collectTime).fetchData();
-            if (log().isDebugEnabled()) {
-                // The "toString" method of FetchData is quite computationally
-                // expensive;
-                LogUtils.debugf(this, data.toString());
-            }
-            double[] vals = data.getValues(ds);
-            if (vals.length > 0) {
-                return new Double(vals[vals.length - 1]);
-            }
-            return null;
-        } catch (IOException e) {
-            throw new org.opennms.netmgt.rrd.RrdException("Exception occurred fetching data from " + fileName, e);
-        } catch (RrdException e) {
-            throw new org.opennms.netmgt.rrd.RrdException("Exception occurred fetching data from " + fileName, e);
-        } finally {
-            if (rrd != null) {
-                try {
-                    rrd.close();
-                } catch (IOException e) {
-                    LogUtils.errorf(this, e, "Failed to close rrd file: %s", fileName);
-                }
-            }
-        }
-=======
         LogUtils.debugf(this, "fetchLastValue(): fileName=%s, datasource=%s", fileName, ds);
         Double dval = null;
 
@@ -580,58 +386,11 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
             throw new org.opennms.netmgt.rrd.RrdException(e.getMessage());
         }
         return dval;
->>>>>>> local-dev/elfin/features/cassandra-rrd-backend
     }
 
     /** {@inheritDoc} */
     public Double fetchLastValueInRange(final String fileName, final String ds, final int interval, final int range)
             throws NumberFormatException, org.opennms.netmgt.rrd.RrdException {
-<<<<<<< HEAD
-        RrdDb rrd = null;
-        try {
-            rrd = new RrdDb(fileName);
-            long now = System.currentTimeMillis();
-            long latestUpdateTime = (now - (now % interval)) / 1000L;
-            long earliestUpdateTime = ((now - (now % interval)) - range) / 1000L;
-            if (log().isDebugEnabled()) {
-                LogUtils.debugf(this, "fetchInRange: fetching data from %d to %d", earliestUpdateTime, latestUpdateTime);
-            }
-
-            FetchData data = rrd.createFetchRequest("AVERAGE", earliestUpdateTime, latestUpdateTime).fetchData();
-
-            double[] vals = data.getValues(ds);
-            long[] times = data.getTimestamps();
-
-            // step backwards through the array of values until we get
-            // something that's a number
-
-            for (int i = vals.length - 1; i >= 0; i--) {
-                if (Double.isNaN(vals[i])) {
-                    if (log().isDebugEnabled()) {
-                        LogUtils.debugf(this,"fetchInRange: Got a NaN value at interval: %s continuing back in time", times[i]);
-                    }
-                } else {
-                    if (log().isDebugEnabled()) {
-                        LogUtils.debugf(this,"Got a non NaN value at interval: %d : %f", times[i], vals[i]);
-                    }
-                    return new Double(vals[i]);
-                }
-            }
-            return null;
-        } catch (IOException e) {
-            throw new org.opennms.netmgt.rrd.RrdException("Exception occurred fetching data from " + fileName, e);
-        } catch (RrdException e) {
-            throw new org.opennms.netmgt.rrd.RrdException("Exception occurred fetching data from " + fileName, e);
-        } finally {
-            if (rrd != null) {
-                try {
-                    rrd.close();
-                } catch (IOException e) {
-                    LogUtils.errorf(this, e, "Failed to close rrd file: %s", fileName);
-                }
-            }
-        }
-=======
         LogUtils.debugf(this, "fetchLastValue(): fileName=%s, datasource=%s", fileName, ds);
         Double dval = null;
 
@@ -653,7 +412,6 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
             throw new org.opennms.netmgt.rrd.RrdException(e.getMessage());
         }
         return dval;
->>>>>>> local-dev/elfin/features/cassandra-rrd-backend
     }
 
     private Color getColor(final String colorValue) {
@@ -1015,38 +773,6 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
         LogUtils.debugf(this, "getRrdPlottable(): key=%s", key);
 
         try {
-<<<<<<< HEAD
-            SuperSliceQuery<String, String, Long, Double> query = HFactory.createSuperSliceQuery(m_keyspace,
-                                                                                                 StringSerializer.get(),
-                                                                                                 StringSerializer.get(),
-                                                                                                 LongSerializer.get(),
-                                                                                                 DoubleSerializer.get());
-
-            query.setColumnFamily(m_dpColumnFamily);
-            query.setKey(key);
-            query.setRange(dsName, dsName, false, Integer.MAX_VALUE);
-
-            QueryResult<SuperSlice<String, Long, Double>> results = query.execute();
-
-            List<HSuperColumn<String, Long, Double>> datapoints = results.get().getSuperColumns();
-
-            TreeMap<Long, Double> map = new TreeMap<Long, Double>();
-
-            LogUtils.debugf(this, "found %d datapoint super columns", datapoints.size());
-            for (HSuperColumn<String, Long, Double> datapoint : datapoints) {
-                List<HColumn<Long, Double>> dpoints = datapoint.getColumns();
-                LogUtils.debugf(this, "found %d datapoints for super column %s", dpoints.size(), datapoint.getName());
-                for (HColumn<Long, Double> ds : dpoints) {
-                    map.put(ds.getName(), ds.getValue());
-                }
-            }
-            long[] timestamps = new long[map.size()];
-            double[] values = new double[map.size()];
-            int i = 0;
-            for (Map.Entry<Long, Double> e : map.entrySet()) {
-                timestamps[i] = e.getKey().longValue();
-                values[i] = e.getValue().doubleValue();
-=======
             CassRrd rrd = new CassRrd(m_connection, key);
             List<TimeSeriesPoint> tspoints = rrd.fetchRequest(dsName, "AVERAGE", Long.valueOf(start), Long.valueOf(end));
 
@@ -1057,16 +783,11 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
             for (TimeSeriesPoint tsp : tspoints) {
                 timestamps[i] = tsp.getTimestamp().longValue();
                 values[i] = tsp.getValue().doubleValue();
->>>>>>> local-dev/elfin/features/cassandra-rrd-backend
                 i++;
             }
             plottable = new LinearInterpolator(timestamps, values);
         } catch (Exception e) {
-<<<<<<< HEAD
-
-=======
             throw new RrdException(e.getMessage());
->>>>>>> local-dev/elfin/features/cassandra-rrd-backend
         }
         return plottable;
     }

@@ -155,11 +155,7 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand 
 
         return new CreateCommand(fileName, parameter.toString());
     }
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> local-dev/elfin/features/cassandra-rrd-backend
     /** {@inheritDoc} */
     public boolean fileExists(String fileName) {
         return new File(fileName).exists();

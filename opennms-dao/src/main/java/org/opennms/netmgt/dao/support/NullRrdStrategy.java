@@ -63,10 +63,6 @@ public class NullRrdStrategy implements RrdStrategy<Object,Object> {
 	    return false;
 	}
 
-	public boolean fileExists(String fileName) {
-	    return false;
-	}
-
 	public void createFile(Object rrdDef, Map<String, String> attrMapping) throws Exception {
 	}
 

@@ -149,11 +149,7 @@ public class TcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefinition,
     public boolean fileExists(String fileName) {
         return true;
     }
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> local-dev/elfin/features/cassandra-rrd-backend
     /**
      * <p>createFile</p>
      *

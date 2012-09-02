@@ -35,15 +35,9 @@
             </goals>
           </execution>
         </executions>
-<<<<<<< HEAD
       </plugin>
 
     </plugins>
-=======
-      </plugin>
-
-    </plugins>
->>>>>>> local-dev/elfin/features/cassandra-rrd-backend
 
 
   </build>

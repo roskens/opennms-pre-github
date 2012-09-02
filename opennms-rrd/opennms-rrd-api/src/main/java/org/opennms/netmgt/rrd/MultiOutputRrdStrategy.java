@@ -140,20 +140,9 @@ public class MultiOutputRrdStrategy implements RrdStrategy<List<Object>,List<Obj
         }
         return ok;
     }
-<<<<<<< HEAD
-    
-    /**
-     * <p>createFile</p>
-     *
-     * @param rrdDef a {@link java.util.List} object.
-     * @throws java.lang.Exception if any.
-     */
-    public void createFile(List<Object> rrdDef) throws Exception {
-=======
 
     /** {@inheritDoc} */
     public void createFile(List<Object> rrdDef, Map<String, String> attributeMappings) throws Exception {
->>>>>>> local-dev/elfin/features/cassandra-rrd-backend
         for (int i = 0; i < rrdDef.size(); i++) {
             m_strategies.get(i).createFile(rrdDef.get(i), attributeMappings);
         }
