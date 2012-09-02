@@ -256,14 +256,12 @@ public class CassandraTest {
 
 		cluster.addKeyspace(ksDef, true);
 	}
-
+	
 	Keyspace keyspace = HFactory.createKeyspace(KEYSPACE, cluster);
 
+        CassandraRrdConnection connection = new CassandraRrdConnection(keyspace, "", COLUMN_FAMILY, 86400);
 
-
-
-
-	Persister persister = new Persister(keyspace, COLUMN_FAMILY, 86400);
+	Persister persister = connection.getPersister();
 
 
 	Timer writeTime = new Timer();
@@ -381,10 +379,11 @@ public class CassandraTest {
 
 	Keyspace keyspace = HFactory.createKeyspace(KEYSPACE, cluster);
 
+        // only let data live for 30 seconds
+        CassandraRrdConnection connection = new CassandraRrdConnection(keyspace, "", COLUMN_FAMILY, 30);
 
-	// only let data live for 30 seconds
-	Persister persister = new Persister(keyspace, COLUMN_FAMILY, 30);
-
+        Persister persister = connection.getPersister();
+	
 	Timer writeTime = new Timer();
 
 	writeTime.start();
