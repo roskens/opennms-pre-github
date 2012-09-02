@@ -7,12 +7,17 @@ import java.util.StringTokenizer;
 
 import org.opennms.core.xml.JaxbUtils;
 
-import me.prettyprint.hector.api.Keyspace;
+import me.prettyprint.cassandra.serializers.DoubleSerializer;
+import me.prettyprint.cassandra.serializers.LongSerializer;
+import me.prettyprint.cassandra.serializers.StringSerializer;
+import me.prettyprint.hector.api.beans.ColumnSlice;
 import me.prettyprint.hector.api.beans.HColumn;
 import me.prettyprint.hector.api.exceptions.HectorException;
 import me.prettyprint.hector.api.factory.HFactory;
 import me.prettyprint.hector.api.query.ColumnQuery;
 import me.prettyprint.hector.api.query.QueryResult;
+import me.prettyprint.hector.api.query.SubSliceQuery;
+
 import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.rrd.RrdException;
 import org.opennms.netmgt.rrd.cassandra.config.Archive;
@@ -21,34 +26,38 @@ import org.opennms.netmgt.rrd.cassandra.config.RrdDef;
 
 public class CassRrd {
     private String m_fileName;
+
     private RrdDef m_rrddef;
 
-    Persister m_persister;
+    private CassandraRrdConnection m_connection;
     
+    private static final StringSerializer s_ss = StringSerializer.get();
+
+    private static final LongSerializer s_ls = LongSerializer.get();
+
+    private static final DoubleSerializer s_ds = DoubleSerializer.get();
+
     public CassRrd(CassRrdDef def) {
         m_fileName = def.getFileName();
         m_rrddef = def.getRrdDef();
     }
-    public CassRrd(Keyspace keyspace, String mdColumnFamily, String fileName) throws Exception {
-        this(keyspace, mdColumnFamily, fileName, null);
-    }
-        
-    public CassRrd(Keyspace keyspace, String mdColumnFamily, String fileName, Persister persister) throws Exception {
+
+    public CassRrd(CassandraRrdConnection connection, String fileName) throws Exception {
+        m_connection = connection;
         m_fileName = fileName;
-        m_persister = persister;
 
         try {
-            ColumnQuery<String, String, String> columnQuery = HFactory.createStringColumnQuery(keyspace);
-            columnQuery.setColumnFamily(mdColumnFamily).setKey(fileName).setName(fileName);
+            ColumnQuery<String, String, String> columnQuery = HFactory.createStringColumnQuery(m_connection.getKeyspace());
+            columnQuery.setColumnFamily(m_connection.getDataPointCFName()).setKey(fileName).setName(fileName);
             QueryResult<HColumn<String, String>> result = columnQuery.execute();
 
             HColumn<String, String> hc = result.get();
 
             if (hc == null) {
-                throw new RrdException("file "+m_fileName+" does not exist!");
+                throw new RrdException("file " + m_fileName + " does not exist!");
             }
             if (hc.getValue().isEmpty()) {
-                
+                throw new RrdException("file " + m_fileName + " had no valid metadata?");
             }
 
             LogUtils.debugf(this, "metadata: found xml data for %s", m_fileName);
@@ -61,10 +70,6 @@ public class CassRrd {
             LogUtils.errorf(this, e, "exception on search");
             throw e;
         }
-    }
-    
-    public void setPersister(Persister persister) {
-        m_persister = persister;
     }
 
     public String getFileName() {
@@ -82,26 +87,26 @@ public class CassRrd {
         }
         return dsNames;
     }
-    
+
     public String getDsName(int i) {
         return m_rrddef.getDatasource(i).getName();
     }
-    
+
     public int getDsCount() {
         return m_rrddef.getDatasourceCount();
     }
 
     public void close() {
     }
-    
+
     public void storeValues(String timeAndValues) throws RrdException {
         long timestamp;
 
         final StringTokenizer tokenizer = new StringTokenizer(timeAndValues, ":", false);
         final int tokenCount = tokenizer.countTokens();
         if (tokenCount > getDsCount() + 1) {
-            throw new RrdException("Invalid number of values specified (found " + (tokenCount - 1) + ", "
-                    + getDsCount() + " allowed)");
+            throw new RrdException("Invalid number of values specified (found " + (tokenCount - 1) + ", " + getDsCount()
+                    + " allowed)");
         }
         final String timeToken = tokenizer.nextToken();
         try {
@@ -114,13 +119,13 @@ public class CassRrd {
             }
         }
         timestamp = normalize(timestamp, getStep());
-        
+
         for (int i = 0; tokenizer.hasMoreTokens(); i++) {
             try {
                 Double value = Double.parseDouble(tokenizer.nextToken());
                 Datapoint dp = new Datapoint(getFileName(), getDsName(i), timestamp, value);
 
-                m_persister.persist(dp);
+                m_connection.persist(dp);
             } catch (final NumberFormatException nfe) {
                 // NOP, value is already set to NaN
             }
@@ -134,18 +139,50 @@ public class CassRrd {
 
         return xml;
     }
-    
+
     /**
      * Rounds the given timestamp to the nearest whole &quote;step&quote;. Rounded value is obtained
-     * from the following expression:<p>
-     * <code>timestamp - timestamp % step;</code><p>
-     *
-     * @param timestamp Timestamp in seconds
-     * @param step    Step in seconds
+     * from the following expression:
+     * <p>
+     * <code>timestamp - timestamp % step;</code>
+     * <p>
+     * 
+     * @param timestamp
+     *            Timestamp in seconds
+     * @param step
+     *            Step in seconds
      * @return "Rounded" timestamp
      */
     private static long normalize(long timestamp, long step) {
-            return timestamp - timestamp % step;
+        return timestamp - timestamp % step;
+    }
+
+    public List<TimeSeriesPoint> fetchRequest(final String ds, final String consolidationFunction,
+            final Long earliestUpdateTime, final Long latestUpdateTime) throws org.opennms.netmgt.rrd.RrdException {
+        LogUtils.debugf(this, "fetchRequest(): fileName=%s, datasource=%s, begin=%d, end=%d", m_fileName, ds,
+                        earliestUpdateTime, latestUpdateTime);
+        ArrayList<TimeSeriesPoint> tspoints = new ArrayList<TimeSeriesPoint>();
+
+        try {
+            SubSliceQuery<String, String, Long, Double> ssquery = HFactory.createSubSliceQuery(m_connection.getKeyspace(), s_ss, s_ss, s_ls,
+                                                                                               s_ds);
+            ssquery.setColumnFamily(m_connection.getDataPointCFName());
+            ssquery.setKey(m_fileName);
+            ssquery.setSuperColumn(ds);
+            ssquery.setRange(earliestUpdateTime, latestUpdateTime, false, Integer.MAX_VALUE);
+
+            QueryResult<ColumnSlice<Long, Double>> ssresults = ssquery.execute();
+
+            List<HColumn<Long, Double>> ssdatapoints = ssresults.get().getColumns();
+
+            LogUtils.debugf(this, "found %d datapoints\n", ssdatapoints.size());
+            for (HColumn<Long, Double> dp : ssdatapoints) {
+                tspoints.add(new TimeSeriesPoint(dp.getName().longValue(), dp.getValue().doubleValue()));
+            }
+        } catch (HectorException e) {
+            throw new org.opennms.netmgt.rrd.RrdException(e.getMessage());
+        }
+        return tspoints;
     }
 
 }

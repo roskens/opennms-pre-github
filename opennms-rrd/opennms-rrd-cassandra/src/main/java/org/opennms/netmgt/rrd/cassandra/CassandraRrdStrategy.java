@@ -40,23 +40,16 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import me.prettyprint.cassandra.serializers.DoubleSerializer;
-import me.prettyprint.cassandra.serializers.LongSerializer;
-import me.prettyprint.cassandra.serializers.StringSerializer;
 import me.prettyprint.cassandra.service.CassandraHostConfigurator;
 import me.prettyprint.hector.api.Cluster;
-import me.prettyprint.hector.api.Keyspace;
-import me.prettyprint.hector.api.beans.ColumnSlice;
 import me.prettyprint.hector.api.beans.HColumn;
 import me.prettyprint.hector.api.ddl.ColumnFamilyDefinition;
 import me.prettyprint.hector.api.ddl.ColumnType;
 import me.prettyprint.hector.api.ddl.ComparatorType;
 import me.prettyprint.hector.api.ddl.KeyspaceDefinition;
-import me.prettyprint.hector.api.exceptions.HectorException;
 import me.prettyprint.hector.api.factory.HFactory;
 import me.prettyprint.hector.api.query.ColumnQuery;
 import me.prettyprint.hector.api.query.QueryResult;
-import me.prettyprint.hector.api.query.SubSliceQuery;
 
 import org.jrobin.core.RrdException;
 import org.jrobin.data.DataProcessor;
@@ -129,14 +122,8 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
 
     private int m_ttl;
 
-    private Persister m_persister;
-
-    private Keyspace m_keyspace;
+    private CassandraRrdConnection m_connection;
     
-    private static final StringSerializer s_ss = StringSerializer.get();
-    private static final LongSerializer s_ls = LongSerializer.get();
-    private static final DoubleSerializer s_ds = DoubleSerializer.get();
-
     /**
      * An extremely simple Plottable for holding static datasources that can't
      * be represented with an SDEF -- currently used only for PERCENT
@@ -180,84 +167,71 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
     /** {@inheritDoc} */
     public void setConfigurationProperties(final Properties configurationParameters) {
         m_configurationProperties = configurationParameters;
-	LogUtils.debugf(this, "start");
 
-        m_keyspaceName = getProperty(KEYSPACE_NAME_PROPERTY, DEFAULT_KEYSPACE);
-        m_dpColumnFamily = getProperty(DATA_COLUMN_FAMILY_NAME_PROPERTY, DEFAULT_DATA_COLUMN);
-        m_mdColumnFamily = getProperty(META_DATA_FAMILY_NAME_PROPERTY, DEFAULT_METADATA_COLUMN);
-        m_clusterName = getProperty(CLUSTER_NAME_PROPERTY, DEFAULT_CLUSTER_NAME);
+        if (!s_initialized) {
 
-        m_clusterHosts = getProperty(CLUSTER_HOSTS_PROPERTY, DEFAULT_CLUSER_HOSTS);
-        m_autoDiscovery = Boolean.parseBoolean(getProperty(DYNAMIC_AUTO_PROPERTY, DEFAULT_AUTO_DISCOVERY));
+            m_keyspaceName = getProperty(KEYSPACE_NAME_PROPERTY, DEFAULT_KEYSPACE);
+            m_dpColumnFamily = getProperty(DATA_COLUMN_FAMILY_NAME_PROPERTY, DEFAULT_DATA_COLUMN);
+            m_mdColumnFamily = getProperty(META_DATA_FAMILY_NAME_PROPERTY, DEFAULT_METADATA_COLUMN);
+            m_clusterName = getProperty(CLUSTER_NAME_PROPERTY, DEFAULT_CLUSTER_NAME);
 
-        m_ttl = Integer.parseInt(getProperty(TTL_PROPERTY, DEFAULT_TTL));
+            m_clusterHosts = getProperty(CLUSTER_HOSTS_PROPERTY, DEFAULT_CLUSER_HOSTS);
+            m_autoDiscovery = Boolean.parseBoolean(getProperty(DYNAMIC_AUTO_PROPERTY, DEFAULT_AUTO_DISCOVERY));
 
-	LogUtils.debugf(this, "start cassandra");
+            m_ttl = Integer.parseInt(getProperty(TTL_PROPERTY, DEFAULT_TTL));
 
-	CassandraHostConfigurator clusterConfig = new CassandraHostConfigurator(m_clusterHosts);
-	if (m_autoDiscovery) {
-	    clusterConfig.setAutoDiscoverHosts(m_autoDiscovery);
-	}
+            CassandraHostConfigurator clusterConfig = new CassandraHostConfigurator(m_clusterHosts);
+            if (m_autoDiscovery) {
+                clusterConfig.setAutoDiscoverHosts(m_autoDiscovery);
+            }
 
-        Cluster cluster = HFactory.getOrCreateCluster(m_clusterName, clusterConfig);
+            Cluster cluster = HFactory.getOrCreateCluster(m_clusterName, clusterConfig);
 
-	LogUtils.debugf(this, "describe keyspace");
-        KeyspaceDefinition ksDef = cluster.describeKeyspace(m_keyspaceName);
+            KeyspaceDefinition ksDef = cluster.describeKeyspace(m_keyspaceName);
 
-        if (ksDef == null) {
-	    LogUtils.debugf(this, "keyspace definition null");
+            if (ksDef == null) {
+                /*
+                 * MetaData column must be created with a structure like this:
+                 * create column family metadata
+                 * with column_type = 'Standard'
+                 * and comparator = 'AsciiType'
+                 * and default_validation_class = 'UTF8Type'
+                 * and key_validation_class = 'AsciiType';
+                 */
 
-            /*
-             * MetaData column must be created with a structure like this:
-             *
-             * create column family metadata
-             * with column_type = 'Standard'
-             * and comparator = 'AsciiType'
-             * and default_validation_class = 'UTF8Type'
-             * and key_validation_class = 'AsciiType';
-             *
-             */
+                ColumnFamilyDefinition cfMDDef = HFactory.createColumnFamilyDefinition(m_keyspaceName, m_mdColumnFamily,
+                                                                                       ComparatorType.ASCIITYPE);
+                cfMDDef.setColumnType(ColumnType.STANDARD);
+                cfMDDef.setKeyValidationClass("org.apache.cassandra.db.marshal.AsciiType");
+                cfMDDef.setDefaultValidationClass("org.apache.cassandra.db.marshal.UTF8Type");
 
-	    LogUtils.debugf(this, "create column family %s", m_mdColumnFamily);
-            ColumnFamilyDefinition cfMDDef = HFactory.createColumnFamilyDefinition(m_keyspaceName, m_mdColumnFamily, ComparatorType.ASCIITYPE);
-            cfMDDef.setColumnType(ColumnType.STANDARD);
-            cfMDDef.setKeyValidationClass    ("org.apache.cassandra.db.marshal.AsciiType");
-            cfMDDef.setDefaultValidationClass("org.apache.cassandra.db.marshal.UTF8Type");
+                /*
+                 * Data column must be create with a structure like this:
+                 * create column family datapoints
+                 * with column_type = 'Super'
+                 * and comparator = 'AsciiType'
+                 * and subcomparator = 'LongType'
+                 * and default_validation_class = 'DoubleType'
+                 * and key_validation_class = 'AsciiType'
+                 */
 
-            /*
-             * Data column must be create with a structure like this:
-             *
-             * create column family datapoints
-             * with column_type = 'Super'
-             * and comparator = 'AsciiType'
-             * and subcomparator = 'LongType'
-             * and default_validation_class = 'DoubleType'
-             * and key_validation_class = 'AsciiType'
-             */
+                ColumnFamilyDefinition cfDef = HFactory.createColumnFamilyDefinition(m_keyspaceName, m_dpColumnFamily,
+                                                                                     ComparatorType.ASCIITYPE);
+                cfDef.setColumnType(ColumnType.SUPER);
+                cfDef.setSubComparatorType(ComparatorType.LONGTYPE);
+                cfDef.setKeyValidationClass("org.apache.cassandra.db.marshal.AsciiType");
+                cfDef.setDefaultValidationClass("org.apache.cassandra.db.marshal.DoubleType");
 
-	    LogUtils.debugf(this, "create column family %s", m_dpColumnFamily);
-            ColumnFamilyDefinition cfDef = HFactory.createColumnFamilyDefinition(m_keyspaceName, m_dpColumnFamily, ComparatorType.ASCIITYPE);
-            cfDef.setColumnType(ColumnType.SUPER);
-            cfDef.setSubComparatorType(ComparatorType.LONGTYPE);
-            cfDef.setKeyValidationClass    ("org.apache.cassandra.db.marshal.AsciiType");
-            cfDef.setDefaultValidationClass("org.apache.cassandra.db.marshal.DoubleType");
+                ksDef = HFactory.createKeyspaceDefinition(m_keyspaceName, "org.apache.cassandra.locator.SimpleStrategy", 1,
+                                                          Arrays.asList(cfDef, cfMDDef));
 
-	    LogUtils.debugf(this, "create keyspace definition");
-            ksDef = HFactory.createKeyspaceDefinition(m_keyspaceName, "org.apache.cassandra.locator.SimpleStrategy", 1,
-                                                      Arrays.asList(cfDef, cfMDDef));
+                cluster.addKeyspace(ksDef, true);
+            }
 
-	    LogUtils.debugf(this, "add keyspace");
-            cluster.addKeyspace(ksDef, true);
+            m_connection = new CassandraRrdConnection(HFactory.createKeyspace(m_keyspaceName, cluster), m_mdColumnFamily,
+                                                      m_dpColumnFamily, m_ttl);
+            s_initialized = true;
         }
-
-        LogUtils.debugf(this, "create keyspace");
-        m_keyspace = HFactory.createKeyspace(m_keyspaceName, cluster);
-
-        LogUtils.debugf(this, "create persister");
-        m_persister = new Persister(m_keyspace, m_dpColumnFamily, m_ttl);
-
-	LogUtils.debugf(this, "end cassandra");
-	LogUtils.debugf(this, "end");
     }
 
     private String getProperty(String key, String defaultValue) {
@@ -279,7 +253,6 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
     /** {@inheritDoc} */
     public CassRrdDef createDefinition(final String creator, final String directory, final String rrdName, int step,
             final List<RrdDataSource> dataSources, final List<String> rraList) throws Exception {
-        LogUtils.debugf(this, "begin");
         /**
          * XXX: opennms-dao classes rely upon being able to list the rrd files directly.
          */
@@ -289,7 +262,6 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
         String fileName = directory + File.separator + rrdName + getDefaultFileExtension();
         if (new File(fileName).exists()) {
             LogUtils.debugf(this, "file %s exists", fileName);
-            LogUtils.debugf(this, "finish");
             return null;
         }
 
@@ -298,16 +270,16 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
         def.addDatasources(dataSources);
         def.addArchives(rraList);
 
-        LogUtils.debugf(this, "finish");
         return def;
     }
 
+    // XXX: Should this call a method inside CassRrd?
     /** {@inheritDoc} */
     public boolean fileExists(String fileName) {
         boolean found = false;
 
         try {
-            ColumnQuery<String, String, String> columnQuery = HFactory.createStringColumnQuery(m_keyspace);
+            ColumnQuery<String, String, String> columnQuery = HFactory.createStringColumnQuery(m_connection.getKeyspace());
             columnQuery.setColumnFamily(m_mdColumnFamily).setKey(fileName).setName(fileName);
             QueryResult<HColumn<String, String>> result = columnQuery.execute();
 
@@ -338,23 +310,19 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
      *             if any.
      */
     public void createFile(final CassRrdDef rrdDef) throws Exception {
-        LogUtils.debugf(this, "begin");
         if (rrdDef == null) {
-            LogUtils.debugf(this, "finish");
             return;
         }
 
         LogUtils.debugf(this, "rrdDef.create(m_keyspace)");
-        rrdDef.create(m_keyspace, m_mdColumnFamily);
-
-        LogUtils.debugf(this, "finish");
+        rrdDef.create(m_connection);
     }
 
     /**
      * {@inheritDoc} Opens the JRobin RrdDb by name and returns it.
      */
     public CassRrd openFile(final String fileName) throws Exception {
-        CassRrd rrd = new CassRrd(m_keyspace, m_mdColumnFamily, fileName, m_persister);
+        CassRrd rrd = new CassRrd(m_connection, fileName);
         return rrd;
     }
 
@@ -394,29 +362,17 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
         try {
             long now = System.currentTimeMillis();
             Long collectTime = Long.valueOf((now - (now % interval)) / 1000L);
-            SubSliceQuery<String, String, Long, Double> ssquery = HFactory.createSubSliceQuery(m_keyspace,
-                                                                                               s_ss,
-                                                                                               s_ss,
-                                                                                               s_ls,
-                                                                                               s_ds);
-            ssquery.setColumnFamily(m_dpColumnFamily);
-            ssquery.setKey(fileName);
-            ssquery.setSuperColumn(ds);
-            ssquery.setRange(collectTime, collectTime, false, Integer.MAX_VALUE);
-
-            QueryResult<ColumnSlice<Long, Double>> ssresults = ssquery.execute();
-
-            List<HColumn<Long, Double>> ssdatapoints = ssresults.get().getColumns();
-
-            LogUtils.debugf(this, "found %d datapoints\n", ssdatapoints.size());
-            for (HColumn<Long, Double> dp : ssdatapoints) {
-                if(!dp.getValue().isNaN()) {
-                    LogUtils.debugf(this, "datapoint[%d]: %f\n", dp.getName(), dp.getValue());
-                    dval = dp.getValue();
+            CassRrd rrd = new CassRrd(m_connection, fileName);
+            List<TimeSeriesPoint> tspoints = rrd.fetchRequest(ds, consolidationFunction, collectTime, collectTime);
+            
+            for (TimeSeriesPoint tsp : tspoints) {
+                if(!tsp.getValue().isNaN()) {
+                    LogUtils.debugf(this, "datapoint[%d]: %f\n", tsp.getTimestamp(), tsp.getValue());
+                    dval = tsp.getValue();
                     break;
                 }
             }
-        } catch (HectorException e) {
+        } catch (Exception e) {
             throw new org.opennms.netmgt.rrd.RrdException(e.getMessage());
         }
         return dval;
@@ -432,30 +388,17 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
             long now = System.currentTimeMillis();
             Long latestUpdateTime = Long.valueOf((now - (now % interval)) / 1000L);
             Long earliestUpdateTime = Long.valueOf(((now - (now % interval)) - range) / 1000L);
-            SubSliceQuery<String, String, Long, Double> ssquery = HFactory.createSubSliceQuery(m_keyspace,
-                                                                                               s_ss,
-                                                                                               s_ss,
-                                                                                               s_ls,
-                                                                                               s_ds);
-            ssquery.setColumnFamily(m_dpColumnFamily);
-            ssquery.setKey(fileName);
-            ssquery.setSuperColumn(ds);
-            ssquery.setRange(earliestUpdateTime, latestUpdateTime, false, Integer.MAX_VALUE);
-
-            QueryResult<ColumnSlice<Long, Double>> ssresults = ssquery.execute();
-
-            List<HColumn<Long, Double>> ssdatapoints = ssresults.get().getColumns();
-
-            LogUtils.debugf(this, "found %d datapoints\n", ssdatapoints.size());
-            for (HColumn<Long, Double> dp : ssdatapoints) {
-                if(!dp.getValue().isNaN()) {
-                    LogUtils.debugf(this, "datapoint[%d]: %f\n", dp.getName(), dp.getValue());
-                    dval = dp.getValue();
+            CassRrd rrd = new CassRrd(m_connection, fileName);
+            List<TimeSeriesPoint> tspoints = rrd.fetchRequest(ds, "AVERAGE", earliestUpdateTime, latestUpdateTime);
+            
+            for (TimeSeriesPoint tsp : tspoints) {
+                if(!tsp.getValue().isNaN()) {
+                    LogUtils.debugf(this, "datapoint[%d]: %f\n", tsp.getTimestamp(), tsp.getValue());
+                    dval = tsp.getValue();
                     break;
                 }
             }
-
-        } catch (HectorException e) {
+        } catch (Exception e) {
             throw new org.opennms.netmgt.rrd.RrdException(e.getMessage());
         }
         return dval;
@@ -820,34 +763,21 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
         LogUtils.debugf(this, "getRrdPlottable(): key=%s", key);
 
         try {
-            SubSliceQuery<String, String, Long, Double> ssquery = HFactory.createSubSliceQuery(m_keyspace,
-                                                                                               s_ss,
-                                                                                               s_ss,
-                                                                                               s_ls,
-                                                                                               s_ds);
-            ssquery.setColumnFamily(m_dpColumnFamily);
-            ssquery.setKey(key);
-            ssquery.setSuperColumn(dsName);
-            ssquery.setRange(start, end, false, Integer.MAX_VALUE);
+            CassRrd rrd = new CassRrd(m_connection, key);
+            List<TimeSeriesPoint> tspoints = rrd.fetchRequest(dsName, "AVERAGE", Long.valueOf(start), Long.valueOf(end));
 
-            QueryResult<ColumnSlice<Long, Double>> ssresults = ssquery.execute();
-
-            List<HColumn<Long, Double>> ssdatapoints = ssresults.get().getColumns();
-
-            LogUtils.debugf(this, "found %d datapoints\n", ssdatapoints.size());
-
-            long[] timestamps = new long[ssdatapoints.size()];
-            double[] values = new double[ssdatapoints.size()];
+            long[] timestamps = new long[tspoints.size()];
+            double[] values = new double[tspoints.size()];
             int i = 0;
-            for (HColumn<Long, Double> dp : ssdatapoints) {
-                timestamps[i] = dp.getName().longValue();
-                values[i] = dp.getValue().doubleValue();
+            
+            for (TimeSeriesPoint tsp : tspoints) {
+                timestamps[i] = tsp.getTimestamp().longValue();
+                values[i] = tsp.getValue().doubleValue();
                 i++;
             }
-
             plottable = new LinearInterpolator(timestamps, values);
         } catch (Exception e) {
-
+            throw new RrdException(e.getMessage());
         }
         return plottable;
     }

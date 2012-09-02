@@ -9,16 +9,13 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import me.prettyprint.cassandra.serializers.StringSerializer;
-import me.prettyprint.hector.api.Keyspace;
 import me.prettyprint.hector.api.factory.HFactory;
 import me.prettyprint.hector.api.mutation.Mutator;
 
 import org.opennms.core.utils.LogUtils;
 
 class Persister implements Runnable {
-    Keyspace m_keyspace;
-
-    String m_dpColumnFamily;
+    CassandraRrdConnection m_conn;
 
     int m_ttl;
 
@@ -36,9 +33,8 @@ class Persister implements Runnable {
 
     private static final StringSerializer s_ss = StringSerializer.get();
 
-    Persister(Keyspace keyspace, String dpColumnFamily, int ttl) {
-        m_keyspace = keyspace;
-        m_dpColumnFamily = dpColumnFamily;
+    Persister(CassandraRrdConnection conn, int ttl) {
+        m_conn = conn;
         m_ttl = ttl;
         m_thread = new Thread(this, "Cassandra-Persister");
         m_thread.setDaemon(true);
@@ -99,10 +95,10 @@ class Persister implements Runnable {
 
                 long start = System.currentTimeMillis();
 
-                Mutator<String> mutator = HFactory.createMutator(m_keyspace, s_ss);
+                Mutator<String> mutator = HFactory.createMutator(m_conn.getKeyspace(), s_ss);
 
                 for (Datapoint datapoint : datapoints) {
-                    datapoint.persist(mutator, m_dpColumnFamily, m_ttl);
+                    datapoint.persist(mutator, m_conn.getDataPointCFName(), m_ttl);
                 }
 
                 mutator.execute();
@@ -119,6 +115,7 @@ class Persister implements Runnable {
     }
 
     public void persist(Datapoint datapoint) {
+        // XXX: how do we handle the case when offer fails?
         m_queue.offer(datapoint);
     }
 

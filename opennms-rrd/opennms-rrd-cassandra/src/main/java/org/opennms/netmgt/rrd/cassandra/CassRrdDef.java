@@ -111,7 +111,7 @@ public class CassRrdDef {
         }
     }
 
-    public void create(Keyspace keyspace, String mdColumnFamily) throws RrdException {
+    public void create(CassandraRrdConnection connection) throws RrdException {
         LogUtils.debugf(this, "begin");
         // throw new UnsupportedOperationException("CassRrdDef.create is not yet implemented.");
         // TODO: Only need this while ResourceTypeUtils does file system scans for datasources.
@@ -124,12 +124,12 @@ public class CassRrdDef {
                 throw new RrdException("Could not create local file " + m_fileName + ": " + e.getMessage());
             }
         }
-        LogUtils.debugf(this, "create: keyspace: %s", keyspace.getKeyspaceName());
+        LogUtils.debugf(this, "create: keyspace: %s", connection.getKeyspace().getKeyspaceName());
 
         // metadata[$m_fileName][$m_fileName] = (rrd def as xml)
 
-        Mutator<String> mutator = HFactory.createMutator(keyspace, s_ss);
-        mutator.insert(m_fileName, mdColumnFamily, HFactory.createStringColumn(m_fileName, toXml()));
+        Mutator<String> mutator = HFactory.createMutator(connection.getKeyspace(), s_ss);
+        mutator.insert(m_fileName, connection.getMetaDataCFName(), HFactory.createStringColumn(m_fileName, toXml()));
 
         try {
             LogUtils.debugf(this, "mutator.execute()");
@@ -154,5 +154,4 @@ public class CassRrdDef {
     public RrdDef getRrdDef() {
         return m_rrddef;
     }
-
 }
