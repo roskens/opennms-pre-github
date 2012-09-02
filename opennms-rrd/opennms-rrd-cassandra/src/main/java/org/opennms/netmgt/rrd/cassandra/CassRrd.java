@@ -48,7 +48,7 @@ public class CassRrd {
 
         try {
             ColumnQuery<String, String, String> columnQuery = HFactory.createStringColumnQuery(m_connection.getKeyspace());
-            columnQuery.setColumnFamily(m_connection.getDataPointCFName()).setKey(fileName).setName(fileName);
+            columnQuery.setColumnFamily(m_connection.getMetaDataCFName()).setKey(fileName).setName(fileName);
             QueryResult<HColumn<String, String>> result = columnQuery.execute();
 
             HColumn<String, String> hc = result.get();
