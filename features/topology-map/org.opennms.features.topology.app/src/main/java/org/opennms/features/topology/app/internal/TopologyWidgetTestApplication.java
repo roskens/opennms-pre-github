@@ -6,10 +6,9 @@ import java.util.List;
 
 import org.opennms.features.topology.api.DisplayState;
 import org.opennms.features.topology.api.TopologyProvider;
-import org.opennms.features.topology.api.VertexContainer;
-import org.opennms.features.topology.app.internal.SimpleGraphContainer.GVertex;
 import org.opennms.features.topology.app.internal.TopoContextMenu.TopoContextMenuItem;
-import org.opennms.features.topology.app.internal.jung.KKLayoutAlgorithm;
+import org.opennms.features.topology.app.internal.support.FilterableHierarchicalContainer;
+import org.opennms.features.topology.app.internal.jung.FRLayoutAlgorithm;
 import org.opennms.features.topology.app.internal.support.IconRepositoryManager;
 
 import com.github.wolfie.refresher.Refresher;
@@ -30,6 +29,7 @@ import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.NativeButton;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Slider;
+import com.vaadin.ui.Slider.ValueOutOfBoundsException;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.VerticalLayout;
@@ -37,7 +37,7 @@ import com.vaadin.ui.VerticalSplitPanel;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.Reindeer;
 
-public class TopologyWidgetTestApplication extends Application implements CommandUpdateListener, MenuItemUpdateListener, ContextMenuHandler{
+public class TopologyWidgetTestApplication extends Application implements CommandUpdateListener, MenuItemUpdateListener, ContextMenuHandler, WidgetUpdateListener{
 
 	private Window m_window;
 	private TopologyComponent m_topologyComponent;
@@ -48,6 +48,8 @@ public class TopologyWidgetTestApplication extends Application implements Comman
 	private TopoContextMenu m_contextMenu;
 	private AbsoluteLayout m_layout;
 	private IconRepositoryManager m_iconRepositoryManager;
+	private WidgetManager m_widgetManager;
+	private Layout m_viewContribLayout;
 
 	public TopologyWidgetTestApplication(CommandManager commandManager, TopologyProvider topologyProvider, IconRepositoryManager iconRepoManager) {
 		m_commandManager = commandManager;
@@ -73,19 +75,25 @@ public class TopologyWidgetTestApplication extends Application implements Comman
 		refresher.setRefreshInterval(5000);
 		getMainWindow().addComponent(refresher);
 
-		m_graphContainer.setLayoutAlgorithm(new KKLayoutAlgorithm());
+		m_graphContainer.setLayoutAlgorithm(new FRLayoutAlgorithm());
 
 		m_topologyComponent = new TopologyComponent(m_graphContainer);
 		m_topologyComponent.setIconRepoManager(m_iconRepositoryManager);
 		m_topologyComponent.setSizeFull();
 		m_topologyComponent.addMenuItemStateListener(this);
 		m_topologyComponent.setContextMenuHandler(this);
-
+		
 		final Property scale = m_graphContainer.getProperty(DisplayState.SCALE);
 		final Slider slider = new Slider(0, 4);
 		slider.setResolution(2);
 		slider.setHeight("300px");
 		slider.setOrientation(Slider.ORIENTATION_VERTICAL);
+		try {
+            slider.setValue(1.0);
+        } catch (ValueOutOfBoundsException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 		scale.setValue(1.0);
 
 		slider.addListener(new ValueChangeListener(){
@@ -142,11 +150,9 @@ public class TopologyWidgetTestApplication extends Application implements Comman
 		VerticalSplitPanel bottomLayoutBar = new VerticalSplitPanel();
 		bottomLayoutBar.setFirstComponent(treeMapSplitPanel);
 
-		VerticalLayout zoomLayout = new VerticalLayout();
-//		zoomLayout.addComponent(zoomInBtn);
-//		zoomLayout.addComponent(zoomOutBtn);
+		m_viewContribLayout = new VerticalLayout();
 
-		bottomLayoutBar.setSecondComponent(zoomLayout);
+		bottomLayoutBar.setSecondComponent(m_viewContribLayout);
 		bottomLayoutBar.setSplitPosition(99, Sizeable.UNITS_PERCENTAGE);
 		bottomLayoutBar.setSizeFull();
 
@@ -156,9 +162,11 @@ public class TopologyWidgetTestApplication extends Application implements Comman
 
 
 		menuBarUpdated(m_commandManager);
+		if(m_widgetManager != null) {
+		    widgetListUpdated(m_widgetManager);
+		}
+		
 		m_layout.addComponent(bottomLayoutBar, "top: 23px; left: 0px; right:0px; bottom:0px;");
-
-		m_graphContainer.redoLayout();
 	}
 
 
@@ -174,9 +182,14 @@ public class TopologyWidgetTestApplication extends Application implements Comman
 
             @Override
             public void buttonClick(ClickEvent event) {
-                VertexContainer<Object, GVertex> container = (VertexContainer<Object, GVertex>) m_tree.getContainerDataSource();
+                FilterableHierarchicalContainer container =  (FilterableHierarchicalContainer) m_tree.getContainerDataSource();
                 container.removeAllContainerFilters();
-                container.addContainerFilter(Vertex.LABEL_PROPERTY, (String) filterField.getValue(), true, false);
+                
+                String filterString = (String) filterField.getValue();
+                if(!filterString.equals("")) {
+                    container.addContainerFilter(Vertex.LABEL_PROPERTY, (String) filterField.getValue(), true, false);
+                }
+                
                 
             }
         });
@@ -198,10 +211,11 @@ public class TopologyWidgetTestApplication extends Application implements Comman
     }
 
 	private Tree createTree() {
-
+	    FilterableHierarchicalContainer container = new FilterableHierarchicalContainer(m_graphContainer.getVertexContainer());	    
+	    
 		final Tree tree = new Tree();
 		tree.setMultiSelect(true);
-		tree.setContainerDataSource(m_graphContainer.getVertexContainer());
+		tree.setContainerDataSource(container);
         
 		tree.setImmediate(true);
 		tree.setItemCaptionPropertyId(Vertex.LABEL_PROPERTY);
@@ -290,5 +304,26 @@ public class TopologyWidgetTestApplication extends Application implements Comman
 			item.getItem().setVisible(shouldDisplay);
 		}
 	}
+
+
+    public WidgetManager getWidgetManager() {
+        return m_widgetManager;
+    }
+
+
+    public void setWidgetManager(WidgetManager widgetManager) {
+        if(m_widgetManager != null) {
+            m_widgetManager.removeUpdateListener(this);
+        }
+        m_widgetManager = widgetManager;
+        m_widgetManager.addUpdateListener(this);
+    }
+
+
+    @Override
+    public void widgetListUpdated(WidgetManager widgetManager) {
+        m_viewContribLayout.removeAllComponents();
+        m_viewContribLayout.addComponent(widgetManager.getTabSheet());
+    }
 
 }
