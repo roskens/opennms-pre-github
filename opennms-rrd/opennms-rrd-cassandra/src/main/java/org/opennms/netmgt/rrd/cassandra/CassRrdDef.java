@@ -2,6 +2,7 @@ package org.opennms.netmgt.rrd.cassandra;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,8 +14,12 @@ import me.prettyprint.hector.api.ResultStatus;
 import me.prettyprint.hector.api.exceptions.HectorException;
 
 import org.opennms.core.utils.LogUtils;
+import org.opennms.core.xml.JaxbUtils;
 import org.opennms.netmgt.rrd.RrdDataSource;
 import org.opennms.netmgt.rrd.RrdException;
+import org.opennms.netmgt.rrd.cassandra.config.Archive;
+import org.opennms.netmgt.rrd.cassandra.config.Datasource;
+import org.opennms.netmgt.rrd.cassandra.config.RrdDef;
 
 public class CassRrdDef {
     /**
@@ -23,63 +28,87 @@ public class CassRrdDef {
     public static final long DEFAULT_STEP = 300L;
 
     private String m_fileName;
-
-    private long m_step = DEFAULT_STEP;
-
-    private ArrayList<RrdDataSource> m_datasources = new ArrayList<RrdDataSource>();
-
-    private ArrayList<String> m_archives = new ArrayList<String>();
     
+    private RrdDef m_rrddef;
+
     private static final StringSerializer s_ss = StringSerializer.get();
     
     public CassRrdDef(String fileName, int step) {
         m_fileName = fileName;
-        m_step = step;
-        m_datasources = new ArrayList<RrdDataSource>();
-        m_archives = new ArrayList<String>();
+        m_rrddef = new RrdDef();
+        m_rrddef.setStep(Long.valueOf(step));
     }
 
     public String getFileName() {
         return m_fileName;
     }
 
-    public long getStep() {
-        return m_step;
+    public Long getStep() {
+        return m_rrddef.getStep().longValue();
     }
 
-    public ArrayList<RrdDataSource> getDatasources() {
-        return m_datasources;
+    public Datasource[] getDatasources() {
+        return m_rrddef.getDatasource();
     }
 
-    public ArrayList<String> getArchives() {
-        return m_archives;
+    public Archive[] getArchives() {
+        return m_rrddef.getArchive();
     }
 
     public List<String> getDatasourceNames() {
         List<String> dsNames = new ArrayList<String>();
-        for (RrdDataSource ds : m_datasources) {
+        for (Datasource ds : m_rrddef.getDatasourceCollection()) {
             dsNames.add(ds.getName());
         }
         return dsNames;
     }
 
     public void addDatasource(String name, String type, int heartBeat, Double dsMin, Double dsMax) {
-        // throw new UnsupportedOperationException("CassRrdDef.addDatasource is not yet implemented.");
-        m_datasources.add(new RrdDataSource(name, type, heartBeat, dsMin != null ? dsMin.toString() : "U",
-                                            dsMax != null ? dsMax.toString() : "U"));
+        Datasource ds = new Datasource();
+        ds.setName(name);
+        ds.setType(type);
+        ds.setHeartbeat(Long.valueOf(heartBeat));
+        ds.setMin(dsMin == null || dsMin.isNaN() ? "U" : dsMin.toString());
+        ds.setMax(dsMax == null || dsMax.isNaN() ? "U" : dsMax.toString());
+        m_rrddef.addDatasource(ds);
     }
 
     public void addDatasources(List<RrdDataSource> datasources) {
-        m_datasources.addAll(datasources);
+        for (RrdDataSource ds : datasources) {
+            Datasource nds = new Datasource();
+            nds.setName(ds.getName());
+            nds.setType(ds.getType());
+            nds.setHeartbeat(Long.valueOf(ds.getHeartBeat()));
+            nds.setMin(ds.getMin());
+            nds.setMax(ds.getMax());
+            m_rrddef.addDatasource(nds);
+        }
     }
 
     public void addArchive(String rra) {
-        // throw new UnsupportedOperationException("CassRrdDef.addArchive is not yet implemented.");
-        m_archives.add(rra);
+        String[] a = rra.split(":");
+        if (a.length == 5) {
+            Archive arc = new Archive();
+            arc.setCf(a[1]);
+            arc.setXff(Double.valueOf(a[2]));
+            arc.setSteps(Integer.valueOf(a[3]));
+            arc.setRows(Integer.valueOf(a[4]));
+            m_rrddef.addArchive(arc);
+        }
     }
 
     public void addArchives(List<String> rraList) {
-        m_archives.addAll(rraList);
+        for (int i = 0; i < rraList.size(); i++) {
+            String[] a = rraList.get(i).split(":");
+            if (a.length == 5) {
+                Archive arc = new Archive();
+                arc.setCf(a[1]);
+                arc.setXff(Double.valueOf(a[2]));
+                arc.setSteps(Integer.valueOf(a[3]));
+                arc.setRows(Integer.valueOf(a[4]));
+                m_rrddef.addArchive(arc);
+            }
+        }
     }
 
     public void create(Keyspace keyspace, String mdColumnFamily) throws RrdException {
@@ -113,34 +142,17 @@ public class CassRrdDef {
         }
         LogUtils.debugf(this, "finished");
     }
-
+    
     public String toXml() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("<rrd_def>");
-        sb.append("<step>").append(m_step).append("</step>");
-        for (RrdDataSource ds : m_datasources) {
-            sb.append("<datasource>");
-            sb.append("<name>").append(ds.getName()).append("</name>");
-            sb.append("<type>").append(ds.getType()).append("</type>");
-            sb.append("<heartbeat>").append(ds.getHeartBeat()).append("</heartbeat>");
-            sb.append("<min>").append(ds.getMin()).append("</min>");
-            sb.append("<max>").append(ds.getMax()).append("</max>");
-            sb.append("</datasource>");
-        }
-        for (int i = 0; i < m_archives.size(); i++) {
-            String[] a = m_archives.get(i).split(":");
-            if (a.length == 5) {
-                sb.append("<archive>");
-                sb.append("<cf>").append(a[1]).append("</cf>");
-                sb.append("<xff>").append(a[2]).append("</xff>");
-                sb.append("<steps>").append(a[3]).append("</steps>");
-                sb.append("<rows>").append(a[4]).append("</rows>");
-                sb.append("</archive>");
-            }
-        }
-        sb.append("</rrd_def>");
+        final StringWriter writer = new StringWriter();
+        JaxbUtils.marshal(m_rrddef, writer);
+        final String xml = writer.toString();
 
-        return sb.toString();
+        return xml;
+    }
+
+    public RrdDef getRrdDef() {
+        return m_rrddef;
     }
 
 }

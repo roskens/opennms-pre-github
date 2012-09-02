@@ -213,7 +213,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
              * create column family metadata
              * with column_type = 'Standard'
              * and comparator = 'AsciiType'
-             * and default_validation_class = 'AsciiType'
+             * and default_validation_class = 'UTF8Type'
              * and key_validation_class = 'AsciiType';
              *
              */
@@ -222,7 +222,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
             ColumnFamilyDefinition cfMDDef = HFactory.createColumnFamilyDefinition(m_keyspaceName, m_mdColumnFamily, ComparatorType.ASCIITYPE);
             cfMDDef.setColumnType(ColumnType.STANDARD);
             cfMDDef.setKeyValidationClass    ("org.apache.cassandra.db.marshal.AsciiType");
-            cfMDDef.setDefaultValidationClass("org.apache.cassandra.db.marshal.AsciiType");
+            cfMDDef.setDefaultValidationClass("org.apache.cassandra.db.marshal.UTF8Type");
 
             /*
              * Data column must be create with a structure like this:
