@@ -85,7 +85,7 @@
          Bound this services to imported virtual machines, values should be seperated by ','.
          Default: VMware-ManagedEntity,VMware-VirtualMachine
 
-       hostMachineServices -
+       hostSystemServices -
          Bound this services to imported host systems, values should be seperated by ','.
          Default: VMware-ManagedEntity,VMware-HostSystem,VMwareCim-HostSystem
 
