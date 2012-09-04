@@ -74,12 +74,12 @@ public class VmwareCimCollector implements ServiceCollector {
     /**
      * the attribute groups
      */
-    private HashMap<String, AttributeGroupType> m_groupTypeList = new HashMap<String, AttributeGroupType>();
+    private Map<String, AttributeGroupType> m_groupTypeList = new HashMap<String, AttributeGroupType>();
 
     /**
      * the attribute types
      */
-    private HashMap<String, VmwareCimCollectionAttributeType> m_attribTypeList = new HashMap<String, VmwareCimCollectionAttributeType>();
+    private Map<String, VmwareCimCollectionAttributeType> m_attribTypeList = new HashMap<String, VmwareCimCollectionAttributeType>();
 
     /**
      * the node dao object for retrieving assets
@@ -132,10 +132,8 @@ public class VmwareCimCollector implements ServiceCollector {
      */
     private void initializeRrdDirs() {
         final File f = new File(m_vmwareCimDatacollectionConfigDao.getRrdPath());
-        if (!f.isDirectory()) {
-            if (!f.mkdirs()) {
-                throw new RuntimeException("Unable to create RRD file repository.  Path doesn't already exist and could not make directory: " + m_vmwareCimDatacollectionConfigDao.getRrdPath());
-            }
+        if (!f.isDirectory() && !f.mkdirs()) {
+            throw new RuntimeException("Unable to create RRD file repository.  Path doesn't already exist and could not make directory: " + m_vmwareCimDatacollectionConfigDao.getRrdPath());
         }
     }
 
@@ -192,7 +190,6 @@ public class VmwareCimCollector implements ServiceCollector {
         // retrieve the assets and
         String vmwareManagementServer = onmsNode.getAssetRecord().getVmwareManagementServer();
         String vmwareManagedEntityType = onmsNode.getAssetRecord().getVmwareManagedEntityType();
-        //String vmwareManagedObjectId = onmsNode.getAssetRecord().getVmwareManagedObjectId();
         String vmwareManagedObjectId = onmsNode.getForeignId();
 
         parameters.put("vmwareManagementServer", vmwareManagementServer);
@@ -323,8 +320,6 @@ public class VmwareCimCollector implements ServiceCollector {
                 String instanceAttribute = vmwareCimGroup.getInstance();
 
                 for (CIMObject cimObject : cimList) {
-                    String sensorType = vmwareViJavaAccess.getPropertyOfCimObject(cimObject, "SensorType");
-
                     boolean addObject = false;
 
                     if (keyAttribute != null && attributeValue != null) {

@@ -29,10 +29,11 @@
 package org.opennms.netmgt.collectd.vmware.vijava;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 public class VmwarePerformanceValues {
-    private HashMap<String, Object> values = new HashMap<String, Object>();
+    private Map<String, Object> values = new HashMap<String, Object>();
 
     public VmwarePerformanceValues() {
     }
@@ -45,7 +46,7 @@ public class VmwarePerformanceValues {
         }
 
         if (object instanceof HashMap) {
-            ((HashMap) object).put(instance, new Long(value));
+            ((HashMap) object).put(instance, Long.valueOf(value));
         } else {
             object = new Long(value);
         }
@@ -54,19 +55,19 @@ public class VmwarePerformanceValues {
     }
 
     public void addValue(String name, long value) {
-        values.put(name, new Long(value));
+        values.put(name, Long.valueOf(value));
     }
 
     public boolean hasInstances(String name) {
         Object object = values.get(name);
 
-        return (object != null && object instanceof HashMap);
+        return (object instanceof HashMap);
     }
 
     public Set<String> getInstances(String name) {
         Object object = values.get(name);
 
-        if (object != null && object instanceof HashMap) {
+        if (object instanceof HashMap) {
             return ((HashMap) object).keySet();
         } else {
             return null;
@@ -76,7 +77,7 @@ public class VmwarePerformanceValues {
     public Long getValue(String name) {
         Object object = values.get(name);
 
-        if (object != null && object instanceof Long) {
+        if (object instanceof Long) {
             return (Long) object;
         } else {
             return null;
@@ -86,7 +87,7 @@ public class VmwarePerformanceValues {
     public Long getValue(String name, String instance) {
         Object object = values.get(name);
 
-        if (object != null && object instanceof HashMap) {
+        if (object instanceof HashMap) {
             return (Long) ((HashMap) object).get(instance);
         } else {
             return null;

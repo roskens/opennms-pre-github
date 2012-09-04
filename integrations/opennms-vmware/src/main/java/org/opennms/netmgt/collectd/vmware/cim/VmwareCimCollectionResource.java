@@ -35,7 +35,7 @@ import org.opennms.netmgt.config.collector.ServiceParameters;
 
 public abstract class VmwareCimCollectionResource extends AbstractCollectionResource {
 
-    protected int m_nodeId;
+    private int m_nodeId;
 
     public VmwareCimCollectionResource(CollectionAgent agent) {
         super(agent);

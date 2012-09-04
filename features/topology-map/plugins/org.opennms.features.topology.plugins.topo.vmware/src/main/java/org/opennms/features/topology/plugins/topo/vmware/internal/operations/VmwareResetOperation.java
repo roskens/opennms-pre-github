@@ -54,12 +54,12 @@ public class VmwareResetOperation implements Operation {
 
     @Override
     public boolean display(List<Object> targets, OperationContext operationContext) {
-        return true;
+        return (operationContext.getGraphContainer().getDataSource().equals(m_topologyProvider));
     }
 
     @Override
     public boolean enabled(List<Object> targets, OperationContext operationContext) {
-        return true;
+        return (operationContext.getGraphContainer().getDataSource().equals(m_topologyProvider));
     }
 
     @Override

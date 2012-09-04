@@ -124,8 +124,6 @@ public class VmwareCimMonitor extends AbstractServiceMonitor {
 
         // retrieve the assets and
         String vmwareManagementServer = onmsNode.getAssetRecord().getVmwareManagementServer();
-        //String vmwareManagedEntityType = onmsNode.getAssetRecord().getVmwareManagedEntityType();
-        //String vmwareManagedObjectId = onmsNode.getAssetRecord().getVmwareManagedObjectId();
         String vmwareManagedObjectId = onmsNode.getForeignId();
 
         TimeoutTracker tracker = new TimeoutTracker(parameters, DEFAULT_RETRY, DEFAULT_TIMEOUT);
@@ -186,7 +184,7 @@ public class VmwareCimMonitor extends AbstractServiceMonitor {
                 }
 
                 boolean success = true;
-                String reason = "VMware CIM query returned: ";
+                StringBuffer reason = new StringBuffer("VMware CIM query returned: ");
 
                 for (CIMObject cimObject : cimObjects) {
                     String healthState = vmwareViJavaAccess.getPropertyOfCimObject(cimObject, "HealthState");
@@ -198,16 +196,16 @@ public class VmwareCimMonitor extends AbstractServiceMonitor {
                         if (healthStateInt != 5) {
 
                             if (!success) {
-                                reason += ", ";
+                                reason.append(", ");
                             }
 
                             success = false;
-                            reason += cimObjectName + " ";
+                            reason.append(cimObjectName + " ");
 
                             if (m_healthStates.containsKey(healthStateInt)) {
-                                reason += "(" + m_healthStates.get(healthStateInt) + ")";
+                                reason.append("(" + m_healthStates.get(healthStateInt) + ")");
                             } else {
-                                reason += "(" + healthStateInt + ")";
+                                reason.append("(" + healthStateInt + ")");
                             }
                         }
                     }
@@ -216,7 +214,7 @@ public class VmwareCimMonitor extends AbstractServiceMonitor {
                 if (success) {
                     serviceStatus = PollStatus.available();
                 } else {
-                    serviceStatus = PollStatus.unavailable(reason);
+                    serviceStatus = PollStatus.unavailable(reason.toString());
                 }
             } else {
                 serviceStatus = PollStatus.unresponsive("Host system's power state is '" + hostSystem.getSummary().runtime.getPowerState() + "'");

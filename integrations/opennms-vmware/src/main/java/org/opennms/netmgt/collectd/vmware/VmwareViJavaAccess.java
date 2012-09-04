@@ -69,11 +69,11 @@ public class VmwareViJavaAccess {
     /**
      * the config dao
      */
-    private VmwareConfigDao m_vmwareConfigDao;
+    private VmwareConfigDao m_vmwareConfigDao = null;
 
-    private String m_hostname;
-    private String m_username;
-    private String m_password;
+    private String m_hostname = null;
+    private String m_username = null;
+    private String m_password = null;
 
     private ServiceInstance m_serviceInstance = null;
 
@@ -112,20 +112,19 @@ public class VmwareViJavaAccess {
             m_vmwareConfigDao = BeanUtils.getBean("daoContext", "vmwareConfigDao", VmwareConfigDao.class);
         }
 
-        if (m_vmwareConfigDao == null) {
-            logger.error("vmwareConfigDao should be a non-null value.");
-        }
-
         this.m_hostname = hostname;
 
-        this.m_username = m_vmwareConfigDao.getServerMap().get(m_hostname).getUsername();
+        if (m_vmwareConfigDao == null) {
+            logger.error("vmwareConfigDao should be a non-null value.");
+        } else {
+            this.m_username = m_vmwareConfigDao.getServerMap().get(m_hostname).getUsername();
+            this.m_password = m_vmwareConfigDao.getServerMap().get(m_hostname).getPassword();
+        }
 
         if (this.m_username == null) {
             logger.error("Error getting username for VMware management server '{}'.", m_hostname);
             this.m_username = "";
         }
-
-        this.m_password = m_vmwareConfigDao.getServerMap().get(m_hostname).getPassword();
 
         if (this.m_password == null) {
             logger.error("Error getting password for VMware management server '{}'.", m_hostname);
@@ -343,9 +342,8 @@ public class VmwareViJavaAccess {
 
         PerfQuerySpec perfQuerySpec = new PerfQuerySpec();
         perfQuerySpec.setEntity(managedEntity.getMOR());
-        perfQuerySpec.setMaxSample(new
-                Integer(1)
-        );
+        perfQuerySpec.setMaxSample(Integer.valueOf(1));
+
         perfQuerySpec.setIntervalId(refreshRate);
 
         PerfEntityMetricBase[] perfEntityMetricBases = getPerformanceManager().queryPerf(new PerfQuerySpec[]{perfQuerySpec});

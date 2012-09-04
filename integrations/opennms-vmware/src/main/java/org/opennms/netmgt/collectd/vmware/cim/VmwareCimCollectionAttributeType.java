@@ -35,8 +35,8 @@ import org.opennms.netmgt.config.collector.Persister;
 import org.opennms.netmgt.config.vmware.cim.Attrib;
 
 public class VmwareCimCollectionAttributeType implements CollectionAttributeType {
-    Attrib m_attribute;
-    AttributeGroupType m_groupType;
+    private Attrib m_attribute;
+    private AttributeGroupType m_groupType;
 
     public VmwareCimCollectionAttributeType(final Attrib attribute, final AttributeGroupType groupType) {
         m_groupType = groupType;
@@ -68,6 +68,6 @@ public class VmwareCimCollectionAttributeType implements CollectionAttributeType
 
     @Override
     public String getAttributeId() {
-        return "VmwareCim_"+m_groupType.getName()+"/"+m_attribute.getName();
+        return "VmwareCim_" + m_groupType.getName() + "/" + m_attribute.getName();
     }
 }

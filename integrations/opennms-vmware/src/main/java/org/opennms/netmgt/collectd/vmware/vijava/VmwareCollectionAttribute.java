@@ -35,10 +35,10 @@ import org.opennms.netmgt.config.collector.CollectionResource;
 import org.opennms.netmgt.config.collector.ServiceParameters;
 
 public class VmwareCollectionAttribute extends AbstractCollectionAttribute implements CollectionAttribute {
-    String m_alias;
-    String m_value;
-    VmwareCollectionResource m_resource;
-    CollectionAttributeType m_attribType;
+    private String m_alias;
+    private String m_value;
+    private VmwareCollectionResource m_resource;
+    private CollectionAttributeType m_attribType;
 
     public VmwareCollectionAttribute(final VmwareCollectionResource resource, final CollectionAttributeType attribType, final String alias, final String value) {
         m_resource = resource;

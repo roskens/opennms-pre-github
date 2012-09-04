@@ -102,7 +102,6 @@ public class VmwareMonitor extends AbstractServiceMonitor {
         // retrieve the assets and
         String vmwareManagementServer = onmsNode.getAssetRecord().getVmwareManagementServer();
         String vmwareManagedEntityType = onmsNode.getAssetRecord().getVmwareManagedEntityType();
-        //String vmwareManagedObjectId = onmsNode.getAssetRecord().getVmwareManagedObjectId();
         String vmwareManagedObjectId = onmsNode.getForeignId();
 
         TimeoutTracker tracker = new TimeoutTracker(parameters, DEFAULT_RETRY, DEFAULT_TIMEOUT);
@@ -140,7 +139,7 @@ public class VmwareMonitor extends AbstractServiceMonitor {
                 logger.warn("Error setting connection timeout for VMware management server '{}'", vmwareManagementServer);
             }
 
-            String powerState = null;
+            String powerState = "unknown";
 
             if ("HostSystem".equals(vmwareManagedEntityType)) {
                 HostSystem hostSystem = vmwareViJavaAccess.getHostSystemByManagedObjectId(vmwareManagedObjectId);
@@ -157,10 +156,6 @@ public class VmwareMonitor extends AbstractServiceMonitor {
 
                     return serviceStatus;
                 }
-            }
-
-            if (powerState == null) {
-                powerState = "unknown";
             }
 
             if ("poweredOn".equals(powerState)) {

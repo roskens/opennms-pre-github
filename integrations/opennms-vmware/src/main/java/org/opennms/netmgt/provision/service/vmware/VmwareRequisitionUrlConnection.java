@@ -66,14 +66,11 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
      */
     private Logger logger = LoggerFactory.getLogger(VmwareRequisitionUrlConnection.class);
 
-    private static final int VMWARE_HOSTSYSTEM = 1;
-    private static final int VMWARE_VIRTUALMACHINE = 2;
+    private static final String VMWARE_HOSTSYSTEM_SERVICES = "hostSystemServices";
+    private static final String VMWARE_VIRTUALMACHINE_SERVICES = "virtualMachineServices";
 
-    private final static String VMWARE_HOSTSYSTEM_SERVICES = "hostSystemServices";
-    private final static String VMWARE_VIRTUALMACHINE_SERVICES = "virtualMachineServices";
-
-    private String[] m_hostSystemServices; // default = {"VMware-ManagedEntity", "VMware-HostSystem", "VMwareCim-HostSystem"};
-    private String[] m_virtualMachineServices; // default = {"VMware-ManagedEntity", "VMware-VirtualMachine"};
+    private String[] m_hostSystemServices;
+    private String[] m_virtualMachineServices;
 
     private String m_hostname = null;
     private String m_username = null;
@@ -93,7 +90,7 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
      * Host system managedObjectId to name mapping
      */
 
-    private HashMap<String, String> m_hostSystemMap = new HashMap<String, String>();
+    private Map<String, String> m_hostSystemMap = new HashMap<String, String>();
 
     /**
      * the query args
@@ -220,12 +217,11 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
     /**
      * Creates a requisition node for the given managed entity and type.
      *
-     * @param ipAddresses       the set of Ip addresses
-     * @param managedEntity     the managed entity
-     * @param managedEntityType the type of entity
+     * @param ipAddresses   the set of Ip addresses
+     * @param managedEntity the managed entity
      * @return the generated requisition node
      */
-    private RequisitionNode createRequisitionNode(Set<String> ipAddresses, ManagedEntity managedEntity, int managedEntityType) {
+    private RequisitionNode createRequisitionNode(Set<String> ipAddresses, ManagedEntity managedEntity) {
         RequisitionNode requisitionNode = new RequisitionNode();
 
         // Setting the node label
@@ -258,13 +254,19 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
                     if (primary) {
                         requisitionInterface.setSnmpPrimary(PrimaryType.PRIMARY);
 
-                        if (managedEntityType == VMWARE_HOSTSYSTEM) {
+                        if (managedEntity instanceof HostSystem) {
                             for (String service : m_hostSystemServices) {
                                 requisitionInterface.insertMonitoredService(new RequisitionMonitoredService(service.trim()));
                             }
                         } else {
-                            for (String service : m_virtualMachineServices) {
-                                requisitionInterface.insertMonitoredService(new RequisitionMonitoredService(service.trim()));
+                            if (managedEntity instanceof VirtualMachine) {
+                                for (String service : m_virtualMachineServices) {
+                                    requisitionInterface.insertMonitoredService(new RequisitionMonitoredService(service.trim()));
+                                }
+                            } else {
+                                logger.error("Undefined type of managedEntity '{}'", managedEntity.getMOR().getType());
+
+                                return null;
                             }
                         }
 
@@ -287,37 +289,38 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
          */
 
         String vmState = "unknown";
-        String vmwareTopologyInfo = "";
+        StringBuffer vmwareTopologyInfo = new StringBuffer();
 
         // putting parents to topology information
         ManagedEntity parentEntity = managedEntity.getParent();
 
         do {
-            if (!"".equals(vmwareTopologyInfo)) {
-                vmwareTopologyInfo += ", ";
+            if (vmwareTopologyInfo.length() > 0) {
+                vmwareTopologyInfo.append(", ");
             }
             try {
-                vmwareTopologyInfo += parentEntity.getMOR().getVal() + "/" + URLEncoder.encode(parentEntity.getName(), "UTF-8");
+                vmwareTopologyInfo.append(parentEntity.getMOR().getVal() + "/" + URLEncoder.encode(parentEntity.getName(), "UTF-8"));
             } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
+                logger.warn("Unsupported encoding '{}'", e.getMessage());
             }
             parentEntity = parentEntity.getParent();
         } while (parentEntity != null);
 
-        if (managedEntityType == VMWARE_HOSTSYSTEM) {
+        if (managedEntity instanceof HostSystem) {
+
             HostSystem hostSystem = (HostSystem) managedEntity;
 
             vmState = hostSystem.getSummary().getRuntime().getPowerState().toString();
 
             try {
                 for (Datastore datastore : hostSystem.getDatastores()) {
-                    if (!"".equals(vmwareTopologyInfo)) {
-                        vmwareTopologyInfo += ", ";
+                    if (vmwareTopologyInfo.length() > 0) {
+                        vmwareTopologyInfo.append(", ");
                     }
                     try {
-                        vmwareTopologyInfo += datastore.getMOR().getVal() + "/" + URLEncoder.encode(datastore.getSummary().getName(), "UTF-8");
+                        vmwareTopologyInfo.append(datastore.getMOR().getVal() + "/" + URLEncoder.encode(datastore.getSummary().getName(), "UTF-8"));
                     } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
+                        logger.warn("Unsupported encoding '{}'", e.getMessage());
                     }
                 }
             } catch (RemoteException e) {
@@ -325,74 +328,80 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
             }
             try {
                 for (Network network : hostSystem.getNetworks()) {
-                    if (!"".equals(vmwareTopologyInfo)) {
-                        vmwareTopologyInfo += ", ";
+                    if (vmwareTopologyInfo.length() > 0) {
+                        vmwareTopologyInfo.append(", ");
                     }
                     try {
-                        vmwareTopologyInfo += network.getMOR().getVal() + "/" + URLEncoder.encode(network.getSummary().getName(), "UTF-8");
+                        vmwareTopologyInfo.append(network.getMOR().getVal() + "/" + URLEncoder.encode(network.getSummary().getName(), "UTF-8"));
                     } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
+                        logger.warn("Unsupported encoding '{}'", e.getMessage());
                     }
                 }
             } catch (RemoteException e) {
                 logger.warn("Cannot retrieve networks for managedEntity '{}': '{}'", managedEntity.getMOR().getVal(), e.getMessage());
             }
         } else {
-            VirtualMachine virtualMachine = (VirtualMachine) managedEntity;
 
-            vmState = virtualMachine.getSummary().getRuntime().getPowerState().toString();
+            if (managedEntity instanceof VirtualMachine) {
+                VirtualMachine virtualMachine = (VirtualMachine) managedEntity;
 
-            try {
-                for (Datastore datastore : virtualMachine.getDatastores()) {
-                    if (!"".equals(vmwareTopologyInfo)) {
-                        vmwareTopologyInfo += ", ";
+                vmState = virtualMachine.getSummary().getRuntime().getPowerState().toString();
+
+                try {
+                    for (Datastore datastore : virtualMachine.getDatastores()) {
+                        if (vmwareTopologyInfo.length() > 0) {
+                            vmwareTopologyInfo.append(", ");
+                        }
+                        try {
+                            vmwareTopologyInfo.append(datastore.getMOR().getVal() + "/" + URLEncoder.encode(datastore.getSummary().getName(), "UTF-8"));
+                        } catch (UnsupportedEncodingException e) {
+                            logger.warn("Unsupported encoding '{}'", e.getMessage());
+                        }
                     }
-                    try {
-                        vmwareTopologyInfo += datastore.getMOR().getVal() + "/" + URLEncoder.encode(datastore.getSummary().getName(), "UTF-8");
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
+                } catch (RemoteException e) {
+                    logger.warn("Cannot retrieve datastores for managedEntity '{}': '{}'", managedEntity.getMOR().getVal(), e.getMessage());
                 }
-            } catch (RemoteException e) {
-                logger.warn("Cannot retrieve datastores for managedEntity '{}': '{}'", managedEntity.getMOR().getVal(), e.getMessage());
-            }
-            try {
-                for (Network network : virtualMachine.getNetworks()) {
-                    if (!"".equals(vmwareTopologyInfo)) {
-                        vmwareTopologyInfo += ", ";
+                try {
+                    for (Network network : virtualMachine.getNetworks()) {
+                        if (vmwareTopologyInfo.length() > 0) {
+                            vmwareTopologyInfo.append(", ");
+                        }
+                        try {
+                            vmwareTopologyInfo.append(network.getMOR().getVal() + "/" + URLEncoder.encode(network.getSummary().getName(), "UTF-8"));
+                        } catch (UnsupportedEncodingException e) {
+                            logger.warn("Unsupported encoding '{}'", e.getMessage());
+                        }
                     }
-                    try {
-                        vmwareTopologyInfo += network.getMOR().getVal() + "/" + URLEncoder.encode(network.getSummary().getName(), "UTF-8");
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
+                } catch (RemoteException e) {
+                    logger.warn("Cannot retrieve networks for managedEntity '{}': '{}'", managedEntity.getMOR().getVal(), e.getMessage());
                 }
-            } catch (RemoteException e) {
-                logger.warn("Cannot retrieve networks for managedEntity '{}': '{}'", managedEntity.getMOR().getVal(), e.getMessage());
-            }
 
-            if (!"".equals(vmwareTopologyInfo)) {
-                vmwareTopologyInfo += ", ";
-            }
+                if (vmwareTopologyInfo.length() > 0) {
+                    vmwareTopologyInfo.append(", ");
+                }
 
-            try {
-                vmwareTopologyInfo += virtualMachine.getRuntime().getHost().getVal() + "/" + URLEncoder.encode(m_hostSystemMap.get(virtualMachine.getRuntime().getHost().getVal()), "UTF-8");
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
+                try {
+                    vmwareTopologyInfo.append(virtualMachine.getRuntime().getHost().getVal() + "/" + URLEncoder.encode(m_hostSystemMap.get(virtualMachine.getRuntime().getHost().getVal()), "UTF-8"));
+                } catch (UnsupportedEncodingException e) {
+                    logger.warn("Unsupported encoding '{}'", e.getMessage());
+                }
+            } else {
+                logger.error("Undefined type of managedEntity '{}'", managedEntity.getMOR().getType());
+
+                return null;
             }
         }
-
 
         RequisitionAsset requisitionAssetHostname = new RequisitionAsset("vmwareManagementServer", m_hostname);
         requisitionNode.putAsset(requisitionAssetHostname);
 
-        RequisitionAsset requisitionAssetType = new RequisitionAsset("vmwareManagedEntityType", (managedEntityType == VMWARE_HOSTSYSTEM ? "HostSystem" : "VirtualMachine"));
+        RequisitionAsset requisitionAssetType = new RequisitionAsset("vmwareManagedEntityType", (managedEntity instanceof HostSystem ? "HostSystem" : "VirtualMachine"));
         requisitionNode.putAsset(requisitionAssetType);
 
         RequisitionAsset requisitionAssetId = new RequisitionAsset("vmwareManagedObjectId", managedEntity.getMOR().getVal());
         requisitionNode.putAsset(requisitionAssetId);
 
-        RequisitionAsset requisitionAssetTopologyInfo = new RequisitionAsset("vmwareTopologyInfo", vmwareTopologyInfo);
+        RequisitionAsset requisitionAssetTopologyInfo = new RequisitionAsset("vmwareTopologyInfo", vmwareTopologyInfo.toString());
         requisitionNode.putAsset(requisitionAssetTopologyInfo);
 
         RequisitionAsset requisitionAssetState = new RequisitionAsset("vmwareState", vmState);
@@ -548,10 +557,12 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
                     }
 
                     // create the new node...
-                    RequisitionNode node = createRequisitionNode(ipAddresses, hostSystem, VMWARE_HOSTSYSTEM);
+                    RequisitionNode node = createRequisitionNode(ipAddresses, hostSystem);
 
                     // ...and add it to the requisition
-                    m_requisition.insertNode(node);
+                    if (node != null) {
+                        m_requisition.insertNode(node);
+                    }
                 }
             }
         }
@@ -596,7 +607,7 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
                     }
 
                     // create the new node...
-                    RequisitionNode node = createRequisitionNode(ipAddresses, virtualMachine, VMWARE_VIRTUALMACHINE);
+                    RequisitionNode node = createRequisitionNode(ipAddresses, virtualMachine);
 
                     // add the operating system
                     if (virtualMachine.getGuest().getGuestFullName() != null) {
@@ -605,7 +616,9 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
                     }
 
                     // ...and add it to the requisition
-                    m_requisition.insertNode(node);
+                    if (node != null) {
+                        m_requisition.insertNode(node);
+                    }
                 }
             }
         }

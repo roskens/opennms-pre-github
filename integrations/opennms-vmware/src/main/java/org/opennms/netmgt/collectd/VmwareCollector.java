@@ -125,10 +125,8 @@ public class VmwareCollector implements ServiceCollector {
      */
     private void initializeRrdDirs() {
         final File f = new File(m_vmwareDatacollectionConfigDao.getRrdPath());
-        if (!f.isDirectory()) {
-            if (!f.mkdirs()) {
-                throw new RuntimeException("Unable to create RRD file repository.  Path doesn't already exist and could not make directory: " + m_vmwareDatacollectionConfigDao.getRrdPath());
-            }
+        if (!f.isDirectory() && !f.mkdirs()) {
+            throw new RuntimeException("Unable to create RRD file repository.  Path doesn't already exist and could not make directory: " + m_vmwareDatacollectionConfigDao.getRrdPath());
         }
     }
 
@@ -158,7 +156,6 @@ public class VmwareCollector implements ServiceCollector {
         // retrieve the assets and
         String vmwareManagementServer = onmsNode.getAssetRecord().getVmwareManagementServer();
         String vmwareManagedEntityType = onmsNode.getAssetRecord().getVmwareManagedEntityType();
-        //String vmwareManagedObjectId = onmsNode.getAssetRecord().getVmwareManagedObjectId();
         String vmwareManagedObjectId = onmsNode.getForeignId();
 
         parameters.put("vmwareManagementServer", vmwareManagementServer);
@@ -266,7 +263,7 @@ public class VmwareCollector implements ServiceCollector {
                         logger.warn("Warning! Found multi instance value '{}' defined as single instance attribute for node '{}'", attrib.getName(), agent.getNodeId());
                     } else {
                         final VmwareCollectionAttributeType attribType = new VmwareCollectionAttributeType(attrib, attribGroupType);
-                        logger.debug("Storing single instance value " + attrib.getName() + "='" + String.valueOf(vmwarePerformanceValues.getValue(attrib.getName()) + "for node " + agent.getNodeId()));
+                        logger.debug("Storing single instance value " + attrib.getName() + "='" + vmwarePerformanceValues.getValue(attrib.getName()) + "for node " + agent.getNodeId());
                         vmwareCollectionResource.setAttributeValue(attribType, String.valueOf(vmwarePerformanceValues.getValue(attrib.getName())));
                     }
                 }
@@ -292,8 +289,7 @@ public class VmwareCollector implements ServiceCollector {
                                 resources.put(instance, new VmwareMultiInstanceCollectionResource(agent, instance, vmwareGroup.getResourceType()));
                             }
 
-                            final VmwareCollectionAttributeType attribType = new VmwareCollectionAttributeType(attrib, attribGroupType);
-                            logger.debug("Storing multi instance value " + attrib.getName() + "[" + instance + "]='" + String.valueOf(vmwarePerformanceValues.getValue(attrib.getName())) + "' for node " +
+                            logger.debug("Storing multi instance value " + attrib.getName() + "[" + instance + "]='" + vmwarePerformanceValues.getValue(attrib.getName()) + "' for node " +
                                     agent.getNodeId());
                         }
                     }
