@@ -141,12 +141,6 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
             m_importVMSuspended = true;
         }
 
-        // get services to be added to host systems
-        m_hostSystemServices = getHostSystemServices();
-
-        // get services to be added to virtual machines
-        m_virtualMachineServices = getVirtualMachineServices();
-
         String path = url.getPath();
 
         path = path.replaceAll("^/", "");
@@ -170,8 +164,8 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
      *
      * @return a String[] of opennms service names
      */
-    private String[] getHostSystemServices() {
-        String[] hostSystemsServices = new String[]{"VMware-ManagedEntity", "VMware-HostSystem", "VMwareCim-HostSystem"};
+    private String[] getHostSystemServices(int apiVersion) {
+        String[] hostSystemsServices = new String[]{"VMware-ManagedEntity", "VMware" + apiVersion + "-HostSystem", "VMwareCim-HostSystem"};
         if (m_args != null && m_args.get(VMWARE_HOSTSYSTEM_SERVICES) != null) {
             hostSystemsServices = m_args.get(VMWARE_HOSTSYSTEM_SERVICES).split(",");
         }
@@ -183,8 +177,8 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
      *
      * @return a String[] of opennms service names
      */
-    private String[] getVirtualMachineServices() {
-        String[] virtualMachineServices = new String[]{"VMware-ManagedEntity", "VMware-VirtualMachine"};
+    private String[] getVirtualMachineServices(int apiVersion) {
+        String[] virtualMachineServices = new String[]{"VMware-ManagedEntity", "VMware" + apiVersion + "-VirtualMachine"};
         if (m_args != null && m_args.get(VMWARE_VIRTUALMACHINE_SERVICES) != null) {
             virtualMachineServices = m_args.get(VMWARE_VIRTUALMACHINE_SERVICES).split(",");
         }
@@ -449,6 +443,14 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
         }
 
         try {
+            int apiVersion = vmwareViJavaAccess.getMajorApiVersion();
+
+            // get services to be added to host systems
+            m_hostSystemServices = getHostSystemServices(apiVersion);
+
+            // get services to be added to virtual machines
+            m_virtualMachineServices = getVirtualMachineServices(apiVersion);
+
             iterateHostSystems(vmwareViJavaAccess);
             iterateVirtualMachines(vmwareViJavaAccess);
         } catch (RemoteException e) {

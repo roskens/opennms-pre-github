@@ -466,6 +466,35 @@ public class VmwareViJavaAccess {
     }
 
     /**
+     * Return the major API version for this management server
+     *
+     * @return the major API version
+     */
+    public int getMajorApiVersion() {
+        if (m_serviceInstance != null) {
+            String apiVersion = m_serviceInstance.getAboutInfo().getApiVersion();
+
+            String arr[] = apiVersion.split("\\.");
+
+            if (arr.length > 1) {
+                int apiMajorVersion = Integer.valueOf(arr[0]);
+
+                if (apiMajorVersion < 4) {
+                    apiMajorVersion = 3;
+                }
+
+                return apiMajorVersion;
+            } else {
+                logger.error("Cannot parse vCenter API version '{}'", apiVersion);
+
+                return 0;
+            }
+        } else {
+            return 0;
+        }
+    }
+
+    /**
      * Returns the value of a given cim object and property.
      *
      * @param cimObject    the Cim object

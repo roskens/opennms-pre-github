@@ -83,11 +83,13 @@
 
        virtualMachineServices -
          Bound this services to imported virtual machines, values should be seperated by ','.
-         Default: VMware-ManagedEntity,VMware-VirtualMachine
+         Default: VMware-ManagedEntity,VMware<API version>-VirtualMachine
+           for example VMware-ManagedEntity,VMware5-VirtualMachine for a vSphere 5.0 server
 
        hostSystemServices -
          Bound this services to imported host systems, values should be seperated by ','.
-         Default: VMware-ManagedEntity,VMware-HostSystem,VMwareCim-HostSystem
+         Default: VMware-ManagedEntity,VMware<API version>-HostSystem,VMwareCim-HostSystem
+           for example VMware-ManagedEntity,VMware3-HostSystem,VMwareCim-HostSystem for a VMware VI 3.5 server
 
      Examples for import-url-resource:
        vmware://vcenter.mydomain.org?importHostPoweredOff=true

@@ -251,7 +251,7 @@ public class VmwareCollector implements ServiceCollector {
         for (final VmwareGroup vmwareGroup : collection.getVmwareGroups().getVmwareGroup()) {
             final AttributeGroupType attribGroupType = new AttributeGroupType(vmwareGroup.getName(), "all");
 
-            if ("node".equalsIgnoreCase(vmwareGroup.getName())) {
+            if ("node".equalsIgnoreCase(vmwareGroup.getResourceType())) {
                 // single instance value
 
                 VmwareCollectionResource vmwareCollectionResource = new VmwareSingleInstanceCollectionResource(agent);
