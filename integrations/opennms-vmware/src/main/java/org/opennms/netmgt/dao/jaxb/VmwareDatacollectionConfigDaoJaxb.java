@@ -1,8 +1,8 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2009-2011 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2011 The OpenNMS Group, Inc.
+ * Copyright (C) 2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
@@ -26,8 +26,9 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.netmgt.dao.castor;
+package org.opennms.netmgt.dao.jaxb;
 
+import org.opennms.core.xml.AbstractJaxbConfigDao;
 import org.opennms.netmgt.config.vmware.vijava.VmwareCollection;
 import org.opennms.netmgt.config.vmware.vijava.VmwareDatacollectionConfig;
 import org.opennms.netmgt.dao.VmwareDatacollectionConfigDao;
@@ -43,12 +44,12 @@ import java.util.List;
  *
  * @author Christian Pape <Christian.Pape@informatik.hs-fulda.de>
  */
-public class DefaultVmwareDatacollectionConfigDao extends AbstractCastorConfigDao<VmwareDatacollectionConfig, VmwareDatacollectionConfig> implements VmwareDatacollectionConfigDao {
+public class VmwareDatacollectionConfigDaoJaxb extends AbstractJaxbConfigDao<VmwareDatacollectionConfig, VmwareDatacollectionConfig> implements VmwareDatacollectionConfigDao {
 
     /**
      * Default constructor
      */
-    public DefaultVmwareDatacollectionConfigDao() {
+    public VmwareDatacollectionConfigDaoJaxb() {
         super(VmwareDatacollectionConfig.class, "Vmware Data Collection Configuration");
     }
 
@@ -65,11 +66,11 @@ public class DefaultVmwareDatacollectionConfigDao extends AbstractCastorConfigDa
      * Used to transform the config object to a custom representation. This method is not modified in this class, it just
      * returns the config object itself.
      *
-     * @param castorConfig a config object.
+     * @param jaxbConfig a config object.
      * @return a custom object
      */
-    public VmwareDatacollectionConfig translateConfig(VmwareDatacollectionConfig castorConfig) {
-        return castorConfig;
+    public VmwareDatacollectionConfig translateConfig(VmwareDatacollectionConfig jaxbConfig) {
+        return jaxbConfig;
     }
 
     /**

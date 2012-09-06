@@ -1,8 +1,8 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2009-2011 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2011 The OpenNMS Group, Inc.
+ * Copyright (C) 2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
@@ -155,7 +155,7 @@ public class VmwareCimCollector implements ServiceCollector {
      * @param collection the collection's name
      */
     private void loadAttributeGroupList(final VmwareCimCollection collection) {
-        for (final VmwareCimGroup vpm : collection.getVmwareCimGroups().getVmwareCimGroup()) {
+        for (final VmwareCimGroup vpm : collection.getVmwareCimGroup()) {
             final AttributeGroupType attribGroupType1 = new AttributeGroupType(vpm.getName(), "all");
             m_groupTypeList.put(vpm.getName(), attribGroupType1);
         }
@@ -167,7 +167,7 @@ public class VmwareCimCollector implements ServiceCollector {
      * @param collection the collection's name
      */
     private void loadAttributeTypeList(final VmwareCimCollection collection) {
-        for (final VmwareCimGroup vpm : collection.getVmwareCimGroups().getVmwareCimGroup()) {
+        for (final VmwareCimGroup vpm : collection.getVmwareCimGroup()) {
             for (final Attrib attrib : vpm.getAttrib()) {
                 final AttributeGroupType attribGroupType = m_groupTypeList.get(vpm.getName());
                 final VmwareCimCollectionAttributeType attribType = new VmwareCimCollectionAttributeType(attrib, attribGroupType);
@@ -287,7 +287,7 @@ public class VmwareCimCollector implements ServiceCollector {
         if ("poweredOn".equals(powerState)) {
             HashMap<String, List<CIMObject>> cimObjects = new HashMap<String, List<CIMObject>>();
 
-            for (final VmwareCimGroup vmwareCimGroup : collection.getVmwareCimGroups().getVmwareCimGroup()) {
+            for (final VmwareCimGroup vmwareCimGroup : collection.getVmwareCimGroup()) {
 
                 String cimClass = vmwareCimGroup.getCimClass();
 

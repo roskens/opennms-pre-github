@@ -1,8 +1,8 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2009-2011 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2011 The OpenNMS Group, Inc.
+ * Copyright (C) 2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
@@ -26,8 +26,9 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.netmgt.dao.castor;
+package org.opennms.netmgt.dao.jaxb;
 
+import org.opennms.core.xml.AbstractJaxbConfigDao;
 import org.opennms.netmgt.config.vmware.cim.VmwareCimCollection;
 import org.opennms.netmgt.config.vmware.cim.VmwareCimDatacollectionConfig;
 import org.opennms.netmgt.dao.VmwareCimDatacollectionConfigDao;
@@ -37,18 +38,19 @@ import java.io.File;
 import java.util.List;
 
 /**
- * The Class DefaultVmwareCimDatacollectionConfigDao
+ * The Class VmwareCimDatacollectionConfigDaoJaxb
  * <p/>
  * This class is used for accessing the Vmware Cim Data Collection configuration file
  *
  * @author Christian Pape <Christian.Pape@informatik.hs-fulda.de>
  */
-public class DefaultVmwareCimDatacollectionConfigDao extends AbstractCastorConfigDao<VmwareCimDatacollectionConfig, VmwareCimDatacollectionConfig> implements VmwareCimDatacollectionConfigDao {
+public class VmwareCimDatacollectionConfigDaoJaxb extends AbstractJaxbConfigDao<VmwareCimDatacollectionConfig, VmwareCimDatacollectionConfig> implements VmwareCimDatacollectionConfigDao {
+
 
     /**
      * Default constructor
      */
-    public DefaultVmwareCimDatacollectionConfigDao() {
+    public VmwareCimDatacollectionConfigDaoJaxb() {
         super(VmwareCimDatacollectionConfig.class, "Vmware Cim Data Collection Configuration");
     }
 
@@ -65,11 +67,11 @@ public class DefaultVmwareCimDatacollectionConfigDao extends AbstractCastorConfi
      * Used to transform the config object to a custom representation. This method is not modified in this class, it just
      * returns the config object itself.
      *
-     * @param castorConfig a config object.
+     * @param jaxbConfig a config object.
      * @return a custom object
      */
-    public VmwareCimDatacollectionConfig translateConfig(VmwareCimDatacollectionConfig castorConfig) {
-        return castorConfig;
+    public VmwareCimDatacollectionConfig translateConfig(VmwareCimDatacollectionConfig jaxbConfig) {
+        return jaxbConfig;
     }
 
     /**

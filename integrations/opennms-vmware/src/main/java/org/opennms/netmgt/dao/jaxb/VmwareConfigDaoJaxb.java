@@ -1,8 +1,8 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2009-2011 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2011 The OpenNMS Group, Inc.
+ * Copyright (C) 2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
@@ -26,33 +26,63 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.netmgt.dao;
+package org.opennms.netmgt.dao.jaxb;
 
+import org.opennms.core.xml.AbstractJaxbConfigDao;
 import org.opennms.netmgt.config.vmware.VmwareConfig;
 import org.opennms.netmgt.config.vmware.VmwareServer;
+import org.opennms.netmgt.dao.VmwareConfigDao;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
- * The Interface VmwareConfigDao
+ * The Class VmwareConfigDaoJaxb
  * <p/>
- * This class is used for defining the methods for accessing the configuration data for the Vmware Accounts
+ * This class is used for accessing the Vmware Account configuration file
  *
  * @author Christian Pape <Christian.Pape@informatik.hs-fulda.de>
  */
-public interface VmwareConfigDao {
+public class VmwareConfigDaoJaxb extends AbstractJaxbConfigDao<VmwareConfig, VmwareConfig> implements VmwareConfigDao {
+    /**
+     * Default constructor
+     */
+    public VmwareConfigDaoJaxb() {
+        super(VmwareConfig.class, "Vmware Configuration");
+    }
 
     /**
      * Returns the loaded config object.
      *
      * @return the current config object
      */
-    VmwareConfig getConfig();
+    public VmwareConfig getConfig() {
+        return getContainer().getObject();
+    }
+
+    /**
+     * Used to transform the config object to a custom representation. This method is not modified in this class, it just
+     * returns the config object itself.
+     *
+     * @param jaxbConfig a config object.
+     * @return a custom object
+     */
+    public VmwareConfig translateConfig(VmwareConfig jaxbConfig) {
+        return jaxbConfig;
+    }
 
     /**
      * Returns the map of server entries from the configuration object.
      *
      * @return the map of server entries
      */
-    Map<String, VmwareServer> getServerMap();
+    public Map<String, VmwareServer> getServerMap() {
+        HashMap<String, VmwareServer> vmwareServerMap = new HashMap<String, VmwareServer>();
+
+        for (VmwareServer vmwareServer : getConfig().getVmwareServer()) {
+            vmwareServerMap.put(vmwareServer.getHostname(), vmwareServer);
+        }
+        return vmwareServerMap;
+    }
+
 }
