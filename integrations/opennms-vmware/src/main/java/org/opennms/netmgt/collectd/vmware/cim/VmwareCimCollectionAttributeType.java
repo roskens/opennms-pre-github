@@ -66,8 +66,10 @@ public class VmwareCimCollectionAttributeType implements CollectionAttributeType
         return m_attribute.getType();
     }
 
+    /*
     @Override
     public String getAttributeId() {
         return "VmwareCim_" + m_groupType.getName() + "/" + m_attribute.getName();
     }
+    */
 }
