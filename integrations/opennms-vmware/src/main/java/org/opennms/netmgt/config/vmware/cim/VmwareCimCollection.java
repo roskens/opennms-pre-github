@@ -314,16 +314,4 @@ public class VmwareCimCollection implements java.io.Serializable {
 
         this._vmwareCimGroupList.addAll(vVmwareCimGroupList);
     }
-
-    /**
-     * Sets the value of '_vmwareCimGroupList' by setting it to the
-     * given Vector. No type checking is performed.
-     *
-     * @param vmwareCimGroupList the Vector to set.
-     * @deprecated
-     */
-    public void setVmwareCimGroupCollection(
-            final java.util.List<org.opennms.netmgt.config.vmware.cim.VmwareCimGroup> vmwareCimGroupList) {
-        this._vmwareCimGroupList = vmwareCimGroupList;
-    }
 }

@@ -305,18 +305,6 @@ public class VmwareGroup implements java.io.Serializable {
     }
 
     /**
-     * Sets the value of '_attribList' by setting it to the given
-     * Vector. No type checking is performed.
-     *
-     * @param attribList the Vector to set.
-     * @deprecated
-     */
-    public void setAttribCollection(
-            final java.util.List<org.opennms.netmgt.config.vmware.vijava.Attrib> attribList) {
-        this._attribList = attribList;
-    }
-
-    /**
      * Sets the value of field 'name'. The field 'name' has the
      * following description: The name of this group, for user id
      * purposes

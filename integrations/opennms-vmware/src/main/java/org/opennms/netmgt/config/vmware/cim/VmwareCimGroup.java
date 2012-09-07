@@ -29,8 +29,6 @@
 package org.opennms.netmgt.config.vmware.cim;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
-import org.exolab.castor.xml.Marshaller;
-import org.exolab.castor.xml.Unmarshaller;
 
 import javax.xml.bind.annotation.*;
 
@@ -225,7 +223,7 @@ public class VmwareCimGroup implements java.io.Serializable {
      */
     public java.lang.String getCimClass(
     ) {
-        return this._cimClass == null ? "":this._cimClass;
+        return this._cimClass == null ? "" : this._cimClass;
     }
 
     /**
@@ -237,7 +235,7 @@ public class VmwareCimGroup implements java.io.Serializable {
      */
     public java.lang.String getInstance(
     ) {
-        return this._instance==null?"":this._instance;
+        return this._instance == null ? "" : this._instance;
     }
 
     /**
@@ -249,7 +247,7 @@ public class VmwareCimGroup implements java.io.Serializable {
      */
     public java.lang.String getKey(
     ) {
-        return this._key==null?"":this._key;
+        return this._key == null ? "" : this._key;
     }
 
     /**
@@ -261,7 +259,7 @@ public class VmwareCimGroup implements java.io.Serializable {
      */
     public java.lang.String getName(
     ) {
-        return this._name==null?"":this._name;
+        return this._name == null ? "" : this._name;
     }
 
     /**
@@ -279,7 +277,7 @@ public class VmwareCimGroup implements java.io.Serializable {
      */
     public java.lang.String getResourceType(
     ) {
-        return this._resourceType==null?"":this._resourceType;
+        return this._resourceType == null ? "" : this._resourceType;
     }
 
     /**
@@ -291,7 +289,7 @@ public class VmwareCimGroup implements java.io.Serializable {
      */
     public java.lang.String getValue(
     ) {
-        return this._value==null?"":this._value;
+        return this._value == null ? "" : this._value;
     }
 
     /**
@@ -380,18 +378,6 @@ public class VmwareCimGroup implements java.io.Serializable {
         this._attribList.clear();
 
         this._attribList.addAll(vAttribList);
-    }
-
-    /**
-     * Sets the value of '_attribList' by setting it to the given
-     * Vector. No type checking is performed.
-     *
-     * @param attribList the Vector to set.
-     * @deprecated
-     */
-    public void setAttribCollection(
-            final java.util.List<org.opennms.netmgt.config.vmware.cim.Attrib> attribList) {
-        this._attribList = attribList;
     }
 
     /**

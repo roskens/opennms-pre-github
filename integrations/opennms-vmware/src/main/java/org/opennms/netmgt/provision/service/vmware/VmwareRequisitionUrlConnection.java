@@ -35,7 +35,7 @@ import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
 import org.opennms.core.utils.url.GenericURLConnection;
 import org.opennms.core.xml.JaxbUtils;
-import org.opennms.netmgt.collectd.vmware.VmwareViJavaAccess;
+import org.opennms.protocols.vmware.VmwareViJavaAccess;
 import org.opennms.netmgt.model.PrimaryType;
 import org.opennms.netmgt.provision.persist.requisition.*;
 import org.slf4j.Logger;

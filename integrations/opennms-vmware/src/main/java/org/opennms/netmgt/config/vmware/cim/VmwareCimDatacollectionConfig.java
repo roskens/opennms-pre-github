@@ -281,16 +281,4 @@ public class VmwareCimDatacollectionConfig implements java.io.Serializable {
 
         this._vmwareCimCollectionList.addAll(vVmwareCimCollectionList);
     }
-
-    /**
-     * Sets the value of '_vmwareCimCollectionList' by setting it
-     * to the given Vector. No type checking is performed.
-     *
-     * @param vmwareCimCollectionList the Vector to set.
-     * @deprecated
-     */
-    public void setVmwareCimCollectionCollection(
-            final java.util.List<org.opennms.netmgt.config.vmware.cim.VmwareCimCollection> vmwareCimCollectionList) {
-        this._vmwareCimCollectionList = vmwareCimCollectionList;
-    }
 }

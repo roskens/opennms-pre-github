@@ -34,7 +34,7 @@ import org.exolab.castor.xml.ValidationException;
 import org.opennms.core.db.DataSourceFactory;
 import org.opennms.core.utils.BeanUtils;
 import org.opennms.core.utils.ParameterMap;
-import org.opennms.netmgt.collectd.vmware.VmwareViJavaAccess;
+import org.opennms.protocols.vmware.VmwareViJavaAccess;
 import org.opennms.netmgt.collectd.vmware.vijava.*;
 import org.opennms.netmgt.config.collector.AttributeGroupType;
 import org.opennms.netmgt.config.collector.CollectionSet;

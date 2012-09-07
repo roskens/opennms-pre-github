@@ -26,7 +26,7 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.netmgt.collectd.vmware;
+package org.opennms.protocols.vmware;
 
 import com.vmware.vim25.*;
 import com.vmware.vim25.mo.*;

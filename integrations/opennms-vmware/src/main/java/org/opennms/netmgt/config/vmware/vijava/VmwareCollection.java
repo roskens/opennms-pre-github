@@ -292,18 +292,6 @@ public class VmwareCollection implements java.io.Serializable {
     }
 
     /**
-     * Sets the value of '_vmwareGroupList' by setting it to the
-     * given Vector. No type checking is performed.
-     *
-     * @param vmwareGroupList the Vector to set.
-     * @deprecated
-     */
-    public void setVmwareGroupCollection(
-            final java.util.List<org.opennms.netmgt.config.vmware.vijava.VmwareGroup> vmwareGroupList) {
-        this._vmwareGroupList = vmwareGroupList;
-    }
-
-    /**
      * Sets the value of field 'name'.
      *
      * @param name the value of field 'name'.

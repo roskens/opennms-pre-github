@@ -281,16 +281,4 @@ public class VmwareDatacollectionConfig implements java.io.Serializable {
 
         this._vmwareCollectionList.addAll(vVmwareCollectionList);
     }
-
-    /**
-     * Sets the value of '_vmwareCollectionList' by setting it to
-     * the given Vector. No type checking is performed.
-     *
-     * @param vmwareCollectionList the Vector to set.
-     * @deprecated
-     */
-    public void setVmwareCollectionCollection(
-            final java.util.List<org.opennms.netmgt.config.vmware.vijava.VmwareCollection> vmwareCollectionList) {
-        this._vmwareCollectionList = vmwareCollectionList;
-    }
 }

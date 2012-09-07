@@ -37,6 +37,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.opennms.netmgt.collectd.vmware.vijava.VmwarePerformanceValues;
+import org.opennms.protocols.vmware.VmwareViJavaAccess;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.sblim.wbem.cim.*;
@@ -60,6 +61,7 @@ public class VmwareViJavaAccessTest {
     private PerformanceManager mockPerformanceManager;
     private ServiceInstance mockServiceInstance;
     private ServerConnection mockServerConnection;
+    private AboutInfo mockAboutInfo;
     private PerfProviderSummary mockPerfProviderSummary;
     private HostNetworkSystem mockHostNetworkSystem;
     private HostSystem mockHostSystem;
@@ -110,9 +112,13 @@ public class VmwareViJavaAccessTest {
         // setup ServerConnection
         mockServerConnection = new ServerConnection(new URL("https://hostname/sdk"), new VimPortType(new WSClient("https://hostname/sdk")), mockServiceInstance);
 
+        // setup AboutInfo
+        mockAboutInfo = createMock(AboutInfo.class);
+
         expectNew(ServiceInstance.class, new Class<?>[]{URL.class, String.class, String.class}, new URL("https://hostname/sdk"), "username", "password").andReturn(mockServiceInstance).anyTimes();
         expect(mockServiceInstance.getServerConnection()).andReturn(mockServerConnection).anyTimes();
         expect(mockServiceInstance.getPerformanceManager()).andReturn(mockPerformanceManager).anyTimes();
+        expect(mockServiceInstance.getAboutInfo()).andReturn(mockAboutInfo).anyTimes();
 
         managedEntity = new ManagedEntity(null, managedObjectReferenceManagedEntity);
         virtualMachine = new VirtualMachine(null, managedObjectReferenceVirtualMachine);
@@ -124,6 +130,15 @@ public class VmwareViJavaAccessTest {
         expect(MorUtil.createExactManagedEntity(mockServerConnection, managedObjectReferenceManagedEntity)).andReturn(managedEntity).anyTimes();
         expect(MorUtil.createExactManagedEntity(mockServerConnection, managedObjectReferenceVirtualMachine)).andReturn(virtualMachine).anyTimes();
         expect(MorUtil.createExactManagedEntity(mockServerConnection, managedObjectReferenceHostSystem)).andReturn(hostSystem).anyTimes();
+
+        // setup about info
+
+        expect(mockAboutInfo.getApiVersion()).andReturn("2.x");
+        expect(mockAboutInfo.getApiVersion()).andReturn("3.x");
+        expect(mockAboutInfo.getApiVersion()).andReturn("4.x");
+        expect(mockAboutInfo.getApiVersion()).andReturn("5.x");
+        expect(mockAboutInfo.getApiVersion()).andReturn("6.x");
+        expect(mockAboutInfo.getApiVersion()).andReturn("x");
 
         // setup performance data
 
@@ -440,5 +455,31 @@ public class VmwareViJavaAccessTest {
         Assert.assertEquals(vmwareViJavaAccess.getPropertyOfCimObject(obj1, "theKey"), "theValue");
         Assert.assertNull(vmwareViJavaAccess.getPropertyOfCimObject(obj2, "theKey"));
         Assert.assertNull(vmwareViJavaAccess.getPropertyOfCimObject(obj3, "theKey"));
+    }
+
+    @Test
+    public void testGetMajorApiVersion() throws Exception {
+        replay(mockAboutInfo, mockServiceInstance, ServiceInstance.class);
+
+        try {
+            vmwareViJavaAccess.connect();
+
+            int majorApiVersion;
+
+            majorApiVersion = vmwareViJavaAccess.getMajorApiVersion();
+            Assert.assertEquals(majorApiVersion, 3);
+            majorApiVersion = vmwareViJavaAccess.getMajorApiVersion();
+            Assert.assertEquals(majorApiVersion, 3);
+            majorApiVersion = vmwareViJavaAccess.getMajorApiVersion();
+            Assert.assertEquals(majorApiVersion, 4);
+            majorApiVersion = vmwareViJavaAccess.getMajorApiVersion();
+            Assert.assertEquals(majorApiVersion, 5);
+            majorApiVersion = vmwareViJavaAccess.getMajorApiVersion();
+            Assert.assertEquals(majorApiVersion, 6);
+        } catch (MalformedURLException e) {
+            Assert.fail(e.getMessage());
+        } catch (RemoteException e) {
+            Assert.fail(e.getMessage());
+        }
     }
 }

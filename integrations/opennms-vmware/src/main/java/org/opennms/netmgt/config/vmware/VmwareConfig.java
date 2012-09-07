@@ -256,16 +256,4 @@ public class VmwareConfig implements java.io.Serializable {
 
         this._vmwareServerList.addAll(vVmwareServerList);
     }
-
-    /**
-     * Sets the value of '_vmwareServerList' by setting it to the
-     * given Vector. No type checking is performed.
-     *
-     * @param vmwareServerList the Vector to set.
-     * @deprecated
-     */
-    public void setVmwareServerCollection(
-            final java.util.List<org.opennms.netmgt.config.vmware.VmwareServer> vmwareServerList) {
-        this._vmwareServerList = vmwareServerList;
-    }
 }

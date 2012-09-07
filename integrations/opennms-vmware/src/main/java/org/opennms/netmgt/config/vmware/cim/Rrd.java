@@ -270,18 +270,6 @@ public class Rrd implements java.io.Serializable {
     }
 
     /**
-     * Sets the value of '_rraList' by setting it to the given
-     * Vector. No type checking is performed.
-     *
-     * @param rraList the Vector to set.
-     * @deprecated
-     */
-    public void setRraCollection(
-            final java.util.List<java.lang.String> rraList) {
-        this._rraList = rraList;
-    }
-
-    /**
      * Sets the value of field 'step'. The field 'step' has the
      * following description: step size for the RRD
      *
