@@ -42,14 +42,15 @@ import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeSet;
 
 public class VmwareConfigBuilder {
 
-    private class VMwareConfigMetric implements Comparable<VMwareConfigMetric> {
-        String humanReadableName, aliasName, groupName;
-        PerfCounterInfo perfCounterInfo;
-        boolean multiInstance = false;
+    private static class VMwareConfigMetric implements Comparable<VMwareConfigMetric> {
+        private String humanReadableName, aliasName, groupName;
+        private PerfCounterInfo perfCounterInfo;
+        private boolean multiInstance = false;
 
         public VMwareConfigMetric(PerfCounterInfo perfCounterInfo, String humanReadableName, String aliasName, boolean multiInstance, String groupName) {
             this.perfCounterInfo = perfCounterInfo;
@@ -107,11 +108,11 @@ public class VmwareConfigBuilder {
     private String hostname, username, password;
     private ServiceInstance serviceInstance;
     private PerformanceManager performanceManager;
-    private HashMap<String, HashMap<String, TreeSet<VMwareConfigMetric>>> collections = new HashMap<String, HashMap<String, TreeSet<VMwareConfigMetric>>>();
-    private HashMap<Integer, PerfCounterInfo> perfCounterInfoMap = new HashMap<Integer, PerfCounterInfo>();
+    private Map<String, Map<String, TreeSet<VMwareConfigMetric>>> collections = new HashMap<String, Map<String, TreeSet<VMwareConfigMetric>>>();
+    private Map<Integer, PerfCounterInfo> perfCounterInfoMap = new HashMap<Integer, PerfCounterInfo>();
     private String versionInformation = "", apiVersion = "";
 
-    public static class TrustAllManager implements javax.net.ssl.TrustManager, javax.net.ssl.X509TrustManager {
+    private static class TrustAllManager implements javax.net.ssl.TrustManager, javax.net.ssl.X509TrustManager {
         public java.security.cert.X509Certificate[] getAcceptedIssuers() {
             return null;
         }
@@ -148,19 +149,19 @@ public class VmwareConfigBuilder {
     }
 
     private String normalizeGroupName(String groupName) {
+        String modifiedGroupName = groupName;
         String[] groupChunks = {"sys", "rescpu", "cpu", "net", "disk", "mem", "managementAgent", "virtualDisk", "datastore", "storageAdapter", "storagePath", "hbr", "power"};
         String[] groupReplacements = {"Sys", "ResCpu", "Cpu", "Net", "Disk", "Mem", "MgtAgt", "VrtDisk", "DaSt", "StAdptr", "StPth", "Hbr", "Power"};
 
         for (int i = 0; i < groupChunks.length; i++) {
-            groupName = groupName.replace(groupChunks[i], groupReplacements[i]);
+            modifiedGroupName = modifiedGroupName.replace(groupChunks[i], groupReplacements[i]);
         }
-        return groupName;
+        return modifiedGroupName;
     }
 
     private String condenseName(String text, String chunk) {
         String ignoreCaseChunk = "[" + chunk.substring(0, 1) + chunk.substring(0, 1).toUpperCase() + "]" + chunk.substring(1);
         String replacement = chunk.substring(0, 1).toUpperCase() + chunk.substring(chunk.length() - 1);
-        // System.out.println(ignoreCaseChunk+"->"+replacement);
         return text.replaceAll(ignoreCaseChunk, replacement);
     }
 
@@ -199,7 +200,7 @@ public class VmwareConfigBuilder {
         return full;
     }
 
-    public void lookupMetrics(String collectionName, String managedObjectId) throws Exception {
+    private void lookupMetrics(String collectionName, String managedObjectId) throws Exception {
         ManagedObjectReference managedObjectReference = new ManagedObjectReference();
 
         managedObjectReference.setType("ManagedEntity");
@@ -211,7 +212,7 @@ public class VmwareConfigBuilder {
 
         PerfQuerySpec perfQuerySpec = new PerfQuerySpec();
         perfQuerySpec.setEntity(managedEntity.getMOR());
-        perfQuerySpec.setMaxSample(new Integer(1));
+        perfQuerySpec.setMaxSample(Integer.valueOf(1));
         perfQuerySpec.setIntervalId(refreshRate);
 
         PerfEntityMetricBase[] perfEntityMetricBases = performanceManager.queryPerf(new PerfQuerySpec[]{perfQuerySpec});
@@ -241,15 +242,12 @@ public class VmwareConfigBuilder {
                             String groupName = perfCounterInfo.getGroupInfo().getKey();
                             String normalizedGroupName = normalizeGroupName(groupName);
 
-                            // System.out.println(humanReadableName + "[" + instanceName +
-                            // "]='" + longs[0] + "'");
-
                             Boolean b = multiInstance.get(getHumanReadableName(perfCounterInfo));
 
                             if (b == null) {
-                                b = new Boolean(instanceName != null && !"".equals(instanceName));
+                                b = Boolean.valueOf(instanceName != null && !"".equals(instanceName));
                             } else {
-                                b = new Boolean(b.booleanValue() || (instanceName != null && !"".equals(instanceName)));
+                                b = Boolean.valueOf(b.booleanValue() || (instanceName != null && !"".equals(instanceName)));
                             }
 
                             if (!b) {
@@ -274,7 +272,7 @@ public class VmwareConfigBuilder {
         collections.put(collectionName, groupMap);
     }
 
-    public void generateData(String rrdRepository) throws Exception {
+    private void generateData(String rrdRepository) throws Exception {
         serviceInstance = new ServiceInstance(new URL("https://" + hostname + "/sdk"), username, password);
 
         performanceManager = serviceInstance.getPerformanceManager();
@@ -350,7 +348,7 @@ public class VmwareConfigBuilder {
         HashMap<String, Boolean> generatedGraphs = new HashMap<String, Boolean>();
 
         for (String collectionName : collections.keySet()) {
-            HashMap<String, TreeSet<VMwareConfigMetric>> collection = collections.get(collectionName);
+            Map<String, TreeSet<VMwareConfigMetric>> collection = collections.get(collectionName);
             for (String groupName : collection.keySet()) {
                 TreeSet<VMwareConfigMetric> metrics = collection.get(groupName);
                 for (VMwareConfigMetric vmwarePerformanceMetric : metrics) {
@@ -390,7 +388,7 @@ public class VmwareConfigBuilder {
         buffer.append("<datacollection-group name=\"VMware" + apiVersion + "\">\n\n");
 
         for (String collectionName : collections.keySet()) {
-            HashMap<String, TreeSet<VMwareConfigMetric>> collection = collections.get(collectionName);
+            Map<String, TreeSet<VMwareConfigMetric>> collection = collections.get(collectionName);
             for (String groupName : collection.keySet()) {
                 if (!"node".equalsIgnoreCase(groupName)) {
                     buffer.append("  <resourceType name=\"vmware" + apiVersion + groupName + "\" label=\"VMware v" + apiVersion + " " + groupName + "\" resourceLabel=\"${" + groupName + "Name}\">\n");
@@ -416,7 +414,7 @@ public class VmwareConfigBuilder {
 
         buffer.append("<vmware-datacollection-config rrdRepository=\"" + rrdRepository + "\">\n");
         for (String collectionName : collections.keySet()) {
-            HashMap<String, TreeSet<VMwareConfigMetric>> collection = collections.get(collectionName);
+            Map<String, TreeSet<VMwareConfigMetric>> collection = collections.get(collectionName);
 
             buffer.append("  <vmware-collection name=\"" + collectionName + "\">\n");
             buffer.append("    <rrd step=\"300\">\n");
