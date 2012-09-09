@@ -35,8 +35,8 @@ import java.util.List;
 import org.opennms.features.topology.api.DisplayState;
 import org.opennms.features.topology.api.TopologyProvider;
 import org.opennms.features.topology.app.internal.TopoContextMenu.TopoContextMenuItem;
-import org.opennms.features.topology.app.internal.support.FilterableHierarchicalContainer;
 import org.opennms.features.topology.app.internal.jung.FRLayoutAlgorithm;
+import org.opennms.features.topology.app.internal.support.FilterableHierarchicalContainer;
 import org.opennms.features.topology.app.internal.support.IconRepositoryManager;
 
 import com.github.wolfie.refresher.Refresher;
@@ -46,9 +46,11 @@ import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.terminal.Sizeable;
 import com.vaadin.ui.AbsoluteLayout;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.HorizontalSplitPanel;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Layout;
@@ -113,6 +115,7 @@ public class TopologyWidgetTestApplication extends Application implements Comman
 		
 		final Property scale = m_graphContainer.getProperty(DisplayState.SCALE);
 		final Slider slider = new Slider(0, 4);
+		slider.setPropertyDataSource(scale);
 		slider.setResolution(2);
 		slider.setHeight("300px");
 		slider.setOrientation(Slider.ORIENTATION_VERTICAL);
@@ -127,7 +130,7 @@ public class TopologyWidgetTestApplication extends Application implements Comman
 		slider.addListener(new ValueChangeListener(){
 
 			public void valueChange(ValueChangeEvent event) {
-				scale.setValue((Double) slider.getValue());
+				//m_topologyComponent.requestRepaint();
 			}
 		});
 
@@ -171,7 +174,7 @@ public class TopologyWidgetTestApplication extends Application implements Comman
 		HorizontalSplitPanel treeMapSplitPanel = new HorizontalSplitPanel();
 		treeMapSplitPanel.setFirstComponent(createWestLayout());
 		treeMapSplitPanel.setSecondComponent(mapLayout);
-		treeMapSplitPanel.setSplitPosition(200, Sizeable.UNITS_PIXELS);
+		treeMapSplitPanel.setSplitPosition(222, Sizeable.UNITS_PIXELS);
 		treeMapSplitPanel.setSizeFull();
 
 
@@ -222,18 +225,25 @@ public class TopologyWidgetTestApplication extends Application implements Comman
             }
         });
         
+        
+        
+        HorizontalLayout filterArea = new HorizontalLayout();
+        filterArea.addComponent(filterField);
+        filterArea.addComponent(filterBtn);
+        filterArea.setComponentAlignment(filterBtn, Alignment.BOTTOM_CENTER);
+        
         Panel scrollPanel = new Panel("Vertices");
         scrollPanel.setHeight("100%");
         scrollPanel.setWidth("100%");
+        
         scrollPanel.setStyleName(Reindeer.PANEL_LIGHT);
         scrollPanel.addComponent(m_tree);
         
         AbsoluteLayout absLayout = new AbsoluteLayout();
         absLayout.setWidth("100%");
         absLayout.setHeight("100%");
-        absLayout.addComponent(filterField, "top: 25px; left: 0px;");
-        absLayout.addComponent(filterBtn, "top: 25px; left: 135px;");
-        absLayout.addComponent(scrollPanel, "top: 75px; left: 0px; bottom:0px;"); 
+        absLayout.addComponent(filterArea, "top: 25px; left: 15px;");
+        absLayout.addComponent(scrollPanel, "top: 75px; left: 15px; bottom:0px;"); 
         
         return absLayout;
     }

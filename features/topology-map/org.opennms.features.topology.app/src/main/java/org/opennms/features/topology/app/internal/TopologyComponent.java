@@ -95,6 +95,8 @@ public class TopologyComponent extends AbstractComponent implements Action.Conta
     private ContextMenuHandler m_contextMenuHandler;
     private IconRepositoryManager m_iconRepoManager;
     private boolean m_panToSelection = false;
+    private boolean m_fitToView = true;
+    private boolean m_scaleUpdateFromUI = false;
 
 	public TopologyComponent(GraphContainer dataSource) {
 		setGraph(new Graph(dataSource));
@@ -143,6 +145,8 @@ public class TopologyComponent extends AbstractComponent implements Action.Conta
         }
         setPanToSelection(false);
         
+        target.addAttribute("fitToView", isFitToView());
+        setFitToView(false);
         
         Set<Action> actions = new HashSet<Action>();
 		m_actionMapper = new KeyMapper();
@@ -274,6 +278,14 @@ public class TopologyComponent extends AbstractComponent implements Action.Conta
         
     }
 
+    public boolean isFitToView() {
+        return m_fitToView;
+    }
+    
+    public void setFitToView(boolean fitToView) {
+        m_fitToView  = fitToView;
+    }
+
     private void setPanToSelection(boolean b) {
         m_panToSelection  = b;
     }
@@ -368,6 +380,7 @@ public class TopologyComponent extends AbstractComponent implements Action.Conta
         
         if(variables.containsKey("mapScale")) {
             double newScale = (Double)variables.get("mapScale");
+            setScaleUpdateFromUI(true);
             setScale(newScale);
         }
         
@@ -399,6 +412,14 @@ public class TopologyComponent extends AbstractComponent implements Action.Conta
         }
         
         updateMenuItems();
+    }
+
+    private void setScaleUpdateFromUI(boolean scaleUpdateFromUI) {
+        m_scaleUpdateFromUI  = scaleUpdateFromUI;
+    }
+    
+    private boolean isScaleUpdateFromUI() {
+        return m_scaleUpdateFromUI;
     }
 
     private void updateVertex(String vertexUpdate) {
@@ -517,6 +538,7 @@ public class TopologyComponent extends AbstractComponent implements Action.Conta
 
 	public void containerItemSetChange(ItemSetChangeEvent event) {
 		m_graph.update();
+		setFitToView(true);
 		requestRepaint();
 	}
 
@@ -526,9 +548,12 @@ public class TopologyComponent extends AbstractComponent implements Action.Conta
 	}
 
     public void valueChange(ValueChangeEvent event) {
-        
-        //Request repaint when a value changes, currently we are only listening to the scale property
-        requestRepaint();
+        if(!isScaleUpdateFromUI()) {
+            requestRepaint();
+            setScaleUpdateFromUI(false);
+        }else {
+            setScaleUpdateFromUI(false);
+        }
     }
 
     public ContextMenuHandler getContextMenuHandler() {
