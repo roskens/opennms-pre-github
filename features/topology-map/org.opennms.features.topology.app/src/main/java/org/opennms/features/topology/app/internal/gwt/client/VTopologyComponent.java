@@ -878,7 +878,7 @@ public class VTopologyComponent extends Composite implements Paintable, ActionOw
 	}
 
 	private void setScale(double scale, int clientX, int clientY) {
-		if(m_scale != scale) {
+	    if(m_scale != scale) {
 			double oldScale = m_scale;
 			m_scale = scale;
 			repaintScale(oldScale, clientX, clientY);
@@ -935,16 +935,11 @@ public class VTopologyComponent extends Composite implements Paintable, ActionOw
 		p.setX(cx);
 		p.setY(cy);
 		p = p.matrixTransform(g.getCTM().inverse());
-		//consoleLog(g.getCTM());
-		//consoleLog(g.getCTM().inverse());
 		SVGMatrix m = svg.createSVGMatrix()
 				.translate(p.getX(),p.getY())
 				 .scale(zoomFactor)
 				.translate(-p.getX(), -p.getY());
 		SVGMatrix ctm = g.getCTM().multiply(m);
-		consoleLog("getCTM");
-		consoleLog(ctm);
-		consoleLog(g.getCTM().multiply(m));
 		D3.d3().select(m_svgViewPort).transition().duration(1000).attr("transform", matrixTransform(ctm));
 
 	}
@@ -1098,13 +1093,14 @@ public class VTopologyComponent extends Composite implements Paintable, ActionOw
                    
         String transformVal = matrixTransform(transform);
         
+        double strokeWidth = 2 * (1/scale);
+        D3.d3().selectAll("line").style("opacity", "1").transition().duration(2000).style("stroke-width", "" + strokeWidth);
+        
         D3.d3().select(getSVGViewPort()).transition().duration(2000).attr("transform", transformVal).each("end", new AnonymousFunc() {
             
             @Override
             public void call() {
-                //TODO: uncomment the line below and when you change the layout the first click on the backgroun will scale again.
-                
-                //setMapScaleNow(scale);
+                setMapScaleNow(scale);
                 
             }
         });
@@ -1119,9 +1115,8 @@ public class VTopologyComponent extends Composite implements Paintable, ActionOw
             GWTVertex vertex = vertices.get(i);
             
             if(fitToView || vertex.isSelected()) {
-                double vertexX = vertex.getX();//vertexCTM.getE();
-                double vertexY = vertex.getY(); //vertexCTM.getF();
-                consoleLog("(" + vertexX + "," + vertexY+")");
+                double vertexX = vertex.getX();
+                double vertexY = vertex.getY();
                 rect.addPoint(new Point(vertexX, vertexY));
             }
         }
@@ -1130,10 +1125,11 @@ public class VTopologyComponent extends Composite implements Paintable, ActionOw
     }
     
     private void setMapScaleNow(double scale) {
-        m_client.updateVariable(m_paintableId, "mapScale", scale, true);
+        setMapScale(scale, true);
     }
     
     private void setMapScale(double scale, boolean immediate) {
+        m_scale = scale;
         m_client.updateVariable(m_paintableId, "mapScale", scale, immediate);
     }
 
