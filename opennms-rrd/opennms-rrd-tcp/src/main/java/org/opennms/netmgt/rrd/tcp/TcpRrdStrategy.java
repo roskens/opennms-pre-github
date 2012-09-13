@@ -167,6 +167,18 @@ public class TcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefinition,
 
     /** {@inheritDoc} */
     @Override
+    public void createMetaDataFile(String directory, String rrdName, Map<String, String> attributeMappings) throws Exception {
+
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public Map<String, String> getMetaDataMappings(String directory, String rrdName) throws Exception {
+        return null;
+    }
+
+    /** {@inheritDoc} */
+    @Override
     public RrdOutputSocketWithFilename openFile(String fileName) throws Exception {
         return new RrdOutputSocketWithFilename(new RrdOutputSocket(m_host, m_port), fileName);
     }

@@ -31,13 +31,18 @@ package org.opennms.netmgt.rrd.rrdtool;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 
 import org.opennms.core.utils.StringUtils;
@@ -181,13 +186,79 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand 
         log().debug("Executing: rrdtool "+createCommand.toString());
         Interface.launch(createCommand.toString());
         
-        String filenameWithoutExtension = createCommand.filename.replace(RrdUtils.getExtension(), "");
-        int lastIndexOfSeparator = filenameWithoutExtension.lastIndexOf(File.separator);
-        
-		RrdUtils.createMetaDataFile(
-				filenameWithoutExtension.substring(0, lastIndexOfSeparator),
-				filenameWithoutExtension.substring(lastIndexOfSeparator),
-				attributeMappings);
+        File rrdFile = new File(createCommand.filename);
+        createMetaDataFile(rrdFile.getParent(), rrdFile.getName().replace(RrdUtils.getExtension(), ""), attributeMappings);
+    }
+
+    /**
+     * Writes a file with the attribute to rrd track mapping next to the rrd file.
+     *
+     * attributMappings = Key(attributeId, for example SNMP OID or JMX bean)
+     *                  = value(Name of data source, for example ifInOctets)
+     *
+     * @param directory
+     * @param rrdName
+     * @param attributeMappings a {@link Map<String, String>} that represents
+     * the mapping of attributeId to rrd track names
+     */
+    public void createMetaDataFile(String directory, String rrdName, Map<String, String> attributeMappings) {
+        if (attributeMappings != null) {
+            Writer fileWriter = null;
+            String mapping = "";
+            StringBuilder sb = new StringBuilder(mapping);
+            for (Entry<String, String> mappingEntry : attributeMappings.entrySet()) {
+                sb.append(mappingEntry.getKey());
+                sb.append("=");
+                sb.append(mappingEntry.getValue());
+                sb.append("\n");
+            }
+            try {
+                fileWriter = new FileWriter(directory + File.separator + rrdName + ".meta");
+                fileWriter.write(sb.toString());
+                log().info("createRRD: creating META file " + directory + File.separator + rrdName + ".meta");
+            } catch (IOException e) {
+                log().error("createMetaDataFile: An error occured creating metadatafile: " + directory + File.separator + rrdName + ".meta" + "exception: " + e.getMessage());
+            } finally {
+                if (fileWriter != null) {
+                    try {
+                        fileWriter.close();
+                    } catch (IOException e) {
+                        log().error("createMetaDataFile: An error occured closing fileWriter: " + e.getMessage());
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
+    public Map<String, String> getMetaDataMappings(String directory, String rrdName) throws Exception {
+        Map<String, String> map = new HashMap<String, String>();
+        String fileName = directory + File.separator + rrdName + ".meta";
+        BufferedReader bf = null;
+        try {
+            bf = new BufferedReader(new FileReader(fileName));
+
+            String mappingLine = "";
+            while (mappingLine != null) {
+                mappingLine = bf.readLine();
+                String metric = mappingLine.substring(0, mappingLine.lastIndexOf("="));
+                String column = mappingLine.substring(mappingLine.lastIndexOf("=") + 1);
+                map.put(column, metric);
+            }
+
+        } catch (Exception ex) {
+            log().error("Problem by looking up metrics for cloumns in context of prefabgraphs from meta file '" + fileName
+                                + "' '" + ex.getMessage() + "'");
+        } finally {
+            if (bf != null) {
+                try {
+                    bf.close();
+                } catch (IOException ex) {
+                    log().warn("problem by reader close", ex);
+                }
+            }
+        }
+        return map;
     }
 
     /**

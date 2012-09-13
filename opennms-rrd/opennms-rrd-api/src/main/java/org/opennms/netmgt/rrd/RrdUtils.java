@@ -33,7 +33,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.opennms.core.utils.ThreadCategory;
 import org.springframework.beans.factory.BeanFactory;
@@ -71,46 +70,6 @@ public abstract class RrdUtils {
                 // Default RRD configuration context
                 "org/opennms/netmgt/rrd/rrd-configuration.xml"
             });
-
-    /**
-     * Writes a file with the attribute to rrd track mapping next to the rrd file.
-     *
-     * attributMappings = Key(attributeId, for example SNMP OID or JMX bean)
-     *                  = value(Name of data source, for example ifInOctets)
-     *
-     * @param directory
-     * @param rrdName
-     * @param attributeMappings a {@link Map<String, String>} that represents
-     * the mapping of attributeId to rrd track names
-     */
-    public static void createMetaDataFile(String directory, String rrdName, Map<String, String> attributeMappings) {
-        if (attributeMappings != null) {
-            Writer fileWriter = null;
-            String mapping = "";
-            StringBuilder sb = new StringBuilder(mapping);
-            for (Entry<String, String> mappingEntry : attributeMappings.entrySet()) {
-                sb.append(mappingEntry.getKey());
-                sb.append("=");
-                sb.append(mappingEntry.getValue());
-                sb.append("\n");
-            }
-            try {
-                fileWriter = new FileWriter(directory + File.separator + rrdName + ".meta");
-                fileWriter.write(sb.toString());
-                log().info("createRRD: creating META file " + directory + File.separator + rrdName + ".meta");
-            } catch (IOException e) {
-                log().error("createMetaDataFile: An error occured creating metadatafile: " + directory + File.separator + rrdName + ".meta" + "exception: " + e.getMessage());
-            } finally {
-                if (fileWriter != null) {
-                    try {
-                        fileWriter.close();
-                    } catch (IOException e) {
-                        log().error("createMetaDataFile: An error occured closing fileWriter: " + e.getMessage());
-                    }
-                }
-            }
-        }
-    }
 
     public static enum StrategyName {
 

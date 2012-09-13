@@ -101,6 +101,38 @@ public interface RrdStrategy<D extends Object,F extends Object> {
 	 */
     public void createFile(D rrdDef, Map<String, String> attributeMappings) throws Exception;
 
+     /**
+      * Creates the round robin database defined by the supplied definition.
+      * Should be able to handle rrdDef being null.
+      *
+      * @param directory
+      *            - The directory to create the file in
+      * @param rrdName
+      *            - The name to use for the round robin database
+      * @param attributeMappings
+      *            a {@link Map<String, String>} that represents the mapping of
+      *            attributeId to rrd track names. default there is only one
+      *            track per datasource, but it is possible to store multiple
+      *            tracks in one datasource
+      * @throws java.lang.Exception
+      *             if an error occurs create the file
+      */
+    public void createMetaDataFile(String directory, String rrdName, Map<String, String> attributeMappings) throws Exception;
+
+    /**
+     * Creates the round robin database defined by the supplied definition.
+     * Should be able to handle rrdDef being null.
+     *
+     * @param directory
+     *            - The directory to create the file in
+     * @param rrdName
+     *            - The name to use for the round robin database
+     * @throws java.lang.Exception
+     *             if an error occurs create the file
+     */
+    public Map<String, String> getMetaDataMappings(String directory, String rrdName) throws Exception;
+
+
     /**
      * Opens the round robin database with the supplied name. It is assumed the
      * name refers to a round robin database appropriate for this strategy

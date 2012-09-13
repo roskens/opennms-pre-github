@@ -168,6 +168,17 @@ public class QueuingTcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefi
 
     /** {@inheritDoc} */
     @Override
+    public void createMetaDataFile(String directory, String rrdName, Map<String, String> attributeMappings) throws Exception {
+        // do nothing
+    }
+
+    /** {@inheritDoc} */
+    public Map<String, String> getMetaDataMappings(String directory, String rrdName) throws Exception {
+        return null;
+    }
+
+    /** {@inheritDoc} */
+    @Override
     public String openFile(String fileName) throws Exception {
         return fileName;
     }

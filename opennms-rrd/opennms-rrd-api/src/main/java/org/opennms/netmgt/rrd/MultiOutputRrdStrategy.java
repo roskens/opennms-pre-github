@@ -33,6 +33,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -151,6 +152,23 @@ public class MultiOutputRrdStrategy implements RrdStrategy<List<Object>,List<Obj
         for (int i = 0; i < rrdDef.size(); i++) {
             m_strategies.get(i).createFile(rrdDef.get(i), attributeMappings);
         }
+    }
+
+    /** {@inheritDoc} */
+    public void createMetaDataFile(String directory, String rrdName, Map<String, String> attributeMappings) throws Exception {
+        for (RrdStrategy<Object, Object> strategy : m_strategies) {
+            strategy.createMetaDataFile(directory, rrdName, attributeMappings);
+        }
+    }
+
+    /** {@inheritDoc} */
+    public Map<String, String> getMetaDataMappings(String directory, String rrdName) throws Exception {
+        Map<String, String> map = new HashMap<String, String>();
+        for (RrdStrategy<Object, Object> strategy : m_strategies) {
+            map.putAll(strategy.getMetaDataMappings(directory, rrdName));
+        }
+
+        return map;
     }
 
     /** {@inheritDoc} */

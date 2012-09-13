@@ -43,6 +43,7 @@ import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.OnmsResource;
 import org.opennms.netmgt.model.PrefabGraph;
 import org.opennms.netmgt.model.RrdGraphAttribute;
+import org.opennms.netmgt.rrd.RrdUtils;
 import org.opennms.netmgt.snmp.SnmpAgentConfig;
 import org.opennms.nrtg.api.NrtBroker;
 import org.opennms.nrtg.api.model.CollectionJob;
@@ -50,6 +51,22 @@ import org.opennms.nrtg.api.model.DefaultCollectionJob;
 import org.opennms.nrtg.api.model.MeasurementSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.servlet.http.HttpSession;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.Vector;
+
 
 /**
  * @author Markus Neumann
@@ -305,35 +322,11 @@ public class NrtController {
 
         //get all metaData for RrdGraphAttributes from the meta files next to the RRD/JRobin files
         for (RrdGraphAttribute attr : rrdGraphAttributes) {
-            String fileName = null;
-            BufferedReader bf = null;
-
             try {
-                fileName = m_resourceDao.getRrdDirectory() + File.separator + attr.getRrdRelativePath();
-
-                //get meta files instead of rrd or jrb
-                fileName = fileName.substring(0, fileName.lastIndexOf("."));
-                fileName = fileName.concat(".meta");
-                bf = new BufferedReader(new FileReader(fileName));
-
-                String metaDataLine = "";
-                while (metaDataLine != null) {
-                    logger.debug("attr = " + attr.toString() + ", mappingLine = " + metaDataLine);
-                    if (metaDataLine.endsWith(attr.getName())) {
-                        metaData.put(attr.toString(), metaDataLine);
-                    }//Not the meta data line we are looking for, will happen if store by group is used
-                    metaDataLine = bf.readLine();
-                }
-            } catch (Exception ex) {
-                logger.error("Problem by looking up meta data about metrics for RrdGraphAttributes in context of NRTG from meta file '{}' '{}'", fileName, ex.getMessage());
-            } finally {
-                if (bf != null) {
-                    try {
-                        bf.close();
-                    } catch (IOException ex) {
-                        logger.warn("problem by reader close", ex);
-                    }
-                }
+              Map<String, String> cms = RrdUtils.getStrategy().getMetaDataMappings(m_resourceDao.getRrdDirectory().getCanonicalPath(), attr.getRrdRelativePath());
+              if (cms != null)
+                  metaData.put(attr.toString(), cms.get(attr.toString()));
+            } catch (Exception e) {
             }
         }
         

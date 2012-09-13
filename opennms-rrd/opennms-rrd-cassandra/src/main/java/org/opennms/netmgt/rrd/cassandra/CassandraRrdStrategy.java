@@ -35,21 +35,29 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
+import me.prettyprint.cassandra.serializers.StringSerializer;
 import me.prettyprint.cassandra.service.CassandraHostConfigurator;
+import me.prettyprint.cassandra.service.ColumnSliceIterator;
 import me.prettyprint.hector.api.Cluster;
+import me.prettyprint.hector.api.ResultStatus;
 import me.prettyprint.hector.api.beans.HColumn;
 import me.prettyprint.hector.api.ddl.ColumnFamilyDefinition;
 import me.prettyprint.hector.api.ddl.ColumnType;
 import me.prettyprint.hector.api.ddl.ComparatorType;
 import me.prettyprint.hector.api.ddl.KeyspaceDefinition;
+import me.prettyprint.hector.api.exceptions.HectorException;
 import me.prettyprint.hector.api.factory.HFactory;
+import me.prettyprint.hector.api.mutation.Mutator;
 import me.prettyprint.hector.api.query.ColumnQuery;
 import me.prettyprint.hector.api.query.QueryResult;
+import me.prettyprint.hector.api.query.SliceQuery;
 
 import org.jrobin.core.RrdException;
 import org.jrobin.data.DataProcessor;
@@ -62,7 +70,6 @@ import org.opennms.core.utils.ThreadCategory;
 import org.opennms.netmgt.rrd.RrdDataSource;
 import org.opennms.netmgt.rrd.RrdGraphDetails;
 import org.opennms.netmgt.rrd.RrdStrategy;
-import org.opennms.netmgt.rrd.RrdUtils;
 import org.opennms.core.utils.LogUtils;
 
 /**
@@ -319,14 +326,65 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
         LogUtils.debugf(this, "createRRD: creating RRD file " + rrdDef.getFileName());
         rrdDef.create(m_connection);
 
-        String filenameWithoutExtension = rrdDef.getFileName().replace(RrdUtils.getExtension(), "");
-        int lastIndexOfSeparator = filenameWithoutExtension.lastIndexOf(File.separator);
-
-        RrdUtils.createMetaDataFile(
-                                    filenameWithoutExtension.substring(0, lastIndexOfSeparator),
-                                    filenameWithoutExtension.substring(lastIndexOfSeparator),
-                                    attributeMappings);
+        File rrdFile = new File(rrdDef.getFileName());
+        createMetaDataFile(rrdFile.getParent(), rrdFile.getName().replace(getDefaultFileExtension(), ""), attributeMappings);
     }
+
+    /** {@inheritDoc} */
+    public void createMetaDataFile(final String directory, final String rrdName, final Map<String, String> attributeMappings) throws Exception {
+        if (attributeMappings == null) return;
+        String fileName = directory + File.separator + rrdName + ".meta";
+
+        Mutator<String> mutator = HFactory.createMutator(m_connection.getKeyspace(), StringSerializer.get());
+
+        // FIXME: handle case where mappingEntry.getKey() == fileName
+        for (Entry<String, String> mappingEntry : attributeMappings.entrySet()) {
+            mutator.insert(fileName, m_connection.getMetaDataCFName(), HFactory.createStringColumn(mappingEntry.getKey(), mappingEntry.getValue()));
+        }
+
+        try {
+            ResultStatus result = mutator.execute();
+            if (result == null) {
+                LogUtils.warnf(this, "result was null after execute()");
+            }
+            LogUtils.infof(this, "createRRD: creating META file %s", fileName);
+        } catch (HectorException e) {
+            LogUtils.errorf(this, e, "exception");
+        }
+    }
+
+    @Override
+    public Map<String, String> getMetaDataMappings(String directory, String rrdName) throws Exception {
+        Map<String,String> map = new HashMap<String,String>();
+
+        String fileName = directory + File.separator + rrdName + ".meta";
+
+        try {
+            SliceQuery<String, String, String> sliceQuery =
+                    HFactory.createSliceQuery(m_connection.getKeyspace(),
+                                                   StringSerializer.get(),
+                                                   StringSerializer.get(),
+                                                   StringSerializer.get());
+            sliceQuery.setColumnFamily(m_connection.getMetaDataCFName()).setKey(fileName);
+
+            ColumnSliceIterator<String, String, String> iterator = new ColumnSliceIterator<String, String, String>(sliceQuery, "", "", false);
+
+            while (iterator.hasNext()) {
+                HColumn<String, String> hc = iterator.next();
+                map.put(hc.getName(), hc.getValue());
+            }
+
+        } catch (HectorException e) {
+            LogUtils.errorf(this, e, "exception on search");
+            throw new RrdException(e.getMessage());
+        } catch (Exception e) {
+            LogUtils.errorf(this, e, "exception on search");
+            throw e;
+        }
+
+        return map;
+    }
+
 
     /**
      * {@inheritDoc} Opens the JRobin RrdDb by name and returns it.

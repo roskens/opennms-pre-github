@@ -148,7 +148,11 @@ public class PersistOperationBuilder {
         
         RrdUtils.createRRD(m_resource.getOwnerName(), getResourceDir(m_resource).getAbsolutePath(), m_rrdName, getRepository().getStep(), getDataSources(), getRepository().getRraList(), getAttributeMappings());
         RrdUtils.updateRRD(m_resource.getOwnerName(), getResourceDir(m_resource).getAbsolutePath(), m_rrdName, m_timeKeeper.getCurrentTime(), getValues());
-        RrdUtils.createMetaDataFile(getResourceDir(m_resource).getAbsolutePath(), m_rrdName, m_metaData);
+	try {
+            RrdUtils.getStrategy().createMetaDataFile(getResourceDir(m_resource).getAbsolutePath(), m_rrdName, m_metaData);
+        } catch (Exception e) {
+            throw new RrdException(e.getMessage());
+        }
     }
 
     private String getValues() {

@@ -1036,6 +1036,16 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
         }
     }
 
+    /** {@inheritDoc} */
+    public void createMetaDataFile(String directory, String rrdName, Map<String, String> attributeMappings) throws Exception {
+        m_delegate.createMetaDataFile(directory, rrdName, attributeMappings);
+    }
+
+    /** {@inheritDoc} */
+    public Map<String, String> getMetaDataMappings(String directory, String rrdName) throws Exception {
+        return m_delegate.getMetaDataMappings(directory, rrdName);
+    }
+
     /*
      * (non-Javadoc)
      * 

@@ -71,6 +71,13 @@ public class NullRrdStrategy implements RrdStrategy<Object,Object> {
     }
 
     @Override
+    public void createMetaDataFile(String directory, String rrdName, Map<String, String> attrMapping) throws Exception {
+    }
+
+    public Map<String, String> getMetaDataMappings(String directory, String rrdName) throws Exception {
+        return null;
+    }
+
     public InputStream createGraph(String command, File workDir)
             throws IOException, RrdException {
         return null;
