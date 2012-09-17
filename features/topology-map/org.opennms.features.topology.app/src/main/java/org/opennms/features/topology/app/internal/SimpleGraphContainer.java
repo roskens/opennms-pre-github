@@ -195,6 +195,14 @@ public class SimpleGraphContainer implements GraphContainer {
             GVertex parent = getParent();
             return parent == null ? 0 : parent.getSemanticZoomLevel() + 1;
         }
+        
+        public String getTooltipText() {
+            if(m_item.getItemProperty("tooltipText") != null && m_item.getItemProperty("tooltipText").getValue() != null) {
+                return (String) m_item.getItemProperty("tooltipText").getValue();
+            }else {
+                return null;
+            }
+        }
 
     }
     
@@ -254,6 +262,13 @@ public class SimpleGraphContainer implements GraphContainer {
             m_target = target;
         }
         
+        public String getTooltipText() {
+            if(m_item.getItemProperty("tooltipText") != null && m_item.getItemProperty("tooltipText").getValue() != null) {
+                return (String) m_item.getItemProperty("tooltipText").getValue();
+            }else {
+                return null;
+            }
+        }
     }
     
     private class GEdgeContainer extends BeanContainer<String, GEdge> implements ItemSetChangeListener, PropertySetChangeListener{
@@ -298,6 +313,7 @@ public class SimpleGraphContainer implements GraphContainer {
 
         @Override
         public void containerItemSetChange(ItemSetChangeEvent event) {
+            System.err.println("containerItemSetChange called in GEdgeContainer");
             m_edgeHolder.update();
             removeAllItems();
             addAll(m_edgeHolder.getElements());
@@ -638,6 +654,7 @@ public class SimpleGraphContainer implements GraphContainer {
     }
     @Override
     public void redoLayout() {
+        System.err.println("redoLayout for simpleGraphContainer");
         if(m_layoutAlgorithm != null) {
             m_layoutAlgorithm.updateLayout(this);
             getVertexContainer().fireItemSetChange();
