@@ -44,6 +44,7 @@ import org.opennms.web.event.WebEventRepository;
 import org.opennms.web.event.filter.EventCriteria;
 import org.opennms.web.event.filter.EventIdFilter;
 import org.opennms.web.filter.Filter;
+import org.opennms.web.filter.OrFilter;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 import org.springframework.web.servlet.ModelAndView;
@@ -100,7 +101,13 @@ public class EventFilterController extends AbstractController implements Initial
      */
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        // filterList contains all filters from the user.
         List<Filter> filterList = new ArrayList<Filter>();
+        // exactUEIList contains all exactUei filters.
+        List<Filter> exactUEIList = new ArrayList<Filter>();
+        // sqlFilterList contains non exactUei filters, and an or filter for exactUeiList.
+        List<Filter> sqlFilterList = new ArrayList<Filter>();
+
         AcknowledgeType ackType = m_defaultEventType;
 
         String display = request.getParameter("display");
@@ -141,6 +148,7 @@ public class EventFilterController extends AbstractController implements Initial
         if (idString != null) {
             // asking for a specific ID; only filter should be event ID
             filterList.add(new EventIdFilter(WebSecurityUtils.safeParseInt(idString)));
+            sqlFilterList = filterList;
             ackType = null;
         } else {
             // otherwise, apply filters/acktype/etc.
@@ -159,13 +167,23 @@ public class EventFilterController extends AbstractController implements Initial
                     Filter filter = EventUtil.getFilter(filterString, getServletContext());
                     if (filter != null) {
                         filterList.add(filter);
+
+                        if (filterString.startsWith("exactUei=")) {
+                            exactUEIList.add(filter);
+                        } else {
+                            sqlFilterList.add(filter);
+                        }
                     }
                 }
+            }
+            if (exactUEIList.size() > 0) {
+                sqlFilterList.add(new OrFilter(exactUEIList.toArray(new Filter[0])));
             }
 
         }
 
         Filter[] filters = filterList.toArray(new Filter[0]);
+        Filter[] sqlFilters = sqlFilterList.toArray(new Filter[0]);
         
         EventQueryParms parms = new EventQueryParms();
         parms.ackType = ackType;
@@ -175,7 +193,7 @@ public class EventFilterController extends AbstractController implements Initial
         parms.multiple =  multiple;
         parms.sortStyle = sortStyle;
         
-        EventCriteria queryCriteria = new EventCriteria(filters, sortStyle, ackType, limit, limit * multiple);
+        EventCriteria queryCriteria = new EventCriteria(sqlFilters, sortStyle, ackType, limit, limit * multiple);
 
         Event[] events = m_webEventRepository.getMatchingEvents(queryCriteria);
         

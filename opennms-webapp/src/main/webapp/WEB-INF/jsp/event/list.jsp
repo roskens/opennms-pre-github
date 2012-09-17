@@ -29,39 +29,48 @@
 
 --%>
 
-<%@page language="java"	contentType="text/html"	session="true" %>
-
-<%@page import="java.util.List"%>
-<%@page import="java.util.ArrayList"%>
-
-<%@page import="org.opennms.core.utils.WebSecurityUtils"%>
-<%@page import="org.opennms.web.servlet.XssRequestWrapper"%>
-<%@page import="org.opennms.web.springframework.security.Authentication"%>
-
-<%@page import="org.opennms.web.admin.notification.noticeWizard.NotificationWizardServlet"%>
-
-<%@page import="org.opennms.web.filter.Filter"%>
-
-<%@page import="org.opennms.web.event.Event"%>
-<%@page import="org.opennms.web.event.EventQueryParms"%>
-<%@page import="org.opennms.web.event.EventUtil"%>
-
-<%@page import="org.opennms.web.controller.event.AcknowledgeEventController"%>
-
-<%@page import="org.opennms.web.event.filter.SeverityFilter"%>
-<%@page import="org.opennms.web.event.filter.NegativeSeverityFilter"%>
-<%@page import="org.opennms.web.event.filter.AfterDateFilter"%>
-<%@page import="org.opennms.web.event.filter.BeforeDateFilter"%>
-<%@page import="org.opennms.web.event.filter.NodeFilter"%>
-<%@page import="org.opennms.web.event.filter.NegativeNodeFilter"%>
-<%@page import="org.opennms.web.event.filter.InterfaceFilter"%>
-<%@page import="org.opennms.web.event.filter.NegativeInterfaceFilter"%>
-<%@page import="org.opennms.web.event.filter.ServiceFilter"%>
-<%@page import="org.opennms.web.event.filter.NegativeServiceFilter"%>
-<%@page import="org.opennms.web.event.filter.AcknowledgedByFilter"%>
-<%@page import="org.opennms.web.event.filter.NegativeAcknowledgedByFilter"%>
-<%@page import="org.opennms.web.event.filter.ExactUEIFilter"%>
-<%@page import="org.opennms.web.event.filter.NegativeExactUEIFilter"%>
+<%@page language="java"	contentType="text/html"	session="true"
+		import="java.util.ArrayList,
+				java.util.List,
+				java.util.Map,
+				java.util.Map.Entry,
+				java.util.Properties,
+				java.util.TreeMap,
+				java.io.FileNotFoundException,
+				java.io.FileInputStream,
+				java.io.IOException,
+				org.opennms.core.utils.WebSecurityUtils,
+				org.opennms.web.admin.notification.noticeWizard.NotificationWizardServlet,
+				org.opennms.web.controller.event.AcknowledgeEventController,
+				org.opennms.web.filter.Filter,
+				org.opennms.web.event.AcknowledgeType,
+				org.opennms.web.event.Event,
+				org.opennms.web.event.EventQueryParms,
+				org.opennms.web.event.EventUtil,
+				org.opennms.web.event.filter.SeverityFilter,
+				org.opennms.web.event.filter.NegativeSeverityFilter,
+				org.opennms.web.event.filter.AfterDateFilter,
+				org.opennms.web.event.filter.BeforeDateFilter,
+				org.opennms.web.event.filter.NodeFilter,
+				org.opennms.web.event.filter.NegativeNodeFilter,
+				org.opennms.web.event.filter.InterfaceFilter,
+				org.opennms.web.event.filter.NegativeInterfaceFilter,
+				org.opennms.web.event.filter.ServiceFilter,
+				org.opennms.web.event.filter.NegativeServiceFilter,
+				org.opennms.web.event.filter.AcknowledgedByFilter,
+				org.opennms.web.event.filter.NegativeAcknowledgedByFilter,
+				org.opennms.web.event.filter.ExactUEIFilter,
+				org.opennms.web.event.filter.NegativeExactUEIFilter,
+				org.opennms.web.event.SortStyle,
+				org.opennms.web.servlet.XssRequestWrapper,
+				org.opennms.web.springframework.security.Authentication,
+				org.opennms.netmgt.config.*,
+				org.opennms.netmgt.config.notifications.*,
+				org.opennms.core.utils.BundleLists,
+				org.opennms.core.utils.ConfigFileConstants,
+				org.springframework.core.io.FileSystemResource
+		"
+%>
 
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -76,6 +85,19 @@
      parameters used to make this query
 --%>
 
+<%!
+	private DefaultEventConfDao m_eventConfDao;
+
+	public void init() throws ServletException {
+		try {
+			m_eventConfDao = new DefaultEventConfDao();
+			m_eventConfDao.setConfigResource(new FileSystemResource(ConfigFileConstants.getFile(ConfigFileConstants.EVENT_CONF_FILE_NAME)));
+			m_eventConfDao.afterPropertiesSet();
+		} catch (Throwable e) {
+			throw new ServletException("Cannot load configuration file", e);
+		}
+	}
+%>
 <%
 	XssRequestWrapper req = new XssRequestWrapper(request);
 
@@ -99,20 +121,14 @@
     pageContext.setAttribute("addBeforeFilter", "[&gt;]");
     pageContext.setAttribute("addAfterFilter", "[&lt;]");
 %>
-
-
-
-
-<%@page import="org.opennms.web.event.AcknowledgeType"%>
-<%@page import="org.opennms.web.event.SortStyle"%><jsp:include page="/includes/header.jsp" flush="false" >
+<jsp:include page="/includes/header.jsp" flush="false" >
   <jsp:param name="title" value="Event List" />
   <jsp:param name="headTitle" value="List" />
   <jsp:param name="headTitle" value="Events" />
   <jsp:param name="breadcrumb" value="<a href= 'event/index.jsp' title='Events System Page'>Events</a>" />
   <jsp:param name="breadcrumb" value="List" />
 </jsp:include>
-
-  <script type="text/javascript">
+<script type="text/javascript">
     function checkAllCheckboxes() {
        if( document.acknowledge_form.event.length ) {  
          for( i = 0; i < document.acknowledge_form.event.length; i++ ) {
@@ -185,7 +201,14 @@
     	document.add_notification_form.submit();
     }
 
-  </script>
+    function submitAddEventForm() {
+        if (document.getElementById("adduei").value !== "") {
+            var url = document.addeventform.action.value + "&filter=" + encodeURIComponent("exactUei="+document.getElementById("adduei").value);
+            window.location = url;
+        }
+    }
+
+</script>
 
 
       <!-- menu -->
@@ -259,6 +282,14 @@
                     <% Filter filter = (Filter)parms.filters.get(i); %>
                     &nbsp; <span class="filter"><%= WebSecurityUtils.sanitizeString(filter.getTextDescription()) %><a href="<%=this.makeLink( parms, filter, false)%>" title="Remove filter">[-]</a></span>
                   <% } %>
+
+                  <form name="addeventform">
+                      <input type="hidden" name="action" value="<%=this.makeLink(parms)%>" />
+                      <select id="adduei" name="adduei" size="3">
+                      <%=buildEventSelect()%>
+                      </select>
+                      <input type="button" value="Add exactUEI" onclick="submitAddEventForm();"/>
+                  </form>
               </p>
             <% } %>
 
@@ -575,4 +606,58 @@
         return( labels );
     }
 
+%>
+<%!
+    public String buildEventSelect()
+      throws IOException, FileNotFoundException
+    {
+        List<org.opennms.netmgt.xml.eventconf.Event> events = m_eventConfDao.getEventsByLabel();
+        StringBuffer buffer = new StringBuffer();
+
+        List<String> excludeList = getExcludeList();
+        TreeMap<String, String> sortedMap = new TreeMap<String, String>();
+
+        for(org.opennms.netmgt.xml.eventconf.Event e : events) {
+            String uei = e.getUei();
+            String label = e.getEventLabel();
+            String trimmedUei = stripUei(uei);
+            if (!excludeList.contains(trimmedUei)) {
+                sortedMap.put(label,uei);
+                System.out.println("sortedMap.put('"+label+"', '"+uei+"')");
+            }
+	    }
+        for(Map.Entry<String, String> me : sortedMap.entrySet()) {
+            buffer.append("<option value=" + me.getValue() + ">" + me.getKey() + "</option>");
+        }
+
+        return buffer.toString();
+    }
+
+    public String stripUei(String uei)
+    {
+        String leftover = uei;
+
+        for (int i = 0; i < 3; i++)
+        {
+            leftover = leftover.substring(leftover.indexOf('/')+1);
+        }
+
+        return leftover;
+     }
+
+     public List<String> getExcludeList() throws IOException, FileNotFoundException
+     {
+        List<String> excludes = new ArrayList<String>();
+
+        Properties excludeProperties = new Properties();
+        excludeProperties.load( new FileInputStream( ConfigFileConstants.getFile(ConfigFileConstants.EXCLUDE_UEI_FILE_NAME )));
+        String[] ueis = BundleLists.parseBundleList( excludeProperties.getProperty( "excludes" ));
+
+        for (int i = 0; i < ueis.length; i++)
+        {
+            excludes.add(ueis[i]);
+        }
+
+        return excludes;
+     }
 %>
