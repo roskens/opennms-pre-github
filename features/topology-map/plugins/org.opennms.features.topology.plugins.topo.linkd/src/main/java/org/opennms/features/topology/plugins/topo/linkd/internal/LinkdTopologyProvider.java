@@ -45,16 +45,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.opennms.features.topology.api.TopologyProvider;
 
-import org.opennms.netmgt.dao.AlarmDao;
 import org.opennms.netmgt.dao.DataLinkInterfaceDao;
 import org.opennms.netmgt.dao.IpInterfaceDao;
 import org.opennms.netmgt.dao.NodeDao;
 import org.opennms.netmgt.dao.SnmpInterfaceDao;
 import org.opennms.netmgt.model.DataLinkInterface;
-import org.opennms.netmgt.model.OnmsAlarm;
 import org.opennms.netmgt.model.OnmsIpInterface;
 import org.opennms.netmgt.model.OnmsNode;
-import org.opennms.netmgt.model.OnmsSeverity;
 import org.opennms.netmgt.model.OnmsSnmpInterface;
 
 import com.vaadin.data.Item;
@@ -62,8 +59,8 @@ import com.vaadin.data.util.BeanContainer;
 import com.vaadin.data.util.BeanItem;
 
 public class LinkdTopologyProvider implements TopologyProvider {
-    public static final String GROUP_ICON_KEY = "linkd-group";
-    public static final String SERVER_ICON_KEY = "linkd-server";
+    public static final String GROUP_ICON_KEY = "linkd:group";
+    public static final String SERVER_ICON_KEY = "linkd:system";
 
     /**
      * Always print at least one digit after the decimal point,
@@ -110,12 +107,7 @@ public class LinkdTopologyProvider implements TopologyProvider {
     
     private SnmpInterfaceDao m_snmpInterfaceDao;
 
-    private AlarmDao m_alarmDao;
-
     private String m_configurationFile;
-    
-    
-    private Map<Integer, OnmsSeverity> m_nodeToSeveritymap;
     
     public String getConfigurationFile() {
         return m_configurationFile;
@@ -123,14 +115,6 @@ public class LinkdTopologyProvider implements TopologyProvider {
 
     public void setConfigurationFile(String configurationFile) {
         m_configurationFile = configurationFile;
-    }
-
-    public AlarmDao getAlarmDao() {
-        return m_alarmDao;
-    }
-
-    public void setAlarmDao(AlarmDao alarmDao) {
-        m_alarmDao = alarmDao;
     }
 
     public SnmpInterfaceDao getSnmpInterfaceDao() {
@@ -187,7 +171,6 @@ public class LinkdTopologyProvider implements TopologyProvider {
         m_vertexContainer = new LinkdVertexContainer();
         m_edgeContainer = new BeanContainer<String, LinkdEdge>(LinkdEdge.class);
         m_edgeContainer.setBeanIdProperty("id");
-        m_nodeToSeveritymap = new HashMap<Integer, OnmsSeverity>();
     }
 
     @Override
@@ -348,16 +331,6 @@ public class LinkdTopologyProvider implements TopologyProvider {
         }
     }
 
-    private void loadseveritymap() {
-        m_nodeToSeveritymap.clear();
-        for (OnmsAlarm alarm: m_alarmDao.findAll()) {
-            if (m_nodeToSeveritymap.containsKey(alarm.getNodeId())
-                    && alarm.getSeverity().isLessThan(m_nodeToSeveritymap.get(alarm.getNodeId())))
-                return;
-            m_nodeToSeveritymap.put(alarm.getNodeId(), alarm.getSeverity());
-        }
-    }
-
     private void loadtopology() {
         log("loadtopology: loading topology: configFile:" + m_configurationFile);
         
@@ -366,9 +339,6 @@ public class LinkdTopologyProvider implements TopologyProvider {
         log("loadtopology: Clean EdgeContainer");
         getEdgeContainer().removeAllItems();
 
-        log("loadtopology: loading node to severity map");
-        loadseveritymap();
-        
         Map<String, LinkdVertex> vertexes = new HashMap<String, LinkdVertex>();
         Collection<LinkdEdge> edges = new ArrayList<LinkdEdge>();
         for (DataLinkInterface link: m_dataLinkInterfaceDao.findAll()) {
@@ -514,12 +484,6 @@ public class LinkdTopologyProvider implements TopologyProvider {
             tooltipText +="\n";
         }
         
-        OnmsSeverity severity = OnmsSeverity.NORMAL;
-        if (m_nodeToSeveritymap.containsKey(node.getId()))
-                severity = m_nodeToSeveritymap.get(node.getId());
-        tooltipText += "Alarm Status: " + severity.getLabel();
-        tooltipText +="\n";
-        
         tooltipText += getNodeStatusString(node.getType().charAt(0));
         if (ip.isManaged()) {
             tooltipText += "/Managed";
@@ -535,12 +499,7 @@ public class LinkdTopologyProvider implements TopologyProvider {
     }
     
     protected String getIconName(OnmsNode node) {
-        String iconName = SERVER_ICON_KEY;
-        
-        if (node.getSysObjectId() != null)
-            iconName = "snmp:"+node.getSysObjectId();
-        return iconName;
-       
+        return node.getSysObjectId() == null ? "linkd:system" : "linkd:system:snmp:"+node.getSysObjectId();
     }
     
     private OnmsIpInterface getAddress(OnmsNode node) {
