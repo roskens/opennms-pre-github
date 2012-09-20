@@ -29,12 +29,17 @@
 package org.opennms.netmgt.config;
 
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import org.opennms.core.xml.AbstractJaxbConfigDao;
+import org.opennms.netmgt.config.BasicScheduleUtils;
 import org.opennms.netmgt.config.poller.Interface;
 import org.opennms.netmgt.config.poller.Node;
 import org.opennms.netmgt.config.poller.Outage;
@@ -52,7 +57,8 @@ abstract public class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
     private final Lock m_readLock = m_globalLock.readLock();
     private final Lock m_writeLock = m_globalLock.writeLock();
-    
+    private static Map<String,Integer> m_dayOfWeekMap;
+
     public PollOutagesConfigManager() {
         super(Outages.class, "poll outage configuration");
     }
@@ -60,7 +66,7 @@ abstract public class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
     public Lock getReadLock() {
         return m_readLock;
     }
-    
+
     public Lock getWriteLock() {
         return m_writeLock;
     }
@@ -80,15 +86,184 @@ abstract public class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
          * programmaticStoreConfigResource (if needed).
          */
         Assert.state(getConfigResource() != null, "property configResource must be set and be non-null");
-        
+
         super.afterPropertiesSet();
+    }
+
+    /**
+     * <p>getDayOfWeekIndex</p>
+     *
+     * @param dayName a {@link java.lang.String} object.
+     * @return a {@link java.lang.Integer} object.
+     */
+    public static Integer getDayOfWeekIndex(final String dayName) {
+        createDayOfWeekMapping();
+        return m_dayOfWeekMap.get(dayName);
+    }
+
+    /**
+     * Create the day of week mapping
+     *
+     */
+    private static void createDayOfWeekMapping() {
+        if (PollOutagesConfigManager.m_dayOfWeekMap == null) {
+            PollOutagesConfigManager.m_dayOfWeekMap = new HashMap<String,Integer>();
+            PollOutagesConfigManager.m_dayOfWeekMap.put("sunday", Calendar.SUNDAY);
+            PollOutagesConfigManager.m_dayOfWeekMap.put("monday", Calendar.MONDAY);
+            PollOutagesConfigManager.m_dayOfWeekMap.put("tuesday", Calendar.TUESDAY);
+            PollOutagesConfigManager.m_dayOfWeekMap.put("wednesday", Calendar.WEDNESDAY);
+            PollOutagesConfigManager.m_dayOfWeekMap.put("thursday", Calendar.THURSDAY);
+            PollOutagesConfigManager.m_dayOfWeekMap.put("friday", Calendar.FRIDAY);
+            PollOutagesConfigManager.m_dayOfWeekMap.put("saturday", Calendar.SATURDAY);
+        }
+    }
+
+
+    /**
+     * <p>isDaily</p>
+     *
+     * @param time a {@link org.opennms.netmgt.config.common.Time} object.
+     * @return a boolean.
+     */
+    private static boolean isDaily(final Time time) {
+        return time.getDay() == null && !isSpecific(time);
+    }
+
+    /**
+     * <p>isWeekly</p>
+     *
+     * @param time a {@link org.opennms.netmgt.config.common.Time} object.
+     * @return a boolean.
+     */
+    private static boolean isWeekly(final Time time) {
+        return time.getDay() != null && getDayOfWeekIndex(time.getDay()) != null;
+    }
+
+    /**
+     * <p>isMonthly</p>
+     *
+     * @param time a {@link org.opennms.netmgt.config.common.Time} object.
+     * @return a boolean.
+     */
+    private static boolean isMonthly(final Time time) {
+        return time.getDay() != null && getDayOfWeekIndex(time.getDay()) == null;
+    }
+
+    /**
+     * <p>isSpecific</p>
+     *
+     * @param time a {@link org.opennms.netmgt.config.common.Time} object.
+     * @return a boolean.
+     */
+    private static boolean isSpecific(final Time time) {
+        if (time.getDay() == null) {
+            if (time.getBegins().matches("^\\d\\d\\d\\d-\\d\\d-\\d\\d .*$")) {
+                return true;
+            } else if (time.getBegins().matches("^\\d\\d-...-\\d\\d\\d\\d .*$")) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
     protected Outages translateConfig(final Outages outages) {
+        // sort times for the individual outages
+        for(final Outage o : outages.getOutageCollection()) {
+            Collections.sort(o.getTimeCollection(), new Comparator<Time>() {
+                @Override
+                public int compare(final Time t1, final Time t2) {
+
+                    final Calendar ct1 = new GregorianCalendar();
+                    final Calendar ct2 = new GregorianCalendar();
+
+                    if (isSpecific(t1)) {
+                        if (!isSpecific(t2))
+                            return -1;
+                    }
+                    if (isMonthly(t1)) {
+                        if (isSpecific(t2))
+                            return 1;
+                        if (!isMonthly(t2))
+                            return -1;
+                        ct1.set(Calendar.DAY_OF_MONTH, Integer.valueOf(t1.getDay()));
+                        ct2.set(Calendar.DAY_OF_MONTH, Integer.valueOf(t2.getDay()));
+                    }
+                    if (isWeekly(t1)) {
+                        if (isSpecific(t2))
+                            return 1;
+                        if (isMonthly(t2))
+                            return 1;
+                        if (isDaily(t2))
+                            return -1;
+                        ct1.set(Calendar.DAY_OF_WEEK, BasicScheduleUtils.getDayOfWeekIndex(t1.getDay()));
+                        ct2.set(Calendar.DAY_OF_WEEK, BasicScheduleUtils.getDayOfWeekIndex(t2.getDay()));
+                    }
+                    if (isDaily(t1)) {
+                        if (isSpecific(t2))
+                            return -1;
+                        if (isMonthly(t2))
+                            return -1;
+                        if (isWeekly(t2))
+                            return -1;
+                    }
+
+                    BasicScheduleUtils.setOutCalTime(ct1, t1.getBegins());
+                    BasicScheduleUtils.setOutCalTime(ct2, t2.getBegins());
+                    if (ct1.before(ct2))
+                        return -1;
+                    if (ct1.after(ct2))
+                        return 1;
+
+                    BasicScheduleUtils.setOutCalTime(ct1, t1.getEnds());
+                    BasicScheduleUtils.setOutCalTime(ct2, t2.getEnds());
+                    return ct1.compareTo(ct2);
+                }
+            });
+        }
+
+        /**
+         * Sort outages based upon type:  daily weekly monthly specific
+         * then based on the first time.
+         */
+        Collections.sort(outages.getOutageCollection(), new Comparator<Outage>() {
+            @Override
+            public int compare(final Outage o1, final Outage o2) {
+                final OutageType ot1 = OutageType.valueOf(o1.getType().toUpperCase());
+                final OutageType ot2 = OutageType.valueOf(o2.getType().toUpperCase());
+                if (ot1.compareTo(ot2) != 0) {
+                    return ot1.compareTo(ot2);
+                }
+
+                if (ot1.equals(OutageType.DAILY)) {
+
+                }
+
+                if (ot1.equals(OutageType.WEEKLY)) {
+
+                }
+                if (ot1.equals(OutageType.MONTHLY)) {
+
+                }
+                if (ot1.equals(OutageType.SPECIFIC)) {
+
+                }
+                // Compare base upon the earliest start time.
+
+                return 0;
+            }
+        });
+
         return outages;
     }
-    
+
+    private enum OutageType {
+        DAILY,
+        WEEKLY,
+        MONTHLY,
+        SPECIFIC
+    }
+
 
     /**
      * <p>getConfig</p>
@@ -307,7 +482,7 @@ abstract public class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
      * @param getOutageSchedule(newOutage) a {@link org.opennms.netmgt.config.poller.Outage} object.
      */
     public void replaceOutage(final Outage oldOutage, final Outage newOutage) {
-        int count = getConfig().getOutageCount();
+        final int count = getConfig().getOutageCount();
         for (int i = 0; i < count; i++) {
             if (getConfig().getOutage(i).equals(oldOutage)) {
                 getConfig().setOutage(i, newOutage);
@@ -318,9 +493,9 @@ abstract public class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
 
     /*
      * <p>Return the nodes for specified outage</p>
-     * 
+     *
      * @param name the outage that is to be looked up
-     * 
+     *
      * @return the nodes for the specified outage, null if not found
      */
     /**
