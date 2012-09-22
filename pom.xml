@@ -816,13 +816,13 @@
     <jettyVersion>7.5.4.v20111024</jettyVersion>
     <karafVersion>2.2.7</karafVersion>
     <liquibaseVersion>2.0.1</liquibaseVersion>
-    <log4jVersion>1.2.16</log4jVersion>
-    <minaVersion>2.0.4</minaVersion>
+    <log4jVersion>1.2.17</log4jVersion>
+    <minaVersion>2.0.5</minaVersion>
     <oroVersion>2.0.8</oroVersion>
     <osgiVersion>4.2.0</osgiVersion>
-    <slf4jVersion>1.6.4</slf4jVersion>
+    <slf4jVersion>1.7.1</slf4jVersion>
     <xalanVersion>2.7.1</xalanVersion>
-    <xercesVersion>2.9.1</xercesVersion>
+    <xercesVersion>2.10.0</xercesVersion>
     <xmlApisVersion>1.4.01</xmlApisVersion>
 
     <springVersion>3.0.7.RELEASE</springVersion>
@@ -2331,7 +2331,7 @@
       <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
-        <version>4.8.2</version>
+        <version>4.10</version>
         <scope>test</scope>
       </dependency>
       <dependency>
