@@ -24,6 +24,7 @@
         <plugin>
           <groupId>org.ops4j</groupId>
           <artifactId>maven-pax-plugin</artifactId>
+          <version>1.5</version>
           <!--
            | enable improved OSGi compilation support for the bundle life-cycle.
            | to switch back to the standard bundle life-cycle, move this setting
@@ -39,6 +40,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
+          <version>2.5.1</version>
           <configuration>
             <source>1.6</source>
             <target>1.6</target>
