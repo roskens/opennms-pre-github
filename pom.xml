@@ -84,6 +84,9 @@
     <developerConnection>scm:git:ssh://${user.name}@opennms.git.sourceforge.net/gitroot/opennms/opennms</developerConnection>
     <url>http://opennms.git.sourceforge.net/git/gitweb.cgi?p=opennms/opennms;a=shortlog;h=refs/heads/master</url>
   </scm>
+  <prerequisites>
+    <maven>2.2.1</maven>
+  </prerequisites>
   <modules>
     <!-- new structure -->
     <module>dependencies</module>
