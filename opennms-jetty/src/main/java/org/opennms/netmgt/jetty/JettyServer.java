@@ -41,6 +41,9 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerCollection;
 import org.eclipse.jetty.server.nio.SelectChannelConnector;
 import org.eclipse.jetty.server.ssl.SslSocketConnector;
+import org.eclipse.jetty.server.session.HashSessionIdManager;
+import org.eclipse.jetty.server.session.HashSessionManager;
+import org.eclipse.jetty.server.session.SessionHandler;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.opennms.netmgt.daemon.AbstractServiceDaemon;
 import org.opennms.serviceregistration.ServiceRegistrationFactory;
@@ -122,8 +125,17 @@ public class JettyServer extends AbstractServiceDaemon {
     		}
     		m_server.addConnector(sslConnector);
         }
+
+        HashSessionIdManager idMgr = new HashSessionIdManager();
+        idMgr.setWorkerName("OpenNMS-JettyServer");
+        m_server.setSessionIdManager(idMgr);
         
         HandlerCollection handlers = new HandlerCollection();
+
+        File sessionDir = new File(p.getProperty("java.io.tmpdir"), "opennms-sessions");
+        if (sessionDir.mkdirs()) {
+            log().debug("Created top level session directory: " + sessionDir.getAbsolutePath());
+        }
 
         if (webappsDir.exists()) {
             File rootDir = null;
@@ -137,13 +149,19 @@ public class JettyServer extends AbstractServiceDaemon {
                     } else {
                         contextPath = "/" + file.getName();
                     }
-                    addContext(handlers, file, contextPath);
+                    File storeDirectory = new File(sessionDir, file.getName());
+                    log().debug("Creating session manager for " + file.getName() + " using store directory '" + storeDirectory.getAbsolutePath() + "'");
+                    HashSessionManager sessionManager = new HashSessionManager();
+                    sessionManager.setIdManager(idMgr);
+                    sessionManager.setSavePeriod(60);
+                    sessionManager.setStoreDirectory(storeDirectory);
+                    addContext(handlers, file, contextPath, sessionManager);
                     registerService(port, contextPath);
                 }
             }
             if (rootDir != null) {
                 // If we deferred a ROOT context, handle that now
-                addContext(handlers, rootDir, "/");
+                addContext(handlers, rootDir, "/", null);
                 registerService(port, "/");
             }
         }
@@ -159,11 +177,14 @@ public class JettyServer extends AbstractServiceDaemon {
      * @param name a {@link java.io.File} object.
      * @param contextPath a {@link java.lang.String} object.
      */
-    protected void addContext(HandlerCollection handlers, File name, String contextPath) {
+    protected void addContext(HandlerCollection handlers, File name, String contextPath, HashSessionManager sessionManager) {
         log().warn("adding context: " + contextPath + " -> " + name.getAbsolutePath());
         WebAppContext wac = new WebAppContext();
         wac.setWar(name.getAbsolutePath());
         wac.setContextPath(contextPath);
+        if (sessionManager != null) {
+            wac.setSessionHandler(new SessionHandler(sessionManager));
+        }
         handlers.addHandler(wac);
     }
 
