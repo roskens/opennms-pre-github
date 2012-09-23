@@ -211,7 +211,6 @@
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-user</artifactId>
-			<version>${gwt.version}</version>
 			<scope>${scope.type}</scope>
 		</dependency>
 
@@ -223,7 +222,6 @@
 		 <dependency>
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
-			<version>1.0.0.GA</version>
 			<classifier>sources</classifier>
 			<scope>${scope.type}</scope>
 		</dependency>

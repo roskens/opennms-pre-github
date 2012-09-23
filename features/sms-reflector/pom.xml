@@ -50,7 +50,6 @@
       <plugin>
         <groupId>org.ops4j</groupId>
         <artifactId>maven-pax-plugin</artifactId>
-        <version>1.5</version>
         <configuration>
           <!--
            | some example Pax-Runner settings
@@ -82,7 +81,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.9</version>
         <configuration>
           <systemPropertyVariables>
             <net.sourceforge.cobertura.datafile>${basedir}/target/cobertura/cobertura.ser</net.sourceforge.cobertura.datafile>

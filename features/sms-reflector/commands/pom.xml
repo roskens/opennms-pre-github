@@ -45,25 +45,21 @@
     <dependency>
       <groupId>commons-lang</groupId>
       <artifactId>commons-lang</artifactId>
-      <version>2.4</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.opennms.features.sms-reflector</groupId>
       <artifactId>sms-ping</artifactId>
-      <version>${project.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.opennms.smslib</groupId>
       <artifactId>smslib</artifactId>
-      <version>3.4.3-20100302</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.opennms.features.sms-reflector</groupId>
       <artifactId>sms-service</artifactId>
-      <version>${project.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -85,13 +81,11 @@
     <dependency>
       <groupId>org.opennms.core</groupId>
       <artifactId>org.opennms.core.tasks</artifactId>
-      <version>${project.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.opennms.core</groupId>
       <artifactId>org.opennms.core.lib</artifactId>
-      <version>${project.version}</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>
