@@ -287,6 +287,31 @@
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>2.5</version>
+      </plugin>
+     <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.5.1</version>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+          <encoding>UTF-8</encoding>
+        </configuration>
+      </plugin>
+      <plugin>
+      	<groupId>org.apache.maven.plugins</groupId>
+      	<artifactId>maven-install-plugin</artifactId>
+      	<version>2.3.1</version>
+      </plugin>
+      <plugin>
+      	<groupId>org.apache.maven.plugins</groupId>
+      	<artifactId>maven-site-plugin</artifactId>
+      	<version>3.1</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jxr-plugin</artifactId>
         <version>2.3</version>
       </plugin>
@@ -429,7 +454,6 @@
      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>2.3.2</version>
         <configuration>
           <source>1.6</source>
           <target>1.6</target>
@@ -703,7 +727,7 @@
     <minaVersion>2.0.4</minaVersion>
     <oroVersion>2.0.8</oroVersion>
     <osgiVersion>4.2.0</osgiVersion>
-    <slf4jVersion>1.6.4</slf4jVersion>
+    <slf4jVersion>1.7.1</slf4jVersion>
     <xalanVersion>2.7.1</xalanVersion>
     <xercesVersion>2.9.1</xercesVersion>
     <xmlApisVersion>1.4.01</xmlApisVersion>
@@ -2477,7 +2501,7 @@
         <artifactId>groovy-all</artifactId>
         <version>1.7.5</version>
       </dependency>
-  </dependencies>
+    </dependencies>
   </dependencyManagement>
   <repositories>
     <repository>
