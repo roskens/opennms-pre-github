@@ -118,8 +118,6 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
 
     private Properties m_configurationProperties;
 
-    private static boolean s_initialized = false;
-
     /**
      * <p>getConfigurationProperties</p>
      *
@@ -132,11 +130,6 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
     /** {@inheritDoc} */
     public void setConfigurationProperties(Properties configurationParameters) {
         this.m_configurationProperties = configurationParameters;
-
-        if (!s_initialized) {
-            s_initialized = true;
-            ConsoleReporter.enable(15, TimeUnit.SECONDS);
-        }
     }
 
     RrdStrategy<Object, Object> m_delegate;
