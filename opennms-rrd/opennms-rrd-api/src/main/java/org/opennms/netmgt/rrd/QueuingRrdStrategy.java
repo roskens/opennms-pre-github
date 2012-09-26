@@ -44,6 +44,12 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
+import com.yammer.metrics.Metrics;
+import com.yammer.metrics.core.Counter;
+import com.yammer.metrics.core.Meter;
+import com.yammer.metrics.reporting.ConsoleReporter;
+import java.util.concurrent.TimeUnit;
+
 /**
  * Provides queuing implementation of RrdStrategy.
  *
@@ -112,6 +118,8 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
 
     private Properties m_configurationProperties;
 
+    private static boolean s_initialized = false;
+
     /**
      * <p>getConfigurationProperties</p>
      *
@@ -124,6 +132,11 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
     /** {@inheritDoc} */
     public void setConfigurationProperties(Properties configurationParameters) {
         this.m_configurationProperties = configurationParameters;
+
+        if (!s_initialized) {
+            s_initialized = true;
+            ConsoleReporter.enable(15, TimeUnit.SECONDS);
+        }
     }
 
     RrdStrategy<Object, Object> m_delegate;
@@ -363,31 +376,31 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
 
     Set<String> reservedFiles = new HashSet<String>();
 
-    private long m_totalOperationsPending = 0;
+    private final Counter m_totalOperationsPending = Metrics.newCounter(QueuingRrdStrategy.class, "operations-pending");
 
-    private long m_enqueuedOperations = 0;
+    private final Meter m_enqueuedOperations = Metrics.newMeter(QueuingRrdStrategy.class, "operations-queued", "operations", TimeUnit.SECONDS);
 
-    private long m_dequeuedOperations = 0;
+    private final Meter m_dequeuedOperations = Metrics.newMeter(QueuingRrdStrategy.class, "operations-dequeued", "operations", TimeUnit.SECONDS);
 
-    private long m_significantOpsEnqueued = 0;
+    private final Meter m_significantOpsEnqueued = Metrics.newMeter(QueuingRrdStrategy.class, "significant-operations-queued", "operations", TimeUnit.SECONDS);
 
-    private long m_significantOpsDequeued = 0;
+    private final Meter m_significantOpsDequeued = Metrics.newMeter(QueuingRrdStrategy.class, "significant-operations-dequeued", "operations", TimeUnit.SECONDS);
 
-    private long m_significantOpsCompleted = 0;
+    private final Counter m_significantOpsCompleted = Metrics.newCounter(QueuingRrdStrategy.class, "significant-operations-completed");
 
-    private long m_dequeuedItems = 0;
+    private final Counter m_dequeuedItems = Metrics.newCounter(QueuingRrdStrategy.class, "items-dequeued");
 
-    private long m_createsCompleted = 0;
+    private final Meter m_createsCompleted = Metrics.newMeter(QueuingRrdStrategy.class, "creates-completed", "operations", TimeUnit.SECONDS);
 
-    private long m_updatesCompleted = 0;
+    private final Meter m_updatesCompleted = Metrics.newMeter(QueuingRrdStrategy.class, "updates-completed", "operations", TimeUnit.SECONDS);
 
-    private long m_errors = 0;
+    private final Counter m_errors = Metrics.newCounter(QueuingRrdStrategy.class, "errors");
 
-    int threadsRunning = 0;
+    private final Meter m_promotionCount = Metrics.newMeter(QueuingRrdStrategy.class, "promotion-count", "operations", TimeUnit.SECONDS);
 
     private long m_startTime = 0;
 
-    private long m_promotionCount = 0;
+    private final Counter m_threadsRunning = Metrics.newCounter(QueuingRrdStrategy.class, "running-threads");
 
     long lastLap = System.currentTimeMillis();
 
@@ -481,7 +494,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
             m_delegate.createFile(getData(), attributeMappings);
 
             // keep stats
-            setCreatesCompleted(getCreatesCompleted() + 1);
+            m_createsCompleted.mark();
 
             // return the file
             return rrd;
@@ -521,7 +534,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
             }
 
             // keep stats
-            setUpdatesCompleted(getUpdatesCompleted() + 1);
+            m_updatesCompleted.mark();
             if (getUpdatesCompleted() % m_modulus == 0) {
                 logStats();
             }
@@ -567,7 +580,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
                 ts += getInterval();
 
                 // keep stats
-                setUpdatesCompleted(getUpdatesCompleted() + 1);
+                m_updatesCompleted.mark();
                 if (getUpdatesCompleted() % m_modulus == 0) {
                     logStats();
                 }
@@ -702,10 +715,10 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
             
             storeAssignment(op);
 
-            setTotalOperationsPending(getTotalOperationsPending() + 1);
-            setEnqueuedOperations(getEnqueuedOperations() + 1);
+            m_totalOperationsPending.inc();
+            m_enqueuedOperations.mark();
             if (op.isSignificant())
-                setSignificantOpsEnqueued(getSignificantOpsEnqueued() + 1);
+                m_significantOpsEnqueued.mark();
             notifyAll();
             ensureThreadsStarted();
         }
@@ -741,9 +754,9 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * Ensure that we have threads started to process the queue.
      */
     public synchronized void ensureThreadsStarted() {
-        if (threadsRunning < m_writeThreads) {
-            threadsRunning++;
-            new Thread(this, this.getClass().getSimpleName() + "-" + threadsRunning).start();
+        if (m_threadsRunning.count() < m_writeThreads) {
+            m_threadsRunning.inc();
+            new Thread(this, this.getClass().getSimpleName() + "-" + m_threadsRunning.count()).start();
         }
     }
 
@@ -778,13 +791,13 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
             // keep stats
             if (ops != null) {
                 for(Operation op : ops) {
-                    setTotalOperationsPending(getTotalOperationsPending()-op.getCount());
-                    setDequeuedOperations(getDequeuedOperations() + op.getCount());
+                    m_totalOperationsPending.dec(op.getCount());
+                    m_dequeuedOperations.mark(op.getCount());
                     if (op.isSignificant()) {
-                    	setSignificantOpsDequeued(getSignificantOpsDequeued() + op.getCount());
+                        m_significantOpsDequeued.mark(op.getCount());
                     }
                 }
-                setDequeuedItems(getDequeuedItems() + 1);
+                m_dequeuedItems.inc();
             }
         }
 
@@ -859,7 +872,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
         if (elapsedMillis > nextPromotionMillis) {
             String file = filesWithInsignificantWork.removeFirst();
             filesWithSignificantWork.addFirst(file);
-            setPromotionCount(getPromotionCount() + 1);
+            m_promotionCount.mark();
         }
 
     }
@@ -938,6 +951,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      */
     public QueuingRrdStrategy(RrdStrategy<Object, Object> delegate) {
         m_delegate = delegate;
+
     }
 
     /**
@@ -1102,7 +1116,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
             }
         } finally {
             synchronized (this) {
-                threadsRunning--;
+                m_threadsRunning.dec();
                 completeAssignment();
             }
         }
@@ -1124,7 +1138,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
             // while we are processing
             for(Operation op : ops) {
                 if (op.isSignificant()) {
-                	setSignificantOpsCompleted(getSignificantOpsCompleted() + 1);
+                    m_significantOpsCompleted.inc();
                 }
 
             }
@@ -1134,7 +1148,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
                 rrd = op.process(rrd);
             }
         } catch (Throwable e) {
-            setErrors(getErrors() + 1);
+            m_errors.inc();
             logLapTime("Error updating file " + fileName + ": " + e.getMessage());
             log().debug("Error updating file " + fileName + ": " + e.getMessage(), e);
         } finally {
@@ -1303,7 +1317,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
 	 * @return a long.
 	 */
 	public long getTotalOperationsPending() {
-		return m_totalOperationsPending;
+		return m_totalOperationsPending.count();
 	}
 
 	/**
@@ -1312,7 +1326,8 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
 	 * @param totalOperationsPending a long.
 	 */
 	public void setTotalOperationsPending(long totalOperationsPending) {
-		m_totalOperationsPending = totalOperationsPending;
+		m_totalOperationsPending.clear();
+                m_totalOperationsPending.inc(totalOperationsPending);
 	}
 
 	/**
@@ -1321,7 +1336,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
 	 * @return a long.
 	 */
 	public long getCreatesCompleted() {
-		return m_createsCompleted;
+		return m_createsCompleted.count();
 	}
 
 	/**
@@ -1330,7 +1345,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
 	 * @param createsCompleted a long.
 	 */
 	public void setCreatesCompleted(long createsCompleted) {
-		m_createsCompleted = createsCompleted;
+		m_createsCompleted.mark(createsCompleted - m_createsCompleted.count());
 	}
 
 	/**
@@ -1339,7 +1354,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
 	 * @return a long.
 	 */
 	public long getUpdatesCompleted() {
-		return m_updatesCompleted;
+		return m_updatesCompleted.count();
 	}
 
 	/**
@@ -1348,7 +1363,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
 	 * @param updatesCompleted a long.
 	 */
 	public void setUpdatesCompleted(long updatesCompleted) {
-		m_updatesCompleted = updatesCompleted;
+		m_updatesCompleted.mark(updatesCompleted - m_updatesCompleted.count());
 	}
 
 	/**
@@ -1357,7 +1372,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
 	 * @return a long.
 	 */
 	public long getErrors() {
-		return m_errors;
+		return m_errors.count();
 	}
 
 	/**
@@ -1366,7 +1381,8 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
 	 * @param errors a long.
 	 */
 	public void setErrors(long errors) {
-		m_errors = errors;
+		m_errors.clear();
+		m_errors.inc(errors);
 	}
 
 	/**
@@ -1375,7 +1391,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
 	 * @return a long.
 	 */
 	public long getPromotionCount() {
-		return m_promotionCount;
+		return m_promotionCount.count();
 	}
 
 	/**
@@ -1384,7 +1400,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
 	 * @param promotionCount a long.
 	 */
 	public void setPromotionCount(long promotionCount) {
-		m_promotionCount = promotionCount;
+		m_promotionCount.mark(promotionCount - m_promotionCount.count());
 	}
 
 	/**
@@ -1393,7 +1409,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
 	 * @return a long.
 	 */
 	public long getSignificantOpsEnqueued() {
-		return m_significantOpsEnqueued;
+		return m_significantOpsEnqueued.count();
 	}
 
 	/**
@@ -1402,7 +1418,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
 	 * @param significantOpsEnqueued a long.
 	 */
 	public void setSignificantOpsEnqueued(long significantOpsEnqueued) {
-		m_significantOpsEnqueued = significantOpsEnqueued;
+		m_significantOpsEnqueued.mark(significantOpsEnqueued - m_significantOpsEnqueued.count());
 	}
 
 	/**
@@ -1411,7 +1427,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
 	 * @return a long.
 	 */
 	public long getSignificantOpsDequeued() {
-		return m_significantOpsDequeued;
+		return m_significantOpsDequeued.count();
 	}
 
 	/**
@@ -1420,7 +1436,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
 	 * @param significantOpsDequeued a long.
 	 */
 	public void setSignificantOpsDequeued(long significantOpsDequeued) {
-		m_significantOpsDequeued = significantOpsDequeued;
+		m_significantOpsDequeued.mark(significantOpsDequeued - m_significantOpsDequeued.count());
 	}
 
 	/**
@@ -1429,7 +1445,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
 	 * @return a long.
 	 */
 	public long getEnqueuedOperations() {
-		return m_enqueuedOperations;
+		return m_enqueuedOperations.count();
 	}
 
 	/**
@@ -1438,7 +1454,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
 	 * @param enqueuedOperations a long.
 	 */
 	public void setEnqueuedOperations(long enqueuedOperations) {
-		m_enqueuedOperations = enqueuedOperations;
+		m_enqueuedOperations.mark(enqueuedOperations - m_enqueuedOperations.count());
 	}
 
 	/**
@@ -1447,7 +1463,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
 	 * @return a long.
 	 */
 	public long getDequeuedOperations() {
-		return m_dequeuedOperations;
+		return m_dequeuedOperations.count();
 	}
 
 	/**
@@ -1456,7 +1472,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
 	 * @param dequeuedOperations a long.
 	 */
 	public void setDequeuedOperations(long dequeuedOperations) {
-		m_dequeuedOperations = dequeuedOperations;
+		m_dequeuedOperations.mark(dequeuedOperations - m_dequeuedOperations.count());
 	}
 
 	/**
@@ -1465,7 +1481,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
 	 * @return a long.
 	 */
 	public long getDequeuedItems() {
-		return m_dequeuedItems;
+		return m_dequeuedItems.count();
 	}
 
 	/**
@@ -1474,7 +1490,8 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
 	 * @param dequeuedItems a long.
 	 */
 	public void setDequeuedItems(long dequeuedItems) {
-		m_dequeuedItems = dequeuedItems;
+		m_dequeuedItems.clear();
+		m_dequeuedItems.inc(dequeuedItems);
 	}
 
 	/**
@@ -1483,7 +1500,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
 	 * @return a long.
 	 */
 	public long getSignificantOpsCompleted() {
-		return m_significantOpsCompleted;
+		return m_significantOpsCompleted.count();
 	}
 
 	/**
@@ -1492,7 +1509,8 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
 	 * @param significantOpsCompleted a long.
 	 */
 	public void setSignificantOpsCompleted(long significantOpsCompleted) {
-		m_significantOpsCompleted = significantOpsCompleted;
+		m_significantOpsCompleted.clear();
+		m_significantOpsCompleted.inc(significantOpsCompleted);
 	}
 
 	/**
