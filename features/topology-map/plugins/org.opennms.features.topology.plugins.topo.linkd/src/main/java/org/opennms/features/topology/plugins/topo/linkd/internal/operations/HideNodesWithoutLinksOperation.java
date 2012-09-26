@@ -51,7 +51,6 @@ public class HideNodesWithoutLinksOperation implements CheckedOperation {
         m_topologyProvider.load(null);
         if (operationContext != null && operationContext.getGraphContainer() != null) {
             log("operationcontext and GraphContainer not null: executing redoLayout");
-        //operationContext.getGraphContainer().setDataSource(m_topologyProvider);
             operationContext.getGraphContainer().redoLayout();
         }
         return null;

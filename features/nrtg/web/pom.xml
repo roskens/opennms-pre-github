@@ -46,21 +46,6 @@
       <version>${project.version}</version>
       <scope>provided</scope>
     </dependency>
-    <!-- JMS -->
-    <dependency>
-      <groupId>org.opennms.dependencies</groupId>
-      <artifactId>activemq-dependencies</artifactId>
-      <version>${project.version}</version>
-      <type>pom</type>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.opennms.dependencies</groupId>
-      <artifactId>activemq-web-dependencies</artifactId>
-      <version>${project.version}</version>
-      <type>pom</type>
-      <scope>provided</scope>
-    </dependency>
     <!--  Servlet API -->
     <dependency>
       <groupId>javax.servlet</groupId>
@@ -91,13 +76,10 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <scope>test</scope>
     </dependency>
     <dependency>
-        <groupId>org.easymock</groupId>
-        <artifactId>easymock</artifactId>
-        <version>3.1</version>
-        <scope>test</scope>
+      <groupId>org.easymock</groupId>
+      <artifactId>easymock</artifactId>
     </dependency>
   </dependencies>
 </project>
