@@ -52,6 +52,10 @@
       <artifactId>opennms-util</artifactId>
     </dependency>
     <dependency>
+      <groupId>com.yammer.metrics</groupId>
+      <artifactId>metrics-core</artifactId>
+    </dependency>
+    <dependency>
       <groupId>javax.mail</groupId>
       <artifactId>mail</artifactId>
       <scope>compile</scope>

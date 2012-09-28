@@ -42,6 +42,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang.StringUtils;
 import org.opennms.core.utils.ConfigFileConstants;
@@ -79,6 +80,12 @@ import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
+
+import com.yammer.metrics.Metrics;
+import com.yammer.metrics.core.Counter;
+import com.yammer.metrics.core.Meter;
+import com.yammer.metrics.core.Timer;
+import com.yammer.metrics.core.TimerContext;
 
 /**
  * <p>Collectd class.</p>
@@ -333,6 +340,10 @@ public class Collectd extends AbstractServiceDaemon implements
         getScheduler().resume();
     }
 
+    private final Timer m_schdExistIntTimer = Metrics.newTimer(Collectd.class, "schedule-existing-interfaces");
+    private final Timer m_SvcTimer = Metrics.newTimer(Collectd.class, "service-timer", TimeUnit.MILLISECONDS, TimeUnit.SECONDS);
+    private final Map<String, Timer> m_svcTimerMap = Collections.<String, Timer>emptyMap();
+
     /**
      * Schedule existing interfaces for data collection.
      * 
@@ -342,6 +353,7 @@ public class Collectd extends AbstractServiceDaemon implements
     private void scheduleExistingInterfaces() throws SQLException {
         
         instrumentation().beginScheduleExistingInterfaces();
+        final TimerContext context = m_schdExistIntTimer.time();
         try {
 
             m_transTemplate.execute(new TransactionCallback<Object>() {
@@ -358,6 +370,7 @@ public class Collectd extends AbstractServiceDaemon implements
             });
         
         } finally {
+            context.stop();
             instrumentation().endScheduleExistingInterfaces();
         }
     }
@@ -729,6 +742,9 @@ public class Collectd extends AbstractServiceDaemon implements
 
     }
 
+    private final Meter m_handledEvent = Metrics.newMeter(Collectd.class, "handled-event", "events", TimeUnit.SECONDS);
+    private final Counter m_handledEventErrors = Metrics.newCounter(Collectd.class, "handled-event-errors");
+
     private void onEventInTransaction(Event event) {
         // print out the uei
         //
@@ -736,31 +752,44 @@ public class Collectd extends AbstractServiceDaemon implements
 
         try {
             if (event.getUei().equals(EventConstants.SCHEDOUTAGES_CHANGED_EVENT_UEI)) {
+                m_handledEvent.mark();
                 handleScheduledOutagesChanged(event);
             } else if (event.getUei().equals(EventConstants.CONFIGURE_SNMP_EVENT_UEI)) {
+                m_handledEvent.mark();
                 handleConfigureSNMP(event);
             } else if (event.getUei().equals(EventConstants.NODE_GAINED_SERVICE_EVENT_UEI)) {
+                m_handledEvent.mark();
                 handleNodeGainedService(event);
             } else if (event.getUei().equals(EventConstants.PRIMARY_SNMP_INTERFACE_CHANGED_EVENT_UEI)) {
+                m_handledEvent.mark();
                 handlePrimarySnmpInterfaceChanged(event);
             } else if (event.getUei().equals(EventConstants.REINITIALIZE_PRIMARY_SNMP_INTERFACE_EVENT_UEI)) {
+                m_handledEvent.mark();
                 handleReinitializePrimarySnmpInterface(event);
             } else if (event.getUei().equals(EventConstants.INTERFACE_REPARENTED_EVENT_UEI)) {
+                m_handledEvent.mark();
                 handleInterfaceReparented(event);
             } else if (event.getUei().equals(EventConstants.NODE_DELETED_EVENT_UEI)) {
+                m_handledEvent.mark();
                 handleNodeDeleted(event);
             } else if (event.getUei().equals(EventConstants.DUP_NODE_DELETED_EVENT_UEI)) {
+                m_handledEvent.mark();
                 handleDupNodeDeleted(event);
             } else if (event.getUei().equals(EventConstants.INTERFACE_DELETED_EVENT_UEI)) {
+                m_handledEvent.mark();
                 handleInterfaceDeleted(event);
             } else if (event.getUei().equals(EventConstants.SERVICE_DELETED_EVENT_UEI)) {
+                m_handledEvent.mark();
                 handleServiceDeleted(event);
             } else if (event.getUei().equals(EventConstants.RELOAD_DAEMON_CONFIG_UEI)) {
+                m_handledEvent.mark();
                 handleReloadDaemonConfig(event);
             } else if (event.getUei().equals(EventConstants.NODE_CATEGORY_MEMBERSHIP_CHANGED_EVENT_UEI)) {
+                m_handledEvent.mark();
                 handleNodeCategoryMembershipChanged(event);
             }
         } catch (InsufficientInformationException e) {
+            m_handledEventErrors.inc();
             handleInsufficientInfo(e);
         }
     }

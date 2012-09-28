@@ -305,6 +305,10 @@
       <artifactId>commons-jexl</artifactId>
     </dependency>
     <dependency>
+      <groupId>com.yammer.metrics</groupId>
+      <artifactId>metrics-core</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.opennms.dependencies</groupId>
       <artifactId>quartz-dependencies</artifactId>
       <type>pom</type>

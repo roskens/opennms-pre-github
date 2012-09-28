@@ -51,6 +51,10 @@ import org.opennms.netmgt.xml.event.Event;
 import org.opennms.netmgt.xml.event.Parm;
 import org.springframework.beans.factory.DisposableBean;
 
+import com.yammer.metrics.Metrics;
+import com.yammer.metrics.core.Counter;
+import com.yammer.metrics.core.Meter;
+
 /**
  * Acknowledgment management Daemon
  *
@@ -76,7 +80,7 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
 	private List<AckReader> m_ackReaders;
     private AckService m_ackService;
     private Object m_lock = new Object();
-	
+
     /**
      * <p>start</p>
      */
@@ -279,6 +283,8 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
         }
     }
 
+    private final Meter m_handledAcks = Metrics.newMeter(Ackd.class, "handled-acks", "events", TimeUnit.SECONDS);
+    private final Counter m_handledAckErrors = Metrics.newCounter(Ackd.class, "handled-ack-errors");
     /**
      * Handles the event driven access to acknowledging <code>OnmsAcknowledgable</code>s.  The acknowledgment event
      * contains 4 parameters:
@@ -301,6 +307,9 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
             m_ackService.processAck(ack);
         } catch (ParseException e) {
             log().error("handleAckEvent: unable to process acknowledgment event: "+event+"\t"+e);
+            m_handledAckErrors.inc();
+        } finally {
+            m_handledAcks.mark();
         }
     }
     
