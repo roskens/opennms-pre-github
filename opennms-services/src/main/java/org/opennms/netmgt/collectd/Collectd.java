@@ -82,10 +82,7 @@ import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
 
 import com.yammer.metrics.Metrics;
-import com.yammer.metrics.core.Counter;
-import com.yammer.metrics.core.Meter;
 import com.yammer.metrics.core.Timer;
-import com.yammer.metrics.core.TimerContext;
 
 /**
  * <p>Collectd class.</p>
@@ -97,6 +94,8 @@ public class Collectd extends AbstractServiceDaemon implements
         EventListener {
     
     private static CollectdInstrumentation s_instrumentation = null;
+    
+    private static Map<String,Timer> s_SvcTimers = null;
     
     /**
      * <p>instrumentation</p>
@@ -111,6 +110,10 @@ public class Collectd extends AbstractServiceDaemon implements
             } catch (Throwable e) {
                 s_instrumentation = new DefaultCollectdInstrumentation();
             }
+        }
+        if (s_SvcTimers == null) {
+            s_SvcTimers = new HashMap<String,Timer>();
+            
         }
 
         return s_instrumentation;
@@ -340,10 +343,6 @@ public class Collectd extends AbstractServiceDaemon implements
         getScheduler().resume();
     }
 
-    private final Timer m_schdExistIntTimer = Metrics.newTimer(Collectd.class, "schedule-existing-interfaces");
-    private final Timer m_SvcTimer = Metrics.newTimer(Collectd.class, "service-timer", TimeUnit.MILLISECONDS, TimeUnit.SECONDS);
-    private final Map<String, Timer> m_svcTimerMap = Collections.<String, Timer>emptyMap();
-
     /**
      * Schedule existing interfaces for data collection.
      * 
@@ -353,7 +352,6 @@ public class Collectd extends AbstractServiceDaemon implements
     private void scheduleExistingInterfaces() throws SQLException {
         
         instrumentation().beginScheduleExistingInterfaces();
-        final TimerContext context = m_schdExistIntTimer.time();
         try {
 
             m_transTemplate.execute(new TransactionCallback<Object>() {
@@ -370,7 +368,6 @@ public class Collectd extends AbstractServiceDaemon implements
             });
         
         } finally {
-            context.stop();
             instrumentation().endScheduleExistingInterfaces();
         }
     }
@@ -529,7 +526,7 @@ public class Collectd extends AbstractServiceDaemon implements
 
                 // Add new collectable service to the collectable service list.
                 m_collectableServices.add(cSvc);
-
+                
                 // Schedule the collectable service for immediate collection
                 getScheduler().schedule(0, cSvc.getReadyRunnable());
 
@@ -572,6 +569,7 @@ public class Collectd extends AbstractServiceDaemon implements
         } // end while more specifications exist
         
         } finally {
+            s_SvcTimers.put(iface.getNode().getId() + "/" + ipAddress + "/" + svcName, Metrics.newTimer(Collectd.class, "service-timer", TimeUnit.MILLISECONDS, TimeUnit.SECONDS));
             instrumentation().endScheduleInterface(iface.getNode().getId(), ipAddress, svcName);
         }
     }
@@ -742,9 +740,6 @@ public class Collectd extends AbstractServiceDaemon implements
 
     }
 
-    private final Meter m_handledEvent = Metrics.newMeter(Collectd.class, "handled-event", "events", TimeUnit.SECONDS);
-    private final Counter m_handledEventErrors = Metrics.newCounter(Collectd.class, "handled-event-errors");
-
     private void onEventInTransaction(Event event) {
         // print out the uei
         //
@@ -752,44 +747,31 @@ public class Collectd extends AbstractServiceDaemon implements
 
         try {
             if (event.getUei().equals(EventConstants.SCHEDOUTAGES_CHANGED_EVENT_UEI)) {
-                m_handledEvent.mark();
                 handleScheduledOutagesChanged(event);
             } else if (event.getUei().equals(EventConstants.CONFIGURE_SNMP_EVENT_UEI)) {
-                m_handledEvent.mark();
                 handleConfigureSNMP(event);
             } else if (event.getUei().equals(EventConstants.NODE_GAINED_SERVICE_EVENT_UEI)) {
-                m_handledEvent.mark();
                 handleNodeGainedService(event);
             } else if (event.getUei().equals(EventConstants.PRIMARY_SNMP_INTERFACE_CHANGED_EVENT_UEI)) {
-                m_handledEvent.mark();
                 handlePrimarySnmpInterfaceChanged(event);
             } else if (event.getUei().equals(EventConstants.REINITIALIZE_PRIMARY_SNMP_INTERFACE_EVENT_UEI)) {
-                m_handledEvent.mark();
                 handleReinitializePrimarySnmpInterface(event);
             } else if (event.getUei().equals(EventConstants.INTERFACE_REPARENTED_EVENT_UEI)) {
-                m_handledEvent.mark();
                 handleInterfaceReparented(event);
             } else if (event.getUei().equals(EventConstants.NODE_DELETED_EVENT_UEI)) {
-                m_handledEvent.mark();
                 handleNodeDeleted(event);
             } else if (event.getUei().equals(EventConstants.DUP_NODE_DELETED_EVENT_UEI)) {
-                m_handledEvent.mark();
                 handleDupNodeDeleted(event);
             } else if (event.getUei().equals(EventConstants.INTERFACE_DELETED_EVENT_UEI)) {
-                m_handledEvent.mark();
                 handleInterfaceDeleted(event);
             } else if (event.getUei().equals(EventConstants.SERVICE_DELETED_EVENT_UEI)) {
-                m_handledEvent.mark();
                 handleServiceDeleted(event);
             } else if (event.getUei().equals(EventConstants.RELOAD_DAEMON_CONFIG_UEI)) {
-                m_handledEvent.mark();
                 handleReloadDaemonConfig(event);
             } else if (event.getUei().equals(EventConstants.NODE_CATEGORY_MEMBERSHIP_CHANGED_EVENT_UEI)) {
-                m_handledEvent.mark();
                 handleNodeCategoryMembershipChanged(event);
             }
         } catch (InsufficientInformationException e) {
-            m_handledEventErrors.inc();
             handleInsufficientInfo(e);
         }
     }
