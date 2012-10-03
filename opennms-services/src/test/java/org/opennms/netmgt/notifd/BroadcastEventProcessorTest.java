@@ -161,4 +161,34 @@ public class BroadcastEventProcessorTest extends NotificationsTestCase {
 
         verifyAnticipated(finishedNotifs, 1000);
     }
+
+    @Test
+    public void textExpand_Bug5551() throws Exception {
+        EventBuilder bldr = new EventBuilder("uei.opennms.org/custom/syslog/bug5551", "testExpandNotifParms");
+
+        bldr.setDescription("Test case for NMS-5551, %nodeid% %interface%, parms: %parm[all]%");
+        bldr.setLogMessage("Test case for NMS-5551, %nodeid% %interface%, parms: %parm[all]%");
+        bldr.setNodeid(0);
+        bldr.setInterface(addr("0.0.0.0"));
+
+        bldr.addParam("severity", "Critical");
+        bldr.addParam("process", "%ASA-2-321005");
+        bldr.addParam("syslogmessage", "System CPU utilization reached 4294945%");
+
+        Notification notif = new Notification();
+        notif.setName("testcase5551");
+        notif.setStatus("on");
+        notif.setUei("uei.opennms.org/custom/syslog/bug5551");
+        notif.setRule("IPDDR IPLIKE *.*.*.*");
+        notif.setDestinationPath("NoEscalate");
+        notif.setTextMessage("OpenNMS has received a %parm[severity]% syslog message for %nodelabel% (nodeid: %nodeid%, interface: %interface%)\nTime: %time%\nEventID: %eventid%\nProgram: %parm[process]%\nMessage: %parm[syslogmessage]%\n\nOperator Instructions:\n%operinstruct%");
+        notif.setNumericMessage("111-%noticeid%");
+        notif.setSubject("Notice %noticeid%: %nodelabel% (nodeid: %nodeid%, interface: %interface%)");
+
+        Map<String,String> paramMap = BroadcastEventProcessor.buildParameterMap(notif, bldr.getEvent(), 1);
+        for (Map.Entry<String,String> entry : paramMap.entrySet()) {
+            System.out.println(entry.getKey() + " => \"" + entry.getValue() + "\"");
+        }
+
+   }
 }
