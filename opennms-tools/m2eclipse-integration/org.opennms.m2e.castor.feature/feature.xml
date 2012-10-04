@@ -2,7 +2,7 @@
 <feature
       id="org.opennms.m2e.castor.feature"
       label="%featureName"
-      version="0.9.1.qualifier"
+      version="0.9.2.qualifier"
       provider-name="%providerName"
       plugin="org.opennms.m2e.castor">
 
