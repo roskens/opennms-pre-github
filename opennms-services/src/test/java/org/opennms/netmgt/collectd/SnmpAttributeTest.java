@@ -92,6 +92,12 @@ public class SnmpAttributeTest extends TestCase {
         testPersisting(Integer.toString(intValue), new Snmp4JValueFactory().getCounter32(intValue));
     }
 
+    public void testNumericAttributeHexStringValueInString() throws Exception {
+        String stringValue = "769";
+        byte[] bytes = new byte[] { (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x03, (byte)0x01 };
+        testPersisting(stringValue, new Snmp4JValueFactory().getOctetString(bytes));
+    }
+
     private void testPersisting(String matchValue, SnmpValue snmpValue) throws Exception {
         OnmsNode node = new OnmsNode();
         node.setId(3);
