@@ -14,6 +14,8 @@
             <column name="vmwaremanagedobjectid" type="varchar(70)" />
             <column name="vmwaremanagedentitytype" type="varchar(70)" />
             <column name="vmwaremanagementserver" type="varchar(70)" />
+            <column name="vmwaretopologyinfo" type="varchar(1023)" />
+            <column name="vmwarestate" type="varchar(255)" />
         </addColumn>
     </changeSet>
 </databaseChangeLog>
