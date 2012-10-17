@@ -297,7 +297,7 @@
     <dependency>
       <groupId>org.opennms</groupId>
       <artifactId>opennms-rrd-tcp</artifactId>
-      <scope>rumtime</scope>
+      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>org.opennms</groupId>
