@@ -28,10 +28,8 @@
 
 package org.opennms.netmgt.config;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
@@ -53,17 +51,6 @@ import org.opennms.netmgt.config.groups.Schedule;
 import org.opennms.test.mock.MockUtil;
 
 public class BasicScheduleUtilsTest extends IntervalTestCase {
-
-    @Before
-    protected void setUp() throws Exception {
-        MockLogAppender.setupLogging();
-    }
-
-    @After
-    protected void tearDown() throws Exception {
-        MockLogAppender.assertNoWarningsOrGreater();
-        MockUtil.println("\n");
-    }
 
     @Test
     public void testSimpleScheduleExcluded() throws Exception {
