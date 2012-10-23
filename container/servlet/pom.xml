@@ -28,7 +28,7 @@
         <dependency>
             <groupId>org.apache.karaf</groupId>
             <artifactId>org.apache.karaf.main</artifactId>
-            <version>${karaf.version}</version>
+            <version>${karafVersion}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
