@@ -36,8 +36,8 @@ import com.vaadin.ui.Component;
  */
 public interface IViewContribution {
 	
-	public Component getView();
-	public String getTitle();
-	public Resource getIcon();
+	Component getView();
+	String getTitle();
+	Resource getIcon();
 
 }

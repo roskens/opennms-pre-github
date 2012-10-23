@@ -36,16 +36,16 @@ public interface DisplayState {
     public static final String SCALE = "scale";
     public static final String LAYOUT_ALGORITHM = "layoutAlgorithm";
     
-    public abstract Integer getSemanticZoomLevel();
+    Integer getSemanticZoomLevel();
     
-    public abstract void setSemanticZoomLevel(Integer level);
+    void setSemanticZoomLevel(Integer level);
 
-    public abstract void setLayoutAlgorithm(LayoutAlgorithm layoutAlgorithm);
+    void setLayoutAlgorithm(LayoutAlgorithm layoutAlgorithm);
     
-    public abstract LayoutAlgorithm getLayoutAlgorithm();
+    LayoutAlgorithm getLayoutAlgorithm();
 
-    public abstract void redoLayout();
+    void redoLayout();
 
-    public abstract Property getProperty(String property);
+    Property getProperty(String property);
 
 }
