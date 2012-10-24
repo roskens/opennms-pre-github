@@ -3,6 +3,57 @@
 <collectd-configuration
         threads="50">
 
+    <package name="vmware3">
+        <filter><![CDATA[(IPADDR != '0.0.0.0') & (categoryName == 'VMware3')]]></filter>
+        <service name="VMware-VirtualMachine" interval="300000" user-defined="false" status="on">
+            <parameter key="collection" value="default-VirtualMachine3"/>
+            <parameter key="thresholding-enabled" value="true"/>
+        </service>
+
+        <service name="VMware-HostSystem" interval="300000" user-defined="false" status="on">
+            <parameter key="collection" value="default-HostSystem3"/>
+            <parameter key="thresholding-enabled" value="true"/>
+        </service>
+        <service name="VMwareCim-HostSystem" interval="300000" user-defined="false" status="on">
+            <parameter key="collection" value="default-ESX-HostSystem"/>
+            <parameter key="thresholding-enabled" value="true"/>
+        </service>
+    </package>
+
+    <package name="vmware4">
+        <filter><![CDATA[(IPADDR != '0.0.0.0') & (categoryName == 'VMware4')]]></filter>
+        <service name="VMware-VirtualMachine" interval="300000" user-defined="false" status="on">
+            <parameter key="collection" value="default-VirtualMachine4"/>
+            <parameter key="thresholding-enabled" value="true"/>
+        </service>
+
+        <service name="VMware-HostSystem" interval="300000" user-defined="false" status="on">
+            <parameter key="collection" value="default-HostSystem4"/>
+            <parameter key="thresholding-enabled" value="true"/>
+        </service>
+        <service name="VMwareCim-HostSystem" interval="300000" user-defined="false" status="on">
+            <parameter key="collection" value="default-ESX-HostSystem"/>
+            <parameter key="thresholding-enabled" value="true"/>
+        </service>
+    </package>
+
+    <package name="vmware5">
+        <filter><![CDATA[(IPADDR != '0.0.0.0') & (categoryName == 'VMware5')]]></filter>
+        <service name="VMware-VirtualMachine" interval="300000" user-defined="false" status="on">
+            <parameter key="collection" value="default-VirtualMachine5"/>
+            <parameter key="thresholding-enabled" value="true"/>
+        </service>
+
+        <service name="VMware-HostSystem" interval="300000" user-defined="false" status="on">
+            <parameter key="collection" value="default-HostSystem5"/>
+            <parameter key="thresholding-enabled" value="true"/>
+        </service>
+        <service name="VMwareCim-HostSystem" interval="300000" user-defined="false" status="on">
+            <parameter key="collection" value="default-ESX-HostSystem"/>
+            <parameter key="thresholding-enabled" value="true"/>
+        </service>
+    </package>
+
     <package name="example1">
         <filter>IPADDR != '0.0.0.0'</filter>
         <include-range begin="1.1.1.1" end="254.254.254.254"/>
@@ -15,41 +66,6 @@
 
         <service name="WMI" interval="300000" user-defined="false" status="off">
             <parameter key="collection" value="default"/>
-            <parameter key="thresholding-enabled" value="true"/>
-        </service>
-
-        <service name="VMware3-VirtualMachine" interval="300000" user-defined="false" status="on">
-            <parameter key="collection" value="default-VirtualMachine3"/>
-            <parameter key="thresholding-enabled" value="true"/>
-        </service>
-
-        <service name="VMware3-HostSystem" interval="300000" user-defined="false" status="on">
-            <parameter key="collection" value="default-HostSystem3"/>
-            <parameter key="thresholding-enabled" value="true"/>
-        </service>
-
-        <service name="VMware4-VirtualMachine" interval="300000" user-defined="false" status="on">
-            <parameter key="collection" value="default-VirtualMachine4"/>
-            <parameter key="thresholding-enabled" value="true"/>
-        </service>
-
-        <service name="VMware4-HostSystem" interval="300000" user-defined="false" status="on">
-            <parameter key="collection" value="default-HostSystem4"/>
-            <parameter key="thresholding-enabled" value="true"/>
-        </service>
-
-        <service name="VMware5-VirtualMachine" interval="300000" user-defined="false" status="on">
-            <parameter key="collection" value="default-VirtualMachine5"/>
-            <parameter key="thresholding-enabled" value="true"/>
-        </service>
-
-        <service name="VMware5-HostSystem" interval="300000" user-defined="false" status="on">
-            <parameter key="collection" value="default-HostSystem5"/>
-            <parameter key="thresholding-enabled" value="true"/>
-        </service>
-
-        <service name="VMwareCim-HostSystem" interval="300000" user-defined="false" status="on">
-            <parameter key="collection" value="default-ESX-HostSystem"/>
             <parameter key="thresholding-enabled" value="true"/>
         </service>
 
@@ -80,12 +96,8 @@
     <collector service="SNMP" class-name="org.opennms.netmgt.collectd.SnmpCollector"/>
     <collector service="WMI" class-name="org.opennms.netmgt.collectd.WmiCollector"/>
     <collector service="OpenNMS-JVM" class-name="org.opennms.netmgt.collectd.Jsr160Collector"/>
-    <collector service="VMware3-VirtualMachine" class-name="org.opennms.netmgt.collectd.VmwareCollector"/>
-    <collector service="VMware3-HostSystem" class-name="org.opennms.netmgt.collectd.VmwareCollector"/>
-    <collector service="VMware4-VirtualMachine" class-name="org.opennms.netmgt.collectd.VmwareCollector"/>
-    <collector service="VMware4-HostSystem" class-name="org.opennms.netmgt.collectd.VmwareCollector"/>
-    <collector service="VMware5-VirtualMachine" class-name="org.opennms.netmgt.collectd.VmwareCollector"/>
-    <collector service="VMware5-HostSystem" class-name="org.opennms.netmgt.collectd.VmwareCollector"/>
+    <collector service="VMware-VirtualMachine" class-name="org.opennms.netmgt.collectd.VmwareCollector"/>
+    <collector service="VMware-HostSystem" class-name="org.opennms.netmgt.collectd.VmwareCollector"/>
     <collector service="VMwareCim-HostSystem" class-name="org.opennms.netmgt.collectd.VmwareCimCollector"/>
 </collectd-configuration>
 
