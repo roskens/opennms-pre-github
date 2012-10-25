@@ -41,47 +41,6 @@
     </dependency>
     -->
     <!--
-    <dependency>
-      <groupId>ch.qos.logback</groupId>
-      <artifactId>logback-core</artifactId>
-      <version>0.9.20</version>
-    </dependency>
-    <dependency>
-      <groupId>ch.qos.logback</groupId>
-      <artifactId>logback-classic</artifactId>
-      <version>0.9.20</version>
-    </dependency>
-    -->
-    <!-- Bump the version of pax-logging up a bit -->
-    <!--
-    <dependency>
-      <groupId>org.ops4j.pax.logging</groupId>
-      <artifactId>pax-logging-service</artifactId>
-      <version>1.6.8</version>
-    </dependency>
-    <dependency>
-      <groupId>org.ops4j.pax.logging</groupId>
-      <artifactId>pax-logging-api</artifactId>
-      <version>1.6.8</version>
-    </dependency>
-    -->
-    <!-- Provide Felix as the container -->
-    <!--
-    <dependency>
-      <groupId>org.apache.felix</groupId>
-      <artifactId>org.apache.felix.framework</artifactId>
-      <version>3.0.9</version>
-    </dependency>
-    -->
-    <!-- Pax-Exam to Karaf integration -->
-    <!--
-    <dependency>
-      <groupId>org.apache.karaf.tooling</groupId>
-      <artifactId>org.apache.karaf.tooling.testing</artifactId>
-      <version>${karafVersion}</version>
-    </dependency>
-    -->
-    <!--
       Declare the version of the Karaf container so that it is available inside
       unit tests.
     -->
@@ -111,12 +70,5 @@
       <artifactId>org.apache.karaf.tooling.exam.container</artifactId>
       <version>${karafVersion}</version>
     </dependency>
-    <!--
-    <dependency>
-      <groupId>org.apache.karaf.tooling.exam</groupId>
-      <artifactId>org.apache.karaf.tooling.exam.options</artifactId>
-      <version>${karafVersion}</version>
-    </dependency>
-    -->
   </dependencies>
 </project>
