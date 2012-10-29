@@ -261,6 +261,7 @@ public class NodeDaoTest implements InitializingBean {
     public OnmsNode getNodeHierarchy(final int nodeId) {
         return m_transTemplate.execute(new TransactionCallback<OnmsNode>() {
 
+            @Override
             public OnmsNode doInTransaction(TransactionStatus status) {
                 return getNodeDao().getHierarchy(nodeId);
             }
@@ -340,6 +341,7 @@ public class NodeDaoTest implements InitializingBean {
 
         m_transTemplate.execute(new TransactionCallback<Object>() {
 
+            @Override
             public Object doInTransaction(TransactionStatus status) {
                 simulateScan(timestamp);
                 return null;
@@ -349,6 +351,7 @@ public class NodeDaoTest implements InitializingBean {
 
         m_transTemplate.execute(new TransactionCallback<Object>() {
 
+            @Override
             public Object doInTransaction(TransactionStatus status) {
                 deleteObsoleteInterfaces(timestamp);
                 return null;
@@ -358,6 +361,7 @@ public class NodeDaoTest implements InitializingBean {
 
         m_transTemplate.execute(new TransactionCallback<Object>() {
 
+            @Override
             public Object doInTransaction(TransactionStatus status) {
                 validateScan();
                 return null;
@@ -418,6 +422,7 @@ public class NodeDaoTest implements InitializingBean {
     		m_propertyName = propertyName;
     	}
 
+        @Override
 		public int compare(Object o1, Object o2) {
 			
 			String expectedValue;
@@ -468,6 +473,7 @@ public class NodeDaoTest implements InitializingBean {
     private static void assertInterfaceSetsEqual(Set<OnmsIpInterface> expectedSet, Set<OnmsIpInterface> actualSet) throws Exception {
     	assertSetsEqual(expectedSet, actualSet, "ipAddress" , new AssertEquals<OnmsIpInterface>() {
 
+            @Override
 			public void assertEqual(OnmsIpInterface expected, OnmsIpInterface actual) throws Exception {
 	    		assertInterfaceEquals(expected, actual);
 			}
@@ -484,6 +490,7 @@ public class NodeDaoTest implements InitializingBean {
 	private static void assertServicesEquals(Set<OnmsMonitoredService> expectedSet, Set<OnmsMonitoredService> actualSet) throws Exception {
     	assertSetsEqual(expectedSet, actualSet, "serviceId" , new AssertEquals<OnmsMonitoredService>() {
 
+            @Override
 			public void assertEqual(OnmsMonitoredService expected, OnmsMonitoredService actual) throws Exception {
 	    		assertServiceEquals(expected, actual);
 			}

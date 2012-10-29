@@ -408,6 +408,7 @@ public class TestMenuBarBuilder {
     }
     
     private Command menuCommand = new Command() {
+        @Override
         public void menuSelected(MenuItem selectedItem) {
             
         }

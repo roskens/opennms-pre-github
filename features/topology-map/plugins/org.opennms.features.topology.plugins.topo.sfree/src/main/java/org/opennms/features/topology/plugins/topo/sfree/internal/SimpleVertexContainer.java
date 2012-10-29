@@ -47,12 +47,14 @@ public class SimpleVertexContainer extends VertexContainer<String, SimpleVertex>
 		fireItemSetChange();
 	}
 
+    @Override
 	public boolean areChildrenAllowed(Object itemId) {
 		if (!containsId(itemId)) return false;
 		SimpleVertex v = getItem(itemId).getBean();
 		return !v.isLeaf();
 	}
 
+    @Override
 	public Collection<?> getChildren(Object itemId) {
 		if (!containsId(itemId)) return Collections.EMPTY_LIST;
 		SimpleVertex v = getItem(itemId).getBean();
@@ -69,6 +71,7 @@ public class SimpleVertexContainer extends VertexContainer<String, SimpleVertex>
 		}
 	}
 
+    @Override
 	public Object getParent(Object itemId) {
 		if (!containsId(itemId)) return null;
 		
@@ -76,18 +79,21 @@ public class SimpleVertexContainer extends VertexContainer<String, SimpleVertex>
 		return g == null ? null : g.getId();
 	}
 
+    @Override
 	public boolean hasChildren(Object itemId) {
 		if (!containsId(itemId)) return false;
 		SimpleVertex v = getItem(itemId).getBean();
 		return !v.isLeaf();
 	}
 
+    @Override
 	public boolean isRoot(Object itemId) {
 		if (!containsId(itemId)) return false;
 		
 		return (getParent(itemId) == null);
 	}
 
+    @Override
 	public Collection<?> rootItemIds() {
 		List<Object> rootItemIds = new ArrayList<Object>();
 		
@@ -99,10 +105,12 @@ public class SimpleVertexContainer extends VertexContainer<String, SimpleVertex>
 		return rootItemIds;
 	}
 
+    @Override
 	public boolean setChildrenAllowed(Object itemId, boolean areChildrenAllowed) throws UnsupportedOperationException {
 		throw new UnsupportedOperationException("this operation is not allowed");
 	}
 
+    @Override
 	public boolean setParent(Object itemId, Object newParentId) throws UnsupportedOperationException {
 		if (!containsId(itemId)) return false;
 		

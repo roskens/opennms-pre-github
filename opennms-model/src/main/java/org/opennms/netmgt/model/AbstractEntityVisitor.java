@@ -34,34 +34,42 @@ package org.opennms.netmgt.model;
 public class AbstractEntityVisitor implements EntityVisitor {
 
 	/** {@inheritDoc} */
+    @Override
 	public void visitNode(OnmsNode node) {
 	}
 
 	/** {@inheritDoc} */
+    @Override
 	public void visitSnmpInterface(OnmsEntity snmpIface) {
 	}
 
 	/** {@inheritDoc} */
+    @Override
 	public void visitIpInterface(OnmsIpInterface iface) {
 	}
 
 	/** {@inheritDoc} */
+    @Override
 	public void visitMonitoredService(OnmsMonitoredService monSvc) {
 	}
 
 	/** {@inheritDoc} */
+    @Override
 	public void visitNodeComplete(OnmsNode node) {
 	}
 
 	/** {@inheritDoc} */
+    @Override
 	public void visitSnmpInterfaceComplete(OnmsEntity snmpIface) {
 	}
 
 	/** {@inheritDoc} */
+    @Override
 	public void visitIpInterfaceComplete(OnmsIpInterface iface) {
 	}
 
 	/** {@inheritDoc} */
+    @Override
 	public void visitMonitoredServiceComplete(OnmsMonitoredService monSvc) {
 	}
 

@@ -39,6 +39,7 @@ public class SimpleLayoutAlgorithm implements LayoutAlgorithm {
     /* (non-Javadoc)
      * @see org.opennms.features.vaadin.topology.LayoutAlgorithm#updateLayout(org.opennms.features.vaadin.topology.Graph)
      */
+    @Override
     public void updateLayout(GraphContainer graphContainer) {
     	int szl = graphContainer.getSemanticZoomLevel();
     	Graph graph = new Graph(graphContainer);

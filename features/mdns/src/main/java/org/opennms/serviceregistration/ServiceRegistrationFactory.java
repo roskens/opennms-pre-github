@@ -71,6 +71,7 @@ public class ServiceRegistrationFactory {
 		return s;
 	}
 	
+    @Override
 	public Object clone() throws CloneNotSupportedException {
 		throw new CloneNotSupportedException("Singletons cannot be cloned.");
 	}

@@ -157,6 +157,7 @@ public final class DataSourceFactory implements DataSource {
 
     	final ClosableDataSource runnableDs = dataSource;
         m_closers.add(new Runnable() {
+            @Override
             public void run() {
                 try {
                     runnableDs.close();

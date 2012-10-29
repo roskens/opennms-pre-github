@@ -548,6 +548,7 @@ public class WillItUnmarshalTest {
         assertTrue("daemon configuration directory is a directory at " + configDir.getAbsolutePath(), configDir.isDirectory());
 
         String[] configFiles = configDir.list(new FilenameFilter() {
+            @Override
             public boolean accept(File file, String name) {
                 return name.endsWith(".xml");
             } });
@@ -587,6 +588,7 @@ public class WillItUnmarshalTest {
         assertTrue("directory to search for configuration files in is not a directory at " + directory.getAbsolutePath(), directory.isDirectory());
 
         String[] configFiles = directory.list(new FilenameFilter() {
+            @Override
             public boolean accept(File file, String name) {
                 return name.endsWith(".xml");
             } });
@@ -595,6 +597,7 @@ public class WillItUnmarshalTest {
         }
         
         File[] subDirectories = directory.listFiles(new FileFilter() {
+            @Override
             public boolean accept(File file) {
                 return file.isDirectory() && !file.getName().startsWith(".");
             }
@@ -614,6 +617,7 @@ public class WillItUnmarshalTest {
         assertTrue("events directory is a directory at " + eventsDirFile.getAbsolutePath(), eventsDirFile.isDirectory());
         
         File[] includedEventFiles = eventsDirFile.listFiles(new FilenameFilter() {
+            @Override
             public boolean accept(File file, String name) {
                 return name.endsWith(".xml");
             } });
@@ -639,6 +643,7 @@ public class WillItUnmarshalTest {
         assertTrue("events directory is a directory at " + groupDirFile.getAbsolutePath(), groupDirFile.isDirectory());
 
         File[] includedGroupFiles = groupDirFile.listFiles(new FilenameFilter() {
+            @Override
             public boolean accept(File file, String name) {
                 return name.endsWith(".xml");
             } });

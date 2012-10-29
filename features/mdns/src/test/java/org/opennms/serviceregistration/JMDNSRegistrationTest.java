@@ -41,6 +41,7 @@ public class JMDNSRegistrationTest extends TestCase {
 	private static int timeout = 8000;
 
 	@Before
+    @Override
 	public void setUp() throws Exception {
 	    a = new JMDNSStrategy();
 	}

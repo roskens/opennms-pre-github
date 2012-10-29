@@ -167,6 +167,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * thread context synchronization must be added.
      * </p>
      */
+    @Override
     public void run() {
 
         if (suspendCollection) {
@@ -1238,6 +1239,7 @@ public final class DiscoveryLink implements ReadyRunnable {
     /**
      * This Method is called when DiscoveryLink is initialized
      */
+    @Override
     public void schedule() {
         if (m_scheduler == null)
             throw new IllegalStateException(
@@ -1288,6 +1290,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * 
      * @return a boolean.
      */
+    @Override
     public boolean isReady() {
         return true;
     }
@@ -1369,6 +1372,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * 
      * @return Returns the suspendCollection.
      */
+    @Override
     public boolean isSuspended() {
         return suspendCollection;
     }
@@ -1378,6 +1382,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * suspend
      * </p>
      */
+    @Override
     public void suspend() {
         this.suspendCollection = true;
     }
@@ -1387,6 +1392,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * wakeUp
      * </p>
      */
+    @Override
     public void wakeUp() {
         this.suspendCollection = false;
     }
@@ -1396,6 +1402,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * unschedule
      * </p>
      */
+    @Override
     public void unschedule() {
         if (m_scheduler == null)
             throw new IllegalStateException(
@@ -1477,6 +1484,7 @@ public final class DiscoveryLink implements ReadyRunnable {
     }
 
     /** {@inheritDoc} */
+    @Override
     public boolean equals(ReadyRunnable r) {
         return (r instanceof DiscoveryLink && this.getPackageName().equals(r.getPackageName()));
     }
@@ -1488,6 +1496,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * 
      * @return a {@link java.lang.String} object.
      */
+    @Override
     public String getInfo() {
         return " Ready Runnable Discovery Link discoveryUsingBridge/discoveryUsingCdp/discoveryUsingRoutes/package: "
                 + discoveryUsingBridge()
@@ -1619,11 +1628,13 @@ public final class DiscoveryLink implements ReadyRunnable {
      * 
      * @return a {@link java.lang.String} object.
      */
+    @Override
     public String getPackageName() {
         return packageName;
     }
 
     /** {@inheritDoc} */
+    @Override
     public void setPackageName(String packageName) {
         this.packageName = packageName;
     }

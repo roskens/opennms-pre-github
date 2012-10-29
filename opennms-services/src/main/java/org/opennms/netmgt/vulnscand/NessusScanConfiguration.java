@@ -124,6 +124,7 @@ final class NessusScanConfiguration implements ScheduleTrigger<Runnable> {
      *
      * @return a boolean.
      */
+    @Override
     public boolean isScheduled() {
         return scheduled;
     }
@@ -144,6 +145,7 @@ final class NessusScanConfiguration implements ScheduleTrigger<Runnable> {
 	 * @see org.opennms.netmgt.vulnscand.ScheduleTrigger#setScheduled(boolean)
 	 */
     /** {@inheritDoc} */
+    @Override
     public void setScheduled(boolean newScheduled) {
         scheduled = newScheduled;
     }
@@ -164,6 +166,7 @@ final class NessusScanConfiguration implements ScheduleTrigger<Runnable> {
      *
      * @return a boolean.
      */
+    @Override
     public boolean isTimeForRescan() {
         if (System.currentTimeMillis() >= (lastScan.getTime() + interval))
             return true;
@@ -191,6 +194,7 @@ final class NessusScanConfiguration implements ScheduleTrigger<Runnable> {
 	 *
 	 * @return a {@link java.lang.Object} object.
 	 */
+    @Override
 	public Runnable getJob() {
 		return new NessusScan(this);
 	}

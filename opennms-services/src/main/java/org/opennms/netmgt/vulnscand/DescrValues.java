@@ -78,6 +78,7 @@ public class DescrValues {
      *
      * @return a {@link java.lang.String} object.
      */
+    @Override
     public String toString() {
         return ("descr: " + descr + "\ncveEntry: " + cveEntry + "\nseverity: " + severity + "\n");
     }

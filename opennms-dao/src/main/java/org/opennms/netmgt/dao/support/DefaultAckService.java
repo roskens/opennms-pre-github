@@ -50,6 +50,7 @@ public class DefaultAckService implements AckService {
     private AcknowledgmentDao m_ackDao;
     
     /** {@inheritDoc} */
+    @Override
     public void processAcks(Collection<OnmsAcknowledgment> acks) {
         log().info("processAcks: Processing "+acks.size()+" acknowledgements...");
         for (OnmsAcknowledgment ack : acks) {
@@ -58,6 +59,7 @@ public class DefaultAckService implements AckService {
     }
 
     /** {@inheritDoc} */
+    @Override
     public void processAck(OnmsAcknowledgment ack) {
         log().info("processAck: Searching DB for acknowledgables for ack: "+ack);
         List<Acknowledgeable> ackables = m_ackDao.findAcknowledgables(ack);

@@ -127,6 +127,7 @@ public class TroubleTicketer implements SpringServiceDaemon, EventListener {
 	 *
 	 * @return <code>java.lang.String</code> representing the name of this service daemon
 	 */
+    @Override
 	public String getName() {
 		return "OpenNMS.TroubleTicketer";
 	}
@@ -136,6 +137,7 @@ public class TroubleTicketer implements SpringServiceDaemon, EventListener {
 	 *
 	 * Event listener Interface required implementation
 	 */
+    @Override
 	public void onEvent(Event e) {
         try {
 		if (EventConstants.TROUBLETICKET_CANCEL_UEI.equals(e.getUei())) {

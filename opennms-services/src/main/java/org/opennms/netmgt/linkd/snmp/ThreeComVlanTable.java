@@ -58,6 +58,7 @@ public class ThreeComVlanTable extends SnmpTable<ThreeComVlanTableEntry> {
     }
     
     /** {@inheritDoc} */
+    @Override
     protected ThreeComVlanTableEntry createTableEntry(SnmpObjId base, SnmpInstId inst, Object val) {
         return new ThreeComVlanTableEntry();
     }

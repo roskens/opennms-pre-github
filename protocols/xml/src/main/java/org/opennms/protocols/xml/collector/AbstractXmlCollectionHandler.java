@@ -92,6 +92,7 @@ public abstract class AbstractXmlCollectionHandler implements XmlCollectionHandl
     /* (non-Javadoc)
      * @see org.opennms.protocols.xml.collector.XmlCollectionHandler#setServiceName(java.lang.String)
      */
+    @Override
     public void setServiceName(String serviceName) {
         this.m_serviceName = serviceName;
     }
@@ -99,6 +100,7 @@ public abstract class AbstractXmlCollectionHandler implements XmlCollectionHandl
     /* (non-Javadoc)
      * @see org.opennms.protocols.xml.collector.XmlCollectionHandler#setRrdRepository(org.opennms.netmgt.model.RrdRepository)
      */
+    @Override
     public void setRrdRepository(RrdRepository m_rrdRepository) {
         this.m_rrdRepository = m_rrdRepository;
     }

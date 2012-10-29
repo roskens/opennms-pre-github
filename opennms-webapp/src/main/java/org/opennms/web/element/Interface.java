@@ -282,6 +282,7 @@ public class Interface {
      *
      * @return a {@link java.lang.String} object.
      */
+    @Override
     public String toString() {
         return m_ipHostName;
     }

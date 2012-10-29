@@ -79,6 +79,7 @@ public class DaoWebAlarmRepository implements WebAlarmRepository, InitializingBe
 
         alarmCriteria.visit(new AlarmCriteriaVisitor<RuntimeException>() {
 
+            @Override
             public void visitAckType(AcknowledgeType ackType) throws RuntimeException {
                 if (ackType == AcknowledgeType.ACKNOWLEDGED) {
                     criteria.add(Restrictions.isNotNull("alarmAckUser"));
@@ -87,15 +88,18 @@ public class DaoWebAlarmRepository implements WebAlarmRepository, InitializingBe
                 }
             }
 
+            @Override
             public void visitFilter(Filter filter) throws RuntimeException {
                 criteria.add(filter.getCriterion());
             }
 
+            @Override
             public void visitLimit(int limit, int offset) throws RuntimeException {
                 criteria.setMaxResults(limit);
                 criteria.setFirstResult(offset);
             }
 
+            @Override
             public void visitSortStyle(SortStyle sortStyle) throws RuntimeException {
                 switch (sortStyle) {
                     case COUNT:
@@ -207,6 +211,7 @@ public class DaoWebAlarmRepository implements WebAlarmRepository, InitializingBe
      * {@inheritDoc}
      */
     @Transactional
+    @Override
     public void acknowledgeAll(String user, Date timestamp) {
         acknowledgeMatchingAlarms(user, timestamp, new AlarmCriteria());
     }
@@ -220,6 +225,7 @@ public class DaoWebAlarmRepository implements WebAlarmRepository, InitializingBe
      * {@inheritDoc}
      */
     @Transactional
+    @Override
     public void acknowledgeMatchingAlarms(String user, Date timestamp, AlarmCriteria criteria) {
         List<OnmsAlarm> alarms = m_alarmDao.findMatching(getOnmsCriteria(criteria));
 
@@ -237,6 +243,7 @@ public class DaoWebAlarmRepository implements WebAlarmRepository, InitializingBe
      * {@inheritDoc}
      */
     @Transactional
+    @Override
     public void clearAlarms(int[] alarmIds, String user, Date timestamp) {
         List<OnmsAlarm> alarms = m_alarmDao.findMatching(getOnmsCriteria(new AlarmCriteria(new AlarmIdListFilter(alarmIds))));
 
@@ -255,6 +262,7 @@ public class DaoWebAlarmRepository implements WebAlarmRepository, InitializingBe
      * {@inheritDoc}
      */
     @Transactional
+    @Override
     public int countMatchingAlarms(AlarmCriteria criteria) {
         return queryForInt(getOnmsCriteria(criteria));
     }
@@ -263,6 +271,7 @@ public class DaoWebAlarmRepository implements WebAlarmRepository, InitializingBe
      * {@inheritDoc}
      */
     @Transactional
+    @Override
     public int[] countMatchingAlarmsBySeverity(final AlarmCriteria criteria) {
         final int[] alarmCounts = new int[8];
         for (final OnmsSeverity value : OnmsSeverity.values()) {
@@ -275,6 +284,7 @@ public class DaoWebAlarmRepository implements WebAlarmRepository, InitializingBe
      * {@inheritDoc}
      */
     @Transactional
+    @Override
     public void escalateAlarms(int[] alarmIds, String user, Date timestamp) {
         List<OnmsAlarm> alarms = m_alarmDao.findMatching(getOnmsCriteria(new AlarmCriteria(new AlarmIdListFilter(alarmIds))));
 
@@ -292,6 +302,7 @@ public class DaoWebAlarmRepository implements WebAlarmRepository, InitializingBe
      * {@inheritDoc}
      */
     @Transactional
+    @Override
     public Alarm getAlarm(int alarmId) {
         return mapOnmsAlarmToAlarm(m_alarmDao.get(alarmId));
     }
@@ -300,6 +311,7 @@ public class DaoWebAlarmRepository implements WebAlarmRepository, InitializingBe
      * {@inheritDoc}
      */
     @Transactional
+    @Override
     public Alarm[] getMatchingAlarms(AlarmCriteria criteria) {
         List<Alarm> alarms = new ArrayList<Alarm>();
         List<OnmsAlarm> onmsAlarms = m_alarmDao.findMatching(getOnmsCriteria(criteria));
@@ -315,6 +327,7 @@ public class DaoWebAlarmRepository implements WebAlarmRepository, InitializingBe
      * {@inheritDoc}
      */
     @Transactional
+    @Override
     public void unacknowledgeAll(String user) {
         unacknowledgeMatchingAlarms(new AlarmCriteria(), user);
     }
@@ -323,6 +336,7 @@ public class DaoWebAlarmRepository implements WebAlarmRepository, InitializingBe
      * {@inheritDoc}
      */
     @Transactional
+    @Override
     public void unacknowledgeMatchingAlarms(AlarmCriteria criteria, String user) {
         List<OnmsAlarm> alarms = m_alarmDao.findMatching(getOnmsCriteria(criteria));
 
@@ -342,6 +356,7 @@ public class DaoWebAlarmRepository implements WebAlarmRepository, InitializingBe
      * {@inheritDoc}
      */
     @Transactional
+    @Override
     public void acknowledgeAlarms(int[] alarmIds, String user, Date timestamp) {
         acknowledgeMatchingAlarms(user, timestamp, new AlarmCriteria(new AlarmIdListFilter(alarmIds)));
     }
@@ -350,6 +365,7 @@ public class DaoWebAlarmRepository implements WebAlarmRepository, InitializingBe
      * {@inheritDoc}
      */
     @Transactional
+    @Override
     public void unacknowledgeAlarms(int[] alarmIds, String user) {
         unacknowledgeMatchingAlarms(new AlarmCriteria(new AlarmIdListFilter(alarmIds)), user);
     }

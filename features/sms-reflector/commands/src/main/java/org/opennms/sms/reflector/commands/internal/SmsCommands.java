@@ -468,6 +468,7 @@ public class SmsCommands implements CommandProvider, BundleContextAware
      *
      * @return a {@link java.lang.String} object.
      */
+    @Override
     public String getHelp() { 
         StringBuffer buffer = new StringBuffer(); 
         buffer.append("---Sms Commands---");
@@ -483,6 +484,7 @@ public class SmsCommands implements CommandProvider, BundleContextAware
     } 
 
     public class OutboundNotification implements IOutboundMessageNotification {
+        @Override
         public void process(String gatewayId, OutboundMessage msg) {
             debugf("Outbound handler called from Gateway: %s", gatewayId);
             debugf(msg.toString());
@@ -492,6 +494,7 @@ public class SmsCommands implements CommandProvider, BundleContextAware
 
     public class InboundNotification implements IInboundMessageNotification{
 
+        @Override
         public void process(String gatewayId, MessageTypes msgType, InboundMessage msg) {
             if(msgType == MessageTypes.INBOUND){
                 debugf(">>> New Inbound message detected from Gateway: %s", gatewayId);
@@ -507,6 +510,7 @@ public class SmsCommands implements CommandProvider, BundleContextAware
 
     public class CallNotification implements ICallNotification{
 
+        @Override
         public void process(String gatewayId, String callerId) {
             debugf(">>> New called detected from Gateway: %s : %s", gatewayId, callerId);
         }
@@ -515,6 +519,7 @@ public class SmsCommands implements CommandProvider, BundleContextAware
 
     public class GatewayStatusNotification implements IGatewayStatusNotification{
 
+        @Override
         public void process(String gatewayId, GatewayStatuses oldStatus, GatewayStatuses newStatus) {
             debugf(">>> Gateway Status change from: %s, OLD:  %s -> NEW: %s", gatewayId, oldStatus, newStatus );
         }
@@ -540,6 +545,7 @@ public class SmsCommands implements CommandProvider, BundleContextAware
     }
 
     /** {@inheritDoc} */
+    @Override
     public void setBundleContext(BundleContext m_context) {
         this.m_context = m_context;
     }

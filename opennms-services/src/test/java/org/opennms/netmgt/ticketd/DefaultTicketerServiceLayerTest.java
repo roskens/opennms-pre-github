@@ -153,6 +153,7 @@ public class DefaultTicketerServiceLayerTest extends TestCase {
         m_alarmDao.saveOrUpdate(m_alarm);
         EasyMock.expectLastCall().andAnswer(new IAnswer<Object>() {
 
+            @Override
             public Object answer() throws Throwable {
                 OnmsAlarm alarm = (OnmsAlarm) EasyMock.getCurrentArguments()[0];
                 assertEquals(state, alarm.getTTicketState());
@@ -174,6 +175,7 @@ public class DefaultTicketerServiceLayerTest extends TestCase {
         }
         EasyMock.expectLastCall().andAnswer(new IAnswer<Object>() {
 
+            @Override
             public Object answer() throws Throwable {
                 Ticket ticket = (Ticket) EasyMock.getCurrentArguments()[0];
                 assertEquals(state, ticket.getState());
@@ -197,6 +199,7 @@ public class DefaultTicketerServiceLayerTest extends TestCase {
         }
         EasyMock.expectLastCall().andAnswer(new IAnswer<Object>() {
 
+            @Override
             public Object answer() throws Throwable {
                 Ticket ticket = (Ticket) EasyMock.getCurrentArguments()[0];
                 assertNull(ticket.getId());
@@ -365,6 +368,7 @@ public class DefaultTicketerServiceLayerTest extends TestCase {
         }
         EasyMock.expectLastCall().andAnswer(new IAnswer<Object>() {
 
+            @Override
             public Object answer() throws Throwable {
                 Ticket ticket = (Ticket) EasyMock.getCurrentArguments()[0];
                 assertEquals(Ticket.State.OPEN, ticket.getState());

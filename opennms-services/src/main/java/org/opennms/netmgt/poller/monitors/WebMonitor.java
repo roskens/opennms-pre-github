@@ -125,6 +125,7 @@ public class WebMonitor extends AbstractServiceMonitor {
                      */
                     HttpRequestInterceptor preemptiveAuth = new HttpRequestInterceptor() {
 
+                        @Override
                         public void process(final HttpRequest request, final HttpContext context) throws IOException {
 
                             AuthState authState = (AuthState)context.getAttribute(ClientContext.TARGET_AUTH_STATE);

@@ -75,6 +75,7 @@ public class AddVertexOperation implements Operation{
         return m_iconKey;
     }
 
+    @Override
     public Undoer execute(List<Object> targets, OperationContext operationContext) {
         LoggerFactory.getLogger(getClass()).debug("execute()");
         Object vertexKey = targets.isEmpty() ? null : targets.get(0);

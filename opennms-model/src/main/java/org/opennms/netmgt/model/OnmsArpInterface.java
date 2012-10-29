@@ -76,6 +76,7 @@ public class OnmsArpInterface extends OnmsEntity implements Serializable {
             m_statusType = statusType;
         }
 
+        @Override
         public int compareTo(StatusType o) {
             return getIndex(m_statusType) - getIndex(o.m_statusType);
         }
@@ -89,6 +90,7 @@ public class OnmsArpInterface extends OnmsEntity implements Serializable {
             throw new IllegalArgumentException("illegal statusType code '"+code+"'");
         }
 
+        @Override
         public boolean equals(Object o) {
             if (o instanceof StatusType) {
                 return m_statusType == ((StatusType)o).m_statusType;
@@ -96,10 +98,12 @@ public class OnmsArpInterface extends OnmsEntity implements Serializable {
             return false;
         }
 
+        @Override
         public int hashCode() {
             return toString().hashCode();
         }
 
+        @Override
         public String toString() {
             return String.valueOf(m_statusType);
         }

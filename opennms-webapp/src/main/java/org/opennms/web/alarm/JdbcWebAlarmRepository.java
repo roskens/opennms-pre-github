@@ -98,21 +98,25 @@ public class JdbcWebAlarmRepository implements WebAlarmRepository, InitializingB
                 }
             }
 
+            @Override
             public void visitAckType(AcknowledgeType ackType) {
                 and(buf);
                 buf.append(ackType.getAcknowledgeTypeClause());
             }
 
+            @Override
             public void visitFilter(Filter filter) {
                 and(buf);
                 buf.append(filter.getParamSql());
             }
 
+            @Override
             public void visitSortStyle(SortStyle sortStyle) {
                 buf.append(" ");
                 buf.append(sortStyle.getOrderByClause());
             }
 
+            @Override
             public void visitLimit(int limit, int offset) {
                 buf.append(" LIMIT ").append(limit).append(" OFFSET ").append(offset);
             } 
@@ -125,6 +129,7 @@ public class JdbcWebAlarmRepository implements WebAlarmRepository, InitializingB
     private PreparedStatementSetter paramSetter(final AlarmCriteria criteria, final Object... args) {
         return new PreparedStatementSetter() {
             int paramIndex = 1;
+            @Override
             public void setValues(final PreparedStatement ps) throws SQLException {
                 for(Object arg : args) {
                     ps.setObject(paramIndex, arg);
@@ -161,6 +166,7 @@ public class JdbcWebAlarmRepository implements WebAlarmRepository, InitializingB
     }
     
     private static class AlarmMapper implements ParameterizedRowMapper<Alarm> {
+        @Override
         public Alarm mapRow(ResultSet rs, int rowNum) throws SQLException {
             Alarm alarm = new Alarm();
             alarm.id = rs.getInt("alarmID");
@@ -215,12 +221,14 @@ public class JdbcWebAlarmRepository implements WebAlarmRepository, InitializingB
     }
 
     /** {@inheritDoc} */
+    @Override
     public int countMatchingAlarms(AlarmCriteria criteria) {
         String sql = getSql("SELECT COUNT(ALARMID) as ALARMCOUNT FROM ALARMS LEFT OUTER JOIN NODE USING (NODEID) LEFT OUTER JOIN SERVICE USING (SERVICEID) ", criteria);
         return queryForInt(sql, paramSetter(criteria));
     }
     
     /** {@inheritDoc} */
+    @Override
     public int[] countMatchingAlarmsBySeverity(AlarmCriteria criteria) {
         String selectClause = "SELECT SEVERITY, COUNT(ALARMID) AS ALARMCOUNT FROM ALARMS LEFT OUTER JOIN NODE USING (NODEID) LEFT OUTER JOIN SERVICE USING (SERVICEID) ";
         String sql = getSql(selectClause, criteria);
@@ -229,6 +237,7 @@ public class JdbcWebAlarmRepository implements WebAlarmRepository, InitializingB
         final int[] alarmCounts = new int[8];
         jdbc().query(sql, paramSetter(criteria), new RowCallbackHandler() {
 
+            @Override
             public void processRow(ResultSet rs) throws SQLException {
                 int severity = rs.getInt("SEVERITY");
                 int alarmCount = rs.getInt("ALARMCOUNT");
@@ -243,6 +252,7 @@ public class JdbcWebAlarmRepository implements WebAlarmRepository, InitializingB
     }
     
     /** {@inheritDoc} */
+    @Override
     public Alarm getAlarm(int alarmId) {
         Alarm[] alarms = getMatchingAlarms(new AlarmCriteria(new AlarmIdFilter(alarmId)));
         if (alarms.length < 1) {
@@ -253,6 +263,7 @@ public class JdbcWebAlarmRepository implements WebAlarmRepository, InitializingB
     }
     
     /** {@inheritDoc} */
+    @Override
     public Alarm[] getMatchingAlarms(AlarmCriteria criteria) {
         String sql = getSql("SELECT ALARMS.*, NODE.NODELABEL, SERVICE.SERVICENAME FROM ALARMS LEFT OUTER JOIN NODE USING (NODEID) LEFT OUTER JOIN SERVICE USING (SERVICEID) ", criteria);
         return getAlarms(sql, paramSetter(criteria));
@@ -272,11 +283,13 @@ public class JdbcWebAlarmRepository implements WebAlarmRepository, InitializingB
      * @param user a {@link java.lang.String} object.
      * @param timestamp a java$util$Date object.
      */
+    @Override
     public void acknowledgeAlarms(int[] alarmIds, String user, Date timestamp) {
         acknowledgeMatchingAlarms(user, timestamp, new AlarmCriteria(new AlarmIdListFilter(alarmIds)));
     }
 
     /** {@inheritDoc} */
+    @Override
     public void acknowledgeMatchingAlarms(String user, Date timestamp, AlarmCriteria criteria) {
         String sql = getSql("UPDATE ALARMS SET ALARMACKUSER=?, ALARMACKTIME=? ", criteria);
         jdbc().update(sql, paramSetter(criteria, user, new Timestamp(timestamp.getTime())));
@@ -288,22 +301,26 @@ public class JdbcWebAlarmRepository implements WebAlarmRepository, InitializingB
      * @param user a {@link java.lang.String} object.
      * @param timestamp a java$util$Date object.
      */
+    @Override
     public void acknowledgeAll(String user, Date timestamp) {
         m_simpleJdbcTemplate.update("UPDATE ALARMS SET ALARMACKUSER=?, ALARMACKTIME=? WHERE ALARMACKUSER IS NULL ", user, new Timestamp(timestamp.getTime()));
     }
 
     /** {@inheritDoc} */
+    @Override
     public void unacknowledgeAlarms(int[] alarmIds, String user) {
         unacknowledgeMatchingAlarms(new AlarmCriteria(new AlarmIdListFilter(alarmIds)), user);
     }
 
     /** {@inheritDoc} */
+    @Override
     public void unacknowledgeMatchingAlarms(AlarmCriteria criteria, String user) {
         String sql = getSql("UPDATE ALARMS SET ALARMACKUSER=NULL, ALARMACKTIME=NULL ", criteria);
         jdbc().update(sql, paramSetter(criteria));
     }
     
     /** {@inheritDoc} */
+    @Override
     public void unacknowledgeAll(String user) {
         m_simpleJdbcTemplate.update("UPDATE ALARMS SET ALARMACKUSER=NULL, ALARMACKTIME=NULL WHERE ALARMACKUSER IS NOT NULL ");
     }
@@ -325,6 +342,7 @@ public class JdbcWebAlarmRepository implements WebAlarmRepository, InitializingB
      * @param user a {@link java.lang.String} object.
      * @param timestamp a java$util$Date object.
      */
+    @Override
     public void clearAlarms(int[] alarmIds, String user, Date timestamp) {
         if(alarmIds == null || user == null || timestamp == null){
             throw new IllegalArgumentException("Cannot take null parameters");
@@ -345,6 +363,7 @@ public class JdbcWebAlarmRepository implements WebAlarmRepository, InitializingB
      * @param user a {@link java.lang.String} object.
      * @param timestamp a java$util$Date object.
      */
+    @Override
     public void escalateAlarms(int[] alarmIds, String user, Date timestamp) {
         ConditionalFilter condFilter = new AndFilter(new AlarmTypeFilter(Alarm.PROBLEM_TYPE), new SeverityFilter(OnmsSeverity.CLEARED));
         ConditionalFilter condFilter2 = new AndFilter(new AlarmTypeFilter(Alarm.PROBLEM_TYPE), new SeverityBetweenFilter(OnmsSeverity.CLEARED, OnmsSeverity.CRITICAL));

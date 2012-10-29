@@ -89,14 +89,17 @@ public class SimpleTopologyProvider implements TopologyProvider, EditableTopolog
 		}
 	}
 
+    @Override
 	public SimpleVertexContainer getVertexContainer() {
         return m_vertexContainer;
     }
 
+    @Override
     public BeanContainer<String, SimpleEdge> getEdgeContainer() {
         return m_edgeContainer;
     }
 
+    @Override
     public Collection<?> getVertexIds() {
         return m_vertexContainer.getItemIds();
     }
@@ -106,6 +109,7 @@ public class SimpleTopologyProvider implements TopologyProvider, EditableTopolog
         return m_edgeContainer.getItemIds();
     }
 
+    @Override
     public Item getVertexItem(Object vertexId) {
         return m_vertexContainer.getItem(vertexId);
     }
@@ -115,6 +119,7 @@ public class SimpleTopologyProvider implements TopologyProvider, EditableTopolog
         return m_edgeContainer.getItem(edgeId);
     }
     
+    @Override
     public Collection<?> getEndPointIdsForEdge(Object edgeId) {
         
         SimpleEdge edge = getRequiredEdge(edgeId);

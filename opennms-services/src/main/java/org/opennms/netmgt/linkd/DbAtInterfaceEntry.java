@@ -688,6 +688,7 @@ public final class DbAtInterfaceEntry {
 	 *
 	 * @return a {@link java.lang.String} object.
 	 */
+    @Override
 	public String toString() {
 		return new ToStringBuilder(this)
 			.append("fromDB?", m_fromDb)

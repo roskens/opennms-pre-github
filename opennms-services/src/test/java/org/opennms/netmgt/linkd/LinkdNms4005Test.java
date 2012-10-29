@@ -221,6 +221,7 @@ public class LinkdNms4005Test extends LinkdNetworkBuilder implements Initializin
         List<Thread> waitForMe = new ArrayList<Thread>();
         for (int i = 0; i < NUMBER_OF_THREADS; i++) {
             Thread thread = new Thread("NMS-4005-Test-Thread-" + i) {
+                @Override
                 public void run() {
                     assertTrue(m_linkd.runSingleCollection(cisco1.getId()));
                 }
@@ -234,6 +235,7 @@ public class LinkdNms4005Test extends LinkdNetworkBuilder implements Initializin
         waitForMe.clear();
         for (int i = 0; i < NUMBER_OF_THREADS; i++) {
             Thread thread = new Thread("NMS-4005-Test-Thread-" + i) {
+                @Override
                 public void run() {
                     assertTrue(m_linkd.runSingleCollection(cisco2.getId()));
                 }
@@ -247,6 +249,7 @@ public class LinkdNms4005Test extends LinkdNetworkBuilder implements Initializin
         waitForMe.clear();
         for (int i = 0; i < NUMBER_OF_THREADS; i++) {
             Thread thread = new Thread("NMS-4005-Test-Thread-" + i) {
+                @Override
                 public void run() {
                     assertTrue(m_linkd.runSingleCollection(cisco3.getId()));
                 }

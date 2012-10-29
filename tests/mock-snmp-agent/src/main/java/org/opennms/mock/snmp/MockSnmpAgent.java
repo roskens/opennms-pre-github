@@ -359,6 +359,7 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
     /**
      * <p>run</p>
      */
+    @Override
     public void run() {
         try {
             init();
@@ -753,6 +754,7 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
      *
      * @return a {@link java.lang.String} object.
      */
+    @Override
     public String toString() {
         return "MockSnmpAgent["+m_address+"]";
     }

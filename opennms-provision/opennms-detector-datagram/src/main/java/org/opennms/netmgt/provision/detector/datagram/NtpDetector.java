@@ -76,6 +76,7 @@ public class NtpDetector extends BasicDetector<NtpMessage, DatagramPacket> {
     private static ResponseValidator<DatagramPacket> validateResponse(final InetAddress nserver) {
         return new ResponseValidator<DatagramPacket>(){
 
+            @Override
             public boolean validate(final DatagramPacket response) {
                 if (response.getAddress().equals(nserver)) {
                     // parse the incoming data
@@ -92,6 +93,7 @@ public class NtpDetector extends BasicDetector<NtpMessage, DatagramPacket> {
     private static RequestBuilder<NtpMessage> createNtpMessage() {
         return new RequestBuilder<NtpMessage>(){
 
+            @Override
             public NtpMessage getRequest() {
                 return new NtpMessage();
             }

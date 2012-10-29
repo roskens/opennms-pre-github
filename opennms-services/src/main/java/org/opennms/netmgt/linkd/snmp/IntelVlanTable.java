@@ -58,6 +58,7 @@ public class IntelVlanTable extends SnmpTable<IntelVlanTableEntry> {
     }
     
     /** {@inheritDoc} */
+    @Override
     protected IntelVlanTableEntry createTableEntry(SnmpObjId base, SnmpInstId inst, Object val) {
         return new IntelVlanTableEntry();
     }

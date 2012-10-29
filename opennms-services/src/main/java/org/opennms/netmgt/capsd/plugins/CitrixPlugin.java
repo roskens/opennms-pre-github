@@ -82,6 +82,7 @@ public final class CitrixPlugin extends AbstractTcpPlugin {
     }
 
     /** {@inheritDoc} */
+    @Override
     protected boolean checkProtocol(Socket socket, ConnectionConfig config) throws IOException {
         boolean isAServer = false;
         // Allocate a line reader

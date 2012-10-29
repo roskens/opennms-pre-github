@@ -233,6 +233,7 @@ class NessusScan implements Runnable {
     /**
      * <p>run</p>
      */
+    @Override
     public void run() {
         ThreadCategory log = ThreadCategory.getInstance(getClass());
 

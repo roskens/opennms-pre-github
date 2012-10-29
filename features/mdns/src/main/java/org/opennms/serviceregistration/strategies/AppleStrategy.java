@@ -49,10 +49,12 @@ public class AppleStrategy implements ServiceRegistrationStrategy, RegisterListe
 	public AppleStrategy() throws Exception {
 	}
 
+    @Override
 	public void initialize(final String serviceType, final String serviceName, final int port) throws Exception {
 		initialize(serviceType, serviceName, port, null);
 	}
 	
+    @Override
 	public void initialize(final String serviceType, final String serviceName, final int port, final Map<String,String> properties) throws Exception {
 		if (m_registered == true) {
 			throw new Exception("You have already m_registered a service with this object!");
@@ -64,6 +66,7 @@ public class AppleStrategy implements ServiceRegistrationStrategy, RegisterListe
 		m_properties    = properties;
 	}
 
+    @Override
 	public void register() throws Exception {
 		if (m_registered == false) {
 			final TXTRecord txt = new TXTRecord();
@@ -78,6 +81,7 @@ public class AppleStrategy implements ServiceRegistrationStrategy, RegisterListe
 		}
 	}
 
+    @Override
 	public void unregister() throws Exception {
 		if (m_registered == true) {
 			if (m_registration != null) {
@@ -92,11 +96,13 @@ public class AppleStrategy implements ServiceRegistrationStrategy, RegisterListe
 		
 	}
 
+    @Override
 	public void serviceRegistered(final DNSSDRegistration registration, final int flags, final String serviceName, final String regType, final String domain) {
 		m_registration = registration;
 		m_registered = true;
 	}
 
+    @Override
 	public void operationFailed(final DNSSDService service, final int errorCode) {
 		m_registered = false;
 		System.err.println("m_registration failed for service '" + service + "' with error code '" + errorCode + "'");

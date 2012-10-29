@@ -43,6 +43,7 @@ import edu.uci.ics.jung.graph.SparseGraph;
 
 public class KKLayoutAlgorithm extends AbstractLayoutAlgorithm {
 
+    @Override
 	public void updateLayout(GraphContainer graph) {
 		
 		Graph g = new Graph(graph);
@@ -68,6 +69,7 @@ public class KKLayoutAlgorithm extends AbstractLayoutAlgorithm {
 
 		KKLayout<Vertex, Edge> layout = new KKLayout<Vertex, Edge>(jungGraph);
 		layout.setInitializer(new Transformer<Vertex, Point2D>() {
+            @Override
 			public Point2D transform(Vertex v) {
 				return new Point(v.getX(), v.getY());
 			}

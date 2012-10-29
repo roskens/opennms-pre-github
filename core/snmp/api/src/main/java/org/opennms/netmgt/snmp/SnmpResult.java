@@ -69,6 +69,7 @@ public class SnmpResult implements Comparable<SnmpResult> {
             .toString();
     }
 
+    @Override
     public int compareTo(SnmpResult other) {
         return new CompareToBuilder()
             .append(getBase(), other.getBase())

@@ -56,11 +56,13 @@ public class AcknowledgmentDaoHibernate extends AbstractDaoHibernate<OnmsAcknowl
     }
 
     /** {@inheritDoc} */
+    @Override
     public void updateAckable(Acknowledgeable ackable) {
         getHibernateTemplate().update(ackable);
     }
 
     /** {@inheritDoc} */
+    @Override
     public List<Acknowledgeable> findAcknowledgables(final OnmsAcknowledgment ack) {
         List<Acknowledgeable> ackables = new ArrayList<Acknowledgeable>();
         

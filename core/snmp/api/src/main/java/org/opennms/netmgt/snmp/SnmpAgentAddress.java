@@ -59,6 +59,7 @@ public final class SnmpAgentAddress {
         return m_port;
     }
     
+    @Override
     public boolean equals(final Object obj) {
         if (!(obj instanceof SnmpAgentAddress)) return false;
         final SnmpAgentAddress that = (SnmpAgentAddress)obj;
@@ -68,10 +69,12 @@ public final class SnmpAgentAddress {
             .isEquals();
     }
     
+    @Override
     public int hashCode() {
         return m_hashCode;
     }
     
+    @Override
     public String toString() {
     	return InetAddressUtils.str(m_address) + ":" + m_port;
     }

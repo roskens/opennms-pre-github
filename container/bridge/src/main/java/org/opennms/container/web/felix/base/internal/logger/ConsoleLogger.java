@@ -36,6 +36,7 @@ public final class ConsoleLogger
         this.out = out;
     }
 
+    @Override
     public void log(ServiceReference ref, int level, String message, Throwable cause)
     {
         StringBuffer str = new StringBuffer();

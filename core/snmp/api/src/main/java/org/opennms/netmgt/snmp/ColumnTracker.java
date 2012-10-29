@@ -60,6 +60,7 @@ public class ColumnTracker extends CollectionTracker {
         return m_base;
     }
 
+    @Override
     public String toString() {
         return new ToStringBuilder(this)
             .append("base", m_base)
@@ -68,6 +69,7 @@ public class ColumnTracker extends CollectionTracker {
             .append("finished?", isFinished())
             .toString();
     }
+    @Override
     public ResponseProcessor buildNextPdu(PduBuilder pduBuilder) {
         if (pduBuilder.getMaxVarsPerPdu() < 1) {
             throw new IllegalArgumentException("maxVarsPerPdu < 1");
@@ -80,6 +82,7 @@ public class ColumnTracker extends CollectionTracker {
         
         ResponseProcessor rp = new ResponseProcessor() {
 
+            @Override
             public void processResponse(SnmpObjId responseObjId, SnmpValue val) {
                 if (val.isEndOfMib()) {
                     receivedEndOfMib();
@@ -102,6 +105,7 @@ public class ColumnTracker extends CollectionTracker {
                 
             }
 
+            @Override
             public boolean processErrors(int errorStatus, int errorIndex) {
                 if (errorStatus == NO_ERR) {
                     return false;

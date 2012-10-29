@@ -95,10 +95,12 @@ public class Vertex implements Paintable {
     	m_item.getItemProperty(Y_PROPERTY).setValue(y);
     }
     
+    @Override
     public String toString() {
     	return "v" + getItemId() + "(" + getX()  + "," + getY() + "):" + (isSelected() ? "selected" : "unselected");
     }
 
+    @Override
     public void updateFromUIDL(UIDL uidl, ApplicationConnection client) {
         Window.alert("getting Update from Server");
     }

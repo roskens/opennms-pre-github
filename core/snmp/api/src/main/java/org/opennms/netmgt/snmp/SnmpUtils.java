@@ -50,6 +50,7 @@ public abstract class SnmpUtils {
             this.address = address;
         }
 
+        @Override
         protected void reportTooBigErr(String msg) {
             ThreadCategory.getInstance(SnmpWalker.class).info("Received tooBig response from "+address+". "+msg);
         }

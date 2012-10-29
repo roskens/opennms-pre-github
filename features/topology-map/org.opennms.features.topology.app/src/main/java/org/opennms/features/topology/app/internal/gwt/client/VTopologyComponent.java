@@ -213,6 +213,7 @@ public class VTopologyComponent extends Composite implements Paintable, ActionOw
 			vertexSelection.enter().create(GWTVertex.create()).call(setupEventHandlers())
 			.attr("transform", new Func<String, GWTVertex>() {
 
+                @Override
 				public String call(GWTVertex vertex, int index) {
 					GWTVertex displayVertex = vertex.getDisplayVertex(m_oldSemanticZoomLevel);
 
@@ -231,6 +232,7 @@ public class VTopologyComponent extends Composite implements Paintable, ActionOw
 				}
 			}).attr("transform", new Func<String, GWTVertex>(){
 
+                @Override
 				public String call(GWTVertex vertex, int index) {
 					GWTVertex displayVertex = vertex.getDisplayVertex(m_semanticZoomLevel);
 
@@ -306,6 +308,7 @@ public class VTopologyComponent extends Composite implements Paintable, ActionOw
 			return getVertexGroup().selectAll(GWTVertex.VERTEX_CLASS_NAME)
 					.data(graph.getVertices(m_semanticZoomLevel), new Func<String, GWTVertex>() {
 
+                @Override
 						public String call(GWTVertex param, int index) {
 							return "" + param.getId();
 						}
@@ -317,6 +320,7 @@ public class VTopologyComponent extends Composite implements Paintable, ActionOw
 			return getEdgeGroup().selectAll("line")
 					.data(graph.getEdges(m_semanticZoomLevel), new Func<String, GWTEdge>() {
 
+                @Override
 						public String call(GWTEdge edge, int index) {
 							String edgeId = edge.getId();
 							return edgeId;
@@ -447,6 +451,7 @@ public class VTopologyComponent extends Composite implements Paintable, ActionOw
 		D3Drag d3Pan = D3.getDragBehavior();
 		d3Pan.on(D3Events.DRAG_START.event(), new Handler<Element>() {
 
+            @Override
 			public void call(Element elem, int index) {
 			    handlerManager.onDragStart(elem);
 			}
@@ -454,6 +459,7 @@ public class VTopologyComponent extends Composite implements Paintable, ActionOw
 
 		d3Pan.on(D3Events.DRAG.event(), new Handler<Element>() {
 
+            @Override
 			public void call(Element elem, int index) {
 			    handlerManager.onDrag(elem);
 			}
@@ -461,6 +467,7 @@ public class VTopologyComponent extends Composite implements Paintable, ActionOw
 
 		d3Pan.on(D3Events.DRAG_END.event(), new Handler<Element>() {
 
+            @Override
 			public void call(Element elem, int index) {
 			    handlerManager.onDragEnd(elem);
 			}
@@ -555,18 +562,22 @@ public class VTopologyComponent extends Composite implements Paintable, ActionOw
     private Handler<GWTVertex> vertexContextMenuHandler() {
 		return new D3Events.Handler<GWTVertex>() {
 
+            @Override
 			public void call(final GWTVertex vertex, int index) {
 
 				ActionOwner owner = new ActionOwner() {
 
+                    @Override
 					public Action[] getActions() {
 						return VTopologyComponent.this.getActions(vertex.getId(), vertex.getActionKeys());
 					}
 
+                    @Override
 					public ApplicationConnection getClient() {
 						return VTopologyComponent.this.getClient();
 					}
 
+                    @Override
 					public String getPaintableId() {
 						return VTopologyComponent.this.getPaintableId();
 					}
@@ -582,18 +593,22 @@ public class VTopologyComponent extends Composite implements Paintable, ActionOw
 	private Handler<GWTEdge> edgeContextHandler(){
 		return new D3Events.Handler<GWTEdge>() {
 
+            @Override
 			public void call(final GWTEdge edge, int index) {
 
 				ActionOwner owner = new ActionOwner() {
 
+                    @Override
 					public Action[] getActions() {
 						return VTopologyComponent.this.getActions(edge.getId(), edge.getActionKeys());
 					}
 
+                    @Override
 					public ApplicationConnection getClient() {
 						return VTopologyComponent.this.getClient();
 					}
 
+                    @Override
 					public String getPaintableId() {
 						return VTopologyComponent.this.getPaintableId();
 					}
@@ -610,6 +625,7 @@ public class VTopologyComponent extends Composite implements Paintable, ActionOw
 	private Handler<GWTVertex> vertexTooltipHandler() {
 		return new Handler<GWTVertex>() {
 
+            @Override
 			public void call(GWTVertex t, int index) {
 				if(m_client != null) {
 					Event event = (Event) D3.getEvent();
@@ -624,6 +640,7 @@ public class VTopologyComponent extends Composite implements Paintable, ActionOw
 	private Handler<GWTEdge> edgeToolTipHandler(){
 		return new Handler<GWTEdge>() {
 
+            @Override
 			public void call(GWTEdge edge, int index) {
 				if(m_client != null) {
 					Event event = D3.getEvent().cast();
@@ -655,6 +672,7 @@ public class VTopologyComponent extends Composite implements Paintable, ActionOw
 	private Handler<GWTVertex> vertexClickHandler() {
 		return new D3Events.Handler<GWTVertex>(){
 
+            @Override
 			public void call(GWTVertex vertex, int index) {
 				m_client.updateVariable(m_paintableId, "clickedVertex", vertex.getId(), false);
 				m_client.updateVariable(m_paintableId, "shiftKeyPressed", D3.getEvent().getShiftKey(), false);
@@ -668,6 +686,7 @@ public class VTopologyComponent extends Composite implements Paintable, ActionOw
 	private Handler<GWTVertex> vertexDragEndHandler() {
 		return new Handler<GWTVertex>() {
 
+            @Override
 			public void call(GWTVertex vertex, int index) {
 			    
 			    final List<String> values = new ArrayList<String>();
@@ -703,6 +722,7 @@ public class VTopologyComponent extends Composite implements Paintable, ActionOw
 	private Handler<GWTVertex> vertexDragStartHandler() {
 		return new Handler<GWTVertex>() {
 
+            @Override
 			public void call(GWTVertex vertex, int index) {
 				NativeEvent event = D3.getEvent();
 				Element draggableElement = Element.as(event.getEventTarget()).getParentElement();
@@ -739,6 +759,7 @@ public class VTopologyComponent extends Composite implements Paintable, ActionOw
 	private Handler<GWTVertex> vertexDragHandler() {
 		return new Handler<GWTVertex>() {
 
+            @Override
 			public void call(GWTVertex vertex, int index) {
 
 				m_dragObject.move();
@@ -749,6 +770,7 @@ public class VTopologyComponent extends Composite implements Paintable, ActionOw
 	}
 
 
+    @Override
 	public void updateFromUIDL(UIDL uidl, ApplicationConnection client) {
 
 		if(client.updateComponent(this, uidl, true)) {
@@ -1010,6 +1032,7 @@ public class VTopologyComponent extends Composite implements Paintable, ActionOw
 		return m_actionKeys;
 	}
 
+    @Override
 	public Action[] getActions() {
 		return getActions(null, getActionKeys());
 	}
@@ -1038,10 +1061,12 @@ public class VTopologyComponent extends Composite implements Paintable, ActionOw
 		return actions;
 	}
 
+    @Override
 	public ApplicationConnection getClient() {
 		return m_client;
 	}
 
+    @Override
 	public String getPaintableId() {
 		return m_paintableId;
 	}

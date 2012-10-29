@@ -38,7 +38,6 @@ import java.util.concurrent.ExecutionException;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.opennms.core.tasks.Task;
@@ -195,10 +194,12 @@ public class PolicyTest {
         final CountDownLatch eventRecieved = new CountDownLatch(1);
         m_eventSubscriber.addEventListener(new EventListener() {
 
+            @Override
             public void onEvent(Event e) {
                 eventRecieved.countDown();
             }
 
+            @Override
             public String getName() {
                 return "Test Initial Setup";
             }

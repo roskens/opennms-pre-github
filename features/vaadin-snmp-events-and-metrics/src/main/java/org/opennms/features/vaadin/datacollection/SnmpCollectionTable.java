@@ -70,6 +70,7 @@ public abstract class SnmpCollectionTable extends Table {
         setHeight("250px");
         addListener(new Property.ValueChangeListener() {
             @SuppressWarnings("unchecked")
+            @Override
             public void valueChange(Property.ValueChangeEvent event) {
                 if (getValue() != null) {
                     BeanItem<SnmpCollection> item = (BeanItem<SnmpCollection>) getContainerDataSource().getItem(getValue());

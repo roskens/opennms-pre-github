@@ -56,6 +56,7 @@ public class SingleInstanceTracker extends CollectionTracker {
         // do nothing since we are not a repeater
     }
 
+    @Override
     public ResponseProcessor buildNextPdu(PduBuilder pduBuilder) {
         if (pduBuilder.getMaxVarsPerPdu() < 1) {
             throw new IllegalArgumentException("maxVarsPerPdu < 1");
@@ -69,6 +70,7 @@ public class SingleInstanceTracker extends CollectionTracker {
         
         ResponseProcessor rp = new ResponseProcessor() {
 
+            @Override
             public void processResponse(SnmpObjId responseObjId, SnmpValue val) {
                 log().debug("Processing varBind: "+responseObjId+" = "+val);
                 
@@ -83,6 +85,7 @@ public class SingleInstanceTracker extends CollectionTracker {
                 setFinished(true);
             }
 
+            @Override
             public boolean processErrors(int errorStatus, int errorIndex) {
                 if (errorStatus == NO_ERR) {
                     return false;

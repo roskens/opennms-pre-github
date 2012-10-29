@@ -340,6 +340,7 @@ public class SnmpEventInfo {
      *
      * @return a {@link java.lang.String} object.
      */
+    @Override
     public String toString() {
         StringBuffer sb = new StringBuffer();
         sb.append("Info: ");

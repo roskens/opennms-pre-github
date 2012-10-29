@@ -208,6 +208,7 @@ public class CommandManager {
 
 		return new MenuBar.Command() {
 
+            @Override
 			public void menuSelected(MenuItem selectedItem) {
 				List<Object> targets = graphContainer.getSelectedVertices();
 
@@ -250,6 +251,7 @@ public class CommandManager {
 			m_operationContext = operationContext;
 		}
 
+        @Override
 		public Action[] getActions(Object target, Object sender) {
 			List<Action> actionList = new ArrayList<Action>();
 			for (Command command : m_commandList) {
@@ -261,6 +263,7 @@ public class CommandManager {
 			return actionList.toArray(new Action[actionList.size()]);
 		}
 
+        @Override
 		public void handleAction(Action action, Object sender, Object target) {
 			if (action instanceof Command) {
 				Command command = (Command) action;

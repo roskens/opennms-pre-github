@@ -575,10 +575,12 @@ public class TopologyComponent extends AbstractComponent implements Action.Conta
 		return m_graph;
 	}
 
+    @Override
 	public void addActionHandler(Handler actionHandler) {
 		m_actionHandlers.add(actionHandler);
 	}
 	
+    @Override
 	public void removeActionHandler(Handler actionHandler) {
 		m_actionHandlers.remove(actionHandler);
 		
@@ -612,17 +614,20 @@ public class TopologyComponent extends AbstractComponent implements Action.Conta
 		m_graphContainer.getEdgeContainer().addListener((PropertySetChangeListener) this);
 	}
 
+    @Override
 	public void containerItemSetChange(ItemSetChangeEvent event) {
 		getGraph().update();
 		setFitToView(true);
 		requestRepaint();
 	}
 
+    @Override
 	public void containerPropertySetChange(PropertySetChangeEvent event) {
 		getGraph().update();
 		requestRepaint();
 	}
 
+    @Override
     public void valueChange(ValueChangeEvent event) {
         double scale = (Double) m_scale.getValue();
         if(scale == 0) {

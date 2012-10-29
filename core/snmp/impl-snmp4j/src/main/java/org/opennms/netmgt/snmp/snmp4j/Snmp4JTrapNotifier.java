@@ -72,22 +72,27 @@ public class Snmp4JTrapNotifier implements CommandResponder {
             m_pdu = pdu;
         }
 
+        @Override
         protected InetAddress getTrapAddress() {
             return m_pdu.getAgentAddress().getInetAddress();
         }
 
+        @Override
         protected String getVersion() {
             return "v1";
         }
 
+        @Override
         protected int getPduLength() {
             return m_pdu.getVariableBindings().size();
         }
 
+        @Override
         protected long getTimeStamp() {
             return m_pdu.getTimestamp();
         }
 
+        @Override
         protected TrapIdentity getTrapIdentity() {
             return new TrapIdentity(SnmpObjId.get(m_pdu.getEnterprise().getValue()), m_pdu.getGenericTrap(), m_pdu.getSpecificTrap());
         }
@@ -96,6 +101,7 @@ public class Snmp4JTrapNotifier implements CommandResponder {
             return m_pdu.get(i);
         }
 
+        @Override
         protected void processVarBindAt(int i) {
             SnmpObjId name = SnmpObjId.get(getVarBindAt(i).getOid().getValue());
             SnmpValue value = new Snmp4JValue(getVarBindAt(i).getVariable());
@@ -167,10 +173,12 @@ public class Snmp4JTrapNotifier implements CommandResponder {
             return m_pdu;
         }
         
+        @Override
         protected int getPduLength() {
             return getPdu().size();
         }
         
+        @Override
         protected long getTimeStamp() {
 
         	if (log().isDebugEnabled()) {
@@ -189,6 +197,7 @@ public class Snmp4JTrapNotifier implements CommandResponder {
             }
         }
 
+        @Override
         protected TrapIdentity getTrapIdentity() {
             OID snmpTrapOid = (OID) getVarBindAt(SNMP_TRAP_OID_INDEX).getVariable();
             OID lastVarBindOid = getVarBindAt(getPduLength() - 1).getOid();
@@ -196,6 +205,7 @@ public class Snmp4JTrapNotifier implements CommandResponder {
             return new TrapIdentity(SnmpObjId.get(snmpTrapOid.getValue()), SnmpObjId.get(lastVarBindOid.getValue()), new Snmp4JValue(lastVarBindValue));
         }
 
+        @Override
         public InetAddress getTrapAddress() {
             return getAgentAddress();
         }
@@ -204,10 +214,12 @@ public class Snmp4JTrapNotifier implements CommandResponder {
             return getPdu().get(index);
         }
 
+        @Override
         protected String getVersion() {
             return "v2";
         }
 
+        @Override
         protected void validate() {
         	int pduType = getPdu().getType();
             if (pduType != PDU.TRAP && pduType != PDU.INFORM) {
@@ -243,6 +255,7 @@ public class Snmp4JTrapNotifier implements CommandResponder {
             }
         }
 
+        @Override
         protected void processVarBindAt(int i) {
             if (i == 0) {
                 log().debug("Skipping processing of varbind " + i + ": it is sysuptime and the first varbind, and is not processed as a parm per RFC2089");

@@ -157,6 +157,7 @@ public class GWTVertex extends JavaScriptObject {
     static Func<String, GWTVertex> selectedFill() {
     	return new Func<String, GWTVertex>(){
     
+            @Override
     		public String call(GWTVertex vertex, int index) {
     			return vertex.isSelected() ? "blue" : "black";
     		}
@@ -166,6 +167,7 @@ public class GWTVertex extends JavaScriptObject {
     protected static Func<String, GWTVertex> selectionFilter() {
         return new Func<String, GWTVertex>(){
 
+            @Override
             public String call(GWTVertex vertex, int index) {
                 return vertex.isSelected() ? "1" : "0";
             }
@@ -197,6 +199,7 @@ public class GWTVertex extends JavaScriptObject {
     static Func<String, GWTVertex> getTranslation() {
     	return new Func<String, GWTVertex>() {
     
+            @Override
     		public String call(GWTVertex datum, int index) {
     			return "translate( " + datum.getX() + "," + datum.getY() + ")";
     		}
@@ -207,6 +210,7 @@ public class GWTVertex extends JavaScriptObject {
     static Func<String, GWTVertex> loadIconAndSize(final D3 bgImage, final D3 imageSelection, final D3 circleSelection, final D3 textSelection){
         return new Func<String, GWTVertex>(){
 
+            @Override
             public String call(GWTVertex datum, final int index) {
                 LoadTracker tracker = LoadTracker.get();
                 tracker.trackImageLoad(datum.getIconUrl(), new LoadTrackerHandler() {

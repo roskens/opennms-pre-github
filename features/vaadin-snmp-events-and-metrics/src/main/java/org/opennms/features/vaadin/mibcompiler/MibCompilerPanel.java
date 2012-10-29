@@ -154,6 +154,7 @@ public class MibCompilerPanel extends Panel {
         // Initialize Toolbar
 
         MibUploadButton upload = new MibUploadButton(MIBS_PENDING_DIR, MIBS_COMPILED_DIR, logger) {
+            @Override
             public void uploadHandler(String filename) {
                 addTreeItem(filename, PENDING);
             }
@@ -199,6 +200,7 @@ public class MibCompilerPanel extends Panel {
 
         mibsTree.addActionHandler(new Action.Handler() {
 
+            @Override
             public Action[] getActions(Object target, Object sender) {
                 if (target == null) {
                     return new Action[] {};
@@ -214,6 +216,7 @@ public class MibCompilerPanel extends Panel {
                 }
             }
 
+            @Override
             public void handleAction(Action action, Object sender, Object target) {
                 String fileName = (String) target;
                 if (action == ACTION_DELETE) {

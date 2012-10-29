@@ -74,6 +74,7 @@ public class AlarmDataField extends CustomField {
         alarmDataForm = new Form();
         alarmDataForm.setWriteThrough(false);
         alarmDataForm.setFormFieldFactory(new FormFieldFactory() {
+            @Override
             public Field createField(Item item, Object propertyId, Component uiContext) {
                 if ("alarmType".equals(propertyId)) {
                     final ComboBox f = new ComboBox("Alarm Type");

@@ -92,6 +92,7 @@ public class DataManager extends Object {
 
 		Map<String,Set<InetAddress>> m_categoryIpLists = new HashMap<String,Set<InetAddress>>();
 
+        @Override
 		public void processRow(ResultSet rs) throws SQLException {
 			RTCNodeKey key = new RTCNodeKey(rs.getLong("nodeid"), InetAddressUtils.addr(rs.getString("ipaddr")), rs.getString("servicename"));
 			processKey(key);

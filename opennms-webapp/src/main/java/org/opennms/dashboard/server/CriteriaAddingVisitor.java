@@ -83,6 +83,7 @@ public class CriteriaAddingVisitor implements Visitor, InitializingBean {
     /**
      * <p>visitAll</p>
      */
+    @Override
     public void visitAll() {
         
         addCriteriaForCategories(m_criteria, m_survView.getColumnCategories());
@@ -91,6 +92,7 @@ public class CriteriaAddingVisitor implements Visitor, InitializingBean {
     }
 
     /** {@inheritDoc} */
+    @Override
     public void visitGroup(SurveillanceGroup group) {
 
         if (group.isColumn()) {
@@ -104,6 +106,7 @@ public class CriteriaAddingVisitor implements Visitor, InitializingBean {
     }
     
     /** {@inheritDoc} */
+    @Override
     public void visitIntersection(SurveillanceGroup row, SurveillanceGroup column) {
         
         addCriteriaForCategories(m_criteria, m_survView.getCategoriesForRow(row.getId()));

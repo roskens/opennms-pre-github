@@ -48,18 +48,21 @@ public class OsgiSmsServiceRegistrar implements SmsServiceRegistrar, BundleConte
 	private Map<SmsService, ServiceRegistration> m_registrationMap = new HashMap<SmsService, ServiceRegistration>();
 
 	/** {@inheritDoc} */
+    @Override
 	public void registerSmsService(SmsService service) {
 	    ServiceRegistration registration = m_bundleContext.registerService(SmsService.class.getName(), service, null);
 	    m_registrationMap.put(service, registration);
 	}
 	
 	/** {@inheritDoc} */
+    @Override
 	public void unregisterSmsService(SmsService smsService) {
 	    ServiceRegistration registration = m_registrationMap.remove(smsService);
 	    registration.unregister();
 	}
 	
 	/** {@inheritDoc} */
+    @Override
 	public void setBundleContext(BundleContext bundleContext) {
 		m_bundleContext = bundleContext;
 		

@@ -105,6 +105,7 @@ public final class GWTEdge extends JavaScriptObject {
         
         return new Func<Integer, GWTEdge>(){
     
+            @Override
             public Integer call(GWTEdge datum, int index) {
                 return datum.getTarget().getY();
             }
@@ -115,6 +116,7 @@ public final class GWTEdge extends JavaScriptObject {
         
         return new Func<Integer, GWTEdge>(){
     
+            @Override
             public Integer call(GWTEdge datum, int index) {
                 return datum.getSource().getY();
             }
@@ -125,6 +127,7 @@ public final class GWTEdge extends JavaScriptObject {
     
     	return new Func<Integer, GWTEdge>(){
     
+            @Override
             public Integer call(GWTEdge datum, int index) {
                 return datum.getTarget().getX();
             }
@@ -135,6 +138,7 @@ public final class GWTEdge extends JavaScriptObject {
     	
     	return new Func<Integer, GWTEdge>(){
     
+            @Override
             public Integer call(GWTEdge datum, int index) {
                 return datum.getSource().getX();
             }

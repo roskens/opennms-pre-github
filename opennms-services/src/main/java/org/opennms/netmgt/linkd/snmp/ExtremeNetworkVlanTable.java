@@ -58,6 +58,7 @@ public class ExtremeNetworkVlanTable extends SnmpTable<ExtremeNetworkVlanTableEn
     }
     
     /** {@inheritDoc} */
+    @Override
     protected ExtremeNetworkVlanTableEntry createTableEntry(SnmpObjId base, SnmpInstId inst, Object val) {
         return new ExtremeNetworkVlanTableEntry();
     }

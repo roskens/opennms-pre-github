@@ -142,6 +142,7 @@ public class Alarmd implements SpringServiceDaemon, DisposableBean {
      *
      * @throws java.lang.Exception if any.
      */
+    @Override
     public void destroy() throws Exception {
     }
 
@@ -159,6 +160,7 @@ public class Alarmd implements SpringServiceDaemon, DisposableBean {
      *
      * @throws java.lang.Exception if any.
      */
+    @Override
     public void start() throws Exception {
     }
 

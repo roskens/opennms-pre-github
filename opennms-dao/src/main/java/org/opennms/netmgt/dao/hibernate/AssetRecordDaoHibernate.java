@@ -60,6 +60,7 @@ public class AssetRecordDaoHibernate extends AbstractDaoHibernate<OnmsAssetRecor
 	 *            a {@link java.lang.Integer} object.
 	 * @return a {@link org.opennms.netmgt.model.OnmsAssetRecord} object.
 	 */
+    @Override
 	public OnmsAssetRecord findByNodeId(Integer id) {
 		return (OnmsAssetRecord) findUnique(
 				"from OnmsAssetRecord rec where rec.nodeId = ?", id);
@@ -74,6 +75,7 @@ public class AssetRecordDaoHibernate extends AbstractDaoHibernate<OnmsAssetRecor
 	 *            a {@link java.lang.String} object.
 	 * @return a {@link java.util.Map} object.
 	 */
+    @Override
 	public Map<String, Integer> findImportedAssetNumbersToNodeIds(
 			String foreignSource) {
 

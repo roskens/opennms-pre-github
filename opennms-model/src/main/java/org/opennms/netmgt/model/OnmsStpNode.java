@@ -237,6 +237,7 @@ public class OnmsStpNode {
 		m_baseVlanName = baseVlanName;
 	}
 	
+    @Override
 	public String toString() {
 	    return new ToStringBuilder(this)
 	        .append("id", m_id)

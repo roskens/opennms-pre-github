@@ -97,6 +97,7 @@ implements CollectionAttribute
      *
      * @return a {@link org.opennms.netmgt.config.collector.CollectionAttributeType} object.
      */
+    @Override
     public CollectionAttributeType getAttributeType() { return attribType; }
 
     /**
@@ -114,6 +115,7 @@ implements CollectionAttribute
      *
      * @return a {@link java.lang.String} object.
      */
+    @Override
     public String getName() 
     { 
         return new String(alias);
@@ -124,6 +126,7 @@ implements CollectionAttribute
      *
      * @return a {@link org.opennms.netmgt.config.collector.CollectionResource} object.
      */
+    @Override
     public CollectionResource getResource() { return resource; }
 
     /**
@@ -131,6 +134,7 @@ implements CollectionAttribute
      *
      * @return a {@link java.lang.String} object.
      */
+    @Override
     public String getNumericValue() { return aVar.getValue(); }
 
     /**
@@ -138,9 +142,11 @@ implements CollectionAttribute
      *
      * @return a {@link java.lang.String} object.
      */
+    @Override
     public String getType() { return Xmp.syntaxToString(aVar.xmpSyntax); }
 
     /** {@inheritDoc} */
+    @Override
     public boolean shouldPersist(ServiceParameters params) { return true; }
 
     //public void visit(CollectionSetVisitor visitor) { super(visitor); }
@@ -150,6 +156,7 @@ implements CollectionAttribute
      *
      * @return a {@link java.lang.String} object.
      */
+    @Override
     public String toString() 
     { 
         return "XmpCollectionAttribute "+alias+"="+aVar.getValue()+" attribType="+attribType; 
@@ -160,6 +167,7 @@ implements CollectionAttribute
      *
      * @return a {@link java.lang.String} object.
      */
+    @Override
     public String getStringValue() { return aVar.getValue(); }
 
     @Override

@@ -112,6 +112,7 @@ public class SnmpCollectionPanel extends VerticalLayout {
         };
 
         add = new Button("Add SNMP Collection", new Button.ClickListener() {
+            @Override
             public void buttonClick(Button.ClickEvent event) {
                 SnmpCollection collection = new SnmpCollection();
                 collection.setName("New Collection");

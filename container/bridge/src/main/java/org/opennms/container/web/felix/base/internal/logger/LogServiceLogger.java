@@ -41,6 +41,7 @@ public final class LogServiceLogger
         this.tracker.close();
     }
 
+    @Override
     public void log(ServiceReference ref, int level, String message, Throwable cause)
     {
         LogService log = (LogService)this.tracker.getService();

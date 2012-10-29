@@ -28,8 +28,6 @@
 
 package org.opennms.netmgt.jasper;
 
-import org.opennms.netmgt.jasper.jrobin.JRobinQueryExecutorFactory;
-import org.opennms.netmgt.jasper.rrdtool.RrdtoolQueryExecutorFactory;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.query.JRQueryExecuterFactory;
@@ -40,10 +38,12 @@ import org.opennms.netmgt.jasper.rrdtool.RrdtoolQueryExecutorFactory;
 
 public class OnmsQueryExecutorFactoryBundle implements QueryExecuterFactoryBundle {
     
+    @Override
     public String[] getLanguages() {
         return new String[] {"jrobin","rrdtool","resourceQuery"};
     }
 
+    @Override
     public JRQueryExecuterFactory getQueryExecuterFactory(String language) throws JRException {
         if("jrobin".equals(language)) {
             return new JRobinQueryExecutorFactory();

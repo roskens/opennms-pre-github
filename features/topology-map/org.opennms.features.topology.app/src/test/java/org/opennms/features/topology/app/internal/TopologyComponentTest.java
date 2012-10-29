@@ -53,6 +53,7 @@ public class TopologyComponentTest {
             super(dataSource);
         }
         
+        @Override
         public Graph getGraph() {
             return super.getGraph();
         }

@@ -140,6 +140,7 @@ public class Vulnscand extends AbstractServiceDaemon {
     /**
      * <p>onStop</p>
      */
+    @Override
     protected void onStop() {
 		// Stop the broadcast event receiver
         //
@@ -157,6 +158,7 @@ public class Vulnscand extends AbstractServiceDaemon {
     /**
      * <p>onStart</p>
      */
+    @Override
     protected void onStart() {
 		// Initialize the Vulnscand configuration factory.
         //
@@ -263,6 +265,7 @@ public class Vulnscand extends AbstractServiceDaemon {
     /**
      * <p>onInit</p>
      */
+    @Override
     protected void onInit() {
     }
 

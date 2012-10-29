@@ -34,15 +34,19 @@ import org.opennms.serviceregistration.ServiceRegistrationStrategy;
 
 public class NullStrategy implements ServiceRegistrationStrategy {
 
+    @Override
 	public void initialize(final String serviceType, final String serviceName, final int port) throws Exception {
 	}
 
+    @Override
 	public void initialize(final String serviceType, final String serviceName, final int port, final Map<String, String> properties) throws Exception {
 	}
 
+    @Override
 	public void register() throws Exception {
 	}
 
+    @Override
 	public void unregister() throws Exception {
 	}
 

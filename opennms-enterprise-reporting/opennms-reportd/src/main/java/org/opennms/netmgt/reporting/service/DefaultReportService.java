@@ -70,6 +70,7 @@ public class DefaultReportService implements ReportService {
     
     /** {@inheritDoc} 
      * @throws ReportRunException */
+    @Override
     public synchronized String runReport(Report report,String reportDirectory) throws ReportRunException {
 
         String outputFile = null;

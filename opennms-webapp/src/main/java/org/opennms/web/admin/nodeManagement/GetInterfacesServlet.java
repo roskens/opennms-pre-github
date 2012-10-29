@@ -70,6 +70,7 @@ public class GetInterfacesServlet extends HttpServlet {
      *
      * @throws javax.servlet.ServletException if any.
      */
+    @Override
     public void init() throws ServletException {
         try {
             DataSourceFactory.init();
@@ -79,6 +80,7 @@ public class GetInterfacesServlet extends HttpServlet {
     }
 
     /** {@inheritDoc} */
+    @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int nodeId = -1;
         String nodeIdString = request.getParameter("node");

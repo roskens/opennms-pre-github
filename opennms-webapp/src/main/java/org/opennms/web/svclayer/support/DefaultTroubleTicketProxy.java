@@ -73,17 +73,20 @@ public class DefaultTroubleTicketProxy implements TroubleTicketProxy {
     }
     
     /** {@inheritDoc} */
+    @Override
     public void closeTicket(Integer alarmId) {
         changeTicket(alarmId, TroubleTicketState.CLOSE_PENDING, EventConstants.TROUBLETICKET_CLOSE_UEI);
     }
 
     /** {@inheritDoc} */
+    @Override
     public void createTicket(Integer alarmId) {
         changeTicket(alarmId, TroubleTicketState.CREATE_PENDING, EventConstants.TROUBLETICKET_CREATE_UEI);
     }
 
 
     /** {@inheritDoc} */
+    @Override
     public void updateTicket(Integer alarmId) {
         changeTicket(alarmId, TroubleTicketState.UPDATE_PENDING, EventConstants.TROUBLETICKET_UPDATE_UEI);
     }

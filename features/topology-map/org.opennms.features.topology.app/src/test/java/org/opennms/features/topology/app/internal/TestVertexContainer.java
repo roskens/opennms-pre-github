@@ -50,6 +50,7 @@ public class TestVertexContainer extends VertexContainer<String, TestVertex> {
 		fireItemSetChange();
 	}
 
+    @Override
 	public boolean areChildrenAllowed(Object itemId) {
 	    assertVertex(itemId);
 		if (!containsId(itemId)) return false;
@@ -61,6 +62,7 @@ public class TestVertexContainer extends VertexContainer<String, TestVertex> {
 	    assertTrue(containsId(itemId));
     }
 
+    @Override
     public Collection<?> getChildren(Object itemId) {
         assertVertex(itemId);
 		if (!containsId(itemId)) return Collections.EMPTY_LIST;
@@ -78,6 +80,7 @@ public class TestVertexContainer extends VertexContainer<String, TestVertex> {
 		}
 	}
 
+    @Override
 	public Object getParent(Object itemId) {
 	    assertVertex(itemId);
 		if (!containsId(itemId)) return null;
@@ -86,6 +89,7 @@ public class TestVertexContainer extends VertexContainer<String, TestVertex> {
 		return g == null ? null : g.getId();
 	}
 
+    @Override
 	public boolean hasChildren(Object itemId) {
 	    assertVertex(itemId);
 		if (!containsId(itemId)) return false;
@@ -93,6 +97,7 @@ public class TestVertexContainer extends VertexContainer<String, TestVertex> {
 		return !v.isLeaf();
 	}
 
+    @Override
 	public boolean isRoot(Object itemId) {
 	    assertVertex(itemId);
 		if (!containsId(itemId)) return false;
@@ -100,6 +105,7 @@ public class TestVertexContainer extends VertexContainer<String, TestVertex> {
 		return (getParent(itemId) == null);
 	}
 
+    @Override
 	public Collection<?> rootItemIds() {
 		List<Object> rootItemIds = new ArrayList<Object>();
 		
@@ -111,10 +117,12 @@ public class TestVertexContainer extends VertexContainer<String, TestVertex> {
 		return rootItemIds;
 	}
 
+    @Override
 	public boolean setChildrenAllowed(Object itemId, boolean areChildrenAllowed) throws UnsupportedOperationException {
 		throw new UnsupportedOperationException("this operation is not allowed");
 	}
 
+    @Override
 	public boolean setParent(Object itemId, Object newParentId) throws UnsupportedOperationException {
 	    assertVertex(itemId);
 	    assertGroup(newParentId);

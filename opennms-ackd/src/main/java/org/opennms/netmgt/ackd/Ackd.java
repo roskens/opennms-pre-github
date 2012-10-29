@@ -80,6 +80,7 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
     /**
      * <p>start</p>
      */
+    @Override
     public void start() {
         log().info("start: Starting "+m_ackReaders.size()+" readers...");
         startReaders();
@@ -89,6 +90,7 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
     /**
      * <p>destroy</p>
      */
+    @Override
     public void destroy() {
         log().info("destroy: shutting down readers...");
         try {

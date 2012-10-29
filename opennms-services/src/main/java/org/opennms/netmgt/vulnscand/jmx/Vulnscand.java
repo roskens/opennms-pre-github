@@ -39,6 +39,7 @@ public class Vulnscand implements VulnscandMBean {
 	/**
 	 * <p>init</p>
 	 */
+    @Override
 	public void init() {
         org.opennms.netmgt.vulnscand.Vulnscand.getInstance().init();
     }
@@ -47,6 +48,7 @@ public class Vulnscand implements VulnscandMBean {
     /**
      * <p>start</p>
      */
+    @Override
     public void start() {
         org.opennms.netmgt.vulnscand.Vulnscand.getInstance().start();
     }
@@ -54,6 +56,7 @@ public class Vulnscand implements VulnscandMBean {
     /**
      * <p>stop</p>
      */
+    @Override
     public void stop() {
         org.opennms.netmgt.vulnscand.Vulnscand.getInstance().stop();
     }
@@ -63,6 +66,7 @@ public class Vulnscand implements VulnscandMBean {
      *
      * @return a int.
      */
+    @Override
     public int getStatus() {
         return org.opennms.netmgt.vulnscand.Vulnscand.getInstance().getStatus();
     }
@@ -72,6 +76,7 @@ public class Vulnscand implements VulnscandMBean {
      *
      * @return a {@link java.lang.String} object.
      */
+    @Override
     public String status() {
         return org.opennms.core.fiber.Fiber.STATUS_NAMES[getStatus()];
     }
@@ -81,6 +86,7 @@ public class Vulnscand implements VulnscandMBean {
      *
      * @return a {@link java.lang.String} object.
      */
+    @Override
     public String getStatusText() {
         return org.opennms.core.fiber.Fiber.STATUS_NAMES[getStatus()];
     }

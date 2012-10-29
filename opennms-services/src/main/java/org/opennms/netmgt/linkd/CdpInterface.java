@@ -123,6 +123,7 @@ public class CdpInterface {
 	 *
 	 * @return a {@link java.lang.String} object.
 	 */
+    @Override
 	public String toString() {
 	    return new ToStringBuilder(this)
 	                .append("ifindex",cdpIfIndex)

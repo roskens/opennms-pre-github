@@ -97,6 +97,7 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
             m_value = value;
         }
         
+        @Override
         public double getValue(long timestamp) {
             if (m_startTime <= timestamp && m_endTime >= timestamp) {
                 return m_value;
@@ -116,6 +117,7 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
     }
 
     /** {@inheritDoc} */
+    @Override
     public void setConfigurationProperties(final Properties configurationParameters) {
         m_configurationProperties = configurationParameters;
         if(!s_initialized) {
@@ -140,11 +142,13 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
      * @param rrdFile a {@link org.jrobin.core.RrdDb} object.
      * @throws java.lang.Exception if any.
      */
+    @Override
     public void closeFile(final RrdDb rrdFile) throws Exception {
         rrdFile.close();
     }
 
     /** {@inheritDoc} */
+    @Override
 	public RrdDef createDefinition(final String creator,
 			final String directory, final String rrdName, int step,
 			final List<RrdDataSource> dataSources, final List<String> rraList) throws Exception {
@@ -189,6 +193,7 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
      * @param rrdDef a {@link org.jrobin.core.RrdDef} object.
      * @throws java.lang.Exception if any.
      */
+    @Override
     public void createFile(final RrdDef rrdDef,  Map<String, String> attributeMappings) throws Exception {
         if (rrdDef == null) {
         	log().debug("createRRD: skipping RRD file");
@@ -213,6 +218,7 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
      *
      * Opens the JRobin RrdDb by name and returns it.
      */
+    @Override
     public RrdDb openFile(final String fileName) throws Exception {
         RrdDb rrd = new RrdDb(fileName);
         return rrd;
@@ -223,6 +229,7 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
      *
      * Creates a sample from the JRobin RrdDb and passes in the data provided.
      */
+    @Override
     public void updateFile(final RrdDb rrdFile, final String owner, final String data) throws Exception {
         Sample sample = rrdFile.createSample();
         sample.setAndUpdate(data);
@@ -244,11 +251,13 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
      *
      * Fetch the last value from the JRobin RrdDb file.
      */
+    @Override
     public Double fetchLastValue(final String fileName, final String ds, final int interval) throws NumberFormatException, org.opennms.netmgt.rrd.RrdException {
         return fetchLastValue(fileName, ds, "AVERAGE", interval);
     }
 
     /** {@inheritDoc} */
+    @Override
     public Double fetchLastValue(final String fileName, final String ds, final String consolidationFunction, final int interval)
             throws org.opennms.netmgt.rrd.RrdException {
         RrdDb rrd = null;
@@ -282,6 +291,7 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
     }
     
     /** {@inheritDoc} */
+    @Override
     public Double fetchLastValueInRange(final String fileName, final String ds, final int interval, final int range) throws NumberFormatException, org.opennms.netmgt.rrd.RrdException {
         RrdDb rrd = null;
         try {
@@ -351,6 +361,7 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
     }
 
     /** {@inheritDoc} */
+    @Override
     public InputStream createGraph(final String command, final File workDir) throws IOException, org.opennms.netmgt.rrd.RrdException {
         return createGraphReturnDetails(command, workDir).getInputStream();
     }
@@ -365,6 +376,7 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
      * used to construct an RrdGraph and a PNG image will be created. An input
      * stream returning the bytes of the PNG image is returned.
      */
+    @Override
     public RrdGraphDetails createGraphReturnDetails(final String command, final File workDir) throws IOException, org.opennms.netmgt.rrd.RrdException {
 
         try {
@@ -394,6 +406,7 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
     }
     
     /** {@inheritDoc} */
+    @Override
     public void promoteEnqueuedFiles(Collection<String> rrdFiles) {
         // no need to do anything since this strategy doesn't queue
     }
@@ -815,6 +828,7 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
      *
      * @return a {@link java.lang.String} object.
      */
+    @Override
     public String getStats() {
         return "";
     }
@@ -827,6 +841,7 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
      *
      * @return a int.
      */
+    @Override
     public int getGraphLeftOffset() {
         return 74;
     }
@@ -836,6 +851,7 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
      *
      * @return a int.
      */
+    @Override
     public int getGraphRightOffset() {
         return -15;
     }
@@ -845,6 +861,7 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
      *
      * @return a int.
      */
+    @Override
     public int getGraphTopOffsetWithText() {
         return -61;
     }
@@ -854,6 +871,7 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
      *
      * @return a {@link java.lang.String} object.
      */
+    @Override
     public String getDefaultFileExtension() {
         return ".jrb";
     }

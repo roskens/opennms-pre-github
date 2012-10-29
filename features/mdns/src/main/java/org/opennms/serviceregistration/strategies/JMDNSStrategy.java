@@ -43,10 +43,12 @@ public class JMDNSStrategy implements ServiceRegistrationStrategy {
 	public JMDNSStrategy() throws Exception {
 	}
 
+    @Override
 	public void initialize(final String serviceType, final String serviceName, final int port) throws Exception {
 		initialize(serviceType, serviceName, port, null);
 	}
 	
+    @Override
 	public void initialize(final String serviceType, final String serviceName, final int port, final Map<String,String> properties) throws Exception {
 		if (m_registered == true) {
 			throw new Exception("You have already m_registered a service with this object!");
@@ -57,6 +59,7 @@ public class JMDNSStrategy implements ServiceRegistrationStrategy {
 		m_si = ServiceInfo.create(serviceTypeName, serviceName, port, 0, 0, properties);
 	}
 
+    @Override
 	public void register() throws Exception {
 		if (m_registered == false) {
 			m_jmdns.registerService(m_si);
@@ -66,6 +69,7 @@ public class JMDNSStrategy implements ServiceRegistrationStrategy {
 		}
 	}
 
+    @Override
 	public void unregister() throws Exception {
 		if (m_registered == true) {
 			if (m_jmdns != null && m_si != null) {

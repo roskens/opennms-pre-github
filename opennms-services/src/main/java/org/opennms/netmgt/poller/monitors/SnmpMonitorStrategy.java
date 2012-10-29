@@ -68,7 +68,8 @@ abstract public class SnmpMonitorStrategy extends AbstractServiceMonitor {
     //private Category log = ThreadCategory.getInstance(getClass());
 
     /** {@inheritDoc} */
-    abstract public PollStatus poll(MonitoredService svc, Map<String, Object> parameters) ;
+    @Override
+    abstract public PollStatus poll(MonitoredService svc, Map<String, Object> parameters);
     
     
     /**

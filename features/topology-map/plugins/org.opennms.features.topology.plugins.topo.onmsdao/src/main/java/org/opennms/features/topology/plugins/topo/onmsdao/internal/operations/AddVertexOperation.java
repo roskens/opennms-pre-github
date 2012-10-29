@@ -76,6 +76,7 @@ public class AddVertexOperation implements Operation{
         return m_icon;
     }
 
+    @Override
     public Undoer execute(List<Object> targets, OperationContext operationContext) {
         LoggerFactory.getLogger(getClass()).debug("execute()");
         Object vertexId = targets.isEmpty() ? null : targets.get(0);

@@ -680,6 +680,7 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
         m_nodeDao = nodeDao;
     }
 
+    @Override
     public IpInterfaceDao getIpInterfaceDao() {
         return m_ipInterfaceDao;
     }
@@ -688,6 +689,7 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
         m_ipInterfaceDao = ipInterfaceDao;
     }
 
+    @Override
     public SnmpInterfaceDao getSnmpInterfaceDao() {
         return m_snmpInterfaceDao;
     }
@@ -696,6 +698,7 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
         m_snmpInterfaceDao = snmpInterfaceDao;
     }
 
+    @Override
     public AtInterfaceDao getAtInterfaceDao() {
         return m_atInterfaceDao;
     }
@@ -745,6 +748,7 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
     }
     
     @Transactional
+    @Override
     public Integer getFromSysnameIpAddress(String lldpRemSysname,
             InetAddress lldpRemPortid) {
         final OnmsCriteria criteria = new OnmsCriteria(OnmsIpInterface.class);

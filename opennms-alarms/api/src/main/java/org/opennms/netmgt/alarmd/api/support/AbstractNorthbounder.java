@@ -122,11 +122,13 @@ public abstract class AbstractNorthbounder implements Northbounder, Runnable, St
     protected void onStop() {
     }
 
+    @Override
     public final void stop() throws NorthbounderException {
         this.onStop();
         m_stopped = true;
     }
     
+    @Override
     public void run() {
         
         try {

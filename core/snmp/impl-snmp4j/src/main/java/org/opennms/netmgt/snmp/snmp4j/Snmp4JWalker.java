@@ -62,22 +62,27 @@ public class Snmp4JWalker extends SnmpWalker {
             reset();
         }
         
+        @Override
         public void reset() {
             m_nextPdu = m_agentConfig.createPdu(PDU.GETNEXT);
         }
 
+        @Override
         public PDU getPdu() {
             return m_nextPdu;
         }
         
+        @Override
         public void addOid(SnmpObjId snmpObjId) {
             VariableBinding varBind = new VariableBinding(new OID(snmpObjId.getIds()));
             m_nextPdu.add(varBind);
         }
 
+        @Override
         public void setNonRepeaters(int numNonRepeaters) {
         }
 
+        @Override
         public void setMaxRepetitions(int maxRepititions) {
         }
         
@@ -92,23 +97,28 @@ public class Snmp4JWalker extends SnmpWalker {
             reset();
         }
         
+        @Override
         public void reset() {
             m_bulkPdu = m_agentConfig.createPdu(PDU.GETBULK);
         }
 
+        @Override
         public PDU getPdu() {
             return m_bulkPdu;
         }
 
+        @Override
         public void addOid(SnmpObjId snmpObjId) {
             VariableBinding varBind = new VariableBinding(new OID(snmpObjId.getIds()));
             m_bulkPdu.add(varBind);
         }
 
+        @Override
         public void setNonRepeaters(int numNonRepeaters) {
             m_bulkPdu.setNonRepeaters(numNonRepeaters);
         }
 
+        @Override
         public void setMaxRepetitions(int maxRepetitions) {
             m_bulkPdu.setMaxRepetitions(maxRepetitions);
         }
@@ -143,6 +153,7 @@ public class Snmp4JWalker extends SnmpWalker {
             }
         }
 
+        @Override
         public void onResponse(ResponseEvent responseEvent) {
             // need to cancel the request here otherwise SNMP4J Keeps it around forever... go figure
             m_session.cancel(responseEvent.getRequest(), this);
@@ -182,6 +193,7 @@ public class Snmp4JWalker extends SnmpWalker {
         m_listener = new Snmp4JResponseListener();
     }
     
+    @Override
     public void start() {
         
         if (log().isDebugEnabled()) {
@@ -191,12 +203,14 @@ public class Snmp4JWalker extends SnmpWalker {
         super.start();
     }
 
+    @Override
     protected WalkerPduBuilder createPduBuilder(int maxVarsPerPdu) {
         return (getVersion() == SnmpConstants.version1 
                 ? (WalkerPduBuilder)new GetNextBuilder(maxVarsPerPdu) 
                 : (WalkerPduBuilder)new GetBulkBuilder(maxVarsPerPdu));
     }
 
+    @Override
     protected void sendNextPdu(WalkerPduBuilder pduBuilder) throws IOException {
         Snmp4JPduBuilder snmp4JPduBuilder = (Snmp4JPduBuilder)pduBuilder;
         if (m_session == null) {
@@ -214,6 +228,7 @@ public class Snmp4JWalker extends SnmpWalker {
         return m_tgt.getVersion();
     }
 
+    @Override
     protected void close() throws IOException {
         if (m_session != null) {
             m_session.close();

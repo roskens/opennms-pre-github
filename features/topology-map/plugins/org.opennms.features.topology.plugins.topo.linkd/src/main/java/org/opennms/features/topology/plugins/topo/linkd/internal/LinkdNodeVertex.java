@@ -42,6 +42,7 @@ public class LinkdNodeVertex extends LinkdVertex {
        m_nodeid = Integer.parseInt(id);
     }
     
+    @Override
     public int getNodeID() {
         return m_nodeid;
     }

@@ -127,6 +127,7 @@ public class NtpDetectorTest implements ApplicationContextAware {
         return (NtpDetector)bean;
     }
 
+    @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         m_applicationContext = applicationContext;
     }

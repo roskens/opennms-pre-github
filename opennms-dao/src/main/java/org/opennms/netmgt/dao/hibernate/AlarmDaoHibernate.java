@@ -47,6 +47,7 @@ public class AlarmDaoHibernate extends AbstractDaoHibernate<OnmsAlarm, Integer> 
 	}
 
     /** {@inheritDoc} */
+    @Override
     public OnmsAlarm findByReductionKey(String reductionKey) {
         String hql = "from OnmsAlarm as alarms where alarms.reductionKey = ?";
         return super.findUnique(hql, reductionKey);

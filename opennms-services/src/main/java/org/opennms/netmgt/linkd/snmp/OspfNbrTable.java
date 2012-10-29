@@ -41,6 +41,7 @@ public class OspfNbrTable extends SnmpTable<OspfNbrTableEntry>{
     }
     
     /** {@inheritDoc} */
+    @Override
     protected OspfNbrTableEntry createTableEntry(SnmpObjId base, SnmpInstId inst, Object val) {
         return new OspfNbrTableEntry();
     }

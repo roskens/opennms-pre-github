@@ -103,6 +103,7 @@ public class DefaultTicketerServiceLayer implements TicketerServiceLayer, Initia
      * @see org.opennms.netmgt.ticketd.TicketerServiceLayer#cancelTicketForAlarm(int, java.lang.String)
      */
 	/** {@inheritDoc} */
+    @Override
 	public void cancelTicketForAlarm(int alarmId, String ticketId) {
 		OnmsAlarm alarm = m_alarmDao.get(alarmId);
 		if (alarm == null) {
@@ -140,6 +141,7 @@ public class DefaultTicketerServiceLayer implements TicketerServiceLayer, Initia
      * @see org.opennms.netmgt.ticketd.TicketerServiceLayer#closeTicketForAlarm(int, java.lang.String)
      */
 	/** {@inheritDoc} */
+    @Override
 	public void closeTicketForAlarm(int alarmId, String ticketId) {
 		OnmsAlarm alarm = m_alarmDao.get(alarmId);
         
@@ -160,6 +162,7 @@ public class DefaultTicketerServiceLayer implements TicketerServiceLayer, Initia
 	 * @see org.opennms.netmgt.ticketd.TicketerServiceLayer#createTicketForAlarm(int)
 	 */
 	/** {@inheritDoc} */
+    @Override
 	public void createTicketForAlarm(int alarmId) {
 	    
 		OnmsAlarm alarm = m_alarmDao.get(alarmId);
@@ -203,6 +206,7 @@ public class DefaultTicketerServiceLayer implements TicketerServiceLayer, Initia
      * @see org.opennms.netmgt.ticketd.TicketerServiceLayer#updateTicketForAlarm(int, java.lang.String)
      */
 	/** {@inheritDoc} */
+    @Override
 	public void updateTicketForAlarm(int alarmId, String ticketId) {
 		
 //      ticket.setState(State.OPEN);

@@ -665,6 +665,7 @@ public final class DbDataLinkInterfaceEntry
 		 *
 		 * @return a {@link java.lang.String} object.
 		 */
+    @Override
 		public String toString() {
 			String sep = System.getProperty("line.separator");
 			StringBuffer buf = new StringBuffer();

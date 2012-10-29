@@ -96,6 +96,7 @@ public class ImportAssetsServlet extends HttpServlet {
      *
      * @throws javax.servlet.ServletException if any.
      */
+    @Override
     public void init() throws ServletException {
         ServletConfig config = this.getServletConfig();
 
@@ -114,6 +115,7 @@ public class ImportAssetsServlet extends HttpServlet {
      * Acknowledge the events specified in the POST and then redirect the client
      * to an appropriate URL for display.
      */
+    @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String assetsText = request.getParameter("assetsText");
 

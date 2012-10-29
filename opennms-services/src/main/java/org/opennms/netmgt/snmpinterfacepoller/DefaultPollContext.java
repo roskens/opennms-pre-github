@@ -163,11 +163,13 @@ public class DefaultPollContext implements PollContext {
      *
      * @return a {@link java.lang.String} object.
      */
+    @Override
     public String getServiceName() {
         return m_serviceName;
     }
     
     /** {@inheritDoc} */
+    @Override
     public void setServiceName(String serviceName) {
         m_serviceName=serviceName;
     }
@@ -176,6 +178,7 @@ public class DefaultPollContext implements PollContext {
      * @see org.opennms.netmgt.poller.pollables.PollContext#sendEvent(org.opennms.netmgt.xml.event.Event)
      */
     /** {@inheritDoc} */
+    @Override
     public void sendEvent(Event event) {
         getEventManager().sendNow(event);
     }
@@ -188,6 +191,7 @@ public class DefaultPollContext implements PollContext {
      * @see org.opennms.netmgt.poller.pollables.PollContext#createEvent(java.lang.String, int, java.net.InetAddress, java.lang.String, java.util.Date)
      */
     /** {@inheritDoc} */
+    @Override
     public Event createEvent(String uei, int nodeId, String address, Date date, OnmsSnmpInterface snmpinterface) {
         
             log().debug("createEvent: uei = " + uei + " nodeid = " + nodeId + " date = " + date);
@@ -213,6 +217,7 @@ public class DefaultPollContext implements PollContext {
     }
 
     /** {@inheritDoc} */
+    @Override
     public List<OnmsSnmpInterface> get(int nodeId, String criteria) {
         final OnmsCriteria onmsCriteria = new OnmsCriteria(OnmsSnmpInterface.class);
         onmsCriteria.add(Restrictions.sqlRestriction(criteria + " and nodeid = " + nodeId + "and snmppoll = 'P'"));
@@ -221,6 +226,7 @@ public class DefaultPollContext implements PollContext {
     }
 
     /** {@inheritDoc} */
+    @Override
     public void update(OnmsSnmpInterface snmpinterface) {
     	OnmsSnmpInterface dbSnmpInterface = getSnmpInterfaceDao().findByNodeIdAndIfIndex(snmpinterface.getNode().getId(), snmpinterface.getIfIndex());
     	if (dbSnmpInterface == null)  {

@@ -90,6 +90,7 @@ public class SnmpRowResult implements Comparable<SnmpRowResult> {
             .toString();
     }
 
+    @Override
     public int compareTo(SnmpRowResult other) {
         return new CompareToBuilder()
             .append(getResults(), other.getResults())

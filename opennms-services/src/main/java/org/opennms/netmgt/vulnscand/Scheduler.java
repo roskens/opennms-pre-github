@@ -146,6 +146,7 @@ final class Scheduler implements Runnable, PausableFiber {
      * @throws java.lang.IllegalStateException
      *             Thrown if the fiber is already running.
      */
+    @Override
     public synchronized void start() {
         if (m_worker != null)
             throw new IllegalStateException("The fiber has already run or is running");
@@ -164,6 +165,7 @@ final class Scheduler implements Runnable, PausableFiber {
      * @throws java.lang.IllegalStateException
      *             Throws if the fiber has never been started.
      */
+    @Override
     public synchronized void stop() {
         if (m_worker == null)
             throw new IllegalStateException("The fiber has never been started");
@@ -182,6 +184,7 @@ final class Scheduler implements Runnable, PausableFiber {
      *             Throws if the operation could not be completed due to the
      *             fiber's state.
      */
+    @Override
     public synchronized void pause() {
         if (m_worker == null)
             throw new IllegalStateException("The fiber has never been started");
@@ -204,6 +207,7 @@ final class Scheduler implements Runnable, PausableFiber {
      *             Throws if the operation could not be completed due to the
      *             fiber's state.
      */
+    @Override
     public synchronized void resume() {
         if (m_worker == null)
             throw new IllegalStateException("The fiber has never been started");
@@ -223,6 +227,7 @@ final class Scheduler implements Runnable, PausableFiber {
      *
      * @return The current status.
      */
+    @Override
     public synchronized int getStatus() {
         if (m_worker != null && m_worker.isAlive() == false)
             m_status = STOPPED;
@@ -234,6 +239,7 @@ final class Scheduler implements Runnable, PausableFiber {
      *
      * @return a {@link java.lang.String} object.
      */
+    @Override
     public String getName() {
         return FIBER_NAME;
     }
@@ -243,6 +249,7 @@ final class Scheduler implements Runnable, PausableFiber {
      * the runnable queues for ready objects and then enqueuing them into the
      * thread pool for execution.
      */
+    @Override
     public void run() {
         synchronized (this) {
             m_status = RUNNING;

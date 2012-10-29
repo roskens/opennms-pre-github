@@ -49,11 +49,13 @@ public class OsgiGatewayGroupRegistrar implements GatewayGroupRegistrar, BundleC
 	private final List<ServiceRegistration> m_registrations = new ArrayList<ServiceRegistration>();
 
 	/** {@inheritDoc} */
+    @Override
 	public void registerGatewayGroup( GatewayGroup gatewayGroup ) {
 		m_registrations.add(m_context.registerService(GatewayGroup.class.getName(), gatewayGroup, null));
 	}
 
 	/** {@inheritDoc} */
+    @Override
 	public void setBundleContext( BundleContext bundleContext ) {
 		m_context = bundleContext;
 		
@@ -64,6 +66,7 @@ public class OsgiGatewayGroupRegistrar implements GatewayGroupRegistrar, BundleC
 	 *
 	 * @throws java.lang.Exception if any.
 	 */
+    @Override
 	public void destroy() throws Exception {
 		for(ServiceRegistration registration : m_registrations) {
             registration.unregister();
