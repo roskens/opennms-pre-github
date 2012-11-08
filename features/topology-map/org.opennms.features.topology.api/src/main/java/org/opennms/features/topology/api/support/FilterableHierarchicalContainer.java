@@ -26,7 +26,7 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.features.topology.app.internal.support;
+package org.opennms.features.topology.api.support;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -37,18 +37,19 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import org.opennms.features.topology.api.VertexContainer;
+import org.opennms.features.topology.api.HierarchicalBeanContainer;
 
 import com.vaadin.data.Container;
-import com.vaadin.data.Container.ItemSetChangeListener;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
+import com.vaadin.data.Container.ItemSetChangeListener;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.data.util.HierarchicalContainer;
 
+@SuppressWarnings("serial")
 public class FilterableHierarchicalContainer extends HierarchicalContainer implements ItemSetChangeListener {
 
-    VertexContainer<?, ?> m_container;
+    HierarchicalBeanContainer m_container;
     List<Object> m_filteredItems;
     private LinkedList<Object> m_filteredRoots = null;
     private HashMap<Object, LinkedList<Object>> m_filteredChildren = null;
@@ -57,10 +58,18 @@ public class FilterableHierarchicalContainer extends HierarchicalContainer imple
     private Set<Object> m_filterOverride = null;
     private final HashMap<Object, Object> m_parent = new HashMap<Object, Object>();
     
-   public FilterableHierarchicalContainer(VertexContainer<?, ?> container) {
+   public FilterableHierarchicalContainer(HierarchicalBeanContainer container) {
         super();
         m_container = container;
         m_container.addListener(this);
+        m_container.addListener(new PropertySetChangeListener() {
+
+            @Override
+            public void containerPropertySetChange(PropertySetChangeEvent event) {
+                event.getContainer();
+                
+            }
+        });
     }
 
  @Override
@@ -127,7 +136,6 @@ public class FilterableHierarchicalContainer extends HierarchicalContainer imple
 
     @Override
     public boolean removeAllItems() throws UnsupportedOperationException {
-        
         return false;
     }
 
@@ -332,5 +340,9 @@ public class FilterableHierarchicalContainer extends HierarchicalContainer imple
         fireItemSetChange();
     }
     
+
+    public void fireItemUpdated() {
+        m_container.fireItemSetChange();
+    }
 
 }

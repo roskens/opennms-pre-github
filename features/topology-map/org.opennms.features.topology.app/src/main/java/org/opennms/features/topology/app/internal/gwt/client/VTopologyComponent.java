@@ -314,10 +314,13 @@ public class VTopologyComponent extends Composite implements Paintable, ActionOw
 		}
 
 		private D3 getEdgeSelection(GWTGraph graph) {
-			return getEdgeGroup().selectAll("line")
+			return getEdgeGroup().selectAll(GWTEdge.SVG_EDGE_ELEMENT)
 					.data(graph.getEdges(m_semanticZoomLevel), new Func<String, GWTEdge>() {
 
 						public String call(GWTEdge edge, int index) {
+						    if(m_client.getTooltipTitleInfo(VTopologyComponent.this, edge) == null) {
+						        m_client.registerTooltip(VTopologyComponent.this, edge, new TooltipInfo(edge.getTooltipText()));
+						    }
 							String edgeId = edge.getId();
 							return edgeId;
 						}
@@ -369,9 +372,6 @@ public class VTopologyComponent extends Composite implements Paintable, ActionOw
 
 	@UiField
 	Element m_vertexGroup;
-
-//	@UiField
-//	Element m_scaledMap;
 
 	@UiField
 	Element m_referenceMap;
@@ -540,7 +540,7 @@ public class VTopologyComponent extends Composite implements Paintable, ActionOw
     			
     		case Event.ONCLICK:
     		    if(event.getEventTarget().equals(m_svg)) {
-    		        deselectVertices(true);
+    		        deselectAllItems(true);
     		    }
     		    break;
 		}
@@ -548,13 +548,8 @@ public class VTopologyComponent extends Composite implements Paintable, ActionOw
 
 	}
 
-	private void deselectVertices(boolean immediate) {
-	    m_client.updateVariable(m_paintableId, "clickedVertex", "", false);
-        m_client.updateVariable(m_paintableId, "shiftKeyPressed", false, false);
-	    if(immediate) {
-	        m_client.sendPendingVariableChanges();
-	    }
-	    
+	private void deselectAllItems(boolean immediate) {
+	    m_client.updateVariable(m_paintableId, "deselectAllItems", true, immediate);
     }
 
     private Handler<GWTVertex> vertexContextMenuHandler() {
@@ -691,7 +686,7 @@ public class VTopologyComponent extends Composite implements Paintable, ActionOw
 			    
 			    if(m_dragObject.getDraggableElement().getAttribute("class").equals("vertex")) {
 			        if(!D3.getEvent().getShiftKey()) {
-			            deselectVertices(false);
+			            deselectAllItems(false);
 			        }
 			    }
 			    
@@ -838,12 +833,14 @@ public class VTopologyComponent extends Composite implements Paintable, ActionOw
 				edge.setActionKeys(actionKeys);
 				edge.setSelected(selected);
 				edge.setCssClass(cssClass);
+				String ttText = child.getStringAttribute("tooltipText");
+				edge.setTooltipText(ttText);
 				graphConverted.addEdge(edge);
 
-				if(m_client != null) {
-					TooltipInfo edgeInfo = new TooltipInfo(child.getStringAttribute("tooltipText"));
-					m_client.registerTooltip(this, edge, edgeInfo);
-				}
+//				if(m_client != null) {
+//					TooltipInfo edgeInfo = new TooltipInfo(child.getStringAttribute("tooltipText"));
+//					m_client.registerTooltip(this, edge, edgeInfo);
+//				}
 			}else if(child.getTag().equals("groupParent")) {
 				String groupKey = child.getStringAttribute("key");
 				String parentKey = child.getStringAttribute("parentKey");
@@ -1143,7 +1140,7 @@ public class VTopologyComponent extends Composite implements Paintable, ActionOw
             @Override
             public void call() {
                 setMapScaleNow(scale);
-                D3.d3().selectAll("line").style("opacity", "1").transition().duration(2000).style("stroke-width", "" + strokeWidth);
+                D3.d3().selectAll(GWTEdge.SVG_EDGE_ELEMENT).style("opacity", "1").transition().duration(2000).style("stroke-width", "" + strokeWidth);
             }
         });
         

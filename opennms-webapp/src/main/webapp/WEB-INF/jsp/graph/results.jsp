@@ -182,13 +182,11 @@
             </c:if>
         </h3>
 
-        <!-- NRTG Starter script -->
+        <!-- NRTG Starter script 'window'+resourceId+report -->
         <script type="text/javascript">
             function nrtgPopUp(resourceId, report) {
-                window.open( 'nrt/starter?resourceId='+resourceId+'&report='+report, 'window'+resourceId+report, 'width=1280, height=650, resizable=yes, scrollbars=yes, toolbar=no, location=no, directories=no, status=no, menubar=no' );
+                window.open( getBaseHref() +'nrt/starter?resourceId='+resourceId+'&report='+report, '', 'width=1280, height=650, resizable=yes, scrollbars=yes, toolbar=no, location=no, directories=no, status=no, menubar=no' );
             }
-        </script>
-
 
         <c:choose>
             <c:when test="${param.zoom == 'true'}">
@@ -211,7 +209,7 @@
 
                 <div align="center">
                     <!-- NRTG Starter Zoom -->
-                    <c:if test="${fn:contains(resultSet.resource.resourceType.label, 'SNMP')}">
+                    <c:if test="${fn:contains(resultSet.resource.resourceType.label, 'SNMP') || fn:contains(resultSet.resource.resourceType.label, 'TCA') }">
                         <c:if test="${fn:contains(resultSet.resource.label,'(*)') != true}">
                             <a href="javascript:nrtgPopUp('${resultSet.resource.id}','${resultSet.graphs[0].name}')"><font size="-1"> Start NRT-Graphing for ${resultSet.graphs[0].title} </font></a><br>
                             </c:if>
@@ -246,7 +244,7 @@
                         <c:param name="end" value="${results.end.time}"/>
                     </c:url>
 
-                    <c:if test="${fn:contains(resultSet.resource.resourceType.label, 'SNMP')}">
+                    <c:if test="${fn:contains(resultSet.resource.resourceType.label, 'SNMP') || fn:contains(resultSet.resource.resourceType.label, 'TCA') }">
                         <c:if test="${fn:contains(resultSet.resource.label,'(*)') != true}">
                             <a href="javascript:nrtgPopUp('${resultSet.resource.id}','${graph.name}')"><font size="-1"> Start NRT-Graphing for ${graph.title} </font></a><br>
                             </c:if>

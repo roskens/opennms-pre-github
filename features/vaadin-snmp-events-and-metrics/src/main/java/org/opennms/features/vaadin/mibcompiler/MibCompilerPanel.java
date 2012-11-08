@@ -45,12 +45,17 @@ import org.opennms.netmgt.xml.eventconf.Events;
 import com.vaadin.data.util.HierarchicalContainer;
 import com.vaadin.event.Action;
 import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.Window.Notification;
 import com.vaadin.ui.themes.Runo;
+
+import de.steinwedel.vaadin.MessageBox;
+import de.steinwedel.vaadin.MessageBox.ButtonType;
+import de.steinwedel.vaadin.MessageBox.EventListener;
 
 /**
  * The Class MIB Compiler Panel.
@@ -80,6 +85,9 @@ public class MibCompilerPanel extends Panel {
 
     /** The Constant ACTION_DELETE. */
     private static final Action ACTION_DELETE = new Action("Delete MIB");
+
+    /** The Constant ACTION_VIEW. */
+    private static final Action ACTION_VIEW = new Action("View MIB");
 
     /** The Constant ACTION_COMPILE. */
     private static final Action ACTION_COMPILE = new Action("Compile MIB");
@@ -165,6 +173,10 @@ public class MibCompilerPanel extends Panel {
         mibsContainer = new HierarchicalContainer();
         mibsTree = new Tree("MIB Tree");
         initMibTree(logger);
+        final Label label = new Label("<p>Use the right-click context menu over the MIB tree files, to display the compiler operations.</p>"
+                                      + "<p>The file name requires to be the same as the MIB to be processed.</p>");
+        label.setContentMode(Label.CONTENT_XHTML);
+        addComponent(label);
         addComponent(mibsTree);
 
         // Panel Setup
@@ -208,25 +220,43 @@ public class MibCompilerPanel extends Panel {
                     return new Action[] {};
                 }
                 if (parent.equals(COMPILED)) {
-                    return new Action[] { ACTION_EVENTS, ACTION_COLLECT };
+                    return new Action[] { ACTION_EVENTS, ACTION_COLLECT, ACTION_VIEW, ACTION_DELETE };
                 } else {
                     return new Action[] { ACTION_EDIT, ACTION_DELETE, ACTION_COMPILE };
                 }
             }
 
             public void handleAction(Action action, Object sender, Object target) {
-                String fileName = (String) target;
+                final String fileName = (String) target;
                 if (action == ACTION_DELETE) {
-                    File file = new File(MIBS_PENDING_DIR, fileName);
-                    if (file.delete()) {
-                        mibsContainer.removeItem(target);
-                        logger.info("MIB " + file + " has been successfully removed.");
-                    } else {
-                        getApplication().getMainWindow().showNotification("Can't delete " + file);
-                    }
+                    MessageBox mb = new MessageBox(getApplication().getMainWindow(),
+                                                   "Are you sure?",
+                                                   MessageBox.Icon.QUESTION,
+                                                   "Do you really want to delete " + fileName + "?<br/>This cannot be undone.",
+                                                   new MessageBox.ButtonConfig(MessageBox.ButtonType.YES, "Yes"),
+                                                   new MessageBox.ButtonConfig(MessageBox.ButtonType.NO, "No"));
+                    mb.addStyleName(Runo.WINDOW_DIALOG);
+                    mb.show(new EventListener() {
+                        public void buttonClicked(ButtonType buttonType) {
+                            if (buttonType == MessageBox.ButtonType.YES) {
+                                String source = mibsTree.getParent(fileName).toString();
+                                File file = new File(PENDING.equals(source) ? MIBS_PENDING_DIR : MIBS_COMPILED_DIR, fileName);
+                                if (file.delete()) {
+                                    mibsContainer.removeItem(fileName);
+                                    logger.info("MIB " + file + " has been successfully removed.");
+                                } else {
+                                    getApplication().getMainWindow().showNotification("Can't delete " + file);
+                                }
+                            }
+                        }
+                    });
                 }
                 if (action == ACTION_EDIT) {
-                    Window w = new FileEditorWindow(new File(MIBS_PENDING_DIR, fileName), logger);
+                    Window w = new FileEditorWindow(new File(MIBS_PENDING_DIR, fileName), logger, false);
+                    getApplication().getMainWindow().addWindow(w);
+                }
+                if (action == ACTION_VIEW) {
+                    Window w = new FileEditorWindow(new File(MIBS_COMPILED_DIR, fileName), logger, true);
                     getApplication().getMainWindow().addWindow(w);
                 }
                 if (action == ACTION_COMPILE) {
@@ -321,7 +351,8 @@ public class MibCompilerPanel extends Panel {
             if (events.getEventCount() > 0) {
                 try {
                     logger.info("Found " + events.getEventCount() + " events.");
-                    final EventWindow w = new EventWindow(eventsDao, eventsProxy, fileName, events, logger);
+                    final String eventsFileName = fileName.replaceFirst("\\..*$", ".events.xml");
+                    final EventWindow w = new EventWindow(eventsDao, eventsProxy, eventsFileName, events, logger);
                     getApplication().getMainWindow().addWindow(w);
                 } catch (Throwable t) {
                     getApplication().getMainWindow().showNotification(t.getMessage(), Notification.TYPE_ERROR_MESSAGE);
@@ -346,7 +377,8 @@ public class MibCompilerPanel extends Panel {
             } else {
                 if (dcGroup.getGroupCount() > 0) {
                     try {
-                        final DataCollectionWindow w = new DataCollectionWindow(dataCollectionDao, fileName, dcGroup, logger);
+                        final String dataFileName = fileName.replaceFirst("\\..*$", ".xml");
+                        final DataCollectionWindow w = new DataCollectionWindow(dataCollectionDao, dataFileName, dcGroup, logger);
                         getApplication().getMainWindow().addWindow(w);
                     } catch (Throwable t) {
                         getApplication().getMainWindow().showNotification(t.getMessage(), Notification.TYPE_ERROR_MESSAGE);
