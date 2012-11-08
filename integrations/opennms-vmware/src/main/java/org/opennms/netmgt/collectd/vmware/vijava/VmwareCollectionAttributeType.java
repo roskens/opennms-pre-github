@@ -65,9 +65,4 @@ public class VmwareCollectionAttributeType implements CollectionAttributeType {
     public String getType() {
         return m_attribute.getType();
     }
-
-    @Override
-    public String getAttributeId() {
-        return "Vmware_" + m_groupType.getName() + "/" + m_attribute.getName();
-    }
 }
