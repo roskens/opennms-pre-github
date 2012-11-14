@@ -29,17 +29,16 @@
 package org.opennms.features.topology.app.internal;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.opennms.features.topology.api.DisplayState;
 import org.opennms.features.topology.api.GraphContainer;
-import org.opennms.features.topology.api.support.SelectionListener;
+import org.opennms.features.topology.api.SelectionManager;
+import org.opennms.features.topology.api.SelectionManager.SelectionListener;
 import org.opennms.features.topology.app.internal.gwt.client.VTopologyComponent;
 import org.opennms.features.topology.app.internal.support.IconRepositoryManager;
 
@@ -52,7 +51,6 @@ import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.event.Action;
 import com.vaadin.event.Action.Handler;
-import com.vaadin.terminal.KeyMapper;
 import com.vaadin.terminal.PaintException;
 import com.vaadin.terminal.PaintTarget;
 import com.vaadin.ui.AbstractComponent;
@@ -88,11 +86,9 @@ public class TopologyComponent extends AbstractComponent implements Action.Conta
         
     }
     
-	private KeyMapper m_actionMapper;
 	private GraphContainer m_graphContainer;
 	private Property m_scale;
-    private Graph m_graph;
-	private List<Action.Handler> m_actionHandlers = new ArrayList<Action.Handler>();
+    private TopoGraph m_graph;
 	private MapManager m_mapManager = new MapManager();
     private List<MenuItemUpdateListener> m_menuItemStateListener = new ArrayList<MenuItemUpdateListener>();
     private ContextMenuHandler m_contextMenuHandler;
@@ -101,11 +97,21 @@ public class TopologyComponent extends AbstractComponent implements Action.Conta
     private boolean m_fitToView = true;
     private boolean m_scaleUpdateFromUI = false;
     private String m_activeTool = "pan";
-    private List<SelectionListener> m_selectionListeners;
 
 	public TopologyComponent(GraphContainer dataSource) {
-		setGraph(new Graph(dataSource));
+		setGraph(new TopoGraph(dataSource));
+		
 		m_graphContainer = dataSource;
+
+		m_graphContainer.getSelectionManager().addSelectionListener(new SelectionListener() {
+			
+			@Override
+			public void selectionChanged(SelectionManager selectionManager) {
+				requestRepaint();
+			}
+		});
+
+		
 		m_graphContainer.getVertexContainer().addListener((ItemSetChangeListener)this);
 		m_graphContainer.getVertexContainer().addListener((PropertySetChangeListener) this);
 		
@@ -153,140 +159,19 @@ public class TopologyComponent extends AbstractComponent implements Action.Conta
         
         target.addAttribute("fitToView", isFitToView());
         setFitToView(false);
-        
-        Set<Action> actions = new HashSet<Action>();
-		m_actionMapper = new KeyMapper();
+		GraphVisitor painter = new GraphPainter(m_graphContainer, m_iconRepoManager, target);
 
-		List<String> bgActionList = new ArrayList<String>();
-		Object t = null;
-		Object s = null;
-		List<Handler> actionHandlers = m_actionHandlers;
-		List<Action> bgSortingList = sortActionHandlers(actionHandlers, t, s);
-		for(Action action : bgSortingList) {
-		    bgActionList.add(m_actionMapper.key(action));
-		    actions.add(action);
+		TopoGraph r = getGraph();
+		try {
+			r.visit(painter);
+		} catch(Exception e) {
+			throw new PaintException(e.getMessage());
 		}
-		
-		
-		target.addAttribute("backgroundActions", bgActionList.toArray());
-		
-		
-        target.startTag("graph");
-        for (Vertex group : getGraph().getVertices()) {
-        	if (!group.isLeaf()) {
-        		target.startTag("group");
-        		target.addAttribute("key", group.getKey());
-        		target.addAttribute("x", group.getX());
-        		target.addAttribute("y", group.getY());
-        		target.addAttribute("selected", group.isSelected());
-        		target.addAttribute("iconUrl", m_iconRepoManager.findIconUrlByKey(group.getIconKey()));
-        		target.addAttribute("semanticZoomLevel", group.getSemanticZoomLevel());
-        		target.addAttribute("label", group.getLabel());
-        		target.addAttribute("tooltipText", group.getTooltipText());
-
-        		List<String> groupActionList = new ArrayList<String>();
-        		List<Action> groupSortedList = sortActionHandlers(m_actionHandlers, group.getGroupId(), null); 
-        		for(Action action : groupSortedList) {
-        		    groupActionList.add(m_actionMapper.key(action));
-        		    actions.add(action);
-        		}
-        		
-    		    
-        		target.addAttribute("actionKeys", groupActionList.toArray());
-        		target.endTag("group");
-
-        	}
-        }
         
-        
-        for(Vertex vert : getGraph().getVertices()) {
-        	if (vert.isLeaf()) {
-        		target.startTag("vertex");
-        		target.addAttribute("key", vert.getKey());
-        		target.addAttribute("x", vert.getX());
-        		target.addAttribute("y", vert.getY());
-        		target.addAttribute("selected", vert.isSelected());
-        		target.addAttribute("iconUrl", m_iconRepoManager.findIconUrlByKey(vert.getIconKey()));
-        		target.addAttribute("semanticZoomLevel", vert.getSemanticZoomLevel());
-        		if (vert.getGroupId() != null) {
-        			target.addAttribute("groupKey", vert.getGroupKey());
-        		}
-        		target.addAttribute("label", vert.getLabel());
-        		target.addAttribute("tooltipText", vert.getTooltipText());
-
-        		List<String> vertActionList = new ArrayList<String>();
-        		List<Action> vertActionSortedList = sortActionHandlers(m_actionHandlers, vert.getItemId(), null);
-        		
-        		for(Action action : vertActionSortedList) {
-        		    vertActionList.add(m_actionMapper.key(action));
-        		    actions.add(action);
-        		}
-        		
-        		target.addAttribute("actionKeys", vertActionList.toArray());
-        		target.endTag("vertex");
-        	}
-        }
-        
-        for(Edge edge : getGraph().getEdges()) {
-        	target.startTag("edge");
-        	target.addAttribute("key", edge.getKey());
-        	target.addAttribute("source", edge.getSource().getKey());
-        	target.addAttribute("target", edge.getTarget().getKey());
-        	target.addAttribute("selected", edge.isSelected());
-        	target.addAttribute("cssClass", edge.getCssClass());
-        	target.addAttribute("tooltipText", edge.getTooltipText());
-
-    		List<String> edgeActionList = new ArrayList<String>();
-    		List<Action> edgeSortedActionList = sortActionHandlers(m_actionHandlers, edge.getItemId(), null);
-    		for(Action action : edgeSortedActionList) {
-    		    edgeActionList.add(m_actionMapper.key(action));
-    		    actions.add(action);
-    		}
-    		
-        	target.addAttribute("actionKeys", edgeActionList.toArray());
-        	target.endTag("edge");
-        }
-        
-        for (Vertex group : getGraph().getVertices()) {
-        	if (!group.isLeaf()) {
-        		if (group.getGroupId() != null) {
-        			target.startTag("groupParent");
-        			target.addAttribute("key", group.getKey());
-        			target.addAttribute("parentKey", group.getGroupKey());
-        			
-        			target.endTag("groupParent");
-        		}
-        	}
-        }
-        
-       
-        
-        target.endTag("graph");
-        
-        
-        
-		target.startTag("actions");
-
-		// send available actions
-		for(Action action : actions) {
-			target.startTag("action");
-			target.addAttribute("key", m_actionMapper.key(action));
-			if (action.getCaption() != null) {
-				target.addAttribute("caption", action.getCaption());
-			}
-			if (action.getIcon() != null) {
-				target.addAttribute("icon", action.getIcon());
-			}
-			target.endTag("action");
-		}
-
-		
-		target.endTag("actions");
-
         
     }
 
-    public boolean isFitToView() {
+	public boolean isFitToView() {
         return m_fitToView;
     }
     
@@ -302,28 +187,6 @@ public class TopologyComponent extends AbstractComponent implements Action.Conta
         return m_panToSelection;
     }
 
-    private List<Action> sortActionHandlers(List<Handler> actionHandlers, Object target, Object sender) {
-        List<Action> sortingList = new ArrayList<Action>();
-        for(Action.Handler handler : actionHandlers) {
-			Action[] bgActions = handler.getActions(target, sender);
-			for(Action action : bgActions) {
-			    sortingList.add(action);
-			}
-		}
-		sortActions(sortingList);
-        return sortingList;
-    }
-
-    private void sortActions(List<Action> bgActions) {
-        Collections.sort(bgActions, new Comparator<Action>() {
-
-            @Override
-            public int compare(Action o1, Action o2) {
-                return o1.getCaption().compareTo(o2.getCaption());
-            }
-        });
-    }
-    
     /**
      * Main vaadin method for receiving communication from the Front End
      * 
@@ -339,50 +202,31 @@ public class TopologyComponent extends AbstractComponent implements Action.Conta
         
         if(variables.containsKey("clickedEdge")) {
             String edgeId = (String) variables.get("clickedEdge");
-            singleSelectEdge(edgeId);
-            updateSelectionListeners();
+            selectEdge(edgeId);
         }
         
-        if(variables.containsKey("deselectAllItems")) {
-            deselectAllEdges();
-            deselectAllVertices();
-            requestRepaint();
-            updateSelectionListeners();
+        if(variables.containsKey("clickedBackground")) {
+            getSelectionManager().deselectAll();
         }
         
         if(variables.containsKey("clickedVertex")) {
-        	String vertexId = (String) variables.get("clickedVertex");
+        	String vertexKey = (String) variables.get("clickedVertex");
             if(variables.containsKey("shiftKeyPressed") && (Boolean) variables.get("shiftKeyPressed") == true) {
-        	    multiSelectVertex(vertexId);
+        	    addVerticesToSelection(vertexKey);
         	}else {
-        	    singleSelectVertex(vertexId);
+        	    selectVertices(vertexKey);
         	}
         	
-            updateSelectionListeners();
         }
         
         if(variables.containsKey("marqueeSelection")) {
-            String[] vertexIds = (String[]) variables.get("marqueeSelection");
-            if(variables.containsKey("shiftKeyPressed") && (Boolean) variables.get("shiftKeyPressed") == false) {
-                clearAllVertexSelections();
+            String[] vertexKeys = (String[]) variables.get("marqueeSelection");
+            if(variables.containsKey("shiftKeyPressed") && (Boolean) variables.get("shiftKeyPressed") == true) {
+            	addVerticesToSelection(vertexKeys);
+            } else {
+            	selectVertices(vertexKeys);
             }
             
-            bulkMultiSelectVertex(vertexIds);
-        }
-        
-        if(variables.containsKey("action")) {
-        	String value = (String) variables.get("action");
-        	String[] data = value.split(",");
-        	String targetId = data[0];
-        	String actionKey = data[1];
-        	
-        	Vertex vertex = getGraph().getVertexByKey(targetId);
-        	Action action = (Action) m_actionMapper.get(actionKey);
-        	
-        	for(Handler handler : m_actionHandlers) {
-        		handler.handleAction(action, this, vertex == null ? null : vertex.getItemId());
-        	}
-        	
         }
         
         if(variables.containsKey("updatedVertex")) {
@@ -430,7 +274,7 @@ public class TopologyComponent extends AbstractComponent implements Action.Conta
             Object itemId = (Object)props.get("target");
 
             if (type.toLowerCase().equals("vertex")) {
-	                Vertex vertex = getGraph().getVertexByKey((String)itemId);
+	                TopoVertex vertex = getGraph().getVertexByKey((String)itemId);
 	                itemId = vertex.getItemId();
             }
 
@@ -439,6 +283,28 @@ public class TopologyComponent extends AbstractComponent implements Action.Conta
         
         updateMenuItems();
     }
+
+	private void selectVertices(String... vertexKeys) {
+		List<?> itemIds = getGraph().getVertexItemIdsForKeys(Arrays.asList(vertexKeys));
+	    Collection<?> vertexIds = m_graphContainer.getVertexForest(itemIds);
+
+	    getSelectionManager().setSelectedVertices(vertexIds);
+	}
+
+	private SelectionManager getSelectionManager() {
+		return m_graphContainer.getSelectionManager();
+	}
+
+	private void selectEdge(String edgeKey) {
+		Object edgeId = getGraph().getEdgeByKey(edgeKey).getItemId();
+		
+		getSelectionManager().setSelectedEdges(Collections.singleton(edgeId));
+
+	}
+
+	private void deselectAll() {
+		getSelectionManager().deselectAll();
+	}
 
     private void setScaleUpdateFromUI(boolean scaleUpdateFromUI) {
         m_scaleUpdateFromUI  = scaleUpdateFromUI;
@@ -456,131 +322,44 @@ public class TopologyComponent extends AbstractComponent implements Action.Conta
         int y = (int) Double.parseDouble(vertexProps[2].split(",")[1]);
         boolean selected = vertexProps[3].split(",")[1].equals("true");
         
-        Vertex vertex = getGraph().getVertexByKey(id);
+        TopoVertex vertex = getGraph().getVertexByKey(id);
         vertex.setX(x);
         vertex.setY(y);
         vertex.setSelected(selected);
     }
     
-	private void clearAllVertexSelections() {
-	    for(Vertex vertex : getGraph().getVertices()) {
-	        vertex.setSelected(false);
-	    }
-	}
-	
-	private void singleSelectEdge(String edgeId) {
-	    deselectAllVertices();
-	    deselectAllEdges();
-	    
-	    if(edgeId.isEmpty()) {
-	        requestRepaint();
-	    }else {
-	        toggleSelectedEdge(edgeId);
-	    }
-	}
+	public void selectVerticesByItemId(Collection<Object> itemIds) {
+    	
+        deselectAll();
+        
+        getSelectionManager().selectVertices(itemIds);
 
-    private void deselectAllEdges() {
-        for(Edge edge : getGraph().getEdges()) {
-	        edge.setSelected(false);
-	    }
-    }
-	
-    private void singleSelectVertex(String vertexId) {
-        deselectAllEdges();
-        deselectAllVertices();
-        
-        if(vertexId.isEmpty()) {
-            requestRepaint();
-        } else {
-            toggleSelectedVertex(vertexId);
-        }
-    }
-
-    private void deselectAllVertices() {
-        for(Vertex vertex : getGraph().getVertices()) {
-            vertex.setSelected(false);
-        }
-    }
-    
-    public void selectVerticesByItemId(Collection<Object> itemIds) {
-        deselectAllVertices();
-        
-        for(Object itemId : itemIds) {
-            toggleSelectVertexByItemId(itemId);
-        }
-        
         if(itemIds.size() > 0) {
             setPanToSelection(true);
             requestRepaint();
         }
     }
     
-    /**
-     * Select multiple vertices at a time
-     * @param vertexIds
-     */
-    private void bulkMultiSelectVertex(String[] vertexIds) {
-        for(String vertexId : vertexIds) {
-            Vertex vertex = getGraph().getVertexByKey((String)vertexId);
-            vertex.setSelected(true);
-        }
-        
-        requestRepaint();
-    }
-    
-    private void multiSelectVertex(String vertexId) {
-        toggleSelectedVertex(vertexId);
-    }
-
-    private void toggleSelectedVertex(String vertexId) {
-		Vertex vertex = getGraph().getVertexByKey(vertexId);
-		if(vertex != null) {
-		    vertex.setSelected(!vertex.isSelected());
-		}
+	private void addVerticesToSelection(String... vertexKeys) {
 		
-		if(m_graphContainer.getVertexContainer().hasChildren(vertex.getItemId())) {
-		    Collection<?> children = m_graphContainer.getVertexContainer().getChildren(vertex.getItemId());
-		    for( Object childId : children) {
-		        Vertex v = getGraph().getVertexByItemId(childId);
-		        v.setSelected(true);
-		    }
-		}
+		List<?> itemIds = getGraph().getVertexItemIdsForKeys(Arrays.asList(vertexKeys));
 		
-		m_graphContainer.getVertexContainer().fireItemSetChange();
-		setFitToView(false);
-		requestRepaint();
-	}
-    
-    private void toggleSelectVertexByItemId(Object itemId) {
-        Vertex vertex = getGraph().getVertexByItemId(itemId);
-        vertex.setSelected(!vertex.isSelected());
-        
-        requestRepaint();
+		Collection<?> vertexIds = m_graphContainer.getVertexForest(itemIds);
+		getSelectionManager().selectVertices(vertexIds);
     }
-    
-    private void toggleSelectedEdge(String edgeItemId) {
-        Edge edge = getGraph().getEdgeByKey(edgeItemId);
-        edge.setSelected(!edge.isSelected());
-        
-        requestRepaint();
-    }
-
     
 	protected void setScale(double scale){
 	    m_scale.setValue(scale);
     }
     
-    protected Graph getGraph() {
+    protected TopoGraph getGraph() {
 		return m_graph;
 	}
 
 	public void addActionHandler(Handler actionHandler) {
-		m_actionHandlers.add(actionHandler);
 	}
 	
 	public void removeActionHandler(Handler actionHandler) {
-		m_actionHandlers.remove(actionHandler);
-		
 	}
 	
 	public void addMenuItemStateListener(MenuItemUpdateListener listener) {
@@ -597,7 +376,7 @@ public class TopologyComponent extends AbstractComponent implements Action.Conta
 	    }
 	}
 
-	private void setGraph(Graph graph) {
+	private void setGraph(TopoGraph graph) {
 		m_graph = graph;
 	}
 	
@@ -660,7 +439,7 @@ public class TopologyComponent extends AbstractComponent implements Action.Conta
     }
 
     public Collection<?> getItemIdsForSelectedVertices() {
-        Collection<?> vItemIds = m_graphContainer.getVertexContainer().getItemIds();
+        Collection<?> vItemIds = m_graphContainer.getVertexIds();
         List<Object> selectedIds = new ArrayList<Object>(); 
         
         for(Object itemId : vItemIds) {
@@ -670,19 +449,6 @@ public class TopologyComponent extends AbstractComponent implements Action.Conta
         }
         
         return selectedIds;
-    }
-   
-    public void addSelectionListener(SelectionListener listener) {
-        if(m_selectionListeners == null) {
-            m_selectionListeners = new ArrayList<SelectionListener>();
-        }
-        m_selectionListeners.add(listener);
-    }
-    
-    public void updateSelectionListeners() {
-        for(SelectionListener listener : m_selectionListeners) {
-            listener.onSelectionUpdate(m_graphContainer.getVertexContainer());
-        }
     }
 
 }

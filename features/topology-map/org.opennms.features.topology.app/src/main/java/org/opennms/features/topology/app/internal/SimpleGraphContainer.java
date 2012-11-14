@@ -38,8 +38,11 @@ import java.util.Set;
 
 import org.opennms.features.topology.api.GraphContainer;
 import org.opennms.features.topology.api.LayoutAlgorithm;
+import org.opennms.features.topology.api.SelectionManager;
 import org.opennms.features.topology.api.TopologyProvider;
 import org.opennms.features.topology.api.VertexContainer;
+import org.opennms.features.topology.api.topo.GraphProvider;
+import org.opennms.features.topology.plugins.topo.adapter.TPGraphProvider;
 import org.slf4j.LoggerFactory;
 
 import com.vaadin.data.Item;
@@ -54,7 +57,14 @@ public class SimpleGraphContainer implements GraphContainer {
 
     public class GVertex {
         
-        private String m_key;
+        private static final String LEAF = "leaf";
+		private static final String ICON = "icon";
+		private static final String ICON_KEY = "iconKey";
+		private static final String LABEL = "label";
+		private static final String IP_ADDR = "ipAddr";
+		private static final String NODE_ID = "nodeID";
+		private static final String TOOLTIP_TEXT = "tooltipText";
+		private String m_key;
         private Object m_itemId;
         private Item m_item;
         private String m_groupKey;
@@ -113,7 +123,7 @@ public class SimpleGraphContainer implements GraphContainer {
         }
 
         public boolean isLeaf() {
-            return (Boolean) getItem().getItemProperty("leaf").getValue();
+            return (Boolean) getItem().getItemProperty(LEAF).getValue();
         }
 
         public int getX() {
@@ -141,49 +151,49 @@ public class SimpleGraphContainer implements GraphContainer {
         }
 
         public String getIcon() {
-            return (String) m_item.getItemProperty("icon").getValue();
+            return (String) m_item.getItemProperty(ICON).getValue();
         }
 
         public void setIcon(String icon) {
-            m_item.getItemProperty("icon").setValue(icon);
+            m_item.getItemProperty(ICON).setValue(icon);
         }
         
         public void setIconKey(String iconKey) {
-            m_item.getItemProperty("iconKey").setValue(iconKey);
+            m_item.getItemProperty(ICON_KEY).setValue(iconKey);
         }
         
         public String getIconKey() {
-            return (String) m_item.getItemProperty("iconKey").getValue();
+            return (String) m_item.getItemProperty(ICON_KEY).getValue();
         }
 
         public String getLabel() {
-            Property labelProperty = m_item.getItemProperty("label");
+            Property labelProperty = m_item.getItemProperty(LABEL);
 			String label = labelProperty == null ? "labels unsupported " : (String) labelProperty.getValue();
 			return label;
         }
 
         public void setLabel(String label) {
-            m_item.getItemProperty("label").setValue(label);
+            m_item.getItemProperty(LABEL).setValue(label);
         }
         
         public String getIpAddr() {
-            Property ipAddrProperty = m_item.getItemProperty("ipAddr");
+            Property ipAddrProperty = m_item.getItemProperty(IP_ADDR);
             String ipAddr = ipAddrProperty == null ? null : (String) ipAddrProperty.getValue();
             return ipAddr;
         }
         
         public void setIpAddr(String ipAddr) {
-            m_item.getItemProperty("ipAddr").setValue(ipAddr);
+            m_item.getItemProperty(IP_ADDR).setValue(ipAddr);
         }
         
         public int getNodeID() {
-            Property nodeIDProperty = m_item.getItemProperty("nodeID");
+            Property nodeIDProperty = m_item.getItemProperty(NODE_ID);
             int nodeID = (nodeIDProperty == null) ? 0 : (Integer) nodeIDProperty.getValue();
             return nodeID;
         }
         
         public void setNodeID(int nodeID) {
-            m_item.getItemProperty("nodeID").setValue(new Integer(nodeID));
+            m_item.getItemProperty(NODE_ID).setValue(new Integer(nodeID));
         }
 
         private GVertex getParent() {
@@ -198,8 +208,8 @@ public class SimpleGraphContainer implements GraphContainer {
         }
         
         public String getTooltipText() {
-            if(m_item.getItemProperty("tooltipText") != null && m_item.getItemProperty("tooltipText").getValue() != null) {
-                return (String) m_item.getItemProperty("tooltipText").getValue();
+            if(m_item.getItemProperty(TOOLTIP_TEXT) != null && m_item.getItemProperty(TOOLTIP_TEXT).getValue() != null) {
+                return (String) m_item.getItemProperty(TOOLTIP_TEXT).getValue();
             }else {
                 return null;
             }
@@ -492,6 +502,7 @@ public class SimpleGraphContainer implements GraphContainer {
         
     }
     
+    private final SelectionManager m_selectionManager;
 	private LayoutAlgorithm m_layoutAlgorithm;
 	private double m_scale = 1;
 	private int m_semanticZoomLevel;
@@ -503,9 +514,11 @@ public class SimpleGraphContainer implements GraphContainer {
     private ElementHolder<GVertex> m_vertexHolder;
     private ElementHolder<GEdge> m_edgeHolder;
     private TopologyProvider m_topologyProvider;
+    private GraphProvider m_graphProvider;
     private GEdgeContainer m_edgeContainer;
     
 	public SimpleGraphContainer() {
+		m_selectionManager = new DefaultSelectionManager();
 		m_zoomLevelProperty = new MethodProperty<Integer>(Integer.class, this, "getSemanticZoomLevel", "setSemanticZoomLevel");
 		m_scaleProperty = new MethodProperty<Double>(Double.class, this, "getScale", "setScale");
 		
@@ -562,6 +575,11 @@ public class SimpleGraphContainer implements GraphContainer {
 	}
 	
 	@Override
+	public SelectionManager getSelectionManager() {
+		return m_selectionManager;
+	}
+	
+	@Override
 	public TopologyProvider getDataSource() {
 		return m_topologyProvider;
 	}
@@ -569,6 +587,8 @@ public class SimpleGraphContainer implements GraphContainer {
 	@Override
 	public void setDataSource(TopologyProvider topologyProvider) {
 	    if (m_topologyProvider == topologyProvider) return;
+	    
+	    m_graphProvider = new TPGraphProvider(topologyProvider);
 	    
 	    m_topologyProvider = topologyProvider;
 	    
@@ -582,6 +602,18 @@ public class SimpleGraphContainer implements GraphContainer {
 	    redoLayout();
 
 	}
+	
+	
+
+	@Override
+	public GraphProvider getBaseTopology() {
+		return m_graphProvider;
+	}
+
+	@Override
+	public void setBaseTopology(GraphProvider graphProvider) {
+		throw new UnsupportedOperationException("SimpleGraphContainer.setBaseTopology is not yet implemented.");
+	}
 
 	@Override
 	public VertexContainer<Object, GVertex> getVertexContainer() {
@@ -593,12 +625,10 @@ public class SimpleGraphContainer implements GraphContainer {
 		return m_edgeContainer;
 	}
 
-	@Override
 	public Collection<Object> getVertexIds() {
 		return m_vertexContainer.getItemIds();
 	}
-
-	@Override
+	
 	public Collection<String> getEdgeIds() {
 		return m_edgeContainer.getItemIds();
 	}
@@ -678,9 +708,13 @@ public class SimpleGraphContainer implements GraphContainer {
         LoggerFactory.getLogger(getClass()).debug("redoLayout()");
         if(m_layoutAlgorithm != null) {
             m_layoutAlgorithm.updateLayout(this);
-            getVertexContainer().fireItemSetChange();
+            fireChange();
         }
     }
+
+	public void fireChange() {
+		getVertexContainer().fireItemSetChange();
+	}
 
 
     @Override
@@ -689,17 +723,156 @@ public class SimpleGraphContainer implements GraphContainer {
         return vertexItem == null ? null : vertexItem.getItemProperty("itemId").getValue();
     }
     
+	@Override
+    public int getX(Object itemId) {
+		BeanItem<GVertex> vertexItem = getVertexItem(itemId);
+		if (vertexItem == null) throw new NullPointerException("vertexItem "+ itemId +" is null");
+		Property itemProperty = vertexItem.getItemProperty(TopoVertex.X_PROPERTY);
+		if (itemProperty == null) throw new NullPointerException("X property is null");
+		return (Integer) itemProperty.getValue();
+	}
+
     @Override
-    public List<Object> getSelectedVertices() {
-    	List<Object> targets = new ArrayList<Object>();
-	for (Object vId : getVertexIds()) {
-		Item vItem = getVertexItem(vId);
-		boolean selected = (Boolean) vItem.getItemProperty("selected").getValue();
-		if (selected) {
-			targets.add(vItem.getItemProperty("key").getValue());
+    public int getY(Object itemId) {
+		return (Integer) getVertexItem(itemId).getItemProperty(TopoVertex.Y_PROPERTY).getValue();
+	}
+
+    @Override
+    public void setX(Object itemId, int x) {
+		getVertexItem(itemId).getItemProperty(TopoVertex.X_PROPERTY).setValue(x);
+	}
+
+    @Override
+    public void setY(Object itemId, int y) {
+		getVertexItem(itemId).getItemProperty(TopoVertex.Y_PROPERTY).setValue(y);
+	}
+
+    @Override
+    public int getSemanticZoomLevel(Object itemId) {
+		BeanItem<GVertex> vertexItem = getVertexItem(itemId);
+		Property itemProperty = vertexItem.getItemProperty(TopoVertex.SEMANTIC_ZOOM_LEVEL);
+		Integer zoomLevel = (Integer) itemProperty.getValue();
+	    return zoomLevel;
+	}
+    
+    @Override
+    public Object getGroupId(Object itemId) {
+    	return getVertexItem(itemId).getBean().getGroupKey();
+    }
+
+	boolean isLeaf(Object itemId) {
+		Object value = getVertexItem(itemId).getItemProperty(TopoVertex.LEAF_PROPERTY).getValue();
+	    return (Boolean) value;
+	}
+
+	String getLabel(Object itemId) {
+		Property labelProperty = getVertexItem(itemId).getItemProperty(TopoVertex.LABEL_PROPERTY);
+		String label = labelProperty == null ? "no such label" : (String)labelProperty.getValue();
+		return label;
+	}
+
+	String getIconKey(Object itemId) {
+		return (String) getVertexItem(itemId).getItemProperty(TopoVertex.ICON_KEY).getValue();
+	}
+
+	String getTooltipText(Object itemId) {
+		if(getVertexItem(itemId).getItemProperty("tooltipText") != null && getVertexItem(itemId).getItemProperty("tooltipText").getValue() != null) {
+	        return (String) getVertexItem(itemId).getItemProperty("tooltipText").getValue();
+	    }else {
+	        return getLabel(itemId);
+	    }
+	}
+	
+	@Override
+	public Object getDisplayVertexId(Object vertexId, int semanticZoomLevel) {
+
+		int szl = getSemanticZoomLevel(vertexId);
+
+		if(getGroupId(vertexId) == null || szl <= semanticZoomLevel) {
+			return vertexId;
+		}else {
+			return getDisplayVertexId(getGroupId(vertexId), semanticZoomLevel);
 		}
 	}
-	return targets;
-    }
+
+	@Override
+	public Collection<Object> getDisplayVertexIds(int semanticZoomLevel) {
+		Set<Object> visibleVertexIds = new LinkedHashSet<Object>();
+		for(Object itemId : getVertexIds()) {
+			if (isLeaf(itemId)) {
+				Object displayItemId = getDisplayVertexId(itemId, semanticZoomLevel);
+				visibleVertexIds.add(displayItemId);
+			}
+		}
+		return visibleVertexIds;
+	}
+
+	@Override
+	public Object getParentId(Object itemId) {
+		return getVertexContainer().getParent(itemId);
+	}
+
+	@Override
+	public Collection<?> getChildren(Object itemId) {
+		return getVertexContainer().getChildren(itemId);
+	}
+
+	@Override
+	public boolean hasChildren(Object itemId) {
+		return getVertexContainer().hasChildren(itemId);
+	}
+
+	@Override
+	public boolean containsVertexId(Object vertexId) {
+		return getVertexContainer().containsId(vertexId);
+	}
+
+
+	@Override
+	public boolean containsEdgeId(Object edgeId) {
+		return getEdgeContainer().containsId(edgeId);
+	}
+	
+	@Override
+	public Collection<?> getVertexForest(Collection<?> vertexIds) {
+		Set<Object> processed = new LinkedHashSet<Object>();
+		for(Object vertexId : vertexIds) {
+			addTreeToSet(vertexId, processed);
+		}
+		return processed;
+	}
+	
+	public void addTreeToSet(Object vertexId, Set<Object> processed) {
+		processed.add(vertexId);
+
+		for(Object childId : getChildren(vertexId)) {
+			if (!processed.contains(childId)) {
+				addTreeToSet(childId, processed);
+			}
+		}
+	}
+
+	@Deprecated
+    public boolean isVertexSelected(Object itemId) {
+		return (Boolean) getVertexItem(itemId).getItemProperty(TopoVertex.SELECTED_PROPERTY).getValue();
+	}
+
+	@Deprecated
+    public void setVertexSelected(Object itemId, boolean selected) {
+		getVertexItem(itemId).getItemProperty(TopoVertex.SELECTED_PROPERTY).setValue(selected);
+	}
+
+	@Deprecated
+	public boolean isEdgeSelected(Object edgeId) {
+		return (Boolean) getEdgeItem(edgeId).getItemProperty(TopoEdge.SELECTED_PROPERTY).getValue();
+	}
+
+	@Deprecated
+	public void setEdgeSelected(Object edgeId, boolean selected) {
+		getEdgeItem(edgeId).getItemProperty(TopoEdge.SELECTED_PROPERTY).setValue(selected);
+	}
+	
+	
+
 
 }

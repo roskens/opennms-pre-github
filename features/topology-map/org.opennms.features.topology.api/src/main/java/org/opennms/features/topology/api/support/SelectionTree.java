@@ -4,11 +4,10 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import org.opennms.features.topology.api.GraphContainer;
 import org.opennms.features.topology.api.IViewContribution;
 import org.opennms.features.topology.api.WidgetContext;
 
-import com.vaadin.data.Container;
-import com.vaadin.data.Item;
 import com.vaadin.data.Property;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
@@ -17,8 +16,8 @@ import com.vaadin.ui.Tree;
 
 @SuppressWarnings({"serial", "unchecked"})
 public abstract class SelectionTree extends Tree implements SelectionListener, IViewContribution {
-    
-    private class TreeItemClickTracker{
+
+    private static class TreeItemClickTracker{
         
         private Object m_clickedItemId;
         private boolean m_remove;
@@ -59,7 +58,7 @@ public abstract class SelectionTree extends Tree implements SelectionListener, I
                     
                     Set<Object> itemsToSelect = getSelectedItemIds(selectedIds);
                     
-                    Set<Object> itemsToDeselected = getItemsToDeselecte(allIds, itemsToSelect);
+                    Set<Object> itemsToDeselected = getItemsToDeselect(allIds, itemsToSelect);
                     
                     deselectContainerItems(itemsToDeselected);
                     
@@ -68,7 +67,10 @@ public abstract class SelectionTree extends Tree implements SelectionListener, I
                 
             }
         });
-        
+
+        /**
+         * This listener responds to clicks on items within the list and then 
+         */
         this.addListener(new ItemClickListener() {
             
             @Override
@@ -87,31 +89,21 @@ public abstract class SelectionTree extends Tree implements SelectionListener, I
         });
     }
 
+    /**
+     * When a user clicks on a vertex or edge in the UI, update the selection in the tree view.
+     */
     @Override
-    public void onSelectionUpdate(Container container) {
+    public void onSelectionUpdate(GraphContainer graphContainer) {
         m_itemClicked = false;
-        Collection<?> itemIds = container.getItemIds();
+        
+        Collection<?> itemIds = graphContainer.getVertexIds();
         
         for(Object itemId : itemIds) {
-            Item item = container.getItem(itemId);
-            if((Boolean) item.getItemProperty("selected").getValue()) {
+        	if (graphContainer.getSelectionManager().isVertexSelected(itemId)) {
                 select(itemId);
             } else {
                 unselect(itemId);
             }
-        }
-    }
-    
-    public void select(Collection<Object> itemIds) {
-        
-        for(Object itemId : itemIds) {
-            select(itemId);
-        }
-    }
-    
-    public void deselect(Collection<Object> itemIds) {
-        for(Object itemId : itemIds) {
-            unselect(itemId);
         }
     }
 
@@ -127,7 +119,7 @@ public abstract class SelectionTree extends Tree implements SelectionListener, I
         return itemsToSelect;
     }
 
-    private Set<Object> getItemsToDeselecte(Collection<Object> allIds, Set<Object> itemsToSelect) {
+    private static Set<Object> getItemsToDeselect(Collection<Object> allIds, Set<Object> itemsToSelect) {
         Set<Object> itemsToDeselected = new LinkedHashSet<Object>(allIds);
         itemsToDeselected.removeAll(itemsToSelect);
         return itemsToDeselected;
@@ -136,14 +128,20 @@ public abstract class SelectionTree extends Tree implements SelectionListener, I
     private void deselectContainerItems(Set<Object> itemsToDeselected) {
         for(Object itemId : itemsToDeselected) {
             Property property = getContainerDataSource().getContainerProperty(itemId, "selected");
-            property.setValue(false);
+            // If it's selected, deselect it
+            if ((Boolean)property.getValue()) {
+                property.setValue(false);
+            }
         }
     }
 
     private void selectContainerItemAndChildren(Set<Object> itemsToSelect) {
         for(Object itemId : itemsToSelect) {
             Property property = getContainerDataSource().getContainerProperty(itemId, "selected");
-            property.setValue(true);
+            // If it's not selected, select it
+            if (!(Boolean)property.getValue()) {
+                property.setValue(true);
+            }
             if( hasChildren(itemId) ) {
                 for(Object id : getChildren(itemId)) {
                     select(id);
@@ -152,10 +150,10 @@ public abstract class SelectionTree extends Tree implements SelectionListener, I
         }
         getContainerDataSource().fireItemUpdated();
     }
-    
+
     @Override
     public FilterableHierarchicalContainer getContainerDataSource() {
-        return (FilterableHierarchicalContainer) super.getContainerDataSource();
+        return (FilterableHierarchicalContainer)super.getContainerDataSource();
     }
 
     @Override
