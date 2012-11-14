@@ -394,6 +394,11 @@ public class VmwareTopologyProvider implements TopologyProvider {
         return endPoints;
     }
 
+    @Override
+    public String getNamespace() {
+        return "vmware";
+    }
+
     public Collection<?> getEdgeIdsForVertex(Object vertexId) {
         VmwareVertex vertex = getRequiredVertex(vertexId);
 
