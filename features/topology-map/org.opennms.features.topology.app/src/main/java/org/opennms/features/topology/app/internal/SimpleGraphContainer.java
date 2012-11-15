@@ -36,7 +36,9 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.opennms.features.topology.api.Graph;
 import org.opennms.features.topology.api.GraphContainer;
+import org.opennms.features.topology.api.Layout;
 import org.opennms.features.topology.api.LayoutAlgorithm;
 import org.opennms.features.topology.api.SelectionManager;
 import org.opennms.features.topology.api.TopologyProvider;
@@ -503,6 +505,8 @@ public class SimpleGraphContainer implements GraphContainer {
     }
     
     private final SelectionManager m_selectionManager;
+	private TopoGraph m_graph;
+
 	private LayoutAlgorithm m_layoutAlgorithm;
 	private double m_scale = 1;
 	private int m_semanticZoomLevel;
@@ -517,7 +521,7 @@ public class SimpleGraphContainer implements GraphContainer {
     private GraphProvider m_graphProvider;
     private GEdgeContainer m_edgeContainer;
     
-	public SimpleGraphContainer() {
+	public SimpleGraphContainer(TopologyProvider topologyProvider) {
 		m_selectionManager = new DefaultSelectionManager();
 		m_zoomLevelProperty = new MethodProperty<Integer>(Integer.class, this, "getSemanticZoomLevel", "setSemanticZoomLevel");
 		m_scaleProperty = new MethodProperty<Double>(Double.class, this, "getScale", "setScale");
@@ -572,6 +576,7 @@ public class SimpleGraphContainer implements GraphContainer {
 		m_vertexContainer = new GVertexContainer();
 		m_edgeContainer = new GEdgeContainer();
 		
+		setDataSource(topologyProvider);
 	}
 	
 	@Override
@@ -598,6 +603,8 @@ public class SimpleGraphContainer implements GraphContainer {
 	    
 	    m_vertexContainer.setTopologyProvider(topologyProvider);
 	    m_edgeContainer.setTopologyProvider(topologyProvider);
+	    
+	    m_graph = new TopoGraph(this);
 	    
 	    redoLayout();
 
@@ -775,7 +782,7 @@ public class SimpleGraphContainer implements GraphContainer {
 		return (String) getVertexItem(itemId).getItemProperty(TopoVertex.ICON_KEY).getValue();
 	}
 
-	String getTooltipText(Object itemId) {
+	String getVertexTooltipText(Object itemId) {
 		if(getVertexItem(itemId).getItemProperty("tooltipText") != null && getVertexItem(itemId).getItemProperty("tooltipText").getValue() != null) {
 	        return (String) getVertexItem(itemId).getItemProperty("tooltipText").getValue();
 	    }else {
@@ -870,6 +877,23 @@ public class SimpleGraphContainer implements GraphContainer {
 	@Deprecated
 	public void setEdgeSelected(Object edgeId, boolean selected) {
 		getEdgeItem(edgeId).getItemProperty(TopoEdge.SELECTED_PROPERTY).setValue(selected);
+	}
+
+	String getEdgeTooltipText(TopoEdge topoEdge, Object edgeId) {
+		Item item = getEdgeItem(edgeId);
+		if(item.getItemProperty("tooltipText") != null && item.getItemProperty("tooltipText").getValue() != null) {
+	        return (String) item.getItemProperty("tooltipText").getValue();
+	    }else {
+	        return topoEdge.getSource().getLabel() + " :: " + topoEdge.getTarget().getLabel();
+	    }
+	}
+
+	public Layout getLayout() {
+		return new DefaultLayout(this);
+	}
+	
+	public TopoGraph getGraph() {
+		return m_graph;
 	}
 	
 	

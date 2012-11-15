@@ -34,6 +34,8 @@ import java.util.List;
 import org.opennms.features.topology.api.DisplayState;
 import org.opennms.features.topology.api.GraphContainer;
 import org.opennms.features.topology.api.IViewContribution;
+import org.opennms.features.topology.api.SelectionManager;
+import org.opennms.features.topology.api.SelectionManager.SelectionListener;
 import org.opennms.features.topology.api.TopologyProvider;
 import org.opennms.features.topology.api.WidgetContext;
 import org.opennms.features.topology.api.support.FilterableHierarchicalContainer;
@@ -87,8 +89,7 @@ public class TopologyWidgetTestApplication extends Application implements Comman
 	public TopologyWidgetTestApplication(CommandManager commandManager, TopologyProvider topologyProvider, IconRepositoryManager iconRepoManager) {
 		m_commandManager = commandManager;
 		m_commandManager.addMenuItemUpdateListener(this);
-		m_graphContainer = new SimpleGraphContainer();
-		m_graphContainer.setDataSource(topologyProvider);
+		m_graphContainer = new SimpleGraphContainer(topologyProvider);
 		m_iconRepositoryManager = iconRepoManager;
 		
 	}
@@ -216,7 +217,6 @@ public class TopologyWidgetTestApplication extends Application implements Comman
 		m_treeMapSplitPanel.setSplitPosition(222, Sizeable.UNITS_PIXELS);
 		m_treeMapSplitPanel.setSizeFull();
 
-		m_commandManager.addActionHandlers(m_topologyComponent, m_graphContainer, getMainWindow());
 		m_commandManager.addCommandUpdateListener(this);
 
 		menuBarUpdated(m_commandManager);
