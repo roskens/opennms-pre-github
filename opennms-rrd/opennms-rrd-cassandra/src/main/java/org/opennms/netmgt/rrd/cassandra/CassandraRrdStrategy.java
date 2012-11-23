@@ -422,7 +422,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
     }
 
     /** {@inheritDoc} */
-    public Double fetchLastValue(final String fileName, final String ds, final String consolidationFunction, final int interval)
+    public Double fetchLastValue(final String fileName, final String ds, final String consolFun, final int interval)
             throws org.opennms.netmgt.rrd.RrdException {
         LogUtils.debugf(this, "fetchLastValue(): fileName=%s, datasource=%s", fileName, ds);
         Double dval = null;
@@ -431,7 +431,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
             long now = System.currentTimeMillis();
             Long collectTime = Long.valueOf((now - (now % interval)) / 1000L);
             CassRrd rrd = new CassRrd(m_connection, fileName);
-            List<TimeSeriesPoint> tspoints = rrd.fetchRequest(ds, consolidationFunction, collectTime, collectTime);
+            List<TimeSeriesPoint> tspoints = rrd.fetchRequest(ds, consolFun, collectTime, collectTime);
 
             for (TimeSeriesPoint tsp : tspoints) {
                 if(!tsp.getValue().isNaN()) {
@@ -832,7 +832,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
 
         try {
             CassRrd rrd = new CassRrd(m_connection, key);
-            List<TimeSeriesPoint> tspoints = rrd.fetchRequest(dsName, "AVERAGE", Long.valueOf(start), Long.valueOf(end));
+            List<TimeSeriesPoint> tspoints = rrd.fetchRequest(dsName, consolFun, Long.valueOf(start), Long.valueOf(end));
 
             long[] timestamps = new long[tspoints.size()];
             double[] values = new double[tspoints.size()];

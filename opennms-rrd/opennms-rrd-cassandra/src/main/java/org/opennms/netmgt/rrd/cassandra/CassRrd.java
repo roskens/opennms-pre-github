@@ -192,10 +192,10 @@ public class CassRrd {
         return timestamp - timestamp % step;
     }
 
-    public List<TimeSeriesPoint> fetchRequest(final String ds, final String consolidationFunction,
+    public List<TimeSeriesPoint> fetchRequest(final String ds, final String consolFun,
             final Long earliestUpdateTime, final Long latestUpdateTime) throws org.opennms.netmgt.rrd.RrdException {
-        LogUtils.debugf(this, "fetchRequest(): fileName=%s, datasource=%s, begin=%d, end=%d", m_fileName, ds,
-                        earliestUpdateTime, latestUpdateTime);
+        LogUtils.debugf(this, "fetchRequest(): fileName=%s, datasource=%s, consolFun=%s, begin=%d, end=%d", m_fileName, ds,
+                        consolFun, earliestUpdateTime, latestUpdateTime);
         ArrayList<TimeSeriesPoint> tspoints = new ArrayList<TimeSeriesPoint>();
 
         try {
