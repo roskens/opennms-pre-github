@@ -61,7 +61,6 @@ import me.prettyprint.hector.api.query.SliceQuery;
 
 import org.jrobin.core.RrdException;
 import org.jrobin.data.DataProcessor;
-import org.jrobin.data.LinearInterpolator;
 import org.jrobin.data.Plottable;
 import org.jrobin.graph.RrdGraph;
 import org.jrobin.graph.RrdGraphDef;
@@ -159,6 +158,22 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
                 return Double.NaN;
             }
         }
+    }
+
+    class TimeSeriesPlottable extends Plottable {
+      private List<TimeSeriesPoint> m_tspoints;
+      TimeSeriesPlottable(final List<TimeSeriesPoint> tspoints) {
+        m_tspoints = tspoints;
+      }
+      public double getValue(long timestamp) {
+        for(TimeSeriesPoint tsp : m_tspoints) {
+          if (tsp.getTimestamp() == timestamp) {
+            return tsp.getValue().doubleValue();
+          }
+        }
+
+        return Double.NaN;
+      }
     }
 
     /**
@@ -825,7 +840,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
 
     private Plottable getRrdPlottable(final File workDir, String relpath, long start, long end, String dsName, String consolFun)
             throws RrdException {
-        LinearInterpolator plottable = null;
+        Plottable plottable = null;
         String path = workDir.getAbsolutePath();
         String key = path + File.separator + relpath;
         LogUtils.debugf(this, "getRrdPlottable(): key=%s", key);
@@ -834,16 +849,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
             CassRrd rrd = new CassRrd(m_connection, key);
             List<TimeSeriesPoint> tspoints = rrd.fetchRequest(dsName, consolFun, Long.valueOf(start), Long.valueOf(end));
 
-            long[] timestamps = new long[tspoints.size()];
-            double[] values = new double[tspoints.size()];
-            int i = 0;
-
-            for (TimeSeriesPoint tsp : tspoints) {
-                timestamps[i] = tsp.getTimestamp().longValue();
-                values[i] = tsp.getValue().doubleValue();
-                i++;
-            }
-            plottable = new LinearInterpolator(timestamps, values);
+            plottable = new TimeSeriesPlottable(tspoints);
         } catch (Exception e) {
             throw new RrdException(e.getMessage());
         }
