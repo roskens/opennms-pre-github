@@ -4,6 +4,8 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.Comparator;
+import java.util.Collections;
 
 import org.opennms.core.xml.JaxbUtils;
 
@@ -192,6 +194,7 @@ public class CassRrd {
         return timestamp - timestamp % step;
     }
 
+    // FIXME: need to handle the case where we are missing midpoints inside our range.
     public List<TimeSeriesPoint> fetchRequest(final String ds, final String consolFun,
             final Long earliestUpdateTime, final Long latestUpdateTime) throws org.opennms.netmgt.rrd.RrdException {
         LogUtils.debugf(this, "fetchRequest(): fileName=%s, datasource=%s, consolFun=%s, begin=%d, end=%d", m_fileName, ds,
@@ -210,13 +213,84 @@ public class CassRrd {
 
             List<HColumn<Long, Double>> ssdatapoints = ssresults.get().getColumns();
 
-            LogUtils.debugf(this, "found %d datapoints\n", ssdatapoints.size());
+            LogUtils.debugf(this, "found %d datapoints", ssdatapoints.size());
+            Long t0 = latestUpdateTime;
+            Long t1 = earliestUpdateTime;
             for (HColumn<Long, Double> dp : ssdatapoints) {
-                tspoints.add(new TimeSeriesPoint(dp.getName().longValue(), dp.getValue().doubleValue()));
+              Long lv = dp.getName();
+              if (lv < t0) { t0 = lv; }
+              if (lv > t1) { t1 = lv; }
+              tspoints.add(new TimeSeriesPoint(normalize(dp.getName().longValue(), getStep()), dp.getValue().doubleValue()));
             }
+            LogUtils.debugf(this, "fetchRequest(): t0:%d/%d, t1:%d/%d",
+                            normalize(t0, getStep()), normalize(earliestUpdateTime, getStep()),
+                            normalize(t1, getStep()), normalize(latestUpdateTime, getStep())
+            );
+            earliestUpdateTime = normalize(earliestUpdateTime, getStep());
+            t0 = normalize(t0, getStep());
+            while (earliestUpdateTime < t0) {
+              tspoints.add(0, new TimeSeriesPoint(t0, Double.valueOf(Double.NaN)));
+              t0 -= getStep();
+            }
+            latestUpdateTime = normalize(latestUpdateTime, getStep());
+            t1 = normalize(t1, getStep());
+            while (t1 < latestUpdateTime) {
+              tspoints.add(new TimeSeriesPoint(t1, Double.valueOf(Double.NaN)));
+              t1 += getStep();
+            }
+            LogUtils.debugf(this, "tspoints has %d datapoints", tspoints.size());
         } catch (HectorException e) {
             throw new org.opennms.netmgt.rrd.RrdException(e.getMessage());
         }
+
+        Collections.sort(tspoints, new Comparator<TimeSeriesPoint>() {
+            public int compare(TimeSeriesPoint o1, TimeSeriesPoint o2) {
+                return o1.getTimestamp().compareTo(o2.getTimestamp());
+            }
+        });
+
+        long tStart = normalize(earliestUpdateTime, getStep());
+        long tEnd = normalize(latestUpdateTime, getStep());
+
+        int idx = 0;
+        for (long t = tStart; t < tEnd; ) {
+          if (t < tspoints.get(idx).getTimestamp()) {
+            LogUtils.debugf(this, "tspoints[idx=%d] timestamp=%d, value=%f", idx, tspoints.get(idx).getTimestamp(), tspoints.get(idx).getValue());
+            tspoints.add(0, new TimeSeriesPoint(t, Double.NaN));
+            t += getStep();
+            idx++;
+            continue;
+          }
+          break;
+        }
+        LogUtils.debugf(this, "tspoints[idx=%d] timestamp=%d, value=%f", idx, tspoints.get(idx).getTimestamp(), tspoints.get(idx).getValue());
+
+/*
+        long tStart = normalize(earliestUpdateTime, getStep());
+        long tEnd = normalize(latestUpdateTime, getStep());
+
+        TimeSeriesPoint tsp = tspoints.get(0);
+        if (tStart < tsp.getTimestamp()) {
+          for(long t = tsp.getTimestamp(); t > tStart ; t -= getStep()) {
+            tspoints.add(0, new TimeSeriesPoint(t, Double.NaN));
+          }
+        }
+
+        tsp = tspoints.get(tspoints.size()-1);
+        if (tEnd > (tsp.getTimestamp() + getStep())) {
+          for(long t = tsp.getTimestamp() + getStep(); t < tEnd; t += getStep()) {
+            tspoints.add(new TimeSeriesPoint(t, Double.NaN));
+          }
+        }
+
+        for (int idx = 0; idx < tspoints.size()-1; idx++) {
+          tsp = tspoints.get(idx);
+          TimeSeriesPoint tspNext = tspoints.get(idx+1);
+          if(tspNext.getTimestamp() - tsp.getTimestamp() > getStep()) {
+
+          }
+        }
+*/
         return tspoints;
     }
 

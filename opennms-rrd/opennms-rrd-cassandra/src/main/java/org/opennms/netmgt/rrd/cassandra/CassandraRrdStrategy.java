@@ -162,16 +162,59 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
 
     class TimeSeriesPlottable extends Plottable {
       private List<TimeSeriesPoint> m_tspoints;
+      private int lastIndexUsed = 0;
+
       TimeSeriesPlottable(final List<TimeSeriesPoint> tspoints) {
         m_tspoints = tspoints;
       }
+
       public double getValue(long timestamp) {
-        for(TimeSeriesPoint tsp : m_tspoints) {
-          if (tsp.getTimestamp() == timestamp) {
-            return tsp.getValue().doubleValue();
-          }
+        //for(StackTraceElement e : Thread.currentThread().getStackTrace()) { LogUtils.debugf(this, e.toString()); }
+        //LogUtils.debugf(this, "getValue(): timestamp=%d", timestamp);
+
+        int count = m_tspoints.size();
+        if (timestamp < m_tspoints.get(0).getTimestamp() || timestamp > m_tspoints.get(count - 1).getTimestamp()) {
+            return Double.NaN;
         }
 
+        // find matching segment
+        int startIndex = lastIndexUsed;
+        if (timestamp < m_tspoints.get(lastIndexUsed).getTimestamp()) {
+            // backward reading, shift to the first timestamp
+            startIndex = 0;
+        }
+        for (int i = startIndex; i < count; i++) {
+            TimeSeriesPoint tsp0 = m_tspoints.get(i);
+            if (tsp0.getTimestamp() == timestamp) {
+                return tsp0.getValue();
+            }
+            if (i < count - 1) {
+                TimeSeriesPoint tsp1 = m_tspoints.get(i+1);
+                if (tsp0.getTimestamp() < timestamp && timestamp < tsp1.getTimestamp()) {
+                    // matching segment found
+                    lastIndexUsed = i;
+//                switch (interpolationMethod) {
+//                    case INTERPOLATE_LEFT:
+//                        return tsp.getValue();
+//                    case INTERPOLATE_RIGHT:
+//                        return m_tspoints.get(i + 1).getValue();
+//                    case INTERPOLATE_LINEAR:
+//                        double slope = (values[i + 1] - values[i]) /
+//                                                                (timestamps[i + 1] - timestamps[i]);
+//                        return values[i] + slope * (timestamp - timestamps[i]);
+//                    default:
+//                        return Double.NaN;
+//                }
+                    //LogUtils.debugf(this, "getValue(): tsp[%d].timestamp=%d", i, tsp0.getTimestamp());
+                    double slope = (tsp1.getValue() - tsp0.getValue()) /
+                        (tsp1.getTimestamp() - tsp0.getTimestamp());
+                    LogUtils.debugf(this, "getValue(): tsp[%d].timestamp=%d, value=%f", i, tsp0.getTimestamp(), tsp0.getValue() + slope * (timestamp - tsp0.getTimestamp()));
+                    return tsp0.getValue() + slope * (timestamp - tsp0.getTimestamp());
+                }
+            }
+        }
+        // should not be here ever, but let's satisfy the compiler
+        LogUtils.debugf(this, "getValue(): timestamp=%d, value=Double.NaN", timestamp);
         return Double.NaN;
       }
     }
