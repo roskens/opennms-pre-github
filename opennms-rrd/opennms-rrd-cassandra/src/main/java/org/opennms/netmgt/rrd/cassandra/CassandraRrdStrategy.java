@@ -368,7 +368,6 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
         }
     }
 
-    @Override
     public Map<String, String> getMetaDataMappings(String directory, String rrdName) throws Exception {
         Map<String,String> map = new HashMap<String,String>();
 
