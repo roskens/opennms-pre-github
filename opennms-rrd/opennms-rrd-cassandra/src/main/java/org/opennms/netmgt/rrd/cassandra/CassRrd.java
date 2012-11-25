@@ -199,9 +199,7 @@ public class CassRrd {
             final Long earliestUpdateTime, final Long latestUpdateTime) throws org.opennms.netmgt.rrd.RrdException {
         LogUtils.debugf(this, "fetchRequest(): fileName=%s, datasource=%s, consolFun=%s, begin=%d, end=%d", m_fileName, ds,
                         consolFun, earliestUpdateTime, latestUpdateTime);
-        long expectedCount = (latestUpdateTime - earliestUpdateTime) / getStep();
         ArrayList<TimeSeriesPoint> tspoints = new ArrayList<TimeSeriesPoint>();
-        LogUtils.debugf(this, "expecting to find %d results", expectedCount);
 
         try {
             SubSliceQuery<String, String, Long, Double> ssquery = HFactory.createSubSliceQuery(m_connection.getKeyspace(), s_ss, s_ss, s_ls,
@@ -215,22 +213,19 @@ public class CassRrd {
 
             List<HColumn<Long, Double>> ssdatapoints = ssresults.get().getColumns();
 
-            LogUtils.debugf(this, "found %d datapoints", ssdatapoints.size());
+            LogUtils.tracef(this, "found %d datapoints", ssdatapoints.size());
             Long t0 = null;
             for (HColumn<Long, Double> dp : ssdatapoints) {
               Long dpTs = dp.getName();
               if (t0 != null) {
                 while (t0 < dpTs) {
-                  LogUtils.debugf(this, "adding extra tspoint: timestamp=%d, value=%f", t0, Double.NaN);
                   tspoints.add(new TimeSeriesPoint(t0, Double.valueOf(Double.NaN)));
                   t0 += getStep();
                 }
               }
               tspoints.add(new TimeSeriesPoint(normalize(dpTs, getStep()), dp.getValue().doubleValue()));
-              LogUtils.debugf(this, "adding tspoint: timestamp=%d, value=%f", normalize(dpTs, getStep()), dp.getValue().doubleValue());
               t0 = dpTs + getStep();
             }
-            LogUtils.debugf(this, "tspoints has %d datapoints", tspoints.size());
         } catch (HectorException e) {
             throw new org.opennms.netmgt.rrd.RrdException(e.getMessage());
         }
