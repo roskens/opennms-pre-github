@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://xmlns.opennms.org/xsd/cassandra"
+        xmlns="http://www.w3.org/2001/XMLSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:this="http://xmlns.opennms.org/xsd/cassandra"
+        xmlns:ns2="http://www.w3.org/1999/xhtml"
+        xmlns:ns="http://www.w3.org/2001/XMLSchema"
+        xmlns:hfp="http://www.w3.org/2001/XMLSchema-hasFacetAndProperty"
+                  elementFormDefault="qualified">
+  <annotation>
+    <documentation>XML Schema for the cassandra def.</documentation>
+  </annotation>
+
+<element name="rrd_def">
+  <annotation>
+    <documentation>rrd_def</documentation>
+  </annotation>
+  <complexType>
+    <sequence>
+      <element ref="this:datasource" minOccurs="0" maxOccurs="unbounded" />
+      <element ref="this:archive"    minOccurs="0" maxOccurs="unbounded" />
+    </sequence>
+    <attribute name="step" type="integer" use="required" />
+  </complexType>
+</element>
+
+<element name="datasource">
+  <annotation>
+    <documentation>datasource</documentation>
+  </annotation>
+  <complexType>
+    <attribute name="name" type="string" use="required" />
+    <attribute name="type" type="string" use="required" />
+    <attribute name="heartbeat" type="integer" use="required" />
+    <attribute name="min" type="string" use="required" />
+    <attribute name="max" type="string" use="required" />
+  </complexType>
+</element>
+
+<element name="archive">
+  <annotation>
+    <documentation>archive</documentation>
+  </annotation>
+  <complexType>
+    <attribute name="cf" use="required">
+     <simpleType>
+       <restriction base="string">
+         <pattern value="(AVERAGE|MIN|MAX|LAST)"/>
+       </restriction>
+     </simpleType>
+    </attribute>
+    <attribute name="xff" use="required">
+     <simpleType>
+       <restriction base="double">
+         <minInclusive value="0.0"/>
+         <maxInclusive value="1.0"/>
+       </restriction>
+     </simpleType>
+    </attribute>
+    <attribute name="steps" use="required">
+     <simpleType>
+       <restriction base="int">
+         <minInclusive value="1"/>
+       </restriction>
+     </simpleType>
+    </attribute>
+    <attribute name="rows" use="required">
+     <simpleType>
+       <restriction base="int">
+         <minInclusive value="1"/>
+       </restriction>
+     </simpleType>
+    </attribute>
+  </complexType>
+</element>
+
+</schema>
