@@ -10,8 +10,6 @@ import me.prettyprint.hector.api.beans.HSuperColumn;
 import me.prettyprint.hector.api.factory.HFactory;
 import me.prettyprint.hector.api.mutation.Mutator;
 
-import org.opennms.core.utils.LogUtils;
-
 public class Datapoint extends TimeSeriesPoint {
     private String m_fileName;
 
@@ -38,8 +36,6 @@ public class Datapoint extends TimeSeriesPoint {
     }
 
     public void persist(Mutator<String> mutator, String columnFamily, int ttl) {
-        LogUtils.debugf(this, "datapoint['%s']['%s'][ %d ] = %f", getName(), getDsName(), getTimestamp(), getValue());
-
         HColumn<Long, Double> c = HFactory.createColumn(Long.valueOf(getTimestamp()), getValue(), ttl, s_ls, s_ds);
         HSuperColumn<String, Long, Double> superColumn = HFactory.createSuperColumn(getDsName(), Collections.singletonList(c),
                                                                                     s_ss, s_ls, s_ds);

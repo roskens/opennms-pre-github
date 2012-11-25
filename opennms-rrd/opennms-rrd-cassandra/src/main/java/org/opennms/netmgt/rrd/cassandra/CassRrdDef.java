@@ -111,9 +111,6 @@ public class CassRrdDef {
     }
 
     public void create(CassandraRrdConnection connection) throws RrdException {
-        LogUtils.debugf(this, "begin");
-        // throw new UnsupportedOperationException("CassRrdDef.create is not yet implemented.");
-        // TODO: Only need this while ResourceTypeUtils does file system scans for datasources.
         File f = new File(m_fileName);
         if (!f.exists()) {
             try {
@@ -125,13 +122,10 @@ public class CassRrdDef {
         }
         LogUtils.debugf(this, "create: keyspace: %s", connection.getKeyspace().getKeyspaceName());
 
-        // metadata[$m_fileName][$m_fileName] = (rrd def as xml)
-
         Mutator<String> mutator = HFactory.createMutator(connection.getKeyspace(), s_ss);
         mutator.insert(m_fileName, connection.getMetaDataCFName(), HFactory.createStringColumn(m_fileName, toXml()));
 
         try {
-            LogUtils.debugf(this, "mutator.execute()");
             ResultStatus result = mutator.execute();
             if (result == null) {
                 LogUtils.warnf(this, "result was null after execute()");
@@ -139,7 +133,6 @@ public class CassRrdDef {
         } catch (HectorException e) {
             LogUtils.errorf(this, e, "exception");
         }
-        LogUtils.debugf(this, "finished");
     }
 
     public String toXml() {

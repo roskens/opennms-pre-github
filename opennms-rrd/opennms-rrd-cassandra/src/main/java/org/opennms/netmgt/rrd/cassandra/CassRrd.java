@@ -63,7 +63,6 @@ public class CassRrd {
             }
 
             LogUtils.debugf(this, "metadata: found xml data for %s", m_fileName);
-            LogUtils.debugf(this, "xml: %s", hc.getValue());
             m_rrddef = JaxbUtils.unmarshal(RrdDef.class, hc.getValue(), true);
         } catch (HectorException e) {
             LogUtils.errorf(this, e, "exception on search");
