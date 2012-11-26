@@ -856,93 +856,58 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
     }
 
     private void processRrdFontArgument(RrdGraphDef graphDef, String argParm) {
-        String[] argValue = argParm.split(":", 3);
-        if (argValue[0].startsWith("\"")) {
-            argValue[0] = argValue[0].substring(1);
+        String[] argValue = tokenize(argParm, ":", false);
+        if (argValue.length < 2 || argValue.length > 3) {
+            log().warn("invalid number of arguments ("+argValue.length+") for font argument " + argParm);
+            return;
         }
-        if (argValue[2].startsWith("\"")) {
-            argValue[2] = argValue[2].substring(1);
-        }
-        if (argValue[2].endsWith("\"")) {
-            LogUtils.debugf(this, "argValue[2].endsWith(\") = %s", argValue[2].substring(0, argValue[2].length()-1));
-            argValue[2] = argValue[2].substring(0, argValue[2].length()-1);
-        }
+        int newPointSize = Integer.parseInt(argValue[1]);
+        int fontTag;
+        Font font;
 
         if (argValue[0].equals("DEFAULT")) {
-            int newPointSize = Integer.parseInt(argValue[1]);
-            try {
-                Font font = graphDef.getFont(RrdGraphDef.FONTTAG_DEFAULT);
-                int origPointSize = font.getSize();
-                if (argValue[2] != null && argValue[2].length() > 0) {
-                    font = Font.decode(argValue[2]);
-                    // if(font.getFamilyName().equals("Dialog") && font.getName( eq
-                }
-                graphDef.setFont(RrdGraphDef.FONTTAG_DEFAULT, font.deriveFont((float)newPointSize), true, newPointSize == 0);
-            } catch (Throwable e) {
-                LogUtils.warnf(this, "unable to create font from font argument %s %s",  argParm, e.getMessage());
-            }
+            fontTag = RrdGraphDef.FONTTAG_DEFAULT;
         } else if (argValue[0].equals("TITLE")) {
-            int newPointSize = Integer.parseInt(argValue[1]);
-            try {
-                Font font = graphDef.getFont(RrdGraphDef.FONTTAG_TITLE);
-                if (argValue[2] != null && argValue[2].length() > 0) {
-                    font = Font.decode(argValue[2]);
-                }
-                graphDef.setFont(RrdGraphDef.FONTTAG_TITLE, font.deriveFont((float)newPointSize));
-            } catch (Throwable e) {
-                LogUtils.warnf(this, "unable to create font from font argument %s %s",  argParm, e.getMessage());
-            }
+            fontTag = RrdGraphDef.FONTTAG_TITLE;
         } else if (argValue[0].equals("AXIS")) {
-            int newPointSize = Integer.parseInt(argValue[1]);
-            try {
-                Font font = graphDef.getFont(RrdGraphDef.FONTTAG_AXIS);
-                if (argValue[2] != null && argValue[2].length() > 0) {
-                    font = Font.decode(argValue[2]);
-                }
-                graphDef.setFont(RrdGraphDef.FONTTAG_AXIS, font.deriveFont((float)newPointSize));
-            } catch (Throwable e) {
-                LogUtils.warnf(this, "unable to create font from font argument %s %s",  argParm, e.getMessage());
-            }
+            fontTag = RrdGraphDef.FONTTAG_AXIS;
         } else if (argValue[0].equals("UNIT")) {
-            int newPointSize = Integer.parseInt(argValue[1]);
-            try {
-                Font font = graphDef.getFont(RrdGraphDef.FONTTAG_UNIT);
-                if (argValue[2] != null && argValue[2].length() > 0) {
-                    font = Font.decode(argValue[2]);
-                }
-                graphDef.setFont(RrdGraphDef.FONTTAG_UNIT, font.deriveFont((float)newPointSize));
-            } catch (Throwable e) {
-                LogUtils.warnf(this, "unable to create font from font argument %s %s",  argParm, e.getMessage());
-            }
+            fontTag = RrdGraphDef.FONTTAG_UNIT;
         } else if (argValue[0].equals("LEGEND")) {
-            int newPointSize = Integer.parseInt(argValue[1]);
-            try {
-                Font font = graphDef.getFont(RrdGraphDef.FONTTAG_LEGEND);
-                if (argValue[2] != null && argValue[2].length() > 0) {
-                    font = Font.decode(argValue[2]);
-                }
-                graphDef.setFont(RrdGraphDef.FONTTAG_LEGEND, font.deriveFont((float)newPointSize));
-            } catch (Throwable e) {
-                LogUtils.warnf(this, "unable to create font from font argument %s %s",  argParm, e.getMessage());
-            }
+            fontTag = RrdGraphDef.FONTTAG_LEGEND;
         } else if (argValue[0].equals("WATERMARK")) {
-            int newPointSize = Integer.parseInt(argValue[1]);
-            try {
-                Font font = graphDef.getFont(RrdGraphDef.FONTTAG_WATERMARK);
-                if (argValue[2] != null && argValue[2].length() > 0) {
-                    font = Font.decode(argValue[2]);
-                }
-                graphDef.setFont(RrdGraphDef.FONTTAG_WATERMARK, font.deriveFont((float)newPointSize));
-            } catch (Throwable e) {
-                LogUtils.warnf(this, "unable to create font from font argument %s %s",  argParm, e.getMessage());
-            }
+            fontTag = RrdGraphDef.FONTTAG_WATERMARK;
         } else {
-            try {
-                Font font = Font.createFont(Font.TRUETYPE_FONT, new File(argValue[0]));
-            } catch (Throwable e) {
-                // oh well, fall back to existing font stuff
-                LogUtils.warnf(this, "unable to create font from font argument %s",  argParm, e);
+            log().warn("invalid font tag " + argValue[0]);
+            return;
+        }
+
+        try {
+            font = graphDef.getFont(fontTag);
+
+            // If we have a font specified, try and get a font object for it.
+            if (argValue[2] != null && argValue[2].length() > 0) {
+                int origPointSize = font.getSize();
+                font = Font.decode(argValue[2]);
+
+                // Font.decode() returns a 12 px font size, by default unless you specify
+                // a font size in the font name pattern.
+                if (newPointSize > 0) {
+                    font = font.deriveFont((float) newPointSize);
+                } else {
+                    font = font.deriveFont((float) origPointSize);
+                }
+            } else {
+                // If we don't have a font name specified, then we just adjust the font size.
+                font = font.deriveFont((float) newPointSize);
             }
+           if (fontTag == RrdGraphDef.FONTTAG_DEFAULT) {
+                graphDef.setFont(fontTag, font, true, newPointSize == 0);
+            } else {
+                graphDef.setFont(fontTag, font);
+            }
+        } catch (Throwable e) {
+            log().warn("unable to create font from font argument " + argParm + " " + e.getMessage());
         }
     }
 
