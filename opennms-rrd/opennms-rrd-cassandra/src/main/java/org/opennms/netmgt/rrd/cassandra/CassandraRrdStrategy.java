@@ -29,6 +29,7 @@
 package org.opennms.netmgt.rrd.cassandra;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -269,7 +270,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
 
         String fileName = directory + File.separator + rrdName + getDefaultFileExtension();
         if (new File(fileName).exists()) {
-            LogUtils.debugf(this, "file %s exists", fileName);
+            LogUtils.tracef(this, "file %s exists", fileName);
             return null;
         }
 
@@ -319,7 +320,6 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
      */
     public void createFile(final CassRrdDef rrdDef, final Map<String, String> attributeMappings) throws Exception {
         if (rrdDef == null) {
-            LogUtils.debugf(this, "createRRD: skipping RRD file");
             return;
         }
 
@@ -343,10 +343,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
         }
 
         try {
-            ResultStatus result = mutator.execute();
-            if (result == null) {
-                LogUtils.warnf(this, "result was null after execute()");
-            }
+            mutator.execute();
             LogUtils.infof(this, "createRRD: creating META file %s", fileName);
         } catch (HectorException e) {
             LogUtils.errorf(this, e, "exception");
@@ -423,7 +420,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
     /** {@inheritDoc} */
     public Double fetchLastValue(final String fileName, final String ds, final String consolFun, final int interval)
             throws org.opennms.netmgt.rrd.RrdException {
-        LogUtils.debugf(this, "fetchLastValue(): fileName=%s, datasource=%s", fileName, ds);
+        LogUtils.tracef(this, "fetchLastValue(): fileName=%s, datasource=%s", fileName, ds);
         Double dval = null;
 
         try {
@@ -434,7 +431,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
 
             for (TimeSeriesPoint tsp : tspoints) {
                 if(!tsp.getValue().isNaN()) {
-                    LogUtils.debugf(this, "datapoint[%d]: %f\n", tsp.getTimestamp(), tsp.getValue());
+                    LogUtils.tracef(this, "datapoint[%d]: %f", tsp.getTimestamp(), tsp.getValue());
                     dval = tsp.getValue();
                     break;
                 }
@@ -448,7 +445,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
     /** {@inheritDoc} */
     public Double fetchLastValueInRange(final String fileName, final String ds, final int interval, final int range)
             throws NumberFormatException, org.opennms.netmgt.rrd.RrdException {
-        LogUtils.debugf(this, "fetchLastValue(): fileName=%s, datasource=%s", fileName, ds);
+        LogUtils.tracef(this, "fetchLastValue(): fileName=%s, datasource=%s", fileName, ds);
         Double dval = null;
 
         try {
@@ -460,7 +457,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
 
             for (TimeSeriesPoint tsp : tspoints) {
                 if(!tsp.getValue().isNaN()) {
-                    LogUtils.debugf(this, "datapoint[%d]: %f\n", tsp.getTimestamp(), tsp.getValue());
+                    LogUtils.tracef(this, "datapoint[%d]: %f\n", tsp.getTimestamp(), tsp.getValue());
                     dval = tsp.getValue();
                     break;
                 }
@@ -818,7 +815,12 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
         // graphDef.setLargeFont(new Font("Monospaced", Font.PLAIN, 12));
 
         LogUtils.debugf(this,"JRobin Finished tokenizing checking: start time: " + start + "; end time: " + end);
-        LogUtils.debugf(this,"large font = " + graphDef.getLargeFont() + ", small font = " + graphDef.getSmallFont());
+        LogUtils.debugf(this,"default font = " + graphDef.getFont(RrdGraphDef.FONTTAG_DEFAULT));
+        LogUtils.debugf(this,"title font = " + graphDef.getFont(RrdGraphDef.FONTTAG_TITLE));
+        LogUtils.debugf(this,"axis font = " + graphDef.getFont(RrdGraphDef.FONTTAG_AXIS));
+        LogUtils.debugf(this,"unit font = " + graphDef.getFont(RrdGraphDef.FONTTAG_UNIT));
+        LogUtils.debugf(this,"legend font = " + graphDef.getFont(RrdGraphDef.FONTTAG_LEGEND));
+        LogUtils.debugf(this,"watermark font = " + graphDef.getFont(RrdGraphDef.FONTTAG_WATERMARK));
         return graphDef;
     }
 
@@ -854,21 +856,94 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
     }
 
     private void processRrdFontArgument(RrdGraphDef graphDef, String argParm) {
-        /*
-         * String[] argValue = tokenize(argParm, ":", true); if
-         * (argValue[0].equals("DEFAULT")) { int newPointSize =
-         * Integer.parseInt(argValue[1]);
-         * graphDef.setSmallFont(graphDef.getSmallFont
-         * ().deriveFont(newPointSize)); } else if
-         * (argValue[0].equals("TITLE")) { int newPointSize =
-         * Integer.parseInt(argValue[1]);
-         * graphDef.setLargeFont(graphDef.getLargeFont
-         * ().deriveFont(newPointSize)); } else { try { Font font =
-         * Font.createFont(Font.TRUETYPE_FONT, new File(argValue[0])); } catch
-         * (Throwable e) { // oh well, fall back to existing font stuff
-         * log().warn("unable to create font from font argument " + argParm,
-         * e); } }
-         */
+        String[] argValue = argParm.split(":", 3);
+        if (argValue[0].startsWith("\"")) {
+            argValue[0] = argValue[0].substring(1);
+        }
+        if (argValue[2].startsWith("\"")) {
+            argValue[2] = argValue[2].substring(1);
+        }
+        if (argValue[2].endsWith("\"")) {
+            LogUtils.debugf(this, "argValue[2].endsWith(\") = %s", argValue[2].substring(0, argValue[2].length()-1));
+            argValue[2] = argValue[2].substring(0, argValue[2].length()-1);
+        }
+
+        if (argValue[0].equals("DEFAULT")) {
+            int newPointSize = Integer.parseInt(argValue[1]);
+            try {
+                Font font = graphDef.getFont(RrdGraphDef.FONTTAG_DEFAULT);
+                int origPointSize = font.getSize();
+                if (argValue[2] != null && argValue[2].length() > 0) {
+                    font = Font.decode(argValue[2]);
+                    // if(font.getFamilyName().equals("Dialog") && font.getName( eq
+                }
+                graphDef.setFont(RrdGraphDef.FONTTAG_DEFAULT, font.deriveFont((float)newPointSize), true, newPointSize == 0);
+            } catch (Throwable e) {
+                LogUtils.warnf(this, "unable to create font from font argument %s %s",  argParm, e.getMessage());
+            }
+        } else if (argValue[0].equals("TITLE")) {
+            int newPointSize = Integer.parseInt(argValue[1]);
+            try {
+                Font font = graphDef.getFont(RrdGraphDef.FONTTAG_TITLE);
+                if (argValue[2] != null && argValue[2].length() > 0) {
+                    font = Font.decode(argValue[2]);
+                }
+                graphDef.setFont(RrdGraphDef.FONTTAG_TITLE, font.deriveFont((float)newPointSize));
+            } catch (Throwable e) {
+                LogUtils.warnf(this, "unable to create font from font argument %s %s",  argParm, e.getMessage());
+            }
+        } else if (argValue[0].equals("AXIS")) {
+            int newPointSize = Integer.parseInt(argValue[1]);
+            try {
+                Font font = graphDef.getFont(RrdGraphDef.FONTTAG_AXIS);
+                if (argValue[2] != null && argValue[2].length() > 0) {
+                    font = Font.decode(argValue[2]);
+                }
+                graphDef.setFont(RrdGraphDef.FONTTAG_AXIS, font.deriveFont((float)newPointSize));
+            } catch (Throwable e) {
+                LogUtils.warnf(this, "unable to create font from font argument %s %s",  argParm, e.getMessage());
+            }
+        } else if (argValue[0].equals("UNIT")) {
+            int newPointSize = Integer.parseInt(argValue[1]);
+            try {
+                Font font = graphDef.getFont(RrdGraphDef.FONTTAG_UNIT);
+                if (argValue[2] != null && argValue[2].length() > 0) {
+                    font = Font.decode(argValue[2]);
+                }
+                graphDef.setFont(RrdGraphDef.FONTTAG_UNIT, font.deriveFont((float)newPointSize));
+            } catch (Throwable e) {
+                LogUtils.warnf(this, "unable to create font from font argument %s %s",  argParm, e.getMessage());
+            }
+        } else if (argValue[0].equals("LEGEND")) {
+            int newPointSize = Integer.parseInt(argValue[1]);
+            try {
+                Font font = graphDef.getFont(RrdGraphDef.FONTTAG_LEGEND);
+                if (argValue[2] != null && argValue[2].length() > 0) {
+                    font = Font.decode(argValue[2]);
+                }
+                graphDef.setFont(RrdGraphDef.FONTTAG_LEGEND, font.deriveFont((float)newPointSize));
+            } catch (Throwable e) {
+                LogUtils.warnf(this, "unable to create font from font argument %s %s",  argParm, e.getMessage());
+            }
+        } else if (argValue[0].equals("WATERMARK")) {
+            int newPointSize = Integer.parseInt(argValue[1]);
+            try {
+                Font font = graphDef.getFont(RrdGraphDef.FONTTAG_WATERMARK);
+                if (argValue[2] != null && argValue[2].length() > 0) {
+                    font = Font.decode(argValue[2]);
+                }
+                graphDef.setFont(RrdGraphDef.FONTTAG_WATERMARK, font.deriveFont((float)newPointSize));
+            } catch (Throwable e) {
+                LogUtils.warnf(this, "unable to create font from font argument %s %s",  argParm, e.getMessage());
+            }
+        } else {
+            try {
+                Font font = Font.createFont(Font.TRUETYPE_FONT, new File(argValue[0]));
+            } catch (Throwable e) {
+                // oh well, fall back to existing font stuff
+                LogUtils.warnf(this, "unable to create font from font argument %s",  argParm, e);
+            }
+        }
     }
 
     private String[] tokenize(final String line, final String delimiters, final boolean processQuotes) {
