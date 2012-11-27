@@ -28,12 +28,16 @@
 package org.opennms.features.vaadin.config;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.util.Iterator;
 
 import org.opennms.core.utils.ConfigFileConstants;
 import org.opennms.core.utils.LogUtils;
 import org.opennms.core.xml.JaxbUtils;
 import org.opennms.features.vaadin.events.EventPanel;
+import org.opennms.netmgt.EventConstants;
 import org.opennms.netmgt.config.EventConfDao;
+import org.opennms.netmgt.model.events.EventBuilder;
 import org.opennms.netmgt.model.events.EventProxy;
 import org.opennms.netmgt.xml.eventconf.Events;
 
@@ -50,6 +54,10 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.Window.Notification;
 import com.vaadin.ui.themes.Runo;
+
+import de.steinwedel.vaadin.MessageBox;
+import de.steinwedel.vaadin.MessageBox.ButtonType;
+import de.steinwedel.vaadin.MessageBox.EventListener;
 
 /**
  * The Class Event Administration Application.
@@ -94,31 +102,43 @@ public class EventAdminApplication extends Application {
             throw new RuntimeException("eventConfDao cannot be null.");
 
         setTheme(Runo.THEME_NAME);
-        final File eventsDir = new File(ConfigFileConstants.getFilePathString(), "events");
 
         final VerticalLayout layout = new VerticalLayout();
 
         final HorizontalLayout toolbar = new HorizontalLayout();
         toolbar.setMargin(true);
 
+        final Label comboLabel = new Label("Select Events Configuration File");
+        toolbar.addComponent(comboLabel);
+        toolbar.setComponentAlignment(comboLabel, Alignment.MIDDLE_LEFT);
+
+        final File eventsDir = new File(ConfigFileConstants.getFilePathString(), "events");
+        final XmlFileContainer container = new XmlFileContainer(eventsDir, true);
+        container.addExcludeFile("default.events.xml"); // This is a protected file, should not be updated.
         final ComboBox eventSource = new ComboBox();
         toolbar.addComponent(eventSource);
         eventSource.setImmediate(true);
         eventSource.setNullSelectionAllowed(false);
-        eventSource.setContainerDataSource(new FilesystemContainer(eventsDir));
+        eventSource.setContainerDataSource(container);
         eventSource.setItemCaptionPropertyId(FilesystemContainer.PROPERTY_NAME);
         eventSource.addListener(new ComboBox.ValueChangeListener() {
             @Override
             public void valueChange(ValueChangeEvent event) {
                 final File file = (File) event.getProperty().getValue();
-                LogUtils.infof(this, "Loading events from %s", file);
-                Events events = JaxbUtils.unmarshal(Events.class, file);
-                layout.removeComponent(layout.getComponent(1));
-                layout.addComponent(createEventPanel(file, events));
+                if (file == null)
+                    return;
+                try {
+                    LogUtils.infof(this, "Loading events from %s", file);
+                    final Events events = JaxbUtils.unmarshal(Events.class, file);
+                    addEventPanel(layout, file, events);
+                } catch (Exception e) {
+                    LogUtils.errorf(this, e, "an error ocurred while saving the event configuration %s: %s", file, e.getMessage());
+                    getMainWindow().showNotification("Can't parse file " + file + " because " + e.getMessage());
+                }
             }
         });
 
-        final Button add = new Button("Add File");
+        final Button add = new Button("Add New Events File");
         toolbar.addComponent(add);
         add.addListener(new Button.ClickListener() {
             @Override
@@ -126,23 +146,69 @@ public class EventAdminApplication extends Application {
                 PromptWindow w = new PromptWindow("New Events Configuration", "Events File Name") {
                     @Override
                     public void textFieldChanged(String fieldValue) {
-                        File file = new File(eventsDir, fieldValue);
+                        final File file = new File(eventsDir, fieldValue);
                         LogUtils.infof(this, "Adding new events file %s", file);
-                        Events events = new Events();
-                        layout.removeComponent(layout.getComponent(1));
-                        layout.addComponent(createEventPanel(file, events));
+                        final Events events = new Events();
+                        addEventPanel(layout, file, events);
                     }
                 };
                 getMainWindow().addWindow(w);
             }
         });
 
-        final Button remove = new Button("Remove File");
+        final Button remove = new Button("Remove Selected Events File");
         toolbar.addComponent(remove);
         remove.addListener(new Button.ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {
-                getMainWindow().showNotification("Not impementet yet!");
+                if (eventSource.getValue() == null) {
+                    getMainWindow().showNotification("Please select an event configuration file.");
+                    return;
+                }
+                final File file = (File) eventSource.getValue();
+                MessageBox mb = new MessageBox(getMainWindow(),
+                                               "Are you sure?",
+                                               MessageBox.Icon.QUESTION,
+                                               "Do you really want to remove the file " + file.getName() + "?<br/>This cannot be undone and OpenNMS won't be able to handle the events configured on this file.",
+                                               new MessageBox.ButtonConfig(MessageBox.ButtonType.YES, "Yes"),
+                                               new MessageBox.ButtonConfig(MessageBox.ButtonType.NO, "No"));
+                mb.addStyleName(Runo.WINDOW_DIALOG);
+                mb.show(new EventListener() {
+                    public void buttonClicked(ButtonType buttonType) {
+                        if (buttonType == MessageBox.ButtonType.YES) {
+                            LogUtils.infof(this, "deleting file %s", file);
+                            if (file.delete()) {
+                                try {
+                                    // Updating eventconf.xml
+                                    boolean modified = false;
+                                    File configFile = ConfigFileConstants.getFile(ConfigFileConstants.EVENT_CONF_FILE_NAME);
+                                    Events config = JaxbUtils.unmarshal(Events.class, configFile);
+                                    for (Iterator<String> it = config.getEventFileCollection().iterator(); it.hasNext();) {
+                                        String fileName = it.next();
+                                        if (file.getAbsolutePath().contains(fileName)) {
+                                            it.remove();
+                                            modified = true;
+                                        }
+                                    }
+                                    if (modified) {
+                                        JaxbUtils.marshal(config, new FileWriter(configFile));
+                                        EventBuilder eb = new EventBuilder(EventConstants.EVENTSCONFIG_CHANGED_EVENT_UEI, "WebUI");
+                                        eventProxy.send(eb.getEvent());
+                                    }
+                                    // Updating UI Components
+                                    eventSource.select(null);
+                                    if (layout.getComponentCount() > 1)
+                                        layout.removeComponent(layout.getComponent(1));
+                                } catch (Exception e) {
+                                    LogUtils.errorf(this, e, "an error ocurred while saving the event configuration: %s", e.getMessage());
+                                    getMainWindow().showNotification("Can't save event configuration. " + e.getMessage(), Notification.TYPE_ERROR_MESSAGE);
+                                }
+                            } else {
+                                getMainWindow().showNotification("Cannot delete file " + file, Notification.TYPE_WARNING_MESSAGE);
+                            }
+                        }
+                    }
+                });
             }
         });
 
@@ -155,13 +221,14 @@ public class EventAdminApplication extends Application {
     }
 
     /**
-     * Creates a new Events Panel.
+     * Adds a new Events Panel.
      *
+     * @param layout the layout
      * @param file the Events File Name
      * @param events the Events Object
      * @return a new Events Panel Object
      */
-    private EventPanel createEventPanel(final File file, final Events events) {
+    private void addEventPanel(final VerticalLayout layout, final File file, final Events events) {
         EventPanel eventPanel = new EventPanel(eventConfDao, eventProxy, file.getName(), events, new SimpleLogger()) {
             @Override
             public void cancel() {
@@ -178,7 +245,18 @@ public class EventAdminApplication extends Application {
             }
         };
         eventPanel.setCaption("Events from " + file.getName());
-        return eventPanel;
+        removeEventPanel(layout);
+        layout.addComponent(eventPanel);
+    }
+
+    /**
+     * Removes the event panel.
+     *
+     * @param layout the layout
+     */
+    private void removeEventPanel(final VerticalLayout layout) {
+        if (layout.getComponentCount() > 1)
+            layout.removeComponent(layout.getComponent(1));
     }
 
 }

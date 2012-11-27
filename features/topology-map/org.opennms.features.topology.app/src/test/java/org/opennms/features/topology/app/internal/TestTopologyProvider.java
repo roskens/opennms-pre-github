@@ -43,13 +43,15 @@ import com.vaadin.data.util.BeanContainer;
 import com.vaadin.data.util.BeanItem;
 
 public class TestTopologyProvider implements TopologyProvider {
+	private final String m_namespace;
     private TestVertexContainer m_vertexContainer;
     private BeanContainer<String, TestEdge> m_edgeContainer;
     private int m_vertexCounter = 0;
     private int m_edgeCounter = 0;
     private int m_groupCounter = 0;
     
-    public TestTopologyProvider() {
+    public TestTopologyProvider(String namespace) {
+    	m_namespace = namespace;
         m_vertexContainer = new TestVertexContainer();
         m_edgeContainer = new BeanContainer<String, TestEdge>(TestEdge.class);
         m_edgeContainer.setBeanIdProperty("id");
@@ -57,12 +59,14 @@ public class TestTopologyProvider implements TopologyProvider {
         String vId1 = getNextVertexId();
         TestVertex v1 = new TestLeafVertex(vId1, 0, 0);
         v1.setIcon("icon.jpg");
+        v1.setLabel("a leaf");
         
         Item beanItem = m_vertexContainer.addBean(v1);
         
         String vId2 = getNextVertexId();
         TestVertex v2 = new TestLeafVertex(vId2, 0, 0);
         v2.setIcon("icon.jpg");
+        v2.setLabel("another leaf");
         Item beanItem2 = m_vertexContainer.addBean(v2);
         
         String edgeId = getNextEdgeId();
@@ -75,6 +79,7 @@ public class TestTopologyProvider implements TopologyProvider {
         String id = getNextVertexId();
         TestVertex vert = new TestLeafVertex(id, 0, 0);
         vert.setIcon("icon.jpb");
+        vert.setLabel("a vertex");
         m_vertexContainer.addBean(vert);
         return id;
         
@@ -97,18 +102,19 @@ public class TestTopologyProvider implements TopologyProvider {
     }
 
     @Override
-    public Object addGroup(String groupIcon) {
+    public Object addGroup(String groupLabel, String groupIcon) {
         String nextGroupId = getNextGroupId();
-        addGroup(nextGroupId, groupIcon);
+        addGroup(nextGroupId, groupIcon, groupLabel);
         return nextGroupId;
     }
 
-    private Item addGroup(String groupId, String groupIcon) {
+    private Item addGroup(String groupId, String groupIcon, String groupLabel) {
         if(m_vertexContainer.containsId(groupId)) {
             throw new IllegalArgumentException("A vertex or group with id " + groupId + " already exists!");
         }
         TestVertex vertex = new TestGroup(groupId);
         vertex.setIcon(groupIcon);
+        vertex.setLabel(groupLabel);
         return m_vertexContainer.addBean(vertex);
     }
 
@@ -138,6 +144,7 @@ public class TestTopologyProvider implements TopologyProvider {
         String vId1 = getNextVertexId();
         TestVertex v1 = new TestLeafVertex(vId1, 0, 0);
         v1.setIcon("icon.jpg");
+        v1.setLabel("a leaf vertex");
         
         vertices.add(v1);
         //Item beanItem = m_vertexContainer.addBean(v1);
@@ -145,6 +152,7 @@ public class TestTopologyProvider implements TopologyProvider {
         String vId2 = getNextVertexId();
         TestVertex v2 = new TestLeafVertex(vId2, 0, 0);
         v2.setIcon("icon.jpg");
+        v2.setLabel("another leaf");
         vertices.add(v2);
         //Item beanItem2 = m_vertexContainer.addBean(v2);
         
@@ -234,6 +242,11 @@ public class TestTopologyProvider implements TopologyProvider {
     private void assertEdge(Object edgeId) {
         assertTrue(m_edgeContainer.containsId(edgeId));
     }
+
+	@Override
+	public String getNamespace() {
+		return m_namespace;
+	}
 
 
 

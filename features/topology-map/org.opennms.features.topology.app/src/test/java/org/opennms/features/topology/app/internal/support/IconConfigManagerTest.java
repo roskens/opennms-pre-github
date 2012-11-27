@@ -38,7 +38,7 @@ public class IconConfigManagerTest {
 
     @Test
     public void testParseConfig() {
-        Dictionary<String,String> props = new Hashtable<String,String>();
+        Dictionary<String,Object> props = new Hashtable<String,Object>();
         props.put("type1", "file1.png");
         
         IconRepositoryManager iconManager = new IconRepositoryManager();

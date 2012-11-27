@@ -20,6 +20,22 @@
  */
 package org.opennms.nrtg.web.internal;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.http.HttpSession;
+
 import org.opennms.netmgt.config.SnmpAgentConfigFactory;
 import org.opennms.netmgt.dao.GraphDao;
 import org.opennms.netmgt.dao.ResourceDao;
@@ -35,13 +51,6 @@ import org.opennms.nrtg.api.model.MeasurementSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.http.HttpSession;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.*;
-
 /**
  * @author Markus Neumann
  * @author Christian Pape
@@ -54,7 +63,8 @@ public class NrtController {
     private SnmpAgentConfigFactory m_snmpAgentConfigFactory;
     private NrtBroker m_nrtBroker;
 
-    private class MetricTuple {
+    protected class MetricTuple {
+
         private String m_metricId;
         private String m_onmsLogicMetricId;
 
@@ -71,6 +81,7 @@ public class NrtController {
             return m_onmsLogicMetricId;
         }
 
+        @Override
         public boolean equals(Object object) {
             if (object instanceof MetricTuple) {
                 return getOnmsLogicMetricId().equals(((MetricTuple) object).getOnmsLogicMetricId());
@@ -78,112 +89,13 @@ public class NrtController {
                 return false;
             }
         }
-    }
 
-    /**
-     * Provides a Map that provides Lists of MetricIds by protocols.
-     *
-     * @param reportResource
-     * @param prefabGraph
-     * @return
-     */
-    private Map<String, List<MetricTuple>> getMetricIdsByProtocol(OnmsResource reportResource, PrefabGraph prefabGraph) {
-        Map<String, List<MetricTuple>> metricIdsByProtocol = new HashMap<String, List<MetricTuple>>();
-        Set<RrdGraphAttribute> relevantRrdGraphAttributes = getRequiredRrdGraphAttributes(reportResource, prefabGraph);
-        Map<String, String> rrdGraphAttributesMetaData = getMetaDataForReport(relevantRrdGraphAttributes);
-
-        //Protocol_metricId=RrdGraphAttribute
-        //SNMP_.1.3.6.1.2.1.5.7.0=icmpInRedirects
-        for (Map.Entry<String, String> entry : rrdGraphAttributesMetaData.entrySet()) {
-            String splitByUndescore[] = entry.getValue().split("_");
-            String protocol = splitByUndescore[0];
-            String splitByEqual[] = splitByUndescore[1].split("=");
-            String metricId = splitByEqual[0];
-            //String rrdGraphAttribute = splitByEqual[1];
-
-            if (!metricIdsByProtocol.containsKey(protocol)) {
-                metricIdsByProtocol.put(protocol, new ArrayList<MetricTuple>());
-            }
-            metricIdsByProtocol.get(protocol).add(new MetricTuple(metricId, entry.getKey()));
+        @Override
+        public int hashCode() {
+            int hash = 7;
+            hash = 37 * hash + (this.m_metricId != null ? this.m_metricId.hashCode() : 0);
+            return hash;
         }
-        return metricIdsByProtocol;
-    }
-
-    private Map<String, String> getMetaDataForReport(Set<RrdGraphAttribute> rrdGraphAttributes) {
-        Map<String, String> metaData = new HashMap<String, String>();
-
-        //get all metaData for RrdGraphAttributes from the meta files next to the RRD/JRobin files
-        for (RrdGraphAttribute attr : rrdGraphAttributes) {
-            String fileName = null;
-            BufferedReader bf = null;
-
-            try {
-                fileName = m_resourceDao.getRrdDirectory() + File.separator + attr.getRrdRelativePath();
-
-                //get meta files instead of rrd or jrb
-                fileName = fileName.substring(0, fileName.lastIndexOf("."));
-                fileName = fileName.concat(".meta");
-                bf = new BufferedReader(new FileReader(fileName));
-
-                String mappingLine = "";
-                while (mappingLine != null) {
-                    metaData.put(attr.toString(), mappingLine);
-                    mappingLine = bf.readLine();
-                }
-            } catch (Exception ex) {
-                logger.error("Problem by looking up metadata about metrics for RrdGraphAttributes in context of NRTG from meta file '{}' '{}'", fileName, ex.getMessage());
-            } finally {
-                if (bf != null) {
-                    try {
-                        bf.close();
-                    } catch (IOException ex) {
-                        logger.warn("problem by reader close", ex);
-                    }
-                }
-            }
-        }
-        return metaData;
-    }
-
-    private List<CollectionJob> createCollectionJobs(OnmsResource reportResource, PrefabGraph prefabGraph, String nrtCollectionTaskId) {
-        List<CollectionJob> collectionJobs = new ArrayList<CollectionJob>();
-
-        OnmsResource nodeResource = reportResource.getParent();
-        OnmsNode node = (OnmsNode) nodeResource.getEntity();
-        Integer nodeId = node.getId();
-        Date createTimestamp = new Date();
-
-        //What protocols are involved?
-        //For each protocol build a new CollectionJob
-        Map<String, List<MetricTuple>> metricsByProtocol = getMetricIdsByProtocol(reportResource, prefabGraph);
-
-        //Destinations for MeasurementSets
-        Set<String> resultDestinations = new HashSet<String>();
-        resultDestinations.add(nrtCollectionTaskId);
-        //resultDestinations.add("NrtPersistMe");
-
-        for (String protocol : metricsByProtocol.keySet()) {
-            CollectionJob collectionJob = new DefaultCollectionJob();
-            collectionJob.setService(protocol);
-            collectionJob.setNodeId(nodeId);
-            collectionJob.setCreationTimestamp(createTimestamp);
-
-            for (MetricTuple metricTuple : metricsByProtocol.get(protocol)) {
-                collectionJob.addMetric(metricTuple.getMetricId(), resultDestinations, metricTuple.getOnmsLogicMetricId());
-            }
-
-            if (protocol.equals("SNMP")) {
-                collectionJob.setNetInterface(protocol);
-                SnmpAgentConfig snmpAgentConfig = m_snmpAgentConfigFactory.getAgentConfig(node.getPrimaryInterface().getIpAddress());
-                collectionJob.setProtocolConfiguration(snmpAgentConfig.toProtocolConfigString());
-                collectionJob.setNetInterface(node.getPrimaryInterface().getIpAddress().getHostAddress());
-                collectionJobs.add(collectionJob);
-            } else {
-                logger.error("Protocol '{}' is not supported yet. CollectionJob will be ignorred.", protocol);
-            }
-        }
-
-        return collectionJobs;
     }
 
     public ModelAndView nrtStart(String resourceId, String report, HttpSession httpSession) {
@@ -197,8 +109,6 @@ public class NrtController {
         OnmsResource reportResource = m_resourceDao.getResourceById(resourceId);
 
         PrefabGraph prefabGraph = m_graphDao.getPrefabGraph(report);
-        //TODO Tak graph service is able to check if a graph is proper for a given resource, check that later.
-        prefabGraph = lookUpMetricsForColumnsOfPrefabGraphs(prefabGraph, reportResource);
 
         String nrtCollectionTaskId = "NrtCollectionTaskId_" + System.currentTimeMillis();
 
@@ -215,9 +125,14 @@ public class NrtController {
         modelAndView.addObject("graphName", prefabGraph.getName());
         modelAndView.addObject("graphDescription", prefabGraph.getDescription());
 
-        NrtRrdCommandFormatter rrdFormatter = new NrtRrdCommandFormatter(prefabGraph);
-        modelAndView.addObject("rrdGraphString", rrdFormatter.getRrdGraphString());
-        modelAndView.addObject("metricsMapping", rrdFormatter.getRrdMetricsMapping());
+        NrtHelper nrtHelper = new NrtHelper();
+        modelAndView.addObject("rrdGraphString", nrtHelper.cleanUpRrdGraphStringForWebUi(prefabGraph, getRequiredExternalPropertyAttributes(reportResource, prefabGraph), getRequiredStringPropertyAttributes(reportResource, prefabGraph)));
+
+        Set<RrdGraphAttribute> relevantRrdGraphAttributes = getRequiredRrdGraphAttributes(reportResource, prefabGraph);
+        Map<String, String> rrdGraphAttributesMetaData = getMetaDataForReport(relevantRrdGraphAttributes);
+        Map<String, String> rrdGraphAttributesToMetricIds = getRrdGraphAttributesToMetricIds(rrdGraphAttributesMetaData);
+
+        modelAndView.addObject("metricsMapping", nrtHelper.generateJsMappingObject(prefabGraph.getCommand(), rrdGraphAttributesToMetricIds));
 
         return modelAndView;
     }
@@ -290,11 +205,50 @@ public class NrtController {
         }
     }
 
-    /**
-     * <p>getRequiredRrGraphdAttributes</p>
-     *
-     * @return a {@link java.util.Collection} object.
-     */
+    private List<CollectionJob> createCollectionJobs(OnmsResource reportResource, PrefabGraph prefabGraph, String nrtCollectionTaskId) {
+        List<CollectionJob> collectionJobs = new ArrayList<CollectionJob>();
+
+        OnmsResource nodeResource = reportResource.getParent();
+        OnmsNode node = (OnmsNode) nodeResource.getEntity();
+        Integer nodeId = node.getId();
+        Date createTimestamp = new Date();
+
+        //What protocols are involved?
+        //For each protocol build a new CollectionJob
+        Set<RrdGraphAttribute> relevantRrdGraphAttributes = getRequiredRrdGraphAttributes(reportResource, prefabGraph);
+        Map<String, String> rrdGraphAttributesMetaData = getMetaDataForReport(relevantRrdGraphAttributes);
+
+        Map<String, List<MetricTuple>> metricsByProtocol = getMetricIdsByProtocol(rrdGraphAttributesMetaData);
+
+        //Destinations for MeasurementSets
+        Set<String> resultDestinations = new HashSet<String>();
+        resultDestinations.add(nrtCollectionTaskId);
+        //resultDestinations.add("NrtPersistMe");
+
+        for (String protocol : metricsByProtocol.keySet()) {
+            CollectionJob collectionJob = new DefaultCollectionJob();
+            collectionJob.setService(protocol);
+            collectionJob.setNodeId(nodeId);
+            collectionJob.setCreationTimestamp(createTimestamp);
+
+            for (MetricTuple metricTuple : metricsByProtocol.get(protocol)) {
+                collectionJob.addMetric(metricTuple.getMetricId(), resultDestinations, metricTuple.getOnmsLogicMetricId());
+            }
+            //I know....
+            if (protocol.equals("SNMP") || protocol.equals("TCA")) {
+                collectionJob.setNetInterface(protocol);
+                SnmpAgentConfig snmpAgentConfig = m_snmpAgentConfigFactory.getAgentConfig(node.getPrimaryInterface().getIpAddress());
+                collectionJob.setProtocolConfiguration(snmpAgentConfig.toProtocolConfigString());
+                collectionJob.setNetInterface(node.getPrimaryInterface().getIpAddress().getHostAddress());
+                collectionJobs.add(collectionJob);
+            } else {
+                logger.error("Protocol '{}' is not supported yet. CollectionJob will be ignorred.", protocol);
+            }
+        }
+
+        return collectionJobs;
+    }
+
     public Set<RrdGraphAttribute> getRequiredRrdGraphAttributes(OnmsResource reportResource, PrefabGraph prefabGraph) {
         Map<String, RrdGraphAttribute> available = reportResource.getRrdGraphAttributes();
         Set<RrdGraphAttribute> reqAttrs = new LinkedHashSet<RrdGraphAttribute>();
@@ -307,19 +261,53 @@ public class NrtController {
         return reqAttrs;
     }
 
-    /**
-     * Adds the Metrics corresponding to the columns into the prefabGraph. Based on a meta file lookup. The files to check for
-     * metric to column name mappings are provided by the filesToPromote. At the moment this method will check for the filenames
-     * in the list and expects to file a file with this name and a .meta ending.
-     */
-    public PrefabGraph lookUpMetricsForColumnsOfPrefabGraphs(PrefabGraph prefabGraph, OnmsResource reportResource) {
-        //Build a Hashmap with all columns to metrics from the files
-        Map<String, String> columnsToMetrics = new HashMap<String, String>();
+    public Map<String,String> getRequiredExternalPropertyAttributes(final OnmsResource reportResource, final PrefabGraph prefabGraph) {
+        final Map<String,String> attributes = reportResource.getExternalValueAttributes();
+        if (attributes == null) return Collections.emptyMap();
 
-        //get all metrics to columns mappings from the files in to hashmap
-        for (RrdGraphAttribute attr : getRequiredRrdGraphAttributes(reportResource, prefabGraph)) {
+        final Map<String,String> reqAttributes = new HashMap<String,String>();
+        for (final String attrName : prefabGraph.getExternalValues()) {
+            if (attributes.containsKey(attrName)) {
+                reqAttributes.put(attrName, attributes.get(attrName));
+            }
+        }
+        
+        return reqAttributes;
+    }
+
+    public Map<String,String> getRequiredStringPropertyAttributes(final OnmsResource reportResource, final PrefabGraph prefabGraph) {
+        final Map<String,String> attributes = reportResource.getStringPropertyAttributes();
+        if (attributes == null) return Collections.emptyMap();
+
+        final Map<String,String> reqAttributes = new HashMap<String,String>();
+        for (final String attrName : prefabGraph.getPropertiesValues()) {
+            if (attributes.containsKey(attrName)) {
+                reqAttributes.put(attrName, attributes.get(attrName));
+            }
+        }
+        
+        return reqAttributes;
+    }
+
+    private Map<String, String> getRrdGraphAttributesToMetricIds(Map<String, String> onmsResourceNamesToMetaDataLines) {
+        Map<String, String> rrdGraphAttributesToMetricIds = new HashMap<String, String>();
+        for (String onmsResouceName : onmsResourceNamesToMetaDataLines.keySet()) {
+            String rrdGraphAttributeName = onmsResouceName.toString().substring(onmsResouceName.lastIndexOf(".") +1);
+            rrdGraphAttributesToMetricIds.put(rrdGraphAttributeName, getMetricIdFromMetaDataLine(onmsResourceNamesToMetaDataLines.get(onmsResouceName)));
+        }
+        return rrdGraphAttributesToMetricIds;
+    }
+    
+    private Map<String, String> getMetaDataForReport(final Set<RrdGraphAttribute> rrdGraphAttributes) {
+        Map<String, String> metaData = new HashMap<String, String>();
+
+        logger.debug("getMetaDataForReport: " + rrdGraphAttributes);
+
+        //get all metaData for RrdGraphAttributes from the meta files next to the RRD/JRobin files
+        for (RrdGraphAttribute attr : rrdGraphAttributes) {
             String fileName = null;
             BufferedReader bf = null;
+
             try {
                 fileName = m_resourceDao.getRrdDirectory() + File.separator + attr.getRrdRelativePath();
 
@@ -328,15 +316,16 @@ public class NrtController {
                 fileName = fileName.concat(".meta");
                 bf = new BufferedReader(new FileReader(fileName));
 
-                String mappingLine = "";
-                while (mappingLine != null) {
-                    mappingLine = bf.readLine();
-                    String metric = mappingLine.substring(0, mappingLine.lastIndexOf("="));
-                    String column = mappingLine.substring(mappingLine.lastIndexOf("=") + 1);
-                    columnsToMetrics.put(column, metric);
+                String metaDataLine = "";
+                while (metaDataLine != null) {
+                    logger.debug("attr = " + attr.toString() + ", mappingLine = " + metaDataLine);
+                    if (metaDataLine.endsWith(attr.getName())) {
+                        metaData.put(attr.toString(), metaDataLine);
+                    }//Not the meta data line we are looking for, will happen if store by group is used
+                    metaDataLine = bf.readLine();
                 }
             } catch (Exception ex) {
-                logger.error("Problem by looking up metrics for cloumns in context of prefabgraphs from meta file '{}' '{}'", fileName, ex.getMessage());
+                logger.error("Problem by looking up meta data about metrics for RrdGraphAttributes in context of NRTG from meta file '{}' '{}'", fileName, ex.getMessage());
             } finally {
                 if (bf != null) {
                     try {
@@ -347,16 +336,45 @@ public class NrtController {
                 }
             }
         }
-        /**
-         * put the metrics from the columnsToMetrics map into the metrics array of the prefabGraph.
-         */
-        String[] metrics = new String[prefabGraph.getColumns().length];
-        for (int i = 0; i < prefabGraph.getColumns().length; i++) {
-            metrics[i] = columnsToMetrics.get(prefabGraph.getColumns()[i]);
-        }
-        prefabGraph.setMetricIds(metrics);
+        
+        return metaData;
+    }
 
-        return prefabGraph;
+    private final String PROTOCOLDELIMITER = "_";
+    private final String METRICID_DELIMITER = "=";
+    
+    private String getProtocolFromMetaDataLine(String metaDataLine) {
+        String protocol = metaDataLine.substring(0, metaDataLine.indexOf(PROTOCOLDELIMITER));
+        return protocol;
+    }
+
+    private String getMetricIdFromMetaDataLine(String metaDataLine) {
+        String metricId = metaDataLine.substring(metaDataLine.indexOf(PROTOCOLDELIMITER) + 1, metaDataLine.lastIndexOf(METRICID_DELIMITER));
+        return metricId;
+    }
+
+    /**
+     * Provides a Map that provides Lists of MetricIds by protocols.
+     *
+     * @param rrdGraphAttributesMetaData String-key is the RrdGraphArrtibute the String-value is the MetaDataLine
+     * @return a Map of Protocols as String-keys and a List of MetricTuples
+     */
+    protected Map<String, List<MetricTuple>> getMetricIdsByProtocol(Map<String, String> rrdGraphAttributesMetaData) {
+        Map<String, List<MetricTuple>> metricIdsByProtocol = new HashMap<String, List<MetricTuple>>();
+
+        //Protocol_metricId=RrdGraphAttribute
+        //SNMP_.1.3.6.1.2.1.5.7.0=icmpInRedirects
+        //TCA_.1.3.6.1.4.1.27091.3.1.6.1.2.171.19.37.60_inboundJitter=inboundJitter
+        for (Map.Entry<String, String> entry : rrdGraphAttributesMetaData.entrySet()) {
+            String protocol = getProtocolFromMetaDataLine(entry.getValue());
+            String metricId = getMetricIdFromMetaDataLine(entry.getValue());
+
+            if (!metricIdsByProtocol.containsKey(protocol)) {
+                metricIdsByProtocol.put(protocol, new ArrayList<MetricTuple>());
+            }
+            metricIdsByProtocol.get(protocol).add(new MetricTuple(metricId, entry.getKey()));
+        }
+        return metricIdsByProtocol;
     }
 
     public void setGraphDao(GraphDao graphDao) {
@@ -378,5 +396,4 @@ public class NrtController {
     public void setNrtBroker(NrtBroker nrtBroker) {
         this.m_nrtBroker = nrtBroker;
     }
-
 }

@@ -33,12 +33,17 @@ import org.opennms.features.topology.app.internal.gwt.client.d3.D3Behavior;
 import org.opennms.features.topology.app.internal.gwt.client.d3.Func;
 
 import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.core.client.JsArrayString;
 
 public final class GWTEdge extends JavaScriptObject {
     
+    public static final String SVG_EDGE_ELEMENT = "path";
+    
     protected GWTEdge() {};
     
+    public static final native GWTEdge create(String id, GWTVertex source, GWTVertex target) /*-{
+    	return {"id":id, "source":source, "target":target, "cssClass": "path", "linkNum":1, "tooltipText": ""};
+	}-*/;
+
     public final native GWTVertex getSource() /*-{
         return this.source;
     }-*/;
@@ -47,23 +52,11 @@ public final class GWTEdge extends JavaScriptObject {
         return this.target;
     }-*/;
     
-    public static final native GWTEdge create(String id, GWTVertex source, GWTVertex target) /*-{
-        return {"id":id, "source":source, "target":target, "actions":[]};
-    }-*/;
-
     public final native String getId() /*-{
         return this.id;
     }-*/;
     
-    private final native JsArrayString actionKeys() /*-{
-		return this.actions;
-	}-*/;
-
-    private final native JsArrayString actionKeys(JsArrayString keys) /*-{
-		this.actions = keys;
-		return this.actions;
-	}-*/;
-    
+    @SuppressWarnings("unused")
     private final native boolean isSelected() /*-{
         return this.selected === undefined ? false : this.selected;
     }-*/;
@@ -71,68 +64,31 @@ public final class GWTEdge extends JavaScriptObject {
     public final native void setSelected(boolean selected) /*-{
         this.selected = selected;
     }-*/;
-
-
-	public void setActionKeys(String[] keys) {
-		JsArrayString actionKeys = actionKeys(newStringArray());
-		for(String key : keys) {
-			actionKeys.push(key);
-		}
-	}
-	
-	private JsArrayString newStringArray() {
-		return JsArrayString.createArray().<JsArrayString>cast();
-	}
-	
-	public String[] getActionKeys() {
-		JsArrayString actionKeys = actionKeys();
-		String[] keys = new String[actionKeys.length()];
-		for(int i = 0; i < keys.length; i++) {
-			keys[i] = actionKeys.get(i);
-		}
-		return keys;
-	}
-
-    static Func<Integer, GWTEdge> getTargetY() {
-        
-        return new Func<Integer, GWTEdge>(){
     
-            public Integer call(GWTEdge datum, int index) {
-                return datum.getTarget().getY();
-            }
-        };
-    }
+    public final native void setCssClass(String cssClass) /*-{
+        this.cssClass = cssClass;
+    }-*/;
+    
+    public final native String getCssClass() /*-{
+        return this.cssClass;
+    }-*/;
 
-    static Func<Integer, GWTEdge> getSourceY() {
-        
-        return new Func<Integer, GWTEdge>(){
+    public final native void setLinkNum(int num) /*-{
+        this.linkNum = num;
+    }-*/;
     
-            public Integer call(GWTEdge datum, int index) {
-                return datum.getSource().getY();
-            }
-        };
-    }
+    public final native int getLinkNum() /*-{
+        return this.linkNum;
+    }-*/;
+    
+    public final native void setTooltipText(String tooltipText) /*-{
+        this.tooltipText = tooltipText;
+    }-*/;
+    
+    public final native String getTooltipText()/*-{
+        return this.tooltipText;
+    }-*/;
 
-    static Func<Integer, GWTEdge> getTargetX() {
-    
-    	return new Func<Integer, GWTEdge>(){
-    
-            public Integer call(GWTEdge datum, int index) {
-                return datum.getTarget().getX();
-            }
-        };
-    }
-
-    static Func<Integer, GWTEdge> getSourceX() {
-    	
-    	return new Func<Integer, GWTEdge>(){
-    
-            public Integer call(GWTEdge datum, int index) {
-                return datum.getSource().getX();
-            }
-        };
-    }
-    
     public static final native void consoleLog(Object obj)/*-{
         $wnd.console.log(obj);
     }-*/;
@@ -142,24 +98,37 @@ public final class GWTEdge extends JavaScriptObject {
 
             @Override
             public D3 run(D3 selection) {
-                
-                return selection.style("stroke", GWTEdge.selectionFilter())
-                        .attr("x1", GWTEdge.getSourceX())
-                        .attr("x2", GWTEdge.getTargetX())
-                        .attr("y1", GWTEdge.getSourceY())
-                        .attr("y2", GWTEdge.getTargetY());
+                return selection.attr("class", GWTEdge.getCssStyleClass()).attr("d", GWTEdge.createPath());
             }
         };
     }
     
-    protected static Func<String, GWTEdge> selectionFilter() {
-        // TODO Auto-generated method stub
+    protected static Func<String, GWTEdge> createPath(){
         return new Func<String, GWTEdge>(){
 
+            @Override
             public String call(GWTEdge edge, int index) {
-                return edge.isSelected() ? "yellow" : "#ccc";
+                GWTVertex source = edge.getSource();
+				GWTVertex target = edge.getTarget();
+				int dx = Math.abs(target.getX() - source.getX());
+                int dy = Math.abs(target.getY() - source.getY());
+                int dr = edge.getLinkNum() > 1 ? (Math.max(dx, dy) * 10) / edge.getLinkNum() : 0;
+                int direction = edge.getLinkNum() % 2 == 0  ? 0 : 1;
+                
+                return "M" + source.getX() + "," + source.getY() + 
+                       " A" + dr + "," + dr + " 0 0, " + direction + " " + target.getX() + "," + target.getY();
             }
             
+        };
+    }
+    
+    protected static Func<String, GWTEdge> getCssStyleClass(){
+        return new Func<String, GWTEdge>(){
+
+            @Override
+            public String call(GWTEdge datum, int index) {
+                return datum.getCssClass();
+            }
         };
     }
 
@@ -168,10 +137,11 @@ public final class GWTEdge extends JavaScriptObject {
 
             @Override
             public D3 run(D3 selection) {
-                return selection.append("line").attr("opacity", 0).style("stroke", "#ccc").style("stroke-width", "2").style("cursor", "pointer")
+                return selection.append("g").append(SVG_EDGE_ELEMENT).attr("class", "path").attr("opacity", 0).style("stroke-width", "5").style("fill", "none").style("cursor", "pointer")
                         .call(draw());
             }
         };
     }
+
 
 }

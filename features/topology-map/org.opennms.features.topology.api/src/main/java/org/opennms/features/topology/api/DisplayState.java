@@ -28,24 +28,20 @@
 
 package org.opennms.features.topology.api;
 
-import com.vaadin.data.Property;
-
 public interface DisplayState {
     
-    public static final String SEMANTIC_ZOOM_LEVEL = "semanticZoomLevel";
-    public static final String SCALE = "scale";
-    public static final String LAYOUT_ALGORITHM = "layoutAlgorithm";
+    int getSemanticZoomLevel();
     
-    Integer getSemanticZoomLevel();
+    void setSemanticZoomLevel(int level);
     
-    void setSemanticZoomLevel(Integer level);
-
+    double getScale();
+    
+    void setScale(double scale);
+    
     void setLayoutAlgorithm(LayoutAlgorithm layoutAlgorithm);
     
     LayoutAlgorithm getLayoutAlgorithm();
 
     void redoLayout();
-
-    Property getProperty(String property);
 
 }

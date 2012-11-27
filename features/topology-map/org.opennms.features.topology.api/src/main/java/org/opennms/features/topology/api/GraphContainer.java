@@ -29,30 +29,58 @@
 package org.opennms.features.topology.api;
 
 import java.util.Collection;
-import java.util.List;
-import com.vaadin.data.Item;
-import com.vaadin.data.util.BeanContainer;
+
+import org.opennms.features.topology.api.topo.Criteria;
+import org.opennms.features.topology.api.topo.Edge;
+import org.opennms.features.topology.api.topo.EdgeRef;
+import org.opennms.features.topology.api.topo.GraphProvider;
+import org.opennms.features.topology.api.topo.Vertex;
+import org.opennms.features.topology.api.topo.VertexRef;
 
 public interface GraphContainer extends DisplayState {
+	
+	public interface ChangeListener {
+		public void graphChanged(GraphContainer graphContainer);
+	}
 
-    public VertexContainer<?, ?> getVertexContainer();
+	public Collection<? extends Vertex> getVertices();
 
-    public BeanContainer<?, ?> getEdgeContainer();
+	public Collection<? extends Vertex> getChildren(VertexRef vRef);
 
-    public List<Object> getSelectedVertices();
+	public Collection<? extends Vertex> getRootGroup();
 
-    public Collection<?> getVertexIds();
+	public boolean hasChildren(VertexRef vRef);
 
-    public Collection<?> getEdgeIds();
+	public GraphProvider getBaseTopology();
+    
+    public void setBaseTopology(GraphProvider graphProvider);
+    
+    public Vertex getParent(VertexRef child);
+    
+    public Vertex getVertex(VertexRef ref);
+    
+    public Edge getEdge(EdgeRef ref);
+    
+	public Criteria getCriteria(String namespace);
+	
+	public void setCriteria(Criteria critiera);
+	
+	public void addChangeListener(ChangeListener listener);
+	
+	public void removeChangeListener(ChangeListener listener);
 
-    public Collection<?> getEndPointIdsForEdge(Object edgeId);
+	public Graph getGraph();
+	
+	public SelectionManager getSelectionManager();
+	
+	public Collection<VertexRef> getVertexRefForest(Collection<? extends VertexRef> vertexRefs);
 
-    public Collection<?> getEdgeIdsForVertex(Object vertexId);
 
-    public Object getVertexItemIdForVertexKey(Object key);
-
+	// These will work the GraphProvider in the future
+	@Deprecated
     public TopologyProvider getDataSource();
 
+    @Deprecated
     public void setDataSource(TopologyProvider topologyProvider);
 
 }

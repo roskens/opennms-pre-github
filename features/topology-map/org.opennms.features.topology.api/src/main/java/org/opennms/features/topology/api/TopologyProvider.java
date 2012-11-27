@@ -35,9 +35,13 @@ import com.vaadin.data.util.BeanContainer;
 
 public interface TopologyProvider {
 
+	/**
+	 * Set the parent ID of a vertex. If the ID is null,
+	 * then the vertex is detached from its parent.
+	 */
     void setParent(Object vertexId, Object parentId);
 
-    Object addGroup(String groupIcon);
+    Object addGroup(String groupLabel, String groupIcon);
 
     boolean containsVertexId(Object vertexId);
 
@@ -56,5 +60,7 @@ public interface TopologyProvider {
     Collection<?> getEdgeIdsForVertex(Object vertexId);
 
     Collection<?> getEndPointIdsForEdge(Object edgeId);
+
+	String getNamespace();
 
 }

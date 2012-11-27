@@ -86,7 +86,7 @@ public final class ServletContextImpl
     @Override
     public Set<String> getResourcePaths(String path)
     {
-        Enumeration paths = this.bundle.getEntryPaths(normalizePath(path));
+        Enumeration<?> paths = this.bundle.getEntryPaths(normalizePath(path));
         if ((paths == null) || !paths.hasMoreElements()) {
             return null;
         }

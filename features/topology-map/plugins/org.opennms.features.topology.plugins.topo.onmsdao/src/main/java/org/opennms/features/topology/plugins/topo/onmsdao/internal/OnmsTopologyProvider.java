@@ -155,12 +155,13 @@ public class OnmsTopologyProvider implements TopologyProvider{
         return m_vertexContainer.addBean(vertex);
     }
     
-    private Item addGroup(String groupId, String icon) {
-        if (m_vertexContainer.containsId(groupId)) {
-            throw new IllegalArgumentException("A vertex or group with id " + groupId + " already exists!");
+    @Override
+    public Item addGroup(String groupLabel, String icon) {
+        if (m_vertexContainer.containsId(groupLabel)) {
+            throw new IllegalArgumentException("A vertex or group with id " + groupLabel + " already exists!");
         }
-        LoggerFactory.getLogger(getClass()).debug("Adding a group: {}", groupId);
-        SimpleVertex vertex = new SimpleGroup(-1,groupId);
+        LoggerFactory.getLogger(getClass()).debug("Adding a group: {}", groupLabel);
+        SimpleVertex vertex = new SimpleGroup(-1,groupLabel);
         vertex.setIcon(icon);
         return m_vertexContainer.addBean(vertex);
         
@@ -333,10 +334,6 @@ public class OnmsTopologyProvider implements TopologyProvider{
         return "e" + m_edgeCounter ++;
     }
     
-    public String getNextGroupId() {
-        return "g" + m_groupCounter++;
-    }
-
     public void resetContainer() {
         getVertexContainer().removeAllItems();
         getEdgeContainer().removeAllItems();
@@ -373,15 +370,13 @@ public class OnmsTopologyProvider implements TopologyProvider{
     }
 
     @Override
-    public Object addGroup(String groupIcon) {
-        String nextGroupId = getNextGroupId();
-        addGroup(nextGroupId, groupIcon);
-        return nextGroupId;
-    }
-
-    @Override
     public boolean containsVertexId(Object vertexId) {
         return m_vertexContainer.containsId(vertexId);
     }
+
+	@Override
+	public String getNamespace() {
+		return "node";
+	}
     
 }

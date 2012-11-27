@@ -30,7 +30,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>gwt-maven-plugin</artifactId>
-        <version>${gwt.plugin.version}</version>
+        <version>${gwtPluginVersion}</version>
         <configuration>
           <!-- <modules> <module>org.opennms.features.topology.app.internal.gwt.MyWidgetSet</module> </modules> -->
           <webappDirectory>target/gwt/VAADIN/widgetsets</webappDirectory>
@@ -163,6 +163,22 @@
       <classifier>sources</classifier>
       <scope>provided</scope>
     </dependency>
+
+    <!-- these are required in order to ensure that the TopologyComponent class can load to it can be checked for annotations -->
+    <dependency>
+      <groupId>org.opennms.features.topology</groupId>
+      <artifactId>api</artifactId>
+      <version>${project.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.opennms.features.topology.plugins.topo</groupId>
+      <artifactId>adapter</artifactId>
+      <version>${project.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
     
   </dependencies>
   

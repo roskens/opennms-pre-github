@@ -1,10 +1,13 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <html>
     <head>
         <title>NRT graph window</title>
 
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=IE8" />
+
         <!-- jquery include -->
-        <script type="text/javascript" src="/opennms/js/jquery/jquery.js"></script>
+        <script type="text/javascript" src="/opennms/js/jquery/jquery-1.8.2.min.js"></script>
 
         <!-- Amq includes -->
         <script type="text/javascript" src="/opennms/js/amq_jquery_adapter.js"></script>
@@ -58,14 +61,22 @@
         var refreshTimerJob = {
             // submits the AJAX collection job request and requeues the timer.
             submitJob: function() {
-                $.get("/opennms/nrt/starter","poll=true&nrtCollectionTaskId="+collectionTaskId,function (messages) {
+                $.ajax({
+                    type: 'GET',
+                    url: '/opennms/nrt/starter',
+                    cache: false,
+                    data: {
+                        poll: 'true',
+                        nrtCollectionTaskId: collectionTaskId
+                    },
+                    success: function (messages) {
                     if (messages != null && messages != '') {
                         $("#debug_messages").html(messages);
                         var result = $.parseJSON(messages);
-                        var measurementSets = result['measurement_sets']
+                        var measurementSets = result['measurement_sets'];
                         //var messagesArray = eval(messages);
 
-                        for(var x=0;x<measurementSets.length;x++) {
+                        for(var x=0; x < measurementSets.length; x++) {
                             var measurementSet = measurementSets[x];
 
                             if (!(measurementSet instanceof Array)) {
@@ -88,7 +99,7 @@
                                 };
 
                                 if (temp.metricType == "counter32" || temp.metricType == "counter64") {
-                                    // first counterMetric ever? Build arrays for merticId and values
+                                    // first counterMetric ever? Build arrays for metricId and values
                                     if (counterMetrics == null) {
                                         counterMetrics = new Array();
                                         counterMetricsValues = new Array();
@@ -134,7 +145,7 @@
                             dataCollector.push(measurementSet);
                         }
                     }
-                });
+                }});
                 this.timeoutID = setTimeout(function(){refreshTimerJob.submitJob()}, this.jobPublishingInterval);
                 debug_jobrequest_sent++;
                 document.getElementById('debug_jobrequest_sent').innerHTML = debug_jobrequest_sent;
@@ -209,6 +220,7 @@
     </head>
        
     <body>
+
         <div id="main"></div>
         <center>
             <div class="rrdgraph" data-src="realtime=1"></div>
@@ -267,5 +279,22 @@
                 </tr>
             </table>
         </div>
+
+        <!-- chrome frame -->
+        <!--[if IE]>
+            <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+            <div id="prompt"></div>
+            <script>
+                // The conditional ensures that this code will only execute in IE,
+                // Therefore we can use the IE-specific attachEvent without worry
+                window.attachEvent("onload", function() {
+                    CFInstall.check({
+                        mode: "inline", // the default
+                        node: "prompt"
+                    });
+                });
+            </script>
+        <![endif]-->
+
     </body>
 </html>
