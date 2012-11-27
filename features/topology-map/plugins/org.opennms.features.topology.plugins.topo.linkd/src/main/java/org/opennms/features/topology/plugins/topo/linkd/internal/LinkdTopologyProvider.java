@@ -243,11 +243,6 @@ public class LinkdTopologyProvider implements TopologyProvider {
     }
 
     @Override
-    public Item getEdgeItem(Object edgeId) {
-        return m_edgeContainer.getItem(edgeId);
-    }
-
-    @Override
     public Collection<String> getEndPointIdsForEdge(Object edgeId) {
         LinkdEdge edge= getRequiredEdge(edgeId);
 
@@ -281,11 +276,6 @@ public class LinkdTopologyProvider implements TopologyProvider {
     @Override
     public Collection<String> getVertexIds() {
         return m_vertexContainer.getItemIds();
-    }
-
-    @Override
-    public Item getVertexItem(Object vertexId) {
-        return m_vertexContainer.getItem(vertexId);
     }
 
     @Override

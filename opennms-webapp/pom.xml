@@ -360,7 +360,6 @@
     <dependency>
         <groupId>org.opennms.core</groupId>
         <artifactId>org.opennms.core.soa</artifactId>
-        <scope>${onmsLibScope}</scope>
     </dependency>
     <dependency>
       <groupId>org.opennms.core</groupId>

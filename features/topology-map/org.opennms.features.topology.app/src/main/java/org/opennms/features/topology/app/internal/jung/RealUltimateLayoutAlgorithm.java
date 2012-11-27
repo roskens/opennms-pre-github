@@ -46,6 +46,7 @@ import edu.uci.ics.jung.graph.SparseGraph;
 
 public class RealUltimateLayoutAlgorithm extends AbstractLayoutAlgorithm {
 
+	@Override
 	public void updateLayout(GraphContainer graph) {
 		
 		Graph g = new Graph(graph);

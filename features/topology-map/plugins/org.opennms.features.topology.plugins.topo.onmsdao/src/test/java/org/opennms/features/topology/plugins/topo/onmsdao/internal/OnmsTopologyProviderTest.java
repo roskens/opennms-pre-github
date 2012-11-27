@@ -135,18 +135,6 @@ public class OnmsTopologyProviderTest {
         }
 
         @Override
-        public Item getVertexItem(Object vertexId) {
-            // TODO Auto-generated method stub
-            return null;
-        }
-
-        @Override
-        public Item getEdgeItem(Object edgeId) {
-            // TODO Auto-generated method stub
-            return null;
-        }
-
-        @Override
         public Collection<?> getEndPointIdsForEdge(Object edgeId) {
             // TODO Auto-generated method stub
             return null;

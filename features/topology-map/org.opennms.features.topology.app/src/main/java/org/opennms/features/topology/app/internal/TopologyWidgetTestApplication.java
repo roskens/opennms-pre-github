@@ -68,6 +68,8 @@ import com.vaadin.ui.themes.Reindeer;
 
 public class TopologyWidgetTestApplication extends Application implements CommandUpdateListener, MenuItemUpdateListener, ContextMenuHandler, WidgetUpdateListener {
 
+	private static final long serialVersionUID = 6837501987137310938L;
+
 	private Window m_window;
 	private TopologyComponent m_topologyComponent;
 	private Tree m_tree;
@@ -81,7 +83,7 @@ public class TopologyWidgetTestApplication extends Application implements Comman
 	private Layout m_viewContribLayout;
     private HorizontalSplitPanel m_treeMapSplitPanel;
     private VerticalSplitPanel m_bottomLayoutBar;
-    private boolean m_widgetViewShowing = false;
+    //private boolean m_widgetViewShowing = false;
 
 	public TopologyWidgetTestApplication(CommandManager commandManager, TopologyProvider topologyProvider, IconRepositoryManager iconRepoManager) {
 		m_commandManager = commandManager;

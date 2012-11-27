@@ -42,11 +42,10 @@ import org.opennms.features.topology.api.Operation;
 import org.opennms.features.topology.api.OperationContext;
 import org.opennms.features.topology.api.TopologyProvider;
 
-
 public class SaveToXmlOperation implements Operation {
     
     TopologyProvider m_topologyProvider;
-	
+    
     public SaveToXmlOperation(TopologyProvider topologyProvider) {
         m_topologyProvider = topologyProvider;
     }
@@ -61,7 +60,7 @@ public class SaveToXmlOperation implements Operation {
 		// first create all the vertices;
 		List<WrappedVertex> vertices = new ArrayList<WrappedVertex>();
 		for(Object vertexId : m_topologyProvider.getVertexIds()) {
-			WrappedVertex wrappedVertex = WrappedVertex.create(m_topologyProvider.getVertexItem(vertexId));
+			WrappedVertex wrappedVertex = WrappedVertex.create(m_topologyProvider.getVertexContainer().getItem(vertexId));
 			vertices.add(wrappedVertex);
 			idMap.put(vertexId, wrappedVertex);
 		}
@@ -89,7 +88,7 @@ public class SaveToXmlOperation implements Operation {
 			WrappedVertex source = idMap.get(sourceId);
 			WrappedVertex target = idMap.get(targetId);
 			
-			edges.add(new WrappedEdge(m_topologyProvider.getEdgeItem(edgeId), source, target));
+			edges.add(new WrappedEdge(m_topologyProvider.getEdgeContainer().getItem(edgeId), source, target));
 			
 
 		}

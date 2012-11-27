@@ -48,7 +48,7 @@ public abstract class AbstractOperation implements Operation {
     }
 
     protected static <T> T getVertexPropertyValue(final OperationContext operationContext, final Object target, final Object id, final Class<T> clazz) {
-        return getPropertyValue(operationContext.getGraphContainer().getVertexItem(target), id, clazz);
+        return getPropertyValue(operationContext.getGraphContainer().getVertexContainer().getItem(target), id, clazz);
     }
 
     @SuppressWarnings("unchecked")

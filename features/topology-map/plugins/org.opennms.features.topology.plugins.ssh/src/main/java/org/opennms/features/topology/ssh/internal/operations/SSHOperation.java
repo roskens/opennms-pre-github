@@ -45,7 +45,7 @@ public class SSHOperation implements Operation {
 
 	    if (targets != null) {
 	        for(final Object target : targets) {
-	            final Item vertexItem = operationContext.getGraphContainer().getVertexItem(target);
+	            final Item vertexItem = operationContext.getGraphContainer().getVertexContainer().getItem(target);
 	            if (vertexItem != null) {
 	                final Property ipAddrProperty = vertexItem.getItemProperty("ipAddr");
 	                ipAddr = ipAddrProperty == null ? "" : (String) ipAddrProperty.getValue();

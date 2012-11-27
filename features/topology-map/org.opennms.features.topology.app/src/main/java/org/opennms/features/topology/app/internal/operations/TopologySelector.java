@@ -28,10 +28,11 @@
 
 package org.opennms.features.topology.app.internal.operations;
 
+import java.util.Dictionary;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
 import org.opennms.features.topology.api.CheckedOperation;
 import org.opennms.features.topology.api.OperationContext;
@@ -44,7 +45,7 @@ public class TopologySelector {
 
 	private BundleContext m_bundleContext;
 	private final Map<TopologyProvider, TopologySelectorOperation> m_operations = new HashMap<TopologyProvider, TopologySelector.TopologySelectorOperation>();
-	private final Map<TopologyProvider, ServiceRegistration> m_registrations = new HashMap<TopologyProvider, ServiceRegistration>();
+	private final Map<TopologyProvider, ServiceRegistration<CheckedOperation>> m_registrations = new HashMap<TopologyProvider, ServiceRegistration<CheckedOperation>>();
 	
     
     private class TopologySelectorOperation implements CheckedOperation {
@@ -104,11 +105,11 @@ public class TopologySelector {
     	
     	m_operations.put(topologyProvider, operation);
     	
-    	Properties properties = new Properties();
+    	Dictionary<String,String> properties = new Hashtable<String,String>();
         properties.put("operation.menuLocation", "View|Topology");
         properties.put("operation.label", operation.getLabel());
     	
-    	ServiceRegistration reg = m_bundleContext.registerService(CheckedOperation.class.getName(), operation, properties);
+    	ServiceRegistration<CheckedOperation> reg = m_bundleContext.registerService(CheckedOperation.class, operation, properties);
     	
     	m_registrations.put(topologyProvider, reg);
     }
@@ -118,7 +119,7 @@ public class TopologySelector {
     	LoggerFactory.getLogger(getClass()).debug("Removing topology provider: " + topologyProvider);
     	
     	m_operations.remove(topologyProvider);
-    	ServiceRegistration reg = m_registrations.remove(topologyProvider);
+    	ServiceRegistration<CheckedOperation> reg = m_registrations.remove(topologyProvider);
     	if (reg != null) {
     		reg.unregister();
     	}

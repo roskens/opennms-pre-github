@@ -55,10 +55,10 @@ import org.opennms.features.topology.plugins.topo.simple.internal.operations.Con
 import org.opennms.features.topology.plugins.topo.simple.internal.operations.CreateGroupOperation;
 import org.opennms.features.topology.plugins.topo.simple.internal.operations.RemoveVertexOperation;
 
-import com.vaadin.data.Container.ItemSetChangeEvent;
-import com.vaadin.data.Container.ItemSetChangeListener;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
+import com.vaadin.data.Container.ItemSetChangeEvent;
+import com.vaadin.data.Container.ItemSetChangeListener;
 import com.vaadin.data.util.BeanContainer;
 import com.vaadin.ui.Window;
 
@@ -69,7 +69,7 @@ public class SimpleTopologyProviderTest {
     }
 
     
-    private class TestGraphContainer implements GraphContainer{
+    private class TestGraphContainer implements GraphContainer {
         
         
         private SimpleVertexContainer m_vertContainer;
@@ -115,53 +115,42 @@ public class SimpleTopologyProviderTest {
         }
 
         @Override
-        public VertexContainer<?, ?> getVertexContainer() {
+        public VertexContainer<String,SimpleVertex> getVertexContainer() {
             return m_vertContainer;
         }
 
         @Override
-        public BeanContainer<?, ?> getEdgeContainer() {
+        public BeanContainer<String,SimpleEdge> getEdgeContainer() {
             // TODO Auto-generated method stub
             return null;
         }
 
         @Override
-        public Collection<?> getVertexIds() {
+        public Collection<String> getVertexIds() {
             return null;
         }
 
         @Override
-        public Collection<?> getEdgeIds() {
+        public Collection<String> getEdgeIds() {
             // TODO Auto-generated method stub
             return null;
         }
 
         @Override
-        public Item getVertexItem(Object vertexId) {
-            return m_vertContainer.getItem(vertexId);
-        }
-
-        @Override
-        public Item getEdgeItem(Object edgeId) {
+        public Collection<String> getEndPointIdsForEdge(Object edgeId) {
             // TODO Auto-generated method stub
             return null;
         }
 
         @Override
-        public Collection<?> getEndPointIdsForEdge(Object edgeId) {
-            // TODO Auto-generated method stub
-            return null;
-        }
-
-        @Override
-        public Collection<?> getEdgeIdsForVertex(Object vertexId) {
+        public Collection<String> getEdgeIdsForVertex(Object vertexId) {
             // TODO Auto-generated method stub
             return null;
         }
 
         @Override
         public Object getVertexItemIdForVertexKey(Object key) {
-            Item vertexItem = getVertexItem(key);
+            Item vertexItem = getVertexContainer().getItem(key);
             return vertexItem == null ? null : vertexItem.getItemProperty("itemId").getValue();
         }
 
@@ -320,7 +309,7 @@ public class SimpleTopologyProviderTest {
 	public void testConnectVertices() {
 		m_topologyProvider.resetContainer();
 
-		Object vertexId = m_topologyProvider.addVertex(0, 0);
+		String vertexId = m_topologyProvider.addVertex(0, 0);
         
         assertEquals(1, m_topologyProvider.getVertexIds().size());
         Object vertId = m_topologyProvider.getVertexIds().iterator().next();
@@ -331,13 +320,13 @@ public class SimpleTopologyProviderTest {
         
         Object edgeId = m_topologyProvider.connectVertices("v0", "v1");
         assertEquals(1, m_topologyProvider.getEdgeIds().size());
-        SimpleLeafVertex sourceLeafVert = (SimpleLeafVertex) m_topologyProvider.getEdgeItem(edgeId).getItemProperty("source").getValue();
-        SimpleLeafVertex targetLeafVert = (SimpleLeafVertex) m_topologyProvider.getEdgeItem(edgeId).getItemProperty("target").getValue();
+        SimpleLeafVertex sourceLeafVert = (SimpleLeafVertex) m_topologyProvider.getEdgeContainer().getItem(edgeId).getItemProperty("source").getValue();
+        SimpleLeafVertex targetLeafVert = (SimpleLeafVertex) m_topologyProvider.getEdgeContainer().getItem(edgeId).getItemProperty("target").getValue();
         
         assertEquals("v0", sourceLeafVert.getId());
         assertEquals("v1", targetLeafVert.getId());
         
-        Collection<?> edgeIds = m_topologyProvider.getEdgeIdsForVertex(vertexId);
+        Collection<String> edgeIds = m_topologyProvider.getEdgeIdsForVertex(vertexId);
         assertEquals(1, edgeIds.size());
         assertEquals(edgeId, edgeIds.iterator().next());
         
@@ -375,7 +364,7 @@ public class SimpleTopologyProviderTest {
         CreateGroupOperation groupOperation = new CreateGroupOperation(m_topologyProvider);
         groupOperation.execute(Arrays.asList((Object)"1", (Object)"2"), getOperationContext(graphContainer));
         
-        Item vertexItem1 = m_topologyProvider.getVertexItem(vertexId);
+        Item vertexItem1 = m_topologyProvider.getVertexContainer().getItem(vertexId);
         SimpleGroup parent = (SimpleGroup) vertexItem1.getItemProperty("parent").getValue();
         assertEquals(2, parent.getMembers().size());
         
@@ -386,13 +375,15 @@ public class SimpleTopologyProviderTest {
     
     @Test
     public void testTopoProviderSetParent() {
-        Object vertexId1 = addVertexToTopr();
-        Object vertexId2 = addVertexToTopr();
+        String vertexId1 = addVertexToTopr();
+        String vertexId2 = addVertexToTopr();
         
         final AtomicInteger eventsReceived = new AtomicInteger(0);
         
         m_topologyProvider.getVertexContainer().addListener(new ItemSetChangeListener() {
-            
+
+            private static final long serialVersionUID = 30630057710008362L;
+
             @Override
             public void containerItemSetChange(ItemSetChangeEvent event) {
                 eventsReceived.incrementAndGet();
@@ -435,7 +426,7 @@ public class SimpleTopologyProviderTest {
         assertEquals(1, edgeIds.size());
         
         for(Object edgeId : edgeIds) {
-            Item edgeItem = m_topologyProvider.getEdgeItem(edgeId);
+            Item edgeItem = m_topologyProvider.getEdgeContainer().getItem(edgeId);
             SimpleLeafVertex source = (SimpleLeafVertex) edgeItem.getItemProperty("source").getValue();
             SimpleLeafVertex target = (SimpleLeafVertex) edgeItem.getItemProperty("target").getValue();
             assertNotNull(source);
@@ -452,7 +443,7 @@ public class SimpleTopologyProviderTest {
         return new TestOperationContext(mockedContainer);
     }
 	
-	private Object addVertexToTopr() {
+	private String addVertexToTopr() {
 	    return m_topologyProvider.addVertex(0, 0);
     }
 

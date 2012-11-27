@@ -43,7 +43,6 @@ import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.opennms.features.topology.api.EditableTopologyProvider;
-import org.opennms.features.topology.api.TopologyProvider;
 import org.slf4j.LoggerFactory;
 
 import com.vaadin.data.Item;
@@ -51,7 +50,7 @@ import com.vaadin.data.Property;
 import com.vaadin.data.util.BeanContainer;
 import com.vaadin.data.util.BeanItem;
 
-public class SimpleTopologyProvider implements TopologyProvider, EditableTopologyProvider{
+public class SimpleTopologyProvider implements EditableTopologyProvider {
 
     private final SimpleVertexContainer m_vertexContainer;
     private final BeanContainer<String, SimpleEdge> m_edgeContainer;
@@ -97,29 +96,21 @@ public class SimpleTopologyProvider implements TopologyProvider, EditableTopolog
         return m_edgeContainer;
     }
 
-    public Collection<?> getVertexIds() {
+    public Collection<String> getVertexIds() {
         return m_vertexContainer.getItemIds();
     }
 
     @Override
-    public Collection<?> getEdgeIds() {
+    public Collection<String> getEdgeIds() {
         return m_edgeContainer.getItemIds();
     }
 
-    public Item getVertexItem(Object vertexId) {
-        return m_vertexContainer.getItem(vertexId);
-    }
-
     @Override
-    public Item getEdgeItem(Object edgeId) {
-        return m_edgeContainer.getItem(edgeId);
-    }
-    
-    public Collection<?> getEndPointIdsForEdge(Object edgeId) {
+    public Collection<String> getEndPointIdsForEdge(Object edgeId) {
         
         SimpleEdge edge = getRequiredEdge(edgeId);
 
-        List<Object> endPoints = new ArrayList<Object>(2);
+        List<String> endPoints = new ArrayList<String>(2);
         
         endPoints.add(edge.getSource().getId());
         endPoints.add(edge.getTarget().getId());
@@ -128,18 +119,14 @@ public class SimpleTopologyProvider implements TopologyProvider, EditableTopolog
     }
 
     @Override
-    public Collection<?> getEdgeIdsForVertex(Object vertexId) {
+    public Collection<String> getEdgeIdsForVertex(Object vertexId) {
         
         SimpleVertex vertex = getRequiredVertex(vertexId);
         
-        List<Object> edges = new ArrayList<Object>(vertex.getEdges().size());
+        List<String> edges = new ArrayList<String>(vertex.getEdges().size());
         
         for(SimpleEdge e : vertex.getEdges()) {
-            
-            Object edgeId = e.getId();
-            
-            edges.add(edgeId);
-
+            edges.add(e.getId());
         }
         
         return edges;
@@ -296,15 +283,15 @@ public class SimpleTopologyProvider implements TopologyProvider, EditableTopolog
         return beans;
     }
 
-    public String getNextVertexId() {
+    protected String getNextVertexId() {
         return "v" + m_counter++;
     }
 
-    public String getNextEdgeId() {
+    protected String getNextEdgeId() {
         return "e" + m_edgeCounter ++;
     }
     
-    public String getNextGroupId() {
+    protected String getNextGroupId() {
         return "g" + m_groupCounter++;
     }
 
@@ -333,7 +320,7 @@ public class SimpleTopologyProvider implements TopologyProvider, EditableTopolog
 	 * @see org.opennms.features.topology.plugins.topo.simple.internal.EditableTopologyProvider#addVertex(int, int)
 	 */
     @Override
-	public Object addVertex(int x, int y) {
+	public String addVertex(int x, int y) {
         String nextVertexId = getNextVertexId();
 //        addVertex(nextVertexId, x, y, icon, "Vertex " + nextVertexId, "127.0.0.1", -1);
         /* 
@@ -353,7 +340,7 @@ public class SimpleTopologyProvider implements TopologyProvider, EditableTopolog
 	 * @see org.opennms.features.topology.plugins.topo.simple.internal.EditableTopologyProvider#connectVertices(java.lang.Object, java.lang.Object)
 	 */
     @Override
-	public Object connectVertices(Object sourceVertextId, Object targetVertextId) {
+	public String connectVertices(Object sourceVertextId, Object targetVertextId) {
         String nextEdgeId = getNextEdgeId();
         connectVertices(nextEdgeId, sourceVertextId, targetVertextId);
         return nextEdgeId;

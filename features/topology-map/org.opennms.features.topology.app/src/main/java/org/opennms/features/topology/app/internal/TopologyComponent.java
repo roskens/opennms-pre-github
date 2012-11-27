@@ -627,6 +627,4 @@ public class TopologyComponent extends AbstractComponent implements Action.Conta
             requestRepaint();
         }
     }
-   
-
 }

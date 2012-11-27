@@ -348,7 +348,7 @@ public class CommandManager {
 	private List<Object> getSelectedVertices(final OperationContext operationContext) {
 		List<Object> targets = new ArrayList<Object>();
 		for (Object vId : operationContext.getGraphContainer().getVertexIds()) {
-			Item vItem = operationContext.getGraphContainer().getVertexItem(vId);
+			Item vItem = operationContext.getGraphContainer().getVertexContainer().getItem(vId);
 			boolean selected = (Boolean) vItem.getItemProperty("selected").getValue();
 			if (selected) {
 				targets.add(vItem.getItemProperty("key").getValue());

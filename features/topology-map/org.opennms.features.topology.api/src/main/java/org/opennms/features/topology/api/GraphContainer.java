@@ -45,10 +45,6 @@ public interface GraphContainer extends DisplayState {
 
     public Collection<?> getEdgeIds();
 
-    public Item getVertexItem(Object vertexId);
-
-    public Item getEdgeItem(Object edgeId);
-
     public Collection<?> getEndPointIdsForEdge(Object edgeId);
 
     public Collection<?> getEdgeIdsForVertex(Object vertexId);

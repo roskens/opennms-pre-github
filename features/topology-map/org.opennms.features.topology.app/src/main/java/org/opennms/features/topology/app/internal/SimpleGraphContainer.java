@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -541,10 +542,10 @@ public class SimpleGraphContainer implements GraphContainer {
             @Override
             protected GEdge make(String key, Object itemId, Item item) {
 
-                List<Object> endPoints = new ArrayList<Object>(m_topologyProvider.getEndPointIdsForEdge(itemId));
+                Iterator<?> endPoints = m_topologyProvider.getEndPointIdsForEdge((String)itemId).iterator();
 
-                Object sourceId = endPoints.get(0);
-                Object targetId = endPoints.get(1);
+                Object sourceId = endPoints.next();
+                Object targetId = endPoints.next();
                 
                 GVertex source = m_vertexHolder.getElementByItemId(sourceId);
                 GVertex target = m_vertexHolder.getElementByItemId(targetId);
@@ -583,7 +584,7 @@ public class SimpleGraphContainer implements GraphContainer {
 	}
 
 	@Override
-	public VertexContainer<Object, GVertex> getVertexContainer() {
+	public VertexContainer<Object,GVertex> getVertexContainer() {
 		return m_vertexContainer;
 	}
 
@@ -602,16 +603,6 @@ public class SimpleGraphContainer implements GraphContainer {
 		return m_edgeContainer.getItemIds();
 	}
 
-	@Override
-	public BeanItem<GVertex> getVertexItem(Object vertexId) {
-		return m_vertexContainer.getItem(vertexId);
-	}
-
-	@Override
-	public BeanItem<GEdge> getEdgeItem(Object edgeId) {
-		return m_edgeContainer.getItem(edgeId); 
-	}
-	
 	@Override
 	public Collection<String> getEndPointIdsForEdge(Object key) {
 	        if (key == null) return Collections.emptyList();
@@ -684,7 +675,7 @@ public class SimpleGraphContainer implements GraphContainer {
 
     @Override
     public Object getVertexItemIdForVertexKey(Object key) {
-        Item vertexItem = getVertexItem(key);
+        Item vertexItem = getVertexContainer().getItem(key);
         return vertexItem == null ? null : vertexItem.getItemProperty("itemId").getValue();
     }
     
@@ -692,7 +683,7 @@ public class SimpleGraphContainer implements GraphContainer {
     public List<Object> getSelectedVertices() {
     	List<Object> targets = new ArrayList<Object>();
 	for (Object vId : getVertexIds()) {
-		Item vItem = getVertexItem(vId);
+		Item vItem = getVertexContainer().getItem(vId);
 		boolean selected = (Boolean) vItem.getItemProperty("selected").getValue();
 		if (selected) {
 			targets.add(vItem.getItemProperty("key").getValue());
