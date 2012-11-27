@@ -74,6 +74,12 @@
 		<dependency>
 			<groupId>net.sf.ehcache</groupId>
 			<artifactId>ehcache</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>backport-util-concurrent</groupId>
+					<artifactId>backport-util-concurrent</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<artifactId>commons-dbcp</artifactId>
