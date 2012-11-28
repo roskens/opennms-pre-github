@@ -28,7 +28,7 @@
                             org.opennms.container.web.bridge
                         </Bundle-SymbolicName>
                         <Export-Package>
-                            org.apache.felix.http.api;version=${felix.version},
+                            org.apache.felix.http.api;version=${felixVersion},
                             org.osgi.service.http;version=1.2.0
                         </Export-Package>
                         <Private-Package>
