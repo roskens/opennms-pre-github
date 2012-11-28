@@ -382,6 +382,12 @@
       <type>pom</type>
     </dependency>
     <dependency>
+      <groupId>com.google.gwt</groupId>
+      <artifactId>gwt-user</artifactId>
+      <version>${gwtVersion}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
       <groupId>org.eclipse.jetty.orbit</groupId>
       <artifactId>org.apache.taglibs.standard.glassfish</artifactId>
       <version>1.2.0.v201112081803</version>
@@ -483,20 +489,17 @@
     <dependency>
         <groupId>org.opennms.features</groupId>
         <artifactId>org.opennms.features.gwt-suggestion-combobox</artifactId>
-        <type>jar</type>
         <version>${project.version}</version>
         <scope>compile</scope>
     </dependency>
     <dependency>
         <groupId>org.opennms.features</groupId>
         <artifactId>org.opennms.features.gwt-graph-resources-list</artifactId>
-        <type>jar</type>
         <version>${project.version}</version>
     </dependency>
     <dependency>
         <groupId>org.opennms.features</groupId>
         <artifactId>org.opennms.features.gwt-snmpselect-list</artifactId>
-        <type>jar</type>
         <version>${project.version}</version>
     </dependency>
 
