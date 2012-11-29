@@ -2162,7 +2162,8 @@
       <dependency>
         <groupId>net.sf.ehcache</groupId>
         <artifactId>ehcache</artifactId>
-        <version>1.5.0</version>
+        <version>1.8.0</version>
+        <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.extremecomponents</groupId>

@@ -74,6 +74,7 @@
 		<dependency>
 			<groupId>net.sf.ehcache</groupId>
 			<artifactId>ehcache</artifactId>
+			<type>pom</type>
 			<exclusions>
 				<exclusion>
 					<groupId>backport-util-concurrent</groupId>
