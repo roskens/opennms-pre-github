@@ -623,7 +623,7 @@
             String trimmedUei = stripUei(uei);
             if (!excludeList.contains(trimmedUei)) {
                 sortedMap.put(label,uei);
-                System.out.println("sortedMap.put('"+label+"', '"+uei+"')");
+                //System.out.println("sortedMap.put('"+label+"', '"+uei+"')");
             }
 	    }
         for(Map.Entry<String, String> me : sortedMap.entrySet()) {
