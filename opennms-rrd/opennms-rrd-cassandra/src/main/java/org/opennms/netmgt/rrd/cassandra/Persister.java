@@ -1,5 +1,7 @@
 package org.opennms.netmgt.rrd.cassandra;
 
+import com.netflix.astyanax.MutationBatch;
+import com.netflix.astyanax.connectionpool.OperationResult;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
@@ -7,10 +9,6 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
-
-import me.prettyprint.cassandra.serializers.StringSerializer;
-import me.prettyprint.hector.api.factory.HFactory;
-import me.prettyprint.hector.api.mutation.Mutator;
 
 import org.opennms.core.utils.LogUtils;
 
@@ -30,8 +28,6 @@ class Persister implements Runnable {
     AtomicBoolean m_finish = new AtomicBoolean(false);
 
     CountDownLatch m_finishLatch = new CountDownLatch(1);
-
-    private static final StringSerializer s_ss = StringSerializer.get();
 
     Persister(CassandraRrdConnection conn, int ttl) {
         m_conn = conn;
@@ -82,6 +78,7 @@ class Persister implements Runnable {
         return m_maxBatchSize <= 0 || datapoints.size() < m_maxBatchSize;
     }
 
+    @Override
     public void run() {
         while (true) {
             try {
@@ -90,18 +87,19 @@ class Persister implements Runnable {
                     return;
                 }
                 List<Datapoint> datapoints = getDatapoints();
-                if (datapoints == null)
+                if (datapoints == null) {
                     continue;
+                }
 
                 long start = System.currentTimeMillis();
 
-                Mutator<String> mutator = HFactory.createMutator(m_conn.getKeyspace(), s_ss);
+                MutationBatch mutator = m_conn.getKeyspace().prepareMutationBatch();
 
                 for (Datapoint datapoint : datapoints) {
                     datapoint.persist(mutator, m_conn.getDataPointCFName(), m_ttl);
                 }
 
-                mutator.execute();
+                OperationResult<Void> result = mutator.execute();
                 long end = System.currentTimeMillis();
 
                 LogUtils.debugf(this, "Wrote %d datapoints in %d ms.", datapoints.size(), end - start);

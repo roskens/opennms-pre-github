@@ -1,6 +1,6 @@
 package org.opennms.netmgt.rrd.cassandra;
 
-import me.prettyprint.hector.api.Keyspace;
+import com.netflix.astyanax.Keyspace;
 
 public class CassandraRrdConnection {
     private Keyspace m_keyspace;
@@ -8,7 +8,7 @@ public class CassandraRrdConnection {
     private String m_dpColumnFamily;
     private Persister m_persister;
 
-    CassandraRrdConnection(Keyspace keyspace, String mdColumnFamily, String dpColumnFamily, int ttl)
+    CassandraRrdConnection(final Keyspace keyspace, final String mdColumnFamily, final String dpColumnFamily, int ttl)
     {
         m_keyspace = keyspace;
         m_mdColumnFamily = mdColumnFamily;
@@ -33,7 +33,8 @@ public class CassandraRrdConnection {
     }
 
     public void persist(Datapoint dp) {
-        if(m_persister != null)
+        if(m_persister != null) {
             m_persister.persist(dp);
+        }
     }
 }

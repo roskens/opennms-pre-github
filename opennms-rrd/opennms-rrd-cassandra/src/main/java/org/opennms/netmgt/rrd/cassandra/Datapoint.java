@@ -1,14 +1,12 @@
 package org.opennms.netmgt.rrd.cassandra;
 
+import com.netflix.astyanax.MutationBatch;
+import com.netflix.astyanax.model.ColumnFamily;
+import com.netflix.astyanax.serializers.AnnotatedCompositeSerializer;
+import com.netflix.astyanax.serializers.DoubleSerializer;
+import com.netflix.astyanax.serializers.LongSerializer;
+import com.netflix.astyanax.serializers.StringSerializer;
 import java.util.Collections;
-
-import me.prettyprint.cassandra.serializers.DoubleSerializer;
-import me.prettyprint.cassandra.serializers.LongSerializer;
-import me.prettyprint.cassandra.serializers.StringSerializer;
-import me.prettyprint.hector.api.beans.HColumn;
-import me.prettyprint.hector.api.beans.HSuperColumn;
-import me.prettyprint.hector.api.factory.HFactory;
-import me.prettyprint.hector.api.mutation.Mutator;
 
 public class Datapoint extends TimeSeriesPoint {
     private String m_fileName;
@@ -21,13 +19,16 @@ public class Datapoint extends TimeSeriesPoint {
 
     private static final DoubleSerializer s_ds = DoubleSerializer.get();
 
+    private static AnnotatedCompositeSerializer<DataPointColumn> dpSerializer
+            = new AnnotatedCompositeSerializer<DataPointColumn>(DataPointColumn.class);
+
     Datapoint(String fileName, String dsName, long timestamp, double value) {
         super(timestamp, value);
         m_fileName = fileName;
         m_dsName = dsName;
     }
 
-    public String getName() {
+    public String getFileName() {
         return m_fileName;
     }
 
@@ -35,16 +36,17 @@ public class Datapoint extends TimeSeriesPoint {
         return m_dsName;
     }
 
-    public void persist(Mutator<String> mutator, String columnFamily, int ttl) {
-        HColumn<Long, Double> c = HFactory.createColumn(Long.valueOf(getTimestamp()), getValue(), ttl, s_ls, s_ds);
-        HSuperColumn<String, Long, Double> superColumn = HFactory.createSuperColumn(getDsName(), Collections.singletonList(c),
-                                                                                    s_ss, s_ls, s_ds);
-        mutator.addInsertion(getName(), columnFamily, superColumn);
+    public void persist(MutationBatch mutator, String dpColumnFamily, int ttl) {
+        ColumnFamily<String, DataPointColumn> columnFamily = new ColumnFamily(dpColumnFamily, StringSerializer.get(), dpSerializer);
+
+        mutator.withRow(columnFamily, getFileName())
+                .setDefaultTtl(ttl)
+                .putColumn(new DataPointColumn(getDsName(), getTimestamp()), getValue());
     }
 
     public String toString() {
         StringBuilder buf = new StringBuilder();
-        buf.append(m_fileName).append("(").append(m_dsName).append("):");
+        buf.append(getFileName()).append("(").append(getDsName()).append("):");
         buf.append(getTimestamp()).append("=").append(getValue());
         return buf.toString();
     }

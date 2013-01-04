@@ -1,16 +1,18 @@
 package org.opennms.netmgt.rrd.cassandra;
 
+import com.netflix.astyanax.ColumnMutation;
+import com.netflix.astyanax.Keyspace;
+import com.netflix.astyanax.connectionpool.OperationResult;
+import com.netflix.astyanax.connectionpool.exceptions.ConnectionException;
+import com.netflix.astyanax.model.ColumnFamily;
+import com.netflix.astyanax.serializers.StringSerializer;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
-
-import me.prettyprint.cassandra.serializers.StringSerializer;
-import me.prettyprint.hector.api.factory.HFactory;
-import me.prettyprint.hector.api.mutation.Mutator;
-import me.prettyprint.hector.api.ResultStatus;
-import me.prettyprint.hector.api.exceptions.HectorException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.opennms.core.utils.LogUtils;
 import org.opennms.core.xml.JaxbUtils;
@@ -122,16 +124,12 @@ public class CassRrdDef {
         }
         LogUtils.debugf(this, "create: keyspace: %s", connection.getKeyspace().getKeyspaceName());
 
-        Mutator<String> mutator = HFactory.createMutator(connection.getKeyspace(), s_ss);
-        mutator.insert(m_fileName, connection.getMetaDataCFName(), HFactory.createStringColumn(m_fileName, toXml()));
-
+        ColumnFamily<String, String> columnFamily = new ColumnFamily(connection.getMetaDataCFName(), s_ss, s_ss);
+        ColumnMutation mutation = connection.getKeyspace().prepareColumnMutation(columnFamily, m_fileName, m_fileName);
         try {
-            ResultStatus result = mutator.execute();
-            if (result == null) {
-                LogUtils.warnf(this, "result was null after execute()");
-            }
-        } catch (HectorException e) {
-            LogUtils.errorf(this, e, "exception");
+            OperationResult<Void> result = mutation.putValue(toXml(), null).execute();
+        } catch (ConnectionException ex) {
+            LogUtils.errorf(this, ex, "ConnectionException: m_fileName: %s", m_fileName);
         }
     }
 

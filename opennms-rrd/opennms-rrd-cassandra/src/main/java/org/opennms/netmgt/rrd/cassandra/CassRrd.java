@@ -1,5 +1,15 @@
 package org.opennms.netmgt.rrd.cassandra;
 
+import com.netflix.astyanax.connectionpool.OperationResult;
+import com.netflix.astyanax.connectionpool.exceptions.ConnectionException;
+import com.netflix.astyanax.model.Column;
+import com.netflix.astyanax.model.ColumnFamily;
+import com.netflix.astyanax.model.ColumnList;
+import com.netflix.astyanax.serializers.AnnotatedCompositeSerializer;
+import com.netflix.astyanax.serializers.DoubleSerializer;
+import com.netflix.astyanax.serializers.LongSerializer;
+import com.netflix.astyanax.serializers.StringSerializer;
+import com.netflix.astyanax.util.RangeBuilder;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,17 +18,6 @@ import java.util.Comparator;
 import java.util.Collections;
 
 import org.opennms.core.xml.JaxbUtils;
-
-import me.prettyprint.cassandra.serializers.DoubleSerializer;
-import me.prettyprint.cassandra.serializers.LongSerializer;
-import me.prettyprint.cassandra.serializers.StringSerializer;
-import me.prettyprint.hector.api.beans.ColumnSlice;
-import me.prettyprint.hector.api.beans.HColumn;
-import me.prettyprint.hector.api.exceptions.HectorException;
-import me.prettyprint.hector.api.factory.HFactory;
-import me.prettyprint.hector.api.query.ColumnQuery;
-import me.prettyprint.hector.api.query.QueryResult;
-import me.prettyprint.hector.api.query.SubSliceQuery;
 
 import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.rrd.RrdException;
@@ -49,22 +48,23 @@ public class CassRrd {
         m_fileName = fileName;
 
         try {
-            ColumnQuery<String, String, String> columnQuery = HFactory.createStringColumnQuery(m_connection.getKeyspace());
-            columnQuery.setColumnFamily(m_connection.getMetaDataCFName()).setKey(fileName).setName(fileName);
-            QueryResult<HColumn<String, String>> result = columnQuery.execute();
+            ColumnFamily<String, String> columnFamily = new ColumnFamily(connection.getMetaDataCFName(), s_ss, s_ss);
 
-            HColumn<String, String> hc = result.get();
+            Column<String> result = connection.getKeyspace().prepareQuery(columnFamily)
+                    .getKey(fileName)
+                    .getColumn(fileName)
+                    .execute().getResult();
 
-            if (hc == null) {
+            if (result == null) {
                 throw new RrdException("file " + m_fileName + " does not exist!");
             }
-            if (hc.getValue().isEmpty()) {
+            if (result.getStringValue().isEmpty()) {
                 throw new RrdException("file " + m_fileName + " had no valid metadata?");
             }
 
             LogUtils.debugf(this, "metadata: found xml data for %s", m_fileName);
-            m_rrddef = JaxbUtils.unmarshal(RrdDef.class, hc.getValue(), true);
-        } catch (HectorException e) {
+            m_rrddef = JaxbUtils.unmarshal(RrdDef.class, result.getStringValue(), true);
+        } catch (ConnectionException e) {
             LogUtils.errorf(this, e, "exception on search");
             throw new RrdException(e.getMessage());
         } catch (Exception e) {
@@ -201,31 +201,36 @@ public class CassRrd {
         ArrayList<TimeSeriesPoint> tspoints = new ArrayList<TimeSeriesPoint>();
 
         try {
-            SubSliceQuery<String, String, Long, Double> ssquery = HFactory.createSubSliceQuery(m_connection.getKeyspace(), s_ss, s_ss, s_ls,
-                                                                                               s_ds);
-            ssquery.setColumnFamily(m_connection.getDataPointCFName());
-            ssquery.setKey(m_fileName);
-            ssquery.setSuperColumn(ds);
-            ssquery.setRange(earliestUpdateTime, latestUpdateTime, false, Integer.MAX_VALUE);
+            AnnotatedCompositeSerializer<DataPointColumn> dpSerializer = new AnnotatedCompositeSerializer<DataPointColumn>(DataPointColumn.class);
 
-            QueryResult<ColumnSlice<Long, Double>> ssresults = ssquery.execute();
+            OperationResult<ColumnList<DataPointColumn>> result;
+            ColumnFamily<String, DataPointColumn> columnFamily = new ColumnFamily(m_connection.getDataPointCFName(), StringSerializer.get(), dpSerializer);
 
-            List<HColumn<Long, Double>> ssdatapoints = ssresults.get().getColumns();
+            result = m_connection.getKeyspace().prepareQuery(columnFamily)
+                    .getKey(m_fileName)
+                    .withColumnRange(new RangeBuilder().setStart(earliestUpdateTime).setEnd(latestUpdateTime).build())
+                    .execute();
 
-            LogUtils.tracef(this, "found %d datapoints", ssdatapoints.size());
+            ColumnList<DataPointColumn> columnList = result.getResult();
+
+            LogUtils.tracef(this, "found %d datapoints", columnList.size());
             Long t0 = null;
-            for (HColumn<Long, Double> dp : ssdatapoints) {
-              Long dpTs = dp.getName();
-              if (t0 != null) {
-                while (t0 < dpTs) {
-                  tspoints.add(new TimeSeriesPoint(t0, Double.valueOf(Double.NaN)));
-                  t0 += getStep();
+            for(int i = 0; i < columnList.size(); i++) {
+                Column<DataPointColumn> col = columnList.getColumnByIndex(i);
+                DataPointColumn dp = col.getName();
+                Long dpTs = dp.m_timestamp;
+                if (t0 != null){
+                    while (t0 < dpTs) {
+                        tspoints.add(new TimeSeriesPoint(t0, Double.valueOf(Double.NaN)));
+                        t0 += getStep();
+                    }
                 }
-              }
-              tspoints.add(new TimeSeriesPoint(normalize(dpTs, getStep()), dp.getValue().doubleValue()));
-              t0 = dpTs + getStep();
+                tspoints.add(new TimeSeriesPoint(normalize(dpTs, getStep()), col.getDoubleValue()));
+                t0 += dpTs + getStep();
             }
-        } catch (HectorException e) {
+
+
+        } catch (ConnectionException e) {
             throw new org.opennms.netmgt.rrd.RrdException(e.getMessage());
         }
 

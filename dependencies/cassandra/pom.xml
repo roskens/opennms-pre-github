@@ -12,9 +12,9 @@
   <name>OpenNMS Cassandra Dependencies</name>
   <dependencies>
     <dependency>
-      <groupId>me.prettyprint</groupId>
-      <artifactId>hector-core</artifactId>
-      <version>1.0-5</version>
+      <groupId>com.netflix.astyanax</groupId>
+      <artifactId>astyanax</artifactId>
+      <version>1.56.18</version>
     </dependency>
   </dependencies>
 </project>

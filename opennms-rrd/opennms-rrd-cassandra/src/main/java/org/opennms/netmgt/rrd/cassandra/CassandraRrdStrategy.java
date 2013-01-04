@@ -28,6 +28,26 @@
 
 package org.opennms.netmgt.rrd.cassandra;
 
+import com.google.common.collect.ImmutableMap;
+import com.netflix.astyanax.AstyanaxContext;
+import com.netflix.astyanax.ColumnMutation;
+import com.netflix.astyanax.Keyspace;
+import com.netflix.astyanax.MutationBatch;
+import com.netflix.astyanax.connectionpool.NodeDiscoveryType;
+import com.netflix.astyanax.connectionpool.OperationResult;
+import com.netflix.astyanax.connectionpool.exceptions.ConnectionException;
+import com.netflix.astyanax.connectionpool.impl.ConnectionPoolConfigurationImpl;
+import com.netflix.astyanax.connectionpool.impl.ConnectionPoolType;
+import com.netflix.astyanax.connectionpool.impl.CountingConnectionPoolMonitor;
+import com.netflix.astyanax.connectionpool.impl.SmaLatencyScoreStrategyImpl;
+import com.netflix.astyanax.ddl.ColumnFamilyDefinition;
+import com.netflix.astyanax.ddl.KeyspaceDefinition;
+import com.netflix.astyanax.impl.AstyanaxConfigurationImpl;
+import com.netflix.astyanax.model.Column;
+import com.netflix.astyanax.model.ColumnFamily;
+import com.netflix.astyanax.model.ColumnList;
+import com.netflix.astyanax.serializers.StringSerializer;
+import com.netflix.astyanax.thrift.ThriftFamilyFactory;
 import java.awt.Color;
 import java.awt.Font;
 import java.io.File;
@@ -43,22 +63,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
-import me.prettyprint.cassandra.serializers.StringSerializer;
-import me.prettyprint.cassandra.service.CassandraHostConfigurator;
-import me.prettyprint.cassandra.service.ColumnSliceIterator;
-import me.prettyprint.hector.api.Cluster;
-import me.prettyprint.hector.api.ResultStatus;
-import me.prettyprint.hector.api.beans.HColumn;
-import me.prettyprint.hector.api.ddl.ColumnFamilyDefinition;
-import me.prettyprint.hector.api.ddl.ColumnType;
-import me.prettyprint.hector.api.ddl.ComparatorType;
-import me.prettyprint.hector.api.ddl.KeyspaceDefinition;
-import me.prettyprint.hector.api.exceptions.HectorException;
-import me.prettyprint.hector.api.factory.HFactory;
-import me.prettyprint.hector.api.mutation.Mutator;
-import me.prettyprint.hector.api.query.ColumnQuery;
-import me.prettyprint.hector.api.query.QueryResult;
-import me.prettyprint.hector.api.query.SliceQuery;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.jrobin.core.RrdException;
 import org.jrobin.data.DataProcessor;
@@ -72,6 +78,8 @@ import org.opennms.netmgt.rrd.RrdDataSource;
 import org.opennms.netmgt.rrd.RrdGraphDetails;
 import org.opennms.netmgt.rrd.RrdStrategy;
 import org.opennms.core.utils.LogUtils;
+import org.opennms.core.xml.JaxbUtils;
+import org.opennms.netmgt.rrd.cassandra.config.RrdDef;
 
 /**
  * @author ranger
@@ -81,7 +89,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
 
     public static final String KEYSPACE_NAME_PROPERTY = "org.opennms.netmgt.rrd.cassandra.keyspace";
 
-    private static final String DEFAULT_KEYSPACE = "OpenNMS";
+    private static final String DEFAULT_KEYSPACE = "OpenNMSv2";
 
     public static final String DATA_COLUMN_FAMILY_NAME_PROPERTY = "org.opennms.netmgt.rrd.cassandra.dataColumnFamily";
 
@@ -133,6 +141,14 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
 
     private CassandraRrdConnection m_connection;
 
+    public static ColumnFamily<String, String> CF_METADATA = ColumnFamily
+            .newColumnFamily("metadata", StringSerializer.get(),
+                    StringSerializer.get());
+
+    public static ColumnFamily<String, String> CF_DATAPOINTS = ColumnFamily
+            .newColumnFamily("datapoints", StringSerializer.get(),
+                    StringSerializer.get());
+
     /**
      * An extremely simple Plottable for holding static datasources that can't
      * be represented with an SDEF -- currently used only for PERCENT
@@ -153,6 +169,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
             m_value = value;
         }
 
+        @Override
         public double getValue(long timestamp) {
             if (m_startTime <= timestamp && m_endTime >= timestamp) {
                 return m_value;
@@ -174,6 +191,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
     }
 
     /** {@inheritDoc} */
+    @Override
     public void setConfigurationProperties(final Properties configurationParameters) {
         m_configurationProperties = configurationParameters;
 
@@ -189,16 +207,35 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
 
             m_ttl = Integer.parseInt(getProperty(TTL_PROPERTY, DEFAULT_TTL));
 
-            CassandraHostConfigurator clusterConfig = new CassandraHostConfigurator(m_clusterHosts);
-            if (m_autoDiscovery) {
-                clusterConfig.setAutoDiscoverHosts(m_autoDiscovery);
-            }
+            ConnectionPoolConfigurationImpl poolConfig = new ConnectionPoolConfigurationImpl("MyConnectionPool")
+                .setPort(9160)
+                .setMaxConnsPerHost(1)
+                .setSeeds(m_clusterHosts)
+                .setLatencyAwareUpdateInterval(10000)  // Will resort hosts per token partition every 10 seconds
+                .setLatencyAwareResetInterval(10000) // Will clear the latency every 10 seconds
+                .setLatencyAwareBadnessThreshold(0.50f) // Will sort hosts if a host is more than 100% slower than the best and always assign connections to the fastest host, otherwise will use round robin
+                .setLatencyAwareWindowSize(100) // Uses last 100 latency samples
+            ;
+            //poolConfig.setLatencyScoreStrategy(new SmaLatencyScoreStrategyImpl(poolConfig)); // Enabled SMA.  Omit this to use round robin with a token range
 
-            Cluster cluster = HFactory.getOrCreateCluster(m_clusterName, clusterConfig);
+            AstyanaxContext<Keyspace> context = new AstyanaxContext.Builder()
+                .forCluster(m_clusterName)
+                .forKeyspace(m_keyspaceName)
+                .withAstyanaxConfiguration(new AstyanaxConfigurationImpl()
+                    .setDiscoveryType(NodeDiscoveryType.RING_DESCRIBE)
+                    .setConnectionPoolType(ConnectionPoolType.TOKEN_AWARE)
+                    )
+                .withConnectionPoolConfiguration(poolConfig)
+                .withConnectionPoolMonitor(new CountingConnectionPoolMonitor())
+                .buildKeyspace(ThriftFamilyFactory.getInstance());
+            context.start();
+            Keyspace keyspace = context.getEntity();
 
-            KeyspaceDefinition ksDef = cluster.describeKeyspace(m_keyspaceName);
-
-            if (ksDef == null) {
+            KeyspaceDefinition ksDef;
+            try {
+                ksDef = keyspace.describeKeyspace();
+                ColumnFamilyDefinition cfd = ksDef.getColumnFamily(m_mdColumnFamily);
+                if (cfd == null) {
                 /*
                  * MetaData column must be created with a structure like this:
                  * create column family metadata
@@ -207,13 +244,15 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
                  * and default_validation_class = 'UTF8Type'
                  * and key_validation_class = 'AsciiType';
                  */
+                    keyspace.createColumnFamily(CF_METADATA, ImmutableMap.<String, Object>builder()
+                            .put("default_validation_class", "UTF8Type")
+                            .put("key_validation_class", "UTF8Type")
+                            .build()
+                    );
 
-                ColumnFamilyDefinition cfMDDef = HFactory.createColumnFamilyDefinition(m_keyspaceName, m_mdColumnFamily,
-                                                                                       ComparatorType.ASCIITYPE);
-                cfMDDef.setColumnType(ColumnType.STANDARD);
-                cfMDDef.setKeyValidationClass("org.apache.cassandra.db.marshal.AsciiType");
-                cfMDDef.setDefaultValidationClass("org.apache.cassandra.db.marshal.UTF8Type");
-
+                }
+                cfd = ksDef.getColumnFamily(m_dpColumnFamily);
+                if (cfd == null) {
                 /*
                  * Data column must be create with a structure like this:
                  * create column family datapoints
@@ -223,23 +262,19 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
                  * and default_validation_class = 'DoubleType'
                  * and key_validation_class = 'AsciiType'
                  */
+                    keyspace.createColumnFamily(CF_DATAPOINTS, ImmutableMap.<String, Object>builder()
+                            .put("default_validation_class", "UTF8Type")
+                            .put("key_validation_class",     "UTF8Type")
+                            .put("comparator_type",          "CompositeType(UTF8Type, LongType)")
+                            .build());
+                }
 
-                ColumnFamilyDefinition cfDef = HFactory.createColumnFamilyDefinition(m_keyspaceName, m_dpColumnFamily,
-                                                                                     ComparatorType.ASCIITYPE);
-                cfDef.setColumnType(ColumnType.SUPER);
-                cfDef.setSubComparatorType(ComparatorType.LONGTYPE);
-                cfDef.setKeyValidationClass("org.apache.cassandra.db.marshal.AsciiType");
-                cfDef.setDefaultValidationClass("org.apache.cassandra.db.marshal.DoubleType");
-
-                ksDef = HFactory.createKeyspaceDefinition(m_keyspaceName, "org.apache.cassandra.locator.SimpleStrategy", 1,
-                                                          Arrays.asList(cfDef, cfMDDef));
-
-                cluster.addKeyspace(ksDef, true);
+                m_connection = new CassandraRrdConnection(keyspace, m_mdColumnFamily, m_dpColumnFamily, m_ttl);
+                s_initialized = true;
+            } catch (ConnectionException ex) {
+                LogUtils.errorf(this, ex, "ConnectionException");
             }
 
-            m_connection = new CassandraRrdConnection(HFactory.createKeyspace(m_keyspaceName, cluster), m_mdColumnFamily,
-                                                      m_dpColumnFamily, m_ttl);
-            s_initialized = true;
         }
     }
 
@@ -255,11 +290,13 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
      * @throws java.lang.Exception
      *             if any.
      */
+    @Override
     public void closeFile(final CassRrd rrdFile) throws Exception {
         rrdFile.close();
     }
 
     /** {@inheritDoc} */
+    @Override
     public CassRrdDef createDefinition(final String creator, final String directory, final String rrdName, int step,
             final List<RrdDataSource> dataSources, final List<String> rraList) throws Exception {
         /**
@@ -284,23 +321,27 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
 
     // XXX: Should this call a method inside CassRrd?
     /** {@inheritDoc} */
+    @Override
     public boolean fileExists(String fileName) {
         boolean found = false;
 
         try {
-            ColumnQuery<String, String, String> columnQuery = HFactory.createStringColumnQuery(m_connection.getKeyspace());
-            columnQuery.setColumnFamily(m_mdColumnFamily).setKey(fileName).setName(fileName);
-            QueryResult<HColumn<String, String>> result = columnQuery.execute();
+            ColumnFamily<String, String> columnFamily = new ColumnFamily(m_mdColumnFamily, StringSerializer.get(), StringSerializer.get());
 
-            HColumn<String, String> hc = result.get();
+            Column<String> result = m_connection.getKeyspace().prepareQuery(columnFamily)
+                    .getKey(fileName)
+                    .getColumn(fileName)
+                    .execute().getResult();
 
-            if (hc != null) {
-                LogUtils.debugf(this, "found a result for fileName %s, assuming 'file' exists", fileName);
-                found = true;
-            } else {
-                LogUtils.debugf(this, "found no results for fileName %s, assuming 'file' does not exist", fileName);
+            if (result == null) {
+                throw new org.opennms.netmgt.rrd.RrdException("file " + fileName + " does not exist!");
+            }
+            if (result.getStringValue().isEmpty()) {
+                throw new org.opennms.netmgt.rrd.RrdException("file " + fileName + " had no valid metadata?");
             }
 
+            LogUtils.debugf(this, "metadata: found xml data for %s", fileName);
+            found = true;
         } catch (Exception e) {
             LogUtils.errorf(this, e, "exception on search");
         }
@@ -318,6 +359,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
      * @throws java.lang.Exception
      *             if any.
      */
+    @Override
     public void createFile(final CassRrdDef rrdDef, final Map<String, String> attributeMappings) throws Exception {
         if (rrdDef == null) {
             return;
@@ -331,46 +373,45 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
     }
 
     /** {@inheritDoc} */
+    @Override
     public void createMetaDataFile(final String directory, final String rrdName, final Map<String, String> attributeMappings) throws Exception {
-        if (attributeMappings == null) return;
+        if (attributeMappings == null) {
+            return;
+        }
         String fileName = directory + File.separator + rrdName + ".meta";
 
-        Mutator<String> mutator = HFactory.createMutator(m_connection.getKeyspace(), StringSerializer.get());
+        MutationBatch mutator = m_connection.getKeyspace().prepareMutationBatch();
 
-        // FIXME: handle case where mappingEntry.getKey() == fileName
         for (Entry<String, String> mappingEntry : attributeMappings.entrySet()) {
-            mutator.insert(fileName, m_connection.getMetaDataCFName(), HFactory.createStringColumn(mappingEntry.getKey(), mappingEntry.getValue()));
+            mutator.withRow(CF_METADATA, fileName)
+                    .putColumn(mappingEntry.getKey(), mappingEntry.getValue());
         }
 
         try {
             mutator.execute();
             LogUtils.infof(this, "createRRD: creating META file %s", fileName);
-        } catch (HectorException e) {
+        } catch (ConnectionException e) {
             LogUtils.errorf(this, e, "exception");
         }
     }
 
+    @Override
     public Map<String, String> getMetaDataMappings(String directory, String rrdName) throws Exception {
         Map<String,String> map = new HashMap<String,String>();
 
         String fileName = directory + File.separator + rrdName + ".meta";
 
         try {
-            SliceQuery<String, String, String> sliceQuery =
-                    HFactory.createSliceQuery(m_connection.getKeyspace(),
-                                                   StringSerializer.get(),
-                                                   StringSerializer.get(),
-                                                   StringSerializer.get());
-            sliceQuery.setColumnFamily(m_connection.getMetaDataCFName()).setKey(fileName);
+            ColumnList<String> c = m_connection.getKeyspace().prepareQuery(CF_METADATA)
+                    .getKey(fileName)
+                    .execute().getResult();
 
-            ColumnSliceIterator<String, String, String> iterator = new ColumnSliceIterator<String, String, String>(sliceQuery, "", "", false);
-
-            while (iterator.hasNext()) {
-                HColumn<String, String> hc = iterator.next();
-                map.put(hc.getName(), hc.getValue());
+            for(int i = 0; i < c.size(); i++) {
+                Column<String> col = c.getColumnByIndex(i);
+                map.put(col.getName(), col.getStringValue());
             }
 
-        } catch (HectorException e) {
+        } catch (ConnectionException e) {
             LogUtils.errorf(this, e, "exception on search");
             throw new RrdException(e.getMessage());
         } catch (Exception e) {
@@ -385,6 +426,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
     /**
      * {@inheritDoc} Opens the JRobin RrdDb by name and returns it.
      */
+    @Override
     public CassRrd openFile(final String fileName) throws Exception {
         CassRrd rrd = new CassRrd(m_connection, fileName);
         return rrd;
@@ -393,6 +435,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void updateFile(final CassRrd rrdFile, final String owner, final String data) throws Exception {
         rrdFile.storeValues(data);
     }
@@ -412,12 +455,14 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
     /**
      * {@inheritDoc} Fetch the last value from the JRobin RrdDb file.
      */
+    @Override
     public Double fetchLastValue(final String fileName, final String ds, final int interval) throws NumberFormatException,
             org.opennms.netmgt.rrd.RrdException {
         return fetchLastValue(fileName, ds, "AVERAGE", interval);
     }
 
     /** {@inheritDoc} */
+    @Override
     public Double fetchLastValue(final String fileName, final String ds, final String consolFun, final int interval)
             throws org.opennms.netmgt.rrd.RrdException {
         LogUtils.tracef(this, "fetchLastValue(): fileName=%s, datasource=%s", fileName, ds);
@@ -443,6 +488,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
     }
 
     /** {@inheritDoc} */
+    @Override
     public Double fetchLastValueInRange(final String fileName, final String ds, final int interval, final int range)
             throws NumberFormatException, org.opennms.netmgt.rrd.RrdException {
         LogUtils.tracef(this, "fetchLastValue(): fileName=%s, datasource=%s", fileName, ds);
@@ -484,6 +530,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
     }
 
     /** {@inheritDoc} */
+    @Override
     public InputStream createGraph(final String command, final File workDir) throws IOException,
             org.opennms.netmgt.rrd.RrdException {
         return createGraphReturnDetails(command, workDir).getInputStream();
@@ -498,6 +545,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
      * image will be created. An input stream returning the bytes of the PNG
      * image is returned.
      */
+    @Override
     public RrdGraphDetails createGraphReturnDetails(final String command, final File workDir) throws IOException,
             org.opennms.netmgt.rrd.RrdException {
 
@@ -527,6 +575,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
     }
 
     /** {@inheritDoc} */
+    @Override
     public void promoteEnqueuedFiles(Collection<String> rrdFiles) {
         // no need to do anything since this strategy doesn't queue
     }
@@ -974,6 +1023,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
      *
      * @return a {@link java.lang.String} object.
      */
+    @Override
     public String getStats() {
         return "";
     }
@@ -988,6 +1038,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
      *
      * @return a int.
      */
+    @Override
     public int getGraphLeftOffset() {
         return 74;
     }
@@ -999,6 +1050,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
      *
      * @return a int.
      */
+    @Override
     public int getGraphRightOffset() {
         return -15;
     }
@@ -1010,6 +1062,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
      *
      * @return a int.
      */
+    @Override
     public int getGraphTopOffsetWithText() {
         return -61;
     }
@@ -1021,11 +1074,12 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
      *
      * @return a {@link java.lang.String} object.
      */
+    @Override
     public String getDefaultFileExtension() {
         return ".jrb";
     }
 
-    private final ThreadCategory log() {
+    private ThreadCategory log() {
         return ThreadCategory.getInstance(getClass());
     }
 
@@ -1071,15 +1125,18 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
         boolean quoting = false;
         boolean escaping = false;
         boolean debugTokens = Boolean.getBoolean("org.opennms.netmgt.rrd.debugTokens");
-        if (!log.isDebugEnabled())
+        if (!log.isDebugEnabled()) {
             debugTokens = false;
+        }
 
-        if (debugTokens)
+        if (debugTokens) {
             log.debug("tokenize: line=" + line + " delims=" + delims);
+        }
         for (int i = 0; i < line.length(); i++) {
             char ch = line.charAt(i);
-            if (debugTokens)
+            if (debugTokens) {
                 log.debug("tokenize: checking char: " + ch);
+            }
             if (escaping) {
                 if (ch == 'n') {
                     currToken.append(escapeIfNotPathSepInDEF(ch, '\n', currToken));
@@ -1099,48 +1156,59 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
                     }
                 }
                 escaping = false;
-                if (debugTokens)
+                if (debugTokens) {
                     log.debug("tokenize: escaped. appended to " + currToken);
+                }
             } else if (ch == '\\') {
-                if (debugTokens)
+                if (debugTokens) {
                     log.debug("tokenize: found a backslash... escaping currToken = " + currToken);
-                if (quoting && !processQuoted)
+                }
+                if (quoting && !processQuoted) {
                     currToken.append(ch);
-                else
+                }
+                else {
                     escaping = true;
+                }
             } else if (ch == '\"') {
-                if (!processQuoted)
+                if (!processQuoted) {
                     currToken.append(ch);
+                }
                 if (quoting) {
-                    if (debugTokens)
+                    if (debugTokens) {
                         log.debug("tokenize: found a quote ending quotation currToken = " + currToken);
+                    }
                     quoting = false;
                 } else {
-                    if (debugTokens)
+                    if (debugTokens) {
                         log.debug("tokenize: found a quote beginning quotation  currToken =" + currToken);
+                    }
                     quoting = true;
                 }
             } else if (!quoting && delims.indexOf(ch) >= 0) {
-                if (debugTokens)
+                if (debugTokens) {
                     log.debug("tokenize: found a token: " + ch + " ending token [" + currToken + "] and starting a new one");
+                }
                 tokenList.add(currToken.toString());
                 currToken = new StringBuffer();
             } else {
-                if (debugTokens)
+                if (debugTokens) {
                     log.debug("tokenize: appending " + ch + " to token: " + currToken);
+                }
                 currToken.append(ch);
             }
 
         }
 
         if (escaping || quoting) {
-            if (debugTokens)
+            if (debugTokens) {
                 log.debug("tokenize: ended string but escaping = " + escaping + " and quoting = " + quoting);
+            }
             throw new IllegalArgumentException("unable to tokenize string " + line + " with token chars " + delims);
         }
 
-        if (debugTokens)
+        if (debugTokens) {
             log.debug("tokenize: reached end of string.  completing token " + currToken);
+        }
         tokenList.add(currToken.toString());
 
         return (String[]) tokenList.toArray(new String[tokenList.size()]);
