@@ -22,7 +22,7 @@ public class Datapoint extends TimeSeriesPoint {
     private static AnnotatedCompositeSerializer<DataPointColumn> dpSerializer
             = new AnnotatedCompositeSerializer<DataPointColumn>(DataPointColumn.class);
 
-    Datapoint(String fileName, String dsName, long timestamp, double value) {
+    public Datapoint(String fileName, String dsName, long timestamp, double value) {
         super(timestamp, value);
         m_fileName = fileName;
         m_dsName = dsName;
