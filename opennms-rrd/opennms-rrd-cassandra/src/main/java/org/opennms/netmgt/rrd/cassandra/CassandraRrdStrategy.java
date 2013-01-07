@@ -30,22 +30,21 @@ package org.opennms.netmgt.rrd.cassandra;
 
 import com.google.common.collect.ImmutableMap;
 import com.netflix.astyanax.AstyanaxContext;
-import com.netflix.astyanax.ColumnMutation;
+import com.netflix.astyanax.Cluster;
 import com.netflix.astyanax.Keyspace;
 import com.netflix.astyanax.MutationBatch;
 import com.netflix.astyanax.connectionpool.NodeDiscoveryType;
-import com.netflix.astyanax.connectionpool.OperationResult;
 import com.netflix.astyanax.connectionpool.exceptions.ConnectionException;
 import com.netflix.astyanax.connectionpool.impl.ConnectionPoolConfigurationImpl;
 import com.netflix.astyanax.connectionpool.impl.ConnectionPoolType;
 import com.netflix.astyanax.connectionpool.impl.CountingConnectionPoolMonitor;
-import com.netflix.astyanax.connectionpool.impl.SmaLatencyScoreStrategyImpl;
 import com.netflix.astyanax.ddl.ColumnFamilyDefinition;
 import com.netflix.astyanax.ddl.KeyspaceDefinition;
 import com.netflix.astyanax.impl.AstyanaxConfigurationImpl;
 import com.netflix.astyanax.model.Column;
 import com.netflix.astyanax.model.ColumnFamily;
 import com.netflix.astyanax.model.ColumnList;
+import com.netflix.astyanax.serializers.AnnotatedCompositeSerializer;
 import com.netflix.astyanax.serializers.StringSerializer;
 import com.netflix.astyanax.thrift.ThriftFamilyFactory;
 import java.awt.Color;
@@ -63,8 +62,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.jrobin.core.RrdException;
 import org.jrobin.data.DataProcessor;
@@ -78,8 +75,6 @@ import org.opennms.netmgt.rrd.RrdDataSource;
 import org.opennms.netmgt.rrd.RrdGraphDetails;
 import org.opennms.netmgt.rrd.RrdStrategy;
 import org.opennms.core.utils.LogUtils;
-import org.opennms.core.xml.JaxbUtils;
-import org.opennms.netmgt.rrd.cassandra.config.RrdDef;
 
 /**
  * @author ranger
@@ -89,7 +84,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
 
     public static final String KEYSPACE_NAME_PROPERTY = "org.opennms.netmgt.rrd.cassandra.keyspace";
 
-    private static final String DEFAULT_KEYSPACE = "OpenNMSv2";
+    private static final String DEFAULT_KEYSPACE = "datacollection";
 
     public static final String DATA_COLUMN_FAMILY_NAME_PROPERTY = "org.opennms.netmgt.rrd.cassandra.dataColumnFamily";
 
@@ -101,7 +96,7 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
 
     public static final String CLUSTER_NAME_PROPERTY = "org.opennms.netmgt.rrd.cassandra.clusterName";
 
-    private static final String DEFAULT_CLUSTER_NAME = "datacollectionCluster";
+    private static final String DEFAULT_CLUSTER_NAME = "OpenNMSCassandraCluster";
 
     // comma separated list of hosts
     public static final String CLUSTER_HOSTS_PROPERTY = "org.opennms.netmgt.rrd.cassandra.clusterHosts";
@@ -141,13 +136,16 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
 
     private CassandraRrdConnection m_connection;
 
-    public static ColumnFamily<String, String> CF_METADATA = ColumnFamily
+    public static final ColumnFamily<String, String> CF_METADATA = ColumnFamily
             .newColumnFamily("metadata", StringSerializer.get(),
                     StringSerializer.get());
 
-    public static ColumnFamily<String, String> CF_DATAPOINTS = ColumnFamily
+    private static final AnnotatedCompositeSerializer<DataPointColumn> dpSerializer
+            = new AnnotatedCompositeSerializer<DataPointColumn>(DataPointColumn.class);
+
+    public static final ColumnFamily<String, DataPointColumn> CF_DATAPOINTS = ColumnFamily
             .newColumnFamily("datapoints", StringSerializer.get(),
-                    StringSerializer.get());
+                    dpSerializer);
 
     /**
      * An extremely simple Plottable for holding static datasources that can't
@@ -196,7 +194,6 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
         m_configurationProperties = configurationParameters;
 
         if (!s_initialized) {
-
             m_keyspaceName = getProperty(KEYSPACE_NAME_PROPERTY, DEFAULT_KEYSPACE);
             m_dpColumnFamily = getProperty(DATA_COLUMN_FAMILY_NAME_PROPERTY, DEFAULT_DATA_COLUMN);
             m_mdColumnFamily = getProperty(META_DATA_FAMILY_NAME_PROPERTY, DEFAULT_METADATA_COLUMN);
@@ -207,74 +204,67 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
 
             m_ttl = Integer.parseInt(getProperty(TTL_PROPERTY, DEFAULT_TTL));
 
-            ConnectionPoolConfigurationImpl poolConfig = new ConnectionPoolConfigurationImpl("MyConnectionPool")
-                .setPort(9160)
-                .setMaxConnsPerHost(1)
-                .setSeeds(m_clusterHosts)
-                .setLatencyAwareUpdateInterval(10000)  // Will resort hosts per token partition every 10 seconds
-                .setLatencyAwareResetInterval(10000) // Will clear the latency every 10 seconds
-                .setLatencyAwareBadnessThreshold(0.50f) // Will sort hosts if a host is more than 100% slower than the best and always assign connections to the fastest host, otherwise will use round robin
-                .setLatencyAwareWindowSize(100) // Uses last 100 latency samples
-            ;
-            //poolConfig.setLatencyScoreStrategy(new SmaLatencyScoreStrategyImpl(poolConfig)); // Enabled SMA.  Omit this to use round robin with a token range
+            ConnectionPoolConfigurationImpl poolConfig = new ConnectionPoolConfigurationImpl("OpenNMSCassandraConnectionPool")
+                    .setSeeds(m_clusterHosts);
 
-            AstyanaxContext<Keyspace> context = new AstyanaxContext.Builder()
-                .forCluster(m_clusterName)
-                .forKeyspace(m_keyspaceName)
-                .withAstyanaxConfiguration(new AstyanaxConfigurationImpl()
+            AstyanaxContext<Cluster> context = new AstyanaxContext.Builder()
+                    .forCluster(m_clusterName)
+                    .withAstyanaxConfiguration(new AstyanaxConfigurationImpl()
                     .setDiscoveryType(NodeDiscoveryType.RING_DESCRIBE)
-                    .setConnectionPoolType(ConnectionPoolType.TOKEN_AWARE)
-                    )
-                .withConnectionPoolConfiguration(poolConfig)
-                .withConnectionPoolMonitor(new CountingConnectionPoolMonitor())
-                .buildKeyspace(ThriftFamilyFactory.getInstance());
+                    .setConnectionPoolType(ConnectionPoolType.TOKEN_AWARE))
+                    .withConnectionPoolConfiguration(poolConfig)
+                    .withConnectionPoolMonitor(new CountingConnectionPoolMonitor())
+                    .buildCluster(ThriftFamilyFactory.getInstance());
             context.start();
-            Keyspace keyspace = context.getEntity();
 
-            KeyspaceDefinition ksDef;
+            Cluster cluster = context.getEntity();
+
             try {
-                ksDef = keyspace.describeKeyspace();
-                ColumnFamilyDefinition cfd = ksDef.getColumnFamily(m_mdColumnFamily);
-                if (cfd == null) {
-                /*
-                 * MetaData column must be created with a structure like this:
-                 * create column family metadata
-                 * with column_type = 'Standard'
-                 * and comparator = 'AsciiType'
-                 * and default_validation_class = 'UTF8Type'
-                 * and key_validation_class = 'AsciiType';
-                 */
-                    keyspace.createColumnFamily(CF_METADATA, ImmutableMap.<String, Object>builder()
-                            .put("default_validation_class", "UTF8Type")
-                            .put("key_validation_class", "UTF8Type")
-                            .build()
-                    );
+                Keyspace keyspace = cluster.getKeyspace(m_keyspaceName);
+                KeyspaceDefinition ksDef;
 
-                }
-                cfd = ksDef.getColumnFamily(m_dpColumnFamily);
-                if (cfd == null) {
-                /*
-                 * Data column must be create with a structure like this:
-                 * create column family datapoints
-                 * with column_type = 'Super'
-                 * and comparator = 'AsciiType'
-                 * and subcomparator = 'LongType'
-                 * and default_validation_class = 'DoubleType'
-                 * and key_validation_class = 'AsciiType'
-                 */
-                    keyspace.createColumnFamily(CF_DATAPOINTS, ImmutableMap.<String, Object>builder()
-                            .put("default_validation_class", "UTF8Type")
-                            .put("key_validation_class",     "UTF8Type")
-                            .put("comparator_type",          "CompositeType(UTF8Type, LongType)")
+                try {
+                    ksDef = keyspace.describeKeyspace();
+                } catch (ConnectionException ex) {
+                    keyspace.createKeyspace(ImmutableMap.<String, Object>builder()
+                            .put("strategy_options", ImmutableMap.<String, Object>builder()
+                            .put("replication_factor", "1")
+                            .build())
+                            .put("strategy_class", "SimpleStrategy")
                             .build());
+                    ksDef = keyspace.describeKeyspace();
+                }
+
+                try {
+                    ColumnFamilyDefinition cfd = ksDef.getColumnFamily(m_mdColumnFamily);
+                    if (cfd == null) {
+                        keyspace.createColumnFamily(ColumnFamily.newColumnFamily(m_mdColumnFamily, StringSerializer.get(), StringSerializer.get()),
+                                ImmutableMap.<String, Object>builder()
+                                .put("comment", "metadata")
+                                .put("default_validation_class", "UTF8Type")
+                                .put("key_validation_class", "UTF8Type")
+                                .build());
+
+                    }
+                    cfd = ksDef.getColumnFamily(m_dpColumnFamily);
+                    if (cfd == null) {
+                        keyspace.createColumnFamily(ColumnFamily.newColumnFamily(m_dpColumnFamily, StringSerializer.get(), dpSerializer),
+                                ImmutableMap.<String, Object>builder()
+                                .put("comment", "datapoints")
+                                .put("comparator_type", "CompositeType(UTF8Type, LongType)")
+                                .build());
+                    }
+
+                } catch (ConnectionException ex) {
+                    LogUtils.errorf(this, ex, "ConnectionException");
                 }
 
                 m_connection = new CassandraRrdConnection(keyspace, m_mdColumnFamily, m_dpColumnFamily, m_ttl);
                 s_initialized = true;
-            } catch (ConnectionException ex) {
+
+            } catch (Exception ex) {
                 LogUtils.errorf(this, ex, "ConnectionException");
             }
-
         }
     }
 
@@ -381,9 +371,10 @@ public class CassandraRrdStrategy implements RrdStrategy<CassRrdDef, CassRrd> {
         String fileName = directory + File.separator + rrdName + ".meta";
 
         MutationBatch mutator = m_connection.getKeyspace().prepareMutationBatch();
+        ColumnFamily<String, String> columnFamily = new ColumnFamily(m_mdColumnFamily, StringSerializer.get(), StringSerializer.get());
 
         for (Entry<String, String> mappingEntry : attributeMappings.entrySet()) {
-            mutator.withRow(CF_METADATA, fileName)
+            mutator.withRow(columnFamily, fileName)
                     .putColumn(mappingEntry.getKey(), mappingEntry.getValue());
         }
 
