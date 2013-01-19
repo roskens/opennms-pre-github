@@ -1,27 +1,23 @@
 package org.opennms.netmgt.rrd.cassandra;
 
+import com.netflix.astyanax.MutationBatch;
 import com.netflix.astyanax.connectionpool.OperationResult;
 import com.netflix.astyanax.connectionpool.exceptions.ConnectionException;
 import com.netflix.astyanax.model.Column;
 import com.netflix.astyanax.model.ColumnFamily;
 import com.netflix.astyanax.model.ColumnList;
 import com.netflix.astyanax.serializers.AnnotatedCompositeSerializer;
-import com.netflix.astyanax.serializers.DoubleSerializer;
-import com.netflix.astyanax.serializers.LongSerializer;
 import com.netflix.astyanax.serializers.StringSerializer;
 import com.netflix.astyanax.util.RangeBuilder;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.StringTokenizer;
-import java.util.Comparator;
-import java.util.Collections;
-
-import org.opennms.core.xml.JaxbUtils;
-
 import org.opennms.core.utils.LogUtils;
+import org.opennms.core.xml.JaxbUtils;
 import org.opennms.netmgt.rrd.RrdException;
-import org.opennms.netmgt.rrd.cassandra.config.Archive;
 import org.opennms.netmgt.rrd.cassandra.config.Datasource;
 import org.opennms.netmgt.rrd.cassandra.config.RrdDef;
 
@@ -33,10 +29,6 @@ public class CassRrd {
     private CassandraRrdConnection m_connection;
 
     private static final StringSerializer s_ss = StringSerializer.get();
-
-    private static final LongSerializer s_ls = LongSerializer.get();
-
-    private static final DoubleSerializer s_ds = DoubleSerializer.get();
 
     public CassRrd(CassRrdDef def) {
         m_fileName = def.getFileName();
@@ -129,6 +121,8 @@ public class CassRrd {
         }
         timestamp = normalize(timestamp, getStep());
 
+        MutationBatch mutator = m_connection.getKeyspace().prepareMutationBatch();
+
         for (int i = 0; tokenizer.hasMoreTokens(); i++) {
             try {
                 Datasource ds = getDatasource(i);
@@ -148,12 +142,18 @@ public class CassRrd {
                 }
 
                 Datapoint dp = new Datapoint(getFileName(), ds.getName(), timestamp, value);
+                dp.persist(mutator, m_connection.getDataPointCFName(), m_connection.getTTL());
 
-                m_connection.persist(dp);
             } catch (final NumberFormatException nfe) {
                 // NOP, value is already set to NaN
             }
         }
+        try {
+            OperationResult<Void> result = mutator.execute();
+        } catch (ConnectionException ex) {
+            LogUtils.errorf(this, ex, "storeValue(): mutator failed to execute?");
+        }
+
     }
 
     private Double convertToDouble(final String input) {
@@ -204,7 +204,7 @@ public class CassRrd {
             AnnotatedCompositeSerializer<DataPointColumn> dpSerializer = new AnnotatedCompositeSerializer<DataPointColumn>(DataPointColumn.class);
 
             OperationResult<ColumnList<DataPointColumn>> result;
-            ColumnFamily<String, DataPointColumn> columnFamily = new ColumnFamily(m_connection.getDataPointCFName(), StringSerializer.get(), dpSerializer);
+            ColumnFamily<String, DataPointColumn> columnFamily = new ColumnFamily(m_connection.getDataPointCFName(), s_ss, dpSerializer);
 
             result = m_connection.getKeyspace().prepareQuery(columnFamily)
                     .getKey(m_fileName)
@@ -235,6 +235,7 @@ public class CassRrd {
         }
 
         Collections.sort(tspoints, new Comparator<TimeSeriesPoint>() {
+            @Override
             public int compare(TimeSeriesPoint o1, TimeSeriesPoint o2) {
                 return o1.getTimestamp().compareTo(o2.getTimestamp());
             }

@@ -3,10 +3,7 @@ package org.opennms.netmgt.rrd.cassandra;
 import com.netflix.astyanax.MutationBatch;
 import com.netflix.astyanax.model.ColumnFamily;
 import com.netflix.astyanax.serializers.AnnotatedCompositeSerializer;
-import com.netflix.astyanax.serializers.DoubleSerializer;
-import com.netflix.astyanax.serializers.LongSerializer;
 import com.netflix.astyanax.serializers.StringSerializer;
-import java.util.Collections;
 
 public class Datapoint extends TimeSeriesPoint {
     private String m_fileName;
@@ -14,10 +11,6 @@ public class Datapoint extends TimeSeriesPoint {
     private String m_dsName;
 
     private static final StringSerializer s_ss = StringSerializer.get();
-
-    private static final LongSerializer s_ls = LongSerializer.get();
-
-    private static final DoubleSerializer s_ds = DoubleSerializer.get();
 
     private static AnnotatedCompositeSerializer<DataPointColumn> dpSerializer
             = new AnnotatedCompositeSerializer<DataPointColumn>(DataPointColumn.class);
@@ -37,13 +30,13 @@ public class Datapoint extends TimeSeriesPoint {
     }
 
     public void persist(MutationBatch mutator, String dpColumnFamily, int ttl) {
-        ColumnFamily<String, DataPointColumn> columnFamily = new ColumnFamily(dpColumnFamily, StringSerializer.get(), dpSerializer);
+        ColumnFamily<String, DataPointColumn> columnFamily = new ColumnFamily(dpColumnFamily, s_ss, dpSerializer);
 
         mutator.withRow(columnFamily, getFileName())
-                .setDefaultTtl(ttl)
-                .putColumn(new DataPointColumn(getDsName(), getTimestamp()), getValue());
+                .putColumn(new DataPointColumn(getDsName(), getTimestamp()), getValue(), ttl);
     }
 
+    @Override
     public String toString() {
         StringBuilder buf = new StringBuilder();
         buf.append(getFileName()).append("(").append(getDsName()).append("):");

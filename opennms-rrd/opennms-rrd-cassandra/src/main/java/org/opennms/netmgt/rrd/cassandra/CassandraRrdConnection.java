@@ -3,17 +3,17 @@ package org.opennms.netmgt.rrd.cassandra;
 import com.netflix.astyanax.Keyspace;
 
 public class CassandraRrdConnection {
-    private Keyspace m_keyspace;
-    private String m_mdColumnFamily;
-    private String m_dpColumnFamily;
-    private Persister m_persister;
+    private final Keyspace m_keyspace;
+    private final String m_mdColumnFamily;
+    private final String m_dpColumnFamily;
+    private final int m_ttl;
 
     CassandraRrdConnection(final Keyspace keyspace, final String mdColumnFamily, final String dpColumnFamily, int ttl)
     {
         m_keyspace = keyspace;
         m_mdColumnFamily = mdColumnFamily;
         m_dpColumnFamily = dpColumnFamily;
-        m_persister = new Persister(this, ttl);
+        m_ttl = ttl;
     }
 
     public Keyspace getKeyspace() {
@@ -28,13 +28,7 @@ public class CassandraRrdConnection {
         return m_dpColumnFamily;
     }
 
-    public Persister getPersister() {
-        return m_persister;
-    }
-
-    public void persist(Datapoint dp) {
-        if(m_persister != null) {
-            m_persister.persist(dp);
-        }
+    public int getTTL() {
+        return m_ttl;
     }
 }
