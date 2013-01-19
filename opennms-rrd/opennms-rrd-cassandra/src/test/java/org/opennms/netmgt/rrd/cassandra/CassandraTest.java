@@ -3,7 +3,7 @@ package org.opennms.netmgt.rrd.cassandra;
 public class CassandraTest {
 
     private static final String POOL_NAME = "datacollection_pool";
-    private static final String KEYSPACE = "OpenNMSDataCollectionV1";
+    private static final String KEYSPACE = "datacollection";
     private static final String COLUMN_FAMILY = "datapoints";
 
 
