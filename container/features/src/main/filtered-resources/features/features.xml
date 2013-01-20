@@ -7,6 +7,7 @@
   <repository>mvn:org.opennms.osgi.features.topology/opennms-topology-runtime-simple/${project.version}/xml/features</repository>
   <repository>mvn:org.opennms.osgi.features.topology/opennms-topology-runtime-linkd/${project.version}/xml/features</repository>
   <repository>mvn:org.opennms.osgi.features.topology/opennms-topology-runtime-vmware/${project.version}/xml/features</repository>
+  <repository>mvn:org.opennms.osgi.features.topology/opennms-topology-runtime-ncs/${project.version}/xml/features</repository>
   <repository>mvn:org.opennms.osgi.features.topology/opennms-topology-dev/${project.version}/xml/features</repository>
 
   <!-- nrtg features -->
@@ -15,12 +16,17 @@
   <!-- MIB Parser and Event/Collection features -->
   <repository>mvn:org.opennms.features/vaadin-snmp-events-and-metrics/${project.version}/xml/features</repository>
 
+  <!-- node maps -->
+  <repository>mvn:org.opennms.features/vaadin-node-maps/${project.version}/xml/features</repository>
+
   <feature name="opennms-all" description="OpenNMS :: All" version="${project.version}">
     <feature>opennms-topology-runtime-simple</feature>
     <feature>opennms-topology-runtime-linkd</feature>
+    <feature>opennms-topology-runtime-ncs</feature>
     <feature>opennms-topology-dev</feature>
     <feature>nrtg</feature>
     <feature>vaadin-snmp-events-and-metrics</feature>
+    <feature>vaadin-node-maps</feature>
   </feature>
 
 </features>

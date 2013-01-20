@@ -33,8 +33,10 @@ import org.springframework.beans.PropertyAccessorFactory;
 import org.springframework.core.style.ToStringCreator;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.beans.PropertyDescriptor;
 import java.io.Serializable;
 import java.util.Date;
@@ -48,20 +50,17 @@ import java.util.Date;
 @Entity
 @Table(name = "assets")
 public class OnmsAssetRecord implements Serializable {
-
-    private static final long serialVersionUID = 509128305684814487L;
-
     /**
      * Constant <code>AUTOENABLED="A"</code>
      */
     public static final String AUTOENABLED = "A";
 
-    //public enum Autoenable {AUTOENABLED};
-
     /**
      * Constant <code>SSH_CONNECTION="ssh"</code>
      */
     public static final String SSH_CONNECTION = "ssh";
+
+    //public enum Autoenable {AUTOENABLED};
 
     /**
      * Constant <code>TELNET_CONNECTION="telnet"</code>
@@ -72,6 +71,8 @@ public class OnmsAssetRecord implements Serializable {
      * Constant <code>RSH_CONNECTION="rsh"</code>
      */
     public static final String RSH_CONNECTION = "rsh";
+
+    private static final long serialVersionUID = -2532676045548726818L;
 
     //public enum AssetConnections {TELNET_CONNECTION,SSH_CONNECTION,RSH_CONNECTION};
 
@@ -151,31 +152,6 @@ public class OnmsAssetRecord implements Serializable {
      * identifier field
      */
     private String m_department;
-
-    /**
-     * identifier field
-     */
-    private String m_address1;
-
-    /**
-     * identifier field
-     */
-    private String m_address2;
-
-    /**
-     * identifier field
-     */
-    private String m_city;
-
-    /**
-     * identifier field
-     */
-    private String m_state;
-
-    /**
-     * identifier field
-     */
-    private String m_zip;
 
     /**
      * identifier field
@@ -381,6 +357,8 @@ public class OnmsAssetRecord implements Serializable {
 
     private String m_managedObjectInstance;
 
+    private OnmsGeolocation m_geolocation = new OnmsGeolocation();
+
     /**
      * VMware managed Object ID
      */
@@ -454,7 +432,6 @@ public class OnmsAssetRecord implements Serializable {
     public void setNode(OnmsNode node) {
         m_node = node;
     }
-
 
     /**
      * --# category         : A broad idea of what this asset does (examples are
@@ -742,99 +719,14 @@ public class OnmsAssetRecord implements Serializable {
         m_department = department;
     }
 
-    /**
-     * --# address1         : Address of geographical location of asset, line 1.
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    @Column(name = "address1", length = 256)
-    public String getAddress1() {
-        return m_address1;
+    @Embedded
+    @XmlTransient
+    public OnmsGeolocation getGeolocation() {
+        return m_geolocation;
     }
 
-    /**
-     * <p>setAddress1</p>
-     *
-     * @param address1 a {@link java.lang.String} object.
-     */
-    public void setAddress1(String address1) {
-        m_address1 = address1;
-    }
-
-    /**
-     * --# address2         : Address of geographical location of asset, line 2.
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    @Column(name = "address2", length = 256)
-    public String getAddress2() {
-        return m_address2;
-    }
-
-    /**
-     * <p>setAddress2</p>
-     *
-     * @param address2 a {@link java.lang.String} object.
-     */
-    public void setAddress2(String address2) {
-        m_address2 = address2;
-    }
-
-    /**
-     * --# city             : The city where this asset resides.
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    @Column(name = "city", length = 64)
-    public String getCity() {
-        return m_city;
-    }
-
-    /**
-     * <p>setCity</p>
-     *
-     * @param city a {@link java.lang.String} object.
-     */
-    public void setCity(String city) {
-        m_city = city;
-    }
-
-    /**
-     * --# state            : The state where this asset resides.
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    @Column(name = "state", length = 64)
-    public String getState() {
-        return m_state;
-    }
-
-    /**
-     * <p>setState</p>
-     *
-     * @param state a {@link java.lang.String} object.
-     */
-    public void setState(String state) {
-        m_state = state;
-    }
-
-    /**
-     * --# zip              : The zip code where this asset resides.
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    @Column(name = "zip", length = 64)
-    public String getZip() {
-        return m_zip;
-    }
-
-    /**
-     * <p>setZip</p>
-     *
-     * @param zip a {@link java.lang.String} object.
-     */
-    public void setZip(String zip) {
-        m_zip = zip;
+    public void setGeolocation(final OnmsGeolocation geolocation) {
+        m_geolocation = geolocation;
     }
 
     /**
@@ -1258,7 +1150,6 @@ public class OnmsAssetRecord implements Serializable {
         m_managedObjectInstance = moi;
     }
 
-
     /**
      * <p>getUsername</p>
      *
@@ -1435,7 +1326,7 @@ public class OnmsAssetRecord implements Serializable {
     /**
      * <p>setRackunitheight</p>
      *
-     * @param rackunitheight a {@link java.lang.String} object.
+     * @param snmpcommunity a {@link java.lang.String} object.
      */
     public void setRackunitheight(String rackunitheight) {
         m_rackunitheight = rackunitheight;
@@ -1651,14 +1542,93 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setVmwareManagedEntityType</p>
-     * <p/>
-     * Set the VMware management entity type defines if the machine is a virtual machine or a host system
-     *
-     * @param vmwareManagedEntityType a {@link java.lang.String} object
+     * PROXY METHOD: do not delete until {@link OnmsGeolocation} is truly a separate table, or projection mapping will fail.
      */
-    public void setVmwareManagedEntityType(String vmwareManagedEntityType) {
-        m_vmwareManagedEntityType = vmwareManagedEntityType;
+    @Transient
+    @Deprecated
+    @XmlElement
+    public String getAddress1() {
+        return m_geolocation == null ? null : m_geolocation.getAddress1();
+    }
+
+    @Deprecated
+    public void setAddress1(final String address1) {
+        m_geolocation.setAddress1(address1);
+    }
+
+    /**
+     * PROXY METHOD: do not delete until {@link OnmsGeolocation} is truly a separate table, or projection mapping will fail.
+     */
+    @Transient
+    @Deprecated
+    @XmlElement
+    public String getAddress2() {
+        return m_geolocation == null ? null : m_geolocation.getAddress2();
+    }
+
+    @Deprecated
+    public void setAddress2(final String address2) {
+        m_geolocation.setAddress2(address2);
+    }
+
+    /**
+     * PROXY METHOD: do not delete until {@link OnmsGeolocation} is truly a separate table, or projection mapping will fail.
+     */
+    @Transient
+    @Deprecated
+    @XmlElement
+    public String getCity() {
+        return m_geolocation == null ? null : m_geolocation.getCity();
+    }
+
+    @Deprecated
+    public void setCity(final String city) {
+        m_geolocation.setCity(city);
+    }
+
+    /**
+     * PROXY METHOD: do not delete until {@link OnmsGeolocation} is truly a separate table, or projection mapping will fail.
+     */
+    @Transient
+    @Deprecated
+    @XmlElement
+    public String getState() {
+        return m_geolocation == null ? null : m_geolocation.getState();
+    }
+
+    @Deprecated
+    public void setState(final String state) {
+        m_geolocation.setState(state);
+    }
+
+    /**
+     * PROXY METHOD: do not delete until {@link OnmsGeolocation} is truly a separate table, or projection mapping will fail.
+     */
+    @Transient
+    @Deprecated
+    @XmlElement
+    public String getZip() {
+        return m_geolocation == null ? null : m_geolocation.getZip();
+    }
+
+    @Deprecated
+    public void setZip(final String zip) {
+        m_geolocation.setZip(zip);
+    }
+
+    /**
+     * PROXY METHOD: do not delete until {@link OnmsGeolocation} is truly a separate table, or projection mapping will fail.
+     */
+    @Transient
+    @Deprecated
+    @XmlElement
+    public String getCoordinates() {
+        return m_geolocation == null ? null : m_geolocation.getCoordinates();
+    }
+
+    @Deprecated
+    public void setCoordinates(final String coordinates) {
+        m_geolocation.setCoordinates(coordinates);
     }
 
     /**
@@ -1674,14 +1644,14 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setVmwareManagedObjectId</p>
+     * <p>setVmwareManagedEntityType</p>
      * <p/>
-     * Set the VMware managed object ID as a unique identifier for VMware API
+     * Set the VMware management entity type defines if the machine is a virtual machine or a host system
      *
-     * @return a {@link java.lang.String} object
+     * @param vmwareManagedEntityType a {@link java.lang.String} object
      */
-    public void setVmwareManagedObjectId(String vmwareManagedObjectId) {
-        m_vmwareManagedObjectId = vmwareManagedObjectId;
+    public void setVmwareManagedEntityType(String vmwareManagedEntityType) {
+        m_vmwareManagedEntityType = vmwareManagedEntityType;
     }
 
     /**
@@ -1697,14 +1667,14 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setVmwareManagementServer</p>
+     * <p>setVmwareManagedObjectId</p>
      * <p/>
-     * Set the vCenter host or ip address
+     * Set the VMware managed object ID as a unique identifier for VMware API
      *
-     * @param vmwareManagementServer a {@link java.lang.String} object
+     * @return a {@link java.lang.String} object
      */
-    public void setVmwareManagementServer(String vmwareManagementServer) {
-        m_vmwareManagementServer = vmwareManagementServer;
+    public void setVmwareManagedObjectId(String vmwareManagedObjectId) {
+        m_vmwareManagedObjectId = vmwareManagedObjectId;
     }
 
     /**
@@ -1720,14 +1690,37 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setVmwareTopologyInfo</p>
+     * <p>setVmwareManagementServer</p>
      * <p/>
-     * Set the VMware topology information
+     * Set the vCenter host or ip address
      *
-     * @param vmwareTopologyInfo a {@link java.lang.String} object
+     * @param vmwareManagementServer a {@link java.lang.String} object
      */
-    public void setVmwareTopologyInfo(String vmwareTopologyInfo) {
-        m_vmwareTopologyInfo = vmwareTopologyInfo;
+    public void setVmwareManagementServer(String vmwareManagementServer) {
+        m_vmwareManagementServer = vmwareManagementServer;
+    }
+
+    /**
+     * <p>getVmwareState</p>
+     * <p/>
+     * Get the VMware managed entity state
+     *
+     * @return a {@link java.lang.String} object
+     */
+    @Column(name = "vmwareState", length = 255)
+    public String getVmwareState() {
+        return m_vmwareState;
+    }
+
+    /**
+     * <p>setVmwareState</p>
+     * <p/>
+     * Set the VMware managed entity state
+     *
+     * @param vmwareState a {@link java.lang.String} object
+     */
+    public void setVmwareState(String vmwareState) {
+        m_vmwareState = vmwareState;
     }
 
     /**
@@ -1743,26 +1736,14 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setVmwareState</p>
+     * <p>setVmwareTopologyInfo</p>
      * <p/>
-     * Set the VMware managed entity state
+     * Set the VMware topology information
      *
-     * @param vmwareState a {@link java.lang.String} object
+     * @param vmwareTopologyInfo a {@link java.lang.String} object
      */
-    public void setVmwareState(String vmwareState) {
-        m_vmwareState = vmwareState;
-    }
-
-    /**
-     * <p>getVmwareState</p>
-     * <p/>
-     * Get the VMware managed entity state
-     *
-     * @return a {@link java.lang.String} object
-     */
-    @Column(name = "vmwareState", length = 255)
-    public String getVmwareState() {
-        return m_vmwareState;
+    public void setVmwareTopologyInfo(String vmwareTopologyInfo) {
+        m_vmwareTopologyInfo = vmwareTopologyInfo;
     }
 
     /**
@@ -1786,11 +1767,12 @@ public class OnmsAssetRecord implements Serializable {
                 .append("region", getRegion())
                 .append("division", getDivision())
                 .append("department", getDepartment())
-                .append("address1", getAddress1())
-                .append("address2", getAddress2())
-                .append("city", getCity())
-                .append("state", getState())
-                .append("zip", getZip())
+                .append("address1", m_geolocation == null ? null : m_geolocation.getAddress1())
+                .append("address2", m_geolocation == null ? null : m_geolocation.getAddress2())
+                .append("city", m_geolocation == null ? null : m_geolocation.getCity())
+                .append("state", m_geolocation == null ? null : m_geolocation.getState())
+                .append("zip", m_geolocation == null ? null : m_geolocation.getZip())
+                .append("geolocation", m_geolocation == null ? null : m_geolocation.getCoordinates())
                 .append("building", getBuilding())
                 .append("floor", getFloor())
                 .append("room", getRoom())
@@ -1834,8 +1816,7 @@ public class OnmsAssetRecord implements Serializable {
                 .append("vmwareManagedEntityType", getVmwareManagedEntityType())
                 .append("vmwareManagementServer", getVmwareManagementServer())
                 .append("vmwareTopologyInfo", getVmwareTopologyInfo())
-                .append("vmwareState", getVmwareState())
-                .toString();
+                .append("vmwareState", getVmwareState()).toString();
     }
 
     /**

@@ -31,14 +31,11 @@ package org.opennms.features.topology.app.internal;
 import java.util.Iterator;
 import java.util.List;
 
-import org.opennms.features.topology.api.DisplayState;
 import org.opennms.features.topology.api.GraphContainer;
+import org.opennms.features.topology.api.HistoryManager;
 import org.opennms.features.topology.api.IViewContribution;
-import org.opennms.features.topology.api.SelectionManager;
-import org.opennms.features.topology.api.SelectionManager.SelectionListener;
 import org.opennms.features.topology.api.TopologyProvider;
 import org.opennms.features.topology.api.WidgetContext;
-import org.opennms.features.topology.api.support.FilterableHierarchicalContainer;
 import org.opennms.features.topology.app.internal.TopoContextMenu.TopoContextMenuItem;
 import org.opennms.features.topology.app.internal.jung.FRLayoutAlgorithm;
 import org.opennms.features.topology.app.internal.support.IconRepositoryManager;
@@ -46,6 +43,7 @@ import org.opennms.features.topology.app.internal.support.IconRepositoryManager;
 import com.github.wolfie.refresher.Refresher;
 import com.vaadin.Application;
 import com.vaadin.data.Property;
+import com.vaadin.data.util.BeanItem;
 import com.vaadin.terminal.Sizeable;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.AbsoluteLayout;
@@ -56,23 +54,29 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.HorizontalSplitPanel;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.Layout;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.Slider;
-import com.vaadin.ui.Slider.ValueOutOfBoundsException;
 import com.vaadin.ui.TextField;
+import com.vaadin.ui.UriFragmentUtility;
+import com.vaadin.ui.UriFragmentUtility.FragmentChangedEvent;
+import com.vaadin.ui.UriFragmentUtility.FragmentChangedListener;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.VerticalSplitPanel;
 import com.vaadin.ui.Window;
 
-public class TopologyWidgetTestApplication extends Application implements CommandUpdateListener, MenuItemUpdateListener, ContextMenuHandler, WidgetUpdateListener, WidgetContext {
+public class TopologyWidgetTestApplication extends Application implements CommandUpdateListener, MenuItemUpdateListener, ContextMenuHandler, WidgetUpdateListener, WidgetContext, FragmentChangedListener, GraphContainer.ChangeListener {
     
     
+	private static final long serialVersionUID = 6837501987137310938L;
+
+	private static final String LABEL_PROPERTY = "label";
 	private Window m_window;
 	private TopologyComponent m_topologyComponent;
 	private VertexSelectionTree m_tree;
-	private SimpleGraphContainer m_graphContainer;
+	private GraphContainer m_graphContainer;
 	private CommandManager m_commandManager;
 	private MenuBar m_menuBar;
 	private TopoContextMenu m_contextMenu;
@@ -85,16 +89,22 @@ public class TopologyWidgetTestApplication extends Application implements Comman
 	private Accordion m_treeAccordion;
     private HorizontalSplitPanel m_treeMapSplitPanel;
     private VerticalSplitPanel m_bottomLayoutBar;
+    private final Label m_zoomLevelLabel = new Label("0"); 
+    private UriFragmentUtility m_uriFragUtil;
+    private HistoryManager m_historyManager;
     
-	public TopologyWidgetTestApplication(CommandManager commandManager, TopologyProvider topologyProvider, IconRepositoryManager iconRepoManager) {
+	public TopologyWidgetTestApplication(CommandManager commandManager, HistoryManager historyManager, TopologyProvider topologyProvider, ProviderManager providerManager, IconRepositoryManager iconRepoManager) {
 		m_commandManager = commandManager;
 		m_commandManager.addMenuItemUpdateListener(this);
-		m_graphContainer = new SimpleGraphContainer(topologyProvider);
+		m_historyManager = historyManager;
+		m_graphContainer = new VEProviderGraphContainer(topologyProvider, providerManager);
+		m_graphContainer.addChangeListener(this);
 		m_iconRepositoryManager = iconRepoManager;
 		
 	}
 
 
+	@SuppressWarnings("serial")
 	@Override
 	public void init() {
 	    setTheme("topo_default");
@@ -105,11 +115,14 @@ public class TopologyWidgetTestApplication extends Application implements Comman
 	    m_window = new Window("OpenNMS Topology");
         m_window.setContent(m_rootLayout);
         setMainWindow(m_window);
+        
+        m_uriFragUtil = new UriFragmentUtility();
+        m_window.addComponent(m_uriFragUtil);
+        m_uriFragUtil.addListener(this);
 	    
 		m_layout = new AbsoluteLayout();
 		m_layout.setSizeFull();
 		m_rootLayout.addComponent(m_layout);
-		
 
 		Refresher refresher = new Refresher();
 		refresher.setRefreshInterval(5000);
@@ -117,39 +130,43 @@ public class TopologyWidgetTestApplication extends Application implements Comman
 
 		m_graphContainer.setLayoutAlgorithm(new FRLayoutAlgorithm());
 
-		m_topologyComponent = new TopologyComponent(m_graphContainer);
+		BeanItem<GraphContainer> item = new BeanItem<GraphContainer>(m_graphContainer);
+		final Property scale = item.getItemProperty("scale");
+
+		m_topologyComponent = new TopologyComponent(m_graphContainer, scale);
 		m_topologyComponent.setIconRepoManager(m_iconRepositoryManager);
 		m_topologyComponent.setSizeFull();
 		m_topologyComponent.addMenuItemStateListener(this);
 		m_topologyComponent.setContextMenuHandler(this);
 		
-		final Property scale = m_graphContainer.getProperty(DisplayState.SCALE);
-		final Slider slider = new Slider(0, 4);
+		final Slider slider = new Slider(0, 1);
+		
 		slider.setPropertyDataSource(scale);
-		slider.setResolution(2);
+		slider.setResolution(1);
 		slider.setHeight("300px");
 		slider.setOrientation(Slider.ORIENTATION_VERTICAL);
-		try {
-            slider.setValue(1.0);
-        } catch (ValueOutOfBoundsException e) {
-            // Catch an Index out of bounds exception
-        }
-		scale.setValue(1.0);
+//		try {
+//            slider.setValue(1.0);
+//        } catch (ValueOutOfBoundsException e) {
+//            // Catch an Index out of bounds exception
+//        }
+		scale.setValue(0);
 		slider.setImmediate(true);
 
-		final Property zoomLevel = m_graphContainer.getProperty(DisplayState.SEMANTIC_ZOOM_LEVEL);
-
-		Button zoomInBtn = new Button();
+		final Property zoomLevel = item.getItemProperty("semanticZoomLevel");
+		
+		final Button zoomInBtn = new Button();
 		zoomInBtn.setIcon(new ThemeResource("images/plus.png"));
 		zoomInBtn.setDescription("Expand Semantic Zoom Level");
 		zoomInBtn.setStyleName("semantic-zoom-button");
 		zoomInBtn.addListener(new ClickListener() {
 
-			public void buttonClick(ClickEvent event) {
+            public void buttonClick(ClickEvent event) {
 				int szl = (Integer) zoomLevel.getValue();
 				szl++;
 				zoomLevel.setValue(szl);
-				m_graphContainer.redoLayout();
+				setSemanticZoomLevel(szl);
+				saveHistory();
 			}
 		});
 
@@ -161,9 +178,13 @@ public class TopologyWidgetTestApplication extends Application implements Comman
 
 			public void buttonClick(ClickEvent event) {
 				int szl = (Integer) zoomLevel.getValue();
-				szl--;
-				zoomLevel.setValue(szl);
-				m_graphContainer.redoLayout();
+				if(szl > 0) {
+				    szl--;
+				    zoomLevel.setValue(szl);
+				    setSemanticZoomLevel(szl);
+				    saveHistory();
+				} 
+				
 			}
 		});
 		
@@ -202,13 +223,18 @@ public class TopologyWidgetTestApplication extends Application implements Comman
 		toolbar.addComponent(panBtn);
 		toolbar.addComponent(selectBtn);
 		
+		HorizontalLayout semanticLayout = new HorizontalLayout();
+		semanticLayout.addComponent(zoomInBtn);
+		semanticLayout.addComponent(m_zoomLevelLabel);
+		semanticLayout.addComponent(zoomOutBtn);
+		semanticLayout.setComponentAlignment(m_zoomLevelLabel, Alignment.MIDDLE_CENTER);
+		
 		AbsoluteLayout mapLayout = new AbsoluteLayout();
 
 		mapLayout.addComponent(m_topologyComponent, "top:0px; left: 0px; right: 0px; bottom: 0px;");
 		mapLayout.addComponent(slider, "top: 5px; left: 20px; z-index:1000;");
 		mapLayout.addComponent(toolbar, "top: 324px; left: 12px;");
-		mapLayout.addComponent(zoomInBtn, "top: 380px; left: 2px;");
-		mapLayout.addComponent(zoomOutBtn, "top: 380px; left: 27px");
+		mapLayout.addComponent(semanticLayout, "top: 380px; left: 2px;");
 		mapLayout.setSizeFull();
 
 		m_treeMapSplitPanel = new HorizontalSplitPanel();
@@ -299,7 +325,8 @@ public class TopologyWidgetTestApplication extends Application implements Comman
      * 
      * @return
      */
-    private Layout createWestLayout() {
+    @SuppressWarnings("serial")
+	private Layout createWestLayout() {
         m_tree = createTree();
         
         
@@ -312,12 +339,12 @@ public class TopologyWidgetTestApplication extends Application implements Comman
 
             @Override
             public void buttonClick(ClickEvent event) {
-                FilterableHierarchicalContainer container = m_tree.getContainerDataSource();
+            	GCFilterableContainer container = m_tree.getContainerDataSource();
                 container.removeAllContainerFilters();
                 
                 String filterString = (String) filterField.getValue();
                 if(!filterString.equals("") && filterBtn.getCaption().toLowerCase().equals("filter")) {
-                    container.addContainerFilter(TopoVertex.LABEL_PROPERTY, (String) filterField.getValue(), true, false);
+                    container.addContainerFilter(LABEL_PROPERTY, (String) filterField.getValue(), true, false);
                     filterBtn.setCaption("Clear");
                 } else {
                     filterField.setValue("");
@@ -348,26 +375,24 @@ public class TopologyWidgetTestApplication extends Application implements Comman
     }
 
     private VertexSelectionTree createTree() {
-	    final FilterableHierarchicalContainer container = new FilterableHierarchicalContainer(m_graphContainer.getVertexContainer());
+	    //final FilterableHierarchicalContainer container = new FilterableHierarchicalContainer(m_graphContainer.getVertexContainer());
 	    
-		final VertexSelectionTree tree = new VertexSelectionTree(container, m_graphContainer) {
-			public String getTitle() {
-				return "Nodes";
-			}
-		};
+		VertexSelectionTree tree = new VertexSelectionTree("Nodes", m_graphContainer);
 		tree.setMultiSelect(true);
-        
 		tree.setImmediate(true);
-		tree.setItemCaptionPropertyId(TopoVertex.LABEL_PROPERTY);
+		tree.setItemCaptionPropertyId(LABEL_PROPERTY);
+
 		for (Iterator<?> it = tree.rootItemIds().iterator(); it.hasNext();) {
-			tree.expandItemsRecursively(it.next());
+			Object item = it.next();
+			tree.expandItemsRecursively(item);
 		}
 		
 		m_graphContainer.getSelectionManager().addSelectionListener(tree);
+
 		return tree;
 	}
 
-
+	@Override
 	public void updateMenuItems() {
 		updateMenuItems(m_menuBar.getItems());
 		m_menuBar.requestRepaint();
@@ -482,5 +507,31 @@ public class TopologyWidgetTestApplication extends Application implements Comman
     public GraphContainer getGraphContainer() {
         return m_graphContainer;
     }
+
+
+    @Override
+    public void fragmentChanged(FragmentChangedEvent source) {
+        String fragment = source.getUriFragmentUtility().getFragment();
+        m_historyManager.applyHistory(fragment, m_graphContainer);
+    }
+
+
+    private void saveHistory() {
+        String fragment = m_historyManager.create(m_graphContainer);
+        m_uriFragUtil.setFragment(fragment);
+    }
+
+
+    @Override
+    public void graphChanged(GraphContainer graphContainer) {
+        m_zoomLevelLabel.setValue("" + graphContainer.getSemanticZoomLevel());
+    }
+
+
+    private void setSemanticZoomLevel(int szl) {
+        m_zoomLevelLabel.setValue(szl);
+        m_graphContainer.redoLayout();
+    }
+
 
 }

@@ -23,6 +23,7 @@
     <module>runtime-simple</module>
     <module>runtime-linkd</module>
     <module>runtime-vmware</module>
+    <module>runtime-ncs</module>
     <module>dev</module>
   </modules>
 

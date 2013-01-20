@@ -127,6 +127,8 @@ public class AssetSuggCommand implements IsSerializable {
 
     private Set<String> m_zip;
 
+    private Set<String> m_coordinates;
+
     /**
      * VMware managed Object ID
      */
@@ -195,6 +197,7 @@ public class AssetSuggCommand implements IsSerializable {
         m_vendorFax = new TreeSet<String>();
         m_vendorPhone = new TreeSet<String>();
         m_zip = new TreeSet<String>();
+        m_coordinates = new TreeSet<String>();
         m_vmwareManagedObjectId = new TreeSet<String>();
         m_vmwareManagedEntityType = new TreeSet<String>();
         m_vmwareManagementServer = new TreeSet<String>();
@@ -485,6 +488,12 @@ public class AssetSuggCommand implements IsSerializable {
         }
     }
 
+    public void addCoordinates(String coordinates) {
+        if ((coordinates != null) && !"".equals(coordinates)) {
+            m_coordinates.add(coordinates);
+        }
+    }
+
     public Collection<String> getAdditionalhardware() {
         return m_additionalhardware;
     }
@@ -653,6 +662,10 @@ public class AssetSuggCommand implements IsSerializable {
         return m_zip;
     }
 
+    public Collection<String> getCoordinates() {
+        return m_coordinates;
+    }
+
     public Collection<String> getVmwareManagedObjectId() {
         return m_vmwareManagedObjectId;
     }
@@ -716,6 +729,7 @@ public class AssetSuggCommand implements IsSerializable {
         m_vendorFax.add("");
         m_vendorPhone.add("");
         m_zip.add("");
+        m_coordinates.add("");
         m_vmwareManagedObjectId.add("");
         m_vmwareManagedEntityType.add("");
         m_vmwareManagementServer.add("");

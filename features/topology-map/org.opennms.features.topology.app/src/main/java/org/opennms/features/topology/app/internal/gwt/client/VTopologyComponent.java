@@ -44,7 +44,6 @@ import org.opennms.features.topology.app.internal.gwt.client.d3.D3Drag;
 import org.opennms.features.topology.app.internal.gwt.client.d3.D3Events;
 import org.opennms.features.topology.app.internal.gwt.client.d3.D3Events.Handler;
 import org.opennms.features.topology.app.internal.gwt.client.d3.Func;
-import org.opennms.features.topology.app.internal.gwt.client.d3.Tween;
 import org.opennms.features.topology.app.internal.gwt.client.handler.DragHandlerManager;
 import org.opennms.features.topology.app.internal.gwt.client.handler.DragObject;
 import org.opennms.features.topology.app.internal.gwt.client.handler.MarqueeSelectHandler;
@@ -54,6 +53,8 @@ import org.opennms.features.topology.app.internal.gwt.client.service.ServiceRegi
 import org.opennms.features.topology.app.internal.gwt.client.service.support.DefaultServiceRegistry;
 import org.opennms.features.topology.app.internal.gwt.client.svg.BoundingRect;
 import org.opennms.features.topology.app.internal.gwt.client.svg.SVGGElement;
+import org.opennms.features.topology.app.internal.gwt.client.svg.SVGMatrix;
+import org.opennms.features.topology.app.internal.gwt.client.svg.SVGPoint;
 import org.opennms.features.topology.app.internal.gwt.client.view.TopologyView;
 
 import com.google.gwt.core.client.GWT;
@@ -66,6 +67,7 @@ import com.google.gwt.touch.client.Point;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Event;
+import com.google.gwt.user.client.Window.Navigator;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -196,20 +198,19 @@ public class VTopologyComponent extends Composite implements Paintable, SVGTopol
 			D3 edgeSelection = getEdgeSelection(graph, topologyView);
 
 			D3 vertexSelection = getVertexSelection(graph, topologyView);
-
+			
 			vertexSelection.enter().create(GWTVertex.create()).call(setupEventHandlers())
 			.attr("transform", new Func<String, GWTVertex>() {
 
 				public String call(GWTVertex vertex, int index) {
-					GWTVertex displayVertex = vertex.getDisplayVertex(m_oldSemanticZoomLevel);
-
-					return "translate(" + displayVertex.getX() + "," +  displayVertex.getY() + ")";
+					return "translate(" + vertex.getInitialX() + "," +  vertex.getInitialY() + ")";
 				}
 
 			}).attr("opacity", 1);
 
+			
 			//Exits
-			edgeSelection.exit().with(exitTransition()).remove();
+			edgeSelection.exit().remove();
 			vertexSelection.exit().with(new D3Behavior() {
 
 				@Override
@@ -219,42 +220,42 @@ public class VTopologyComponent extends Composite implements Paintable, SVGTopol
 			}).attr("transform", new Func<String, GWTVertex>(){
 
 				public String call(GWTVertex vertex, int index) {
-					GWTVertex displayVertex = vertex.getDisplayVertex(m_semanticZoomLevel);
-
-					return "translate(" + displayVertex.getX() + "," +  displayVertex.getY() + ")";
+					return "translate(" + vertex.getInitialX() + "," +  vertex.getInitialY() + ")";
 				}
 
 			}).attr("opacity", 0).remove();
 
 
 			//Updates
-			edgeSelection.with(updateTransition()).call(GWTEdge.draw()).attr("opacity", 1)
-			    .transition().styleTween("stroke-width", edgeStrokeWidthTween(topologyView));
-
+			edgeSelection.call(GWTEdge.draw()).attr("opacity", 1);
+			
 			vertexSelection.with(updateTransition()).call(GWTVertex.draw()).attr("opacity", 1);
 
-
 			//Enters
-			edgeSelection.enter().create(GWTEdge.create()).call(setupEdgeEventHandlers()).with(enterTransition())
-			    .transition().styleTween("stroke-width", edgeStrokeWidthTween(topologyView));
-
-			//vertexSelection.enter().create(GWTVertex.create()).call(setupEventHandlers()).with(enterTransition());
+			edgeSelection.enter().create(GWTEdge.create()).call(setupEdgeEventHandlers());
 			
+            //Scaling and Fit to Zoom transitions
+			SVGMatrix orig = topologyView.getSVGViewPort().getCTM();
+			SVGMatrix transform = topologyView.calculateNewTransform(graph.getBoundingBox());
+			//consoleLog("Orig: " + matrixTransform(orig) + "\n new: " + matrixTransform(transform));
+            
+            D3.d3().select(topologyView.getSVGViewPort())
+            .transition().duration(1000)
+            .attr("transform", matrixTransform(transform) );
+            
+            D3.d3().selectAll(GWTEdge.SVG_EDGE_ELEMENT).style("stroke-width", GWTEdge.EDGE_WIDTH/transform.getA() + "px").transition().delay(750).duration(500).attr("opacity", "1").transition();
+            
 		}
-
-        private Tween<Double, GWTEdge> edgeStrokeWidthTween(final TopologyView<TopologyViewRenderer> topologyView) {
-            return new Tween<Double, GWTEdge>() {
-
-                @Override
-                public Double call(GWTEdge edge, int index, String a) {
-                    D3 viewPort = D3.d3().select(topologyView.getSVGViewPort());
-                    double scale = D3.getTransform(viewPort.attr("transform")).getScale().get(0);
-                    final double strokeWidth = 5 * (1/scale);
-                    return strokeWidth;
-                }
-                
-            };
-        }		
+		
+		private String matrixTransform(SVGMatrix matrix) {
+	        String m = "matrix(" + matrix.getA() +
+	                ", " + matrix.getB() +
+	                ", " + matrix.getC() + 
+	                ", " + matrix.getD() +
+	                ", " + matrix.getE() + 
+	                ", " + matrix.getF() + ")";
+	        return D3.getTransform( m ).toString();
+	    }
 
 		protected D3Behavior enterTransition() {
 			return fadeIn(500, 1000);
@@ -307,30 +308,31 @@ public class VTopologyComponent extends Composite implements Paintable, SVGTopol
 
 		private D3 getVertexSelection(GWTGraph graph, TopologyView<TopologyViewRenderer> topologyView) {
 			D3 vertexGroup = D3.d3().select( topologyView.getVertexGroup() );
-            return vertexGroup.selectAll(GWTVertex.VERTEX_CLASS_NAME)
-					.data(graph.getVertices(m_semanticZoomLevel), new Func<String, GWTVertex>() {
+            Func<String, GWTVertex> vertexIdentifierFunction = new Func<String, GWTVertex>() {
 
-						public String call(GWTVertex param, int index) {
-							return "" + param.getId();
-						}
+				public String call(GWTVertex param, int index) {
+					return "" + param.getId();
+				}
 
-					});
+			};
+			return vertexGroup.selectAll(GWTVertex.VERTEX_CLASS_NAME)
+					.data(graph.getVertices(), vertexIdentifierFunction);
 		}
 
 		private D3 getEdgeSelection(GWTGraph graph, TopologyView<TopologyViewRenderer> topologyView) {
 			D3 edgeGroup = D3.d3().select(topologyView.getEdgeGroup());
-            return edgeGroup.selectAll(GWTEdge.SVG_EDGE_ELEMENT)
-					.data(graph.getEdges(m_semanticZoomLevel), new Func<String, GWTEdge>() {
+            Func<String, GWTEdge> edgeIdentifierFunction = new Func<String, GWTEdge>() {
 
-						public String call(GWTEdge edge, int index) {
-						    if(m_client.getTooltipTitleInfo(VTopologyComponent.this, edge) == null) {
-						        m_client.registerTooltip(VTopologyComponent.this, edge, new TooltipInfo(edge.getTooltipText()));
-						    }
-							String edgeId = edge.getId();
-							return edgeId;
-						}
+				public String call(GWTEdge edge, int index) {
+				    if(m_client.getTooltipTitleInfo(VTopologyComponent.this, edge) == null) {
+				        m_client.registerTooltip(VTopologyComponent.this, edge, new TooltipInfo(edge.getTooltipText()));
+				    }
+					String edgeId = edge.getId();
+					return edgeId;
+				}
 
-					});
+			};
+			return edgeGroup.selectAll(GWTEdge.SVG_EDGE_ELEMENT).data(graph.getEdges(), edgeIdentifierFunction);
 		}
 
 		public Handler<GWTEdge> getEdgeContextHandler() {
@@ -359,7 +361,6 @@ public class VTopologyComponent extends Composite implements Paintable, SVGTopol
 	private String m_paintableId;
 
 	private GWTGraph m_graph;
-	private double m_scale = 0.0;
 	private DragObject m_dragObject;
 	
 	@UiField
@@ -369,16 +370,12 @@ public class VTopologyComponent extends Composite implements Paintable, SVGTopol
 	private SVGGraphDrawer m_graphDrawer;
 	private SVGGraphDrawerNoTransition m_graphDrawerNoTransition;
 	private List<Element> m_selectedElements = new ArrayList<Element>();
-	private int m_semanticZoomLevel;
-	private int m_oldSemanticZoomLevel;
 	private DragHandlerManager m_svgDragHandlerManager;
-    private boolean m_panToSelection = false;
     private ServiceRegistry m_serviceRegistry;
     private TopologyViewRenderer m_currentViewRender;
     
     private TopologyView<TopologyViewRenderer> m_topologyView;
     private List<GraphUpdateListener> m_graphListenerList = new ArrayList<GraphUpdateListener>();
-    private boolean m_fitToView;
 
 	public VTopologyComponent() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -401,6 +398,7 @@ public class VTopologyComponent extends Composite implements Paintable, SVGTopol
 		
 		m_topologyView = new TopologyViewImpl();
 		m_topologyView.setPresenter(this);
+		m_componentHolder.setSize("100%", "100%");
 		m_componentHolder.add(m_topologyView.asWidget());
 		
 		m_svgDragHandlerManager = new DragHandlerManager();
@@ -452,6 +450,7 @@ public class VTopologyComponent extends Composite implements Paintable, SVGTopol
 
 			public void call(Element elem, int index) {
 			    handlerManager.onDragEnd(elem);
+			    updateMapPosition();
 			}
 		});
 
@@ -533,8 +532,15 @@ public class VTopologyComponent extends Composite implements Paintable, SVGTopol
 
 			public void call(GWTVertex vertex, int index) {
 				NativeEvent event = D3.getEvent();
+				
+				SVGGElement vertexElement = event.getCurrentEventTarget().cast();
+				vertexElement.getParentElement().appendChild(vertexElement);
+				
 				m_client.updateVariable(m_paintableId, "clickedVertex", vertex.getId(), false);
 				m_client.updateVariable(m_paintableId, "shiftKeyPressed", event.getShiftKey(), false);
+				m_client.updateVariable(m_paintableId, "metaKeyPressed", event.getMetaKey(), false);
+				m_client.updateVariable(m_paintableId, "ctrlKeyPressed", event.getCtrlKey(), false);
+				m_client.updateVariable(m_paintableId, "platform", Navigator.getPlatform(), false);
 				
 				event.preventDefault();
 				event.stopPropagation();
@@ -613,7 +619,6 @@ public class VTopologyComponent extends Composite implements Paintable, SVGTopol
 
 				m_dragObject.move();
 				
-				//TODO: change the viewRenderer to no transition
 				if(getViewRenderer() == m_graphDrawer) {
 				    m_currentViewRender = m_graphDrawerNoTransition;
 				}
@@ -630,66 +635,42 @@ public class VTopologyComponent extends Composite implements Paintable, SVGTopol
 
 
 	public void updateFromUIDL(UIDL uidl, ApplicationConnection client) {
-
+	    
 		if(client.updateComponent(this, uidl, true)) {
 			return;
 		}
-
+		
+		GWTGraph graph = GWTGraph.create();
+		
 		m_client = client;
 		m_paintableId = uidl.getId();
-
-		setScale(uidl.getDoubleAttribute("scale"), uidl.getIntAttribute("clientX"), uidl.getIntAttribute("clientY"));
-		setSemanticZoomLevel(uidl.getIntAttribute("semanticZoomLevel"));
-		setPanToSelection(uidl.getBooleanAttribute("panToSelection"));
-		setFitToView(uidl.getBooleanAttribute("fitToView"));
 		setActiveTool(uidl.getStringAttribute("activeTool"));
-
-		UIDL graph = uidl.getChildByTagName("graph");
-		Iterator<?> children = graph.getChildIterator();
-
-		GWTGraph graphConverted = GWTGraph.create();
+        
+		UIDL graphUIDL = uidl.getChildByTagName("graph");
+		Iterator<?> children = graphUIDL.getChildIterator();
+		
 		GWTVertex.setBackgroundImage(client.translateVaadinUri("theme://images/vertex_circle_selector.png"));
 		while(children.hasNext()) {
 			UIDL child = (UIDL) children.next();
 
-			if(child.getTag().equals("group")) {
-				GWTGroup group = GWTGroup.create(child.getStringAttribute("key"), child.getIntAttribute("x"), child.getIntAttribute("y"));
-				boolean booleanAttribute = child.getBooleanAttribute("selected");
+			if(child.getTag().equals("vertex")) {
+				String vertexKey = child.getStringAttribute("key");
 
-				group.setSelected(booleanAttribute);
-				group.setIcon(client.translateVaadinUri(child.getStringAttribute("iconUrl")));
-				group.setSemanticZoomLevel(child.getIntAttribute("semanticZoomLevel"));
-
-				if (child.hasAttribute("label")) {
-					group.setLabel(child.getStringAttribute("label"));
-				}
-				graphConverted.addGroup(group);
-
-				if(m_client != null) {
-					TooltipInfo ttInfo = new TooltipInfo(child.getStringAttribute("tooltipText"));
-					m_client.registerTooltip(this, group, ttInfo);
-				}
-
-			}else if(child.getTag().equals("vertex")) {
-
-				GWTVertex vertex = GWTVertex.create(child.getStringAttribute("key"), child.getIntAttribute("x"), child.getIntAttribute("y"));
+				GWTVertex vertex = GWTVertex.create(vertexKey, child.getIntAttribute("x"), child.getIntAttribute("y"));
+				
+				vertex.setInitialX(child.getIntAttribute("initialX"));
+				vertex.setInitialY(child.getIntAttribute("initialY"));
+				
 				boolean selected = child.getBooleanAttribute("selected");
-				vertex.setSemanticZoomLevel(child.getIntAttribute("semanticZoomLevel"));
-
-				if(child.hasAttribute("groupKey")) {
-					String groupKey = child.getStringAttribute("groupKey");
-					GWTGroup group = graphConverted.getGroup(groupKey);
-					vertex.setParent(group);
-				}
-
 				vertex.setSelected(selected);
-				vertex.setIcon(client.translateVaadinUri(child.getStringAttribute("iconUrl")));
+
+				vertex.setIconUrl(client.translateVaadinUri(child.getStringAttribute("iconUrl")));
 
 				if (child.hasAttribute("label")) {
 					vertex.setLabel(child.getStringAttribute("label"));
 				}
 
-				graphConverted.addVertex(vertex);
+				graph.addVertex(vertex);
 
 				if(m_client != null) {
 					TooltipInfo ttInfo = new TooltipInfo(child.getStringAttribute("tooltipText"));
@@ -697,46 +678,101 @@ public class VTopologyComponent extends Composite implements Paintable, SVGTopol
 				}
 				
 			}else if(child.getTag().equals("edge")) {
-				GWTVertex source = graphConverted.findVertexById(child.getStringAttribute("source"));
-				GWTEdge edge = GWTEdge.create(child.getStringAttribute("key"), source, graphConverted.findVertexById( child.getStringAttribute("target") ));
+				String edgeKey = child.getStringAttribute("key");
+				String sourceKey = child.getStringAttribute("source");
+				String targetKey = child.getStringAttribute("target");
+				
+				GWTVertex source = graph.findVertexById(sourceKey);
+				GWTVertex target = graph.findVertexById( targetKey );
+				GWTEdge edge = GWTEdge.create(edgeKey, source, target);
 				boolean selected = child.getBooleanAttribute("selected");
 				String cssClass = child.getStringAttribute("cssClass");
 				edge.setSelected(selected);
 				edge.setCssClass(cssClass);
 				String ttText = child.getStringAttribute("tooltipText");
 				edge.setTooltipText(ttText);
-				graphConverted.addEdge(edge);
+				graph.addEdge(edge);
 
-			}else if(child.getTag().equals("groupParent")) {
-				String groupKey = child.getStringAttribute("key");
-				String parentKey = child.getStringAttribute("parentKey");
-				GWTGroup group = graphConverted.getGroup(groupKey);
-				GWTGroup parentGroup = graphConverted.getGroup(parentKey);
-
-				group.setParent(parentGroup);
-
-			}else if(child.getTag().equals("vertexParent")) {
-				String vertexKey = child.getStringAttribute("key");
-				String parentKey = child.getStringAttribute("parentKey");
-				GWTVertex vertex = graphConverted.getVertex(vertexKey);
-				GWTGroup parentGroup = graphConverted.getGroup(parentKey);
-
-				vertex.setParent(parentGroup);
 			}
 		}
-
-		setGraph(graphConverted);
 		
+		JsArray<GWTEdge> edges = graph.getEdges();
+		sortEdges(edges);
+		
+		
+        for( int i = 0; i < edges.length(); i++) {
+            if(i != 0) {
+		        GWTEdge edge1 = edges.get(i-1);
+		        GWTEdge edge2 = edges.get(i);
+		        
+		        String edge1Source = minEndPoint(edge1);
+		        String edge2Source = minEndPoint(edge2);
+		        String edge1Target = maxEndPoint(edge1);
+		        String edge2Target = maxEndPoint(edge2);
+		        
+		        if((edge1Source.equals(edge2Source) && edge1Target.equals(edge2Target))) {
+		            edge2.setLinkNum(edge1.getLinkNum() + 1);
+		        }else {
+		            edge2.setLinkNum(1);
+		        }
+		    }
+		}
+        
+        int x = uidl.getIntAttribute("boundX");
+        int y = uidl.getIntAttribute("boundY");
+        int width = uidl.getIntAttribute("boundWidth");
+        int height = uidl.getIntAttribute("boundHeight");
+        
+        graph.setBoundingBox(GWTBoundingBox.create(x, y, width, height));
+		setGraph(graph);
+        
+		sendPhysicalDimensions();
+	}
+	
+	private void sendPhysicalDimensions() {
+	    int width = m_topologyView.getPhysicalWidth();
+	    int height = m_topologyView.getPhysicalHeight();
+	    Map<String, Object> dimensions = new HashMap<String, Object>();
+	    dimensions.put("width", width);
+	    dimensions.put("height", height);
+	    
+	    m_client.updateVariable(getPaintableId(), "mapPhysicalBounds", dimensions, true);
+	    
 	}
 
-	private void setFitToView(boolean bool) {
-	    m_fitToView = bool;
+    private String minEndPoint(GWTEdge edge1) {
+        String edge1Source = edge1.getSource().getId().compareTo(edge1.getTarget().getId()) < 0 ? edge1.getSource().getId() : edge1.getTarget().getId();
+        return edge1Source;
     }
 	
-	private boolean isFitToView() {
-	    return m_fitToView;
-	}
-
+    private String maxEndPoint(GWTEdge edge1) {
+        String edge1Source = edge1.getSource().getId().compareTo(edge1.getTarget().getId()) < 0 ? edge1.getTarget().getId() : edge1.getSource().getId();
+        return edge1Source;
+    }
+    
+	private native void sortEdges(JsArray<GWTEdge> list)/*-{
+	
+	    list.sort(function(a,b){
+	        var sourceA = a.source.id < a.target.id ? a.source.id : a.target.id;
+            var targetA = a.source.id < a.target.id ? a.target.id : a.source.id;
+	        var sourceB = b.source.id < b.target.id ? b.source.id : b.target.id;
+	        var targetB = b.source.id < b.target.id ? b.target.id : b.source.id;
+	        if(sourceA > sourceB){ 
+	            return 1; 
+	        } else if(sourceA < sourceB){
+	            return -1;
+	        }else{
+	            if(targetA > targetB){
+	                return 1;
+	            }
+	            if(targetA < targetB){
+	                return -1;
+	            } else {return 0;}
+	        }
+	    });
+	    
+	}-*/;
+	
     private void setActiveTool(String toolname) {
 	    if(toolname.equals("pan")) {
 	        m_svgDragHandlerManager.setCurrentDragHandler(PanHandler.DRAG_BEHAVIOR_KEY);
@@ -747,67 +783,24 @@ public class VTopologyComponent extends Composite implements Paintable, SVGTopol
 	    }
     }
 
-    private void setPanToSelection(boolean bool) {
-        m_panToSelection = bool;
-    }
-	
-	private boolean isPanToSelection() {
-	    return m_panToSelection;
-	}
-
-    private void setSemanticZoomLevel(int level) {
-		m_oldSemanticZoomLevel = m_semanticZoomLevel;
-		m_semanticZoomLevel = level;
-	}
-
-	private void setScale(double scale, int clientX, int clientY) {
-	    if(m_scale != scale) {
-			double oldScale = m_scale;
-			m_scale = scale;
-			updateScale(oldScale, m_scale, clientX, clientY);
-		}
-
-	}
-
-	/**
+    /**
 	 * Sets the graph, updates the ViewRenderer if need be and 
 	 * updates all graphUpdateListeners
 	 * @param graph
 	 */
 	private void setGraph(GWTGraph graph) {
 		m_graph = graph;
-		updateGraphUpdateListeners();
-		if(isPanToSelection()) {
-		    centerSelection(m_graph.getVertices(m_semanticZoomLevel));
-		} else { // if(isFitToView())
-		    fitMapToView(m_graph.getVertices(m_semanticZoomLevel));
-		}
         
 		//Set the ViewRenderer to the Animated one if it isn't already
 		if(getViewRenderer() != m_graphDrawer) {
 		    setTopologyViewRenderer(m_graphDrawer);
 		}
         
-        final D3 selectedVertices = D3.d3().selectAll(GWTVertex.SELECTED_VERTEX_CLASS_NAME);
-        selectedVertices.each(new Handler<GWTVertex>() {
-        
-            @Override
-            public void call(GWTVertex gwtVertex, int index) {
-                SVGGElement vertex = D3.getElement(selectedVertices, index).cast();
-                vertex.getParentElement().appendChild(vertex);
-            }
-        });
-		
-        
+        updateGraphUpdateListeners();
 	}
 
-    private void updateScale(double oldScale, double newScale, int cx,int cy) {
-        ((TopologyViewImpl) m_topologyView).updateScale(oldScale, newScale, cx, cy);
-
-	}
-
-	public ApplicationConnection getClient() {
-		return m_client;
+    public ApplicationConnection getClient() {
+		return m_client; 
 	}
 
 	public String getPaintableId() {
@@ -840,24 +833,7 @@ public class VTopologyComponent extends Composite implements Paintable, SVGTopol
         return D3.d3().selectAll(GWTVertex.VERTEX_CLASS_NAME);
     }
     
-    /**
-     * Centers the view on a selection
-     * @param jsArray 
-     */
-    public void centerSelection(JsArray<GWTVertex> vertexArray) {
-        centerD3Selection(vertexArray, false);
-    }
-    
-    /**
-     * Centers the view for the entire map
-     * @param vertexArray
-     */
-    private void fitMapToView(JsArray<GWTVertex> vertexArray) {
-        centerD3Selection(vertexArray, true);
-    }
-    
-    private void centerD3Selection(JsArray<GWTVertex> vertices, boolean fitToView) {
-        
+    private BoundingRect createBoundingRect(JsArray<GWTVertex> vertices, boolean fitToView) {
         final BoundingRect rect = new BoundingRect();
 
         for(int i = 0; i < vertices.length(); i++) {
@@ -869,17 +845,15 @@ public class VTopologyComponent extends Composite implements Paintable, SVGTopol
                 rect.addPoint(new Point(vertexX, vertexY));
             }
         }
-        
-        m_topologyView.zoomToFit(rect);
+        return rect;
     }
     
-    private void setMapScaleNow(double scale) {
-        setMapScale(scale, true);
-    }
-    
-    private void setMapScale(double scale, boolean immediate) {
-        m_scale = scale;
-        m_client.updateVariable(m_paintableId, "mapScale", scale, immediate);
+    private void updateMapPosition() {
+        SVGPoint pos = m_topologyView.getCenterPos(m_graph.getBoundingBox());
+        Map<String, Object> point = new HashMap<String, Object>();
+        point.put("x", (int)Math.round(pos.getX()));
+        point.put("y", (int)Math.round(pos.getY()));
+        m_client.updateVariable(getPaintableId(), "clientCenterPoint", point, true);
     }
 
     @Override
@@ -913,14 +887,12 @@ public class VTopologyComponent extends Composite implements Paintable, SVGTopol
     }
 
     @Override
-    public void onScaleUpdate(double scale) {
-        setMapScaleNow(scale);
-    }
-    
-    @Override
-    public void onMouseWheel() {
-        // TODO Auto-generated method stub
-        
+    public void onMouseWheel(double scrollVal, SVGPoint center) {
+        Map<String, Object> props = new HashMap<String, Object>();
+        props.put("x", (int)Math.round(center.getX()));
+        props.put("y", (int)Math.round(center.getY()));
+        props.put("scrollVal", scrollVal);
+        //m_client.updateVariable(getPaintableId(), "scrollWheel", props, true);
     }
     
     public static final native void eval(JavaScriptObject elem) /*-{

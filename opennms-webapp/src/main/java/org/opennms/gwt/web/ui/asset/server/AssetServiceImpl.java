@@ -54,42 +54,12 @@ import java.util.List;
  * @author <a href="mailto:ronny@opennms.org">Ronny Trommer</a>
  */
 @Transactional(readOnly = false)
-public class AssetServiceImpl extends RemoteServiceServlet implements
-        AssetService {
-
-    private final Logger logger = LoggerFactory.getLogger("OpenNMS.WEB." + AssetServiceImpl.class.getName());
+public class AssetServiceImpl extends RemoteServiceServlet implements AssetService {
 
     /**
      * generated serial
      */
     private static final long serialVersionUID = 3847574674959207209L;
-
-    /**
-     * asset data access object for asset records
-     */
-    private AssetRecordDao m_assetRecordDao;
-
-    /**
-     * node data access object for nodes
-     */
-    private NodeDao m_nodeDao;
-
-    /**
-     * node object with asset record
-     */
-    private OnmsNode m_onmsNode;
-
-    /**
-     * asset record object
-     */
-    private OnmsAssetRecord m_onmsAssetRecord;
-
-    /**
-     * web security context service for user name and role
-     */
-    private SecurityContextService m_securityContext;
-
-    private HashSet<String> s_allowHtmlFields;
 
     /**
      * Constant <code>AUTOENABLE="A"</code>
@@ -132,35 +102,64 @@ public class AssetServiceImpl extends RemoteServiceServlet implements
      */
     private static final ArrayList<String> s_connectionOptions = new ArrayList<String>();
 
+    private final Logger logger = LoggerFactory.getLogger("OpenNMS.WEB." + AssetServiceImpl.class.getName());
+
+    /**
+     * asset data access object for asset records
+     */
+    private AssetRecordDao m_assetRecordDao;
+
+    /**
+     * node data access object for nodes
+     */
+    private NodeDao m_nodeDao;
+
+    /**
+     * node object with asset record
+     */
+    private OnmsNode m_onmsNode;
+
+    /**
+     * asset record object
+     */
+    private OnmsAssetRecord m_onmsAssetRecord;
+
+    /**
+     * web security context service for user name and role
+     */
+    private SecurityContextService m_securityContext;
+
+    private HashSet<String> s_allowHtmlFields;
+
     /**
      *
      */
     public AssetServiceImpl() {
         this.m_securityContext = new SpringSecurityContextService();
 
-        /*
-           * Init static strings for autoenable option TODO: Should be
-           * configurable, we take this over from the old JSP version
-           */
+		/*
+         * Init static strings for autoenable option TODO: Should be
+		 * configurable, we take this over from the old JSP version
+		 */
         s_autoenableOptions.add(AUTOENABLE);
         //TODO added "" to be able to remove AUTOENABLE again. this could cause problems at the AUTOENABLE reading code.
         s_autoenableOptions.add("");
 
 
-        /*
-           * Init static strings for connection types TODO: Should be
-           * configurable, we take it over from the old JSP version
-           */
+		/*
+         * Init static strings for connection types TODO: Should be
+		 * configurable, we take it over from the old JSP version
+		 */
         s_connectionOptions.add(TELNET_CONNECTION);
         s_connectionOptions.add(SSH_CONNECTION);
         s_connectionOptions.add(RSH_CONNECTION);
         //TODO added "" to be able to remove connection again. this could cause problems at the connection reading code.
         s_connectionOptions.add("");
 
-
-        /*
-           * Init AllowHtmlFields for sanitizing Strings
-           */
+		
+		/*
+         * Init AllowHtmlFields for sanitizing Strings
+		 */
         initAllowHtmlFields();
     }
 
@@ -204,8 +203,7 @@ public class AssetServiceImpl extends RemoteServiceServlet implements
 
         // This is a poor re-implementation of modify permission based on spring
         // roles
-        if (this.m_securityContext.hasRole(ALLOW_EDIT_ROLE_ADMIN)
-                || this.m_securityContext.hasRole(ALLOW_EDIT_ROLE_PROVISION)) {
+        if (this.m_securityContext.hasRole(ALLOW_EDIT_ROLE_ADMIN) || this.m_securityContext.hasRole(ALLOW_EDIT_ROLE_PROVISION)) {
             assetCommand.setAllowModify(true);
         } else {
             assetCommand.setAllowModify(false);
@@ -228,19 +226,18 @@ public class AssetServiceImpl extends RemoteServiceServlet implements
 
         // a list of all asset records which contains all distinct asset
         // properties for suggestion
-        List<OnmsAssetRecord> distinctAssetProperties = this.m_assetRecordDao
-                .getDistinctProperties();
+        List<OnmsAssetRecord> distinctAssetProperties = this.m_assetRecordDao.getDistinctProperties();
 
         // Map all distinct asset properties
         for (OnmsAssetRecord asset : distinctAssetProperties) {
             suggestion.addAdditionalhardware(asset.getAdditionalhardware());
-            suggestion.addAddress1(asset.getAddress1());
-            suggestion.addAddress2(asset.getAddress2());
+            suggestion.addAddress1(asset.getGeolocation().getAddress1());
+            suggestion.addAddress2(asset.getGeolocation().getAddress2());
             suggestion.addAdmin(asset.getAdmin());
             suggestion.addBuilding(asset.getBuilding());
             suggestion.addCategory(asset.getCategory());
             suggestion.addCircuitId(asset.getCircuitId());
-            suggestion.addCity(asset.getCity());
+            suggestion.addCity(asset.getGeolocation().getCity());
             suggestion.addCpu(asset.getCpu());
             suggestion.addDepartment(asset.getDepartment());
             suggestion.addDescription(asset.getDescription());
@@ -267,14 +264,15 @@ public class AssetServiceImpl extends RemoteServiceServlet implements
             suggestion.addRegion(asset.getRegion());
             suggestion.addRoom(asset.getRoom());
             suggestion.addSnmpcommunity(asset.getSnmpcommunity());
-            suggestion.addState(asset.getState());
+            suggestion.addState(asset.getGeolocation().getState());
             suggestion.addStoragectrl(asset.getStoragectrl());
             suggestion.addSupportPhone(asset.getSupportPhone());
             suggestion.addThresholdCategory(asset.getThresholdCategory());
             suggestion.addVendor(asset.getVendor());
             suggestion.addVendorFax(asset.getVendorFax());
             suggestion.addVendorPhone(asset.getVendorPhone());
-            suggestion.addZip(asset.getZip());
+            suggestion.addZip(asset.getGeolocation().getZip());
+            suggestion.addCoordinates(asset.getGeolocation().getCoordinates());
 
             // VMware monitoring assets
             suggestion.addVmwareManagedObjectId(asset.getVmwareManagedObjectId());
@@ -284,6 +282,7 @@ public class AssetServiceImpl extends RemoteServiceServlet implements
             // VMware topology assets
             suggestion.addVmwareTopologyInfo(asset.getVmwareTopologyInfo());
             suggestion.addVmwareState(asset.getState());
+
         }
         return suggestion;
     }
@@ -292,8 +291,7 @@ public class AssetServiceImpl extends RemoteServiceServlet implements
      * {@inheritDoc}
      */
     @Override
-    public Boolean saveOrUpdateAssetByNodeId(int nodeId,
-                                             AssetCommand assetCommand) {
+    public Boolean saveOrUpdateAssetByNodeId(int nodeId, AssetCommand assetCommand) {
 
         logger.debug("nodeId: '{}' assetCommand: '{}'", nodeId, assetCommand);
 
@@ -302,14 +300,11 @@ public class AssetServiceImpl extends RemoteServiceServlet implements
         this.m_onmsAssetRecord = this.m_onmsNode.getAssetRecord();
 
         // copy the transfer object for rpc back to the hibernate model
-        BeanUtils.copyProperties(
-                WebSecurityUtils.sanitizeBeanStringProperties(assetCommand, s_allowHtmlFields),
-                this.m_onmsAssetRecord);
+        BeanUtils.copyProperties(WebSecurityUtils.sanitizeBeanStringProperties(assetCommand, s_allowHtmlFields), this.m_onmsAssetRecord);
         logger.debug("OnmsAssetRecord: '{}'", m_onmsAssetRecord);
 
         // set the last modified user from logged in user
-        this.m_onmsAssetRecord.setLastModifiedBy(this.m_securityContext
-                .getUsername());
+        this.m_onmsAssetRecord.setLastModifiedBy(this.m_securityContext.getUsername());
 
         // set last modified date and assign the node for the asset record
         this.m_onmsAssetRecord.setLastModifiedDate(new Date());

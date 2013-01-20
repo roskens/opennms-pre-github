@@ -1,13 +1,21 @@
 package org.opennms.features.topology.api;
 
+import java.util.Collection;
+
+import org.opennms.features.topology.api.topo.VertexRef;
+
 public interface Layout {
+	
+	Point getLocation(VertexRef v);
+	
+	void setLocation(VertexRef vertex, int x, int y);
 
-	int getX(Object vertexId);
+	void setLocation(VertexRef v, Point location);
 
-	void setX(Object vertexId, int x);
+	Point getInitialLocation(VertexRef v);
+	
+	BoundingBox getBounds();
 
-	int getY(Object vertexId);
-
-	void setY(Object vertexId, int y);
-
+    BoundingBox computeBoundingBox(Collection<VertexRef> vertRefs);
+	
 }

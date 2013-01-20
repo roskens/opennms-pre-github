@@ -1,10 +1,12 @@
 package org.opennms.features.topology.app.internal.gwt.client.view;
 
+import org.opennms.features.topology.app.internal.gwt.client.GWTBoundingBox;
 import org.opennms.features.topology.app.internal.gwt.client.GWTGraph;
 import org.opennms.features.topology.app.internal.gwt.client.VTopologyComponent.GraphUpdateListener;
-import org.opennms.features.topology.app.internal.gwt.client.svg.BoundingRect;
 import org.opennms.features.topology.app.internal.gwt.client.svg.SVGElement;
 import org.opennms.features.topology.app.internal.gwt.client.svg.SVGGElement;
+import org.opennms.features.topology.app.internal.gwt.client.svg.SVGMatrix;
+import org.opennms.features.topology.app.internal.gwt.client.svg.SVGPoint;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.Widget;
@@ -15,9 +17,8 @@ public interface TopologyView<T> {
         void addGraphUpdateListener(GraphUpdateListener listener);
         T getViewRenderer();
         void onContextMenu(Object element, int x, int y, String type);
-        void onMouseWheel();
+        void onMouseWheel(double newScale, SVGPoint point);
         void onBackgroundClick();
-        void onScaleUpdate(double scale);
     }
     
     void setPresenter(Presenter<T> presenter);
@@ -29,5 +30,8 @@ public interface TopologyView<T> {
     Element getReferenceViewPort();
     Element getMarqueeElement();
     void repaintNow(GWTGraph graph);
-    void zoomToFit(BoundingRect rect);
+    SVGMatrix calculateNewTransform(GWTBoundingBox bound);
+    SVGPoint getCenterPos(GWTBoundingBox gwtBoundingBox);
+    int getPhysicalWidth();
+    int getPhysicalHeight();
 }

@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlTransient;
 
-abstract public class LinkdVertex {
+public abstract class LinkdVertex {
 	String m_id;
 	int m_x;
 	int m_y;
@@ -44,7 +44,7 @@ abstract public class LinkdVertex {
 	String m_iconKey;
 	String m_label;
 	String m_ipAddr;
-        String m_tooltipText;
+	String m_tooltipText;
 	LinkdGroup m_parent = null;
 	List<LinkdEdge> m_edges = new ArrayList<LinkdEdge>();
 	private int m_semanticZoomLevel = -1;
@@ -227,5 +227,5 @@ abstract public class LinkdVertex {
     public int getNodeID() {
         return 0;
     }
-	
+
 }

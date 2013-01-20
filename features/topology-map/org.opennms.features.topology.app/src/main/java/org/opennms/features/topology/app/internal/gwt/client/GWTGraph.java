@@ -29,9 +29,9 @@
 package org.opennms.features.topology.app.internal.gwt.client;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
+
+import org.opennms.features.topology.app.internal.gwt.client.svg.SVGMatrix;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
@@ -40,6 +40,13 @@ public final class GWTGraph extends JavaScriptObject {
     
     protected GWTGraph() {}
     
+    public static final native GWTGraph create() /*-{
+    	return { "vertices":[], "edges":[], "idToVMap":{}, 
+    	         "clientX":0, "clientY":0, 
+    	         "viewTransformation":{}, "panToSelection":false,
+    	         "fitToView":false, "boundingBox":{"x":0, "y":0, "width":0, "height":0}};
+	}-*/;
+
     public final native JsArray<GWTVertex> getVertices()/*-{
         return this.vertices;
     }-*/;
@@ -61,21 +68,6 @@ public final class GWTGraph extends JavaScriptObject {
         put(vertex.getId(), vertex);
     }
     
-    public void addGroup(GWTGroup group) {
-		getGroups().push(group);
-		putGroup(group.getId(), group);
-		
-	}
-    
-    private final native void putGroup(String id, GWTGroup group) /*-{
-		this.idToGMap[id] = group;
-		
-	}-*/;
-
-	private final native JsArray<GWTGroup> getGroups() /*-{
-		return this.groups;
-	}-*/;
-
 	public void removeVertex(GWTVertex vertex) {
         int index = findIndex(vertex);
         if(index >= 0) {
@@ -129,76 +121,32 @@ public final class GWTGraph extends JavaScriptObject {
         getEdges().push(edge);
     }
     
-    public static final native GWTGraph create() /*-{
-        return {"vertices":[], "edges":[], "groups":[], "idToVMap":{}, "idToGMap":{}};
-    }-*/;
-
-    public String json() {
-        return "{}";
-    }
-
-	public final native GWTGroup getGroup(String groupKey) /*-{
-		return this.idToGMap[groupKey];
-	}-*/;
-	
 	public GWTVertex getVertex(String vertexKey) {
 		return get(vertexKey);
 	}
 
+    public native void setClientX(int clientX) /*-{
+        this.clientX = clientX;
+    }-*/;
 
-	public JsArray<GWTVertex> getVertices(int semanticZoomLevel){
-		JsArray<GWTVertex> vertices = getVertices();
-		JsArray<GWTVertex> visible = JsArray.createArray().cast();
-		
-		Set<GWTVertex> vSet = new LinkedHashSet<GWTVertex>();
-		for(int i = 0; i < vertices.length(); i++){
-			GWTVertex v = vertices.get(i);
-			vSet.add(v.getDisplayVertex(semanticZoomLevel));
-			
-		}
-		
-		for(GWTVertex v : vSet) {
-			visible.push(v);
-		}
-		
-		return visible;
-	}
+    public native void setClientY(int clientY) /*-{
+        this.clientY = clientY;
+    }-*/;
 
-	public JsArray<GWTEdge> getEdges(int semanticZoomLevel) {
-		JsArray<GWTEdge> visible = JsArray.createArray().cast();
-		JsArray<GWTEdge> edges = getEdges();
-		
-		for(int i = 0; i < edges.length(); i++) {
-			GWTEdge edge = edges.get(i);
-			GWTVertex source = edge.getSource();
-			GWTVertex target = edge.getTarget();
-			GWTVertex displaySource = source.getDisplayVertex(semanticZoomLevel);
-			GWTVertex displayTarget = target.getDisplayVertex(semanticZoomLevel);
-			
-			if(displaySource == displayTarget) {
-				//skip this one
-			}else if(displaySource == source && displayTarget == target) {
-				visible.push(edge);
-			}else {
-				GWTEdge displayEdge = GWTEdge.create(edge.getId(), displaySource, displayTarget);
-				displayEdge.setLinkNum(edge.getLinkNum());
-				displayEdge.setTooltipText(edge.getTooltipText());
-				visible.push(displayEdge);
-			}
-		}
-		
-		for(int i = 0; i < visible.length(); i++) {
-		    GWTEdge edge = visible.get(0);
-		    if(i > 0) {
-                GWTEdge previousEdge = visible.get(i - 1);
-                if(edge.getSource() == previousEdge.getSource() && edge.getTarget() == previousEdge.getTarget()) {
-                    edge.setLinkNum( previousEdge.getLinkNum() + 1 );
-                } else {
-                    edge.setLinkNum(1);
-                }
-            }
-		}
-		
-		return visible;
-	}
+    public native void setViewportTransform(SVGMatrix viewportTransform) /*-{
+        this.viewTransform = viewportTransform;
+    }-*/;
+
+    public native void setOldScale(double oldScale) /*-{
+        this.oldScale = oldScale;
+    }-*/;
+
+    public native void setBoundingBox(GWTBoundingBox bounds) /*-{
+        this.bounds = bounds;
+    }-*/;
+    
+    public native GWTBoundingBox getBoundingBox() /*-{
+        return this.bounds;
+    }-*/;
+
 }

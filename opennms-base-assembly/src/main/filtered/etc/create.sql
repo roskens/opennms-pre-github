@@ -33,6 +33,7 @@
 --#
 
 drop table accessLocks cascade;
+drop table accesspoints cascade;
 drop table category_node cascade;
 drop table categories cascade;
 drop table assets cascade;
@@ -1198,6 +1199,7 @@ create table assets (
         admin		varchar(32),
         snmpcommunity		varchar(32),
         rackunitheight		varchar(2),
+        geolocation		varchar(32),
         
     constraint pk_assetID primary key (id),
 	constraint fk_nodeID5 foreign key (nodeID) references node ON DELETE CASCADE
@@ -2387,4 +2389,16 @@ insert into qrtz_locks values('STATE_ACCESS');
 insert into qrtz_locks values('MISFIRE_ACCESS');
 
 --# End Quartz persistence tables
+
+create table accesspoints (
+  physaddr varchar(32) NOT NULL UNIQUE,
+  nodeid integer NOT NULL,
+  pollingpackage varchar(256) NOT NULL,
+  status integer,
+  controlleripaddr varchar(40),
+
+  CONSTRAINT pk_physaddr primary key (physaddr)
+);
+
+create index accesspoint_package_idx on accesspoints(pollingpackage);
 

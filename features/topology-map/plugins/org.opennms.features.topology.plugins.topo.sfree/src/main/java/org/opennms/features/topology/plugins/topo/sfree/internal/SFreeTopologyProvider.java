@@ -33,7 +33,7 @@ public class SFreeTopologyProvider implements TopologyProvider {
 	}
 
 	@Override
-	public Object addGroup(String groupIcon) {
+	public Object addGroup(String groupName, String groupIcon) {
 		return null;
 	}
 
@@ -148,16 +148,6 @@ public class SFreeTopologyProvider implements TopologyProvider {
 	@Override
 	public Collection<String> getEdgeIds() {
 		return m_edgeContainer.getItemIds();
-	}
-
-	@Override
-	public Item getVertexItem(Object vertexId) {
-        return m_vertexContainer.getItem(vertexId);
-	}
-
-	@Override
-	public Item getEdgeItem(Object edgeId) {
-        return m_edgeContainer.getItem(edgeId);
 	}
 
 	@Override

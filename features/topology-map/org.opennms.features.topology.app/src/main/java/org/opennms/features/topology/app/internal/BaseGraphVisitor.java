@@ -1,23 +1,24 @@
 package org.opennms.features.topology.app.internal;
 
+import org.opennms.features.topology.api.Graph;
+import org.opennms.features.topology.api.topo.Edge;
+import org.opennms.features.topology.api.topo.GraphVisitor;
+import org.opennms.features.topology.api.topo.Vertex;
+
+import com.vaadin.terminal.PaintException;
+
 public class BaseGraphVisitor implements GraphVisitor {
 
 	@Override
-	public void visitGraph(TopoGraph graph) throws Exception {}
+	public void visitGraph(Graph graph) throws PaintException {}
 
 	@Override
-	public void completeGraph(TopoGraph graph) throws Exception {}
+	public void visitVertex(Vertex vertex) throws PaintException {}
 
 	@Override
-	public void visitVertex(TopoVertex vertex) throws Exception {}
+	public void visitEdge(Edge edge) throws PaintException {}
 
 	@Override
-	public void completeVertex(TopoVertex vertex) throws Exception {}
-
-	@Override
-	public void visitEdge(TopoEdge edge) throws Exception {}
-
-	@Override
-	public void completeEdge(TopoEdge edge) throws Exception {}
+	public void completeGraph(Graph graph) throws PaintException {}
 
 }
