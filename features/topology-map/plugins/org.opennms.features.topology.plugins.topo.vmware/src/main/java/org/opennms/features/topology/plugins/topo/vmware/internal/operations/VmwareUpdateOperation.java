@@ -30,6 +30,7 @@ package org.opennms.features.topology.plugins.topo.vmware.internal.operations;
 
 import org.opennms.features.topology.api.Operation;
 import org.opennms.features.topology.api.OperationContext;
+import org.opennms.features.topology.api.topo.VertexRef;
 import org.opennms.features.topology.plugins.topo.vmware.internal.VmwareTopologyProvider;
 
 import java.util.List;
@@ -43,7 +44,7 @@ public class VmwareUpdateOperation implements Operation {
     }
 
     @Override
-    public Undoer execute(List<Object> targets, OperationContext operationContext) {
+    public Undoer execute(List<VertexRef> targets, OperationContext operationContext) {
         m_topologyProvider.generate();
 
         operationContext.getGraphContainer().redoLayout();
@@ -52,12 +53,12 @@ public class VmwareUpdateOperation implements Operation {
     }
 
     @Override
-    public boolean display(List<Object> targets, OperationContext operationContext) {
+    public boolean display(List<VertexRef> targets, OperationContext operationContext) {
         return (operationContext.getGraphContainer().getDataSource().equals(m_topologyProvider));
     }
 
     @Override
-    public boolean enabled(List<Object> targets, OperationContext operationContext) {
+    public boolean enabled(List<VertexRef> targets, OperationContext operationContext) {
         return (operationContext.getGraphContainer().getDataSource().equals(m_topologyProvider));
     }
 

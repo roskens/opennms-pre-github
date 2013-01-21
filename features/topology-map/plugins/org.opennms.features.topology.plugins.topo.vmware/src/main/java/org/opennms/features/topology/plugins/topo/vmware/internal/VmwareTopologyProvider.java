@@ -580,8 +580,9 @@ public class VmwareTopologyProvider implements TopologyProvider {
         return m_vertexContainer.containsId(vertexId);
     }
 
-    //@Override
-    public Object addGroup(String groupIcon) {
+    // TODO Christian: Added parameter groupLabel and is not implemented yes
+    @Override
+    public Object addGroup(String groupLabel, String groupIcon) {
         String nextGroupId = getNextGroupId();
         addGroup(nextGroupId, groupIcon, "Group " + nextGroupId);
         return nextGroupId;
