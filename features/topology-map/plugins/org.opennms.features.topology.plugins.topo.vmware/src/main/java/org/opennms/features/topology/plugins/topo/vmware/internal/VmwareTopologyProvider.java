@@ -75,6 +75,10 @@ public class VmwareTopologyProvider implements TopologyProvider {
         return m_generated;
     }
 
+    public void initialize() {
+        generate();
+    }
+
     public void debug(String id) {
         VmwareVertex vmwareVertex = getRequiredVertex(id);
 
@@ -439,7 +443,6 @@ public class VmwareTopologyProvider implements TopologyProvider {
         VmwareVertex vertex = new VmwareGroup(groupId);
 
         vertex.setIconKey(icon);
-        //vertex.setIcon(VmwareConstants.ICONS.get(icon));
 
         vertex.setLabel(label);
 
@@ -580,11 +583,11 @@ public class VmwareTopologyProvider implements TopologyProvider {
         return m_vertexContainer.containsId(vertexId);
     }
 
-    // TODO Christian: Added parameter groupLabel and is not implemented yes
     @Override
-    public Object addGroup(String groupLabel, String groupIcon) {
+    public Object addGroup(String groupName, String groupIcon) {
         String nextGroupId = getNextGroupId();
-        addGroup(nextGroupId, groupIcon, "Group " + nextGroupId);
+        addGroup(nextGroupId, groupIcon, groupName);
         return nextGroupId;
     }
+
 }
