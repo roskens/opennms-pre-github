@@ -33,7 +33,9 @@ import com.vaadin.data.Property;
 import com.vaadin.data.util.BeanContainer;
 import com.vaadin.data.util.BeanItem;
 import org.opennms.features.topology.api.TopologyProvider;
+import org.opennms.netmgt.dao.IpInterfaceDao;
 import org.opennms.netmgt.dao.NodeDao;
+import org.opennms.netmgt.model.OnmsIpInterface;
 import org.opennms.netmgt.model.OnmsNode;
 
 import javax.xml.bind.JAXB;
@@ -48,6 +50,7 @@ public class VmwareTopologyProvider implements TopologyProvider {
     private final String SPLIT_REGEXP = " *, *";
 
     private NodeDao m_nodeDao;
+    private IpInterfaceDao m_ipInterfaceDao;
 
     private VmwareVertexContainer m_vertexContainer;
     private BeanContainer<String, VmwareEdge> m_edgeContainer;
@@ -69,6 +72,14 @@ public class VmwareTopologyProvider implements TopologyProvider {
 
     public void setNodeDao(NodeDao nodeDao) {
         m_nodeDao = nodeDao;
+    }
+
+    public IpInterfaceDao getIpInterfaceDao() {
+        return m_ipInterfaceDao;
+    }
+
+    public void setIpInterfaceDao(IpInterfaceDao ipInterfaceDao) {
+        m_ipInterfaceDao = ipInterfaceDao;
     }
 
     public boolean isGenerated() {
@@ -223,9 +234,10 @@ public class VmwareTopologyProvider implements TopologyProvider {
         String primaryInterface = "unknown";
 
         // get the primary interface ip address
+        OnmsIpInterface ipInterface = m_ipInterfaceDao.findPrimaryInterfaceByNodeId(hostSystem.getId());
 
-        if (hostSystem.getPrimaryInterface() != null) {
-            primaryInterface = hostSystem.getPrimaryInterface().getIpHostName();
+        if (ipInterface != null) {
+            primaryInterface = ipInterface.getIpHostName();
         }
 
         VmwareVertex hostSystemVertex = addHostSystemVertex(vmwareManagementServer + "/" + vmwareManagedObjectId, hostSystem.getLabel(), primaryInterface, hostSystem.getId(), vmwareState);

@@ -5,9 +5,12 @@
 
     <reference id="nodeDao" interface="org.opennms.netmgt.dao.NodeDao" availability="mandatory"/>
 
+    <reference id="ipInterfaceDao" interface="org.opennms.netmgt.dao.IpInterfaceDao" availability="mandatory"/>
+
     <bean id="vmwareTopologyProvider" init-method="initialize"
           class="org.opennms.features.topology.plugins.topo.vmware.internal.VmwareTopologyProvider">
         <property name="nodeDao" ref="nodeDao"/>
+        <property name="ipInterfaceDao" ref="ipInterfaceDao"/>
     </bean>
 
     <service interface="org.opennms.features.topology.api.TopologyProvider" ref="vmwareTopologyProvider">
