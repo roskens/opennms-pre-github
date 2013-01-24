@@ -476,7 +476,7 @@ public class VmwareConfigBuilder {
 
         final Options options = new Options();
 
-        options.addOption("rrdRepository", true, "set rrdRepository path for generated config files, default: '${install.share.dir}/rrd/snmp/'");
+        options.addOption("rrdRepository", true, "set rrdRepository path for generated config files, default: '/opt/opennms/share/rrd/snmp/'");
 
         final CommandLineParser parser = new PosixParser();
         final CommandLine cmd = parser.parse(options, args);
@@ -496,7 +496,7 @@ public class VmwareConfigBuilder {
         if (cmd.hasOption("rrdRepository")) {
             rrdRepository = cmd.getOptionValue("rrdRepository");
         } else {
-            rrdRepository = "${install.share.dir}/rrd/snmp/";
+            rrdRepository = "/opt/opennms/share/rrd/snmp/";
         }
 
         TrustManager[] trustAllCerts = new TrustManager[1];
