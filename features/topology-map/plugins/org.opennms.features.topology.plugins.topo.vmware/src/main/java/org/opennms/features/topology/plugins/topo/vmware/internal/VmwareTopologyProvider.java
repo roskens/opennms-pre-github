@@ -326,8 +326,10 @@ public class VmwareTopologyProvider implements TopologyProvider {
 
         // get the primary interface ip address
 
-        if (virtualMachine.getPrimaryInterface() != null) {
-            primaryInterface = virtualMachine.getPrimaryInterface().getIpHostName();
+        OnmsIpInterface ipInterface = m_ipInterfaceDao.findPrimaryInterfaceByNodeId(virtualMachine.getId());
+
+        if (ipInterface != null) {
+            primaryInterface = ipInterface.getIpHostName();
         }
 
         // add a vertex for the virtual machine
