@@ -58,12 +58,16 @@ public class MapViewManager{
     }
     
     public void zoomToPoint(double scale, Point center) {
+        double oldScale = m_scale;
         m_scale = scale;
         m_scale = Math.min(1.0, m_scale);
         m_scale = Math.max(0.0, m_scale);
+        Point oldCenter = m_center;
         m_center = center;
         
-        fireUpdate();
+        if(m_scale != oldScale || !oldCenter.equals(m_center)) {
+            fireUpdate();
+        }
     }
     
     public BoundingBox getCurrentBoundingBox() {
@@ -77,11 +81,12 @@ public class MapViewManager{
         
         return new BoundingBox(m_center, width, height); 
     }
+    
     public double getScale() { 
-        
         return m_scale;
         
     }
+    
     public void setScale(double scale) {
         double oldScale = m_scale;
         m_scale = scale;
@@ -99,6 +104,7 @@ public class MapViewManager{
         m_scale = Math.min(1.0, m_scale);
         m_scale = Math.max(0.0, m_scale);
         m_center = boundingBox.getCenter();
+        
         fireUpdate();
     }
 
