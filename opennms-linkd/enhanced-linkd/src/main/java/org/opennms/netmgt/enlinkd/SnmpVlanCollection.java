@@ -26,19 +26,19 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.netmgt.linkd;
+package org.opennms.netmgt.enlinkd;
 
 import java.net.InetAddress;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.core.utils.LogUtils;
-import org.opennms.netmgt.linkd.snmp.Dot1dBaseGroup;
-import org.opennms.netmgt.linkd.snmp.Dot1dBasePortTable;
-import org.opennms.netmgt.linkd.snmp.Dot1dStpGroup;
-import org.opennms.netmgt.linkd.snmp.Dot1dStpPortTable;
-import org.opennms.netmgt.linkd.snmp.Dot1dTpFdbTable;
-import org.opennms.netmgt.linkd.snmp.QBridgeDot1dTpFdbTable;
+import org.opennms.netmgt.enlinkd.snmp.Dot1dBaseGroup;
+import org.opennms.netmgt.enlinkd.snmp.Dot1dBasePortTable;
+import org.opennms.netmgt.enlinkd.snmp.Dot1dStpGroup;
+import org.opennms.netmgt.enlinkd.snmp.Dot1dStpPortTable;
+import org.opennms.netmgt.enlinkd.snmp.Dot1dTpFdbTable;
+import org.opennms.netmgt.enlinkd.snmp.QBridgeDot1dTpFdbTable;
 import org.opennms.netmgt.snmp.CollectionTracker;
 import org.opennms.netmgt.snmp.SnmpAgentConfig;
 import org.opennms.netmgt.snmp.SnmpUtils;
