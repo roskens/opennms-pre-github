@@ -26,7 +26,7 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.netmgt.linkd.nb;
+package org.opennms.netmgt.linkd;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -36,13 +36,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.netmgt.dao.IpInterfaceDao;
 import org.opennms.netmgt.dao.NodeDao;
 import org.opennms.netmgt.dao.SnmpInterfaceDao;
-import org.opennms.netmgt.linkd.CdpInterface;
-import org.opennms.netmgt.linkd.Linkd;
-import org.opennms.netmgt.linkd.RouterInterface;
-import org.opennms.netmgt.linkd.snmp.CdpCacheTableEntry;
 import org.opennms.netmgt.model.DataLinkInterface;
 import org.opennms.netmgt.model.NetworkBuilder;
 import org.opennms.netmgt.model.OnmsIpInterface;
@@ -151,44 +148,31 @@ public abstract class LinkdNetworkBuilder {
         return nb.getCurrentNode();
     }
 
-    protected void printRouteInterface(int nodeid, RouterInterface route) {
+    protected void printRouteInterface(int nodeid, int ifindex, 
+    		InetAddress nexthop, InetAddress netmask, int nexthopnodeid, int nexthopifindex) {
         System.err.println("-----------------------------------------------------------");
         System.err.println("Local Route nodeid: "+nodeid);
-        System.err.println("Local Route ifIndex: "+route.getIfindex());
-        System.err.println("Next Hop Address: " +route.getNextHop());
-        System.err.println("Next Hop Network: " +Linkd.getNetwork(route.getNextHop(), route.getNextHopNetmask()));
-        System.err.println("Next Hop Netmask: " +route.getNextHopNetmask());
-        System.err.println("Next Hop nodeid: "+route.getNextHopIfindex());
-        System.err.println("Next Hop ifIndex: "+route.getNextHopIfindex());
+        System.err.println("Local Route ifIndex: "+ifindex);
+        System.err.println("Next Hop Address: " +nexthop);
+        System.err.println("Next Hop Network: " +InetAddressUtils.getNetwork(nexthop, netmask));
+        System.err.println("Next Hop Netmask: " +netmask);
+        System.err.println("Next Hop nodeid: "+nexthopnodeid);
+        System.err.println("Next Hop ifIndex: "+nexthopifindex);
         System.err.println("-----------------------------------------------------------");
         System.err.println("");        
     }
 
-    protected void printCdpInterface(int nodeid, CdpInterface cdp) {
+    protected void printCdpInterface(int nodeid, int ifindex, String cdpTargetDeviceId,
+    		int cdptargetnodeid, int cdptargetifindex) {
         System.err.println("-----------------------------------------------------------");
         System.err.println("Local cdp nodeid: "+nodeid);
-        System.err.println("Local cdp ifindex: "+cdp.getCdpIfIndex());
-        System.err.println("Target cdp deviceId: "+cdp.getCdpTargetDeviceId());
-        System.err.println("Target cdp nodeid: "+cdp.getCdpTargetNodeId());
-        System.err.println("Target cdp ifindex: "+cdp.getCdpTargetIfIndex());
+        System.err.println("Local cdp ifindex: "+ifindex);
+        System.err.println("Target cdp deviceId: "+cdpTargetDeviceId);
+        System.err.println("Target cdp Target nodeid: "+cdptargetnodeid);
+        System.err.println("Target cdp Target ifindex: "+cdptargetifindex);
         System.err.println("-----------------------------------------------------------");
         System.err.println("");        
     	
-    }
-
-    protected void printCdpRow(CdpCacheTableEntry cdpCacheTableEntry) {
-        System.err.println("-----------------------------------------------------------");    
-        System.err.println("getCdpCacheIfIndex: "+cdpCacheTableEntry.getCdpCacheIfIndex());
-        System.err.println("getCdpCacheDeviceIndex: "+cdpCacheTableEntry.getCdpCacheDeviceIndex());
-        System.err.println("getCdpCacheAddressType: "+cdpCacheTableEntry.getCdpCacheAddressType());
-        System.err.println("getCdpCacheAddress: "+cdpCacheTableEntry.getCdpCacheAddress());
-        System.err.println("getCdpCacheIpv4Address: "+cdpCacheTableEntry.getCdpCacheIpv4Address().getHostName());
-        System.err.println("getCdpCacheVersion: "+cdpCacheTableEntry.getCdpCacheVersion());
-        System.err.println("getCdpCacheDeviceId: "+cdpCacheTableEntry.getCdpCacheDeviceId());
-        System.err.println("getCdpCacheDevicePort: "+cdpCacheTableEntry.getCdpCacheDevicePort());
-        System.err.println("-----------------------------------------------------------");
-        System.err.println("");        
-        
     }
 
     protected void printLldpRemRow(Integer lldpRemLocalPortNum, String lldpRemSysname, 

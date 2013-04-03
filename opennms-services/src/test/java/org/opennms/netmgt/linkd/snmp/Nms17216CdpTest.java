@@ -39,7 +39,7 @@ import org.opennms.core.test.snmp.annotations.JUnitSnmpAgent;
 import org.opennms.core.test.snmp.annotations.JUnitSnmpAgents;
 import org.opennms.core.utils.BeanUtils;
 import org.opennms.netmgt.config.SnmpPeerFactory;
-import org.opennms.netmgt.linkd.nb.Nms17216NetworkBuilder;
+import org.opennms.netmgt.linkd.Nms17216NetworkBuilder;
 import org.opennms.netmgt.linkd.snmp.CdpCacheTable;
 import org.opennms.netmgt.linkd.snmp.CdpCacheTableEntry;
 import org.opennms.netmgt.snmp.CollectionTracker;
@@ -296,4 +296,17 @@ public class Nms17216CdpTest extends Nms17216NetworkBuilder implements Initializ
         }
     }        
 
+    protected void printCdpRow(CdpCacheTableEntry cdpCacheTableEntry) {
+            System.err.println("-----------------------------------------------------------");    
+            System.err.println("getCdpCacheIfIndex: "+cdpCacheTableEntry.getCdpCacheIfIndex());
+            System.err.println("getCdpCacheDeviceIndex: "+cdpCacheTableEntry.getCdpCacheDeviceIndex());
+            System.err.println("getCdpCacheAddressType: "+cdpCacheTableEntry.getCdpCacheAddressType());
+            System.err.println("getCdpCacheAddress: "+cdpCacheTableEntry.getCdpCacheAddress());
+            System.err.println("getCdpCacheIpv4Address: "+cdpCacheTableEntry.getCdpCacheIpv4Address().getHostName());
+            System.err.println("getCdpCacheVersion: "+cdpCacheTableEntry.getCdpCacheVersion());
+            System.err.println("getCdpCacheDeviceId: "+cdpCacheTableEntry.getCdpCacheDeviceId());
+            System.err.println("getCdpCacheDevicePort: "+cdpCacheTableEntry.getCdpCacheDevicePort());
+            System.err.println("-----------------------------------------------------------");
+            System.err.println("");        
+    }
 }

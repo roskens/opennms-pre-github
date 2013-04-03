@@ -611,13 +611,13 @@ public abstract class AbstractQueryManager implements QueryManager {
             		InetAddress netmask = ip.getSnmpInterface().getNetMask();
         			LogUtils.debugf(this,
                             "processRouteTable: parsing ip %s with netmask %s.", str(ipaddr),str(netmask));
-            		InetAddress net1 = Linkd.getNetwork(ip.getIpAddress(), netmask);
+            		InetAddress net1 = InetAddressUtils.getNetwork(ip.getIpAddress(), netmask);
         			LogUtils.debugf(this,
                             "processRouteTable: found network %s.", str(net1));
         			
         			LogUtils.debugf(this,
                             "processRouteTable: getting network for nexthop %s with netmask %s.", str(nexthop),str(netmask));
-        			InetAddress net2 = Linkd.getNetwork(nexthop, netmask);
+        			InetAddress net2 = InetAddressUtils.getNetwork(nexthop, netmask);
         			LogUtils.debugf(this,
                             "processRouteTable: found network %s.", str(net2));
         			

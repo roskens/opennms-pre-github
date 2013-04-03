@@ -54,7 +54,6 @@ import org.opennms.netmgt.dao.DataLinkInterfaceDao;
 import org.opennms.netmgt.dao.IpInterfaceDao;
 import org.opennms.netmgt.dao.NodeDao;
 import org.opennms.netmgt.dao.SnmpInterfaceDao;
-import org.opennms.netmgt.linkd.nb.Nms101NetworkBuilder;
 import org.opennms.netmgt.model.DataLinkInterface;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.test.JUnitConfigurationEnvironment;
@@ -279,11 +278,20 @@ public class Nms101Test extends Nms101NetworkBuilder implements InitializingBean
         	int nodeid = node.getNodeId();
         	printNode(m_nodeDao.get(nodeid));
         	for (RouterInterface route: node.getRouteInterfaces()) {
-        		printRouteInterface(nodeid, route);
+        		printRouteInterface(nodeid, 
+        				route.getIfindex(),
+        				route.getNextHop(),
+        				route.getNextHopNetmask(),
+        				route.getNextHopNodeid(), 
+        				route.getNextHopIfindex());
         	}
         	
         	for (CdpInterface cdp: node.getCdpInterfaces()) {
-        		printCdpInterface(nodeid, cdp);
+        		printCdpInterface(nodeid, 
+        				cdp.getCdpIfIndex(),
+        				cdp.getCdpTargetDeviceId(),
+        				cdp.getCdpTargetNodeId(),
+        				cdp.getCdpTargetIfIndex());
         	}
         		
         }
