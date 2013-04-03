@@ -32,6 +32,7 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.opennms.netmgt.linkd.snmp.SnmpStore;
 import org.opennms.netmgt.model.OnmsVlan;
 import org.opennms.netmgt.model.OnmsVlan.VlanStatus;
 import org.opennms.netmgt.model.OnmsVlan.VlanType;

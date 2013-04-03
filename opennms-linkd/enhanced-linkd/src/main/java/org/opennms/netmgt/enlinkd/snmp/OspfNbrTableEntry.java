@@ -30,6 +30,9 @@ package org.opennms.netmgt.enlinkd.snmp;
 
 import java.net.InetAddress;
 
+import org.opennms.netmgt.linkd.snmp.NamedSnmpVar;
+import org.opennms.netmgt.linkd.snmp.SnmpStore;
+
 public class OspfNbrTableEntry extends SnmpStore {
 
     public final static String OSPF_NBR_IPADDRESS_ALIAS    = "ospfNbrIpAddr";

@@ -30,6 +30,7 @@ package org.opennms.netmgt.enlinkd.snmp;
 
 import java.net.InetAddress;
 
+import org.opennms.netmgt.linkd.snmp.SnmpTable;
 import org.opennms.netmgt.snmp.SnmpInstId;
 import org.opennms.netmgt.snmp.SnmpObjId;
 

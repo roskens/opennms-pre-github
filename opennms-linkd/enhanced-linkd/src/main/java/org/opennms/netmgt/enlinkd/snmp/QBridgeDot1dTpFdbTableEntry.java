@@ -28,6 +28,8 @@
 
 package org.opennms.netmgt.enlinkd.snmp;
 
+import org.opennms.netmgt.linkd.snmp.NamedSnmpVar;
+import org.opennms.netmgt.linkd.snmp.SnmpStore;
 import org.opennms.netmgt.snmp.SnmpObjId;
 import org.opennms.netmgt.snmp.SnmpResult;
 import org.opennms.netmgt.snmp.SnmpUtils;

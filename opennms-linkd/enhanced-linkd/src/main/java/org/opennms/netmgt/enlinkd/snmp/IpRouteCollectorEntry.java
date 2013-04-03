@@ -32,6 +32,8 @@ import static org.opennms.core.utils.InetAddressUtils.str;
 
 import java.net.InetAddress;
 
+import org.opennms.netmgt.linkd.snmp.NamedSnmpVar;
+import org.opennms.netmgt.linkd.snmp.SnmpStore;
 import org.opennms.netmgt.model.OnmsIpRouteInterface;
 import org.opennms.netmgt.model.OnmsIpRouteInterface.RouteType;
 

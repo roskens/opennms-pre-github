@@ -26,7 +26,7 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.netmgt.enlinkd.snmp;
+package org.opennms.netmgt.linkd.snmp;
 
 import java.net.InetAddress;
 import java.util.ArrayList;

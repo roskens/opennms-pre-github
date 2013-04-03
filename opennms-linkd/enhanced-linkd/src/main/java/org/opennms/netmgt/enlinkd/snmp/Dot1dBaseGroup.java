@@ -32,6 +32,8 @@ import java.net.InetAddress;
 
 import org.opennms.core.utils.LogUtils;
 
+import org.opennms.netmgt.linkd.snmp.NamedSnmpVar;
+import org.opennms.netmgt.linkd.snmp.SnmpStore;
 import org.opennms.netmgt.model.OnmsStpNode;
 import org.opennms.netmgt.model.OnmsStpNode.BridgeBaseType;
 
@@ -160,12 +162,8 @@ public final class Dot1dBaseGroup extends AggregateTracker
      *
      * @return a int.
      */
-    public int getNumberOfPorts() {
-    	Integer nop = m_store.getInt32(BASE_NUM_PORTS);
-    	if (nop == null) {
-            return -1;
-        }
-    	return nop;
+    public Integer getNumberOfPorts() {
+    	return m_store.getInt32(BASE_NUM_PORTS);
     }
 
     /**

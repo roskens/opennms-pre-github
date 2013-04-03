@@ -28,6 +28,8 @@
 
 package org.opennms.netmgt.enlinkd.snmp;
 
+import org.opennms.netmgt.linkd.snmp.NamedSnmpVar;
+import org.opennms.netmgt.linkd.snmp.SnmpStore;
 import org.opennms.netmgt.model.OnmsVlan;
 import org.opennms.netmgt.model.OnmsVlan.VlanStatus;
 import org.opennms.netmgt.model.OnmsVlan.VlanType;

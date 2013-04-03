@@ -32,6 +32,8 @@ import java.net.InetAddress;
 
 import org.opennms.core.utils.LogUtils;
 
+import org.opennms.netmgt.linkd.snmp.NamedSnmpVar;
+import org.opennms.netmgt.linkd.snmp.SnmpStore;
 import org.opennms.netmgt.model.OnmsStpNode;
 import org.opennms.netmgt.model.OnmsStpNode.StpProtocolSpecification;
 
