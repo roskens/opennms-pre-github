@@ -35,15 +35,16 @@
  * @author <a href="mailto:antonio@opennms.it">Antonio Russo</a>
  * @version $Id: $
  */
-package org.opennms.netmgt.linkd.jmx;
+package org.opennms.netmgt.enlinkd.jmx;
 
 import org.opennms.netmgt.daemon.AbstractSpringContextJmxServiceDaemon;
-public class EnhancedLinkd extends AbstractSpringContextJmxServiceDaemon<org.opennms.netmgt.enlinkd.Linkd> implements LinkdMBean {
+
+public class EnhancedLinkd extends AbstractSpringContextJmxServiceDaemon<org.opennms.netmgt.enlinkd.EnhancedLinkd> implements EnhancedLinkdMBean {
 
     /** {@inheritDoc} */
     @Override
     protected String getLoggingPrefix() {
-        return "OpenNMS.EnhancedLinkd";
+        return "OpenNMS.Linkd";
     }
 
     /** {@inheritDoc} */

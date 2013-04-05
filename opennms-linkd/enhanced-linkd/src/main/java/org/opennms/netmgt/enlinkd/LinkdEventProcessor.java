@@ -44,16 +44,16 @@ import org.opennms.netmgt.xml.event.Event;
 @EventListener(name="OpenNMS.Linkd")
 public final class LinkdEventProcessor {
 
-    private Linkd m_linkd;
+    private EnhancedLinkd m_linkd;
 
     /**
      * @param linkd the linkd to set
      */
-    public void setLinkd(Linkd linkd) {
+    public void setLinkd(EnhancedLinkd linkd) {
         this.m_linkd = linkd;
     }
 
-    public Linkd getLinkd() {
+    public EnhancedLinkd getLinkd() {
         return m_linkd;
     }
 

@@ -69,7 +69,7 @@ import org.springframework.util.Assert;
  * @author ranger
  * @version $Id: $
  */
-public class Linkd extends AbstractServiceDaemon {
+public class EnhancedLinkd extends AbstractServiceDaemon {
 
     /**
      * The log4j category used to log messages.
@@ -118,30 +118,12 @@ public class Linkd extends AbstractServiceDaemon {
      */
     private volatile EventForwarder m_eventForwarder;
 
-	/**
-	 * <p>getNextHopNet</p>
-	 *
-	 * @return a {@link java.net.InetAddress} object.
-	 */
-	public static InetAddress getNetwork(InetAddress ipaddress, InetAddress netmask) {
-	    final byte[] ipAddress = ipaddress.getAddress();
-		final byte[] netMask = netmask.getAddress();
-		final byte[] netWork = new byte[4];
-
-		for (int i=0;i< 4; i++) {
-			netWork[i] = Integer.valueOf(ipAddress[i] & netMask[i]).byteValue();
-			
-		}
-		return InetAddressUtils.getInetAddress(netWork);
-	}
-	
-
     /**
      * <p>
      * Constructor for Linkd.
      * </p>
      */
-    public Linkd() {
+    public EnhancedLinkd() {
         super(LOG4J_CATEGORY);
     }
 

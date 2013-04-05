@@ -190,7 +190,7 @@ public final class SnmpCollection implements ReadyRunnable {
 
     private String packageName;
 
-    private final Linkd m_linkd;
+    private final EnhancedLinkd m_linkd;
 
     /**
      * Constructs a new SNMP collector for a node using the passed interface
@@ -201,7 +201,7 @@ public final class SnmpCollection implements ReadyRunnable {
      * @param config
      *            The SnmpPeer object to collect from.
      */
-    public SnmpCollection(final Linkd linkd, final int nodeid,
+    public SnmpCollection(final EnhancedLinkd linkd, final int nodeid,
             final SnmpAgentConfig config) {
         m_linkd = linkd;
         m_agentConfig = config;

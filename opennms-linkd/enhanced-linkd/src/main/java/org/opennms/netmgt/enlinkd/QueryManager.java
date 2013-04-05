@@ -150,7 +150,7 @@ public interface QueryManager {
      */
     void updateForInterface(int nodeid, String ipAddr, int ifIndex, StatusType action);
     
-    Linkd getLinkd();
-	void setLinkd(final Linkd linkd);
+    EnhancedLinkd getLinkd();
+	void setLinkd(final EnhancedLinkd linkd);
 
 }

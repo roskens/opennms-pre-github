@@ -116,17 +116,17 @@ public final class DiscoveryLink implements ReadyRunnable {
      */
     private long initial_sleep_time = 600000;
 
-    private Linkd m_linkd;
+    private EnhancedLinkd m_linkd;
 
     /**
      * @param linkd
      *            the linkd to set
      */
-    public void setLinkd(Linkd linkd) {
+    public void setLinkd(EnhancedLinkd linkd) {
         this.m_linkd = linkd;
     }
 
-    public Linkd getLinkd() {
+    public EnhancedLinkd getLinkd() {
         return m_linkd;
     }
 

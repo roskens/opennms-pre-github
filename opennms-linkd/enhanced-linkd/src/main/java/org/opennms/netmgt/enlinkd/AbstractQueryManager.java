@@ -50,6 +50,7 @@ import org.opennms.netmgt.dao.IpInterfaceDao;
 import org.opennms.netmgt.dao.NodeDao;
 import org.opennms.netmgt.dao.SnmpInterfaceDao;
 
+import org.opennms.netmgt.linkd.snmp.SnmpStore;
 import org.opennms.netmgt.enlinkd.snmp.CdpCacheTableEntry;
 import org.opennms.netmgt.enlinkd.snmp.Dot1dBasePortTableEntry;
 import org.opennms.netmgt.enlinkd.snmp.Dot1dStpPortTableEntry;
@@ -63,7 +64,6 @@ import org.opennms.netmgt.enlinkd.snmp.OspfNbrTableEntry;
 import org.opennms.netmgt.enlinkd.snmp.QBridgeDot1dTpFdbTableEntry;
 import org.opennms.netmgt.enlinkd.snmp.Vlan;
 
-import org.opennms.netmgt.linkd.snmp.SnmpStore;
 import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
 import org.opennms.netmgt.model.OnmsAtInterface;
 import org.opennms.netmgt.model.OnmsCriteria;
@@ -77,15 +77,15 @@ import org.opennms.netmgt.model.OnmsVlan;
 
 public abstract class AbstractQueryManager implements QueryManager {
 
-    protected Linkd m_linkd;
+    protected EnhancedLinkd m_linkd;
 
     @Override
-    public void setLinkd(final Linkd linkd) {
+    public void setLinkd(final EnhancedLinkd linkd) {
         m_linkd = linkd;
     }
 
     @Override
-    public Linkd getLinkd() {
+    public EnhancedLinkd getLinkd() {
         return m_linkd;
     }
 
@@ -611,13 +611,13 @@ public abstract class AbstractQueryManager implements QueryManager {
             		InetAddress netmask = ip.getSnmpInterface().getNetMask();
         			LogUtils.debugf(this,
                             "processRouteTable: parsing ip %s with netmask %s.", str(ipaddr),str(netmask));
-            		InetAddress net1 = Linkd.getNetwork(ip.getIpAddress(), netmask);
+            		InetAddress net1 = InetAddressUtils.getNetwork(ip.getIpAddress(), netmask);
         			LogUtils.debugf(this,
                             "processRouteTable: found network %s.", str(net1));
         			
         			LogUtils.debugf(this,
                             "processRouteTable: getting network for nexthop %s with netmask %s.", str(nexthop),str(netmask));
-        			InetAddress net2 = Linkd.getNetwork(nexthop, netmask);
+        			InetAddress net2 = InetAddressUtils.getNetwork(nexthop, netmask);
         			LogUtils.debugf(this,
                             "processRouteTable: found network %s.", str(net2));
         			

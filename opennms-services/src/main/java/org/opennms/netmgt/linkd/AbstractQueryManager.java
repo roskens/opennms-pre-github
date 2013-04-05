@@ -50,6 +50,7 @@ import org.opennms.netmgt.dao.IpInterfaceDao;
 import org.opennms.netmgt.dao.NodeDao;
 import org.opennms.netmgt.dao.SnmpInterfaceDao;
 
+import org.opennms.netmgt.linkd.snmp.SnmpStore;
 import org.opennms.netmgt.linkd.snmp.CdpCacheTableEntry;
 import org.opennms.netmgt.linkd.snmp.Dot1dBasePortTableEntry;
 import org.opennms.netmgt.linkd.snmp.Dot1dStpPortTableEntry;
@@ -61,7 +62,6 @@ import org.opennms.netmgt.linkd.snmp.LldpMibConstants;
 import org.opennms.netmgt.linkd.snmp.LldpRemTableEntry;
 import org.opennms.netmgt.linkd.snmp.OspfNbrTableEntry;
 import org.opennms.netmgt.linkd.snmp.QBridgeDot1dTpFdbTableEntry;
-import org.opennms.netmgt.linkd.snmp.SnmpStore;
 import org.opennms.netmgt.linkd.snmp.Vlan;
 
 import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
