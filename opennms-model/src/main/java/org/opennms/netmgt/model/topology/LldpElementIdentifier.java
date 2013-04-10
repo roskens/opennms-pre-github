@@ -135,14 +135,22 @@ public final class LldpElementIdentifier extends ElementIdentifier {
 	private String m_lldpSysname;
     
     private String m_lldpChassisId;
-    
-    private LldpChassisIdSubType m_lldpChassisIdSubtype;
+    private LldpChassisIdSubType m_lldpChassisIdSubType;
 
-	public LldpElementIdentifier(String identifier,String sysname, Integer subtype) {
-		super(identifier);
-		setIdentifier2(sysname);
+    public LldpElementIdentifier(String lldpChassisId,String sysname, Integer subtype) {
+		super(lldpChassisId);
+		m_lldpChassisId=lldpChassisId;
+		m_lldpSysname=sysname;
 		setType(ElementIdentifierType.LLDP);
-		setSubtype(LldpChassisIdSubType.get(subtype));
+		m_lldpChassisIdSubType=LldpChassisIdSubType.get(subtype);
+	}
+
+	public LldpChassisIdSubType getLldpChassisIdSubType() {
+		return m_lldpChassisIdSubType;
+	}
+
+	public void setLldpChassisIdSubType(LldpChassisIdSubType lldpChassisIdSubType) {
+		m_lldpChassisIdSubType = lldpChassisIdSubType;
 	}
 
 	public String getLldpSysname() {
@@ -159,14 +167,6 @@ public final class LldpElementIdentifier extends ElementIdentifier {
 
 	public void setLldpChassisId(String lldpChassisId) {
 		m_lldpChassisId = lldpChassisId;
-	}
-
-	public LldpChassisIdSubType getLldpChassisIdSubtype() {
-		return m_lldpChassisIdSubtype;
-	}
-
-	public void setLldpChassisIdSubtype(LldpChassisIdSubType lldpChassisIdSubtype) {
-		m_lldpChassisIdSubtype = lldpChassisIdSubtype;
 	}
 
     

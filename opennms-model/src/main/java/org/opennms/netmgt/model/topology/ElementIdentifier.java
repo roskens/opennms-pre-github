@@ -53,9 +53,7 @@ public abstract class ElementIdentifier {
 	}
 
 	private final String m_identifier;
-	private String m_identifier2;
 	private ElementIdentifierType m_type;
-	private AbstractType m_subtype;
 	
 	public ElementIdentifier(String identifier) {
 		m_identifier = identifier;
@@ -69,26 +67,8 @@ public abstract class ElementIdentifier {
 		m_type = type;
 	}
 
-	public AbstractType getSubtype() {
-		return m_subtype;
-	}
-
-	public void setSubtype(AbstractType subtype) {
-		m_subtype = subtype;
-	}
-
 	public String getIdentifier() {
 		return m_identifier;
 	}
-
-	public String getIdentifier2() {
-		return m_identifier2;
-	}
-
-	public void setIdentifier2(String identifier2) {
-		m_identifier2 = identifier2;
-	}
-
-	
-	
+		
 }
