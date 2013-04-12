@@ -84,7 +84,7 @@ public class EnhancedLinkd extends AbstractServiceDaemon {
      * The DB connection read and write handler
      */
     @Autowired
-    private QueryManager m_queryMgr;
+    private EnhancedLinkdService m_queryMgr;
 
     /**
      * Linkd Configuration Initialization
@@ -667,7 +667,7 @@ public class EnhancedLinkd extends AbstractServiceDaemon {
         return null;
     }
 
-    public QueryManager getQueryManager() {
+    public EnhancedLinkdService getQueryManager() {
         return m_queryMgr;
     }
 
@@ -677,9 +677,9 @@ public class EnhancedLinkd extends AbstractServiceDaemon {
      * </p>
      * 
      * @param queryMgr
-     *            a {@link org.opennms.netmgt.linkd.QueryManager} object.
+     *            a {@link org.opennms.netmgt.linkd.EnhancedLinkdService} object.
      */
-    public void setQueryManager(QueryManager queryMgr) {
+    public void setQueryManager(EnhancedLinkdService queryMgr) {
         m_queryMgr = queryMgr;
     }
 

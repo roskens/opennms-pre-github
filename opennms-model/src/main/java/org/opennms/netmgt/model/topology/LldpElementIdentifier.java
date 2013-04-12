@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public final class LldpElementIdentifier extends ElementIdentifier {
 
-	private static class LldpChassisIdSubType extends AbstractType 
+	public static class LldpChassisIdSubType extends AbstractType 
 	implements Comparable<LldpChassisIdSubType>, Serializable{
 	
 	    /**

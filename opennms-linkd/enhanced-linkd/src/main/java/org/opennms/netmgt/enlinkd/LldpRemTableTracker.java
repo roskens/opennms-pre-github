@@ -30,10 +30,13 @@ package org.opennms.netmgt.enlinkd;
 
 
 import org.opennms.core.utils.LogUtils;
+import org.opennms.netmgt.model.topology.LldpElementIdentifier;
+import org.opennms.netmgt.model.topology.LldpEndPoint;
 import org.opennms.netmgt.snmp.RowCallback;
 import org.opennms.netmgt.snmp.SnmpInstId;
 import org.opennms.netmgt.snmp.SnmpObjId;
 import org.opennms.netmgt.snmp.SnmpRowResult;
+import org.opennms.netmgt.snmp.SnmpValue;
 import org.opennms.netmgt.snmp.TableTracker;
 
 public class LldpRemTableTracker extends TableTracker {
@@ -41,7 +44,6 @@ public class LldpRemTableTracker extends TableTracker {
     public static final SnmpObjId LLDP_REM_TABLE_ENTRY = SnmpObjId.get(".1.0.8802.1.1.2.1.4.1.1"); // start of table (GETNEXT)
     
     
-    //public final static String LLDP_REM_LOCAL_PORTNUM_OID= ".1.0.8802.1.1.2.1.4.1.1.2";
     public final static SnmpObjId LLDP_REM_CHASSISID_SUBTYPE = SnmpObjId.get(LLDP_REM_TABLE_ENTRY,"4");
     public final static SnmpObjId LLDP_REM_CHASSISID         = SnmpObjId.get(LLDP_REM_TABLE_ENTRY,"5");
     public final static SnmpObjId LLDP_REM_PORTID_SUBTYPE    = SnmpObjId.get(LLDP_REM_TABLE_ENTRY,"6");
@@ -90,7 +92,6 @@ public class LldpRemTableTracker extends TableTracker {
             LogUtils.debugf(this, "column count = %d, instance = %s", columnCount, instance);
 		}
     	
-		//FIXME here we need to get the local port instance
 	    public Integer getLldpRemLocalPortNum() {
 	    	return getInstance().getLastSubId();
 	    }
@@ -99,22 +100,28 @@ public class LldpRemTableTracker extends TableTracker {
 	    	return getValue(LLDP_REM_CHASSISID_SUBTYPE).toInt();
 	    }
 	    
-	    //FIXME
-	    public String getLldpRemChassisId() {
-	        return getValue(LLDP_REM_CHASSISID).toHexString();
+	    public SnmpValue getLldpRemChassisId() {
+	    	return getValue(LLDP_REM_CHASSISID);
 	    }
 	    
 	    public Integer getLldpRemPortidSubtype() {
 	    	return getValue(LLDP_REM_PORTID_SUBTYPE).toInt();
 	    }
 
-	    //FIXME
-	    public String getLldpRemPortid() {
-	        return getValue(LLDP_REM_PORTID).toDisplayString();
+	    public SnmpValue getLldpRemPortid() {
+	    	return getValue(LLDP_REM_PORTID);
 	    }
 	    
 	    public String getLldpRemSysname() {
 	        return getValue(LLDP_REM_SYSNAME).toDisplayString();
+	    }
+	    
+	    public LldpElementIdentifier getRemElementIdentifier() {
+	    	return LldpLocalGroup.getElementIdentifier(getLldpRemChassisId(), getLldpRemSysname(), getLldpRemChassisidSubtype());
+	    }
+	    
+	    public LldpEndPoint getRemEndPoint() {
+	    	return LldpLocPortGetter.getEndPoint(getLldpRemPortid(), getLldpRemPortidSubtype());
 	    }
     }
 

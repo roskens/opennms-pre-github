@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class LldpEndPoint extends EndPoint {
 
-	private static class LldpPortIdSubType extends AbstractType 
+	public static class LldpPortIdSubType extends AbstractType 
 	implements Comparable<LldpPortIdSubType>, Serializable{
 	
 	    /**
@@ -128,28 +128,19 @@ public class LldpEndPoint extends EndPoint {
 
 	}
 
-	public LldpEndPoint(Integer lldpPortNum, String lldpPortId, Integer lldpPortidSubType) {
-		m_lldpPortNum = lldpPortNum;
+	public LldpEndPoint(String lldpPortId, Integer lldpPortidSubType) {
 		m_lldpPortId = lldpPortId;
 		m_lldpPortIdSubType = LldpPortIdSubType.get(lldpPortidSubType);
 	}
 
-	private final Integer m_lldpPortNum;
-	private LldpPortIdSubType m_lldpPortIdSubType;
+	private final LldpPortIdSubType m_lldpPortIdSubType;
 	private final String m_lldpPortId;
 
-	public Integer getLldpPortNum() {
-		return m_lldpPortNum;
-	}
 	
 	public LldpPortIdSubType getPortIdSubType() {
 		return m_lldpPortIdSubType;
 	}
-	
-	public void setPortIdSubType(LldpPortIdSubType portIdSubType) {
-		m_lldpPortIdSubType = portIdSubType;
-	}
-	
+		
 	public String getLldpPortId() {
 		return m_lldpPortId;
 	}

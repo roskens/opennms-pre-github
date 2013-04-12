@@ -31,6 +31,7 @@ package org.opennms.netmgt.enlinkd;
 import java.util.List;
 
 import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
+import org.opennms.netmgt.model.topology.LldpLink;
 
 /**
  * <p>QueryManager interface.</p>
@@ -38,7 +39,7 @@ import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
  * @author antonio
  * @version $Id: $
  */
-public interface QueryManager {
+public interface EnhancedLinkdService {
 
     public static final int SNMP_IF_TYPE_ETHERNET = 6;
 
@@ -131,5 +132,7 @@ public interface QueryManager {
      * @throws java.sql.SQLException if any.
      */
     void updateForInterface(int nodeid, String ipAddr, int ifIndex, StatusType action);
+
+	void store(LldpLink link);
     
 }

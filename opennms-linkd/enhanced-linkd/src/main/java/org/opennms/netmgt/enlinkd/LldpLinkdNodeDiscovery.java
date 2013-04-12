@@ -33,8 +33,9 @@ import static org.opennms.core.utils.InetAddressUtils.str;
 
 
 import org.opennms.core.utils.LogUtils;
-import org.opennms.netmgt.enlinkd.snmp.LldpLocalGroup;
 import org.opennms.netmgt.model.topology.Element;
+import org.opennms.netmgt.model.topology.LldpEndPoint;
+import org.opennms.netmgt.model.topology.LldpLink;
 import org.opennms.netmgt.model.topology.NodeElementIdentifier;
 import org.opennms.netmgt.snmp.CollectionTracker;
 
@@ -88,26 +89,29 @@ public final class LldpLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
             LogUtils.errorf(this, e, "run: collection interrupted, exiting");
             return;
         }
-
+        
         final Element deviceA = new Element();
         deviceA.addElementIdentifier(new NodeElementIdentifier(getNodeId()));
         deviceA.addElementIdentifier(lldpLocalGroup.getElementIdentifier());
 
+		final LldpLocPortGetter lldpLocPort = new LldpLocPortGetter(getPeer());
         trackerName = "lldpRemTable";
         LldpRemTableTracker m_lldpRemTable = new LldpRemTableTracker() {
             
-        	public void processLldpRemRow(final LldpRemRow row) {
-        		System.err.println("-----------------------------");
-        		System.err.println("columns number in the row: " + row.getColumnCount());
-        		System.err.println("local port id: " + row.getLldpRemLocalPortNum());
-        		System.err.println("remote chassis type: " + row.getLldpRemChassisidSubtype());
-        		System.err.println("remote chassis id: " + row.getLldpRemChassisId());
-        		System.err.println("remote port type: " + row.getLldpRemPortidSubtype());
-        		System.err.println("remote port id: " + row.getLldpRemPortid());
-        		System.err.println("remote sysname: " + row.getLldpRemSysname());
-        		System.err.println("-----------------------------");
+        	public void processLldpRemRow(final LldpRemRow row) {        		
+        		LldpEndPoint endPointA = lldpLocPort.get(row.getLldpRemLocalPortNum());
+        		endPointA.setDevice(deviceA);
+        	    final Element deviceB = new Element();
+        		deviceB.addElementIdentifier(row.getRemElementIdentifier());
+        		LldpEndPoint endPointB = row.getRemEndPoint();
+        		endPointB.setDevice(deviceB);
+        		LldpLink link = new LldpLink(endPointA, endPointB);
+        		endPointA.setLink(link);
+        		endPointB.setLink(link);
+        		m_linkd.getQueryManager().store(link);
             }
         };
+
         CollectionTracker[] tracker = new CollectionTracker[0];
         tracker = new CollectionTracker[] {m_lldpRemTable};
 
@@ -128,7 +132,6 @@ public final class LldpLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
             return;
         }
     }
-
 
 	@Override
 	public String getInfo() {
