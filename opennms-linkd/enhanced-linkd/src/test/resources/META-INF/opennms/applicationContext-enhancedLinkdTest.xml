@@ -60,48 +60,8 @@
     <property name="sessionFactory" ref="sessionFactory" />
   </bean>
   
-  <bean id="ipInterfaceDao" class="org.opennms.netmgt.dao.hibernate.IpInterfaceDaoHibernate">
-    <property name="sessionFactory" ref="sessionFactory" />
-  </bean>
-
-  <bean id="snmpInterfaceDao" class="org.opennms.netmgt.dao.hibernate.SnmpInterfaceDaoHibernate">
-    <property name="sessionFactory" ref="sessionFactory" />
-  </bean>
-
-  <bean id="atInterfaceDao" class="org.opennms.netmgt.dao.hibernate.AtInterfaceDaoHibernate">
-    <property name="sessionFactory" ref="sessionFactory" />
-  </bean>
-
-  <bean id="vlanDao" class="org.opennms.netmgt.dao.hibernate.VlanDaoHibernate">
-    <property name="sessionFactory" ref="sessionFactory" />
-  </bean>
-
-  <bean id="stpNodeDao" class="org.opennms.netmgt.dao.hibernate.StpNodeDaoHibernate">
-    <property name="sessionFactory" ref="sessionFactory" />
-  </bean>
-
-  <bean id="stpInterfaceDao" class="org.opennms.netmgt.dao.hibernate.StpInterfaceDaoHibernate">
-    <property name="sessionFactory" ref="sessionFactory" />
-  </bean>
-  
-    <bean id="ipRouteInterfaceDao" class="org.opennms.netmgt.dao.hibernate.IpRouteInterfaceDaoHibernate">
-    <property name="sessionFactory" ref="sessionFactory" />
-  </bean>
-  
-    <bean id="dataLinkInterfaceDao" class="org.opennms.netmgt.dao.hibernate.DataLinkInterfaceDaoHibernate">
-    <property name="sessionFactory" ref="sessionFactory" />
-  </bean>
-  
-    <bean id="queryManager" class="org.opennms.netmgt.enlinkd.HibernateEventWriter">
+    <bean id="queryManager" class="org.opennms.netmgt.enlinkd.EnhancedLinkdServiceImpl">
       <property name="nodeDao" ref="nodeDao" />
-      <property name="ipInterfaceDao" ref="ipInterfaceDao" />
-      <property name="snmpInterfaceDao" ref="snmpInterfaceDao" />
-      <property name="atInterfaceDao" ref="atInterfaceDao" />
-      <property name="vlanDao" ref="vlanDao" />
-      <property name="stpNodeDao" ref="stpNodeDao" />
-      <property name="stpInterfaceDao" ref="stpInterfaceDao" />
-      <property name="ipRouteInterfaceDao" ref="ipRouteInterfaceDao" />
-      <property name="dataLinkInterfaceDao" ref="dataLinkInterfaceDao" />
     </bean>
 
     <bean id="scheduler" class="org.opennms.netmgt.linkd.scheduler.Scheduler">
@@ -111,7 +71,7 @@
       </constructor-arg>
     </bean>
 
-    <bean id="receiver" class="org.opennms.netmgt.enlinkd.LinkdEventProcessor">
+    <bean id="receiver" class="org.opennms.netmgt.enlinkd.EventProcessor">
       <property name="linkd" ref="daemon"/>
     </bean>
 

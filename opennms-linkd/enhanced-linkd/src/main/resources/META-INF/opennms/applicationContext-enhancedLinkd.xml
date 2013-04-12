@@ -17,16 +17,8 @@
     <tx:annotation-driven/>
     <aop:aspectj-autoproxy proxy-target-class="true" />
 
-    <bean id="queryManager" class="org.opennms.netmgt.enlinkd.HibernateEventWriter">
+    <bean id="queryManager" class="org.opennms.netmgt.enlinkd.EnhancedLinkdServiceImpl">
       <property name="nodeDao" ref="nodeDao" />
-      <property name="ipInterfaceDao" ref="ipInterfaceDao" />
-      <property name="snmpInterfaceDao" ref="snmpInterfaceDao" />
-      <property name="atInterfaceDao" ref="atInterfaceDao" />
-      <property name="vlanDao" ref="vlanDao" />
-      <property name="stpNodeDao" ref="stpNodeDao" />
-      <property name="stpInterfaceDao" ref="stpInterfaceDao" />
-      <property name="ipRouteInterfaceDao" ref="ipRouteInterfaceDao" />
-      <property name="dataLinkInterfaceDao" ref="dataLinkInterfaceDao" />
     </bean>
 
     <bean id="scheduler" class="org.opennms.netmgt.linkd.scheduler.Scheduler">
