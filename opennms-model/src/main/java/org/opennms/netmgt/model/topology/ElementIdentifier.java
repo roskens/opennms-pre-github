@@ -52,23 +52,14 @@ public abstract class ElementIdentifier {
         }		
 	}
 
-	private final String m_identifier;
-	private ElementIdentifierType m_type;
+	private final ElementIdentifierType m_identifier;
 	
-	public ElementIdentifier(String identifier) {
+	public ElementIdentifier(ElementIdentifierType identifier) {
 		m_identifier = identifier;
 	}
 	
 	public ElementIdentifierType getType() {
-		return m_type;
-	}
-
-	public void setType(ElementIdentifierType type) {
-		m_type = type;
-	}
-
-	public String getIdentifier() {
 		return m_identifier;
 	}
-		
+	
 }
