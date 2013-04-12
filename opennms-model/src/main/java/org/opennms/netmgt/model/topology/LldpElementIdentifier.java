@@ -138,10 +138,9 @@ public final class LldpElementIdentifier extends ElementIdentifier {
     private LldpChassisIdSubType m_lldpChassisIdSubType;
 
     public LldpElementIdentifier(String lldpChassisId, String sysname, Integer subtype) {
-		super(lldpChassisId);
+		super(ElementIdentifierType.LLDP);
 		m_lldpChassisId=lldpChassisId;
 		m_lldpSysname=sysname;
-		setType(ElementIdentifierType.LLDP);
 		m_lldpChassisIdSubType=LldpChassisIdSubType.get(subtype);
 	}
 

@@ -111,25 +111,7 @@ public interface QueryManager {
      * @throws java.sql.SQLException if any.
      */
     void updateDeletedNodes();
-
-    /**
-     * <p>storeSnmpCollection</p>
-     *
-     * @param node a {@link org.opennms.netmgt.enlinkd.LinkableNode} object.
-     * @param snmpColl a {@link org.opennms.netmgt.enlinkd.SnmpCollection} object.
-     * @return a {@link org.opennms.netmgt.enlinkd.LinkableNode} object.
-     * @throws java.sql.SQLException if any.
-     */
-    LinkableNode storeSnmpCollection(LinkableNode node, SnmpCollection snmpColl);
-    
-    /**
-     * <p>storeDiscoveryLink</p>
-     *
-     * @param discoveryLink a {@link org.opennms.netmgt.enlinkd.DiscoveryLink} object.
-     * @throws java.sql.SQLException if any.
-     */
-    void storeDiscoveryLink(DiscoveryLink discoveryLink);
-    
+        
     /**
      * <p>update</p>
      *
@@ -150,7 +132,4 @@ public interface QueryManager {
      */
     void updateForInterface(int nodeid, String ipAddr, int ifIndex, StatusType action);
     
-    EnhancedLinkd getLinkd();
-	void setLinkd(final EnhancedLinkd linkd);
-
 }

@@ -47,28 +47,16 @@ import org.opennms.netmgt.snmp.SnmpAgentConfig;
  */
 public abstract class AbstractLinkdNodeDiscovery implements ReadyRunnable {
 
-    /**
-     * The SnmpPeer object used to communicate via SNMP with the remote host.
-     */
-    protected SnmpAgentConfig m_agentConfig;
-
-    public SnmpAgentConfig getAgentConfig() {
-		return m_agentConfig;
-	}
-
-	public void setAgentConfig(SnmpAgentConfig agentConfig) {
-		m_agentConfig = agentConfig;
-	}
-
 	/**
      * The node ID of the system used to collect the SNMP information
      */
-    protected final int m_nodeid;
+    protected final LinkableNode m_node;
 
     /**
-     * The IP address used to collect the SNMP information
+     * The package Name LinkdConfig
      */
-    protected final InetAddress m_address;
+    
+    protected String m_packageName;
 
     /**
      * The scheduler object
@@ -78,18 +66,17 @@ public abstract class AbstractLinkdNodeDiscovery implements ReadyRunnable {
     /**
      * The interval, default value 30 minutes
      */
-    private long poll_interval = 1800000;
+    private long m_poll_interval = 1800000;
 
     /**
      * The initial sleep time, default value 5 minutes
      */
-    private long initial_sleep_time = 600000;
+    private long m_initial_sleep_time = 600000;
 
-    private boolean suspendCollection = false;
+    private boolean m_suspendCollection = false;
 
-    private boolean runned = false;
+    private boolean m_runned = false;
 
-    private String packageName;
 
     protected final EnhancedLinkd m_linkd;
 
@@ -102,12 +89,12 @@ public abstract class AbstractLinkdNodeDiscovery implements ReadyRunnable {
      * @param config
      *            The SnmpPeer object to collect from.
      */
-    public AbstractLinkdNodeDiscovery(final EnhancedLinkd linkd, final int nodeid,
-            final SnmpAgentConfig config) {
+    public AbstractLinkdNodeDiscovery(final EnhancedLinkd linkd, final LinkableNode node, final String pkgName) {
         m_linkd = linkd;
-        m_agentConfig = config;
-        m_nodeid = nodeid;
-        m_address = m_agentConfig.getEffectiveAddress();
+        m_node = node;
+        m_packageName = pkgName;
+        m_initial_sleep_time = m_linkd.getInitialSleepTime();
+        m_poll_interval = m_linkd.getSnmpPollInterval(m_packageName);
     }
 
     /**
@@ -123,21 +110,21 @@ public abstract class AbstractLinkdNodeDiscovery implements ReadyRunnable {
      */
     public void run() {
     	EventBuilder builder;
-        if (suspendCollection) {
+        if (m_suspendCollection) {
             builder = new EventBuilder(
                     "uei.opennms.org/internal/linkd/nodeLinkDiscoverySuspended",
                     "EnhancedLinkd");
-            builder.setNodeid(m_nodeid);
-            builder.setInterface(m_address);
+            builder.setNodeid(getNodeId());
+            builder.setInterface(getTarget());
             m_linkd.getEventForwarder().sendNow(builder.getEvent());
             LogUtils.debugf(this, "run: address: %s Suspended!",
-                            str(m_address));
+                            str(getTarget()));
         } else {
             builder = new EventBuilder(
                     "uei.opennms.org/internal/linkd/nodeLinkDiscoveryStarted",
                     "EnhancedLinkd");
-            builder.setNodeid(m_nodeid);
-            builder.setInterface(m_address);
+            builder.setNodeid(getNodeId());
+            builder.setInterface(getTarget());
             m_linkd.getEventForwarder().sendNow(builder.getEvent());
             
             runCollection();
@@ -145,12 +132,12 @@ public abstract class AbstractLinkdNodeDiscovery implements ReadyRunnable {
             builder = new EventBuilder(
                     "uei.opennms.org/internal/linkd/nodeLinkDiscoveryCompleted",
                     "EnhancedLinkd");
-            builder.setNodeid(m_nodeid);
-            builder.setInterface(m_address);
+            builder.setNodeid(getNodeId());
+            builder.setInterface(getTarget());
             m_linkd.getEventForwarder().sendNow(builder.getEvent());
 
         }
-        runned = true;
+        m_runned = true;
         reschedule();
     }
     
@@ -181,52 +168,6 @@ public abstract class AbstractLinkdNodeDiscovery implements ReadyRunnable {
 
     /**
      * <p>
-     * getInitialSleepTime
-     * </p>
-     * 
-     * @return Returns the initial_sleep_time.
-     */
-    public long getInitialSleepTime() {
-        return initial_sleep_time;
-    }
-
-    /**
-     * <p>
-     * setInitialSleepTime
-     * </p>
-     * 
-     * @param initial_sleep_time
-     *            The initial_sleep_timeto set.
-     */
-    public void setInitialSleepTime(long initial_sleep_time) {
-        this.initial_sleep_time = initial_sleep_time;
-    }
-
-    /**
-     * <p>
-     * getPollInterval
-     * </p>
-     * 
-     * @return Returns the initial_sleep_time.
-     */
-    public long getPollInterval() {
-        return poll_interval;
-    }
-
-    /**
-     * <p>
-     * setPollInterval
-     * </p>
-     * 
-     * @param interval
-     *            a long.
-     */
-    public void setPollInterval(long interval) {
-        this.poll_interval = interval;
-    }
-
-    /**
-     * <p>
      * schedule
      * </p>
      */
@@ -234,7 +175,7 @@ public abstract class AbstractLinkdNodeDiscovery implements ReadyRunnable {
         if (m_scheduler == null)
             throw new IllegalStateException(
                                             "Cannot schedule a service whose scheduler is set to null");
-        m_scheduler.schedule(initial_sleep_time, this);
+        m_scheduler.schedule(m_initial_sleep_time, this);
     }
 
     /**
@@ -244,7 +185,7 @@ public abstract class AbstractLinkdNodeDiscovery implements ReadyRunnable {
         if (m_scheduler == null)
             throw new IllegalStateException(
                                             "Cannot schedule a service whose scheduler is set to null");
-        m_scheduler.schedule(poll_interval, this);
+        m_scheduler.schedule(m_poll_interval, this);
     }
 
     /**
@@ -266,7 +207,7 @@ public abstract class AbstractLinkdNodeDiscovery implements ReadyRunnable {
      * @return Returns the suspendCollection.
      */
     public boolean isSuspended() {
-        return suspendCollection;
+        return m_suspendCollection;
     }
 
     /**
@@ -275,7 +216,7 @@ public abstract class AbstractLinkdNodeDiscovery implements ReadyRunnable {
      * </p>
      */
     public void suspend() {
-        this.suspendCollection = true;
+        m_suspendCollection = true;
     }
 
     /**
@@ -284,8 +225,7 @@ public abstract class AbstractLinkdNodeDiscovery implements ReadyRunnable {
      * </p>
      */
     public void wakeUp() {
-    	setAgentConfig(m_linkd.getSnmpAgentConfig(m_address));
-        this.suspendCollection = false;
+        m_suspendCollection = false;
     }
 
     /**
@@ -297,10 +237,10 @@ public abstract class AbstractLinkdNodeDiscovery implements ReadyRunnable {
         if (m_scheduler == null)
             throw new IllegalStateException(
                                             "rescedule: Cannot schedule a service whose scheduler is set to null");
-        if (runned) {
-            m_scheduler.unschedule(this, poll_interval);
+        if (m_runned) {
+            m_scheduler.unschedule(this, m_poll_interval);
         } else {
-            m_scheduler.unschedule(this, initial_sleep_time);
+            m_scheduler.unschedule(this, m_initial_sleep_time);
         }
     }
 
@@ -311,7 +251,7 @@ public abstract class AbstractLinkdNodeDiscovery implements ReadyRunnable {
      * @return a {@link java.net.InetAddress} object.
      */
     public InetAddress getTarget() {
-        return m_address;
+        return m_node.getSnmpPrimaryIpAddr();
     }
 
     /**
@@ -322,7 +262,7 @@ public abstract class AbstractLinkdNodeDiscovery implements ReadyRunnable {
      * @return a {@link java.lang.String} object.
      */
     public String getReadCommunity() {
-        return m_agentConfig.getReadCommunity();
+        return getPeer().getReadCommunity();
     }
 
     /**
@@ -333,7 +273,7 @@ public abstract class AbstractLinkdNodeDiscovery implements ReadyRunnable {
      * @return a {@link org.opennms.netmgt.snmp.SnmpAgentConfig} object.
      */
     public SnmpAgentConfig getPeer() {
-        return m_agentConfig;
+        return m_linkd.getSnmpAgentConfig(getTarget());
     }
 
     /**
@@ -344,7 +284,7 @@ public abstract class AbstractLinkdNodeDiscovery implements ReadyRunnable {
      * @return a int.
      */
     public int getPort() {
-        return m_agentConfig.getPort();
+        return getPeer().getPort();
     }
 
     /** {@inheritDoc} */
@@ -352,7 +292,7 @@ public abstract class AbstractLinkdNodeDiscovery implements ReadyRunnable {
         if (run instanceof AbstractLinkdNodeDiscovery
                 && this.getPackageName().equals(run.getPackageName())) {
             AbstractLinkdNodeDiscovery c = (AbstractLinkdNodeDiscovery) run;
-            if (c.getTarget().equals(m_address))
+            if (c.getTarget().equals(getTarget()))
                 return true;
         }
         return false;
@@ -375,12 +315,60 @@ public abstract class AbstractLinkdNodeDiscovery implements ReadyRunnable {
      * @return a {@link java.lang.String} object.
      */
     public String getPackageName() {
-        return packageName;
+        return m_packageName;
     }
 
-	@Override
-	public void setPackageName(String pkg) {
-		packageName=pkg;
-	}
+    public void setPackageName(String pkgName) {
+    	m_packageName = pkgName;
+    }
+    /**
+     * <p>
+     * getInitialSleepTime
+     * </p>
+     * 
+     * @return Returns the initial_sleep_time.
+     */
+    public long getInitialSleepTime() {
+        return m_initial_sleep_time;
+    }
 
+    /**
+     * <p>
+     * setInitialSleepTime
+     * </p>
+     * 
+     * @param initial_sleep_time
+     *            The initial_sleep_timeto set.
+     */
+    public void setInitialSleepTime(long initial_sleep_time) {
+        m_initial_sleep_time = initial_sleep_time;
+    }
+
+    /**
+     * <p>
+     * getPollInterval
+     * </p>
+     * 
+     * @return Returns the initial_sleep_time.
+     */
+    public long getPollInterval() {
+        return m_poll_interval;
+    }
+
+    /**
+     * <p>
+     * setPollInterval
+     * </p>
+     * 
+     * @param interval
+     *            a long.
+     */
+    public void setPollInterval(long interval) {
+        m_poll_interval = interval;
+    }
+
+
+    public int getNodeId() {
+    	return m_node.getNodeId();
+    }
 }

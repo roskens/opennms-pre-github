@@ -149,15 +149,6 @@ public class LldpRemTableTracker extends TableTracker {
      * @param row a {@link org.opennms.netmgt.provision.service.IPAddressTableTracker.IPAddressRow} object.
      */
     public void processLldpRemRow(final LldpRemRow row) {
-    	System.err.println("-----------------------------");
-    	System.err.println("columns number in the row: " + row.getColumnCount());
-       	System.err.println("local port id: " + row.getLldpRemLocalPortNum());
-        System.err.println("remote chassis type: " + row.getLldpRemChassisidSubtype());
-        System.err.println("remote chassis id: " + row.getLldpRemChassisId());
-        System.err.println("remote port type: " + row.getLldpRemPortidSubtype());
-        System.err.println("remote port id: " + row.getLldpRemPortid());
-    	System.err.println("remote sysname: " + row.getLldpRemSysname());
-    	System.err.println("-----------------------------");
     }
 
     

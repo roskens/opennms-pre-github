@@ -35,10 +35,8 @@ import java.net.InetAddress;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -100,13 +98,6 @@ public class EnhancedLinkd extends AbstractServiceDaemon {
      */
     private List<LinkableNode> m_nodes;
 
-    private Map<String, Map<String, List<AtInterface>>> m_macToAtinterface = new HashMap<String, Map<String, List<AtInterface>>>();
-
-    /**
-     * HashMap that contains SnmpCollections by package.
-     */
-    private List<String> m_activepackages;
-
     /**
      * the list of {@link java.net.InetAddress} for which new suspect event is
      * sent
@@ -137,11 +128,6 @@ public class EnhancedLinkd extends AbstractServiceDaemon {
 
         Assert.state(m_eventForwarder != null,
                      "must set the eventForwarder property");
-
-        // FIXME: circular dependency
-        m_queryMgr.setLinkd(this);
-
-        m_activepackages = new ArrayList<String>();
 
         // initialize the ipaddrsentevents
         m_newSuspectEventsIpAddr = new TreeSet<InetAddress>(
@@ -175,147 +161,49 @@ public class EnhancedLinkd extends AbstractServiceDaemon {
      */
     private void scheduleCollectionForNode(final LinkableNode node) {
 
-        for (final SnmpCollection snmpcoll : getSnmpCollections(node.getNodeId(),
-                                                                node.getSnmpPrimaryIpAddr(),
-                                                                node.getSysoid())) {
-            if (m_activepackages.contains(snmpcoll.getPackageName())) {
-                LogUtils.debugf(this,
-                                "ScheduleCollectionForNode: package active: %s",
-                                snmpcoll.getPackageName());
-            } else {
-                // schedule discovery link
-                LogUtils.debugf(this,
-                                "ScheduleCollectionForNode: Scheduling Discovery Link for Active Package: %s",
-                                snmpcoll.getPackageName());
-                final DiscoveryLink discovery = this.getDiscoveryLink(snmpcoll.getPackageName());
-                if (discovery.getScheduler() == null) {
-                    discovery.setScheduler(m_scheduler);
-                }
-                discovery.schedule();
-                m_activepackages.add(snmpcoll.getPackageName());
-
-            }
-            if (snmpcoll.getScheduler() == null) {
-                snmpcoll.setScheduler(m_scheduler);
-            }
+        for (final AbstractLinkdNodeDiscovery snmpcoll : getSnmpCollections(node) ){
             LogUtils.debugf(this,
-                            "ScheduleCollectionForNode: Scheduling SNMP Collection for Package/NodeId: %s/%d/%s",
-                            snmpcoll.getPackageName(), node.getNodeId(),
-                            snmpcoll.getInfo());
+                "ScheduleCollectionForNode: Scheduling SNMP Collection for Package/NodeId: %s/%d/%s",
+                snmpcoll.getPackageName(), node.getNodeId(),
+                snmpcoll.getInfo());
+        	snmpcoll.setScheduler(m_scheduler);
             snmpcoll.schedule();
         }
     }
 
-    /** {@inheritDoc} */
-    public DiscoveryLink getDiscoveryLink(final String pkgName) {
-        final Package pkg = m_linkdConfig.getPackage(pkgName);
-
-        if (pkg == null)
-            return null;
-
-        final DiscoveryLink discoveryLink = new DiscoveryLink();
-        discoveryLink.setLinkd(this);
-        discoveryLink.setPackageName(pkg.getName());
-        discoveryLink.setInitialSleepTime(m_linkdConfig.getInitialSleepTime());
-
-        discoveryLink.setSnmpPollInterval(pkg.hasSnmp_poll_interval() ? pkg.getSnmp_poll_interval()
-                                                                     : m_linkdConfig.getSnmpPollInterval());
-        discoveryLink.setDiscoveryInterval(pkg.hasDiscovery_link_interval() ? pkg.getDiscovery_link_interval()
-                                                                           : m_linkdConfig.getDiscoveryLinkInterval());
-        discoveryLink.setDiscoveryUsingBridge(pkg.hasUseBridgeDiscovery() ? pkg.getUseBridgeDiscovery()
-                                                                         : m_linkdConfig.useBridgeDiscovery());
-        discoveryLink.setDiscoveryUsingCdp(pkg.hasUseCdpDiscovery() ? pkg.getUseCdpDiscovery()
-                                                                   : m_linkdConfig.useCdpDiscovery());
-        discoveryLink.setDiscoveryUsingRoutes(pkg.hasUseIpRouteDiscovery() ? pkg.getUseIpRouteDiscovery()
-                                                                          : m_linkdConfig.useIpRouteDiscovery());
-        discoveryLink.setDiscoveryUsingLldp(pkg.hasUseLldpDiscovery() ? pkg.getUseLldpDiscovery()
-                                                                     : m_linkdConfig.useLldpDiscovery());
-        discoveryLink.setDiscoveryUsingOspf(pkg.hasUseOspfDiscovery() ? pkg.getUseOspfDiscovery()
-                                                                     : m_linkdConfig.useOspfDiscovery());
-        return discoveryLink;
-    }
-
     /**
      * {@inheritDoc}
      * 
      * @param nodeid
      */
-    public SnmpCollection getSnmpCollection(final int nodeid,
-            final InetAddress ipaddr, final String sysoid,
-            final String pkgName) {
-        final Package pkg = m_linkdConfig.getPackage(pkgName);
-        if (pkg != null) {
-            final SnmpCollection collection = createCollection(nodeid, ipaddr);
-            populateSnmpCollection(collection, pkg, sysoid);
-            return collection;
-        }
-        return null;
-    }
+    public List<AbstractLinkdNodeDiscovery> getSnmpCollections(LinkableNode node) {
+        List<AbstractLinkdNodeDiscovery> snmpcolls = new ArrayList<AbstractLinkdNodeDiscovery>();
 
-    /**
-     * {@inheritDoc}
-     * 
-     * @param nodeid
-     */
-    public List<SnmpCollection> getSnmpCollections(int nodeid,
-            final InetAddress ipaddr, final String sysoid) {
-        List<SnmpCollection> snmpcolls = new ArrayList<SnmpCollection>();
-
-        for (final String pkgName : m_linkdConfig.getAllPackageMatches(ipaddr)) {
-            snmpcolls.add(getSnmpCollection(nodeid, ipaddr, sysoid, pkgName));
+        for (final String pkgName : m_linkdConfig.getAllPackageMatches(node.getSnmpPrimaryIpAddr())) {
+            snmpcolls.addAll(getSnmpCollections(node, pkgName));
         }
 
         return snmpcolls;
     }
 
-    public SnmpCollection createCollection(int nodeid,
-            final InetAddress ipaddr) {
-        SnmpCollection coll = null;
-        try {
-            coll = new SnmpCollection(
-                                      this,
-                                      nodeid,
-                                      getSnmpAgentConfig(ipaddr));
-        } catch (final Throwable t) {
-            LogUtils.errorf(this,
-                            t,
-                            "getSnmpCollection: Failed to load snmpcollection parameter from SNMP configuration file");
-        }
-
-        return coll;
-    }
-
-    public SnmpAgentConfig getSnmpAgentConfig(InetAddress ipaddr) {
-    	return SnmpPeerFactory.getInstance().getAgentConfig(ipaddr);
-    }
-    
-    public boolean saveRouteTable(String pkgName) {
-    	Package pkg = m_linkdConfig.getPackage(pkgName);
-    	return pkg.hasSaveRouteTable() ? pkg.getSaveRouteTable()
-                : m_linkdConfig.saveRouteTable();
-    }
-    
-    public boolean saveStpNodeTable(String pkgName) {
-    	Package pkg = m_linkdConfig.getPackage(pkgName);
-    	return pkg.hasSaveStpNodeTable() ? pkg.getSaveStpNodeTable()
-                : m_linkdConfig.saveStpNodeTable();
-    }
-
-    public boolean saveStpInterfaceTable(String pkgName) {
-    	Package pkg = m_linkdConfig.getPackage(pkgName);
-    	return pkg.hasSaveStpInterfaceTable() ? pkg.getSaveStpInterfaceTable()
-                : m_linkdConfig.saveStpInterfaceTable();
-    }
-    
-    public boolean forceIpRoutediscoveryOnEthernet(String pkgName) {
-    	Package pkg = m_linkdConfig.getPackage(pkgName);
-    	return pkg.hasForceIpRouteDiscoveryOnEthernet() ? pkg.getForceIpRouteDiscoveryOnEthernet()
-                : m_linkdConfig.forceIpRouteDiscoveryOnEthernet();
-    }
-    private void populateSnmpCollection(final SnmpCollection coll,
-            final Package pkg, final String sysoid) {
-        coll.setPackageName(pkg.getName());
+    /**
+     * {@inheritDoc}
+     * 
+     * @param nodeid
+     */
+    public Collection<AbstractLinkdNodeDiscovery> getSnmpCollections(final LinkableNode node,
+            final String pkgName) {
+        final Package pkg = m_linkdConfig.getPackage(pkgName);
+        List<AbstractLinkdNodeDiscovery> snmpcolls = new ArrayList<AbstractLinkdNodeDiscovery>();
         
+        if (pkg.hasUseLldpDiscovery() ? pkg.getUseLldpDiscovery()
+                : m_linkdConfig.useLldpDiscovery()) {
+        	LldpLinkdNodeDiscovery coll = new LldpLinkdNodeDiscovery(this, node, pkgName);
+      
+            snmpcolls.add(coll);
+        }
+        return snmpcolls;
+        /*
         String ipRouteClassName =  m_linkdConfig.getDefaultIpRouteClassName();
         if (m_linkdConfig.hasIpRouteClassName(sysoid)) {
             ipRouteClassName = m_linkdConfig.getIpRouteClassName(sysoid);
@@ -328,22 +216,15 @@ public class EnhancedLinkd extends AbstractServiceDaemon {
                             ipRouteClassName);
         }
 
-        final long initialSleepTime = m_linkdConfig.getInitialSleepTime();
-        final long snmpPollInterval =(pkg.hasSnmp_poll_interval() ? pkg.getSnmp_poll_interval()
-                                                             : m_linkdConfig.getSnmpPollInterval()); 
-        final boolean useCdpDiscovery = (pkg.hasUseCdpDiscovery() ? pkg.getUseCdpDiscovery()
-                                                                 : m_linkdConfig.useCdpDiscovery());
         final boolean useIpRouteDiscovery = (pkg.hasUseIpRouteDiscovery() ? pkg.getUseIpRouteDiscovery()
                                                                          : m_linkdConfig.useIpRouteDiscovery());
-        final boolean useLldpDiscovery = (pkg.hasUseLldpDiscovery() ? pkg.getUseLldpDiscovery()
-                                                                   : m_linkdConfig.useLldpDiscovery());
+        final boolean useCdpDiscovery = (pkg.hasUseCdpDiscovery() ? pkg.getUseCdpDiscovery()
+                                                                   : m_linkdConfig.useCdpDiscovery());
         final boolean useOspfDiscovery = (pkg.hasUseOspfDiscovery() ? pkg.getUseOspfDiscovery()
                                                                     : m_linkdConfig.useOspfDiscovery());
         final boolean useBridgeDiscovery = (pkg.hasUseBridgeDiscovery() ? pkg.getUseBridgeDiscovery()
                                                                        : m_linkdConfig.useBridgeDiscovery());
         coll.setIpRouteClass(ipRouteClassName);
-        coll.setInitialSleepTime(initialSleepTime);
-        coll.setPollInterval(snmpPollInterval);
         coll.collectCdp(useCdpDiscovery);
         coll.collectIpRoute(useIpRouteDiscovery || saveRouteTable(pkg.getName()));
         coll.collectLldp(useLldpDiscovery);
@@ -364,7 +245,7 @@ public class EnhancedLinkd extends AbstractServiceDaemon {
                             "populateSnmpCollection: no class found to get Vlans or VlanDiscoveryDisabled for Package: %s",
                             pkg.getName());
         }
-
+*/
 
     }
 
@@ -518,20 +399,10 @@ public class EnhancedLinkd extends AbstractServiceDaemon {
     public boolean runSingleSnmpCollection(final int nodeId) {
             final LinkableNode node = m_queryMgr.getSnmpNode(nodeId);
 
-            for (final SnmpCollection snmpColl : getSnmpCollections(nodeId,
-                                                                    node.getSnmpPrimaryIpAddr(),
-                                                                    node.getSysoid())) {
+            for (final AbstractLinkdNodeDiscovery snmpColl : getSnmpCollections(node)) {
                 snmpColl.setScheduler(m_scheduler);
                 snmpColl.run();
             }
-
-            return true;
-    }
-
-    public boolean runSingleLinkDiscovery(final String packageName) {
-            final DiscoveryLink link = getDiscoveryLink(packageName);
-            link.setScheduler(m_scheduler);
-            link.run();
 
             return true;
     }
@@ -549,13 +420,11 @@ public class EnhancedLinkd extends AbstractServiceDaemon {
             // get collections
             // get readyRunnuble
             // wakeup RR
-            Collection<SnmpCollection> collections = getSnmpCollections(nodeid,
-                                                                        node.getSnmpPrimaryIpAddr(),
-                                                                        node.getSysoid());
+            Collection<AbstractLinkdNodeDiscovery> collections = getSnmpCollections(node);
             LogUtils.debugf(this,
                             "wakeUpNodeCollection: fetched SnmpCollections from scratch, iterating over %d objects to wake them up",
                             collections.size());
-            for (SnmpCollection collection : collections) {
+            for (AbstractLinkdNodeDiscovery collection : collections) {
                 ReadyRunnable rr = getReadyRunnable(collection);
                 if (rr == null) {
                     LogUtils.warnf(this,
@@ -580,13 +449,11 @@ public class EnhancedLinkd extends AbstractServiceDaemon {
         if (node == null) {
             LogUtils.warnf(this, "deleteNode: node not found: %d", nodeid);
         } else {
-            Collection<SnmpCollection> collections = getSnmpCollections(nodeid,
-                                                                        node.getSnmpPrimaryIpAddr(),
-                                                                        node.getSysoid());
+            Collection<AbstractLinkdNodeDiscovery> collections = getSnmpCollections(node);
             LogUtils.debugf(this,
                             "deleteNode: fetched SnmpCollections from scratch, iterating over %d objects to wake them up",
                             collections.size());
-            for (SnmpCollection collection : collections) {
+            for (AbstractLinkdNodeDiscovery collection : collections) {
                 ReadyRunnable rr = getReadyRunnable(collection);
 
                 if (rr == null) {
@@ -646,13 +513,11 @@ public class EnhancedLinkd extends AbstractServiceDaemon {
             // get collections
             // get readyRunnuble
             // suspend RR
-            Collection<SnmpCollection> collections = getSnmpCollections(nodeid,
-                                                                        node.getSnmpPrimaryIpAddr(),
-                                                                        node.getSysoid());
+            Collection<AbstractLinkdNodeDiscovery> collections = getSnmpCollections(node);
             LogUtils.debugf(this,
                             "suspendNodeCollection: fetched SnmpCollections from scratch, iterating over %d objects to suspend them down",
                             collections.size());
-            for (SnmpCollection collection : collections) {
+            for (AbstractLinkdNodeDiscovery collection : collections) {
                 ReadyRunnable rr = getReadyRunnable(collection);
                 if (rr == null) {
                     LogUtils.warnf(this,
@@ -684,7 +549,7 @@ public class EnhancedLinkd extends AbstractServiceDaemon {
      * @param snmpcoll
      */
     @Transactional
-    public void updateNodeSnmpCollection(final SnmpCollection snmpcoll) {
+    public void updateNodeSnmpCollection(final AbstractLinkdNodeDiscovery snmpcoll) {
         LogUtils.debugf(this, "Updating SNMP collection for %s",
                         InetAddressUtils.str(snmpcoll.getTarget()));
         LinkableNode node = removeNode(snmpcoll.getTarget());
@@ -699,7 +564,8 @@ public class EnhancedLinkd extends AbstractServiceDaemon {
         node = new LinkableNode(node.getNodeId(),
                                 node.getSnmpPrimaryIpAddr(), node.getSysoid());
 
-        node = m_queryMgr.storeSnmpCollection(node, snmpcoll);
+        //FIXME here is the call to service manager
+//        node = m_queryMgr.storeSnmpCollection(node, snmpcoll);
         if (node != null) {
             synchronized (m_nodes) {
                 m_nodes.add(node);
@@ -707,19 +573,7 @@ public class EnhancedLinkd extends AbstractServiceDaemon {
         }
     }
 
-    /**
-     * Method that uses info in hash snmpprimaryip2nodes and also save info
-     * into database. This method is called by DiscoveryLink after all stuff
-     * is done
-     * 
-     * @param discover
-     */
-    void updateDiscoveryLinkCollection(final DiscoveryLink discover) {
-
-        m_queryMgr.storeDiscoveryLink(discover);
-    }
-
-    /**
+      /**
      * Send a newSuspect event for the interface construct event with 'linkd'
      * as source
      * 
@@ -827,8 +681,6 @@ public class EnhancedLinkd extends AbstractServiceDaemon {
      */
     public void setQueryManager(QueryManager queryMgr) {
         m_queryMgr = queryMgr;
-        // TODO: Circular; refactor so this can be set in spring
-        queryMgr.setLinkd(this);
     }
 
     /**
@@ -893,56 +745,46 @@ public class EnhancedLinkd extends AbstractServiceDaemon {
         this.m_eventForwarder = eventForwarder;
     }
 
-    // Here all the information related to the
-    // mapping between ipaddress and mac address are stored
-    public void addAtInterface(AtInterface atinterface) {
-    	LogUtils.debugf(this, "addAtInterface: adding at interface %s/%s", atinterface.getIpAddress().getHostAddress(),atinterface.getMacAddress());
-        for (String packageName : m_activepackages) {
-        	if (!m_macToAtinterface.containsKey(packageName)) {
-               	LogUtils.debugf(this, "addAtInterface: creating map for package %s.",packageName);
-                               m_macToAtinterface.put(packageName,
-                                       new HashMap<String, List<AtInterface>>());
-            }
-        	if (!isInterfaceInPackage(atinterface.getIpAddress(), packageName)) {
-            	LogUtils.debugf(this, "addAtInterface: ip %s not in package %s. Skipping", atinterface.getIpAddress().getHostAddress(),packageName);
-            	continue;
-            }
-            List<AtInterface> atis = new ArrayList<AtInterface>();
-            
-            if (m_macToAtinterface.get(packageName).containsKey(atinterface.getMacAddress())) {
-                atis = m_macToAtinterface.get(packageName).get(atinterface.getMacAddress());
-            }
-            boolean add = true;
-            for (AtInterface at : atis) {
-            	LogUtils.debugf(this, "addAtInterface: found ip %s on package %s.", atinterface.getIpAddress().getHostAddress(),packageName);
-            	if (atinterface.equals(at)) {
-                	LogUtils.debugf(this, "addAtInterface: Interface/package %s/%s found not adding.", atinterface.getIpAddress().getHostAddress(),packageName);
-                    add = false;
-            	}
-            }
-            if (add) {
-            	LogUtils.debugf(this, "addAtInterface: add ip/mac/ifindex %s/%s/%d on package %s.", 
-            			atinterface.getIpAddress().getHostAddress(),
-            			atinterface.getMacAddress(),
-            			atinterface.getIfIndex(),
-            			packageName);
-                atis.add(atinterface);
-                m_macToAtinterface.get(packageName).put(atinterface.getMacAddress(),
-                                                        atis);
-            }
-        }
-
-    }
-
-    public void clearAtInterfaces(String packageName) {
-        m_macToAtinterface.get(packageName).clear();
-    }
-
-    public Map<String, List<AtInterface>> getAtInterfaces(String packageName) {
-        return m_macToAtinterface.get(packageName);
-    }
-
 	public String getSource() {
-		return "linkd";
+		return "enhancedlinkd";
 	}
+	
+    public SnmpAgentConfig getSnmpAgentConfig(InetAddress ipaddr) {
+    	return SnmpPeerFactory.getInstance().getAgentConfig(ipaddr);
+    }
+    
+    public boolean saveRouteTable(String pkgName) {
+    	final Package pkg = m_linkdConfig.getPackage(pkgName);
+    	return pkg.hasSaveRouteTable() ? pkg.getSaveRouteTable()
+                : m_linkdConfig.saveRouteTable();
+    }
+    
+    public boolean saveStpNodeTable(String pkgName) {
+    	final Package pkg = m_linkdConfig.getPackage(pkgName);
+    	return pkg.hasSaveStpNodeTable() ? pkg.getSaveStpNodeTable()
+                : m_linkdConfig.saveStpNodeTable();
+    }
+
+    public boolean saveStpInterfaceTable(String pkgName) {
+    	final Package pkg = m_linkdConfig.getPackage(pkgName);
+    	return pkg.hasSaveStpInterfaceTable() ? pkg.getSaveStpInterfaceTable()
+                : m_linkdConfig.saveStpInterfaceTable();
+    }
+    
+    public boolean forceIpRoutediscoveryOnEthernet(String pkgName) {
+    	final Package pkg = m_linkdConfig.getPackage(pkgName);
+    	return pkg.hasForceIpRouteDiscoveryOnEthernet() ? pkg.getForceIpRouteDiscoveryOnEthernet()
+                : m_linkdConfig.forceIpRouteDiscoveryOnEthernet();
+    }
+
+    public long getInitialSleepTime() {
+    	return m_linkdConfig.getInitialSleepTime();
+    }
+
+    public long getSnmpPollInterval(String pkgName) {
+    	final Package pkg = m_linkdConfig.getPackage(pkgName);
+    	return (pkg.hasSnmp_poll_interval() ? pkg.getSnmp_poll_interval()
+            : m_linkdConfig.getSnmpPollInterval()); 
+    }
+
 }

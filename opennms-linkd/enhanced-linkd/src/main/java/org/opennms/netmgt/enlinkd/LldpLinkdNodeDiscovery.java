@@ -31,10 +31,13 @@ package org.opennms.netmgt.enlinkd;
 import static org.opennms.core.utils.InetAddressUtils.str;
 
 
+
 import org.opennms.core.utils.LogUtils;
-import org.opennms.netmgt.linkd.snmp.LldpLocalGroup;
-import org.opennms.netmgt.linkd.snmp.LldpRemTable;
-import org.opennms.netmgt.snmp.SnmpAgentConfig;
+import org.opennms.netmgt.enlinkd.snmp.LldpLocalGroup;
+import org.opennms.netmgt.model.topology.Element;
+import org.opennms.netmgt.model.topology.NodeElementIdentifier;
+import org.opennms.netmgt.snmp.CollectionTracker;
+
 import org.opennms.netmgt.snmp.SnmpUtils;
 import org.opennms.netmgt.snmp.SnmpWalker;
 
@@ -46,9 +49,6 @@ import org.opennms.netmgt.snmp.SnmpWalker;
  * allows the collection to occur in a thread if necessary.
  */
 public final class LldpLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
-
-    public LldpLocalGroup m_lldpLocalGroup;
-    public LldpRemTable m_lldpRemTable;
     
     /**
      * Constructs a new SNMP collector for a node using the passed interface
@@ -59,31 +59,19 @@ public final class LldpLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
      * @param config
      *            The SnmpPeer object to collect from.
      */
-    public LldpLinkdNodeDiscovery(final EnhancedLinkd linkd, final int nodeid,
-            final SnmpAgentConfig config) {
-    	super(linkd, nodeid, config);
-    }
-
-    
-    boolean hasLldpLocalGroup() {
-        return (m_lldpLocalGroup != null && !m_lldpLocalGroup.failed() && m_lldpLocalGroup.getLldpLocChassisid() != null);
-    }
-
-    LldpLocalGroup getLldpLocalGroup() {
-        return m_lldpLocalGroup;
+    public LldpLinkdNodeDiscovery(final EnhancedLinkd linkd, final LinkableNode node, String pkgname) {
+    	super(linkd, node, pkgname);
     }
 
     protected void runCollection() {
 
+        String trackerName = "lldpLocalGroup";
 
-        final String hostAddress = str(m_address);
+        LldpLocalGroup lldpLocalGroup = new LldpLocalGroup(getTarget());
 
+		LogUtils.debugf(this, "run: collecting : %s", getPeer());
 
-        m_lldpLocalGroup = new LldpLocalGroup(m_address);
-
-		LogUtils.debugf(this, "run: collecting : %s", m_agentConfig);
-
-        SnmpWalker walker =  SnmpUtils.createWalker(m_agentConfig, "lldpLocalGroup", m_lldpLocalGroup);
+        SnmpWalker walker =  SnmpUtils.createWalker(getPeer(), trackerName, lldpLocalGroup);
 
         walker.start();
 
@@ -91,29 +79,54 @@ public final class LldpLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
             walker.waitFor();
             if (walker.timedOut()) {
             	LogUtils.infof(this,
-                        "run:Aborting node scan : Agent timed out while scanning the lldpLocalGroup table");
+                        "run:Aborting node scan : Agent timed out while scanning the %s table", trackerName);
             }  else if (walker.failed()) {
             	LogUtils.infof(this,
-                        "run:Aborting node scan : Agent failed while scanning the lldpLocalGroup table: %s", walker.getErrorMessage());
+                        "run:Aborting node scan : Agent failed while scanning the %s table: %s", trackerName,walker.getErrorMessage());
             }
         } catch (final InterruptedException e) {
             LogUtils.errorf(this, e, "run: collection interrupted, exiting");
             return;
         }
-        if (!this.hasLldpLocalGroup()) {
-            LogUtils.infof(this,
-                           "run: failed to collect lldpLocalGroup for %s",
-                           hostAddress);
+
+        final Element deviceA = new Element();
+        deviceA.addElementIdentifier(new NodeElementIdentifier(getNodeId()));
+        deviceA.addElementIdentifier(lldpLocalGroup.getElementIdentifier());
+
+        trackerName = "lldpRemTable";
+        LldpRemTableTracker m_lldpRemTable = new LldpRemTableTracker() {
+            
+        	public void processLldpRemRow(final LldpRemRow row) {
+        		System.err.println("-----------------------------");
+        		System.err.println("columns number in the row: " + row.getColumnCount());
+        		System.err.println("local port id: " + row.getLldpRemLocalPortNum());
+        		System.err.println("remote chassis type: " + row.getLldpRemChassisidSubtype());
+        		System.err.println("remote chassis id: " + row.getLldpRemChassisId());
+        		System.err.println("remote port type: " + row.getLldpRemPortidSubtype());
+        		System.err.println("remote port id: " + row.getLldpRemPortid());
+        		System.err.println("remote sysname: " + row.getLldpRemSysname());
+        		System.err.println("-----------------------------");
+            }
+        };
+        CollectionTracker[] tracker = new CollectionTracker[0];
+        tracker = new CollectionTracker[] {m_lldpRemTable};
+
+        walker = SnmpUtils.createWalker(getPeer(), trackerName, tracker);
+        walker.start();
+        
+        try {
+            walker.waitFor();
+            if (walker.timedOut()) {
+            	LogUtils.infof(this,
+                        "run:Aborting node scan : Agent timed out while scanning the %s table", trackerName);
+            }  else if (walker.failed()) {
+            	LogUtils.infof(this,
+                        "run:Aborting node scan : Agent failed while scanning the %s table: %s", trackerName,walker.getErrorMessage());
+            }
+        } catch (final InterruptedException e) {
+            LogUtils.errorf(this, e, "run: collection interrupted, exiting");
             return;
         }
-        
-        m_lldpRemTable = new LldpRemTable(m_address);
-        
-//        m_linkd.updateNodeSnmpCollection(this);
-        // clean memory
-        // first make everything clean
-        m_lldpLocalGroup = null;
-        m_lldpRemTable = null;
     }
 
 

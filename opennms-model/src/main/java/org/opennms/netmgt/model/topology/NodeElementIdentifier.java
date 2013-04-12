@@ -4,10 +4,9 @@ public final class NodeElementIdentifier extends ElementIdentifier {
 
 	private Integer m_nodeid; 
 
-	public NodeElementIdentifier(String nodeid) {
-		super(nodeid);
+	public NodeElementIdentifier(Integer nodeid) {
+		super(ElementIdentifierType.ONMSNODE);
 		m_nodeid = Integer.valueOf(nodeid);
-		setType(ElementIdentifierType.ONMSNODE);
 	}
 
 	public Integer getNodeid() {
