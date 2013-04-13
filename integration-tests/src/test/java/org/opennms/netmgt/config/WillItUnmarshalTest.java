@@ -76,6 +76,7 @@ import org.opennms.netmgt.config.datacollection.DatacollectionConfig;
 import org.opennms.netmgt.config.datacollection.DatacollectionGroup;
 import org.opennms.netmgt.config.destinationPaths.DestinationPaths;
 import org.opennms.netmgt.config.discovery.DiscoveryConfiguration;
+import org.opennms.netmgt.config.enlinkd.EnlinkdConfiguration;
 import org.opennms.netmgt.config.eventd.EventdConfiguration;
 import org.opennms.netmgt.config.filter.DatabaseSchema;
 import org.opennms.netmgt.config.groups.Groupinfo;
@@ -295,6 +296,10 @@ public class WillItUnmarshalTest {
     @Test
     public void testLinkdConfiguration() throws Exception {
         unmarshal("linkd-configuration.xml", LinkdConfiguration.class);
+    }
+    @Test
+    public void testEnLinkdConfiguration() throws Exception {
+        unmarshal("enlinkd-configuration.xml", EnlinkdConfiguration.class);
     }
     @Test
     public void testExampleLinkdConfiguration() throws Exception {
