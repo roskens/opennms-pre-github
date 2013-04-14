@@ -1,14 +1,16 @@
 package org.opennms.netmgt.enlinkd;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.criterion.Restrictions;
 import org.opennms.netmgt.dao.NodeDao;
+import org.opennms.netmgt.dao.TopologyDao;
 import org.opennms.netmgt.model.OnmsCriteria;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.PrimaryType;
-import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
+import org.opennms.netmgt.model.topology.Link;
 import org.opennms.netmgt.model.topology.LldpLink;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,6 +19,26 @@ public class EnhanceLinkdServiceImpl implements EnhancedLinkdService {
 	@Autowired
 	private NodeDao m_nodeDao;
 
+	@Autowired
+	private TopologyDao m_topologyDao;
+
+	public NodeDao getNodeDao() {
+		return m_nodeDao;
+	}
+
+	public void setNodeDao(NodeDao nodeDao) {
+		m_nodeDao = nodeDao;
+	}
+
+	public TopologyDao getTopologyDao() {
+		return m_topologyDao;
+	}
+
+	public void setTopologyDao(TopologyDao topologyDao) {
+		m_topologyDao = topologyDao;
+	}
+
+	
 	// SELECT node.nodeid, nodesysoid, ipaddr FROM node LEFT JOIN ipinterface ON node.nodeid = j.nodeid WHERE nodetype = 'A' AND issnmpprimary = 'P'
 	@Override
 	public List<LinkableNode> getSnmpNodeList() {
@@ -54,27 +76,30 @@ public class EnhanceLinkdServiceImpl implements EnhancedLinkdService {
 	}
 
 	@Override
-	public void updateDeletedNodes() {
+	public void reconcile() {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
-	public void update(int nodeid, StatusType action) {
+	public void reconcile(int nodeid) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
-	public void updateForInterface(int nodeid, String ipAddr, int ifIndex,
-			StatusType action) {
+	public void reconcile(int nodeid, String ipAddr, int ifIndex) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void store(LldpLink link) {
+		m_topologyDao.saveOrUpdate((Link)link);
+	}
 
+	@Override
+	public void reconcileLldp(int nodeId, Date now) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

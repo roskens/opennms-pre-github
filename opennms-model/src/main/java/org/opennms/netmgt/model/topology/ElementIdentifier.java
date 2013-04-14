@@ -1,9 +1,10 @@
 package org.opennms.netmgt.model.topology;
 
 import java.io.Serializable;
+import java.util.Date;
 
 
-public abstract class ElementIdentifier {
+public abstract class ElementIdentifier extends Pollable {
 
 	public final static class ElementIdentifierType extends AbstractType 
 	implements Comparable<ElementIdentifierType>, Serializable {
@@ -54,7 +55,8 @@ public abstract class ElementIdentifier {
 
 	private final ElementIdentifierType m_identifier;
 	
-	public ElementIdentifier(ElementIdentifierType identifier) {
+	public ElementIdentifier(ElementIdentifierType identifier, Date now ) {
+		super(now);
 		m_identifier = identifier;
 	}
 	
@@ -62,4 +64,13 @@ public abstract class ElementIdentifier {
 		return m_identifier;
 	}
 	
+	public boolean equals (Object o) {
+		if (o instanceof ElementIdentifier) {
+			if (((ElementIdentifier)o).getType().equals(getType()))
+				return equals((ElementIdentifier)o);
+		}
+		return false;
+	}
+
+	public abstract boolean equals(ElementIdentifier elementIdentifier);
 }

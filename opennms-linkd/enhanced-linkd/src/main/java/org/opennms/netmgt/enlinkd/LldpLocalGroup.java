@@ -29,6 +29,7 @@
 package org.opennms.netmgt.enlinkd;
 
 import java.net.InetAddress;
+import java.util.Date;
 
 import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.core.utils.ThreadCategory;
@@ -133,7 +134,7 @@ public final class LldpLocalGroup extends AggregateTracker {
     	if (lldpLocChassisidSubType.equals(LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_NETWORKADDRESS))
     		lldpLocChassisId = InetAddressUtils.str(value.toInetAddress());
 
-    	return new LldpElementIdentifier(lldpLocChassisId, sysname, lldpLocChassisidSubType);
+    	return new LldpElementIdentifier(lldpLocChassisId, sysname, lldpLocChassisidSubType, new Date());
     }
 
 	public ElementIdentifier getElementIdentifier() {

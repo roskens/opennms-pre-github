@@ -39,4 +39,15 @@ public class Element {
 		return m_id;
 	}
 
+	public boolean equals(Object o) {
+		if ( o instanceof Element) {
+			for (ElementIdentifier localElementIdentifier : getElementIdentifiers()) {
+				for (ElementIdentifier oe: ((Element) o).getElementIdentifiers()) {
+					if (oe.equals(localElementIdentifier))
+						return true;
+				}
+			}
+		}
+		return false;
+	}
 }

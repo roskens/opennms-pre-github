@@ -1,5 +1,7 @@
 package org.opennms.netmgt.model.topology;
 
+import java.util.Date;
+
 
 /**
  * This class represents a destination in the network such as
@@ -9,8 +11,12 @@ package org.opennms.netmgt.model.topology;
  * @author Antonio
  *
  */
-public abstract class EndPoint {
+public abstract class EndPoint extends Pollable {
 	
+	public EndPoint(Date now) {
+		super(now);
+	}
+
 	/** 
 	 * The Element to which the End Point 
 	 * belongs
@@ -47,4 +53,14 @@ public abstract class EndPoint {
 	public boolean hasElement() {
 		return m_device != null;
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof EndPoint) {
+			return equals((EndPoint)o);
+		}
+		return false;
+	}
+	
+	public abstract boolean equals(EndPoint endPoint);
 }

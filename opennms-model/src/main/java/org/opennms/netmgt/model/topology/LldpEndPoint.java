@@ -1,6 +1,7 @@
 package org.opennms.netmgt.model.topology;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class LldpEndPoint extends EndPoint {
 
@@ -128,7 +129,8 @@ public class LldpEndPoint extends EndPoint {
 
 	}
 
-	public LldpEndPoint(String lldpPortId, Integer lldpPortidSubType) {
+	public LldpEndPoint(String lldpPortId, Integer lldpPortidSubType, Date now) {
+		super(now);
 		m_lldpPortId = lldpPortId;
 		m_lldpPortIdSubType = LldpPortIdSubType.get(lldpPortidSubType);
 	}

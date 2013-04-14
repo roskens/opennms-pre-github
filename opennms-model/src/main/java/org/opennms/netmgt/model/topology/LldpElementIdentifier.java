@@ -1,6 +1,7 @@
 package org.opennms.netmgt.model.topology;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public final class LldpElementIdentifier extends ElementIdentifier {
 
@@ -137,8 +138,8 @@ public final class LldpElementIdentifier extends ElementIdentifier {
     private String m_lldpChassisId;
     private LldpChassisIdSubType m_lldpChassisIdSubType;
 
-    public LldpElementIdentifier(String lldpChassisId, String sysname, Integer subtype) {
-		super(ElementIdentifierType.LLDP);
+    public LldpElementIdentifier(String lldpChassisId, String sysname, Integer subtype,Date now) {
+		super(ElementIdentifierType.LLDP,now);
 		m_lldpChassisId=lldpChassisId;
 		m_lldpSysname=sysname;
 		m_lldpChassisIdSubType=LldpChassisIdSubType.get(subtype);
@@ -168,5 +169,17 @@ public final class LldpElementIdentifier extends ElementIdentifier {
 		m_lldpChassisId = lldpChassisId;
 	}
 
+	@Override
+	public boolean equals(ElementIdentifier elementIdentifier) {
+		if (elementIdentifier instanceof LldpElementIdentifier) {
+			LldpElementIdentifier a = (LldpElementIdentifier)elementIdentifier;
+			if (getLldpChassisId().equals(a.getLldpChassisId()) &&
+				getLldpChassisIdSubType().equals(a.getLldpChassisIdSubType()) &&
+				getLldpSysname().equals(a.getLldpSysname()))
+				return true;
+		}
+			
+		return false;
+	}
     
 }

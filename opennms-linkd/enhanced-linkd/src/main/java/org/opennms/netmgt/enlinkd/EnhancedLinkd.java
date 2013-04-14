@@ -51,7 +51,6 @@ import org.opennms.netmgt.config.linkd.Package;
 import org.opennms.netmgt.daemon.AbstractServiceDaemon;
 import org.opennms.netmgt.linkd.scheduler.ReadyRunnable;
 import org.opennms.netmgt.linkd.scheduler.Scheduler;
-import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
 import org.opennms.netmgt.model.events.EventBuilder;
 import org.opennms.netmgt.model.events.EventForwarder;
 import org.opennms.netmgt.snmp.SnmpAgentConfig;
@@ -136,7 +135,7 @@ public class EnhancedLinkd extends AbstractServiceDaemon {
         m_newSuspectEventsIpAddr.add(addr("0.0.0.0"));
 
         m_nodes = m_queryMgr.getSnmpNodeList();
-        m_queryMgr.updateDeletedNodes();
+        m_queryMgr.reconcile();
 
         Assert.notNull(m_nodes);
         scheduleCollection();
@@ -442,7 +441,7 @@ public class EnhancedLinkd extends AbstractServiceDaemon {
                         "deleteNode: deleting LinkableNode for node %s",
                         nodeid);
 
-            m_queryMgr.update(nodeid, StatusType.DELETED);
+            m_queryMgr.reconcile(nodeid);
 
         LinkableNode node = removeNode(nodeid);
 
@@ -489,8 +488,7 @@ public class EnhancedLinkd extends AbstractServiceDaemon {
                         "deleteInterface: marking table entries as deleted for node %d with IP address %s and ifIndex %s",
                         nodeid, ipAddr, (ifIndex > -1 ? "" + ifIndex : "N/A"));
 
-            m_queryMgr.updateForInterface(nodeid, ipAddr, ifIndex,
-                                          StatusType.DELETED);
+            m_queryMgr.reconcile(nodeid, ipAddr, ifIndex);
    
         // database changed need reload packageiplist
         m_linkdConfig.update();
@@ -501,8 +499,6 @@ public class EnhancedLinkd extends AbstractServiceDaemon {
         LogUtils.debugf(this,
                         "suspendNodeCollection: suspend collection LinkableNode for node %d",
                         nodeid);
-
-            m_queryMgr.update(nodeid, StatusType.INACTIVE);
    
         LinkableNode node = getNode(nodeid);
 

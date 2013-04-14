@@ -1,5 +1,7 @@
 package org.opennms.netmgt.enlinkd;
 
+import java.util.Date;
+
 import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.netmgt.model.topology.LldpEndPoint;
 import org.opennms.netmgt.model.topology.LldpEndPoint.LldpPortIdSubType;
@@ -23,7 +25,7 @@ public class LldpLocPortGetter extends TableTracker {
 		m_agentConfig = peer;
 	}
 
-	public LldpEndPoint get(Integer lldpRemLocalPortNum) {
+	public LldpEndPoint get(Integer lldpRemLocalPortNum, Date now) {
 		SnmpObjId instance = SnmpObjId.get(lldpRemLocalPortNum.toString());
 		SnmpObjId[] oids = new SnmpObjId[]
 				{SnmpObjId.get(LLDP_LOC_PORTID_SUBTYPE, instance),
@@ -32,16 +34,16 @@ public class LldpLocPortGetter extends TableTracker {
 		SnmpValue[] val = SnmpUtils.get(m_agentConfig, oids);
 		if (val == null || val.length != 2 || val[0] == null || val[1] == null || !val[0].isNumeric())
 			return null;
-		return  LldpLocPortGetter.getEndPoint(val[1], val[0].toInt());
+		return  LldpLocPortGetter.getEndPoint(val[1], val[0].toInt(),now);
 	}
 	
 
-	public static LldpEndPoint getEndPoint(SnmpValue value, Integer type) {
+	public static LldpEndPoint getEndPoint(SnmpValue value, Integer type, Date now) {
 		String lldpPortId = value.toDisplayString();
     	if (type.equals(LldpPortIdSubType.LLDP_PORTID_SUBTYPE_MACADDRESS))
     		lldpPortId = value.toHexString();
     	if (type.equals(LldpPortIdSubType.LLDP_PORTID_SUBTYPE_NETWORKADDRESS))
     		lldpPortId = InetAddressUtils.str(value.toInetAddress());
-    	return new LldpEndPoint(lldpPortId, type);
+    	return new LldpEndPoint(lldpPortId, type, now);
 	}
 }

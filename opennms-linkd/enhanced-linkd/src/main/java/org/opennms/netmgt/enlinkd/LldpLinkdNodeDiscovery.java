@@ -30,6 +30,8 @@ package org.opennms.netmgt.enlinkd;
 
 import static org.opennms.core.utils.InetAddressUtils.str;
 
+import java.util.Date;
+
 
 
 import org.opennms.core.utils.LogUtils;
@@ -66,7 +68,9 @@ public final class LldpLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
 
     protected void runCollection() {
 
-        String trackerName = "lldpLocalGroup";
+    	final Date now = new Date(); 
+
+    	String trackerName = "lldpLocalGroup";
 
         LldpLocalGroup lldpLocalGroup = new LldpLocalGroup(getTarget());
 
@@ -91,7 +95,7 @@ public final class LldpLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
         }
         
         final Element deviceA = new Element();
-        deviceA.addElementIdentifier(new NodeElementIdentifier(getNodeId()));
+        deviceA.addElementIdentifier(new NodeElementIdentifier(getNodeId(),now));
         deviceA.addElementIdentifier(lldpLocalGroup.getElementIdentifier());
 
 		final LldpLocPortGetter lldpLocPort = new LldpLocPortGetter(getPeer());
@@ -99,13 +103,13 @@ public final class LldpLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
         LldpRemTableTracker m_lldpRemTable = new LldpRemTableTracker() {
             
         	public void processLldpRemRow(final LldpRemRow row) {        		
-        		LldpEndPoint endPointA = lldpLocPort.get(row.getLldpRemLocalPortNum());
+        		LldpEndPoint endPointA = lldpLocPort.get(row.getLldpRemLocalPortNum(), now);
         		endPointA.setDevice(deviceA);
         	    final Element deviceB = new Element();
         		deviceB.addElementIdentifier(row.getRemElementIdentifier());
-        		LldpEndPoint endPointB = row.getRemEndPoint();
+        		LldpEndPoint endPointB = row.getRemEndPoint(now);
         		endPointB.setDevice(deviceB);
-        		LldpLink link = new LldpLink(endPointA, endPointB);
+        		LldpLink link = new LldpLink(endPointA, endPointB, now);
         		endPointA.setLink(link);
         		endPointB.setLink(link);
         		m_linkd.getQueryManager().store(link);
@@ -131,6 +135,7 @@ public final class LldpLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
             LogUtils.errorf(this, e, "run: collection interrupted, exiting");
             return;
         }
+        m_linkd.getQueryManager().reconcileLldp(getNodeId(),now);
     }
 
 	@Override

@@ -1,18 +1,19 @@
 package org.opennms.netmgt.model.topology;
 
 import java.io.Serializable;
+import java.util.Date;
 
 
 /**
  * This class represents a physical link between 2 network end points
  * such as an Ethernet connection or a virtual link between 2 end points
  * such as an IP address connection to a subnetwork.  Can also be used
- * represent a network service between to service end points.
+ * to represent a network service between to service end points.
  *  
  * @author antonio
  *
  */
-public abstract class Link {
+public abstract class Link extends Pollable {
 
 		public final static class LinkType extends AbstractType 
 		implements Comparable<LinkType>, Serializable {
@@ -62,7 +63,8 @@ public abstract class Link {
 	
 	private final LinkType m_linkType;
 	
-	public Link(LinkType linkType) {
+	public Link(LinkType linkType, Date now) {
+		super(now);
 		m_linkType=linkType;
 	}
 	
@@ -85,5 +87,17 @@ public abstract class Link {
 	public LinkType getLinkType() {
 		return m_linkType;
 	}
-
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof Link) {
+			Link a = (Link)o;
+			if (m_linkType.equals((a.getLinkType()))) {
+				if ((a.getA().equals(getA()) && a.getB().equals(getB()))
+						|| (a.getA().equals(getB()) && a.getB().equals(getA())))
+					return true;
+			}
+		}
+		return false;
+	}
 }
