@@ -146,5 +146,17 @@ public class LldpEndPoint extends EndPoint {
 	public String getLldpPortId() {
 		return m_lldpPortId;
 	}
+
+	@Override
+	public boolean equals(EndPoint endPoint) {
+		if (endPoint instanceof LldpEndPoint) {
+			LldpEndPoint a=(LldpEndPoint)endPoint;
+			if (getDevice().equals(a.getDevice()) &&
+				getLldpPortId().equals(a.getLldpPortId()) &&
+				getPortIdSubType().equals(a.getPortIdSubType()))
+				return true;
+		}
+		return false;
+	}
 	
 }
