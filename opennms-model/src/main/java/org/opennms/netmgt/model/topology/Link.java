@@ -20,8 +20,10 @@ public abstract class Link extends Pollable {
 
 			private static final long serialVersionUID = 7220152765747623134L;
 
+			public static final int LINK_TYPE_INPUT=0;
 			public static final int LINK_TYPE_LLDP=1;
 			
+			public static LinkType INPUT = new LinkType(LINK_TYPE_INPUT);
 			public static LinkType LLDP = new LinkType(LINK_TYPE_LLDP);
 
 			public LinkType(Integer linkType) {
@@ -29,6 +31,8 @@ public abstract class Link extends Pollable {
 			}
 			
 	        static {
+	        	s_order.add(0, 0);
+	        	s_typeMap.put(0, "input" );
 	        	s_order.add(1, 1);
 	        	s_typeMap.put(1, "lldp" );
 	        }
@@ -50,6 +54,7 @@ public abstract class Link extends Pollable {
 	            if (code == null)
 	                throw new IllegalArgumentException("Cannot create LinkType from null code");
 	            switch (code) {
+	            case LINK_TYPE_INPUT: 		return INPUT;
 	            case LINK_TYPE_LLDP: 		return LLDP;
 	            default:
 	                throw new IllegalArgumentException("Cannot create LinkType from code "+code);
