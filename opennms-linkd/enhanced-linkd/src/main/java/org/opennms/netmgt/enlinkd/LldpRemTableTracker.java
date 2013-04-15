@@ -93,7 +93,7 @@ public class LldpRemTableTracker extends TableTracker {
 		}
     	
 	    public Integer getLldpRemLocalPortNum() {
-	    	return getInstance().getLastSubId();
+	    	return getInstance().getSubIdAt(1);
 	    }
 	    
 	    public Integer getLldpRemChassisidSubtype() {

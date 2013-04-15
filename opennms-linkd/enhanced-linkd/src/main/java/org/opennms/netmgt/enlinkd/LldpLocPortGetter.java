@@ -1,8 +1,6 @@
 package org.opennms.netmgt.enlinkd;
 
-import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.netmgt.model.topology.LldpEndPoint;
-import org.opennms.netmgt.model.topology.LldpEndPoint.LldpPortIdSubType;
 import org.opennms.netmgt.snmp.SnmpAgentConfig;
 import org.opennms.netmgt.snmp.SnmpObjId;
 import org.opennms.netmgt.snmp.SnmpUtils;

@@ -28,13 +28,11 @@
 
 package org.opennms.netmgt.enlinkd;
 
-import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.core.utils.ThreadCategory;
 
 import org.opennms.netmgt.linkd.snmp.NamedSnmpVar;
 import org.opennms.netmgt.linkd.snmp.SnmpStore;
 import org.opennms.netmgt.model.topology.LldpElementIdentifier;
-import org.opennms.netmgt.model.topology.LldpElementIdentifier.LldpChassisIdSubType;
 import org.opennms.netmgt.snmp.AggregateTracker;
 import org.opennms.netmgt.snmp.SnmpResult;
 import org.opennms.netmgt.snmp.SnmpValue;
