@@ -1,12 +1,13 @@
 package org.opennms.netmgt.model.topology;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public final class LldpElementIdentifier extends ElementIdentifier {
 
 	public static class LldpChassisIdSubType extends AbstractType 
-	implements Comparable<LldpChassisIdSubType>, Serializable{
+	implements Serializable{
 	
 	    /**
 		 * 
@@ -85,14 +86,9 @@ public final class LldpElementIdentifier extends ElementIdentifier {
 	    	super(chassisIdsubtype);
 	    }
 
+	    protected static final Map<Integer, String> s_typeMap = new HashMap<Integer, String>();
+
         static {
-        	s_order.add(1, 1);
-        	s_order.add(2, 2);
-        	s_order.add(3, 3);
-        	s_order.add(4, 4);
-        	s_order.add(5, 5);
-        	s_order.add(6, 6);
-        	s_order.add(7, 7);
         	s_typeMap.put(1, "chassisComponent" );
         	s_typeMap.put(2, "interfaceAlias" );
         	s_typeMap.put(3, "portComponent" );
@@ -102,10 +98,19 @@ public final class LldpElementIdentifier extends ElementIdentifier {
         	s_typeMap.put(7, "local" );
         }
 
-        @Override
-        public int compareTo(LldpChassisIdSubType o) {
-            return getIndex(m_type) - getIndex(o.m_type);
+        /**
+         * <p>ElementIdentifierTypeString</p>
+         *
+         * @return a {@link java.lang.String} object.
+         */
+        /**
+         */
+        public static String getTypeString(Integer code) {
+            if (s_typeMap.containsKey(code))
+                    return s_typeMap.get( code);
+            return null;
         }
+
 
         @Override
         public boolean equals(Object o) {
@@ -138,8 +143,8 @@ public final class LldpElementIdentifier extends ElementIdentifier {
     private String m_lldpChassisId;
     private LldpChassisIdSubType m_lldpChassisIdSubType;
 
-    public LldpElementIdentifier(String lldpChassisId, String sysname, Integer subtype,Date now) {
-		super(ElementIdentifierType.LLDP,now);
+    public LldpElementIdentifier(String lldpChassisId, String sysname, Integer subtype) {
+		super(ElementIdentifierType.LLDP);
 		m_lldpChassisId=lldpChassisId;
 		m_lldpSysname=sysname;
 		m_lldpChassisIdSubType=LldpChassisIdSubType.get(subtype);

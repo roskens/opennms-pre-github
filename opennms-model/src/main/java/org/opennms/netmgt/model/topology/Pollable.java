@@ -14,7 +14,7 @@ public abstract class Pollable {
 		m_lastPoll = lastPoll;
 	}
 	
-	public Pollable (Date now) {
-		m_lastPoll = now;
+	public Pollable () {
+		m_lastPoll = new Date();
 	}
 }

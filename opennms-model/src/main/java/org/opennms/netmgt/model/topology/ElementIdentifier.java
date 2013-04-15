@@ -1,13 +1,14 @@
 package org.opennms.netmgt.model.topology;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public abstract class ElementIdentifier extends Pollable {
 
 	public final static class ElementIdentifierType extends AbstractType 
-	implements Comparable<ElementIdentifierType>, Serializable {
+	implements Serializable {
 
 		private static final long serialVersionUID = 7220152765747623134L;
 
@@ -21,17 +22,27 @@ public abstract class ElementIdentifier extends Pollable {
 			super(elementIdentifierType);
 		}
 		
+	    protected static final Map<Integer, String> s_typeMap = new HashMap<Integer, String>();
+
         static {
-        	s_order.add(0, 0);
         	s_typeMap.put(0, "nodeid" );
-        	s_order.add(1, 1);
         	s_typeMap.put(1, "lldp" );
         }
 
-        @Override
-        public int compareTo(ElementIdentifierType o) {
-            return getIndex(m_type) - getIndex(o.m_type);
+        /**
+         * <p>ElementIdentifierTypeString</p>
+         *
+         * @return a {@link java.lang.String} object.
+         */
+        /**
+         */
+        public static String getTypeString(Integer code) {
+            if (s_typeMap.containsKey(code))
+                    return s_typeMap.get( code);
+            return null;
         }
+
+
 
         @Override
         public boolean equals(Object o) {
@@ -55,8 +66,8 @@ public abstract class ElementIdentifier extends Pollable {
 
 	private final ElementIdentifierType m_identifier;
 	
-	public ElementIdentifier(ElementIdentifierType identifier, Date now ) {
-		super(now);
+	public ElementIdentifier(ElementIdentifierType identifier) {
+		super();
 		m_identifier = identifier;
 	}
 	

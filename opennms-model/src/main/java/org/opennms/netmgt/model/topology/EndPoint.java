@@ -1,8 +1,5 @@
 package org.opennms.netmgt.model.topology;
 
-import java.util.Date;
-
-
 /**
  * This class represents a destination in the network such as
  * an IP address or a physical port.
@@ -13,8 +10,8 @@ import java.util.Date;
  */
 public abstract class EndPoint extends Pollable {
 	
-	public EndPoint(Date now) {
-		super(now);
+	public EndPoint() {
+		super();
 	}
 
 	/** 

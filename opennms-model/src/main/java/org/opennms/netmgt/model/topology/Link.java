@@ -1,7 +1,8 @@
 package org.opennms.netmgt.model.topology;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -16,7 +17,7 @@ import java.util.Date;
 public abstract class Link extends Pollable {
 
 		public final static class LinkType extends AbstractType 
-		implements Comparable<LinkType>, Serializable {
+		implements Serializable {
 
 			private static final long serialVersionUID = 7220152765747623134L;
 
@@ -29,18 +30,26 @@ public abstract class Link extends Pollable {
 			public LinkType(Integer linkType) {
 				super(linkType);
 			}
-			
+		    protected static final Map<Integer, String> s_typeMap = new HashMap<Integer, String>();
+	
 	        static {
-	        	s_order.add(0, 0);
 	        	s_typeMap.put(0, "input" );
-	        	s_order.add(1, 1);
 	        	s_typeMap.put(1, "lldp" );
 	        }
 
-	        @Override
-	        public int compareTo(LinkType o) {
-	            return getIndex(m_type) - getIndex(o.m_type);
+	        /**
+	         * <p>ElementIdentifierTypeString</p>
+	         *
+	         * @return a {@link java.lang.String} object.
+	         */
+	        /**
+	         */
+	        public static String getTypeString(Integer code) {
+	            if (s_typeMap.containsKey(code))
+	                    return s_typeMap.get( code);
+	            return null;
 	        }
+
 
 	        @Override
 	        public boolean equals(Object o) {
@@ -68,8 +77,8 @@ public abstract class Link extends Pollable {
 	
 	private final LinkType m_linkType;
 	
-	public Link(LinkType linkType, Date now) {
-		super(now);
+	public Link(LinkType linkType) {
+		super();
 		m_linkType=linkType;
 	}
 	

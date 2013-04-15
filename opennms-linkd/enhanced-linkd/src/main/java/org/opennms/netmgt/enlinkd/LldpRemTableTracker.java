@@ -29,8 +29,6 @@
 package org.opennms.netmgt.enlinkd;
 
 
-import java.util.Date;
-
 import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.model.topology.LldpElementIdentifier;
 import org.opennms.netmgt.model.topology.LldpEndPoint;
@@ -122,8 +120,8 @@ public class LldpRemTableTracker extends TableTracker {
 	    	return LldpLocalGroup.getElementIdentifier(getLldpRemChassisId(), getLldpRemSysname(), getLldpRemChassisidSubtype());
 	    }
 	    
-	    public LldpEndPoint getRemEndPoint(Date now) {
-	    	return LldpLocPortGetter.getEndPoint(getLldpRemPortid(), getLldpRemPortidSubtype(),now);
+	    public LldpEndPoint getRemEndPoint() {
+	    	return LldpLocPortGetter.getEndPoint(getLldpRemPortidSubtype(),getLldpRemPortid() );
 	    }
     }
 

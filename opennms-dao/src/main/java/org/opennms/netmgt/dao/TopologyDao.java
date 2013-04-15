@@ -1,5 +1,7 @@
 package org.opennms.netmgt.dao;
 
+import java.util.List;
+
 import org.opennms.netmgt.model.topology.Element;
 import org.opennms.netmgt.model.topology.EndPoint;
 import org.opennms.netmgt.model.topology.Link;
@@ -15,5 +17,6 @@ public interface TopologyDao {
 	public void delete(Link link);
 	
 	public void delete(EndPoint endpoint);
-	
+		
+	public List<Element> getTopology();
 }

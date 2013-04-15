@@ -28,15 +28,11 @@
 
 package org.opennms.netmgt.enlinkd;
 
-import java.net.InetAddress;
-import java.util.Date;
-
 import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.core.utils.ThreadCategory;
 
 import org.opennms.netmgt.linkd.snmp.NamedSnmpVar;
 import org.opennms.netmgt.linkd.snmp.SnmpStore;
-import org.opennms.netmgt.model.topology.ElementIdentifier;
 import org.opennms.netmgt.model.topology.LldpElementIdentifier;
 import org.opennms.netmgt.model.topology.LldpElementIdentifier.LldpChassisIdSubType;
 import org.opennms.netmgt.snmp.AggregateTracker;
@@ -91,7 +87,7 @@ public final class LldpLocalGroup extends AggregateTracker {
 
     private SnmpStore m_store;
     
-    public LldpLocalGroup(InetAddress address) {
+    public LldpLocalGroup() {
         super(NamedSnmpVar.getTrackersFor(ms_elemList));
         m_store = new SnmpStore(ms_elemList);
     }
@@ -134,10 +130,10 @@ public final class LldpLocalGroup extends AggregateTracker {
     	if (lldpLocChassisidSubType.equals(LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_NETWORKADDRESS))
     		lldpLocChassisId = InetAddressUtils.str(value.toInetAddress());
 
-    	return new LldpElementIdentifier(lldpLocChassisId, sysname, lldpLocChassisidSubType, new Date());
+    	return new LldpElementIdentifier(lldpLocChassisId, sysname, lldpLocChassisidSubType);
     }
 
-	public ElementIdentifier getElementIdentifier() {
+	public LldpElementIdentifier getElementIdentifier() {
 		return LldpLocalGroup.getElementIdentifier(getLldpLocChassisid(), getLldpLocSysname(), getLldpLocChassisidSubType());
 	}
 

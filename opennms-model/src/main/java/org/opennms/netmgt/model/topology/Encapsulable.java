@@ -1,6 +1,5 @@
 package org.opennms.netmgt.model.topology;
 
-import java.util.Date;
 import java.util.List;
 
 
@@ -13,8 +12,8 @@ import java.util.List;
  */
 public abstract class Encapsulable extends EndPoint {
 	
-	public Encapsulable(Date now) {
-		super(now);
+	public Encapsulable() {
+		super();
 	}
 
 	private List<EndPoint> m_encapsulatedby;

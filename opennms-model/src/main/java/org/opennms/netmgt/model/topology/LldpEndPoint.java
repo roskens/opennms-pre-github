@@ -1,12 +1,13 @@
 package org.opennms.netmgt.model.topology;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LldpEndPoint extends EndPoint {
 
 	public static class LldpPortIdSubType extends AbstractType 
-	implements Comparable<LldpPortIdSubType>, Serializable{
+	implements Serializable{
 	
 	    /**
 		 * 
@@ -81,14 +82,9 @@ public class LldpEndPoint extends EndPoint {
 	    	super(chassisIdsubtype);
 	    }
 
-        static {
-        	s_order.add(1, 1);
-        	s_order.add(2, 2);
-        	s_order.add(3, 3);
-        	s_order.add(4, 4);
-        	s_order.add(5, 5);
-        	s_order.add(6, 6);
-        	s_order.add(7, 7);
+	    protected static final Map<Integer, String> s_typeMap = new HashMap<Integer, String>();
+
+	    static {
         	s_typeMap.put(1, "interfaceAlias" );
         	s_typeMap.put(2, "portComponent" );
         	s_typeMap.put(3, "macAddress" );
@@ -98,10 +94,18 @@ public class LldpEndPoint extends EndPoint {
         	s_typeMap.put(7, "local" );
         }
 
-        @Override
-        public int compareTo(LldpPortIdSubType o) {
-            return getIndex(m_type) - getIndex(o.m_type);
-        }
+	    /**
+	     * <p>ElementIdentifierTypeString</p>
+	     *
+	     * @return a {@link java.lang.String} object.
+	     */
+	    /**
+	     */
+	    public static String getTypeString(Integer code) {
+	        if (s_typeMap.containsKey(code))
+	                return s_typeMap.get( code);
+	        return null;
+	    }
 
         @Override
         public boolean equals(Object o) {
@@ -129,8 +133,8 @@ public class LldpEndPoint extends EndPoint {
 
 	}
 
-	public LldpEndPoint(String lldpPortId, Integer lldpPortidSubType, Date now) {
-		super(now);
+	public LldpEndPoint(String lldpPortId, Integer lldpPortidSubType) {
+		super();
 		m_lldpPortId = lldpPortId;
 		m_lldpPortIdSubType = LldpPortIdSubType.get(lldpPortidSubType);
 	}
@@ -139,7 +143,7 @@ public class LldpEndPoint extends EndPoint {
 	private final String m_lldpPortId;
 
 	
-	public LldpPortIdSubType getPortIdSubType() {
+	public LldpPortIdSubType getLldpPortIdSubType() {
 		return m_lldpPortIdSubType;
 	}
 		
@@ -153,7 +157,7 @@ public class LldpEndPoint extends EndPoint {
 			LldpEndPoint a=(LldpEndPoint)endPoint;
 			if (getDevice().equals(a.getDevice()) &&
 				getLldpPortId().equals(a.getLldpPortId()) &&
-				getPortIdSubType().equals(a.getPortIdSubType()))
+				getLldpPortIdSubType().equals(a.getLldpPortIdSubType()))
 				return true;
 		}
 		return false;

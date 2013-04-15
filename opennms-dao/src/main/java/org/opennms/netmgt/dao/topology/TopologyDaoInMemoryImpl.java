@@ -88,4 +88,9 @@ public class TopologyDaoInMemoryImpl implements TopologyDao {
 		}
 	}
 
+	@Override
+	public List<Element> getTopology() {
+		return m_elements;
+	}
+
 }

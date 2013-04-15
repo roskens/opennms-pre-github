@@ -72,7 +72,7 @@ public final class LldpLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
 
     	String trackerName = "lldpLocalGroup";
 
-        LldpLocalGroup lldpLocalGroup = new LldpLocalGroup(getTarget());
+        LldpLocalGroup lldpLocalGroup = new LldpLocalGroup();
 
 		LogUtils.debugf(this, "run: collecting : %s", getPeer());
 
@@ -95,7 +95,7 @@ public final class LldpLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
         }
         
         final Element deviceA = new Element();
-        deviceA.addElementIdentifier(new NodeElementIdentifier(getNodeId(),now));
+        deviceA.addElementIdentifier(new NodeElementIdentifier(getNodeId()));
         deviceA.addElementIdentifier(lldpLocalGroup.getElementIdentifier());
 
 		final LldpLocPortGetter lldpLocPort = new LldpLocPortGetter(getPeer());
@@ -103,13 +103,13 @@ public final class LldpLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
         LldpRemTableTracker m_lldpRemTable = new LldpRemTableTracker() {
             
         	public void processLldpRemRow(final LldpRemRow row) {        		
-        		LldpEndPoint endPointA = lldpLocPort.get(row.getLldpRemLocalPortNum(), now);
+        		LldpEndPoint endPointA = lldpLocPort.get(row.getLldpRemLocalPortNum());
         		endPointA.setDevice(deviceA);
         	    final Element deviceB = new Element();
         		deviceB.addElementIdentifier(row.getRemElementIdentifier());
-        		LldpEndPoint endPointB = row.getRemEndPoint(now);
+        		LldpEndPoint endPointB = row.getRemEndPoint();
         		endPointB.setDevice(deviceB);
-        		LldpLink link = new LldpLink(endPointA, endPointB, now);
+        		LldpLink link = new LldpLink(endPointA, endPointB);
         		endPointA.setLink(link);
         		endPointB.setLink(link);
         		m_linkd.getQueryManager().store(link);

@@ -1,13 +1,11 @@
 package org.opennms.netmgt.model.topology;
 
-import java.util.Date;
-
 public final class NodeElementIdentifier extends ElementIdentifier {
 
 	private Integer m_nodeid; 
 
-	public NodeElementIdentifier(Integer nodeid, Date now) {
-		super(ElementIdentifierType.ONMSNODE, now);
+	public NodeElementIdentifier(Integer nodeid) {
+		super(ElementIdentifierType.ONMSNODE);
 		m_nodeid = Integer.valueOf(nodeid);
 	}
 
