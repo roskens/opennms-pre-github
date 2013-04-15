@@ -17,21 +17,20 @@ public class TopologyDaoInMemoryImpl implements TopologyDao {
     	m_elements = new ArrayList<Element>();
     }
 
-	protected void updateElementIdentifier(Element element, Element e) {
-		if (element.equals(e)) {
-			List<ElementIdentifier> eitoberemoved = new ArrayList<ElementIdentifier>();
-			for (ElementIdentifier ei: e.getElementIdentifiers()) {
-				if (element.hasElementIdentifier(ei)) {
-					eitoberemoved.add(ei);
-				}
-			}
-			for (ElementIdentifier remove: eitoberemoved) {
-				e.removeElementIdentifier(remove);
-			}
-			for (ElementIdentifier add: element.getElementIdentifiers()) {
-				e.addElementIdentifier(add);
+	protected Element updateElementIdentifier(Element element, Element e) {
+		List<ElementIdentifier> eitoberemoved = new ArrayList<ElementIdentifier>();
+		for (ElementIdentifier ei: e.getElementIdentifiers()) {
+			if (element.hasElementIdentifier(ei)) {
+				eitoberemoved.add(ei);
 			}
 		}
+		for (ElementIdentifier remove: eitoberemoved) {
+			e.removeElementIdentifier(remove);
+		}
+		for (ElementIdentifier add: element.getElementIdentifiers()) {
+			e.addElementIdentifier(add);
+		}
+		return e;
 	}
 
 	@Override
@@ -44,7 +43,7 @@ public class TopologyDaoInMemoryImpl implements TopologyDao {
 	public void saveOrUpdate(EndPoint endpoint) {
 		for (Element e: m_elements) {
 			if (e.equals(endpoint.getDevice())) {
-				updateElementIdentifier(endpoint.getDevice(),e);
+				e=updateElementIdentifier(endpoint.getDevice(),e);
 				if (e.hasEndPoint(endpoint)) {
 					e.removeEndPoint(endpoint);
 				}

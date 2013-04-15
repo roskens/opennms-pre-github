@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 public class LldpEndPoint extends EndPoint {
 
 	public static class LldpPortIdSubType extends AbstractType 
@@ -155,7 +157,10 @@ public class LldpEndPoint extends EndPoint {
 	public boolean equals(EndPoint endPoint) {
 		if (endPoint instanceof LldpEndPoint) {
 			LldpEndPoint a=(LldpEndPoint)endPoint;
-			if (getDevice().equals(a.getDevice()) &&
+			if (
+		((getDevice() != null && a.getDevice() != null && getDevice().equals(a.getDevice())) 
+					|| (getDevice() == null && a.getDevice() == null)) 
+					 &&
 				getLldpPortId().equals(a.getLldpPortId()) &&
 				getLldpPortIdSubType().equals(a.getLldpPortIdSubType()))
 				return true;
@@ -163,4 +168,16 @@ public class LldpEndPoint extends EndPoint {
 		return false;
 	}
 	
+	/**
+	 * <p>toString</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
+	public String toString() {
+		return new ToStringBuilder(this)
+			.append("lldpPortIdSubType", m_lldpPortIdSubType)
+			.append("m_lldpPortId", m_lldpPortId)
+			.toString();
+	}
+
 }

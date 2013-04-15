@@ -106,7 +106,7 @@ public abstract class Link extends Pollable {
 	public boolean equals(Object o) {
 		if (o instanceof Link) {
 			Link a = (Link)o;
-			if (m_linkType.equals((a.getLinkType()))) {
+			if (getLinkType().equals((a.getLinkType()))) {
 				if ((a.getA().equals(getA()) && a.getB().equals(getB()))
 						|| (a.getA().equals(getB()) && a.getB().equals(getA())))
 					return true;

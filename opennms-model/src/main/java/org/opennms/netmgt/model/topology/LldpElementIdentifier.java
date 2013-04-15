@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 public final class LldpElementIdentifier extends ElementIdentifier {
 
 	public static class LldpChassisIdSubType extends AbstractType 
@@ -186,5 +188,18 @@ public final class LldpElementIdentifier extends ElementIdentifier {
 			
 		return false;
 	}
-    
+ 
+	/**
+	 * <p>toString</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
+	public String toString() {
+		return new ToStringBuilder(this)
+			.append("lldpChassisSubType", m_lldpChassisIdSubType)
+			.append("lldpChassisId", m_lldpChassisId)
+			.append("lldpSysName", m_lldpSysname)
+			.toString();
+	}
+
 }

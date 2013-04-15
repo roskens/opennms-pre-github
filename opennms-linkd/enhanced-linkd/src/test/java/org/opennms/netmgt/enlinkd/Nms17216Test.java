@@ -54,8 +54,13 @@ import org.opennms.netmgt.dao.TopologyDao;
 import org.opennms.netmgt.linkd.Nms17216NetworkBuilder;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.topology.Element;
+import org.opennms.netmgt.model.topology.ElementIdentifier;
+import org.opennms.netmgt.model.topology.ElementIdentifier.ElementIdentifierType;
 import org.opennms.netmgt.model.topology.EndPoint;
 import org.opennms.netmgt.model.topology.Link;
+import org.opennms.netmgt.model.topology.LldpElementIdentifier;
+import org.opennms.netmgt.model.topology.LldpEndPoint;
+import org.opennms.netmgt.model.topology.NodeElementIdentifier;
 import org.opennms.test.JUnitConfigurationEnvironment;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,8 +98,14 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
     @Before
     public void setUp() throws Exception {
         Properties p = new Properties();
-        p.setProperty("log4j.logger.org.hibernate.SQL", "WARN");
-        p.setProperty("log4j.logger.org.hibernate.cfg", "WARN");
+//        p.setProperty("log4j.logger.org.hibernate.SQL", "WARN");
+//        p.setProperty("log4j.logger.org.hibernate.cfg", "WARN");
+//        p.setProperty("log4j.logger.org.hibernate.impl", "WARN");
+//        p.setProperty("log4j.logger.org.hibernate.hql", "WARN");
+        p.setProperty("log4j.logger.org.opennms.netmgt.linkd.snmp", "WARN");
+        p.setProperty("log4j.logger.org.opennms.netmgt.snmp", "WARN");
+        p.setProperty("log4j.logger.org.opennms.netmgt.filter", "WARN");
+        p.setProperty("log4j.logger.org.hibernate", "WARN");
         p.setProperty("log4j.logger.org.springframework","WARN");
         p.setProperty("log4j.logger.com.mchange.v2.resourcepool", "WARN");
         MockLogAppender.setupLogging(p);
@@ -377,22 +388,21 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
         assertTrue(m_linkd.scheduleNodeCollection(switch3.getId()));
  
         assertTrue(m_linkd.runSingleSnmpCollection(switch1.getId()));
+        final List<Element> topologyA = m_topologyDao.getTopology();
+        assertEquals(2,topologyA.size());
+        
+        List<EndPoint> endpoints = printTopology(topologyA);
+        assertEquals(8, endpoints.size());
+//        assertEquals(4, links.size());
+
         assertTrue(m_linkd.runSingleSnmpCollection(switch2.getId()));
-        assertTrue(m_linkd.runSingleSnmpCollection(switch3.getId()));
-        
-        final List<Element> topology = m_topologyDao.getTopology();
-        assertEquals(3,topology.size());
-        List<EndPoint> endpoints = new ArrayList<EndPoint>();
-        List<Link> links = new ArrayList<Link>();
-        for (Element e: topology) {
-        	for (EndPoint ep: e.getEndpoints()) {
-        		endpoints.add(ep);
-        		links.add(ep.getLink());
-        	}
-        }
-        
+        assertEquals(3,topologyA.size());
+
+        endpoints = printTopology(topologyA);
         assertEquals(12, endpoints.size());
-        assertEquals(6, links.size());
+//        assertEquals(6, links.size());
+
+        //assertTrue(m_linkd.runSingleSnmpCollection(switch3.getId()));
 
 //FIXME               
 /*
@@ -483,6 +493,34 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
 //                checkLink(router3, switch4, 9, 10001, datalinkinterface);
                
 //        }
+    }
+    
+    private List<EndPoint> printTopology(final List<Element> topology) {
+
+    	List<EndPoint> endpoints = new ArrayList<EndPoint>();
+
+    	int i=1;
+        for (final Element e: topology) {
+        	System.err.println("----------element "+i+"--------");
+        	for (ElementIdentifier iden: e.getElementIdentifiers()) {
+            	System.err.println("----------element identifier--------");
+    			System.err.println("Identifier type: " + ElementIdentifierType.getTypeString(iden.getType().getIntCode()));
+    			if (iden.getType().equals(ElementIdentifierType.ONMSNODE)) 
+        			System.err.println("Identifier node: " + ((NodeElementIdentifier)iden).getNodeid());
+    			else if (iden.getType().equals(ElementIdentifierType.LLDP))
+    				System.err.println("Identifier lldp: " + ((LldpElementIdentifier)iden).getLldpChassisId());
+        	}
+        	for (EndPoint ep: e.getEndpoints()) {
+            	System.err.println("----------endpoint identifier--------");
+        		LldpEndPoint lldpep = (LldpEndPoint) ep;
+        		System.err.println("Found Endpoint: " + lldpep.getLldpPortId());
+        		if (!endpoints.contains(ep))
+        			endpoints.add(ep);
+        	}
+        	i++;
+        }
+        return endpoints;
+	
     }
 
 }

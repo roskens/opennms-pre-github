@@ -32,16 +32,7 @@ public class LldpLocPortGetter extends TableTracker {
 		SnmpValue[] val = SnmpUtils.get(m_agentConfig, oids);
 		if (val == null || val.length != 2 || val[0] == null || val[1] == null || !val[0].isNumeric())
 			return null;
-		return  LldpLocPortGetter.getEndPoint(val[0].toInt(),val[1]);
+		return  LldpHelper.getEndPoint(val[0].toInt(),val[1]);
 	}
-	
 
-	public static LldpEndPoint getEndPoint(Integer type,SnmpValue value) {
-		String lldpPortId = value.toDisplayString();
-    	if (type.equals(LldpPortIdSubType.LLDP_PORTID_SUBTYPE_MACADDRESS))
-    		lldpPortId = value.toHexString();
-    	if (type.equals(LldpPortIdSubType.LLDP_PORTID_SUBTYPE_NETWORKADDRESS))
-    		lldpPortId = InetAddressUtils.str(value.toInetAddress());
-    	return new LldpEndPoint(lldpPortId, type);
-	}
 }

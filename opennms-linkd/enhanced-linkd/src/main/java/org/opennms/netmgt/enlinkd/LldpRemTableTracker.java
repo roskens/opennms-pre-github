@@ -117,11 +117,11 @@ public class LldpRemTableTracker extends TableTracker {
 	    }
 	    
 	    public LldpElementIdentifier getRemElementIdentifier() {
-	    	return LldpLocalGroup.getElementIdentifier(getLldpRemChassisId(), getLldpRemSysname(), getLldpRemChassisidSubtype());
+	    	return LldpHelper.getElementIdentifier(getLldpRemChassisId(), getLldpRemSysname(), getLldpRemChassisidSubtype());
 	    }
 	    
 	    public LldpEndPoint getRemEndPoint() {
-	    	return LldpLocPortGetter.getEndPoint(getLldpRemPortidSubtype(),getLldpRemPortid() );
+	    	return LldpHelper.getEndPoint(getLldpRemPortidSubtype(),getLldpRemPortid() );
 	    }
     }
 

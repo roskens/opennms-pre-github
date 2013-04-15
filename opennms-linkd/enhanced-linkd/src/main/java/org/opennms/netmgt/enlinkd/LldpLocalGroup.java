@@ -123,18 +123,8 @@ public final class LldpLocalGroup extends AggregateTracker {
         return ThreadCategory.getInstance(getClass());
     }
 
-    public static LldpElementIdentifier getElementIdentifier(final SnmpValue value, String sysname, Integer lldpLocChassisidSubType) {
-    	String  lldpLocChassisId = value.toDisplayString();
-    	if (lldpLocChassisidSubType.equals(LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS))
-    		lldpLocChassisId = value.toHexString();
-    	if (lldpLocChassisidSubType.equals(LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_NETWORKADDRESS))
-    		lldpLocChassisId = InetAddressUtils.str(value.toInetAddress());
-
-    	return new LldpElementIdentifier(lldpLocChassisId, sysname, lldpLocChassisidSubType);
-    }
-
 	public LldpElementIdentifier getElementIdentifier() {
-		return LldpLocalGroup.getElementIdentifier(getLldpLocChassisid(), getLldpLocSysname(), getLldpLocChassisidSubType());
+		return LldpHelper.getElementIdentifier(getLldpLocChassisid(), getLldpLocSysname(), getLldpLocChassisidSubType());
 	}
-
+	
 }

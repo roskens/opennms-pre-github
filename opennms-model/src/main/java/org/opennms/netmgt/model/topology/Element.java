@@ -55,8 +55,12 @@ public class Element {
 	}
 	public boolean equals(Object o) {
 		if ( o instanceof Element) {
+			Element e = (Element) o;
+			if (e.getElementIdentifiers().size() == 0 && 
+					getElementIdentifiers().size() == 0)
+					return true;
 			for (ElementIdentifier localElementIdentifier : getElementIdentifiers()) {
-				for (ElementIdentifier oe: ((Element) o).getElementIdentifiers()) {
+				for (ElementIdentifier oe: e.getElementIdentifiers()) {
 					if (oe.equals(localElementIdentifier))
 						return true;
 				}

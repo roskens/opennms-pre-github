@@ -36,6 +36,7 @@ import java.util.Date;
 
 import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.model.topology.Element;
+import org.opennms.netmgt.model.topology.LldpElementIdentifier;
 import org.opennms.netmgt.model.topology.LldpEndPoint;
 import org.opennms.netmgt.model.topology.LldpLink;
 import org.opennms.netmgt.model.topology.NodeElementIdentifier;
@@ -72,7 +73,7 @@ public final class LldpLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
 
     	String trackerName = "lldpLocalGroup";
 
-        LldpLocalGroup lldpLocalGroup = new LldpLocalGroup();
+        final LldpLocalGroup lldpLocalGroup = new LldpLocalGroup();
 
 		LogUtils.debugf(this, "run: collecting : %s", getPeer());
 
@@ -93,32 +94,51 @@ public final class LldpLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
             LogUtils.errorf(this, e, "run: collection interrupted, exiting");
             return;
         }
-        
-        final Element deviceA = new Element();
-        deviceA.addElementIdentifier(new NodeElementIdentifier(getNodeId()));
-        deviceA.addElementIdentifier(lldpLocalGroup.getElementIdentifier());
+        final LldpElementIdentifier lldpLocalElementIdentifier = lldpLocalGroup.getElementIdentifier();
+        LogUtils.infof(this, "found local lldp identifier : %s", lldpLocalElementIdentifier);
 
-		final LldpLocPortGetter lldpLocPort = new LldpLocPortGetter(getPeer());
+        final NodeElementIdentifier nodeElementIdentifier = new NodeElementIdentifier(getNodeId());
+        LogUtils.infof(this, "found node identifier for node: %s", nodeElementIdentifier );
+
+        final LldpLocPortGetter lldpLocPort = new LldpLocPortGetter(getPeer());
         trackerName = "lldpRemTable";
         LldpRemTableTracker lldpRemTable = new LldpRemTableTracker() {
-            
-        	public void processLldpRemRow(final LldpRemRow row) {        		
-        		LldpEndPoint endPointA = lldpLocPort.get(row.getLldpRemLocalPortNum());
-        		endPointA.setDevice(deviceA);
-        	    final Element deviceB = new Element();
-        		deviceB.addElementIdentifier(row.getRemElementIdentifier());
-        		LldpEndPoint endPointB = row.getRemEndPoint();
-        		endPointB.setDevice(deviceB);
-        		LldpLink link = new LldpLink(endPointA, endPointB);
-        		endPointA.setLink(link);
-        		endPointB.setLink(link);
-        		m_linkd.getQueryManager().store(link);
-            }
+
+        	public void processLldpRemRow(final LldpRemRow row) {
+
+                Element deviceA = new Element();
+                deviceA.addElementIdentifier(nodeElementIdentifier);
+                deviceA.addElementIdentifier(lldpLocalElementIdentifier);
+                LogUtils.infof(this, "processLldpRemRow: row count: %d", row.getColumnCount());
+                LogUtils.infof(this, "processLldpRemRow: row local port num: %d",  row.getLldpRemLocalPortNum());
+
+                LldpEndPoint endPointA = lldpLocPort.get(row.getLldpRemLocalPortNum());
+                deviceA.addEndPoint(endPointA);
+	    		endPointA.setDevice(deviceA);
+                LogUtils.infof(this, "processLldpRemRow: row local port id: %s", endPointA.getLldpPortId());
+                LogUtils.infof(this, "processLldpRemRow: row local port subtype: %s", endPointA.getLldpPortIdSubType());
+	    		
+	    		Element deviceB = new Element();
+	            LldpElementIdentifier lldpRemElementIdentifier = row.getRemElementIdentifier();
+	            LogUtils.infof(this, "found remote lldp identifier : %s", lldpRemElementIdentifier);
+	            deviceB.addElementIdentifier(lldpRemElementIdentifier);
+	    		
+	    		LldpEndPoint endPointB = row.getRemEndPoint();
+	    		deviceB.addEndPoint(endPointB);
+	    		endPointB.setDevice(deviceB);
+                LogUtils.infof(this, "processLldpRemRow: row rem port id: %s", endPointB.getLldpPortId());
+                LogUtils.infof(this, "processLldpRemRow: row rem port subtype: %s", endPointB.getLldpPortIdSubType());
+	    		
+	    		LldpLink link = new LldpLink(endPointA, endPointB);
+	    		endPointA.setLink(link);
+	    		endPointB.setLink(link);
+	    		
+	    		m_linkd.getQueryManager().store(link);
+        	}
         };
 
         CollectionTracker[] tracker = new CollectionTracker[0];
         tracker = new CollectionTracker[] {lldpRemTable};
-
         walker = SnmpUtils.createWalker(getPeer(), trackerName, tracker);
         walker.start();
         
