@@ -31,6 +31,7 @@ package org.opennms.netmgt.enlinkd;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Properties;
@@ -48,13 +49,13 @@ import org.opennms.core.test.snmp.annotations.JUnitSnmpAgents;
 import org.opennms.core.utils.BeanUtils;
 import org.opennms.netmgt.config.LinkdConfig;
 import org.opennms.netmgt.config.linkd.Package;
-import org.opennms.netmgt.dao.DataLinkInterfaceDao;
 import org.opennms.netmgt.dao.NodeDao;
-import org.opennms.netmgt.dao.SnmpInterfaceDao;
 import org.opennms.netmgt.dao.TopologyDao;
 import org.opennms.netmgt.linkd.Nms17216NetworkBuilder;
-import org.opennms.netmgt.model.DataLinkInterface;
 import org.opennms.netmgt.model.OnmsNode;
+import org.opennms.netmgt.model.topology.Element;
+import org.opennms.netmgt.model.topology.EndPoint;
+import org.opennms.netmgt.model.topology.Link;
 import org.opennms.test.JUnitConfigurationEnvironment;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,7 +67,7 @@ import org.springframework.test.context.ContextConfiguration;
         "classpath:/META-INF/opennms/applicationContext-daemon.xml",
         "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml",
         "classpath:/META-INF/opennms/mockEventIpcManager.xml",
-        "classpath:/META-INF/opennms/applicationContext-linkdTest.xml"
+        "classpath:/META-INF/opennms/applicationContext-enhancedLinkdTest.xml"
 })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
@@ -81,9 +82,6 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
     @Autowired
     private NodeDao m_nodeDao;
     
-    @Autowired
-    private SnmpInterfaceDao m_snmpInterfaceDao;
-
     @Autowired
     private TopologyDao m_topologyDao;
         
@@ -381,9 +379,22 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
         assertTrue(m_linkd.runSingleSnmpCollection(switch1.getId()));
         assertTrue(m_linkd.runSingleSnmpCollection(switch2.getId()));
         assertTrue(m_linkd.runSingleSnmpCollection(switch3.getId()));
+        
+        final List<Element> topology = m_topologyDao.getTopology();
+        assertEquals(3,topology.size());
+        List<EndPoint> endpoints = new ArrayList<EndPoint>();
+        List<Link> links = new ArrayList<Link>();
+        for (Element e: topology) {
+        	for (EndPoint ep: e.getEndpoints()) {
+        		endpoints.add(ep);
+        		links.add(ep.getLink());
+        	}
+        }
+        
+        assertEquals(12, endpoints.size());
+        assertEquals(6, links.size());
+
 //FIXME               
-//        assertEquals(6,m_dataLinkInterfaceDao.countAll());
-//        final List<DataLinkInterface> links = m_dataLinkInterfaceDao.findAll();
 /*
         int startid = getStartPoint(links);
         for (final DataLinkInterface link: links) {
@@ -458,9 +469,9 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
 
         assertEquals(2, nodes.size());
         
-        for (LinkableNode node: nodes) {
+//        for (LinkableNode node: nodes) {
   //          assertEquals(1, node.getCdpInterfaces().size());
-        }
+  //      }
         
  //       assertTrue(m_linkd.runSingleLinkDiscovery("example1"));
 

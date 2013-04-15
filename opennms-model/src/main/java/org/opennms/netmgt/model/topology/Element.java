@@ -1,5 +1,6 @@
 package org.opennms.netmgt.model.topology;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -13,6 +14,10 @@ public class Element {
 
 	private List<ElementIdentifier> m_identifiers;
 
+	public Element() {
+		m_endpoints = new ArrayList<EndPoint>();
+		m_identifiers = new ArrayList<ElementIdentifier>();
+	}
 	public List<EndPoint> getEndpoints() {
 		return m_endpoints;
 	}

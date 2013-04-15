@@ -100,7 +100,7 @@ public final class LldpLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
 
 		final LldpLocPortGetter lldpLocPort = new LldpLocPortGetter(getPeer());
         trackerName = "lldpRemTable";
-        LldpRemTableTracker m_lldpRemTable = new LldpRemTableTracker() {
+        LldpRemTableTracker lldpRemTable = new LldpRemTableTracker() {
             
         	public void processLldpRemRow(final LldpRemRow row) {        		
         		LldpEndPoint endPointA = lldpLocPort.get(row.getLldpRemLocalPortNum());
@@ -117,7 +117,7 @@ public final class LldpLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
         };
 
         CollectionTracker[] tracker = new CollectionTracker[0];
-        tracker = new CollectionTracker[] {m_lldpRemTable};
+        tracker = new CollectionTracker[] {lldpRemTable};
 
         walker = SnmpUtils.createWalker(getPeer(), trackerName, tracker);
         walker.start();

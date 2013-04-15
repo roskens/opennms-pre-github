@@ -14,7 +14,7 @@ import org.opennms.netmgt.model.topology.Link;
 import org.opennms.netmgt.model.topology.LldpLink;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class EnhanceLinkdServiceImpl implements EnhancedLinkdService {
+public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 
 	@Autowired
 	private NodeDao m_nodeDao;
