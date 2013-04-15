@@ -19,6 +19,7 @@
 
     <bean id="queryManager" class="org.opennms.netmgt.enlinkd.EnhancedLinkdServiceImpl">
       <property name="nodeDao" ref="nodeDao" />
+      <property name="topologyDao" ref="topologyDao" />
     </bean>
 
     <bean id="scheduler" class="org.opennms.netmgt.linkd.scheduler.Scheduler">

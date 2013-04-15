@@ -417,4 +417,6 @@
 
   <bean id="alarmStatisticsService" class="org.opennms.netmgt.dao.stats.DefaultAlarmStatisticsService" />
 
+  <bean id="topologyDao" class="org.opennms.netmgt.dao.topology.TopologyDaoInMemoryImpl" />
+
 </beans>
