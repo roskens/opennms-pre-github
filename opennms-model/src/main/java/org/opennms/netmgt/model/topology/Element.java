@@ -9,8 +9,6 @@ import java.util.List;
  */
 public class Element {
 
-	private Integer m_id;
-	
 	private List<EndPoint> m_endpoints;
 
 	private List<ElementIdentifier> m_identifiers;
@@ -27,18 +25,29 @@ public class Element {
 		return m_identifiers;
 	}
 
+	public boolean hasElementIdentifier(ElementIdentifier elementidentifier) {
+		return m_identifiers.contains(elementidentifier);
+	}
+	
+	public void removeElementIdentifier(ElementIdentifier elementidentifier) {
+		m_identifiers.remove(elementidentifier);
+	}
+	
 	public void addElementIdentifier(ElementIdentifier elementidentifier) {
 		m_identifiers.add(elementidentifier);
 	}
 
-	public void setId(Integer id) {
-		m_id = id;
+	public boolean hasEndPoint(EndPoint endPoint) {
+		return m_endpoints.contains(endPoint);
 	}
 	
-	public Integer getId() {
-		return m_id;
+	public void removeEndPoint(EndPoint endPoint) {
+		m_endpoints.remove(endPoint);
 	}
-
+	
+	public void addEndPoint(EndPoint endPoint) {
+		m_endpoints.add(endPoint);
+	}
 	public boolean equals(Object o) {
 		if ( o instanceof Element) {
 			for (ElementIdentifier localElementIdentifier : getElementIdentifiers()) {
