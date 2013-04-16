@@ -177,6 +177,7 @@ public class LldpEndPoint extends EndPoint {
 		return new ToStringBuilder(this)
 			.append("lldpPortIdSubType", m_lldpPortIdSubType)
 			.append("m_lldpPortId", m_lldpPortId)
+			.append("lastPoll", m_lastPoll)
 			.toString();
 	}
 

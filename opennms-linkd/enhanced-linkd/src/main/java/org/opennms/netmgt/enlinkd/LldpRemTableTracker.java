@@ -130,7 +130,7 @@ public class LldpRemTableTracker extends TableTracker {
     }
     
     /**
-     * <p>Constructor for IPInterfaceTableTracker.</p>
+     * <p>Constructor for LldpRemTableTracker.</p>
      *
      * @param rowProcessor a {@link org.opennms.netmgt.snmp.RowCallback} object.
      */
@@ -151,14 +151,11 @@ public class LldpRemTableTracker extends TableTracker {
     }
 
     /**
-     * <p>processIPInterfaceRow</p>
+     * <p>processLldpRemRow</p>
      *
-     * @param row a {@link org.opennms.netmgt.provision.service.IPAddressTableTracker.IPAddressRow} object.
+     * @param row a {@link org.opennms.netmgt.enlinkd.LldpRemTableTracker.LldpRemRow} object.
      */
     public void processLldpRemRow(final LldpRemRow row) {
     }
-
-    
-
 
 }

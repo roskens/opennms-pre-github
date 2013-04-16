@@ -4,7 +4,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 public final class NodeElementIdentifier extends ElementIdentifier {
 
-	private Integer m_nodeid; 
+	private final Integer m_nodeid; 
 
 	public NodeElementIdentifier(Integer nodeid) {
 		super(ElementIdentifierType.ONMSNODE);
@@ -13,10 +13,6 @@ public final class NodeElementIdentifier extends ElementIdentifier {
 
 	public Integer getNodeid() {
 		return m_nodeid;
-	}
-
-	public void setNodeid(Integer nodeid) {
-		m_nodeid = nodeid;
 	}
 
 	@Override
@@ -34,6 +30,7 @@ public final class NodeElementIdentifier extends ElementIdentifier {
 	public String toString() {
 		return new ToStringBuilder(this)
 			.append("nodeid", m_nodeid)
+			.append("lastPoll", m_lastPoll)
 			.toString();
 	}
 

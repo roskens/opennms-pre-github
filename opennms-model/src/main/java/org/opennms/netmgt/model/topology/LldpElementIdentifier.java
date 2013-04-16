@@ -199,6 +199,7 @@ public final class LldpElementIdentifier extends ElementIdentifier {
 			.append("lldpChassisSubType", m_lldpChassisIdSubType)
 			.append("lldpChassisId", m_lldpChassisId)
 			.append("lldpSysName", m_lldpSysname)
+			.append("lastPoll", m_lastPoll)
 			.toString();
 	}
 

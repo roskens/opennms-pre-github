@@ -110,7 +110,7 @@ public class EnhancedLinkd extends AbstractServiceDaemon {
 
     /**
      * <p>
-     * Constructor for Linkd.
+     * Constructor for EnhancedLinkd.
      * </p>
      */
     public EnhancedLinkd() {
@@ -197,11 +197,18 @@ public class EnhancedLinkd extends AbstractServiceDaemon {
         
         if (pkg.hasUseLldpDiscovery() ? pkg.getUseLldpDiscovery()
                 : m_linkdConfig.useLldpDiscovery()) {
-        	LldpLinkdNodeDiscovery coll = new LldpLinkdNodeDiscovery(this, node, pkgName);
+        	LldpLinkdNodeDiscovery lldpcoll = new LldpLinkdNodeDiscovery(this, node, pkgName);
       
-            snmpcolls.add(coll);
+            snmpcolls.add(lldpcoll);
+        }
+        
+        if (pkg.hasUseCdpDiscovery() ? pkg.getUseCdpDiscovery()
+                : m_linkdConfig.useCdpDiscovery()); {
+             CdpLinkdNodeDiscovery cdpcoll = new CdpLinkdNodeDiscovery(this, node, pkgName);
+             snmpcolls.add(cdpcoll);   	
         }
         return snmpcolls;
+
         /*
         String ipRouteClassName =  m_linkdConfig.getDefaultIpRouteClassName();
         if (m_linkdConfig.hasIpRouteClassName(sysoid)) {
@@ -217,8 +224,7 @@ public class EnhancedLinkd extends AbstractServiceDaemon {
 
         final boolean useIpRouteDiscovery = (pkg.hasUseIpRouteDiscovery() ? pkg.getUseIpRouteDiscovery()
                                                                          : m_linkdConfig.useIpRouteDiscovery());
-        final boolean useCdpDiscovery = (pkg.hasUseCdpDiscovery() ? pkg.getUseCdpDiscovery()
-                                                                   : m_linkdConfig.useCdpDiscovery());
+       
         final boolean useOspfDiscovery = (pkg.hasUseOspfDiscovery() ? pkg.getUseOspfDiscovery()
                                                                     : m_linkdConfig.useOspfDiscovery());
         final boolean useBridgeDiscovery = (pkg.hasUseBridgeDiscovery() ? pkg.getUseBridgeDiscovery()
