@@ -2,14 +2,67 @@ package org.opennms.netmgt.model.topology;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.opennms.core.test.MockLogAppender;
 import org.opennms.netmgt.model.topology.LldpElementIdentifier.LldpChassisIdSubType;
 import org.opennms.netmgt.model.topology.LldpEndPoint.LldpPortIdSubType;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 public class TopologyTest {
+
+    @Before
+    public void setUp() throws Exception {
+        Properties p = new Properties();
+//        p.setProperty("log4j.logger.org.hibernate.SQL", "WARN");
+//        p.setProperty("log4j.logger.org.hibernate.cfg", "WARN");
+//        p.setProperty("log4j.logger.org.hibernate.impl", "WARN");
+//        p.setProperty("log4j.logger.org.hibernate.hql", "WARN");
+        p.setProperty("log4j.logger.org.opennms.netmgt.linkd.snmp", "WARN");
+        p.setProperty("log4j.logger.org.opennms.netmgt.snmp", "WARN");
+        p.setProperty("log4j.logger.org.opennms.netmgt.filter", "WARN");
+        p.setProperty("log4j.logger.org.hibernate", "WARN");
+        p.setProperty("log4j.logger.org.springframework","WARN");
+        p.setProperty("log4j.logger.com.mchange.v2.resourcepool", "WARN");
+        MockLogAppender.setupLogging(p);
+    }
+
+	@Test
+	public void testHasEndPoint() {
+		Element elementA = new Element();
+		elementA.addElementIdentifier(new LldpElementIdentifier("0016c8bd4d80", "switch3", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS));
+		elementA.addElementIdentifier(new NodeElementIdentifier(1));
+		LldpEndPoint endPointA1 = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME);
+		elementA.addEndPoint(endPointA1);
+		
+		LldpEndPoint endPointA1F = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME);
+		assertEquals(true, elementA.hasEndPoint(endPointA1F));
+	}
+
+	@Test
+	public void testHasEndPointWithDelay() {
+		Element elementA = new Element();
+		elementA.addElementIdentifier(new LldpElementIdentifier("0016c8bd4d80", "switch3", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS));
+		elementA.addElementIdentifier(new NodeElementIdentifier(1));
+		LldpEndPoint endPointA1 = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME);
+		LldpEndPoint endPointA2 = new LldpEndPoint("Ge0/2", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME);
+		LldpEndPoint endPointA3 = new LldpEndPoint("Ge0/3", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME);
+		elementA.addEndPoint(endPointA1);
+		elementA.addEndPoint(endPointA2);
+		elementA.addEndPoint(endPointA3);
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		LldpEndPoint endPointA1F = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME);
+		assertEquals(true, elementA.hasEndPoint(endPointA1F));
+	}
+
 
 	@Test
 	public void testTopology() {
@@ -40,6 +93,7 @@ public class TopologyTest {
 		elementA.addEndPoint(endPointA4);
 		LldpEndPoint endPointA1F = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME);
 		assertEquals(endPointA1, endPointA1F);
+		assertEquals(true, elementA.hasEndPoint(endPointA1F));
 		
 		endPointA1.setDevice(elementA);
 		endPointA2.setDevice(elementA);
@@ -100,6 +154,28 @@ public class TopologyTest {
 				links.add(e.getLink());
 		}
 		assertEquals(8, endpoints.size());		
-		assertEquals(4, links.size());		
+		assertEquals(4, links.size());
+		
+		LldpEndPoint endPointA1new = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME);
+		endPointA1new.setDevice(elementA);
+		
+		assertEquals(false,elementB.hasEndPoint(endPointA1new));
+		
+		LldpEndPoint endPointA5 = new LldpEndPoint("Ge0/5", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME);
+		endPointA5.setDevice(elementA);
+		assertEquals(false, elementA.hasEndPoint(endPointA5));
+		
+		System.err.println("-----here is the contains method call-------");
+		System.err.println("");
+
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		assertEquals(true, elementA.hasEndPoint(endPointA1new));
+
+
 	}
 }
