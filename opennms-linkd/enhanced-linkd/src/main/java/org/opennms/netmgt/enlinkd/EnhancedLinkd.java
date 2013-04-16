@@ -204,8 +204,8 @@ public class EnhancedLinkd extends AbstractServiceDaemon {
         
         if (pkg.hasUseCdpDiscovery() ? pkg.getUseCdpDiscovery()
                 : m_linkdConfig.useCdpDiscovery()); {
-             CdpLinkdNodeDiscovery cdpcoll = new CdpLinkdNodeDiscovery(this, node, pkgName);
-             snmpcolls.add(cdpcoll);   	
+             //CdpLinkdNodeDiscovery cdpcoll = new CdpLinkdNodeDiscovery(this, node, pkgName);
+             //snmpcolls.add(cdpcoll);   	
         }
         return snmpcolls;
 

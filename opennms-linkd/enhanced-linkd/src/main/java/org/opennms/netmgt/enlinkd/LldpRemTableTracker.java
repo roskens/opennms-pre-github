@@ -29,9 +29,15 @@
 package org.opennms.netmgt.enlinkd;
 
 
+import java.util.List;
+
 import org.opennms.core.utils.LogUtils;
+import org.opennms.netmgt.model.topology.Element;
+import org.opennms.netmgt.model.topology.ElementIdentifier;
 import org.opennms.netmgt.model.topology.LldpElementIdentifier;
 import org.opennms.netmgt.model.topology.LldpEndPoint;
+import org.opennms.netmgt.model.topology.LldpLink;
+import org.opennms.netmgt.model.topology.NodeElementIdentifier;
 import org.opennms.netmgt.snmp.RowCallback;
 import org.opennms.netmgt.snmp.SnmpInstId;
 import org.opennms.netmgt.snmp.SnmpObjId;
@@ -122,6 +128,36 @@ public class LldpRemTableTracker extends TableTracker {
 	    
 	    public LldpEndPoint getRemEndPoint() {
 	    	return LldpHelper.getEndPoint(getLldpRemPortidSubtype(),getLldpRemPortid() );
+	    }
+	    
+	    public LldpLink getLink(LldpElementIdentifier lldpIdentifier, NodeElementIdentifier nodeIdentifier, LldpLocPortGetter lldpLocPort) {
+            Element deviceA = new Element();
+            deviceA.addElementIdentifier(nodeIdentifier);
+            deviceA.addElementIdentifier(lldpIdentifier);
+            LogUtils.infof(this, "processLldpRemRow: row count: %d", getColumnCount());
+            LogUtils.infof(this, "processLldpRemRow: row local port num: %d",  getLldpRemLocalPortNum());
+
+            LldpEndPoint endPointA = lldpLocPort.get(getLldpRemLocalPortNum());
+            deviceA.addEndPoint(endPointA);
+    		endPointA.setDevice(deviceA);
+            LogUtils.infof(this, "processLldpRemRow: row local port id: %s", endPointA.getLldpPortId());
+            LogUtils.infof(this, "processLldpRemRow: row local port subtype: %s", endPointA.getLldpPortIdSubType());
+    		
+    		Element deviceB = new Element();
+            LldpElementIdentifier lldpRemElementIdentifier = getRemElementIdentifier();
+            LogUtils.infof(this, "found remote lldp identifier : %s", lldpRemElementIdentifier);
+            deviceB.addElementIdentifier(lldpRemElementIdentifier);
+    		
+    		LldpEndPoint endPointB = getRemEndPoint();
+    		deviceB.addEndPoint(endPointB);
+    		endPointB.setDevice(deviceB);
+            LogUtils.infof(this, "processLldpRemRow: row rem port id: %s", endPointB.getLldpPortId());
+            LogUtils.infof(this, "processLldpRemRow: row rem port subtype: %s", endPointB.getLldpPortIdSubType());
+    		
+    		LldpLink link = new LldpLink(endPointA, endPointB);
+    		endPointA.setLink(link);
+    		endPointB.setLink(link);
+    		return link;
 	    }
     }
 

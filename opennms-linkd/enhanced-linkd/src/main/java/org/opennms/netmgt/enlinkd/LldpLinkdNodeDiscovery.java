@@ -35,12 +35,8 @@ import java.util.Date;
 
 
 import org.opennms.core.utils.LogUtils;
-import org.opennms.netmgt.model.topology.Element;
 import org.opennms.netmgt.model.topology.LldpElementIdentifier;
-import org.opennms.netmgt.model.topology.LldpEndPoint;
-import org.opennms.netmgt.model.topology.LldpLink;
 import org.opennms.netmgt.model.topology.NodeElementIdentifier;
-import org.opennms.netmgt.snmp.CollectionTracker;
 
 import org.opennms.netmgt.snmp.SnmpUtils;
 import org.opennms.netmgt.snmp.SnmpWalker;
@@ -86,9 +82,11 @@ public final class LldpLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
             if (walker.timedOut()) {
             	LogUtils.infof(this,
                         "run:Aborting node scan : Agent timed out while scanning the %s table", trackerName);
+            	return;
             }  else if (walker.failed()) {
             	LogUtils.infof(this,
                         "run:Aborting node scan : Agent failed while scanning the %s table: %s", trackerName,walker.getErrorMessage());
+            	return;
             }
         } catch (final InterruptedException e) {
             LogUtils.errorf(this, e, "run: collection interrupted, exiting");
@@ -105,41 +103,11 @@ public final class LldpLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
         LldpRemTableTracker lldpRemTable = new LldpRemTableTracker() {
 
         	public void processLldpRemRow(final LldpRemRow row) {
-
-                Element deviceA = new Element();
-                deviceA.addElementIdentifier(nodeElementIdentifier);
-                deviceA.addElementIdentifier(lldpLocalElementIdentifier);
-                LogUtils.infof(this, "processLldpRemRow: row count: %d", row.getColumnCount());
-                LogUtils.infof(this, "processLldpRemRow: row local port num: %d",  row.getLldpRemLocalPortNum());
-
-                LldpEndPoint endPointA = lldpLocPort.get(row.getLldpRemLocalPortNum());
-                deviceA.addEndPoint(endPointA);
-	    		endPointA.setDevice(deviceA);
-                LogUtils.infof(this, "processLldpRemRow: row local port id: %s", endPointA.getLldpPortId());
-                LogUtils.infof(this, "processLldpRemRow: row local port subtype: %s", endPointA.getLldpPortIdSubType());
-	    		
-	    		Element deviceB = new Element();
-	            LldpElementIdentifier lldpRemElementIdentifier = row.getRemElementIdentifier();
-	            LogUtils.infof(this, "found remote lldp identifier : %s", lldpRemElementIdentifier);
-	            deviceB.addElementIdentifier(lldpRemElementIdentifier);
-	    		
-	    		LldpEndPoint endPointB = row.getRemEndPoint();
-	    		deviceB.addEndPoint(endPointB);
-	    		endPointB.setDevice(deviceB);
-                LogUtils.infof(this, "processLldpRemRow: row rem port id: %s", endPointB.getLldpPortId());
-                LogUtils.infof(this, "processLldpRemRow: row rem port subtype: %s", endPointB.getLldpPortIdSubType());
-	    		
-	    		LldpLink link = new LldpLink(endPointA, endPointB);
-	    		endPointA.setLink(link);
-	    		endPointB.setLink(link);
-	    		
-	    		m_linkd.getQueryManager().store(link);
+        		m_linkd.getQueryManager().store(row.getLink(lldpLocalElementIdentifier, nodeElementIdentifier, lldpLocPort));
         	}
         };
 
-        CollectionTracker[] tracker = new CollectionTracker[0];
-        tracker = new CollectionTracker[] {lldpRemTable};
-        walker = SnmpUtils.createWalker(getPeer(), trackerName, tracker);
+        walker = SnmpUtils.createWalker(getPeer(), trackerName, lldpRemTable);
         walker.start();
         
         try {
