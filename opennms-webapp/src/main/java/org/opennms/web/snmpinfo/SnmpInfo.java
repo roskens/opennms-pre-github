@@ -50,7 +50,15 @@ public class SnmpInfo {
     private int m_port;
     private int m_retries;
     private int m_timeout;
-    
+    private String m_securityName;
+    private int m_securityLevel;
+    private String m_authPassPhrase;
+    private String m_authProtocol;
+    private String m_privPassPhrase;
+    private String m_privProtocol;
+    private int m_maxVarsPerPdu;
+    private int m_maxRepetitions;
+
     /**
      * <p>Constructor for SnmpInfo.</p>
      */
@@ -69,6 +77,14 @@ public class SnmpInfo {
         m_timeout = config.getTimeout();
         m_retries = config.getRetries();
         m_version = config.getVersionAsString();
+        m_securityName = config.getSecurityName();
+        m_securityLevel = config.getSecurityLevel();
+        m_authPassPhrase = config.getAuthPassPhrase();
+        m_authProtocol = config.getAuthProtocol();
+        m_privPassPhrase = config.getPrivPassPhrase();
+        m_privProtocol = config.getPrivProtocol();
+        m_maxRepetitions = config.getMaxRepetitions();
+        m_maxVarsPerPdu = config.getMaxVarsPerPdu();
     }
 
     /**
@@ -161,6 +177,70 @@ public class SnmpInfo {
         m_timeout = timeout;
     }
 
+    public String getSecurityName() {
+    	return m_securityName;
+    }
+    
+    public void setSecurityName (String securityName) {
+    	m_securityName = securityName;
+    }
+    
+    public int getSecurityLevel() {
+    	return m_securityLevel;
+    }
+    
+    public void setSecurityLevel(int securityLevel) {
+    	m_securityLevel = securityLevel;
+    }
+    
+    public String getAuthPassPhrase() {
+    	return m_authPassPhrase;
+    }
+    
+    public void setAuthPassPhrase(String authPassPhrase) {
+    	m_authPassPhrase = authPassPhrase;
+    }
+
+    public String getAuthProtocol() {
+    	return m_authProtocol;
+    }
+    
+    public void setAuthProtocol(String authProtocol) {
+    	m_authProtocol = authProtocol;
+    }
+    
+    public String getPrivPassPhrase() {
+    	return m_privPassPhrase;
+    }
+
+    public void setPrivPassPhrase(String privPassPhrase) {
+    	m_privPassPhrase = privPassPhrase;
+    }
+    
+    public String getPrivProtocol() {
+    	return m_privProtocol;
+    }
+    
+    public void setPrivProtocol(String privProtocol) {
+    	m_privProtocol = privProtocol;
+    }
+    
+    public int getMaxVarsPerPdu() {
+    	return m_maxVarsPerPdu;
+    }
+    
+    public void setMaxVarsPerPdu(int maxVarsPerPdu) {
+    	m_maxVarsPerPdu = maxVarsPerPdu;
+    }
+    
+    public int getMaxRepetitions() {
+    	return m_maxRepetitions;
+    }
+    
+    public void setMaxRepetitions(int maxRepetitions) {
+    	m_maxRepetitions = maxRepetitions;
+    }
+    
     /**
      * <p>createEventInfo</p>
      *
@@ -168,6 +248,7 @@ public class SnmpInfo {
      * @return a {@link org.opennms.netmgt.config.SnmpEventInfo} object.
      * @throws java.net.UnknownHostException if any.
      */
+    // TODO MVR: I assume the SnmpEventInfo object must be support snmp v3 config parms as well ;)
     public SnmpEventInfo createEventInfo(String ipAddr) throws UnknownHostException {
         SnmpEventInfo eventInfo = new SnmpEventInfo();
         eventInfo.setCommunityString(m_community);
