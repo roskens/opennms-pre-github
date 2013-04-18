@@ -31,6 +31,7 @@ package org.opennms.netmgt.enlinkd;
 import java.util.Date;
 import java.util.List;
 
+import org.opennms.netmgt.model.topology.CdpLink;
 import org.opennms.netmgt.model.topology.LldpLink;
 
 /**
@@ -112,5 +113,7 @@ public interface EnhancedLinkdService {
      * 
      */
 	void reconcileLldp(int nodeId, Date now);
+
+	void store(CdpLink link);
     
 }

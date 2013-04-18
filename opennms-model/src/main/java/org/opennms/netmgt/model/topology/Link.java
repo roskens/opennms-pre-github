@@ -23,9 +23,11 @@ public abstract class Link extends Pollable {
 
 			public static final int LINK_TYPE_INPUT=0;
 			public static final int LINK_TYPE_LLDP=1;
+			public static final int LINK_TYPE_CDP=2;
 			
 			public static LinkType INPUT = new LinkType(LINK_TYPE_INPUT);
 			public static LinkType LLDP = new LinkType(LINK_TYPE_LLDP);
+			public static LinkType CDP = new LinkType(LINK_TYPE_CDP);
 
 			public LinkType(Integer linkType) {
 				super(linkType);
@@ -35,6 +37,7 @@ public abstract class Link extends Pollable {
 	        static {
 	        	s_typeMap.put(0, "input" );
 	        	s_typeMap.put(1, "lldp" );
+	        	s_typeMap.put(2, "cdp" );
 	        }
 
 	        /**
@@ -65,6 +68,7 @@ public abstract class Link extends Pollable {
 	            switch (code) {
 	            case LINK_TYPE_INPUT: 		return INPUT;
 	            case LINK_TYPE_LLDP: 		return LLDP;
+	            case LINK_TYPE_CDP: 		return CDP;
 	            default:
 	                throw new IllegalArgumentException("Cannot create LinkType from code "+code);
 	            }

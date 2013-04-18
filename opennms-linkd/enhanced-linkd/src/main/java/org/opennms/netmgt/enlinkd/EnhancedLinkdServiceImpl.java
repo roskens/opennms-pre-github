@@ -10,6 +10,7 @@ import org.opennms.netmgt.dao.TopologyDao;
 import org.opennms.netmgt.model.OnmsCriteria;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.PrimaryType;
+import org.opennms.netmgt.model.topology.CdpLink;
 import org.opennms.netmgt.model.topology.Link;
 import org.opennms.netmgt.model.topology.LldpLink;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,6 +94,11 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 
 	@Override
 	public void store(LldpLink link) {
+		m_topologyDao.saveOrUpdate((Link)link);
+	}
+
+	@Override
+	public void store(CdpLink link) {
 		m_topologyDao.saveOrUpdate((Link)link);
 	}
 

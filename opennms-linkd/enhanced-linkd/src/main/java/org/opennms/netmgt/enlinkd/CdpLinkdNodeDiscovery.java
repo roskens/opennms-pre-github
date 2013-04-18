@@ -36,12 +36,7 @@ import java.util.Date;
 
 import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.model.topology.CdpElementIdentifier;
-import org.opennms.netmgt.model.topology.Element;
-import org.opennms.netmgt.model.topology.LldpElementIdentifier;
-import org.opennms.netmgt.model.topology.LldpEndPoint;
-import org.opennms.netmgt.model.topology.LldpLink;
 import org.opennms.netmgt.model.topology.NodeElementIdentifier;
-import org.opennms.netmgt.snmp.CollectionTracker;
 
 import org.opennms.netmgt.snmp.SnmpUtils;
 import org.opennms.netmgt.snmp.SnmpWalker;
@@ -101,46 +96,16 @@ public final class CdpLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
         final NodeElementIdentifier nodeElementIdentifier = new NodeElementIdentifier(getNodeId());
         LogUtils.infof(this, "found node identifier for node: %s", nodeElementIdentifier );
 
-        final LldpLocPortGetter lldpLocPort = new LldpLocPortGetter(getPeer());
-        trackerName = "lldpRemTable";
-        LldpRemTableTracker lldpRemTable = new LldpRemTableTracker() {
+        final CdpInterfacePortNameGetter cdpInterfacePortNameGetter = new CdpInterfacePortNameGetter(getPeer());
+        trackerName = "cdpCacheTable";
+        CdpCacheTableTracker cdpCacheTable = new CdpCacheTableTracker() {
 
-        	public void processLldpRemRow(final LldpRemRow row) {
-
-                Element deviceA = new Element();
-                deviceA.addElementIdentifier(nodeElementIdentifier);
-                deviceA.addElementIdentifier(cdpGlobalElementIdentifier);
-                LogUtils.infof(this, "processLldpRemRow: row count: %d", row.getColumnCount());
-                LogUtils.infof(this, "processLldpRemRow: row local port num: %d",  row.getLldpRemLocalPortNum());
-
-                LldpEndPoint endPointA = lldpLocPort.get(row.getLldpRemLocalPortNum());
-                deviceA.addEndPoint(endPointA);
-	    		endPointA.setDevice(deviceA);
-                LogUtils.infof(this, "processLldpRemRow: row local port id: %s", endPointA.getLldpPortId());
-                LogUtils.infof(this, "processLldpRemRow: row local port subtype: %s", endPointA.getLldpPortIdSubType());
-	    		
-	    		Element deviceB = new Element();
-	            LldpElementIdentifier lldpRemElementIdentifier = row.getRemElementIdentifier();
-	            LogUtils.infof(this, "found remote lldp identifier : %s", lldpRemElementIdentifier);
-	            deviceB.addElementIdentifier(lldpRemElementIdentifier);
-	    		
-	    		LldpEndPoint endPointB = row.getRemEndPoint();
-	    		deviceB.addEndPoint(endPointB);
-	    		endPointB.setDevice(deviceB);
-                LogUtils.infof(this, "processLldpRemRow: row rem port id: %s", endPointB.getLldpPortId());
-                LogUtils.infof(this, "processLldpRemRow: row rem port subtype: %s", endPointB.getLldpPortIdSubType());
-	    		
-	    		LldpLink link = new LldpLink(endPointA, endPointB);
-	    		endPointA.setLink(link);
-	    		endPointB.setLink(link);
-	    		
-	    		m_linkd.getQueryManager().store(link);
+        	public void processCdpCacheRow(final CdpCacheRow row) {
+	    		m_linkd.getQueryManager().store(row.getLink(cdpGlobalElementIdentifier, nodeElementIdentifier, cdpInterfacePortNameGetter));
         	}
         };
 
-        CollectionTracker[] tracker = new CollectionTracker[0];
-        tracker = new CollectionTracker[] {lldpRemTable};
-        walker = SnmpUtils.createWalker(getPeer(), trackerName, tracker);
+        walker = SnmpUtils.createWalker(getPeer(), trackerName, cdpCacheTable);
         walker.start();
         
         try {

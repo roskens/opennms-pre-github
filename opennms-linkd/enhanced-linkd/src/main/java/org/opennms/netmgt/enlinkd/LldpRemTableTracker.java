@@ -29,11 +29,8 @@
 package org.opennms.netmgt.enlinkd;
 
 
-import java.util.List;
-
 import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.model.topology.Element;
-import org.opennms.netmgt.model.topology.ElementIdentifier;
 import org.opennms.netmgt.model.topology.LldpElementIdentifier;
 import org.opennms.netmgt.model.topology.LldpEndPoint;
 import org.opennms.netmgt.model.topology.LldpLink;
@@ -145,7 +142,7 @@ public class LldpRemTableTracker extends TableTracker {
     		
     		Element deviceB = new Element();
             LldpElementIdentifier lldpRemElementIdentifier = getRemElementIdentifier();
-            LogUtils.infof(this, "found remote lldp identifier : %s", lldpRemElementIdentifier);
+            LogUtils.infof(this, "processLldpRemRow: row rem lldp identifier: %s", lldpRemElementIdentifier);
             deviceB.addElementIdentifier(lldpRemElementIdentifier);
     		
     		LldpEndPoint endPointB = getRemEndPoint();

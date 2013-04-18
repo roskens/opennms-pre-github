@@ -5,6 +5,15 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class CdpEndPoint extends EndPoint {
 
 	private final String m_cdpCacheDevicePort;
+	private Integer m_cdpCacheIfindex;
+	
+	public Integer getCdpCacheIfindex() {
+		return m_cdpCacheIfindex;
+	}
+
+	public void setCdpCacheIfindex(Integer cdpCacheIfindex) {
+		m_cdpCacheIfindex = cdpCacheIfindex;
+	}
 
 	public CdpEndPoint(String  cdpCacheDevicePort) {
 		super();
@@ -36,6 +45,7 @@ public class CdpEndPoint extends EndPoint {
 	public String toString() {
 		return new ToStringBuilder(this)
 			.append("cdpCacheDevicePort", m_cdpCacheDevicePort)
+			.append("cdpCacheIfindex", m_cdpCacheIfindex)
 			.append("lastPoll", m_lastPoll)
 			.toString();
 	}

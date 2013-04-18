@@ -28,13 +28,16 @@
 
 package org.opennms.netmgt.enlinkd;
 
-import java.net.InetAddress;
+//import java.net.InetAddress;
 
-import org.opennms.core.utils.InetAddressUtils;
+//import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.core.utils.LogUtils;
 
 import org.opennms.netmgt.model.topology.CdpElementIdentifier;
 import org.opennms.netmgt.model.topology.CdpEndPoint;
+import org.opennms.netmgt.model.topology.CdpLink;
+import org.opennms.netmgt.model.topology.Element;
+import org.opennms.netmgt.model.topology.NodeElementIdentifier;
 import org.opennms.netmgt.snmp.RowCallback;
 import org.opennms.netmgt.snmp.SnmpInstId;
 import org.opennms.netmgt.snmp.SnmpObjId;
@@ -55,15 +58,15 @@ import org.opennms.netmgt.snmp.TableTracker;
  * @see <A HREF="http://www.ietf.org/rfc/rfc1213.txt">RFC1213</A>
  * @version $Id: $
  */
-public final class CdpCacheTableTracker extends TableTracker {
+public class CdpCacheTableTracker extends TableTracker {
 
 	// Lookup strings for specific table entries
 	//
 	public static final SnmpObjId CDP_CACHE_TABLE_ENTRY = SnmpObjId.get(".1.3.6.1.4.1.9.9.23.1.2.1.1"); // start of table (GETNEXT)
 
-	public final static SnmpObjId CDP_ADDRESS_TYPE      = SnmpObjId.get(".1.3.6.1.4.1.9.9.23.1.2.1.1.3");
-	public final static SnmpObjId CDP_ADDRESS           = SnmpObjId.get(".1.3.6.1.4.1.9.9.23.1.2.1.1.4");
-	public final static SnmpObjId CDP_VERSION           = SnmpObjId.get(".1.3.6.1.4.1.9.9.23.1.2.1.1.5");
+//	public final static SnmpObjId CDP_ADDRESS_TYPE      = SnmpObjId.get(".1.3.6.1.4.1.9.9.23.1.2.1.1.3");
+//	public final static SnmpObjId CDP_ADDRESS           = SnmpObjId.get(".1.3.6.1.4.1.9.9.23.1.2.1.1.4");
+//	public final static SnmpObjId CDP_VERSION           = SnmpObjId.get(".1.3.6.1.4.1.9.9.23.1.2.1.1.5");
 	public final static SnmpObjId CDP_DEVICEID          = SnmpObjId.get(".1.3.6.1.4.1.9.9.23.1.2.1.1.6");
 	public final static SnmpObjId CDP_DEVICEPORT        = SnmpObjId.get(".1.3.6.1.4.1.9.9.23.1.2.1.1.7");
                                                            
@@ -80,7 +83,7 @@ public final class CdpCacheTableTracker extends TableTracker {
 		 * <P>An indication of the type of address contained in the
 		 *  corresponding instance of cdpCacheAddress.</P>
 		 */
-		CDP_ADDRESS_TYPE,
+		//CDP_ADDRESS_TYPE,
 
 		/**
 		 * <P>The (first) network-layer address of the device's
@@ -89,7 +92,7 @@ public final class CdpCacheTableTracker extends TableTracker {
 		 *  instance of cacheAddressType had the value 'ip(1)', then
 		 *  this object would be an IP-address.</P>
 		 */
-		CDP_ADDRESS, 
+		//CDP_ADDRESS, 
 
 		/**
 		 * <P>The Version string as reported in the most recent CDP
@@ -97,7 +100,7 @@ public final class CdpCacheTableTracker extends TableTracker {
 		 *  field (TLV) was reported in the most recent CDP
 		 *  message.</P>
 		 */
-		CDP_VERSION,
+		//CDP_VERSION,
 
 		/**
 		 * <P>The Device-ID string as reported in the most recent CDP
@@ -144,36 +147,36 @@ public final class CdpCacheTableTracker extends TableTracker {
 		 *
 		 * @return a int.
 		 */
-		public Integer getCdpCacheAddressType() {
-		    return getValue(CDP_ADDRESS_TYPE).toInt();
-		}
+		//public Integer getCdpCacheAddressType() {
+		//    return getValue(CDP_ADDRESS_TYPE).toInt();
+		//}
 	
 		/**
 		 * <p>getCdpCacheAddress</p>
 		 *
 		 * @return a {@link java.lang.String} object.
 		 */
-		public String getCdpCacheAddress() {
-		    return getValue(CDP_ADDRESS).toHexString();
-		}
+		//public String getCdpCacheAddress() {
+		//    return getValue(CDP_ADDRESS).toHexString();
+		//}
 	
 		/**
 		 * <p>getCdpCacheIpv4Address</p>
 		 *
 		 * @return a {@link java.lang.String} object.
 		 */
-		public InetAddress getCdpCacheIpv4Address() {
-	            return InetAddressUtils.getIpAddressByHexString(getCdpCacheAddress());	    
-		}
+		//public InetAddress getCdpCacheIpv4Address() {
+	    //        return InetAddressUtils.getIpAddressByHexString(getCdpCacheAddress());	    
+		//}
 		
 		/**
 		 * <p>getCdpCacheVersion</p>
 		 *
 		 * @return a {@link java.lang.String} object.
 		 */
-		public String getCdpCacheVersion() {
-			return getValue(CDP_VERSION).toDisplayString();
-		}
+		//public String getCdpCacheVersion() {
+		//	return getValue(CDP_VERSION).toDisplayString();
+		//}
 		
 		/**
 		 * <p>getCdpCacheDeviceId</p>
@@ -198,8 +201,37 @@ public final class CdpCacheTableTracker extends TableTracker {
 		}
 		
 		public CdpEndPoint getCdpCacheEndPoint() {
-			return new CdpEndPoint(getCdpCacheDeviceId());
+			return new CdpEndPoint(getCdpCacheDevicePort());
 		}
+		
+	    public CdpLink getLink(CdpElementIdentifier cdpIdentifier, NodeElementIdentifier nodeIdentifier, CdpInterfacePortNameGetter cdpInterfacePortNameGetter) {
+            Element deviceA = new Element();
+            deviceA.addElementIdentifier(nodeIdentifier);
+            deviceA.addElementIdentifier(cdpIdentifier);
+            LogUtils.infof(this, "processCdpCacheRow: row count: %d", getColumnCount());
+            LogUtils.infof(this, "processCdpCacheRow: row cdpCacheIfindex: %d",  getCdpCacheIfIndex());
+
+            CdpEndPoint endPointA = cdpInterfacePortNameGetter.get(getCdpCacheIfIndex());
+            deviceA.addEndPoint(endPointA);
+    		endPointA.setDevice(deviceA);
+            LogUtils.infof(this, "processCdpCacheRow: row local port: %s", endPointA.getCdpCacheDevicePort());
+    		
+    		Element deviceB = new Element();
+            CdpElementIdentifier cdpCacheElementIdentifier = getCdpCacheElementIdentifier();
+            LogUtils.infof(this, "processCdpCacheRow: row cdp cache identifier: %s", cdpCacheElementIdentifier);
+            deviceB.addElementIdentifier(cdpCacheElementIdentifier);
+    		
+    		CdpEndPoint endPointB = getCdpCacheEndPoint();
+    		deviceB.addEndPoint(endPointB);
+    		endPointB.setDevice(deviceB);
+            LogUtils.infof(this, "processCdpCacheRow: row cdp cache device port: %s", endPointB.getCdpCacheDevicePort());
+    		
+    		CdpLink link = new CdpLink(endPointA, endPointB);
+    		endPointA.setLink(link);
+    		endPointB.setLink(link);
+    		return link;
+	    }
+
     }
 
 	/**
