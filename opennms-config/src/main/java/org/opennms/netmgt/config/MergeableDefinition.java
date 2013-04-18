@@ -75,8 +75,6 @@ final class MergeableDefinition {
         for(String s : def.getSpecificCollection()) {
             m_configRanges.add(new IPAddressRange(s));
         }
-       
-        
     }
     
     public IPAddressRangeSet getAddressRanges() {
@@ -354,16 +352,8 @@ final class MergeableDefinition {
         return m_snmpConfigDef;
     }
     
-    final private boolean compareObjects(Object str1, Object str2) {
-        boolean match = false;
-        if (str1 == null && str2 == null) {
-            match = true;
-        } else if (str1 == null || str2 == null) {
-            match = false;
-        } else if (str1.equals(str2)) {
-            match = true;
-        }
-        return match;
+    final private <T> boolean compareObjects(T object1, T object2) {
+    	return SnmpConfigManager.areEquals(object1, object2);
     }
 
     /**
@@ -594,7 +584,9 @@ final class MergeableDefinition {
                 && compareObjects(getConfigDef().getPort(), other.getConfigDef().getPort()) 
                 && compareObjects(getConfigDef().getRetry(), other.getConfigDef().getRetry())
                 && compareObjects(getConfigDef().getTimeout(), other.getConfigDef().getTimeout())
-                && compareObjects(getConfigDef().getVersion(), other.getConfigDef().getVersion());
+                && compareObjects(getConfigDef().getVersion(), other.getConfigDef().getVersion())
+                && compareObjects(getConfigDef().getMaxRepetitions(), other.getConfigDef().getMaxRepetitions())
+                && compareObjects(getConfigDef().getMaxVarsPerPdu(), other.getConfigDef().getMaxVarsPerPdu());
         return compares;
     }
     
@@ -602,12 +594,31 @@ final class MergeableDefinition {
         return s == null || "".equals(s.trim());
     }
     
+    /**
+     * Returns true if the definition has no attributes (e.g. version, port, etc.) set. 
+     * That means each range or specific matches the default values.
+     * 
+     * @return true if the definition has no attributes (e.g. version, port, etc.) set.
+     */
     boolean isTrivial() {
         return isEmpty(getConfigDef().getReadCommunity()) 
         && isEmpty(getConfigDef().getVersion())
+        && isEmpty(getConfigDef().getAuthPassphrase())
+        && isEmpty(getConfigDef().getAuthProtocol())
+        && isEmpty(getConfigDef().getContextEngineId())
+        && isEmpty(getConfigDef().getContextName())
+        && isEmpty(getConfigDef().getEngineId())
+        && isEmpty(getConfigDef().getEnterpriseId())
+        && isEmpty(getConfigDef().getPrivacyPassphrase())
+        && isEmpty(getConfigDef().getPrivacyProtocol())
+        && isEmpty(getConfigDef().getSecurityName())
         && !getConfigDef().hasPort()
         && !getConfigDef().hasRetry()
-        && !getConfigDef().hasTimeout();
+        && !getConfigDef().hasTimeout()
+        && !getConfigDef().hasMaxRepetitions()
+        && !getConfigDef().hasMaxRequestSize()
+        && !getConfigDef().hasMaxVarsPerPdu()
+        && !getConfigDef().hasSecurityLevel();
     }
 
 

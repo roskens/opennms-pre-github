@@ -819,6 +819,36 @@ public class EventConstants {
      */
     public final static String PARM_NEW_PRIMARY_SNMP_ADDRESS = "newPrimarySnmpAddress";
 
+    // TODO mvr
+    public final static String PARM_SNMP_SECURITY_NAME = "securityName";
+    
+    // TODO mvr
+    public final static String PARM_SNMP_SECURITY_LEVEL = "securityLevel";
+    
+    // TODO mvr
+    public final static String PARM_SNMP_AUTH_PASSPHRASE = "authPassphrase";
+    
+    // TODO mvr
+    public final static String PARM_SNMP_AUTH_PROTOCOL = "authProtocol";
+    
+    // TODO mvr
+    public final static String PARM_SNMP_ENGINE_ID = "engineId";
+    
+    // TODO mvr
+    public final static String PARM_SNMP_CONTEXT_ENGINE_ID = "contextEngineId";
+    
+    // TODO mvr
+    public final static String PARM_SNMP_ENTERPRISE_ID = "enterpriseId";
+    
+    // TODO mvr
+    public final static String PARM_SNMP_CONTEXT_NAME = "contextName"; 
+    
+    // TODO mvr
+    public final static String PARM_SNMP_PRIVACY_PASSPHRASE = "privPassphrase";
+    
+    // TODO mvr
+    public final static String PARM_SNMP_PRIVACY_PROTOCOL = "privProtocol";
+    
     /**
      * The first IP address in a range of IP addresses when sent as an event
      * parm.

@@ -44,6 +44,8 @@ import org.opennms.netmgt.model.events.EventBuilder;
 import org.opennms.netmgt.model.events.EventProxy;
 import org.opennms.web.api.Util;
 
+import com.google.common.base.Strings;
+
 /**
  * A servlet that handles configuring SNMP
  *
@@ -54,6 +56,9 @@ import org.opennms.web.api.Util;
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  * @version $Id: $
  * @since 1.8.1
+ */
+/*
+ * TODO MVR is this the servlet wfor handling the ui that david was talking about? especially the /admin/snmpConfigured.jsp page?
  */
 public class SnmpConfigServlet extends HttpServlet {
 
@@ -85,20 +90,23 @@ public class SnmpConfigServlet extends HttpServlet {
         bldr.setInterface(addr(firstIPAddress));
         bldr.setService("SNMP");
         
+        /*
+         * TODO mvr is there a more generic way to marshal/unmarshal (yeah not the right word, but is basically always the same binding framework problem) the SnmpEvent?
+         */
         bldr.addParam(EventConstants.PARM_FIRST_IP_ADDRESS, firstIPAddress);
         bldr.addParam(EventConstants.PARM_LAST_IP_ADDRESS, lastIPAddress);
         bldr.addParam(EventConstants.PARM_COMMUNITY_STRING, communityString);
         
-        if ( timeout.length() > 0) {
+        if ( !Strings.isNullOrEmpty(timeout)) {
         	bldr.addParam(EventConstants.PARM_TIMEOUT, timeout);
         }
-        if ( port.length() > 0 ) {
+        if ( !Strings.isNullOrEmpty(port)) {
         	bldr.addParam(EventConstants.PARM_PORT, port);
         }
-        if ( retryCount.length() > 0 ) {
+        if ( !Strings.isNullOrEmpty(retryCount)) {
         	bldr.addParam(EventConstants.PARM_RETRY_COUNT, retryCount);
         }
-        if ( version.length() > 0 ) {
+        if ( !Strings.isNullOrEmpty(version)) {
         	bldr.addParam(EventConstants.PARM_VERSION, version);
         }
         try {

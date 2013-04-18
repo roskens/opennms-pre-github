@@ -119,15 +119,24 @@ public class SnmpAgentConfig extends SnmpConfiguration implements Serializable {
                 agentConfig.setPrivProtocol(value);
             } else if ("read-community".equalsIgnoreCase(key)) {
                 agentConfig.setReadCommunity(value);
+            } else if ("engine-id".equalsIgnoreCase(key)) {
+            	agentConfig.setEngineId(value);
+            } else if ("context-engine-id".equalsIgnoreCase(key)) {
+            	agentConfig.setContextEngineId(value);
+            } else if ("context-name".equalsIgnoreCase(key)) {
+            	agentConfig.setContextName(value);
+            } else if ("enterprise-id".equalsIgnoreCase(key)) {
+            	agentConfig.setEnterpriseId(value);
             } else {
                 s_logger.warn("Unexpected attribute in protocol configuration string for SnmpAgentConfig: '{}'", attribute);
             }
         }
-
-
         return agentConfig;
     }
 
+    /*
+     *  TODO MVr find out where this method is invoked, I assume this is the part which is stored in the database. Maybe it is used in the snmpeventinfo object
+     */
     public String toProtocolConfigString() {
         StringBuffer buff = new StringBuffer("snmp:");
         buff.append("address=" + InetAddressUtils.str(m_address));
@@ -138,18 +147,21 @@ public class SnmpAgentConfig extends SnmpConfiguration implements Serializable {
         buff.append(",max-repetitions=" + getMaxRepetitions());
         buff.append(",max-request-size=" + getMaxRequestSize());
         buff.append(",version=" + versionToString(getVersion()));
-        if (getVersion() == VERSION3) {
+        if (isVersion3()) {
             buff.append(",security-level=" + getSecurityLevel());
             buff.append(",security-name=" + getSecurityName());
             buff.append(",auth-passphrase=" + getAuthPassPhrase());
             buff.append(",auth-protocol=" + getAuthProtocol());
             buff.append(",priv-passprhase=" + getPrivPassPhrase());
             buff.append(",priv-protocol=" + getPrivProtocol());
+            buff.append(",engine-id=" + getEngineId());
+            buff.append(",context-engine-id=" + getContextEngineId());
+            buff.append(",context-name=" + getContextName());
+            buff.append(",enterprise-id=" + getEnterpriseId());
         } else {
             buff.append(",read-community=" + getReadCommunity());
         }
         return buff.toString();
-
     }
 
     public String toString() {
@@ -157,20 +169,24 @@ public class SnmpAgentConfig extends SnmpConfiguration implements Serializable {
         buff.append("Address: " + InetAddressUtils.str(m_address));
         buff.append(", ProxyForAddress: " + InetAddressUtils.str(m_proxyFor));
         buff.append(", Port: " + getPort());
-        buff.append(", Community: " + getReadCommunity());
+        buff.append(", Community: " + getReadCommunity()); // TODO mvr this is not equally to toProtocolConfigString. why?
         buff.append(", Timeout: " + getTimeout());
         buff.append(", Retries: " + getRetries());
         buff.append(", MaxVarsPerPdu: " + getMaxVarsPerPdu());
         buff.append(", MaxRepetitions: " + getMaxRepetitions());
         buff.append(", Max request size: " + getMaxRequestSize());
         buff.append(", Version: " + versionToString(getVersion()));
-        if (getVersion() == VERSION3) {
+        if (isVersion3()) {
             buff.append(", Security level: " + getSecurityLevel());
             buff.append(", Security name: " + getSecurityName());
             buff.append(", auth-passphrase: " + getAuthPassPhrase());
             buff.append(", auth-protocol: " + getAuthProtocol());
             buff.append(", priv-passprhase: " + getPrivPassPhrase());
             buff.append(", priv-protocol: " + getPrivProtocol());
+            buff.append(", engine-id: " + getEngineId());
+            buff.append(", context-engine-id: " + getContextEngineId());
+            buff.append(", context-name: " + getContextName());
+            buff.append(", enterprise-id:" + getEnterpriseId());
         }
         buff.append("]");
         return buff.toString();
