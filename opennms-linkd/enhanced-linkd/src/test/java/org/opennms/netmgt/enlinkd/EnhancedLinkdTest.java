@@ -76,7 +76,7 @@ import org.springframework.test.context.ContextConfiguration;
 })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
-public class Nms17216Test extends Nms17216NetworkBuilder implements InitializingBean {
+public class EnhancedLinkdTest extends Nms17216NetworkBuilder implements InitializingBean {
 
     @Autowired
     private EnhancedLinkd m_linkd;

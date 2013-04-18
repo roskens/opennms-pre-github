@@ -41,11 +41,12 @@ import org.opennms.core.utils.BeanUtils;
 import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.config.SnmpPeerFactory;
 import org.opennms.netmgt.linkd.Nms17216NetworkBuilder;
+import org.opennms.netmgt.model.topology.CdpEndPoint;
 import org.opennms.netmgt.model.topology.LldpElementIdentifier;
 import org.opennms.netmgt.model.topology.LldpElementIdentifier.LldpChassisIdSubType;
 import org.opennms.netmgt.model.topology.LldpEndPoint;
 import org.opennms.netmgt.model.topology.LldpEndPoint.LldpPortIdSubType;
-import org.opennms.netmgt.snmp.CollectionTracker;
+
 import org.opennms.netmgt.snmp.SnmpAgentConfig;
 import org.opennms.netmgt.snmp.SnmpUtils;
 import org.opennms.netmgt.snmp.SnmpWalker;
@@ -58,7 +59,7 @@ import org.springframework.test.context.ContextConfiguration;
         "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml"
 })
 @JUnitConfigurationEnvironment
-public class Nms17216LldpSnmpCollectionTest extends Nms17216NetworkBuilder implements InitializingBean {
+public class SnmpTest extends Nms17216NetworkBuilder implements InitializingBean {
     
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -71,7 +72,7 @@ public class Nms17216LldpSnmpCollectionTest extends Nms17216NetworkBuilder imple
     })
     public void testNetwork17216Switch1LldpRemTableCollection() throws Exception {
 		
-        LldpRemTableTracker m_lldpRemTable = new LldpRemTableTracker() {
+        LldpRemTableTracker lldpRemTable = new LldpRemTableTracker() {
             
         	public void processLldpRemRow(final LldpRemRow row) {
         		LldpElementIdentifier eiB = row.getRemElementIdentifier();
@@ -96,11 +97,9 @@ public class Nms17216LldpSnmpCollectionTest extends Nms17216NetworkBuilder imple
         		System.err.println("remote port id: " + epB.getLldpPortId());
             }
         };
-        CollectionTracker[] tracker = new CollectionTracker[0];
-        tracker = new CollectionTracker[] {m_lldpRemTable};
         SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(SWITCH1_IP));
         String trackerName = "lldpRemTable";
-        SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, trackerName, tracker);
+        SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, trackerName, lldpRemTable);
         walker.start();
 
         try {
@@ -152,7 +151,7 @@ public class Nms17216LldpSnmpCollectionTest extends Nms17216NetworkBuilder imple
     @JUnitSnmpAgents(value={
             @JUnitSnmpAgent(host=SWITCH1_IP, port=161, resource="classpath:linkd/nms17216/switch1-walk.txt")
     })
-    public void testNetwork17216Switch1LldpLocGetterCollection() throws Exception {
+    public void testNetwork17216Switch1LldpLocGetter() throws Exception {
 
     	SnmpAgentConfig  config = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(SWITCH1_IP));
 		
@@ -161,6 +160,22 @@ public class Nms17216LldpSnmpCollectionTest extends Nms17216NetworkBuilder imple
 
 		assertEquals("Gi0/4", epA.getLldpPortId());
 		assertEquals(LldpPortIdSubType.INTERFACENAME, epA.getLldpPortIdSubType());
+		
+    }
+
+    @Test
+    @JUnitSnmpAgents(value={
+            @JUnitSnmpAgent(host=SWITCH1_IP, port=161, resource="classpath:linkd/nms17216/switch1-walk.txt")
+    })
+    public void testNetwork17216Switch1CdpInterfacePortNameGetter() throws Exception {
+
+    	SnmpAgentConfig  config = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(SWITCH1_IP));
+		
+    	final CdpInterfacePortNameGetter cdpLocPort = new CdpInterfacePortNameGetter(config);
+		CdpEndPoint epA = cdpLocPort.get(10104);
+
+		assertEquals("GigabitEthernet0/4", epA.getCdpCacheDevicePort());
+		assertEquals(10104, epA.getCdpCacheIfindex().intValue());
 		
     }
 

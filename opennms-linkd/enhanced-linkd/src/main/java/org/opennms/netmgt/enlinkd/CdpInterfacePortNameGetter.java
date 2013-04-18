@@ -9,7 +9,7 @@ import org.opennms.netmgt.snmp.TableTracker;
 
 public class CdpInterfacePortNameGetter extends TableTracker {
 
-    public final static SnmpObjId CDP_INTERFACE_PORT = SnmpObjId.get(".1.3.6.1.4.1.9.9.23.1.1.5");
+    public final static SnmpObjId CDP_INTERFACE_NAME = SnmpObjId.get(".1.3.6.1.4.1.9.9.23.1.1.1.1.6");
 
 	/**
 	 * The SnmpPeer object used to communicate via SNMP with the remote host.
@@ -23,7 +23,7 @@ public class CdpInterfacePortNameGetter extends TableTracker {
 	public CdpEndPoint get(Integer cdpInterfaceIndex) {
 		SnmpObjId instance = SnmpObjId.get(new int[] {cdpInterfaceIndex});
 		SnmpObjId[] oids = new SnmpObjId[]
-				{SnmpObjId.get(CDP_INTERFACE_PORT, instance)};
+				{SnmpObjId.get(CDP_INTERFACE_NAME, instance)};
 		
 		SnmpValue[] val = SnmpUtils.get(m_agentConfig, oids);
 		if (val == null || val.length != 1 || val[0] == null)
