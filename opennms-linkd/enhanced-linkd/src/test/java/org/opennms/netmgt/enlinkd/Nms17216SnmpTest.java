@@ -31,16 +31,19 @@ package org.opennms.netmgt.enlinkd;
 import static org.junit.Assert.assertEquals;
 
 import java.net.InetAddress;
+import java.util.Properties;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.opennms.core.test.MockLogAppender;
 import org.opennms.core.test.OpenNMSJUnit4ClassRunner;
 import org.opennms.core.test.snmp.annotations.JUnitSnmpAgent;
 import org.opennms.core.test.snmp.annotations.JUnitSnmpAgents;
-import org.opennms.core.utils.BeanUtils;
 import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.config.SnmpPeerFactory;
 import org.opennms.netmgt.linkd.Nms17216NetworkBuilder;
+import org.opennms.netmgt.model.topology.CdpElementIdentifier;
 import org.opennms.netmgt.model.topology.CdpEndPoint;
 import org.opennms.netmgt.model.topology.LldpElementIdentifier;
 import org.opennms.netmgt.model.topology.LldpElementIdentifier.LldpChassisIdSubType;
@@ -59,11 +62,22 @@ import org.springframework.test.context.ContextConfiguration;
         "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml"
 })
 @JUnitConfigurationEnvironment
-public class SnmpTest extends Nms17216NetworkBuilder implements InitializingBean {
+public class Nms17216SnmpTest extends Nms17216NetworkBuilder implements InitializingBean {
     
     @Override
     public void afterPropertiesSet() throws Exception {
-        BeanUtils.assertAutowiring(this);
+    }
+
+    @Before
+    public void setUp() throws Exception {
+        Properties p = new Properties();
+//        p.setProperty("log4j.logger.org.hibernate.SQL", "WARN");
+        p.setProperty("log4j.logger.org.opennms.mock.snmp", "WARN");
+        p.setProperty("log4j.logger.org.opennms.core.test.snmp", "WARN");
+        p.setProperty("log4j.logger.org.opennms.netmgt", "WARN");
+        p.setProperty("log4j.logger.org.springframework","WARN");
+        p.setProperty("log4j.logger.com.mchange.v2.resourcepool", "WARN");
+        MockLogAppender.setupLogging(p);
     }
 
     @Test
@@ -179,5 +193,107 @@ public class SnmpTest extends Nms17216NetworkBuilder implements InitializingBean
 		
     }
 
+    @Test
+    @JUnitSnmpAgents(value={
+            @JUnitSnmpAgent(host=SWITCH1_IP, port=161, resource="classpath:linkd/nms17216/switch1-walk.txt")
+    })
+    public void testNetwork17216Switch1CdpGlobalGroup() throws Exception {
+
+    	String trackerName = "cdpGlobalGroup";
+    	SnmpAgentConfig  config = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(SWITCH1_IP));
+    	        CdpGlobalGroup cdpGlobalGroup = new CdpGlobalGroup();
+        SnmpWalker walker =  SnmpUtils.createWalker(config, trackerName, cdpGlobalGroup);
+
+        walker.start();
+
+        try {
+            walker.waitFor();
+            if (walker.timedOut()) {
+            	LogUtils.infof(this,
+                        "run:Aborting node scan : Agent timed out while scanning the %s table", trackerName);
+            }  else if (walker.failed()) {
+            	LogUtils.infof(this,
+                        "run:Aborting node scan : Agent failed while scanning the %s table: %s", trackerName,walker.getErrorMessage());
+            }
+        } catch (final InterruptedException e) {
+            LogUtils.errorf(this, e, "run: collection interrupted, exiting");
+            return;
+        }
+
+		CdpElementIdentifier eiA = cdpGlobalGroup.getElementIdentifier();
+		System.err.println("local chassis id: " + eiA.getCdpDeviceId());
+		
+		assertEquals("Switch1", eiA.getCdpDeviceId());
+    }
+
+    @Test
+    @JUnitSnmpAgents(value={
+            @JUnitSnmpAgent(host=SWITCH1_IP, port=161, resource="classpath:linkd/nms17216/switch1-walk.txt")
+    })
+    public void testNetwork17216Switch1CdpCacheTableCollection() throws Exception {
+		
+        CdpCacheTableTracker cdpCacheTable = new CdpCacheTableTracker() {
+            
+        	public void processCdpCacheRow(final CdpCacheRow row) {
+        		CdpElementIdentifier eiB = row.getCdpCacheElementIdentifier();
+        		CdpEndPoint epB = row.getCdpCacheEndPoint();
+        		
+        		System.err.println("----------lldp rem----------------");
+        		System.err.println("columns number in the row: " + row.getColumnCount());
+
+        		assertEquals(2, row.getColumnCount());
+
+        		System.err.println("local cdp ifindex: " + row.getCdpCacheIfIndex());
+        		System.err.println("remote cdp device id: " + eiB.getCdpDeviceId());
+        		System.err.println("remote cdp port name: " + epB.getCdpCacheDevicePort());
+            }
+        };
+        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(SWITCH1_IP));
+        String trackerName = "cdpCacheTable";
+        SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, trackerName, cdpCacheTable);
+        walker.start();
+
+        try {
+                walker.waitFor();
+        } catch (final InterruptedException e) {
+            assertEquals(false, true);
+        }
+        
+    }
+
+    @Test
+    @JUnitSnmpAgents(value={
+            @JUnitSnmpAgent(host=SWITCH2_IP, port=161, resource="classpath:linkd/nms17216/switch2-walk.txt")
+    })
+    public void testNetwork17216Switch2CdpCacheTableCollection() throws Exception {
+		
+        CdpCacheTableTracker cdpCacheTable = new CdpCacheTableTracker() {
+            
+        	public void processCdpCacheRow(final CdpCacheRow row) {
+        		CdpElementIdentifier eiB = row.getCdpCacheElementIdentifier();
+        		CdpEndPoint epB = row.getCdpCacheEndPoint();
+        		
+        		System.err.println("----------lldp rem----------------");
+        		System.err.println("columns number in the row: " + row.getColumnCount());
+
+        		assertEquals(2, row.getColumnCount());
+
+        		System.err.println("local cdp ifindex: " + row.getCdpCacheIfIndex());
+        		System.err.println("remote cdp device id: " + eiB.getCdpDeviceId());
+        		System.err.println("remote cdp port name: " + epB.getCdpCacheDevicePort());
+            }
+        };
+        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(SWITCH2_IP));
+        String trackerName = "cdpCacheTable";
+        SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, trackerName, cdpCacheTable);
+        walker.start();
+
+        try {
+                walker.waitFor();
+        } catch (final InterruptedException e) {
+            assertEquals(false, true);
+        }
+        
+    }
 
 }
