@@ -352,7 +352,7 @@ final class MergeableDefinition {
         return m_snmpConfigDef;
     }
     
-    final private <T> boolean compareObjects(T object1, T object2) {
+    final private <T> boolean areEquals(T object1, T object2) {
     	return SnmpConfigManager.areEquals(object1, object2);
     }
 
@@ -580,14 +580,26 @@ final class MergeableDefinition {
     }
 
     boolean matches(MergeableDefinition other) {
-        boolean compares = compareObjects(getConfigDef().getReadCommunity(), other.getConfigDef().getReadCommunity())
-                && compareObjects(getConfigDef().getPort(), other.getConfigDef().getPort()) 
-                && compareObjects(getConfigDef().getRetry(), other.getConfigDef().getRetry())
-                && compareObjects(getConfigDef().getTimeout(), other.getConfigDef().getTimeout())
-                && compareObjects(getConfigDef().getVersion(), other.getConfigDef().getVersion())
-                && compareObjects(getConfigDef().getMaxRepetitions(), other.getConfigDef().getMaxRepetitions())
-                && compareObjects(getConfigDef().getMaxVarsPerPdu(), other.getConfigDef().getMaxVarsPerPdu());
-        return compares;
+        return areEquals(getConfigDef().getReadCommunity(), other.getConfigDef().getReadCommunity())
+                && areEquals(getConfigDef().getPort(), other.getConfigDef().getPort()) 
+                && areEquals(getConfigDef().getRetry(), other.getConfigDef().getRetry())
+                && areEquals(getConfigDef().getTimeout(), other.getConfigDef().getTimeout())
+                && areEquals(getConfigDef().getVersion(), other.getConfigDef().getVersion())
+                && areEquals(getConfigDef().getMaxRepetitions(), other.getConfigDef().getMaxRepetitions())
+                && areEquals(getConfigDef().getMaxVarsPerPdu(), other.getConfigDef().getMaxVarsPerPdu())
+        		&& areEquals(getConfigDef().getAuthPassphrase(), other.getConfigDef().getAuthPassphrase())
+        		&& areEquals(getConfigDef().getAuthProtocol(), other.getConfigDef().getAuthProtocol())
+        		&& areEquals(getConfigDef().getContextEngineId(), other.getConfigDef().getContextEngineId())
+        		&& areEquals(getConfigDef().getContextName(), other.getConfigDef().getContextName())
+        		&& areEquals(getConfigDef().getEngineId(), other.getConfigDef().getEngineId())
+        		&& areEquals(getConfigDef().getEnterpriseId(), other.getConfigDef().getEnterpriseId())
+        		&& areEquals(getConfigDef().getMaxRequestSize(), other.getConfigDef().getMaxRequestSize())
+        		&& areEquals(getConfigDef().getPrivacyPassphrase(), other.getConfigDef().getPrivacyPassphrase())
+        		&& areEquals(getConfigDef().getPrivacyProtocol(), other.getConfigDef().getPrivacyProtocol())
+        		&& areEquals(getConfigDef().getProxyHost(), other.getConfigDef().getProxyHost())
+        		&& areEquals(getConfigDef().getSecurityLevel(), other.getConfigDef().getSecurityLevel())
+        		&& areEquals(getConfigDef().getSecurityName(), other.getConfigDef().getSecurityName()) 
+        		&& areEquals(getConfigDef().getWriteCommunity(), other.getConfigDef().getWriteCommunity());
     }
     
     boolean isEmpty(String s) {
@@ -612,6 +624,8 @@ final class MergeableDefinition {
         && isEmpty(getConfigDef().getPrivacyPassphrase())
         && isEmpty(getConfigDef().getPrivacyProtocol())
         && isEmpty(getConfigDef().getSecurityName())
+        && isEmpty(getConfigDef().getWriteCommunity())
+        && isEmpty(getConfigDef().getProxyHost())
         && !getConfigDef().hasPort()
         && !getConfigDef().hasRetry()
         && !getConfigDef().hasTimeout()

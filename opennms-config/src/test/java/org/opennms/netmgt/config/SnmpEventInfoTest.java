@@ -42,6 +42,7 @@ import java.util.regex.MatchResult;
 import org.apache.commons.io.FileUtils;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.opennms.netmgt.config.snmp.Definition;
 import org.opennms.netmgt.config.snmp.SnmpConfig;
 import org.opennms.netmgt.model.discovery.IPAddress;
 import org.opennms.netmgt.model.discovery.IPAddressRange;
@@ -271,6 +272,89 @@ public class SnmpEventInfoTest {
 
     }
 
+    @Test
+    public void testCreateDefForSnmpV1() {
+    	SnmpEventInfo snmpEventInfo = new SnmpEventInfo();
+    	snmpEventInfo.setAuthPassPhrase("authPassPhrase");
+    	snmpEventInfo.setAuthProtocol("authProtocol");
+    	snmpEventInfo.setCommunityString("communityString");
+    	snmpEventInfo.setContextEngineId("contextEngineId");
+    	snmpEventInfo.setContextName("contextName");
+    	snmpEventInfo.setEngineId("engineId");
+    	snmpEventInfo.setEnterpriseId("enterpriseId");
+    	snmpEventInfo.setMaxRepetitions(1000);
+    	snmpEventInfo.setMaxVarsPerPdu(2000);
+    	snmpEventInfo.setPort(3000);
+    	snmpEventInfo.setPrivPassPhrase("privPassPhrase");
+    	snmpEventInfo.setPrivProtocol("privProtocol");
+    	snmpEventInfo.setRetryCount(4000);
+    	snmpEventInfo.setSecurityLevel(5000);
+    	snmpEventInfo.setTimeout(6000);
+    	snmpEventInfo.setVersion("v1");
+    	
+    	// check v1 properties
+    	Definition def = snmpEventInfo.createDef();
+    	assertEquals(snmpEventInfo.getCommunityString(), def.getReadCommunity());
+    	assertEquals(snmpEventInfo.getMaxRepititions(), def.getMaxRepetitions().intValue());
+    	assertEquals(snmpEventInfo.getMaxVarsPerPdu(), def.getMaxVarsPerPdu().intValue());
+    	assertEquals(snmpEventInfo.getPort(), def.getPort().intValue());
+    	assertEquals(snmpEventInfo.getRetryCount(), def.getRetry().intValue());
+    	assertEquals(snmpEventInfo.getTimeout(), def.getTimeout().intValue());
+    	assertEquals(snmpEventInfo.getVersion(), def.getVersion());
+    	    	
+    	// v3 properties must not be set
+    	assertNull(def.getAuthPassphrase());
+    	assertNull(def.getAuthProtocol());
+    	assertNull(def.getContextEngineId());
+    	assertNull(def.getContextName());
+    	assertNull(def.getEngineId());
+    	assertNull(def.getEnterpriseId());
+    	assertNull(def.getPrivacyPassphrase());
+    	assertNull(def.getPrivacyProtocol());
+    }
+    
+    @Test
+    public void testCreateDefForSnmpV3() {
+    	SnmpEventInfo snmpEventInfo = new SnmpEventInfo();
+    	snmpEventInfo.setAuthPassPhrase("authPassPhrase");
+    	snmpEventInfo.setAuthProtocol("authProtocol");
+    	snmpEventInfo.setCommunityString("communityString");
+    	snmpEventInfo.setContextEngineId("contextEngineId");
+    	snmpEventInfo.setContextName("contextName");
+    	snmpEventInfo.setEngineId("engineId");
+    	snmpEventInfo.setEnterpriseId("enterpriseId");
+    	snmpEventInfo.setMaxRepetitions(1000);
+    	snmpEventInfo.setMaxVarsPerPdu(2000);
+    	snmpEventInfo.setPort(3000);
+    	snmpEventInfo.setPrivPassPhrase("privPassPhrase");
+    	snmpEventInfo.setPrivProtocol("privProtocol");
+    	snmpEventInfo.setRetryCount(4000);
+    	snmpEventInfo.setSecurityLevel(5000);
+    	snmpEventInfo.setTimeout(6000);
+    	snmpEventInfo.setVersion("v3");
+    	
+    	// check v3 propertiess
+    	Definition def = snmpEventInfo.createDef();
+    	assertEquals(snmpEventInfo.getAuthPassprase(), def.getAuthPassphrase());
+    	assertEquals(snmpEventInfo.getAuthProtcol(), def.getAuthProtocol());
+    	assertEquals(snmpEventInfo.getContextEngineId(), def.getContextEngineId());
+    	assertEquals(snmpEventInfo.getContextName(), def.getContextName());
+    	assertEquals(snmpEventInfo.getEngineId(), def.getEngineId());
+    	assertEquals(snmpEventInfo.getEnterpriseId(), def.getEnterpriseId());
+    	assertEquals(snmpEventInfo.getPrivPassPhrase(), def.getPrivacyPassphrase());
+    	assertEquals(snmpEventInfo.getPrivProtocol(), def.getPrivacyProtocol());
+    	assertEquals(snmpEventInfo.getMaxRepititions(), def.getMaxRepetitions().intValue());
+    	assertEquals(snmpEventInfo.getMaxVarsPerPdu(), def.getMaxVarsPerPdu().intValue());
+    	assertEquals(snmpEventInfo.getPort(), def.getPort().intValue());
+    	assertEquals(snmpEventInfo.getRetryCount(), def.getRetry().intValue());
+    	assertEquals(snmpEventInfo.getTimeout(), def.getTimeout().intValue());
+    	assertEquals(snmpEventInfo.getVersion(), def.getVersion());
+    	
+    	// v1/v2 properties must not be set
+    	assertNull(def.getReadCommunity());
+    	assertNull(def.getWriteCommunity());
+    }
+    
 
     /**
      * This tests the ability of a configureSNMP event to change the community
@@ -1301,7 +1385,7 @@ public class SnmpEventInfoTest {
     	final String expectedConfig = 
 		"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" + 
 		"<snmp-config port=\"161\" retry=\"3\" timeout=\"800\" read-community=\"public\" version=\"v1\" max-repetitions=\"17\" max-vars-per-pdu=\"13\" xmlns=\"http://xmlns.opennms.org/xsd/config/snmp\">\n"+
-		"    <definition version=\"v2c\">\n" + 
+		"    <definition version=\"v2c\" max-repetitions=\"5\">\n" + 
 		"        <specific>192.168.0.8</specific>\n" + 
 		"    </definition>\n" + 
 		"</snmp-config>\n";
@@ -1313,7 +1397,7 @@ public class SnmpEventInfoTest {
         SnmpEventInfo info = new SnmpEventInfo();
         info.setVersion("v2c");
         info.setMaxVarsPerPdu(13);
-        info.setMaxRepetitions(17);
+        info.setMaxRepetitions(5);
         info.setFirstIPAddress("192.168.0.8");
         
         SnmpPeerFactory.getInstance().define(info);

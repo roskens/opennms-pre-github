@@ -1,8 +1,8 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2013 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2013 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
@@ -194,6 +194,19 @@ public class SnmpConfigManager {
 		getConfig().setDefinition(defs);
 	}
 
+	/**
+	 * Checks if the two objects are equal or not. They are equal if 
+	 * <ul>
+	 * 	<li>obj1 and obj2 are null</li>
+	 *  <li>obj1 and obj2 are not null and obj1.equals(obj2)</li>
+	 * </ul>
+	 * 
+	 * Otherwise they are not equal.
+	 * 
+	 * @param obj1 Object 1
+	 * @param obj2 Object 2
+	 * @return true if obj1 and obj2 are equal, otherwise false.
+	 */
 	protected static final <T> boolean areEquals(T obj1, T obj2) {
 		boolean match = false;
         if (obj1 == null && obj2 == null) {

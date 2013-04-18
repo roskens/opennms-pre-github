@@ -110,7 +110,6 @@ public class SnmpInfo {
 		} else { // can only be set if snmp version is not v3
 			m_community = config.getReadCommunity();
 		}
-
 	}
 
 	/**
@@ -378,17 +377,26 @@ public class SnmpInfo {
 	 * @throws java.net.UnknownHostException
 	 *             if any.
 	 */
-	// TODO MVR: I assume the SnmpEventInfo object must be support snmp v3
-	// config parms as well ;)
 	public SnmpEventInfo createEventInfo(String ipAddr) throws UnknownHostException {
 		SnmpEventInfo eventInfo = new SnmpEventInfo();
+		eventInfo.setAuthPassPhrase(m_authPassPhrase);
+		eventInfo.setAuthProtocol(m_authProtocol);
 		eventInfo.setCommunityString(m_community);
-		eventInfo.setVersion(m_version);
-		eventInfo.setPort(m_port);
-		eventInfo.setTimeout(m_timeout);
-		eventInfo.setRetryCount(m_retries);
+		eventInfo.setContextEngineId(m_contextEngineId);
+		eventInfo.setContextName(m_contextName);
+		eventInfo.setEngineId(m_engineId);
+		eventInfo.setEnterpriseId(m_enterpriseId);
 		eventInfo.setFirstIPAddress(ipAddr);
+		eventInfo.setMaxRepetitions(m_maxRepetitions);
+		eventInfo.setMaxVarsPerPdu(m_maxVarsPerPdu);
+		eventInfo.setPort(m_port);
+		eventInfo.setPrivPassPhrase(m_privPassPhrase);
+		eventInfo.setPrivProtocol(m_privProtocol);
+		eventInfo.setRetryCount(m_retries);
+		if (m_securityLevel != null) eventInfo.setSecurityLevel(m_securityLevel.intValue());
+		eventInfo.setSecurityName(m_securityName);
+		eventInfo.setTimeout(m_timeout);
+		eventInfo.setVersion(m_version);
 		return eventInfo;
 	}
-
 }
