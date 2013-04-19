@@ -54,7 +54,8 @@ import org.opennms.netmgt.xml.event.Value;
 public class SnmpEventInfo {	
     private String m_firstIPAddress = null;
     private String m_lastIPAddress = null;
-    private String m_communityString = null;
+    private String m_readCommunityString = null;
+    private String m_writeCommunityString = null;
     private int m_timeout = 0;
     private int m_retryCount = 0;
     private String m_version = null;
@@ -63,6 +64,7 @@ public class SnmpEventInfo {
     private String m_securityName = null;
     private int m_maxVarsPerPdu = 0;
     private int m_maxRepetitions = 0;
+    private int m_maxRequestSize = 0;
     private String m_authPassPhrase = null;
     private String m_authProtocol = null;
     private String m_privProtocol = null;
@@ -94,7 +96,8 @@ public class SnmpEventInfo {
      *
      * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
      */
-    public SnmpEventInfo(Event event) {
+    @SuppressWarnings("deprecation")
+	public SnmpEventInfo(Event event) {
         String parmName = null;
         Value parmValue = null;
         String parmContent = null;
@@ -117,14 +120,22 @@ public class SnmpEventInfo {
                     setFirstIPAddress(parmContent);
                 } else if (parmName.equals(EventConstants.PARM_LAST_IP_ADDRESS)) {
                     setLastIPAddress(parmContent);
-                } else if (parmName.equals(EventConstants.PARM_COMMUNITY_STRING)) {
-                    setCommunityString(parmContent);
+                } else if (parmName.equals(EventConstants.PARM_COMMUNITY_STRING) || parmName.equals(EventConstants.PARM_SNMP_READ_COMMUNITY_STRING)) {
+                    setReadCommunityString(parmContent);
+                } else if (parmName.equals(EventConstants.PARM_SNMP_WRITE_COMMUNITY_STRING)) {
+                	setWriteCommunityString(parmContent);
                 } else if (parmName.equals(EventConstants.PARM_RETRY_COUNT)) {
                     setRetryCount(computeIntValue(parmContent));
                 } else if (parmName.equals(EventConstants.PARM_TIMEOUT)) {
                     setTimeout(computeIntValue(parmContent));
                 } else if (parmName.equals(EventConstants.PARM_VERSION)) {
                     setVersion(parmContent);
+                } else if (parmName.equals(EventConstants.PARM_SNMP_MAX_REPETITIONS)) {
+                	setMaxRepetitions(computeIntValue(parmContent));
+                } else if (parmName.equals(EventConstants.PARM_SNMP_MAX_REQUEST_SIZE)) {
+                	setMaxRequestSize(computeIntValue(parmContent));
+                } else if (parmName.equals(EventConstants.PARM_SNMP_MAX_VARS_PER_PDU)) {
+                	setMaxVarsPerPdu(computeIntValue(parmContent));
                 } else if (parmName.equals(EventConstants.PARM_PORT)) {
                     setPort(computeIntValue(parmContent));
                 } else if (parmName.equals(EventConstants.PARM_SNMP_AUTH_PASSPHRASE)) {
@@ -159,21 +170,41 @@ public class SnmpEventInfo {
     }
     
     /**
-     * <p>getCommunityString</p>
+     * Returns the read community string if there is any, otherwise null is returned.
      *
-     * @return a {@link java.lang.String} object.
+     * @return the read community string if there is any, otherwise null is returned.
+     * @deprecated use {@link #getReadCommunityString()} instead.
      */
+    @Deprecated
     public String getCommunityString() {
-        return m_communityString;
+        return getReadCommunityString();
     }
     
     /**
-     * <p>setCommunityString</p>
+     * <p>sets the read community string.</p>
      *
-     * @param communityString a {@link java.lang.String} object.
+     * @param communityString a read community string.
+     * @deprecated use {@link #setReadCommunityString(String)} instead.
      */
+    @Deprecated
     public void setCommunityString(String communityString) {
-        m_communityString = communityString;
+        setReadCommunityString(communityString);
+    }
+    
+    public void setReadCommunityString(String readCommunityString) {
+    	m_readCommunityString = readCommunityString;
+    }
+    
+    public String getReadCommunityString() {
+    	return m_readCommunityString;
+    }
+    
+    public void setWriteCommunityString(String writeCommunityString) {
+    	m_writeCommunityString = writeCommunityString;
+    }
+    
+    public String getWriteCommunityString() {
+    	return m_writeCommunityString;
     }
     
     /**
@@ -340,20 +371,6 @@ public class SnmpEventInfo {
     }
     
     /**
-     * <p>getRange</p>
-     *
-     * @return a {@link org.opennms.netmgt.config.common.Range} object.
-     */
-    public Range getRange() {
-        if (isSpecific()) {
-            throw new IllegalStateException("Attempted to create range with a specific."+this);
-        }
-        Range newRange = new Range();
-        newRange.setBegin(getFirstIPAddress());
-        newRange.setEnd(getLastIPAddress());
-        return newRange;
-    }
-    /**
      * <p>getRetryCount</p>
      *
      * @return a int.
@@ -418,6 +435,29 @@ public class SnmpEventInfo {
         m_port  = port;
     }
     
+    public int getMaxRequestSize() {
+    	return m_maxRequestSize;
+    }
+    
+    public void setMaxRequestSize(int maxRequestSize) {
+    	m_maxRequestSize = maxRequestSize;
+    }
+    
+    /**
+     * <p>getRange</p>
+     *
+     * @return a {@link org.opennms.netmgt.config.common.Range} object.
+     */
+    public Range getRange() {
+        if (isSpecific()) {
+            throw new IllegalStateException("Attempted to create range with a specific."+this);
+        }
+        Range newRange = new Range();
+        newRange.setBegin(getFirstIPAddress());
+        newRange.setEnd(getLastIPAddress());
+        return newRange;
+    }
+    
     /**
      * Determines if the configureSNMP event is for a specific address.
      *
@@ -445,6 +485,7 @@ public class SnmpEventInfo {
         if (getPort() != 0) definition.setPort(Integer.valueOf(getPort()));
         if (getMaxRepititions() != 0) definition.setMaxRepetitions(Integer.valueOf(getMaxRepititions()));
     	if (getMaxVarsPerPdu() != 0) definition.setMaxVarsPerPdu(Integer.valueOf(getMaxVarsPerPdu()));
+    	if (getMaxRequestSize() != 0) definition.setMaxRequestSize(Integer.valueOf(getMaxRequestSize()));
     	
         // version dependend parameters
         if (getVersion() != null && getVersion().equals("v3")) {
@@ -459,7 +500,8 @@ public class SnmpEventInfo {
         	if (StringUtils.isNotEmpty(getSecurityName())) definition.setSecurityName(getSecurityName());
         	if (getSecurityLevel() > 0) definition.setSecurityLevel(getSecurityLevel());
         } else { //v1, v2c or invalid version
-        	if (getCommunityString() != null) definition.setReadCommunity(getCommunityString());
+        	if (getReadCommunityString() != null) definition.setReadCommunity(getReadCommunityString());
+        	if (getWriteCommunityString() != null) definition.setWriteCommunity(getWriteCommunityString());
         }
         
         if (isSpecific()) {

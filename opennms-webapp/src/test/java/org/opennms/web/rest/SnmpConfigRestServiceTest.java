@@ -147,7 +147,8 @@ public class SnmpConfigRestServiceTest extends AbstractSpringJerseyRestTestCase 
 		// change values
 		config.setAuthPassPhrase("authPassPhrase");
 		config.setAuthProtocol("authProtocol");
-		config.setCommunity("community");
+		config.setReadCommunity("readCommunity");
+		config.setWriteCommunity("writeCommunity");
 		config.setContextEngineId("contextEngineId");
 		config.setContextName("contextName");
 		config.setEngineId("engineId");
@@ -162,30 +163,38 @@ public class SnmpConfigRestServiceTest extends AbstractSpringJerseyRestTestCase 
 		config.setSecurityName("securityName");
 		config.setTimeout(6000);
 		config.setVersion("v2c");
+		config.setMaxRequestSize(7000);
 
 		// store them via REST
 		putXmlObject(m_jaxbContext, url, 303, config, "/snmpConfig/1.1.1.1");
 
-		/*
-		 * 1. Check the data in file.
-		 * The data in the file may be invalid (e.g. readCommunity-String in a v3-config) 
-		 */
-		// read data from file
-		SnmpAgentConfig snmpAgentConfig = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr("1.1.1.1"));
-		assertConfiguration(config, snmpAgentConfig);
+		// prepare expected Result
+		expectedConfig = new SnmpInfo();
+		expectedConfig.setMaxRepetitions(1000);
+		expectedConfig.setMaxVarsPerPdu(2000);
+		expectedConfig.setPort(3000);
+		expectedConfig.setRetries(4000);
+		expectedConfig.setTimeout(6000);
+		expectedConfig.setVersion("v2c");
+		expectedConfig.setMaxRequestSize(7000);
+		expectedConfig.setReadCommunity("readCommunity");
+		expectedConfig.setWriteCommunity("writeCommunity");
+		expectedConfig.setAuthPassPhrase(null);
+		expectedConfig.setAuthProtocol(null);
+		expectedConfig.setContextEngineId(null);
+		expectedConfig.setContextName(null);
+		expectedConfig.setEngineId(null);
+		expectedConfig.setEnterpriseId(null);
+		expectedConfig.setPrivPassPhrase(null);
+		expectedConfig.setPrivProtocol(null);
+		expectedConfig.setSecurityLevel(-1);
+		expectedConfig.setSecurityName(null);
 		
-		/*
-		 * 2. Check the data via REST. 
-		 * The data via REST only returns parameters which are valid according to 
-		 * the snmp version. 
-		 */
 		// read via REST
 		SnmpInfo newConfig = getXmlObject(m_jaxbContext, url, 200, SnmpInfo.class);
 		
 		// check ...
-		assertConfiguration(config, newConfig); // ... if Changes were made
-		assertSnmpV3PropertiesHaveNotBeenSet(newConfig); // ... that no v3 parameters were set
-
+		assertConfiguration(expectedConfig, newConfig); // ... if Changes were made
 		dumpConfig();
 	}
 	
@@ -194,51 +203,61 @@ public class SnmpConfigRestServiceTest extends AbstractSpringJerseyRestTestCase 
 		String url = "/snmpConfig/1.1.1.1";
 
 		// Testing GET Collection
-		SnmpInfo config = getXmlObject(m_jaxbContext, url, 200, SnmpInfo.class);
+		SnmpInfo changedConfig = getXmlObject(m_jaxbContext, url, 200, SnmpInfo.class);
 		SnmpInfo expectedConfig = createSnmpInfoWithDefaultsForSnmpV3("1.1.1.1");
-		assertConfiguration(expectedConfig, config); // check if expected defaults matches actual defaults
+		assertConfiguration(expectedConfig, changedConfig); // check if expected defaults matches actual defaults
 		
 		// change values
-		config.setAuthPassPhrase("authPassPhrase");
-		config.setAuthProtocol("authProtocol");
-		config.setCommunity("community");
-		config.setContextEngineId("contextEngineId");
-		config.setContextName("contextName");
-		config.setEngineId("engineId");
-		config.setEnterpriseId("enterpriseId");
-		config.setMaxRepetitions(1000);
-		config.setMaxVarsPerPdu(2000);
-		config.setPort(3000);
-		config.setPrivPassPhrase("privPassPhrase");
-		config.setPrivProtocol("privProtocol");
-		config.setRetries(4000);
-		config.setSecurityLevel(5000);
-		config.setSecurityName("securityName");
-		config.setTimeout(6000);
-		config.setVersion("v3");
+		changedConfig.setAuthPassPhrase("authPassPhrase");
+		changedConfig.setAuthProtocol("authProtocol");
+		changedConfig.setReadCommunity("readCommunity");
+		changedConfig.setWriteCommunity("writeCommunity");
+		changedConfig.setContextEngineId("contextEngineId");
+		changedConfig.setContextName("contextName");
+		changedConfig.setEngineId("engineId");
+		changedConfig.setEnterpriseId("enterpriseId");
+		changedConfig.setMaxRepetitions(1000);
+		changedConfig.setMaxVarsPerPdu(2000);
+		changedConfig.setPort(3000);
+		changedConfig.setPrivPassPhrase("privPassPhrase");
+		changedConfig.setPrivProtocol("privProtocol");
+		changedConfig.setRetries(4000);
+		changedConfig.setSecurityLevel(5000);
+		changedConfig.setSecurityName("securityName");
+		changedConfig.setTimeout(6000);
+		changedConfig.setVersion("v3");
+		changedConfig.setMaxRequestSize(7000);
 
 		// store them via REST
-		putXmlObject(m_jaxbContext, url, 303, config, "/snmpConfig/1.1.1.1");
-
-		/*
-		 * 1. Check the data in file.
-		 * The data in the file may be invalid (e.g. readCommunity-String in a v3-config) 
-		 */
-		// read data from file
-		SnmpAgentConfig snmpAgentConfig = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr("1.1.1.1"));
-		assertConfiguration(config, snmpAgentConfig);
+		putXmlObject(m_jaxbContext, url, 303, changedConfig, "/snmpConfig/1.1.1.1");
 		
-		/*
-		 * 2. Check the data via REST. 
-		 * The data via REST only returns parameters which are valid according to 
-		 * the snmp version. 
-		 */
+		// prepare expected Result
+		expectedConfig = new SnmpInfo();
+		expectedConfig.setAuthPassPhrase("authPassPhrase");
+		expectedConfig.setAuthProtocol("authProtocol");
+		expectedConfig.setContextEngineId("contextEngineId");
+		expectedConfig.setContextName("contextName");
+		expectedConfig.setEngineId("engineId");
+		expectedConfig.setEnterpriseId("enterpriseId");
+		expectedConfig.setMaxRepetitions(1000);
+		expectedConfig.setMaxVarsPerPdu(2000);
+		expectedConfig.setPort(3000);
+		expectedConfig.setPrivPassPhrase("privPassPhrase");
+		expectedConfig.setPrivProtocol("privProtocol");
+		expectedConfig.setRetries(4000);
+		expectedConfig.setSecurityLevel(5000);
+		expectedConfig.setSecurityName("securityName");
+		expectedConfig.setTimeout(6000);
+		expectedConfig.setVersion("v3");
+		expectedConfig.setMaxRequestSize(7000);
+		expectedConfig.setReadCommunity(null);
+		expectedConfig.setWriteCommunity(null);
+		
 		// read via REST
 		SnmpInfo newConfig = getXmlObject(m_jaxbContext, url, 200, SnmpInfo.class);
 		
 		// check ...
-		assertConfiguration(config, newConfig); // ... if Changes were made
-		assertSnmpV1PropertiesHaveNotBeenSet(newConfig); // ... that no v3 parameters were set
+		assertConfiguration(expectedConfig, newConfig); // ... if changes were made
 
 		dumpConfig();
 	}
@@ -249,42 +268,25 @@ public class SnmpConfigRestServiceTest extends AbstractSpringJerseyRestTestCase 
 
 	private SnmpInfo createSnmpInfoWithDefaultsForSnmpV3(final String ipAddress) {
 		SnmpAgentConfig agentConfig = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(ipAddress));
-		SnmpInfo config = new SnmpInfo(agentConfig);
-		return config;
+		return new SnmpInfo(agentConfig);
 	}
 	
 	private SnmpInfo createSnmpInfoWithDefaultsForSnmpV1() {
+		SnmpAgentConfig defaults = new SnmpAgentConfig();
 		SnmpInfo config = new SnmpInfo();
 		config.setPort(DEFAULT_PORT);
 		config.setRetries(DEFAULT_RETRIES);
 		config.setTimeout(DEFAULT_TIMEOUT);
-		config.setCommunity(DEFAULT_COMMUNITY);
+		config.setReadCommunity(DEFAULT_COMMUNITY);
 		config.setVersion(DEFAULT_VERSION);
 		config.setMaxVarsPerPdu(DEFAULT_MAX_VARS_PER_PDU);
 		config.setMaxRepetitions(DEFAULT_MAX_REPETITIONS);
+		// defaults are not set via snmp-config.xml, but via defaults in SnmpAgentConfig
+		config.setWriteCommunity(defaults.getWriteCommunity());
+		config.setMaxRequestSize(defaults.getMaxRequestSize());
 		return config;
 	}
-	
-	private void assertConfiguration(SnmpInfo configLeft, SnmpAgentConfig configRight) {
-		assertEquals(configLeft.getAuthPassPhrase(), configRight.getAuthPassPhrase());
-		assertEquals(configLeft.getAuthProtocol(), configRight.getAuthProtocol());
-		assertEquals(configLeft.getCommunity(), configRight.getReadCommunity());
-		assertEquals(configLeft.getContextEngineId(), configRight.getContextEngineId());
-		assertEquals(configLeft.getContextName(), configRight.getContextEngineId());
-		assertEquals(configLeft.getEngineId(), configRight.getEngineId());
-		assertEquals(configLeft.getEnterpriseId(), configRight.getEnterpriseId());
-		assertEquals(configLeft.getMaxRepetitions(), configRight.getMaxRepetitions());
-		assertEquals(configLeft.getMaxVarsPerPdu(), configRight.getMaxVarsPerPdu());
-		assertEquals(configLeft.getPort(), configRight.getPort());
-		assertEquals(configLeft.getPrivPassPhrase(), configRight.getPrivPassPhrase());
-		assertEquals(configLeft.getPrivProtocol(), configRight.getPrivProtocol());
-		assertEquals(configLeft.getRetries(), configRight.getRetries());
-		assertEquals(configLeft.getSecurityLevel(), configRight.getSecurityLevel());
-		assertEquals(configLeft.getSecurityName(), configRight.getSecurityName());
-		assertEquals(configLeft.getTimeout(), configRight.getTimeout());
-		assertEquals(configLeft.getVersion(), configRight.getVersionAsString());
-	}
-	
+		
 	private void assertConfiguration(SnmpInfo expectedConfig, SnmpInfo actualConfig) {
 		assertNotNull(expectedConfig);
 		assertNotNull(actualConfig);
@@ -316,6 +318,7 @@ public class SnmpConfigRestServiceTest extends AbstractSpringJerseyRestTestCase 
 	 * @param config
 	 */
 	private void assertSnmpV1PropertiesHaveNotBeenSet(SnmpInfo config) {
-		assertEquals(null, config.getCommunity()); // community String must be null !
+		assertEquals(null, config.getReadCommunity()); // community String must be null !
+		assertEquals(null, config.getWriteCommunity());
 	}
 }

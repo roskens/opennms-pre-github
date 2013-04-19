@@ -97,14 +97,9 @@ public class SnmpConfiguration {
     private String m_authProtocol;
     private String m_privProtocol;
     private String m_privPassPhrase;
-    
-    // TODO mvr defaults?
     private String m_engineId;
-    // TODO mvr defaults?
     private String m_contextEngineId;
-    // TODO mvr defaults?
     private String m_contextName;
-    // TODO mvr defaults?
     private String m_enterpriseId;
     
     public SnmpConfiguration() {

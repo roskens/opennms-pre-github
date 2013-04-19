@@ -176,25 +176,6 @@ public class SnmpConfigManager {
 	}
 
 	/**
-	 * Optimize all definitions in the current configuration.
-	 */
-	public void optimizeAllDefs() {
-		// This needs to be called only by code holding the SnmpPeerFactory
-		// writeLock
-		Definition[] defs = getConfig().getDefinition();
-		for (int i = 0; i < defs.length; i++) {
-			MergeableDefinition definition = new MergeableDefinition(defs[i]);
-			if (definition.getConfigDef().getSpecificCount() > 0) {
-				definition.optimizeSpecifics();
-			}
-			if (definition.getConfigDef().getRangeCount() > 1) {
-				definition.optimizeRanges();
-			}
-		}
-		getConfig().setDefinition(defs);
-	}
-
-	/**
 	 * Checks if the two objects are equal or not. They are equal if 
 	 * <ul>
 	 * 	<li>obj1 and obj2 are null</li>

@@ -849,6 +849,15 @@ public class EventConstants {
     // TODO mvr
     public final static String PARM_SNMP_PRIVACY_PROTOCOL = "privProtocol";
     
+    // TODO mvr
+    public final static String PARM_SNMP_MAX_REPETITIONS = "maxRepetitions";
+    
+    // TODO mvr
+    public final static String PARM_SNMP_MAX_REQUEST_SIZE = "maxRequestSize";
+    
+    // TODO mvr
+    public final static String PARM_SNMP_MAX_VARS_PER_PDU = "maxVarsPerPdu";
+    
     /**
      * The first IP address in a range of IP addresses when sent as an event
      * parm.
@@ -862,9 +871,21 @@ public class EventConstants {
     public final static String PARM_LAST_IP_ADDRESS = "lastIPAddress";
 
     /**
-     * The SNMP community string when sent as an event parm.
+     * The SNMP read community string when sent as an event parm.
+     * @deprecated use {@link #PARM_SNMP_READ_COMMUNITY_STRING} instead
      */
+    @Deprecated
     public final static String PARM_COMMUNITY_STRING = "communityString";
+    
+    /**
+     * The SNMP read community string when sent as an event parm.
+     */
+    public final static String PARM_SNMP_READ_COMMUNITY_STRING = "readCommunityString";
+    
+    /**
+     * The SNMP write community string when sent as an event parm.
+     */
+    public final static String PARM_SNMP_WRITE_COMMUNITY_STRING = "writeCommunityString";
 
     /**
      * Service monitor qualifier when sent as an event parm

@@ -34,9 +34,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.opennms.netmgt.config.SnmpEventInfo;
 import org.opennms.netmgt.snmp.SnmpAgentConfig;
-import org.opennms.netmgt.snmp.SnmpConfiguration;
 
 /**
  * <p>
@@ -49,14 +50,13 @@ import org.opennms.netmgt.snmp.SnmpConfiguration;
  */
 @XmlRootElement(name = "snmp-info")
 public class SnmpInfo {
-	private String m_community;
+	private String m_readCommunity;
 	private String m_version;
 	private int m_port;
 	private int m_retries;
 	private int m_timeout;
 	private int m_maxVarsPerPdu;
 	private int m_maxRepetitions;
-
 	private String m_securityName;
 	private Integer m_securityLevel;
 	private String m_authPassPhrase;
@@ -67,7 +67,9 @@ public class SnmpInfo {
 	private String m_contextEngineId;
 	private String m_contextName;
 	private String m_enterpriseId;
-
+	private Integer m_maxRequestSize;
+	private String m_writeCommunity;
+	
 	/**
 	 * <p>
 	 * Constructor for SnmpInfo.
@@ -94,11 +96,12 @@ public class SnmpInfo {
 		m_version = config.getVersionAsString();
 		m_maxRepetitions = config.getMaxRepetitions();
 		m_maxVarsPerPdu = config.getMaxVarsPerPdu();
+		m_maxRequestSize = Integer.valueOf(config.getMaxRequestSize());
 
 		// only set these properties if snmp version is v3
 		if (config.isVersion3()) {
 			m_securityName = config.getSecurityName();
-			m_securityLevel = config.getSecurityLevel();
+			m_securityLevel = Integer.valueOf(config.getSecurityLevel());
 			m_authPassPhrase = config.getAuthPassPhrase();
 			m_authProtocol = config.getAuthProtocol();
 			m_privPassPhrase = config.getPrivPassPhrase();
@@ -108,7 +111,8 @@ public class SnmpInfo {
 			m_contextName = config.getContextName();
 			m_enterpriseId = config.getEnterpriseId();
 		} else { // can only be set if snmp version is not v3
-			m_community = config.getReadCommunity();
+			m_readCommunity = config.getReadCommunity();
+			m_writeCommunity = config.getWriteCommunity();
 		}
 	}
 
@@ -117,10 +121,12 @@ public class SnmpInfo {
 	 * getCommunity
 	 * </p>
 	 * 
-	 * @return the community
+	 * @return the read community string
+	 * @deprecated use {@link #getReadCommunity()} instead.
 	 */
+	@Deprecated
 	public String getCommunity() {
-		return m_community;
+		return getReadCommunity();
 	}
 
 	/**
@@ -129,10 +135,12 @@ public class SnmpInfo {
 	 * </p>
 	 * 
 	 * @param community
-	 *            the community to set
+	 *            the read community string to set
+	 * @deprecated use {@link #setReadCommunity(String)} instead.
 	 */
+	@Deprecated
 	public void setCommunity(String community) {
-		m_community = community;
+		setReadCommunity(community);
 	}
 
 	/**
@@ -146,33 +154,8 @@ public class SnmpInfo {
 		return m_version;
 	}
 
-	/**
-	 * <p>
-	 * Sets the field {@link #m_version}. Be aware that v3 attributes (e.g.
-	 * {@link #m_engineId} will be set to null if version is v1 or v2c. The
-	 * community string is set to null if version is v3.
-	 * </p>
-	 * 
-	 * @param version
-	 *            the version to set.
-	 */
 	public void setVersion(String version) {
 		m_version = version;
-		// if v3, there cannot be a community string
-		if (SnmpConfiguration.VERSION3 == SnmpConfiguration.stringToVersion(version)) {
-			setCommunity(null);
-		} else { // reset all v3 parameters
-			setAuthPassPhrase(null);
-			setAuthProtocol(null);
-			setContextEngineId(null);
-			setContextName(null);
-			setEngineId(null);
-			setEnterpriseId(null);
-			setPrivPassPhrase(null);
-			setPrivProtocol(null);
-			setSecurityLevel(-1);
-			setSecurityName(null);
-		}
 	}
 
 	/**
@@ -355,7 +338,31 @@ public class SnmpInfo {
 	public String getEnterpriseId() {
 		return m_enterpriseId;
 	}
+	
+	public String getReadCommunity() {
+		return m_readCommunity;
+	}
+	
+	public void setReadCommunity(String readCommunity) {
+		m_readCommunity = readCommunity;
+	}
 
+	public String getWriteCommunity() {
+		return m_writeCommunity;
+	}
+	
+	public void setWriteCommunity(String writeCommunity) {
+		m_writeCommunity = writeCommunity;
+	}
+	
+	public Integer getMaxRequestSize() {
+		return m_maxRequestSize;
+	}
+	
+	public void setMaxRequestSize(Integer maxRequestSize) {
+		m_maxRequestSize = maxRequestSize;
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		return EqualsBuilder.reflectionEquals(this, obj);
@@ -366,6 +373,11 @@ public class SnmpInfo {
 		return HashCodeBuilder.reflectionHashCode(this);
 	}
 
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+	}
+	
 	/**
 	 * <p>
 	 * createEventInfo
@@ -381,7 +393,8 @@ public class SnmpInfo {
 		SnmpEventInfo eventInfo = new SnmpEventInfo();
 		eventInfo.setAuthPassPhrase(m_authPassPhrase);
 		eventInfo.setAuthProtocol(m_authProtocol);
-		eventInfo.setCommunityString(m_community);
+		eventInfo.setReadCommunityString(m_readCommunity);
+		eventInfo.setWriteCommunityString(m_writeCommunity);
 		eventInfo.setContextEngineId(m_contextEngineId);
 		eventInfo.setContextName(m_contextName);
 		eventInfo.setEngineId(m_engineId);
@@ -393,10 +406,11 @@ public class SnmpInfo {
 		eventInfo.setPrivPassPhrase(m_privPassPhrase);
 		eventInfo.setPrivProtocol(m_privProtocol);
 		eventInfo.setRetryCount(m_retries);
-		if (m_securityLevel != null) eventInfo.setSecurityLevel(m_securityLevel.intValue());
 		eventInfo.setSecurityName(m_securityName);
 		eventInfo.setTimeout(m_timeout);
 		eventInfo.setVersion(m_version);
+		if (m_securityLevel != null) eventInfo.setSecurityLevel(m_securityLevel.intValue());
+		if (m_maxRequestSize != null) eventInfo.setMaxRequestSize(m_maxRequestSize.intValue());
 		return eventInfo;
 	}
 }

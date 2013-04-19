@@ -127,6 +127,8 @@ public class SnmpAgentConfig extends SnmpConfiguration implements Serializable {
             	agentConfig.setContextName(value);
             } else if ("enterprise-id".equalsIgnoreCase(key)) {
             	agentConfig.setEnterpriseId(value);
+            } else if ("write-community".equalsIgnoreCase(key)) {
+            	agentConfig.setWriteCommunity(value);
             } else {
                 s_logger.warn("Unexpected attribute in protocol configuration string for SnmpAgentConfig: '{}'", attribute);
             }
@@ -152,7 +154,7 @@ public class SnmpAgentConfig extends SnmpConfiguration implements Serializable {
             buff.append(",security-name=" + getSecurityName());
             buff.append(",auth-passphrase=" + getAuthPassPhrase());
             buff.append(",auth-protocol=" + getAuthProtocol());
-            buff.append(",priv-passprhase=" + getPrivPassPhrase());
+            buff.append(",priv-passphrase=" + getPrivPassPhrase());
             buff.append(",priv-protocol=" + getPrivProtocol());
             buff.append(",engine-id=" + getEngineId());
             buff.append(",context-engine-id=" + getContextEngineId());
@@ -160,33 +162,36 @@ public class SnmpAgentConfig extends SnmpConfiguration implements Serializable {
             buff.append(",enterprise-id=" + getEnterpriseId());
         } else {
             buff.append(",read-community=" + getReadCommunity());
+            buff.append(",write-community=" + getWriteCommunity());
         }
         return buff.toString();
     }
 
     public String toString() {
-        StringBuffer buff = new StringBuffer("AgentConfig[");
+        StringBuffer buff = new StringBuffer("SnmpAgentConfig[");
         buff.append("Address: " + InetAddressUtils.str(m_address));
         buff.append(", ProxyForAddress: " + InetAddressUtils.str(m_proxyFor));
         buff.append(", Port: " + getPort());
-        buff.append(", Community: " + getReadCommunity()); // TODO mvr this is not equally to toProtocolConfigString. why?
         buff.append(", Timeout: " + getTimeout());
         buff.append(", Retries: " + getRetries());
         buff.append(", MaxVarsPerPdu: " + getMaxVarsPerPdu());
         buff.append(", MaxRepetitions: " + getMaxRepetitions());
-        buff.append(", Max request size: " + getMaxRequestSize());
+        buff.append(", MaxRequestSize: " + getMaxRequestSize());
         buff.append(", Version: " + versionToString(getVersion()));
         if (isVersion3()) {
-            buff.append(", Security level: " + getSecurityLevel());
-            buff.append(", Security name: " + getSecurityName());
-            buff.append(", auth-passphrase: " + getAuthPassPhrase());
-            buff.append(", auth-protocol: " + getAuthProtocol());
-            buff.append(", priv-passprhase: " + getPrivPassPhrase());
-            buff.append(", priv-protocol: " + getPrivProtocol());
-            buff.append(", engine-id: " + getEngineId());
-            buff.append(", context-engine-id: " + getContextEngineId());
-            buff.append(", context-name: " + getContextName());
-            buff.append(", enterprise-id:" + getEnterpriseId());
+            buff.append(", SecurityLevel: " + getSecurityLevel());
+            buff.append(", SecurityName: " + getSecurityName());
+            buff.append(", AuthPassPhrase: " + getAuthPassPhrase());
+            buff.append(", AuthProtocol: " + getAuthProtocol());
+            buff.append(", PrivPassprhase: " + getPrivPassPhrase());
+            buff.append(", PrivProtocol: " + getPrivProtocol());
+            buff.append(", EngineId: " + getEngineId());
+            buff.append(", ContextEngineId: " + getContextEngineId());
+            buff.append(", ContextName: " + getContextName());
+            buff.append(", EnterpriseId:" + getEnterpriseId());
+        } else {
+        	buff.append(", ReadCommunity: " + getReadCommunity());
+        	buff.append(", WriteCommunity: " + getWriteCommunity());
         }
         buff.append("]");
         return buff.toString();
