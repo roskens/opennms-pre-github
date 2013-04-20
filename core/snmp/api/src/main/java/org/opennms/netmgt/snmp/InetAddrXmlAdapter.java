@@ -1,7 +1,7 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2008-2012 The OpenNMS Group, Inc.
  * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
@@ -26,23 +26,30 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.web.alarm;
+package org.opennms.netmgt.snmp;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
+import java.net.InetAddress;
 
-class ReductionKeyMemo extends Memo {
-    private String reductionKey;
+import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-    public String getReductionKey() {
-        return reductionKey;
-    }
+/**
+ * InetAddresssXmlAdapter
+ *
+ * @author brozow
+ * @version $Id: $
+ */
+public class InetAddrXmlAdapter extends XmlAdapter<String, InetAddress> {
 
-    public void setReductionKey(String reductionKey) {
-        this.reductionKey = reductionKey;
-    }
-
+    /** {@inheritDoc} */
     @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this);
+    public String marshal(InetAddress inetAddr) throws Exception {
+    	return InetAddrUtils.str(inetAddr);
     }
+
+    /** {@inheritDoc} */
+    @Override
+    public InetAddress unmarshal(String ipAddr) throws Exception {
+    	return InetAddrUtils.addr(ipAddr);
+    }
+
 }
