@@ -33,6 +33,7 @@ import java.util.List;
 
 import org.opennms.netmgt.model.topology.CdpLink;
 import org.opennms.netmgt.model.topology.LldpLink;
+import org.opennms.netmgt.model.topology.OspfLink;
 
 /**
  * <p>QueryManager interface.</p>
@@ -115,5 +116,7 @@ public interface EnhancedLinkdService {
 	void reconcileLldp(int nodeId, Date now);
 
 	void store(CdpLink link);
+
+	void store(OspfLink link);
     
 }
