@@ -67,10 +67,7 @@ public final class EventProcessor {
 
         EventUtils.checkNodeId(event);
 
-        // Remove the deleted node from the scheduler if it's an SNMP node
         m_linkd.deleteNode(event.getNodeid().intValue());
-        // set to status = D in all the rows in table
-        // atinterface, iprouteinterface, datalinkinterface, stpnode, stpinterface
     }
 
     /**
@@ -89,8 +86,6 @@ public final class EventProcessor {
         }
 
         m_linkd.deleteInterface(event.getNodeid().intValue(), event.getInterface(), ifIndex);
-        // set to status = D in all the rows in table
-        // atinterface, iprouteinterface, datalinkinterface, stpinterface
     }
 
     /**
@@ -102,8 +97,10 @@ public final class EventProcessor {
     public void handleNodeGainedService(Event event) throws InsufficientInformationException {
 
         EventUtils.checkNodeId(event);
+        EventUtils.checkService(event);
 
-        m_linkd.scheduleNodeCollection(event.getNodeid().intValue());
+        if (event.getService().equals("SNMP"))
+        	m_linkd.scheduleNodeCollection(event.getNodeid().intValue());
     }
 
     /**
@@ -115,11 +112,10 @@ public final class EventProcessor {
     public void handleNodeLostService(Event event) throws InsufficientInformationException {
 
         EventUtils.checkNodeId(event);
+        EventUtils.checkService(event);
 
-        // Remove the deleted node from the scheduler
-        m_linkd.suspendNodeCollection(event.getNodeid().intValue());
-        // set to status = N in all the rows in table
-        // atinterface, iprouteinterface, datalinkinterface,
+        if (event.getService().equals("SNMP"))
+        	m_linkd.suspendNodeCollection(event.getNodeid().intValue());
     }
 
     /**
@@ -131,7 +127,9 @@ public final class EventProcessor {
     public void handleRegainedService(Event event) throws InsufficientInformationException {
 
         EventUtils.checkNodeId(event);
+        EventUtils.checkService(event);
 
-        m_linkd.wakeUpNodeCollection(event.getNodeid().intValue());
+        if (event.getService().equals("SNMP"))
+        	m_linkd.wakeUpNodeCollection(event.getNodeid().intValue());
     }
 } // end class

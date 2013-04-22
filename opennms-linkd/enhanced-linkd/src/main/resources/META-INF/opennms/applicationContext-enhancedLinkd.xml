@@ -25,7 +25,7 @@
     <bean id="scheduler" class="org.opennms.netmgt.linkd.scheduler.Scheduler">
       <constructor-arg value="EnhancedLinkd" />
       <constructor-arg>
-        <util:property-path path="linkdConfig.threads" />
+        <util:property-path path="enlinkdConfig.threads" />
       </constructor-arg>
     </bean>
 

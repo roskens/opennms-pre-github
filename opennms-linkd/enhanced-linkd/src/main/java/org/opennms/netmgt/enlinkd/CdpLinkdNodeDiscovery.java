@@ -59,8 +59,8 @@ public final class CdpLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
      * @param config
      *            The SnmpPeer object to collect from.
      */
-    public CdpLinkdNodeDiscovery(final EnhancedLinkd linkd, final LinkableNode node, String pkgname) {
-    	super(linkd, node, pkgname);
+    public CdpLinkdNodeDiscovery(final EnhancedLinkd linkd, final LinkableNode node) {
+    	super(linkd, node);
     }
 
     protected void runCollection() {

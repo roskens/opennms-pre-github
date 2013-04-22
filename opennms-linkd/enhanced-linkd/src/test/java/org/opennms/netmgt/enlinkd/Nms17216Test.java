@@ -47,8 +47,7 @@ import org.opennms.core.test.db.annotations.JUnitTemporaryDatabase;
 import org.opennms.core.test.snmp.annotations.JUnitSnmpAgent;
 import org.opennms.core.test.snmp.annotations.JUnitSnmpAgents;
 import org.opennms.core.utils.BeanUtils;
-import org.opennms.netmgt.config.LinkdConfig;
-import org.opennms.netmgt.config.linkd.Package;
+import org.opennms.netmgt.config.EnhancedLinkdConfig;
 import org.opennms.netmgt.dao.NodeDao;
 import org.opennms.netmgt.dao.TopologyDao;
 import org.opennms.netmgt.linkd.Nms17216NetworkBuilder;
@@ -82,7 +81,7 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
     private EnhancedLinkd m_linkd;
 
     @Autowired
-    private LinkdConfig m_linkdConfig;
+    private EnhancedLinkdConfig m_linkdConfig;
 
     @Autowired
     private NodeDao m_nodeDao;
@@ -203,13 +202,6 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
 
         m_nodeDao.flush();
 
-        Package example1 = m_linkdConfig.getPackage("example1");
-        assertEquals(false, example1.hasForceIpRouteDiscoveryOnEthernet());
-        example1.setUseBridgeDiscovery(false);
-        example1.setUseIpRouteDiscovery(false);
-        example1.setEnableVlanDiscovery(false);
-        example1.setUseOspfDiscovery(false);
-        
         final OnmsNode switch1 = m_nodeDao.findByForeignId("linkd", SWITCH1_NAME);
         final OnmsNode switch2 = m_nodeDao.findByForeignId("linkd", SWITCH2_NAME);
         final OnmsNode switch3 = m_nodeDao.findByForeignId("linkd", SWITCH3_NAME);
@@ -368,14 +360,16 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
         m_nodeDao.save(getSwitch3());
         m_nodeDao.flush();
 
-        Package example1 = m_linkdConfig.getPackage("example1");
-        assertEquals(false, example1.hasForceIpRouteDiscoveryOnEthernet());
-        example1.setUseBridgeDiscovery(false);
-        example1.setUseCdpDiscovery(false);
-        example1.setUseIpRouteDiscovery(false);
-        example1.setEnableVlanDiscovery(false);
-        example1.setUseOspfDiscovery(false);
-        
+        m_linkdConfig.getConfiguration().setUseBridgeDiscovery(false);
+        m_linkdConfig.getConfiguration().setUseCdpDiscovery(false);
+        m_linkdConfig.getConfiguration().setUseOspfDiscovery(false);
+        m_linkdConfig.getConfiguration().setUseLldpDiscovery(true);
+
+        assertTrue(m_linkdConfig.useLldpDiscovery());
+        assertTrue(!m_linkdConfig.useCdpDiscovery());
+        assertTrue(!m_linkdConfig.useOspfDiscovery());
+        assertTrue(!m_linkdConfig.useBridgeDiscovery());
+
         final OnmsNode switch1 = m_nodeDao.findByForeignId("linkd", SWITCH1_NAME);
         final OnmsNode switch2 = m_nodeDao.findByForeignId("linkd", SWITCH2_NAME);
         final OnmsNode switch3 = m_nodeDao.findByForeignId("linkd", SWITCH3_NAME);
@@ -384,53 +378,34 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
         assertTrue(m_linkd.scheduleNodeCollection(switch2.getId()));
         assertTrue(m_linkd.scheduleNodeCollection(switch3.getId()));
  
-        assertTrue(m_linkd.runSingleSnmpCollection(switch1.getId()));
         final List<Element> topologyA = m_topologyDao.getTopology();
-        assertEquals(2,topologyA.size());
-        
         List<EndPoint> endpoints = printTopology(topologyA);
+        List<Link> links = printLink(topologyA);
+        assertEquals(0,topologyA.size());
+        assertEquals(0, endpoints.size());
+        assertEquals(0, links.size());
+        
+        assertTrue(m_linkd.runSingleSnmpCollection(switch1.getId()));
+        endpoints = printTopology(topologyA);
+        links = printLink(topologyA);
+        assertEquals(2,topologyA.size());
         assertEquals(8, endpoints.size());
-//        assertEquals(4, links.size());
+        assertEquals(4, links.size());
 
         assertTrue(m_linkd.runSingleSnmpCollection(switch2.getId()));
-        assertEquals(3,topologyA.size());
-
         endpoints = printTopology(topologyA);
+        links = printLink(topologyA);
+        assertEquals(3,topologyA.size());
         assertEquals(12, endpoints.size());
-//        assertEquals(6, links.size());
+        assertEquals(6, links.size());
+       
+        assertTrue(m_linkd.runSingleSnmpCollection(switch3.getId()));
+        endpoints = printTopology(topologyA);
+        links = printLink(topologyA);
+        assertEquals(3,topologyA.size());
+        assertEquals(12, endpoints.size());
+        assertEquals(6, links.size());
 
-        //assertTrue(m_linkd.runSingleSnmpCollection(switch3.getId()));
-
-//FIXME               
-/*
-        int startid = getStartPoint(links);
-        for (final DataLinkInterface link: links) {
-//            printLink(datalinkinterface);
-            Integer linkid = link.getId();
-            if ( linkid == startid) {
-                // switch1 gi0/9 -> switch2 gi0/1 --lldp
-                checkLink(switch2, switch1, 10101, 10109, link);
-            } else if (linkid == startid +1 ) {
-                // switch1 gi0/10 -> switch2 gi0/2 --lldp
-                checkLink(switch2, switch1, 10102, 10110, link);
-            } else if (linkid == startid+2) {
-                // switch1 gi0/11 -> switch2 gi0/3 --lldp
-                checkLink(switch2, switch1, 10103, 10111, link);
-            } else if (linkid == startid+3) {
-                // switch1 gi0/12 -> switch2 gi0/4 --lldp
-                checkLink(switch2, switch1, 10104, 10112, link);
-            } else if (linkid == startid+4) {
-                // switch2 gi0/19 -> switch3 Fa0/19 --lldp
-                checkLink(switch3, switch2, 10019, 10119, link);
-            } else if (linkid == startid+5) {
-                // switch2 gi0/20 -> switch3 Fa0/20 --lldp
-                checkLink(switch3, switch2, 10020, 10120, link);
-            } else {
-                // error
-                checkLink(switch1,switch1,-1,-1,link);
-            }   
-        }
-        */
     }
 
     @Test
@@ -446,17 +421,10 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
 
         m_nodeDao.flush();
 
-        Package example1 = m_linkdConfig.getPackage("example1");
-        assertEquals(false, example1.hasForceIpRouteDiscoveryOnEthernet());
-        example1.setUseLldpDiscovery(false);
-        example1.setUseBridgeDiscovery(false);
-        example1.setUseOspfDiscovery(false);
-        example1.setUseIpRouteDiscovery(false);
-        example1.setUseCdpDiscovery(true);
-        example1.setEnableVlanDiscovery(false);
-        example1.setSaveRouteTable(false);
-        example1.setSaveStpInterfaceTable(false);
-        example1.setSaveStpNodeTable(false);
+        m_linkdConfig.getConfiguration().setUseBridgeDiscovery(false);
+        m_linkdConfig.getConfiguration().setUseLldpDiscovery(false);
+        m_linkdConfig.getConfiguration().setUseOspfDiscovery(false);
+        m_linkdConfig.getConfiguration().setUseCdpDiscovery(true);
 
         
         final OnmsNode switch4 = m_nodeDao.findByForeignId("linkd", SWITCH4_NAME);
@@ -472,7 +440,7 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
 
 
         
-        final Collection<LinkableNode> nodes = m_linkd.getLinkableNodesOnPackage("example1");
+        final Collection<LinkableNode> nodes = m_linkd.getLinkableNodes();
 
         assertEquals(2, nodes.size());
         
@@ -517,6 +485,20 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
         	i++;
         }
         return endpoints;
+	
+    }
+
+    private List<Link> printLink(final List<Element> topology) {
+
+    	List<Link> links = new ArrayList<Link>();
+
+        for (final Element e: topology) {
+        	for (EndPoint ep: e.getEndpoints()) {
+        		if (ep.hasLink() && !links.contains(ep.getLink()))
+        			links.add(ep.getLink());
+        	}
+        }
+        return links;
 	
     }
 

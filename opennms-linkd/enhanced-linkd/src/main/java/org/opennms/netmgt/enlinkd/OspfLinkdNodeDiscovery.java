@@ -62,8 +62,8 @@ public final class OspfLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
      * @param config
      *            The SnmpPeer object to collect from.
      */
-    public OspfLinkdNodeDiscovery(final EnhancedLinkd linkd, final LinkableNode node, String pkgname) {
-    	super(linkd, node, pkgname);
+    public OspfLinkdNodeDiscovery(final EnhancedLinkd linkd, final LinkableNode node) {
+    	super(linkd, node);
     }
 
     protected void runCollection() {

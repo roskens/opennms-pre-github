@@ -53,12 +53,6 @@ public abstract class AbstractLinkdNodeDiscovery implements ReadyRunnable {
     protected final LinkableNode m_node;
 
     /**
-     * The package Name LinkdConfig
-     */
-    
-    protected String m_packageName;
-
-    /**
      * The scheduler object
      */
     private Scheduler m_scheduler;
@@ -89,12 +83,11 @@ public abstract class AbstractLinkdNodeDiscovery implements ReadyRunnable {
      * @param config
      *            The SnmpPeer object to collect from.
      */
-    public AbstractLinkdNodeDiscovery(final EnhancedLinkd linkd, final LinkableNode node, final String pkgName) {
+    public AbstractLinkdNodeDiscovery(final EnhancedLinkd linkd, final LinkableNode node) {
         m_linkd = linkd;
         m_node = node;
-        m_packageName = pkgName;
         m_initial_sleep_time = m_linkd.getInitialSleepTime();
-        m_poll_interval = m_linkd.getSnmpPollInterval(m_packageName);
+        m_poll_interval = m_linkd.getRescanInterval();
     }
 
     /**
@@ -315,11 +308,10 @@ public abstract class AbstractLinkdNodeDiscovery implements ReadyRunnable {
      * @return a {@link java.lang.String} object.
      */
     public String getPackageName() {
-        return m_packageName;
+        return null;
     }
 
     public void setPackageName(String pkgName) {
-    	m_packageName = pkgName;
     }
     /**
      * <p>

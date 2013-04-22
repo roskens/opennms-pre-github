@@ -63,7 +63,29 @@ public class TopologyTest {
 		assertEquals(true, elementA.hasEndPoint(endPointA1F));
 	}
 
+	@Test 
+	public void testLink() {
+		Element elementA = new Element();
+		elementA.addElementIdentifier(new LldpElementIdentifier("0016c8bd4d80", "switch3", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS));
+		elementA.addElementIdentifier(new NodeElementIdentifier(1));
 
+		LldpEndPoint endPointA1 = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME);
+		elementA.addEndPoint(endPointA1);
+		endPointA1.setDevice(elementA);
+
+		Element elementB = new Element();
+		elementB.addElementIdentifier(new LldpElementIdentifier("0016caad4d80", "switch1", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS));
+		
+		LldpEndPoint endPointB1 = new LldpEndPoint("Ge0/0", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME);
+		elementB.addEndPoint(endPointB1);
+		endPointB1.setDevice(elementB);
+		
+		LldpLink link1 = new LldpLink(endPointA1, endPointB1);
+		LldpLink link2 = new LldpLink(endPointB1, endPointA1);
+		
+		assertEquals(link1,link2);
+	}
+	
 	@Test
 	public void testTopology() {
 		Element elementA = new Element();
@@ -175,7 +197,5 @@ public class TopologyTest {
 			e1.printStackTrace();
 		}
 		assertEquals(true, elementA.hasEndPoint(endPointA1new));
-
-
 	}
 }

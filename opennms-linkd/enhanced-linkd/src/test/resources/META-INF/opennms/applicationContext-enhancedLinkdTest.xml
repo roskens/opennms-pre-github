@@ -68,9 +68,9 @@
     </bean>
 
     <bean id="scheduler" class="org.opennms.netmgt.linkd.scheduler.Scheduler">
-      <constructor-arg value="Linkd" />
+      <constructor-arg value="EnhancedLinkd" />
       <constructor-arg>
-        <util:property-path path="linkdConfig.threads" />
+        <util:property-path path="enlinkdConfig.threads" />
       </constructor-arg>
     </bean>
 
@@ -87,9 +87,9 @@
       <property name="eventForwarder" ref="eventForwarder" />
     </bean>
 
-   <bean id="linkdConfig-init" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
-      <property name="staticMethod"><value>org.opennms.netmgt.config.LinkdConfigFactory.init</value></property>
+   <bean id="enlinkdConfig-init" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+      <property name="staticMethod"><value>org.opennms.netmgt.config.EnhancedLinkdConfigFactory.init</value></property>
     </bean>
  
-    <bean id="linkdConfig" class="org.opennms.netmgt.config.LinkdConfigFactory" depends-on="linkdConfig-init" factory-method="getInstance"/>
+    <bean id="enlinkdConfig" class="org.opennms.netmgt.config.EnhancedLinkdConfigFactory" depends-on="enlinkdConfig-init" factory-method="getInstance"/>
 </beans>
