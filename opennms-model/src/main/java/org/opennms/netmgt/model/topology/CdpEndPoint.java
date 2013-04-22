@@ -50,4 +50,12 @@ public class CdpEndPoint extends EndPoint {
 			.toString();
 	}
 
+	@Override
+	public void update(EndPoint endpoint) {
+		m_lastPoll = endpoint.getLastPoll();
+		CdpEndPoint cdpendpoint = (CdpEndPoint) endpoint;
+		if (cdpendpoint.getCdpCacheIfindex() != null)
+			setCdpCacheIfindex(cdpendpoint.getCdpCacheIfindex());
+	}
+
 }

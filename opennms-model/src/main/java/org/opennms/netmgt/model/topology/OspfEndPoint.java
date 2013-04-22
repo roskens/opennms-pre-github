@@ -60,7 +60,7 @@ public class OspfEndPoint extends EndPoint {
 			if (
 		((getDevice() != null && a.getDevice() != null && getDevice().equals(a.getDevice())) 
 					|| (getDevice() == null && a.getDevice() == null)) 
-					 && m_ospfIpAddr.equals(a.getOspfIpAddr()))
+					 && m_ospfIpAddr.equals(a.getOspfIpAddr()) && m_ospfAddressLessIndex == a.getOspfAddressLessIndex())
 				return true;
 		}
 		return false;
@@ -79,6 +79,18 @@ public class OspfEndPoint extends EndPoint {
 			.append("ospfIfIndex", m_ospfIfIndex)
 			.append("lastPoll", m_lastPoll)
 			.toString();
+	}
+
+
+	@Override
+	public void update(EndPoint endpoint) {
+		m_lastPoll = endpoint.getLastPoll();
+		OspfEndPoint ospfendpoint = (OspfEndPoint) endpoint;
+		if (ospfendpoint.getOspfIfIndex() != null)
+			m_ospfIfIndex = ospfendpoint.getOspfIfIndex();
+		if (ospfendpoint.getOspfIpMask() != null)
+			m_ospfIpMask = ospfendpoint.getOspfIpMask();
+		
 	}
 
 }

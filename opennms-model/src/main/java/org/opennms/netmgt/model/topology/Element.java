@@ -49,7 +49,16 @@ public class Element {
 	public void removeEndPoint(EndPoint endPoint) {
 		m_endpoints.remove(endPoint);
 	}
-	
+
+	public EndPoint getEndPoint(EndPoint endPoint) {
+		for (EndPoint e: m_endpoints) {
+			if (endPoint.equals(e)) {
+				return e;
+			}
+		}
+		return null;
+	}
+
 	public void addEndPoint(EndPoint endPoint) {
 		m_endpoints.add(endPoint);
 	}

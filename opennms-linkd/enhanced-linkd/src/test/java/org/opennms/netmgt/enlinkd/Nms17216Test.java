@@ -394,6 +394,7 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
         assertEquals(8, endpoints.size());
         assertEquals(4, links.size());
 
+        Thread.sleep(1000);
         assertTrue(m_linkd.runSingleSnmpCollection(switch2.getId()));
         endpoints = printLldpTopology(topologyA);
         links = printLink(topologyA);
@@ -401,6 +402,7 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
         assertEquals(12, endpoints.size());
         assertEquals(6, links.size());
        
+        Thread.sleep(1000);
         assertTrue(m_linkd.runSingleSnmpCollection(switch3.getId()));
         endpoints = printLldpTopology(topologyA);
         links = printLink(topologyA);
@@ -480,6 +482,7 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
         	System.err.println("----------element "+i+"--------");
         	for (ElementIdentifier iden: e.getElementIdentifiers()) {
             	System.err.println("----------element identifier--------");
+            	System.err.println("Element Identifier Last Poll :" + iden.getLastPoll());
     			System.err.println("Identifier type: " + ElementIdentifierType.getTypeString(iden.getType().getIntCode()));
     			if (iden.getType().equals(ElementIdentifierType.ONMSNODE)) 
         			System.err.println("Identifier node: " + ((NodeElementIdentifier)iden).getNodeid());
@@ -490,6 +493,7 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
         	}
         	for (EndPoint ep: e.getEndpoints()) {
             	System.err.println("----------endpoint identifier--------");
+            	System.err.println("EndPoint Last Poll :" + ep.getLastPoll());
         		if (!endpoints.contains(ep))
         			endpoints.add(ep);
             	if (ep instanceof LldpEndPoint) {

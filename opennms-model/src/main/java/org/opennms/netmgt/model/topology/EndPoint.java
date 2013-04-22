@@ -60,4 +60,6 @@ public abstract class EndPoint extends Pollable {
 	}
 	
 	public abstract boolean equals(EndPoint endPoint);
+
+	public abstract void update(EndPoint endpoint);
 }

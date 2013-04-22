@@ -181,4 +181,9 @@ public class LldpEndPoint extends EndPoint {
 			.toString();
 	}
 
+	@Override
+	public void update(EndPoint endpoint) {
+		m_lastPoll = endpoint.getLastPoll();
+	}
+
 }
