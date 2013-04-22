@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
-import org.opennms.core.utils.LogUtils;
 
 public class LldpEndPoint extends EndPoint {
 
@@ -156,26 +155,16 @@ public class LldpEndPoint extends EndPoint {
 
 	@Override
 	public boolean equals(EndPoint endPoint) {
-    	LogUtils.infof(this,
-                "equals call %s", this);
-    	LogUtils.infof(this,
-                "equals with %s", endPoint);
 		if (endPoint instanceof LldpEndPoint) {
-	    	LogUtils.infof(this,
-	                "argument is LldpEndPoint");
 			LldpEndPoint a=(LldpEndPoint)endPoint;
 			if ((
 				( getDevice() != null && a.getDevice() != null && getDevice().equals(a.getDevice())
 				) || ( getDevice() == null && a.getDevice() == null) 
 				) && getLldpPortId().equals(a.getLldpPortId()) && getLldpPortIdSubType().equals(a.getLldpPortIdSubType())
 				) {
-		    	LogUtils.infof(this,
-		                "equals return true");
 				return true;
 			}
 		}
-    	LogUtils.infof(this,
-                "equals return false");
 		return false;
 	}
 	
