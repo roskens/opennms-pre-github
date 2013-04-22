@@ -102,6 +102,7 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
 //        p.setProperty("log4j.logger.org.hibernate.cfg", "WARN");
 //        p.setProperty("log4j.logger.org.hibernate.impl", "WARN");
 //        p.setProperty("log4j.logger.org.hibernate.hql", "WARN");
+        p.setProperty("log4j.logger.org.opennms.mock.snmp","WARN");
         p.setProperty("log4j.logger.org.opennms.netmgt.linkd.snmp", "WARN");
         p.setProperty("log4j.logger.org.opennms.netmgt.snmp", "WARN");
         p.setProperty("log4j.logger.org.opennms.netmgt.filter", "WARN");
