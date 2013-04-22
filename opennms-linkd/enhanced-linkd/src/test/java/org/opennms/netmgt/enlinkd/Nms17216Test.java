@@ -32,7 +32,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Properties;
 
@@ -52,6 +51,8 @@ import org.opennms.netmgt.dao.NodeDao;
 import org.opennms.netmgt.dao.TopologyDao;
 import org.opennms.netmgt.linkd.Nms17216NetworkBuilder;
 import org.opennms.netmgt.model.OnmsNode;
+import org.opennms.netmgt.model.topology.CdpElementIdentifier;
+import org.opennms.netmgt.model.topology.CdpEndPoint;
 import org.opennms.netmgt.model.topology.Element;
 import org.opennms.netmgt.model.topology.ElementIdentifier;
 import org.opennms.netmgt.model.topology.ElementIdentifier.ElementIdentifierType;
@@ -379,28 +380,28 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
         assertTrue(m_linkd.scheduleNodeCollection(switch3.getId()));
  
         final List<Element> topologyA = m_topologyDao.getTopology();
-        List<EndPoint> endpoints = printTopology(topologyA);
+        List<EndPoint> endpoints = printLldpTopology(topologyA);
         List<Link> links = printLink(topologyA);
         assertEquals(0,topologyA.size());
         assertEquals(0, endpoints.size());
         assertEquals(0, links.size());
         
         assertTrue(m_linkd.runSingleSnmpCollection(switch1.getId()));
-        endpoints = printTopology(topologyA);
+        endpoints = printLldpTopology(topologyA);
         links = printLink(topologyA);
         assertEquals(2,topologyA.size());
         assertEquals(8, endpoints.size());
         assertEquals(4, links.size());
 
         assertTrue(m_linkd.runSingleSnmpCollection(switch2.getId()));
-        endpoints = printTopology(topologyA);
+        endpoints = printLldpTopology(topologyA);
         links = printLink(topologyA);
         assertEquals(3,topologyA.size());
         assertEquals(12, endpoints.size());
         assertEquals(6, links.size());
        
         assertTrue(m_linkd.runSingleSnmpCollection(switch3.getId()));
-        endpoints = printTopology(topologyA);
+        endpoints = printLldpTopology(topologyA);
         links = printLink(topologyA);
         assertEquals(3,topologyA.size());
         assertEquals(12, endpoints.size());
@@ -409,7 +410,6 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
     }
 
     @Test
-    @Ignore
     @JUnitSnmpAgents(value={
             @JUnitSnmpAgent(host=SWITCH4_IP, port=161, resource="classpath:linkd/nms17216/switch4-walk.txt"),
             @JUnitSnmpAgent(host=ROUTER3_IP, port=161, resource="classpath:linkd/nms17216/router3-walk.txt")
@@ -433,16 +433,26 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
         assertTrue(m_linkd.scheduleNodeCollection(switch4.getId()));
         assertTrue(m_linkd.scheduleNodeCollection(router3.getId()));
 
-        assertTrue(m_linkd.runSingleSnmpCollection(switch4.getId()));
-        assertTrue(m_linkd.runSingleSnmpCollection(router3.getId()));
-       
-//        assertEquals(0,m_dataLinkInterfaceDao.countAll());
-
-
+        final List<Element> topologyA = m_topologyDao.getTopology();
+        List<EndPoint> endpoints = printLldpTopology(topologyA);
+        List<Link> links = printLink(topologyA);
+        assertEquals(0,topologyA.size());
+        assertEquals(0, endpoints.size());
+        assertEquals(0, links.size());
         
-        final Collection<LinkableNode> nodes = m_linkd.getLinkableNodes();
+        assertTrue(m_linkd.runSingleSnmpCollection(switch4.getId()));
+        endpoints = printLldpTopology(topologyA);
+        links = printLink(topologyA);
+        assertEquals(2,topologyA.size());
+        assertEquals(2, endpoints.size());
+        assertEquals(1, links.size());
 
-        assertEquals(2, nodes.size());
+        assertTrue(m_linkd.runSingleSnmpCollection(router3.getId()));
+        endpoints = printLldpTopology(topologyA);
+        links = printLink(topologyA);
+        assertEquals(4,topologyA.size());
+        assertEquals(6, endpoints.size());
+        assertEquals(3, links.size());
         
 //        for (LinkableNode node: nodes) {
   //          assertEquals(1, node.getCdpInterfaces().size());
@@ -460,7 +470,7 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
 //        }
     }
     
-    private List<EndPoint> printTopology(final List<Element> topology) {
+    private List<EndPoint> printLldpTopology(final List<Element> topology) {
 
     	List<EndPoint> endpoints = new ArrayList<EndPoint>();
 
@@ -474,13 +484,21 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
         			System.err.println("Identifier node: " + ((NodeElementIdentifier)iden).getNodeid());
     			else if (iden.getType().equals(ElementIdentifierType.LLDP))
     				System.err.println("Identifier lldp: " + ((LldpElementIdentifier)iden).getLldpChassisId());
+    			else if (iden.getType().equals(ElementIdentifierType.CDP))
+    				System.err.println("Identifier cdp: " + ((CdpElementIdentifier)iden).getCdpDeviceId());
         	}
         	for (EndPoint ep: e.getEndpoints()) {
             	System.err.println("----------endpoint identifier--------");
-        		LldpEndPoint lldpep = (LldpEndPoint) ep;
-        		System.err.println("Found Endpoint: " + lldpep.getLldpPortId());
         		if (!endpoints.contains(ep))
         			endpoints.add(ep);
+            	if (ep instanceof LldpEndPoint) {
+            		LldpEndPoint lldpep = (LldpEndPoint) ep;
+            		System.err.println("Found Lldp Endpoint: " + lldpep.getLldpPortId());
+            	} else if (ep instanceof CdpEndPoint) {
+            		CdpEndPoint cdpep = (CdpEndPoint) ep;
+            		System.err.println("Found Cdp Endpoint Port: " + cdpep.getCdpCacheDevicePort());
+            		System.err.println("Found Cdp Endpoint IfIndex: " + cdpep.getCdpCacheIfindex());
+            	}
         	}
         	i++;
         }
@@ -488,6 +506,7 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
 	
     }
 
+    
     private List<Link> printLink(final List<Element> topology) {
 
     	List<Link> links = new ArrayList<Link>();
