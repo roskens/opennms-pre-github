@@ -114,7 +114,6 @@ public class SnmpEventInfo {
             
             parmContent = parmValue.getContent();
             
-            // TODO MVR is there a more generic way to do this?
             try {
                 if (parmName.equals(EventConstants.PARM_FIRST_IP_ADDRESS)) {
                     setFirstIPAddress(parmContent);

@@ -619,28 +619,44 @@ public class SnmpPeerFactory implements SnmpAgentConfigFactory {
         return (def.getPort() == 0 ? (m_config.getPort() == 0 ? DEFAULT_SNMP_PORT : m_config.getPort()) : def.getPort());
     }
 
-    // TODO mvr
-    private String determineEngineId(Definition def) {
-    	if (def.getEngineId() != null) return def.getEngineId();
-    	if (m_config.getEngineId() != null) return m_config.getEngineId();
-    	return null;
+    /**
+     * Helper method to search the snmp-config for a engineId
+     * @param def
+     * @return
+     */
+	private String determineEngineId(Definition def) {
+		if (def.getEngineId() != null) return def.getEngineId();
+		if (m_config.getEngineId() != null) return m_config.getEngineId();
+		return null;
 	}
     
-    // TODO mvr
+	 /**
+     * Helper method to search the snmp-config for a contextEngineId
+     * @param def
+     * @return 
+     */
     private String determineContextEngineId(Definition def) {
     	if (def.getContextEngineId() != null) return def.getContextEngineId();
     	if (m_config.getContextEngineId() != null) return m_config.getContextEngineId();
     	return null;
 	}
     
-    // TODO mvr
+    /**
+     * Helper method to search the snmp-config for a contextName
+     * @param def
+     * @return 
+     */
     private String determineContextName(Definition def) {
     	if (def.getContextName() != null) return def.getContextName();
     	if (m_config.getContextName() != null) return m_config.getContextName();
     	return null;
 	}
     
-    // TODO mvr
+    /**
+     * Helper method to search the snmp-config for a enterpriseId
+     * @param def
+     * @return 
+     */
     private String determineEnterpriseId(Definition def) {
     	if (def.getEnterpriseId() != null) return def.getEnterpriseId();
     	if (m_config.getEnterpriseId() != null) return m_config.getEnterpriseId();

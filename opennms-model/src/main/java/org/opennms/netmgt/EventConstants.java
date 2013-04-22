@@ -819,43 +819,69 @@ public class EventConstants {
      */
     public final static String PARM_NEW_PRIMARY_SNMP_ADDRESS = "newPrimarySnmpAddress";
 
-    // TODO mvr
+    /**
+     * The parameter name for the "SNMP security name string" when sent as an event parameter.
+     */
     public final static String PARM_SNMP_SECURITY_NAME = "securityName";
     
-    // TODO mvr
+    /**
+     * The parameter name for the "SNMP security level string" when sent as an event parameter.
+     */
     public final static String PARM_SNMP_SECURITY_LEVEL = "securityLevel";
     
-    // TODO mvr
+    /**
+     * The parameter name for the "SNMP auth passphrase string" when sent as an event parameter.
+     */
     public final static String PARM_SNMP_AUTH_PASSPHRASE = "authPassphrase";
     
-    // TODO mvr
+    /**
+     * The parameter name for the "SNMP auth protocol string" when sent as an event parameter.
+     */
     public final static String PARM_SNMP_AUTH_PROTOCOL = "authProtocol";
     
-    // TODO mvr
+    /**
+     * The parameter name for the "SNMP engine id string" when sent as an event parameter.
+     */
     public final static String PARM_SNMP_ENGINE_ID = "engineId";
     
-    // TODO mvr
+    /**
+     * The parameter name for the "SNMP context engine id string" when sent as an event parameter.
+     */
     public final static String PARM_SNMP_CONTEXT_ENGINE_ID = "contextEngineId";
     
-    // TODO mvr
+    /**
+     * The parameter name for the "SNMP enterprise id string" when sent as an event parameter.
+     */
     public final static String PARM_SNMP_ENTERPRISE_ID = "enterpriseId";
     
-    // TODO mvr
+    /**
+     * The parameter name for the "SNMP context name string" when sent as an event parameter.
+     */
     public final static String PARM_SNMP_CONTEXT_NAME = "contextName"; 
     
-    // TODO mvr
+    /**
+     * The parameter name for the "SNMP privacy passphrase string" when sent as an event parameter.
+     */
     public final static String PARM_SNMP_PRIVACY_PASSPHRASE = "privPassphrase";
     
-    // TODO mvr
+    /**
+     * The parameter name for the "SNMP privacy protocol string" when sent as an event parameter.
+     */
     public final static String PARM_SNMP_PRIVACY_PROTOCOL = "privProtocol";
     
-    // TODO mvr
+    /**
+     * The parameter name for the "SNMP max repetitions string" when sent as an event parameter.
+     */
     public final static String PARM_SNMP_MAX_REPETITIONS = "maxRepetitions";
     
-    // TODO mvr
+    /**
+     * The parameter name for the "SNMP max request size string" when sent as an event parameter.
+     */
     public final static String PARM_SNMP_MAX_REQUEST_SIZE = "maxRequestSize";
     
-    // TODO mvr
+    /**
+     * The parameter name for the "SNMP max vars per pdu string" when sent as an event parameter.
+     */
     public final static String PARM_SNMP_MAX_VARS_PER_PDU = "maxVarsPerPdu";
     
     /**

@@ -52,11 +52,11 @@ import org.opennms.netmgt.snmp.SnmpAgentConfig;
 public class SnmpInfo {
 	private String m_readCommunity;
 	private String m_version;
-	private int m_port;
-	private int m_retries;
-	private int m_timeout;
-	private int m_maxVarsPerPdu;
-	private int m_maxRepetitions;
+	private Integer m_port;
+	private Integer m_retries;
+	private Integer m_timeout;
+	private Integer m_maxVarsPerPdu;
+	private Integer m_maxRepetitions;
 	private String m_securityName;
 	private Integer m_securityLevel;
 	private String m_authPassPhrase;
@@ -90,13 +90,13 @@ public class SnmpInfo {
 	public SnmpInfo(SnmpAgentConfig config) {
 		if (config == null) return;
 
-		m_port = config.getPort();
-		m_timeout = config.getTimeout();
-		m_retries = config.getRetries();
 		m_version = config.getVersionAsString();
-		m_maxRepetitions = config.getMaxRepetitions();
-		m_maxVarsPerPdu = config.getMaxVarsPerPdu();
-		m_maxRequestSize = Integer.valueOf(config.getMaxRequestSize());
+		if (config.getPort() >= 1) m_port = config.getPort();
+		if (config.getTimeout() >= 1) m_timeout = config.getTimeout();
+		if (config.getRetries() >= 1) m_retries = config.getRetries();
+		if (config.getMaxRepetitions() >= 1) m_maxRepetitions = config.getMaxRepetitions();
+		if (config.getMaxVarsPerPdu() >= 1) m_maxVarsPerPdu = config.getMaxVarsPerPdu();
+		if (config.getMaxRequestSize() >= 1) m_maxRequestSize = Integer.valueOf(config.getMaxRequestSize());
 
 		// only set these properties if snmp version is v3
 		if (config.isVersion3()) {
@@ -165,7 +165,7 @@ public class SnmpInfo {
 	 * 
 	 * @return the port
 	 */
-	public int getPort() {
+	public Integer getPort() {
 		return m_port;
 	}
 
@@ -177,7 +177,7 @@ public class SnmpInfo {
 	 * @param port
 	 *            the port to set
 	 */
-	public void setPort(int port) {
+	public void setPort(Integer port) {
 		m_port = port;
 	}
 
@@ -188,7 +188,7 @@ public class SnmpInfo {
 	 * 
 	 * @return the retries
 	 */
-	public int getRetries() {
+	public Integer getRetries() {
 		return m_retries;
 	}
 
@@ -200,7 +200,7 @@ public class SnmpInfo {
 	 * @param retries
 	 *            the retries to set
 	 */
-	public void setRetries(int retries) {
+	public void setRetries(Integer retries) {
 		m_retries = retries;
 	}
 
@@ -211,7 +211,7 @@ public class SnmpInfo {
 	 * 
 	 * @return the timeout
 	 */
-	public int getTimeout() {
+	public Integer getTimeout() {
 		return m_timeout;
 	}
 
@@ -223,7 +223,7 @@ public class SnmpInfo {
 	 * @param timeout
 	 *            the timeout to set
 	 */
-	public void setTimeout(int timeout) {
+	public void setTimeout(Integer timeout) {
 		m_timeout = timeout;
 	}
 
@@ -244,19 +244,28 @@ public class SnmpInfo {
 		return m_securityLevel != null;
 	}
 
-	/**
-	 * Returns the value of {@link #m_securityLevel} if it is not null,
-	 * otherwise -1 is returned.
-	 * 
-	 * @return the value of {@link #m_securityLevel} if it is not null,
-	 *         otherwise -1 is returned.
-	 */
-	public int getSecurityLevel() {
-		return m_securityLevel == null ? -1 : Integer.valueOf(m_securityLevel);
+	public boolean hasTimeout() {
+		return m_timeout != null;
+	}
+	
+	public boolean hasMaxRequestSize() {
+		return m_maxRequestSize != null;
+	}
+	
+	public boolean hasMaxRepetitions() {
+		return m_maxRepetitions != null;
+	}
+	
+	public boolean hasMaxVarsPerPdu() {
+		return m_maxVarsPerPdu != null;
+	}
+	
+	public Integer getSecurityLevel() {
+		return m_securityLevel;
 	}
 
-	public void setSecurityLevel(int securityLevel) {
-		m_securityLevel = securityLevel == -1 ? null : Integer.valueOf(securityLevel);
+	public void setSecurityLevel(Integer securityLevel) {
+		m_securityLevel = securityLevel;
 	}
 
 	public String getAuthPassPhrase() {
@@ -291,19 +300,19 @@ public class SnmpInfo {
 		m_privProtocol = privProtocol;
 	}
 
-	public int getMaxVarsPerPdu() {
+	public Integer getMaxVarsPerPdu() {
 		return m_maxVarsPerPdu;
 	}
 
-	public void setMaxVarsPerPdu(int maxVarsPerPdu) {
+	public void setMaxVarsPerPdu(Integer maxVarsPerPdu) {
 		m_maxVarsPerPdu = maxVarsPerPdu;
 	}
 
-	public int getMaxRepetitions() {
+	public Integer getMaxRepetitions() {
 		return m_maxRepetitions;
 	}
 
-	public void setMaxRepetitions(int maxRepetitions) {
+	public void setMaxRepetitions(Integer maxRepetitions) {
 		m_maxRepetitions = maxRepetitions;
 	}
 
@@ -379,18 +388,16 @@ public class SnmpInfo {
 	}
 	
 	/**
-	 * <p>
-	 * createEventInfo
-	 * </p>
+	 * Creates a {@link SnmpEventInfo} object from <code>this</code>.
 	 * 
 	 * @param ipAddr
-	 *            a {@link java.lang.String} object.
+	 *            a {@link java.lang.String} object which represents the first Ip Adress of the {@link SnmpEventInfo}.
 	 * @return a {@link org.opennms.netmgt.config.SnmpEventInfo} object.
-	 * @throws java.net.UnknownHostException
-	 *             if any.
+	 * @throws java.net.UnknownHostException if any.
 	 */
 	public SnmpEventInfo createEventInfo(String ipAddr) throws UnknownHostException {
 		SnmpEventInfo eventInfo = new SnmpEventInfo();
+		eventInfo.setVersion(m_version);
 		eventInfo.setAuthPassPhrase(m_authPassPhrase);
 		eventInfo.setAuthProtocol(m_authProtocol);
 		eventInfo.setReadCommunityString(m_readCommunity);
@@ -400,15 +407,15 @@ public class SnmpInfo {
 		eventInfo.setEngineId(m_engineId);
 		eventInfo.setEnterpriseId(m_enterpriseId);
 		eventInfo.setFirstIPAddress(ipAddr);
-		eventInfo.setMaxRepetitions(m_maxRepetitions);
-		eventInfo.setMaxVarsPerPdu(m_maxVarsPerPdu);
-		eventInfo.setPort(m_port);
 		eventInfo.setPrivPassPhrase(m_privPassPhrase);
 		eventInfo.setPrivProtocol(m_privProtocol);
-		eventInfo.setRetryCount(m_retries);
 		eventInfo.setSecurityName(m_securityName);
-		eventInfo.setTimeout(m_timeout);
-		eventInfo.setVersion(m_version);
+		if (m_port != null) eventInfo.setPort(m_port.intValue());
+		if (m_retries != null) eventInfo.setRetryCount(m_retries.intValue());
+		if (m_timeout != null) eventInfo.setTimeout(m_timeout.intValue());
+		if (m_maxRepetitions != null) eventInfo.setMaxRepetitions(m_maxRepetitions.intValue());
+		if (m_maxVarsPerPdu != null) eventInfo.setMaxVarsPerPdu(m_maxVarsPerPdu.intValue());
+		if (m_maxRequestSize != null) eventInfo.setMaxRequestSize(m_maxRequestSize.intValue());
 		if (m_securityLevel != null) eventInfo.setSecurityLevel(m_securityLevel.intValue());
 		if (m_maxRequestSize != null) eventInfo.setMaxRequestSize(m_maxRequestSize.intValue());
 		return eventInfo;

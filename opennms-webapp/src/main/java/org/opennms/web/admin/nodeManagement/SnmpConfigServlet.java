@@ -58,7 +58,7 @@ import com.google.common.base.Strings;
  * @since 1.8.1
  */
 /*
- * TODO MVR is this the servlet wfor handling the ui that david was talking about? especially the /admin/snmpConfigured.jsp page?
+ * TODO MVR is this the servlet for handling the ui that david was talking about? especially the /admin/snmpConfigured.jsp page?
  */
 public class SnmpConfigServlet extends HttpServlet {
 
@@ -90,12 +90,9 @@ public class SnmpConfigServlet extends HttpServlet {
         bldr.setInterface(addr(firstIPAddress));
         bldr.setService("SNMP");
         
-        /*
-         * TODO mvr is there a more generic way to marshal/unmarshal (yeah not the right word, but is basically always the same binding framework problem) the SnmpEvent?
-         */
         bldr.addParam(EventConstants.PARM_FIRST_IP_ADDRESS, firstIPAddress);
         bldr.addParam(EventConstants.PARM_LAST_IP_ADDRESS, lastIPAddress);
-        bldr.addParam(EventConstants.PARM_COMMUNITY_STRING, communityString);
+        bldr.addParam(EventConstants.PARM_SNMP_READ_COMMUNITY_STRING, communityString);
         
         if ( !Strings.isNullOrEmpty(timeout)) {
         	bldr.addParam(EventConstants.PARM_TIMEOUT, timeout);

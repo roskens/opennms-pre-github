@@ -82,9 +82,9 @@ public class SnmpConfigManager {
 		if (areEquals(m_config.getMaxVarsPerPdu(), def.getMaxVarsPerPdu())) def.setMaxVarsPerPdu(null);
 		if (areEquals(m_config.getPrivacyPassphrase(), def.getPrivacyPassphrase())) def.setPrivacyPassphrase(null);
 		if (areEquals(m_config.getPrivacyProtocol(), def.getPrivacyProtocol())) def.setPrivacyProtocol(null);
-		if (areEquals(m_config.getProxyHost(), def.getProxyHost())) def.setProxyHost(null); // TODO MVR proxy host cannot be set via REST 
-		if (areEquals(m_config.getMaxRequestSize(), def.getMaxRequestSize())) def.setMaxRequestSize(null); // TODO MVR max request size cannot be set via REST
-		if (areEquals(m_config.getWriteCommunity(), def.getWriteCommunity())) def.setWriteCommunity(null); // TODO MVR write community cannot be set via REST
+		if (areEquals(m_config.getProxyHost(), def.getProxyHost())) def.setProxyHost(null);
+		if (areEquals(m_config.getMaxRequestSize(), def.getMaxRequestSize())) def.setMaxRequestSize(null);
+		if (areEquals(m_config.getWriteCommunity(), def.getWriteCommunity())) def.setWriteCommunity(null);
 		if (areEquals(m_config.getVersion(), def.getVersion())) def.setVersion(null);
 		if (areEquals(m_config.getTimeout(), def.getTimeout())) def.setTimeout(null);
 		if (areEquals(m_config.getSecurityName(), def.getSecurityName())) def.setSecurityName(null);
@@ -135,7 +135,6 @@ public class SnmpConfigManager {
 		MergeableDefinition eventToMerge = new MergeableDefinition(eventDef);
 
 		// remove pass
-		// TODO mvr I'm not sure if this part is correct
 		purgeRangesFromDefinitions(eventToMerge);
 
 		if (eventToMerge.isTrivial()) return;
@@ -157,7 +156,6 @@ public class SnmpConfigManager {
 	 * @param updatedDef
 	 * @param eventDef
 	 */
-	// TODO mvr javadoc doesnt match to method
 	private void purgeRangesFromDefinitions(MergeableDefinition eventDefinition) {
 		for (MergeableDefinition def : getDefinitions()) {
 			def.removeRanges(eventDefinition);

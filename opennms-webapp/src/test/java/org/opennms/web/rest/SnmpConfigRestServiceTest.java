@@ -187,7 +187,7 @@ public class SnmpConfigRestServiceTest extends AbstractSpringJerseyRestTestCase 
 		expectedConfig.setEnterpriseId(null);
 		expectedConfig.setPrivPassPhrase(null);
 		expectedConfig.setPrivProtocol(null);
-		expectedConfig.setSecurityLevel(-1);
+		expectedConfig.setSecurityLevel(null);
 		expectedConfig.setSecurityName(null);
 		
 		// read via REST
@@ -300,7 +300,7 @@ public class SnmpConfigRestServiceTest extends AbstractSpringJerseyRestTestCase 
 	 */
 	private void assertSnmpV3PropertiesHaveNotBeenSet(SnmpInfo config) {
 		assertEquals(false, config.hasSecurityLevel());
-		assertEquals(-1, config.getSecurityLevel());
+		assertEquals(null, config.getSecurityLevel());
 		assertEquals(null, config.getSecurityName());
 		assertEquals(null, config.getAuthPassPhrase());
 		assertEquals(null, config.getAuthProtocol());

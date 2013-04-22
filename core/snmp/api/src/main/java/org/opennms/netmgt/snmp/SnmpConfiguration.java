@@ -36,7 +36,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author brozow
  */
 @XmlRootElement(name="snmpConfiguration")
-// TODO MVR how does the snmp configuration get filled, especially the snmpagentconfiguration?
 public class SnmpConfiguration {
     
     public static final int DEFAULT_TIMEOUT = 3000;

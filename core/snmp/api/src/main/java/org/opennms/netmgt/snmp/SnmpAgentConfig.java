@@ -136,9 +136,6 @@ public class SnmpAgentConfig extends SnmpConfiguration implements Serializable {
         return agentConfig;
     }
 
-    /*
-     *  TODO MVr find out where this method is invoked, I assume this is the part which is stored in the database. Maybe it is used in the snmpeventinfo object
-     */
     public String toProtocolConfigString() {
         StringBuffer buff = new StringBuffer("snmp:");
         buff.append("address=" + InetAddressUtils.str(m_address));

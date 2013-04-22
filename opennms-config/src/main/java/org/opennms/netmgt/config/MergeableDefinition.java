@@ -188,6 +188,10 @@ final class MergeableDefinition {
         }
     }
 
+    /**
+     * A definition is empty if there is no range and no specific defined.
+     * @return true if the range count and specific count is 0.
+     */
     boolean isEmpty() {
         return getConfigDef().getRangeCount() < 1 && getConfigDef().getSpecificCount() < 1;
     }
