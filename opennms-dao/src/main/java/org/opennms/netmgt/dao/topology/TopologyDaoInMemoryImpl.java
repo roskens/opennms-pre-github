@@ -47,6 +47,7 @@ public class TopologyDaoInMemoryImpl implements TopologyDao {
 				if (e.hasEndPoint(endpoint)) {
 					e.removeEndPoint(endpoint);
 				}
+				endpoint.setDevice(e);
 				e.addEndPoint(endpoint);
 				return;
 			}
