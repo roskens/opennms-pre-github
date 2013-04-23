@@ -81,17 +81,18 @@ public final class LldpLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
             walker.waitFor();
             if (walker.timedOut()) {
             	LogUtils.infof(this,
-                        "run:Aborting node scan : Agent timed out while scanning the %s table", trackerName);
+                        "run:Aborting Lldp Linkd node scan : Agent timed out while scanning the %s table", trackerName);
             	return;
             }  else if (walker.failed()) {
             	LogUtils.infof(this,
-                        "run:Aborting node scan : Agent failed while scanning the %s table: %s", trackerName,walker.getErrorMessage());
+                        "run:Aborting Lldp Linkd node scan : Agent failed while scanning the %s table: %s", trackerName,walker.getErrorMessage());
             	return;
             }
         } catch (final InterruptedException e) {
-            LogUtils.errorf(this, e, "run: collection interrupted, exiting");
+            LogUtils.errorf(this, e, "run: Lldp Linkd node collection interrupted, exiting");
             return;
         }
+        //FIXME must be a valid identifier
         final LldpElementIdentifier lldpLocalElementIdentifier = lldpLocalGroup.getElementIdentifier();
         LogUtils.infof(this, "found local lldp identifier : %s", lldpLocalElementIdentifier);
 
