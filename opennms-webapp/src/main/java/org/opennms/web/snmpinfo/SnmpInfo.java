@@ -387,15 +387,8 @@ public class SnmpInfo {
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 	
-	/**
-	 * Creates a {@link SnmpEventInfo} object from <code>this</code>.
-	 * 
-	 * @param ipAddr
-	 *            a {@link java.lang.String} object which represents the first Ip Adress of the {@link SnmpEventInfo}.
-	 * @return a {@link org.opennms.netmgt.config.SnmpEventInfo} object.
-	 * @throws java.net.UnknownHostException if any.
-	 */
-	public SnmpEventInfo createEventInfo(String ipAddr) throws UnknownHostException {
+	// TODO MVR
+	public SnmpEventInfo createEventInfo(String firstIpAddress, String lastIpAddress) throws UnknownHostException {
 		SnmpEventInfo eventInfo = new SnmpEventInfo();
 		eventInfo.setVersion(m_version);
 		eventInfo.setAuthPassPhrase(m_authPassPhrase);
@@ -406,7 +399,8 @@ public class SnmpInfo {
 		eventInfo.setContextName(m_contextName);
 		eventInfo.setEngineId(m_engineId);
 		eventInfo.setEnterpriseId(m_enterpriseId);
-		eventInfo.setFirstIPAddress(ipAddr);
+		eventInfo.setFirstIPAddress(firstIpAddress);
+		eventInfo.setLastIPAddress(lastIpAddress);
 		eventInfo.setPrivPassPhrase(m_privPassPhrase);
 		eventInfo.setPrivProtocol(m_privProtocol);
 		eventInfo.setSecurityName(m_securityName);
@@ -419,5 +413,18 @@ public class SnmpInfo {
 		if (m_securityLevel != null) eventInfo.setSecurityLevel(m_securityLevel.intValue());
 		if (m_maxRequestSize != null) eventInfo.setMaxRequestSize(m_maxRequestSize.intValue());
 		return eventInfo;
+	}
+	
+	/**
+	 * Creates a {@link SnmpEventInfo} object from <code>this</code>.
+	 * 
+	 * @param ipAddr
+	 *            a {@link java.lang.String} object which represents the first Ip Adress of the {@link SnmpEventInfo}.
+	 * @return a {@link org.opennms.netmgt.config.SnmpEventInfo} object.
+	 * @throws java.net.UnknownHostException if any.
+	 */
+	// TODO MVR
+	public SnmpEventInfo createEventInfo(String ipAddr) throws UnknownHostException {
+		return createEventInfo(ipAddr, null);
 	}
 }

@@ -140,8 +140,7 @@ public class SnmpConfigRestService extends OnmsRestService {
         try {
             final SnmpEventInfo eventInfo = snmpInfo.createEventInfo(ipAddress);
             m_snmpPeerFactory.define(eventInfo);
-            //TODO: this shouldn't be a static call
-            SnmpPeerFactory.saveCurrent();
+            SnmpPeerFactory.saveCurrent(); //TODO: this shouldn't be a static call
             return Response.seeOther(getRedirectUri(m_uriInfo)).build();
         } catch (final Throwable e) {
             return Response.serverError().build();
@@ -150,6 +149,24 @@ public class SnmpConfigRestService extends OnmsRestService {
         }
     }
    
+    // TODO MVR javadoc and test stuff
+    @PUT
+    @Consumes(MediaType.APPLICATION_XML)
+    @Path("{firstIpAddress}/{secondIpAddress}")
+    public Response setSnmpInfo(@PathParam("firstIpAddress") final String firstIpAddress, @PathParam("secondIpAddress") final String secondIpAddress, final SnmpInfo snmpInfo) {
+    	writeLock();
+        try {
+            final SnmpEventInfo eventInfo = snmpInfo.createEventInfo(firstIpAddress, secondIpAddress);
+            m_snmpPeerFactory.define(eventInfo);
+            SnmpPeerFactory.saveCurrent();  //TODO: this shouldn't be a static call
+            return Response.seeOther(getRedirectUri(m_uriInfo)).build();
+        } catch (final Throwable e) {
+            return Response.serverError().build();
+        } finally {
+            writeUnlock();
+        }
+    }
+    
     /**
      * Updates a specific interface
      *
