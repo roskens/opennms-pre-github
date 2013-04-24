@@ -85,6 +85,7 @@ public class OspfEndPoint extends EndPoint {
 	@Override
 	public void update(EndPoint endpoint) {
 		m_lastPoll = endpoint.getLastPoll();
+		setLink(endpoint.getLink());
 		OspfEndPoint ospfendpoint = (OspfEndPoint) endpoint;
 		if (ospfendpoint.getOspfIfIndex() != null)
 			m_ospfIfIndex = ospfendpoint.getOspfIfIndex();

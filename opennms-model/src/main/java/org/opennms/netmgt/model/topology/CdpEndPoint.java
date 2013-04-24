@@ -53,6 +53,7 @@ public class CdpEndPoint extends EndPoint {
 	@Override
 	public void update(EndPoint endpoint) {
 		m_lastPoll = endpoint.getLastPoll();
+		setLink(endpoint.getLink());
 		CdpEndPoint cdpendpoint = (CdpEndPoint) endpoint;
 		if (cdpendpoint.getCdpCacheIfindex() != null)
 			setCdpCacheIfindex(cdpendpoint.getCdpCacheIfindex());
