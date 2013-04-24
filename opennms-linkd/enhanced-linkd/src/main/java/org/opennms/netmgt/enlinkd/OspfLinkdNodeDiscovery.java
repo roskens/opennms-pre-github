@@ -36,6 +36,7 @@ import java.util.List;
 
 
 
+import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.model.topology.NodeElementIdentifier;
 import org.opennms.netmgt.model.topology.OspfElementIdentifier;
@@ -96,6 +97,16 @@ public final class OspfLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
             return;
         }
         //FIXME check if the identifier is a valid identifier
+        if (ospfGeneralGroup.getOspfRouterId() == null ) {
+            LogUtils.infof(this, "ospf mib not supported on: %s", str(getPeer().getAddress()));
+            return;
+        } 
+
+        if (ospfGeneralGroup.getOspfRouterId().equals(InetAddressUtils.addr("0.0.0.0"))) {
+            LogUtils.infof(this, "ospf not supported, ospf identifier 0.0.0.0 is not valid on: %s", str(getPeer().getAddress()));
+            return;
+        } 
+
         final OspfElementIdentifier ospfGenralElementIdentifier = ospfGeneralGroup.getElementIdentifier();
         LogUtils.infof(this, "found local ospf identifier : %s", ospfGenralElementIdentifier);
 
