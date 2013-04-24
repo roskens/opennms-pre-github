@@ -92,6 +92,13 @@ public final class CdpLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
             LogUtils.errorf(this, e, "run: Cdp Linkd collection interrupted, exiting");
             return;
         }
+        
+        if (cdpGlobalGroup.getCdpDeviceId() == null ) {
+            LogUtils.infof(this, "cdp mib not supported on: %s", str(getPeer().getAddress()));
+            return;
+        } 
+
+
         final CdpElementIdentifier cdpGlobalElementIdentifier = cdpGlobalGroup.getElementIdentifier();
         LogUtils.infof(this, "found local cdp identifier : %s", cdpGlobalElementIdentifier);
 

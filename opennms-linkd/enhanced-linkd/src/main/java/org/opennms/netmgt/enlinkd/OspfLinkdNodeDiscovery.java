@@ -96,7 +96,7 @@ public final class OspfLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
             LogUtils.errorf(this, e, "run: Ospf Linkd node collection interrupted, exiting");
             return;
         }
-        //FIXME check if the identifier is a valid identifier
+
         if (ospfGeneralGroup.getOspfRouterId() == null ) {
             LogUtils.infof(this, "ospf mib not supported on: %s", str(getPeer().getAddress()));
             return;

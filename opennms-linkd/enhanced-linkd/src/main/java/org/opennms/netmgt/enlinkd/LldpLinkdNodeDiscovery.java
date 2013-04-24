@@ -92,7 +92,12 @@ public final class LldpLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
             LogUtils.errorf(this, e, "run: Lldp Linkd node collection interrupted, exiting");
             return;
         }
-        //FIXME must be a valid identifier
+        
+        if (lldpLocalGroup.getLldpLocChassisid() == null ) {
+            LogUtils.infof(this, "lldp mib not supported on: %s", str(getPeer().getAddress()));
+            return;
+        }
+        
         final LldpElementIdentifier lldpLocalElementIdentifier = lldpLocalGroup.getElementIdentifier();
         LogUtils.infof(this, "found local lldp identifier : %s", lldpLocalElementIdentifier);
 
