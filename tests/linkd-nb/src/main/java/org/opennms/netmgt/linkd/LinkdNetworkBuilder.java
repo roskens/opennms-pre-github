@@ -31,7 +31,9 @@ package org.opennms.netmgt.linkd;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import static org.opennms.core.utils.InetAddressUtils.str;
 import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,6 +48,18 @@ import org.opennms.netmgt.model.OnmsIpInterface;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.OnmsSnmpInterface;
 import org.opennms.netmgt.model.SnmpInterfaceBuilder;
+import org.opennms.netmgt.model.topology.CdpElementIdentifier;
+import org.opennms.netmgt.model.topology.CdpEndPoint;
+import org.opennms.netmgt.model.topology.Element;
+import org.opennms.netmgt.model.topology.ElementIdentifier;
+import org.opennms.netmgt.model.topology.EndPoint;
+import org.opennms.netmgt.model.topology.Link;
+import org.opennms.netmgt.model.topology.LldpElementIdentifier;
+import org.opennms.netmgt.model.topology.LldpEndPoint;
+import org.opennms.netmgt.model.topology.NodeElementIdentifier;
+import org.opennms.netmgt.model.topology.ElementIdentifier.ElementIdentifierType;
+import org.opennms.netmgt.model.topology.OspfElementIdentifier;
+import org.opennms.netmgt.model.topology.OspfEndPoint;
 
 /**
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
@@ -284,4 +298,97 @@ public abstract class LinkdNetworkBuilder {
         }
     }
     
+    protected List<EndPoint> printEndPointTopology(final List<Element> topology) {
+
+    	List<EndPoint> endpoints = new ArrayList<EndPoint>();
+
+        for (final Element e: topology) {
+        	System.err.println("---------- start element --------");
+        	for (ElementIdentifier iden: e.getElementIdentifiers()) {
+        		printElementIdentifier(iden);
+        	}
+        	for (EndPoint ep: e.getEndpoints()) {
+        		if (!endpoints.contains(ep)) {
+        			endpoints.add(ep);
+        			printEndPoint(ep);
+        		}
+        	}
+        	System.err.println("----------end element --------");
+        }
+        return endpoints;
+	
+    }
+
+    
+    protected List<Link> printLinkTopology(final List<Element> topology) {
+
+    	List<Link> links = new ArrayList<Link>();
+
+        for (final Element e: topology) {
+        	for (EndPoint ep: e.getEndpoints()) {
+        		if (ep.hasLink() && !links.contains(ep.getLink())) {
+        			links.add(ep.getLink());
+        			printLink(ep.getLink());
+        		}
+        	}
+        	
+        }
+        return links;
+	
+    }
+
+    private void printElementIdentifier(ElementIdentifier iden) {
+    	System.err.println("---------- start element identifier--------");
+    	System.err.println("Element Identifier Last Poll :" + iden.getLastPoll());
+		System.err.println("Identifier type: " + ElementIdentifierType.getTypeString(iden.getType().getIntCode()));
+		if (iden.getType().equals(ElementIdentifierType.ONMSNODE)) 
+			System.err.println("Identifier node: " + ((NodeElementIdentifier)iden).getNodeid());
+		else if (iden.getType().equals(ElementIdentifierType.LLDP))
+			System.err.println("Identifier lldp: " + ((LldpElementIdentifier)iden).getLldpChassisId());
+		else if (iden.getType().equals(ElementIdentifierType.CDP))
+			System.err.println("Identifier cdp: " + ((CdpElementIdentifier)iden).getCdpDeviceId());
+		else if (iden.getType().equals(ElementIdentifierType.OSPF))
+			System.err.println("Identifier ospf: " + str(((OspfElementIdentifier)iden).getOspfRouterId()));
+    	System.err.println("---------- end element identifier--------");
+    	
+    }
+    
+    private void printEndPoint(EndPoint ep) {
+    	System.err.println("----------start endpoint identifier--------");
+    	System.err.println("EndPoint Last Poll :" + ep.getLastPoll());
+    	if (ep instanceof LldpEndPoint) {
+    		LldpEndPoint lldpep = (LldpEndPoint) ep;
+    		System.err.println("Found Lldp Endpoint: " + lldpep.getLldpPortId());
+    	} else if (ep instanceof CdpEndPoint) {
+    		CdpEndPoint cdpep = (CdpEndPoint) ep;
+    		System.err.println("Found Cdp Endpoint Port: " + cdpep.getCdpCacheDevicePort());
+    		System.err.println("Found Cdp Endpoint IfIndex: " + cdpep.getCdpCacheIfindex());
+    	} else if (ep instanceof OspfEndPoint ) {
+    		OspfEndPoint ospfep = (OspfEndPoint) ep;
+    		System.err.println("Found Ospf Endpoint ip Address: " + str(ospfep.getOspfIpAddr()));
+    		System.err.println("Found Ospf Endpoint Address less IfIndex: " + ospfep.getOspfAddressLessIndex());
+    		System.err.println("Found Ospf Endpoint net mask: " + str(ospfep.getOspfIpMask()));
+    		System.err.println("Found Ospf Endpoint IfIndex: " + ospfep.getOspfIfIndex());
+    	}
+    	System.err.println("----------end endpoint identifier--------");
+    }
+    
+    private void printLink(Link link) {
+    	System.err.println("----------start link identifier--------");
+    	System.err.println("Link Last Poll :" + link.getLastPoll());
+    	System.err.println("----------elementA--------");
+    	for (ElementIdentifier iden: link.getA().getDevice().getElementIdentifiers()) {
+    		printElementIdentifier(iden);
+    	}
+    	System.err.println("----------endPointA--------");
+    	printEndPoint(link.getA());
+    	
+    	System.err.println("----------elementB--------");
+    	for (ElementIdentifier iden: link.getB().getDevice().getElementIdentifiers()) {
+    		printElementIdentifier(iden);
+    	}
+    	System.err.println("----------endPointB--------");
+    	printEndPoint(link.getB());
+    	System.err.println("----------end link identifier--------");
+    }
 }
