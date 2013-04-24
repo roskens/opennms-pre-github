@@ -296,4 +296,101 @@ public class Nms17216SnmpTest extends Nms17216NetworkBuilder implements Initiali
         
     }
 
+    @Test
+    @JUnitSnmpAgents(value={
+            @JUnitSnmpAgent(host=SWITCH2_IP, port=161, resource="classpath:linkd/nms17216/switch2-walk.txt")
+    })
+    public void testNetwork17216Switch2OspfGeneralGroup() throws Exception {
+		
+        OspfGeneralGroup ospfGenrealGroup = new OspfGeneralGroup();         
+        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(SWITCH2_IP));
+        String trackerName = "ospfGeneralGroup";
+        SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, trackerName, ospfGenrealGroup);
+        walker.start();
+
+        try {
+            walker.waitFor();
+            if (walker.timedOut()) {
+            	LogUtils.warnf(this,
+                        "run:Aborting Ospf Linkd node scan : Agent timed out while scanning the %s table", trackerName);
+            	return;
+            }  else if (walker.failed()) {
+            	LogUtils.warnf(this,
+                        "run:Aborting Ospf Linkd node scan : Agent failed while scanning the %s table: %s", trackerName,walker.getErrorMessage());
+            	return;
+            }
+        } catch (final InterruptedException e) {
+            LogUtils.errorf(this, e, "run: Ospf Linkd node collection interrupted, exiting");
+            return;
+        }
+
+        assertEquals(null, ospfGenrealGroup.getOspfRouterId());
+        
+    }
+
+    @Test
+    @JUnitSnmpAgents(value={
+            @JUnitSnmpAgent(host=ROUTER1_IP, port=161, resource="classpath:linkd/nms17216/router1-walk.txt")
+    })
+    public void testNetwork17216Router1OspfGeneralGroup() throws Exception {
+		
+        OspfGeneralGroup ospfGenrealGroup = new OspfGeneralGroup();         
+        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(ROUTER1_IP));
+        String trackerName = "ospfGeneralGroup";
+        SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, trackerName, ospfGenrealGroup);
+        walker.start();
+
+        try {
+            walker.waitFor();
+            if (walker.timedOut()) {
+            	LogUtils.warnf(this,
+                        "run:Aborting Ospf Linkd node scan : Agent timed out while scanning the %s table", trackerName);
+            	return;
+            }  else if (walker.failed()) {
+            	LogUtils.warnf(this,
+                        "run:Aborting Ospf Linkd node scan : Agent failed while scanning the %s table: %s", trackerName,walker.getErrorMessage());
+            	return;
+            }
+        } catch (final InterruptedException e) {
+            LogUtils.errorf(this, e, "run: Ospf Linkd node collection interrupted, exiting");
+            return;
+        }
+
+        assertEquals(InetAddress.getByName("192.168.100.249"), ospfGenrealGroup.getOspfRouterId());
+        
+    }
+    @Test
+    @JUnitSnmpAgents(value={
+            @JUnitSnmpAgent(host=ROUTER1_IP, port=161, resource="classpath:linkd/nms17216/router1-walk.txt")
+    })
+    public void testNetwork17216Router1OspfGeneralGroupTimeout() throws Exception {
+		
+    	
+        OspfGeneralGroup ospfGenrealGroup = new OspfGeneralGroup();         
+        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(SWITCH1_IP));
+        String trackerName = "ospfGeneralGroup";
+        SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, trackerName, ospfGenrealGroup);
+        walker.start();
+
+        try {
+            walker.waitFor();
+            if (walker.timedOut()) {
+            	LogUtils.warnf(this,
+                        "run:Aborting Ospf Linkd node scan : Agent timed out while scanning the %s table", trackerName);
+            	assertEquals(true, true);
+            	return;
+            }  else if (walker.failed()) {
+            	LogUtils.warnf(this,
+                        "run:Aborting Ospf Linkd node scan : Agent failed while scanning the %s table: %s", trackerName,walker.getErrorMessage());
+            	assertEquals(false, true);
+            }
+        } catch (final InterruptedException e) {
+            LogUtils.errorf(this, e, "run: Ospf Linkd node collection interrupted, exiting");
+        	assertEquals(false, true);
+        }
+
+    	assertEquals(false, true);
+        
+    }
+
 }
