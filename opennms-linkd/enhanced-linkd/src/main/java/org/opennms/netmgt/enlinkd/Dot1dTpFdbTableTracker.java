@@ -50,32 +50,20 @@ import org.opennms.netmgt.snmp.TableTracker;
  * @version $Id: $
  */
 public final class Dot1dTpFdbTableTracker extends TableTracker {
-	// Lookup strings for specific table entries
-	//
 
-	/** Constant <code>FDB_ADDRESS="dot1dTpFdbAddress"</code> */
-	 public final static SnmpObjId FDB_ADDRESS = SnmpObjId.get(".1.3.6.1.2.1.17.4.3.1.1");
-	 
-	/** Constant <code>FDB_PORT="dot1dTpFdbPort"</code> */
-	 public final static SnmpObjId FDB_PORT    = SnmpObjId.get(".1.3.6.1.2.1.17.4.3.1.2");
-
-	/** Constant <code>FDB_STATUS="dot1dTpFdbStatus"</code> */
-	 public final static SnmpObjId FDB_STATUS  = SnmpObjId.get(".1.3.6.1.2.1.17.4.3.1.3");
+	 public final static SnmpObjId DOT1D_TP_FDB_ADDRESS = SnmpObjId.get(".1.3.6.1.2.1.17.4.3.1.1");
+	 public final static SnmpObjId DOT1D_TP_FDB_PORT    = SnmpObjId.get(".1.3.6.1.2.1.17.4.3.1.2");
+	 public final static SnmpObjId DOT1D_TP_FDB_STATUS  = SnmpObjId.get(".1.3.6.1.2.1.17.4.3.1.3");
 
 
-	/**
-	 * <P>The keys that will be supported by default from the 
-	 * TreeMap base class. Each of the elements in the list
-	 * are an instance of the Dot1dTpFbTable. Objects
-	 * in this list should be used by multiple instances of
-	 * this class.</P>
-	 */
 	public static final SnmpObjId[] ms_elemList = new SnmpObjId[] {
 	    /**
 	     * A unicast MAC address for which the bridge has
 	     * forwarding and/or filtering information.
+	     *  REFERENCE
+           "IEEE 802.1D-1998: clause 7.9.1, 7.9.2"
 	     */
-	    FDB_ADDRESS,
+	    DOT1D_TP_FDB_ADDRESS,
 
 	    /**
 	     * Either the value '0', or the port number of the
@@ -91,41 +79,35 @@ public final class Dot1dTpFdbTableTracker extends TableTracker {
 	     * for addresses for which the corresponding value of
 	     * dot1dTpFdbStatus is not learned(3).
 	     */
-	    FDB_PORT,
+	    DOT1D_TP_FDB_PORT,
 
 	    /**
-	     * The status of this entry. The meanings of the
-	     * values are:
-	     * other(1) : none of the following. This would
-	     * include the case where some other
-	     * MIB object (not the corresponding
-	     * instance of dot1dTpFdbPort, nor an
-	     * entry in the dot1dStaticTable) is
-	     * being used to determine if and how
-	     * frames addressed to the value of
-	     * the corresponding instance of
-	     * dot1dTpFdbAddress are being
-	     * forwarded.
-	     * invalid(2) : this entry is not longer valid
-	     * (e.g., it was learned but has since
-	     * aged-out), but has not yet been
-	     * flushed from the table.
-	     * learned(3) : the value of the corresponding
-	     * instance of dot1dTpFdbPort was
-	     * learned, and is being used.
-	     * self(4) : the value of the corresponding
-	     * instance of dot1dTpFdbAddress
-	     * represents one of the bridge's
-	     * addresses. The corresponding
-	     * instance of dot1dTpFdbPort
-	     * indicates which of the bridge's
-	     * ports has this address.
-	     * mgmt(5) : the value of the corresponding
-	     * instance of dot1dTpFdbAddress is
-	     * also the value of an existing
-	     * instance of dot1dStaticAddress.
+         *  "The status of this entry.  The meanings of the
+         *  values are:
+         *      other(1) - none of the following.  This would
+         *          include the case where some other MIB object
+         *          (not the corresponding instance of
+         *          dot1dTpFdbPort, nor an entry in the
+         *          dot1dStaticTable) is being used to determine if
+         *          and how frames addressed to the value of the
+         *          corresponding instance of dot1dTpFdbAddress are
+         *          being forwarded.
+         *      invalid(2) - this entry is no longer valid (e.g.,
+         *          it was learned but has since aged out), but has
+         *          not yet been flushed from the table.
+         *      learned(3) - the value of the corresponding instance
+         *          of dot1dTpFdbPort was learned, and is being
+         *          used.
+         *      self(4) - the value of the corresponding instance of
+         *          dot1dTpFdbAddress represents one of the bridge's
+         *          addresses.  The corresponding instance of
+         *          dot1dTpFdbPort indicates which of the bridge's
+         *          ports has this address.
+         *      mgmt(5) - the value of the corresponding instance of
+         *          dot1dTpFdbAddress is also the value of an
+         *          existing instance of dot1dStaticAddress."
 	     */
-	    FDB_STATUS
+	    DOT1D_TP_FDB_STATUS
 	};
 
 	class Dot1dTpFdbRow extends SnmpRowResult {
@@ -139,7 +121,7 @@ public final class Dot1dTpFdbTableTracker extends TableTracker {
 		 * @return a {@link java.lang.String} object.
 		 */
 		public String getDot1dTpFdbAddress() {
-			return getValue(FDB_ADDRESS).toHexString();
+			return getValue(DOT1D_TP_FDB_ADDRESS).toHexString();
 		}
 	
 		/**
@@ -148,7 +130,7 @@ public final class Dot1dTpFdbTableTracker extends TableTracker {
 		 * @return a int.
 		 */
 		public Integer getDot1dTpFdbPort() {
-			return getValue(FDB_PORT).toInt();
+			return getValue(DOT1D_TP_FDB_PORT).toInt();
 		}
 	
 		/**
@@ -157,7 +139,7 @@ public final class Dot1dTpFdbTableTracker extends TableTracker {
 		 * @return a int.
 		 */
 		public Integer getDot1dTpFdbStatus() {
-			return getValue(FDB_STATUS).toInt();
+			return getValue(DOT1D_TP_FDB_STATUS).toInt();
 		}
 	}
 	/**

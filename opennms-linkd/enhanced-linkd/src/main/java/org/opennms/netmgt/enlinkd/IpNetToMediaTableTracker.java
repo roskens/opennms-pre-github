@@ -64,13 +64,8 @@ public final class IpNetToMediaTableTracker extends TableTracker
     public static final SnmpObjId  IPNETTOMEDIA_TABLE_ENTRY   = SnmpObjId.get(".1.3.6.1.2.1.4.22.1");    // start of table (GETNEXT)
 	// Lookup strings for specific table entries
 	//
-	/** Constant <code>INTM_INDEX="ipNetToMediaIfIndex"</code> */
-	public final static	SnmpObjId	IPNETTOMEDIA_TABLE_INDEX		= SnmpObjId.get(IPNETTOMEDIA_TABLE_ENTRY, "1");
-	/** Constant <code>INTM_PHYSADDR="ipNetToMediaPhysAddress"</code> */
 	public final static	SnmpObjId	IPNETTOMEDIA_TABLE_PHYSADDR	= SnmpObjId.get(IPNETTOMEDIA_TABLE_ENTRY, "2");
-	/** Constant <code>INTM_NETADDR="ipNetToMediaNetAddress"</code> */
 	public final static	SnmpObjId	IPNETTOMEDIA_TABLE_NETADDR	= SnmpObjId.get(IPNETTOMEDIA_TABLE_ENTRY, "3");
-	/** Constant <code>INTM_TYPE="ipNetToMediatype"</code> */
 	public final static	SnmpObjId	IPNETTOMEDIA_TABLE_TYPE		= SnmpObjId.get(IPNETTOMEDIA_TABLE_ENTRY, "4");
 
 
@@ -82,15 +77,6 @@ public final class IpNetToMediaTableTracker extends TableTracker
 	 * this class.</P>
 	 */
 	public static SnmpObjId[] ms_elemList = new SnmpObjId[] {
-	    /**
-	     * The interface on which this entry's equivalence
-         * is effective. The interface identified by a
-         * particular value of this index is the same
-         * interface as identified by the same value of
-         * ifIndex.
-         */
-		IPNETTOMEDIA_TABLE_INDEX,
-        
 		/**
          * The media-dependent `physical' address. 
          */
@@ -125,15 +111,6 @@ public final class IpNetToMediaTableTracker extends TableTracker
 
 		public IpNetToMediaRow(int columnCount, SnmpInstId instance) {
 			super(columnCount, instance);
-		}
-
-		/**
-		 * <p>getIpNetToMediaIfIndex</p>
-		 *
-		 * @return a int.
-		 */
-		public Integer getIpNetToMediaIfIndex(){
-			return getValue(IPNETTOMEDIA_TABLE_INDEX).toInt();
 		}
 		
 		/**
