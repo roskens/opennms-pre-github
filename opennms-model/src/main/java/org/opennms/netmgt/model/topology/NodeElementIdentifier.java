@@ -7,7 +7,7 @@ public final class NodeElementIdentifier extends ElementIdentifier {
 	private final Integer m_nodeid; 
 
 	public NodeElementIdentifier(Integer nodeid) {
-		super(ElementIdentifierType.ONMSNODE);
+		super(ElementIdentifierType.NODE);
 		m_nodeid = Integer.valueOf(nodeid);
 	}
 

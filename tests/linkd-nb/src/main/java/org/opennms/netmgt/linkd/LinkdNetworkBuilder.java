@@ -338,7 +338,7 @@ public abstract class LinkdNetworkBuilder {
     }
 
     private void printElementIdentifier(ElementIdentifier iden) {
-    	if (iden.getType().equals(ElementIdentifierType.ONMSNODE)) 
+    	if (iden.getType().equals(ElementIdentifierType.NODE)) 
 			System.err.println("node: " + ((NodeElementIdentifier)iden).getNodeid()+" " + iden.getLastPoll());
 		else if (iden.getType().equals(ElementIdentifierType.LLDP))
 			System.err.println("lldp: " + ((LldpElementIdentifier)iden).getLldpChassisId()+" " + iden.getLastPoll());
