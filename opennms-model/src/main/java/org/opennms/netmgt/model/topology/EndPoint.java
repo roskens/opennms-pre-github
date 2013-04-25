@@ -28,32 +28,29 @@ public abstract class EndPoint extends Pollable {
 	private Link m_link;
 
 	/**
-	 * The current ifindex of the endpoint
+	 * The ifindex of the endpoint
 	 * could be null
 	 */
 	private Integer m_ifIndex;
 
 	/**
-	 * The current ifName of the endPoint
+	 * The  ifName of the endPoint
 	 * could be null
 	 */
+
 	private String m_ifName;
+	/**
+	 * The ifDescr of the endPoint
+	 * could be null
+	 */
+	private String m_ifDescr;
 	
-	public Integer getIfIndex() {
-		return m_ifIndex;
-	}
-
-	public void setIfIndex(Integer ifIndex) {
-		m_ifIndex = ifIndex;
-	}
-
-	public String getIfName() {
-		return m_ifName;
-	}
-
-	public void setIfName(String ifName) {
-		m_ifName = ifName;
-	}
+	/**
+	 * The ifAlias of the endPoint
+	 * could be null
+	 */
+	private String m_ifAlias;
+	
 
 	public Element getDevice() {
 		return m_device;
@@ -78,7 +75,39 @@ public abstract class EndPoint extends Pollable {
 	public boolean hasElement() {
 		return m_device != null;
 	}
+
+	public String getIfDescr() {
+		return m_ifDescr;
+	}
+
+	public void setIfDescr(String ifDescr) {
+		m_ifDescr = ifDescr;
+	}
+
+	public String getIfAlias() {
+		return m_ifAlias;
+	}
+
+	public void setIfAlias(String ifAlias) {
+		m_ifAlias = ifAlias;
+	}
 	
+	public Integer getIfIndex() {
+		return m_ifIndex;
+	}
+
+	public void setIfIndex(Integer ifIndex) {
+		m_ifIndex = ifIndex;
+	}
+
+	public String getIfName() {
+		return m_ifName;
+	}
+
+	public void setIfName(String ifName) {
+		m_ifName = ifName;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof EndPoint) {
