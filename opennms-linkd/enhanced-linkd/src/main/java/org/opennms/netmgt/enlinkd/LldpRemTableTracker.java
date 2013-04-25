@@ -151,6 +151,7 @@ public class LldpRemTableTracker extends TableTracker {
             deviceB.addElementIdentifier(lldpRemElementIdentifier);
     		
     		LldpEndPoint endPointB = getRemEndPoint();
+    		endPointB.setIfDescr(getLldpRemPortDescr());
     		deviceB.addEndPoint(endPointB);
     		endPointB.setDevice(deviceB);
             LogUtils.infof(this, "processLldpRemRow: row rem port id: %s", endPointB.getLldpPortId());
