@@ -139,4 +139,9 @@ public final class LldpLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
                 + " package=" + getPackageName();
 	}
 
+	@Override
+	public String getName() {
+		return "LldpLinkDiscovery";
+	}
+
 }

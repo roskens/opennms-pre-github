@@ -175,9 +175,14 @@ public final class OspfLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
 
 	@Override
 	public String getInfo() {
-        return "ReadyRunnable CdpLinkNodeDiscovery" + " ip=" + str(getTarget())
+        return "ReadyRunnable OspfLinkNodeDiscovery" + " ip=" + str(getTarget())
                 + " port=" + getPort() + " community=" + getReadCommunity()
                 + " package=" + getPackageName();
+	}
+
+	@Override
+	public String getName() {
+		return "OspfLinkDiscovery";
 	}
 
 }

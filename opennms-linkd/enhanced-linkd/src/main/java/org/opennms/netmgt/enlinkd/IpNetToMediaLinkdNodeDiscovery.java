@@ -103,9 +103,14 @@ public final class IpNetToMediaLinkdNodeDiscovery extends AbstractLinkdNodeDisco
 
 	@Override
 	public String getInfo() {
-        return "ReadyRunnable CdpLinkNodeDiscovery" + " ip=" + str(getTarget())
+        return "ReadyRunnable IpNetToMediaLinkNodeDiscovery" + " ip=" + str(getTarget())
                 + " port=" + getPort() + " community=" + getReadCommunity()
                 + " package=" + getPackageName();
+	}
+
+	@Override
+	public String getName() {
+		return "IpNetToMediaLinkDiscovery";
 	}
 
 }

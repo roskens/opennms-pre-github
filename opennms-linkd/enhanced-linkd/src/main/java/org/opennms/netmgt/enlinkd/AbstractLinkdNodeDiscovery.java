@@ -109,6 +109,7 @@ public abstract class AbstractLinkdNodeDiscovery implements ReadyRunnable {
                     "EnhancedLinkd");
             builder.setNodeid(getNodeId());
             builder.setInterface(getTarget());
+            builder.addParam("runnable", getName());
             m_linkd.getEventForwarder().sendNow(builder.getEvent());
             LogUtils.debugf(this, "run: address: %s Suspended!",
                             str(getTarget()));
@@ -118,6 +119,7 @@ public abstract class AbstractLinkdNodeDiscovery implements ReadyRunnable {
                     "EnhancedLinkd");
             builder.setNodeid(getNodeId());
             builder.setInterface(getTarget());
+            builder.addParam("runnable", getName());
             m_linkd.getEventForwarder().sendNow(builder.getEvent());
             
             runCollection();
@@ -127,6 +129,7 @@ public abstract class AbstractLinkdNodeDiscovery implements ReadyRunnable {
                     "EnhancedLinkd");
             builder.setNodeid(getNodeId());
             builder.setInterface(getTarget());
+            builder.addParam("runnable", getName());
             m_linkd.getEventForwarder().sendNow(builder.getEvent());
 
         }
@@ -363,4 +366,6 @@ public abstract class AbstractLinkdNodeDiscovery implements ReadyRunnable {
     public int getNodeId() {
     	return m_node.getNodeId();
     }
+    
+    public abstract String getName();
 }
