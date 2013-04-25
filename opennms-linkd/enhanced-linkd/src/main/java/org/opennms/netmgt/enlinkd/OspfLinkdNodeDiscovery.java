@@ -170,7 +170,7 @@ public final class OspfLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
             return;
         }
 
-        m_linkd.getQueryManager().reconcileLldp(getNodeId(),now);
+        m_linkd.getQueryManager().reconcileOspf(getNodeId(),now);
     }
 
 	@Override

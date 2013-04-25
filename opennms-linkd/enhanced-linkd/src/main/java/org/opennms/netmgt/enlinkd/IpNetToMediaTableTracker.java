@@ -33,6 +33,9 @@ import static org.opennms.core.utils.InetAddressUtils.normalizeMacAddress;
 import java.net.InetAddress;
 
 import org.opennms.core.utils.LogUtils;
+import org.opennms.netmgt.model.topology.Element;
+import org.opennms.netmgt.model.topology.InetElementIdentifier;
+import org.opennms.netmgt.model.topology.MacAddrEndPoint;
 import org.opennms.netmgt.snmp.RowCallback;
 import org.opennms.netmgt.snmp.SnmpInstId;
 import org.opennms.netmgt.snmp.SnmpObjId;
@@ -55,7 +58,7 @@ import org.opennms.netmgt.snmp.TableTracker;
  * @see <A HREF="http://www.ietf.org/rfc/rfc1213.txt">RFC1213</A>
  * @version $Id: $
  */
-public final class IpNetToMediaTableTracker extends TableTracker
+public class IpNetToMediaTableTracker extends TableTracker
 {
     /**
      * <P>The TABLE_OID is the object identifier that represents
@@ -68,6 +71,10 @@ public final class IpNetToMediaTableTracker extends TableTracker
 	public final static	SnmpObjId	IPNETTOMEDIA_TABLE_NETADDR	= SnmpObjId.get(IPNETTOMEDIA_TABLE_ENTRY, "3");
 	public final static	SnmpObjId	IPNETTOMEDIA_TABLE_TYPE		= SnmpObjId.get(IPNETTOMEDIA_TABLE_ENTRY, "4");
 
+	public final static int IPNETTOMEDIA_TYPE_OTHER   = 1;
+	public final static int IPNETTOMEDIA_TYPE_INVALID = 2;
+	public final static int IPNETTOMEDIA_TYPE_DYNAMIC = 3;
+	public final static int IPNETTOMEDIA_TYPE_STATIC  = 4;
 
 	/**
 	 * <P>The keys that will be supported by default from the 
@@ -89,20 +96,28 @@ public final class IpNetToMediaTableTracker extends TableTracker
 		IPNETTOMEDIA_TABLE_NETADDR,
         
 		/**
-         * The type of mapping.
-         * Setting this object to the value invalid(2) has
-         * the effect of invalidating the corresponding entry
-         * in the ipNetToMediaTable. That is, it effectively
-         * disassociates the interface identified with said
-         * entry from the mapping identified with said entry.
-         * It is an implementation-specific matter as to
-         * whether the agent removes an invalidated entry
-         * from the table. Accordingly, management stations
-         * must be prepared to receive tabular information
-         * from agents that corresponds to entries not
-         * currently in use. Proper interpretation of such
-         * entries requires examination of the relevant
-         * ipNetToMediaType object.
+		 * ipNetToMediaType OBJECT-TYPE
+     	 * SYNTAX      INTEGER {
+         *       other(1),        -- none of the following
+         *       invalid(2),      -- an invalidated mapping
+         *       dynamic(3),
+         *       static(4)
+         *   }
+    	 *	MAX-ACCESS  read-create
+    	 *	STATUS      current
+    	 *	DESCRIPTION
+         *   "The type of mapping.
+         *   Setting this object to the value invalid(2) has the effect
+         *   of invalidating the corresponding entry in the
+         *   ipNetToMediaTable.  That is, it effectively disassociates
+         *   the interface identified with said entry from the mapping
+         *   identified with said entry.  It is an implementation-
+         *   specific matter as to whether the agent removes an
+         *   invalidated entry from the table.  Accordingly, management
+         *   stations must be prepared to receive tabular information
+         *   from agents that corresponds to entries not currently in
+         *   use.  Proper interpretation of such entries requires
+         *   examination of the relevant ipNetToMediaType object."         
          */
 		IPNETTOMEDIA_TABLE_TYPE
 		};
@@ -156,6 +171,19 @@ public final class IpNetToMediaTableTracker extends TableTracker
 		 */
 		public Integer getIpNetToMediatype(){
 			return getValue(IPNETTOMEDIA_TABLE_TYPE).toInt();
+		}
+		
+		public MacAddrEndPoint getEndPoint() {
+			MacAddrEndPoint macep = null;
+			if (getIpNetToMediatype() == IPNETTOMEDIA_TYPE_DYNAMIC || getIpNetToMediatype() == IPNETTOMEDIA_TYPE_STATIC) {
+				macep = new MacAddrEndPoint(getIpNetToMediaPhysAddress());
+				macep.setIpAddr(getIpNetToMediaNetAddress());
+				Element e = new Element();
+				e.addElementIdentifier(new InetElementIdentifier(getIpNetToMediaNetAddress()));
+				e.addEndPoint(macep);
+				macep.setDevice(e);
+			}
+			return macep;
 		}
 	}
 	/**

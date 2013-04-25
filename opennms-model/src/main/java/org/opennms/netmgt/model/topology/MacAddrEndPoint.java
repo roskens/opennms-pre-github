@@ -8,9 +8,21 @@ import static org.opennms.core.utils.InetAddressUtils.str;
 
 public class MacAddrEndPoint extends EndPoint {
 
+	
 	private InetAddress m_ipAddr;
 	private final String m_macAddress;
-	
+	private Integer m_sourceIpNetToMediaNode;
+
+	public Integer getSourceIpNetToMediaNode() {
+		return m_sourceIpNetToMediaNode;
+	}
+
+
+	public void setSourceIpNetToMediaNode(Integer sourceIpNetToMediaNode) {
+		m_sourceIpNetToMediaNode = sourceIpNetToMediaNode;
+	}
+
+
 	public MacAddrEndPoint(String mac) {
 		m_macAddress = mac;
 	}
@@ -66,6 +78,8 @@ public class MacAddrEndPoint extends EndPoint {
 		MacAddrEndPoint macendpoint = (MacAddrEndPoint) endpoint;
 		if (macendpoint.getIpAddr() != null)
 			m_ipAddr = macendpoint.getIpAddr();
+		if (macendpoint.getSourceIpNetToMediaNode() != null)
+			m_sourceIpNetToMediaNode = macendpoint.getSourceIpNetToMediaNode();
 		if (endpoint.hasLink()) {
 			Link link = endpoint.getLink(); 
 			if (equals(link.getA())) 

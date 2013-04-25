@@ -35,8 +35,7 @@ import java.util.Date;
 
 
 import org.opennms.core.utils.LogUtils;
-import org.opennms.netmgt.model.topology.CdpElementIdentifier;
-import org.opennms.netmgt.model.topology.NodeElementIdentifier;
+import org.opennms.netmgt.model.topology.MacAddrEndPoint;
 
 import org.opennms.netmgt.snmp.SnmpUtils;
 import org.opennms.netmgt.snmp.SnmpWalker;
@@ -48,7 +47,7 @@ import org.opennms.netmgt.snmp.SnmpWalker;
  * creating and collection occurs in the main run method of the instance. This
  * allows the collection to occur in a thread if necessary.
  */
-public final class CdpLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
+public final class IpNetToMediaLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
     
     /**
      * Constructs a new SNMP collector for a node using the passed interface
@@ -59,7 +58,7 @@ public final class CdpLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
      * @param config
      *            The SnmpPeer object to collect from.
      */
-    public CdpLinkdNodeDiscovery(final EnhancedLinkd linkd, final LinkableNode node) {
+    public IpNetToMediaLinkdNodeDiscovery(final EnhancedLinkd linkd, final LinkableNode node) {
     	super(linkd, node);
     }
 
@@ -67,72 +66,39 @@ public final class CdpLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
 
     	final Date now = new Date(); 
 
-    	String trackerName = "cdpGlobalGroup";
-
-        final CdpGlobalGroup cdpGlobalGroup = new CdpGlobalGroup();
-
 		LogUtils.debugf(this, "run: collecting : %s", getPeer());
 
-        SnmpWalker walker =  SnmpUtils.createWalker(getPeer(), trackerName, cdpGlobalGroup);
 
-        walker.start();
+		IpNetToMediaTableTracker ipNetToMediaTableTracker = new IpNetToMediaTableTracker() {
+		    public void processIpNetToMediaRow(final IpNetToMediaRow row) {
+		    	MacAddrEndPoint macep = row.getEndPoint();
+		    	if (macep != null)
+		    		m_linkd.getQueryManager().store(macep);
+		    }
 
-        try {
-            walker.waitFor();
-            if (walker.timedOut()) {
-            	LogUtils.infof(this,
-                        "run:Aborting Cdp Linkd node scan : Agent timed out while scanning the %s table", trackerName);
-            	return;
-            }  else if (walker.failed()) {
-            	LogUtils.infof(this,
-                        "run:Aborting Cdp Linkd node scan : Agent failed while scanning the %s table: %s", trackerName,walker.getErrorMessage());
-            	return;
-            }
-        } catch (final InterruptedException e) {
-            LogUtils.errorf(this, e, "run: Cdp Linkd collection interrupted, exiting");
-            return;
-        }
-        
-        if (cdpGlobalGroup.getCdpDeviceId() == null ) {
-            LogUtils.infof(this, "cdp mib not supported on: %s", str(getPeer().getAddress()));
-            return;
-        } 
-
-
-        final CdpElementIdentifier cdpGlobalElementIdentifier = cdpGlobalGroup.getElementIdentifier();
-        LogUtils.infof(this, "found local cdp identifier : %s", cdpGlobalElementIdentifier);
-
-        final NodeElementIdentifier nodeElementIdentifier = new NodeElementIdentifier(getNodeId());
-        LogUtils.infof(this, "found node identifier for node: %s", nodeElementIdentifier );
-
-        final CdpInterfacePortNameGetter cdpInterfacePortNameGetter = new CdpInterfacePortNameGetter(getPeer());
-        trackerName = "cdpCacheTable";
-        CdpCacheTableTracker cdpCacheTable = new CdpCacheTableTracker() {
-
-        	public void processCdpCacheRow(final CdpCacheRow row) {
-	    		m_linkd.getQueryManager().store(row.getLink(cdpGlobalElementIdentifier, nodeElementIdentifier, cdpInterfacePortNameGetter));
-        	}
-        };
-
-        walker = SnmpUtils.createWalker(getPeer(), trackerName, cdpCacheTable);
+		};
+		
+		String trackerName = "ipNetToMedia";
+		SnmpWalker walker = SnmpUtils.createWalker(getPeer(), trackerName, ipNetToMediaTableTracker );
         walker.start();
         
         try {
             walker.waitFor();
             if (walker.timedOut()) {
             	LogUtils.infof(this,
-                        "run:Aborting Cdp Linkd node scan : Agent timed out while scanning the %s table", trackerName);
+                        "run:Aborting IpNetToMedia Linkd node scan : Agent timed out while scanning the %s table", trackerName);
             	return;
             }  else if (walker.failed()) {
             	LogUtils.infof(this,
-                        "run:Aborting Cdp Linkd node scan : Agent failed while scanning the %s table: %s", trackerName,walker.getErrorMessage());
+                        "run:Aborting IpNetToMedia Linkd node scan : Agent failed while scanning the %s table: %s", trackerName,walker.getErrorMessage());
             	return;
             }
         } catch (final InterruptedException e) {
-            LogUtils.errorf(this, e, "run: Cdp Linkd collection interrupted, exiting");
+            LogUtils.errorf(this, e, "run: collection interrupted, exiting");
             return;
         }
-        m_linkd.getQueryManager().reconcileCdp(getNodeId(),now);
+
+        m_linkd.getQueryManager().reconcileIpNetToMedia(getNodeId(), now);
     }
 
 	@Override

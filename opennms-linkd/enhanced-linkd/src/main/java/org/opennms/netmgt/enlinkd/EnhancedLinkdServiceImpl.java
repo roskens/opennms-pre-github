@@ -13,6 +13,7 @@ import org.opennms.netmgt.model.PrimaryType;
 import org.opennms.netmgt.model.topology.CdpLink;
 import org.opennms.netmgt.model.topology.Link;
 import org.opennms.netmgt.model.topology.LldpLink;
+import org.opennms.netmgt.model.topology.MacAddrEndPoint;
 import org.opennms.netmgt.model.topology.OspfLink;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -109,9 +110,34 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 	}
 
 	@Override
+	public void store(MacAddrEndPoint endpoint) {
+		m_topologyDao.saveOrUpdate(endpoint);
+	}
+ 
+	@Override
 	public void reconcileLldp(int nodeId, Date now) {
 		// TODO Auto-generated method stub
-		
 	}
+
+	@Override
+	public void reconcileCdp(int nodeId, Date now) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void reconcileOspf(int nodeId, Date now) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void reconcileIpNetToMedia(int nodeId, Date now) {
+		// TODO Auto-generated method stub
+	}
+	
+	@Override
+	public void reconcileBridge(int nodeId, Date now) {
+		// TODO Auto-generated method stub
+	}
+
 
 }

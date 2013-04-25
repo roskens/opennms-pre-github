@@ -33,6 +33,7 @@ import java.util.List;
 
 import org.opennms.netmgt.model.topology.CdpLink;
 import org.opennms.netmgt.model.topology.LldpLink;
+import org.opennms.netmgt.model.topology.MacAddrEndPoint;
 import org.opennms.netmgt.model.topology.OspfLink;
 
 /**
@@ -118,5 +119,15 @@ public interface EnhancedLinkdService {
 	void store(CdpLink link);
 
 	void store(OspfLink link);
-    
+
+	void store(MacAddrEndPoint macep);
+
+	void reconcileCdp(int nodeId, Date now);
+
+	void reconcileOspf(int nodeId, Date now);
+
+	void reconcileIpNetToMedia(int nodeId, Date now);
+
+	void reconcileBridge(int nodeId, Date now);
+
 }
