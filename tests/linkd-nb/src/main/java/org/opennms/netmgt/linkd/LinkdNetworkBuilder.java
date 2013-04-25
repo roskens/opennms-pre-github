@@ -303,7 +303,7 @@ public abstract class LinkdNetworkBuilder {
     	List<EndPoint> endpoints = new ArrayList<EndPoint>();
 
         for (final Element e: topology) {
-        	System.err.println("---------- start element --------");
+        	System.err.println("---------- element --------");
         	for (ElementIdentifier iden: e.getElementIdentifiers()) {
         		printElementIdentifier(iden);
         	}
@@ -313,7 +313,7 @@ public abstract class LinkdNetworkBuilder {
         			printEndPoint(ep);
         		}
         	}
-        	System.err.println("----------end element --------");
+        	System.err.println("");
         }
         return endpoints;
 	
@@ -338,57 +338,47 @@ public abstract class LinkdNetworkBuilder {
     }
 
     private void printElementIdentifier(ElementIdentifier iden) {
-    	System.err.println("---------- start element identifier--------");
-    	System.err.println("Element Identifier Last Poll :" + iden.getLastPoll());
-		System.err.println("Identifier type: " + ElementIdentifierType.getTypeString(iden.getType().getIntCode()));
-		if (iden.getType().equals(ElementIdentifierType.ONMSNODE)) 
-			System.err.println("Identifier node: " + ((NodeElementIdentifier)iden).getNodeid());
+    	if (iden.getType().equals(ElementIdentifierType.ONMSNODE)) 
+			System.err.println("node: " + ((NodeElementIdentifier)iden).getNodeid()+" " + iden.getLastPoll());
 		else if (iden.getType().equals(ElementIdentifierType.LLDP))
-			System.err.println("Identifier lldp: " + ((LldpElementIdentifier)iden).getLldpChassisId());
+			System.err.println("lldp: " + ((LldpElementIdentifier)iden).getLldpChassisId()+" " + iden.getLastPoll());
 		else if (iden.getType().equals(ElementIdentifierType.CDP))
-			System.err.println("Identifier cdp: " + ((CdpElementIdentifier)iden).getCdpDeviceId());
+			System.err.println("cdp: " + ((CdpElementIdentifier)iden).getCdpDeviceId()+" " + iden.getLastPoll());
 		else if (iden.getType().equals(ElementIdentifierType.OSPF))
-			System.err.println("Identifier ospf: " + str(((OspfElementIdentifier)iden).getOspfRouterId()));
-    	System.err.println("---------- end element identifier--------");
-    	
+			System.err.println("ospf: " + str(((OspfElementIdentifier)iden).getOspfRouterId())+" " + iden.getLastPoll());    	
     }
     
     private void printEndPoint(EndPoint ep) {
-    	System.err.println("----------start endpoint identifier--------");
-    	System.err.println("EndPoint Last Poll :" + ep.getLastPoll());
     	if (ep instanceof LldpEndPoint) {
     		LldpEndPoint lldpep = (LldpEndPoint) ep;
-    		System.err.println("Found Lldp Endpoint: " + lldpep.getLldpPortId());
+    		System.err.println("Lldp Endpoint: " + lldpep.getLldpPortId() + " " + ep.getLastPoll());
     	} else if (ep instanceof CdpEndPoint) {
     		CdpEndPoint cdpep = (CdpEndPoint) ep;
-    		System.err.println("Found Cdp Endpoint Port: " + cdpep.getCdpCacheDevicePort());
-    		System.err.println("Found Cdp Endpoint IfIndex: " + cdpep.getCdpCacheIfindex());
+    		System.err.println("Cdp Endpoint Port: " + cdpep.getCdpCacheDevicePort()+" " + ep.getLastPoll());
+    		System.err.println("Cdp Endpoint IfIndex: " + cdpep.getCdpCacheIfindex()+" " + ep.getLastPoll());
     	} else if (ep instanceof OspfEndPoint ) {
     		OspfEndPoint ospfep = (OspfEndPoint) ep;
-    		System.err.println("Found Ospf Endpoint ip Address: " + str(ospfep.getOspfIpAddr()));
-    		System.err.println("Found Ospf Endpoint Address less IfIndex: " + ospfep.getOspfAddressLessIndex());
-    		System.err.println("Found Ospf Endpoint net mask: " + str(ospfep.getOspfIpMask()));
-    		System.err.println("Found Ospf Endpoint IfIndex: " + ospfep.getOspfIfIndex());
+    		System.err.println("Ospf Endpoint ip Address: " + str(ospfep.getOspfIpAddr())+" " + ep.getLastPoll());
+    		System.err.println("Ospf Endpoint Address less IfIndex: " + ospfep.getOspfAddressLessIndex()+" " + ep.getLastPoll());
+    		System.err.println("Ospf Endpoint net mask: " + str(ospfep.getOspfIpMask())+" " + ep.getLastPoll());
+    		System.err.println("Ospf Endpoint IfIndex: " + ospfep.getOspfIfIndex()+" " + ep.getLastPoll());
     	}
-    	System.err.println("----------end endpoint identifier--------");
     }
     
     private void printLink(Link link) {
-    	System.err.println("----------start link identifier--------");
-    	System.err.println("Link Last Poll :" + link.getLastPoll());
-    	System.err.println("----------elementA--------");
+    	System.err.println("----------link--------");
+    	System.err.println("Last Poll :" + link.getLastPoll());
+    	System.err.println("----------A--------");
     	for (ElementIdentifier iden: link.getA().getDevice().getElementIdentifiers()) {
     		printElementIdentifier(iden);
     	}
-    	System.err.println("----------endPointA--------");
     	printEndPoint(link.getA());
     	
-    	System.err.println("----------elementB--------");
+    	System.err.println("----------B--------");
     	for (ElementIdentifier iden: link.getB().getDevice().getElementIdentifiers()) {
     		printElementIdentifier(iden);
     	}
-    	System.err.println("----------endPointB--------");
     	printEndPoint(link.getB());
-    	System.err.println("----------end link identifier--------");
+    	System.err.println("");
     }
 }

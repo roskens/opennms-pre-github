@@ -26,7 +26,35 @@ public abstract class EndPoint extends Pollable {
 	 * 
 	 */	
 	private Link m_link;
+
+	/**
+	 * The current ifindex of the endpoint
+	 * could be null
+	 */
+	private Integer m_ifIndex;
+
+	/**
+	 * The current ifName of the endPoint
+	 * could be null
+	 */
+	private String m_ifName;
 	
+	public Integer getIfIndex() {
+		return m_ifIndex;
+	}
+
+	public void setIfIndex(Integer ifIndex) {
+		m_ifIndex = ifIndex;
+	}
+
+	public String getIfName() {
+		return m_ifName;
+	}
+
+	public void setIfName(String ifName) {
+		m_ifName = ifName;
+	}
+
 	public Element getDevice() {
 		return m_device;
 	}

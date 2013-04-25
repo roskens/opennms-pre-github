@@ -13,11 +13,13 @@ public class CdpEndPoint extends EndPoint {
 
 	public void setCdpCacheIfindex(Integer cdpCacheIfindex) {
 		m_cdpCacheIfindex = cdpCacheIfindex;
+		setIfIndex(cdpCacheIfindex);
 	}
 
 	public CdpEndPoint(String  cdpCacheDevicePort) {
 		super();
 		m_cdpCacheDevicePort = cdpCacheDevicePort;
+		setIfName(cdpCacheDevicePort);
 	}
 		
 	public String getCdpCacheDevicePort() {
@@ -52,11 +54,21 @@ public class CdpEndPoint extends EndPoint {
 
 	@Override
 	public void update(EndPoint endpoint) {
+		if (!equals(endpoint)) {
+			return;
+		}
 		m_lastPoll = endpoint.getLastPoll();
-		setLink(endpoint.getLink());
 		CdpEndPoint cdpendpoint = (CdpEndPoint) endpoint;
 		if (cdpendpoint.getCdpCacheIfindex() != null)
 			setCdpCacheIfindex(cdpendpoint.getCdpCacheIfindex());
+		if (endpoint.hasLink()) {
+			Link link = endpoint.getLink(); 
+			if (equals(link.getA())) 
+				link.setA(this);
+			else if (equals(link.getB())) 
+				link.setB(this);
+			setLink(link);
+		}
 	}
 
 }

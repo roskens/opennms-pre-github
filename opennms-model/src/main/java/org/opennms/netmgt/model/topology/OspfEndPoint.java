@@ -37,6 +37,7 @@ public class OspfEndPoint extends EndPoint {
 
 	public void setOspfIfIndex(Integer ospfIfIndex) {
 		m_ospfIfIndex = ospfIfIndex;
+		setIfIndex(ospfIfIndex);
 	}
 
 
@@ -84,14 +85,22 @@ public class OspfEndPoint extends EndPoint {
 
 	@Override
 	public void update(EndPoint endpoint) {
+		if (!equals(endpoint))
+			return;
 		m_lastPoll = endpoint.getLastPoll();
-		setLink(endpoint.getLink());
 		OspfEndPoint ospfendpoint = (OspfEndPoint) endpoint;
 		if (ospfendpoint.getOspfIfIndex() != null)
 			m_ospfIfIndex = ospfendpoint.getOspfIfIndex();
 		if (ospfendpoint.getOspfIpMask() != null)
 			m_ospfIpMask = ospfendpoint.getOspfIpMask();
-		
+		if (endpoint.hasLink()) {
+			Link link = endpoint.getLink(); 
+			if (equals(link.getA())) 
+				link.setA(this);
+			else if (equals(link.getB())) 
+				link.setB(this);
+			setLink(link);
+		}
 	}
 
 }

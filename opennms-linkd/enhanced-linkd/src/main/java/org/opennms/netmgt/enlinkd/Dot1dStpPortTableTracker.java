@@ -56,7 +56,7 @@ public final class Dot1dStpPortTableTracker extends TableTracker {
 	public final static SnmpObjId DOT1D_STP_PORT                   = SnmpObjId.get(".1.3.6.1.2.1.17.2.15.1.1");
 	public final static SnmpObjId DOT1D_STP_PORT_STATE             = SnmpObjId.get(".1.3.6.1.2.1.17.2.15.1.3");
 	public final static SnmpObjId DOT1D_STP_PORT_ENABLE            = SnmpObjId.get(".1.3.6.1.2.1.17.2.15.1.4");
-	public final static SnmpObjId DOT1D_STP_PORT_DESIGNATED_BRIDGE = SnmpObjId.get(".1.3.6.1.2.1.17.2.15.1.8");;
+	public final static SnmpObjId DOT1D_STP_PORT_DESIGNATED_BRIDGE = SnmpObjId.get(".1.3.6.1.2.1.17.2.15.1.8");
 	public final static SnmpObjId DOT1D_STP_PORT_DESIGNATED_PORT   = SnmpObjId.get(".1.3.6.1.2.1.17.2.15.1.9");
 
 	public static final SnmpObjId[] stpport_elemList = new SnmpObjId[] {
