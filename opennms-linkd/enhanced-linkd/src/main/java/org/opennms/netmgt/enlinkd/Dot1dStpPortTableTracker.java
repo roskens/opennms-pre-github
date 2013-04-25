@@ -128,8 +128,13 @@ public final class Dot1dStpPortTableTracker extends TableTracker {
 		DOT1D_STP_PORT_DESIGNATED_BRIDGE,
 		
 		/**
+		 * SYNTAX      OCTET STRING (SIZE (2))
+         * MAX-ACCESS  read-only
+         * STATUS      current
 		 * The Port Identifier of the port on the Designated
 		 * Bridge for this port's segment.
+		 *  REFERENCE
+         *  "IEEE 802.1D-1998: clause 8.5.5.7"
 		 */
 		DOT1D_STP_PORT_DESIGNATED_PORT
 	};
@@ -169,7 +174,18 @@ public final class Dot1dStpPortTableTracker extends TableTracker {
 		
 		/**
 		 * <p>getDot1dStpPortDesignatedBridge</p>
-		 *
+		 *BridgeId ::= TEXTUAL-CONVENTION
+         * STATUS      current
+         * DESCRIPTION
+         *  "The Bridge-Identifier, as used in the Spanning Tree
+         *  Protocol, to uniquely identify a bridge.  Its first two
+         *  octets (in network byte order) contain a priority value,
+         *  and its last 6 octets contain the MAC address used to
+         *  refer to a bridge in a unique fashion (typically, the
+         *  numerically smallest MAC address of all ports on the
+         *  bridge)."
+         * SYNTAX      OCTET STRING (SIZE (8))
+         *
 		 * @return a {@link java.lang.String} object.
 		 */
 		public String getDot1dStpPortDesignatedBridge() {
@@ -209,9 +225,9 @@ public final class Dot1dStpPortTableTracker extends TableTracker {
     }
 
     /**
-     * <p>processIpNetToMediaRow</p>
+     * <p>processDot1dStpPortRow</p>
      *
-     * @param row a {@link org.opennms.netmgt.enlinkd.Dot1qTpFdbTableTracker.Dot1qTpFdbRow} object.
+     * @param row a {@link org.opennms.netmgt.enlinkd.Dot1dStpPortTableTracker.Dot1dStpPortRow} object.
      */
     public void processDot1dStpPortRow(final Dot1dStpPortRow row) {
     }
