@@ -28,7 +28,6 @@
 
 package org.opennms.netmgt.enlinkd;
 
-import static org.opennms.core.utils.InetAddressUtils.addr;
 
 import java.net.InetAddress;
 
@@ -36,11 +35,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 import org.opennms.core.utils.BeanUtils;
-import org.opennms.core.utils.InetAddressComparator;
 import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.config.EnhancedLinkdConfig;
 import org.opennms.netmgt.config.SnmpPeerFactory;
@@ -92,12 +88,6 @@ public class EnhancedLinkd extends AbstractServiceDaemon {
     private List<LinkableNode> m_nodes;
 
     /**
-     * the list of {@link java.net.InetAddress} for which new suspect event is
-     * sent
-     */
-    private Set<InetAddress> m_newSuspectEventsIpAddr = null;
-
-    /**
      * Event handler
      */
     private volatile EventForwarder m_eventForwarder;
@@ -121,12 +111,6 @@ public class EnhancedLinkd extends AbstractServiceDaemon {
 
         Assert.state(m_eventForwarder != null,
                      "must set the eventForwarder property");
-
-        // initialize the ipaddrsentevents
-        m_newSuspectEventsIpAddr = new TreeSet<InetAddress>(
-                                                            new InetAddressComparator());
-        m_newSuspectEventsIpAddr.add(addr("127.0.0.1"));
-        m_newSuspectEventsIpAddr.add(addr("0.0.0.0"));
 
         m_nodes = m_queryMgr.getSnmpNodeList();
         m_queryMgr.reconcile();
@@ -196,6 +180,13 @@ public class EnhancedLinkd extends AbstractServiceDaemon {
         	snmpcolls.add(ospfcoll);
         }
 
+        if (m_linkdConfig.useBridgeDiscovery()) {
+        	LogUtils.debugf(this,
+                    "getSnmpCollections: adding IpNetToMedia Discovery: %s",
+                    node);
+        	IpNetToMediaLinkdNodeDiscovery ipnettomediacoll = new IpNetToMediaLinkdNodeDiscovery(this, node);
+        	snmpcolls.add(ipnettomediacoll);
+        }
         return snmpcolls;
 
     }
