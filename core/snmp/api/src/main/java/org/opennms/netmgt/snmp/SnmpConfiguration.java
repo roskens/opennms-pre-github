@@ -37,42 +37,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name="snmpConfiguration")
 public class SnmpConfiguration {
-    
-	
-	//TODO mvr
-	public static enum PrivacyProtocol {
-		AES, MD5;
-	}
-	
-	// TODO mvr 
-	public static enum AuthProtocol {
-		SHA, MD5;
-	}
-	
-	// TODO mvr
-	public static enum SecurityLevel {
-		
-		noAuthNoPriv(1), authNoPriv(2), authPriv(3);
-		
-		private final int level;
-		
-		private SecurityLevel(int level) {
-			this.level = level;
-		}
-		
-		public int getSecurityLevel() {
-			return level;
-		}
-		
-		public static SecurityLevel fromSecurityLevel(Integer intValue) {
-			if (intValue == null || intValue.intValue() <=0) return null;
-			for (SecurityLevel eachLevel : SecurityLevel.values()) {
-				if (eachLevel.getSecurityLevel() == intValue.intValue()) 
-					return eachLevel;
-			}
-			return noAuthNoPriv; // default
-		}
-	}
 	
     public static final int DEFAULT_TIMEOUT = 3000;
     public static final int DEFAULT_PORT = 161;

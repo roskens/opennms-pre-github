@@ -106,6 +106,7 @@ public class AdminPageTest extends OpenNMSSeleniumTestCase {
         assertTrue(selenium.isTextPresent("Exclude Ranges"));
         selenium.click("link=Admin");
         waitForPageToLoad();
+        // TODO MVR make test green again :)
         selenium.click("link=Configure SNMP Community Names by IP");
         waitForPageToLoad();
         assertTrue(selenium.isTextPresent("Please enter an IP or a range of IPs and the read community string below"));
