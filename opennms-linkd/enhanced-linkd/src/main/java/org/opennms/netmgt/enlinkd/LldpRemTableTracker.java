@@ -51,6 +51,7 @@ public class LldpRemTableTracker extends TableTracker {
     public final static SnmpObjId LLDP_REM_CHASSISID         = SnmpObjId.get(LLDP_REM_TABLE_ENTRY,"5");
     public final static SnmpObjId LLDP_REM_PORTID_SUBTYPE    = SnmpObjId.get(LLDP_REM_TABLE_ENTRY,"6");
     public final static SnmpObjId LLDP_REM_PORTID            = SnmpObjId.get(LLDP_REM_TABLE_ENTRY,"7");
+    public final static SnmpObjId LLDP_REM_DESCR             = SnmpObjId.get(LLDP_REM_TABLE_ENTRY,"8");
     public final static SnmpObjId LLDP_REM_SYSNAME           = SnmpObjId.get(LLDP_REM_TABLE_ENTRY,"9");
 
     public static final SnmpObjId[] s_lldpremtable_elemList = new SnmpObjId[] {
@@ -115,6 +116,10 @@ public class LldpRemTableTracker extends TableTracker {
 	    	return getValue(LLDP_REM_PORTID);
 	    }
 	    
+	    public String getLldpRemPortDescr() {
+	    	return getValue(LLDP_REM_DESCR).toDisplayString();
+	    }
+
 	    public String getLldpRemSysname() {
 	        return getValue(LLDP_REM_SYSNAME).toDisplayString();
 	    }
