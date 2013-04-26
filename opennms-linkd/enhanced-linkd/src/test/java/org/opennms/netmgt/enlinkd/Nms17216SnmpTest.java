@@ -44,7 +44,6 @@ import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.config.SnmpPeerFactory;
 import org.opennms.netmgt.linkd.Nms17216NetworkBuilder;
 import org.opennms.netmgt.model.topology.CdpElementIdentifier;
-import org.opennms.netmgt.model.topology.CdpElementIdentifier.CiscoNetworkProtocolType;
 import org.opennms.netmgt.model.topology.CdpEndPoint;
 import org.opennms.netmgt.model.topology.LldpElementIdentifier;
 import org.opennms.netmgt.model.topology.LldpElementIdentifier.LldpChassisIdSubType;
@@ -221,7 +220,7 @@ public class Nms17216SnmpTest extends Nms17216NetworkBuilder implements Initiali
             return;
         }
 
-		CdpElementIdentifier eiA = cdpGlobalGroup.getElementIdentifier(SWITCH1_IP,CiscoNetworkProtocolType.IP);
+		CdpElementIdentifier eiA = cdpGlobalGroup.getElementIdentifier();
 		System.err.println("local chassis id: " + eiA.getCdpDeviceId());
 		
 		assertEquals("Switch1", eiA.getCdpDeviceId());
