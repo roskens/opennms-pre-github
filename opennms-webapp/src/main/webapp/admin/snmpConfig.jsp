@@ -79,54 +79,63 @@
 		//validate timeout
 		var timeout = new String(document.snmpConfigForm.timeout.value);
 		if (timeout != "" && (!isNumber(timeout) || parseInt(timeout) <= 0)) {
-			alert(timeout + " is not a valid timeout. Please enter a number greater than 0 or leave it empty.");
+			alert(timeout
+					+ " is not a valid timeout. Please enter a number greater than 0 or leave it empty.");
 			return false;
 		}
-		
+
 		//validate retryCount
 		var retryCount = new String(document.snmpConfigForm.retryCount.value);
-		if (retryCount != "" && (!isNumber(retryCount) || parseInt(retryCount) <= 0)) {
-			alert(retryCount + " is not a valid Retry Count. Please enter a number greater than 0 or leave it empty.");
+		if (retryCount != ""
+				&& (!isNumber(retryCount) || parseInt(retryCount) <= 0)) {
+			alert(retryCount
+					+ " is not a valid Retry Count. Please enter a number greater than 0 or leave it empty.");
 			return false;
 		}
-		
+
 		// validate port
 		var port = new String(document.snmpConfigForm.port.value);
 		if (port != "" && (!isNumber(port) || parseInt(port) <= 0)) {
-			alert(port + " is not a valid Port. Please enter a number greater than 0 or leave it empty.");
+			alert(port
+					+ " is not a valid Port. Please enter a number greater than 0 or leave it empty.");
 			return false;
 		}
-		
+
 		// validate maxRequestSize
-		var maxRequestSize = new String(document.snmpConfigForm.maxRequestSize.value);
-		if (maxRequestSize != "" && (!isNumber(maxRequestSize) || parseInt(maxRequestSize) <= 0)) {
-			alert(maxRequestSize + " is not a valid Max Request Size. Please enter a number greater than 0 or leave it empty.");
+		var maxRequestSize = new String(
+				document.snmpConfigForm.maxRequestSize.value);
+		if (maxRequestSize != ""
+				&& (!isNumber(maxRequestSize) || parseInt(maxRequestSize) <= 0)) {
+			alert(maxRequestSize
+					+ " is not a valid Max Request Size. Please enter a number greater than 0 or leave it empty.");
 			return false;
 		}
-		
+
 		// validate maxVarsPerPdu
-		var maxVarsPerPdu = new String(document.snmpConfigForm.maxVarsPerPdu.value);
-		if (maxVarsPerPdu != "" && (!isNumber(maxVarsPerPdu) || parseInt(maxVarsPerPdu) <= 0)) {
-			alert(maxVarsPerPdu + " is not a valid Max Vars Per Pdu. Please enter a number greater than 0 or leave it empty.");
+		var maxVarsPerPdu = new String(
+				document.snmpConfigForm.maxVarsPerPdu.value);
+		if (maxVarsPerPdu != ""
+				&& (!isNumber(maxVarsPerPdu) || parseInt(maxVarsPerPdu) <= 0)) {
+			alert(maxVarsPerPdu
+					+ " is not a valid Max Vars Per Pdu. Please enter a number greater than 0 or leave it empty.");
 			return false;
 		}
-		
+
 		// validate maxRepetitions
-		var maxRepetitions = new String(document.snmpConfigForm.maxRepetitions.value);
-		if (maxRepetitions != "" && (!isNumber(maxRepetitions) || parseInt(maxRepetitions) <= 0)) {
-			alert(maxRepetitions + " is not a valid Max Repetitions. Please enter a number greater than 0 or leave it empty.");
+		var maxRepetitions = new String(
+				document.snmpConfigForm.maxRepetitions.value);
+		if (maxRepetitions != ""
+				&& (!isNumber(maxRepetitions) || parseInt(maxRepetitions) <= 0)) {
+			alert(maxRepetitions
+					+ " is not a valid Max Repetitions. Please enter a number greater than 0 or leave it empty.");
 			return false;
-		}		
+		}
 		return true;
 	}
-	
-	<%/*  checks if the given parameter is a number, so we assume it can be parsed as an integer*/%>
+<%/*  checks if the given parameter is a number, so we assume it can be parsed as an integer*/%>
 	function isNumber(input) {
-		return !isNaN(input - 0) 
-			&& input != null 
-			&& input !== null 
-			&& input !== "" 
-			&& input !== false;
+		return !isNaN(input - 0) && input != null && input !== null
+				&& input !== "" && input !== false;
 	}
 
 	/*
@@ -162,118 +171,96 @@
 	}
 </script>
 
-<%!
-// does Null Pointer handling
-public String getValue(Object input) {
-	if (input == null) return "";
-	return input.toString();
-}
-
-public String getOptions(String selectedOption, String defaultOption, String... options) {
-	// prevent Nullpointer
-	if (defaultOption == null)  defaultOption = "";
-	// ensure that there is a default :)
-	if (Strings.isNullOrEmpty(selectedOption)) selectedOption = defaultOption;
-	
-	final String optionTemplate = "<option %s>%s</option>";
-	String optionsString = "";
-	for (String eachOption : options) {
-		optionsString += String.format(optionTemplate, eachOption.equals(selectedOption) ? "selected" : "", eachOption);
-		optionsString += "\n";
+<%!// does Null Pointer handling
+	public String getValue(Object input) {
+		if (input == null) return "";
+		return input.toString();
 	}
-	return optionsString.trim();
-}
-%>
+
+	public String getOptions(String selectedOption, String defaultOption, String... options) {
+		// prevent Nullpointer
+		if (defaultOption == null) defaultOption = "";
+		// ensure that there is a default :)
+		if (Strings.isNullOrEmpty(selectedOption)) selectedOption = defaultOption;
+
+		final String optionTemplate = "<option %s>%s</option>";
+		String optionsString = "";
+		for (String eachOption : options) {
+			optionsString += String.format(optionTemplate, eachOption.equals(selectedOption) ? "selected" : "",
+					eachOption);
+			optionsString += "\n";
+		}
+		return optionsString.trim();
+	}%>
 
 <%
-Object obj = request.getAttribute("snmpConfigForIp");
-SnmpInfo snmpInfo = obj == null ? new SnmpInfo() : (SnmpInfo)obj;
+	Object obj = request.getAttribute("snmpConfigForIp");
+	SnmpInfo snmpInfo = obj == null ? new SnmpInfo() : (SnmpInfo) obj;
 
-String firstIpAddress = getValue(request.getAttribute("firstIPAddress"));
-String version = getValue(snmpInfo.getVersion());
-String timeout = getValue(snmpInfo.getTimeout());
-String retryCount = getValue(snmpInfo.getRetries());
-String port = getValue(snmpInfo.getPort());
-String maxRequestSize = getValue(snmpInfo.getMaxRequestSize());
-String maxVarsPerPdu = getValue(snmpInfo.getMaxVarsPerPdu());
-String maxRepetitions = getValue(snmpInfo.getMaxRepetitions());
-String readCommunityString = getValue(snmpInfo.getReadCommunity());
-String writeCommunityString = getValue(snmpInfo.getWriteCommunity());
-String securityName = getValue(snmpInfo.getSecurityName());
-String securityLevel = getValue(snmpInfo.getSecurityLevel());
-String authPassPhrase = getValue(snmpInfo.getAuthPassPhrase());
-String authProtocol = getValue(snmpInfo.getAuthProtocol());
-String privPassPhrase = getValue(snmpInfo.getPrivPassPhrase());
-String privProtocol = getValue(snmpInfo.getPrivProtocol());
-String engineId = getValue(snmpInfo.getEngineId());
-String contextEngineId = getValue(snmpInfo.getContextEngineId());
-String contextName = getValue(snmpInfo.getContextName());
-String enterpriseId = getValue(snmpInfo.getEnterpriseId());
-
+	String firstIpAddress = getValue(request.getAttribute("firstIPAddress"));
+	String version = getValue(snmpInfo.getVersion());
+	String timeout = getValue(snmpInfo.getTimeout());
+	String retryCount = getValue(snmpInfo.getRetries());
+	String port = getValue(snmpInfo.getPort());
+	String maxRequestSize = getValue(snmpInfo.getMaxRequestSize());
+	String maxVarsPerPdu = getValue(snmpInfo.getMaxVarsPerPdu());
+	String maxRepetitions = getValue(snmpInfo.getMaxRepetitions());
+	String readCommunityString = getValue(snmpInfo.getReadCommunity());
+	String writeCommunityString = getValue(snmpInfo.getWriteCommunity());
+	String securityName = getValue(snmpInfo.getSecurityName());
+	String securityLevel = getValue(snmpInfo.getSecurityLevel());
+	String authPassPhrase = getValue(snmpInfo.getAuthPassPhrase());
+	String authProtocol = getValue(snmpInfo.getAuthProtocol());
+	String privPassPhrase = getValue(snmpInfo.getPrivPassPhrase());
+	String privProtocol = getValue(snmpInfo.getPrivProtocol());
+	String engineId = getValue(snmpInfo.getEngineId());
+	String contextEngineId = getValue(snmpInfo.getContextEngineId());
+	String contextName = getValue(snmpInfo.getContextName());
+	String enterpriseId = getValue(snmpInfo.getEnterpriseId());
 %>
 
 <body onload="onVersionChange()">
-
-	<%
-		if (request.getAttribute("success") != null) {
-	%>
-	<div>
-		<h3>Finished configuring SNMP</h3>
-		<p>OpenNMS does not need to be restarted.</p>
-	</div>
-	<%
-		}
-	%>
-
-	<div>
-		<h3>Content of snmp-config.xml</h3>
-		<p>
-			<textarea style="width: 100%; height: 100px"><%=request.getAttribute("snmpConfig")%></textarea>
-		</p>
-	</div>
-
-	<form method="post" name="snmpConfigGetForm"
-		action="admin/snmpConfig?action=get">
-		<h3>SnmpConfig lookup</h3>
-		<div>
-			<table>
-				<tr>
-					<td width="25%">Ip:</td>
-					<td><input type="text" name="ipAddress" <%=firstIpAddress %>/></td>
-				</tr>
-				<tr>
-				<tr>
-					<td><input type="submit" name="getConfig" value="Submit"></td>
-					<td><input type="button" name="cancel1" value="Cancel" onclick="cancel()">
-				<tr>
-			</table>
-		</div>
-	</form>
-
-	<form method="post" name="snmpConfigForm"
-		action="admin/snmpConfig?action=add"
-		onsubmit="return verifySnmpConfig();">
-
-		<div class="TwoColLAdmin">
-
-			<h3>Please enter an IP or a range of IPs and the parameters you
-				want to set below.</h3>
-
-			<!--  General parameters -->
-			<div id="general">
-				<h3>General parame3ters</h3>
+	<div class="TwoColLAdmin">
+		<form method="post" name="snmpConfigGetForm"
+			action="admin/snmpConfig?action=get">
+			<h3>SNMP Config Lookup</h3>
+			<div>
 				<table>
 					<tr>
+						<td width="25%">IP Address:</td>
+						<td width="50%"><input type="text" name="ipAddress"
+							<%=firstIpAddress%> /></td>
+					</tr>
+					<tr>
+						<td align="right"><input type="submit" name="getConfig"
+							value="Look up"></td>
+						<td><input type="button" name="cancel1" value="Cancel"
+							onclick="cancel()"></td>
+					<tr>
+				</table>
+			</div>
+		</form>
+		<form method="post" name="snmpConfigForm"
+			action="admin/snmpConfig?action=add"
+			onsubmit="return verifySnmpConfig();">
+			<!--  General parameters -->
+			<h3>Updating SNMP Configuration</h3>
+			<div id="general">
+				<table>
+					<tr>
+						<th colspan="2">General parameters</th>
+					</tr>
+					<tr>
 						<td width="25%">Version:</td>
-						<td width="50%">
-							<select id="version" name="version" onChange="onVersionChange()">
-								<%= getOptions(version, "v2c", "v1", "v2c", "v3") %>
-							</select>
-						</td>
+						<td width="50%"><select id="version" name="version"
+							onChange="onVersionChange()">
+								<%=getOptions(version, "v2c", "v1", "v2c", "v3")%>
+						</select></td>
 					</tr>
 					<tr>
 						<td width="25%">First IP Address:</td>
-						<td width="50%"><input size=15 name="firstIPAddress" value="<%=firstIpAddress%>"></td>
+						<td width="50%"><input size=15 name="firstIPAddress"
+							value="<%=firstIpAddress%>"></td>
 					</tr>
 
 					<tr>
@@ -284,14 +271,14 @@ String enterpriseId = getValue(snmpInfo.getEnterpriseId());
 
 					<tr>
 						<td width="25%">Timeout:</td>
-						<td width="50%"><input size=15 name="timeout" value="<%=timeout%>">
-							(Optional)</td>
+						<td width="50%"><input size=15 name="timeout"
+							value="<%=timeout%>"> (Optional)</td>
 					</tr>
 
 					<tr>
 						<td width="25%">Retries:</td>
-						<td width="50%"><input size=15 name="retryCount" value="<%=retryCount%>">
-							(Optional)</td>
+						<td width="50%"><input size=15 name="retryCount"
+							value="<%=retryCount%>"> (Optional)</td>
 					</tr>
 
 					<tr>
@@ -302,50 +289,54 @@ String enterpriseId = getValue(snmpInfo.getEnterpriseId());
 
 					<tr>
 						<td width="25%">Max Request Size:</td>
-						<td width="50%"><input size=15 name="maxRequestSize" value="<%=maxRequestSize%>"/>
-							(Optional)</td>
+						<td width="50%"><input size=15 name="maxRequestSize"
+							value="<%=maxRequestSize%>" /> (Optional)</td>
 					</tr>
 
 					<tr>
 						<td width="25%">Max Vars Per Pdu:</td>
-						<td width="50%"><input size=15 name="maxVarsPerPdu" value="<%=maxVarsPerPdu%>"/>
-							(Optional)</td>
+						<td width="50%"><input size=15 name="maxVarsPerPdu"
+							value="<%=maxVarsPerPdu%>" /> (Optional)</td>
 					</tr>
 
 					<tr>
 						<td width="25%">Max Repetitions:</td>
-						<td width="50%"><input size=15 name="maxRepetitions" value="<%=maxRepetitions%>"/>
-							(Optional)</td>
+						<td width="50%"><input size=15 name="maxRepetitions"
+							value="<%=maxRepetitions%>" /> (Optional)</td>
 					</tr>
 
 				</table>
 			</div>
 			<!-- v1/v2c parameters -->
 			<div id="v1v2" style="visibility: hidden; display: none;">
-				<h3>v1/v2c specific parameters</h3>
 				<table>
 					<tr>
+						<th colspan="2">v1/v2c specific parameters</th>
+					</tr>
+					<tr>
 						<td width="25%">Read Community String:</td>
-						<td width="50%"><input size=30 name="readCommunityString" value="<%=readCommunityString%>"/>
-							(Optional)</td>
+						<td width="50%"><input size=30 name="readCommunityString"
+							value="<%=readCommunityString%>" /> (Optional)</td>
 					</tr>
 
 					<tr>
 						<td width="25%">Write Community String:</td>
-						<td width="50%"><input size=30 name="writeCommunityString" value="<%=writeCommunityString%>"/>
-							(Optional)</td>
+						<td width="50%"><input size=30 name="writeCommunityString"
+							value="<%=writeCommunityString%>" /> (Optional)</td>
 					</tr>
 				</table>
 			</div>
 
 			<!--  v3 parameters -->
 			<div id="v3" style="visibility: hidden; display: none;">
-				<h3>v3 specific parameters</h3>
 				<table>
 					<tr>
+						<th colspan="2">v3 specific parameters</th>
+					</tr>
+					<tr>
 						<td width="25%">Security Name:</td>
-						<td width="50%"><input size=15 name="securityName" value="<%=securityName%>"/>
-							(Optional)</td>
+						<td width="50%"><input size=15 name="securityName"
+							value="<%=securityName%>" /> (Optional)</td>
 					</tr>
 
 					<tr>
@@ -353,94 +344,131 @@ String enterpriseId = getValue(snmpInfo.getEnterpriseId());
 						<td width="50%"><select name="securityLevel"
 							style="width: 100px">
 								<option value=""></option>
-								<option value="1" <%="1".equals(securityLevel) ? "selected" : ""%>>noAuthNoPriv</option>
-								<option value="2" <%="2".equals(securityLevel) ? "selected" : ""%>>authNoPriv</option>
-								<option value="3" <%="3".equals(securityLevel) ? "selected" : ""%>>authPriv</option>
+								<option value="1"
+									<%="1".equals(securityLevel) ? "selected" : ""%>>noAuthNoPriv</option>
+								<option value="2"
+									<%="2".equals(securityLevel) ? "selected" : ""%>>authNoPriv</option>
+								<option value="3"
+									<%="3".equals(securityLevel) ? "selected" : ""%>>authPriv</option>
 						</select> (Optional)</td>
 					</tr>
 
 					<tr>
 						<td width="25%">Auth Passphrase:</td>
-						<td width="50%"><input size=15 name="authPassPhrase" value="<%=authPassPhrase%>"/>
-							(Optional)</td>
+						<td width="50%"><input size=15 name="authPassPhrase"
+							value="<%=authPassPhrase%>" /> (Optional)</td>
 					</tr>
 
 					<tr>
 						<td width="25%">Auth Protocol:</td>
-						<td width="50%">
-							<select name="authProtocol" style="width: 100px">
+						<td width="50%"><select name="authProtocol"
+							style="width: 100px">
 								<%=getOptions(authProtocol, "", "", "MD5", "SHA")%>
-							</select> (Optional)
-						</td>
+						</select> (Optional)</td>
 					</tr>
 
 					<tr>
 						<td width="25%">Privacy Passphrase:</td>
-						<td width="50%"><input size=15 name="privacyPassPhrase" value="<%=privPassPhrase %>" />
-							(Optional)</td>
+						<td width="50%"><input size=15 name="privacyPassPhrase"
+							value="<%=privPassPhrase%>" /> (Optional)</td>
 					</tr>
 
 					<tr>
 						<td width="25%">Privacy Protocol:</td>
-						<td width="50%"><select name="privacyProtocol" style="width: 100px">
-								<%=getOptions(privProtocol, "", "", "DES", "AES", "AES192", "AES256") %>
+						<td width="50%"><select name="privacyProtocol"
+							style="width: 100px">
+								<%=getOptions(privProtocol, "", "", "DES", "AES", "AES192", "AES256")%>
 						</select> (Optional)</td>
 					</tr>
 
 					<tr>
 						<td width="25%">Engine Id:</td>
-						<td width="50%"><input size=15 name="engineId" value="<%=engineId %>"/> (Optional)</td>
+						<td width="50%"><input size=15 name="engineId"
+							value="<%=engineId%>" /> (Optional)</td>
 					</tr>
 
 					<tr>
 						<td width="25%">Context Engine Id:</td>
-						<td width="50%"><input size=15 name="contextEngineId" value="<%=contextEngineId%>"/>
-							(Optional)</td>
+						<td width="50%"><input size=15 name="contextEngineId"
+							value="<%=contextEngineId%>" /> (Optional)</td>
 					</tr>
 
 					<tr>
 						<td width="25%">Context Name:</td>
-						<td width="50%"><input size=15 name="contextName" value="<%=contextName%>"/>
-							(Optional)</td>
+						<td width="50%"><input size=15 name="contextName"
+							value="<%=contextName%>" /> (Optional)</td>
 					</tr>
 					<tr>
 						<td width="25%">Enterprise Id:</td>
-						<td width="50%"><input size=15 name="enterpriseId" value="<%=enterpriseId%>"/>
-							(Optional)</td>
+						<td width="50%"><input size=15 name="enterpriseId"
+							value="<%=enterpriseId%>" /> (Optional)</td>
 					</tr>
 				</table>
 			</div>
 			<!--  submit area -->
 			<div>
+				<%
+					if (request.getAttribute("success") != null) {
+				%>
+				<div>
+					<p><b>Finished configuring SNMP.</b> OpenNMS does not need to be restarted.</p>
+				</div>
+				<%
+					}
+				%>
 				<table>
 					<tr>
-						<td><input type="submit" name="saveConfig" value="Submit"></td>
-						<td><input type="button" name="cancel2" value="Cancel" onclick="cancel()">
-						</td>
+						<td width="25%" align="right"><input type="submit"
+							name="saveConfig" value="Save config"></td>
+						<td width="50%"><input type="button" name="cancel2"
+							value="Cancel" onclick="cancel()"></td>
 					</tr>
 				</table>
 			</div>
+		</form>
+
+		<!--  Content of snmp-config.xml -->
+		<div>
+			<h3>Content of snmp-config.xml</h3>
+			<p>
+				<textarea disabled style="width: 100%; height: 100px"><%=request.getAttribute("snmpConfig")%></textarea>
+			</p>
 		</div>
 
-		<div class="TwoColRAdmin">
-			<h3>Updating SNMP Community Names</h3>
+	</div>
 
-			<p>In the boxes on the left, enter in a specific IP address and
-				community string, or a range of IP addresses and a community string,
-				and other SNMP parameters.</p>
+	<div class="TwoColRAdmin">
+		<h3>Descriptions</h3>
+		<p>
+			<b>SNMP Config Lookup:</b> You can look up the actual SNMP
+			configuration for a specific IP. To do so enter the IP Address in the
+			SNMP Config Lookup box and press "Look up". The configuration will
+			then be shown in the "Updateing SNMP Community Names" area.
+		</p>
 
-			<p>OpenNMS will optimize this list, so enter the most generic
-				first (i.e. the largest range) and the specific IP addresses last,
-				because if a range is added that includes a specific IP address, the
-				community name for the specific address will be changed to be that
-				of the range.</p>
+		<p>
+			<b>Updating SNMP Configuration:</b> In the boxes on the left, enter
+			in a specific IP address and community string, or a range of IP
+			addresses and a community string, and other SNMP parameters.
+		</p>
+		<p>OpenNMS will optimize this list, so enter the most generic
+			first (i.e. the largest range) and the specific IP addresses last,
+			because if a range is added that includes a specific IP address, the
+			community name for the specific address will be changed to be that of
+			the range.</p>
+		<p>For devices that have already been provisioned and that have an
+			event stating that data collection has failed because the community
+			name changed, it may be necessary to update the SNMP information on
+			the interface page for that device (by selecting the "Update SNMP"
+			link) for these changes to take effect.</p>
 
-			<p>For devices that have already been provisioned and that have
-				an event stating that data collection has failed because the
-				community name changed, it may be necessary to update the SNMP
-				information on the interface page for that device (by selecting the
-				"Update SNMP" link) for these changes to take effect.</p>
-		</div>
-	</form>
+		<p>
+			<b>Content of snmp-config.xml:</b> This area shows the content of the
+			configuration file 'snmp-config.xml'. If you updated the SNMP
+			Configuration you may or may not see your changes. If your changes
+			are not visible they have been optimized (For further information
+			have a look at (TODO link to wiki page))
+		</p>
+	</div>
 	<jsp:include page="/includes/footer.jsp" flush="false" />
 </body>
