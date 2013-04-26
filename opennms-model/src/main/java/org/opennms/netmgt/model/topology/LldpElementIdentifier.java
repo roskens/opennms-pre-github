@@ -140,10 +140,10 @@ public final class LldpElementIdentifier extends ElementIdentifier {
 
 	}
 
-	private String m_lldpSysname;
+	private final String m_lldpSysname;
     
-    private String m_lldpChassisId;
-    private LldpChassisIdSubType m_lldpChassisIdSubType;
+    private final String m_lldpChassisId;
+    private final LldpChassisIdSubType m_lldpChassisIdSubType;
 
     public LldpElementIdentifier(String lldpChassisId, String sysname, Integer subtype) {
 		super(ElementIdentifierType.LLDP);
@@ -156,24 +156,14 @@ public final class LldpElementIdentifier extends ElementIdentifier {
 		return m_lldpChassisIdSubType;
 	}
 
-	public void setLldpChassisIdSubType(LldpChassisIdSubType lldpChassisIdSubType) {
-		m_lldpChassisIdSubType = lldpChassisIdSubType;
-	}
 
 	public String getLldpSysname() {
 		return m_lldpSysname;
 	}
 
-	public void setLldpSysname(String lldpSysname) {
-		m_lldpSysname = lldpSysname;
-	}
 
 	public String getLldpChassisId() {
 		return m_lldpChassisId;
-	}
-
-	public void setLldpChassisId(String lldpChassisId) {
-		m_lldpChassisId = lldpChassisId;
 	}
 
 	@Override

@@ -1,13 +1,10 @@
 package org.opennms.netmgt.model.topology;
 
 import java.io.Serializable;
-import java.net.InetAddress;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
-
-import static org.opennms.core.utils.InetAddressUtils.getIpAddressByHexString;
 
 public final class CdpElementIdentifier extends ElementIdentifier {
 
@@ -194,8 +191,13 @@ public final class CdpElementIdentifier extends ElementIdentifier {
 	}
 	
 	private final String m_cdpDeviceId; 
-	private final CiscoNetworkProtocolType m_cdpAddressType;
-	private final String m_cdpAddress;
+	private CiscoNetworkProtocolType m_cdpAddressType;
+	private String m_cdpAddress;
+
+	public CdpElementIdentifier(String cdpDeviceId) {
+		super(ElementIdentifierType.CDP);
+		m_cdpDeviceId = cdpDeviceId;
+	}
 
 	public CdpElementIdentifier(String cdpDeviceId, String cdpAddress, CiscoNetworkProtocolType type) {
 		super(ElementIdentifierType.CDP);
@@ -208,6 +210,21 @@ public final class CdpElementIdentifier extends ElementIdentifier {
 		return m_cdpDeviceId;
 	}
 
+	public String getCdpAddress() {
+		return m_cdpAddress;
+	}
+
+	public CiscoNetworkProtocolType getCdpAddressType() {
+		return m_cdpAddressType;
+	}
+
+	public void setCdpAddressType(CiscoNetworkProtocolType cdpAddressType) {
+		m_cdpAddressType = cdpAddressType;
+	}
+
+	public void setCdpAddress(String cdpAddress) {
+		m_cdpAddress = cdpAddress;
+	}
 	@Override
 	public boolean equals(ElementIdentifier elementIdentifier) {
 		if (elementIdentifier instanceof CdpElementIdentifier) 
@@ -224,21 +241,21 @@ public final class CdpElementIdentifier extends ElementIdentifier {
 		return new ToStringBuilder(this)
 			.append("cdpDeviceId", m_cdpDeviceId)
 			.append("cdpAddress", m_cdpAddress)
-			.append("cdpAddressType", CiscoNetworkProtocolType.getTypeString(m_cdpAddressType.getIntCode()))
+			.append("cdpAddressType", m_cdpAddressType)
 			.append("lastPoll", m_lastPoll)
 			.toString();
 	}
 
-	public InetAddress getIpCdpAddress() {
-		return getIpAddressByHexString(m_cdpAddress);
-	}
-
-	public String getCdpAddress() {
-		return m_cdpAddress;
-	}
-
-	public CiscoNetworkProtocolType getCdpAddressType() {
-		return m_cdpAddressType;
+	@Override
+	public void update(ElementIdentifier elementidentifier) {
+		if (!equals(elementidentifier))
+			return;
+		m_lastPoll = elementidentifier.getLastPoll();
+		CdpElementIdentifier cdp = (CdpElementIdentifier) elementidentifier;
+		if (cdp.getCdpAddress() != null) {
+			m_cdpAddress = cdp.getCdpAddress();
+			m_cdpAddressType = cdp.getCdpAddressType();
+		}
 	}
 
 }

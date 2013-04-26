@@ -100,4 +100,10 @@ public abstract class ElementIdentifier extends Pollable {
 	}
 
 	public abstract boolean equals(ElementIdentifier elementIdentifier);
+	
+	public void update(ElementIdentifier elementidentifier) {
+		if (!equals(elementidentifier))
+			return;
+		m_lastPoll = elementidentifier.getLastPoll();
+	}
 }
