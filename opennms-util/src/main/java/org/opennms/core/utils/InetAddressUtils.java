@@ -58,10 +58,12 @@ abstract public class InetAddressUtils {
     public static final InetAddress UNPINGABLE_ADDRESS_IPV6;
 	public static final String INVALID_BRIDGE_ADDRESS;
 	public static final String INVALID_BRIDGE_ID;
+	public static final String INVALID_BRIDGE_DESIGNATED_PORT;
 	
 	static {
 		INVALID_BRIDGE_ADDRESS = "000000000000";
 		INVALID_BRIDGE_ID      = "0000000000000000";
+		INVALID_BRIDGE_DESIGNATED_PORT = "0000";
 	}
 
     static {
@@ -663,6 +665,43 @@ abstract public class InetAddressUtils {
 		return InetAddressUtils.getInetAddress(bytes);
 	}
 
+	public static boolean isValidBridgeDesignatedPort(String bridgeDesignatedPort) {
+		if (bridgeDesignatedPort.equals(INVALID_BRIDGE_DESIGNATED_PORT))
+			return false;
+		Pattern pattern = Pattern.compile("([0-9a-f]{4})");
+		Matcher matcher = pattern.matcher(bridgeDesignatedPort);
+		return matcher.matches();
+	}
+
+	// A Port Identifier shall be encoded as two octets,
+    // taken to represent an unsigned binary number. If
+    // two Port Identifiers are numerically compared, the
+    // lesser number denotes the Port of better priority.
+    // The more significant octet of a Port Identifier is
+    // a settable priority component that permits the
+    // relative priority of Ports on the same Bridge to be
+    // managed (17.13.7 and Clause 14). The less
+    // significant twelve bits is the Port Number
+    // expressed as an unsigned binary number. The value 0
+    // is not used as a Port Number. NOTE -- The number of
+    // bits that are considered to be part of the Port
+    // Number (12 bits) differs from the 1998 and prior
+    // versions of this standard (formerly, the priority
+    // component was 8 bits and the Port Number component
+    // also 8 bits). This change acknowledged that modern
+    // switched LAN infrastructures call for increasingly
+    // large numbers of Ports to be supported in a single
+    // Bridge. To maintain management compatibility with
+    // older implementations, the priority component is
+    // still considered, for management purposes, to be an
+    // 8-bit value, but the values that it can be set to
+    // are restricted to those where the least significant
+    // 4 bits are zero (i.e., only the most significant 4
+    // bits are settable).
+    public static Integer getBridgeDesignatedPortNumber(String bridgeDesignatedPort) {
+    	return Integer.parseInt(bridgeDesignatedPort.substring(1),16);
+	
+	}
 	public static boolean isValidBridgeAddress(String bridgeAddress) {
 		if (bridgeAddress.equals(INVALID_BRIDGE_ADDRESS))
 			return false;

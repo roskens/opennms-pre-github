@@ -163,5 +163,20 @@ public class InetAddressUtilsTest {
 
     	bridgeId="80000123456789ab";
     	assertEquals("0123456789ab", InetAddressUtils.getBridgeAddressFromBridgeId(bridgeId));
+    	
+    	String bridgeDesignatedPort = "A123";
+    	assertEquals(false, InetAddressUtils.isValidBridgeDesignatedPort(bridgeDesignatedPort));
+    	bridgeDesignatedPort = "812a0";
+    	assertEquals(false, InetAddressUtils.isValidBridgeDesignatedPort(bridgeDesignatedPort));
+    	bridgeDesignatedPort = "2a0";
+    	assertEquals(false, InetAddressUtils.isValidBridgeDesignatedPort(bridgeDesignatedPort));
+    	bridgeDesignatedPort = "802a";
+    	assertEquals(true, InetAddressUtils.isValidBridgeDesignatedPort(bridgeDesignatedPort));
+    	
+    	assertEquals(42, InetAddressUtils.getBridgeDesignatedPortNumber(bridgeDesignatedPort).intValue());
+    	
+    	bridgeDesignatedPort = "a101";
+    	assertEquals(257, InetAddressUtils.getBridgeDesignatedPortNumber(bridgeDesignatedPort).intValue());
+    	
     }
 }
