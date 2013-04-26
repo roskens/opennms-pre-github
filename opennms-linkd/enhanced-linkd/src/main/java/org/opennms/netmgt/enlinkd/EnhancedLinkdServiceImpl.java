@@ -10,6 +10,9 @@ import org.opennms.netmgt.dao.TopologyDao;
 import org.opennms.netmgt.model.OnmsCriteria;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.PrimaryType;
+import org.opennms.netmgt.model.topology.BridgeDot1dTpFdbLink;
+import org.opennms.netmgt.model.topology.BridgeDot1qTpFdbLink;
+import org.opennms.netmgt.model.topology.BridgeStpLink;
 import org.opennms.netmgt.model.topology.CdpLink;
 import org.opennms.netmgt.model.topology.Link;
 import org.opennms.netmgt.model.topology.LldpLink;
@@ -42,7 +45,6 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 	}
 
 	
-	// SELECT node.nodeid, nodesysoid, ipaddr FROM node LEFT JOIN ipinterface ON node.nodeid = j.nodeid WHERE nodetype = 'A' AND issnmpprimary = 'P'
 	@Override
 	public List<LinkableNode> getSnmpNodeList() {
 		final List<LinkableNode> nodes = new ArrayList<LinkableNode>();
@@ -59,7 +61,6 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
         return nodes;
 	}
 
-	// SELECT nodesysoid, ipaddr FROM node LEFT JOIN ipinterface ON node.nodeid = ipinterface.nodeid WHERE node.nodeid = ? AND nodetype = 'A' AND issnmpprimary = 'P'
 	@Override
 	public LinkableNode getSnmpNode(final int nodeid) {
 		final OnmsCriteria criteria = new OnmsCriteria(OnmsNode.class);
@@ -115,6 +116,22 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 	}
  
 	@Override
+	public void store(BridgeStpLink link) {
+		m_topologyDao.saveOrUpdate((Link)link);
+		
+	}
+
+	@Override
+	public void store(BridgeDot1dTpFdbLink link) {
+		m_topologyDao.saveOrUpdate((Link)link);
+	}
+
+	@Override
+	public void store(BridgeDot1qTpFdbLink link) {
+		m_topologyDao.saveOrUpdate((Link)link);
+	}
+
+	@Override
 	public void reconcileLldp(int nodeId, Date now) {
 		// TODO Auto-generated method stub
 	}
@@ -138,6 +155,5 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 	public void reconcileBridge(int nodeId, Date now) {
 		// TODO Auto-generated method stub
 	}
-
 
 }

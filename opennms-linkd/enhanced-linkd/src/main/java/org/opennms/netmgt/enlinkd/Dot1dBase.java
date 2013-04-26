@@ -33,6 +33,7 @@ import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.linkd.snmp.NamedSnmpVar;
 import org.opennms.netmgt.linkd.snmp.SnmpStore;
 import org.opennms.netmgt.model.OnmsStpNode.BridgeBaseType;
+import org.opennms.netmgt.model.topology.BridgeElementIdentifier;
 
 import org.opennms.netmgt.snmp.AggregateTracker;
 import org.opennms.netmgt.snmp.SnmpResult;
@@ -165,6 +166,10 @@ public final class Dot1dBase extends AggregateTracker
      */
     public BridgeBaseType getBridgeType() {
     	return BridgeBaseType.get(m_store.getInt32(BASE_NUM_TYPE));
+    }
+    
+    public BridgeElementIdentifier getElementIdentifier() {
+    	return new BridgeElementIdentifier(getBridgeAddress());
     }
     
 }

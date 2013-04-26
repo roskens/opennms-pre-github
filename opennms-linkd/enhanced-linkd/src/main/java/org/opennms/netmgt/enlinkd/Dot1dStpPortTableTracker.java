@@ -28,6 +28,18 @@
 
 package org.opennms.netmgt.enlinkd;
 
+import static org.opennms.core.utils.InetAddressUtils.isValidBridgeId;
+import static org.opennms.core.utils.InetAddressUtils.isValidBridgeDesignatedPort;
+import static org.opennms.core.utils.InetAddressUtils.getBridgeAddressFromBridgeId;
+import static org.opennms.core.utils.InetAddressUtils.getBridgeDesignatedPortNumber;
+
+import org.opennms.core.utils.LogUtils;
+import org.opennms.netmgt.model.OnmsStpInterface.StpPortStatus;
+import org.opennms.netmgt.model.topology.BridgeElementIdentifier;
+import org.opennms.netmgt.model.topology.BridgeEndPoint;
+import org.opennms.netmgt.model.topology.BridgeStpLink;
+import org.opennms.netmgt.model.topology.Element;
+import org.opennms.netmgt.model.topology.NodeElementIdentifier;
 import org.opennms.netmgt.snmp.RowCallback;
 import org.opennms.netmgt.snmp.SnmpInstId;
 import org.opennms.netmgt.snmp.SnmpObjId;
@@ -35,7 +47,7 @@ import org.opennms.netmgt.snmp.SnmpRowResult;
 import org.opennms.netmgt.snmp.TableTracker;
 
 /**
- *<P>The Dot1dStpPortTableEntry class is designed to hold all the MIB-II
+ *<P>The Dot1dStpPortTableTracker class is designed to hold all the MIB-II
  * information for one entry in the MIB II dot1dBridge.dot1dStp.dot1dStpPortTable.
  * The table effectively contains a list of these entries, each entry having information
  * about STP Protocol on specific Port.</P>
@@ -49,10 +61,10 @@ import org.opennms.netmgt.snmp.TableTracker;
  * @see <A HREF="http://www.ietf.org/rfc/rfc1213.txt">RFC1213</A>
  * @version $Id: $
  */
-public final class Dot1dStpPortTableTracker extends TableTracker {
-	// Lookup strings for specific table entries
-	//
+public class Dot1dStpPortTableTracker extends TableTracker {
 
+	public final static int DOT1D_STP_PORT_ENABLED = 1;
+	
 	public final static SnmpObjId DOT1D_STP_PORT                   = SnmpObjId.get(".1.3.6.1.2.1.17.2.15.1.1");
 	public final static SnmpObjId DOT1D_STP_PORT_STATE             = SnmpObjId.get(".1.3.6.1.2.1.17.2.15.1.3");
 	public final static SnmpObjId DOT1D_STP_PORT_ENABLE            = SnmpObjId.get(".1.3.6.1.2.1.17.2.15.1.4");
@@ -201,7 +213,61 @@ public final class Dot1dStpPortTableTracker extends TableTracker {
 			return getValue(DOT1D_STP_PORT_DESIGNATED_PORT).toHexString();
 			
 		}
-	
+
+		public BridgeStpLink getLink(
+				final NodeElementIdentifier nodeIdentifier,
+				final BridgeElementIdentifier bridgeIdentifier) {
+            LogUtils.infof(this, "processStpPortRow: row count: %d", getColumnCount());
+			if (!isValid()) {
+				return null;
+			}
+			if (bridgeIdentifier.getBridgeAddress().equals(getBridgeAddressFromBridgeId(getDot1dStpPortDesignatedBridge()))) {
+	            LogUtils.infof(this, "processStpPortRow: designated bridge on port %d  is bridge identifier: %s", getDot1dStpPort(),bridgeIdentifier.getBridgeAddress());
+				return null;
+			}
+			Element deviceA = new Element();
+            deviceA.addElementIdentifier(nodeIdentifier);
+            deviceA.addElementIdentifier(bridgeIdentifier);
+            LogUtils.infof(this, "processStpPortRow: row local bridge identifier: %s", bridgeIdentifier.getBridgeAddress());
+
+            BridgeEndPoint endPointA = new BridgeEndPoint(getDot1dStpPort());
+            deviceA.addEndPoint(endPointA);
+    		endPointA.setDevice(deviceA);
+            LogUtils.infof(this, "processStpPortRow: row local bridge port: %s", endPointA.getBridgePort());
+    		
+    		Element deviceB = new Element();
+            BridgeElementIdentifier remBridgeElementIdentifier = getRemElementIdentifier();
+            LogUtils.infof(this, "processStpPortRow: row remote bridge identifier: %s", remBridgeElementIdentifier.getBridgeAddress());
+            deviceB.addElementIdentifier(remBridgeElementIdentifier);
+    		
+    		BridgeEndPoint endPointB = getRemEndPoint();
+            LogUtils.infof(this, "processStpPortRow: row remote bridge port: %s", endPointB.getBridgePort());
+    		deviceB.addEndPoint(endPointB);
+    		endPointB.setDevice(deviceB);
+    		
+    		BridgeStpLink link = new BridgeStpLink(endPointA, endPointB);
+    		endPointA.setLink(link);
+    		endPointB.setLink(link);
+    		return link;
+		}
+
+		public BridgeEndPoint getRemEndPoint() {
+			return new BridgeEndPoint(getBridgeDesignatedPortNumber(getDot1dStpPortDesignatedPort()));
+		}
+
+		public BridgeElementIdentifier getRemElementIdentifier() {
+			return new BridgeElementIdentifier(getDot1dStpPortDesignatedBridge());
+		}
+
+		public boolean isValid() {
+			if (isValidBridgeId(getDot1dStpPortDesignatedBridge())
+					&& isValidBridgeDesignatedPort(getDot1dStpPortDesignatedPort())
+					&& getDot1dStpPortEnable() == DOT1D_STP_PORT_ENABLED
+					&& (getDot1dStpPortState() == StpPortStatus.STP_PORT_STATUS_FORWARDING || getDot1dStpPortState() == StpPortStatus.STP_PORT_STATUS_BLOCKING))
+				return true;
+			return false;
+		}
+
 	}
 	
 	public Dot1dStpPortTableTracker() {

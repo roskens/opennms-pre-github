@@ -4,21 +4,21 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 public final class BridgeElementIdentifier extends ElementIdentifier {
 
-	private final String m_bridgeId;
+	private final String m_bridgeAddress;
 
-	public BridgeElementIdentifier(String bridgeIdentifier) {
+	public BridgeElementIdentifier(String bridgeAddress) {
 		super(ElementIdentifierType.BRIDGE);
-		m_bridgeId= bridgeIdentifier;
+		m_bridgeAddress= bridgeAddress;
 	}
 
-	public String getBridgeId() {
-		return m_bridgeId;
+	public String getBridgeAddress() {
+		return m_bridgeAddress;
 	}
 
 	@Override
 	public boolean equals(ElementIdentifier elementIdentifier) {
 		if (elementIdentifier instanceof BridgeElementIdentifier) 
-			return (m_bridgeId.equals(((BridgeElementIdentifier)elementIdentifier).getBridgeId()));
+			return (m_bridgeAddress.equals(((BridgeElementIdentifier)elementIdentifier).getBridgeAddress()));
 		return false;
 	}
 	
@@ -29,7 +29,7 @@ public final class BridgeElementIdentifier extends ElementIdentifier {
 	 */
 	public String toString() {
 		return new ToStringBuilder(this)
-			.append("bridgeId", m_bridgeId)
+			.append("bridgeId", m_bridgeAddress)
 			.append("lastPoll", m_lastPoll)
 			.toString();
 	}

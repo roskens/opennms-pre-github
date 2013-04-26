@@ -28,6 +28,16 @@
 
 package org.opennms.netmgt.enlinkd;
 
+import static org.opennms.core.utils.InetAddressUtils.isValidBridgeAddress;
+import static org.opennms.netmgt.enlinkd.Dot1dTpFdbTableTracker.SNMP_DOT1D_FDB_STATUS_LEARNED;
+
+import org.opennms.core.utils.LogUtils;
+import org.opennms.netmgt.model.topology.BridgeDot1qTpFdbLink;
+import org.opennms.netmgt.model.topology.BridgeElementIdentifier;
+import org.opennms.netmgt.model.topology.BridgeEndPoint;
+import org.opennms.netmgt.model.topology.Element;
+import org.opennms.netmgt.model.topology.MacAddrEndPoint;
+import org.opennms.netmgt.model.topology.NodeElementIdentifier;
 import org.opennms.netmgt.snmp.RowCallback;
 import org.opennms.netmgt.snmp.SnmpInstId;
 import org.opennms.netmgt.snmp.SnmpObjId;
@@ -50,7 +60,7 @@ import org.opennms.netmgt.snmp.TableTracker;
  * @see <A HREF="http://www.ietf.org/rfc/rfc1213.txt">RFC1213</A>
  * @version $Id: $
  */
-public final class Dot1qTpFdbTableTracker extends TableTracker {
+public class Dot1qTpFdbTableTracker extends TableTracker {
 
 
 	public final static SnmpObjId DOT1Q_TP_FDB_PORT    = SnmpObjId.get(".1.3.6.1.2.1.17.7.1.2.2.1.2");
@@ -156,8 +166,46 @@ public final class Dot1qTpFdbTableTracker extends TableTracker {
 		 *
 		 * @return a int.
 		 */
-		public Integer getQBridgeDot1dTpFdbStatus() {
+		public Integer getDot1qTpFdbStatus() {
 			return getValue(DOT1Q_TP_FDB_STATUS).toInt();
+		}
+
+		public boolean isValid() {
+			if (isValidBridgeAddress(getDot1qTpFdbAddress())
+					&& getDot1qTpFdbStatus() == SNMP_DOT1D_FDB_STATUS_LEARNED)
+				return true;
+			return false;
+		}
+
+		public BridgeDot1qTpFdbLink getLink(
+				NodeElementIdentifier nodeIdentifier,
+				BridgeElementIdentifier bridgeIdentifier) {
+            LogUtils.infof(this, "processDot1qTpFdbRow: row count: %d", getColumnCount());
+			
+            if (!isValid()) {
+				return null;
+			}
+			Element deviceA = new Element();
+            deviceA.addElementIdentifier(nodeIdentifier);
+            deviceA.addElementIdentifier(bridgeIdentifier);
+            LogUtils.infof(this, "processDot1qTpFdbRow: row local bridge identifier: %s", bridgeIdentifier.getBridgeAddress());
+
+            BridgeEndPoint endPointA = new BridgeEndPoint(getDot1qTpFdbPort());
+            deviceA.addEndPoint(endPointA);
+    		endPointA.setDevice(deviceA);
+            LogUtils.infof(this, "processDot1qTpFdbRow: row local bridge port: %s", endPointA.getBridgePort());
+    		    		
+    		MacAddrEndPoint endPointB = getRemEndPoint();
+            LogUtils.infof(this, "processDot1qTpFdbRow: row remote mac : %s", endPointB.getMacAddress());
+    		
+    		BridgeDot1qTpFdbLink link = new BridgeDot1qTpFdbLink(endPointA, endPointB);
+    		endPointA.setLink(link);
+    		endPointB.setLink(link);
+    		return link;
+		}
+
+		public MacAddrEndPoint getRemEndPoint() {
+			return new MacAddrEndPoint(getDot1qTpFdbAddress());
 		}
 	}	
 

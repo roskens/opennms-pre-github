@@ -21,15 +21,21 @@ public abstract class Link extends Pollable {
 
 			private static final long serialVersionUID = 7220152765747623134L;
 
-			public static final int LINK_TYPE_INPUT=0;
-			public static final int LINK_TYPE_LLDP=1;
-			public static final int LINK_TYPE_CDP=2;
-			public static final int LINK_TYPE_OSPF=3;
+			public static final int LINK_TYPE_INPUT        = 0;
+			public static final int LINK_TYPE_LLDP         = 1;
+			public static final int LINK_TYPE_CDP          = 2;
+			public static final int LINK_TYPE_OSPF         = 3;
+			public static final int LINK_TYPE_DOT1D_STP    = 4;
+			public static final int LINK_TYPE_DOT1D_TP_FDB = 5;
+			public static final int LINK_TYPE_DOT1Q_TP_FDB = 6;
 			
-			public static LinkType INPUT = new LinkType(LINK_TYPE_INPUT);
-			public static LinkType LLDP = new LinkType(LINK_TYPE_LLDP);
-			public static LinkType CDP = new LinkType(LINK_TYPE_CDP);
-			public static LinkType OSPF = new LinkType(LINK_TYPE_OSPF);
+			public static LinkType INPUT        = new LinkType(LINK_TYPE_INPUT);
+			public static LinkType LLDP         = new LinkType(LINK_TYPE_LLDP);
+			public static LinkType CDP          = new LinkType(LINK_TYPE_CDP);
+			public static LinkType OSPF         = new LinkType(LINK_TYPE_OSPF);
+			public static LinkType DOT1D_STP    = new LinkType(LINK_TYPE_DOT1D_STP);
+			public static LinkType DOT1D_TP_FDB = new LinkType(LINK_TYPE_DOT1D_TP_FDB);
+			public static LinkType DOT1Q_TP_FDB = new LinkType(LINK_TYPE_DOT1Q_TP_FDB);
 
 			public LinkType(Integer linkType) {
 				super(linkType);
@@ -41,6 +47,9 @@ public abstract class Link extends Pollable {
 	        	s_typeMap.put(1, "lldp" );
 	        	s_typeMap.put(2, "cdp" );
 	        	s_typeMap.put(3, "ospf" );
+	        	s_typeMap.put(4, "spanning-tree" );
+	        	s_typeMap.put(5, "dot1d-bridge-forwarding-table" );
+	        	s_typeMap.put(5, "dot1q-bridge-forwarding-table" );
 	        }
 
 	        /**
@@ -73,6 +82,9 @@ public abstract class Link extends Pollable {
 	            case LINK_TYPE_LLDP: 		return LLDP;
 	            case LINK_TYPE_CDP: 		return CDP;
 	            case LINK_TYPE_OSPF: 		return OSPF;
+	            case LINK_TYPE_DOT1D_STP:   return DOT1D_STP;
+	            case LINK_TYPE_DOT1D_TP_FDB:   return DOT1D_TP_FDB;
+	            case LINK_TYPE_DOT1Q_TP_FDB:   return DOT1Q_TP_FDB;
 	            default:
 	                throw new IllegalArgumentException("Cannot create LinkType from code "+code);
 	            }

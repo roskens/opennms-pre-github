@@ -31,6 +31,9 @@ package org.opennms.netmgt.enlinkd;
 import java.util.Date;
 import java.util.List;
 
+import org.opennms.netmgt.model.topology.BridgeDot1dTpFdbLink;
+import org.opennms.netmgt.model.topology.BridgeDot1qTpFdbLink;
+import org.opennms.netmgt.model.topology.BridgeStpLink;
 import org.opennms.netmgt.model.topology.CdpLink;
 import org.opennms.netmgt.model.topology.LldpLink;
 import org.opennms.netmgt.model.topology.MacAddrEndPoint;
@@ -96,31 +99,7 @@ public interface EnhancedLinkdService {
      */
     void reconcile(int nodeid, String ipAddr, int ifIndex);
 
-	/**
-	 * <p>store</p>
-	 * 
-	 * @param link
-	 * 
-	 * <p> Save Lldp Object into database
-	 * </p>
-	 */
-    void store(LldpLink link);
-
-    /**
-     * <p>reconcileLldp</p>
-     * 
-     * @param nodeId
-     * @param now 
-     * 
-     * 
-     */
 	void reconcileLldp(int nodeId, Date now);
-
-	void store(CdpLink link);
-
-	void store(OspfLink link);
-
-	void store(MacAddrEndPoint macep);
 
 	void reconcileCdp(int nodeId, Date now);
 
@@ -129,5 +108,19 @@ public interface EnhancedLinkdService {
 	void reconcileIpNetToMedia(int nodeId, Date now);
 
 	void reconcileBridge(int nodeId, Date now);
+
+	void store(LldpLink link);
+
+	void store(CdpLink link);
+
+	void store(OspfLink link);
+
+	void store(MacAddrEndPoint macep);
+
+	void store(BridgeStpLink link);
+
+	void store(BridgeDot1dTpFdbLink link);
+
+	void store(BridgeDot1qTpFdbLink link);
 
 }
