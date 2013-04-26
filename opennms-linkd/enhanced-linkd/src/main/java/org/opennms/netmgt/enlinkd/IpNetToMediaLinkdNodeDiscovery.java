@@ -49,15 +49,14 @@ import org.opennms.netmgt.snmp.SnmpWalker;
  */
 public final class IpNetToMediaLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
     
-    /**
-     * Constructs a new SNMP collector for a node using the passed interface
-     * as the collection point. The collection does not occur until the
+	/**
+	 * Constructs a new SNMP collector for IpNetToMedia Node Discovery. 
+	 * The collection does not occur until the
      * <code>run</code> method is invoked.
      * 
-     * @param nodeid
-     * @param config
-     *            The SnmpPeer object to collect from.
-     */
+	 * @param EnhancedLinkd linkd
+	 * @param LinkableNode node
+	 */
     public IpNetToMediaLinkdNodeDiscovery(final EnhancedLinkd linkd, final LinkableNode node) {
     	super(linkd, node);
     }
