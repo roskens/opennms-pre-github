@@ -35,6 +35,8 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.xbill.DNS.AAAARecord;
 import org.xbill.DNS.ARecord;
@@ -54,6 +56,13 @@ abstract public class InetAddressUtils {
     private static final ByteArrayComparator s_BYTE_ARRAY_COMPARATOR = new ByteArrayComparator();
     public static final InetAddress UNPINGABLE_ADDRESS;
     public static final InetAddress UNPINGABLE_ADDRESS_IPV6;
+	public static final String INVALID_BRIDGE_ADDRESS;
+	public static final String INVALID_BRIDGE_ID;
+	
+	static {
+		INVALID_BRIDGE_ADDRESS = "000000000000";
+		INVALID_BRIDGE_ID      = "0000000000000000";
+	}
 
     static {
         try {
@@ -654,5 +663,25 @@ abstract public class InetAddressUtils {
 		return InetAddressUtils.getInetAddress(bytes);
 	}
 
+	public static boolean isValidBridgeAddress(String bridgeAddress) {
+		if (bridgeAddress.equals(INVALID_BRIDGE_ADDRESS))
+			return false;
+		Pattern pattern = Pattern.compile("([0-9a-f]{12})");
+		Matcher matcher = pattern.matcher(bridgeAddress);
+		return matcher.matches();
+		
+	}
+	
+	public static String getBridgeAddressFromBridgeId(String bridgeId) {
+		return bridgeId.substring(4, 16);
+	}
+
+	public static boolean isValidBridgeId(String bridgeId) {
+		if (bridgeId.equals(INVALID_BRIDGE_ID))
+			return false;
+		Pattern pattern = Pattern.compile("([0-9a-f]{16})");
+		Matcher matcher = pattern.matcher(bridgeId);
+		return matcher.matches();
+	}
 
 }

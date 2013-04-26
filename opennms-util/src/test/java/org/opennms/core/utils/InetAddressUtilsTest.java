@@ -140,4 +140,28 @@ public class InetAddressUtilsTest {
         assertEquals("ffff:ffff:ffff:ffff:0000:0000:0000:0000", str(InetAddressUtils.convertCidrToInetAddressV6(64)));
         assertEquals("ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff", str(InetAddressUtils.convertCidrToInetAddressV6(128)));
     }
+    
+    @Test
+    public void testBridgeFunctions() {
+    	String bridgeAddress="0123456789abc";
+    	assertEquals(false, InetAddressUtils.isValidBridgeAddress(bridgeAddress));
+    	bridgeAddress="0123456789ak";
+    	assertEquals(false, InetAddressUtils.isValidBridgeAddress(bridgeAddress));
+    	bridgeAddress="0123456789Aa";
+    	assertEquals(false, InetAddressUtils.isValidBridgeAddress(bridgeAddress));
+    	bridgeAddress="0123456789aa";
+    	assertEquals(true, InetAddressUtils.isValidBridgeAddress(bridgeAddress));
+    	bridgeAddress="000000000000";
+    	assertEquals(false, InetAddressUtils.isValidBridgeAddress(bridgeAddress));
+
+    	String bridgeId="8000";
+    	assertEquals(false, InetAddressUtils.isValidBridgeId(bridgeId));
+    	bridgeId="80000123456789ab";
+    	assertEquals(true, InetAddressUtils.isValidBridgeId(bridgeId));
+    	bridgeId="0000000000000000";
+    	assertEquals(false, InetAddressUtils.isValidBridgeId(bridgeId));
+
+    	bridgeId="80000123456789ab";
+    	assertEquals("0123456789ab", InetAddressUtils.getBridgeAddressFromBridgeId(bridgeId));
+    }
 }
