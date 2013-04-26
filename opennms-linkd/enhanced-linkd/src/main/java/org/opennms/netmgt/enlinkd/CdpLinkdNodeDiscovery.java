@@ -30,12 +30,14 @@ package org.opennms.netmgt.enlinkd;
 
 import static org.opennms.core.utils.InetAddressUtils.str;
 
+import java.net.Inet6Address;
 import java.util.Date;
 
 
 
 import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.model.topology.CdpElementIdentifier;
+import org.opennms.netmgt.model.topology.CdpElementIdentifier.CiscoNetworkProtocolType;
 import org.opennms.netmgt.model.topology.NodeElementIdentifier;
 
 import org.opennms.netmgt.snmp.SnmpUtils;
@@ -99,7 +101,8 @@ public final class CdpLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
         } 
 
 
-        final CdpElementIdentifier cdpGlobalElementIdentifier = cdpGlobalGroup.getElementIdentifier();
+        final CdpElementIdentifier cdpGlobalElementIdentifier = cdpGlobalGroup.getElementIdentifier(getPeer().getAddress().getHostAddress(),
+        		 (getPeer().getAddress() instanceof Inet6Address) ? CiscoNetworkProtocolType.IPv6 : CiscoNetworkProtocolType.IP);
         LogUtils.infof(this, "found local cdp identifier : %s", cdpGlobalElementIdentifier);
 
         final NodeElementIdentifier nodeElementIdentifier = new NodeElementIdentifier(getNodeId());

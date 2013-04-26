@@ -33,6 +33,7 @@ import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.linkd.snmp.NamedSnmpVar;
 import org.opennms.netmgt.linkd.snmp.SnmpStore;
 import org.opennms.netmgt.model.topology.CdpElementIdentifier;
+import org.opennms.netmgt.model.topology.CdpElementIdentifier.CiscoNetworkProtocolType;
 import org.opennms.netmgt.snmp.AggregateTracker;
 import org.opennms.netmgt.snmp.SnmpResult;
 
@@ -119,8 +120,8 @@ public final class CdpGlobalGroup extends AggregateTracker
         return m_store.getDisplayString(CDP_GLOBAL_DEVICEID);
     }
     
-    public CdpElementIdentifier getElementIdentifier() {
-    	return new CdpElementIdentifier(getCdpDeviceId());
+    public CdpElementIdentifier getElementIdentifier(String cdpAddress, CiscoNetworkProtocolType ciscoNetworkProtocolType) {
+    	return new CdpElementIdentifier(getCdpDeviceId(),cdpAddress,ciscoNetworkProtocolType);
     }
         
 }
