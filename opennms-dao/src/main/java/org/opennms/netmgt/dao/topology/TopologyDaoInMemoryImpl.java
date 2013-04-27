@@ -47,6 +47,8 @@ public class TopologyDaoInMemoryImpl implements TopologyDao {
 				endpoint.setElement(updateElementIdentifiers(endpoint.getElement(),e));
 				if (e.hasEndPoint(endpoint)) {
 					EndPoint ep = e.getEndPoint(endpoint);
+					if (ep.hasLink() && endpoint.hasLink())
+						delete(ep.getLink());
 					ep.update(endpoint);
 				} else {
 					e.addEndPoint(endpoint);

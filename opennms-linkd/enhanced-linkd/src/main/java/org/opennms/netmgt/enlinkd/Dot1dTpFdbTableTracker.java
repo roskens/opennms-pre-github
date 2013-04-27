@@ -187,7 +187,8 @@ public class Dot1dTpFdbTableTracker extends TableTracker {
     		
             Element deviceB = new Element();
     		MacAddrEndPoint endPointB = getRemEndPoint();
-            deviceB.addElementIdentifier(new MacAddrElementIdentifier(endPointB.getMacAddress()));
+    		endPointB.setSourceNode(nodeIdentifier.getNodeid());
+            deviceB.addElementIdentifier(new MacAddrElementIdentifier(endPointB.getMacAddress(),nodeIdentifier.getNodeid()));
     		deviceB.addEndPoint(endPointB);
     		endPointB.setElement(deviceB);
             LogUtils.infof(this, "processDot1qTpFdbRow: row remote mac : %s", endPointB.getMacAddress());

@@ -70,7 +70,7 @@ public final class IpNetToMediaLinkdNodeDiscovery extends AbstractLinkdNodeDisco
 
 		IpNetToMediaTableTracker ipNetToMediaTableTracker = new IpNetToMediaTableTracker() {
 		    public void processIpNetToMediaRow(final IpNetToMediaRow row) {
-		    	MacAddrEndPoint macep = row.getEndPoint();
+		    	MacAddrEndPoint macep = row.getEndPoint(getNodeId());
 		    	if (macep != null)
 		    		m_linkd.getQueryManager().store(macep);
 		    }

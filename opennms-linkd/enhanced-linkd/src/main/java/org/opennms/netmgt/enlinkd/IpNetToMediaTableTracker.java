@@ -174,14 +174,14 @@ public class IpNetToMediaTableTracker extends TableTracker
 			return getValue(IPNETTOMEDIA_TABLE_TYPE).toInt();
 		}
 		
-		public MacAddrEndPoint getEndPoint() {
+		public MacAddrEndPoint getEndPoint(Integer sourceNodeid) {
 			MacAddrEndPoint macep = null;
 			if (getIpNetToMediatype() == IPNETTOMEDIA_TYPE_DYNAMIC || getIpNetToMediatype() == IPNETTOMEDIA_TYPE_STATIC) {
-				macep = new MacAddrEndPoint(getIpNetToMediaPhysAddress());
+				macep = new MacAddrEndPoint(getIpNetToMediaPhysAddress(),sourceNodeid);
 				macep.setIpAddr(getIpNetToMediaNetAddress());
 				Element e = new Element();
-				e.addElementIdentifier(new InetElementIdentifier(getIpNetToMediaNetAddress()));
-				e.addElementIdentifier(new MacAddrElementIdentifier(getIpNetToMediaPhysAddress()));
+				e.addElementIdentifier(new InetElementIdentifier(getIpNetToMediaNetAddress(),sourceNodeid));
+				e.addElementIdentifier(new MacAddrElementIdentifier(getIpNetToMediaPhysAddress(),sourceNodeid));
 				e.addEndPoint(macep);
 				macep.setElement(e);
 			}
