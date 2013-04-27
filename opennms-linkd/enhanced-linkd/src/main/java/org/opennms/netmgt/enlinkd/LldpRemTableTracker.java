@@ -147,7 +147,7 @@ public class LldpRemTableTracker extends TableTracker {
 
             LldpEndPoint endPointA = lldpLocPort.get(getLldpRemLocalPortNum());
             deviceA.addEndPoint(endPointA);
-    		endPointA.setDevice(deviceA);
+    		endPointA.setElement(deviceA);
             LogUtils.infof(this, "processLldpRemRow: row local port id: %s", endPointA.getLldpPortId());
             LogUtils.infof(this, "processLldpRemRow: row local port subtype: %s", endPointA.getLldpPortIdSubType());
     		
@@ -159,7 +159,7 @@ public class LldpRemTableTracker extends TableTracker {
     		LldpEndPoint endPointB = getRemEndPoint();
     		endPointB.setIfDescr(getLldpRemPortDescr());
     		deviceB.addEndPoint(endPointB);
-    		endPointB.setDevice(deviceB);
+    		endPointB.setElement(deviceB);
             LogUtils.infof(this, "processLldpRemRow: row rem port id: %s", endPointB.getLldpPortId());
             LogUtils.infof(this, "processLldpRemRow: row rem port subtype: %s", endPointB.getLldpPortIdSubType());
     		

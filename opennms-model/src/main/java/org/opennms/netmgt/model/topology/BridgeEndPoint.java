@@ -21,8 +21,8 @@ public class BridgeEndPoint extends EndPoint {
 		if (endPoint instanceof BridgeEndPoint) {
 			BridgeEndPoint a=(BridgeEndPoint)endPoint;
 			if ((
-				( getDevice() != null && a.getDevice() != null && getDevice().equals(a.getDevice())
-				) || ( getDevice() == null && a.getDevice() == null) 
+				( getElement() != null && a.getElement() != null && getElement().equals(a.getElement())
+				) || ( getElement() == null && a.getElement() == null) 
 				) && m_bridgePort.equals(a.getBridgePort()) 
 				) {
 				return true;

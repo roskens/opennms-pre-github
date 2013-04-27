@@ -181,7 +181,7 @@ public class Dot1dTpFdbTableTracker extends TableTracker {
 
             BridgeEndPoint endPointA = new BridgeEndPoint(getDot1dTpFdbPort());
             deviceA.addEndPoint(endPointA);
-    		endPointA.setDevice(deviceA);
+    		endPointA.setElement(deviceA);
             LogUtils.infof(this, "processDot1qTpFdbRow: row local bridge port: %s", endPointA.getBridgePort());
     		    		
     		MacAddrEndPoint endPointB = getRemEndPoint();

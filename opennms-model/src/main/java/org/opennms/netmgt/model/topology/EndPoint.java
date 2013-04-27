@@ -52,11 +52,11 @@ public abstract class EndPoint extends Pollable {
 	private String m_ifAlias;
 	
 
-	public Element getDevice() {
+	public Element getElement() {
 		return m_device;
 	}
 
-	public void setDevice(Element device) {
+	public void setElement(Element device) {
 		m_device = device;
 	}
 	

@@ -162,8 +162,8 @@ public class LldpEndPoint extends EndPoint {
 		if (endPoint instanceof LldpEndPoint) {
 			LldpEndPoint a=(LldpEndPoint)endPoint;
 			if ((
-				( getDevice() != null && a.getDevice() != null && getDevice().equals(a.getDevice())
-				) || ( getDevice() == null && a.getDevice() == null) 
+				( getElement() != null && a.getElement() != null && getElement().equals(a.getElement())
+				) || ( getElement() == null && a.getElement() == null) 
 				) && getLldpPortId().equals(a.getLldpPortId()) && getLldpPortIdSubType().equals(a.getLldpPortIdSubType())
 				) {
 				return true;

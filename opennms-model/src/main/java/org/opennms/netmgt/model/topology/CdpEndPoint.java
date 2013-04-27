@@ -31,8 +31,8 @@ public class CdpEndPoint extends EndPoint {
 		if (endPoint instanceof CdpEndPoint) {
 			CdpEndPoint a=(CdpEndPoint)endPoint;
 			if (
-		((getDevice() != null && a.getDevice() != null && getDevice().equals(a.getDevice())) 
-					|| (getDevice() == null && a.getDevice() == null)) 
+		((getElement() != null && a.getElement() != null && getElement().equals(a.getElement())) 
+					|| (getElement() == null && a.getElement() == null)) 
 					 && getCdpCacheDevicePort().equals(a.getCdpCacheDevicePort()))
 				return true;
 		}

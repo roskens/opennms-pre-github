@@ -12,9 +12,11 @@ import org.opennms.netmgt.model.topology.Link;
 public class TopologyDaoInMemoryImpl implements TopologyDao {
 
 	private List<Element> m_elements;	
+	private List<EndPoint> m_withoutelementendpoints;	
 		
     public TopologyDaoInMemoryImpl() {
     	m_elements = new ArrayList<Element>();
+    	m_withoutelementendpoints = new ArrayList<EndPoint>();
     }
 
 	protected Element updateElementIdentifiers(Element elementUpdated, Element elementToUpdate) {
@@ -42,19 +44,47 @@ public class TopologyDaoInMemoryImpl implements TopologyDao {
 
 	@Override
 	public void saveOrUpdate(EndPoint endpoint) {
+		if (endpoint.hasElement())
+			saveOrUpdateWithElement(endpoint);
+		else if (endpoint.hasLink()) 
+			saveOrUpdateWithLink(endpoint);
+	}
+	
+	protected void saveOrUpdateWithLink(EndPoint endpoint) {
+		for (Element e : m_elements) {
+			for (EndPoint ep: e.getEndpoints()) {
+				if (ep.equals(endpoint)) {
+					ep.update(endpoint);
+					return;
+				}
+			}
+		}
+		m_withoutelementendpoints.add(endpoint);
+	}
+	
+	protected void saveOrUpdateWithElement(EndPoint endpoint) {
 		for (Element e: m_elements) {
-			if (e.equals(endpoint.getDevice())) {
-				endpoint.setDevice(updateElementIdentifiers(endpoint.getDevice(),e));
+			if (e.equals(endpoint.getElement())) {
+				endpoint.setElement(updateElementIdentifiers(endpoint.getElement(),e));
 				if (e.hasEndPoint(endpoint)) {
 					EndPoint ep = e.getEndPoint(endpoint);
 					ep.update(endpoint);
-				}
-				else
+				} else {
+					for (EndPoint withoutelementendpoint: m_withoutelementendpoints) {
+						if (withoutelementendpoint.equals(endpoint)) {
+							withoutelementendpoint.update(endpoint);
+							withoutelementendpoint.setElement(e);
+							e.addEndPoint(withoutelementendpoint);
+							m_withoutelementendpoints.remove(withoutelementendpoint);
+							return;
+						}
+					}
 					e.addEndPoint(endpoint);
+				}
 				return;
 			}
 		}
-		m_elements.add(endpoint.getDevice());
+		m_elements.add(endpoint.getElement());
 	}
 
 	@Override
@@ -72,6 +102,13 @@ public class TopologyDaoInMemoryImpl implements TopologyDao {
 				}
 			}
 		}
+		
+		for (EndPoint ep: m_withoutelementendpoints) {
+			if (ep.hasLink() && (ep.equals(link.getA()) || ep.equals(link.getB()))) {
+				ep.setLink(null);
+			}
+		}
+
 	}
 
 	@Override
@@ -88,6 +125,14 @@ public class TopologyDaoInMemoryImpl implements TopologyDao {
 			}
 			e.setEndpoints(newendpoints);
 		}
+		List<EndPoint> newendpoints = new ArrayList<EndPoint>(); 
+		for (EndPoint ep: m_withoutelementendpoints) {
+			if (endpoint.equals(ep)) {
+				continue;
+			}
+			newendpoints.add(ep);
+		}
+		m_withoutelementendpoints = newendpoints;
 	}
 
 	@Override

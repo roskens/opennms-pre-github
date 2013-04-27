@@ -111,7 +111,7 @@ public class OspfNbrTableTracker extends TableTracker {
             LogUtils.infof(this, "processOspfNbrRow: row ospf nbr ip address: %s", str(getOspfNbrIpAddress()));
             LogUtils.infof(this, "processOspfNbrRow: row ospf nbr address less ifindex: %d", getOspfNbrAddressLessIndex());
 			device.addEndPoint(endPoint);
-			endPoint.setDevice(device);
+			endPoint.setElement(device);
 			return endPoint;
 		}
 	    

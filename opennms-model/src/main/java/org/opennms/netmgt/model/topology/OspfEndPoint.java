@@ -59,8 +59,8 @@ public class OspfEndPoint extends EndPoint {
 		if (endPoint instanceof OspfEndPoint) {
 			OspfEndPoint a=(OspfEndPoint)endPoint;
 			if (
-		((getDevice() != null && a.getDevice() != null && getDevice().equals(a.getDevice())) 
-					|| (getDevice() == null && a.getDevice() == null)) 
+		((getElement() != null && a.getElement() != null && getElement().equals(a.getElement())) 
+					|| (getElement() == null && a.getElement() == null)) 
 					 && m_ospfIpAddr.equals(a.getOspfIpAddr()) && m_ospfAddressLessIndex == a.getOspfAddressLessIndex())
 				return true;
 		}

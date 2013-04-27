@@ -181,7 +181,7 @@ public class IpNetToMediaTableTracker extends TableTracker
 				Element e = new Element();
 				e.addElementIdentifier(new InetElementIdentifier(getIpNetToMediaNetAddress()));
 				e.addEndPoint(macep);
-				macep.setDevice(e);
+				macep.setElement(e);
 			}
 			return macep;
 		}

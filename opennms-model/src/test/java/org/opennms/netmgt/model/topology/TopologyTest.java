@@ -71,14 +71,14 @@ public class TopologyTest {
 
 		LldpEndPoint endPointA1 = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME);
 		elementA.addEndPoint(endPointA1);
-		endPointA1.setDevice(elementA);
+		endPointA1.setElement(elementA);
 
 		Element elementB = new Element();
 		elementB.addElementIdentifier(new LldpElementIdentifier("0016caad4d80", "switch1", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS));
 		
 		LldpEndPoint endPointB1 = new LldpEndPoint("Ge0/0", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME);
 		elementB.addEndPoint(endPointB1);
-		endPointB1.setDevice(elementB);
+		endPointB1.setElement(elementB);
 		
 		LldpLink link1 = new LldpLink(endPointA1, endPointB1);
 		LldpLink link2 = new LldpLink(endPointB1, endPointA1);
@@ -117,10 +117,10 @@ public class TopologyTest {
 		assertEquals(endPointA1, endPointA1F);
 		assertEquals(true, elementA.hasEndPoint(endPointA1F));
 		
-		endPointA1.setDevice(elementA);
-		endPointA2.setDevice(elementA);
-		endPointA3.setDevice(elementA);
-		endPointA4.setDevice(elementA);
+		endPointA1.setElement(elementA);
+		endPointA2.setElement(elementA);
+		endPointA3.setElement(elementA);
+		endPointA4.setElement(elementA);
 		
 		LldpEndPoint endPointB1 = new LldpEndPoint("Ge0/0", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME);
 		LldpEndPoint endPointB2 = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME);
@@ -132,10 +132,10 @@ public class TopologyTest {
 		elementB.addEndPoint(endPointB3);
 		elementB.addEndPoint(endPointB4);
 
-		endPointB1.setDevice(elementB);
-		endPointB2.setDevice(elementB);
-		endPointB3.setDevice(elementB);
-		endPointB4.setDevice(elementB);
+		endPointB1.setElement(elementB);
+		endPointB2.setElement(elementB);
+		endPointB3.setElement(elementB);
+		endPointB4.setElement(elementB);
 
 		assertTrue(!endPointB2.equals(endPointA1));
 
@@ -179,12 +179,12 @@ public class TopologyTest {
 		assertEquals(4, links.size());
 		
 		LldpEndPoint endPointA1new = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME);
-		endPointA1new.setDevice(elementA);
+		endPointA1new.setElement(elementA);
 		
 		assertEquals(false,elementB.hasEndPoint(endPointA1new));
 		
 		LldpEndPoint endPointA5 = new LldpEndPoint("Ge0/5", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME);
-		endPointA5.setDevice(elementA);
+		endPointA5.setElement(elementA);
 		assertEquals(false, elementA.hasEndPoint(endPointA5));
 		
 		System.err.println("-----here is the contains method call-------");

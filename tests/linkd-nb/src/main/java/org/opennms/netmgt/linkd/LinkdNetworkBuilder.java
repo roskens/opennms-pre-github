@@ -369,13 +369,13 @@ public abstract class LinkdNetworkBuilder {
     	System.err.println("----------link--------");
     	System.err.println("Last Poll :" + link.getLastPoll());
     	System.err.println("----------A--------");
-    	for (ElementIdentifier iden: link.getA().getDevice().getElementIdentifiers()) {
+    	for (ElementIdentifier iden: link.getA().getElement().getElementIdentifiers()) {
     		printElementIdentifier(iden);
     	}
     	printEndPoint(link.getA());
     	
     	System.err.println("----------B--------");
-    	for (ElementIdentifier iden: link.getB().getDevice().getElementIdentifiers()) {
+    	for (ElementIdentifier iden: link.getB().getElement().getElementIdentifiers()) {
     		printElementIdentifier(iden);
     	}
     	printEndPoint(link.getB());

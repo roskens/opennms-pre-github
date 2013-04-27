@@ -28,7 +28,6 @@
 
 package org.opennms.netmgt.enlinkd;
 
-import org.opennms.netmgt.enlinkd.Dot1dStpPortTableTracker.Dot1dStpPortRow;
 import org.opennms.netmgt.model.OnmsVlan.VlanStatus;
 import org.opennms.netmgt.model.OnmsVlan.VlanType;
 import org.opennms.netmgt.snmp.RowCallback;
