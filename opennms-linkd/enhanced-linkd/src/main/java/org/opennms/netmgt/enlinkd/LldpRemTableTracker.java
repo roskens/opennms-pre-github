@@ -47,12 +47,12 @@ public class LldpRemTableTracker extends TableTracker {
     public static final SnmpObjId LLDP_REM_TABLE_ENTRY = SnmpObjId.get(".1.0.8802.1.1.2.1.4.1.1"); // start of table (GETNEXT)
     
     
-    public final static SnmpObjId LLDP_REM_CHASSISID_SUBTYPE = SnmpObjId.get(LLDP_REM_TABLE_ENTRY,"4");
-    public final static SnmpObjId LLDP_REM_CHASSISID         = SnmpObjId.get(LLDP_REM_TABLE_ENTRY,"5");
-    public final static SnmpObjId LLDP_REM_PORTID_SUBTYPE    = SnmpObjId.get(LLDP_REM_TABLE_ENTRY,"6");
-    public final static SnmpObjId LLDP_REM_PORTID            = SnmpObjId.get(LLDP_REM_TABLE_ENTRY,"7");
-    public final static SnmpObjId LLDP_REM_DESCR             = SnmpObjId.get(LLDP_REM_TABLE_ENTRY,"8");
-    public final static SnmpObjId LLDP_REM_SYSNAME           = SnmpObjId.get(LLDP_REM_TABLE_ENTRY,"9");
+    public final static SnmpObjId LLDP_REM_CHASSIS_ID_SUBTYPE = SnmpObjId.get(LLDP_REM_TABLE_ENTRY,"4");
+    public final static SnmpObjId LLDP_REM_CHASSIS_ID         = SnmpObjId.get(LLDP_REM_TABLE_ENTRY,"5");
+    public final static SnmpObjId LLDP_REM_PORT_ID_SUBTYPE    = SnmpObjId.get(LLDP_REM_TABLE_ENTRY,"6");
+    public final static SnmpObjId LLDP_REM_PORT_ID            = SnmpObjId.get(LLDP_REM_TABLE_ENTRY,"7");
+    public final static SnmpObjId LLDP_REM_PORT_DESCR         = SnmpObjId.get(LLDP_REM_TABLE_ENTRY,"8");
+    public final static SnmpObjId LLDP_REM_SYSNAME            = SnmpObjId.get(LLDP_REM_TABLE_ENTRY,"9");
 
     public static final SnmpObjId[] s_lldpremtable_elemList = new SnmpObjId[] {
         
@@ -60,26 +60,32 @@ public class LldpRemTableTracker extends TableTracker {
          *  "The type of encoding used to identify the chassis associated
          *  with the remote system."
          */
-        LLDP_REM_CHASSISID_SUBTYPE,
+        LLDP_REM_CHASSIS_ID_SUBTYPE,
         
         /**
          * "The string value used to identify the chassis component
          * associated with the remote system."
          */
-       LLDP_REM_CHASSISID,
+       LLDP_REM_CHASSIS_ID,
 
         /**
          * "The type of port identifier encoding used in the associated
          * 'lldpRemPortId' object."
          */
-        LLDP_REM_PORTID_SUBTYPE,
+        LLDP_REM_PORT_ID_SUBTYPE,
 
         /**
          * "The string value used to identify the port component
             associated with the remote system."
          */
-        LLDP_REM_PORTID,
+        LLDP_REM_PORT_ID,
         
+        /**
+         * 	"The string value used to identify the description of 
+         *  the given port associated with the remote system."
+         */
+        LLDP_REM_PORT_DESCR,
+
         /**
          * "The string value used to identify the port component
          * associated with the remote system."
@@ -101,23 +107,23 @@ public class LldpRemTableTracker extends TableTracker {
 	    }
 	    
 	    public Integer getLldpRemChassisidSubtype() {
-	    	return getValue(LLDP_REM_CHASSISID_SUBTYPE).toInt();
+	    	return getValue(LLDP_REM_CHASSIS_ID_SUBTYPE).toInt();
 	    }
 	    
 	    public SnmpValue getLldpRemChassisId() {
-	    	return getValue(LLDP_REM_CHASSISID);
+	    	return getValue(LLDP_REM_CHASSIS_ID);
 	    }
 	    
 	    public Integer getLldpRemPortidSubtype() {
-	    	return getValue(LLDP_REM_PORTID_SUBTYPE).toInt();
+	    	return getValue(LLDP_REM_PORT_ID_SUBTYPE).toInt();
 	    }
 
 	    public SnmpValue getLldpRemPortid() {
-	    	return getValue(LLDP_REM_PORTID);
+	    	return getValue(LLDP_REM_PORT_ID);
 	    }
 	    
 	    public String getLldpRemPortDescr() {
-	    	return getValue(LLDP_REM_DESCR).toDisplayString();
+	    	return getValue(LLDP_REM_PORT_DESCR).toDisplayString();
 	    }
 
 	    public String getLldpRemSysname() {
