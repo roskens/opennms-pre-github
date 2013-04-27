@@ -4,8 +4,6 @@ import java.net.InetAddress;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-import static org.opennms.core.utils.InetAddressUtils.str;
-
 public class MacAddrEndPoint extends EndPoint {
 
 	
@@ -46,7 +44,9 @@ public class MacAddrEndPoint extends EndPoint {
 	@Override
 	public boolean equals(EndPoint endPoint) {
 		if (endPoint instanceof MacAddrEndPoint) {
-			return m_macAddress.equals(((MacAddrEndPoint)endPoint).getMacAddress());
+			if ((getElement() != null && endPoint.getElement() != null && getElement().equals(endPoint.getElement())) 
+					|| (getElement() == null && endPoint.getElement() == null)) 
+				return m_macAddress.equals(((MacAddrEndPoint)endPoint).getMacAddress());
 		}
 		return false;
 	}
@@ -59,7 +59,8 @@ public class MacAddrEndPoint extends EndPoint {
 	public String toString() {
 		return new ToStringBuilder(this)
 			.append("macAddress", m_macAddress)
-			.append("ipAddr", str(m_ipAddr))
+			.append("ipAddr", m_ipAddr)
+			.append("source", m_sourceIpNetToMediaNode)
 			.append("lastPoll", m_lastPoll)
 			.toString();
 	}

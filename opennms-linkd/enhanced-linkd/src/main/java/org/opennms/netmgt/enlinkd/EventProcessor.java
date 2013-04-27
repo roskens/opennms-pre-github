@@ -71,24 +71,6 @@ public final class EventProcessor {
     }
 
     /**
-     * Handle Interface Deleted Event
-     * 
-     * @param event
-     */
-    @EventHandler(uei=EventConstants.INTERFACE_DELETED_EVENT_UEI)
-    public void handleInterfaceDeleted(Event event) throws InsufficientInformationException {
-
-        EventUtils.checkNodeId(event);
-        EventUtils.checkInterfaceOrIfIndex(event);
-        int ifIndex = -1;
-        if(event.hasIfIndex()) {
-            ifIndex = event.getIfIndex();
-        }
-
-        m_linkd.deleteInterface(event.getNodeid().intValue(), event.getInterface(), ifIndex);
-    }
-
-    /**
      * Handle a Node Gained Service Event if service is SNMP
      * 
      * @param event

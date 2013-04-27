@@ -29,12 +29,9 @@ public class CdpEndPoint extends EndPoint {
 	@Override
 	public boolean equals(EndPoint endPoint) {
 		if (endPoint instanceof CdpEndPoint) {
-			CdpEndPoint a=(CdpEndPoint)endPoint;
-			if (
-		((getElement() != null && a.getElement() != null && getElement().equals(a.getElement())) 
-					|| (getElement() == null && a.getElement() == null)) 
-					 && getCdpCacheDevicePort().equals(a.getCdpCacheDevicePort()))
-				return true;
+			if ((getElement() != null && endPoint.getElement() != null && getElement().equals(endPoint.getElement())) 
+					|| (getElement() == null && endPoint.getElement() == null)) 
+				return getCdpCacheDevicePort().equals(((CdpEndPoint)endPoint).getCdpCacheDevicePort());
 		}
 		return false;
 	}

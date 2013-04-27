@@ -36,6 +36,7 @@ import org.opennms.netmgt.model.topology.BridgeDot1qTpFdbLink;
 import org.opennms.netmgt.model.topology.BridgeElementIdentifier;
 import org.opennms.netmgt.model.topology.BridgeEndPoint;
 import org.opennms.netmgt.model.topology.Element;
+import org.opennms.netmgt.model.topology.MacAddrElementIdentifier;
 import org.opennms.netmgt.model.topology.MacAddrEndPoint;
 import org.opennms.netmgt.model.topology.NodeElementIdentifier;
 import org.opennms.netmgt.snmp.RowCallback;
@@ -195,7 +196,11 @@ public class Dot1qTpFdbTableTracker extends TableTracker {
     		endPointA.setElement(deviceA);
             LogUtils.infof(this, "processDot1qTpFdbRow: row local bridge port: %s", endPointA.getBridgePort());
     		    		
+            Element deviceB = new Element();
     		MacAddrEndPoint endPointB = getRemEndPoint();
+    		deviceB.addElementIdentifier(new MacAddrElementIdentifier(endPointB.getMacAddress()));
+    		deviceB.addEndPoint(endPointB);
+    		endPointB.setElement(deviceB);
             LogUtils.infof(this, "processDot1qTpFdbRow: row remote mac : %s", endPointB.getMacAddress());
     		
     		BridgeDot1qTpFdbLink link = new BridgeDot1qTpFdbLink(endPointA, endPointB);

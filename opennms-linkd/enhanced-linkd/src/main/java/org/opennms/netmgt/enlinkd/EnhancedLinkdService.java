@@ -86,19 +86,6 @@ public interface EnhancedLinkdService {
      */
     void reconcile(int nodeid);
     
-    /**
-     * <p>reconcile</p>
-     *
-     * @param nodeid a int.
-     * @param ipAddr a {@link java.lang.String} object.
-     * @param ifIndex a int.
-     * 
-     * <p> Remove any reference in topology objects to both
-     *     nodeid and ipAddr or ifIndex
-     * </p>
-     */
-    void reconcile(int nodeid, String ipAddr, int ifIndex);
-
 	void reconcileLldp(int nodeId, Date now);
 
 	void reconcileCdp(int nodeId, Date now);

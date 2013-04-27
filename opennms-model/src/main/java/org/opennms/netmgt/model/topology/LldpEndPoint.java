@@ -160,13 +160,10 @@ public class LldpEndPoint extends EndPoint {
 	@Override
 	public boolean equals(EndPoint endPoint) {
 		if (endPoint instanceof LldpEndPoint) {
-			LldpEndPoint a=(LldpEndPoint)endPoint;
-			if ((
-				( getElement() != null && a.getElement() != null && getElement().equals(a.getElement())
-				) || ( getElement() == null && a.getElement() == null) 
-				) && getLldpPortId().equals(a.getLldpPortId()) && getLldpPortIdSubType().equals(a.getLldpPortIdSubType())
-				) {
-				return true;
+			if ((getElement() != null && endPoint.getElement() != null && getElement().equals(endPoint.getElement())) 
+					|| (getElement() == null && endPoint.getElement() == null)) {
+				LldpEndPoint a=(LldpEndPoint)endPoint;
+				return getLldpPortId().equals(a.getLldpPortId()) && getLldpPortIdSubType().equals(a.getLldpPortIdSubType());
 			}
 		}
 		return false;

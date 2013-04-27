@@ -19,14 +19,9 @@ public class BridgeEndPoint extends EndPoint {
 	@Override
 	public boolean equals(EndPoint endPoint) {
 		if (endPoint instanceof BridgeEndPoint) {
-			BridgeEndPoint a=(BridgeEndPoint)endPoint;
-			if ((
-				( getElement() != null && a.getElement() != null && getElement().equals(a.getElement())
-				) || ( getElement() == null && a.getElement() == null) 
-				) && m_bridgePort.equals(a.getBridgePort()) 
-				) {
-				return true;
-			}
+			if ((getElement() != null && endPoint.getElement() != null && getElement().equals(endPoint.getElement())) 
+					|| (getElement() == null && endPoint.getElement() == null)) 
+			return m_bridgePort.equals(((BridgeEndPoint)endPoint).getBridgePort());
 		}
 		return false;
 	}

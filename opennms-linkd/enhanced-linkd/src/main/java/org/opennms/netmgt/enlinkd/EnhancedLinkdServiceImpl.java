@@ -1,6 +1,7 @@
 package org.opennms.netmgt.enlinkd;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -12,11 +13,19 @@ import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.PrimaryType;
 import org.opennms.netmgt.model.topology.BridgeDot1dTpFdbLink;
 import org.opennms.netmgt.model.topology.BridgeDot1qTpFdbLink;
+import org.opennms.netmgt.model.topology.BridgeEndPoint;
 import org.opennms.netmgt.model.topology.BridgeStpLink;
+import org.opennms.netmgt.model.topology.CdpEndPoint;
 import org.opennms.netmgt.model.topology.CdpLink;
+import org.opennms.netmgt.model.topology.Element;
+import org.opennms.netmgt.model.topology.ElementIdentifier;
+import org.opennms.netmgt.model.topology.EndPoint;
 import org.opennms.netmgt.model.topology.Link;
+import org.opennms.netmgt.model.topology.LldpEndPoint;
 import org.opennms.netmgt.model.topology.LldpLink;
 import org.opennms.netmgt.model.topology.MacAddrEndPoint;
+import org.opennms.netmgt.model.topology.NodeElementIdentifier;
+import org.opennms.netmgt.model.topology.OspfEndPoint;
 import org.opennms.netmgt.model.topology.OspfLink;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -81,18 +90,22 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 
 	@Override
 	public void reconcile() {
-		// TODO Auto-generated method stub
+		Collection<Integer> nodeIds = m_nodeDao.getNodeIds();
+		for (Element e: m_topologyDao.getTopology()) {
+			for (ElementIdentifier elemId: e.getElementIdentifiers()) {
+				if (elemId instanceof NodeElementIdentifier) {
+					NodeElementIdentifier nodeElemId = (NodeElementIdentifier) elemId;
+					if (!nodeIds.contains(nodeElemId.getNodeid()))
+						m_topologyDao.delete(elemId);
+				}
+			}
+		}
+		
 	}
 
 	@Override
 	public void reconcile(int nodeid) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void reconcile(int nodeid, String ipAddr, int ifIndex) {
-		// TODO Auto-generated method stub
-
+		m_topologyDao.delete(new NodeElementIdentifier(nodeid));
 	}
 
 	@Override
@@ -133,27 +146,83 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 
 	@Override
 	public void reconcileLldp(int nodeId, Date now) {
-		// TODO Auto-generated method stub
+		
+		Element e = m_topologyDao.get(new NodeElementIdentifier(nodeId));
+		if (e == null) return;
+		List<EndPoint> tobedeleted = new ArrayList<EndPoint>(); 
+		for (EndPoint ep: e.getEndpoints()) {
+			if (ep instanceof LldpEndPoint && ep.getLastPoll().before(now)) 
+				tobedeleted.add(ep);
+		}
+
+		for(EndPoint endpoint: tobedeleted) {
+			m_topologyDao.delete(endpoint);
+		}
 	}
 
 	@Override
 	public void reconcileCdp(int nodeId, Date now) {
-		// TODO Auto-generated method stub
+		Element e = m_topologyDao.get(new NodeElementIdentifier(nodeId));
+		if (e == null) return;
+		List<EndPoint> tobedeleted = new ArrayList<EndPoint>(); 
+		for (EndPoint ep: e.getEndpoints()) {
+			if (ep instanceof CdpEndPoint && ep.getLastPoll().before(now)) 
+				tobedeleted.add(ep);
+		}
+
+		for(EndPoint endpoint: tobedeleted) {
+			m_topologyDao.delete(endpoint);
+		}
 	}
 
 	@Override
 	public void reconcileOspf(int nodeId, Date now) {
-		// TODO Auto-generated method stub
+		Element e = m_topologyDao.get(new NodeElementIdentifier(nodeId));
+		if (e == null) return;
+		List<EndPoint> tobedeleted = new ArrayList<EndPoint>(); 
+		for (EndPoint ep: e.getEndpoints()) {
+			if (ep instanceof OspfEndPoint && ep.getLastPoll().before(now)) 
+				tobedeleted.add(ep);
+		}
+
+		for(EndPoint endpoint: tobedeleted) {
+			m_topologyDao.delete(endpoint);
+		}
 	}
 
 	@Override
 	public void reconcileIpNetToMedia(int nodeId, Date now) {
-		// TODO Auto-generated method stub
+		List<EndPoint> tobedeleted = new ArrayList<EndPoint>(); 
+		for (Element e: m_topologyDao.getTopology()) {
+			for (EndPoint endpoint: e.getEndpoints()) {
+				if ( endpoint instanceof MacAddrEndPoint ) {
+					MacAddrEndPoint mac = (MacAddrEndPoint) endpoint;
+					if (mac.getSourceIpNetToMediaNode() != null && mac.getSourceIpNetToMediaNode() == nodeId )
+						tobedeleted.add(endpoint);
+				}
+			}
+		}
+		
+		for(EndPoint endpoint: tobedeleted) {
+			m_topologyDao.delete(endpoint);
+		}
+
 	}
 	
 	@Override
 	public void reconcileBridge(int nodeId, Date now) {
-		// TODO Auto-generated method stub
+		Element e = m_topologyDao.get(new NodeElementIdentifier(nodeId));
+		if (e == null) return;
+		List<EndPoint> tobedeleted = new ArrayList<EndPoint>(); 
+		for (EndPoint ep: e.getEndpoints()) {
+			if ((ep instanceof BridgeEndPoint || ep instanceof MacAddrEndPoint) && ep.getLastPoll().before(now)) 
+				tobedeleted.add(ep); 
+		}
+
+		for(EndPoint endpoint: tobedeleted) {
+			m_topologyDao.delete(endpoint);
+		}
+
 	}
 
 }

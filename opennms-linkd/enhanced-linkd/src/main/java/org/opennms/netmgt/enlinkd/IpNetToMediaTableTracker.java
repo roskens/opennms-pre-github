@@ -35,6 +35,7 @@ import java.net.InetAddress;
 import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.model.topology.Element;
 import org.opennms.netmgt.model.topology.InetElementIdentifier;
+import org.opennms.netmgt.model.topology.MacAddrElementIdentifier;
 import org.opennms.netmgt.model.topology.MacAddrEndPoint;
 import org.opennms.netmgt.snmp.RowCallback;
 import org.opennms.netmgt.snmp.SnmpInstId;
@@ -180,6 +181,7 @@ public class IpNetToMediaTableTracker extends TableTracker
 				macep.setIpAddr(getIpNetToMediaNetAddress());
 				Element e = new Element();
 				e.addElementIdentifier(new InetElementIdentifier(getIpNetToMediaNetAddress()));
+				e.addElementIdentifier(new MacAddrElementIdentifier(getIpNetToMediaPhysAddress()));
 				e.addEndPoint(macep);
 				macep.setElement(e);
 			}

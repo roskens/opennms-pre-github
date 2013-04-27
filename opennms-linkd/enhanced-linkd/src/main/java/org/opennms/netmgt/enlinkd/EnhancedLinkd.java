@@ -363,26 +363,6 @@ public class EnhancedLinkd extends AbstractServiceDaemon {
 
     }
 
-    /**
-     * Update database when an interface is deleted
-     * 
-     * @param nodeid
-     *            the nodeid for the node
-     * @param ipAddr
-     *            the ip address of the interface
-     * @param ifIndex
-     *            the ifIndex of the interface
-     */
-    void deleteInterface(int nodeid, String ipAddr, int ifIndex) {
-
-        LogUtils.debugf(this,
-                        "deleteInterface: marking table entries as deleted for node %d with IP address %s and ifIndex %s",
-                        nodeid, ipAddr, (ifIndex > -1 ? "" + ifIndex : "N/A"));
-
-            m_queryMgr.reconcile(nodeid, ipAddr, ifIndex);
-   
-    }
-
     void suspendNodeCollection(int nodeid) {
         LogUtils.debugf(this,
                         "suspendNodeCollection: suspend collection LinkableNode for node %d",

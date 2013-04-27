@@ -67,7 +67,7 @@ public class Element {
 			Element e = (Element) o;
 			if (e.getElementIdentifiers().size() == 0 && 
 					getElementIdentifiers().size() == 0)
-					return true;
+					return false;
 			for (ElementIdentifier localElementIdentifier : getElementIdentifiers()) {
 				for (ElementIdentifier oe: e.getElementIdentifiers()) {
 					if (oe.equals(localElementIdentifier))
