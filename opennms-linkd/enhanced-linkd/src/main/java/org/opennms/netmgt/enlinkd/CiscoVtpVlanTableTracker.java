@@ -28,14 +28,16 @@
 
 package org.opennms.netmgt.enlinkd;
 
+import org.opennms.netmgt.enlinkd.Dot1dStpPortTableTracker.Dot1dStpPortRow;
 import org.opennms.netmgt.model.OnmsVlan.VlanStatus;
 import org.opennms.netmgt.model.OnmsVlan.VlanType;
+import org.opennms.netmgt.snmp.RowCallback;
 import org.opennms.netmgt.snmp.SnmpInstId;
 import org.opennms.netmgt.snmp.SnmpObjId;
 import org.opennms.netmgt.snmp.SnmpRowResult;
 import org.opennms.netmgt.snmp.TableTracker;
 
-public final class CiscoVtpVlanTableTracker extends TableTracker {
+public class CiscoVtpVlanTableTracker extends TableTracker {
 
 	
     /**
@@ -98,6 +100,14 @@ public final class CiscoVtpVlanTableTracker extends TableTracker {
 		public Integer getVlanIndex() {
 			return getInstance().getLastSubId();
 		}
+		
+		public boolean isStatusOperational() {
+			return getVlanStatus().equals(VlanStatus.CISCOVTP_OPERATIONAL);
+		}
+		
+		public boolean isTypeEthernet() {
+			return getVlanType().equals(VlanType.CISCO_VTP_ETHERNET);
+		}
 	}
 	/**
 	 * <p>Constructor for CiscoVtpVlanTableTracker.</p>
@@ -106,6 +116,30 @@ public final class CiscoVtpVlanTableTracker extends TableTracker {
 		super(cisco_vlan_elemList);
 	}
 
+	public CiscoVtpVlanTableTracker(RowCallback rowProcessor) {
+		super(rowProcessor, cisco_vlan_elemList);
+	}
+
+    /** {@inheritDoc} */
+    @Override
+    public SnmpRowResult createRowResult(final int columnCount, final SnmpInstId instance) {
+        return new CiscoVtpVlanRow(columnCount, instance);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void rowCompleted(final SnmpRowResult row) {
+        processCiscoVtpVlanRow((CiscoVtpVlanRow)row);
+    }
+
+    /**
+     * <p>processCiscoVtpVlanRow</p>
+     *
+     * @param row a {@link org.opennms.netmgt.enlinkd.CiscoVtpVlanTableTracker.CiscoVtpVlanRow} object.
+     */
+    public void processCiscoVtpVlanRow(final CiscoVtpVlanRow row) {
+    }
+	
 	
 
 	

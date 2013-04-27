@@ -39,8 +39,6 @@ import java.util.List;
 
 
 import org.opennms.core.utils.LogUtils;
-import org.opennms.netmgt.enlinkd.Dot1dTpFdbTableTracker.Dot1dTpFdbRow;
-import org.opennms.netmgt.enlinkd.Dot1qTpFdbTableTracker.Dot1qTpFdbRow;
 import org.opennms.netmgt.model.OnmsStpNode.BridgeBaseType;
 import org.opennms.netmgt.model.topology.BridgeDot1dTpFdbLink;
 import org.opennms.netmgt.model.topology.BridgeDot1qTpFdbLink;
@@ -77,7 +75,85 @@ public final class BridgeLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
     	final Date now = new Date(); 
 
 		LogUtils.debugf(this, "run: collecting : %s", getPeer());
+		runVlanCollection();
 
+		if (m_node.getSysoid().startsWith(".1.3.6.1.4.1.9")) {
+			runCollectionOnCiscoVlan();
+		}
+		
+        m_linkd.getQueryManager().reconcileBridge(getNodeId(),now);
+
+    }
+
+	private void runCollectionOnCiscoVlan() {
+		String trackerName="vtpVersion";
+		final CiscoVtpStatus vtpStatus = new CiscoVtpStatus();
+		SnmpWalker walker =  SnmpUtils.createWalker(getPeer(), trackerName, vtpStatus);
+		walker.start();
+
+		try {
+		    walker.waitFor();
+		    if (walker.timedOut()) {
+		    	LogUtils.infof(this,
+		                "run:Aborting Bridge Linkd node scan : Agent timed out while scanning the %s table", trackerName);
+		    	return;
+		    }  else if (walker.failed()) {
+		    	LogUtils.infof(this,
+		                "run:Aborting Bridge Linkd node scan : Agent failed while scanning the %s table: %s", trackerName,walker.getErrorMessage());
+		    	return;
+		    }
+		} catch (final InterruptedException e) {
+		    LogUtils.errorf(this, e, "run: Bridge Linkd node collection interrupted, exiting");
+		    return;
+		}
+
+		if ( vtpStatus.getVtpVersion() == null ) {
+            LogUtils.infof(this, "cisco vtp mib not supported, on: %s", str(getPeer().getAddress()));
+            return;
+		} 
+        LogUtils.infof(this, "cisco vtp mib supported, on: %s", str(getPeer().getAddress()));
+        LogUtils.infof(this, "walking cisco vtp, on: %s", str(getPeer().getAddress()));
+				
+		trackerName="ciscoVtpVlan";
+		final CiscoVtpVlanTableTracker ciscoVtpVlanTableTracker = new CiscoVtpVlanTableTracker() {
+			@Override
+		    public void processCiscoVtpVlanRow(final CiscoVtpVlanRow row) {
+				if (row.isTypeEthernet() && row.isStatusOperational()) {
+					String community = getPeer().getReadCommunity();
+		            Integer vlanindex = row.getVlanIndex();
+		            LogUtils.debugf(this,
+		                            "run: cisco vlan collection setting peer community: %s with VLAN %s",
+		                            community, vlanindex);
+		            if (vlanindex != 1) {
+		                getPeer().setReadCommunity(community + "@"
+		                        + vlanindex);
+		                runVlanCollection();
+		                getPeer().setReadCommunity(community);
+					}
+				}
+		    }
+		};
+		walker =  SnmpUtils.createWalker(getPeer(), trackerName, ciscoVtpVlanTableTracker);
+		walker.start();
+
+		try {
+		    walker.waitFor();
+		    if (walker.timedOut()) {
+		    	LogUtils.infof(this,
+		                "run:Aborting Bridge Linkd node scan : Agent timed out while scanning the %s table", trackerName);
+		    	return;
+		    }  else if (walker.failed()) {
+		    	LogUtils.infof(this,
+		                "run:Aborting Bridge Linkd node scan : Agent failed while scanning the %s table: %s", trackerName,walker.getErrorMessage());
+		    	return;
+		    }
+		} catch (final InterruptedException e) {
+		    LogUtils.errorf(this, e, "run: Bridge Linkd node collection interrupted, exiting");
+		    return;
+		}
+	}
+    
+    protected void runVlanCollection() {
 		String trackerName = "dot1dbase";
         final Dot1dBase dot1dbase = new Dot1dBase();
         SnmpWalker walker =  SnmpUtils.createWalker(getPeer(), trackerName, dot1dbase);
@@ -132,7 +208,6 @@ public final class BridgeLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
         final NodeElementIdentifier nodeElementIdentifier = new NodeElementIdentifier(getNodeId());
         LogUtils.infof(this, "found node identifier for node: %s", nodeElementIdentifier );
 
-        //Now Spanning tree
         trackerName="dot1dStp";
         final Dot1dStp dot1dstp = new Dot1dStp();
         
@@ -172,7 +247,6 @@ public final class BridgeLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
         runDot1DTpFdbCollection(stpPorts,bridgeElementIdentifier,nodeElementIdentifier);
         runDot1QTpFdbCollection(stpPorts,bridgeElementIdentifier,nodeElementIdentifier);
 
-        m_linkd.getQueryManager().reconcileBridge(getNodeId(),now);
     }
 
 	private void runDot1QTpFdbCollection(final List<Integer> stpPorts,
