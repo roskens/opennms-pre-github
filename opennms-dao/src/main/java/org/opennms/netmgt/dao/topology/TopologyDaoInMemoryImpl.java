@@ -116,4 +116,16 @@ public class TopologyDaoInMemoryImpl implements TopologyDao {
 		return null;
 	}
 
+	@Override
+	public void delete(List<ElementIdentifier> elementidentifiers,
+			List<EndPoint> endpoints) {
+		for (ElementIdentifier identifier: elementidentifiers) {
+			delete(identifier);
+		}
+
+		for (EndPoint endpoint: endpoints) {
+			delete(endpoint);
+		}
+	}
+
 }

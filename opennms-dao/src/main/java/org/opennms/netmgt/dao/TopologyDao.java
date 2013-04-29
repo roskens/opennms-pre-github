@@ -20,6 +20,8 @@ public interface TopologyDao {
 	public void delete(Link link);
 	
 	public void delete(EndPoint endpoint);
+
+	public void delete(List<ElementIdentifier> elementidentifiers,List<EndPoint> endpoints);
 	
 	public Element get(ElementIdentifier elementIdentifier);
 	

@@ -13,6 +13,7 @@ import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.PrimaryType;
 import org.opennms.netmgt.model.topology.BridgeDot1dTpFdbLink;
 import org.opennms.netmgt.model.topology.BridgeDot1qTpFdbLink;
+import org.opennms.netmgt.model.topology.BridgeElementIdentifier;
 import org.opennms.netmgt.model.topology.BridgeEndPoint;
 import org.opennms.netmgt.model.topology.BridgeStpLink;
 import org.opennms.netmgt.model.topology.CdpElementIdentifier;
@@ -28,7 +29,6 @@ import org.opennms.netmgt.model.topology.LldpEndPoint;
 import org.opennms.netmgt.model.topology.LldpLink;
 import org.opennms.netmgt.model.topology.MacAddrElementIdentifier;
 import org.opennms.netmgt.model.topology.MacAddrEndPoint;
-import org.opennms.netmgt.model.topology.NodeElementIdentifier;
 import org.opennms.netmgt.model.topology.OspfElementIdentifier;
 import org.opennms.netmgt.model.topology.OspfEndPoint;
 import org.opennms.netmgt.model.topology.OspfLink;
@@ -96,21 +96,39 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 	@Override
 	public void reconcile() {
 		Collection<Integer> nodeIds = m_nodeDao.getNodeIds();
+		List<EndPoint> endpoints = new ArrayList<EndPoint>();
+		List<ElementIdentifier> elementidentifiers = new ArrayList<ElementIdentifier>();
 		for (Element e: m_topologyDao.getTopology()) {
 			for (ElementIdentifier elemId: e.getElementIdentifiers()) {
-				if (elemId instanceof NodeElementIdentifier) {
-					NodeElementIdentifier nodeElemId = (NodeElementIdentifier) elemId;
-					if (!nodeIds.contains(nodeElemId.getNodeid()))
-						m_topologyDao.delete(elemId);
-				}
+				if (!nodeIds.contains(elemId.getSourceNode()))
+					elementidentifiers.add(elemId);
+			}
+			for (EndPoint endpoint: e.getEndpoints()) {
+				if (!nodeIds.contains(endpoint.getSourceNode()))
+					endpoints.add(endpoint);
 			}
 		}
+		
+		m_topologyDao.delete(elementidentifiers,endpoints);
 		
 	}
 
 	@Override
 	public void reconcile(int nodeid) {
-		m_topologyDao.delete(new NodeElementIdentifier(nodeid));
+		List<EndPoint> endpoints = new ArrayList<EndPoint>();
+		List<ElementIdentifier> elementidentifiers = new ArrayList<ElementIdentifier>();
+		for (Element e: m_topologyDao.getTopology()) {
+			for (ElementIdentifier elemId: e.getElementIdentifiers()) {
+				if (nodeid == elemId.getSourceNode())
+					elementidentifiers.add(elemId);
+			}
+			for (EndPoint endpoint: e.getEndpoints()) {
+				if  (nodeid == endpoint.getSourceNode())
+					endpoints.add(endpoint);
+			}
+		}
+		
+		m_topologyDao.delete(elementidentifiers,endpoints);
 	}
 
 	@Override
@@ -150,158 +168,114 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 	}
 
 	@Override
-	public void reconcileLldp(int nodeId, Date now) {
-		
-		Element e = m_topologyDao.get(new NodeElementIdentifier(nodeId));
-		if (e == null) return;
-		
-		List<ElementIdentifier> todeleteeis = new ArrayList<ElementIdentifier>();
-		for (ElementIdentifier ei: e.getElementIdentifiers()) {
-			if (ei instanceof LldpElementIdentifier && ei.getLastPoll().before(now))
-				todeleteeis.add(ei);
-		}
-		
-		List<EndPoint> todeletedep = new ArrayList<EndPoint>(); 
-		for (EndPoint ep: e.getEndpoints()) {
-			if (ep instanceof LldpEndPoint && ep.getLastPoll().before(now)) 
-				todeletedep.add(ep);
-		}
+	public void reconcileLldp(int nodeid, Date now) {
 
-		for (ElementIdentifier ei: todeleteeis) {
-			m_topologyDao.delete(ei);
+		List<EndPoint> endpoints = new ArrayList<EndPoint>();
+		List<ElementIdentifier> elementidentifiers = new ArrayList<ElementIdentifier>();
+		for (Element e: m_topologyDao.getTopology()) {
+			for (ElementIdentifier elemId: e.getElementIdentifiers()) {
+				if (nodeid == elemId.getSourceNode() && elemId.getLastPoll().before(now) && elemId instanceof LldpElementIdentifier)
+					elementidentifiers.add(elemId);
+			}
+			for (EndPoint endpoint: e.getEndpoints()) {
+				if  (nodeid == endpoint.getSourceNode() && endpoint.getLastPoll().before(now) && endpoint instanceof LldpEndPoint)
+					endpoints.add(endpoint);
+			}
 		}
 		
-		for(EndPoint ep: todeletedep) {
-			m_topologyDao.delete(ep);
-		}
+		m_topologyDao.delete(elementidentifiers,endpoints);
+
 	}
 
 	@Override
-	public void reconcileCdp(int nodeId, Date now) {
-		Element e = m_topologyDao.get(new NodeElementIdentifier(nodeId));
-		if (e == null) return;
-
-		List<ElementIdentifier> todeleteeis = new ArrayList<ElementIdentifier>();
-		for (ElementIdentifier ei: e.getElementIdentifiers()) {
-			if (ei instanceof CdpElementIdentifier && ei.getLastPoll().before(now))
-				todeleteeis.add(ei);
+	public void reconcileCdp(int nodeid, Date now) {
+		List<EndPoint> endpoints = new ArrayList<EndPoint>();
+		List<ElementIdentifier> elementidentifiers = new ArrayList<ElementIdentifier>();
+		for (Element e: m_topologyDao.getTopology()) {
+			for (ElementIdentifier elemId: e.getElementIdentifiers()) {
+				if (nodeid == elemId.getSourceNode() && elemId.getLastPoll().before(now) && elemId instanceof CdpElementIdentifier)
+					elementidentifiers.add(elemId);
+			}
+			for (EndPoint endpoint: e.getEndpoints()) {
+				if  (nodeid == endpoint.getSourceNode() && endpoint.getLastPoll().before(now) && endpoint instanceof CdpEndPoint)
+					endpoints.add(endpoint);
+			}
 		}
 		
-		List<EndPoint> todeletedep = new ArrayList<EndPoint>(); 
-		for (EndPoint ep: e.getEndpoints()) {
-			if (ep instanceof CdpEndPoint && ep.getLastPoll().before(now)) 
-				todeletedep.add(ep);
-		}
-
-		for (ElementIdentifier ei: todeleteeis) {
-			m_topologyDao.delete(ei);
-		}
-		
-		for(EndPoint endpoint: todeletedep) {
-			m_topologyDao.delete(endpoint);
-		}
+		m_topologyDao.delete(elementidentifiers,endpoints);
 	}
 
 	@Override
-	public void reconcileOspf(int nodeId, Date now) {
-		Element e = m_topologyDao.get(new NodeElementIdentifier(nodeId));
-		if (e == null) return;
-		List<ElementIdentifier> todeleteeis = new ArrayList<ElementIdentifier>();
-		for (ElementIdentifier ei: e.getElementIdentifiers()) {
-			if (ei instanceof OspfElementIdentifier && ei.getLastPoll().before(now))
-				todeleteeis.add(ei);
+	public void reconcileOspf(int nodeid, Date now) {
+		List<EndPoint> endpoints = new ArrayList<EndPoint>();
+		List<ElementIdentifier> elementidentifiers = new ArrayList<ElementIdentifier>();
+		for (Element e: m_topologyDao.getTopology()) {
+			for (ElementIdentifier elemId: e.getElementIdentifiers()) {
+				if (nodeid == elemId.getSourceNode() && elemId.getLastPoll().before(now) && elemId instanceof OspfElementIdentifier)
+					elementidentifiers.add(elemId);
+			}
+			for (EndPoint endpoint: e.getEndpoints()) {
+				if  (nodeid == endpoint.getSourceNode() && endpoint.getLastPoll().before(now) && endpoint instanceof OspfEndPoint)
+					endpoints.add(endpoint);
+			}
 		}
 		
-		List<EndPoint> todeletedep = new ArrayList<EndPoint>(); 
-		for (EndPoint ep: e.getEndpoints()) {
-			if (ep instanceof OspfEndPoint && ep.getLastPoll().before(now)) 
-				todeletedep.add(ep);
-		}
-
-		for (ElementIdentifier ei: todeleteeis) {
-			m_topologyDao.delete(ei);
-		}
-		
-		for(EndPoint endpoint: todeletedep) {
-			m_topologyDao.delete(endpoint);
-		}
+		m_topologyDao.delete(elementidentifiers,endpoints);
 	}
 
 	@Override
-	public void reconcileIpNetToMedia(int nodeId, Date now) {
-		List<ElementIdentifier> todeleteeis = new ArrayList<ElementIdentifier>();
-		List<EndPoint> todeletedep = new ArrayList<EndPoint>();
+	public void reconcileIpNetToMedia(int nodeid, Date now) {
+		List<ElementIdentifier> elementidentifiers = new ArrayList<ElementIdentifier>();
+		List<EndPoint> endpoints = new ArrayList<EndPoint>();
 		for (Element e: m_topologyDao.getTopology()) {
 			for (ElementIdentifier ei: e.getElementIdentifiers()) {
-				if (ei.getLastPoll().before(now)) {
+				if (nodeid == ei.getSourceNode() && ei.getLastPoll().before(now)) {
 					if (ei instanceof MacAddrElementIdentifier) {
-						MacAddrElementIdentifier macei = (MacAddrElementIdentifier) ei;
-						if (macei.getSourceNode() != null && macei.getSourceNode() == nodeId )
-							todeleteeis.add(ei);
+						elementidentifiers.add(ei);
 					} else if (ei instanceof InetElementIdentifier) {
-						InetElementIdentifier inetei = (InetElementIdentifier) ei;
-						if (inetei.getSourceNode() != null && inetei.getSourceNode() == nodeId )
-							todeleteeis.add(ei);
+						elementidentifiers.add(ei);
 					}
 				}
 			}
 			
 			for (EndPoint ep: e.getEndpoints()) {
-				if ( ep instanceof MacAddrEndPoint && ep.getLastPoll().before(now)) {
-					MacAddrEndPoint macep = (MacAddrEndPoint) ep;
-					if (macep.getSourceNode() != null && macep.getSourceNode() == nodeId )
-						todeletedep.add(ep);
+				if ( nodeid == ep.getSourceNode()  && ep.getLastPoll().before(now) && ep instanceof MacAddrEndPoint) {
+						endpoints.add(ep);
 				}
 			}
 		}
-		
-		for (ElementIdentifier ei: todeleteeis) {
-			m_topologyDao.delete(ei);
-		}
-		for(EndPoint ep: todeletedep) {
-			m_topologyDao.delete(ep);
-		}
+
+		m_topologyDao.delete(elementidentifiers,endpoints);
 
 	}
 	
 	@Override
-	public void reconcileBridge(int nodeId, Date now) {
-		Element bridge = m_topologyDao.get(new NodeElementIdentifier(nodeId));
-		if ( bridge == null) return;
-		List<ElementIdentifier> todeleteeis = new ArrayList<ElementIdentifier>();
-		List<EndPoint> todeletedep = new ArrayList<EndPoint>();
-		for (EndPoint ep: bridge.getEndpoints()) {
-			if (ep instanceof BridgeEndPoint  && ep.getLastPoll().before(now)) 
-				todeletedep.add(ep); 
-		}
-
+	public void reconcileBridge(int nodeid, Date now) {
+		List<ElementIdentifier> elementidentifiers = new ArrayList<ElementIdentifier>();
+		List<EndPoint> endpoints = new ArrayList<EndPoint>();
 		for (Element e: m_topologyDao.getTopology()) {
 			for (ElementIdentifier ei: e.getElementIdentifiers()) {
-				if (ei.getLastPoll().before(now)) {
+				if (nodeid == ei.getSourceNode() && ei.getLastPoll().before(now)) {
 					if (ei instanceof MacAddrElementIdentifier) {
-						MacAddrElementIdentifier macei = (MacAddrElementIdentifier) ei;
-						if (macei.getSourceNode() != null && macei.getSourceNode() == nodeId )
-							todeleteeis.add(ei);
+						elementidentifiers.add(ei);
+					} else if (ei instanceof BridgeElementIdentifier) {
+						elementidentifiers.add(ei);
 					}
 				}
 			}
 			
 			for (EndPoint ep: e.getEndpoints()) {
-				if ( ep instanceof MacAddrEndPoint && ep.getLastPoll().before(now)) {
-					MacAddrEndPoint macep = (MacAddrEndPoint) ep;
-					if (macep.getSourceNode() != null && macep.getSourceNode() == nodeId )
-						todeletedep.add(ep);
+				if ( nodeid == ep.getSourceNode()  && ep.getLastPoll().before(now)) {
+					if ( ep instanceof MacAddrEndPoint) {
+						endpoints.add(ep);
+					} else if (ep instanceof BridgeEndPoint) {
+						endpoints.add(ep);
+					} 
 				}
 			}
 		}
-		
-		for (ElementIdentifier ei: todeleteeis) {
-			m_topologyDao.delete(ei);
-		}
 
-		for(EndPoint endpoint: todeletedep) {
-			m_topologyDao.delete(endpoint);
-		}
+		m_topologyDao.delete(elementidentifiers,endpoints);
 
 	}
 
