@@ -191,27 +191,27 @@ public class Dot1qTpFdbTableTracker extends TableTracker {
             deviceA.addElementIdentifier(bridgeIdentifier);
             LogUtils.infof(this, "processDot1qTpFdbRow: row local bridge identifier: %s", bridgeIdentifier.getBridgeAddress());
 
-            BridgeEndPoint endPointA = new BridgeEndPoint(getDot1qTpFdbPort());
+            BridgeEndPoint endPointA = new BridgeEndPoint(getDot1qTpFdbPort(),nodeIdentifier.getNodeid());
             deviceA.addEndPoint(endPointA);
     		endPointA.setElement(deviceA);
             LogUtils.infof(this, "processDot1qTpFdbRow: row local bridge port: %s", endPointA.getBridgePort());
     		    		
             Element deviceB = new Element();
-    		MacAddrEndPoint endPointB = getRemEndPoint();
+    		MacAddrEndPoint endPointB = getRemEndPoint(nodeIdentifier.getNodeid());
     		endPointB.setSourceNode(nodeIdentifier.getNodeid());
     		deviceB.addElementIdentifier(new MacAddrElementIdentifier(endPointB.getMacAddress(),nodeIdentifier.getNodeid()));
     		deviceB.addEndPoint(endPointB);
     		endPointB.setElement(deviceB);
             LogUtils.infof(this, "processDot1qTpFdbRow: row remote mac : %s", endPointB.getMacAddress());
     		
-    		BridgeDot1qTpFdbLink link = new BridgeDot1qTpFdbLink(endPointA, endPointB);
+    		BridgeDot1qTpFdbLink link = new BridgeDot1qTpFdbLink(endPointA, endPointB,nodeIdentifier.getNodeid());
     		endPointA.setLink(link);
     		endPointB.setLink(link);
     		return link;
 		}
 
-		public MacAddrEndPoint getRemEndPoint() {
-			return new MacAddrEndPoint(getDot1qTpFdbAddress());
+		public MacAddrEndPoint getRemEndPoint(Integer sourceNode) {
+			return new MacAddrEndPoint(getDot1qTpFdbAddress(),sourceNode);
 		}
 	}	
 

@@ -168,8 +168,8 @@ public final class Dot1dBase extends AggregateTracker
     	return BridgeBaseType.get(m_store.getInt32(BASE_NUM_TYPE));
     }
     
-    public BridgeElementIdentifier getElementIdentifier() {
-    	return new BridgeElementIdentifier(getBridgeAddress());
+    public BridgeElementIdentifier getElementIdentifier(Integer sourceNode) {
+    	return new BridgeElementIdentifier(getBridgeAddress(),sourceNode);
     }
     
 }

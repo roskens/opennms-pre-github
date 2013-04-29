@@ -6,8 +6,8 @@ public final class BridgeElementIdentifier extends ElementIdentifier {
 
 	private final String m_bridgeAddress;
 
-	public BridgeElementIdentifier(String bridgeAddress) {
-		super(ElementIdentifierType.BRIDGE);
+	public BridgeElementIdentifier(String bridgeAddress, Integer sourceNode) {
+		super(ElementIdentifierType.BRIDGE, sourceNode);
 		m_bridgeAddress= bridgeAddress;
 	}
 

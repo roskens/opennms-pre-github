@@ -145,8 +145,8 @@ public final class LldpElementIdentifier extends ElementIdentifier {
     private final String m_lldpChassisId;
     private final LldpChassisIdSubType m_lldpChassisIdSubType;
 
-    public LldpElementIdentifier(String lldpChassisId, String sysname, Integer subtype) {
-		super(ElementIdentifierType.LLDP);
+    public LldpElementIdentifier(String lldpChassisId, String sysname, Integer subtype, Integer sourceNode) {
+		super(ElementIdentifierType.LLDP,sourceNode);
 		m_lldpChassisId=lldpChassisId;
 		m_lldpSysname=sysname;
 		m_lldpChassisIdSubType=LldpChassisIdSubType.get(subtype);
@@ -190,6 +190,7 @@ public final class LldpElementIdentifier extends ElementIdentifier {
 			.append("lldpChassisId", m_lldpChassisId)
 			.append("lldpSysName", m_lldpSysname)
 			.append("lastPoll", m_lastPoll)
+			.append("sourceNode", m_sourceNode)
 			.toString();
 	}
 

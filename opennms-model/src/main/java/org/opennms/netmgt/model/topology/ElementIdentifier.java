@@ -86,8 +86,8 @@ public abstract class ElementIdentifier extends Pollable {
 
 	private final ElementIdentifierType m_identifier;
 	
-	public ElementIdentifier(ElementIdentifierType identifier) {
-		super();
+	public ElementIdentifier(ElementIdentifierType identifier, Integer sourceNode) {
+		super(sourceNode);
 		m_identifier = identifier;
 	}
 	

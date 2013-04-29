@@ -194,13 +194,13 @@ public final class CdpElementIdentifier extends ElementIdentifier {
 	private CiscoNetworkProtocolType m_cdpAddressType;
 	private String m_cdpAddress;
 
-	public CdpElementIdentifier(String cdpDeviceId) {
-		super(ElementIdentifierType.CDP);
+	public CdpElementIdentifier(String cdpDeviceId,Integer sourceNode) {
+		super(ElementIdentifierType.CDP,sourceNode);
 		m_cdpDeviceId = cdpDeviceId;
 	}
 
-	public CdpElementIdentifier(String cdpDeviceId, String cdpAddress, CiscoNetworkProtocolType type) {
-		super(ElementIdentifierType.CDP);
+	public CdpElementIdentifier(String cdpDeviceId, String cdpAddress, CiscoNetworkProtocolType type,Integer sourceNode) {
+		super(ElementIdentifierType.CDP,sourceNode);
 		m_cdpDeviceId = cdpDeviceId;
 		m_cdpAddress = cdpAddress;
 		m_cdpAddressType = type;
@@ -243,6 +243,7 @@ public final class CdpElementIdentifier extends ElementIdentifier {
 			.append("cdpAddress", m_cdpAddress)
 			.append("cdpAddressType", m_cdpAddressType)
 			.append("lastPoll", m_lastPoll)
+			.append("sourceNode", m_sourceNode)
 			.toString();
 	}
 
@@ -251,6 +252,7 @@ public final class CdpElementIdentifier extends ElementIdentifier {
 		if (!equals(elementidentifier))
 			return;
 		m_lastPoll = elementidentifier.getLastPoll();
+		m_sourceNode = elementidentifier.getSourceNode();
 		CdpElementIdentifier cdp = (CdpElementIdentifier) elementidentifier;
 		if (cdp.getCdpAddress() != null) {
 			m_cdpAddress = cdp.getCdpAddress();

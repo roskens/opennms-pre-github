@@ -130,12 +130,12 @@ public class LldpRemTableTracker extends TableTracker {
 	        return getValue(LLDP_REM_SYSNAME).toDisplayString();
 	    }
 	    
-	    public LldpElementIdentifier getRemElementIdentifier() {
-	    	return LldpHelper.getElementIdentifier(getLldpRemChassisId(), getLldpRemSysname(), getLldpRemChassisidSubtype());
+	    public LldpElementIdentifier getRemElementIdentifier(Integer sourceNode) {
+	    	return LldpHelper.getElementIdentifier(getLldpRemChassisId(), getLldpRemSysname(), getLldpRemChassisidSubtype(),sourceNode);
 	    }
 	    
-	    public LldpEndPoint getRemEndPoint() {
-	    	return LldpHelper.getEndPoint(getLldpRemPortidSubtype(),getLldpRemPortid() );
+	    public LldpEndPoint getRemEndPoint(Integer sourceNode) {
+	    	return LldpHelper.getEndPoint(getLldpRemPortidSubtype(),getLldpRemPortid(),sourceNode );
 	    }
 	    
 	    public LldpLink getLink(LldpElementIdentifier lldpIdentifier, NodeElementIdentifier nodeIdentifier, LldpLocPortGetter lldpLocPort) {
@@ -145,25 +145,25 @@ public class LldpRemTableTracker extends TableTracker {
             LogUtils.infof(this, "processLldpRemRow: row count: %d", getColumnCount());
             LogUtils.infof(this, "processLldpRemRow: row local port num: %d",  getLldpRemLocalPortNum());
 
-            LldpEndPoint endPointA = lldpLocPort.get(getLldpRemLocalPortNum());
+            LldpEndPoint endPointA = lldpLocPort.get(getLldpRemLocalPortNum(), nodeIdentifier.getNodeid());
             deviceA.addEndPoint(endPointA);
     		endPointA.setElement(deviceA);
             LogUtils.infof(this, "processLldpRemRow: row local port id: %s", endPointA.getLldpPortId());
             LogUtils.infof(this, "processLldpRemRow: row local port subtype: %s", endPointA.getLldpPortIdSubType());
     		
     		Element deviceB = new Element();
-            LldpElementIdentifier lldpRemElementIdentifier = getRemElementIdentifier();
+            LldpElementIdentifier lldpRemElementIdentifier = getRemElementIdentifier(nodeIdentifier.getNodeid());
             LogUtils.infof(this, "processLldpRemRow: row rem lldp identifier: %s", lldpRemElementIdentifier);
             deviceB.addElementIdentifier(lldpRemElementIdentifier);
     		
-    		LldpEndPoint endPointB = getRemEndPoint();
+    		LldpEndPoint endPointB = getRemEndPoint(nodeIdentifier.getNodeid());
     		endPointB.setIfDescr(getLldpRemPortDescr());
     		deviceB.addEndPoint(endPointB);
     		endPointB.setElement(deviceB);
             LogUtils.infof(this, "processLldpRemRow: row rem port id: %s", endPointB.getLldpPortId());
             LogUtils.infof(this, "processLldpRemRow: row rem port subtype: %s", endPointB.getLldpPortIdSubType());
     		
-    		LldpLink link = new LldpLink(endPointA, endPointB);
+    		LldpLink link = new LldpLink(endPointA, endPointB,nodeIdentifier.getNodeid());
     		endPointA.setLink(link);
     		endPointB.setLink(link);
     		return link;

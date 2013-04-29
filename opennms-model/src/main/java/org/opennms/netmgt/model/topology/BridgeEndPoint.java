@@ -4,8 +4,8 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 public class BridgeEndPoint extends EndPoint {
 
-	public BridgeEndPoint(Integer bridgePortId) {
-		super();
+	public BridgeEndPoint(Integer bridgePortId,Integer sourceNode) {
+		super(sourceNode);
 		m_bridgePort = bridgePortId;
 	}
 
@@ -35,6 +35,7 @@ public class BridgeEndPoint extends EndPoint {
 		return new ToStringBuilder(this)
 			.append("m_bridgePort", m_bridgePort)
 			.append("lastPoll", m_lastPoll)
+			.append("sourceNode", m_sourceNode)
 			.toString();
 	}
 
@@ -44,6 +45,7 @@ public class BridgeEndPoint extends EndPoint {
 			return;
 		}
 		m_lastPoll = endpoint.getLastPoll();
+		m_sourceNode = endpoint.getSourceNode();
 		if (endpoint.hasLink()) {
 			Link link = endpoint.getLink(); 
 			if (equals(link.getA())) 

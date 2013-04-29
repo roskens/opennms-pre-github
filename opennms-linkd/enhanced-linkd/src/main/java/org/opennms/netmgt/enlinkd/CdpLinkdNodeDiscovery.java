@@ -99,7 +99,7 @@ public final class CdpLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
         } 
 
 
-        final CdpElementIdentifier cdpGlobalElementIdentifier = cdpGlobalGroup.getElementIdentifier();
+        final CdpElementIdentifier cdpGlobalElementIdentifier = cdpGlobalGroup.getElementIdentifier(getNodeId());
         LogUtils.infof(this, "found local cdp identifier : %s", cdpGlobalElementIdentifier);
 
         final NodeElementIdentifier nodeElementIdentifier = new NodeElementIdentifier(getNodeId());

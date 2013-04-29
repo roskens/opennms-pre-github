@@ -121,8 +121,8 @@ public final class LldpLocalGroup extends AggregateTracker {
         return ThreadCategory.getInstance(getClass());
     }
 
-	public LldpElementIdentifier getElementIdentifier() {
-		return LldpHelper.getElementIdentifier(getLldpLocChassisid(), getLldpLocSysname(), getLldpLocChassisidSubType());
+	public LldpElementIdentifier getElementIdentifier(Integer sourceNode) {
+		return LldpHelper.getElementIdentifier(getLldpLocChassisid(), getLldpLocSysname(), getLldpLocChassisidSubType(),sourceNode);
 	}
 	
 }

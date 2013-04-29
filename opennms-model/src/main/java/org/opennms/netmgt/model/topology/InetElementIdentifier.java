@@ -8,12 +8,10 @@ import static org.opennms.core.utils.InetAddressUtils.str;
 public final class InetElementIdentifier extends ElementIdentifier {
 
 	private final InetAddress m_inet;
-	private final Integer m_sourceIpNetToMediaNode;
 
-	public InetElementIdentifier(InetAddress inet,Integer nodeId) {
-		super(ElementIdentifierType.INET);
+	public InetElementIdentifier(InetAddress inet,Integer sourceNode) {
+		super(ElementIdentifierType.INET,sourceNode);
 		m_inet = inet;
-		m_sourceIpNetToMediaNode = nodeId;
 	}
 
 	public InetAddress getInet() {
@@ -35,13 +33,8 @@ public final class InetElementIdentifier extends ElementIdentifier {
 	public String toString() {
 		return new ToStringBuilder(this)
 			.append("inet", str(m_inet))
-			.append("sourceNodeid", m_sourceIpNetToMediaNode)
 			.append("lastPoll", m_lastPoll)
+			.append("sourceNode", m_sourceNode)
 			.toString();
 	}
-
-	public Integer getSourceIpNetToMediaNode() {
-		return m_sourceIpNetToMediaNode;
-	}
-
 }

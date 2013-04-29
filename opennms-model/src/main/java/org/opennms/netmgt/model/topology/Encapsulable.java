@@ -12,8 +12,8 @@ import java.util.List;
  */
 public abstract class Encapsulable extends EndPoint {
 	
-	public Encapsulable() {
-		super();
+	public Encapsulable(Integer sourceNode) {
+		super(sourceNode);
 	}
 
 	private List<EndPoint> m_encapsulatedby;

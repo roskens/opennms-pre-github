@@ -33,55 +33,54 @@ public class TopologyTest {
 	@Test
 	public void testHasEndPoint() {
 		Element elementA = new Element();
-		elementA.addElementIdentifier(new LldpElementIdentifier("0016c8bd4d80", "switch3", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS));
-		elementA.addElementIdentifier(new NodeElementIdentifier(1));
-		LldpEndPoint endPointA1 = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME);
+		elementA.addElementIdentifier(new LldpElementIdentifier("0016c8bd4d80", "switch3", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS,101));
+		elementA.addElementIdentifier(new NodeElementIdentifier(101));
+		LldpEndPoint endPointA1 = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,101);
 		elementA.addEndPoint(endPointA1);
 		
-		LldpEndPoint endPointA1F = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME);
+		LldpEndPoint endPointA1F = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,111);
 		assertEquals(true, elementA.hasEndPoint(endPointA1F));
 	}
 
 	@Test
 	public void testHasEndPointWithDelay() {
 		Element elementA = new Element();
-		elementA.addElementIdentifier(new LldpElementIdentifier("0016c8bd4d80", "switch3", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS));
+		elementA.addElementIdentifier(new LldpElementIdentifier("0016c8bd4d80", "switch3", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS,102));
 		elementA.addElementIdentifier(new NodeElementIdentifier(1));
-		LldpEndPoint endPointA1 = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME);
-		LldpEndPoint endPointA2 = new LldpEndPoint("Ge0/2", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME);
-		LldpEndPoint endPointA3 = new LldpEndPoint("Ge0/3", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME);
+		LldpEndPoint endPointA1 = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,102);
+		LldpEndPoint endPointA2 = new LldpEndPoint("Ge0/2", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,102);
+		LldpEndPoint endPointA3 = new LldpEndPoint("Ge0/3", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,102);
 		elementA.addEndPoint(endPointA1);
 		elementA.addEndPoint(endPointA2);
 		elementA.addEndPoint(endPointA3);
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		LldpEndPoint endPointA1F = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME);
+		LldpEndPoint endPointA1F = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,110);
 		assertEquals(true, elementA.hasEndPoint(endPointA1F));
 	}
 
 	@Test 
 	public void testLink() {
 		Element elementA = new Element();
-		elementA.addElementIdentifier(new LldpElementIdentifier("0016c8bd4d80", "switch3", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS));
+		elementA.addElementIdentifier(new LldpElementIdentifier("0016c8bd4d80", "switch3", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS,103));
 		elementA.addElementIdentifier(new NodeElementIdentifier(1));
 
-		LldpEndPoint endPointA1 = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME);
+		LldpEndPoint endPointA1 = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,103);
 		elementA.addEndPoint(endPointA1);
 		endPointA1.setElement(elementA);
 
 		Element elementB = new Element();
-		elementB.addElementIdentifier(new LldpElementIdentifier("0016caad4d80", "switch1", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS));
+		elementB.addElementIdentifier(new LldpElementIdentifier("0016caad4d80", "switch1", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS,103));
 		
-		LldpEndPoint endPointB1 = new LldpEndPoint("Ge0/0", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME);
+		LldpEndPoint endPointB1 = new LldpEndPoint("Ge0/0", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,103);
 		elementB.addEndPoint(endPointB1);
 		endPointB1.setElement(elementB);
 		
-		LldpLink link1 = new LldpLink(endPointA1, endPointB1);
-		LldpLink link2 = new LldpLink(endPointB1, endPointA1);
+		LldpLink link1 = new LldpLink(endPointA1, endPointB1,103);
+		LldpLink link2 = new LldpLink(endPointB1, endPointA1,113);
 		
 		assertEquals(link1,link2);
 	}
@@ -89,23 +88,23 @@ public class TopologyTest {
 	@Test
 	public void testTopology() {
 		Element elementA = new Element();
-		elementA.addElementIdentifier(new LldpElementIdentifier("0016c8bd4d80", "switch3", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS));
+		elementA.addElementIdentifier(new LldpElementIdentifier("0016c8bd4d80", "switch3", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS,104));
 		elementA.addElementIdentifier(new NodeElementIdentifier(1));
 
 		Element elementB = new Element();
-		elementB.addElementIdentifier(new LldpElementIdentifier("0016caad4d80", "switch1", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS));
+		elementB.addElementIdentifier(new LldpElementIdentifier("0016caad4d80", "switch1", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS,104));
 
 		Element elementC = new Element();
-		elementC.addElementIdentifier(new LldpElementIdentifier("0016c8bd4d80", "switch3", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS));
+		elementC.addElementIdentifier(new LldpElementIdentifier("0016c8bd4d80", "switch3", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS,104));
 
 		assertTrue(!elementA.equals(elementB));
 	
 		assertTrue(elementA.equals(elementC));
 		
-		LldpEndPoint endPointA1 = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME);
-		LldpEndPoint endPointA2 = new LldpEndPoint("Ge0/2", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME);
-		LldpEndPoint endPointA3 = new LldpEndPoint("Ge0/3", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME);
-		LldpEndPoint endPointA4 = new LldpEndPoint("Ge0/4", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME);
+		LldpEndPoint endPointA1 = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,104);
+		LldpEndPoint endPointA2 = new LldpEndPoint("Ge0/2", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,104);
+		LldpEndPoint endPointA3 = new LldpEndPoint("Ge0/3", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,104);
+		LldpEndPoint endPointA4 = new LldpEndPoint("Ge0/4", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,104);
 		
 		assertTrue(!endPointA1.equals(endPointA2));
 
@@ -113,7 +112,7 @@ public class TopologyTest {
 		elementA.addEndPoint(endPointA2);
 		elementA.addEndPoint(endPointA3);
 		elementA.addEndPoint(endPointA4);
-		LldpEndPoint endPointA1F = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME);
+		LldpEndPoint endPointA1F = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,120);
 		assertEquals(endPointA1, endPointA1F);
 		assertEquals(true, elementA.hasEndPoint(endPointA1F));
 		
@@ -122,10 +121,10 @@ public class TopologyTest {
 		endPointA3.setElement(elementA);
 		endPointA4.setElement(elementA);
 		
-		LldpEndPoint endPointB1 = new LldpEndPoint("Ge0/0", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME);
-		LldpEndPoint endPointB2 = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME);
-		LldpEndPoint endPointB3 = new LldpEndPoint("Ge0/2", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME);
-		LldpEndPoint endPointB4 = new LldpEndPoint("Ge0/3", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME);
+		LldpEndPoint endPointB1 = new LldpEndPoint("Ge0/0", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,104);
+		LldpEndPoint endPointB2 = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,104);
+		LldpEndPoint endPointB3 = new LldpEndPoint("Ge0/2", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,104);
+		LldpEndPoint endPointB4 = new LldpEndPoint("Ge0/3", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,104);
 
 		elementB.addEndPoint(endPointB1);
 		elementB.addEndPoint(endPointB2);
@@ -139,10 +138,10 @@ public class TopologyTest {
 
 		assertTrue(!endPointB2.equals(endPointA1));
 
-		LldpLink link1 = new LldpLink(endPointA1, endPointB1);
-		LldpLink link2 = new LldpLink(endPointA2, endPointB2);
-		LldpLink link3 = new LldpLink(endPointA3, endPointB3);
-		LldpLink link4 = new LldpLink(endPointA4, endPointB4);
+		LldpLink link1 = new LldpLink(endPointA1, endPointB1,104);
+		LldpLink link2 = new LldpLink(endPointA2, endPointB2,104);
+		LldpLink link3 = new LldpLink(endPointA3, endPointB3,104);
+		LldpLink link4 = new LldpLink(endPointA4, endPointB4,104);
 		
 		assertTrue(!link1.equals(link2));
 		
@@ -178,24 +177,15 @@ public class TopologyTest {
 		assertEquals(8, endpoints.size());		
 		assertEquals(4, links.size());
 		
-		LldpEndPoint endPointA1new = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME);
+		LldpEndPoint endPointA1new = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,118);
 		endPointA1new.setElement(elementA);
 		
 		assertEquals(false,elementB.hasEndPoint(endPointA1new));
 		
-		LldpEndPoint endPointA5 = new LldpEndPoint("Ge0/5", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME);
+		LldpEndPoint endPointA5 = new LldpEndPoint("Ge0/5", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,118);
 		endPointA5.setElement(elementA);
 		assertEquals(false, elementA.hasEndPoint(endPointA5));
 		
-		System.err.println("-----here is the contains method call-------");
-		System.err.println("");
-
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		assertEquals(true, elementA.hasEndPoint(endPointA1new));
 	}
 }

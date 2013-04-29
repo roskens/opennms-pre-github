@@ -9,27 +9,11 @@ public class MacAddrEndPoint extends EndPoint {
 	
 	private InetAddress m_ipAddr;
 	private final String m_macAddress;
-	private Integer m_sourceNode;
 
-	public Integer getSourceNode() {
-		return m_sourceNode;
-	}
-
-
-	public void setSourceNode(Integer sourceNode) {
-		m_sourceNode = sourceNode;
-	}
-
-	public MacAddrEndPoint(String mac) {
+	public MacAddrEndPoint(String mac, Integer sourceNode) {
+		super(sourceNode);
 		m_macAddress = mac;
 	}
-
-	
-	public MacAddrEndPoint(String mac, Integer nodeid) {
-		m_macAddress = mac;
-		m_sourceNode = nodeid;
-	}
-
 	
 	public InetAddress getIpAddr() {
 		return m_ipAddr;
@@ -65,8 +49,8 @@ public class MacAddrEndPoint extends EndPoint {
 		return new ToStringBuilder(this)
 			.append("macAddress", m_macAddress)
 			.append("ipAddr", m_ipAddr)
-			.append("source", m_sourceNode)
 			.append("lastPoll", m_lastPoll)
+			.append("sourceNode", m_sourceNode)
 			.toString();
 	}
 
@@ -76,11 +60,10 @@ public class MacAddrEndPoint extends EndPoint {
 		if (!equals(endpoint))
 			return;
 		m_lastPoll = endpoint.getLastPoll();
+		m_sourceNode = endpoint.getSourceNode();
 		MacAddrEndPoint macendpoint = (MacAddrEndPoint) endpoint;
 		if (macendpoint.getIpAddr() != null)
 			m_ipAddr = macendpoint.getIpAddr();
-		if (macendpoint.getSourceNode() != null)
-			m_sourceNode = macendpoint.getSourceNode();
 		if (endpoint.hasLink()) {
 			Link link = endpoint.getLink(); 
 			if (equals(link.getA())) 

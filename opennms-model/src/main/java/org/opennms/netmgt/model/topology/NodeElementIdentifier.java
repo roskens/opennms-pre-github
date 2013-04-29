@@ -7,7 +7,7 @@ public final class NodeElementIdentifier extends ElementIdentifier {
 	private final Integer m_nodeid; 
 
 	public NodeElementIdentifier(Integer nodeid) {
-		super(ElementIdentifierType.NODE);
+		super(ElementIdentifierType.NODE,nodeid);
 		m_nodeid = Integer.valueOf(nodeid);
 	}
 
@@ -31,6 +31,7 @@ public final class NodeElementIdentifier extends ElementIdentifier {
 		return new ToStringBuilder(this)
 			.append("nodeid", m_nodeid)
 			.append("lastPoll", m_lastPoll)
+			.append("sourceNode", m_sourceNode)
 			.toString();
 	}
 

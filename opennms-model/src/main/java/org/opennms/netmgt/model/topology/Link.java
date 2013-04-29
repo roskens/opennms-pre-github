@@ -78,13 +78,13 @@ public abstract class Link extends Pollable {
 	            if (code == null)
 	                throw new IllegalArgumentException("Cannot create LinkType from null code");
 	            switch (code) {
-	            case LINK_TYPE_INPUT: 		return INPUT;
-	            case LINK_TYPE_LLDP: 		return LLDP;
-	            case LINK_TYPE_CDP: 		return CDP;
-	            case LINK_TYPE_OSPF: 		return OSPF;
-	            case LINK_TYPE_DOT1D_STP:   return DOT1D_STP;
-	            case LINK_TYPE_DOT1D_TP_FDB:   return DOT1D_TP_FDB;
-	            case LINK_TYPE_DOT1Q_TP_FDB:   return DOT1Q_TP_FDB;
+	            case LINK_TYPE_INPUT: 		 return INPUT;
+	            case LINK_TYPE_LLDP: 		 return LLDP;
+	            case LINK_TYPE_CDP: 		 return CDP;
+	            case LINK_TYPE_OSPF: 		 return OSPF;
+	            case LINK_TYPE_DOT1D_STP:    return DOT1D_STP;
+	            case LINK_TYPE_DOT1D_TP_FDB: return DOT1D_TP_FDB;
+	            case LINK_TYPE_DOT1Q_TP_FDB: return DOT1Q_TP_FDB;
 	            default:
 	                throw new IllegalArgumentException("Cannot create LinkType from code "+code);
 	            }
@@ -97,8 +97,8 @@ public abstract class Link extends Pollable {
 	
 	private final LinkType m_linkType;
 	
-	public Link(LinkType linkType) {
-		super();
+	public Link(LinkType linkType, Integer sourceNode) {
+		super(sourceNode);
 		m_linkType=linkType;
 	}
 	

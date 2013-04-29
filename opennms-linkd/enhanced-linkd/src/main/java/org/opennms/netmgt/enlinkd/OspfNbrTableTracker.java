@@ -101,13 +101,13 @@ public class OspfNbrTableTracker extends TableTracker {
 	        return getValue(OSPF_NBR_ADDRESS_LESS_INDEX).toInt();
 	    }
 
-		public OspfEndPoint getEndPoint() {
+		public OspfEndPoint getEndPoint(Integer sourceNode) {
             LogUtils.infof(this, "processOspfNbrRow: row count: %d", getColumnCount());
 			Element device = new Element();
-			device.addElementIdentifier(new OspfElementIdentifier(getOspfNbrRouterId()));
+			device.addElementIdentifier(new OspfElementIdentifier(getOspfNbrRouterId(),sourceNode));
             LogUtils.infof(this, "processOspfNbrRow: row ospf nbr router id: %s", str(getOspfNbrRouterId()));
 
-			OspfEndPoint endPoint = new OspfEndPoint(getOspfNbrIpAddress(), getOspfNbrAddressLessIndex());
+			OspfEndPoint endPoint = new OspfEndPoint(getOspfNbrIpAddress(), getOspfNbrAddressLessIndex(),sourceNode);
             LogUtils.infof(this, "processOspfNbrRow: row ospf nbr ip address: %s", str(getOspfNbrIpAddress()));
             LogUtils.infof(this, "processOspfNbrRow: row ospf nbr address less ifindex: %d", getOspfNbrAddressLessIndex());
 			device.addEndPoint(endPoint);

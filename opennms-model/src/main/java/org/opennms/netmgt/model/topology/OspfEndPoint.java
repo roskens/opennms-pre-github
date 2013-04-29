@@ -14,7 +14,8 @@ public class OspfEndPoint extends EndPoint {
 	private InetAddress m_ospfIpMask; 
 	private Integer m_ospfIfIndex;
 	
-	public OspfEndPoint(InetAddress ospfIpAddr,Integer ospfAddresslessIndex) {
+	public OspfEndPoint(InetAddress ospfIpAddr,Integer ospfAddresslessIndex,Integer sourceNode) {
+		super(sourceNode);
 		m_ospfIpAddr = ospfIpAddr;
 		m_ospfAddressLessIndex = ospfAddresslessIndex;
 	}
@@ -79,6 +80,7 @@ public class OspfEndPoint extends EndPoint {
 			.append("ospfIpMask", str(m_ospfIpMask))
 			.append("ospfIfIndex", m_ospfIfIndex)
 			.append("lastPoll", m_lastPoll)
+			.append("sourceNode", m_sourceNode)
 			.toString();
 	}
 
@@ -88,6 +90,7 @@ public class OspfEndPoint extends EndPoint {
 		if (!equals(endpoint))
 			return;
 		m_lastPoll = endpoint.getLastPoll();
+		m_sourceNode = endpoint.getSourceNode();
 		OspfEndPoint ospfendpoint = (OspfEndPoint) endpoint;
 		if (ospfendpoint.getOspfIfIndex() != null)
 			m_ospfIfIndex = ospfendpoint.getOspfIfIndex();

@@ -89,8 +89,8 @@ public class Nms17216SnmpTest extends Nms17216NetworkBuilder implements Initiali
         LldpRemTableTracker lldpRemTable = new LldpRemTableTracker() {
             
         	public void processLldpRemRow(final LldpRemRow row) {
-        		LldpElementIdentifier eiB = row.getRemElementIdentifier();
-        		LldpEndPoint epB = row.getRemEndPoint();
+        		LldpElementIdentifier eiB = row.getRemElementIdentifier(101);
+        		LldpEndPoint epB = row.getRemEndPoint(101);
         		
         		System.err.println("----------lldp rem----------------");
         		System.err.println("columns number in the row: " + row.getColumnCount());
@@ -151,7 +151,7 @@ public class Nms17216SnmpTest extends Nms17216NetworkBuilder implements Initiali
             return;
         }
 
-		LldpElementIdentifier eiA = lldpLocalGroup.getElementIdentifier();
+		LldpElementIdentifier eiA = lldpLocalGroup.getElementIdentifier(1010);
 		System.err.println("local chassis type: " + LldpChassisIdSubType.getTypeString(eiA.getLldpChassisIdSubType().getIntCode()));
 		System.err.println("local chassis id: " + eiA.getLldpChassisId());
 		System.err.println("local sysname: " + eiA.getLldpSysname());
@@ -170,7 +170,7 @@ public class Nms17216SnmpTest extends Nms17216NetworkBuilder implements Initiali
     	SnmpAgentConfig  config = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(SWITCH1_IP));
 		
     	final LldpLocPortGetter lldpLocPort = new LldpLocPortGetter(config);
-		LldpEndPoint epA = lldpLocPort.get(4);
+		LldpEndPoint epA = lldpLocPort.get(4,20);
 
 		assertEquals("Gi0/4", epA.getLldpPortId());
 		assertEquals(LldpPortIdSubType.INTERFACENAME, epA.getLldpPortIdSubType());
@@ -186,7 +186,7 @@ public class Nms17216SnmpTest extends Nms17216NetworkBuilder implements Initiali
     	SnmpAgentConfig  config = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(SWITCH1_IP));
 		
     	final CdpInterfacePortNameGetter cdpLocPort = new CdpInterfacePortNameGetter(config);
-		CdpEndPoint epA = cdpLocPort.get(10104);
+		CdpEndPoint epA = cdpLocPort.get(10104,100);
 
 		assertEquals("GigabitEthernet0/4", epA.getCdpCacheDevicePort());
 		assertEquals(10104, epA.getCdpCacheIfindex().intValue());
@@ -220,7 +220,7 @@ public class Nms17216SnmpTest extends Nms17216NetworkBuilder implements Initiali
             return;
         }
 
-		CdpElementIdentifier eiA = cdpGlobalGroup.getElementIdentifier();
+		CdpElementIdentifier eiA = cdpGlobalGroup.getElementIdentifier(1010);
 		System.err.println("local chassis id: " + eiA.getCdpDeviceId());
 		
 		assertEquals("Switch1", eiA.getCdpDeviceId());
@@ -235,8 +235,8 @@ public class Nms17216SnmpTest extends Nms17216NetworkBuilder implements Initiali
         CdpCacheTableTracker cdpCacheTable = new CdpCacheTableTracker() {
             
         	public void processCdpCacheRow(final CdpCacheRow row) {
-        		CdpElementIdentifier eiB = row.getCdpCacheElementIdentifier();
-        		CdpEndPoint epB = row.getCdpCacheEndPoint();
+        		CdpElementIdentifier eiB = row.getCdpCacheElementIdentifier(200);
+        		CdpEndPoint epB = row.getCdpCacheEndPoint(200);
         		
         		System.err.println("----------lldp rem----------------");
         		System.err.println("columns number in the row: " + row.getColumnCount());
@@ -270,8 +270,8 @@ public class Nms17216SnmpTest extends Nms17216NetworkBuilder implements Initiali
         CdpCacheTableTracker cdpCacheTable = new CdpCacheTableTracker() {
             
         	public void processCdpCacheRow(final CdpCacheRow row) {
-        		CdpElementIdentifier eiB = row.getCdpCacheElementIdentifier();
-        		CdpEndPoint epB = row.getCdpCacheEndPoint();
+        		CdpElementIdentifier eiB = row.getCdpCacheElementIdentifier(201);
+        		CdpEndPoint epB = row.getCdpCacheEndPoint(201);
         		
         		System.err.println("----------lldp rem----------------");
         		System.err.println("columns number in the row: " + row.getColumnCount());

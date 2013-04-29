@@ -20,7 +20,7 @@ public class CdpInterfacePortNameGetter extends TableTracker {
 		m_agentConfig = peer;
 	}
 
-	public CdpEndPoint get(Integer cdpInterfaceIndex) {
+	public CdpEndPoint get(Integer cdpInterfaceIndex,Integer sourceNode) {
 		SnmpObjId instance = SnmpObjId.get(new int[] {cdpInterfaceIndex});
 		SnmpObjId[] oids = new SnmpObjId[]
 				{SnmpObjId.get(CDP_INTERFACE_NAME, instance)};
@@ -28,7 +28,7 @@ public class CdpInterfacePortNameGetter extends TableTracker {
 		SnmpValue[] val = SnmpUtils.get(m_agentConfig, oids);
 		if (val == null || val.length != 1 || val[0] == null)
 			return null;
-		CdpEndPoint endPoint = new CdpEndPoint(val[0].toDisplayString());
+		CdpEndPoint endPoint = new CdpEndPoint(val[0].toDisplayString(),sourceNode);
 		endPoint.setCdpCacheIfindex(cdpInterfaceIndex);
 		return endPoint;
 	}

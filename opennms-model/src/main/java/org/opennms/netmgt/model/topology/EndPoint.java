@@ -10,8 +10,8 @@ package org.opennms.netmgt.model.topology;
  */
 public abstract class EndPoint extends Pollable {
 	
-	public EndPoint() {
-		super();
+	public EndPoint(Integer sourceNode) {
+		super(sourceNode);
 	}
 
 	/** 

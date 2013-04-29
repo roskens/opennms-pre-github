@@ -135,8 +135,8 @@ public class LldpEndPoint extends EndPoint {
 
 	}
 
-	public LldpEndPoint(String lldpPortId, Integer lldpPortidSubType) {
-		super();
+	public LldpEndPoint(String lldpPortId, Integer lldpPortidSubType,Integer sourceNode) {
+		super(sourceNode);
 		m_lldpPortId = lldpPortId;
 		m_lldpPortIdSubType = LldpPortIdSubType.get(lldpPortidSubType);
 		if (lldpPortidSubType.equals(LldpPortIdSubType.INTERFACENAME))
@@ -179,6 +179,7 @@ public class LldpEndPoint extends EndPoint {
 			.append("lldpPortIdSubType", m_lldpPortIdSubType)
 			.append("m_lldpPortId", m_lldpPortId)
 			.append("lastPoll", m_lastPoll)
+			.append("sourceNode", m_sourceNode)
 			.toString();
 	}
 
@@ -188,6 +189,7 @@ public class LldpEndPoint extends EndPoint {
 			return;
 		}
 		m_lastPoll = endpoint.getLastPoll();
+		m_sourceNode = endpoint.getSourceNode();
 		if (endpoint.hasLink()) {
 			Link link = endpoint.getLink(); 
 			if (equals(link.getA())) 

@@ -97,7 +97,7 @@ public final class LldpLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
             return;
         }
         
-        final LldpElementIdentifier lldpLocalElementIdentifier = lldpLocalGroup.getElementIdentifier();
+        final LldpElementIdentifier lldpLocalElementIdentifier = lldpLocalGroup.getElementIdentifier(getNodeId());
         LogUtils.infof(this, "found local lldp identifier : %s", lldpLocalElementIdentifier);
 
         final NodeElementIdentifier nodeElementIdentifier = new NodeElementIdentifier(getNodeId());

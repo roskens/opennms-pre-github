@@ -164,12 +164,12 @@ public class CdpCacheTableTracker extends TableTracker {
 			return 	getValue(CDP_DEVICEPORT).toDisplayString();
 		}
 		
-		public CdpElementIdentifier getCdpCacheElementIdentifier() {
-			return new CdpElementIdentifier(getCdpCacheDeviceId(),getCdpCacheAddress(),CiscoNetworkProtocolType.get(getCdpCacheAddressType()));
+		public CdpElementIdentifier getCdpCacheElementIdentifier(Integer sourceNode) {
+			return new CdpElementIdentifier(getCdpCacheDeviceId(),getCdpCacheAddress(),CiscoNetworkProtocolType.get(getCdpCacheAddressType()),sourceNode);
 		}
 		
-		public CdpEndPoint getCdpCacheEndPoint() {
-			return new CdpEndPoint(getCdpCacheDevicePort());
+		public CdpEndPoint getCdpCacheEndPoint(Integer sourceNode) {
+			return new CdpEndPoint(getCdpCacheDevicePort(),sourceNode);
 		}
 		
 	    public CdpLink getLink(CdpElementIdentifier cdpIdentifier, NodeElementIdentifier nodeIdentifier, CdpInterfacePortNameGetter cdpInterfacePortNameGetter) {
@@ -179,22 +179,22 @@ public class CdpCacheTableTracker extends TableTracker {
             LogUtils.infof(this, "processCdpCacheRow: row count: %d", getColumnCount());
             LogUtils.infof(this, "processCdpCacheRow: row cdpCacheIfindex: %d",  getCdpCacheIfIndex());
 
-            CdpEndPoint endPointA = cdpInterfacePortNameGetter.get(getCdpCacheIfIndex());
+            CdpEndPoint endPointA = cdpInterfacePortNameGetter.get(getCdpCacheIfIndex(),nodeIdentifier.getNodeid());
             deviceA.addEndPoint(endPointA);
     		endPointA.setElement(deviceA);
             LogUtils.infof(this, "processCdpCacheRow: row local port: %s", endPointA.getCdpCacheDevicePort());
     		
     		Element deviceB = new Element();
-            CdpElementIdentifier cdpCacheElementIdentifier = getCdpCacheElementIdentifier();
+            CdpElementIdentifier cdpCacheElementIdentifier = getCdpCacheElementIdentifier(nodeIdentifier.getNodeid());
             LogUtils.infof(this, "processCdpCacheRow: row cdp cache identifier: %s", cdpCacheElementIdentifier);
             deviceB.addElementIdentifier(cdpCacheElementIdentifier);
     		
-    		CdpEndPoint endPointB = getCdpCacheEndPoint();
+    		CdpEndPoint endPointB = getCdpCacheEndPoint(nodeIdentifier.getNodeid());
     		deviceB.addEndPoint(endPointB);
     		endPointB.setElement(deviceB);
             LogUtils.infof(this, "processCdpCacheRow: row cdp cache device port: %s", endPointB.getCdpCacheDevicePort());
     		
-    		CdpLink link = new CdpLink(endPointA, endPointB);
+    		CdpLink link = new CdpLink(endPointA, endPointB,nodeIdentifier.getNodeid());
     		endPointA.setLink(link);
     		endPointB.setLink(link);
     		return link;

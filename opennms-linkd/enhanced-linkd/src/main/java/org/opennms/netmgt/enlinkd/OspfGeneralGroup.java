@@ -83,8 +83,8 @@ public final class OspfGeneralGroup extends AggregateTracker {
     }
        
 
-    public OspfElementIdentifier getElementIdentifier() {
-    	return new OspfElementIdentifier(getOspfRouterId());
+    public OspfElementIdentifier getElementIdentifier(Integer sourceNode) {
+    	return new OspfElementIdentifier(getOspfRouterId(),sourceNode);
     }
     
     /** {@inheritDoc} */

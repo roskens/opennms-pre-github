@@ -88,8 +88,8 @@ public class OspfIfTableTracker extends TableTracker {
 	        return getValue(OSPF_ADDRESS_LESS_IF).toInt();
 	    }
 	    
-	    public OspfEndPoint getEndPoint() {
-	    	return new OspfEndPoint(getOspfIpAddress(), getOspfAddressLessIf());
+	    public OspfEndPoint getEndPoint(Integer sourceNode) {
+	    	return new OspfEndPoint(getOspfIpAddress(), getOspfAddressLessIf(),sourceNode);
 	    }
 
 		public OspfLink getLink(
@@ -104,14 +104,14 @@ public class OspfIfTableTracker extends TableTracker {
             LogUtils.infof(this, "processOspfIfRow: row ospf ip address: %s", str(getOspfIpAddress()));
             LogUtils.infof(this, "processOspfIfRow: row ospf address less ifindex: %s", getOspfAddressLessIf());
 
-			OspfEndPoint endPointA = ipAddrTableGetter.get(getEndPoint());
+			OspfEndPoint endPointA = ipAddrTableGetter.get(getEndPoint(nodeElementIdentifier.getNodeid()));
 			OspfEndPoint endPointB = null;
 			for (OspfEndPoint ospfEndPoint: nbrEndPoints) {
 				if (InetAddressUtils.getNetwork(ospfEndPoint.getOspfIpAddr(), endPointA.getOspfIpMask()).equals(endPointA.getOspfNet())) {
 					endPointB = ospfEndPoint;
 		            LogUtils.infof(this, "processOspfIfRow: link nbr address found: %s", str(endPointB.getOspfIpAddr()));
 					endPointB.setOspfIpMask(endPointA.getOspfIpMask());
-					return new OspfLink(endPointA, endPointA);
+					return new OspfLink(endPointA, endPointA,nodeElementIdentifier.getNodeid());
 				}
 			}
 			

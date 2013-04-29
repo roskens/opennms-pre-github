@@ -240,7 +240,7 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 							todeleteeis.add(ei);
 					} else if (ei instanceof InetElementIdentifier) {
 						InetElementIdentifier inetei = (InetElementIdentifier) ei;
-						if (inetei.getSourceIpNetToMediaNode() != null && inetei.getSourceIpNetToMediaNode() == nodeId )
+						if (inetei.getSourceNode() != null && inetei.getSourceNode() == nodeId )
 							todeleteeis.add(ei);
 					}
 				}

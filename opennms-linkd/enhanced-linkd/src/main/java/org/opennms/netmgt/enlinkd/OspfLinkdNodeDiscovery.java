@@ -106,7 +106,7 @@ public final class OspfLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
             return;
         } 
 
-        final OspfElementIdentifier ospfGenralElementIdentifier = ospfGeneralGroup.getElementIdentifier();
+        final OspfElementIdentifier ospfGenralElementIdentifier = ospfGeneralGroup.getElementIdentifier(getNodeId());
         LogUtils.infof(this, "found local ospf identifier : %s", ospfGenralElementIdentifier);
 
         final NodeElementIdentifier nodeElementIdentifier = new NodeElementIdentifier(getNodeId());
@@ -117,7 +117,7 @@ public final class OspfLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
         OspfNbrTableTracker cdpCachospfNbrTableTracker = new OspfNbrTableTracker() {
 
         	public void processOspfNbrRow(final OspfNbrRow row) {
-        		nbrEndPoints.add(row.getEndPoint());
+        		nbrEndPoints.add(row.getEndPoint(getNodeId()));
         	}
         };
 

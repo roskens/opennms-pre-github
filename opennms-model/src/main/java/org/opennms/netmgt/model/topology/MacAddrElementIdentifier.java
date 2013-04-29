@@ -5,12 +5,10 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public final class MacAddrElementIdentifier extends ElementIdentifier {
 
 	private final String m_macAddr; 
-	private final Integer m_sourceNode;
 
-	public MacAddrElementIdentifier(String mac, Integer nodeid) {
-		super(ElementIdentifierType.MAC);
+	public MacAddrElementIdentifier(String mac, Integer sourceNode) {
+		super(ElementIdentifierType.MAC,sourceNode);
 		m_macAddr = mac;
-		m_sourceNode = nodeid;
 	}
 
 	public String getMacAddress() {
@@ -33,11 +31,8 @@ public final class MacAddrElementIdentifier extends ElementIdentifier {
 		return new ToStringBuilder(this)
 			.append("mac", m_macAddr)
 			.append("lastPoll", m_lastPoll)
+			.append("sourceNode", m_sourceNode)
 			.toString();
-	}
-
-	public Integer getSourceNode() {
-		return m_sourceNode;
 	}
 
 }

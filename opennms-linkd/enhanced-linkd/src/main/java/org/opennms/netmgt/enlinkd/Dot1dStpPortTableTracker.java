@@ -230,33 +230,33 @@ public class Dot1dStpPortTableTracker extends TableTracker {
             deviceA.addElementIdentifier(bridgeIdentifier);
             LogUtils.infof(this, "processStpPortRow: row local bridge identifier: %s", bridgeIdentifier.getBridgeAddress());
 
-            BridgeEndPoint endPointA = new BridgeEndPoint(getDot1dStpPort());
+            BridgeEndPoint endPointA = new BridgeEndPoint(getDot1dStpPort(),nodeIdentifier.getNodeid());
             deviceA.addEndPoint(endPointA);
     		endPointA.setElement(deviceA);
             LogUtils.infof(this, "processStpPortRow: row local bridge port: %s", endPointA.getBridgePort());
     		
     		Element deviceB = new Element();
-            BridgeElementIdentifier remBridgeElementIdentifier = getRemElementIdentifier();
+            BridgeElementIdentifier remBridgeElementIdentifier = getRemElementIdentifier(nodeIdentifier.getNodeid());
             LogUtils.infof(this, "processStpPortRow: row remote bridge identifier: %s", remBridgeElementIdentifier.getBridgeAddress());
             deviceB.addElementIdentifier(remBridgeElementIdentifier);
     		
-    		BridgeEndPoint endPointB = getRemEndPoint();
+    		BridgeEndPoint endPointB = getRemEndPoint(nodeIdentifier.getNodeid());
             LogUtils.infof(this, "processStpPortRow: row remote bridge port: %s", endPointB.getBridgePort());
     		deviceB.addEndPoint(endPointB);
     		endPointB.setElement(deviceB);
     		
-    		BridgeStpLink link = new BridgeStpLink(endPointA, endPointB);
+    		BridgeStpLink link = new BridgeStpLink(endPointA, endPointB,nodeIdentifier.getNodeid());
     		endPointA.setLink(link);
     		endPointB.setLink(link);
     		return link;
 		}
 
-		public BridgeEndPoint getRemEndPoint() {
-			return new BridgeEndPoint(getBridgeDesignatedPortNumber(getDot1dStpPortDesignatedPort()));
+		public BridgeEndPoint getRemEndPoint(Integer sourceNode) {
+			return new BridgeEndPoint(getBridgeDesignatedPortNumber(getDot1dStpPortDesignatedPort()),sourceNode);
 		}
 
-		public BridgeElementIdentifier getRemElementIdentifier() {
-			return new BridgeElementIdentifier(getDot1dStpPortDesignatedBridge());
+		public BridgeElementIdentifier getRemElementIdentifier(Integer sourceNode) {
+			return new BridgeElementIdentifier(getDot1dStpPortDesignatedBridge(),sourceNode);
 		}
 
 		public boolean isValid() {

@@ -9,8 +9,8 @@ public final class OspfElementIdentifier extends ElementIdentifier {
 
 	private final InetAddress m_ospfRouterId; 
 
-	public OspfElementIdentifier(InetAddress ospfRouterid) {
-		super(ElementIdentifierType.OSPF);
+	public OspfElementIdentifier(InetAddress ospfRouterid,Integer sourceNode) {
+		super(ElementIdentifierType.OSPF,sourceNode);
 		m_ospfRouterId= ospfRouterid;
 	}
 
@@ -34,6 +34,7 @@ public final class OspfElementIdentifier extends ElementIdentifier {
 		return new ToStringBuilder(this)
 			.append("ospfRouterId", str(m_ospfRouterId))
 			.append("lastPoll", m_lastPoll)
+			.append("sourceNode", m_sourceNode)
 			.toString();
 	}
 

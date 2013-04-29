@@ -9,23 +9,23 @@ import org.opennms.netmgt.snmp.SnmpValue;
 
 public class LldpHelper {
 
-    public static LldpElementIdentifier getElementIdentifier(final SnmpValue value, String sysname, Integer lldpLocChassisidSubType) {
+    public static LldpElementIdentifier getElementIdentifier(final SnmpValue value, String sysname, Integer lldpLocChassisidSubType,Integer sourceNode) {
     	String  lldpLocChassisId = value.toDisplayString();
     	if (lldpLocChassisidSubType.equals(LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS))
     		lldpLocChassisId = value.toHexString();
     	if (lldpLocChassisidSubType.equals(LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_NETWORKADDRESS))
     		lldpLocChassisId = InetAddressUtils.str(value.toInetAddress());
 
-    	return new LldpElementIdentifier(lldpLocChassisId, sysname, lldpLocChassisidSubType);
+    	return new LldpElementIdentifier(lldpLocChassisId, sysname, lldpLocChassisidSubType,sourceNode);
     }
 
-	public static LldpEndPoint getEndPoint(Integer type,SnmpValue value) {
+	public static LldpEndPoint getEndPoint(Integer type,SnmpValue value,Integer sourceNode) {
 		String lldpPortId = value.toDisplayString();
     	if (type.equals(LldpPortIdSubType.LLDP_PORTID_SUBTYPE_MACADDRESS))
     		lldpPortId = value.toHexString();
     	if (type.equals(LldpPortIdSubType.LLDP_PORTID_SUBTYPE_NETWORKADDRESS))
     		lldpPortId = InetAddressUtils.str(value.toInetAddress());
-    	return new LldpEndPoint(lldpPortId, type);
+    	return new LldpEndPoint(lldpPortId, type,sourceNode);
 	}
 
 }

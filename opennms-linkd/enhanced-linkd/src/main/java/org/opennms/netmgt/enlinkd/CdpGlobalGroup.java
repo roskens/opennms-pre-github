@@ -119,8 +119,8 @@ public final class CdpGlobalGroup extends AggregateTracker
         return m_store.getDisplayString(CDP_GLOBAL_DEVICEID);
     }
     
-    public CdpElementIdentifier getElementIdentifier() {
-    	return new CdpElementIdentifier(getCdpDeviceId());
+    public CdpElementIdentifier getElementIdentifier(Integer sourceNode) {
+    	return new CdpElementIdentifier(getCdpDeviceId(),sourceNode);
     }
         
 }
