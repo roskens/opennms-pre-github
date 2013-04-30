@@ -29,6 +29,7 @@ public abstract class Link extends Pollable {
 			public static final int LINK_TYPE_DOT1D_TP_FDB  = 5;
 			public static final int LINK_TYPE_DOT1Q_TP_FDB  = 6;
 			public static final int LINK_TYPE_PSEUDO_BRIDGE = 7;
+			public static final int LINK_TYPE_PSEUDO_MAC = 8;
 			
 			public static LinkType INPUT         = new LinkType(LINK_TYPE_INPUT);
 			public static LinkType LLDP          = new LinkType(LINK_TYPE_LLDP);
@@ -38,6 +39,7 @@ public abstract class Link extends Pollable {
 			public static LinkType DOT1D_TP_FDB  = new LinkType(LINK_TYPE_DOT1D_TP_FDB);
 			public static LinkType DOT1Q_TP_FDB  = new LinkType(LINK_TYPE_DOT1Q_TP_FDB);
 			public static LinkType PSEUDO_BRIDGE = new LinkType(LINK_TYPE_PSEUDO_BRIDGE);
+			public static LinkType PSEUDO_MAC    = new LinkType(LINK_TYPE_PSEUDO_MAC);
 
 			public LinkType(Integer linkType) {
 				super(linkType);
@@ -53,6 +55,7 @@ public abstract class Link extends Pollable {
 	        	s_typeMap.put(5, "dot1d-bridge-forwarding-table" );
 	        	s_typeMap.put(6, "dot1q-bridge-forwarding-table" );
 	        	s_typeMap.put(7, "pseudo-bridge" );
+	        	s_typeMap.put(8, "pseudo-mac" );
 	        }
 
 	        /**
@@ -89,6 +92,7 @@ public abstract class Link extends Pollable {
 	            case LINK_TYPE_DOT1D_TP_FDB:  return DOT1D_TP_FDB;
 	            case LINK_TYPE_DOT1Q_TP_FDB:  return DOT1Q_TP_FDB;
 	            case LINK_TYPE_PSEUDO_BRIDGE: return PSEUDO_BRIDGE;
+	            case LINK_TYPE_PSEUDO_MAC:    return PSEUDO_MAC;
 	            default:
 	                throw new IllegalArgumentException("Cannot create LinkType from code "+code);
 	            }

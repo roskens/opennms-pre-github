@@ -46,13 +46,16 @@ import org.opennms.netmgt.model.OnmsStpNode.BridgeBaseType;
 import org.opennms.netmgt.model.topology.BridgeDot1dTpFdbLink;
 import org.opennms.netmgt.model.topology.BridgeDot1qTpFdbLink;
 import org.opennms.netmgt.model.topology.BridgeElementIdentifier;
+import org.opennms.netmgt.model.topology.BridgeEndPoint;
 import org.opennms.netmgt.model.topology.BridgeStpLink;
 import org.opennms.netmgt.model.topology.Element;
 import org.opennms.netmgt.model.topology.Link;
+import org.opennms.netmgt.model.topology.MacAddrEndPoint;
 import org.opennms.netmgt.model.topology.NodeElementIdentifier;
 import org.opennms.netmgt.model.topology.PseudoBridgeElementIdentifier;
 import org.opennms.netmgt.model.topology.PseudoBridgeEndPoint;
 import org.opennms.netmgt.model.topology.PseudoBridgeLink;
+import org.opennms.netmgt.model.topology.PseudoMacLink;
 
 import org.opennms.netmgt.snmp.SnmpUtils;
 import org.opennms.netmgt.snmp.SnmpWalker;
@@ -314,7 +317,7 @@ public final class BridgeLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
 					return;
 				// if backbone add as pseudo link
 				if (getBackBonePorts().contains(bridgePort)) {
-					storePseudoLink(nodeElementIdentifier,
+					storePseudoMacLink(nodeElementIdentifier,
 							bridgeElementIdentifier, bridgePort, link);
 					return;
 				} 
@@ -378,7 +381,7 @@ public final class BridgeLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
 					return;
 				// if backbone add as pseudo link
 				if (getBackBonePorts().contains(bridgePort)) {
-					storePseudoLink(nodeElementIdentifier,
+					storePseudoMacLink(nodeElementIdentifier,
 							bridgeElementIdentifier, bridgePort, link);
 					return;
 				} 
@@ -522,7 +525,7 @@ public final class BridgeLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
 		return "BridgeLinkDiscovery";
 	}
 
-	private void storePseudoLink(
+	private void storePseudoMacLink(
 			final NodeElementIdentifier nodeElementIdentifier,
 			final BridgeElementIdentifier bridgeElementIdentifier,
 			Integer bridgePort, Link link) {
@@ -532,7 +535,7 @@ public final class BridgeLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
 		PseudoBridgeEndPoint endPointK = new PseudoBridgeEndPoint(RandomInteger.get(), nodeElementIdentifier.getNodeid());
 		elementA.addEndPoint(endPointK);
 		endPointK.setElement(elementA);
-		m_linkd.getQueryManager().store(new PseudoBridgeLink(endPointK, link.getB(), nodeElementIdentifier.getNodeid()));
+		m_linkd.getQueryManager().store(new PseudoMacLink(endPointK, (MacAddrEndPoint)link.getB(), nodeElementIdentifier.getNodeid()));
 	}
 
 	private void storePseudoLinks(
@@ -555,14 +558,14 @@ public final class BridgeLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
 		endPointK.setElement(elementP);
 
 		Link firstLink = getParsedPort().get(bridgePort); 
-		// peseudo endpoint to first mac occurrence on port
+		// pseudo endpoint to first mac occurrence on port
 		PseudoBridgeEndPoint endPointJ = new PseudoBridgeEndPoint(RandomInteger.get(), nodeElementIdentifier.getNodeid());
 		elementP.addEndPoint(endPointJ);
 		endPointJ.setElement(elementP);
 
-		m_linkd.getQueryManager().store(new PseudoBridgeLink(endPointH, link.getA(), nodeElementIdentifier.getNodeid()));
-		m_linkd.getQueryManager().store(new PseudoBridgeLink(endPointK, link.getB(), nodeElementIdentifier.getNodeid()));
-		m_linkd.getQueryManager().store(new PseudoBridgeLink(endPointJ, firstLink.getB(), nodeElementIdentifier.getNodeid()));
+		m_linkd.getQueryManager().store(new PseudoBridgeLink(endPointH, (BridgeEndPoint)link.getA(), nodeElementIdentifier.getNodeid()));
+		m_linkd.getQueryManager().store(new PseudoMacLink(endPointK, (MacAddrEndPoint)link.getB(), nodeElementIdentifier.getNodeid()));
+		m_linkd.getQueryManager().store(new PseudoMacLink(endPointJ, (MacAddrEndPoint)firstLink.getB(), nodeElementIdentifier.getNodeid()));
 		removeParsedPort(bridgePort);
 		addBackBonePort(bridgePort);
 	}
