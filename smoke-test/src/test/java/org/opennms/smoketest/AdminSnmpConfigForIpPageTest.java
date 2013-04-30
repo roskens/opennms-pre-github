@@ -141,37 +141,69 @@ public class AdminSnmpConfigForIpPageTest extends OpenNMSSeleniumTestCase {
      */
     @Test
     public void testIntegerValidation() {
-    	final String[] integerFields = new String[]{"timeout", "retryCount", "port", "maxRequestSize", "maxVarsPerPdu", "maxRepetitions"};
-    	final String[] fieldLabels = new String[]{"timeout", "Retry Count", "Port", "Max Request Size", "Max Vars Per Pdu", "Max Repetitions"};
+    	final String defaultValidationErrorTemplate = "%s is not a valid %s. Please enter a number greater than 0 or leave it empty.";
+    	final String maxRequestSizeErrorTemplate = "%s is not a valid %s. Please enter a number greater or equal than 484 or leave it empty.";
+    	final String[] integerFields = new String[]{
+    			"timeout", 
+    			"retryCount", 
+    			"port", 
+    			"maxVarsPerPdu", 
+    			"maxRepetitions",
+    			"maxRequestSize"};
+    	final String[] fieldLabels = new String[]{
+    			"timeout", 
+    			"Retry Count", 
+    			"Port",
+    			"Max Vars Per Pdu",
+    			"Max Repetitions",
+    			"Max Request Size"};
+    	final String[] errorMessages = new String[]{
+    			defaultValidationErrorTemplate, 
+    			defaultValidationErrorTemplate, 
+    			defaultValidationErrorTemplate, 
+    			defaultValidationErrorTemplate, 
+    			defaultValidationErrorTemplate,
+    			maxRequestSizeErrorTemplate};
     	assertTrue("integerFields and fieldDescriptions must have the same length", integerFields.length == fieldLabels.length);
+    	assertTrue("integerFields and errorMessages must have the same length", integerFields.length == errorMessages.length);
     	
     	for (int i=0; i<integerFields.length; i++) {
     		if (i>0) gotoPage(); // reset page
     		final String fieldName = integerFields[i];
     		final String fieldLabel = fieldLabels[i];
+    		final String errorMessageTemplate = errorMessages[i];
     		
     		// we must set first ip to a valid value, otherwise we get an "ip not set" error
     		selenium.type("name=firstIPAddress", "1.2.3.4");
     		// now do the validation
     		selenium.type("name=" + fieldName, "abc"); // no integer
-    		validate(fieldName, fieldLabel, "abc", false);
+    		validate(errorMessageTemplate, fieldName, fieldLabel, "abc", false);
     		selenium.type("name=" + fieldName, "-5"); // < 0
-    		validate(fieldName, fieldLabel, "-5", false);
+    		validate(errorMessageTemplate, fieldName, fieldLabel, "-5", false);
     		selenium.type("name=" +  fieldName, "0"); // = 0
-    		validate(fieldName, fieldLabel, "0", false);
+    		validate(errorMessageTemplate, fieldName, fieldLabel, "0", false);
     		selenium.type("name=" + fieldName, "1000"); // > 0
-    		validate(fieldName, fieldLabel, "1000", true);
+    		validate(errorMessageTemplate, fieldName, fieldLabel, "1000", true);
     		// reset to default
     		selenium.type("name=" + fieldName,  "");
     	}
+    	
+    	// now test max request size individually
+    	final String[] input = new String[]{"483", "484", "65535", "65536"};
+    	final boolean[] success = new boolean[]{false, true, true, true};
+    	for (int i=0; i<input.length; i++) {
+    		selenium.type("name=firstIPAddress", "1.2.3.4");
+    		selenium.type("name=maxRequestSize", input[i]);
+    		validate(maxRequestSizeErrorTemplate, "maxRequestSize", "Max Request Size", input[i], success[i]);
+    	}
     }
     
-    private void validate (String fieldName, String fieldLabel, String fieldValue, Boolean success) {
+    private void validate (String errorMessageTemplate, String fieldName, String fieldLabel, String fieldValue, Boolean success) {
     	selenium.click("name=saveConfig");
     	waitForPageToLoad();
     	assertTrue(fieldName+": On success, there should not be any alert", success == !selenium.isAlertPresent()); 
     	// if no success, validate the error message
-    	if (!success) assertEquals(fieldValue + " is not a valid " + fieldLabel + ". Please enter a number greater than 0 or leave it empty.", selenium.getAlert());
+    	if (!success) assertEquals(String.format(errorMessageTemplate, fieldValue, fieldLabel), selenium.getAlert());
     	assertTrue(fieldName + ": On Success, there should be a 'success message'", success == selenium.isTextPresent("Finished configuring SNMP"));
     }
     
@@ -230,25 +262,11 @@ public class AdminSnmpConfigForIpPageTest extends OpenNMSSeleniumTestCase {
     }
     
     /**
-     * Tests that the cancel buttons work as expected.
+     * Tests that the cancel button works as expected.
      */
     @Test
     public void testCancelButtons() {
-    	// first cancel
-    	selenium.click("name=cancel1");
-    	waitForPageToLoad();
-    	assertTrue(selenium.isTextPresent("OpenNMS System"));
-        assertTrue(selenium.isTextPresent("Operations"));
-        assertTrue(selenium.isTextPresent("Nodes"));
-        assertTrue(selenium.isTextPresent("Distributed Monitoring"));
-        assertTrue(selenium.isTextPresent("Descriptions"));
-        assertTrue(selenium.isTextPresent("Scheduled Outages: Add"));
-        assertTrue(selenium.isTextPresent("Notification Status:"));
-
-        // next cancel
-    	selenium.click("link=Configure SNMP Community Names by IP");
-    	waitForPageToLoad();
-    	selenium.click("name=cancel2");
+    	selenium.click("name=cancelButton");
     	waitForPageToLoad();
     	assertTrue(selenium.isTextPresent("OpenNMS System"));
         assertTrue(selenium.isTextPresent("Operations"));

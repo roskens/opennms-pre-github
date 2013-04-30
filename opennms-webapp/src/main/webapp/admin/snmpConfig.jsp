@@ -29,6 +29,8 @@
 
 --%>
 
+<%@page import="org.opennms.netmgt.snmp.SnmpConfiguration"%>
+<%@page import="org.opennms.netmgt.config.snmp.SnmpConfig"%>
 <%@page import="com.google.common.base.Strings"%>
 <%@page import="org.opennms.web.snmpinfo.SnmpInfo"%>
 <%@page import="com.google.common.base.Charsets"%>
@@ -37,26 +39,46 @@
 <%@page import="org.opennms.netmgt.config.SnmpPeerFactory"%>
 <%@page language="java" contentType="text/html" session="true"%>
 
-
 <jsp:include page="/includes/header.jsp" flush="false">
 	<jsp:param name="title" value="Configure SNMP Parameters per polled IP" />
 	<jsp:param name="headTitle" value="SNMP Configuration" />
 	<jsp:param name="headTitle" value="Admin" />
 	<jsp:param name="location" value="admin" />
-	<jsp:param name="breadcrumb"
-		value="<a href='admin/index.jsp'>Admin</a>" />
+	<jsp:param name="breadcrumb" value="<a href='admin/index.jsp'>Admin</a>" />
 	<jsp:param name="breadcrumb" value="Configure SNMP by IP" />
-	<jsp:param name="script"
-		value="<script type='text/javascript' src='js/ipv6/ipv6.js'></script>" />
-	<jsp:param name="script"
-		value="<script type='text/javascript' src='js/ipv6/lib/jsbn.js'></script>" />
-	<jsp:param name="script"
-		value="<script type='text/javascript' src='js/ipv6/lib/jsbn2.js'></script>" />
-	<jsp:param name="script"
-		value="<script type='text/javascript' src='js/ipv6/lib/sprintf.js'></script>" />
+	<jsp:param name="script" value="<script type='text/javascript' src='js/ipv6/ipv6.js'></script>" />
+	<jsp:param name="script" value="<script type='text/javascript' src='js/ipv6/lib/jsbn.js'></script>" />
+	<jsp:param name="script" value="<script type='text/javascript' src='js/ipv6/lib/jsbn2.js'></script>" />
+	<jsp:param name="script" value="<script type='text/javascript' src='js/ipv6/lib/sprintf.js'></script>" />
 </jsp:include>
 
 <script type="text/javascript">
+	<!-- Tooltip  Stuff -->
+	ttContent = null;
+	document.onmousemove = updateTT;
+	
+	<!-- shows the tool tip -->
+	function showTT(id) {
+		ttContent = document.getElementById(id);
+		if (ttContent != null) ttContent.style.display = "block"
+	}
+	 
+	<!-- hides the tool tip -->
+	function hideTT() {
+		if (ttContent != null) ttContent.style.display = "none";
+	}
+	
+	<!-- ensures that the tool tip moves with the mouse, but only if the tool tip is visible -->
+	function updateTT(event) {
+		if (ttContent != null && ttContent.style.display == 'block') {
+			x = (event.pageX ? event.pageX : window.event.x) + ttContent.offsetParent.scrollLeft - ttContent.offsetParent.offsetLeft;
+			y = (event.pageY ? event.pageY : window.event.y) + ttContent.offsetParent.scrollTop - ttContent.offsetParent.offsetTop;
+			ttContent.style.left = (x + 20) + "px";
+			ttContent.style.top  = (y + 20) + "px";
+		}
+	}
+	
+	<!-- Other Stuff -->
 	function verifySnmpConfig() {
 		var ipValue = new String("");
 
@@ -105,9 +127,9 @@
 		var maxRequestSize = new String(
 				document.snmpConfigForm.maxRequestSize.value);
 		if (maxRequestSize != ""
-				&& (!isNumber(maxRequestSize) || parseInt(maxRequestSize) <= 0)) {
+				&& (!isNumber(maxRequestSize) || parseInt(maxRequestSize) < 484)) {
 			alert(maxRequestSize
-					+ " is not a valid Max Request Size. Please enter a number greater than 0 or leave it empty.");
+					+ " is not a valid Max Request Size. Please enter a number greater or equal than 484 or leave it empty.");
 			return false;
 		}
 
@@ -132,6 +154,7 @@
 		}
 		return true;
 	}
+	
 <%/*  checks if the given parameter is a number, so we assume it can be parsed as an integer*/%>
 	function isNumber(input) {
 		return !isNaN(input - 0) && input != null && input !== null
@@ -170,6 +193,59 @@
 		document.snmpConfigForm.submit();
 	}
 </script>
+
+<style type="text/css">
+	<!--
+	img.info {
+		background:url(css/images/ui-icons_454545_256x240.png);
+		width: 16px;
+		height: 16px;
+		background-position: -16px -144px;
+	}
+	
+	.tooltip {
+		position: absolute;
+		display: none;
+		padding: 10px;
+		background-color: #EEE;
+		z-index: 1000;
+		max-width: 250px;
+	}
+	
+	.ipAddress {
+		width: 200px;
+	}
+	
+	.required {
+		vertical-align:top; 
+		font-size:0.8em; 
+		line-height:100%;
+		color: red;
+	}
+	-->
+</style>
+<div class="tooltip" id="versionTT"><p><b>Default: </b>v<%=SnmpConfiguration.DEFAULT_VERSION %><br/>Specify the SNMP version you want to use. You are not allowed to set v1/v2c and v3 parameters at the time.</p></div>
+<div class="tooltip" id="firstIpAddressTT"><p><b>Default: </b>-<br/>Specify the IP Address you want to define as the first IP address. Even if you just want to add a specific IP address enter that one here. Either IPv4 or IPv6 format is allowed.</p></div>
+<div class="tooltip" id="lastIpAddressTT"><p><b>Default: </b>-<br/>If you want to define a range of IP addresses, specify the last IP address. If you just want to add a specific IP address to your SNMP configuration leave this field empty. Either IPv4 or IPv6 format is allowed.</p></div>
+<div class="tooltip" id="timeoutTT"><p><b>Default: </b><%=SnmpConfiguration.DEFAULT_TIMEOUT %> ms<br/>The amount of time, in milliseconds, that OpenNMS will wait for a response from the agent.</p></div>
+<div class="tooltip" id="retryCountTT"><p><b>Default: </b><%=SnmpConfiguration.DEFAULT_RETRIES %><br/>The number of attempts that will be made to connect to the SNMP agent.</p></div>
+<div class="tooltip" id="portTT"><p><b>Default: </b><%=SnmpConfiguration.DEFAULT_PORT %><br/>This overrides the default port.</p></div>
+<div class="tooltip" id="maxRequestSizeTT"><p><b>Default: </b><%=SnmpConfiguration.DEFAULT_MAX_REQUEST_SIZE %><br/>The maximum size of outgoing SNMP requests. It must be at least 484.</p></div>
+<div class="tooltip" id="maxVarsPerPduTT"><p><b>Default: </b><%=SnmpConfiguration.DEFAULT_MAX_VARS_PER_PDU %><br/>The maximum number of variables per SNMP request.</p></div>
+<div class="tooltip" id="maxRepetitionsTT"><p><b>Default: </b><%=SnmpConfiguration.DEFAULT_MAX_REPETITIONS %><br/>The maximum number of attempts which are made to get the variables beyond those specified by the non repeaters field.</p></div>
+<div class="tooltip" id="readCommunityStringTT"><p><b>Default: </b><%=SnmpConfiguration.DEFAULT_READ_COMMUNITY %><br/>The default "read" community string for SNMP queries.</p></div>
+<div class="tooltip" id="writeCommunityStringTT"><p><b>Default: </b><%=SnmpConfiguration.DEFAULT_WRITE_COMMUNITY %><br/>The default "write" community string for SNMP queries. Note that this is for future development - OpenNMS does not perform SNMP "sets" at the moment.</p></div>
+<div class="tooltip" id="securityNameTT"><p><b>Default: </b><%=SnmpConfiguration.DEFAULT_SECURITY_NAME %><br/>A security name for SNMP v3 authentication.</p></div>
+<div class="tooltip" id="securityLevelTT"><p><b>Default: </b>noAuthNoPriv<br/>The security level for SNMP v3 authentication.</p></div>
+<div class="tooltip" id="authPassPhraseTT"><p><b>Default: </b><%=SnmpConfiguration.DEFAULT_AUTH_PASS_PHRASE %><br/>The passphrase to use for SNMP v3 authentication.</p></div>
+<div class="tooltip" id="authProtocolTT"><p><b>Default: </b><%=SnmpConfiguration.DEFAULT_AUTH_PROTOCOL %><br/>The authentication protocol for SNMP v3.</p></div>
+<div class="tooltip" id="privacyPassPhraseTT"><p><b>Default: </b><%=SnmpConfiguration.DEFAULT_PRIV_PASS_PHRASE %><br/>A privacy pass phrase used to encrypt the contents of SNMP v3 packages.</p></div>
+<div class="tooltip" id="privacyProtocolTT"><p><b>Default: </b><%=SnmpConfiguration.DEFAULT_PRIV_PROTOCOL %><br/>The privacy protocol used to encrypt the contents of SNMP v3 packages.</p></div>
+<div class="tooltip" id="engineIdTT"><p><b>Default: </b>-<br/>The engine id of the target agent.</p></div>
+<div class="tooltip" id="contextEngineIdTT"><p><b>Default: </b>-<br/>The name of the context to obtain data from the target agent.</p></div>
+<div class="tooltip" id="contextNameTT"><p><b>Default: </b>-<br/>The context engine id of the target entity on the agent.</p></div>
+<div class="tooltip" id="enterpriseIdTT"><p><b>Default: </b>-<br/>An enterprise id for SNMP v3 collection</p></div>
+<div class="tooltip" id="ipAddressLookupTT"><p><b>Default: </b>-<br/>Specify the IP Address for which you want to lookup the SNMP configuration. Either IPv4 or IPv6 format is allowed.</div>
 
 <%!// does Null Pointer handling
 	public String getValue(Object input) {
@@ -228,14 +304,16 @@
 				<table>
 					<tr>
 						<td width="25%">IP Address:</td>
-						<td width="50%"><input type="text" name="ipAddress"
-							<%=firstIpAddress%> /></td>
+						<td width="50%">
+							<input type="text" name="ipAddress" class="ipAddress"/>
+							<img src="css/images/ui-trans_1x1.png" class="info" onMouseOver="showTT('ipAddressLookupTT')" onMouseOut="hideTT()"/> 
+						</td>
 					</tr>
 					<tr>
-						<td align="right"><input type="submit" name="getConfig"
-							value="Look up"></td>
-						<td><input type="button" name="cancel1" value="Cancel"
-							onclick="cancel()"></td>
+						<td align="right">
+							<input type="submit" name="getConfig" value="Look up">
+						</td>
+						<td>&nbsp;</td>
 					<tr>
 				</table>
 			</div>
@@ -252,57 +330,76 @@
 					</tr>
 					<tr>
 						<td width="25%">Version:</td>
-						<td width="50%"><select id="version" name="version"
-							onChange="onVersionChange()">
+						<td width="50%">
+							<select id="version" name="version" onChange="onVersionChange()">
 								<%=getOptions(version, "v2c", "v1", "v2c", "v3")%>
-						</select></td>
+							</select>
+							<img src="css/images/ui-trans_1x1.png" class="info" onMouseOver="showTT('versionTT')" onMouseOut="hideTT()"/>
+						</td>
 					</tr>
 					<tr>
-						<td width="25%">First IP Address:</td>
-						<td width="50%"><input size=15 name="firstIPAddress"
-							value="<%=firstIpAddress%>"></td>
+						<td width="25%">First IP Address: <span class="required" title="This field is required">*</span></td>
+						<td width="50%">
+							<input name="firstIPAddress" value="<%=firstIpAddress%>" class="ipAddress">
+							<img src="css/images/ui-trans_1x1.png" class="info" onMouseOver="showTT('firstIpAddressTT')" onMouseOut="hideTT()"/>
+						</td>
 					</tr>
-
 					<tr>
 						<td width="25%">Last IP Address:</td>
-						<td width="50%"><input size=15 name="lastIPAddress">
-							(Optional)</td>
+						<td width="50%">
+							<input name="lastIPAddress" class="ipAddress">
+							<img src="css/images/ui-trans_1x1.png" class="info" onMouseOver="showTT('lastIpAddressTT')" onMouseOut="hideTT()"/>
+							
+						</td>
 					</tr>
-
+				</table>
+				<table>
 					<tr>
 						<td width="25%">Timeout:</td>
-						<td width="50%"><input size=15 name="timeout"
-							value="<%=timeout%>"> (Optional)</td>
+						<td width="50%">
+							<input style="width:120px;" name="timeout" value="<%=timeout%>"> 
+							<img src="css/images/ui-trans_1x1.png" class="info" onMouseOver="showTT('timeoutTT')" onMouseOut="hideTT()"/> 
+							</td>
 					</tr>
-
 					<tr>
 						<td width="25%">Retries:</td>
-						<td width="50%"><input size=15 name="retryCount"
-							value="<%=retryCount%>"> (Optional)</td>
+						<td width="50%">
+							<input style="width:120px;" name="retryCount" value="<%=retryCount%>"> 
+							<img src="css/images/ui-trans_1x1.png" class="info" onMouseOver="showTT('retryCountTT')" onMouseOut="hideTT()"/> 
+						</td>
 					</tr>
-
 					<tr>
 						<td width="25%">Port:</td>
-						<td width="50%"><input size=15 name="port" value="<%=port%>">
-							(Optional)</td>
+						<td width="50%">
+							<input style="width:120px;" name="port" value="<%=port%>">
+							<img src="css/images/ui-trans_1x1.png" class="info" onMouseOver="showTT('portTT')" onMouseOut="hideTT()"/>
+							
+						</td>
 					</tr>
-
+				</table>
+				<table>
 					<tr>
 						<td width="25%">Max Request Size:</td>
-						<td width="50%"><input size=15 name="maxRequestSize"
-							value="<%=maxRequestSize%>" /> (Optional)</td>
+						<td width="50%">
+							<input style="width:120px;" name="maxRequestSize" value="<%=maxRequestSize%>" /> 
+							<img src="css/images/ui-trans_1x1.png" class="info" onMouseOver="showTT('maxRequestSizeTT')" onMouseOut="hideTT()"/> 
+							
+						</td>
 					</tr>
-
 					<tr>
 						<td width="25%">Max Vars Per Pdu:</td>
-						<td width="50%"><input size=15 name="maxVarsPerPdu"
-							value="<%=maxVarsPerPdu%>" /> (Optional)</td>
+						<td width="50%">
+							<input style="width:120px;" name="maxVarsPerPdu" value="<%=maxVarsPerPdu%>" />
+							<img src="css/images/ui-trans_1x1.png" class="info" onMouseOver="showTT('maxVarsPerPduTT')" onMouseOut="hideTT()"/>
+							
+						</td>
 					</tr>
-
 					<tr>
 						<td width="25%">Max Repetitions:</td>
-						<td width="50%"><input size=15 name="maxRepetitions"
-							value="<%=maxRepetitions%>" /> (Optional)</td>
+						<td width="50%">
+							<input style="width:120px;" name="maxRepetitions"value="<%=maxRepetitions%>" />
+							<img src="css/images/ui-trans_1x1.png" class="info" onMouseOver="showTT('maxRepetitionsTT')" onMouseOut="hideTT()"/>
+							</td>
 					</tr>
 
 				</table>
@@ -315,14 +412,18 @@
 					</tr>
 					<tr>
 						<td width="25%">Read Community String:</td>
-						<td width="50%"><input size=30 name="readCommunityString"
-							value="<%=readCommunityString%>" /> (Optional)</td>
+						<td width="50%">
+							<input class="ipAddress" name="readCommunityString" value="<%=readCommunityString%>" /> 
+							<img src="css/images/ui-trans_1x1.png" class="info" onMouseOver="showTT('readCommunityStringTT')" onMouseOut="hideTT()"/>
+							
+						</td>
 					</tr>
-
 					<tr>
 						<td width="25%">Write Community String:</td>
-						<td width="50%"><input size=30 name="writeCommunityString"
-							value="<%=writeCommunityString%>" /> (Optional)</td>
+						<td width="50%">
+							<input class="ipAddress" name="writeCommunityString" value="<%=writeCommunityString%>" />
+							<img src="css/images/ui-trans_1x1.png" class="info" onMouseOver="showTT('writeCommunityStringTT')" onMouseOut="hideTT()"/>
+							</td>
 					</tr>
 				</table>
 			</div>
@@ -335,14 +436,16 @@
 					</tr>
 					<tr>
 						<td width="25%">Security Name:</td>
-						<td width="50%"><input size=15 name="securityName"
-							value="<%=securityName%>" /> (Optional)</td>
+						<td width="50%">
+							<input style="width:120px;" name="securityName" value="<%=securityName%>" /> 
+							<img src="css/images/ui-trans_1x1.png" class="info" onMouseOver="showTT('securityNameTT')" onMouseOut="hideTT()"/>
+							
+						</td>
 					</tr>
-
 					<tr>
 						<td width="25%">Security Level:</td>
-						<td width="50%"><select name="securityLevel"
-							style="width: 100px">
+						<td width="50%">
+							<select name="securityLevel" style="width: 120px">
 								<option value=""></option>
 								<option value="1"
 									<%="1".equals(securityLevel) ? "selected" : ""%>>noAuthNoPriv</option>
@@ -350,58 +453,81 @@
 									<%="2".equals(securityLevel) ? "selected" : ""%>>authNoPriv</option>
 								<option value="3"
 									<%="3".equals(securityLevel) ? "selected" : ""%>>authPriv</option>
-						</select> (Optional)</td>
+							</select>
+							<img src="css/images/ui-trans_1x1.png" class="info" onMouseOver="showTT('securityLevelTT')" onMouseOut="hideTT()"/>
+							
+						</td>
 					</tr>
-
+				</table>
+				<table>
 					<tr>
 						<td width="25%">Auth Passphrase:</td>
-						<td width="50%"><input size=15 name="authPassPhrase"
-							value="<%=authPassPhrase%>" /> (Optional)</td>
+						<td width="50%">
+							<input style="width:120px;" name="authPassPhrase" value="<%=authPassPhrase%>" />
+							<img src="css/images/ui-trans_1x1.png" class="info" onMouseOver="showTT('authPassPhraseTT')" onMouseOut="hideTT()"/>
+							
+						</td>
 					</tr>
-
 					<tr>
 						<td width="25%">Auth Protocol:</td>
-						<td width="50%"><select name="authProtocol"
-							style="width: 100px">
+						<td width="50%">
+							<select name="authProtocol" style="width: 120px">
 								<%=getOptions(authProtocol, "", "", "MD5", "SHA")%>
-						</select> (Optional)</td>
+							</select>
+							<img src="css/images/ui-trans_1x1.png" class="info" onMouseOver="showTT('authProtocolTT')" onMouseOut="hideTT()"/>
+							
+						</td>
 					</tr>
-
+				</table>
+				<table>
 					<tr>
 						<td width="25%">Privacy Passphrase:</td>
-						<td width="50%"><input size=15 name="privacyPassPhrase"
-							value="<%=privPassPhrase%>" /> (Optional)</td>
+						<td width="50%">
+							<input style="width:120px;" name="privacyPassPhrase" value="<%=privPassPhrase%>" />
+							<img src="css/images/ui-trans_1x1.png" class="info" onMouseOver="showTT('privacyPassPhraseTT')" onMouseOut="hideTT()"/>
+							</td>
 					</tr>
-
 					<tr>
 						<td width="25%">Privacy Protocol:</td>
-						<td width="50%"><select name="privacyProtocol"
-							style="width: 100px">
+						<td width="50%">
+							<select name="privacyProtocol" style="width: 120px">
 								<%=getOptions(privProtocol, "", "", "DES", "AES", "AES192", "AES256")%>
-						</select> (Optional)</td>
+							</select>
+							<img src="css/images/ui-trans_1x1.png" class="info" onMouseOver="showTT('privacyProtocolTT')" onMouseOut="hideTT()"/>
+							
+						</td>
 					</tr>
-
+				</table>
+				<table>
 					<tr>
 						<td width="25%">Engine Id:</td>
-						<td width="50%"><input size=15 name="engineId"
-							value="<%=engineId%>" /> (Optional)</td>
+						<td width="50%">
+							<input style="width:120px;" name="engineId" value="<%=engineId%>" />
+							<img src="css/images/ui-trans_1x1.png" class="info" onMouseOver="showTT('engineIdTT')" onMouseOut="hideTT()"/>
+							</td>
 					</tr>
-
 					<tr>
 						<td width="25%">Context Engine Id:</td>
-						<td width="50%"><input size=15 name="contextEngineId"
-							value="<%=contextEngineId%>" /> (Optional)</td>
+						<td width="50%">
+							<input style="width:120px;" name="contextEngineId" value="<%=contextEngineId%>" />
+							<img src="css/images/ui-trans_1x1.png" class="info" onMouseOver="showTT('contextEngineIdTT')" onMouseOut="hideTT()"/>
+							
+						</td>
 					</tr>
-
 					<tr>
 						<td width="25%">Context Name:</td>
-						<td width="50%"><input size=15 name="contextName"
-							value="<%=contextName%>" /> (Optional)</td>
+						<td width="50%">
+							<input style="width:120px;" name="contextName" value="<%=contextName%>" />
+							<img src="css/images/ui-trans_1x1.png" class="info" onMouseOver="showTT('contextNameTT')" onMouseOut="hideTT()"/>
+						</td>
 					</tr>
 					<tr>
 						<td width="25%">Enterprise Id:</td>
-						<td width="50%"><input size=15 name="enterpriseId"
-							value="<%=enterpriseId%>" /> (Optional)</td>
+						<td width="50%">
+							<input style="width:120px;" name="enterpriseId" value="<%=enterpriseId%>" /> 
+							<img src="css/images/ui-trans_1x1.png" class="info" onMouseOver="showTT('enterpriseIdTT')" onMouseOut="hideTT()"/>
+							
+						</td>
 					</tr>
 				</table>
 			</div>
@@ -418,10 +544,12 @@
 				%>
 				<table>
 					<tr>
-						<td width="25%" align="right"><input type="submit"
-							name="saveConfig" value="Save config"></td>
-						<td width="50%"><input type="button" name="cancel2"
-							value="Cancel" onclick="cancel()"></td>
+						<td width="25%" align="right">
+							<input type="submit" name="saveConfig" value="Save config">
+						</td>
+						<td width="50%">
+							<input type="button" name="cancelButton" value="Cancel" onClick="cancel();">
+						</td>
 					</tr>
 				</table>
 			</div>
@@ -431,7 +559,7 @@
 		<div>
 			<h3>Content of snmp-config.xml</h3>
 			<p>
-				<textarea disabled style="width: 100%; height: 100px"><%=request.getAttribute("snmpConfig")%></textarea>
+				<textarea disabled style="width: 100%; height: 200px"><%=request.getAttribute("snmpConfig")%></textarea>
 			</p>
 		</div>
 
@@ -466,8 +594,7 @@
 			<b>Content of snmp-config.xml:</b> This area shows the content of the
 			configuration file 'snmp-config.xml'. If you updated the SNMP
 			Configuration you may or may not see your changes. If your changes
-			are not visible they have been optimized (For further information
-			have a look at (TODO link to wiki page))
+			are not visible they have been optimized.
 		</p>
 	</div>
 	<jsp:include page="/includes/footer.jsp" flush="false" />
