@@ -19,8 +19,10 @@ public abstract class ElementIdentifier extends Pollable {
 		public static final int ELEMENT_ID_TYPE_BRIDGE = 4;
 		public static final int ELEMENT_ID_TYPE_INET   = 5;
 		public static final int ELEMENT_ID_TYPE_MAC    = 6;
+		public static final int ELEMENT_ID_TYPE_PSEUDO = 7;
 		
-		public static ElementIdentifierType MAC   = new ElementIdentifierType(ELEMENT_ID_TYPE_MAC);
+		public static ElementIdentifierType PSEUDO = new ElementIdentifierType(ELEMENT_ID_TYPE_PSEUDO);
+		public static ElementIdentifierType MAC    = new ElementIdentifierType(ELEMENT_ID_TYPE_MAC);
 		public static ElementIdentifierType INET   = new ElementIdentifierType(ELEMENT_ID_TYPE_INET);
 		public static ElementIdentifierType BRIDGE = new ElementIdentifierType(ELEMENT_ID_TYPE_BRIDGE);
 		public static ElementIdentifierType OSPF   = new ElementIdentifierType(ELEMENT_ID_TYPE_OSPF);
@@ -42,7 +44,8 @@ public abstract class ElementIdentifier extends Pollable {
         	s_typeMap.put(4, "bridge" );
            	s_typeMap.put(5, "inet" );
            	s_typeMap.put(6, "mac" );
-                   }
+           	s_typeMap.put(7, "pseudodevice" );
+                }
 
         /**
          * <p>ElementIdentifierTypeString</p>
@@ -71,6 +74,7 @@ public abstract class ElementIdentifier extends Pollable {
             if (code == null)
                 throw new IllegalArgumentException("Cannot create ElementIdentifierType from null code");
             switch (code) {
+            case ELEMENT_ID_TYPE_PSEUDO: return PSEUDO;
             case ELEMENT_ID_TYPE_MAC: 	 return MAC;
             case ELEMENT_ID_TYPE_INET: 	 return INET;
             case ELEMENT_ID_TYPE_BRIDGE: return BRIDGE;

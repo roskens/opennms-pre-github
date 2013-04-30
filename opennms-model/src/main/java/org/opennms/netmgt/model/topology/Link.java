@@ -21,21 +21,23 @@ public abstract class Link extends Pollable {
 
 			private static final long serialVersionUID = 7220152765747623134L;
 
-			public static final int LINK_TYPE_INPUT        = 0;
-			public static final int LINK_TYPE_LLDP         = 1;
-			public static final int LINK_TYPE_CDP          = 2;
-			public static final int LINK_TYPE_OSPF         = 3;
-			public static final int LINK_TYPE_DOT1D_STP    = 4;
-			public static final int LINK_TYPE_DOT1D_TP_FDB = 5;
-			public static final int LINK_TYPE_DOT1Q_TP_FDB = 6;
+			public static final int LINK_TYPE_INPUT         = 0;
+			public static final int LINK_TYPE_LLDP          = 1;
+			public static final int LINK_TYPE_CDP           = 2;
+			public static final int LINK_TYPE_OSPF          = 3;
+			public static final int LINK_TYPE_DOT1D_STP     = 4;
+			public static final int LINK_TYPE_DOT1D_TP_FDB  = 5;
+			public static final int LINK_TYPE_DOT1Q_TP_FDB  = 6;
+			public static final int LINK_TYPE_PSEUDO_BRIDGE = 7;
 			
-			public static LinkType INPUT        = new LinkType(LINK_TYPE_INPUT);
-			public static LinkType LLDP         = new LinkType(LINK_TYPE_LLDP);
-			public static LinkType CDP          = new LinkType(LINK_TYPE_CDP);
-			public static LinkType OSPF         = new LinkType(LINK_TYPE_OSPF);
-			public static LinkType DOT1D_STP    = new LinkType(LINK_TYPE_DOT1D_STP);
-			public static LinkType DOT1D_TP_FDB = new LinkType(LINK_TYPE_DOT1D_TP_FDB);
-			public static LinkType DOT1Q_TP_FDB = new LinkType(LINK_TYPE_DOT1Q_TP_FDB);
+			public static LinkType INPUT         = new LinkType(LINK_TYPE_INPUT);
+			public static LinkType LLDP          = new LinkType(LINK_TYPE_LLDP);
+			public static LinkType CDP           = new LinkType(LINK_TYPE_CDP);
+			public static LinkType OSPF          = new LinkType(LINK_TYPE_OSPF);
+			public static LinkType DOT1D_STP     = new LinkType(LINK_TYPE_DOT1D_STP);
+			public static LinkType DOT1D_TP_FDB  = new LinkType(LINK_TYPE_DOT1D_TP_FDB);
+			public static LinkType DOT1Q_TP_FDB  = new LinkType(LINK_TYPE_DOT1Q_TP_FDB);
+			public static LinkType PSEUDO_BRIDGE = new LinkType(LINK_TYPE_PSEUDO_BRIDGE);
 
 			public LinkType(Integer linkType) {
 				super(linkType);
@@ -49,7 +51,8 @@ public abstract class Link extends Pollable {
 	        	s_typeMap.put(3, "ospf" );
 	        	s_typeMap.put(4, "spanning-tree" );
 	        	s_typeMap.put(5, "dot1d-bridge-forwarding-table" );
-	        	s_typeMap.put(5, "dot1q-bridge-forwarding-table" );
+	        	s_typeMap.put(6, "dot1q-bridge-forwarding-table" );
+	        	s_typeMap.put(7, "pseudo-bridge" );
 	        }
 
 	        /**
@@ -78,13 +81,14 @@ public abstract class Link extends Pollable {
 	            if (code == null)
 	                throw new IllegalArgumentException("Cannot create LinkType from null code");
 	            switch (code) {
-	            case LINK_TYPE_INPUT: 		 return INPUT;
-	            case LINK_TYPE_LLDP: 		 return LLDP;
-	            case LINK_TYPE_CDP: 		 return CDP;
-	            case LINK_TYPE_OSPF: 		 return OSPF;
-	            case LINK_TYPE_DOT1D_STP:    return DOT1D_STP;
-	            case LINK_TYPE_DOT1D_TP_FDB: return DOT1D_TP_FDB;
-	            case LINK_TYPE_DOT1Q_TP_FDB: return DOT1Q_TP_FDB;
+	            case LINK_TYPE_INPUT: 		  return INPUT;
+	            case LINK_TYPE_LLDP: 		  return LLDP;
+	            case LINK_TYPE_CDP: 		  return CDP;
+	            case LINK_TYPE_OSPF: 		  return OSPF;
+	            case LINK_TYPE_DOT1D_STP:     return DOT1D_STP;
+	            case LINK_TYPE_DOT1D_TP_FDB:  return DOT1D_TP_FDB;
+	            case LINK_TYPE_DOT1Q_TP_FDB:  return DOT1Q_TP_FDB;
+	            case LINK_TYPE_PSEUDO_BRIDGE: return PSEUDO_BRIDGE;
 	            default:
 	                throw new IllegalArgumentException("Cannot create LinkType from code "+code);
 	            }

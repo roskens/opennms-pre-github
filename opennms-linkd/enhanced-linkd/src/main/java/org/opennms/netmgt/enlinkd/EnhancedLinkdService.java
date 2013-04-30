@@ -38,6 +38,7 @@ import org.opennms.netmgt.model.topology.CdpLink;
 import org.opennms.netmgt.model.topology.LldpLink;
 import org.opennms.netmgt.model.topology.MacAddrEndPoint;
 import org.opennms.netmgt.model.topology.OspfLink;
+import org.opennms.netmgt.model.topology.PseudoBridgeLink;
 
 /**
  * <p>QueryManager interface.</p>
@@ -109,5 +110,7 @@ public interface EnhancedLinkdService {
 	void store(BridgeDot1dTpFdbLink link);
 
 	void store(BridgeDot1qTpFdbLink link);
+
+	void store(PseudoBridgeLink link);
 
 }

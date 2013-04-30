@@ -34,7 +34,10 @@ import static org.opennms.core.utils.InetAddressUtils.getBridgeAddressFromBridge
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 
 
@@ -44,7 +47,12 @@ import org.opennms.netmgt.model.topology.BridgeDot1dTpFdbLink;
 import org.opennms.netmgt.model.topology.BridgeDot1qTpFdbLink;
 import org.opennms.netmgt.model.topology.BridgeElementIdentifier;
 import org.opennms.netmgt.model.topology.BridgeStpLink;
+import org.opennms.netmgt.model.topology.Element;
+import org.opennms.netmgt.model.topology.Link;
 import org.opennms.netmgt.model.topology.NodeElementIdentifier;
+import org.opennms.netmgt.model.topology.PseudoBridgeElementIdentifier;
+import org.opennms.netmgt.model.topology.PseudoBridgeEndPoint;
+import org.opennms.netmgt.model.topology.PseudoBridgeLink;
 
 import org.opennms.netmgt.snmp.SnmpUtils;
 import org.opennms.netmgt.snmp.SnmpWalker;
@@ -57,10 +65,41 @@ import org.opennms.netmgt.snmp.SnmpWalker;
  * allows the collection to occur in a thread if necessary.
  */
 public final class BridgeLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
-    public final static String CISCO_ENTERPRISE_OID = ".1.3.6.1.4.1.9";
+    
+	public final static class RandomInteger {
+		  
+		  public static final Integer get() {
+		    Random randomGenerator = new Random();
+		      return randomGenerator.nextInt();
+		  }
+		}
+
+	public final static String CISCO_ENTERPRISE_OID = ".1.3.6.1.4.1.9";
 	
     List<Integer> m_stpPorts = new ArrayList<Integer>();
+    List<Integer> m_backbonePorts = new ArrayList<Integer>();
 	private boolean m_failed = false;
+	Map<Integer,Link> m_parsedPort = new HashMap<Integer, Link>();
+
+	public List<Integer> getBackBonePorts() {
+		return m_backbonePorts;
+	}
+	
+	public void addBackBonePort(Integer bridgePort) {
+		m_backbonePorts.add(bridgePort);
+	}
+	
+	public Map<Integer,Link> getParsedPort() {
+		return m_parsedPort;
+	}
+	
+	public void addParsedPort(Integer bridgePort, Link link) {
+		m_parsedPort.put(bridgePort, link);
+	}
+
+	public void removeParsedPort(Integer bridgePort) {
+		m_parsedPort.remove(bridgePort);
+	}
 
 	public boolean isFailed() {
 		return m_failed;
@@ -97,6 +136,20 @@ public final class BridgeLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
 				return;
 		}
 		
+		// These are the standalone learned mac address
+		// suitable for real links
+		for (Link link: m_parsedPort.values()) {
+			if (link instanceof BridgeDot1dTpFdbLink)
+				m_linkd.getQueryManager().store((BridgeDot1dTpFdbLink)link);
+			else if (link instanceof BridgeDot1qTpFdbLink)
+				m_linkd.getQueryManager().store((BridgeDot1qTpFdbLink)link);
+		}
+		
+		m_backbonePorts.clear();
+		m_failed = false;
+		m_parsedPort.clear();
+		m_stpPorts.clear();
+		
         m_linkd.getQueryManager().reconcileBridge(getNodeId(),now);
 
     }
@@ -112,14 +165,17 @@ public final class BridgeLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
 		    if (walker.timedOut()) {
 		    	LogUtils.infof(this,
 		                "run:Aborting Bridge Linkd node scan : Agent timed out while scanning the %s table", trackerName);
+		    	setFailed(true);
 		    	return;
 		    }  else if (walker.failed()) {
 		    	LogUtils.infof(this,
 		                "run:Aborting Bridge Linkd node scan : Agent failed while scanning the %s table: %s", trackerName,walker.getErrorMessage());
+		    	setFailed(true);
 		    	return;
 		    }
 		} catch (final InterruptedException e) {
 		    LogUtils.errorf(this, e, "run: Bridge Linkd node collection interrupted, exiting");
+	    	setFailed(true);
 		    return;
 		}
 
@@ -236,7 +292,7 @@ public final class BridgeLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
         walkDot1DTpFdp(nodeElementIdentifier, bridgeElementIdentifier);
         if (isFailed()) return;
 
-        if (!m_node.getSysoid().startsWith(CISCO_ENTERPRISE_OID))
+        if (getParsedPort().isEmpty() && getBackBonePorts().isEmpty() && !m_node.getSysoid().startsWith(CISCO_ENTERPRISE_OID))
         	walkDot1QTpFdp(nodeElementIdentifier, bridgeElementIdentifier);
     }
     
@@ -249,15 +305,30 @@ public final class BridgeLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
 
 			@Override
 			public void processDot1dTpFdbRow(final Dot1dTpFdbRow row) {
-				if (getStpPorts().contains(row.getDot1dTpFdbPort()))
+				Integer bridgePort = row.getDot1dTpFdbPort();
+				if (getStpPorts().contains(bridgePort))
 					return;
 				BridgeDot1dTpFdbLink link = row.getLink(nodeElementIdentifier,
 						bridgeElementIdentifier);
-				if (link != null) {
-					m_linkd.getQueryManager().store(link);
+				if (link == null) 
+					return;
+				// if backbone add as pseudo link
+				if (getBackBonePorts().contains(bridgePort)) {
+					storePseudoLink(nodeElementIdentifier,
+							bridgeElementIdentifier, bridgePort, link);
+					return;
+				} 
+				// if at least one parsed this is the second then is a backbone port
+				// so add the port to the backbone and save the three links...as pseudo device
+				if (getParsedPort().containsKey(bridgePort)) {
+					
+					storePseudoLinks(nodeElementIdentifier,
+							bridgeElementIdentifier, bridgePort, link);
+					return;
 				}
+				// first port occurrence save properly to check if there are other problem
+				addParsedPort(bridgePort, link);
 			}
-
 		};
 		SnmpWalker walker = SnmpUtils.createWalker(getPeer(), trackerName,
 				stpPortTableTracker);
@@ -298,13 +369,29 @@ public final class BridgeLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
 
 			@Override
 			public void processDot1qTpFdbRow(final Dot1qTpFdbRow row) {
-				if (getStpPorts().contains(row.getDot1qTpFdbPort()))
+				Integer bridgePort = row.getDot1qTpFdbPort();
+				if (getStpPorts().contains(bridgePort))
 					return;
 				BridgeDot1qTpFdbLink link = row.getLink(nodeElementIdentifier,
 						bridgeElementIdentifier);
-				if (link != null) {
-					m_linkd.getQueryManager().store(link);
+				if (link == null) 
+					return;
+				// if backbone add as pseudo link
+				if (getBackBonePorts().contains(bridgePort)) {
+					storePseudoLink(nodeElementIdentifier,
+							bridgeElementIdentifier, bridgePort, link);
+					return;
+				} 
+				// if at least one parsed this is the second then is a backbone port
+				// so add the port to the backbone and save the three links...as pseudo device
+				if (getParsedPort().containsKey(bridgePort)) {
+					
+					storePseudoLinks(nodeElementIdentifier,
+							bridgeElementIdentifier, bridgePort, link);
+					return;
 				}
+				// first port occurrence save properly to check if there are other problem
+				addParsedPort(bridgePort, link);
 			}
 
 		};
@@ -434,5 +521,52 @@ public final class BridgeLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
 	public String getName() {
 		return "BridgeLinkDiscovery";
 	}
+
+	private void storePseudoLink(
+			final NodeElementIdentifier nodeElementIdentifier,
+			final BridgeElementIdentifier bridgeElementIdentifier,
+			Integer bridgePort, Link link) {
+		Element elementA = new Element();
+		String identifier = bridgeElementIdentifier.getBridgeAddress()+"-port"+bridgePort;
+		elementA.addElementIdentifier(new PseudoBridgeElementIdentifier(identifier, nodeElementIdentifier.getNodeid()));
+		PseudoBridgeEndPoint endPointK = new PseudoBridgeEndPoint(RandomInteger.get(), nodeElementIdentifier.getNodeid());
+		elementA.addEndPoint(endPointK);
+		endPointK.setElement(elementA);
+		m_linkd.getQueryManager().store(new PseudoBridgeLink(endPointK, link.getB(), nodeElementIdentifier.getNodeid()));
+	}
+
+	private void storePseudoLinks(
+			final NodeElementIdentifier nodeElementIdentifier,
+			final BridgeElementIdentifier bridgeElementIdentifier,
+			Integer bridgePort, Link link) {
+		
+		Element elementP = new Element();
+		String identifier = bridgeElementIdentifier.getBridgeAddress()+"-port"+bridgePort;
+		elementP.addElementIdentifier(new PseudoBridgeElementIdentifier(identifier, nodeElementIdentifier.getNodeid()));
+							
+		// pseudo endpoint to the bridge
+		PseudoBridgeEndPoint endPointH = new PseudoBridgeEndPoint(RandomInteger.get(), nodeElementIdentifier.getNodeid());
+		elementP.addEndPoint(endPointH);
+		endPointH.setElement(elementP);
+		
+		//pseudo end point to the mac
+		PseudoBridgeEndPoint endPointK = new PseudoBridgeEndPoint(RandomInteger.get(), nodeElementIdentifier.getNodeid());
+		elementP.addEndPoint(endPointK);
+		endPointK.setElement(elementP);
+
+		Link firstLink = getParsedPort().get(bridgePort); 
+		// peseudo endpoint to first mac occurrence on port
+		PseudoBridgeEndPoint endPointJ = new PseudoBridgeEndPoint(RandomInteger.get(), nodeElementIdentifier.getNodeid());
+		elementP.addEndPoint(endPointJ);
+		endPointJ.setElement(elementP);
+
+		m_linkd.getQueryManager().store(new PseudoBridgeLink(endPointH, link.getA(), nodeElementIdentifier.getNodeid()));
+		m_linkd.getQueryManager().store(new PseudoBridgeLink(endPointK, link.getB(), nodeElementIdentifier.getNodeid()));
+		m_linkd.getQueryManager().store(new PseudoBridgeLink(endPointJ, firstLink.getB(), nodeElementIdentifier.getNodeid()));
+		removeParsedPort(bridgePort);
+		addBackBonePort(bridgePort);
+	}
+	
+	
 
 }

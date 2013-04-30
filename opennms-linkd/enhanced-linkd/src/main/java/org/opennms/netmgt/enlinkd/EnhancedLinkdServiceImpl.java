@@ -32,6 +32,7 @@ import org.opennms.netmgt.model.topology.MacAddrEndPoint;
 import org.opennms.netmgt.model.topology.OspfElementIdentifier;
 import org.opennms.netmgt.model.topology.OspfEndPoint;
 import org.opennms.netmgt.model.topology.OspfLink;
+import org.opennms.netmgt.model.topology.PseudoBridgeLink;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
@@ -154,7 +155,6 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 	@Override
 	public void store(BridgeStpLink link) {
 		m_topologyDao.saveOrUpdate((Link)link);
-		
 	}
 
 	@Override
@@ -165,6 +165,52 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 	@Override
 	public void store(BridgeDot1qTpFdbLink link) {
 		m_topologyDao.saveOrUpdate((Link)link);
+	}
+
+	@Override
+	public void store(PseudoBridgeLink link) {
+		/* FIXME
+		 * store(link=({bridge port},{mac address}))
+		 * 
+		 * pseudo code:
+		 * 
+		 *  ({mac address} is not in topology && {bridge port} is not in topology)
+		 *     save(link)
+		 * 
+		 *  dblink=({db bridge port},{mac address})
+		 *  
+		 *  ({mac address} is in topology && {bridge port} is not in topology && dblink is PseudoLink)
+		 *  pseudolink=({bridge port}, 
+		 *  save(pseudolink)
+		 *  
+		 *  --> two links link & dblink
+		 *  
+		 *  ({mac address} is in topology && {bridge port} is not in topology && dblink is BridgeLink && dblink == link)
+		 *  update(link)
+		 *  
+		 *  ({mac address} is in topology && {bridge port} is not in topology && dblink is BridgeLink && dblink != link)
+		 *  Pathological you can have both!
+		 *  Do nothing? 
+		 *    
+		 *    
+		 *    La domanda e' se devo aggiungere il link o uno pseudo device
+		 *         Se {mac address} si trova su uno pseudo device allora rimuovi l'endpoint ed il link dallo pseudo device e store(link)
+		 *         Se {mac address} si trova su un altra porta do nothing ---dai precedenza a chi e' salvo prima 
+		 *         Condizione patologica due switch con un solo nodo attaccato, senza stp non ho modo di riconoscere il link fra i bridge
+		 * else if ({bridge port} is in topology && {bridge port}.getLink is BridgeType)
+		 *    return
+		 * else if ({bridge port} is in topology && {bridge port}.getLink is PseudoType)
+		 *   if ({mac address} is on another valid bridge port)
+		 *      return
+		 *   else 
+		 *      add PseudoLink to PseudoElement
+		 * else {mac address} is in topology && {bridge port is in topology} && {db.link is not BridgeType}
+		 * create new Element {pseudo 1}.
+		 * Add PseudoEndPoint {pseudo endpoint 1} to Element create linkP1={bridge port} {pseudo 1}
+		 *  
+		 * 
+		 */
+		
 	}
 
 	@Override
@@ -278,5 +324,4 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 		m_topologyDao.delete(elementidentifiers,endpoints);
 
 	}
-
 }
