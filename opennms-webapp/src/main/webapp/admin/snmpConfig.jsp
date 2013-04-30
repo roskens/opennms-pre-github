@@ -246,6 +246,7 @@
 <div class="tooltip" id="contextNameTT"><p><b>Default: </b>-<br/>The context engine id of the target entity on the agent.</p></div>
 <div class="tooltip" id="enterpriseIdTT"><p><b>Default: </b>-<br/>An enterprise id for SNMP v3 collection</p></div>
 <div class="tooltip" id="ipAddressLookupTT"><p><b>Default: </b>-<br/>Specify the IP Address for which you want to lookup the SNMP configuration. Either IPv4 or IPv6 format is allowed.</div>
+<div class="tooltip" id="proxyHostTT"><p><b>Default: </b>-<br/>A proxy host to use to communicate with the SNMP agent.</p></div>
 
 <%!// does Null Pointer handling
 	public String getValue(Object input) {
@@ -278,6 +279,7 @@
 	String timeout = getValue(snmpInfo.getTimeout());
 	String retryCount = getValue(snmpInfo.getRetries());
 	String port = getValue(snmpInfo.getPort());
+	String proxyHost = ""; 
 	String maxRequestSize = getValue(snmpInfo.getMaxRequestSize());
 	String maxVarsPerPdu = getValue(snmpInfo.getMaxVarsPerPdu());
 	String maxRepetitions = getValue(snmpInfo.getMaxRepetitions());
@@ -374,6 +376,13 @@
 							<input style="width:120px;" name="port" value="<%=port%>">
 							<img src="css/images/ui-trans_1x1.png" class="info" onMouseOver="showTT('portTT')" onMouseOut="hideTT()"/>
 							
+						</td>
+					</tr>
+					<tr>
+						<td width="25%">Proxy Host:</td>
+						<td width="50%">
+							<input style="width:120px;" name="proxyHost" value="<%=proxyHost %>">
+							<img src="css/images/ui-trans_1x1.png" class="info" onMouseOver="showTT('proxyHostTT')" onMouseOut="hideTT()"/>
 						</td>
 					</tr>
 				</table>
