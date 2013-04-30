@@ -285,6 +285,7 @@ public class SnmpEventInfoTest {
     	snmpEventInfo.setPort(3000);
     	snmpEventInfo.setPrivPassPhrase("privPassPhrase");
     	snmpEventInfo.setPrivProtocol("privProtocol");
+    	snmpEventInfo.setProxyHost("127.0.0.1");
     	snmpEventInfo.setRetryCount(4000);
     	snmpEventInfo.setSecurityLevel(5000);
     	snmpEventInfo.setTimeout(6000);
@@ -296,6 +297,7 @@ public class SnmpEventInfoTest {
     	assertEquals(snmpEventInfo.getMaxRepititions(), def.getMaxRepetitions().intValue());
     	assertEquals(snmpEventInfo.getMaxVarsPerPdu(), def.getMaxVarsPerPdu().intValue());
     	assertEquals(snmpEventInfo.getPort(), def.getPort().intValue());
+    	assertEquals(snmpEventInfo.getProxyHost(), def.getProxyHost());
     	assertEquals(snmpEventInfo.getRetryCount(), def.getRetry().intValue());
     	assertEquals(snmpEventInfo.getTimeout(), def.getTimeout().intValue());
     	assertEquals(snmpEventInfo.getVersion(), def.getVersion());
@@ -328,6 +330,7 @@ public class SnmpEventInfoTest {
     	snmpEventInfo.setMaxVarsPerPdu(2000);
     	snmpEventInfo.setMaxRequestSize(7000);
     	snmpEventInfo.setPort(3000);
+    	snmpEventInfo.setProxyHost("127.0.0.1");
     	snmpEventInfo.setPrivPassPhrase("privPassPhrase");
     	snmpEventInfo.setPrivProtocol("privProtocol");
     	snmpEventInfo.setRetryCount(4000);
@@ -349,6 +352,7 @@ public class SnmpEventInfoTest {
     	assertEquals(snmpEventInfo.getMaxVarsPerPdu(), def.getMaxVarsPerPdu().intValue());
     	assertEquals(snmpEventInfo.getMaxRequestSize(), def.getMaxRequestSize().intValue());
     	assertEquals(snmpEventInfo.getPort(), def.getPort().intValue());
+    	assertEquals(snmpEventInfo.getProxyHost(), def.getProxyHost());
     	assertEquals(snmpEventInfo.getRetryCount(), def.getRetry().intValue());
     	assertEquals(snmpEventInfo.getTimeout(), def.getTimeout().intValue());
     	assertEquals(snmpEventInfo.getVersion(), def.getVersion());
@@ -1334,6 +1338,37 @@ public class SnmpEventInfoTest {
         info.setVersion("v2c");
         info.setMaxVarsPerPdu(13);
         info.setMaxRepetitions(5);
+        info.setFirstIPAddress("192.168.0.8");
+        
+        SnmpPeerFactory.getInstance().define(info);
+        
+        String actualConfig = SnmpPeerFactory.marshallConfig();
+        assertXmlEquals(expectedConfig, actualConfig);
+    }
+    
+    /**
+     * Tests if the proxy host is considered in the optimization code.
+     */
+    @Test
+    public void testProxyHost() throws Exception {
+    	final String snmpConfigXml = 
+		"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" + 
+		"<snmp-config port=\"161\" retry=\"3\" timeout=\"800\" read-community=\"public\" version=\"v1\" max-repetitions=\"17\" max-vars-per-pdu=\"13\" xmlns=\"http://xmlns.opennms.org/xsd/config/snmp\"/>\n";
+    	
+    	final String expectedConfig = 
+		"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" + 
+		"<snmp-config port=\"161\" retry=\"3\" timeout=\"800\" read-community=\"public\" version=\"v1\" max-repetitions=\"17\" max-vars-per-pdu=\"13\" xmlns=\"http://xmlns.opennms.org/xsd/config/snmp\">\n"+
+		"    <definition proxy-host=\"127.0.0.1\">\n" + 
+		"        <specific>192.168.0.8</specific>\n" + 
+		"    </definition>\n" + 
+		"</snmp-config>\n";
+    	
+
+        SnmpPeerFactory.setInstance(new SnmpPeerFactory(snmpConfigXml));
+        assertXmlEquals(snmpConfigXml, SnmpPeerFactory.marshallConfig());
+
+        SnmpEventInfo info = new SnmpEventInfo();
+        info.setProxyHost("127.0.0.1");
         info.setFirstIPAddress("192.168.0.8");
         
         SnmpPeerFactory.getInstance().define(info);

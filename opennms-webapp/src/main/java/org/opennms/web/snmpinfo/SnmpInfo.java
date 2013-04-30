@@ -36,6 +36,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.netmgt.config.SnmpEventInfo;
 import org.opennms.netmgt.snmp.SnmpAgentConfig;
 
@@ -69,6 +70,7 @@ public class SnmpInfo {
 	private String m_enterpriseId;
 	private Integer m_maxRequestSize;
 	private String m_writeCommunity;
+	private String m_proxyHost;
 	
 	/**
 	 * <p>
@@ -97,7 +99,12 @@ public class SnmpInfo {
 		if (config.getMaxRepetitions() >= 1) m_maxRepetitions = config.getMaxRepetitions();
 		if (config.getMaxVarsPerPdu() >= 1) m_maxVarsPerPdu = config.getMaxVarsPerPdu();
 		if (config.getMaxRequestSize() >= 1) m_maxRequestSize = Integer.valueOf(config.getMaxRequestSize());
-
+		
+		// handle a possible proxy host setting
+		if (config.getProxyFor() != null) { // switch proxy and address
+			m_proxyHost = InetAddressUtils.str(config.getAddress());
+		} 
+		
 		// only set these properties if snmp version is v3
 		if (config.isVersion3()) {
 			m_securityName = config.getSecurityName();
@@ -372,6 +379,14 @@ public class SnmpInfo {
 		m_maxRequestSize = maxRequestSize;
 	}
 	
+	public String getProxyHost() {
+		return m_proxyHost;
+	}
+	
+	public void setProxyHost(String proxyHost) {
+		m_proxyHost = proxyHost;
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		return EqualsBuilder.reflectionEquals(this, obj);
@@ -410,6 +425,7 @@ public class SnmpInfo {
 		eventInfo.setPrivPassPhrase(m_privPassPhrase);
 		eventInfo.setPrivProtocol(m_privProtocol);
 		eventInfo.setSecurityName(m_securityName);
+		eventInfo.setProxyHost(m_proxyHost);
 		if (m_port != null) eventInfo.setPort(m_port.intValue());
 		if (m_retries != null) eventInfo.setRetryCount(m_retries.intValue());
 		if (m_timeout != null) eventInfo.setTimeout(m_timeout.intValue());

@@ -73,6 +73,7 @@ public class SnmpEventInfo {
     private String m_contextEngineId = null;
     private String m_contextName = null;
     private String m_enterpriseId = null;
+    private String m_proxyHost = null;
     
     private static int computeIntValue(String parmContent) throws IllegalArgumentException {
         int val = 0;
@@ -157,6 +158,8 @@ public class SnmpEventInfo {
                 	setPrivPassPhrase(parmContent);
                 } else if (parmName.equals(EventConstants.PARM_SNMP_PRIVACY_PROTOCOL)) {
                 	setPrivProtocol(parmContent);
+                } else if (parmName.equals(EventConstants.PARM_SNMP_PROXY_HOST)) {
+                	setProxyHost(parmContent);
                 }
             } catch (UnknownHostException e) {
                 LogUtils.errorf(this, "SnmpEventInfo constructor", e);
@@ -442,6 +445,14 @@ public class SnmpEventInfo {
     	m_maxRequestSize = maxRequestSize;
     }
     
+    public String getProxyHost() {
+    	return m_proxyHost;
+    }
+    
+    public void setProxyHost(String proxyHost) {
+    	m_proxyHost = proxyHost;
+    }
+    
     /**
      * <p>getRange</p>
      *
@@ -485,6 +496,7 @@ public class SnmpEventInfo {
         if (getMaxRepititions() != 0) definition.setMaxRepetitions(Integer.valueOf(getMaxRepititions()));
     	if (getMaxVarsPerPdu() != 0) definition.setMaxVarsPerPdu(Integer.valueOf(getMaxVarsPerPdu()));
     	if (getMaxRequestSize() != 0) definition.setMaxRequestSize(Integer.valueOf(getMaxRequestSize()));
+    	if (StringUtils.isNotEmpty(getProxyHost())) definition.setProxyHost(getProxyHost());
     	
         // version dependend parameters
         if (getVersion() != null && getVersion().equals("v3")) {
