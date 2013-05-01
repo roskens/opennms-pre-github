@@ -39,6 +39,50 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 	
+	public enum Order {DIRECT,REVERSED,JOIN};
+
+	private class BridgeForwardingPath {
+		
+		final private BridgeEndPoint m_port1;
+		final private BridgeEndPoint m_port2;
+		final private MacAddrEndPoint m_mac;
+		private List<Order> m_compatibleorders;
+		
+		public BridgeForwardingPath(BridgeEndPoint port1,
+				BridgeEndPoint port2, MacAddrEndPoint mac) {
+			super();
+			m_port1 = port1;
+			m_port2 = port2;
+			m_mac   = mac;
+			m_compatibleorders = new ArrayList<EnhancedLinkdServiceImpl.Order>();
+			m_compatibleorders.add(Order.DIRECT);
+			m_compatibleorders.add(Order.REVERSED);
+			m_compatibleorders.add(Order.JOIN);
+		}
+
+		public List<Order> getCompatibleorders() {
+			return m_compatibleorders;
+		}
+
+		public BridgeEndPoint getPort1() {
+			return m_port1;
+		}
+
+		public BridgeEndPoint getPort2() {
+			return m_port2;
+		}
+
+		public MacAddrEndPoint getMac() {
+			return m_mac;
+		}
+		
+		public List<Order> removeIncompatible(BridgeForwardingPath bridgeforpath) {
+			//FIXME add check--remove local end return remote available
+			return null;
+		}
+		
+	}
+	
 	@Autowired
 	private NodeDao m_nodeDao;
 
