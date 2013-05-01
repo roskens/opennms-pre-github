@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.hibernate.criterion.Restrictions;
+import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.dao.NodeDao;
 import org.opennms.netmgt.dao.TopologyDao;
 import org.opennms.netmgt.model.OnmsCriteria;
@@ -37,7 +38,7 @@ import org.opennms.netmgt.model.topology.PseudoMacLink;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
-
+	
 	@Autowired
 	private NodeDao m_nodeDao;
 
@@ -135,17 +136,17 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 
 	@Override
 	public void store(LldpLink link) {
-		m_topologyDao.saveOrUpdate((Link)link);
+		m_topologyDao.saveOrUpdate(link);
 	}
 
 	@Override
 	public void store(CdpLink link) {
-		m_topologyDao.saveOrUpdate((Link)link);
+		m_topologyDao.saveOrUpdate(link);
 	}
 
 	@Override
 	public void store(OspfLink link) {
-		m_topologyDao.saveOrUpdate((Link)link);
+		m_topologyDao.saveOrUpdate(link);
 	}
 
 	@Override
@@ -154,26 +155,105 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 	}
  
 	@Override
-	public void store(BridgeStpLink link) {
-		//FIXME delete pseudo bridge link if exists
-		m_topologyDao.saveOrUpdate((Link)link);
-	}
-
-	@Override
 	public void store(BridgeDot1dTpFdbLink link) {
-		//FIXME delete pseudo mac link if exists
-		m_topologyDao.saveOrUpdate((Link)link);
+		/*
+		 * store(link=(({bridge port, mac}))
+		 * This is a standalone mac address found
+		 * must be saved in any case.
+		 * 
+		 * If mac address is found on some pseudo device must be removed
+		 * the information must be checked to get the topology layout
+		 * 
+		 */
+		List<EndPoint> topoendpoints = m_topologyDao.get(link.getB());
+		if (topoendpoints.isEmpty()) {
+			m_topologyDao.saveOrUpdate(link);
+			return;
+		}
+		
+		if (topoendpoints.size() != 1) {
+	    	LogUtils.errorf(this,
+	                "store:Aborting store Dot1d Link %s: more then one mac endpoint found", link);
+	    	return;
+		}
+		
+		MacAddrEndPoint topologyMacAddrEndPoint = (MacAddrEndPoint) topoendpoints
+				.get(0);
+		if (topologyMacAddrEndPoint.hasLink() && topologyMacAddrEndPoint.getLink() instanceof PseudoBridgeLink) {
+			// FIXME get the backbone port to this device
+			m_topologyDao.delete(topologyMacAddrEndPoint.getLink());
+		}	
+		m_topologyDao.saveOrUpdate(link);
 	}
 
 	@Override
 	public void store(BridgeDot1qTpFdbLink link) {
-		//FIXME delete pseudo mac link if exists
-		m_topologyDao.saveOrUpdate((Link)link);
+		/*
+		 * store(link=(({bridge port, mac}))
+		 * This is a standalone mac address found
+		 * must be saved in any case.
+		 * 
+		 * If mac address is found on some pseudo device must be removed
+		 * the information must be checked to get the topology layout
+		 * 
+		 */
+		List<EndPoint> topoendpoints = m_topologyDao.get(link.getB());
+		if (topoendpoints.isEmpty()) {
+			m_topologyDao.saveOrUpdate(link);
+			return;
+		}
+		
+		if (topoendpoints.size() != 1) {
+	    	LogUtils.errorf(this,
+	                "store:Aborting store Dot1d Link %s: more then one mac endpoint found", link);
+	    	return;
+		}
+		
+		MacAddrEndPoint topologyMacAddrEndPoint = (MacAddrEndPoint) topoendpoints
+				.get(0);
+		if (topologyMacAddrEndPoint.hasLink() && topologyMacAddrEndPoint.getLink() instanceof PseudoBridgeLink) {
+			// FIXME get the backbone port to this device
+			m_topologyDao.delete(topologyMacAddrEndPoint.getLink());
+		}	
+		m_topologyDao.saveOrUpdate(link);
+	}
+
+	@Override
+	public void store(BridgeStpLink link) {
+	
+		/*
+		 * store(link=({bridge port a},{bridge port b}))
+		 * 
+		 * this must be saved always.
+		 * Before doing this you have to check if the "designated bridge"
+		 * that is {bridge port b} is connected to some pseudo device
+		 * in this case you have to remove the pseudo device
+		 * 
+		 */
+		List<EndPoint> topoendpoints = m_topologyDao.get(link.getB());
+		
+		if (topoendpoints.isEmpty()) {
+			m_topologyDao.saveOrUpdate(link);
+			return;
+		}
+		
+		if (topoendpoints.size() != 1) {
+	    	LogUtils.errorf(this,
+	                "store:Aborting store Bridge Stp Link %s: more then one bridge endpoint found", link);
+	    	return;
+		}
+		
+		BridgeEndPoint topologyBridgeEndPoint = (BridgeEndPoint) topoendpoints
+				.get(0);
+		if (topologyBridgeEndPoint.hasLink() && topologyBridgeEndPoint.getLink() instanceof PseudoBridgeLink) {
+			m_topologyDao.delete(topologyBridgeEndPoint.getLink().getA().getElement());
+		}	
+		m_topologyDao.saveOrUpdate(link);
 	}
 
 	@Override
 	public void store(PseudoBridgeLink link) {
-		/* FIXME
+		/* 
 		 * store(link=({pseudo bridge port},{bridge port}))
 		 * 
 		 * pseudo code:
@@ -182,46 +262,90 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 		 *   save(link)
 		 * 
 		 * ({bridge port} is in topology)
-		 * databasebridgeport={db bridge port}
+		 * 
+		 *  databasebridgeport={db bridge port}
 		 * 
 		 *  databasebridgeport.getLink() is StpLink
 		 *     return
 		 *     
 		 *  databasebridgeport.getLink is PseudoBridgeLink
-		 *     decide if you have to collapse or leave pseudo device!
 		 *     save(link)
 		 *     
-		 *  dbbridgeport.getLink is Mac 
-		 *     delete old entry in database
+		 *  databasebridgeport.getLink is MacAddressLink 
+		 *     delete old link
 		 *     save(link)
 		 * 
 		 */
 		
+		List<EndPoint> topoendpoints = m_topologyDao.get(link.getB());
+		
+		if (topoendpoints.isEmpty()) {
+			m_topologyDao.saveOrUpdate(link);
+			return;
+		}
+		
+		if (topoendpoints.size() != 1) {
+	    	LogUtils.errorf(this,
+	                "store:Aborting store Pseudo Link %s: more then one bridge endpoint found", link);
+	    	return;
+		}
+		
+		BridgeEndPoint topologyBridgeEndPoint = (BridgeEndPoint) topoendpoints
+				.get(0);
+		if (topologyBridgeEndPoint.hasLink()) {
+			if (topologyBridgeEndPoint.getLink() instanceof BridgeStpLink) {
+		    	LogUtils.infof(this,
+		                "store:Not saving Pseudo Link %s: bridge stp link %s found", link, topologyBridgeEndPoint.getLink());
+				return;
+			} else if (topologyBridgeEndPoint.getLink() instanceof BridgeDot1qTpFdbLink
+					|| topologyBridgeEndPoint.getLink() instanceof BridgeDot1qTpFdbLink) {
+		    	LogUtils.infof(this,
+		                "store:Pseudo Link %s: deleting old bridge direct link %s", link, topologyBridgeEndPoint.getLink());
+				m_topologyDao.delete(topologyBridgeEndPoint.getLink());
+			}
+		}
+		m_topologyDao.saveOrUpdate(link);
 	}
 
 	@Override
-	public void store(PseudoMacLink pseudoMacLink) {
-		/* FIXME
-		 * store(link=({pseudo bridge port},{mac address}))
+	public void store(PseudoMacLink link) {
+		/*
+		 * store(link=(({bridge port, mac}))
+		 * This is a standalone mac address found
+		 * must be saved in any case.
 		 * 
-		 * pseudo code:
-		 * 
-		 *  ({mac address} is not in topology )
-		 *     save(link)
-		 *  
-		 *  ({mac address} is in topology)
-		 *  		 
-		 *  databasemacaddress={db mac address}
-		 *  
-		 *  (databasemacaddress.getLink is MacBridgeLink)
-		 *  
-		 *  
-		 *  
-		 *  (databasemacaddress.getLink is MacPseudoBridgeLink)
-		 *  
-		 *  
+		 * If mac address is found on some pseudo device must be removed
+		 * the information must be checked to get the topology layout
 		 * 
 		 */
+		List<EndPoint> topoendpoints = m_topologyDao.get(link.getB());
+		if (topoendpoints.isEmpty()) {
+			m_topologyDao.saveOrUpdate(link);
+			return;
+		}
+		
+		if (topoendpoints.size() != 1) {
+	    	LogUtils.errorf(this,
+	                "store:Aborting store Dot1d Link %s: more then one mac endpoint found", link);
+	    	return;
+		}
+		
+		MacAddrEndPoint topologyMacAddrEndPoint = (MacAddrEndPoint) topoendpoints
+				.get(0);
+		if (topologyMacAddrEndPoint.hasLink()
+				&& (topologyMacAddrEndPoint.getLink() instanceof BridgeDot1qTpFdbLink || topologyMacAddrEndPoint
+						.getLink() instanceof BridgeDot1qTpFdbLink)) {
+			return;
+		}
+		//FIXME check the topology
+		// this means that we should look at where is the macaddress found
+		// topoendpoint.getLink is pseudoLink
+		checkTopology(link,topologyMacAddrEndPoint.getLink());
+		m_topologyDao.saveOrUpdate(link);
+	}
+
+	protected void  checkTopology(Link link1,Link link2) {
+	//	BridgeCompatiblePath path1 = new BridgeCompatiblePath(mac, port1, port2)
 	}
 
 	@Override

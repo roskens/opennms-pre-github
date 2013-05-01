@@ -33,7 +33,7 @@ public class PseudoBridgeEndPoint extends EndPoint {
 	 */
 	public String toString() {
 		return new ToStringBuilder(this)
-			.append("m_bridgePort", m_bridgePort)
+			.append("bridgePort", m_bridgePort)
 			.append("lastPoll", m_lastPoll)
 			.append("sourceNode", m_sourceNode)
 			.toString();

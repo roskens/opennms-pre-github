@@ -61,6 +61,15 @@ public class TopologyDaoInMemoryImpl implements TopologyDao {
 
 	@Override
 	public void delete(Element element) {
+		for (Element e : m_elements) {
+			if (e.equals(element)) {
+				for (EndPoint ep: e.getEndpoints()) {
+					if (ep.hasLink())
+						delete(ep.getLink());
+				}
+			}
+				
+		}
 		m_elements.remove(element);
 	}
 
@@ -126,6 +135,19 @@ public class TopologyDaoInMemoryImpl implements TopologyDao {
 		for (EndPoint endpoint: endpoints) {
 			delete(endpoint);
 		}
+	}
+
+	@Override
+	public List<EndPoint> get(EndPoint endpoint) {
+		List<EndPoint> endpoints = new ArrayList<EndPoint>();
+		for (Element e: m_elements) {
+			for (EndPoint ep: e.getEndpoints()) {
+				if (ep.equals(endpoint)) {
+					endpoints.add(endpoint);
+				}
+			}
+		}
+		return endpoints;
 	}
 
 }

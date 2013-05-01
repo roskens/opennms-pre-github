@@ -530,46 +530,58 @@ public final class BridgeLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
 			final BridgeElementIdentifier bridgeElementIdentifier,
 			Integer bridgePort, Link link) {
 		Element elementA = new Element();
-		String identifier = bridgeElementIdentifier.getBridgeAddress()+"-port"+bridgePort;
-		elementA.addElementIdentifier(new PseudoBridgeElementIdentifier(identifier, nodeElementIdentifier.getNodeid()));
-		PseudoBridgeEndPoint endPointK = new PseudoBridgeEndPoint(RandomInteger.get(), nodeElementIdentifier.getNodeid());
+		elementA.addElementIdentifier(new PseudoBridgeElementIdentifier(
+				bridgeElementIdentifier.getBridgeAddress(), bridgePort,
+				nodeElementIdentifier.getNodeid()));
+		PseudoBridgeEndPoint endPointK = new PseudoBridgeEndPoint(
+				RandomInteger.get(), nodeElementIdentifier.getNodeid());
 		elementA.addEndPoint(endPointK);
 		endPointK.setElement(elementA);
-		m_linkd.getQueryManager().store(new PseudoMacLink(endPointK, (MacAddrEndPoint)link.getB(), nodeElementIdentifier.getNodeid()));
+		m_linkd.getQueryManager().store(
+				new PseudoMacLink(endPointK, (MacAddrEndPoint) link.getB(),
+						nodeElementIdentifier.getNodeid()));
 	}
 
 	private void storePseudoLinks(
 			final NodeElementIdentifier nodeElementIdentifier,
 			final BridgeElementIdentifier bridgeElementIdentifier,
 			Integer bridgePort, Link link) {
-		
+
 		Element elementP = new Element();
-		String identifier = bridgeElementIdentifier.getBridgeAddress()+"-port"+bridgePort;
-		elementP.addElementIdentifier(new PseudoBridgeElementIdentifier(identifier, nodeElementIdentifier.getNodeid()));
-							
+		elementP.addElementIdentifier(new PseudoBridgeElementIdentifier(
+				bridgeElementIdentifier.getBridgeAddress(), bridgePort,
+				nodeElementIdentifier.getNodeid()));
+
 		// pseudo endpoint to the bridge
-		PseudoBridgeEndPoint endPointH = new PseudoBridgeEndPoint(RandomInteger.get(), nodeElementIdentifier.getNodeid());
+		PseudoBridgeEndPoint endPointH = new PseudoBridgeEndPoint(
+				RandomInteger.get(), nodeElementIdentifier.getNodeid());
 		elementP.addEndPoint(endPointH);
 		endPointH.setElement(elementP);
-		
-		//pseudo end point to the mac
-		PseudoBridgeEndPoint endPointK = new PseudoBridgeEndPoint(RandomInteger.get(), nodeElementIdentifier.getNodeid());
+
+		// pseudo end point to the mac
+		PseudoBridgeEndPoint endPointK = new PseudoBridgeEndPoint(
+				RandomInteger.get(), nodeElementIdentifier.getNodeid());
 		elementP.addEndPoint(endPointK);
 		endPointK.setElement(elementP);
 
-		Link firstLink = getParsedPort().get(bridgePort); 
+		Link firstLink = getParsedPort().get(bridgePort);
 		// pseudo endpoint to first mac occurrence on port
-		PseudoBridgeEndPoint endPointJ = new PseudoBridgeEndPoint(RandomInteger.get(), nodeElementIdentifier.getNodeid());
+		PseudoBridgeEndPoint endPointJ = new PseudoBridgeEndPoint(
+				RandomInteger.get(), nodeElementIdentifier.getNodeid());
 		elementP.addEndPoint(endPointJ);
 		endPointJ.setElement(elementP);
 
-		m_linkd.getQueryManager().store(new PseudoBridgeLink(endPointH, (BridgeEndPoint)link.getA(), nodeElementIdentifier.getNodeid()));
-		m_linkd.getQueryManager().store(new PseudoMacLink(endPointK, (MacAddrEndPoint)link.getB(), nodeElementIdentifier.getNodeid()));
-		m_linkd.getQueryManager().store(new PseudoMacLink(endPointJ, (MacAddrEndPoint)firstLink.getB(), nodeElementIdentifier.getNodeid()));
+		m_linkd.getQueryManager().store(
+				new PseudoBridgeLink(endPointH, (BridgeEndPoint) link.getA(),
+						nodeElementIdentifier.getNodeid()));
+		m_linkd.getQueryManager().store(
+				new PseudoMacLink(endPointK, (MacAddrEndPoint) link.getB(),
+						nodeElementIdentifier.getNodeid()));
+		m_linkd.getQueryManager().store(
+				new PseudoMacLink(endPointJ,
+						(MacAddrEndPoint) firstLink.getB(),
+						nodeElementIdentifier.getNodeid()));
 		removeParsedPort(bridgePort);
 		addBackBonePort(bridgePort);
-	}
-	
-	
-
+	}		
 }
