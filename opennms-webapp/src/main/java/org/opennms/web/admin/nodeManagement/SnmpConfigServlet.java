@@ -46,6 +46,8 @@ import com.google.common.base.Charsets;
 import com.google.common.base.Strings;
 import com.google.common.io.Files;
 
+import com.google.common.base.Strings;
+
 /**
  * A servlet that handles configuring SNMP
  * 
@@ -56,6 +58,9 @@ import com.google.common.io.Files;
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  * @version $Id: $
  * @since 1.8.1
+ */
+/*
+ * TODO MVR is this the servlet for handling the ui that david was talking about? especially the /admin/snmpConfigured.jsp page?
  */
 public class SnmpConfigServlet extends HttpServlet {
 
@@ -172,6 +177,10 @@ public class SnmpConfigServlet extends HttpServlet {
 
 		return snmpInfo;
 	}
+
+	// forward the request for proper display
+        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin/snmpConfigured.jsp");
+        dispatcher.forward(request, response);
 
 	private SnmpConfigServletAction determineAction(HttpServletRequest request) {
 		if (request.getParameter(ACTION_PARAMETER_NAME) == null) return SnmpConfigServletAction.Default;
