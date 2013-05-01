@@ -1,8 +1,8 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2006-2013 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2013 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
@@ -39,6 +39,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.netmgt.config.SnmpPeerFactory;
+import org.opennms.netmgt.model.events.EventProxy;
+import org.opennms.netmgt.xml.event.Event;
+import org.opennms.web.api.Util;
 import org.opennms.web.snmpinfo.SnmpInfo;
 
 import com.google.common.base.Charsets;
@@ -88,6 +91,9 @@ public class SnmpConfigServlet extends HttpServlet {
 		process(request, response);
 	}
 
+	/*
+	 * Processes the request.
+	 */
 	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		SnmpInfo snmpInfo = createFromRequest(request);
 		String firstIPAddress = request.getParameter("firstIPAddress");
@@ -106,9 +112,11 @@ public class SnmpConfigServlet extends HttpServlet {
 				request.setAttribute("firstIPAddress", ipAddress);
 				break;
 			case SaveToConfigFile:
-				SnmpPeerFactory.getInstance().define(snmpInfo.createEventInfo(firstIPAddress, lastIPAddress));
-				SnmpPeerFactory.saveCurrent();
-				request.setAttribute("success", "success"); // the value doesn't matter, but it must be not null 
+				boolean success = sendEvent(
+									snmpInfo
+										.createEventInfo(firstIPAddress, lastIPAddress)
+										.createEvent("web ui"));
+				if (success) request.setAttribute("success", "success"); // the value doesn't matter, but it must be not null 
 				break;
 			default:
 			case Default:
@@ -119,7 +127,30 @@ public class SnmpConfigServlet extends HttpServlet {
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin/snmpConfig.jsp");
 		dispatcher.forward(request, response);
 	}
-
+	
+	/**
+	 * Sends the given event via the EventProxy to the system. If null no event is send.
+	 * @param eventToSend The Event to send. If null, no event is send.
+	 * @return <code>true</code> if the event was send successfully and no exception occured, <code>false</code> if eventToSend is null.
+	 * @throws ServletException On error.
+	 */
+	private boolean sendEvent(Event eventToSend) throws ServletException {
+		if (eventToSend == null) return false;
+		try {
+            EventProxy eventProxy = Util.createEventProxy();
+            if (eventProxy == null) throw new ServletException("Event proxy object is null, unable to send event " + eventToSend.getUei()); 
+           	eventProxy.send(eventToSend);
+           	return true;
+		} catch (Throwable e) {
+            throw new ServletException("Could not send event " + eventToSend.getUei(), e);
+		}
+	}
+	
+	/**
+	 * Creates an {@link SnmpInfo} object from the given request.
+	 * @param request The http request.
+	 * @return The object parsed from the http request.
+	 */
 	private SnmpInfo createFromRequest(HttpServletRequest request) {
 		SnmpInfo snmpInfo = new SnmpInfo();
 
