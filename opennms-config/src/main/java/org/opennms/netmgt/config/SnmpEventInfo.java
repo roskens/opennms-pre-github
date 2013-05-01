@@ -482,7 +482,11 @@ public class SnmpEventInfo {
         }
     }
     
-    //TODO MVR
+    /**
+     * Creates an event from <code>this</code>.
+     * @param source The source to set in the Event. Must not be null.
+     * @return The event which represents <code>this</code>.
+     */
     public Event createEvent(final String source) {
 		EventBuilder bldr = new EventBuilder(EventConstants.CONFIGURE_SNMP_EVENT_UEI, source);
 	    bldr.setInterface(InetAddressUtils.addr(getFirstIPAddress()));

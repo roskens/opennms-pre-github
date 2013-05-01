@@ -402,7 +402,16 @@ public class SnmpInfo {
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 	
-	//TODO MVR
+
+	/**
+	 * Creates a {@link SnmpEventInfo} object from <code>this</code>.
+	 * 
+	 * @param firstIpAddress
+	 *            a {@link java.lang.String} object which represents the first IP Address of the {@link SnmpEventInfo}. Must not be null.
+	 * @param lastIpAddress represents the last IP Address of the {@link SnmpEventInfo}. May be null.
+	 * @return a {@link org.opennms.netmgt.config.SnmpEventInfo} object. 
+	 * @throws java.net.UnknownHostException if any.
+	 */
 	public SnmpEventInfo createEventInfo(String firstIpAddress, String lastIpAddress) throws UnknownHostException {
 		SnmpEventInfo eventInfo = new SnmpEventInfo();
 		eventInfo.setVersion(m_version);
@@ -432,14 +441,14 @@ public class SnmpInfo {
 	}
 	
 	/**
-	 * Creates a {@link SnmpEventInfo} object from <code>this</code>.
+	 * Invokes {@link #createEventInfo(String, String)} with parameters: ipAddr
+	 * as firstIpAddress and null as lastIpAddress.
 	 * 
 	 * @param ipAddr
-	 *            a {@link java.lang.String} object which represents the first Ip Adress of the {@link SnmpEventInfo}.
-	 * @return a {@link org.opennms.netmgt.config.SnmpEventInfo} object.
-	 * @throws java.net.UnknownHostException if any.
+	 * @return
+	 * @throws UnknownHostException
+	 * @see #createEventInfo(String, String)
 	 */
-	// TODO MVR
 	public SnmpEventInfo createEventInfo(String ipAddr) throws UnknownHostException {
 		return createEventInfo(ipAddr, null);
 	}
