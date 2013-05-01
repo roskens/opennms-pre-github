@@ -402,8 +402,7 @@ public class SnmpInfo {
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 	
-<<<<<<< HEAD
-	// TODO MVR
+	//TODO MVR
 	public SnmpEventInfo createEventInfo(String firstIpAddress, String lastIpAddress) throws UnknownHostException {
 		SnmpEventInfo eventInfo = new SnmpEventInfo();
 		eventInfo.setVersion(m_version);

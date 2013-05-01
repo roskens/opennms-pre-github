@@ -39,17 +39,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.netmgt.config.SnmpPeerFactory;
-import org.opennms.netmgt.snmp.SnmpConfiguration;
 import org.opennms.web.snmpinfo.SnmpInfo;
 
 import com.google.common.base.Charsets;
 import com.google.common.base.Strings;
 import com.google.common.io.Files;
 
-import com.google.common.base.Strings;
-
 /**
- * A servlet that handles configuring SNMP
+ * A servlet that handles configuring SNMP.
  * 
  * @author <a href="mailto:brozow@opennms.org">Matt Brozowski</a>
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
@@ -58,9 +55,6 @@ import com.google.common.base.Strings;
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  * @version $Id: $
  * @since 1.8.1
- */
-/*
- * TODO MVR is this the servlet for handling the ui that david was talking about? especially the /admin/snmpConfigured.jsp page?
  */
 public class SnmpConfigServlet extends HttpServlet {
 
@@ -79,11 +73,10 @@ public class SnmpConfigServlet extends HttpServlet {
 			return actionName;
 		}
 	}
-
+	
+	private static final long serialVersionUID = -2298118339644843598L;
+	private static final Logger log = Logger.getLogger(SnmpConfigServlet.class);
 	private static final String ACTION_PARAMETER_NAME = "action";
-
-	/** Log4j. */
-	private final static Logger log = Logger.getLogger(SnmpConfigServlet.class);
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -115,7 +108,7 @@ public class SnmpConfigServlet extends HttpServlet {
 			case SaveToConfigFile:
 				SnmpPeerFactory.getInstance().define(snmpInfo.createEventInfo(firstIPAddress, lastIPAddress));
 				SnmpPeerFactory.saveCurrent();
-				request.setAttribute("success", "success"); // the value doesn't matter, but it must be not null
+				request.setAttribute("success", "success"); // the value doesn't matter, but it must be not null 
 				break;
 			default:
 			case Default:
@@ -138,7 +131,8 @@ public class SnmpConfigServlet extends HttpServlet {
 		String maxRequestSize = request.getParameter("maxRequestSize");
 		String maxVarsPerPdu = request.getParameter("maxVarsPerPdu");
 		String maxRepetitions = request.getParameter("maxRepetitions");
-
+		String proxyHost = request.getParameter("proxyHost");
+		
 		// v1/v2c specifics
 		String readCommunityString = request.getParameter("readCommunityString");
 		String writeCommunityString = request.getParameter("writeCommunityString");
@@ -168,19 +162,17 @@ public class SnmpConfigServlet extends HttpServlet {
 		if (!Strings.isNullOrEmpty(port)) snmpInfo.setPort(Integer.parseInt(port));
 		if (!Strings.isNullOrEmpty(privPassPhrase)) snmpInfo.setPrivPassPhrase(privPassPhrase);
 		if (!Strings.isNullOrEmpty(privProtocol)) snmpInfo.setPrivProtocol(privProtocol);
+		if (!Strings.isNullOrEmpty(proxyHost)) snmpInfo.setProxyHost(proxyHost);
 		if (!Strings.isNullOrEmpty(readCommunityString)) snmpInfo.setReadCommunity(readCommunityString);
 		if (!Strings.isNullOrEmpty(retryCount)) snmpInfo.setRetries(Integer.parseInt(retryCount));
 		if (!Strings.isNullOrEmpty(securityLevel)) snmpInfo.setSecurityLevel(Integer.parseInt(securityLevel));
 		if (!Strings.isNullOrEmpty(securityName)) snmpInfo.setSecurityName(securityName);
+		if (!Strings.isNullOrEmpty(timeout)) snmpInfo.setTimeout(Integer.parseInt(timeout));
 		if (!Strings.isNullOrEmpty(version)) snmpInfo.setVersion(version);
 		if (!Strings.isNullOrEmpty(writeCommunityString)) snmpInfo.setWriteCommunity(writeCommunityString);
 
 		return snmpInfo;
 	}
-
-	// forward the request for proper display
-        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin/snmpConfigured.jsp");
-        dispatcher.forward(request, response);
 
 	private SnmpConfigServletAction determineAction(HttpServletRequest request) {
 		if (request.getParameter(ACTION_PARAMETER_NAME) == null) return SnmpConfigServletAction.Default;

@@ -192,6 +192,7 @@ public class AdminSnmpConfigForIpPageTest extends OpenNMSSeleniumTestCase {
     	final String[] input = new String[]{"483", "484", "65535", "65536"};
     	final boolean[] success = new boolean[]{false, true, true, true};
     	for (int i=0; i<input.length; i++) {
+    		gotoPage();
     		selenium.type("name=firstIPAddress", "1.2.3.4");
     		selenium.type("name=maxRequestSize", input[i]);
     		validate(maxRequestSizeErrorTemplate, "maxRequestSize", "Max Request Size", input[i], success[i]);
@@ -265,7 +266,7 @@ public class AdminSnmpConfigForIpPageTest extends OpenNMSSeleniumTestCase {
      * Tests that the cancel button works as expected.
      */
     @Test
-    public void testCancelButtons() {
+    public void testCancelButton() {
     	selenium.click("name=cancelButton");
     	waitForPageToLoad();
     	assertTrue(selenium.isTextPresent("OpenNMS System"));

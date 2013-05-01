@@ -279,7 +279,7 @@
 	String timeout = getValue(snmpInfo.getTimeout());
 	String retryCount = getValue(snmpInfo.getRetries());
 	String port = getValue(snmpInfo.getPort());
-	String proxyHost = ""; 
+	String proxyHost = getValue(snmpInfo.getProxyHost()); 
 	String maxRequestSize = getValue(snmpInfo.getMaxRequestSize());
 	String maxVarsPerPdu = getValue(snmpInfo.getMaxVarsPerPdu());
 	String maxRepetitions = getValue(snmpInfo.getMaxRepetitions());
