@@ -1287,10 +1287,10 @@ public class SnmpEventInfoTest {
     /**
      * Tests that the new definition set by the SnmpEventInfo matches the defaults.
      * Therefore a new defintion should NOT BE added.
-     * @throws IOException 
+     * @throws Exception 
      */
     @Test
-    public void testEmptySnmpConfigAddDefinitionWhichMatchesDefaults() throws IOException {
+    public void testEmptySnmpConfigAddDefinitionWhichMatchesDefaults() throws Exception {
     	final String snmpConfigXml = 
 		"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" + 
 		"<snmp-config port=\"161\" retry=\"3\" timeout=\"800\" read-community=\"public\" version=\"v2c\" xmlns=\"http://xmlns.opennms.org/xsd/config/snmp\"/>\n";
