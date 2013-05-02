@@ -39,8 +39,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 	
+	/* DIRECT means that the order is mac sw1{port1} sw2{port2} - port2 is the backbone port from sw2 to sw1 
+	 * REVERSED means that the order is mac sw2{port2} sw1{port1} - port1 is the backbone port from sw1 to sw2
+	 * JOIN means that the order is sw1{port1} mac sw2{port2}
+	 */
 	public enum Order {DIRECT,REVERSED,JOIN};
 
+	/*
+	 * 
+	 */
 	private class BridgeForwardingPath {
 		
 		final private BridgeEndPoint m_port1;
@@ -76,12 +83,65 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 			return m_mac;
 		}
 		
-		public List<Order> removeIncompatible(BridgeForwardingPath bridgeforpath) {
-			//FIXME add check--remove local end return remote available
-			return null;
+		public List<Order> removeIncompatible(BridgeForwardingPath bfp) {
+			List<Order> orders = bfp.getCompatibleorders();
+			if (orders.size() == 1 && m_compatibleorders.size() > 1) {
+				for (Order order : orders){
+					switch(order) {
+						case DIRECT: 
+							if (!m_port2.equals(bfp.getPort2()))
+								m_compatibleorders.remove(Order.DIRECT);
+							break;
+						case JOIN: 
+							if (!m_port2.equals(bfp.getPort2()))
+								m_compatibleorders.remove(Order.DIRECT);
+							if (!m_port1.equals(bfp.getPort1()))
+								m_compatibleorders.remove(Order.REVERSED);
+						case REVERSED:
+							if (!m_port1.equals(bfp.getPort1()))
+								m_compatibleorders.remove(Order.REVERSED);
+							break;
+					}
+				}
+			} else if (orders.size() > 1 && m_compatibleorders.size() == 1) {
+				for (Order order : m_compatibleorders){
+					switch(order) {
+						case DIRECT: 
+							if (!m_port2.equals(bfp.getPort2()))
+								orders.remove(Order.DIRECT);
+							break;
+						case JOIN: 
+							if (!m_port2.equals(bfp.getPort2()))
+								orders.remove(Order.DIRECT);
+							if (!m_port1.equals(bfp.getPort1()))
+								orders.remove(Order.REVERSED);
+						case REVERSED:
+							if (!m_port1.equals(bfp.getPort1()))
+								orders.remove(Order.REVERSED);
+							break;
+					}
+				}
+			} else if ( orders.size() > 1 && m_compatibleorders.size() > 1) {
+				if (m_port1.getElement().equals(bfp.getPort1().getElement())
+						&& m_port2.getElement().equals(bfp.getPort2().getElement())) {
+					if (m_port2.equals(bfp.getPort2()) && !m_port1.equals(bfp.getPort1())) {
+						orders.remove(Order.REVERSED);
+						m_compatibleorders.remove(Order.REVERSED);
+					}
+					if (m_port1.equals(bfp.getPort1()) && !m_port2.equals(bfp.getPort2()))
+						orders.remove(Order.DIRECT);
+						m_compatibleorders.remove(Order.DIRECT);
+					if (!m_port1.equals(bfp.getPort1()) && !m_port2.equals(bfp.getPort2()))
+						orders.remove(Order.JOIN);
+						m_compatibleorders.remove(Order.JOIN);
+				}
+			}
+			return orders;
 		}
 		
 	}
+	
+	List<BridgeForwardingPath> m_bridgeForwardingPaths = new ArrayList<EnhancedLinkdServiceImpl.BridgeForwardingPath>();
 	
 	@Autowired
 	private NodeDao m_nodeDao;
