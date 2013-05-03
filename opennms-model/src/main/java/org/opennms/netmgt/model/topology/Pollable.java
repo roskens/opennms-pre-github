@@ -2,8 +2,13 @@ package org.opennms.netmgt.model.topology;
 
 import java.util.Date;
 
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+
+@MappedSuperclass
 public abstract class Pollable {
 
+	Integer m_id;
 	Date m_lastPoll;
 	Integer m_sourceNode;
 	
@@ -11,6 +16,20 @@ public abstract class Pollable {
 		m_lastPoll = new Date();
 		m_sourceNode = sourceNode;
 	}
+	
+	
+	@Id
+	public Integer getId() {
+		return m_id;
+	}
+
+
+
+	public void setId(Integer id) {
+		m_id = id;
+	}
+
+
 
 	public Integer getSourceNode() {
 		return m_sourceNode;

@@ -2,12 +2,17 @@ package org.opennms.netmgt.model.topology;
 
 import java.net.InetAddress;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
 import org.apache.commons.lang.builder.ToStringBuilder;
 import static org.opennms.core.utils.InetAddressUtils.str;
 
+@Entity
+@DiscriminatorValue("OSPF")
 public final class OspfElementIdentifier extends ElementIdentifier {
 
-	private final InetAddress m_ospfRouterId; 
+	private InetAddress m_ospfRouterId; 
 
 	public OspfElementIdentifier(InetAddress ospfRouterid,Integer sourceNode) {
 		super(ElementIdentifierType.OSPF,sourceNode);
@@ -16,6 +21,10 @@ public final class OspfElementIdentifier extends ElementIdentifier {
 
 	public InetAddress getOspfRouterId() {
 		return m_ospfRouterId;
+	}
+
+	public void setOspfRouterId(InetAddress ospfRouterId) {
+		m_ospfRouterId = ospfRouterId;
 	}
 
 	@Override

@@ -1,4 +1,4 @@
-package org.opennms.netmgt.model.topology;
+	package org.opennms.netmgt.model.topology;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -15,7 +15,7 @@ import java.util.Map;
  *
  */
 public abstract class Link extends Pollable {
-
+	
 		public final static class LinkType extends AbstractType 
 		implements Serializable {
 

@@ -1,10 +1,15 @@
 package org.opennms.netmgt.model.topology;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+@Entity
+@DiscriminatorValue("BRIDGE")
 public final class BridgeElementIdentifier extends ElementIdentifier {
 
-	private final String m_bridgeAddress;
+	private String m_bridgeAddress;
 
 	public BridgeElementIdentifier(String bridgeAddress, Integer sourceNode) {
 		super(ElementIdentifierType.BRIDGE, sourceNode);
@@ -13,6 +18,10 @@ public final class BridgeElementIdentifier extends ElementIdentifier {
 
 	public String getBridgeAddress() {
 		return m_bridgeAddress;
+	}
+
+	public void setBridgeAddress(String bridgeAddress) {
+		m_bridgeAddress = bridgeAddress;
 	}
 
 	@Override

@@ -2,12 +2,17 @@ package org.opennms.netmgt.model.topology;
 
 import java.net.InetAddress;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
 import org.apache.commons.lang.builder.ToStringBuilder;
 import static org.opennms.core.utils.InetAddressUtils.str;
 
+@Entity
+@DiscriminatorValue("INET")
 public final class InetElementIdentifier extends ElementIdentifier {
 
-	private final InetAddress m_inet;
+	private InetAddress m_inet;
 
 	public InetElementIdentifier(InetAddress inet,Integer sourceNode) {
 		super(ElementIdentifierType.INET,sourceNode);
@@ -16,6 +21,10 @@ public final class InetElementIdentifier extends ElementIdentifier {
 
 	public InetAddress getInet() {
 		return m_inet;
+	}
+
+	public void setInet(InetAddress inet) {
+		m_inet = inet;
 	}
 
 	@Override

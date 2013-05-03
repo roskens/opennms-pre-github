@@ -4,9 +4,16 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
+@Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 public abstract class ElementIdentifier extends Pollable {
 
+	@Embeddable
 	public final static class ElementIdentifierType extends AbstractType 
 	implements Serializable {
 
@@ -88,7 +95,7 @@ public abstract class ElementIdentifier extends Pollable {
         }		
 	}
 
-	private final ElementIdentifierType m_identifier;
+	private ElementIdentifierType m_identifier;
 	
 	public ElementIdentifier(ElementIdentifierType identifier, Integer sourceNode) {
 		super(sourceNode);
@@ -99,6 +106,10 @@ public abstract class ElementIdentifier extends Pollable {
 		return m_identifier;
 	}
 	
+	public void setType(ElementIdentifierType identifier) {
+		m_identifier = identifier
+				;
+	}
 	public boolean equals (Object o) {
 		if (o instanceof ElementIdentifier) {
 			if (((ElementIdentifier)o).getType().equals(getType()))

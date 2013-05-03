@@ -3,12 +3,18 @@ package org.opennms.netmgt.model.topology;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 
 /**
  * This class is a container of end points.  In the network, this
  * can be either a physical or virtual node/device/subnetwork/etc.
  */
+//@Entity
 public class Element {
+	
+	private int m_id;
 
 	private List<EndPoint> m_endpoints;
 
@@ -17,6 +23,14 @@ public class Element {
 	public Element() {
 		m_endpoints = new ArrayList<EndPoint>();
 		m_identifiers = new ArrayList<ElementIdentifier>();
+	}
+	
+	@Id
+	public int getId() {
+		return m_id;
+	}
+	public void setId(int m_id) {
+		this.m_id = m_id;
 	}
 	public List<EndPoint> getEndpoints() {
 		return m_endpoints;

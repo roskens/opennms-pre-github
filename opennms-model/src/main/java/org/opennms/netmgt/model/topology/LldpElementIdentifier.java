@@ -4,10 +4,17 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+@Entity
+@DiscriminatorValue("LLDP")
 public final class LldpElementIdentifier extends ElementIdentifier {
 
+	@Embeddable
 	public static class LldpChassisIdSubType extends AbstractType 
 	implements Serializable{
 	
@@ -140,10 +147,10 @@ public final class LldpElementIdentifier extends ElementIdentifier {
 
 	}
 
-	private final String m_lldpSysname;
+	private String m_lldpSysname;
     
-    private final String m_lldpChassisId;
-    private final LldpChassisIdSubType m_lldpChassisIdSubType;
+    private String m_lldpChassisId;
+    private LldpChassisIdSubType m_lldpChassisIdSubType;
 
     public LldpElementIdentifier(String lldpChassisId, String sysname, Integer subtype, Integer sourceNode) {
 		super(ElementIdentifierType.LLDP,sourceNode);
@@ -164,6 +171,18 @@ public final class LldpElementIdentifier extends ElementIdentifier {
 
 	public String getLldpChassisId() {
 		return m_lldpChassisId;
+	}
+
+	public void setLldpSysname(String lldpSysname) {
+		m_lldpSysname = lldpSysname;
+	}
+
+	public void setLldpChassisId(String lldpChassisId) {
+		m_lldpChassisId = lldpChassisId;
+	}
+
+	public void setLldpChassisIdSubType(LldpChassisIdSubType lldpChassisIdSubType) {
+		m_lldpChassisIdSubType = lldpChassisIdSubType;
 	}
 
 	@Override

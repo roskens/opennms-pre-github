@@ -4,10 +4,17 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+@Entity
+@DiscriminatorValue("CDP")
 public final class CdpElementIdentifier extends ElementIdentifier {
 
+	@Embeddable
 	public static class CiscoNetworkProtocolType extends AbstractType implements 
 	Serializable {
 		/*
@@ -190,7 +197,7 @@ public final class CdpElementIdentifier extends ElementIdentifier {
 
 	}
 	
-	private final String m_cdpDeviceId; 
+	private String m_cdpDeviceId; 
 	private CiscoNetworkProtocolType m_cdpAddressType;
 	private String m_cdpAddress;
 
@@ -208,6 +215,10 @@ public final class CdpElementIdentifier extends ElementIdentifier {
 
 	public String getCdpDeviceId() {
 		return m_cdpDeviceId;
+	}
+
+	public void setCdpDeviceId(String cdpDeviceId) {
+		m_cdpDeviceId = cdpDeviceId;
 	}
 
 	public String getCdpAddress() {

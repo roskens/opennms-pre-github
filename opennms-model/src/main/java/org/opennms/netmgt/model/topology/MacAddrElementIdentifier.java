@@ -1,24 +1,33 @@
 package org.opennms.netmgt.model.topology;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+@Entity
+@DiscriminatorValue("MAC")
 public final class MacAddrElementIdentifier extends ElementIdentifier {
 
-	private final String m_macAddr; 
+	private String m_macAddr; 
 
 	public MacAddrElementIdentifier(String mac, Integer sourceNode) {
 		super(ElementIdentifierType.MAC,sourceNode);
 		m_macAddr = mac;
 	}
 
-	public String getMacAddress() {
+	public String getMacAddr() {
 		return m_macAddr;
+	}
+
+	public void setMacAddr(String macAddr) {
+		m_macAddr = macAddr;
 	}
 
 	@Override
 	public boolean equals(ElementIdentifier elementIdentifier) {
 		if (elementIdentifier instanceof MacAddrElementIdentifier) 
-			return (m_macAddr.equals(((MacAddrElementIdentifier)elementIdentifier).getMacAddress()));
+			return (m_macAddr.equals(((MacAddrElementIdentifier)elementIdentifier).getMacAddr()));
 		return false;
 	}
 	

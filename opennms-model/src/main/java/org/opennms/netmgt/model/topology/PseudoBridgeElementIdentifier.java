@@ -1,11 +1,16 @@
 package org.opennms.netmgt.model.topology;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+@Entity
+@DiscriminatorValue("PSEUDOBRIDGE")
 public final class PseudoBridgeElementIdentifier extends ElementIdentifier {
 
-	private final String m_identifier; 
-	private final Integer m_port;
+	private  String m_identifier; 
+	private  Integer m_port;
 
 	public PseudoBridgeElementIdentifier(String mac, Integer port, Integer sourceNode) {
 		super(ElementIdentifierType.PSEUDO,sourceNode);
@@ -13,8 +18,20 @@ public final class PseudoBridgeElementIdentifier extends ElementIdentifier {
 		m_port = port;
 	}
 
-	public String getPseudoDeviceIndentifier() {
+	public String getIdentifier() {
 		return m_identifier;
+	}
+
+	public void setIdentifier(String identifier) {
+		m_identifier = identifier;
+	}
+
+	public Integer getPort() {
+		return m_port;
+	}
+
+	public void setPort(Integer port) {
+		m_port = port;
 	}
 
 	@Override
@@ -22,7 +39,7 @@ public final class PseudoBridgeElementIdentifier extends ElementIdentifier {
 		if (elementIdentifier instanceof PseudoBridgeElementIdentifier)
 			return (m_identifier
 					.equals(((PseudoBridgeElementIdentifier) elementIdentifier)
-							.getPseudoDeviceIndentifier()) && m_port
+							.getIdentifier()) && m_port
 					.equals(((PseudoBridgeElementIdentifier) elementIdentifier)
 							.getPort()));
 		return false;
@@ -42,7 +59,4 @@ public final class PseudoBridgeElementIdentifier extends ElementIdentifier {
 			.toString();
 	}
 
-	public Integer getPort() {
-		return m_port;
-	}
 }
