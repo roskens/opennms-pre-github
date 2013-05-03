@@ -1,21 +1,29 @@
 package org.opennms.netmgt.model.topology;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+@Entity
+@DiscriminatorValue("BRIDGE")
 public class BridgeEndPoint extends EndPoint {
+
+	private Integer m_bridgePort;
 
 	public BridgeEndPoint(Integer bridgePortId,Integer sourceNode) {
 		super(sourceNode);
 		m_bridgePort = bridgePortId;
 	}
 
-	private final Integer m_bridgePort;
-
-	
 	public Integer getBridgePort() {
 		return m_bridgePort;
 	}
 		
+	public void setBridgePort(Integer bridgePort) {
+		m_bridgePort = bridgePort;
+	}
+
 	@Override
 	public boolean equals(EndPoint endPoint) {
 		if (endPoint instanceof BridgeEndPoint) {

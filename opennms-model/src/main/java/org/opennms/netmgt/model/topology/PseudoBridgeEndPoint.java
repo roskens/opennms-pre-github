@@ -1,27 +1,37 @@
 package org.opennms.netmgt.model.topology;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+@Entity
+@DiscriminatorValue("PSEUDOBRIDGE")
 public class PseudoBridgeEndPoint extends EndPoint {
+
+	private Integer m_pseudoBridgePort;
 
 	public PseudoBridgeEndPoint(Integer bridgePortId,Integer sourceNode) {
 		super(sourceNode);
-		m_bridgePort = bridgePortId;
+		m_pseudoBridgePort = bridgePortId;
 	}
-
-	private final Integer m_bridgePort;
-
 	
-	public Integer getBridgePort() {
-		return m_bridgePort;
+	public Integer getPseudoBridgePort() {
+		return m_pseudoBridgePort;
 	}
 		
+	public void setPseudoBridgePort(Integer pseudoBridgePort) {
+		m_pseudoBridgePort = pseudoBridgePort;
+	}
+
+
+
 	@Override
 	public boolean equals(EndPoint endPoint) {
 		if (endPoint instanceof PseudoBridgeEndPoint) {
 			if ((getElement() != null && endPoint.getElement() != null && getElement().equals(endPoint.getElement())) 
 					|| (getElement() == null && endPoint.getElement() == null)) 
-			return m_bridgePort.equals(((PseudoBridgeEndPoint)endPoint).getBridgePort());
+			return m_pseudoBridgePort.equals(((PseudoBridgeEndPoint)endPoint).getPseudoBridgePort());
 		}
 		return false;
 	}
@@ -33,7 +43,7 @@ public class PseudoBridgeEndPoint extends EndPoint {
 	 */
 	public String toString() {
 		return new ToStringBuilder(this)
-			.append("bridgePort", m_bridgePort)
+			.append("bridgePort", m_pseudoBridgePort)
 			.append("lastPoll", m_lastPoll)
 			.append("sourceNode", m_sourceNode)
 			.toString();

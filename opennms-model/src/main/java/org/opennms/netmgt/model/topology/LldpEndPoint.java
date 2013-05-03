@@ -4,12 +4,17 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+@Entity
+@DiscriminatorValue("LLDP")
 public class LldpEndPoint extends EndPoint {
 
+	@Embeddable
 	public static class LldpPortIdSubType extends AbstractType 
 	implements Serializable{
 	
@@ -137,6 +142,9 @@ public class LldpEndPoint extends EndPoint {
 
 	}
 
+	private LldpPortIdSubType m_lldpPortIdSubType;
+	private String m_lldpPortId;
+
 	public LldpEndPoint(String lldpPortId, Integer lldpPortidSubType,Integer sourceNode) {
 		super(sourceNode);
 		m_lldpPortId = lldpPortId;
@@ -146,10 +154,6 @@ public class LldpEndPoint extends EndPoint {
 		else if (lldpPortidSubType.equals(LldpPortIdSubType.LOCAL))
 			setIfIndex(Integer.getInteger(lldpPortId));
 	}
-
-	private final LldpPortIdSubType m_lldpPortIdSubType;
-	private final String m_lldpPortId;
-
 	
 	public LldpPortIdSubType getLldpPortIdSubType() {
 		return m_lldpPortIdSubType;
@@ -157,6 +161,14 @@ public class LldpEndPoint extends EndPoint {
 		
 	public String getLldpPortId() {
 		return m_lldpPortId;
+	}
+
+	public void setLldpPortIdSubType(LldpPortIdSubType lldpPortIdSubType) {
+		m_lldpPortIdSubType = lldpPortIdSubType;
+	}
+
+	public void setLldpPortId(String lldpPortId) {
+		m_lldpPortId = lldpPortId;
 	}
 
 	@Override

@@ -5,13 +5,17 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 
 
 /**
  * This class is a container of end points.  In the network, this
  * can be either a physical or virtual node/device/subnetwork/etc.
  */
-//@Entity
+@Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 public class Element {
 	
 	private int m_id;
@@ -32,6 +36,8 @@ public class Element {
 	public void setId(int m_id) {
 		this.m_id = m_id;
 	}
+
+	@OneToMany
 	public List<EndPoint> getEndpoints() {
 		return m_endpoints;
 	}
@@ -40,8 +46,13 @@ public class Element {
 		m_endpoints = endpoints;
 	}
 	
+	@OneToMany
 	public List<ElementIdentifier> getElementIdentifiers() {
 		return m_identifiers;
+	}
+
+	public void setElementIdentifiers(List<ElementIdentifier> identifiers) {
+		m_identifiers = identifiers;
 	}
 
 	public boolean hasElementIdentifier(ElementIdentifier elementidentifier) {

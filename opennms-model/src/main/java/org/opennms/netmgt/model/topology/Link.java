@@ -1,8 +1,14 @@
-	package org.opennms.netmgt.model.topology;
+package org.opennms.netmgt.model.topology;
 
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.OneToOne;
 
 
 /**
@@ -14,8 +20,11 @@ import java.util.Map;
  * @author antonio
  *
  */
+@Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 public abstract class Link extends Pollable {
 	
+		@Embeddable
 		public final static class LinkType extends AbstractType 
 		implements Serializable {
 
@@ -103,13 +112,14 @@ public abstract class Link extends Pollable {
 	
 	private EndPoint m_b;
 	
-	private final LinkType m_linkType;
+	private LinkType m_linkType;
 	
 	public Link(LinkType linkType, Integer sourceNode) {
 		super(sourceNode);
 		m_linkType=linkType;
 	}
 	
+	@OneToOne
 	public EndPoint getA() {
 		return m_a;
 	}
@@ -118,6 +128,7 @@ public abstract class Link extends Pollable {
 		this.m_a = a;
 	}
 
+	@OneToOne
 	public EndPoint getB() {
 		return m_b;
 	}
@@ -130,6 +141,10 @@ public abstract class Link extends Pollable {
 		return m_linkType;
 	}
 	
+	public void setLinkType(LinkType linkType) {
+		m_linkType = linkType;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof Link) {

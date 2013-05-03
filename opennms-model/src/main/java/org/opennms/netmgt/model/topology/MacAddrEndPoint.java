@@ -8,7 +8,7 @@ public class MacAddrEndPoint extends EndPoint {
 
 	
 	private InetAddress m_ipAddr;
-	private final String m_macAddress;
+	private String m_macAddress;
 
 	public MacAddrEndPoint(String mac, Integer sourceNode) {
 		super(sourceNode);
@@ -29,6 +29,10 @@ public class MacAddrEndPoint extends EndPoint {
 		m_ipAddr = ipAddr;
 	}
 
+
+	public void setMacAddress(String macAddress) {
+		m_macAddress = macAddress;
+	}
 
 	@Override
 	public boolean equals(EndPoint endPoint) {

@@ -9,39 +9,39 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 @DiscriminatorValue("PSEUDOBRIDGE")
 public final class PseudoBridgeElementIdentifier extends ElementIdentifier {
 
-	private  String m_identifier; 
-	private  Integer m_port;
+	private  String m_linkedBridgeIdentifier; 
+	private  Integer m_linkedBridgePort;
 
-	public PseudoBridgeElementIdentifier(String mac, Integer port, Integer sourceNode) {
+	public PseudoBridgeElementIdentifier(String linkedBridgedIdentifier, Integer linkedBridgePort, Integer sourceNode) {
 		super(ElementIdentifierType.PSEUDO,sourceNode);
-		m_identifier = mac;
-		m_port = port;
+		m_linkedBridgeIdentifier = linkedBridgedIdentifier;
+		m_linkedBridgePort = linkedBridgePort;
 	}
 
-	public String getIdentifier() {
-		return m_identifier;
+	public String getLinkedBridgeIdentifier() {
+		return m_linkedBridgeIdentifier;
 	}
 
-	public void setIdentifier(String identifier) {
-		m_identifier = identifier;
+	public void setLinkedBridgeIdentifier(String identifier) {
+		m_linkedBridgeIdentifier = identifier;
 	}
 
-	public Integer getPort() {
-		return m_port;
+	public Integer getLinkedBridgePort() {
+		return m_linkedBridgePort;
 	}
 
-	public void setPort(Integer port) {
-		m_port = port;
+	public void setLinkedBridgePort(Integer port) {
+		m_linkedBridgePort = port;
 	}
 
 	@Override
 	public boolean equals(ElementIdentifier elementIdentifier) {
 		if (elementIdentifier instanceof PseudoBridgeElementIdentifier)
-			return (m_identifier
+			return (m_linkedBridgeIdentifier
 					.equals(((PseudoBridgeElementIdentifier) elementIdentifier)
-							.getIdentifier()) && m_port
+							.getLinkedBridgeIdentifier()) && m_linkedBridgePort
 					.equals(((PseudoBridgeElementIdentifier) elementIdentifier)
-							.getPort()));
+							.getLinkedBridgePort()));
 		return false;
 	}
 	
@@ -52,8 +52,8 @@ public final class PseudoBridgeElementIdentifier extends ElementIdentifier {
 	 */
 	public String toString() {
 		return new ToStringBuilder(this)
-			.append("identifier", m_identifier)
-			.append("port", m_port)
+			.append("identifier", m_linkedBridgeIdentifier)
+			.append("port", m_linkedBridgePort)
 			.append("lastPoll", m_lastPoll)
 			.append("sourceNode", m_sourceNode)
 			.toString();

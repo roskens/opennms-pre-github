@@ -106,12 +106,18 @@ public class OspfIfTableTracker extends TableTracker {
 
 			OspfEndPoint endPointA = ipAddrTableGetter.get(getEndPoint(nodeElementIdentifier.getNodeid()));
 			OspfEndPoint endPointB = null;
-			for (OspfEndPoint ospfEndPoint: nbrEndPoints) {
-				if (InetAddressUtils.getNetwork(ospfEndPoint.getOspfIpAddr(), endPointA.getOspfIpMask()).equals(endPointA.getOspfNet())) {
+			for (OspfEndPoint ospfEndPoint : nbrEndPoints) {
+				if (InetAddressUtils.getNetwork(ospfEndPoint.getOspfIpAddr(),
+						endPointA.getOspfIpMask()).equals(
+						InetAddressUtils.getNetwork(endPointA.getOspfIpAddr(),
+								endPointA.getOspfIpMask()))) {
 					endPointB = ospfEndPoint;
-		            LogUtils.infof(this, "processOspfIfRow: link nbr address found: %s", str(endPointB.getOspfIpAddr()));
+					LogUtils.infof(this,
+							"processOspfIfRow: link nbr address found: %s",
+							str(endPointB.getOspfIpAddr()));
 					endPointB.setOspfIpMask(endPointA.getOspfIpMask());
-					return new OspfLink(endPointA, endPointA,nodeElementIdentifier.getNodeid());
+					return new OspfLink(endPointA, endPointA,
+							nodeElementIdentifier.getNodeid());
 				}
 			}
 			

@@ -1,5 +1,11 @@
 package org.opennms.netmgt.model.topology;
 
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+
 /**
  * This class represents a destination in the network such as
  * an IP address or a physical port.
@@ -8,6 +14,8 @@ package org.opennms.netmgt.model.topology;
  * @author Antonio
  *
  */
+@Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 public abstract class EndPoint extends Pollable {
 	
 	public EndPoint(Integer sourceNode) {
@@ -51,7 +59,7 @@ public abstract class EndPoint extends Pollable {
 	 */
 	private String m_ifAlias;
 	
-
+	@ManyToOne
 	public Element getElement() {
 		return m_device;
 	}
@@ -60,6 +68,7 @@ public abstract class EndPoint extends Pollable {
 		m_device = device;
 	}
 	
+	@OneToOne
 	public Link getLink() {
 		return m_link;
 	}

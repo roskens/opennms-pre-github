@@ -1,12 +1,23 @@
 package org.opennms.netmgt.model.topology;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+@Entity
+@DiscriminatorValue("CDP")
 public class CdpEndPoint extends EndPoint {
 
-	private final String m_cdpCacheDevicePort;
+	private String m_cdpCacheDevicePort;
 	private Integer m_cdpCacheIfindex;
 	
+	public CdpEndPoint(String  cdpCacheDevicePort,Integer sourceNode) {
+		super(sourceNode);
+		m_cdpCacheDevicePort = cdpCacheDevicePort;
+		setIfName(cdpCacheDevicePort);
+	}
+		
 	public Integer getCdpCacheIfindex() {
 		return m_cdpCacheIfindex;
 	}
@@ -16,14 +27,12 @@ public class CdpEndPoint extends EndPoint {
 		setIfIndex(cdpCacheIfindex);
 	}
 
-	public CdpEndPoint(String  cdpCacheDevicePort,Integer sourceNode) {
-		super(sourceNode);
-		m_cdpCacheDevicePort = cdpCacheDevicePort;
-		setIfName(cdpCacheDevicePort);
-	}
-		
 	public String getCdpCacheDevicePort() {
 		return m_cdpCacheDevicePort;
+	}
+
+	public void setCdpCacheDevicePort(String cdpCacheDevicePort) {
+		m_cdpCacheDevicePort = cdpCacheDevicePort;
 	}
 
 	@Override

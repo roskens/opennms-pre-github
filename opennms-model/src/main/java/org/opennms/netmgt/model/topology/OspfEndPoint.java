@@ -2,15 +2,18 @@ package org.opennms.netmgt.model.topology;
 
 import java.net.InetAddress;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
 import org.apache.commons.lang.builder.ToStringBuilder;
-import org.opennms.core.utils.InetAddressUtils;
 
 import static org.opennms.core.utils.InetAddressUtils.str;
-
+@Entity
+@DiscriminatorValue("OSPF")
 public class OspfEndPoint extends EndPoint {
 
-	private final InetAddress m_ospfIpAddr;
-	private final Integer m_ospfAddressLessIndex;
+	private InetAddress m_ospfIpAddr;
+	private Integer m_ospfAddressLessIndex;
 	private InetAddress m_ospfIpMask; 
 	private Integer m_ospfIfIndex;
 	
@@ -46,14 +49,18 @@ public class OspfEndPoint extends EndPoint {
 		return m_ospfIpAddr;
 	}
 
-	public InetAddress getOspfNet() {
-		return InetAddressUtils.getNetwork(m_ospfIpAddr, m_ospfIpMask);
+	public void setOspfIpAddr(InetAddress ospfIpAddr) {
+		m_ospfIpAddr = ospfIpAddr;
 	}
+
 
 	public Integer getOspfAddressLessIndex() {
 		return m_ospfAddressLessIndex;
 	}
 
+	public void setOspfAddressLessIndex(Integer ospfAddressLessIndex) {
+		m_ospfAddressLessIndex = ospfAddressLessIndex;
+	}
 
 	@Override
 	public boolean equals(EndPoint endPoint) {
