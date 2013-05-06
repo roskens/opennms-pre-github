@@ -48,13 +48,13 @@ public class TopologyDaoHibernate extends HibernateDaoSupport implements Topolog
 
 	@Override
 	public Element get(ElementIdentifier elementIdentifier) {
-		return findUnique(Element.class, queryString, args);
+		return findUnique(Element.class, "from Element where element.elementIdentifier = ?", elementIdentifier);
 	}
 	
     protected <S> S findUnique(final Class <? extends S> type, final String queryString, final Object... args) {
-    	final HibernateCallback<S> callback = new HibernateCallback<S>() {
+        final HibernateCallback<S> callback = new HibernateCallback<S>() {
             public S doInHibernate(final Session session) throws HibernateException, SQLException {
-            	final Query query = session.createQuery(queryString);
+                final Query query = session.createQuery(queryString);
                 for (int i = 0; i < args.length; i++) {
                     query.setParameter(i, args[i]);
                 }

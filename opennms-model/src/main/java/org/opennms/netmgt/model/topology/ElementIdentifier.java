@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
@@ -11,6 +12,7 @@ import javax.persistence.InheritanceType;
 
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="identifierType")
 public abstract class ElementIdentifier extends Pollable {
 
 	@Embeddable
