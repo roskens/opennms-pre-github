@@ -221,9 +221,7 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 					endpoints.add(endpoint);
 			}
 		}
-		
-		m_topologyDao.delete(elementidentifiers,endpoints);
-		
+		delete(elementidentifiers,endpoints);
 	}
 
 	@Override
@@ -240,8 +238,16 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 					endpoints.add(endpoint);
 			}
 		}
-		
-		m_topologyDao.delete(elementidentifiers,endpoints);
+		delete(elementidentifiers,endpoints);
+	}
+	
+	protected void delete(List<ElementIdentifier> elementIdentifiers, List<EndPoint> endpoints) {
+		for (ElementIdentifier ei: elementIdentifiers) {
+			m_topologyDao.delete(ei);
+		}
+		for (EndPoint ep: endpoints) {
+			m_topologyDao.delete(ep);
+		}
 	}
 
 	@Override
@@ -438,8 +444,8 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 	public void store(PseudoMacLink link) {
 		/*
 		 * store(link=(({bridge port, mac}))
-		 * This is a standalone mac address found
-		 * must be saved in any case.
+		 * This is a mac address found
+		 * on a forwarding port.
 		 * 
 		 * If mac address is found on some pseudo device must be removed
 		 * the information must be checked to get the topology layout
@@ -519,7 +525,7 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 			}
 		}
 		
-		m_topologyDao.delete(elementidentifiers,endpoints);
+		delete(elementidentifiers,endpoints);
 
 	}
 
@@ -538,7 +544,7 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 			}
 		}
 		
-		m_topologyDao.delete(elementidentifiers,endpoints);
+		delete(elementidentifiers,endpoints);
 	}
 
 	@Override
@@ -556,7 +562,7 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 			}
 		}
 		
-		m_topologyDao.delete(elementidentifiers,endpoints);
+		delete(elementidentifiers,endpoints);
 	}
 
 	@Override
@@ -581,7 +587,7 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 			}
 		}
 
-		m_topologyDao.delete(elementidentifiers,endpoints);
+		delete(elementidentifiers,endpoints);
 
 	}
 	
@@ -611,7 +617,7 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 			}
 		}
 
-		m_topologyDao.delete(elementidentifiers,endpoints);
+		delete(elementidentifiers,endpoints);
 
 	}
 }
