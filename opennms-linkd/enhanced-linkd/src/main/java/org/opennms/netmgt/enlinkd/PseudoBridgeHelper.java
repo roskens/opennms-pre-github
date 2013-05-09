@@ -5,9 +5,8 @@ import java.util.Random;
 import org.opennms.netmgt.model.topology.BridgeElementIdentifier;
 import org.opennms.netmgt.model.topology.BridgeEndPoint;
 import org.opennms.netmgt.model.topology.Element;
-import org.opennms.netmgt.model.topology.Link;
+import org.opennms.netmgt.model.topology.ElementIdentifier;
 import org.opennms.netmgt.model.topology.MacAddrEndPoint;
-import org.opennms.netmgt.model.topology.NodeElementIdentifier;
 import org.opennms.netmgt.model.topology.PseudoBridgeElementIdentifier;
 import org.opennms.netmgt.model.topology.PseudoBridgeEndPoint;
 import org.opennms.netmgt.model.topology.PseudoBridgeLink;
@@ -33,37 +32,42 @@ public final class PseudoBridgeHelper {
 		return portA;
 	}
 	
-	public static PseudoMacLink getPseudoMacLink(
-			final NodeElementIdentifier nodeElementIdentifier,
-			final BridgeElementIdentifier bridgeElementIdentifier,
-			Integer bridgePort, Link link) {
-		Element elementA = new Element();
-		elementA.addElementIdentifier(new PseudoBridgeElementIdentifier(
-				bridgeElementIdentifier.getBridgeAddress(), bridgePort,
-				nodeElementIdentifier.getNodeid()));
-		PseudoBridgeEndPoint endPointA = new PseudoBridgeEndPoint(
-				RandomInteger.get(), nodeElementIdentifier.getNodeid());
-		elementA.addEndPoint(endPointA);
-		endPointA.setElement(elementA);
-		return new PseudoMacLink(endPointA, (MacAddrEndPoint) link.getB(),
-				nodeElementIdentifier.getNodeid());
+	public static PseudoBridgeElementIdentifier getPseudoBridgeElementIdentifier(BridgeEndPoint port) {
+		String baseBridgeAddress = "";
+		for (ElementIdentifier ei: port.getElement().getElementIdentifiers()) {
+			if (ei instanceof BridgeElementIdentifier) {
+				baseBridgeAddress = ((BridgeElementIdentifier)ei).getBridgeAddress();
+				break;
+			}
+		}
+		return new PseudoBridgeElementIdentifier(
+				baseBridgeAddress, port.getBridgePort(),port.getSourceNode());
 	}
-	
-	public static PseudoBridgeLink getPseudoBridgeLink(final NodeElementIdentifier nodeElementIdentifier,
-			final BridgeElementIdentifier bridgeElementIdentifier,
-			Integer bridgePort, Link link) {
-		
+
+	public static PseudoMacLink getPseudoMacLink(BridgeEndPoint port,
+			MacAddrEndPoint mac) {
 		Element elementA = new Element();
-		elementA.addElementIdentifier(new PseudoBridgeElementIdentifier(
-				bridgeElementIdentifier.getBridgeAddress(), bridgePort,
-				nodeElementIdentifier.getNodeid()));
+		elementA.addElementIdentifier(getPseudoBridgeElementIdentifier(port));
 
 		PseudoBridgeEndPoint endPointA = new PseudoBridgeEndPoint(
-				RandomInteger.get(), nodeElementIdentifier.getNodeid());
+				RandomInteger.get(), port.getSourceNode());
 		elementA.addEndPoint(endPointA);
 		endPointA.setElement(elementA);
-		return new PseudoBridgeLink(endPointA, (BridgeEndPoint) link.getA(),
-				nodeElementIdentifier.getNodeid());
+		return new PseudoMacLink(endPointA, mac, port.getSourceNode());
+	}
+
+	public static PseudoBridgeLink getPseudoBridgeLink(
+			BridgeEndPoint port) {
+		
+		Element elementA = new Element();
+		elementA.addElementIdentifier(getPseudoBridgeElementIdentifier(port));
+
+		PseudoBridgeEndPoint endPointA = new PseudoBridgeEndPoint(
+				RandomInteger.get(), port.getSourceNode());
+		elementA.addEndPoint(endPointA);
+		endPointA.setElement(elementA);
+		return new PseudoBridgeLink(endPointA, (BridgeEndPoint) port,
+				port.getSourceNode());
 	}
 }
 

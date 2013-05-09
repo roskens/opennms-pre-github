@@ -45,8 +45,10 @@ import org.opennms.netmgt.model.OnmsStpNode.BridgeBaseType;
 import org.opennms.netmgt.model.topology.BridgeDot1dTpFdbLink;
 import org.opennms.netmgt.model.topology.BridgeDot1qTpFdbLink;
 import org.opennms.netmgt.model.topology.BridgeElementIdentifier;
+import org.opennms.netmgt.model.topology.BridgeEndPoint;
 import org.opennms.netmgt.model.topology.BridgeStpLink;
 import org.opennms.netmgt.model.topology.Link;
+import org.opennms.netmgt.model.topology.MacAddrEndPoint;
 import org.opennms.netmgt.model.topology.NodeElementIdentifier;
 
 import org.opennms.netmgt.snmp.SnmpUtils;
@@ -341,8 +343,7 @@ public final class BridgeLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
 				// if backbone add as pseudo link
 				if (getBackBonePorts().contains(bridgePort)) {
 					m_linkd.getQueryManager().store(
-							getPseudoMacLink(nodeElementIdentifier,
-									bridgeElementIdentifier, bridgePort, link));
+							getPseudoMacLink((BridgeEndPoint)link.getA(), (MacAddrEndPoint)link.getB()));
 					return;
 				}
 				// if at least one parsed this is the second then is a backbone
@@ -351,15 +352,12 @@ public final class BridgeLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
 				// pseudo device
 				if (getParsedPort().containsKey(bridgePort)) {
 					m_linkd.getQueryManager().store(
-							getPseudoBridgeLink(nodeElementIdentifier,
-									bridgeElementIdentifier, bridgePort, link));
+							getPseudoBridgeLink((BridgeEndPoint)link.getA()));
 					m_linkd.getQueryManager().store(
-							getPseudoMacLink(nodeElementIdentifier,
-									bridgeElementIdentifier, bridgePort,
-									getParsedPort().get(bridgePort)));
+							getPseudoMacLink((BridgeEndPoint) link.getA(),
+									(MacAddrEndPoint)getParsedPort().get(bridgePort).getB()));
 					m_linkd.getQueryManager().store(
-							getPseudoMacLink(nodeElementIdentifier,
-									bridgeElementIdentifier, bridgePort, link));
+							getPseudoMacLink((BridgeEndPoint)link.getA(), (MacAddrEndPoint)link.getB()));
 					removeParsedPort(bridgePort);
 					addBackBonePort(bridgePort);
 					return;
@@ -418,8 +416,8 @@ public final class BridgeLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
 				// if backbone add as pseudo link
 				if (getBackBonePorts().contains(bridgePort)) {
 					m_linkd.getQueryManager().store(
-							getPseudoMacLink(nodeElementIdentifier,
-									bridgeElementIdentifier, bridgePort, link));
+							getPseudoMacLink((BridgeEndPoint) link.getA(),
+									(MacAddrEndPoint) link.getB()));
 					return;
 				}
 				// if at least one parsed this is the second then is a backbone
@@ -428,15 +426,17 @@ public final class BridgeLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
 				// pseudo device
 				if (getParsedPort().containsKey(bridgePort)) {
 					m_linkd.getQueryManager().store(
-							getPseudoBridgeLink(nodeElementIdentifier,
-									bridgeElementIdentifier, bridgePort, link));
+							getPseudoBridgeLink(
+									(BridgeEndPoint) link.getA()));
 					m_linkd.getQueryManager().store(
-							getPseudoMacLink(nodeElementIdentifier,
-									bridgeElementIdentifier, bridgePort,
-									getParsedPort().get(bridgePort)));
+							getPseudoMacLink(
+									(BridgeEndPoint) link.getA(),
+									(MacAddrEndPoint) getParsedPort().get(
+											bridgePort).getB()));
 					m_linkd.getQueryManager().store(
-							getPseudoMacLink(nodeElementIdentifier,
-									bridgeElementIdentifier, bridgePort, link));
+							getPseudoMacLink(
+									(BridgeEndPoint) link.getA(),
+									(MacAddrEndPoint) link.getB()));
 					removeParsedPort(bridgePort);
 					addBackBonePort(bridgePort);
 					return;
