@@ -53,7 +53,10 @@ public final class PseudoBridgeHelper {
 				RandomInteger.get(), port.getSourceNode());
 		elementA.addEndPoint(endPointA);
 		endPointA.setElement(elementA);
-		return new PseudoMacLink(endPointA, mac, port.getSourceNode());
+		PseudoMacLink pseudoMacLink = new PseudoMacLink(endPointA, mac, port.getSourceNode());
+		endPointA.setLink(pseudoMacLink);
+		mac.setLink(pseudoMacLink);
+		return pseudoMacLink;
 	}
 
 	public static PseudoBridgeLink getPseudoBridgeLink(
@@ -66,8 +69,11 @@ public final class PseudoBridgeHelper {
 				RandomInteger.get(), port.getSourceNode());
 		elementA.addEndPoint(endPointA);
 		endPointA.setElement(elementA);
-		return new PseudoBridgeLink(endPointA, (BridgeEndPoint) port,
+		PseudoBridgeLink pseudoBridgeLink = new PseudoBridgeLink(endPointA, (BridgeEndPoint) port,
 				port.getSourceNode());
+		endPointA.setLink(pseudoBridgeLink);
+		port.setLink(pseudoBridgeLink);
+		return pseudoBridgeLink;
 	}
 }
 

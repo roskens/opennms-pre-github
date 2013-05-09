@@ -413,6 +413,8 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 		List<EndPoint> topoendpoints = m_topologyDao.get(link.getB());
 		
 		if (topoendpoints.isEmpty()) {
+	    	LogUtils.infof(this,
+	                "store:storing Pseudo Link %s: no bridge endpoint found", link);
 			m_topologyDao.saveOrUpdate(link);
 			return;
 		}

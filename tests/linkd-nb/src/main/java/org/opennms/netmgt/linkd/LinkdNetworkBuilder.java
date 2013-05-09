@@ -48,18 +48,26 @@ import org.opennms.netmgt.model.OnmsIpInterface;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.OnmsSnmpInterface;
 import org.opennms.netmgt.model.SnmpInterfaceBuilder;
+import org.opennms.netmgt.model.topology.BridgeElementIdentifier;
+import org.opennms.netmgt.model.topology.BridgeEndPoint;
 import org.opennms.netmgt.model.topology.CdpElementIdentifier;
 import org.opennms.netmgt.model.topology.CdpEndPoint;
 import org.opennms.netmgt.model.topology.Element;
 import org.opennms.netmgt.model.topology.ElementIdentifier;
 import org.opennms.netmgt.model.topology.EndPoint;
+import org.opennms.netmgt.model.topology.InetElementIdentifier;
 import org.opennms.netmgt.model.topology.Link;
+import org.opennms.netmgt.model.topology.Link.LinkType;
 import org.opennms.netmgt.model.topology.LldpElementIdentifier;
 import org.opennms.netmgt.model.topology.LldpEndPoint;
+import org.opennms.netmgt.model.topology.MacAddrElementIdentifier;
+import org.opennms.netmgt.model.topology.MacAddrEndPoint;
 import org.opennms.netmgt.model.topology.NodeElementIdentifier;
 import org.opennms.netmgt.model.topology.ElementIdentifier.ElementIdentifierType;
 import org.opennms.netmgt.model.topology.OspfElementIdentifier;
 import org.opennms.netmgt.model.topology.OspfEndPoint;
+import org.opennms.netmgt.model.topology.PseudoBridgeElementIdentifier;
+import org.opennms.netmgt.model.topology.PseudoBridgeEndPoint;
 
 /**
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
@@ -346,6 +354,16 @@ public abstract class LinkdNetworkBuilder {
 			System.err.println("cdp: " + ((CdpElementIdentifier)iden).getCdpDeviceId()+" " + iden.getLastPoll());
 		else if (iden.getType().equals(ElementIdentifierType.OSPF))
 			System.err.println("ospf: " + str(((OspfElementIdentifier)iden).getOspfRouterId())+" " + iden.getLastPoll());    	
+		else if (iden.getType().equals(ElementIdentifierType.BRIDGE))
+			System.err.println("bridge: " + ((BridgeElementIdentifier)iden).getBridgeAddress()+" " + iden.getLastPoll());    	
+		else if (iden.getType().equals(ElementIdentifierType.MAC))
+			System.err.println("mac: " + ((MacAddrElementIdentifier)iden).getMacAddr()+" " + iden.getLastPoll());    	
+		else if (iden.getType().equals(ElementIdentifierType.INET))
+			System.err.println("inet: " + str(((InetElementIdentifier)iden).getInet())+" " + iden.getLastPoll());    	
+		else if (iden.getType().equals(ElementIdentifierType.PSEUDO)) {
+			System.err.println("pseudo bridge: " + ((PseudoBridgeElementIdentifier)iden).getLinkedBridgeIdentifier()+" " + iden.getLastPoll());    	
+			System.err.println("pseudo port: " + ((PseudoBridgeElementIdentifier)iden).getLinkedBridgePort()+" " + iden.getLastPoll());    	
+		}
     }
     
     private void printEndPoint(EndPoint ep) {
@@ -362,11 +380,20 @@ public abstract class LinkdNetworkBuilder {
     		System.err.println("Ospf Endpoint Address less IfIndex: " + ospfep.getOspfAddressLessIndex()+" " + ep.getLastPoll());
     		System.err.println("Ospf Endpoint net mask: " + str(ospfep.getOspfIpMask())+" " + ep.getLastPoll());
     		System.err.println("Ospf Endpoint IfIndex: " + ospfep.getOspfIfIndex()+" " + ep.getLastPoll());
+    	} else if (ep instanceof BridgeEndPoint) {
+    		BridgeEndPoint bridgeep = (BridgeEndPoint) ep;
+    		System.err.println("Bridge Endpoint port: " + bridgeep.getBridgePort()+" " + ep.getLastPoll());
+    	} else if (ep instanceof MacAddrEndPoint) {
+    		MacAddrEndPoint macep = (MacAddrEndPoint) ep;
+    		System.err.println("Mac Endpoint: " +macep.getMacAddress()+" " + ep.getLastPoll());
+    	} else if (ep instanceof PseudoBridgeEndPoint ) {
+    		PseudoBridgeEndPoint pseudoep = (PseudoBridgeEndPoint) ep;
+    		System.err.println("Pseudo Endpoint: " +pseudoep.getPseudoBridgePort()+" " + ep.getLastPoll());
     	}
     }
     
     private void printLink(Link link) {
-    	System.err.println("----------link--------");
+    	System.err.println("----------link "+ LinkType.getTypeString(link.getLinkType().getIntCode())+"--------");
     	System.err.println("Last Poll :" + link.getLastPoll());
     	System.err.println("----------A--------");
     	for (ElementIdentifier iden: link.getA().getElement().getElementIdentifiers()) {

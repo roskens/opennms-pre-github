@@ -37,6 +37,8 @@ import org.junit.Test;
 import org.opennms.core.test.MockLogAppender;
 import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.dao.topology.TopologyDaoInMemoryImpl;
+import org.opennms.netmgt.linkd.LinkdNetworkBuilder;
+import org.opennms.netmgt.model.topology.BridgeDot1dTpFdbLink;
 import org.opennms.netmgt.model.topology.BridgeDot1qTpFdbLink;
 import org.opennms.netmgt.model.topology.BridgeElementIdentifier;
 import org.opennms.netmgt.model.topology.BridgeEndPoint;
@@ -49,7 +51,7 @@ import org.opennms.netmgt.model.topology.NodeElementIdentifier;
 //@ContextConfiguration(locations= {
 //})
 //@JUnitConfigurationEnvironment
-public class DefaultServiceTest  {
+public class DefaultServiceTest extends LinkdNetworkBuilder {
     
 	TopologyDaoInMemoryImpl m_topologyDao;
 	EnhancedLinkdServiceImpl m_service;
@@ -59,7 +61,7 @@ public class DefaultServiceTest  {
 //        p.setProperty("log4j.logger.org.hibernate.SQL", "WARN");
 //        p.setProperty("log4j.logger.org.opennms.mock.snmp", "WARN");
 //       p.setProperty("log4j.logger.org.opennms.core.test.snmp", "WARN");
-//        p.setProperty("log4j.logger.org.opennms.netmgt", "WARN");
+        p.setProperty("log4j.logger.org.opennms.netmgt", "DEBUG");
 //        p.setProperty("log4j.logger.org.springframework","WARN");
 //        p.setProperty("log4j.logger.com.mchange.v2.resourcepool", "WARN");
         MockLogAppender.setupLogging(p);
@@ -70,13 +72,13 @@ public class DefaultServiceTest  {
         m_service.setNodeDao(null);
      }
 
-	private BridgeDot1qTpFdbLink getLink(Integer nodeid, String baseBridgeAddress, Integer port, String mac) {
+	private BridgeDot1dTpFdbLink getLink(Integer nodeid, String baseBridgeAddress, Integer port, String mac) {
  		
         BridgeEndPoint endPointA = getBridgeEndPoint(port, nodeid, baseBridgeAddress);
 		    		
 		MacAddrEndPoint endPointB = getMacAddressEndPoint(mac, nodeid);
 		
-		BridgeDot1qTpFdbLink link = new BridgeDot1qTpFdbLink(endPointA, endPointB,nodeid);
+		BridgeDot1dTpFdbLink link = new BridgeDot1dTpFdbLink(endPointA, endPointB,nodeid);
 		endPointA.setLink(link);
 		endPointB.setLink(link);
 		return link;
@@ -136,9 +138,18 @@ public class DefaultServiceTest  {
         String mac8 = "000daaaa0008"; // port B8 ---port AB
         String mac9 = "000daaaa0009"; // port B9 ---port AB
 
+        assertEquals(0, m_topologyDao.getTopology().size());
         //check parsing first A
        m_service.store(PseudoBridgeHelper.getPseudoBridgeLink(getBridgeEndPoint(portAB, nodeA, bridgeA)));
+       assertEquals(2, m_topologyDao.getTopology().size());
+
+       printEndPointTopology(m_topologyDao.getTopology());
+       printLinkTopology(m_topologyDao.getTopology());
+
        m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portAB, nodeA, bridgeA),getMacAddressEndPoint(mac6, nodeA)));
+       assertEquals(3, m_topologyDao.getTopology().size());
+       printEndPointTopology(m_topologyDao.getTopology());
+       printLinkTopology(m_topologyDao.getTopology());
        m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portAB, nodeA, bridgeA),getMacAddressEndPoint(mac7, nodeA)));
        m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portAB, nodeA, bridgeA),getMacAddressEndPoint(mac8, nodeA)));
        m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portAB, nodeA, bridgeA),getMacAddressEndPoint(mac9, nodeA)));
@@ -147,7 +158,11 @@ public class DefaultServiceTest  {
        m_service.store(getLink(nodeA, bridgeA, portA3, mac3));
        m_service.store(getLink(nodeA, bridgeA, portA4, mac4));
        m_service.store(getLink(nodeA, bridgeA, portA5, mac5));
-       
+
+       printEndPointTopology(m_topologyDao.getTopology());
+       printLinkTopology(m_topologyDao.getTopology());
+       assertEquals(11, m_topologyDao.getTopology().size());
+       /*
        //parsing B
        m_service.store(PseudoBridgeHelper.getPseudoBridgeLink(getBridgeEndPoint(portBA, nodeB, bridgeB)));
        m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portBA, nodeB, bridgeB),getMacAddressEndPoint(mac1, nodeB)));
@@ -159,7 +174,7 @@ public class DefaultServiceTest  {
        m_service.store(getLink(nodeB, bridgeB, portB7, mac7));
        m_service.store(getLink(nodeB, bridgeB, portB8, mac8));
        m_service.store(getLink(nodeB, bridgeB, portB9, mac9));
-
+		*/
     }
 
 }
