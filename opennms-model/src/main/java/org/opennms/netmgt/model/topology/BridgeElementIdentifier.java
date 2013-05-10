@@ -39,6 +39,7 @@ public final class BridgeElementIdentifier extends ElementIdentifier {
 	public String toString() {
 		return new ToStringBuilder(this)
 			.append("bridgeId", m_bridgeAddress)
+			.append("source", m_sourceNode)
 			.append("lastPoll", m_lastPoll)
 			.toString();
 	}

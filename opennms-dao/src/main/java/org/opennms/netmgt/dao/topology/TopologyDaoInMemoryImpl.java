@@ -131,7 +131,7 @@ public class TopologyDaoInMemoryImpl implements TopologyDao {
 		for (Element e: m_elements) {
 			for (EndPoint ep: e.getEndpoints()) {
 				if (ep.equals(endpoint)) {
-					endpoints.add(endpoint);
+					endpoints.add(ep);
 				}
 			}
 		}

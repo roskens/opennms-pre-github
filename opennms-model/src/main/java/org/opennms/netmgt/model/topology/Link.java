@@ -10,6 +10,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 
 /**
  * This class represents a physical link between 2 network end points
@@ -156,5 +158,16 @@ public abstract class Link extends Pollable {
 			}
 		}
 		return false;
+	}
+	
+	@Override
+	public String toString() {
+		return new ToStringBuilder(this)
+		.append("A", getA())
+		.append("B", getB())
+		.append("type", getLinkType())
+		.append("lastPoll", m_lastPoll)
+		.append("sourceNode", m_sourceNode)
+		.toString();
 	}
 }

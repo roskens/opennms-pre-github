@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.criterion.Restrictions;
 import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.dao.NodeDao;
@@ -145,6 +146,17 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 			return orders;
 		}
 		
+		public String toString() {
+			return new ToStringBuilder(this)
+			.append("port1", m_port1)
+			.append("port2", m_port2)
+			.append("mac", m_mac)
+			.append("DIRECT", getCompatibleorders().contains(Order.DIRECT))
+			.append("JOIN", getCompatibleorders().contains(Order.JOIN))
+			.append("REVERSED", getCompatibleorders().contains(Order.REVERSED))
+			.toString();
+
+		}
 	}
 	
 	List<BridgeForwardingPath> m_bridgeForwardingPaths = new ArrayList<EnhancedLinkdServiceImpl.BridgeForwardingPath>();
@@ -283,6 +295,8 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 		 */
 		List<EndPoint> topoendpoints = m_topologyDao.get(link.getB());
 		if (topoendpoints.isEmpty()) {
+			LogUtils.infof(this,
+	                "store:saving Bridge Dot1dTp Link %s: no mac endpoint found", link);
 			m_topologyDao.saveOrUpdate(link);
 			return;
 		}
@@ -324,13 +338,15 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 		 */
 		List<EndPoint> topoendpoints = m_topologyDao.get(link.getB());
 		if (topoendpoints.isEmpty()) {
+			LogUtils.infof(this,
+	                "store:saving Bridge Dot1qTp Link %s: no mac endpoint found", link);
 			m_topologyDao.saveOrUpdate(link);
 			return;
 		}
 		
 		if (topoendpoints.size() != 1) {
 	    	LogUtils.errorf(this,
-	                "store:Aborting store Dot1d Link %s: more then one mac endpoint found", link);
+	                "store:Aborting store Dot1q Link %s: more then one mac endpoint found", link);
 	    	return;
 		}
 		
@@ -366,6 +382,8 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 		List<EndPoint> topoendpoints = m_topologyDao.get(link.getB());
 		
 		if (topoendpoints.isEmpty()) {
+			LogUtils.infof(this,
+	                "store:saving Bridge Stp Link %s: no bridge endpoint found", link);
 			m_topologyDao.saveOrUpdate(link);
 			return;
 		}
@@ -414,7 +432,7 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 		
 		if (topoendpoints.isEmpty()) {
 	    	LogUtils.infof(this,
-	                "store:storing Pseudo Link %s: no bridge endpoint found", link);
+	                "store:saving Pseudo Link %s: no bridge endpoint found", link);
 			m_topologyDao.saveOrUpdate(link);
 			return;
 		}
@@ -453,8 +471,12 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 		 * the information must be checked to get the topology layout
 		 * 
 		 */
+		LogUtils.infof(this,
+                "searching for Mac endpoint %s", link.getB());
 		List<EndPoint> topoendpoints = m_topologyDao.get(link.getB());
 		if (topoendpoints.isEmpty()) {
+			LogUtils.infof(this,
+	                "store:saving Pseudo Mac Link %s: no mac endpoint found", link);
 			m_topologyDao.saveOrUpdate(link);
 			return;
 		}
@@ -467,11 +489,25 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 		
 		MacAddrEndPoint topologyMacAddrEndPoint = (MacAddrEndPoint) topoendpoints
 				.get(0);
+		LogUtils.infof(this,
+                "store:found Mac endpoint %s", topologyMacAddrEndPoint);
+		
 		if (topologyMacAddrEndPoint.hasLink()) {
 			Link linkpersisted = topologyMacAddrEndPoint.getLink();
-			if (linkpersisted instanceof BridgeDot1qTpFdbLink || linkpersisted instanceof BridgeDot1qTpFdbLink) {
+			LogUtils.infof(this,
+	                "store: found topology database Link %s", linkpersisted);					
+
+			BridgeEndPoint port1 = getBridgeEndPoint((PseudoBridgeElementIdentifier)link.getA().getElement().getElementIdentifiers().iterator().next());
+			
+			if (linkpersisted instanceof BridgeDot1qTpFdbLink || linkpersisted instanceof BridgeDot1dTpFdbLink) {
 				LogUtils.infof(this,
-		                "store:skipping Pseudo Mac Link %s:  found bridge direct link %s", link, linkpersisted);
+		                "store:not saving Pseudo Mac Link %s:  found bridge direct link %s", link, linkpersisted);
+				BridgeForwardingPath path = new BridgeForwardingPath(port1, (BridgeEndPoint)linkpersisted.getA(), topologyMacAddrEndPoint);
+				List<Order> orders = new ArrayList<Order>();
+				orders.add(Order.REVERSED);
+				path.setCompatibleOrder(orders);
+				checkTopology(path);
+				m_bridgeForwardingPaths.add(path);
 			} else if (linkpersisted instanceof PseudoMacLink) {
 				if (link.getA().getElement().equals(linkpersisted.getA().getElement())) {
 					LogUtils.infof(this,
@@ -480,7 +516,6 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 				} else {
 					LogUtils.infof(this,
 			                "store:checking topology for Pseudo Mac Link %s:  found persisted pseudo mac link %s", link, linkpersisted);					
-					BridgeEndPoint port1 = getBridgeEndPoint((PseudoBridgeElementIdentifier)link.getA().getElement().getElementIdentifiers().iterator().next());
 					for (ElementIdentifier elementIdentifier: topologyMacAddrEndPoint.getElement().getElementIdentifiers()) {
 						if ( elementIdentifier instanceof PseudoBridgeElementIdentifier ) {
 							BridgeEndPoint port2 = getBridgeEndPoint((PseudoBridgeElementIdentifier)elementIdentifier);
@@ -490,8 +525,13 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 					}
 				}
 			}
+			LogUtils.infof(this,
+	                "store:saving topology");
+			saveTopology();
 			return;
 		}
+		LogUtils.infof(this,
+                "updating topology for Pseudo Mac Link %s", link);					
 		m_topologyDao.saveOrUpdate(link);
 	}
 
@@ -505,9 +545,7 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 	
 	synchronized protected void saveTopology() {
 		for (BridgeForwardingPath storedpath: m_bridgeForwardingPaths) {
-			if (storedpath.getCompatibleorders().size() == 1 && storedpath.getCompatibleorders().contains(Order.DIRECT)) {
-				//try to be smart here........
-			}
+			LogUtils.infof(this, "saveTopology: found path %s", storedpath);
 		}
 	}
 
