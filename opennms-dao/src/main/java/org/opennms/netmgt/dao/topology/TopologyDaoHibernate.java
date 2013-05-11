@@ -80,4 +80,11 @@ public class TopologyDaoHibernate extends HibernateDaoSupport implements Topolog
 		return null;
 	}
 
+	@Override
+	public void mergeElements(ElementIdentifier elementIdentifier1,
+			ElementIdentifier elementIdentifier2) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
