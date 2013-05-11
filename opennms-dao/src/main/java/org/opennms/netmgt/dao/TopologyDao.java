@@ -26,4 +26,6 @@ public interface TopologyDao {
 	public List<EndPoint> get(EndPoint endpoint);
 
 	public List<Element> getTopology();
+	
+	public void mergeElements(ElementIdentifier elementIdentifier1, ElementIdentifier elementIdentifier2);
 }

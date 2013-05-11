@@ -36,6 +36,7 @@ import org.opennms.netmgt.model.topology.OspfElementIdentifier;
 import org.opennms.netmgt.model.topology.OspfEndPoint;
 import org.opennms.netmgt.model.topology.OspfLink;
 import org.opennms.netmgt.model.topology.PseudoBridgeElementIdentifier;
+import org.opennms.netmgt.model.topology.PseudoBridgeEndPoint;
 import org.opennms.netmgt.model.topology.PseudoBridgeLink;
 import org.opennms.netmgt.model.topology.PseudoMacLink;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,60 +91,97 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 			m_compatibleorders = orders;
 		}
 		
-		public List<Order> removeIncompatible(BridgeForwardingPath bfp) {
-			List<Order> orders = bfp.getCompatibleorders();
-			if (orders.size() == 1 && m_compatibleorders.size() > 1) {
-				for (Order order : orders){
-					switch(order) {
-						case DIRECT: 
-							if (!m_port2.equals(bfp.getPort2()))
-								m_compatibleorders.remove(Order.DIRECT);
-							break;
-						case JOIN: 
-							if (!m_port2.equals(bfp.getPort2()))
-								m_compatibleorders.remove(Order.DIRECT);
-							if (!m_port1.equals(bfp.getPort1()))
-								m_compatibleorders.remove(Order.REVERSED);
-						case REVERSED:
-							if (!m_port1.equals(bfp.getPort1()))
-								m_compatibleorders.remove(Order.REVERSED);
-							break;
-					}
+		public boolean isPath() {
+			return (m_compatibleorders.size() == 1);
+		}
+		
+		public Order getPath() {
+			if (m_compatibleorders.size() == 1) {
+				return m_compatibleorders.iterator().next();
+			}
+			return null;
+		}
+
+		public void removeOrder(Order order) {
+			m_compatibleorders.remove(order);
+		}
+		
+		public boolean isComparable(BridgeForwardingPath bfp) {
+			if ((m_port1.getElement().equals(bfp.getPort1().getElement()) && m_port2.getElement().equals(bfp.getPort2().getElement()) || 
+					(m_port2.getElement().equals(bfp.getPort1().getElement()) && m_port1.getElement().equals(bfp.getPort2().getElement()))))
+					return true;
+			return false;
+		}
+
+		public boolean hasSameBridgeElementOrder(BridgeForwardingPath bfp) {
+			return (m_port1.getElement().equals(bfp.getPort1().getElement()) && m_port2.getElement().equals(bfp.getPort2().getElement()));
+		}
+
+		public boolean hasReverseBridgeElementOrder(BridgeForwardingPath bfp) {
+			return (m_port2.getElement().equals(bfp.getPort1().getElement()) && m_port1.getElement().equals(bfp.getPort2().getElement()));
+		}
+
+		public BridgeForwardingPath removeIncompatibleOrders(BridgeForwardingPath bfp) {
+			if (!isComparable(bfp))
+				return bfp;
+			
+			if (hasSameBridgeElementOrder(bfp)) {
+				if (m_port2.equals(bfp.getPort2()) && !m_port1.equals(bfp.getPort1())) {
+					bfp.removeOrder(Order.REVERSED);
+					m_compatibleorders.remove(Order.REVERSED);
 				}
-			} else if (orders.size() > 1 && m_compatibleorders.size() == 1) {
-				for (Order order : m_compatibleorders){
-					switch(order) {
-						case DIRECT: 
-							if (!m_port2.equals(bfp.getPort2()))
-								orders.remove(Order.DIRECT);
-							break;
-						case JOIN: 
-							if (!m_port2.equals(bfp.getPort2()))
-								orders.remove(Order.DIRECT);
-							if (!m_port1.equals(bfp.getPort1()))
-								orders.remove(Order.REVERSED);
-						case REVERSED:
-							if (!m_port1.equals(bfp.getPort1()))
-								orders.remove(Order.REVERSED);
-							break;
-					}
+				if (m_port1.equals(bfp.getPort1()) && !m_port2.equals(bfp.getPort2())) {
+					bfp.removeOrder(Order.DIRECT);
+					m_compatibleorders.remove(Order.DIRECT);
 				}
-			} else if ( orders.size() > 1 && m_compatibleorders.size() > 1) {
-				if (m_port1.getElement().equals(bfp.getPort1().getElement())
-						&& m_port2.getElement().equals(bfp.getPort2().getElement())) {
-					if (m_port2.equals(bfp.getPort2()) && !m_port1.equals(bfp.getPort1())) {
-						orders.remove(Order.REVERSED);
-						m_compatibleorders.remove(Order.REVERSED);
-					}
-					if (m_port1.equals(bfp.getPort1()) && !m_port2.equals(bfp.getPort2()))
-						orders.remove(Order.DIRECT);
-						m_compatibleorders.remove(Order.DIRECT);
-					if (!m_port1.equals(bfp.getPort1()) && !m_port2.equals(bfp.getPort2()))
-						orders.remove(Order.JOIN);
-						m_compatibleorders.remove(Order.JOIN);
+				if (!m_port1.equals(bfp.getPort1()) && !m_port2.equals(bfp.getPort2())) {
+					bfp.removeOrder(Order.JOIN);
+					m_compatibleorders.remove(Order.JOIN);
+				}
+			} else if (hasReverseBridgeElementOrder(bfp)) {
+				if (m_port2.equals(bfp.getPort1()) && !m_port1.equals(bfp.getPort2())) {
+					bfp.removeOrder(Order.DIRECT);
+					m_compatibleorders.remove(Order.REVERSED);
+				}
+				if (m_port2.equals(bfp.getPort1()) && !m_port1.equals(bfp.getPort2())) {
+					bfp.removeOrder(Order.REVERSED);
+					m_compatibleorders.remove(Order.DIRECT);
+				}
+				if (!m_port2.equals(bfp.getPort1()) && !m_port1.equals(bfp.getPort2())) {
+					bfp.removeOrder(Order.JOIN);
+					m_compatibleorders.remove(Order.JOIN);
 				}
 			}
-			return orders;
+			
+			return bfp;
+		}
+
+		public void removeIncompatiblePath(BridgeForwardingPath bfp) {
+			switch(bfp.getPath()) {
+				case DIRECT: 
+					if (hasSameBridgeElementOrder(bfp) && !m_port2.equals(bfp.getPort2()))
+						m_compatibleorders.remove(Order.DIRECT);
+					if (hasReverseBridgeElementOrder(bfp) && !m_port1.equals(bfp.getPort2()))
+						m_compatibleorders.remove(Order.REVERSED);
+					break;
+				case JOIN: 
+					if (hasSameBridgeElementOrder(bfp) && !m_port2.equals(bfp.getPort2()))
+						m_compatibleorders.remove(Order.DIRECT);
+					if (hasSameBridgeElementOrder(bfp) && !m_port1.equals(bfp.getPort1()))
+						m_compatibleorders.remove(Order.REVERSED);
+					if (hasReverseBridgeElementOrder(bfp) && !m_port1.equals(bfp.getPort2())) {
+						m_compatibleorders.remove(Order.REVERSED);
+					if (hasReverseBridgeElementOrder(bfp) && !m_port2.equals(bfp.getPort1()))
+						m_compatibleorders.remove(Order.DIRECT);
+					break;
+					}
+				case REVERSED:
+					if (hasSameBridgeElementOrder(bfp) && !m_port1.equals(bfp.getPort1()))
+						m_compatibleorders.remove(Order.REVERSED);
+					if (hasReverseBridgeElementOrder(bfp) && !m_port2.equals(bfp.getPort1()))
+						m_compatibleorders.remove(Order.DIRECT);
+					break;
+			}
 		}
 		
 		public String toString() {
@@ -264,26 +302,33 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 
 	@Override
 	public void store(LldpLink link) {
+		LogUtils.infof(this,
+                "store:SaveOrUpdate Lldp Link %s", link);					
 		m_topologyDao.saveOrUpdate(link);
 	}
 
 	@Override
 	public void store(CdpLink link) {
+		LogUtils.infof(this,
+                "store:SaveOrUpdate Cdp Link %s", link);					
 		m_topologyDao.saveOrUpdate(link);
 	}
 
 	@Override
 	public void store(OspfLink link) {
+		LogUtils.infof(this,
+                "store:SaveOrUpdate Ospf Link %s", link);					
 		m_topologyDao.saveOrUpdate(link);
 	}
 
 	@Override
 	public void store(MacAddrEndPoint endpoint) {
+		LogUtils.infof(this,
+                "store:SaveOrUpdate Mac Address EndPoint %s", endpoint);					
 		m_topologyDao.saveOrUpdate(endpoint);
 	}
  
-	@Override
-	public void store(BridgeDot1dTpFdbLink link) {
+	private void storeBridgeMacLink(Link link) {
 		/*
 		 * store(link=(({bridge port, mac}))
 		 * This is a standalone mac address found
@@ -293,6 +338,8 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 		 * the information must be checked to get the topology layout
 		 * 
 		 */
+		LogUtils.infof(this,
+                "store: searching for Mac endpoint %s", link.getB());
 		List<EndPoint> topoendpoints = m_topologyDao.get(link.getB());
 		if (topoendpoints.isEmpty()) {
 			LogUtils.infof(this,
@@ -303,74 +350,53 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 		
 		if (topoendpoints.size() != 1) {
 	    	LogUtils.errorf(this,
-	                "store:Aborting store Dot1d Link %s: more then one mac endpoint found", link);
+	                "store:Aborting store Bridge Dot1d Link %s: more then one mac endpoint found", link);
 	    	return;
 		}
 		
 		MacAddrEndPoint topologyMacAddrEndPoint = (MacAddrEndPoint) topoendpoints
 				.get(0);
-		if (topologyMacAddrEndPoint.hasLink() && topologyMacAddrEndPoint.getLink() instanceof PseudoBridgeLink) {
-			for (ElementIdentifier elementIdentifier: topologyMacAddrEndPoint.getElement().getElementIdentifiers()) {
+		List<BridgeForwardingPath> paths = new ArrayList<EnhancedLinkdServiceImpl.BridgeForwardingPath>();
+		if (topologyMacAddrEndPoint.hasLink() && topologyMacAddrEndPoint.getLink() instanceof PseudoMacLink) {
+			LogUtils.infof(this,
+	                "store:found Pseudo Bridge Link %s", topologyMacAddrEndPoint.getLink());
+			for (ElementIdentifier elementIdentifier: topologyMacAddrEndPoint.getLink().getA().getElement().getElementIdentifiers()) {
+				LogUtils.infof(this,
+		                "store:parsing Pseudo Bridge Element Identifier %s", elementIdentifier);				
 				if (elementIdentifier instanceof PseudoBridgeElementIdentifier) {
 					BridgeEndPoint port2 = getBridgeEndPoint((PseudoBridgeElementIdentifier)elementIdentifier);
 					BridgeForwardingPath path = new BridgeForwardingPath((BridgeEndPoint)link.getA(), port2, topologyMacAddrEndPoint);
 					List<Order> orders = new ArrayList<Order>();
 					orders.add(Order.DIRECT);
 					path.setCompatibleOrder(orders);
-					checkTopology(path);
+					paths.add(path);
 				}
 			}
-			m_topologyDao.delete(topologyMacAddrEndPoint.getLink());
+			LogUtils.infof(this,
+	                "store:delete Pseudo Bridge EndPoint %s", topologyMacAddrEndPoint.getLink().getA());
+			m_topologyDao.delete(topologyMacAddrEndPoint.getLink().getA());
 		}	
+		LogUtils.infof(this,
+                "store:SaveOrUpdate Bridge Dot1d Tp Fdb Link %s", link);					
 		m_topologyDao.saveOrUpdate(link);
+		
+		for (BridgeForwardingPath path : paths) {
+			checkBridgeTopology(path, false);
+		}
+	}
+	
+	@Override
+	public void store(BridgeDot1dTpFdbLink link) {
+		storeBridgeMacLink(link);
 	}
 
 	@Override
 	public void store(BridgeDot1qTpFdbLink link) {
-		/*
-		 * store(link=(({bridge port, mac}))
-		 * This is a standalone mac address found
-		 * must be saved in any case.
-		 * 
-		 * If mac address is found on some pseudo device must be removed
-		 * the information must be checked to get the topology layout
-		 * 
-		 */
-		List<EndPoint> topoendpoints = m_topologyDao.get(link.getB());
-		if (topoendpoints.isEmpty()) {
-			LogUtils.infof(this,
-	                "store:saving Bridge Dot1qTp Link %s: no mac endpoint found", link);
-			m_topologyDao.saveOrUpdate(link);
-			return;
-		}
-		
-		if (topoendpoints.size() != 1) {
-	    	LogUtils.errorf(this,
-	                "store:Aborting store Dot1q Link %s: more then one mac endpoint found", link);
-	    	return;
-		}
-		
-		MacAddrEndPoint topologyMacAddrEndPoint = (MacAddrEndPoint) topoendpoints
-				.get(0);
-		if (topologyMacAddrEndPoint.hasLink() && topologyMacAddrEndPoint.getLink() instanceof PseudoBridgeLink) {
-			for (ElementIdentifier elementIdentifier: topologyMacAddrEndPoint.getElement().getElementIdentifiers()) {
-				if (elementIdentifier instanceof PseudoBridgeElementIdentifier) {
-					BridgeEndPoint port2 = getBridgeEndPoint((PseudoBridgeElementIdentifier)elementIdentifier);
-					BridgeForwardingPath path = new BridgeForwardingPath((BridgeEndPoint)link.getA(), port2, topologyMacAddrEndPoint);
-					List<Order> orders = new ArrayList<Order>();
-					orders.add(Order.DIRECT);
-					path.setCompatibleOrder(orders);
-					checkTopology(path);
-				}
-			}
-			m_topologyDao.delete(topologyMacAddrEndPoint.getLink());
-		}	
-		m_topologyDao.saveOrUpdate(link);
+		storeBridgeMacLink(link);
 	}
 
 	@Override
 	public void store(BridgeStpLink link) {
-	
 		/*
 		 * store(link=({bridge port a},{bridge port b}))
 		 * 
@@ -379,6 +405,8 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 		 * in this case you have to remove the pseudo device
 		 * 
 		 */
+		LogUtils.infof(this,
+                "store: searching for Bridge endpoint %s", link.getB());
 		List<EndPoint> topoendpoints = m_topologyDao.get(link.getB());
 		
 		if (topoendpoints.isEmpty()) {
@@ -427,19 +455,20 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 		 *     save(link)
 		 * 
 		 */
-		
+		LogUtils.infof(this,
+                "store: searching for Bridge endpoint %s", link.getB());
 		List<EndPoint> topoendpoints = m_topologyDao.get(link.getB());
 		
 		if (topoendpoints.isEmpty()) {
 	    	LogUtils.infof(this,
-	                "store:saving Pseudo Link %s: no bridge endpoint found", link);
+	                "store:saving Pseudo Bridge Link %s: no bridge endpoint found", link);
 			m_topologyDao.saveOrUpdate(link);
 			return;
 		}
 		
 		if (topoendpoints.size() != 1) {
 	    	LogUtils.errorf(this,
-	                "store:Aborting store Pseudo Link %s: more then one bridge endpoint found", link);
+	                "store:Aborting store Pseudo Bridge Link %s: more then one bridge endpoint found", link);
 	    	return;
 		}
 		
@@ -448,16 +477,18 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 		if (topologyBridgeEndPoint.hasLink()) {
 			if (topologyBridgeEndPoint.getLink() instanceof BridgeStpLink) {
 		    	LogUtils.infof(this,
-		                "store:Not saving Pseudo Link %s: bridge stp link %s found", link, topologyBridgeEndPoint.getLink());
+		                "store:Not saving Pseudo Bridge Link %s: bridge stp link %s found", link, topologyBridgeEndPoint.getLink());
 				return;
 			} else if (topologyBridgeEndPoint.getLink() instanceof BridgeDot1qTpFdbLink
 					|| topologyBridgeEndPoint.getLink() instanceof BridgeDot1qTpFdbLink) {
 		    	LogUtils.infof(this,
-		                "store:Pseudo Link %s: deleting old bridge direct link %s", link, topologyBridgeEndPoint.getLink());
+		                "store:Pseudo Bridge Link %s: deleting old bridge direct link %s", link, topologyBridgeEndPoint.getLink());
 				m_topologyDao.delete(topologyBridgeEndPoint.getLink());
 			}
 		}
-		m_topologyDao.saveOrUpdate(link);
+		LogUtils.infof(this,
+                "store:SaveOrUpdate Pseudo Bridge Link %s", link);
+				m_topologyDao.saveOrUpdate(link);
 	}
 
 	@Override
@@ -472,7 +503,7 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 		 * 
 		 */
 		LogUtils.infof(this,
-                "searching for Mac endpoint %s", link.getB());
+                "store:searching for Mac endpoint %s", link.getB());
 		List<EndPoint> topoendpoints = m_topologyDao.get(link.getB());
 		if (topoendpoints.isEmpty()) {
 			LogUtils.infof(this,
@@ -506,8 +537,7 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 				List<Order> orders = new ArrayList<Order>();
 				orders.add(Order.REVERSED);
 				path.setCompatibleOrder(orders);
-				checkTopology(path);
-				m_bridgeForwardingPaths.add(path);
+				checkBridgeTopology(path,true);
 			} else if (linkpersisted instanceof PseudoMacLink) {
 				if (link.getA().getElement().equals(linkpersisted.getA().getElement())) {
 					LogUtils.infof(this,
@@ -519,34 +549,74 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 					for (ElementIdentifier elementIdentifier: topologyMacAddrEndPoint.getElement().getElementIdentifiers()) {
 						if ( elementIdentifier instanceof PseudoBridgeElementIdentifier ) {
 							BridgeEndPoint port2 = getBridgeEndPoint((PseudoBridgeElementIdentifier)elementIdentifier);
-							BridgeForwardingPath path = checkTopology(new BridgeForwardingPath(port1, port2, topologyMacAddrEndPoint));
-							m_bridgeForwardingPaths.add(path);
+							checkBridgeTopology(new BridgeForwardingPath(port1, port2, topologyMacAddrEndPoint),true);
 						}
 					}
 				}
 			}
-			LogUtils.infof(this,
-	                "store:saving topology");
-			saveTopology();
 			return;
 		}
 		LogUtils.infof(this,
-                "updating topology for Pseudo Mac Link %s", link);					
+                "store:SaveOrUpdate Pseudo Mac Link %s", link);					
 		m_topologyDao.saveOrUpdate(link);
 	}
 
-	
-	synchronized protected BridgeForwardingPath checkTopology(BridgeForwardingPath path) {
+	synchronized protected void checkBridgeTopology(BridgeForwardingPath path, boolean addToTopology) {
+
+		LogUtils.infof(this,
+                "checkBridgeTopology topology for path %s", path);
 		for (BridgeForwardingPath storedpath: m_bridgeForwardingPaths) {
-			path.setCompatibleOrder(storedpath.removeIncompatible(path));
+			if (path.isPath())
+				storedpath.removeIncompatiblePath(path);
+			else
+				path = storedpath.removeIncompatibleOrders(path);
 		}
-		return path;
+		// Decide here if add or not
+		// save what you can save
+		if (addToTopology && path.isPath() && path.getPath().equals(Order.REVERSED)) {
+			for (BridgeForwardingPath storedpath: m_bridgeForwardingPaths) {
+				if (storedpath.isComparable(path) && storedpath.isPath() && storedpath.hasSameBridgeElementOrder(path) && storedpath.getPath().equals(Order.REVERSED)) {
+					LogUtils.infof(this, "checkBridgeTopology: not saving in bridge topology path %s", path);
+					return;
+				}
+			}
+		}
+		if (addToTopology) {
+			LogUtils.infof(this, "checkBridgeTopology: saving in bridge topology path %s", path);
+			m_bridgeForwardingPaths.add(path);
+		}
+		
+		LogUtils.errorf(this, "checkBridgeTopology: --------------------------");
+		for (BridgeForwardingPath storedpath : m_bridgeForwardingPaths) {
+			LogUtils.errorf(this,
+					"checkBridgeTopology: found bridge topology path %s",
+					storedpath);
+			if (path.isPath() && storedpath.isPath()
+					&& storedpath.isComparable(path)
+					&& storedpath.hasSameBridgeElementOrder(path)) {
+				if (path.getPath().equals(Order.DIRECT)
+						&& storedpath.getPath().equals(Order.REVERSED)) {
+					m_topologyDao
+							.mergeElements(
+									PseudoBridgeHelper
+											.getPseudoBridgeElementIdentifier(path
+													.getPort2()),
+									PseudoBridgeHelper
+											.getPseudoBridgeElementIdentifier(storedpath
+													.getPort1()));
+				}
+			}
+		}
+		LogUtils.errorf(this, "checkBridgeTopology: --------------------------");
 	}
-	
-	synchronized protected void saveTopology() {
-		for (BridgeForwardingPath storedpath: m_bridgeForwardingPaths) {
-			LogUtils.infof(this, "saveTopology: found path %s", storedpath);
-		}
+
+	protected void merge(BridgeEndPoint port1, BridgeEndPoint port2) {
+
+		PseudoBridgeElementIdentifier ei1 = PseudoBridgeHelper.getPseudoBridgeElementIdentifier(port1); 
+		PseudoBridgeLink link = PseudoBridgeHelper.getPseudoBridgeLink(port2);
+		link.getA().getElement().addElementIdentifier(ei1);
+		m_topologyDao.delete(PseudoBridgeHelper.getPseudoBridgeElementIdentifier(port2));
+		m_topologyDao.saveOrUpdate(link);
 	}
 
 	@Override
@@ -642,6 +712,8 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 						elementidentifiers.add(ei);
 					} else if (ei instanceof BridgeElementIdentifier) {
 						elementidentifiers.add(ei);
+					} else if (ei instanceof PseudoBridgeElementIdentifier) {
+						elementidentifiers.add(ei);
 					}
 				}
 			}
@@ -651,6 +723,8 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 					if ( ep instanceof MacAddrEndPoint) {
 						endpoints.add(ep);
 					} else if (ep instanceof BridgeEndPoint) {
+						endpoints.add(ep);
+					} else if (ep instanceof PseudoBridgeEndPoint) {
 						endpoints.add(ep);
 					} 
 				}

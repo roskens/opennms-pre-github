@@ -138,4 +138,31 @@ public class TopologyDaoInMemoryImpl implements TopologyDao {
 		return endpoints;
 	}
 
+	@Override
+	public void mergeElements(ElementIdentifier elementIdentifier1,
+			ElementIdentifier elementIdentifier2) {
+		List<Element> newTopology = new ArrayList<Element>();
+		Element element1 = null;
+		Element element2 = null;
+		for (Element e: m_elements) {
+			if (e.hasElementIdentifier(elementIdentifier1)) {
+				element1 = e;
+			} else if (e.hasElementIdentifier(elementIdentifier2)) {
+				element2 =e;
+			} else {
+				newTopology.add(e);
+			}
+		}
+		m_elements = newTopology;
+		
+		if (element1 != null && element2 != null) {
+			element1.addElementIdentifier(elementIdentifier2);
+			for (EndPoint ep: element2.getEndpoints()) {
+				ep.setElement(element1);
+				element1.addEndPoint(ep);
+			}
+		}
+		m_elements.add(element1);
+	}
+
 }

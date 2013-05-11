@@ -226,37 +226,33 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
        m_service.store(getLink(nodeA, bridgeA, portA5, mac5));
 
        assertEquals(11, m_topologyDao.getTopology().size());
-       /*
-       System.out.println("");
-       System.out.println("print end point topology one bridge parsed");
-       printEndPointTopology(m_topologyDao.getTopology());
-
-       System.out.println("");
-       System.out.println("print link topology one bridge parsed");
-       printLinkTopology(m_topologyDao.getTopology());
-       */
        
        //parsing B
        m_service.store(PseudoBridgeHelper.getPseudoBridgeLink(getBridgeEndPoint(portBA, nodeB, bridgeB)));
        assertEquals(13, m_topologyDao.getTopology().size());
+       
        m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portBA, nodeB, bridgeB),getMacAddressEndPoint(mac1, nodeB)));
-       System.out.println("");
-       System.out.println("print end point topology");
-       printEndPointTopology(m_topologyDao.getTopology());
-
-       System.out.println("");
-       System.out.println("print link topology");
-       printLinkTopology(m_topologyDao.getTopology());
-       /*
        m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portBA, nodeB, bridgeB),getMacAddressEndPoint(mac2, nodeB)));
        m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portBA, nodeB, bridgeB),getMacAddressEndPoint(mac3, nodeB)));
        m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portBA, nodeB, bridgeB),getMacAddressEndPoint(mac4, nodeB)));
        m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portBA, nodeB, bridgeB),getMacAddressEndPoint(mac5, nodeB)));
+       assertEquals(13, m_topologyDao.getTopology().size());
+       
        m_service.store(getLink(nodeB, bridgeB, portB6, mac6));
+       assertEquals(12, m_topologyDao.getTopology().size());
        m_service.store(getLink(nodeB, bridgeB, portB7, mac7));
        m_service.store(getLink(nodeB, bridgeB, portB8, mac8));
        m_service.store(getLink(nodeB, bridgeB, portB9, mac9));
-		*/
+
+       assertEquals(12, m_topologyDao.getTopology().size());
+
+       System.err.println("");
+       System.err.println("print end point topology");
+       printEndPointTopology(m_topologyDao.getTopology());
+
+       System.err.println("");
+       System.err.println("print link topology");
+       printLinkTopology(m_topologyDao.getTopology());
     }
 
 }
