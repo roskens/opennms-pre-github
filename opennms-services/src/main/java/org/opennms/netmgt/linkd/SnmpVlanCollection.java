@@ -263,6 +263,7 @@ public final class SnmpVlanCollection {
 	 * context synchornization must be added.
 	 * </p>
 	 */
+        @Override
 	public void run() {
 			m_dot1dBase = new Dot1dBaseGroup(m_address);
 			m_dot1dBaseTable = new Dot1dBasePortTable(m_address);
@@ -348,6 +349,7 @@ public final class SnmpVlanCollection {
 	 *
 	 * @return a boolean.
 	 */
+        @Override
 	public boolean isReady() {
 		return true;
 	}
