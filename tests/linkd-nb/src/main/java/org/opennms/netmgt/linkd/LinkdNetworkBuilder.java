@@ -361,35 +361,49 @@ public abstract class LinkdNetworkBuilder {
 		else if (iden.getType().equals(ElementIdentifierType.INET))
 			System.err.println("inet: " + str(((InetElementIdentifier)iden).getInet())+" " + iden.getLastPoll());    	
 		else if (iden.getType().equals(ElementIdentifierType.PSEUDO)) {
-			System.err.println("pseudo bridge: " + ((PseudoBridgeElementIdentifier)iden).getLinkedBridgeIdentifier()+" " + iden.getLastPoll());    	
-			System.err.println("pseudo port: " + ((PseudoBridgeElementIdentifier)iden).getLinkedBridgePort()+" " + iden.getLastPoll());    	
+			System.err.println("pseudo bridge/port: "
+					+ ((PseudoBridgeElementIdentifier) iden)
+							.getLinkedBridgeIdentifier()
+					+ "/"
+					+ ((PseudoBridgeElementIdentifier) iden)
+							.getLinkedBridgePort() + " " + iden.getLastPoll());
 		}
     }
     
     private void printEndPoint(EndPoint ep) {
-    	if (ep instanceof LldpEndPoint) {
-    		LldpEndPoint lldpep = (LldpEndPoint) ep;
-    		System.err.println("Lldp Endpoint: " + lldpep.getLldpPortId() + " " + ep.getLastPoll());
-    	} else if (ep instanceof CdpEndPoint) {
-    		CdpEndPoint cdpep = (CdpEndPoint) ep;
-    		System.err.println("Cdp Endpoint Port: " + cdpep.getCdpCacheDevicePort()+" " + ep.getLastPoll());
-    		System.err.println("Cdp Endpoint IfIndex: " + cdpep.getCdpCacheIfindex()+" " + ep.getLastPoll());
-    	} else if (ep instanceof OspfEndPoint ) {
-    		OspfEndPoint ospfep = (OspfEndPoint) ep;
-    		System.err.println("Ospf Endpoint ip Address: " + str(ospfep.getOspfIpAddr())+" " + ep.getLastPoll());
-    		System.err.println("Ospf Endpoint Address less IfIndex: " + ospfep.getOspfAddressLessIndex()+" " + ep.getLastPoll());
-    		System.err.println("Ospf Endpoint net mask: " + str(ospfep.getOspfIpMask())+" " + ep.getLastPoll());
-    		System.err.println("Ospf Endpoint IfIndex: " + ospfep.getOspfIfIndex()+" " + ep.getLastPoll());
-    	} else if (ep instanceof BridgeEndPoint) {
-    		BridgeEndPoint bridgeep = (BridgeEndPoint) ep;
-    		System.err.println("Bridge Endpoint port: " + bridgeep.getBridgePort()+" " + ep.getLastPoll());
-    	} else if (ep instanceof MacAddrEndPoint) {
-    		MacAddrEndPoint macep = (MacAddrEndPoint) ep;
-    		System.err.println("Mac Endpoint: " +macep.getMacAddress()+" " + ep.getLastPoll());
-    	} else if (ep instanceof PseudoBridgeEndPoint ) {
-    		PseudoBridgeEndPoint pseudoep = (PseudoBridgeEndPoint) ep;
-    		System.err.println("Pseudo Endpoint: " +pseudoep.getPseudoBridgePort()+" " + ep.getLastPoll());
-    	}
+		if (ep instanceof LldpEndPoint) {
+			LldpEndPoint lldpep = (LldpEndPoint) ep;
+			System.err.println("Lldp Endpoint: " + lldpep.getLldpPortId() + " "
+					+ ep.getLastPoll());
+		} else if (ep instanceof CdpEndPoint) {
+			CdpEndPoint cdpep = (CdpEndPoint) ep;
+			System.err.println("Cdp Endpoint Port/IfIndex: "
+					+ cdpep.getCdpCacheDevicePort() + "/"
+					+ cdpep.getCdpCacheIfindex() + " " + ep.getLastPoll());
+		} else if (ep instanceof OspfEndPoint) {
+			OspfEndPoint ospfep = (OspfEndPoint) ep;
+			System.err
+					.println("Ospf Endpoint ipAddress/Address less IfIndex/NetMask/IfIndex "
+							+ str(ospfep.getOspfIpAddr())
+							+ "/"
+							+ ospfep.getOspfAddressLessIndex()
+							+ "/"
+							+ str(ospfep.getOspfIpMask())
+							+ "/"
+							+ ospfep.getOspfIfIndex() + " " + ep.getLastPoll());
+		} else if (ep instanceof BridgeEndPoint) {
+			BridgeEndPoint bridgeep = (BridgeEndPoint) ep;
+			System.err.println("Bridge Endpoint port: "
+					+ bridgeep.getBridgePort() + " " + ep.getLastPoll());
+		} else if (ep instanceof MacAddrEndPoint) {
+			MacAddrEndPoint macep = (MacAddrEndPoint) ep;
+			System.err.println("Mac Endpoint: " + macep.getMacAddress() + " "
+					+ ep.getLastPoll());
+		} else if (ep instanceof PseudoBridgeEndPoint) {
+			PseudoBridgeEndPoint pseudoep = (PseudoBridgeEndPoint) ep;
+			System.err.println("Pseudo Endpoint: "
+					+ pseudoep.getPseudoBridgePort() + " " + ep.getLastPoll());
+		}
     }
     
     private void printLink(Link link) {

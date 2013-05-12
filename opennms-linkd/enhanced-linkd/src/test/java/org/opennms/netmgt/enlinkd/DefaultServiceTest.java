@@ -105,7 +105,7 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
 	}
 
 	@Test
-    public void testOneBridgeOne() throws Exception {
+    public void testOneBridgeOnePortOneMac() throws Exception {
         assertEquals(true, (m_service.getTopologyDao() != null));
 
         Integer nodeA  = 10;
@@ -122,23 +122,21 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
 
        m_service.store(getLink(nodeA, bridgeA, portA1, mac1));
        assertEquals(2, m_topologyDao.getTopology().size());
-       System.out.println("");
-       System.out.println("first link added");
-       printEndPointTopology(m_topologyDao.getTopology());
 
        m_service.store(getLink(nodeA, bridgeA, portA2, mac2));
        assertEquals(3, m_topologyDao.getTopology().size());
-       System.out.println("");
-       System.out.println("second link added");
+
+       System.err.println("");
+       System.err.println("printing element topology");
        printEndPointTopology(m_topologyDao.getTopology());
 
-       System.out.println("");
-       System.out.println("printing link topology");
+       System.err.println("");
+       System.err.println("printing link topology");
        printLinkTopology(m_topologyDao.getTopology());
 	}
 
 	@Test
-    public void testOneBridgeTwo() throws Exception {
+    public void testOneBridgeMoreMacOnePort() throws Exception {
         assertEquals(true, (m_service.getTopologyDao() != null));
 
         Integer nodeA  = 20;
@@ -149,36 +147,41 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
 
         String mac1 = "000daaaa0001"; // port A1 
         String mac2 = "000daaaa0002"; // port A1
+        String mac3 = "000daaaa0003"; // port A1
+        String mac4 = "000daaaa0004"; // port A1
 
         assertEquals(0, m_topologyDao.getTopology().size());
 
         m_service.store(PseudoBridgeHelper.getPseudoBridgeLink(getBridgeEndPoint(portA1, nodeA, bridgeA)));
         assertEquals(2, m_topologyDao.getTopology().size());
-       System.out.println("");
-       System.out.println("first link added from bridge to pseudo device");
-       printEndPointTopology(m_topologyDao.getTopology());
 
        m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portA1, nodeA, bridgeA),
     		   getMacAddressEndPoint(mac1, nodeA)));
        assertEquals(3, m_topologyDao.getTopology().size());
-       System.out.println("");
-       System.out.println("first pseudo link added");
-       printEndPointTopology(m_topologyDao.getTopology());
 
        m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portA1, nodeA, bridgeA),
     		   getMacAddressEndPoint(mac2, nodeA)));
        assertEquals(4, m_topologyDao.getTopology().size());
-       System.out.println("");
-       System.out.println("second pseudo link added");
+
+       m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portA1, nodeA, bridgeA),
+    		   getMacAddressEndPoint(mac3, nodeA)));
+       assertEquals(5, m_topologyDao.getTopology().size());
+
+       m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portA1, nodeA, bridgeA),
+    		   getMacAddressEndPoint(mac4, nodeA)));
+       assertEquals(6, m_topologyDao.getTopology().size());
+
+       System.err.println("");
+       System.err.println("printing element topology");
        printEndPointTopology(m_topologyDao.getTopology());
 
-       System.out.println("");
-       System.out.println("printing link topology");
+       System.err.println("");
+       System.err.println("printing link topology");
        printLinkTopology(m_topologyDao.getTopology());
 	}
 
 	@Test
-    public void testTwoBridges() throws Exception {
+    public void testTwoConnectedBridgeTopology() throws Exception {
         assertEquals(true, (m_service.getTopologyDao() != null));
 
         Integer nodeA  = 1111;
@@ -254,5 +257,58 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
        System.err.println("print link topology");
        printLinkTopology(m_topologyDao.getTopology());
     }
+	
+	@Test
+	public void TestThreeConnectedBridgeTopologyABC() {
+		Integer nodeA = 101;
+        String bridgeA = "000a00001101";
+
+        Integer nodeB = 102;
+        String bridgeB = "000a00001102";
+		
+        Integer nodeC = 103;
+        String bridgeC = "000a00001103";
+
+		Integer portA1 = 1;
+		Integer portAB = 10;
+		Integer portBA = 20;
+		Integer portB  = 2;
+		Integer portBC = 21;
+		Integer portCB = 30;
+		Integer portC  = 3;
+		
+        String mac1 = "000daaaa0001"; // port A ---port BA ---port CB
+        String mac2 = "000daaaa0002"; // port B ---port AB ---port CB
+        String mac3 = "000daaaa0003"; // port C ---port BA ---port BC
+
+        assertEquals(0, m_topologyDao.getTopology().size());
+       //A
+       m_service.store(PseudoBridgeHelper.getPseudoBridgeLink(getBridgeEndPoint(portAB, nodeA, bridgeA)));
+       assertEquals(2, m_topologyDao.getTopology().size());
+       m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portAB, nodeA, bridgeA),getMacAddressEndPoint(mac2, nodeA)));
+       m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portAB, nodeA, bridgeA),getMacAddressEndPoint(mac3, nodeA)));
+       assertEquals(4, m_topologyDao.getTopology().size());
+  
+       m_service.store(getLink(nodeA, bridgeA, portA1, mac1));
+       assertEquals(5, m_topologyDao.getTopology().size());
+       //B
+       m_service.store(getLink(nodeB, bridgeB, portBA, mac1));
+       m_service.store(getLink(nodeB, bridgeB, portB, mac2));
+       m_service.store(getLink(nodeB, bridgeB, portBC, mac3));
+       
+       //C
+       m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portBC, nodeC, bridgeC),getMacAddressEndPoint(mac1, nodeC)));
+       m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portBC, nodeC, bridgeC),getMacAddressEndPoint(mac2, nodeC)));
+       m_service.store(getLink(nodeC, bridgeC, portC, mac3));
+
+       System.err.println("");
+       System.err.println("print end point topology");
+       printEndPointTopology(m_topologyDao.getTopology());
+
+       System.err.println("");
+       System.err.println("print link topology");
+       printLinkTopology(m_topologyDao.getTopology());
+
+	}
 
 }
