@@ -414,6 +414,7 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
        m_service.store(getLink(nodeB, bridgeB, portBA, mac1));
        m_service.store(getLink(nodeB, bridgeB, portB, mac2));
        m_service.store(getLink(nodeB, bridgeB, portBC, mac3));
+       assertEquals(6, m_topologyDao.getTopology().size());
        
        //C
        m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portCB, nodeC, bridgeC),getMacAddressEndPoint(mac1, nodeC)));
@@ -427,6 +428,7 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
        System.err.println("");
        System.err.println("print link topology");
        printLinkTopology(m_topologyDao.getTopology());
+       assertEquals(8, m_topologyDao.getTopology().size());
 	}
 
 }
