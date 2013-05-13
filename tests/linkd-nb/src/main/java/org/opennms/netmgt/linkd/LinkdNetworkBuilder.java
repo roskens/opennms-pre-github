@@ -361,7 +361,7 @@ public abstract class LinkdNetworkBuilder {
 		else if (iden.getType().equals(ElementIdentifierType.INET))
 			System.err.println("inet: " + str(((InetElementIdentifier)iden).getInet())+" " + iden.getLastPoll());    	
 		else if (iden.getType().equals(ElementIdentifierType.PSEUDO)) {
-			System.err.println("pseudo bridge/port: "
+			System.err.println("pseudo linked bridge/port: "
 					+ ((PseudoBridgeElementIdentifier) iden)
 							.getLinkedBridgeIdentifier()
 					+ "/"
@@ -401,8 +401,8 @@ public abstract class LinkdNetworkBuilder {
 					+ ep.getLastPoll());
 		} else if (ep instanceof PseudoBridgeEndPoint) {
 			PseudoBridgeEndPoint pseudoep = (PseudoBridgeEndPoint) ep;
-			System.err.println("Pseudo Endpoint: "
-					+ pseudoep.getPseudoBridgePort() + " " + ep.getLastPoll());
+			System.err.println("Pseudo Endpoint:linked bridge/port/mac:  "
+					+ pseudoep.getLinkedBridgeIdentifier()+"/" + pseudoep.getLinkedBridgePort()+"/"+pseudoep.getLinkedMacAddress() + " " + ep.getLastPoll());
 		}
     }
     

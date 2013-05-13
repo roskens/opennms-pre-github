@@ -9,19 +9,44 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 @DiscriminatorValue("PSEUDOBRIDGE")
 public class PseudoBridgeEndPoint extends EndPoint {
 
-	private Integer m_pseudoBridgePort;
+	private  String m_linkedBridgeIdentifier; 
+	private Integer m_linkedBridgePort;
+	private String  m_linkedMacAddress;
 
-	public PseudoBridgeEndPoint(Integer bridgePortId,Integer sourceNode) {
+	public PseudoBridgeEndPoint(String linkedBridgeIdentifier, Integer linkedBridgePort,Integer sourceNode) {
 		super(sourceNode);
-		m_pseudoBridgePort = bridgePortId;
+		m_linkedBridgeIdentifier = linkedBridgeIdentifier;
+		m_linkedBridgePort = linkedBridgePort;
 	}
+
+	public PseudoBridgeEndPoint(String linkedMacAddress,Integer sourceNode) {
+		super(sourceNode);
+		m_linkedMacAddress = linkedMacAddress;
+	}
+
 	
-	public Integer getPseudoBridgePort() {
-		return m_pseudoBridgePort;
+	public String getLinkedBridgeIdentifier() {
+		return m_linkedBridgeIdentifier;
 	}
-		
-	public void setPseudoBridgePort(Integer pseudoBridgePort) {
-		m_pseudoBridgePort = pseudoBridgePort;
+
+	public void setLinkedBridgeIdentifier(String linkedBridgeIdentifier) {
+		m_linkedBridgeIdentifier = linkedBridgeIdentifier;
+	}
+
+	public String getLinkedMacAddress() {
+		return m_linkedMacAddress;
+	}
+
+	public void setLinkedMacAddress(String linkedMacAddress) {
+		m_linkedMacAddress = linkedMacAddress;
+	}
+
+	public Integer getLinkedBridgePort() {
+		return m_linkedBridgePort;
+	}
+
+	public void setLinkedBridgePort(Integer port) {
+		m_linkedBridgePort = port;
 	}
 
 
@@ -29,9 +54,20 @@ public class PseudoBridgeEndPoint extends EndPoint {
 	@Override
 	public boolean equals(EndPoint endPoint) {
 		if (endPoint instanceof PseudoBridgeEndPoint) {
-			if ((getElement() != null && endPoint.getElement() != null && getElement().equals(endPoint.getElement())) 
-					|| (getElement() == null && endPoint.getElement() == null)) 
-			return m_pseudoBridgePort.equals(((PseudoBridgeEndPoint)endPoint).getPseudoBridgePort());
+			PseudoBridgeEndPoint pseudoEndPoint = (PseudoBridgeEndPoint) endPoint;
+			if ((getElement() != null && endPoint.getElement() != null && getElement()
+					.equals(endPoint.getElement()))) {
+				if (m_linkedMacAddress != null
+						&& pseudoEndPoint.getLinkedMacAddress() != null)
+					return m_linkedMacAddress.equals((pseudoEndPoint
+							.getLinkedMacAddress()));
+				else if (m_linkedBridgeIdentifier != null
+						&& pseudoEndPoint.getLinkedBridgeIdentifier() != null
+						&& m_linkedBridgeIdentifier.equals(pseudoEndPoint
+								.getLinkedBridgeIdentifier()))
+					return m_linkedBridgePort.equals(pseudoEndPoint
+							.getLinkedBridgePort());
+			}
 		}
 		return false;
 	}
@@ -43,7 +79,9 @@ public class PseudoBridgeEndPoint extends EndPoint {
 	 */
 	public String toString() {
 		return new ToStringBuilder(this)
-			.append("bridgePort", m_pseudoBridgePort)
+			.append("linkedBridgeIdentifier", m_linkedBridgeIdentifier)
+			.append("linkedBridgePort", m_linkedBridgePort)
+			.append("linkedMacAddress", m_linkedMacAddress)
 			.append("lastPoll", m_lastPoll)
 			.append("sourceNode", m_sourceNode)
 			.toString();

@@ -1,7 +1,5 @@
 package org.opennms.netmgt.enlinkd;
 
-import java.util.Random;
-
 import org.opennms.netmgt.model.topology.BridgeElementIdentifier;
 import org.opennms.netmgt.model.topology.BridgeEndPoint;
 import org.opennms.netmgt.model.topology.Element;
@@ -14,13 +12,6 @@ import org.opennms.netmgt.model.topology.PseudoMacLink;
 
 public final class PseudoBridgeHelper {
 
-	public final static class RandomInteger {
-		  
-		  public static final Integer get() {
-		    Random randomGenerator = new Random();
-		      return randomGenerator.nextInt();
-		  }
-		}
 
 	public static BridgeEndPoint getBridgeEndPoint(PseudoBridgeElementIdentifier eiA) {
 		BridgeElementIdentifier bridgeA = new BridgeElementIdentifier(eiA.getLinkedBridgeIdentifier(), eiA.getSourceNode());
@@ -50,7 +41,7 @@ public final class PseudoBridgeHelper {
 		elementA.addElementIdentifier(getPseudoBridgeElementIdentifier(port));
 
 		PseudoBridgeEndPoint endPointA = new PseudoBridgeEndPoint(
-				RandomInteger.get(), port.getSourceNode());
+				mac.getMacAddress(), port.getSourceNode());
 		elementA.addEndPoint(endPointA);
 		endPointA.setElement(elementA);
 		PseudoMacLink pseudoMacLink = new PseudoMacLink(endPointA, mac, port.getSourceNode());
@@ -63,10 +54,11 @@ public final class PseudoBridgeHelper {
 			BridgeEndPoint port) {
 		
 		Element elementA = new Element();
-		elementA.addElementIdentifier(getPseudoBridgeElementIdentifier(port));
+		PseudoBridgeElementIdentifier pid = getPseudoBridgeElementIdentifier(port);
+		elementA.addElementIdentifier(pid);
 
-		PseudoBridgeEndPoint endPointA = new PseudoBridgeEndPoint(
-				RandomInteger.get(), port.getSourceNode());
+		PseudoBridgeEndPoint endPointA = new PseudoBridgeEndPoint(pid.getLinkedBridgeIdentifier(),
+				pid.getLinkedBridgePort(), port.getSourceNode());
 		elementA.addEndPoint(endPointA);
 		endPointA.setElement(elementA);
 		PseudoBridgeLink pseudoBridgeLink = new PseudoBridgeLink(endPointA, (BridgeEndPoint) port,
