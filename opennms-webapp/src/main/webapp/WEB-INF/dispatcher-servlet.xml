@@ -460,6 +460,12 @@
                 </bean>
 
                 <bean class="org.opennms.web.navigate.LocationBasedNavBarEntry">
+                    <property name="name" value="Node Browser"/>
+                    <property name="url" value="element/nodebrowser.jsp"/>
+                    <property name="locationMatch" value="nodebrowser"/>
+                </bean>
+
+                <bean class="org.opennms.web.navigate.LocationBasedNavBarEntry">
                     <property name="name" value="Search"/>
                     <property name="url" value="element/index.jsp"/>
                     <property name="locationMatch" value="element"/>
