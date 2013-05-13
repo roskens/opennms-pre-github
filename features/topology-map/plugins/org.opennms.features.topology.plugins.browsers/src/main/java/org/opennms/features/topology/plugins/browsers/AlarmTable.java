@@ -64,6 +64,7 @@ public class AlarmTable extends SelectionAwareTable implements HasExtraComponent
 
 		public CheckboxButton(String string) {
 			super(string);
+			setColumnCollapsingAllowed(false);
 			addListener(new ClickListener() {
 
 				private static final long serialVersionUID = 4351558084135658129L;
@@ -174,7 +175,6 @@ public class AlarmTable extends SelectionAwareTable implements HasExtraComponent
 	 *  Leave OnmsDaoContainer without generics; the Aries blueprint code cannot match up
 	 *  the arguments if you put the generic types in.
 	 */
-	@SuppressWarnings("unchecked")
 	public AlarmTable(final String caption, final OnmsDaoContainer container, final AlarmRepository alarmRepo) {
 		super(caption, container);
 
