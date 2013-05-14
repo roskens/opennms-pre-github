@@ -39,8 +39,6 @@
                 <configuration>
                     <bundles>
                         <bundle>mvn:org.opennms.features/vaadin-nodebrowser/${project.version}</bundle>
-                        <bundle>wrap:mvn:org.vaadin.addons/customfield/${vaadin.customfield.version}</bundle>
-                        <bundle>wrap:mvn:org.vaadin.addons/messagebox/${vaadin.messagebox.version}</bundle>
                     </bundles>
                     <features>
                         <feature>vaadin</feature>
@@ -104,16 +102,6 @@
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.vaadin.addons</groupId>
-            <artifactId>customfield</artifactId>
-            <version>${vaadin.customfield.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.vaadin.addons</groupId>
-            <artifactId>messagebox</artifactId>
-            <version>${vaadin.messagebox.version}</version>
         </dependency>
 
         <dependency>

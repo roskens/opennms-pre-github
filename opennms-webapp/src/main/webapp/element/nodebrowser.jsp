@@ -37,7 +37,7 @@
 <jsp:include page="/includes/header.jsp" flush="false" >
     <jsp:param name="title" value="Node Browser" />
     <jsp:param name="headTitle" value="Node Browser" />
-    <jsp:param name="location" value="element" />
+    <jsp:param name="location" value="nodebrowser" />
     <jsp:param name="breadcrumb" value="Node Browser" />
     <jsp:param name="vaadinEmbeddedStyles" value="true" />
 </jsp:include>
