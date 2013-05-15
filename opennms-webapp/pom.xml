@@ -13,9 +13,9 @@
     <moduleName>org.opennms.dashboard.Dashboard</moduleName>
     <moduleHtml>index.html</moduleHtml>
     <web.port>8080</web.port>
-		<!-- this is used by runInPlace.sh to get the overwise provided 
+    <!-- this is used by runInPlace.sh to get the overwise provided
 				 onms libs into the WEB-INF/lib for jetty -->
-		<onmsLibScope>provided</onmsLibScope>
+    <onmsLibScope>provided</onmsLibScope>
   </properties>
   <build>
     <plugins>
@@ -69,8 +69,8 @@
         </executions>
       </plugin>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-clean-plugin</artifactId>
-        <version>2.4.1</version>
         <configuration>
           <filesets>
             <fileset>
@@ -99,7 +99,6 @@
         <groupId>org.opennms.maven.plugins</groupId>
         <artifactId>castor-maven-plugin</artifactId>
       </plugin>
-
       <!-- plugin to use to run webapp in an embedded tomcat -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -131,7 +130,6 @@
           </systemProperties>
         </configuration>
       </plugin>
-
       <plugin>
         <groupId>com.sun.tools.jxc.maven2</groupId>
         <artifactId>maven-jaxb-schemagen-plugin</artifactId>
@@ -199,93 +197,96 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>build-helper-maven-plugin</artifactId>
-        <version>1.7</version>
         <executions>
-            <execution>
-                <id>attach-artifacts</id>
-                <phase>package</phase>
-                <goals>
-                    <goal>attach-artifact</goal>
-                </goals>
-                <configuration>
-                    <artifacts>
-                        <artifact>
-                            <file>target/opennms-webapp-1.13.0-SNAPSHOT/WEB-INF/lib/opennms-webapp-1.13.0-SNAPSHOT.jar</file>
-                            <type>jar</type>
-                        </artifact>
-                    </artifacts>
-                </configuration>
-            </execution>
-            <execution>
-              <id>add-source</id>
-              <phase>generate-sources</phase>
-              <goals>
-                <goal>add-source</goal>
-              </goals>
-              <configuration>
-                <sources>
-                  <source>${project.build.directory}/generated-sources/castor</source>
-                </sources>
-              </configuration>
-            </execution>
+          <execution>
+            <id>attach-artifacts</id>
+            <phase>package</phase>
+            <goals>
+              <goal>attach-artifact</goal>
+            </goals>
+            <configuration>
+              <artifacts>
+                <artifact>
+                  <file>target/opennms-webapp-1.13.0-SNAPSHOT/WEB-INF/lib/opennms-webapp-1.13.0-SNAPSHOT.jar</file>
+                  <type>jar</type>
+                </artifact>
+              </artifacts>
+            </configuration>
+          </execution>
+          <execution>
+            <id>add-source</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>add-source</goal>
+            </goals>
+            <configuration>
+              <sources>
+                <source>${project.build.directory}/generated-sources/castor</source>
+              </sources>
+            </configuration>
+          </execution>
         </executions>
       </plugin>
     </plugins>
-    <pluginManagement>
-    	<plugins>
-    		<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-    		<plugin>
-    			<groupId>org.eclipse.m2e</groupId>
-    			<artifactId>lifecycle-mapping</artifactId>
-    			<version>1.0.0</version>
-    			<configuration>
-    				<lifecycleMappingMetadata>
-    					<pluginExecutions>
-    						<pluginExecution>
-    							<pluginExecutionFilter>
-    								<groupId>
-    									org.opennms.maven.plugins
-    								</groupId>
-    								<artifactId>
-    									castor-maven-plugin
-    								</artifactId>
-    								<versionRange>[1.0,)</versionRange>
-    								<goals>
-    									<goal>generate</goal>
-    								</goals>
-    							</pluginExecutionFilter>
-    							<action>
-    								<ignore></ignore>
-    							</action>
-    						</pluginExecution>
-    						<pluginExecution>
-    							<pluginExecutionFilter>
-    								<groupId>
-    									org.apache.maven.plugins
-    								</groupId>
-    								<artifactId>
-    									maven-dependency-plugin
-    								</artifactId>
-    								<versionRange>[2.4,)</versionRange>
-    								<goals>
-    									<goal>copy</goal>
-    								</goals>
-    							</pluginExecutionFilter>
-    							<action>
-    								<ignore></ignore>
-    							</action>
-    						</pluginExecution>
-    					</pluginExecutions>
-    				</lifecycleMappingMetadata>
-    			</configuration>
-    		</plugin>
-    	</plugins>
-    </pluginManagement>
   </build>
   <profiles>
     <profile>
+      <id>m2e</id>
+      <activation>
+        <property>
+          <name>m2e.version</name>
+        </property>
+      </activation>
+      <build>
+        <pluginManagement>
+          <plugins>
+            <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+            <plugin>
+              <groupId>org.eclipse.m2e</groupId>
+              <artifactId>lifecycle-mapping</artifactId>
+              <version>1.0.0</version>
+              <configuration>
+                <lifecycleMappingMetadata>
+                  <pluginExecutions>
+                    <pluginExecution>
+                      <pluginExecutionFilter>
+                        <groupId>org.opennms.maven.plugins</groupId>
+                        <artifactId>castor-maven-plugin</artifactId>
+                        <versionRange>[1.0,)</versionRange>
+                        <goals>
+                          <goal>generate</goal>
+                        </goals>
+                      </pluginExecutionFilter>
+                      <action>
+                        <ignore/>
+                      </action>
+                    </pluginExecution>
+                    <pluginExecution>
+                      <pluginExecutionFilter>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <versionRange>[2.4,)</versionRange>
+                        <goals>
+                          <goal>copy</goal>
+                        </goals>
+                      </pluginExecutionFilter>
+                      <action>
+                        <ignore></ignore>
+                      </action>
+                    </pluginExecution>
+                  </pluginExecutions>
+                </lifecycleMappingMetadata>
+              </configuration>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+      </build>
+    </profile>
+    <profile>
       <id>jspc</id>
-      <activation><activeByDefault>true</activeByDefault></activation>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
       <build>
         <plugins>
           <plugin>
@@ -337,10 +338,8 @@
     </profile>
   </profiles>
   <dependencies>
-
     <!-- indirect OpenNMS dependencies that belong in $OPENNMS_HOME/lib -->
     <!-- these should all be <scope>${onmsLibScope}</scope> and also included in opennms-base-assembly -->
-
     <dependency>
       <groupId>org.opennms</groupId>
       <artifactId>opennms-dao</artifactId>
@@ -448,7 +447,7 @@
       <groupId>org.opennms.features</groupId>
       <artifactId>org.opennms.features.instrumentationLogReader</artifactId>
       <scope>${onmsLibScope}</scope>
-    </dependency>   
+    </dependency>
     <dependency>
       <groupId>org.opennms.features</groupId>
       <artifactId>org.opennms.features.node-page-list</artifactId>
@@ -506,10 +505,8 @@
       <artifactId>org.opennms.features.system-report</artifactId>
       <scope>${onmsLibScope}</scope>
     </dependency>
-
     <!-- indirect 3rd-party dependencies that belong in $OPENNMS_HOME/lib -->
     <!-- these should all be <scope>${onmsLibScope}</scope> and also included in opennms-base-assembly -->
-
     <dependency>
       <groupId>commons-beanutils</groupId>
       <artifactId>commons-beanutils</artifactId>
@@ -632,7 +629,6 @@
       <artifactId>struts</artifactId>
       <scope>${onmsLibScope}</scope>
     </dependency>
-
     <!-- test dependencies -->
     <dependency>
       <groupId>com.google.gwt</groupId>
