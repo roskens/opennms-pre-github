@@ -422,7 +422,7 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 		                "store:PseudoBridge->Mac: updating Link: %s", link);					
 				m_topologyDao.saveOrUpdate(link);
 			} else {
-				BridgeEndPoint port2 = getBridgeEndPointFromPseudoMac((PseudoMacEndPoint)link.getA());
+				BridgeEndPoint port2 = getBridgeEndPointFromPseudoMac((PseudoMacEndPoint)dblink.getA());
 				addBridgeForwardingPath(checkBridgeTopology(new BridgeForwardingPath(port, port2, dbMacEndPoint)));
 			}
 		}
@@ -689,6 +689,8 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 					m_topologyDao
 							.mergeElements(pseudobridge1,
 									pseudobridge2);
+					
+					//TODO fix local topology with the changes....
 					continue;
 				}
 			} 
