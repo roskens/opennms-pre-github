@@ -68,6 +68,7 @@ import org.opennms.netmgt.model.topology.OspfElementIdentifier;
 import org.opennms.netmgt.model.topology.OspfEndPoint;
 import org.opennms.netmgt.model.topology.PseudoBridgeElementIdentifier;
 import org.opennms.netmgt.model.topology.PseudoBridgeEndPoint;
+import org.opennms.netmgt.model.topology.PseudoMacEndPoint;
 
 /**
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
@@ -401,7 +402,11 @@ public abstract class LinkdNetworkBuilder {
 					+ ep.getLastPoll());
 		} else if (ep instanceof PseudoBridgeEndPoint) {
 			PseudoBridgeEndPoint pseudoep = (PseudoBridgeEndPoint) ep;
-			System.err.println("Pseudo Endpoint:linked bridge/port/mac:  "
+			System.err.println("Pseudo Bridge Endpoint:linked bridge/port:  "
+					+ pseudoep.getLinkedBridgeIdentifier()+"/" + pseudoep.getLinkedBridgePort()+ " " + ep.getLastPoll());
+		} else if (ep instanceof PseudoMacEndPoint) {
+			PseudoMacEndPoint pseudoep = (PseudoMacEndPoint) ep;
+			System.err.println("Pseudo Mac Endpoint:linked bridge/port/mac:  "
 					+ pseudoep.getLinkedBridgeIdentifier()+"/" + pseudoep.getLinkedBridgePort()+"/"+pseudoep.getLinkedMacAddress() + " " + ep.getLastPoll());
 		}
     }

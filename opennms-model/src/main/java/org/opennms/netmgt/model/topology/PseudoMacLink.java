@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 @DiscriminatorValue("PSEUDOMAC")
 public class PseudoMacLink extends Link {
 
-	public PseudoMacLink(PseudoBridgeEndPoint a, MacAddrEndPoint b, Integer sourceNode) {
+	public PseudoMacLink(PseudoMacEndPoint a, MacAddrEndPoint b, Integer sourceNode) {
 		super(LinkType.PSEUDO_MAC, sourceNode);
 		setA(a);
 		setB(b);

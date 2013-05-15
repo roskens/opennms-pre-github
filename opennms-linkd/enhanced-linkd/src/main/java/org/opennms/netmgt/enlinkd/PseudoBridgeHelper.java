@@ -8,6 +8,7 @@ import org.opennms.netmgt.model.topology.MacAddrEndPoint;
 import org.opennms.netmgt.model.topology.PseudoBridgeElementIdentifier;
 import org.opennms.netmgt.model.topology.PseudoBridgeEndPoint;
 import org.opennms.netmgt.model.topology.PseudoBridgeLink;
+import org.opennms.netmgt.model.topology.PseudoMacEndPoint;
 import org.opennms.netmgt.model.topology.PseudoMacLink;
 
 public final class PseudoBridgeHelper {
@@ -23,6 +24,27 @@ public final class PseudoBridgeHelper {
 		return portA;
 	}
 	
+	public static BridgeEndPoint getBridgeEndPointFromPseudoBridge(PseudoBridgeEndPoint epA) {
+		BridgeElementIdentifier bridgeA = new BridgeElementIdentifier(epA.getLinkedBridgeIdentifier(), epA.getSourceNode());
+		BridgeEndPoint portA = new BridgeEndPoint(epA.getLinkedBridgePort(), epA.getSourceNode());
+		Element elementA = new Element();
+		elementA.addElementIdentifier(bridgeA);
+		elementA.addEndPoint(portA);
+		portA.setElement(elementA);
+		return portA;
+	}
+
+	public static BridgeEndPoint getBridgeEndPointFromPseudoMac(PseudoMacEndPoint epA) {
+		BridgeElementIdentifier bridgeA = new BridgeElementIdentifier(epA.getLinkedBridgeIdentifier(), epA.getSourceNode());
+		BridgeEndPoint portA = new BridgeEndPoint(epA.getLinkedBridgePort(), epA.getSourceNode());
+		Element elementA = new Element();
+		elementA.addElementIdentifier(bridgeA);
+		elementA.addEndPoint(portA);
+		portA.setElement(elementA);
+		return portA;
+	}
+
+
 	public static PseudoBridgeElementIdentifier getPseudoBridgeElementIdentifier(BridgeEndPoint port) {
 		String baseBridgeAddress = "";
 		for (ElementIdentifier ei: port.getElement().getElementIdentifiers()) {
@@ -40,8 +62,8 @@ public final class PseudoBridgeHelper {
 		Element elementA = new Element();
 		elementA.addElementIdentifier(getPseudoBridgeElementIdentifier(port));
 
-		PseudoBridgeEndPoint endPointA = new PseudoBridgeEndPoint(
-				mac.getMacAddress(), port.getSourceNode());
+		PseudoMacEndPoint endPointA = new PseudoMacEndPoint(
+				mac.getMacAddress(), getPseudoBridgeElementIdentifier(port).getLinkedBridgeIdentifier(), port.getBridgePort(),port.getSourceNode());
 		elementA.addEndPoint(endPointA);
 		endPointA.setElement(elementA);
 		PseudoMacLink pseudoMacLink = new PseudoMacLink(endPointA, mac, port.getSourceNode());
