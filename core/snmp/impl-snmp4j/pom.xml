@@ -40,13 +40,13 @@
     <dependency>
       <groupId>org.snmp4j</groupId>
       <artifactId>snmp4j</artifactId>
-      <version>1.11.1</version>
+      <version>1.11.3</version>
     </dependency>
     <dependency>
       <groupId>org.snmp4j</groupId>
       <artifactId>snmp4j-agent</artifactId>
       <scope>test</scope>
-      <version>1.4.1</version>
+      <version>1.4.3</version>
     </dependency>
     <dependency>
       <groupId>org.opennms.dependencies</groupId>

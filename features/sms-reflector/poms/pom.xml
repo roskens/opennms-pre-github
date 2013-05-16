@@ -15,7 +15,6 @@
     <module>compiled</module>
   </modules>
   <properties>
-    <spring.version>3.0.7.RELEASE</spring.version>
     <spring.osgi.version>1.2.1</spring.osgi.version>
   </properties>
   <build>
@@ -80,25 +79,25 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>org.springframework.aop</artifactId>
-        <version>${spring.version}</version>
+        <version>${springVersion}</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>org.springframework.beans</artifactId>
-        <version>${spring.version}</version>
+        <version>${springVersion}</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>org.springframework.core</artifactId>
-        <version>${spring.version}</version>
+        <version>${springVersion}</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>org.springframework.context</artifactId>
-        <version>${spring.version}</version>
+        <version>${springVersion}</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
