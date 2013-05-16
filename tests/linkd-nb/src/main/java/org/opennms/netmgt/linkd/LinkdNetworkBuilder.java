@@ -327,7 +327,6 @@ public abstract class LinkdNetworkBuilder {
         return endpoints;
 	
     }
-
     
     protected List<Link> printLinkTopology(final List<Element> topology) {
 
@@ -346,7 +345,7 @@ public abstract class LinkdNetworkBuilder {
 	
     }
 
-    private void printElementIdentifier(ElementIdentifier iden) {
+    protected void printElementIdentifier(ElementIdentifier iden) {
     	if (iden.getType().equals(ElementIdentifierType.NODE)) 
 			System.err.println("node: " + ((NodeElementIdentifier)iden).getNodeid()+" " + iden.getLastPoll());
 		else if (iden.getType().equals(ElementIdentifierType.LLDP))
@@ -371,7 +370,7 @@ public abstract class LinkdNetworkBuilder {
 		}
     }
     
-    private void printEndPoint(EndPoint ep) {
+    protected void printEndPoint(EndPoint ep) {
 		if (ep instanceof LldpEndPoint) {
 			LldpEndPoint lldpep = (LldpEndPoint) ep;
 			System.err.println("Lldp Endpoint: " + lldpep.getLldpPortId() + " "
@@ -400,14 +399,14 @@ public abstract class LinkdNetworkBuilder {
 			MacAddrEndPoint macep = (MacAddrEndPoint) ep;
 			System.err.println("Mac Endpoint: " + macep.getMacAddress() + " "
 					+ ep.getLastPoll());
-		} else if (ep instanceof PseudoBridgeEndPoint) {
-			PseudoBridgeEndPoint pseudoep = (PseudoBridgeEndPoint) ep;
-			System.err.println("Pseudo Bridge Endpoint:linked bridge/port:  "
-					+ pseudoep.getLinkedBridgeIdentifier()+"/" + pseudoep.getLinkedBridgePort()+ " " + ep.getLastPoll());
 		} else if (ep instanceof PseudoMacEndPoint) {
 			PseudoMacEndPoint pseudoep = (PseudoMacEndPoint) ep;
 			System.err.println("Pseudo Mac Endpoint:linked bridge/port/mac:  "
 					+ pseudoep.getLinkedBridgeIdentifier()+"/" + pseudoep.getLinkedBridgePort()+"/"+pseudoep.getLinkedMacAddress() + " " + ep.getLastPoll());
+		} else if (ep instanceof PseudoBridgeEndPoint) {
+			PseudoBridgeEndPoint pseudoep = (PseudoBridgeEndPoint) ep;
+			System.err.println("Pseudo Bridge Endpoint:linked bridge/port:  "
+					+ pseudoep.getLinkedBridgeIdentifier()+"/" + pseudoep.getLinkedBridgePort()+ " " + ep.getLastPoll());
 		}
     }
     

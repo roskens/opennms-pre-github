@@ -30,12 +30,14 @@ package org.opennms.netmgt.enlinkd;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.List;
 import java.util.Properties;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.opennms.core.test.MockLogAppender;
 import org.opennms.netmgt.dao.topology.TopologyDaoInMemoryImpl;
+import org.opennms.netmgt.enlinkd.EnhancedLinkdServiceImpl.BridgeForwardingPath;
 import org.opennms.netmgt.linkd.LinkdNetworkBuilder;
 import org.opennms.netmgt.model.topology.BridgeDot1dTpFdbLink;
 import org.opennms.netmgt.model.topology.BridgeElementIdentifier;
@@ -354,40 +356,7 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
        System.err.println("print link topology");
        printLinkTopology(m_topologyDao.getTopology());
     }
-	@Test
-	public void TestOneConnectedBridgeTopologyABC() {
-		Integer nodeA = 101;
-        String bridgeA = "000a00001101";
 
-		
-		Integer portA1 = 1;
-		Integer portAB = 10;
-		
-        String mac1 = "000daaaa0001"; // port A ---port BA ---port CB
-        String mac2 = "000daaaa0002"; // port B ---port AB ---port CB
-        String mac3 = "000daaaa0003"; // port C ---port BA ---port BC
-
-        assertEquals(0, m_topologyDao.getTopology().size());
-       //A
-       m_service.store(PseudoBridgeHelper.getPseudoBridgeLink(getBridgeEndPoint(portAB, nodeA, bridgeA)));
-       assertEquals(2, m_topologyDao.getTopology().size());
-       m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portAB, nodeA, bridgeA),getMacAddressEndPoint(mac2, nodeA)));
-       m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portAB, nodeA, bridgeA),getMacAddressEndPoint(mac3, nodeA)));
-       assertEquals(4, m_topologyDao.getTopology().size());
-  
-       m_service.store(getLink(nodeA, bridgeA, portA1, mac1));
-       assertEquals(5, m_topologyDao.getTopology().size());
-
-       System.err.println("");
-       System.err.println("print end point topology");
-       printEndPointTopology(m_topologyDao.getTopology());
-
-       System.err.println("");
-       System.err.println("print link topology");
-       printLinkTopology(m_topologyDao.getTopology());
-	}
-
-	
 	@Test
 	public void TestTwoConnectedBridgeTopologyAB() {
 		Integer nodeA = 101;
@@ -397,10 +366,10 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
         String bridgeB = "000a00001102";
 		
 		Integer portA1 = 1;
-		Integer portAB = 10;
-		Integer portBA = 20;
+		Integer portAB = 12;
+		Integer portBA = 21;
 		Integer portB  = 2;
-		Integer portBC = 21;
+		Integer portBC = 23;
 		
         String mac1 = "000daaaa0001"; // port A ---port BA ---port CB
         String mac2 = "000daaaa0002"; // port B ---port AB ---port CB
@@ -420,15 +389,19 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
        m_service.store(getLink(nodeB, bridgeB, portBA, mac1));
        m_service.store(getLink(nodeB, bridgeB, portB, mac2));
        m_service.store(getLink(nodeB, bridgeB, portBC, mac3));
-       assertEquals(6, m_topologyDao.getTopology().size());
+		assertEquals(6, m_topologyDao.getTopology().size());
+		
+		System.err.println("");
+		System.err.println("print end point topology");
+		assertEquals(10, printEndPointTopology(m_topologyDao.getTopology()).size());
 
-       System.err.println("");
-       System.err.println("print end point topology");
-       printEndPointTopology(m_topologyDao.getTopology());
-
-       System.err.println("");
-       System.err.println("print link topology");
-       printLinkTopology(m_topologyDao.getTopology());
+		System.err.println("");
+		System.err.println("print link topology");
+		assertEquals(5,printLinkTopology(m_topologyDao.getTopology()).size());
+		
+	    System.err.println("");
+	    System.err.println("print saved local topology");
+		assertEquals(0,printBridgeForwardingPaths(m_service.getBridgeForwardingPaths()).size());
 	}
 
 	@Test
@@ -440,8 +413,8 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
         String bridgeC = "000a00001103";
 		
 		Integer portA1 = 1;
-		Integer portAB = 10;
-		Integer portCB = 30;
+		Integer portAB = 12;
+		Integer portCB = 32;
 		Integer portC  = 3;
 		
         String mac1 = "000daaaa0001"; // port A ---port BA ---port CB
@@ -464,16 +437,74 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
        m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portCB, nodeC, bridgeC),getMacAddressEndPoint(mac2, nodeC)));
        m_service.store(getLink(nodeC, bridgeC, portC, mac3));
        assertEquals(6, m_topologyDao.getTopology().size());
+		
+		System.err.println("");
+		System.err.println("print end point topology");
+		assertEquals(10, printEndPointTopology(m_topologyDao.getTopology()).size());
 
-       System.err.println("");
-       System.err.println("print end point topology");
-       printEndPointTopology(m_topologyDao.getTopology());
+		System.err.println("");
+		System.err.println("print link topology");
+		assertEquals(5,printLinkTopology(m_topologyDao.getTopology()).size());
+		
+	    System.err.println("");
+	    System.err.println("print saved local topology");
+		assertEquals(0,printBridgeForwardingPaths(m_service.getBridgeForwardingPaths()).size());
 
-       System.err.println("");
-       System.err.println("print link topology");
-       printLinkTopology(m_topologyDao.getTopology());
 	}
 
+	@Test
+	public void TestTwoConnectedBridgeTopologyBC() {
+		Integer nodeB = 102;
+		String bridgeB = "000a00001102";
+
+		Integer nodeC = 103;
+		String bridgeC = "000a00001103";
+
+		Integer portBA = 21;
+		Integer portB = 2;
+		Integer portBC = 23;
+
+		Integer portCB = 32;
+		Integer portC = 3;
+
+		String mac1 = "000daaaa0001"; // port A ---port BA ---port CB
+		String mac2 = "000daaaa0002"; // port B ---port AB ---port CB
+		String mac3 = "000daaaa0003"; // port C ---port BA ---port BC
+
+		assertEquals(0, m_topologyDao.getTopology().size());
+		// B
+		m_service.store(getLink(nodeB, bridgeB, portBA, mac1));
+		m_service.store(getLink(nodeB, bridgeB, portB, mac2));
+		m_service.store(getLink(nodeB, bridgeB, portBC, mac3));
+		assertEquals(4, m_topologyDao.getTopology().size());
+
+		// C
+		m_service
+				.store(PseudoBridgeHelper
+						.getPseudoBridgeLink(getBridgeEndPoint(portCB, nodeC,
+								bridgeC)));
+		m_service.store(PseudoBridgeHelper.getPseudoMacLink(
+				getBridgeEndPoint(portCB, nodeC, bridgeC),
+				getMacAddressEndPoint(mac1, nodeC)));
+		m_service.store(PseudoBridgeHelper.getPseudoMacLink(
+				getBridgeEndPoint(portCB, nodeC, bridgeC),
+				getMacAddressEndPoint(mac2, nodeC)));
+		m_service.store(getLink(nodeC, bridgeC, portC, mac3));
+
+		assertEquals(6, m_topologyDao.getTopology().size());
+		
+		System.err.println("");
+		System.err.println("print end point topology");
+		assertEquals(10, printEndPointTopology(m_topologyDao.getTopology()).size());
+
+		System.err.println("");
+		System.err.println("print link topology");
+		assertEquals(5,printLinkTopology(m_topologyDao.getTopology()).size());
+		
+	    System.err.println("");
+	    System.err.println("print saved local topology");
+		assertEquals(0,printBridgeForwardingPaths(m_service.getBridgeForwardingPaths()).size());
+	}
 	
 	@Test
 	public void TestThreeConnectedBridgeTopologyABC() {
@@ -487,11 +518,11 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
         String bridgeC = "000a00001103";
 
 		Integer portA1 = 1;
-		Integer portAB = 10;
-		Integer portBA = 20;
+		Integer portAB = 12;
+		Integer portBA = 21;
 		Integer portB  = 2;
-		Integer portBC = 21;
-		Integer portCB = 30;
+		Integer portBC = 23;
+		Integer portCB = 32;
 		Integer portC  = 3;
 		
         String mac1 = "000daaaa0001"; // port A ---port BA ---port CB
@@ -521,15 +552,20 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
        m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portCB, nodeC, bridgeC),getMacAddressEndPoint(mac1, nodeC)));
        m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portCB, nodeC, bridgeC),getMacAddressEndPoint(mac2, nodeC)));
        m_service.store(getLink(nodeC, bridgeC, portC, mac3));
+       assertEquals(8, m_topologyDao.getTopology().size());
 
        System.err.println("");
        System.err.println("print end point topology");
-       printEndPointTopology(m_topologyDao.getTopology());
+       assertEquals(14, printEndPointTopology(m_topologyDao.getTopology()).size());
 
        System.err.println("");
        System.err.println("print link topology");
-       printLinkTopology(m_topologyDao.getTopology());
-       assertEquals(8, m_topologyDao.getTopology().size());
+       assertEquals(7, printLinkTopology(m_topologyDao.getTopology()).size());
+       
+	    System.err.println("");
+	    System.err.println("print saved local topology");
+		assertEquals(1,printBridgeForwardingPaths(m_service.getBridgeForwardingPaths()).size());
+
 	}
 
 	@Test
@@ -544,11 +580,11 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
         String bridgeC = "000a00001103";
 
 		Integer portA1 = 1;
-		Integer portAB = 10;
-		Integer portBA = 20;
+		Integer portAB = 12;
+		Integer portBA = 21;
 		Integer portB  = 2;
-		Integer portBC = 21;
-		Integer portCB = 30;
+		Integer portBC = 23;
+		Integer portCB = 32;
 		Integer portC  = 3;
 		
         String mac1 = "000daaaa0001"; // port A ---port BA ---port CB
@@ -575,20 +611,44 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
        m_service.store(getLink(nodeC, bridgeC, portC, mac3));
        assertEquals(6, m_topologyDao.getTopology().size());
 
-       System.err.println("");
-       System.err.println("print end point topology");
-       printEndPointTopology(m_topologyDao.getTopology());
-
-       System.err.println("");
-       System.err.println("print link topology");
-       printLinkTopology(m_topologyDao.getTopology());
-
        //B
        m_service.store(getLink(nodeB, bridgeB, portBA, mac1));
        m_service.store(getLink(nodeB, bridgeB, portB, mac2));
        m_service.store(getLink(nodeB, bridgeB, portBC, mac3));
        
+ 
        assertEquals(8, m_topologyDao.getTopology().size());
+
+       System.err.println("");
+       System.err.println("print end point topology");
+       assertEquals(14, printEndPointTopology(m_topologyDao.getTopology()).size());
+
+       System.err.println("");
+       System.err.println("print link topology");
+       assertEquals(7, printLinkTopology(m_topologyDao.getTopology()).size());
+       
+	    System.err.println("");
+	    System.err.println("print saved local topology");
+		assertEquals(1,printBridgeForwardingPaths(m_service.getBridgeForwardingPaths()).size());
+	}
+	
+	protected List<BridgeForwardingPath> printBridgeForwardingPaths(List<BridgeForwardingPath> paths) {
+	       for (final BridgeForwardingPath path: m_service.getBridgeForwardingPaths()) {
+	    	   printBridgeForwardingPath(path);
+	       }
+		return paths;
+	}
+	
+	protected void printBridgeForwardingPath(BridgeForwardingPath path) {
+	       System.err.println("");
+	       System.err.println("-----port1-----");
+	       printEndPoint(path.getPort1());
+	       System.err.println("-----port2-----");
+	       printEndPoint(path.getPort2());
+	       System.err.println("-----mac-----");
+	       printEndPoint(path.getMac());
+	       System.err.println("-----Order----");
+	       System.err.println(path.getCompatibleorders());
 	}
 
 }

@@ -6,6 +6,7 @@ import org.opennms.netmgt.model.topology.Element;
 import org.opennms.netmgt.model.topology.ElementIdentifier;
 import org.opennms.netmgt.model.topology.EndPoint;
 import org.opennms.netmgt.model.topology.Link;
+import org.opennms.netmgt.model.topology.PseudoBridgeElementIdentifier;
 
 public interface TopologyDao {
 	
@@ -27,5 +28,7 @@ public interface TopologyDao {
 
 	public List<Element> getTopology();
 	
-	public void mergeElements(ElementIdentifier elementIdentifier1, ElementIdentifier elementIdentifier2);
+	public void mergeElements(PseudoBridgeElementIdentifier elementIdentifier1, PseudoBridgeElementIdentifier elementIdentifier2);
+
+	void splitElement(PseudoBridgeElementIdentifier elementIdentifier);
 }
