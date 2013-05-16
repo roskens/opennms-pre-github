@@ -16,7 +16,7 @@ public class NodeBrowserApplicationFactory extends AbstractApplicationFactory {
     @Override
     public Application createApplication(HttpServletRequest request) throws ServletException {
         if (nodeDao == null) {
-            throw new RuntimeException("nodeDao cannot be null.");
+            throw new RuntimeException("nodeDaoContainer cannot be null.");
         }
         NodeBrowserApplication app = new NodeBrowserApplication();
         app.setNodeDao(nodeDao);

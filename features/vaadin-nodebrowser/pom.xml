@@ -19,8 +19,7 @@
         <bundle.symbolicName>org.opennms.features.vaadin-nodebrowser</bundle.symbolicName>
         <bundle.namespace>org.opennms.features.vaadin</bundle.namespace>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <vaadin.customfield.version>1.0.0</vaadin.customfield.version>
-        <vaadin.messagebox.version>1.1.1</vaadin.messagebox.version>
+        <vaadin.hbncontainer.version>2.0.1</vaadin.hbncontainer.version>
     </properties>
 
     <build>
@@ -92,7 +91,9 @@
             <groupId>org.ops4j.pax.vaadin</groupId>
             <artifactId>service</artifactId>
         </dependency>
-        <dependency> <!-- Required by pax/vaadin -->
+
+        <!-- Required by pax/vaadin -->
+        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
             <scope>provided</scope>
@@ -110,16 +111,19 @@
             <scope>provided</scope>
             <type>pom</type>
         </dependency>
+
         <dependency>
             <groupId>org.opennms.core</groupId>
             <artifactId>org.opennms.core.lib</artifactId>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>org.opennms</groupId>
             <artifactId>opennms-dao</artifactId>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>org.opennms</groupId>
             <artifactId>opennms-web-api</artifactId>
