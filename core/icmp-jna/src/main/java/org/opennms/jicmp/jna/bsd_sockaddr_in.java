@@ -30,6 +30,8 @@ package org.opennms.jicmp.jna;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Arrays;
+import java.util.List;
 
 import com.sun.jna.Structure;
 
@@ -98,5 +100,9 @@ public class bsd_sockaddr_in extends Structure {
         byte[] p = new byte[] {(byte)(0xff & (port >> 8)), (byte)(0xff & port)};
         assertLen("port", p, 2);
         sin_port = p;
+    }
+
+    protected List getFieldOrder() {
+        return Arrays.asList("sin_len", "sin_family", "sin_port", "sin_addr");
     }
 }
