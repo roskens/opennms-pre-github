@@ -2110,32 +2110,32 @@
       <dependency>
         <groupId>asm</groupId>
         <artifactId>asm</artifactId>
-        <version>3.1</version>
+        <version>3.3.1</version>
       </dependency>
       <dependency>
         <groupId>asm</groupId>
         <artifactId>asm-analysis</artifactId>
-        <version>3.1</version>
+        <version>3.3.1</version>
       </dependency>
       <dependency>
         <groupId>asm</groupId>
         <artifactId>asm-commons</artifactId>
-        <version>3.1</version>
+        <version>3.3.1</version>
       </dependency>
       <dependency>
         <groupId>asm</groupId>
         <artifactId>asm-tree</artifactId>
-        <version>3.1</version>
+        <version>3.3.1</version>
       </dependency>
       <dependency>
         <groupId>asm</groupId>
         <artifactId>asm-util</artifactId>
-        <version>3.1</version>
+        <version>3.3.1</version>
       </dependency>
       <dependency>
         <groupId>org.apache.ant</groupId>
         <artifactId>ant</artifactId>
-        <version>1.8.2</version>
+        <version>1.9.0</version>
       </dependency>
       <dependency>
         <groupId>antlr</groupId>
@@ -2300,7 +2300,7 @@
       <dependency>
         <groupId>org.dbunit</groupId>
         <artifactId>dbunit</artifactId>
-        <version>2.4.8</version>
+        <version>2.4.9</version>
         <scope>test</scope>
       </dependency>
       <dependency>
@@ -2727,7 +2727,7 @@
       <dependency>
         <groupId>postgresql</groupId>
         <artifactId>postgresql</artifactId>
-        <version>9.1-901.jdbc4</version>
+        <version>9.2-1002.jdbc4</version>
       </dependency>
       <dependency>
         <groupId>rome</groupId>
@@ -2779,7 +2779,7 @@
       <dependency>
         <groupId>org.apache.commons</groupId>
         <artifactId>commons-jexl</artifactId>
-        <version>2.0.1</version>
+        <version>2.1.1</version>
       </dependency>
       <dependency>
         <groupId>org.codehaus.groovy</groupId>
