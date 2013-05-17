@@ -401,7 +401,7 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
 		
 	    System.err.println("");
 	    System.err.println("print saved local topology");
-		assertEquals(0,printBridgeForwardingPaths(m_service.getBridgeForwardingPaths()).size());
+		assertEquals(1,printBridgeForwardingPaths(m_service.getBridgeForwardingPaths()).size());
 	}
 
 	@Test
@@ -448,7 +448,7 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
 		
 	    System.err.println("");
 	    System.err.println("print saved local topology");
-		assertEquals(0,printBridgeForwardingPaths(m_service.getBridgeForwardingPaths()).size());
+		assertEquals(1,printBridgeForwardingPaths(m_service.getBridgeForwardingPaths()).size());
 
 	}
 
@@ -503,7 +503,7 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
 		
 	    System.err.println("");
 	    System.err.println("print saved local topology");
-		assertEquals(0,printBridgeForwardingPaths(m_service.getBridgeForwardingPaths()).size());
+		assertEquals(1,printBridgeForwardingPaths(m_service.getBridgeForwardingPaths()).size());
 	}
 	
 	@Test
@@ -564,7 +564,7 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
        
 	    System.err.println("");
 	    System.err.println("print saved local topology");
-		assertEquals(1,printBridgeForwardingPaths(m_service.getBridgeForwardingPaths()).size());
+		assertEquals(3,printBridgeForwardingPaths(m_service.getBridgeForwardingPaths()).size());
 
 	}
 
@@ -629,7 +629,7 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
        
 	    System.err.println("");
 	    System.err.println("print saved local topology");
-		assertEquals(1,printBridgeForwardingPaths(m_service.getBridgeForwardingPaths()).size());
+		assertEquals(4,printBridgeForwardingPaths(m_service.getBridgeForwardingPaths()).size());
 	}
 	
 	@Test 
@@ -673,20 +673,19 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
         m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portB2, nodeB, bridgeB),getMacAddressEndPoint(macB21, nodeB)));
         m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portB2, nodeB, bridgeB),getMacAddressEndPoint(macB22, nodeB)));
         
-        //assertEquals(16, m_topologyDao.getTopology().size());
+        assertEquals(10, m_topologyDao.getTopology().size());
 
         System.err.println("");
         System.err.println("print end point topology");
-        assertEquals(28, printEndPointTopology(m_topologyDao.getTopology()).size());
-/*
+        assertEquals(18, printEndPointTopology(m_topologyDao.getTopology()).size());
+
         System.err.println("");
         System.err.println("print link topology");
-        assertEquals(14, printLinkTopology(m_topologyDao.getTopology()).size());
-        
+        assertEquals(9, printLinkTopology(m_topologyDao.getTopology()).size());
+
  	    System.err.println("");
  	    System.err.println("print saved local topology");
- 		assertEquals(0,printBridgeForwardingPaths(m_service.getBridgeForwardingPaths()).size());
-*/
+		assertEquals(2,printBridgeForwardingPaths(m_service.getBridgeForwardingPaths()).size());
 	}
 	protected List<BridgeForwardingPath> printBridgeForwardingPaths(List<BridgeForwardingPath> paths) {
 	       for (final BridgeForwardingPath path: m_service.getBridgeForwardingPaths()) {

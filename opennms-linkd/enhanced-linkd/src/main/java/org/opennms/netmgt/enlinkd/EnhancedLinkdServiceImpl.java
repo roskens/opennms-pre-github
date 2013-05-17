@@ -229,8 +229,10 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 		}
 	}
 	
-	List<BridgeForwardingPath> m_bridgeForwardingPaths = new ArrayList<EnhancedLinkdServiceImpl.BridgeForwardingPath>();
-	
+	private List<BridgeForwardingPath> m_bridgeForwardingPaths = new ArrayList<EnhancedLinkdServiceImpl.BridgeForwardingPath>();
+
+	private List<BridgeForwardingPath> m_joinedBridgeForwardingPaths = new ArrayList<EnhancedLinkdServiceImpl.BridgeForwardingPath>();
+
 	@Autowired
 	private NodeDao m_nodeDao;
 
@@ -426,6 +428,14 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 				BridgeEndPoint port1 = getBridgeEndPointFromPseudoMac((PseudoMacEndPoint)link.getA());
 				BridgeEndPoint port2 = getBridgeEndPointFromPseudoMac((PseudoMacEndPoint)dblink.getA());
 				BridgeForwardingPath path = checkBridgeTopology(new BridgeForwardingPath(port1, port2, dbMacEndPoint));
+				if (path.isPath() && path.getPath().equals(Order.DIRECT)) {
+					LogUtils.infof(this,
+			                "store:PseudoBridge->Mac: deleting Link: %s", dblink);
+					m_topologyDao.delete(dblink.getA());
+					LogUtils.infof(this,
+			                "store:PseudoBridge->Mac: updating Link: %s", link);
+					m_topologyDao.saveOrUpdate(link);
+				}
 				LogUtils.debugf(this,
 		                "store:PseudoBridge->Mac: topology: add path %s", path);
 				addBridgeForwardingPath(path);
@@ -638,6 +648,15 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 		LogUtils.debugf(this,
                 "checkBridgeTopology: path %s", path);
 		List<BridgeForwardingPath> paths = new ArrayList<EnhancedLinkdServiceImpl.BridgeForwardingPath>();
+		
+		for(BridgeForwardingPath joinedpath: m_joinedBridgeForwardingPaths) {
+			LogUtils.debugf(this,
+	                "checkBridgeTopology: against joined path %s", joinedpath);
+			path.removeIncompatiblePath(joinedpath);
+			LogUtils.debugf(this,
+	                "checkBridgeTopology: result path: %s", path);
+		}
+		
 		for (BridgeForwardingPath storedpath: m_bridgeForwardingPaths) {
 			LogUtils.debugf(this,
 	                "checkBridgeTopology: against stored path %s", storedpath);
@@ -657,10 +676,8 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 			if (path.isPath() && storedpath.isPath() && storedpath.isComparable(path) && path.hasSameBridgeElementOrder(storedpath)) {
 				if (path.getPath().equals(Order.DIRECT) && storedpath.getPath().equals(Order.REVERSED)) {
 					paths.add(new BridgeForwardingPath(path.getPort2(), storedpath.getPort1(), storedpath.getMac(), Order.JOIN));
-					continue;
 				} else if (path.getPath().equals(Order.REVERSED) && storedpath.getPath().equals(Order.DIRECT)) {
 					paths.add(new BridgeForwardingPath(path.getPort1(), storedpath.getPort2(), storedpath.getMac(), Order.JOIN));
-					continue;
 				}
 			}
 			paths.add(storedpath);
@@ -670,25 +687,31 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 	}
 	
 	synchronized protected void addBridgeForwardingPath(BridgeForwardingPath path) {
-		if (path.isPath() && path.getPath().equals(Order.REVERSED)) {
-			for (BridgeForwardingPath storedpath: m_bridgeForwardingPaths) {
+		for (BridgeForwardingPath storedpath: m_bridgeForwardingPaths) {
+			if (path.isPath() && path.getPath().equals(Order.REVERSED)) {
 				if (storedpath.isComparable(path) && storedpath.isPath() && storedpath.hasSameBridgeElementOrder(path) && storedpath.getPath().equals(Order.REVERSED)) {
-					LogUtils.infof(this, "addBridgeForwardingPath: reverse path found: not saving in bridge topology path %s", path);
+					LogUtils.infof(this, "addBridgeForwardingPath: path found: not saving in bridge topology path %s", path);
 					return;
 				}
+			} else if (path.getPort1().equals(storedpath.getPort1()) && path.getPort2().equals(storedpath.getPort2())) {
+				LogUtils.infof(this, "addBridgeForwardingPath: path found: not saving in bridge topology path %s", path);
+				return;
 			}
 		}
-		/*else if (path.isPath() && path.getPath().equals(Order.DIRECT)) {
-			for (BridgeForwardingPath storedpath: m_bridgeForwardingPaths) {
-				if (storedpath.isComparable(path) && storedpath.isPath() && storedpath.hasSameBridgeElementOrder(path) && storedpath.getPath().equals(Order.DIRECT)) {
-					LogUtils.infof(this, "addBridgeForwardingPath: direct path found: not saving in bridge topology path %s", path);
-					return;
-				}
-			}
-		}
-		*/
 		LogUtils.infof(this, "addBridgeForwardingPath: saving in bridge topology Path: %s", path);
 		m_bridgeForwardingPaths.add(path);
+	}
+
+	synchronized protected boolean alreadyJoined(BridgeForwardingPath storedpath) {
+		for (BridgeForwardingPath joined: m_joinedBridgeForwardingPaths) {
+			if (joined.getPort1().equals(storedpath.getPort1()) && joined.getPort2().equals(storedpath.getPort1())) {
+				LogUtils.debugf(this,
+						"alreadyJoined: already joined path: %s",
+						joined);
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	synchronized protected void saveJoinPaths() {
@@ -706,7 +729,8 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 							.getPort2());
 		
 			if (storedpath.isPath() && storedpath.getPath().equals(Order.JOIN))  {
-				
+				if (alreadyJoined(storedpath))
+					continue;
 				EndPoint dbendpoint = m_topologyDao.get(storedpath.getPort2());
 				if (dbendpoint != null && dbendpoint.hasLink()) {
 					Link dblink = dbendpoint.getLink();
@@ -754,6 +778,9 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 				m_topologyDao
 						.mergePseudoElements(pseudobridge1,
 								pseudobridge2);
+				LogUtils.debugf(this,
+						"saveJoinPaths: adding to joined path: %s", storedpath);
+				m_joinedBridgeForwardingPaths.add(storedpath);
 				continue;
 			}
 			paths.add(storedpath);
