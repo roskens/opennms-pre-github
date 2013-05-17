@@ -70,9 +70,8 @@ public class TopologyDaoHibernate extends HibernateDaoSupport implements Topolog
 
 
 	@Override
-	public List<EndPoint> get(EndPoint endpoint) {
-		// TODO Auto-generated method stub
-		return null;
+	public EndPoint get(EndPoint endpoint) {
+		return findUnique(EndPoint.class, "from EndPoint where endpoint = ?", endpoint);
 	}
 
 	@Override
@@ -82,14 +81,14 @@ public class TopologyDaoHibernate extends HibernateDaoSupport implements Topolog
 	}
 
 	@Override
-	public void mergeElements(PseudoBridgeElementIdentifier elementIdentifier1,
+	public void mergePseudoElements(PseudoBridgeElementIdentifier elementIdentifier1,
 			PseudoBridgeElementIdentifier elementIdentifier2) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void splitElement(PseudoBridgeElementIdentifier elementIdentifier) {
+	public void splitPseudoElement(PseudoBridgeElementIdentifier elementIdentifier) {
 		// TODO Auto-generated method stub
 		
 	}

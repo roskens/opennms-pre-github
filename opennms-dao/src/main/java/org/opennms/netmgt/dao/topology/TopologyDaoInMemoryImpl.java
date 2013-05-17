@@ -127,18 +127,17 @@ public class TopologyDaoInMemoryImpl implements TopologyDao {
 	}
 
 	@Override
-	public List<EndPoint> get(EndPoint endpoint) {
-		List<EndPoint> endpoints = new ArrayList<EndPoint>();
+	public EndPoint get(EndPoint endpoint) {
 		for (Element e: m_elements) {
 			if (e.hasEndPoint(endpoint)) {
-				endpoints.add(e.getEndPoint(endpoint));
+				return e.getEndPoint(endpoint);
 			}
 		}
-		return endpoints;
+		return null;
 	}
 
 	@Override
-	public void mergeElements(PseudoBridgeElementIdentifier elementIdentifier1,
+	public void mergePseudoElements(PseudoBridgeElementIdentifier elementIdentifier1,
 			PseudoBridgeElementIdentifier elementIdentifier2) {
 		List<Element> newTopology = new ArrayList<Element>();
 			Element element2 = null;
@@ -165,7 +164,7 @@ public class TopologyDaoInMemoryImpl implements TopologyDao {
 	}
 
 	@Override
-	public void splitElement(PseudoBridgeElementIdentifier elementIdentifier) {
+	public void splitPseudoElement(PseudoBridgeElementIdentifier elementIdentifier) {
 
 		List<Element> newTopology = new ArrayList<Element>();
 

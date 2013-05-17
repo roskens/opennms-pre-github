@@ -383,23 +383,16 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 
 		LogUtils.debugf(this,
                 "store:PseudoBridge->Mac: searching for mac endpoint %s", link.getB());
-		List<EndPoint> topoendpoints = m_topologyDao.get(link.getB());
+		EndPoint dbendpoint = m_topologyDao.get(link.getB());
 
-		if (topoendpoints.isEmpty()) {
+		if (dbendpoint == null) {
 	    	LogUtils.infof(this,
 	                "store:PseudoBridge->Mac: no mac endpoint found, saving Link: %s", link);
 			m_topologyDao.saveOrUpdate(link);
 			return;
 		}
 		
-		if (topoendpoints.size() != 1) {
-			LogUtils.infof(this,
-	                "PseudoBridge->Mac: topology error: more then one mac endpoint found, skipping Link: %s", link);
-	    	return;
-		}
-		
-		MacAddrEndPoint dbMacEndPoint = (MacAddrEndPoint) topoendpoints
-				.get(0);
+		MacAddrEndPoint dbMacEndPoint = (MacAddrEndPoint) dbendpoint;
 		LogUtils.debugf(this,
                 "store:PseudoBridge->Mac: found mac endpoint: %s", dbMacEndPoint);
 		
@@ -455,23 +448,16 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 		
 		LogUtils.debugf(this,
                 "store:Bridge->Mac: searching mac endpoint: %s", link.getB());
-		List<EndPoint> topoendpoints = m_topologyDao.get(link.getB());
+		EndPoint dbendpoint = m_topologyDao.get(link.getB());
 		
-		if (topoendpoints.isEmpty()) {
+		if (dbendpoint == null) {
 			LogUtils.infof(this,
 	                "store:Bridge->Mac: no mac endpoint found, saving Link: %s", link);
 			m_topologyDao.saveOrUpdate(link);
 			return;
 		}
 		
-		if (topoendpoints.size() != 1) {
-	    	LogUtils.errorf(this,
-	                "store:Bridge->Mac: topology error: more then one mac endpoint found, skipping Link: %s", link);
-	    	return;
-		}
-		
-		MacAddrEndPoint dbMacEndPoint = (MacAddrEndPoint) topoendpoints
-				.get(0);
+		MacAddrEndPoint dbMacEndPoint = (MacAddrEndPoint) dbendpoint;
 		LogUtils.debugf(this,
                 "store:Bridge->Mac: found mac endpoint: %s", dbMacEndPoint);
 		
@@ -499,8 +485,6 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 			//		addBridgeForwardingPath(new BridgeForwardingPath((BridgeEndPoint)link.getA(), getBridgeEndPointFromPseudoMac((PseudoMacEndPoint)ep), (MacAddrEndPoint)ep.getLink().getB()));
 			//	}
 			//}
-			//FIXME what are the condition to split?
-			//m_topologyDao.splitElement(new PseudoBridgeElementIdentifier(mac.getLinkedBridgeIdentifier(), mac.getLinkedBridgePort(), dbMacEndPoint.getSourceNode()));
 			
 			LogUtils.infof(this,
                "store:Bridge->Mac: deleting Pseudo Bridge EndPoint: %s",mac);
@@ -512,10 +496,6 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 		} else if (dblink instanceof BridgeDot1dTpFdbLink || dblink instanceof BridgeDot1qTpFdbLink ) {
 			BridgeForwardingPath path = checkBridgeTopology(new BridgeForwardingPath((BridgeEndPoint)link.getA(), (BridgeEndPoint)dbMacEndPoint.getLink().getA(), dbMacEndPoint));
 			if (path.isPath() && path.getPath().equals(Order.DIRECT)) {
-				//FIXME
-//				LogUtils.infof(this,
-//		                "store:Bridge->Mac delete Link: %s", dblink);
-//				m_topologyDao.delete(dblink);
 				LogUtils.infof(this,
 		                "store:Bridge->Mac SaveOrUpdate Link: %s", link);
 				m_topologyDao.saveOrUpdate(link);
@@ -553,23 +533,16 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 		
 		LogUtils.debugf(this,
                 "store:BridgeStp: searching bridge endpoint: %s", link.getB());
-		List<EndPoint> topoendpoints = m_topologyDao.get(link.getB());
+		EndPoint dbendpoint = m_topologyDao.get(link.getB());
 		
-		if (topoendpoints.isEmpty()) {
+		if (dbendpoint == null) {
 			LogUtils.infof(this,
 	                "store:BridgeStp: no bridge endpoint found, saving Link: %s", link);
 			m_topologyDao.saveOrUpdate(link);
 			return;
 		}
 		
-		if (topoendpoints.size() != 1) {
-			LogUtils.infof(this,
-	                "store:BridgeStp: topology error: more then one bridge endpoint found, skipping Link: %s", link);
-	    	return;
-		}
-		
-		BridgeEndPoint topologyBridgeEndPoint = (BridgeEndPoint) topoendpoints
-				.get(0);
+		BridgeEndPoint topologyBridgeEndPoint = (BridgeEndPoint) dbendpoint;
 		if (topologyBridgeEndPoint.hasLink() && topologyBridgeEndPoint.getLink() instanceof PseudoBridgeLink) {
 			m_topologyDao.delete(topologyBridgeEndPoint.getLink().getA().getElement());
 		}	
@@ -608,23 +581,16 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 		
 		LogUtils.debugf(this,
                 "store:PseudoBridge->Bridge: searching for bridge endpoint %s", link.getB());
-		List<EndPoint> topoendpoints = m_topologyDao.get(link.getB());
+		EndPoint dbendpoint = m_topologyDao.get(link.getB());
 		
-		if (topoendpoints.isEmpty()) {
+		if (dbendpoint == null) {
 	    	LogUtils.infof(this,
 	                "store:PseudoBridge->Bridge: no bridge endpoint found, saving Link: %s", link);
 			m_topologyDao.saveOrUpdate(link);
 			return;
 		}
-		
-		if (topoendpoints.size() != 1) {
-			LogUtils.infof(this,
-	                "PseudoBridge->Bridge: topology error: more then one bridge endpoint found, skipping Link: %s", link);
-	    	return;
-		}
-		
-		BridgeEndPoint topologyBridgeEndPoint = (BridgeEndPoint) topoendpoints
-				.get(0);
+				
+		BridgeEndPoint topologyBridgeEndPoint = (BridgeEndPoint) dbendpoint;
 		if (topologyBridgeEndPoint.hasLink()) {
 			if (topologyBridgeEndPoint.getLink() instanceof BridgeStpLink) {
 		    	LogUtils.debugf(this,
@@ -710,15 +676,34 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 			LogUtils.debugf(this,
 					"saveJoinPaths: parsing stored bridge topology path %s",
 					storedpath);
+			PseudoBridgeElementIdentifier pseudobridge1 = PseudoBridgeHelper
+					.getPseudoBridgeElementIdentifier(storedpath
+							.getPort1());
+			
+			PseudoBridgeElementIdentifier pseudobridge2 = PseudoBridgeHelper
+					.getPseudoBridgeElementIdentifier(storedpath
+							.getPort2());
+		
 			if (storedpath.isPath() && storedpath.getPath().equals(Order.JOIN))  {
 				
-				PseudoBridgeElementIdentifier pseudobridge1 = PseudoBridgeHelper
-							.getPseudoBridgeElementIdentifier(storedpath
-									.getPort1());
-				
-				PseudoBridgeElementIdentifier pseudobridge2 = PseudoBridgeHelper
-							.getPseudoBridgeElementIdentifier(storedpath
-									.getPort2());
+				EndPoint dbendpoint = m_topologyDao.get(storedpath.getPort2());
+				if (dbendpoint != null && dbendpoint.hasLink()) {
+					Link dblink = dbendpoint.getLink();
+					if (dblink instanceof BridgeStpLink) {
+						return;
+					}
+					if (dblink instanceof PseudoBridgeLink) {
+						for (ElementIdentifier ei: dblink.getA().getElement().getElementIdentifiers()) {
+							PseudoBridgeElementIdentifier pei = (PseudoBridgeElementIdentifier) ei;
+							if (pei.getLinkedBridgeIdentifier().equals(pseudobridge1.getLinkedBridgeIdentifier()) 
+									&& pei.getLinkedBridgePort() != pseudobridge1.getLinkedBridgePort()) {
+								LogUtils.infof(this, "saveJoinPaths: splitting pseudo bridge: %s", pseudobridge2);
+								m_topologyDao.splitPseudoElement(pseudobridge2);
+								break;
+							}
+						}
+					}
+				}
 					
 				Element element1 = m_topologyDao.get(pseudobridge1);
 				
@@ -738,13 +723,15 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 							"saveJoinPaths: creating element2: no pseudo bridge found in topology for identifier: %s", pseudobridge2);
 					m_topologyDao.saveOrUpdate(PseudoBridgeHelper.getPseudoBridgeLink(storedpath.getPort2()));
 				}
+				
+
 					
 				LogUtils.debugf(this,
 						"saveJoinPaths: merging topology path1:  %s", pseudobridge1);
 				LogUtils.debugf(this,
 						"saveJoinPaths: merging topology path2:  %s", pseudobridge2);
 				m_topologyDao
-						.mergeElements(pseudobridge1,
+						.mergePseudoElements(pseudobridge1,
 								pseudobridge2);
 				continue;
 			}

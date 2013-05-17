@@ -24,11 +24,11 @@ public interface TopologyDao {
 
 	public Element get(ElementIdentifier elementIdentifier);
 
-	public List<EndPoint> get(EndPoint endpoint);
+	public EndPoint get(EndPoint endpoint);
 
 	public List<Element> getTopology();
 	
-	public void mergeElements(PseudoBridgeElementIdentifier elementIdentifier1, PseudoBridgeElementIdentifier elementIdentifier2);
+	public void mergePseudoElements(PseudoBridgeElementIdentifier elementIdentifier1, PseudoBridgeElementIdentifier elementIdentifier2);
 
-	void splitElement(PseudoBridgeElementIdentifier elementIdentifier);
+	void splitPseudoElement(PseudoBridgeElementIdentifier elementIdentifier);
 }
