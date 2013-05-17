@@ -42,6 +42,7 @@ import org.opennms.core.test.snmp.annotations.JUnitSnmpAgent;
 import org.opennms.core.test.snmp.annotations.JUnitSnmpAgents;
 import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.config.SnmpPeerFactory;
+import org.opennms.netmgt.enlinkd.Dot1dTpFdbTableTracker.Dot1dTpFdbRow;
 import org.opennms.netmgt.linkd.Nms17216NetworkBuilder;
 import org.opennms.netmgt.model.topology.CdpElementIdentifier;
 import org.opennms.netmgt.model.topology.CdpEndPoint;
@@ -123,6 +124,75 @@ public class Nms17216SnmpTest extends Nms17216NetworkBuilder implements Initiali
         }
         
     }
+
+    @Test
+    @JUnitSnmpAgents(value={
+            @JUnitSnmpAgent(host=SWITCH1_IP, port=161, resource="classpath:linkd/nms17216/switch1-walk.txt")
+    })
+    public void testNetwork17216Switch1dot1dTpTableCollection() throws Exception {
+		
+        Dot1dTpFdbTableTracker dot1dTpFdbTable = new Dot1dTpFdbTableTracker() {
+            
+            public void processDot1dTpFdbRow(final Dot1dTpFdbRow row) {
+        		System.err.println("----------dot1d tp ----------------");
+        		System.err.println("columns number in the row: " + row.getColumnCount());
+
+        		assertEquals(3, row.getColumnCount());
+
+        		System.err.println("bridge port number: " + row.getDot1dTpFdbPort());
+        		System.err.println("mac address: " + row.getDot1dTpFdbAddress());
+        		System.err.println("status: " + row.getDot1dTpFdbStatus());
+             }
+        };
+        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(SWITCH1_IP));
+        String trackerName = "dot1dTpFdb";
+        SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, trackerName, dot1dTpFdbTable);
+        walker.start();
+
+        try {
+                walker.waitFor();
+        } catch (final InterruptedException e) {
+            assertEquals(false, true);
+        }
+        
+        System.err.println("Finished");
+        
+    }
+
+    @Test
+    @JUnitSnmpAgents(value={
+            @JUnitSnmpAgent(host=SWITCH2_IP, port=161, resource="classpath:linkd/nms17216/switch2-walk.txt")
+    })
+    public void testNetwork17216Switch2dot1dTpTableCollection() throws Exception {
+		
+        Dot1dTpFdbTableTracker dot1dTpFdbTable = new Dot1dTpFdbTableTracker() {
+            
+            public void processDot1dTpFdbRow(final Dot1dTpFdbRow row) {
+        		System.err.println("----------dot1d tp ----------------");
+        		System.err.println("columns number in the row: " + row.getColumnCount());
+
+        		assertEquals(3, row.getColumnCount());
+
+        		System.err.println("bridge port number: " + row.getDot1dTpFdbPort());
+        		System.err.println("mac address: " + row.getDot1dTpFdbAddress());
+        		System.err.println("status: " + row.getDot1dTpFdbStatus());
+             }
+        };
+        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(SWITCH2_IP));
+        String trackerName = "dot1dTpFdb";
+        SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, trackerName, dot1dTpFdbTable);
+        walker.start();
+
+        try {
+                walker.waitFor();
+        } catch (final InterruptedException e) {
+            assertEquals(false, true);
+        }
+        
+        System.err.println("Finished");
+        
+    }
+
 
     @Test
     @JUnitSnmpAgents(value={
