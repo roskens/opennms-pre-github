@@ -1,0 +1,64 @@
+<ruleset comparisonMethod="maven"
+         xmlns="http://mojo.codehaus.org/versions-maven-plugin/rule/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://mojo.codehaus.org/versions-maven-plugin/rule/2.0.0 http://mojo.codehaus.org/versions-maven-plugin/xsd/rule-2.0.0.xsd">
+  <ignoreVersions>
+    <ignoreVersion type="regex">.*[\.\-][Aa]lpha\-?[1-9]$</ignoreVersion>
+    <ignoreVersion type="regex">.*[\.\-][Bb]eta$</ignoreVersion>
+    <ignoreVersion type="regex">.*[\.\-][Bb]eta\-?[1-9]?$</ignoreVersion>
+    <ignoreVersion type="regex">.*[\.\-](M|RC|rc)[1-9][0-9]*$</ignoreVersion>
+    <ignoreVersion type="regex">.*[\.\-]?pre[0-9]$</ignoreVersion>
+    <ignoreVersion type="regex">.*[\.\-]kohsuke\-[1-9]$</ignoreVersion>
+    <ignoreVersion type="regex">.*[\.\-]jbossorg\-[1-9]$</ignoreVersion>
+    <ignoreVersion type="regex">^[0-9]{8}$</ignoreVersion>
+    <ignoreVersion type="regex">^[0-9]{8}\.[0-9]{6}$</ignoreVersion>
+    <ignoreVersion type="regex">.*\-does\-not\-exist$</ignoreVersion>
+  </ignoreVersions>
+  <rules>
+    <rule groupId="antlr" artifactId="antlr" comparisonMethod="maven">
+      <ignoreVersions>
+        <ignoreVersion type="exact">2.7.6-brew</ignoreVersion>
+      </ignoreVersions>
+    </rule>
+    <rule groupId="avalon-framework" artifactId="avalon-framework" comparisonMethod="maven">
+      <ignoreVersions>
+        <ignoreVersion type="exact">4.1.5-dev</ignoreVersion>
+      </ignoreVersions>
+    </rule>
+    <rule groupId="bsh" artifactId="bsh" comparisonMethod="maven">
+      <ignoreVersions>
+        <ignoreVersion type="exact">2.0b1</ignoreVersion>
+      </ignoreVersions>
+    </rule>
+    <rule groupId="com.novell.ldap" artifactId="jldap" comparisonMethod="maven">
+      <ignoreVersions>
+        <ignoreVersion type="exact">2009-10-07</ignoreVersion>
+      </ignoreVersions>
+    </rule>
+    <rule groupId="commons-beanutils" artifactId="commons-beanutils-core" comparisonMethod="maven">
+      <ignoreVersions>
+        <ignoreVersion type="exact">1.8.3-SONATYPE</ignoreVersion>
+      </ignoreVersions>
+    </rule>
+    <rule groupId="javax.mail" artifactId="mail" comparisonMethod="maven">
+      <ignoreVersions>
+        <ignoreVersion type="exact">1.5.0-b01</ignoreVersion>
+      </ignoreVersions>
+    </rule>
+    <rule groupId="javax.servlet.jsp" artifactId="jsp-api" comparisonMethod="maven">
+      <ignoreVersions>
+        <ignoreVersion type="regex">2.2.1-b0[1-9]$</ignoreVersion>
+      </ignoreVersions>
+    </rule>
+    <rule groupId="xmlrpc" artifactId="xmlrpc" comparisonMethod="maven">
+      <ignoreVersions>
+        <ignoreVersion type="exact">3.0a1</ignoreVersion>
+      </ignoreVersions>
+    </rule>
+    <rule groupId="xml-apis" artifactId="xml-apis" comparisonMethod="maven">
+      <ignoreVersions>
+        <ignoreVersion type="exact">2.0.0</ignoreVersion>
+        <ignoreVersion type="exact">2.0.2</ignoreVersion>
+      </ignoreVersions>
+    </rule>
+  </rules>
+</ruleset>
