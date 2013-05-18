@@ -416,7 +416,6 @@
         <artifactId>jetty-jspc-maven-plugin</artifactId>
         <version>${jettyVersion}</version>
       </plugin>
-      <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
       <plugin>
         <groupId>org.eclipse.m2e</groupId>
         <artifactId>lifecycle-mapping</artifactId>
@@ -573,6 +572,14 @@
           </lifecycleMappingMetadata>
         </configuration>
       </plugin>    
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>versions-maven-plugin</artifactId>
+        <version>2.0</version>
+        <configuration>
+          <rulesUri>file://${root.dir}/src/site/maven-version-rules.xml</rulesUri>
+        </configuration>
+      </plugin>
     </plugins>
   </pluginManagement>
    <plugins>
@@ -717,6 +724,14 @@
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>versions-maven-plugin</artifactId>
+        <version>2.0</version>
+        <configuration>
+          <rulesUri>file://${root.dir}/src/site/maven-version-rules.xml</rulesUri>
+        </configuration>
       </plugin>
    </plugins>
   </build>
