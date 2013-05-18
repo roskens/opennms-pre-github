@@ -6,7 +6,7 @@
     <ignoreVersion type="regex">.*[\.\-][Bb]eta$</ignoreVersion>
     <ignoreVersion type="regex">.*[\.\-][Bb]eta\-?[1-9]?$</ignoreVersion>
     <ignoreVersion type="regex">.*[\.\-](M|RC|rc)[1-9][0-9]*$</ignoreVersion>
-    <ignoreVersion type="regex">.*[\.\-]?pre[1-9]$</ignoreVersion>
+    <ignoreVersion type="regex">.*[\.\-]?pre[0-9]$</ignoreVersion>
     <ignoreVersion type="regex">.*[\.\-]kohsuke\-[1-9]$</ignoreVersion>
     <ignoreVersion type="regex">.*[\.\-]jbossorg\-[1-9]$</ignoreVersion>
     <ignoreVersion type="regex">^[0-9]{8}$</ignoreVersion>
