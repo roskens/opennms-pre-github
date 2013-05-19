@@ -241,7 +241,7 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
-          <!-- <forkMode>pertest</forkMode>--> <!-- redirectTestOutputToFile works but is very slow -->
+          <!-- <forkCount>1.5C</forkCount>--> <!-- redirectTestOutputToFile works but is very slow -->
           <redirectTestOutputToFile>false</redirectTestOutputToFile>
           <!-- the build continues even when individual tests fail -->
           <testFailureIgnore>true</testFailureIgnore>

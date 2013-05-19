@@ -562,7 +562,7 @@
             <runPingTests>${runPingTests}</runPingTests>
             <proxy.port>${proxy.port}</proxy.port>
           </systemPropertyVariables>
-          <forkMode>pertest</forkMode>
+          <forkCount>1.5C</forkCount>
           <argLine>-Xmx1024m</argLine>
           <includes>
             <include>**/*Test.java</include>
@@ -2196,7 +2196,7 @@
       <dependency>
         <groupId>cglib</groupId>
         <artifactId>cglib-nodep</artifactId>
-        <version>2.2.2</version>
+        <version>3.0</version>
       </dependency>
       <dependency>
         <groupId>c3p0</groupId>
@@ -2481,7 +2481,7 @@
       <dependency>
         <groupId>javax.mail</groupId>
         <artifactId>mail</artifactId>
-        <version>1.4.5</version>
+        <version>1.5.0-b01</version>
       </dependency>
       <dependency>
         <groupId>javax.persistence</groupId>

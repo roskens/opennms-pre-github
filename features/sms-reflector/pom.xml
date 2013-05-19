@@ -77,7 +77,7 @@
           <systemPropertyVariables>
             <net.sourceforge.cobertura.datafile>${basedir}/target/cobertura/cobertura.ser</net.sourceforge.cobertura.datafile>
           </systemPropertyVariables>
-          <forkMode>pertest</forkMode>
+          <forkCount>1.5C</forkCount>
           <argLine>-Xmx1024m</argLine>
           <includes>
             <include>**/*Test.java</include>
