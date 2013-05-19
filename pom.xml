@@ -794,6 +794,7 @@
     <commonsLangVersion>2.6</commonsLangVersion>
     <commonsLoggingVersion>1.1.2</commonsLoggingVersion>
     <commonsValidatorVersion>1.4.0</commonsValidatorVersion>
+    <guavaVersion>10.0.1</guavaVersion>
     <gwtVersion>2.3.0</gwtVersion>
     <gwtPluginVersion>2.3.0-1</gwtPluginVersion>
     <httpcoreVersion>4.2.4</httpcoreVersion>
@@ -2342,7 +2343,7 @@
       <dependency>
         <groupId>com.google.guava</groupId>
         <artifactId>guava</artifactId>
-        <version>10.0.1</version>
+        <version>${guavaVersion}</version>
       </dependency>
       <dependency>
         <groupId>com.google.gwt</groupId>

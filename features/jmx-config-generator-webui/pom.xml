@@ -13,7 +13,6 @@
   <url>http://www.opennms.org</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <guava.version>10.0.1</guava.version>
     <quartz.version>2.1.7</quartz.version>
   </properties>
   <build>
@@ -37,7 +36,7 @@
         <configuration>
           <bundles>
             <bundle>mvn:org.opennms.features/jmxconfiggenerator.webui/${project.version}</bundle>
-            <bundle>wrap:mvn:com.google.guava/guava/${guava.version}</bundle>
+            <bundle>wrap:mvn:com.google.guava/guava/${guavaVersion}</bundle>
             <bundle>wrap:mvn:org.quartz-scheduler/quartz/${quartz.version}</bundle>
           </bundles>
           <features>
@@ -269,7 +268,7 @@
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>${guava.version}</version>
+      <version>${guavaVersion}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
