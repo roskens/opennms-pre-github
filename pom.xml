@@ -794,7 +794,7 @@
     <commonsLangVersion>2.6</commonsLangVersion>
     <commonsLoggingVersion>1.1.2</commonsLoggingVersion>
     <commonsValidatorVersion>1.4.0</commonsValidatorVersion>
-    <guavaVersion>10.0.1</guavaVersion>
+    <guavaVersion>14.0.1</guavaVersion>
     <gwtVersion>2.3.0</gwtVersion>
     <gwtPluginVersion>2.3.0-1</gwtPluginVersion>
     <httpcoreVersion>4.2.4</httpcoreVersion>
