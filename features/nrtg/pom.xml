@@ -26,7 +26,6 @@
   <properties>
     <jdkLevel>1.6</jdkLevel>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <cglib.version>2.2.2</cglib.version>
     <flexjson.version>3.0</flexjson.version>
   </properties>
   <modules>
