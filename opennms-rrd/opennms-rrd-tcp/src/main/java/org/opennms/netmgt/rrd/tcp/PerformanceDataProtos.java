@@ -30,125 +30,385 @@
 
 package org.opennms.netmgt.rrd.tcp;
 
-/**
- * <p>PerformanceDataProtos class.</p>
- *
- * @author ranger
- * @version $Id: $
- */
 public final class PerformanceDataProtos {
   private PerformanceDataProtos() {}
-  /**
-   * <p>registerAllExtensions</p>
-   *
-   * @param registry a {@link com.google.protobuf.ExtensionRegistry} object.
-   */
   public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistry registry) {
   }
+  public interface PerformanceDataReadingOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+
+    // required string path = 1;
+    /**
+     * <code>required string path = 1;</code>
+     */
+    boolean hasPath();
+    /**
+     * <code>required string path = 1;</code>
+     */
+    java.lang.String getPath();
+    /**
+     * <code>required string path = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getPathBytes();
+
+    // required string owner = 2;
+    /**
+     * <code>required string owner = 2;</code>
+     */
+    boolean hasOwner();
+    /**
+     * <code>required string owner = 2;</code>
+     */
+    java.lang.String getOwner();
+    /**
+     * <code>required string owner = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getOwnerBytes();
+
+    // required uint64 timestamp = 3;
+    /**
+     * <code>required uint64 timestamp = 3;</code>
+     */
+    boolean hasTimestamp();
+    /**
+     * <code>required uint64 timestamp = 3;</code>
+     */
+    long getTimestamp();
+
+    // repeated double value = 4;
+    /**
+     * <code>repeated double value = 4;</code>
+     */
+    java.util.List<java.lang.Double> getValueList();
+    /**
+     * <code>repeated double value = 4;</code>
+     */
+    int getValueCount();
+    /**
+     * <code>repeated double value = 4;</code>
+     */
+    double getValue(int index);
+  }
+  /**
+   * Protobuf type {@code PerformanceDataReading}
+   */
   public static final class PerformanceDataReading extends
-      com.google.protobuf.GeneratedMessage {
+      com.google.protobuf.GeneratedMessage
+      implements PerformanceDataReadingOrBuilder {
     // Use PerformanceDataReading.newBuilder() to construct.
-    private PerformanceDataReading() {}
-    
-    private static final PerformanceDataReading defaultInstance = new PerformanceDataReading();
+    private PerformanceDataReading(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private PerformanceDataReading(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final PerformanceDataReading defaultInstance;
     public static PerformanceDataReading getDefaultInstance() {
       return defaultInstance;
     }
-    
-    @Override
+
     public PerformanceDataReading getDefaultInstanceForType() {
       return defaultInstance;
     }
-    
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private PerformanceDataReading(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              bitField0_ |= 0x00000001;
+              path_ = input.readBytes();
+              break;
+            }
+            case 18: {
+              bitField0_ |= 0x00000002;
+              owner_ = input.readBytes();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              timestamp_ = input.readUInt64();
+              break;
+            }
+            case 33: {
+              if (!((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+                value_ = new java.util.ArrayList<java.lang.Double>();
+                mutable_bitField0_ |= 0x00000008;
+              }
+              value_.add(input.readDouble());
+              break;
+            }
+            case 34: {
+              int length = input.readRawVarint32();
+              int limit = input.pushLimit(length);
+              if (!((mutable_bitField0_ & 0x00000008) == 0x00000008) && input.getBytesUntilLimit() > 0) {
+                value_ = new java.util.ArrayList<java.lang.Double>();
+                mutable_bitField0_ |= 0x00000008;
+              }
+              while (input.getBytesUntilLimit() > 0) {
+                value_.add(input.readDouble());
+              }
+              input.popLimit(limit);
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+          value_ = java.util.Collections.unmodifiableList(value_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.internal_static_PerformanceDataReading_descriptor;
     }
-    
-    @Override
+
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.internal_static_PerformanceDataReading_fieldAccessorTable;
+      return org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.internal_static_PerformanceDataReading_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading.class, org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading.Builder.class);
     }
-    
+
+    public static com.google.protobuf.Parser<PerformanceDataReading> PARSER =
+        new com.google.protobuf.AbstractParser<PerformanceDataReading>() {
+      public PerformanceDataReading parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new PerformanceDataReading(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<PerformanceDataReading> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
     // required string path = 1;
     public static final int PATH_FIELD_NUMBER = 1;
-    private boolean hasPath;
-    private java.lang.String path_ = "";
-    public boolean hasPath() { return hasPath; }
-    public java.lang.String getPath() { return path_; }
-    
+    private java.lang.Object path_;
+    /**
+     * <code>required string path = 1;</code>
+     */
+    public boolean hasPath() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required string path = 1;</code>
+     */
+    public java.lang.String getPath() {
+      java.lang.Object ref = path_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          path_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string path = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getPathBytes() {
+      java.lang.Object ref = path_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b =
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        path_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     // required string owner = 2;
     public static final int OWNER_FIELD_NUMBER = 2;
-    private boolean hasOwner;
-    private java.lang.String owner_ = "";
-    public boolean hasOwner() { return hasOwner; }
-    public java.lang.String getOwner() { return owner_; }
-    
+    private java.lang.Object owner_;
+    /**
+     * <code>required string owner = 2;</code>
+     */
+    public boolean hasOwner() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required string owner = 2;</code>
+     */
+    public java.lang.String getOwner() {
+      java.lang.Object ref = owner_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          owner_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string owner = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getOwnerBytes() {
+      java.lang.Object ref = owner_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b =
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        owner_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     // required uint64 timestamp = 3;
     public static final int TIMESTAMP_FIELD_NUMBER = 3;
-    private boolean hasTimestamp;
-    private long timestamp_ = 0L;
-    public boolean hasTimestamp() { return hasTimestamp; }
-    public long getTimestamp() { return timestamp_; }
-    
+    private long timestamp_;
+    /**
+     * <code>required uint64 timestamp = 3;</code>
+     */
+    public boolean hasTimestamp() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>required uint64 timestamp = 3;</code>
+     */
+    public long getTimestamp() {
+      return timestamp_;
+    }
+
     // repeated double value = 4;
     public static final int VALUE_FIELD_NUMBER = 4;
-    private java.util.List<java.lang.Double> value_ =
-      java.util.Collections.emptyList();
-    public java.util.List<java.lang.Double> getValueList() {
+    private java.util.List<java.lang.Double> value_;
+    /**
+     * <code>repeated double value = 4;</code>
+     */
+    public java.util.List<java.lang.Double>
+        getValueList() {
       return value_;
     }
-    public int getValueCount() { return value_.size(); }
+    /**
+     * <code>repeated double value = 4;</code>
+     */
+    public int getValueCount() {
+      return value_.size();
+    }
+    /**
+     * <code>repeated double value = 4;</code>
+     */
     public double getValue(int index) {
       return value_.get(index);
     }
-    
-    @Override
+
+    private void initFields() {
+      path_ = "";
+      owner_ = "";
+      timestamp_ = 0L;
+      value_ = java.util.Collections.emptyList();
+    }
+    private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
-      if (!hasPath) return false;
-      if (!hasOwner) return false;
-      if (!hasTimestamp) return false;
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      if (!hasPath()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasOwner()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasTimestamp()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
       return true;
     }
-    
-    @Override
+
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (hasPath()) {
-        output.writeString(1, getPath());
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeBytes(1, getPathBytes());
       }
-      if (hasOwner()) {
-        output.writeString(2, getOwner());
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeBytes(2, getOwnerBytes());
       }
-      if (hasTimestamp()) {
-        output.writeUInt64(3, getTimestamp());
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeUInt64(3, timestamp_);
       }
-      for (double element : getValueList()) {
-        output.writeDouble(4, element);
+      for (int i = 0; i < value_.size(); i++) {
+        output.writeDouble(4, value_.get(i));
       }
       getUnknownFields().writeTo(output);
     }
-    
+
     private int memoizedSerializedSize = -1;
-    @Override
     public int getSerializedSize() {
       int size = memoizedSerializedSize;
       if (size != -1) return size;
-    
+
       size = 0;
-      if (hasPath()) {
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeStringSize(1, getPath());
+          .computeBytesSize(1, getPathBytes());
       }
-      if (hasOwner()) {
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeStringSize(2, getOwner());
+          .computeBytesSize(2, getOwnerBytes());
       }
-      if (hasTimestamp()) {
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(3, getTimestamp());
+          .computeUInt64Size(3, timestamp_);
       }
       {
         int dataSize = 0;
@@ -160,155 +420,176 @@ public final class PerformanceDataProtos {
       memoizedSerializedSize = size;
       return size;
     }
-    
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
     public static org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
+      return PARSER.parseFrom(data);
     }
     public static org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
+      return PARSER.parseFrom(data);
     }
     public static org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
+      return PARSER.parseFrom(input);
     }
     public static org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(input, extensionRegistry);
     }
     public static org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return newBuilder().mergeDelimitedFrom(input).buildParsed();
+      return PARSER.parseDelimitedFrom(input);
     }
     public static org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return newBuilder().mergeDelimitedFrom(input, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
     }
     public static org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
+      return PARSER.parseFrom(input);
     }
     public static org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(input, extensionRegistry);
     }
-    
+
     public static Builder newBuilder() { return Builder.create(); }
-    @Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder(org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading prototype) {
       return newBuilder().mergeFrom(prototype);
     }
-    @Override
     public Builder toBuilder() { return newBuilder(this); }
-    
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code PerformanceDataReading}
+     */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> {
-      private org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading result;
-      
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadingOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.internal_static_PerformanceDataReading_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.internal_static_PerformanceDataReading_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading.class, org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading.Builder.class);
+      }
+
       // Construct using org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading.newBuilder()
-      private Builder() {}
-      
-      private static Builder create() {
-        Builder builder = new Builder();
-        builder.result = new org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading();
-        return builder;
+      private Builder() {
+        maybeForceBuilderInitialization();
       }
-      
-      @Override
-      protected org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading internalGetResult() {
-        return result;
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
       }
-      
-      @Override
-      public Builder clear() {
-        if (result == null) {
-          throw new IllegalStateException(
-            "Cannot call clear() after build().");
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
         }
-        result = new org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading();
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        path_ = "";
+        bitField0_ = (bitField0_ & ~0x00000001);
+        owner_ = "";
+        bitField0_ = (bitField0_ & ~0x00000002);
+        timestamp_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        value_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
-      
-      @Override
+
       public Builder clone() {
-        return create().mergeFrom(result);
+        return create().mergeFrom(buildPartial());
       }
-      
-      @Override
+
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading.getDescriptor();
+        return org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.internal_static_PerformanceDataReading_descriptor;
       }
-      
-      @Override
+
       public org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading getDefaultInstanceForType() {
         return org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading.getDefaultInstance();
       }
-      
-      @Override
-      public boolean isInitialized() {
-        return result.isInitialized();
-      }
-      @Override
+
       public org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading build() {
-        if (result != null && !isInitialized()) {
+        org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading result = buildPartial();
+        if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
-        return buildPartial();
+        return result;
       }
-      
-      private org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading buildParsed()
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        if (!isInitialized()) {
-          throw newUninitializedMessageException(
-            result).asInvalidProtocolBufferException();
-        }
-        return buildPartial();
-      }
-      
-      @Override
+
       public org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading buildPartial() {
-        if (result == null) {
-          throw new IllegalStateException(
-            "build() has already been called on this Builder.");
+        org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading result = new org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
         }
-        if (result.value_ != java.util.Collections.EMPTY_LIST) {
-          result.value_ =
-            java.util.Collections.unmodifiableList(result.value_);
+        result.path_ = path_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
         }
-        org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading returnMe = result;
-        result = null;
-        return returnMe;
+        result.owner_ = owner_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.timestamp_ = timestamp_;
+        if (((bitField0_ & 0x00000008) == 0x00000008)) {
+          value_ = java.util.Collections.unmodifiableList(value_);
+          bitField0_ = (bitField0_ & ~0x00000008);
+        }
+        result.value_ = value_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
       }
-      
-      @Override
+
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading) {
           return mergeFrom((org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading)other);
@@ -317,394 +598,687 @@ public final class PerformanceDataProtos {
           return this;
         }
       }
-      
+
       public Builder mergeFrom(org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading other) {
         if (other == org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading.getDefaultInstance()) return this;
         if (other.hasPath()) {
-          setPath(other.getPath());
+          bitField0_ |= 0x00000001;
+          path_ = other.path_;
+          onChanged();
         }
         if (other.hasOwner()) {
-          setOwner(other.getOwner());
+          bitField0_ |= 0x00000002;
+          owner_ = other.owner_;
+          onChanged();
         }
         if (other.hasTimestamp()) {
           setTimestamp(other.getTimestamp());
         }
         if (!other.value_.isEmpty()) {
-          if (result.value_.isEmpty()) {
-            result.value_ = new java.util.ArrayList<java.lang.Double>();
+          if (value_.isEmpty()) {
+            value_ = other.value_;
+            bitField0_ = (bitField0_ & ~0x00000008);
+          } else {
+            ensureValueIsMutable();
+            value_.addAll(other.value_);
           }
-          result.value_.addAll(other.value_);
+          onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
-      
-      @Override
+
+      public final boolean isInitialized() {
+        if (!hasPath()) {
+          return false;
+        }
+        if (!hasOwner()) {
+          return false;
+        }
+        if (!hasTimestamp()) {
+          return false;
+        }
+        return true;
+      }
+
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder(
-            this.getUnknownFields());
-        while (true) {
+        org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      // required string path = 1;
+      private java.lang.Object path_ = "";
+      /**
+       * <code>required string path = 1;</code>
+       */
+      public boolean hasPath() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required string path = 1;</code>
+       */
+      public java.lang.String getPath() {
+        java.lang.Object ref = path_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          path_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string path = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getPathBytes() {
+        java.lang.Object ref = path_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b =
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          path_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string path = 1;</code>
+       */
+      public Builder setPath(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        path_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string path = 1;</code>
+       */
+      public Builder clearPath() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        path_ = getDefaultInstance().getPath();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string path = 1;</code>
+       */
+      public Builder setPathBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        path_ = value;
+        onChanged();
+        return this;
+      }
+
+      // required string owner = 2;
+      private java.lang.Object owner_ = "";
+      /**
+       * <code>required string owner = 2;</code>
+       */
+      public boolean hasOwner() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required string owner = 2;</code>
+       */
+      public java.lang.String getOwner() {
+        java.lang.Object ref = owner_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          owner_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string owner = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getOwnerBytes() {
+        java.lang.Object ref = owner_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b =
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          owner_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string owner = 2;</code>
+       */
+      public Builder setOwner(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        owner_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string owner = 2;</code>
+       */
+      public Builder clearOwner() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        owner_ = getDefaultInstance().getOwner();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string owner = 2;</code>
+       */
+      public Builder setOwnerBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        owner_ = value;
+        onChanged();
+        return this;
+      }
+
+      // required uint64 timestamp = 3;
+      private long timestamp_ ;
+      /**
+       * <code>required uint64 timestamp = 3;</code>
+       */
+      public boolean hasTimestamp() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>required uint64 timestamp = 3;</code>
+       */
+      public long getTimestamp() {
+        return timestamp_;
+      }
+      /**
+       * <code>required uint64 timestamp = 3;</code>
+       */
+      public Builder setTimestamp(long value) {
+        bitField0_ |= 0x00000004;
+        timestamp_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required uint64 timestamp = 3;</code>
+       */
+      public Builder clearTimestamp() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        timestamp_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      // repeated double value = 4;
+      private java.util.List<java.lang.Double> value_ = java.util.Collections.emptyList();
+      private void ensureValueIsMutable() {
+        if (!((bitField0_ & 0x00000008) == 0x00000008)) {
+          value_ = new java.util.ArrayList<java.lang.Double>(value_);
+          bitField0_ |= 0x00000008;
+         }
+      }
+      /**
+       * <code>repeated double value = 4;</code>
+       */
+      public java.util.List<java.lang.Double>
+          getValueList() {
+        return java.util.Collections.unmodifiableList(value_);
+      }
+      /**
+       * <code>repeated double value = 4;</code>
+       */
+      public int getValueCount() {
+        return value_.size();
+      }
+      /**
+       * <code>repeated double value = 4;</code>
+       */
+      public double getValue(int index) {
+        return value_.get(index);
+      }
+      /**
+       * <code>repeated double value = 4;</code>
+       */
+      public Builder setValue(
+          int index, double value) {
+        ensureValueIsMutable();
+        value_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated double value = 4;</code>
+       */
+      public Builder addValue(double value) {
+        ensureValueIsMutable();
+        value_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated double value = 4;</code>
+       */
+      public Builder addAllValue(
+          java.lang.Iterable<? extends java.lang.Double> values) {
+        ensureValueIsMutable();
+        super.addAll(values, value_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated double value = 4;</code>
+       */
+      public Builder clearValue() {
+        value_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000008);
+        onChanged();
+        return this;
+      }
+    }
+
+    static {
+      defaultInstance = new PerformanceDataReading(true);
+      defaultInstance.initFields();
+    }
+  }
+
+  public interface PerformanceDataReadingsOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+
+    // repeated .PerformanceDataReading message = 1;
+    /**
+     * <code>repeated .PerformanceDataReading message = 1;</code>
+     */
+    java.util.List<org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading>
+        getMessageList();
+    /**
+     * <code>repeated .PerformanceDataReading message = 1;</code>
+     */
+    org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading getMessage(int index);
+    /**
+     * <code>repeated .PerformanceDataReading message = 1;</code>
+     */
+    int getMessageCount();
+    /**
+     * <code>repeated .PerformanceDataReading message = 1;</code>
+     */
+    java.util.List<? extends org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadingOrBuilder>
+        getMessageOrBuilderList();
+    /**
+     * <code>repeated .PerformanceDataReading message = 1;</code>
+     */
+    org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadingOrBuilder getMessageOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code PerformanceDataReadings}
+   */
+  public static final class PerformanceDataReadings extends
+      com.google.protobuf.GeneratedMessage
+      implements PerformanceDataReadingsOrBuilder {
+    // Use PerformanceDataReadings.newBuilder() to construct.
+    private PerformanceDataReadings(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private PerformanceDataReadings(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final PerformanceDataReadings defaultInstance;
+    public static PerformanceDataReadings getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public PerformanceDataReadings getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private PerformanceDataReadings(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
           int tag = input.readTag();
           switch (tag) {
             case 0:
-              this.setUnknownFields(unknownFields.build());
-              return this;
+              done = true;
+              break;
             default: {
               if (!parseUnknownField(input, unknownFields,
                                      extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                return this;
+                done = true;
               }
               break;
             }
             case 10: {
-              setPath(input.readString());
-              break;
-            }
-            case 18: {
-              setOwner(input.readString());
-              break;
-            }
-            case 24: {
-              setTimestamp(input.readUInt64());
-              break;
-            }
-            case 33: {
-              addValue(input.readDouble());
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                message_ = new java.util.ArrayList<org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              message_.add(input.readMessage(org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading.PARSER, extensionRegistry));
               break;
             }
           }
         }
-      }
-      
-      
-      // required string path = 1;
-      public boolean hasPath() {
-        return result.hasPath();
-      }
-      public java.lang.String getPath() {
-        return result.getPath();
-      }
-      public Builder setPath(java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  result.hasPath = true;
-        result.path_ = value;
-        return this;
-      }
-      public Builder clearPath() {
-        result.hasPath = false;
-        result.path_ = getDefaultInstance().getPath();
-        return this;
-      }
-      
-      // required string owner = 2;
-      public boolean hasOwner() {
-        return result.hasOwner();
-      }
-      public java.lang.String getOwner() {
-        return result.getOwner();
-      }
-      public Builder setOwner(java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  result.hasOwner = true;
-        result.owner_ = value;
-        return this;
-      }
-      public Builder clearOwner() {
-        result.hasOwner = false;
-        result.owner_ = getDefaultInstance().getOwner();
-        return this;
-      }
-      
-      // required uint64 timestamp = 3;
-      public boolean hasTimestamp() {
-        return result.hasTimestamp();
-      }
-      public long getTimestamp() {
-        return result.getTimestamp();
-      }
-      public Builder setTimestamp(long value) {
-        result.hasTimestamp = true;
-        result.timestamp_ = value;
-        return this;
-      }
-      public Builder clearTimestamp() {
-        result.hasTimestamp = false;
-        result.timestamp_ = 0L;
-        return this;
-      }
-      
-      // repeated double value = 4;
-      public java.util.List<java.lang.Double> getValueList() {
-        return java.util.Collections.unmodifiableList(result.value_);
-      }
-      public int getValueCount() {
-        return result.getValueCount();
-      }
-      public double getValue(int index) {
-        return result.getValue(index);
-      }
-      public Builder setValue(int index, double value) {
-        result.value_.set(index, value);
-        return this;
-      }
-      public Builder addValue(double value) {
-        if (result.value_.isEmpty()) {
-          result.value_ = new java.util.ArrayList<java.lang.Double>();
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+          message_ = java.util.Collections.unmodifiableList(message_);
         }
-        result.value_.add(value);
-        return this;
-      }
-      public Builder addAllValue(
-          java.lang.Iterable<? extends java.lang.Double> values) {
-        if (result.value_.isEmpty()) {
-          result.value_ = new java.util.ArrayList<java.lang.Double>();
-        }
-        super.addAll(values, result.value_);
-        return this;
-      }
-      public Builder clearValue() {
-        result.value_ = java.util.Collections.emptyList();
-        return this;
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
       }
     }
-    
-    static {
-      org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.getDescriptor();
-    }
-    
-    static {
-      org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.internalForceInit();
-    }
-  }
-  
-  public static final class PerformanceDataReadings extends
-      com.google.protobuf.GeneratedMessage {
-    // Use PerformanceDataReadings.newBuilder() to construct.
-    private PerformanceDataReadings() {}
-    
-    private static final PerformanceDataReadings defaultInstance = new PerformanceDataReadings();
-    public static PerformanceDataReadings getDefaultInstance() {
-      return defaultInstance;
-    }
-    
-    @Override
-    public PerformanceDataReadings getDefaultInstanceForType() {
-      return defaultInstance;
-    }
-    
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.internal_static_PerformanceDataReadings_descriptor;
     }
-    
-    @Override
+
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.internal_static_PerformanceDataReadings_fieldAccessorTable;
+      return org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.internal_static_PerformanceDataReadings_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings.class, org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings.Builder.class);
     }
-    
+
+    public static com.google.protobuf.Parser<PerformanceDataReadings> PARSER =
+        new com.google.protobuf.AbstractParser<PerformanceDataReadings>() {
+      public PerformanceDataReadings parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new PerformanceDataReadings(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<PerformanceDataReadings> getParserForType() {
+      return PARSER;
+    }
+
     // repeated .PerformanceDataReading message = 1;
     public static final int MESSAGE_FIELD_NUMBER = 1;
-    private java.util.List<org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading> message_ =
-      java.util.Collections.emptyList();
+    private java.util.List<org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading> message_;
+    /**
+     * <code>repeated .PerformanceDataReading message = 1;</code>
+     */
     public java.util.List<org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading> getMessageList() {
       return message_;
     }
-    public int getMessageCount() { return message_.size(); }
+    /**
+     * <code>repeated .PerformanceDataReading message = 1;</code>
+     */
+    public java.util.List<? extends org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadingOrBuilder>
+        getMessageOrBuilderList() {
+      return message_;
+    }
+    /**
+     * <code>repeated .PerformanceDataReading message = 1;</code>
+     */
+    public int getMessageCount() {
+      return message_.size();
+    }
+    /**
+     * <code>repeated .PerformanceDataReading message = 1;</code>
+     */
     public org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading getMessage(int index) {
       return message_.get(index);
     }
-    
-    @Override
+    /**
+     * <code>repeated .PerformanceDataReading message = 1;</code>
+     */
+    public org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadingOrBuilder getMessageOrBuilder(
+        int index) {
+      return message_.get(index);
+    }
+
+    private void initFields() {
+      message_ = java.util.Collections.emptyList();
+    }
+    private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
-      for (org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading element : getMessageList()) {
-        if (!element.isInitialized()) return false;
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      for (int i = 0; i < getMessageCount(); i++) {
+        if (!getMessage(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
       }
+      memoizedIsInitialized = 1;
       return true;
     }
-    
-    @Override
+
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      for (org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading element : getMessageList()) {
-        output.writeMessage(1, element);
+      getSerializedSize();
+      for (int i = 0; i < message_.size(); i++) {
+        output.writeMessage(1, message_.get(i));
       }
       getUnknownFields().writeTo(output);
     }
-    
+
     private int memoizedSerializedSize = -1;
-    @Override
     public int getSerializedSize() {
       int size = memoizedSerializedSize;
       if (size != -1) return size;
-    
+
       size = 0;
-      for (org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading element : getMessageList()) {
+      for (int i = 0; i < message_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, element);
+          .computeMessageSize(1, message_.get(i));
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
       return size;
     }
-    
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
     public static org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
+      return PARSER.parseFrom(data);
     }
     public static org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
+      return PARSER.parseFrom(data);
     }
     public static org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
+      return PARSER.parseFrom(input);
     }
     public static org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(input, extensionRegistry);
     }
     public static org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return newBuilder().mergeDelimitedFrom(input).buildParsed();
+      return PARSER.parseDelimitedFrom(input);
     }
     public static org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return newBuilder().mergeDelimitedFrom(input, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
     }
     public static org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
+      return PARSER.parseFrom(input);
     }
     public static org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(input, extensionRegistry);
     }
-    
+
     public static Builder newBuilder() { return Builder.create(); }
-    @Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder(org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings prototype) {
       return newBuilder().mergeFrom(prototype);
     }
-    @Override
     public Builder toBuilder() { return newBuilder(this); }
-    
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code PerformanceDataReadings}
+     */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> {
-      private org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings result;
-      
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadingsOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.internal_static_PerformanceDataReadings_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.internal_static_PerformanceDataReadings_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings.class, org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings.Builder.class);
+      }
+
       // Construct using org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings.newBuilder()
-      private Builder() {}
-      
-      private static Builder create() {
-        Builder builder = new Builder();
-        builder.result = new org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings();
-        return builder;
+      private Builder() {
+        maybeForceBuilderInitialization();
       }
-      
-      @Override
-      protected org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings internalGetResult() {
-        return result;
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
       }
-      
-      @Override
-      public Builder clear() {
-        if (result == null) {
-          throw new IllegalStateException(
-            "Cannot call clear() after build().");
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getMessageFieldBuilder();
         }
-        result = new org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings();
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        if (messageBuilder_ == null) {
+          message_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          messageBuilder_.clear();
+        }
         return this;
       }
-      
-      @Override
+
       public Builder clone() {
-        return create().mergeFrom(result);
+        return create().mergeFrom(buildPartial());
       }
-      
-      @Override
+
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings.getDescriptor();
+        return org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.internal_static_PerformanceDataReadings_descriptor;
       }
-      
-      @Override
+
       public org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings getDefaultInstanceForType() {
         return org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings.getDefaultInstance();
       }
-      
-      @Override
-      public boolean isInitialized() {
-        return result.isInitialized();
-      }
-      @Override
+
       public org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings build() {
-        if (result != null && !isInitialized()) {
+        org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings result = buildPartial();
+        if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
-        return buildPartial();
+        return result;
       }
-      
-      private org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings buildParsed()
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        if (!isInitialized()) {
-          throw newUninitializedMessageException(
-            result).asInvalidProtocolBufferException();
-        }
-        return buildPartial();
-      }
-      
-      @Override
+
       public org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings buildPartial() {
-        if (result == null) {
-          throw new IllegalStateException(
-            "build() has already been called on this Builder.");
+        org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings result = new org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings(this);
+        int from_bitField0_ = bitField0_;
+        if (messageBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+            message_ = java.util.Collections.unmodifiableList(message_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.message_ = message_;
+        } else {
+          result.message_ = messageBuilder_.build();
         }
-        if (result.message_ != java.util.Collections.EMPTY_LIST) {
-          result.message_ =
-            java.util.Collections.unmodifiableList(result.message_);
-        }
-        org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings returnMe = result;
-        result = null;
-        return returnMe;
+        onBuilt();
+        return result;
       }
-      
-      @Override
+
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings) {
           return mergeFrom((org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings)other);
@@ -713,113 +1287,314 @@ public final class PerformanceDataProtos {
           return this;
         }
       }
-      
+
       public Builder mergeFrom(org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings other) {
         if (other == org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings.getDefaultInstance()) return this;
-        if (!other.message_.isEmpty()) {
-          if (result.message_.isEmpty()) {
-            result.message_ = new java.util.ArrayList<org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading>();
+        if (messageBuilder_ == null) {
+          if (!other.message_.isEmpty()) {
+            if (message_.isEmpty()) {
+              message_ = other.message_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureMessageIsMutable();
+              message_.addAll(other.message_);
+            }
+            onChanged();
           }
-          result.message_.addAll(other.message_);
+        } else {
+          if (!other.message_.isEmpty()) {
+            if (messageBuilder_.isEmpty()) {
+              messageBuilder_.dispose();
+              messageBuilder_ = null;
+              message_ = other.message_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              messageBuilder_ =
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getMessageFieldBuilder() : null;
+            } else {
+              messageBuilder_.addAllMessages(other.message_);
+            }
+          }
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
-      
-      @Override
+
+      public final boolean isInitialized() {
+        for (int i = 0; i < getMessageCount(); i++) {
+          if (!getMessage(i).isInitialized()) {
+            return false;
+          }
+        }
+        return true;
+      }
+
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder(
-            this.getUnknownFields());
-        while (true) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              this.setUnknownFields(unknownFields.build());
-              return this;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                return this;
-              }
-              break;
-            }
-            case 10: {
-              org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading.Builder subBuilder = org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading.newBuilder();
-              input.readMessage(subBuilder, extensionRegistry);
-              addMessage(subBuilder.buildPartial());
-              break;
-            }
+        org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
           }
         }
+        return this;
       }
-      
-      
+      private int bitField0_;
+
       // repeated .PerformanceDataReading message = 1;
+      private java.util.List<org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading> message_ =
+        java.util.Collections.emptyList();
+      private void ensureMessageIsMutable() {
+        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+          message_ = new java.util.ArrayList<org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading>(message_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilder<
+          org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading, org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading.Builder, org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadingOrBuilder> messageBuilder_;
+
+      /**
+       * <code>repeated .PerformanceDataReading message = 1;</code>
+       */
       public java.util.List<org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading> getMessageList() {
-        return java.util.Collections.unmodifiableList(result.message_);
+        if (messageBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(message_);
+        } else {
+          return messageBuilder_.getMessageList();
+        }
       }
+      /**
+       * <code>repeated .PerformanceDataReading message = 1;</code>
+       */
       public int getMessageCount() {
-        return result.getMessageCount();
+        if (messageBuilder_ == null) {
+          return message_.size();
+        } else {
+          return messageBuilder_.getCount();
+        }
       }
+      /**
+       * <code>repeated .PerformanceDataReading message = 1;</code>
+       */
       public org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading getMessage(int index) {
-        return result.getMessage(index);
-      }
-      public Builder setMessage(int index, org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading value) {
-        if (value == null) {
-          throw new NullPointerException();
+        if (messageBuilder_ == null) {
+          return message_.get(index);
+        } else {
+          return messageBuilder_.getMessage(index);
         }
-        result.message_.set(index, value);
+      }
+      /**
+       * <code>repeated .PerformanceDataReading message = 1;</code>
+       */
+      public Builder setMessage(
+          int index, org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading value) {
+        if (messageBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMessageIsMutable();
+          message_.set(index, value);
+          onChanged();
+        } else {
+          messageBuilder_.setMessage(index, value);
+        }
         return this;
       }
-      public Builder setMessage(int index, org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading.Builder builderForValue) {
-        result.message_.set(index, builderForValue.build());
+      /**
+       * <code>repeated .PerformanceDataReading message = 1;</code>
+       */
+      public Builder setMessage(
+          int index, org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading.Builder builderForValue) {
+        if (messageBuilder_ == null) {
+          ensureMessageIsMutable();
+          message_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          messageBuilder_.setMessage(index, builderForValue.build());
+        }
         return this;
       }
+      /**
+       * <code>repeated .PerformanceDataReading message = 1;</code>
+       */
       public Builder addMessage(org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading value) {
-        if (value == null) {
-          throw new NullPointerException();
+        if (messageBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMessageIsMutable();
+          message_.add(value);
+          onChanged();
+        } else {
+          messageBuilder_.addMessage(value);
         }
-        if (result.message_.isEmpty()) {
-          result.message_ = new java.util.ArrayList<org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading>();
-        }
-        result.message_.add(value);
         return this;
       }
-      public Builder addMessage(org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading.Builder builderForValue) {
-        if (result.message_.isEmpty()) {
-          result.message_ = new java.util.ArrayList<org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading>();
+      /**
+       * <code>repeated .PerformanceDataReading message = 1;</code>
+       */
+      public Builder addMessage(
+          int index, org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading value) {
+        if (messageBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMessageIsMutable();
+          message_.add(index, value);
+          onChanged();
+        } else {
+          messageBuilder_.addMessage(index, value);
         }
-        result.message_.add(builderForValue.build());
         return this;
       }
+      /**
+       * <code>repeated .PerformanceDataReading message = 1;</code>
+       */
+      public Builder addMessage(
+          org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading.Builder builderForValue) {
+        if (messageBuilder_ == null) {
+          ensureMessageIsMutable();
+          message_.add(builderForValue.build());
+          onChanged();
+        } else {
+          messageBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .PerformanceDataReading message = 1;</code>
+       */
+      public Builder addMessage(
+          int index, org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading.Builder builderForValue) {
+        if (messageBuilder_ == null) {
+          ensureMessageIsMutable();
+          message_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          messageBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .PerformanceDataReading message = 1;</code>
+       */
       public Builder addAllMessage(
           java.lang.Iterable<? extends org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading> values) {
-        if (result.message_.isEmpty()) {
-          result.message_ = new java.util.ArrayList<org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading>();
+        if (messageBuilder_ == null) {
+          ensureMessageIsMutable();
+          super.addAll(values, message_);
+          onChanged();
+        } else {
+          messageBuilder_.addAllMessages(values);
         }
-        super.addAll(values, result.message_);
         return this;
       }
+      /**
+       * <code>repeated .PerformanceDataReading message = 1;</code>
+       */
       public Builder clearMessage() {
-        result.message_ = java.util.Collections.emptyList();
+        if (messageBuilder_ == null) {
+          message_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          messageBuilder_.clear();
+        }
         return this;
       }
+      /**
+       * <code>repeated .PerformanceDataReading message = 1;</code>
+       */
+      public Builder removeMessage(int index) {
+        if (messageBuilder_ == null) {
+          ensureMessageIsMutable();
+          message_.remove(index);
+          onChanged();
+        } else {
+          messageBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .PerformanceDataReading message = 1;</code>
+       */
+      public org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading.Builder getMessageBuilder(
+          int index) {
+        return getMessageFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .PerformanceDataReading message = 1;</code>
+       */
+      public org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadingOrBuilder getMessageOrBuilder(
+          int index) {
+        if (messageBuilder_ == null) {
+          return message_.get(index);  } else {
+          return messageBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .PerformanceDataReading message = 1;</code>
+       */
+      public java.util.List<? extends org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadingOrBuilder>
+           getMessageOrBuilderList() {
+        if (messageBuilder_ != null) {
+          return messageBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(message_);
+        }
+      }
+      /**
+       * <code>repeated .PerformanceDataReading message = 1;</code>
+       */
+      public org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading.Builder addMessageBuilder() {
+        return getMessageFieldBuilder().addBuilder(
+            org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .PerformanceDataReading message = 1;</code>
+       */
+      public org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading.Builder addMessageBuilder(
+          int index) {
+        return getMessageFieldBuilder().addBuilder(
+            index, org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .PerformanceDataReading message = 1;</code>
+       */
+      public java.util.List<org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading.Builder>
+           getMessageBuilderList() {
+        return getMessageFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading, org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading.Builder, org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadingOrBuilder>
+          getMessageFieldBuilder() {
+        if (messageBuilder_ == null) {
+          messageBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading, org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading.Builder, org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadingOrBuilder>(
+                  message_,
+                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  getParentForChildren(),
+                  isClean());
+          message_ = null;
+        }
+        return messageBuilder_;
+      }
     }
-    
+
     static {
-      org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.getDescriptor();
-    }
-    
-    static {
-      org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.internalForceInit();
+      defaultInstance = new PerformanceDataReadings(true);
+      defaultInstance.initFields();
     }
   }
-  
+
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_PerformanceDataReading_descriptor;
   private static
@@ -830,12 +1605,7 @@ public final class PerformanceDataProtos {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_PerformanceDataReadings_fieldAccessorTable;
-  
-  /**
-   * <p>Getter for the field <code>descriptor</code>.</p>
-   *
-   * @return a {@link com.google.protobuf.Descriptors.FileDescriptor} object.
-   */
+
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
     return descriptor;
@@ -853,7 +1623,6 @@ public final class PerformanceDataProtos {
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
-        @Override
         public com.google.protobuf.ExtensionRegistry assignDescriptors(
             com.google.protobuf.Descriptors.FileDescriptor root) {
           descriptor = root;
@@ -862,17 +1631,13 @@ public final class PerformanceDataProtos {
           internal_static_PerformanceDataReading_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_PerformanceDataReading_descriptor,
-              new java.lang.String[] { "Path", "Owner", "Timestamp", "Value", },
-              org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading.class,
-              org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading.Builder.class);
+              new java.lang.String[] { "Path", "Owner", "Timestamp", "Value", });
           internal_static_PerformanceDataReadings_descriptor =
             getDescriptor().getMessageTypes().get(1);
           internal_static_PerformanceDataReadings_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_PerformanceDataReadings_descriptor,
-              new java.lang.String[] { "Message", },
-              org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings.class,
-              org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings.Builder.class);
+              new java.lang.String[] { "Message", });
           return null;
         }
       };
@@ -881,9 +1646,4 @@ public final class PerformanceDataProtos {
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
   }
-  
-  /**
-   * <p>internalForceInit</p>
-   */
-  public static void internalForceInit() {}
 }
