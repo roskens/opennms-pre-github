@@ -13,5 +13,11 @@
     <ignoreVersion type="regex">^[0-9]{8}\.[0-9]{6}$</ignoreVersion>
     <ignoreVersion type="regex">.*\-does\-not\-exist$</ignoreVersion>
   </ignoreVersions>
-  <rules/>
+  <rules>
+    <rule groupId="org.eclipse.jetty" comparisonMethod="maven">
+      <ignoreVersions>
+        <ignoreVersion type="regex">^9\.[0-9]\.[0-9]\.(M[0-9]|RC[0-9]|v[0-9]{8})$</ignoreVersion>
+      </ignoreVersions>
+    </rule>
+  </rules>
 </ruleset>
