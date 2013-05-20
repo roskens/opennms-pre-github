@@ -608,6 +608,11 @@
           <rulesUri>file://${root.dir}/src/site/maven-version-rules.xml</rulesUri>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>2.4</version>
+     </plugin>
    </plugins>
   </build>
 
