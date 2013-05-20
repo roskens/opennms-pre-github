@@ -37,7 +37,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.opennms.core.test.MockLogAppender;
 import org.opennms.netmgt.dao.topology.TopologyDaoInMemoryImpl;
-import org.opennms.netmgt.enlinkd.BridgePath.Order;
+import org.opennms.netmgt.enlinkd.EnhancedLinkdServiceImpl.BridgeForwardingPath;
 import org.opennms.netmgt.linkd.LinkdNetworkBuilder;
 import org.opennms.netmgt.model.topology.BridgeDot1dTpFdbLink;
 import org.opennms.netmgt.model.topology.BridgeElementIdentifier;
@@ -107,37 +107,6 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
 	}
 
 	@Test
-	public void testBridgeForwardingPath() {
-		BridgePort portab=new BridgePort("000000000002", 24);
-		BridgePort port1=new BridgePort("000000000001", 1);
-		BridgePort port2=new BridgePort("000000000001", 2);
-		
-		BridgePath path1 = new BridgePath(portab, port1, "aaaabbbb0001",Order.REVERSED);
-		BridgePath path2 = new BridgePath(portab, port2, "aaaabbbb0002",Order.REVERSED);
-		
-		assertEquals(true, path1.isPath());
-		assertEquals(true, path2.isPath());
-
-		assertEquals(true, path1.hasSameBridgeElementOrder(path2));
-
-		path2 = path1.removeIncompatibleOrders(path2);
-
-
-
-		assertEquals(true, path1.isPath());
-		assertEquals(true, path2.isPath());
-		
-		assertEquals(true, path1.isComparable(path2));
-		
-		path1.removeIncompatiblePath(path2);
-		path2.removeIncompatiblePath(path1);
-		
-		printBridgeForwardingPath(path1);
-		printBridgeForwardingPath(path2);
-		
-	}
-	
-	@Test
     public void testOneBridgeOnePortOneMac() throws Exception {
         assertEquals(true, (m_service.getTopologyDao() != null));
 
@@ -166,11 +135,6 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
        System.err.println("");
        System.err.println("printing link topology");
        printLinkTopology(m_topologyDao.getTopology());
-       
-	    System.err.println("");
-	    System.err.println("print saved local topology");
-		assertEquals(0,printBridgeForwardingPaths(m_service.getBridgePaths()).size());
-
 	}
 
 	@Test
@@ -216,11 +180,6 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
        System.err.println("");
        System.err.println("printing link topology");
        printLinkTopology(m_topologyDao.getTopology());
-       
-	    System.err.println("");
-	    System.err.println("print saved local topology");
-		assertEquals(0,printBridgeForwardingPaths(m_service.getBridgePaths()).size());
-
 	}
 
 	@Test
@@ -309,11 +268,6 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
 		System.err.println("");
 		System.err.println("printing link topology");
 		printLinkTopology(m_topologyDao.getTopology());
-		
-	    System.err.println("");
-	    System.err.println("print saved local topology");
-		assertEquals(0,printBridgeForwardingPaths(m_service.getBridgePaths()).size());
-
 	}
 
 	@Test
@@ -392,11 +346,6 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
        System.err.println("");
        System.err.println("print link topology");
        printLinkTopology(m_topologyDao.getTopology());
-       
-	    System.err.println("");
-	    System.err.println("print saved local topology");
-		assertEquals(1,printBridgeForwardingPaths(m_service.getBridgePaths()).size());
-
     }
 
 	@Test
@@ -443,7 +392,7 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
 		
 	    System.err.println("");
 	    System.err.println("print saved local topology");
-		assertEquals(1,printBridgeForwardingPaths(m_service.getBridgePaths()).size());
+		assertEquals(1,printBridgeForwardingPaths(m_service.getBridgeForwardingPaths()).size());
 	}
 
 	@Test
@@ -490,7 +439,7 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
 		
 	    System.err.println("");
 	    System.err.println("print saved local topology");
-		assertEquals(2,printBridgeForwardingPaths(m_service.getBridgePaths()).size());
+		assertEquals(2,printBridgeForwardingPaths(m_service.getBridgeForwardingPaths()).size());
 
 	}
 
@@ -543,7 +492,7 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
 		
 	    System.err.println("");
 	    System.err.println("print saved local topology");
-		assertEquals(1,printBridgeForwardingPaths(m_service.getBridgePaths()).size());
+		assertEquals(2,printBridgeForwardingPaths(m_service.getBridgeForwardingPaths()).size());
 	}
 	
 	@Test
@@ -604,7 +553,7 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
        
 	    System.err.println("");
 	    System.err.println("print saved local topology");
-		assertEquals(3,printBridgeForwardingPaths(m_service.getBridgePaths()).size());
+		assertEquals(3,printBridgeForwardingPaths(m_service.getBridgeForwardingPaths()).size());
 
 	}
 
@@ -669,7 +618,7 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
        
 	    System.err.println("");
 	    System.err.println("print saved local topology");
-		assertEquals(5,printBridgeForwardingPaths(m_service.getBridgePaths()).size());
+		assertEquals(5,printBridgeForwardingPaths(m_service.getBridgeForwardingPaths()).size());
 	}
 	
 	@Test 
@@ -725,17 +674,17 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
 
  	    System.err.println("");
  	    System.err.println("print saved local topology");
-		assertEquals(5,printBridgeForwardingPaths(m_service.getBridgePaths()).size());
+		assertEquals(5,printBridgeForwardingPaths(m_service.getBridgeForwardingPaths()).size());
 	}
 
-	protected List<BridgePath> printBridgeForwardingPaths(List<BridgePath> paths) {
-	       for (final BridgePath path: paths) {
+	protected List<BridgeForwardingPath> printBridgeForwardingPaths(List<BridgeForwardingPath> paths) {
+	       for (final BridgeForwardingPath path: m_service.getBridgeForwardingPaths()) {
 	    	   printBridgeForwardingPath(path);
 	       }
 		return paths;
 	}
 	
-	protected void printBridgeForwardingPath(BridgePath path) {
+	protected void printBridgeForwardingPath(BridgeForwardingPath path) {
 	       System.err.println("");
 	       System.err.println("----bridge forwarding path---");
 	       System.err.println("1-bridge/port: "+path.getPort1().getBridgeIdentifier()+"/"+path.getPort1().getBridgePort());

@@ -4,22 +4,16 @@ import static org.opennms.netmgt.enlinkd.PseudoBridgeHelper.getPseudoBridgeEleme
 import static org.opennms.netmgt.enlinkd.PseudoBridgeHelper.getBridgeIdentifier;
 import static org.opennms.netmgt.enlinkd.PseudoBridgeHelper.getPseudoMacLink;
 
-import static org.opennms.netmgt.enlinkd.BridgePath.getBridgeElementIdentifier;
-import static org.opennms.netmgt.enlinkd.BridgePath.getBridgePort;
-import static org.opennms.netmgt.enlinkd.BridgePath.getBridgePortFromPseudoMac;
-import static org.opennms.netmgt.enlinkd.BridgePath.getBridgPortFromPseudoElementIdentifier;
-import static org.opennms.netmgt.enlinkd.BridgePath.getEndPoint;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.criterion.Restrictions;
 import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.dao.NodeDao;
 import org.opennms.netmgt.dao.TopologyDao;
-import org.opennms.netmgt.enlinkd.BridgePath.Order;
 import org.opennms.netmgt.model.OnmsCriteria;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.PrimaryType;
@@ -54,9 +48,249 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 	
 
-	private List<BridgePath> m_bridgePaths = new ArrayList<BridgePath>();
+	protected static BridgeEndPoint getEndPoint(BridgePort port, Integer sourceNode) {
+		Element e = new Element();
+		BridgeElementIdentifier bei = new BridgeElementIdentifier(port.getBridgeIdentifier(), sourceNode);
+		e.addElementIdentifier(bei);
+		BridgeEndPoint bep = new BridgeEndPoint(port.getBridgePort(), sourceNode);
+		bep.setElement(e);
+		e.addEndPoint(bep);
+		return bep;
+	}
+	
+	protected static PseudoBridgeElementIdentifier getBridgeElementIdentifier(BridgePort port, Integer sourceNode) {
+		return new PseudoBridgeElementIdentifier(port.getBridgeIdentifier(), port.getBridgePort(), sourceNode);
+		
+	}
+	
+	protected BridgePort getBridgePort(BridgeEndPoint bridgeEndPoint) {
+		return new BridgePort(getBridgeIdentifier(bridgeEndPoint), bridgeEndPoint.getBridgePort());
+	}
+	
+	protected BridgePort getBridgePortFromPseudoMac(PseudoMacEndPoint pseudoMac) {
+		return new BridgePort(pseudoMac.getLinkedBridgeIdentifier(), pseudoMac.getLinkedBridgePort());
+	}
+	
+	protected BridgePort getBridgPortFromPseudoElementIdentifier(PseudoBridgeElementIdentifier ei) {
+		return new BridgePort(ei.getLinkedBridgeIdentifier(), ei.getLinkedBridgePort());
+	}
+	/* DIRECT means that the order is mac sw1{port1} sw2{port2} - port2 is the backbone port from sw2 to sw1 
+	 * REVERSED means that the order is mac sw2{port2} sw1{port1} - port1 is the backbone port from sw1 to sw2
+	 * JOIN means that the order is sw1{port1} mac sw2{port2}
+	 */
+	public enum Order {DIRECT,REVERSED,JOIN};
 
-	private List<BridgePath> m_joinedBridgePaths = new ArrayList<BridgePath>();
+	protected class BridgePort {
+		
+		final private String m_bridgeIdentifier;
+		
+		final private Integer m_bridgePort;
+		
+		public BridgePort(String bridgeIdentifier, Integer bridgePort) {
+			super();
+			m_bridgeIdentifier = bridgeIdentifier;
+			m_bridgePort = bridgePort;
+		}
+
+		public String getBridgeIdentifier() {
+			return m_bridgeIdentifier;
+		}
+
+		public Integer getBridgePort() {
+			return m_bridgePort;
+		}
+		
+		public boolean sameBridge(BridgePort bridgeport) {
+			return m_bridgeIdentifier.equals(bridgeport.getBridgeIdentifier());
+		}
+
+		@Override
+		public String toString() {
+			return new ToStringBuilder(this)
+			.append("bridgeId", m_bridgeIdentifier)
+			.append("port", m_bridgePort).toString();
+		}
+	}
+	/*
+	 * 
+	 */
+	protected class BridgeForwardingPath {
+		
+		final private BridgePort m_port1;
+		final private BridgePort m_port2;
+		final private String m_mac;
+		private List<Order> m_compatibleorders;
+		
+		public BridgeForwardingPath(BridgePort port1,
+				BridgePort port2, String mac) {
+			super();
+			m_port1 = port1;
+			m_port2 = port2;
+			m_mac   = mac;
+			m_compatibleorders = new ArrayList<EnhancedLinkdServiceImpl.Order>();
+			m_compatibleorders.add(Order.DIRECT);
+			m_compatibleorders.add(Order.REVERSED);
+			m_compatibleorders.add(Order.JOIN);
+		}
+
+		public BridgeForwardingPath(BridgePort port1,
+				BridgePort port2, String mac, Order order) {
+			super();
+			m_port1 = port1;
+			m_port2 = port2;
+			m_mac   = mac;
+			m_compatibleorders = new ArrayList<EnhancedLinkdServiceImpl.Order>();
+			m_compatibleorders.add(order);
+		}
+
+		public List<Order> getCompatibleorders() {
+			return m_compatibleorders;
+		}
+
+		public BridgePort getPort1() {
+			return m_port1;
+		}
+
+		public BridgePort getPort2() {
+			return m_port2;
+		}
+
+		public String getMac() {
+			return m_mac;
+		}
+				
+		public boolean isPath() {
+			return (m_compatibleorders.size() == 1);
+		}
+		
+		public Order getPath() {
+			if (m_compatibleorders.size() == 1) {
+				return m_compatibleorders.iterator().next();
+			}
+			return null;
+		}
+
+		public void removeOrder(Order order) {
+			m_compatibleorders.remove(order);
+		}
+		
+		public boolean isComparable(BridgeForwardingPath bfp) {
+			if ( (m_port1.sameBridge(bfp.getPort1()) && m_port2.sameBridge(bfp.getPort2())) || 
+				 (m_port2.sameBridge(bfp.getPort1()) && m_port1.sameBridge(bfp.getPort2()))
+				 )
+				return true;
+			return false;
+		}
+
+		public boolean hasSameBridgeElementOrder(BridgeForwardingPath bfp) {
+			return (m_port1.sameBridge(bfp.getPort1()) && m_port2.sameBridge(bfp.getPort2()));
+		}
+
+		public boolean hasReverseBridgeElementOrder(BridgeForwardingPath bfp) {
+			return (m_port1.sameBridge(bfp.getPort2()) && m_port2.sameBridge(bfp.getPort1()));
+		}
+
+		public BridgeForwardingPath removeIncompatibleOrders(BridgeForwardingPath bfp) {
+			if (!isComparable(bfp))
+				return bfp;
+			
+			if (hasSameBridgeElementOrder(bfp)) {
+				if (m_port2.equals(bfp.getPort2()) && !m_port1.equals(bfp.getPort1())) {
+					bfp.removeOrder(Order.REVERSED);
+					m_compatibleorders.remove(Order.REVERSED);
+				}
+				if (m_port1.equals(bfp.getPort1()) && !m_port2.equals(bfp.getPort2())) {
+					bfp.removeOrder(Order.DIRECT);
+					m_compatibleorders.remove(Order.DIRECT);
+				}
+				if (!m_port1.equals(bfp.getPort1()) && !m_port2.equals(bfp.getPort2())) {
+					bfp.removeOrder(Order.JOIN);
+					m_compatibleorders.remove(Order.JOIN);
+				}
+			} else if (hasReverseBridgeElementOrder(bfp)) {
+				if (m_port2.equals(bfp.getPort1()) && !m_port1.equals(bfp.getPort2())) {
+					bfp.removeOrder(Order.DIRECT);
+					m_compatibleorders.remove(Order.REVERSED);
+				}
+				if (m_port2.equals(bfp.getPort1()) && !m_port1.equals(bfp.getPort2())) {
+					bfp.removeOrder(Order.REVERSED);
+					m_compatibleorders.remove(Order.DIRECT);
+				}
+				if (!m_port2.equals(bfp.getPort1()) && !m_port1.equals(bfp.getPort2())) {
+					bfp.removeOrder(Order.JOIN);
+					m_compatibleorders.remove(Order.JOIN);
+				}
+			}
+			
+			return bfp;
+		}
+
+		public void removeIncompatiblePath(BridgeForwardingPath bfp) {
+			switch (bfp.getPath()) {
+			case DIRECT:
+				if (hasSameBridgeElementOrder(bfp)) {
+					if (m_port2.equals(bfp.getPort2()))
+						m_compatibleorders.remove(Order.REVERSED);
+					else if (!m_port2.equals(bfp.getPort2())) {
+						m_compatibleorders.remove(Order.DIRECT);
+						m_compatibleorders.remove(Order.JOIN);
+					}
+				} else if (hasReverseBridgeElementOrder(bfp)) {
+					if (m_port1.equals(bfp.getPort2()))
+						m_compatibleorders.remove(Order.DIRECT);
+					else if (!m_port1.equals(bfp.getPort2())) {
+						m_compatibleorders.remove(Order.REVERSED);
+						m_compatibleorders.remove(Order.JOIN);
+					}
+				}
+				break;
+			case JOIN:
+				if (hasSameBridgeElementOrder(bfp)
+						&& !m_port2.equals(bfp.getPort2()))
+					m_compatibleorders.remove(Order.DIRECT);
+				if (hasSameBridgeElementOrder(bfp)
+						&& !m_port1.equals(bfp.getPort1()))
+					m_compatibleorders.remove(Order.REVERSED);
+				if (hasReverseBridgeElementOrder(bfp)
+						&& !m_port1.equals(bfp.getPort2()))
+					m_compatibleorders.remove(Order.REVERSED);
+				if (hasReverseBridgeElementOrder(bfp)
+						&& !m_port2.equals(bfp.getPort1()))
+					m_compatibleorders.remove(Order.DIRECT);
+				break;
+			case REVERSED:
+				if (hasSameBridgeElementOrder(bfp)) {
+					if (m_port1.equals(bfp.getPort1()))
+						m_compatibleorders.remove(Order.DIRECT);
+					else if (!m_port1.equals(bfp.getPort1())) {
+						m_compatibleorders.remove(Order.REVERSED);
+						m_compatibleorders.remove(Order.JOIN);
+					}
+				} else if (hasReverseBridgeElementOrder(bfp)) {
+					if (m_port2.equals(bfp.getPort1()))
+						m_compatibleorders.remove(Order.REVERSED);
+					else if (!m_port2.equals(bfp.getPort1())) {
+						m_compatibleorders.remove(Order.DIRECT);
+						m_compatibleorders.remove(Order.JOIN);
+					}
+				}
+				break;
+			}
+		}
+		
+		public String toString() {
+			return new ToStringBuilder(this)
+			.append("port1", m_port1)
+			.append("port2", m_port2)
+			.append("mac", m_mac)
+			.append("ORDER", getCompatibleorders())
+			.toString();
+		}
+	}
+	
+	private List<BridgeForwardingPath> m_bridgeForwardingPaths = new ArrayList<EnhancedLinkdServiceImpl.BridgeForwardingPath>();
+
+	private List<BridgeForwardingPath> m_joinedBridgeForwardingPaths = new ArrayList<EnhancedLinkdServiceImpl.BridgeForwardingPath>();
 
 	@Autowired
 	private NodeDao m_nodeDao;
@@ -80,13 +314,13 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 		m_topologyDao = topologyDao;
 	}
 
-	public List<BridgePath> getBridgePaths() {
-		return m_bridgePaths;
+	public List<BridgeForwardingPath> getBridgeForwardingPaths() {
+		return m_bridgeForwardingPaths;
 	}
 
-	public void setBridgePaths(
-			List<BridgePath> BridgePaths) {
-		m_bridgePaths = BridgePaths;
+	public void setBridgeForwardingPaths(
+			List<BridgeForwardingPath> bridgeForwardingPaths) {
+		m_bridgeForwardingPaths = bridgeForwardingPaths;
 	}
 
 	@Override
@@ -241,13 +475,13 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 
 		if (dblink instanceof BridgeDot1qTpFdbLink
 				|| dblink instanceof BridgeDot1dTpFdbLink) {
-			BridgePath path = checkBridgeTopology(new BridgePath(
+			BridgeForwardingPath path = checkBridgeTopology(new BridgeForwardingPath(
 					getBridgePort(port),
 					getBridgePort((BridgeEndPoint) dblink.getA()),
 					dbMacEndPoint.getMacAddress(), Order.REVERSED));
 			LogUtils.debugf(this,
 					"store:PseudoBridge->Mac: topology: add path %s", path);
-			addBridgePath(path);
+			addBridgeForwardingPath(path);
 		} else if (dblink instanceof PseudoMacLink) {
 			if (port.equals(dblink.getA())) {
 				LogUtils.infof(this,
@@ -255,7 +489,7 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 				m_topologyDao
 						.saveOrUpdate(getPseudoMacLink(port, dbMacEndPoint));
 			} else {
-				BridgePath path = checkBridgeTopology(new BridgePath(
+				BridgeForwardingPath path = checkBridgeTopology(new BridgeForwardingPath(
 						getBridgePort(port),
 						getBridgePortFromPseudoMac((PseudoMacEndPoint) dblink
 								.getA()), dbMacEndPoint.getMacAddress()));
@@ -272,7 +506,7 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 				}
 				LogUtils.debugf(this,
 						"store:PseudoBridge->Mac: topology: add path %s", path);
-				addBridgePath(path);
+				addBridgeForwardingPath(path);
 			}
 		}
 		saveJoinPaths(port.getSourceNode());
@@ -316,7 +550,7 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 		LogUtils.debugf(this, "store:Bridge->Mac: found db Link: %s", dblink);
 
 		if (dbMacEndPoint.getLink() instanceof PseudoMacLink) {
-			BridgePath path = new BridgePath(
+			BridgeForwardingPath path = new BridgeForwardingPath(
 					getBridgePort((BridgeEndPoint) link.getA()),getBridgePortFromPseudoMac((PseudoMacEndPoint) dblink.getA()), dbMacEndPoint.getMacAddress(), Order.DIRECT);
 			path = (checkBridgeTopology(path));
 			PseudoMacEndPoint mac = (PseudoMacEndPoint) dbMacEndPoint.getLink()
@@ -335,7 +569,7 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 						&& !((PseudoBridgeElementIdentifier) ei)
 								.getLinkedBridgeIdentifier().equals(
 										actual.getLinkedBridgeIdentifier())) {
-					addBridgePath(new BridgePath(
+					addBridgeForwardingPath(new BridgeForwardingPath(
 							getBridgePort((BridgeEndPoint) link.getA()), getBridgPortFromPseudoElementIdentifier((PseudoBridgeElementIdentifier)ei),
 							dbMacEndPoint.getMacAddress(), Order.DIRECT));
 				}
@@ -355,7 +589,7 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 			BridgeEndPoint dbport = (BridgeEndPoint) dblink.getA();
 			BridgePort port1 = new BridgePort(getBridgeIdentifier(port), port.getBridgePort());
 			BridgePort port2 = new BridgePort(getBridgeIdentifier(dbport), dbport.getBridgePort());
-			BridgePath path = checkBridgeTopology(new BridgePath(port1,port2,
+			BridgeForwardingPath path = checkBridgeTopology(new BridgeForwardingPath(port1,port2,
 					dbMacEndPoint.getMacAddress()));
 			if (path.isPath() && path.getPath().equals(Order.DIRECT)) {
 				LogUtils.infof(this, "store:Bridge->Mac SaveOrUpdate Link: %s",
@@ -364,7 +598,7 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 			} else {
 				LogUtils.debugf(this,
 						"store:Bridge->Mac: topology: add path %s", path);
-				addBridgePath(path);
+				addBridgeForwardingPath(path);
 			}
 		}
 		saveJoinPaths(link.getSourceNode());
@@ -474,13 +708,13 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 				m_topologyDao.saveOrUpdate(link);
 	}
 
-	synchronized protected BridgePath checkBridgeTopology(BridgePath path) {
+	synchronized protected BridgeForwardingPath checkBridgeTopology(BridgeForwardingPath path) {
 
 		LogUtils.debugf(this,
                 "checkBridgeTopology: path %s", path);
-		List<BridgePath> paths = new ArrayList<BridgePath>();
+		List<BridgeForwardingPath> paths = new ArrayList<EnhancedLinkdServiceImpl.BridgeForwardingPath>();
 		
-		for(BridgePath joinedpath: m_joinedBridgePaths) {
+		for(BridgeForwardingPath joinedpath: m_joinedBridgeForwardingPaths) {
 			LogUtils.debugf(this,
 	                "checkBridgeTopology: against joined path %s", joinedpath);
 			path.removeIncompatiblePath(joinedpath);
@@ -488,15 +722,15 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 	                "checkBridgeTopology: result path: %s", path);
 		}
 		
-		for (BridgePath storedpath: m_bridgePaths) {
+		for (BridgeForwardingPath storedpath: m_bridgeForwardingPaths) {
 			LogUtils.debugf(this,
 	                "checkBridgeTopology: against stored path %s", storedpath);
 			
-			if (storedpath.isPath() && !path.isPath())
-				path.removeIncompatiblePath(storedpath);
-			else if (!storedpath.isPath() && path.isPath())
+			if (path.isPath())
 				storedpath.removeIncompatiblePath(path);
-			else if (!path.isPath() && !storedpath.isPath())
+			else if (storedpath.isPath())
+				path.removeIncompatiblePath(storedpath);
+			else
 				path = storedpath.removeIncompatibleOrders(path);
 			
 			LogUtils.debugf(this,
@@ -506,39 +740,35 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 			
 			if (path.isPath() && storedpath.isPath() && storedpath.isComparable(path) && path.hasSameBridgeElementOrder(storedpath)) {
 				if (path.getPath().equals(Order.DIRECT) && storedpath.getPath().equals(Order.REVERSED)) {
-					paths.add(new BridgePath(path.getPort2(), storedpath.getPort1(), storedpath.getMac(), Order.JOIN));
+					paths.add(new BridgeForwardingPath(path.getPort2(), storedpath.getPort1(), storedpath.getMac(), Order.JOIN));
 				} else if (path.getPath().equals(Order.REVERSED) && storedpath.getPath().equals(Order.DIRECT)) {
-					paths.add(new BridgePath(path.getPort1(), storedpath.getPort2(), storedpath.getMac(), Order.JOIN));
+					paths.add(new BridgeForwardingPath(path.getPort1(), storedpath.getPort2(), storedpath.getMac(), Order.JOIN));
 				}
 			}
 			paths.add(storedpath);
 		}
-		m_bridgePaths = paths;
+		m_bridgeForwardingPaths = paths;
 		return path;
 	}
 	
-	synchronized protected void addBridgePath(BridgePath path) {
-		if (path.getCompatibleorders().isEmpty()) {
-			LogUtils.errorf(this, "addBridgePath: no order found: not saving in bridge topology: path %s", path);
-			return;
-		}
-		for (BridgePath storedpath: m_bridgePaths) {
+	synchronized protected void addBridgeForwardingPath(BridgeForwardingPath path) {
+		for (BridgeForwardingPath storedpath: m_bridgeForwardingPaths) {
 			if (path.isPath() && path.getPath().equals(Order.REVERSED)) {
 				if (storedpath.isComparable(path) && storedpath.isPath() && storedpath.hasSameBridgeElementOrder(path) && storedpath.getPath().equals(Order.REVERSED)) {
-					LogUtils.infof(this, "addBridgePath: path found: not saving in bridge topology path %s", path);
+					LogUtils.infof(this, "addBridgeForwardingPath: path found: not saving in bridge topology path %s", path);
 					return;
 				}
 			} else if (path.getPort1().equals(storedpath.getPort1()) && path.getPort2().equals(storedpath.getPort2())) {
-				LogUtils.infof(this, "addBridgePath: path found: not saving in bridge topology path %s", path);
+				LogUtils.infof(this, "addBridgeForwardingPath: path found: not saving in bridge topology path %s", path);
 				return;
 			}
 		}
-		LogUtils.infof(this, "addBridgePath: saving in bridge topology Path: %s", path);
-		m_bridgePaths.add(path);
+		LogUtils.infof(this, "addBridgeForwardingPath: saving in bridge topology Path: %s", path);
+		m_bridgeForwardingPaths.add(path);
 	}
 
-	synchronized protected boolean alreadyJoined(BridgePath storedpath) {
-		for (BridgePath joined: m_joinedBridgePaths) {
+	synchronized protected boolean alreadyJoined(BridgeForwardingPath storedpath) {
+		for (BridgeForwardingPath joined: m_joinedBridgeForwardingPaths) {
 			if (joined.getPort1().equals(storedpath.getPort1()) && joined.getPort2().equals(storedpath.getPort1())) {
 				LogUtils.debugf(this,
 						"alreadyJoined: already joined path: %s",
@@ -550,8 +780,8 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 	}
 	
 	synchronized protected void saveJoinPaths(Integer sourceNode) {
-		List<BridgePath> paths = new ArrayList<BridgePath>();
-		for (BridgePath storedpath : m_bridgePaths) {
+		List<BridgeForwardingPath> paths = new ArrayList<EnhancedLinkdServiceImpl.BridgeForwardingPath>();
+		for (BridgeForwardingPath storedpath : m_bridgeForwardingPaths) {
 			LogUtils.debugf(this,
 					"saveJoinPaths: parsing stored bridge topology path %s",
 					storedpath);
@@ -614,12 +844,12 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 								bridgeelid2);
 				LogUtils.debugf(this,
 						"saveJoinPaths: adding to joined path: %s", storedpath);
-				m_joinedBridgePaths.add(storedpath);
+				m_joinedBridgeForwardingPaths.add(storedpath);
 				continue;
 			}
 			paths.add(storedpath);
 		}
-		m_bridgePaths = paths;
+		m_bridgeForwardingPaths = paths;
 	}
 
 	@Override
