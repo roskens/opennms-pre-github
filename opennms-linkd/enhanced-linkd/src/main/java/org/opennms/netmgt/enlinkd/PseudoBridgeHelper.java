@@ -1,6 +1,5 @@
 package org.opennms.netmgt.enlinkd;
 
-
 import org.opennms.netmgt.model.topology.BridgeElementIdentifier;
 import org.opennms.netmgt.model.topology.BridgeEndPoint;
 import org.opennms.netmgt.model.topology.Element;
@@ -13,7 +12,8 @@ import org.opennms.netmgt.model.topology.PseudoMacEndPoint;
 import org.opennms.netmgt.model.topology.PseudoMacLink;
 
 public final class PseudoBridgeHelper {
-	
+
+
 	public static BridgeEndPoint getBridgeEndPoint(PseudoBridgeElementIdentifier eiA) {
 		BridgeElementIdentifier bridgeA = new BridgeElementIdentifier(eiA.getLinkedBridgeIdentifier(), eiA.getSourceNode());
 		BridgeEndPoint portA = new BridgeEndPoint(eiA.getLinkedBridgePort(), eiA.getSourceNode());
@@ -44,7 +44,8 @@ public final class PseudoBridgeHelper {
 		return portA;
 	}
 
-	public static String getBridgeIdentifier(BridgeEndPoint port) {
+
+	public static PseudoBridgeElementIdentifier getPseudoBridgeElementIdentifier(BridgeEndPoint port) {
 		String baseBridgeAddress = "";
 		for (ElementIdentifier ei: port.getElement().getElementIdentifiers()) {
 			if (ei instanceof BridgeElementIdentifier) {
@@ -52,12 +53,8 @@ public final class PseudoBridgeHelper {
 				break;
 			}
 		}
-		return baseBridgeAddress;
-	}
-
-	public static PseudoBridgeElementIdentifier getPseudoBridgeElementIdentifier(BridgeEndPoint port) {
 		return new PseudoBridgeElementIdentifier(
-				getBridgeIdentifier(port), port.getBridgePort(),port.getSourceNode());
+				baseBridgeAddress, port.getBridgePort(),port.getSourceNode());
 	}
 
 	public static PseudoMacLink getPseudoMacLink(BridgeEndPoint port,

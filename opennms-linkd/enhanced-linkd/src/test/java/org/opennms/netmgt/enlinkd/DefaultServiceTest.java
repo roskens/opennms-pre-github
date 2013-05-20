@@ -157,20 +157,20 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
         m_service.store(PseudoBridgeHelper.getPseudoBridgeLink(getBridgeEndPoint(portA1, nodeA, bridgeA)));
         assertEquals(2, m_topologyDao.getTopology().size());
 
-       m_service.store(getBridgeEndPoint(portA1, nodeA, bridgeA),
-    		   getMacAddressEndPoint(mac1, nodeA));
+       m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portA1, nodeA, bridgeA),
+    		   getMacAddressEndPoint(mac1, nodeA)));
        assertEquals(3, m_topologyDao.getTopology().size());
 
-       m_service.store(getBridgeEndPoint(portA1, nodeA, bridgeA),
-    		   getMacAddressEndPoint(mac2, nodeA));
+       m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portA1, nodeA, bridgeA),
+    		   getMacAddressEndPoint(mac2, nodeA)));
        assertEquals(4, m_topologyDao.getTopology().size());
 
-       m_service.store(getBridgeEndPoint(portA1, nodeA, bridgeA),
-    		   getMacAddressEndPoint(mac3, nodeA));
+       m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portA1, nodeA, bridgeA),
+    		   getMacAddressEndPoint(mac3, nodeA)));
        assertEquals(5, m_topologyDao.getTopology().size());
 
-       m_service.store(getBridgeEndPoint(portA1, nodeA, bridgeA),
-    		   getMacAddressEndPoint(mac4, nodeA));
+       m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portA1, nodeA, bridgeA),
+    		   getMacAddressEndPoint(mac4, nodeA)));
        assertEquals(6, m_topologyDao.getTopology().size());
 
        System.err.println("");
@@ -221,11 +221,13 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
 								bridgeA)));
 		assertEquals(2, m_topologyDao.getTopology().size());
 
-		m_service.store(getBridgeEndPoint(portA23, nodeA, bridgeA),
-				getMacAddressEndPoint(mac231, nodeA));
+		m_service.store(PseudoBridgeHelper.getPseudoMacLink(
+				getBridgeEndPoint(portA23, nodeA, bridgeA),
+				getMacAddressEndPoint(mac231, nodeA)));
 		assertEquals(3, m_topologyDao.getTopology().size());
-		m_service.store(getBridgeEndPoint(portA23, nodeA, bridgeA),
-				getMacAddressEndPoint(mac232, nodeA));
+		m_service.store(PseudoBridgeHelper.getPseudoMacLink(
+				getBridgeEndPoint(portA23, nodeA, bridgeA),
+				getMacAddressEndPoint(mac232, nodeA)));
 		assertEquals(4, m_topologyDao.getTopology().size());
 
 		m_service
@@ -233,26 +235,33 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
 				.getPseudoBridgeLink(getBridgeEndPoint(portA24, nodeA,
 						bridgeA)));
 		assertEquals(5, m_topologyDao.getTopology().size());
-		m_service.store(getBridgeEndPoint(portA24, nodeA, bridgeA),
-				getMacAddressEndPoint(mac241, nodeA));
+		m_service.store(PseudoBridgeHelper.getPseudoMacLink(
+				getBridgeEndPoint(portA24, nodeA, bridgeA),
+				getMacAddressEndPoint(mac241, nodeA)));
 		assertEquals(6, m_topologyDao.getTopology().size());
-		m_service.store(getBridgeEndPoint(portA24, nodeA, bridgeA),
-				getMacAddressEndPoint(mac242, nodeA));
+		m_service.store(PseudoBridgeHelper.getPseudoMacLink(
+				getBridgeEndPoint(portA24, nodeA, bridgeA),
+				getMacAddressEndPoint(mac242, nodeA)));
 		assertEquals(7, m_topologyDao.getTopology().size());
 
-		m_service.store(getBridgeEndPoint(portA23, nodeA, bridgeA),
-				getMacAddressEndPoint(mac233, nodeA));
-		m_service.store(getBridgeEndPoint(portA23, nodeA, bridgeA),
-				getMacAddressEndPoint(mac234, nodeA));
+		m_service.store(PseudoBridgeHelper.getPseudoMacLink(
+				getBridgeEndPoint(portA23, nodeA, bridgeA),
+				getMacAddressEndPoint(mac233, nodeA)));
+		m_service.store(PseudoBridgeHelper.getPseudoMacLink(
+				getBridgeEndPoint(portA23, nodeA, bridgeA),
+				getMacAddressEndPoint(mac234, nodeA)));
 		
-		m_service.store(getBridgeEndPoint(portA24, nodeA, bridgeA),
-				getMacAddressEndPoint(mac243, nodeA));
+		m_service.store(PseudoBridgeHelper.getPseudoMacLink(
+				getBridgeEndPoint(portA24, nodeA, bridgeA),
+				getMacAddressEndPoint(mac243, nodeA)));
 
-		m_service.store(getBridgeEndPoint(portA24, nodeA, bridgeA),
-				getMacAddressEndPoint(mac244, nodeA));
+		m_service.store(PseudoBridgeHelper.getPseudoMacLink(
+				getBridgeEndPoint(portA24, nodeA, bridgeA),
+				getMacAddressEndPoint(mac244, nodeA)));
 		
-		m_service.store(getBridgeEndPoint(portA24, nodeA, bridgeA),
-				getMacAddressEndPoint(mac245, nodeA));
+		m_service.store(PseudoBridgeHelper.getPseudoMacLink(
+				getBridgeEndPoint(portA24, nodeA, bridgeA),
+				getMacAddressEndPoint(mac245, nodeA)));
 
 		m_service.store(getLink(nodeA, bridgeA, portA1, mac1));
 		m_service.store(getLink(nodeA, bridgeA, portA2, mac2));
@@ -306,10 +315,10 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
         //check parsing first A
        m_service.store(PseudoBridgeHelper.getPseudoBridgeLink(getBridgeEndPoint(portAB, nodeA, bridgeA)));
        assertEquals(2, m_topologyDao.getTopology().size());
-       m_service.store(getBridgeEndPoint(portAB, nodeA, bridgeA),getMacAddressEndPoint(mac6, nodeA));
-       m_service.store(getBridgeEndPoint(portAB, nodeA, bridgeA),getMacAddressEndPoint(mac7, nodeA));
-       m_service.store(getBridgeEndPoint(portAB, nodeA, bridgeA),getMacAddressEndPoint(mac8, nodeA));
-       m_service.store(getBridgeEndPoint(portAB, nodeA, bridgeA),getMacAddressEndPoint(mac9, nodeA));
+       m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portAB, nodeA, bridgeA),getMacAddressEndPoint(mac6, nodeA)));
+       m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portAB, nodeA, bridgeA),getMacAddressEndPoint(mac7, nodeA)));
+       m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portAB, nodeA, bridgeA),getMacAddressEndPoint(mac8, nodeA)));
+       m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portAB, nodeA, bridgeA),getMacAddressEndPoint(mac9, nodeA)));
        assertEquals(6, m_topologyDao.getTopology().size());
   
        m_service.store(getLink(nodeA, bridgeA, portA1, mac1));
@@ -324,11 +333,11 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
        m_service.store(PseudoBridgeHelper.getPseudoBridgeLink(getBridgeEndPoint(portBA, nodeB, bridgeB)));
        assertEquals(13, m_topologyDao.getTopology().size());
        
-       m_service.store(getBridgeEndPoint(portBA, nodeB, bridgeB),getMacAddressEndPoint(mac1, nodeB));
-       m_service.store(getBridgeEndPoint(portBA, nodeB, bridgeB),getMacAddressEndPoint(mac2, nodeB));
-       m_service.store(getBridgeEndPoint(portBA, nodeB, bridgeB),getMacAddressEndPoint(mac3, nodeB));
-       m_service.store(getBridgeEndPoint(portBA, nodeB, bridgeB),getMacAddressEndPoint(mac4, nodeB));
-       m_service.store(getBridgeEndPoint(portBA, nodeB, bridgeB),getMacAddressEndPoint(mac5, nodeB));
+       m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portBA, nodeB, bridgeB),getMacAddressEndPoint(mac1, nodeB)));
+       m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portBA, nodeB, bridgeB),getMacAddressEndPoint(mac2, nodeB)));
+       m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portBA, nodeB, bridgeB),getMacAddressEndPoint(mac3, nodeB)));
+       m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portBA, nodeB, bridgeB),getMacAddressEndPoint(mac4, nodeB)));
+       m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portBA, nodeB, bridgeB),getMacAddressEndPoint(mac5, nodeB)));
        assertEquals(13, m_topologyDao.getTopology().size());
        
        m_service.store(getLink(nodeB, bridgeB, portB6, mac6));
@@ -370,8 +379,8 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
        //A
        m_service.store(PseudoBridgeHelper.getPseudoBridgeLink(getBridgeEndPoint(portAB, nodeA, bridgeA)));
        assertEquals(2, m_topologyDao.getTopology().size());
-       m_service.store(getBridgeEndPoint(portAB, nodeA, bridgeA),getMacAddressEndPoint(mac2, nodeA));
-       m_service.store(getBridgeEndPoint(portAB, nodeA, bridgeA),getMacAddressEndPoint(mac3, nodeA));
+       m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portAB, nodeA, bridgeA),getMacAddressEndPoint(mac2, nodeA)));
+       m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portAB, nodeA, bridgeA),getMacAddressEndPoint(mac3, nodeA)));
        assertEquals(4, m_topologyDao.getTopology().size());
   
        m_service.store(getLink(nodeA, bridgeA, portA1, mac1));
@@ -416,16 +425,16 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
        //A
        m_service.store(PseudoBridgeHelper.getPseudoBridgeLink(getBridgeEndPoint(portAB, nodeA, bridgeA)));
        assertEquals(2, m_topologyDao.getTopology().size());
-       m_service.store(getBridgeEndPoint(portAB, nodeA, bridgeA),getMacAddressEndPoint(mac2, nodeA));
-       m_service.store(getBridgeEndPoint(portAB, nodeA, bridgeA),getMacAddressEndPoint(mac3, nodeA));
+       m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portAB, nodeA, bridgeA),getMacAddressEndPoint(mac2, nodeA)));
+       m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portAB, nodeA, bridgeA),getMacAddressEndPoint(mac3, nodeA)));
        assertEquals(4, m_topologyDao.getTopology().size());
   
        m_service.store(getLink(nodeA, bridgeA, portA1, mac1));
        assertEquals(5, m_topologyDao.getTopology().size());
        //C
        m_service.store(PseudoBridgeHelper.getPseudoBridgeLink(getBridgeEndPoint(portCB, nodeC, bridgeC)));
-       m_service.store(getBridgeEndPoint(portCB, nodeC, bridgeC),getMacAddressEndPoint(mac1, nodeC));
-       m_service.store(getBridgeEndPoint(portCB, nodeC, bridgeC),getMacAddressEndPoint(mac2, nodeC));
+       m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portCB, nodeC, bridgeC),getMacAddressEndPoint(mac1, nodeC)));
+       m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portCB, nodeC, bridgeC),getMacAddressEndPoint(mac2, nodeC)));
        m_service.store(getLink(nodeC, bridgeC, portC, mac3));
        assertEquals(6, m_topologyDao.getTopology().size());
 		
@@ -439,7 +448,7 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
 		
 	    System.err.println("");
 	    System.err.println("print saved local topology");
-		assertEquals(2,printBridgeForwardingPaths(m_service.getBridgeForwardingPaths()).size());
+		assertEquals(1,printBridgeForwardingPaths(m_service.getBridgeForwardingPaths()).size());
 
 	}
 
@@ -474,10 +483,12 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
 				.store(PseudoBridgeHelper
 						.getPseudoBridgeLink(getBridgeEndPoint(portCB, nodeC,
 								bridgeC)));
-		m_service.store(getBridgeEndPoint(portCB, nodeC, bridgeC),
-				getMacAddressEndPoint(mac1, nodeC));
-		m_service.store(getBridgeEndPoint(portCB, nodeC, bridgeC),
-				getMacAddressEndPoint(mac2, nodeC));
+		m_service.store(PseudoBridgeHelper.getPseudoMacLink(
+				getBridgeEndPoint(portCB, nodeC, bridgeC),
+				getMacAddressEndPoint(mac1, nodeC)));
+		m_service.store(PseudoBridgeHelper.getPseudoMacLink(
+				getBridgeEndPoint(portCB, nodeC, bridgeC),
+				getMacAddressEndPoint(mac2, nodeC)));
 		m_service.store(getLink(nodeC, bridgeC, portC, mac3));
 
 		assertEquals(6, m_topologyDao.getTopology().size());
@@ -492,7 +503,7 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
 		
 	    System.err.println("");
 	    System.err.println("print saved local topology");
-		assertEquals(2,printBridgeForwardingPaths(m_service.getBridgeForwardingPaths()).size());
+		assertEquals(1,printBridgeForwardingPaths(m_service.getBridgeForwardingPaths()).size());
 	}
 	
 	@Test
@@ -522,8 +533,8 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
        //A
        m_service.store(PseudoBridgeHelper.getPseudoBridgeLink(getBridgeEndPoint(portAB, nodeA, bridgeA)));
        assertEquals(2, m_topologyDao.getTopology().size());
-       m_service.store(getBridgeEndPoint(portAB, nodeA, bridgeA),getMacAddressEndPoint(mac2, nodeA));
-       m_service.store(getBridgeEndPoint(portAB, nodeA, bridgeA),getMacAddressEndPoint(mac3, nodeA));
+       m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portAB, nodeA, bridgeA),getMacAddressEndPoint(mac2, nodeA)));
+       m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portAB, nodeA, bridgeA),getMacAddressEndPoint(mac3, nodeA)));
        assertEquals(4, m_topologyDao.getTopology().size());
   
        m_service.store(getLink(nodeA, bridgeA, portA1, mac1));
@@ -538,8 +549,8 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
        m_service.store(PseudoBridgeHelper.getPseudoBridgeLink(getBridgeEndPoint(portCB, nodeC, bridgeC)));
        assertEquals(8, m_topologyDao.getTopology().size());
        
-       m_service.store(getBridgeEndPoint(portCB, nodeC, bridgeC),getMacAddressEndPoint(mac1, nodeC));
-       m_service.store(getBridgeEndPoint(portCB, nodeC, bridgeC),getMacAddressEndPoint(mac2, nodeC));
+       m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portCB, nodeC, bridgeC),getMacAddressEndPoint(mac1, nodeC)));
+       m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portCB, nodeC, bridgeC),getMacAddressEndPoint(mac2, nodeC)));
        m_service.store(getLink(nodeC, bridgeC, portC, mac3));
        assertEquals(8, m_topologyDao.getTopology().size());
 
@@ -584,8 +595,8 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
        //A
        m_service.store(PseudoBridgeHelper.getPseudoBridgeLink(getBridgeEndPoint(portAB, nodeA, bridgeA)));
        assertEquals(2, m_topologyDao.getTopology().size());
-       m_service.store(getBridgeEndPoint(portAB, nodeA, bridgeA),getMacAddressEndPoint(mac2, nodeA));
-       m_service.store(getBridgeEndPoint(portAB, nodeA, bridgeA),getMacAddressEndPoint(mac3, nodeA));
+       m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portAB, nodeA, bridgeA),getMacAddressEndPoint(mac2, nodeA)));
+       m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portAB, nodeA, bridgeA),getMacAddressEndPoint(mac3, nodeA)));
        assertEquals(4, m_topologyDao.getTopology().size());
   
        m_service.store(getLink(nodeA, bridgeA, portA1, mac1));
@@ -595,8 +606,8 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
        m_service.store(PseudoBridgeHelper.getPseudoBridgeLink(getBridgeEndPoint(portCB, nodeC, bridgeC)));
        assertEquals(7, m_topologyDao.getTopology().size());
        
-       m_service.store(getBridgeEndPoint(portCB, nodeC, bridgeC),getMacAddressEndPoint(mac1, nodeC));
-       m_service.store(getBridgeEndPoint(portCB, nodeC, bridgeC),getMacAddressEndPoint(mac2, nodeC));
+       m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portCB, nodeC, bridgeC),getMacAddressEndPoint(mac1, nodeC)));
+       m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portCB, nodeC, bridgeC),getMacAddressEndPoint(mac2, nodeC)));
        m_service.store(getLink(nodeC, bridgeC, portC, mac3));
        assertEquals(6, m_topologyDao.getTopology().size());
 
@@ -606,19 +617,19 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
        m_service.store(getLink(nodeB, bridgeB, portBC, mac3));
        
  
-       assertEquals(7, m_topologyDao.getTopology().size());
+       assertEquals(8, m_topologyDao.getTopology().size());
 
        System.err.println("");
        System.err.println("print end point topology");
-       assertEquals(10, printEndPointTopology(m_topologyDao.getTopology()).size());
+       assertEquals(14, printEndPointTopology(m_topologyDao.getTopology()).size());
 
        System.err.println("");
        System.err.println("print link topology");
-       assertEquals(5, printLinkTopology(m_topologyDao.getTopology()).size());
+       assertEquals(7, printLinkTopology(m_topologyDao.getTopology()).size());
        
 	    System.err.println("");
 	    System.err.println("print saved local topology");
-		assertEquals(5,printBridgeForwardingPaths(m_service.getBridgeForwardingPaths()).size());
+		assertEquals(4,printBridgeForwardingPaths(m_service.getBridgeForwardingPaths()).size());
 	}
 	
 	@Test 
@@ -644,25 +655,25 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
         
 		//A
         m_service.store(PseudoBridgeHelper.getPseudoBridgeLink(getBridgeEndPoint(portAB, nodeA, bridgeA)));
-        m_service.store(getBridgeEndPoint(portAB, nodeA, bridgeA),getMacAddressEndPoint(macAB, nodeA));
-        m_service.store(getBridgeEndPoint(portAB, nodeA, bridgeA),getMacAddressEndPoint(macB21, nodeA));
-        m_service.store(getBridgeEndPoint(portAB, nodeA, bridgeA),getMacAddressEndPoint(macB22, nodeA));
+        m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portAB, nodeA, bridgeA),getMacAddressEndPoint(macAB, nodeA)));
+        m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portAB, nodeA, bridgeA),getMacAddressEndPoint(macB21, nodeA)));
+        m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portAB, nodeA, bridgeA),getMacAddressEndPoint(macB22, nodeA)));
 
         m_service.store(PseudoBridgeHelper.getPseudoBridgeLink(getBridgeEndPoint(portA1, nodeA, bridgeA)));
-        m_service.store(getBridgeEndPoint(portA1, nodeA, bridgeA),getMacAddressEndPoint(macA11, nodeA));
-        m_service.store(getBridgeEndPoint(portA1, nodeA, bridgeA),getMacAddressEndPoint(macA12, nodeA));
+        m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portA1, nodeA, bridgeA),getMacAddressEndPoint(macA11, nodeA)));
+        m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portA1, nodeA, bridgeA),getMacAddressEndPoint(macA12, nodeA)));
 
         //B
         m_service.store(PseudoBridgeHelper.getPseudoBridgeLink(getBridgeEndPoint(portBA, nodeB, bridgeB)));
-        m_service.store(getBridgeEndPoint(portBA, nodeB, bridgeB),getMacAddressEndPoint(macAB, nodeB));
-        m_service.store(getBridgeEndPoint(portBA, nodeB, bridgeB),getMacAddressEndPoint(macA11, nodeB));
-        m_service.store(getBridgeEndPoint(portBA, nodeB, bridgeB),getMacAddressEndPoint(macA12, nodeB));
+        m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portBA, nodeB, bridgeB),getMacAddressEndPoint(macAB, nodeB)));
+        m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portBA, nodeB, bridgeB),getMacAddressEndPoint(macA11, nodeB)));
+        m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portBA, nodeB, bridgeB),getMacAddressEndPoint(macA12, nodeB)));
 
         m_service.store(PseudoBridgeHelper.getPseudoBridgeLink(getBridgeEndPoint(portB2, nodeB, bridgeB)));
-        m_service.store(getBridgeEndPoint(portB2, nodeB, bridgeB),getMacAddressEndPoint(macB21, nodeB));
-        m_service.store(getBridgeEndPoint(portB2, nodeB, bridgeB),getMacAddressEndPoint(macB22, nodeB));
+        m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portB2, nodeB, bridgeB),getMacAddressEndPoint(macB21, nodeB)));
+        m_service.store(PseudoBridgeHelper.getPseudoMacLink(getBridgeEndPoint(portB2, nodeB, bridgeB),getMacAddressEndPoint(macB22, nodeB)));
         
-        assertEquals(11, m_topologyDao.getTopology().size());
+        assertEquals(10, m_topologyDao.getTopology().size());
 
         System.err.println("");
         System.err.println("print end point topology");
@@ -674,9 +685,8 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
 
  	    System.err.println("");
  	    System.err.println("print saved local topology");
-		assertEquals(5,printBridgeForwardingPaths(m_service.getBridgeForwardingPaths()).size());
+		assertEquals(2,printBridgeForwardingPaths(m_service.getBridgeForwardingPaths()).size());
 	}
-
 	protected List<BridgeForwardingPath> printBridgeForwardingPaths(List<BridgeForwardingPath> paths) {
 	       for (final BridgeForwardingPath path: m_service.getBridgeForwardingPaths()) {
 	    	   printBridgeForwardingPath(path);
@@ -686,10 +696,13 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
 	
 	protected void printBridgeForwardingPath(BridgeForwardingPath path) {
 	       System.err.println("");
-	       System.err.println("----bridge forwarding path---");
-	       System.err.println("1-bridge/port: "+path.getPort1().getBridgeIdentifier()+"/"+path.getPort1().getBridgePort());
-	       System.err.println("2-bridge/port: "+path.getPort2().getBridgeIdentifier()+"/"+path.getPort2().getBridgePort());
-	       System.err.println("mac: "+path.getMac());
+	       System.err.println("-----port1-----");
+	       printEndPoint(path.getPort1());
+	       System.err.println("-----port2-----");
+	       printEndPoint(path.getPort2());
+	       System.err.println("-----mac-----");
+	       printEndPoint(path.getMac());
+	       System.err.println("-----Order----");
 	       System.err.println(path.getCompatibleorders());
 	}
 

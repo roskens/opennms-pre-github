@@ -33,7 +33,6 @@ import java.util.List;
 
 import org.opennms.netmgt.model.topology.BridgeDot1dTpFdbLink;
 import org.opennms.netmgt.model.topology.BridgeDot1qTpFdbLink;
-import org.opennms.netmgt.model.topology.BridgeEndPoint;
 import org.opennms.netmgt.model.topology.BridgeStpLink;
 import org.opennms.netmgt.model.topology.CdpLink;
 import org.opennms.netmgt.model.topology.LldpLink;
@@ -115,6 +114,6 @@ public interface EnhancedLinkdService {
 
 	void store(PseudoBridgeLink link);
 
-	void store(BridgeEndPoint bridgePort, MacAddrEndPoint mac);
+	void store(PseudoMacLink pseudoMacLink);
 
 }
