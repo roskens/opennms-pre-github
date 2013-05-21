@@ -37,7 +37,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.opennms.core.test.MockLogAppender;
 import org.opennms.netmgt.dao.topology.TopologyDaoInMemoryImpl;
-import org.opennms.netmgt.enlinkd.EnhancedLinkdServiceImpl.BridgeForwardingPath;
 import org.opennms.netmgt.linkd.LinkdNetworkBuilder;
 import org.opennms.netmgt.model.topology.BridgeDot1dTpFdbLink;
 import org.opennms.netmgt.model.topology.BridgeElementIdentifier;
@@ -355,6 +354,11 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
        System.err.println("");
        System.err.println("print link topology");
        printLinkTopology(m_topologyDao.getTopology());
+       
+	    System.err.println("");
+	    System.err.println("print saved local topology");
+		assertEquals(1,printBridgeForwardingPaths(m_service.getBridgeForwardingPaths()).size());
+
     }
 
 	@Test
