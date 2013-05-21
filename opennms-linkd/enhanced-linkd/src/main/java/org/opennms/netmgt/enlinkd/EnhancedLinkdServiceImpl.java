@@ -50,6 +50,8 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 
 	private List<BridgeForwardingPath> m_joinedBridgeForwardingPaths = new ArrayList<BridgeForwardingPath>();
 
+	protected boolean m_ready = true;
+	
 	@Autowired
 	private NodeDao m_nodeDao;
 
@@ -198,6 +200,7 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 		 * the information must be checked to get the topology layout
 		 * 
 		 */
+		m_ready = false;
 		LogUtils.debugf(this,
                 "store:PseudoBridge->Mac: Link: %s", link);
 
@@ -358,11 +361,13 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 	
 	@Override
 	public void store(BridgeDot1dTpFdbLink link) {
+		m_ready = false;
 		storeBridgeMacLink(link);
 	}
 
 	@Override
 	public void store(BridgeDot1qTpFdbLink link) {
+		m_ready = false;
 		storeBridgeMacLink(link);
 	}
 
@@ -376,6 +381,7 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 		 * in this case you have to remove the pseudo device
 		 * 
 		 */
+		m_ready = false;
 		LogUtils.debugf(this,
                 "store:BridgeStp: Link: %s", link);
 		
@@ -424,6 +430,7 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 		 *     save(link)
 		 * 
 		 */
+		m_ready = false;
 		LogUtils.debugf(this,
                 "store:PseudoBridge->Bridge: Link: %s", link);
 		
@@ -689,6 +696,7 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 	
 	@Override
 	public void reconcileBridge(int nodeid, Date now) {
+		m_ready=true;
 		List<ElementIdentifier> elementidentifiers = new ArrayList<ElementIdentifier>();
 		List<EndPoint> endpoints = new ArrayList<EndPoint>();
 		for (Element e: m_topologyDao.getTopology()) {
@@ -719,5 +727,10 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 
 		delete(elementidentifiers,endpoints);
 
+	}
+	
+	@Override
+	public boolean ready() {
+		return m_ready;
 	}
 }

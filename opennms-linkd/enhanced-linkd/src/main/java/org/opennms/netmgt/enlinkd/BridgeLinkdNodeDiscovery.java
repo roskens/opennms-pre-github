@@ -600,4 +600,16 @@ public final class BridgeLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
 		return "BridgeLinkDiscovery";
 	}
 
+	  /**
+     * <p>
+     * isReady
+     * </p>
+     * 
+     * @return a boolean.
+     */
+	@Override
+    public boolean isReady() {
+        return m_linkd.getQueryManager().ready();
+    }
+
 }
