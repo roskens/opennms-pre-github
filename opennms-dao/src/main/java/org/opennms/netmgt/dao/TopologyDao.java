@@ -28,7 +28,4 @@ public interface TopologyDao {
 
 	public List<Element> getTopology();
 	
-	public void mergePseudoElements(PseudoBridgeElementIdentifier elementIdentifier1, PseudoBridgeElementIdentifier elementIdentifier2);
-
-	void splitPseudoElement(PseudoBridgeElementIdentifier elementIdentifier);
 }

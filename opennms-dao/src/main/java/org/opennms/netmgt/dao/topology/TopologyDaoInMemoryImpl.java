@@ -8,9 +8,6 @@ import org.opennms.netmgt.model.topology.Element;
 import org.opennms.netmgt.model.topology.ElementIdentifier;
 import org.opennms.netmgt.model.topology.EndPoint;
 import org.opennms.netmgt.model.topology.Link;
-import org.opennms.netmgt.model.topology.PseudoBridgeElementIdentifier;
-import org.opennms.netmgt.model.topology.PseudoBridgeEndPoint;
-import org.opennms.netmgt.model.topology.PseudoMacEndPoint;
 
 public class TopologyDaoInMemoryImpl implements TopologyDao {
 
@@ -62,15 +59,6 @@ public class TopologyDaoInMemoryImpl implements TopologyDao {
 
 	@Override
 	public void delete(Element element) {
-		for (Element e : m_elements) {
-			if (e.equals(element)) {
-				for (EndPoint ep: e.getEndpoints()) {
-					if (ep.hasLink())
-						delete(ep.getLink());
-				}
-			}
-				
-		}
 		m_elements.remove(element);
 	}
 
@@ -135,68 +123,4 @@ public class TopologyDaoInMemoryImpl implements TopologyDao {
 		}
 		return null;
 	}
-
-	@Override
-	public void mergePseudoElements(PseudoBridgeElementIdentifier elementIdentifier1,
-			PseudoBridgeElementIdentifier elementIdentifier2) {
-		List<Element> newTopology = new ArrayList<Element>();
-			Element element2 = null;
-		for (Element e: m_elements) {
-			if (!e.hasElementIdentifier(elementIdentifier1) && e.hasElementIdentifier(elementIdentifier2)) {
-				element2=e;
-			} else {
-				newTopology.add(e);
-			}
-		}
-		m_elements = newTopology;
-
-		if (element2 != null) {
-			for (Element e: m_elements) {
-				if (e.hasElementIdentifier(elementIdentifier1)) {
-					e.addElementIdentifier(elementIdentifier2);
-					for (EndPoint ep2: element2.getEndpoints()) {
-						ep2.setElement(e);
-						e.addEndPoint(ep2);
-					}
-				}
-			}
-		}
-	}
-
-	@Override
-	public void splitPseudoElement(PseudoBridgeElementIdentifier elementIdentifier) {
-
-		List<Element> newTopology = new ArrayList<Element>();
-
-		Element elementin = null;
-		for (Element e: m_elements) {
-			if (e.hasElementIdentifier(elementIdentifier) ) {
-				elementin=e;
-			} else {
-				newTopology.add(e);
-			}
-		}
-
-		m_elements = newTopology;
-		
-		Element element = new Element();
-		element.addElementIdentifier(elementIdentifier);
-		if (elementin == null) return;
-		elementin.removeElementIdentifier(elementIdentifier);
-		for (EndPoint ep: elementin.getEndpoints() ) { 
-			if (ep instanceof PseudoMacEndPoint || ep instanceof PseudoBridgeEndPoint) {
-				PseudoBridgeEndPoint bep = (PseudoBridgeEndPoint) ep;
-				if (bep.getLinkedBridgeIdentifier().equals(elementIdentifier.getLinkedBridgeIdentifier()) 
-						&& bep.getLinkedBridgePort() == elementIdentifier.getLinkedBridgePort() ) {
-					elementin.removeEndPoint(ep);
-					ep.setElement(element);
-					element.addEndPoint(ep);
-				}
-			}
-		}
-		m_elements.add(element);
-		m_elements.add(elementin);
-	}
-
-
 }

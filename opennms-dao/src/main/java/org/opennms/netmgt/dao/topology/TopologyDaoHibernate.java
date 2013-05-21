@@ -11,7 +11,6 @@ import org.opennms.netmgt.model.topology.Element;
 import org.opennms.netmgt.model.topology.ElementIdentifier;
 import org.opennms.netmgt.model.topology.EndPoint;
 import org.opennms.netmgt.model.topology.Link;
-import org.opennms.netmgt.model.topology.PseudoBridgeElementIdentifier;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
@@ -75,22 +74,8 @@ public class TopologyDaoHibernate extends HibernateDaoSupport implements Topolog
 	}
 
 	@Override
+    @SuppressWarnings("unchecked")
 	public List<Element> getTopology() {
-		// TODO Auto-generated method stub
-		return null;
+		return getHibernateTemplate().find("from Element");
 	}
-
-	@Override
-	public void mergePseudoElements(PseudoBridgeElementIdentifier elementIdentifier1,
-			PseudoBridgeElementIdentifier elementIdentifier2) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void splitPseudoElement(PseudoBridgeElementIdentifier elementIdentifier) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }
