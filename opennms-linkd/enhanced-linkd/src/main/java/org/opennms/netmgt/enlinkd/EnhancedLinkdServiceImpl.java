@@ -696,7 +696,6 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 	
 	@Override
 	public void reconcileBridge(int nodeid, Date now) {
-		m_ready=true;
 		List<ElementIdentifier> elementidentifiers = new ArrayList<ElementIdentifier>();
 		List<EndPoint> endpoints = new ArrayList<EndPoint>();
 		for (Element e: m_topologyDao.getTopology()) {
@@ -723,6 +722,7 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 					} 
 				}
 			}
+			m_ready=true;
 		}
 
 		delete(elementidentifiers,endpoints);

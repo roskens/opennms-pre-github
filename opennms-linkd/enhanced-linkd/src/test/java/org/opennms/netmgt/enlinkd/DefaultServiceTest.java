@@ -30,6 +30,7 @@ package org.opennms.netmgt.enlinkd;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
@@ -103,6 +104,30 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
 		deviceB.addEndPoint(endPointB);
 		endPointB.setElement(deviceB);
         return endPointB;
+	}
+	
+	@Test
+	public void testIsReady() {
+		
+		Date fiveminutesago = new Date((new Date()).getTime()-300000);
+        Integer nodeA  = 10;
+        String bridgeA = "000a00000010";
+
+        Integer portA1 = 1;
+
+        String mac1 = "000daaaa0001"; // port A1 ---port BA
+
+        assertEquals(true, m_service.ready());
+        assertEquals(0, m_topologyDao.getTopology().size());
+
+        m_service.store(getLink(nodeA, bridgeA, portA1, mac1));
+        assertEquals(2, m_topologyDao.getTopology().size());
+
+        assertEquals(false, m_service.ready());
+        
+        m_service.reconcileBridge(nodeA, fiveminutesago);
+        assertEquals(true, m_service.ready());
+        assertEquals(2, m_topologyDao.getTopology().size());
 	}
 
 	@Test
