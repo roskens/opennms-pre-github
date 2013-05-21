@@ -719,6 +719,7 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 			LogUtils.debugf(this,
 					"mergePseudoElements: creating pseudo bridge link: %s", link);
 			m_topologyDao.saveOrUpdate(link);
+			element1 = m_topologyDao.get(pseudobridge1);
 		}
 					
 		Element element2 = m_topologyDao.get(pseudobridge2);
@@ -726,12 +727,14 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 			LogUtils.debugf(this,
 					"mergePseudoElements: creating element2: no pseudo bridge found in topology for identifier: %s", pseudobridge2);
 			m_topologyDao.saveOrUpdate(getPseudoBridgeLink(storedpath.getPort2()));
+			element2 = m_topologyDao.get(pseudobridge2);
 		}
 
 		Element e = new Element();
 		for (ElementIdentifier ei: element1.getElementIdentifiers()) {
 			e.addElementIdentifier(ei);
 		}
+
 		for (ElementIdentifier ei: element2.getElementIdentifiers()) {
 			e.addElementIdentifier(ei);
 		}
@@ -746,7 +749,10 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 		for (EndPoint ep: element2.getEndpoints()) {
 			ep.setElement(e);
 			e.addEndPoint(ep);
-			m_topologyDao.saveOrUpdate(ep.getLink());
+			if (ep.hasLink())
+				m_topologyDao.saveOrUpdate(ep.getLink());
+			else 
+				m_topologyDao.saveOrUpdate(ep);
 		}
 	}
 
