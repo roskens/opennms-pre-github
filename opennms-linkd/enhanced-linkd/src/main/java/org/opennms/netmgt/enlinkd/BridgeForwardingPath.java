@@ -73,24 +73,29 @@ public class BridgeForwardingPath {
 	}
 	
 	public boolean isComparable(BridgeForwardingPath bfp) {
-		if ((m_port1.getElement().equals(bfp.getPort1().getElement()) && m_port2.getElement().equals(bfp.getPort2().getElement()) || 
-				(m_port2.getElement().equals(bfp.getPort1().getElement()) && m_port1.getElement().equals(bfp.getPort2().getElement()))))
-				return true;
-		return false;
+		return ( m_port1.getElement().equals(bfp.getPort1().getElement()) );
 	}
 
 	public boolean hasSameBridgeElementOrder(BridgeForwardingPath bfp) {
 		return (m_port1.getElement().equals(bfp.getPort1().getElement()) && m_port2.getElement().equals(bfp.getPort2().getElement()));
 	}
 
-	public boolean hasReverseBridgeElementOrder(BridgeForwardingPath bfp) {
-		return (m_port2.getElement().equals(bfp.getPort1().getElement()) && m_port1.getElement().equals(bfp.getPort2().getElement()));
+	public boolean hasSameMacAddress(BridgeForwardingPath bfp) {
+		return (m_mac.getMacAddress().equals(bfp.getMac().getMacAddress()));
 	}
-
+	
 	public BridgeForwardingPath removeIncompatibleOrders(BridgeForwardingPath bfp) {
+		
 		if (!isComparable(bfp))
 			return bfp;
 		
+		if (hasSameMacAddress(bfp)) {
+			if (m_port1.equals(bfp.getPort1()) && !m_port2.equals(bfp.getPort2()) ) {
+				bfp.removeOrder(Order.REVERSED);
+				m_compatibleorders.remove(Order.REVERSED);
+			}
+		}
+
 		if (hasSameBridgeElementOrder(bfp)) {
 			if (m_port2.equals(bfp.getPort2()) && !m_port1.equals(bfp.getPort1())) {
 				bfp.removeOrder(Order.REVERSED);
@@ -104,21 +109,7 @@ public class BridgeForwardingPath {
 				bfp.removeOrder(Order.JOIN);
 				m_compatibleorders.remove(Order.JOIN);
 			}
-		} else if (hasReverseBridgeElementOrder(bfp)) {
-			if (m_port2.equals(bfp.getPort1()) && !m_port1.equals(bfp.getPort2())) {
-				bfp.removeOrder(Order.DIRECT);
-				m_compatibleorders.remove(Order.REVERSED);
-			}
-			if (m_port2.equals(bfp.getPort1()) && !m_port1.equals(bfp.getPort2())) {
-				bfp.removeOrder(Order.REVERSED);
-				m_compatibleorders.remove(Order.DIRECT);
-			}
-			if (!m_port2.equals(bfp.getPort1()) && !m_port1.equals(bfp.getPort2())) {
-				bfp.removeOrder(Order.JOIN);
-				m_compatibleorders.remove(Order.JOIN);
-			}
-		}
-		
+		} 
 		return bfp;
 	}
 
@@ -132,13 +123,6 @@ public class BridgeForwardingPath {
 					m_compatibleorders.remove(Order.DIRECT);
 					m_compatibleorders.remove(Order.JOIN);
 				}
-			} else if (hasReverseBridgeElementOrder(bfp)) {
-				if (m_port1.equals(bfp.getPort2()))
-					m_compatibleorders.remove(Order.DIRECT);
-				else if (!m_port1.equals(bfp.getPort2())) {
-					m_compatibleorders.remove(Order.REVERSED);
-					m_compatibleorders.remove(Order.JOIN);
-				}
 			}
 			break;
 		case JOIN:
@@ -148,12 +132,6 @@ public class BridgeForwardingPath {
 			if (hasSameBridgeElementOrder(bfp)
 					&& !m_port1.equals(bfp.getPort1()))
 				m_compatibleorders.remove(Order.REVERSED);
-			if (hasReverseBridgeElementOrder(bfp)
-					&& !m_port1.equals(bfp.getPort2()))
-				m_compatibleorders.remove(Order.REVERSED);
-			if (hasReverseBridgeElementOrder(bfp)
-					&& !m_port2.equals(bfp.getPort1()))
-				m_compatibleorders.remove(Order.DIRECT);
 			break;
 		case REVERSED:
 			if (hasSameBridgeElementOrder(bfp)) {
@@ -161,13 +139,6 @@ public class BridgeForwardingPath {
 					m_compatibleorders.remove(Order.DIRECT);
 				else if (!m_port1.equals(bfp.getPort1())) {
 					m_compatibleorders.remove(Order.REVERSED);
-					m_compatibleorders.remove(Order.JOIN);
-				}
-			} else if (hasReverseBridgeElementOrder(bfp)) {
-				if (m_port2.equals(bfp.getPort1()))
-					m_compatibleorders.remove(Order.REVERSED);
-				else if (!m_port2.equals(bfp.getPort1())) {
-					m_compatibleorders.remove(Order.DIRECT);
 					m_compatibleorders.remove(Order.JOIN);
 				}
 			}

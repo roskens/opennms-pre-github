@@ -76,8 +76,8 @@ public class TopologyDaoInMemoryImpl implements TopologyDao {
 
 	@Override
 	public void delete(EndPoint endpoint) {
-		if (endpoint.hasLink())
-			delete(endpoint.getLink());
+//		if (endpoint.hasLink())
+//			delete(endpoint.getLink());
 		for (Element e: m_elements) {
 			List<EndPoint> newendpoints = new ArrayList<EndPoint>(); 
 			for (EndPoint ep: e.getEndpoints()) {
