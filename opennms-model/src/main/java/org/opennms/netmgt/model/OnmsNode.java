@@ -1013,6 +1013,7 @@ public class OnmsNode extends OnmsEntity implements Serializable,
      * <p>mergeNodeAttributes</p>
      *
      * @param scannedNode a {@link org.opennms.netmgt.model.OnmsNode} object.
+     * @param eventForwarder a {@link org.opennms.netmgt.model.events.EventForwarder} object.
      */
     public void mergeNodeAttributes(OnmsNode scannedNode, EventForwarder eventForwarder) {
         if (hasNewValue(scannedNode.getLabel(), getLabel())) {
@@ -1064,16 +1065,22 @@ public class OnmsNode extends OnmsEntity implements Serializable,
         
         mergeAgentAttributes(scannedNode);
         
-        mergeAdditionalCategories(scannedNode);
+        mergeAdditionalCategories(scannedNode, eventForwarder);
     }
-    
+
     /**
      * <p>mergeAdditionalCategories</p>
      *
      * @param scannedNode a {@link org.opennms.netmgt.model.OnmsNode} object.
+     * @param eventForwarder a {@link org.opennms.netmgt.model.events.EventForwarder} object.
      */
-    public void mergeAdditionalCategories(OnmsNode scannedNode) {
-        getCategories().addAll(scannedNode.getCategories());
+    public void mergeAdditionalCategories(OnmsNode scannedNode, EventForwarder eventForwarder) {
+        if (getCategories().addAll(scannedNode.getCategories())) {
+            EventBuilder bldr = new EventBuilder(EventConstants.NODE_CATEGORY_MEMBERSHIP_CHANGED_EVENT_UEI, "Provisiond");
+            bldr.setNodeid(scannedNode.getId());
+
+            eventForwarder.sendNow(bldr.getEvent());
+        }
     }
 
     /**
@@ -1201,10 +1208,16 @@ public class OnmsNode extends OnmsEntity implements Serializable,
      * <p>mergeCategorySet</p>
      *
      * @param scannedNode a {@link org.opennms.netmgt.model.OnmsNode} object.
+     * @param eventForwarder a {@link org.opennms.netmgt.model.events.EventForwarder} object.
      */
-    public void mergeCategorySet(OnmsNode scannedNode) {
+    public void mergeCategorySet(OnmsNode scannedNode, EventForwarder eventForwarder) {
         if (!getCategories().equals(scannedNode.getCategories())) {
             setCategories(scannedNode.getCategories());
+
+            EventBuilder bldr = new EventBuilder(EventConstants.NODE_CATEGORY_MEMBERSHIP_CHANGED_EVENT_UEI, "Provisiond");
+            bldr.setNodeid(scannedNode.getId());
+
+            eventForwarder.sendNow(bldr.getEvent());
         }
     }
 
@@ -1243,7 +1256,7 @@ public class OnmsNode extends OnmsEntity implements Serializable,
         
         mergeIpInterfaces(scannedNode, eventForwarder, deleteMissing);
         
-    	mergeCategorySet(scannedNode);
+	mergeCategorySet(scannedNode, eventForwarder);
     	
     	mergeAssets(scannedNode);
     }
