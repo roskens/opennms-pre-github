@@ -6,7 +6,6 @@ import org.opennms.netmgt.model.topology.Element;
 import org.opennms.netmgt.model.topology.ElementIdentifier;
 import org.opennms.netmgt.model.topology.EndPoint;
 import org.opennms.netmgt.model.topology.Link;
-import org.opennms.netmgt.model.topology.PseudoBridgeElementIdentifier;
 
 public interface TopologyDao {
 	

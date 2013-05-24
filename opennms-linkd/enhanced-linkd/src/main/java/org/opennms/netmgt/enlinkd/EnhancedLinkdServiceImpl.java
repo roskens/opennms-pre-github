@@ -1,8 +1,8 @@
 package org.opennms.netmgt.enlinkd;
 
-import static org.opennms.netmgt.enlinkd.PseudoBridgeHelper.getBridgeEndPointFromPseudoMac;
 import static org.opennms.netmgt.enlinkd.PseudoBridgeHelper.getBridgeEndPoint;
 import static org.opennms.netmgt.enlinkd.PseudoBridgeHelper.getPseudoBridgeLink;
+import static org.opennms.netmgt.enlinkd.PseudoBridgeHelper.getPseudoBridgeElementIdentifier;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -50,6 +50,10 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 
 	private List<BridgeForwardingPath> m_joinedBridgeForwardingPaths = new ArrayList<BridgeForwardingPath>();
 
+	//This is the pseudo element cntaining the discovering bridge....must be unique
+	//
+	private Element m_pseudoBridge = null;
+	
 	private List<Link> m_pendinglinks = new ArrayList<Link>();
 	
 	protected boolean m_ready = true;
@@ -88,6 +92,10 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
     	return m_pendinglinks;
     }
 	
+    protected Element getPseudoBridge() {
+    	return m_pseudoBridge;
+    }
+
     @Override
 	public List<LinkableNode> getSnmpNodeList() {
 		final List<LinkableNode> nodes = new ArrayList<LinkableNode>();
@@ -240,8 +248,8 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 		
 		if (dblink instanceof BridgeDot1qTpFdbLink || dblink instanceof BridgeDot1dTpFdbLink) {
 			checkBridgeTopology(new BridgeForwardingPath(
-					getBridgeEndPointFromPseudoMac((PseudoMacEndPoint) link
-							.getA()),
+					getBridgeEndPoint((PseudoBridgeElementIdentifier) link
+							.getA().getElement().getElementIdentifiers().iterator().next()),
 					(BridgeEndPoint) dblink.getA(), dbMacEndPoint,
 					Order.REVERSED));
 		} else if (dblink instanceof PseudoMacLink) {
@@ -250,7 +258,7 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 		                "store:PseudoBridge->Mac: updating Link: %s", link);					
 				m_topologyDao.saveOrUpdate(link);
 			} else {
-				BridgeEndPoint port1 = getBridgeEndPointFromPseudoMac((PseudoMacEndPoint)link.getA());
+				BridgeEndPoint port1 = getBridgeEndPoint((PseudoBridgeElementIdentifier)link.getA().getElement().getElementIdentifiers().iterator().next());
 				
 				for (ElementIdentifier ei: dblink.getA().getElement().getElementIdentifiers()) {
 					LogUtils.debugf(this,
@@ -458,122 +466,6 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 				m_topologyDao.saveOrUpdate(link);
 	}
 
-	synchronized protected BridgeForwardingPath checkBridgeTopology(BridgeForwardingPath path) {
-
-		LogUtils.debugf(this,
-                "checkBridgeTopology: path %s", path);
-		
-		for(BridgeForwardingPath joinedpath: m_joinedBridgeForwardingPaths) {
-			LogUtils.debugf(this,
-	                "checkBridgeTopology: against joined path %s", joinedpath);
-
-			path.removeIncompatiblePath(joinedpath);
-			LogUtils.debugf(this,
-	                "checkBridgeTopology: join result path: %s", path);
-		}
-		
-		for (BridgeForwardingPath storedpath: m_bridgeForwardingPaths) {
-			LogUtils.debugf(this,
-	                "checkBridgeTopology: against stored path %s", storedpath);
-			if (path.isPath())
-				storedpath.removeIncompatiblePath(path);
-			else if (storedpath.isPath())
-				path.removeIncompatiblePath(storedpath);
-			else
-				path = storedpath.removeIncompatibleOrders(path);
-			
-			LogUtils.debugf(this,
-	                "checkBridgeTopology: result path: %s", path);
-			LogUtils.debugf(this,
-	                "checkBridgeTopology: result storedpath: %s", storedpath);
-			
-			if (path.isPath() && storedpath.isPath() && storedpath.isComparable(path) && path.hasSameBridgeElementOrder(storedpath)) {
-				if (path.getPath().equals(Order.DIRECT) && storedpath.getPath().equals(Order.REVERSED)) {
-					addJoinedPath(new BridgeForwardingPath(path.getPort2(), storedpath.getPort1(), storedpath.getMac(), Order.JOIN));
-				} else if (path.getPath().equals(Order.REVERSED) && storedpath.getPath().equals(Order.DIRECT)) {
-					addJoinedPath(new BridgeForwardingPath(path.getPort1(), storedpath.getPort2(), storedpath.getMac(), Order.JOIN));
-				}
-			}
-		}
-
-		if (path.isPath() && path.getPath().equals(Order.REVERSED)) {
-			for (BridgeForwardingPath storedpath: m_bridgeForwardingPaths) {
-				if (storedpath.isPath() && storedpath.getPath().equals(Order.REVERSED) && storedpath.hasSameBridgeElementOrder(path)) {
-					LogUtils.infof(this, "checkBridgeTopology: reverse path found: not saving in bridge topology: %s", path);
-					return path;
-				}
-			} 
-		}
-		LogUtils.infof(this, "checkBridgeTopology: saving in bridge topology Path: %s", path);
-		m_bridgeForwardingPaths.add(path);
-		return path;
-	}
-	
-	synchronized protected void addJoinedPath(BridgeForwardingPath storedpath) {
-		for (BridgeForwardingPath joined: m_joinedBridgeForwardingPaths) {
-			if (joined.getPort1().equals(storedpath.getPort1()) && joined.getPort2().equals(storedpath.getPort2())) {
-				LogUtils.debugf(this,
-						"addJoinedPath: already joined path: %s",
-						joined);
-				return;
-			}
-		}
-		LogUtils.debugf(this,
-				"addJoinedPath: adding joined path: %s",
-				storedpath);
-		m_joinedBridgeForwardingPaths.add(storedpath);
-	}
-
-	synchronized protected void saveDirectPaths() {
-		for (BridgeForwardingPath storedpath: m_bridgeForwardingPaths) {
-			if (storedpath.isPath() && storedpath.getPath().equals(Order.DIRECT)) {
-				for (Link link: m_pendinglinks) {
-					if (storedpath.getMac().equals(link.getB())) {
-						EndPoint dbmac = m_topologyDao.get(link.getB());
-						if (dbmac.hasLink()) 
-							m_topologyDao.delete(dbmac.getLink().getA());
-						m_topologyDao.saveOrUpdate(link);
-						break;
-					}
-				}
-			}
-		}
-	}
-	
-	synchronized protected void saveJoinPaths() {
-		for (BridgeForwardingPath joinedpath : m_joinedBridgeForwardingPaths) {
-			LogUtils.debugf(this,
-					"saveJoinPaths: parsing joined path %s",
-					joinedpath);
-			
-			PseudoBridgeElementIdentifier pseudobridge1 = PseudoBridgeHelper
-					.getPseudoBridgeElementIdentifier(joinedpath
-							.getPort1());
-			
-			PseudoBridgeElementIdentifier pseudobridge2 = PseudoBridgeHelper
-					.getPseudoBridgeElementIdentifier(joinedpath
-							.getPort2());
-		
-			EndPoint dbendpoint = m_topologyDao.get(joinedpath.getPort2());
-			if (dbendpoint != null && dbendpoint.hasLink()) {
-				Link dblink = dbendpoint.getLink();
-				if (dblink instanceof PseudoBridgeLink) {
-					for (ElementIdentifier ei: dblink.getA().getElement().getElementIdentifiers()) {
-						PseudoBridgeElementIdentifier pei = (PseudoBridgeElementIdentifier) ei;
-						if (pei.getLinkedBridgeIdentifier().equals(pseudobridge1.getLinkedBridgeIdentifier()) 
-								&& pei.getLinkedBridgePort() != pseudobridge1.getLinkedBridgePort()) {
-							LogUtils.infof(this, "saveJoinPaths: splitting pseudo bridge: %s", pseudobridge2);
-							splitPseudoElement(pseudobridge2);
-							break;
-						}
-					}
-				}
-			}
-			mergePseudoElements(pseudobridge1,
-							pseudobridge2,joinedpath);
-		}
-	}
-
 	@Override
 	public void reconcileLldp(int nodeid, Date now) {
 
@@ -700,30 +592,154 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 		return m_ready;
 	}
 	
-	private void mergePseudoElements(PseudoBridgeElementIdentifier pseudobridge1,
-			PseudoBridgeElementIdentifier pseudobridge2, BridgeForwardingPath storedpath) {
-		LogUtils.debugf(this,
-				"mergePseudoElements: merging topology elementidentifier1:  %s", pseudobridge1);
-		LogUtils.debugf(this,
-				"mergePseudoElements: merging topology elementidentifier2:  %s", pseudobridge2);
+	synchronized protected BridgeForwardingPath checkBridgeTopology(BridgeForwardingPath path) {
 
-		Element element1 = m_topologyDao.get(pseudobridge1);
+		LogUtils.debugf(this,
+                "checkBridgeTopology: path %s", path);
+		
+		for(BridgeForwardingPath joinedpath: m_joinedBridgeForwardingPaths) {
+			LogUtils.debugf(this,
+	                "checkBridgeTopology: against joined path %s", joinedpath);
+
+			path.removeIncompatiblePath(joinedpath);
+			LogUtils.debugf(this,
+	                "checkBridgeTopology: join result path: %s", path);
+		}
+		
+		for (BridgeForwardingPath storedpath: m_bridgeForwardingPaths) {
+			LogUtils.debugf(this,
+	                "checkBridgeTopology: against stored path %s", storedpath);
+			if (path.isPath())
+				storedpath.removeIncompatiblePath(path);
+			else if (storedpath.isPath())
+				path.removeIncompatiblePath(storedpath);
+			else
+				path = storedpath.removeIncompatibleOrders(path);
+			
+			LogUtils.debugf(this,
+	                "checkBridgeTopology: result path: %s", path);
+			LogUtils.debugf(this,
+	                "checkBridgeTopology: result storedpath: %s", storedpath);
+			
+			if (path.isPath() && storedpath.isPath() && path.hasSameBridgeElementOrder(storedpath)) {
+				if (path.getPath().equals(Order.DIRECT) && storedpath.getPath().equals(Order.REVERSED)) {
+					addJoinedPath(new BridgeForwardingPath(storedpath.getPort1(), path.getPort2(), storedpath.getMac(), Order.JOIN));
+					if (m_pseudoBridge == null) {
+						m_pseudoBridge = m_topologyDao.get(getPseudoBridgeElementIdentifier(path.getPort2()));
+						LogUtils.debugf(this,
+				                "checkBridgeTopology: found pseudo device: %s", m_pseudoBridge);
+					}
+				} else if (path.getPath().equals(Order.REVERSED) && storedpath.getPath().equals(Order.DIRECT)) {
+					addJoinedPath(new BridgeForwardingPath(path.getPort1(), storedpath.getPort2(), storedpath.getMac(), Order.JOIN));
+					if (m_pseudoBridge == null) {
+						m_pseudoBridge = m_topologyDao.get(getPseudoBridgeElementIdentifier(storedpath.getPort2()));
+						LogUtils.debugf(this,
+				                "checkBridgeTopology: found pseudo device: %s", m_pseudoBridge);
+					}
+				}
+			}
+		}
+
+		if (path.isPath() && path.getPath().equals(Order.REVERSED)) {
+			for (BridgeForwardingPath storedpath: m_bridgeForwardingPaths) {
+				if (storedpath.isPath() && storedpath.getPath().equals(Order.REVERSED) && storedpath.hasSameBridgeElementOrder(path)) {
+					LogUtils.infof(this, "checkBridgeTopology: reverse path found: not saving in bridge topology: %s", path);
+					return path;
+				}
+			} 
+		}
+		LogUtils.infof(this, "checkBridgeTopology: saving in bridge topology Path: %s", path);
+		m_bridgeForwardingPaths.add(path);
+		return path;
+	}
+	
+	synchronized protected void addJoinedPath(BridgeForwardingPath storedpath) {
+		for (BridgeForwardingPath joined: m_joinedBridgeForwardingPaths) {
+			if (joined.getPort1().equals(storedpath.getPort1()) && joined.getPort2().equals(storedpath.getPort2())) {
+				LogUtils.debugf(this,
+						"addJoinedPath: already joined path: %s",
+						joined);
+				return;
+			}
+		}
+		LogUtils.debugf(this,
+				"addJoinedPath: adding joined path: %s",
+				storedpath);
+		m_joinedBridgeForwardingPaths.add(storedpath);
+	}
+
+	synchronized protected void saveDirectPaths() {
+		if (m_pseudoBridge != null && m_pseudoBridge.getElementIdentifiers().size() > 1) {
+			m_topologyDao.delete(m_pseudoBridge);
+			m_pseudoBridge = null;
+ 		}
+		for (BridgeForwardingPath storedpath: m_bridgeForwardingPaths) {
+			LogUtils.debugf(this,
+					"saveDirectPaths: parsing save stored path: %s",
+					storedpath);
+			for (BridgeForwardingPath joined: m_joinedBridgeForwardingPaths) {
+				LogUtils.debugf(this,
+						"saveDirectPaths: try so check against joined path: %s",
+						storedpath);
+				storedpath.removeIncompatiblePath(joined);
+			}
+			LogUtils.debugf(this,
+					"saveDirectPaths: try so save stored path: %s",
+					storedpath);
+			if (storedpath.isPath() && storedpath.getPath().equals(Order.DIRECT)) {
+				for (Link link: m_pendinglinks) {
+					LogUtils.debugf(this,
+							"saveDirectPaths: try pending link: %s",
+							link);
+					if (storedpath.getMac().equals(link.getB())) {
+				    	LogUtils.infof(this,
+				                "saveDirectPaths: saving link: %s", link);
+						m_topologyDao.saveOrUpdate(link);
+						break;
+					}
+				}
+			}
+		}
+	}
+	
+	synchronized protected void saveJoinPaths() {
+		for (BridgeForwardingPath joinedpath : m_joinedBridgeForwardingPaths) {
+			LogUtils.debugf(this,
+					"saveJoinPaths: parsing joined path %s",
+					joinedpath);
+			
+			mergePseudoElements(joinedpath);
+		}
+	}
+
+
+	private void mergePseudoElements(BridgeForwardingPath joinedpath) {
+
+
+		Element element1 = m_topologyDao.get(PseudoBridgeHelper
+				.getPseudoBridgeElementIdentifier(joinedpath
+						.getPort1()));
+					
 		if (element1 == null) {
 			LogUtils.debugf(this,
-					"mergePseudoElements: creating element1: no pseudo bridge found in topology for identifier: %s", pseudobridge1);
-			PseudoBridgeLink link = getPseudoBridgeLink(storedpath.getPort1());
-			LogUtils.debugf(this,
-					"mergePseudoElements: creating pseudo bridge link: %s", link);
-			m_topologyDao.saveOrUpdate(link);
-			element1 = m_topologyDao.get(pseudobridge1);
+					"mergePseudoElements: creating element2: no pseudo bridge found in topology for end point: %s", joinedpath.getPort1());
+			m_topologyDao.saveOrUpdate(getPseudoBridgeLink(joinedpath.getPort1()));
+			element1 = m_topologyDao.get(PseudoBridgeHelper
+					.getPseudoBridgeElementIdentifier(joinedpath
+							.getPort1()));
 		}
-					
-		Element element2 = m_topologyDao.get(pseudobridge2);
+
+		Element element2 = m_topologyDao.get(PseudoBridgeHelper
+				.getPseudoBridgeElementIdentifier(joinedpath
+						.getPort2()));
+		
 		if (element2 == null) {
 			LogUtils.debugf(this,
-					"mergePseudoElements: creating element2: no pseudo bridge found in topology for identifier: %s", pseudobridge2);
-			m_topologyDao.saveOrUpdate(getPseudoBridgeLink(storedpath.getPort2()));
-			element2 = m_topologyDao.get(pseudobridge2);
+					"mergePseudoElements: creating element2: no pseudo bridge found in topology for end point: %s", joinedpath.getPort2());
+			m_topologyDao.saveOrUpdate(getPseudoBridgeLink(joinedpath.getPort2()));
+			element2 = m_topologyDao.get(PseudoBridgeHelper
+					.getPseudoBridgeElementIdentifier(joinedpath
+							.getPort2()));
 		}
 
 		Element e = new Element();
@@ -751,34 +767,5 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 				m_topologyDao.saveOrUpdate(ep);
 		}
 	}
-
-	private void splitPseudoElement(PseudoBridgeElementIdentifier elementIdentifier) {
-
-		Element elementin = m_topologyDao.get(elementIdentifier);
-		if (elementin == null) return;
-		
-		Element element = new Element();
-		element.addElementIdentifier(elementIdentifier);
-
-		elementin.removeElementIdentifier(elementIdentifier);
-
-		for (EndPoint ep: elementin.getEndpoints() ) { 
-			if (ep instanceof PseudoMacEndPoint || ep instanceof PseudoBridgeEndPoint) {
-				PseudoBridgeEndPoint bep = (PseudoBridgeEndPoint) ep;
-				if (bep.getLinkedBridgeIdentifier().equals(elementIdentifier.getLinkedBridgeIdentifier()) 
-						&& bep.getLinkedBridgePort() == elementIdentifier.getLinkedBridgePort() ) {
-					m_topologyDao.delete(ep);
-					ep.setElement(element);
-					element.addEndPoint(ep);
-				}
-			}
-		}
-		m_topologyDao.delete(elementIdentifier);
-		for (final EndPoint ep: element.getEndpoints()) {
-			m_topologyDao.saveOrUpdate(ep);
-		}
-	}
-
-
 		
 }

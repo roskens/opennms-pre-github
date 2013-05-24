@@ -24,27 +24,6 @@ public final class PseudoBridgeHelper {
 		return portA;
 	}
 	
-	public static BridgeEndPoint getBridgeEndPointFromPseudoBridge(PseudoBridgeEndPoint epA) {
-		BridgeElementIdentifier bridgeA = new BridgeElementIdentifier(epA.getLinkedBridgeIdentifier(), epA.getSourceNode());
-		BridgeEndPoint portA = new BridgeEndPoint(epA.getLinkedBridgePort(), epA.getSourceNode());
-		Element elementA = new Element();
-		elementA.addElementIdentifier(bridgeA);
-		elementA.addEndPoint(portA);
-		portA.setElement(elementA);
-		return portA;
-	}
-
-	public static BridgeEndPoint getBridgeEndPointFromPseudoMac(PseudoMacEndPoint epA) {
-		BridgeElementIdentifier bridgeA = new BridgeElementIdentifier(epA.getLinkedBridgeIdentifier(), epA.getSourceNode());
-		BridgeEndPoint portA = new BridgeEndPoint(epA.getLinkedBridgePort(), epA.getSourceNode());
-		Element elementA = new Element();
-		elementA.addElementIdentifier(bridgeA);
-		elementA.addEndPoint(portA);
-		portA.setElement(elementA);
-		return portA;
-	}
-
-
 	public static PseudoBridgeElementIdentifier getPseudoBridgeElementIdentifier(BridgeEndPoint port) {
 		String baseBridgeAddress = "";
 		for (ElementIdentifier ei: port.getElement().getElementIdentifiers()) {

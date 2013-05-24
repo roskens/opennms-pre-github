@@ -42,7 +42,6 @@ import org.opennms.core.test.snmp.annotations.JUnitSnmpAgent;
 import org.opennms.core.test.snmp.annotations.JUnitSnmpAgents;
 import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.config.SnmpPeerFactory;
-import org.opennms.netmgt.enlinkd.Dot1dTpFdbTableTracker.Dot1dTpFdbRow;
 import org.opennms.netmgt.linkd.Nms17216NetworkBuilder;
 import org.opennms.netmgt.model.topology.CdpElementIdentifier;
 import org.opennms.netmgt.model.topology.CdpEndPoint;
