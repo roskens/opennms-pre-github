@@ -9,6 +9,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 
 /**
  * This class is a container of end points.  In the network, this
@@ -101,5 +103,16 @@ public class Element {
 			}
 		}
 		return false;
+	}
+	
+	public String toString() {
+		ToStringBuilder tosb = new ToStringBuilder(this);
+		for (ElementIdentifier ei: m_identifiers) {
+			tosb.append("\nElementIdentifier",ei);
+		}
+		for (EndPoint ep: m_endpoints) {
+			tosb.append("\nEndPoint",ep);
+		}
+		return tosb.toString();
 	}
 }

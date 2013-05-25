@@ -72,30 +72,11 @@ public class BridgeForwardingPath {
 		m_compatibleorders.remove(order);
 	}
 	
-	public boolean isComparable(BridgeForwardingPath bfp) {
-		return ( m_port1.getElement().equals(bfp.getPort1().getElement()) );
-	}
-
 	public boolean hasSameBridgeElementOrder(BridgeForwardingPath bfp) {
 		return (m_port1.getElement().equals(bfp.getPort1().getElement()) && m_port2.getElement().equals(bfp.getPort2().getElement()));
 	}
 
-	public boolean hasSameMacAddress(BridgeForwardingPath bfp) {
-		return (m_mac.getMacAddress().equals(bfp.getMac().getMacAddress()));
-	}
-	
 	public BridgeForwardingPath removeIncompatibleOrders(BridgeForwardingPath bfp) {
-		
-		if (!isComparable(bfp))
-			return bfp;
-		
-		if (hasSameMacAddress(bfp)) {
-			if (m_port1.equals(bfp.getPort1()) && !m_port2.equals(bfp.getPort2()) ) {
-				bfp.removeOrder(Order.REVERSED);
-				m_compatibleorders.remove(Order.REVERSED);
-			}
-		}
-
 		if (hasSameBridgeElementOrder(bfp)) {
 			if (m_port2.equals(bfp.getPort2()) && !m_port1.equals(bfp.getPort1())) {
 				bfp.removeOrder(Order.REVERSED);
