@@ -258,6 +258,7 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 		                "store:PseudoBridge->Mac: updating Link: %s", link);					
 				m_topologyDao.saveOrUpdate(link);
 			} else {
+				//FIXME use the m_pseudo bridge if not null and mac address cntained...then remove the pseudo device and save link!
 				BridgeEndPoint port1 = getBridgeEndPoint((PseudoBridgeElementIdentifier)link.getA().getElement().getElementIdentifiers().iterator().next());
 				
 				for (ElementIdentifier ei: dblink.getA().getElement().getElementIdentifiers()) {

@@ -72,11 +72,23 @@ public class BridgeForwardingPath {
 		m_compatibleorders.remove(order);
 	}
 	
+	public boolean isComparable(BridgeForwardingPath bfp) {
+		return ( m_port1.getElement().equals(bfp.getPort1().getElement()) );
+	}
+
 	public boolean hasSameBridgeElementOrder(BridgeForwardingPath bfp) {
 		return (m_port1.getElement().equals(bfp.getPort1().getElement()) && m_port2.getElement().equals(bfp.getPort2().getElement()));
 	}
 
+	public boolean hasSameMacAddress(BridgeForwardingPath bfp) {
+		return (m_mac.getMacAddress().equals(bfp.getMac().getMacAddress()));
+	}
+	
 	public BridgeForwardingPath removeIncompatibleOrders(BridgeForwardingPath bfp) {
+		
+		if (!isComparable(bfp))
+			return bfp;
+
 		if (hasSameBridgeElementOrder(bfp)) {
 			if (m_port2.equals(bfp.getPort2()) && !m_port1.equals(bfp.getPort1())) {
 				bfp.removeOrder(Order.REVERSED);
@@ -90,7 +102,11 @@ public class BridgeForwardingPath {
 				bfp.removeOrder(Order.JOIN);
 				m_compatibleorders.remove(Order.JOIN);
 			}
-		} 
+		} else 	if (m_port1.equals(bfp.getPort1()) && !hasSameMacAddress(bfp) && !m_port2.getElement().equals(bfp.getPort2().getElement())) {
+			bfp.removeOrder(Order.DIRECT);
+			m_compatibleorders.remove(Order.DIRECT);
+		}
+
 		return bfp;
 	}
 
