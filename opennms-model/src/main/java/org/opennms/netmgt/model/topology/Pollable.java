@@ -2,8 +2,10 @@ package org.opennms.netmgt.model.topology;
 
 import java.util.Date;
 
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.SequenceGenerator;
 
 @MappedSuperclass
 public abstract class Pollable {
@@ -19,6 +21,8 @@ public abstract class Pollable {
 	
 	
 	@Id
+    @SequenceGenerator(name="opennmsSequence", sequenceName="opennmsNxtId")
+    @GeneratedValue(generator="opennmsSequence")
 	public Integer getId() {
 		return m_id;
 	}

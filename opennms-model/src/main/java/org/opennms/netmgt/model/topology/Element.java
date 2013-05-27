@@ -3,11 +3,15 @@ package org.opennms.netmgt.model.topology;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
@@ -17,6 +21,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * can be either a physical or virtual node/device/subnetwork/etc.
  */
 @Entity
+@Table(name="topologyElement")
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 public class Element {
 	
@@ -32,9 +37,12 @@ public class Element {
 	}
 	
 	@Id
+    @SequenceGenerator(name="opennmsSequence", sequenceName="opennmsNxtId")
+    @GeneratedValue(generator="opennmsSequence")
 	public int getId() {
 		return m_id;
 	}
+
 	public void setId(int m_id) {
 		this.m_id = m_id;
 	}
