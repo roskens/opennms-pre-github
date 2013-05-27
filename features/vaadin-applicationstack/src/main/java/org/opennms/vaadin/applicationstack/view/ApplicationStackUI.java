@@ -13,7 +13,7 @@ import org.opennms.vaadin.applicationstack.model.NodeDummy;
  * The Application's "main" class
  */
 @SuppressWarnings("serial")
-@Theme("mytheme")
+// @Theme("mytheme")
 public class ApplicationStackUI extends UI {
 
     @Override
