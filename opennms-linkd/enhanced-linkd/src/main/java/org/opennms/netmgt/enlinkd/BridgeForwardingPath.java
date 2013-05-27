@@ -8,9 +8,46 @@ import org.opennms.netmgt.model.topology.BridgeEndPoint;
 import org.opennms.netmgt.model.topology.MacAddrEndPoint;
 
 public class BridgeForwardingPath {
-	/* DIRECT means that the order is mac sw1{port1} sw2{port2} - port2 is the backbone port from sw2 to sw1 
-	 * REVERSED means that the order is mac sw2{port2} sw1{port1} - port1 is the backbone port from sw1 to sw2
-	 * JOIN means that the order is sw1{port1} mac sw2{port2}
+	/* 
+	 * This class is designed to get the topology on one bridge forwarding table at a time
+	 * so this means that the rules are written considering port1 belonging 
+	 * always to the same bridge.
+	 * 
+	 * port1 is the port(BridgeEndPoint) on the "first bridge"
+	 * port2 is the port(BridgeEndPoint) on the "second bridge" 
+	 * mac is the mac address(MacAddrEndPoint) 
+	 * 
+	 * The mac address is learned either on port1 and port2.
+	 * 
+	 * The Mac address EndPoint has the relevant information on which is the 
+	 * Pseudo Device where the Address has been located
+	 * 
+	 * The PseudoDevice is a device to which are connected different bridges
+	 * and macs. Sintetically it is represented by the following statement:
+	 * all the macs are reachable by the bridge ports.
+	 * 
+	 * 
+	 * So the problem solved is what is the order of the devices:
+	 * 
+	 * DIRECT  : means that the order is mac ->sw1{port1} ->sw2{port2} - port2 is the backbone port from sw2 to sw1 
+	 * REVERSED: means that the order is mac ->sw2{port2} ->sw1{port1} - port1 is the backbone port from sw1 to sw2
+	 * JOIN    : means that the order is sw1{port1}<->mac<->sw2{port2} - port1 is backbone from sw1 to sw2 and port2 is backbone from sw2 sw1
+	 * 
+	 * We assume the following:
+	 * 
+	 * 1) there where no loops into the network (so there is a hierarchy)
+	 * 
+	 * Corollary 1
+	 * 
+	 * If exists there is only one backbone port from sw1 and sw2
+	 * If exists there is only one backbone port from sw2 and sw1
+	 * 
+	 * Corollary 2
+	 * There is only one pseudo device containing the bridge
+	 * 
+	 * Corollary 3
+	 * on a backbone port two different mac address must belong to the same pseudo device
+	 * 
 	 */
 	public enum Order {DIRECT,REVERSED,JOIN};
 
@@ -102,10 +139,11 @@ public class BridgeForwardingPath {
 				bfp.removeOrder(Order.JOIN);
 				m_compatibleorders.remove(Order.JOIN);
 			}
-		} else 	if (m_port1.equals(bfp.getPort1()) && !hasSameMacAddress(bfp) && !m_port2.getElement().equals(bfp.getPort2().getElement())) {
+		} else if (m_port1.equals(bfp.getPort1()) && !hasSameMacAddress(bfp) 
+				&& !m_mac.getLink().getA().getElement().equals(bfp.getMac().getLink().getA().getElement())) {
 			bfp.removeOrder(Order.DIRECT);
 			m_compatibleorders.remove(Order.DIRECT);
-		}
+		} 
 
 		return bfp;
 	}

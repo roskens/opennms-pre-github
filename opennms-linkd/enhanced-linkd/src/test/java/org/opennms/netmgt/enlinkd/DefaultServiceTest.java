@@ -479,7 +479,7 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
         m_service.store(getLink(nodeB, bridgeB, portB6, mac6));
 	    System.err.println("");
 	    System.err.println("print saved local topology after parsing node B--mac6");
-		assertEquals(2,printBridgeForwardingPaths(m_service.getBridgeForwardingPaths()).size());
+		assertEquals(1,printBridgeForwardingPaths(m_service.getBridgeForwardingPaths()).size());
 	    
 		System.err.println("");
 	    System.err.println("print joined local topology after parsing node B--mac6");
@@ -496,7 +496,7 @@ public class DefaultServiceTest extends LinkdNetworkBuilder {
 		System.err.println("PseudoBridgeSaved: " + m_service.getPseudoBridge());
 	   System.err.println("");
 	   System.err.println("print saved local topology after parsing node B--mac9");
-	   assertEquals(5,printBridgeForwardingPaths(m_service.getBridgeForwardingPaths()).size());
+	   assertEquals(4,printBridgeForwardingPaths(m_service.getBridgeForwardingPaths()).size());
 	   System.err.println("");
 	   System.err.println("print joined local topology after parsing node B--mac9");
 	   assertEquals(1,printBridgeForwardingPaths(m_service.getJoinedBridgeForwardingPaths()).size());
