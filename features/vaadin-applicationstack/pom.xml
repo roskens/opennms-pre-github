@@ -8,7 +8,7 @@
         <artifactId>compiled-bundle-settings</artifactId>
         <version>1.13.0-SNAPSHOT</version>
     </parent>
-    <groupId>org.opennms.features</groupId>
+    <groupId>org.opennms.vaadin</groupId>
     <artifactId>vaadin-applicationstack</artifactId>
     <packaging>bundle</packaging>
     <name>OpenNMS Vaadin Application Stack</name>
@@ -27,7 +27,7 @@
             <resource>
                 <directory>src/main/java</directory>
                 <includes>
-                    <include>org/opennms/features/vaadin/dashboard/internal/gwt/public/**</include>
+                    <include>org/opennms/features/vaadin/applicationstack/internal/gwt/public/**</include>
                 </includes>
             </resource>
         </resources>
@@ -64,7 +64,7 @@
                     <compileReport>true</compileReport>
                     <style>OBF</style>
                     <strict>true</strict>
-                    <runTarget>http://localhost:8980/opennms/dashboard</runTarget>
+                    <runTarget>http://localhost:8980/opennms/applicationstack</runTarget>
                     <gwtSdkFirstInClasspath>true</gwtSdkFirstInClasspath>
                 </configuration>
                 <executions>
@@ -88,7 +88,7 @@
                 <artifactId>features-maven-plugin</artifactId>
                 <configuration>
                     <bundles>
-                        <bundle>mvn:org.opennms.features/vaadin-applicationstack/${project.version}</bundle>
+                        <bundle>mvn:org.opennms.vaadin/vaadin-applicationstack/${project.version}</bundle>
                     </bundles>
                     <features>
                         <feature>vaadin</feature>
@@ -174,9 +174,10 @@
 
         <dependency>
             <groupId>org.opennms.features.themes</groupId>
-            <artifactId>dashboard-theme</artifactId>
+            <artifactId>applicationstack-theme</artifactId>
             <version>${project.version}</version>
         </dependency>
+
     </dependencies>
 
 </project>

@@ -20,5 +20,6 @@
   <modules>
     <module>onms-default-theme</module>
 	<module>dashboard-theme</module>
+    <module>applicationstack-theme</module>
   </modules>
 </project>

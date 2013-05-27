@@ -5,5 +5,5 @@
 # Package format version - do not change
 Export-Package: org.opennms.*
 Vaadin-Package-Version: 1
-Vaadin-Widgetsets: org.opennms.features.vaadin.applicationstack.view.AppWidgetSet
+Vaadin-Widgetsets: org.opennms.vaadin.applicationstack.view.AppWidgetSet
 Include-Resource: {maven-resources},target/gwt/
