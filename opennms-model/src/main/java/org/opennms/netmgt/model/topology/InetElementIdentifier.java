@@ -6,6 +6,8 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.hibernate.annotations.Type;
+
 import static org.opennms.core.utils.InetAddressUtils.str;
 
 @Entity
@@ -19,7 +21,8 @@ public final class InetElementIdentifier extends ElementIdentifier {
 		m_inet = inet;
 	}
 
-	public InetAddress getInet() {
+    @Type(type="org.opennms.netmgt.model.InetAddressUserType")
+    public InetAddress getInet() {
 		return m_inet;
 	}
 

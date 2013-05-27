@@ -25,6 +25,8 @@
       <list>
         <value>org.opennms.netmgt.dao.hibernate</value>
         <value>org.opennms.netmgt.model</value>
+        <value>org.opennms.netmgt.dao.topology</value>
+        <value>org.opennms.netmgt.model.topology</value>
       </list>
     </property>
     <!--  property name="schemaUpdate" value="true">
@@ -33,6 +35,8 @@
       <list>
         <value>org.opennms.netmgt.dao.hibernate</value>
         <value>org.opennms.netmgt.model</value>
+        <value>org.opennms.netmgt.dao.topology</value>
+        <value>org.opennms.netmgt.model.topology</value>
       </list>
     </property>
     <property name="hibernateProperties">
@@ -60,7 +64,12 @@
     <property name="sessionFactory" ref="sessionFactory" />
   </bean>
   
-  <bean id="topologyDao" class="org.opennms.netmgt.dao.topology.TopologyDaoInMemoryImpl" />
+    <bean id="topologyDao" class="org.opennms.netmgt.dao.topology.TopologyDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+  
+  
+  <!-- bean id="topologyDao" class="org.opennms.netmgt.dao.topology.TopologyDaoInMemoryImpl" /-->
   
     <bean id="queryManager" class="org.opennms.netmgt.enlinkd.EnhancedLinkdServiceImpl">
       <property name="nodeDao" ref="nodeDao" />

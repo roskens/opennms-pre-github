@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd
+		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    
+    <changeSet author="rssntn67" id="1.13.0-topology>
+		<createTable tableName="ElementIdentifier">
+			<column name="identifierType" type="varchar(31)">
+					<constraints nullable="false" />
+			</column>
+			<column name="id" type="integer" defaultValueComputed="NEXTVAL('opennmsnxtid')">
+					<constraints nullable="false"  primaryKey="true" />
+			</column>
+			<column name="lastpoll" type="DATETIME"/>
+			<column name="sourceNode" type="integer"/>
+			<column name="bridgeAddress" type="varchar(64)"/>
+			<column name="cdpAddress" type="varchar(255)"/>
+			<column name="cdpDeviceId" type="varchar(255)"/>
+			<column name="inet" type="varchar(64)"/>
+			<column name="lldpChassisId" type="varchar(255)"/>
+			<column name="lldpSysname" type="varchar(255)"/>
+			<column name="macAddr" type="varchar(64)"/>
+			<column name="nodeid" type="integer"/>
+			<column name="ospfRouterId" type="varchar(64)"/>
+			<column name="linkedBridgeIdentifier" type="varchar(64)"/>
+			<column name="linkedBridgePort" type="integer"/>
+		</createTable>		
+		
+		<createTable tableName="EndPoint">
+			<column name="DTYPE" type="varchar(31)">
+					<constraints nullable="false" />
+			</column>
+			<column name="id" type="integer" defaultValueComputed="NEXTVAL('opennmsnxtid')">
+					<constraints nullable="false"  primaryKey="true" />
+			</column>
+			<column name="lastpoll" type="DATETIME"/>
+			<column name="sourceNode" type="integer"/>
+			<column name="ifAlias" type="varchar(255)"/>
+			<column name="ifDescr" type="varchar(255)"/>
+			<column name="ifIndex" type="integer"/>
+			<column name="ifName" type="varchar(255)"/>
+			<column name="bridgePort" type="integer"/>
+			<column name="cdpCacheDevicePort" type="varchar(255)"/>
+			<column name="cdpCacheIfindex" type="integer"/>
+			<column name="lldpPortId" type="varchar(255)"/>
+			<column name="ospfAddressLessIndex" type="integer"/>
+			<column name="ospfIfIndex" type="integer"/>
+			<column name="ospfIpAddr" type="bytea"/>
+			<column name="ospfIpMask" type="bytea"/>
+			<column name="linkedBridgeIdentifier" type="varchar(64)"/>
+			<column name="linkedBridgePort" type="integer"/>
+			<column name="linkedMacAddress" type="varchar(64)"/>
+			<column name="element_id" type="integer"/>
+			<column name="link_id" type="integer"/>
+		</createTable>		
+		<createTable tableName="Link">
+			<column name="DTYPE" type="varchar(31)">
+					<constraints nullable="false" />
+			</column>
+			<column name="id" type="integer" defaultValueComputed="NEXTVAL('opennmsnxtid')">
+					<constraints nullable="false"  primaryKey="true" />
+			</column>
+			<column name="lastpoll" type="DATETIME"/>
+			<column name="sourceNode" type="integer"/>
+			<column name="a_id" type="integer"/>
+			<column name="b_id" type="integer"/>
+		</createTable>		
+		<createTable tableName="topologyElement">
+			<column name="id" type="integer" defaultValueComputed="NEXTVAL('opennmsnxtid')">
+					<constraints nullable="false"  primaryKey="true" />
+			</column>
+		</createTable>		
+		<createTable tableName="topologyElement_ElementIdentifier">
+			<column name="topologyElement_id" type="integer">
+					<constraints nullable="false" />
+			</column>
+			<column name="elementIdentifiers_id" type="integer">
+					<constraints nullable="false"  unique="true" />
+			</column>
+		</createTable>		
+		<createTable tableName="topologyElement_EndPoint">
+			<column name="topologyElement_id" type="integer">
+					<constraints nullable="false" />
+			</column>
+			<column name="endpoints_id" type="integer">
+					<constraints nullable="false"  unique="true" />
+			</column>
+		</createTable>		
+		
+		<addForeignKeyConstraint constraintName="FK69DE9195504D3B03" onDelete="CASCADE"
+			baseTableName="EndPoint" baseColumnNames="element_id"
+			referencedTableName="topologyElement" referencedColumnNames="id" />
+		<addForeignKeyConstraint constraintName="FK69DE919558CD951" onDelete="CASCADE"
+			baseTableName="EndPoint" baseColumnNames="link_id"
+			referencedTableName="Link" referencedColumnNames="id" />
+
+		<addForeignKeyConstraint constraintName="FK24241AF7DB89E4" onDelete="CASCADE"
+			baseTableName="Link" baseColumnNames="b_id"
+			referencedTableName="EndPoint" referencedColumnNames="id" />
+		<addForeignKeyConstraint constraintName="FK24241AF7DB1585" onDelete="CASCADE"
+			baseTableName="Link" baseColumnNames="a_id"
+			referencedTableName="EndPoint" referencedColumnNames="id" />
+
+		<addForeignKeyConstraint constraintName="FKE8CD06732EF5FEB2" onDelete="CASCADE"
+			baseTableName="topologyElement_ElementIdentifier" baseColumnNames="topologyElement_id"
+			referencedTableName="topologyElement" referencedColumnNames="id" />
+		<addForeignKeyConstraint constraintName="FKE8CD0673E56F0EDA" onDelete="CASCADE"
+			baseTableName="topologyElement_ElementIdentifier" baseColumnNames="elementIdentifiers_id"
+			referencedTableName="ElementIdentifier" referencedColumnNames="id" />
+		
+		<addForeignKeyConstraint constraintName="FK4C3F0807C5078F48" onDelete="CASCADE"
+			baseTableName="topologyElement_EndPoint" baseColumnNames="endpoints_id"
+			referencedTableName="EndPoint" referencedColumnNames="id" />
+		<addForeignKeyConstraint constraintName="FKE8CD06732EF5FEB2" onDelete="CASCADE"
+			baseTableName="topologyElement_EndPoint" baseColumnNames="topologyElement_id"
+			referencedTableName="topologyElement" referencedColumnNames="id" />
+    </changeSet>
+</databaseChangeLog>

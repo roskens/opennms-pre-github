@@ -35,6 +35,8 @@
       <list>
         <value>org.opennms.netmgt.dao.hibernate</value>
         <value>org.opennms.netmgt.model</value>
+        <value>org.opennms.netmgt.dao.topology</value>
+        <value>org.opennms.netmgt.model.topology</value>
       </list>
     </property>
     <!--  property name="schemaUpdate" value="true">
@@ -43,6 +45,8 @@
       <list>
         <value>org.opennms.netmgt.dao.hibernate</value>
         <value>org.opennms.netmgt.model</value>
+        <value>org.opennms.netmgt.dao.topology</value>
+        <value>org.opennms.netmgt.model.topology</value>
       </list>
     </property>
     <property name="hibernateProperties">
@@ -73,7 +77,13 @@
   </bean>
 
   <onmsgi:service interface="org.opennms.netmgt.model.FilterManager" ref="filterManager" />
-    
+
+  <bean id="topologyDao" class="org.opennms.netmgt.dao.topology.TopologyDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+  
+  <onmsgi:service interface="org.opennms.netmgt.dao.TopologyDao" ref="topologyDao" />
+  
   <bean id="acknowledgmentDao" class="org.opennms.netmgt.dao.hibernate.AcknowledgmentDaoHibernate">
     <property name="sessionFactory" ref="sessionFactory" />
   </bean>
@@ -420,7 +430,5 @@
   </bean>
 
   <bean id="alarmStatisticsService" class="org.opennms.netmgt.dao.stats.DefaultAlarmStatisticsService" />
-
-  <bean id="topologyDao" class="org.opennms.netmgt.dao.topology.TopologyDaoInMemoryImpl" />
 
 </beans>

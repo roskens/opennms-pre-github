@@ -6,6 +6,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.hibernate.annotations.Type;
 
 import static org.opennms.core.utils.InetAddressUtils.str;
 @Entity
@@ -23,7 +24,7 @@ public class OspfEndPoint extends EndPoint {
 		m_ospfAddressLessIndex = ospfAddresslessIndex;
 	}
 
-	
+    @Type(type="org.opennms.netmgt.model.InetAddressUserType")
 	public InetAddress getOspfIpMask() {
 		return m_ospfIpMask;
 	}
@@ -45,6 +46,7 @@ public class OspfEndPoint extends EndPoint {
 	}
 
 
+    @Type(type="org.opennms.netmgt.model.InetAddressUserType")
 	public InetAddress getOspfIpAddr() {
 		return m_ospfIpAddr;
 	}

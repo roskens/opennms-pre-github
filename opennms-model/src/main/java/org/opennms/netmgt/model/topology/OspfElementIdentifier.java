@@ -6,6 +6,8 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.hibernate.annotations.Type;
+
 import static org.opennms.core.utils.InetAddressUtils.str;
 
 @Entity
@@ -19,6 +21,7 @@ public final class OspfElementIdentifier extends ElementIdentifier {
 		m_ospfRouterId= ospfRouterid;
 	}
 
+    @Type(type="org.opennms.netmgt.model.InetAddressUserType")
 	public InetAddress getOspfRouterId() {
 		return m_ospfRouterId;
 	}
