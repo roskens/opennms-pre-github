@@ -12,9 +12,7 @@
     <artifactId>vaadin-applicationstack</artifactId>
     <packaging>bundle</packaging>
     <name>OpenNMS Vaadin Application Stack</name>
-    <description>
-        OpenNMS Vaadin Application Stack
-    </description>
+    <description>OpenNMS Vaadin Application Stack</description>
     <properties>
         <bundle.symbolicName>org.opennms.features.vaadin-applicationstack</bundle.symbolicName>
         <bundle.namespace>org.opennms.features.vaadin.applicationstack</bundle.namespace>
