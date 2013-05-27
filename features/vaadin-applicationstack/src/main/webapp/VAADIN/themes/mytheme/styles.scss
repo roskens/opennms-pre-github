@@ -1,0 +1,35 @@
+@import url(../reindeer/legacy-styles.css);
+
+.v-customcomponent .applicationStack {
+    background: peachpuff;
+    margin: 0;
+    padding: 20px 15px 20px 15px;
+}
+
+.v-captiontext {
+    font-weight: bold;
+}
+
+.applicationLayer {
+    background: peachpuff;
+    margin: 0;
+    padding: 0;
+    padding: 10px 5px 0px 5px; 
+}
+
+.v-panel-content-applicationLayer {
+    padding:  5px;
+}
+
+
+.v-label-good {
+    background: green;
+}
+
+.v-label-problems {
+    background: orange;
+}
+
+.v-label-death {
+    background: red;
+}
