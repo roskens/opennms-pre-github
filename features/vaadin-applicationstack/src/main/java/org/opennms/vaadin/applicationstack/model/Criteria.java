@@ -1,6 +1,8 @@
 package org.opennms.vaadin.applicationstack.model;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.opennms.core.criteria.restrictions.Restriction;
 import org.opennms.core.criteria.restrictions.Restrictions;
 
@@ -100,5 +102,15 @@ public class Criteria {
     @Override
     public String toString() {
         return entityType.toString() + " " + operator.toString() + " '" + search + "'";
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(this, obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this);
     }
 }

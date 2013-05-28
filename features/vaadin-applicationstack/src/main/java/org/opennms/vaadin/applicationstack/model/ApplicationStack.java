@@ -3,6 +3,8 @@ package org.opennms.vaadin.applicationstack.model;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * @author mvrueden
@@ -69,6 +71,7 @@ public class ApplicationStack {
         return new ArrayList<ApplicationLayer>(layers);
     }
 
+    // TODO remove or change method to criteria and layer (layerId must go)
     public ApplicationStack registerNode(final String layerId, NodeDummy node) {
 //        layers.get(lget(layerId).registerNode(node);
         return this;
@@ -80,5 +83,15 @@ public class ApplicationStack {
     
     public void setLayers(List<ApplicationLayer> layers) {
         this.layers = layers;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(this, obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this);
     }
 }

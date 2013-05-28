@@ -26,7 +26,7 @@ public class ApplicationLayerComponent extends CustomComponent {
         VerticalLayout content = new VerticalLayout();
         content.setSizeFull();
 
-        if (isEditable() || true) {
+        if (isEditable()) {
             HorizontalLayout horizontalLayout = new HorizontalLayout();
             horizontalLayout.setSpacing(true);
             Button editButton = new Button("(edit)");

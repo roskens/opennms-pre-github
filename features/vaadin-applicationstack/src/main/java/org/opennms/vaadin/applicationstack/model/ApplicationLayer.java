@@ -3,6 +3,8 @@ package org.opennms.vaadin.applicationstack.model;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * @author mvrueden
@@ -54,11 +56,13 @@ public class ApplicationLayer {
         return new Coordinates(column, row, column + width - 1, row + height - 1);
     }
 
+    // TODO remove this method
     protected ApplicationLayer registerNode(NodeDummy node) {
 //        nodes.add(node);
         return this;
     }
 
+    // TODO implement computeGood
     public float computeGood() {
         int good = 0;
         return 0;
@@ -69,6 +73,7 @@ public class ApplicationLayer {
 //        return good == 0 || sum == 0 ? 0 : (float) 100 / (float) sum * (float) good;
     }
 
+    // TODO implement computeDeath
     public float computeDeath() {
         int death = 0;
         return 0;
@@ -79,6 +84,7 @@ public class ApplicationLayer {
 //        return death == 0 || sum == 0 ? 0 : (float) 100 / (float) sum * (float) death;
     }
 
+    // TODO implement computeProblems
     public float computeProblems() {
         int problem = 0;
         return 0;
@@ -140,5 +146,15 @@ public class ApplicationLayer {
 
     public void setWidth(int width) {
         this.width = width;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(this, obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this);
     }
 }
