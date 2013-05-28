@@ -14,8 +14,8 @@
     <name>OpenNMS Vaadin Application Stack</name>
     <description>OpenNMS Vaadin Application Stack</description>
     <properties>
-        <bundle.symbolicName>org.opennms.features.vaadin-applicationstack</bundle.symbolicName>
-        <bundle.namespace>org.opennms.features.vaadin.applicationstack</bundle.namespace>
+        <bundle.symbolicName>org.opennms.vaadin.applicationstack</bundle.symbolicName>
+        <bundle.namespace>org.opennms.vaadin.applicationstack</bundle.namespace>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -137,6 +137,12 @@
     </pluginRepositories>
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.opennms</groupId>
+            <artifactId>opennms-dao</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
         <!--
         <dependency>

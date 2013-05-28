@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author mvrueden
  */
 public class ApplicationLayer {
@@ -15,6 +14,7 @@ public class ApplicationLayer {
     private int yPos;
     private String label;
     private final List<NodeDummy> nodes = new ArrayList<NodeDummy>();
+    private List<Criteria> criterias = new ArrayList<Criteria>();
 
     public ApplicationLayer(String label, int row, int column, int width, int height) {
         this.yPos = row;
@@ -59,7 +59,7 @@ public class ApplicationLayer {
         for (NodeDummy eachNode : nodes) {
             good += eachNode.getGood();
         }
-        return good == 0 || sum == 0 ? 0 : (float)100 / (float)sum * (float) good;
+        return good == 0 || sum == 0 ? 0 : (float) 100 / (float) sum * (float) good;
     }
 
     public float computeDeath() {
@@ -68,7 +68,7 @@ public class ApplicationLayer {
         for (NodeDummy eachNode : nodes) {
             death += eachNode.getDeath();
         }
-        return death == 0 || sum == 0 ? 0 : (float)100 / (float)sum * (float) death;
+        return death == 0 || sum == 0 ? 0 : (float) 100 / (float) sum * (float) death;
     }
 
     public float computeProblems() {
@@ -77,7 +77,7 @@ public class ApplicationLayer {
         for (NodeDummy eachNode : nodes) {
             problem += eachNode.getProblems();
         }
-        return problem == 0 || sum == 0 ? 0 : (float)100 / (float)sum * (float) problem;
+        return problem == 0 || sum == 0 ? 0 : (float) 100 / (float) sum * (float) problem;
     }
 
     public int getSum() {
@@ -94,5 +94,25 @@ public class ApplicationLayer {
 
     public Iterable<NodeDummy> getNodes() {
         return new ArrayList<NodeDummy>(nodes);
+    }
+
+    public void setCriterias(List<Criteria> criterias) {
+        this.criterias = criterias;
+    }
+
+    public void addCriteria(Criteria criteria) {
+        criterias.add(criteria);
+    }
+
+    public void removeCriteria(Criteria criteria) {
+        criterias.remove(criteria);
+    }
+
+    public void removeAllCriterias() {
+        criterias.clear();
+    }
+
+    public List<Criteria> getCriterias() {
+        return criterias;
     }
 }
