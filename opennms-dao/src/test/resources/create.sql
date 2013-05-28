@@ -2445,11 +2445,11 @@ create table ElementIdentifier (
 create table topologyElement_ElementIdentifier (
     topologyElement_id integer not null, 
     elementIdentifiers_id integer not null, 
-    unique (elementIdentifiers_id),
     constraint FKE8CD06732EF5FEB2 foreign key (topologyElement_id) references topologyElement,
     constraint FKE8CD0673E56F0EDA foreign key (elementIdentifiers_id) references ElementIdentifier
 );
 
+create unique index topologyelement_elementidentifier_elementidentifiers_id_key on topologyElement_ElementIdentifier(elementIdentifiers_id);
 
 create table EndPoint (
 	DTYPE varchar(31) not null, 
@@ -2496,9 +2496,9 @@ alter table endpoint add constraint FK69DE919558CD951 foreign key (link_id) refe
 create table topologyElement_EndPoint (
     topologyElement_id integer not null, 
     endpoints_id integer not null, 
-    unique (endpoints_id),
     constraint FK4C3F0807C5078F48 foreign key (endpoints_id) references EndPoint,
     constraint FK4C3F08072EF5FEB2 foreign key (topologyElement_id) references topologyElement
 );
 
+create unique index topologyElement_EndPoint_endpoints_id_key on topologyElement_EndPoint(endpoints_id);
 --# End Topology
