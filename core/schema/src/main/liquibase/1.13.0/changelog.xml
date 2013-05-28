@@ -7,7 +7,7 @@
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd
 		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
     
-    <changeSet author="rssntn67" id="1.13.0-topology>
+    <changeSet author="rssntn67" id="1.13.0-topology">
 		<createTable tableName="ElementIdentifier">
 			<column name="identifierType" type="varchar(31)">
 					<constraints nullable="false" />
@@ -46,11 +46,13 @@
 			<column name="bridgePort" type="integer"/>
 			<column name="cdpCacheDevicePort" type="varchar(255)"/>
 			<column name="cdpCacheIfindex" type="integer"/>
+            <column name="ipAddr" type="varchar(64)"/>
+            <column name="macAddress" type="varchar(64)"/>
 			<column name="lldpPortId" type="varchar(255)"/>
 			<column name="ospfAddressLessIndex" type="integer"/>
 			<column name="ospfIfIndex" type="integer"/>
-			<column name="ospfIpAddr" type="bytea"/>
-			<column name="ospfIpMask" type="bytea"/>
+			<column name="ospfIpAddr" type="varchar(64)"/>
+			<column name="ospfIpMask" type="varchar(64)"/>
 			<column name="linkedBridgeIdentifier" type="varchar(64)"/>
 			<column name="linkedBridgePort" type="integer"/>
 			<column name="linkedMacAddress" type="varchar(64)"/>

@@ -2411,106 +2411,94 @@ create index accesspoint_package_idx on accesspoints(pollingpackage);
 
 --# Begin Topology
 
-alter table EndPoint drop constraint FK69DE9195504D3B03;
-alter table EndPoint drop constraint FK69DE919558CD951;
-alter table Link drop constraint FK24241AF7DB89E4;
-alter table Link drop constraint FK24241AF7DB1585;
-alter table topologyElement_ElementIdentifier drop constraint FKE8CD06732EF5FEB2;
-alter table topologyElement_ElementIdentifier drop constraint FKE8CD0673E56F0EDA;
-alter table topologyElement_EndPoint drop constraint FK4C3F0807C5078F48;
-alter table topologyElement_EndPoint drop constraint FK4C3F08072EF5FEB2;
-drop table ElementIdentifier;
-drop table EndPoint;
-drop table Link;
-drop table topologyElement;
-drop table topologyElement_ElementIdentifier;
-drop table topologyElement_EndPoint;
+drop table topologyElement cascade;
+drop table ElementIdentifier cascade;
+drop table EndPoint cascade;
+drop table Link cascade;
+drop table topologyElement_ElementIdentifier cascade;
+drop table topologyElement_EndPoint cascade;
+
+create table topologyElement (
+    id integer default nextval('opennmsnxtid') not null, 
+    CONSTRAINT pk_topologyelement_id primary key (id)
+);
 
 create table ElementIdentifier (
       identifierType varchar(31) not null, 
-      id int4 default nextval('opennmsnxtid') not null, 
+      id integer default nextval('opennmsnxtid') not null, 
       lastPoll timestamp, 
-      sourceNode int4, 
-      bridgeAddress varchar(255), 
+      sourceNode integer, 
+      bridgeAddress varchar(64), 
       cdpAddress varchar(255), 
       cdpDeviceId varchar(255), 
-      inet bytea, 
+      inet varchar(64), 
       lldpChassisId varchar(255), 
       lldpSysname varchar(255), 
-      macAddr varchar(255), 
-      nodeid int4, 
-      ospfRouterId bytea, 
-      linkedBridgeIdentifier varchar(255), 
-      linkedBridgePort int4, 
-      primary key (id)
+      macAddr varchar(64), 
+      nodeid integer, 
+      ospfRouterId varchar(64), 
+      linkedBridgeIdentifier varchar(64), 
+      linkedBridgePort integer, 
+      CONSTRAINT pk_elementidentifier_id primary key (id)
 );
+
+create table topologyElement_ElementIdentifier (
+    topologyElement_id integer not null, 
+    elementIdentifiers_id integer not null, 
+    unique (elementIdentifiers_id),
+    constraint FKE8CD06732EF5FEB2 foreign key (topologyElement_id) references topologyElement,
+    constraint FKE8CD0673E56F0EDA foreign key (elementIdentifiers_id) references ElementIdentifier
+);
+
 
 create table EndPoint (
 	DTYPE varchar(31) not null, 
-	id int4 default nextval('opennmsnxtid') not null, 
+	id integer default nextval('opennmsnxtid') not null, 
 	lastPoll timestamp, 
-	sourceNode int4, 
+	sourceNode integer, 
 	ifAlias varchar(255), 
 	ifDescr varchar(255), 
-	ifIndex int4, 
+	ifIndex integer, 
 	ifName varchar(255), 
-	bridgePort int4, 
+	bridgePort integer, 
 	cdpCacheDevicePort varchar(255), 
-	cdpCacheIfindex int4, 
+	cdpCacheIfindex integer, 
 	lldpPortId varchar(255), 
-	ospfAddressLessIndex int4, 
-	ospfIfIndex int4, 
-	ospfIpAddr bytea, 
-	ospfIpMask bytea, 
-	linkedBridgeIdentifier varchar(255), 
-	linkedBridgePort int4, 
-	linkedMacAddress varchar(255), 
-	element_id int4, 
-	link_id int4, 
-	primary key (id)
+    ipAddr varchar(64), 
+    macAddress varchar(64),
+ 	ospfAddressLessIndex integer, 
+	ospfIfIndex integer, 
+	ospfIpAddr varchar(64), 
+	ospfIpMask varchar(64), 
+	linkedBridgeIdentifier varchar(64), 
+	linkedBridgePort integer, 
+	linkedMacAddress varchar(64), 
+	element_id integer, 
+	link_id integer, 
+	CONSTRAINT pk_endpoint_id primary key (id),
+	constraint FK69DE9195504D3B03 foreign key (element_id) references topologyElement
 );
 
 create table Link (
     DTYPE varchar(31) not null, 
-    id int4 default nextval('opennmsnxtid') not null, 
+    id integer default nextval('opennmsnxtid') not null, 
     lastPoll timestamp, 
-    sourceNode int4, 
-    a_id int4, 
-    b_id int4, 
-    primary key (id)
+    sourceNode integer, 
+    a_id integer, 
+    b_id integer, 
+    CONSTRAINT pk_link_id primary key (id),
+    constraint FK24241AF7DB89E4 foreign key (b_id) references EndPoint,
+    constraint FK24241AF7DB1585 foreign key (a_id) references EndPoint
 );
 
-create table topologyElement (
-    id int4 default nextval('opennmsnxtid') not null, 
-    primary key (id)
-);
-
-create table topologyElement_ElementIdentifier (
-    topologyElement_id int4 not null, 
-    elementIdentifiers_id int4 not null, 
-    unique (elementIdentifiers_id)
-);
+alter table endpoint add constraint FK69DE919558CD951 foreign key (link_id) references Link;
 
 create table topologyElement_EndPoint (
-    topologyElement_id int4 not null, 
-    endpoints_id int4 not null, 
-    unique (endpoints_id)
+    topologyElement_id integer not null, 
+    endpoints_id integer not null, 
+    unique (endpoints_id),
+    constraint FK4C3F0807C5078F48 foreign key (endpoints_id) references EndPoint,
+    constraint FK4C3F08072EF5FEB2 foreign key (topologyElement_id) references topologyElement
 );
-
-alter table EndPoint add constraint FK69DE9195504D3B03 foreign key (element_id) references topologyElement;
-
-alter table EndPoint add constraint FK69DE919558CD951 foreign key (link_id) references Link;
-
-alter table Link add constraint FK24241AF7DB89E4 foreign key (b_id) references EndPoint;
-
-alter table Link add constraint FK24241AF7DB1585 foreign key (a_id) references EndPoint;
-
-alter table topologyElement_ElementIdentifier add constraint FKE8CD06732EF5FEB2 foreign key (topologyElement_id) references topologyElement;
-
-alter table topologyElement_ElementIdentifier add constraint FKE8CD0673E56F0EDA foreign key (elementIdentifiers_id) references ElementIdentifier;
-
-alter table topologyElement_EndPoint add constraint FK4C3F0807C5078F48 foreign key (endpoints_id) references EndPoint;
-
-alter table topologyElement_EndPoint add constraint FK4C3F08072EF5FEB2 foreign key (topologyElement_id) references topologyElement;
 
 --# End Topology

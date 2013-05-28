@@ -2,8 +2,14 @@ package org.opennms.netmgt.model.topology;
 
 import java.net.InetAddress;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.hibernate.annotations.Type;
+
+@Entity
+@DiscriminatorValue("MAC")
 public class MacAddrEndPoint extends EndPoint {
 
 	
@@ -15,6 +21,7 @@ public class MacAddrEndPoint extends EndPoint {
 		m_macAddress = mac;
 	}
 	
+    @Type(type="org.opennms.netmgt.model.InetAddressUserType")
 	public InetAddress getIpAddr() {
 		return m_ipAddr;
 	}

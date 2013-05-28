@@ -1,6 +1,5 @@
 package org.opennms.netmgt.model.topology;
 
-import javax.crypto.Mac;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
