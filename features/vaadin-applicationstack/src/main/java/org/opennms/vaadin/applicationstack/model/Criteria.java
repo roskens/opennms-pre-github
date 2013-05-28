@@ -1,8 +1,10 @@
 package org.opennms.vaadin.applicationstack.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import org.opennms.core.criteria.restrictions.Restriction;
 import org.opennms.core.criteria.restrictions.Restrictions;
 
+@XmlRootElement
 public class Criteria {
 
     private interface OperatorRestriction {
@@ -63,6 +65,8 @@ public class Criteria {
     private Operator operator;
     private String search;
 
+    public Criteria() {}
+    
     public Criteria(EntityType entityType, Operator operator, String search) {
         this.entityType = entityType;
         this.operator = operator;

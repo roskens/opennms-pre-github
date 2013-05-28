@@ -1,36 +1,41 @@
 package org.opennms.vaadin.applicationstack.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * @author mvrueden
  */
+@XmlRootElement
 public class ApplicationStack {
     private static final int MAX_WIDTH = 1000;
 
-    private final Map<String, ApplicationLayer> layers = new HashMap<String, ApplicationLayer>();
+    private List<ApplicationLayer> layers = new ArrayList<ApplicationLayer>();
 
     private String label;
 
+    public ApplicationStack() {
+        
+    }
+    
     public ApplicationStack(String label) {
         this.label = label;
     }
 
     public ApplicationStack addLayer(ApplicationLayer layer) {
-        layers.put(layer.getLabel(), layer);
+        layers.add(layer);
         return this;
     }
 
     public ApplicationStack removeLayer(ApplicationLayer layer) {
-        layers.remove(layer.getLabel());
+        layers.remove(layer);
         return this;
     }
 
     public int getRowCount() {
         int rowCount = 0;
-        for (ApplicationLayer eachLayer : layers.values()) {
+        for (ApplicationLayer eachLayer : layers) {
             rowCount = Math.max(rowCount, eachLayer.getRow() + eachLayer.getHeight());
         }
         return rowCount;
@@ -38,7 +43,7 @@ public class ApplicationStack {
 
     public int getColumnCount() {
         int columnCount = 0;
-        for (ApplicationLayer eachLayer : layers.values()) {
+        for (ApplicationLayer eachLayer : layers) {
             columnCount = Math.max(columnCount, eachLayer.getColumn() + eachLayer.getWidth());
         }
         return columnCount;
@@ -60,24 +65,20 @@ public class ApplicationStack {
         return label;
     }
 
-    public Iterable<ApplicationLayer> getLayers() {
-        return new ArrayList<ApplicationLayer>(layers.values());
+    public List<ApplicationLayer> getLayers() {
+        return new ArrayList<ApplicationLayer>(layers);
     }
 
     public ApplicationStack registerNode(final String layerId, NodeDummy node) {
-        layers.get(layerId).registerNode(node);
+//        layers.get(lget(layerId).registerNode(node);
         return this;
     }
 
     public void setLabel(String label) {
         this.label = label;
     }
-
-    public void refreshLayers() {
-        Iterable<ApplicationLayer> tmpLayers = getLayers();
-        this.layers.clear();
-        for (ApplicationLayer eachLayer : tmpLayers) {
-            addLayer(eachLayer);
-        }
+    
+    public void setLayers(List<ApplicationLayer> layers) {
+        this.layers = layers;
     }
 }
