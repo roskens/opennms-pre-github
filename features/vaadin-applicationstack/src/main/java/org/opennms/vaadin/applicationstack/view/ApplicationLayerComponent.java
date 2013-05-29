@@ -2,11 +2,14 @@ package org.opennms.vaadin.applicationstack.view;
 
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.Reindeer;
+import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.vaadin.applicationstack.model.ApplicationLayer;
 import org.opennms.vaadin.applicationstack.model.ApplicationStack;
 import org.opennms.vaadin.applicationstack.model.Criteria;
+import org.opennms.vaadin.applicationstack.provider.NodeListProvider;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author mvrueden
@@ -15,8 +18,11 @@ public class ApplicationLayerComponent extends CustomComponent {
     private boolean editable = true;
     private final HealthIndicator healthIndicator = new HealthIndicator();
     private final Label label = new Label();
+    private final NodeListProvider nodeListProvider;
 
-    public ApplicationLayerComponent() {
+    public ApplicationLayerComponent(NodeListProvider nodeListProvider) {
+        this.nodeListProvider = nodeListProvider;
+
         setStyleName("applicationLayer");
 
         Panel p = new Panel();
@@ -61,6 +67,7 @@ public class ApplicationLayerComponent extends CustomComponent {
         setWidth(stack.computeColumnWidth() * layer.getWidth(), Unit.PIXELS);
         setHeight(stack.computeRowHeight() * layer.getHeight(), Unit.PIXELS);
         healthIndicator.render(layer);
+
         return this;
     }
 
@@ -70,5 +77,9 @@ public class ApplicationLayerComponent extends CustomComponent {
 
     public boolean isEditable() {
         return editable;
+    }
+
+    private NodeListProvider getNodeListProvider() {
+        return nodeListProvider;
     }
 }

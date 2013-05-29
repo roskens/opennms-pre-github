@@ -4,7 +4,14 @@
 	http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
 ">
 
+    <reference id="nodeDao" interface="org.opennms.netmgt.dao.NodeDao" availability="mandatory"/>
+
+    <bean id="nodeListProvider" class="org.opennms.vaadin.applicationstack.provider.NodeListProvider" scope="prototype">
+        <argument ref="nodeDao" />
+    </bean>
+
     <bean id="applicationStackUI" class="org.opennms.vaadin.applicationstack.view.ApplicationStackUI" scope="prototype">
+        <property name="nodeListProvider" ref="nodeListProvider"/>
     </bean>
 
     <bean id="applicationStackUIFactory" class="org.opennms.vaadin.applicationstack.view.ApplicationStackUIFactory">

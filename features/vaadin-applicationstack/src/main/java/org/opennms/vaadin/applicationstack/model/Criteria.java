@@ -9,16 +9,35 @@ public class Criteria {
         public Restriction getRestriction(String attribute, String value);
     }
 
+        /*
+        Id
+        _this.nodeId
+
+        Services
+        serviceTypeAlias.name
+
+        Interfaces
+        ipInterfacesAlias.ipAddress
+
+        Categories
+        serviceTypeAlias.name
+        */
+
+
     public enum EntityType {
         Id("id"),
-        Category("category"),
-        Interfaces("primaryInterface"),
-        Services("serviceName");
+        Interfaces("ipInterfaces.ipAddress"),
+        Services("monitoredServices.serviceName"),
+        Categories("categories.categoryName");
 
         String[] properties;
 
-        EntityType(String ... properties) {
-            this.properties=properties;
+        EntityType(String... properties) {
+            this.properties = properties;
+        }
+
+        public String[] getProperties() {
+            return properties;
         }
     }
 

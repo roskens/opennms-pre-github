@@ -1,5 +1,10 @@
 package org.opennms.vaadin.applicationstack.model;
 
+import org.hibernate.criterion.Restrictions;
+import org.opennms.netmgt.model.OnmsCriteria;
+import org.opennms.netmgt.model.OnmsNode;
+import org.opennms.vaadin.applicationstack.provider.NodeListProvider;
+
 import java.util.ArrayList;
 import java.util.List;
 

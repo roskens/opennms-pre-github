@@ -7,7 +7,7 @@ import org.osgi.service.blueprint.container.BlueprintContainer;
 /**
  * @author Marcus Hellberg (marcus@vaadin.com)
  */
-public class ApplicationStackUIFactory  extends AbstractApplicationFactory {
+public class ApplicationStackUIFactory extends AbstractApplicationFactory {
     private final BlueprintContainer m_blueprintContainer;
     private final String m_beanName;
 
@@ -15,6 +15,7 @@ public class ApplicationStackUIFactory  extends AbstractApplicationFactory {
         m_blueprintContainer = container;
         m_beanName = beanName;
     }
+
 
     @Override
     public UI getUI() {
