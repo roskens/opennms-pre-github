@@ -2,6 +2,7 @@ package org.opennms.vaadin.applicationstack.view;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.server.VaadinRequest;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import org.opennms.netmgt.model.OnmsNode;
@@ -9,6 +10,8 @@ import org.opennms.vaadin.applicationstack.model.ApplicationLayer;
 import org.opennms.vaadin.applicationstack.model.ApplicationStack;
 import org.opennms.vaadin.applicationstack.model.Criteria;
 import org.opennms.vaadin.applicationstack.model.NodeDummy;
+import org.opennms.vaadin.applicationstack.provider.ApplicationStackProvider;
+import org.opennms.vaadin.applicationstack.provider.ApplicationStackProviderFactory;
 import org.opennms.vaadin.applicationstack.provider.NodeListProvider;
 
 import java.util.List;
@@ -22,6 +25,9 @@ import java.util.Random;
 public class ApplicationStackUI extends UI {
     private NodeListProvider nodeListProvider;
 
+    private ApplicationStackProvider applicationStackProvider =
+            ApplicationStackProviderFactory.instance.createApplicationStackProvider();
+
     @Override
     protected void init(VaadinRequest request) {
         final VerticalLayout layout = new VerticalLayout();
@@ -29,8 +35,20 @@ public class ApplicationStackUI extends UI {
         setContent(layout);
         setSizeFull();
 
-        final ApplicationStack stack = new ApplicationStack("Waschmaschine")
-                .addLayer(new ApplicationLayer("Layer1", 0, 0, 4, 1))
+        final ApplicationStack stack = createDummyApplicationStack();
+        if (stack != null) {
+            registerDummyNodes(stack);
+            layout.addComponent(new ApplicationStackComponent().render(stack));
+        } else {
+            Notification.show("Could not load application stack file from disk", Notification.Type.ERROR_MESSAGE);
+        }
+    }
+
+    // TODO remove meethod
+    private static ApplicationStack createDummyApplicationStack() {
+        return new ApplicationStack("WAMA")
+                .addLayer(new ApplicationLayer("Layer1", 0, 0, 4, 1)
+                        .addCriteria(new Criteria(Criteria.EntityType.Categories, Criteria.Operator.Equals, "*")))
                 .addLayer(new ApplicationLayer("Layer2a", 1, 0, 2, 1))
                 .addLayer(new ApplicationLayer("Layer2b", 1, 2, 2, 1))
                 .addLayer(new ApplicationLayer("Layer3", 2, 0, 4, 1))
@@ -52,37 +70,9 @@ public class ApplicationStackUI extends UI {
                 .addLayer(new ApplicationLayer("Layer10a", 8, 0, 3, 1))
                 .addLayer(new ApplicationLayer("Layer10b", 8, 3, 3, 1))
                 .addLayer(new ApplicationLayer("Layer11", 9, 0, 6, 1));
-
-        registerDummyNodes(stack);
-
-        layout.addComponent(new ApplicationStackComponent(nodeListProvider).render(stack));
-
-        testCriteria(new Criteria(Criteria.EntityType.Id, Criteria.Operator.Equals, "5"));
-        testCriteria(new Criteria(Criteria.EntityType.Id, Criteria.Operator.In, "5,6,7"));
-        testCriteria(new Criteria(Criteria.EntityType.Categories, Criteria.Operator.Equals, "VMware3"));
-        testCriteria(new Criteria(Criteria.EntityType.Categories, Criteria.Operator.In, "VMware3,VMware4,VMware5"));
-        testCriteria(new Criteria(Criteria.EntityType.Interfaces, Criteria.Operator.Equals, "193.174.29.3"));
-        testCriteria(new Criteria(Criteria.EntityType.Interfaces, Criteria.Operator.In, "193.174.29.3,193.174.29.1"));
-        testCriteria(new Criteria(Criteria.EntityType.Services, Criteria.Operator.Equals, "HTTP"));
-        testCriteria(new Criteria(Criteria.EntityType.Services, Criteria.Operator.In, "ICMP,HTTP,SNMP"));
-
     }
 
-    private void testCriteria(Criteria criteria) {
-        try {
-            System.out.println("Testing " + criteria);
-            ApplicationLayer layer = new ApplicationLayer("LayerX", 5, 5, 3, 3);
-            layer.addCriteria(criteria);
-
-            List<OnmsNode> nodes = getNodeListProvider().getNodesForCriterias(layer.getCriterias());
-            for (OnmsNode onmsNode : nodes) {
-                System.out.println("BMRHGA: " + onmsNode.getId() + " " + onmsNode.getLabel());
-            }
-        } catch (Exception exception) {
-            System.out.println(exception.getMessage());
-        }
-    }
-
+    // TODO remove method
     private static void registerDummyNodes(ApplicationStack stack) {
         for (ApplicationLayer eachLayer : stack.getLayers()) {
             int max = 100;
@@ -100,9 +90,5 @@ public class ApplicationStackUI extends UI {
 
     public void setNodeListProvider(NodeListProvider nodeListProvider) {
         this.nodeListProvider = nodeListProvider;
-    }
-
-    public NodeListProvider getNodeListProvider() {
-        return nodeListProvider;
     }
 }

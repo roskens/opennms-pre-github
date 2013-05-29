@@ -25,7 +25,6 @@ public class NodeListProvider {
         criteriaBuilder.alias("categories", "categoriesAlias");
         criteriaBuilder.ne("ipInterfacesAlias.isManaged", "D");
 
-
         org.opennms.core.criteria.Criteria searchCriteria = criteriaBuilder.toCriteria();
 
         for (Criteria criteria : criterias) {
@@ -34,11 +33,13 @@ public class NodeListProvider {
             List<Restriction> restrictions = new ArrayList<Restriction>();
 
             for (String property : properties) {
-                restrictions.add(criteria.getOperator().getRestriction(property, criteria.getSearch()));
+                restrictions.add(criteria.getOperator().getRestriction(criteria.getEntityType(), property, criteria.getSearch()));
             }
 
             searchCriteria.addRestriction(new AnyRestriction(restrictions.toArray(new Restriction[0])));
         }
+
+        // System.out.println(searchCriteria);
 
         searchCriteria.setDistinct(true);
 

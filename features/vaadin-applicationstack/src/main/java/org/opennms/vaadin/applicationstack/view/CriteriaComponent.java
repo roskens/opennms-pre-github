@@ -44,6 +44,7 @@ public class CriteriaComponent extends HorizontalLayout {
         operatorField.setValue(criteria.getOperator());
         operatorField.setWidth(100, Unit.PERCENTAGE);
 
+        searchField.setValue(criteria.getSearch());
         searchField.setWidth(100, Unit.PERCENTAGE);
 
         addComponent(entityField);

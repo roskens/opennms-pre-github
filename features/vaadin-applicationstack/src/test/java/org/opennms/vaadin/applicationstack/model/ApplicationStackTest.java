@@ -25,7 +25,7 @@ public class ApplicationStackTest {
     }
     
     @Test
-    public void testBla() {
+    public void testBasicFunctions2() {
          ApplicationStack stack = new ApplicationStack("Waschmaschine")
                 .addLayer(new ApplicationLayer("Layer1", 0, 0, 4, 1))
                 .addLayer(new ApplicationLayer("Layer2a", 1, 0, 2, 1))

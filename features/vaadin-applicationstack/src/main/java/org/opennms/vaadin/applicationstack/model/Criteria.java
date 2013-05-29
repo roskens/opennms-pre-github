@@ -1,65 +1,97 @@
 package org.opennms.vaadin.applicationstack.model;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.opennms.core.criteria.restrictions.Restriction;
 import org.opennms.core.criteria.restrictions.Restrictions;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+@XmlRootElement
 public class Criteria {
 
     private interface OperatorRestriction {
-        public Restriction getRestriction(String attribute, String value);
+        public Restriction getRestriction(EntityType entityType, String attribute, String value);
     }
 
-        /*
-        Id
-        _this.nodeId
-
-        Services
-        serviceTypeAlias.name
-
-        Interfaces
-        ipInterfacesAlias.ipAddress
-
-        Categories
-        serviceTypeAlias.name
-        */
-
-
     public enum EntityType {
-        Id("id"),
-        Interfaces("ipInterfaces.ipAddress"),
-        Services("monitoredServices.serviceName"),
-        Categories("categories.categoryName");
+        Id(Integer.class, "id"),
+        Interfaces(String.class, "ipInterfacesAlias.ipAddress", "ipInterfacesAlias.ipHostName"),
+        Services(String.class, "serviceTypeAlias.name"),
+        Categories(String.class, "categoriesAlias.name");
 
         String[] properties;
+        Class clazz;
 
-        EntityType(String... properties) {
+        EntityType(Class clazz, String... properties) {
+            this.clazz = clazz;
             this.properties = properties;
         }
 
         public String[] getProperties() {
             return properties;
         }
+
+        public Object valueOfSearchString(String s) {
+            if (clazz.equals(String.class)) {
+                return s;
+            } else {
+                if (clazz.equals(Integer.class)) {
+                    Integer i = 0;
+                    try {
+                        i = Integer.parseInt(s);
+                    } catch (NumberFormatException numberFormatException) {
+                    }
+                    return i;
+                }
+
+                return null;
+            }
+        }
+
+        public List<Object> valuesOfSearchString(String s) {
+            if (clazz.equals(String.class)) {
+                return Arrays.asList((Object[]) s.split(","));
+            } else {
+                if (clazz.equals(Integer.class)) {
+                    List<Object> intList = new ArrayList<Object>();
+                    String strArr[] = s.split(",");
+                    try {
+                        for (String v : strArr) {
+                            intList.add(Integer.parseInt(v));
+                        }
+                    } catch (NumberFormatException numberFormatException) {
+                    }
+                    return intList;
+                }
+
+                return null;
+            }
+        }
     }
 
     public enum Operator implements OperatorRestriction {
         Equals("=") {
-            public Restriction getRestriction(String attribute, String value) {
-                return Restrictions.eq(attribute, value);
+            public Restriction getRestriction(EntityType entityType, String attribute, String value) {
+                return Restrictions.eq(attribute, entityType.valueOfSearchString(value));
             }
         },
         NotEquals("\u2260") {
-            public Restriction getRestriction(String attribute, String value) {
-                return Restrictions.not(Restrictions.eq(attribute, value));
+            public Restriction getRestriction(EntityType entityType, String attribute, String value) {
+                return Restrictions.not(Restrictions.eq(attribute, entityType.valueOfSearchString(value)));
             }
         },
         In("\u2208") {
-            public Restriction getRestriction(String attribute, String value) {
-                return Restrictions.sql(attribute + " IN (" + value + ")");
+            public Restriction getRestriction(EntityType entityType, String attribute, String value) {
+                return Restrictions.in(attribute, entityType.valuesOfSearchString(value));
             }
         },
         NotIn("\u2209") {
-            public Restriction getRestriction(String attribute, String value) {
-                return Restrictions.not(Restrictions.sql(attribute + " IN (" + value + ")"));
+            public Restriction getRestriction(EntityType entityType, String attribute, String value) {
+                return Restrictions.not(Restrictions.in(attribute, entityType.valuesOfSearchString(value)));
             }
         };
 
@@ -81,6 +113,9 @@ public class Criteria {
     private EntityType entityType;
     private Operator operator;
     private String search;
+
+    public Criteria() {
+    }
 
     public Criteria(EntityType entityType, Operator operator, String search) {
         this.entityType = entityType;
@@ -115,5 +150,15 @@ public class Criteria {
     @Override
     public String toString() {
         return entityType.toString() + " " + operator.toString() + " '" + search + "'";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(this, obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this);
     }
 }

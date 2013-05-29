@@ -18,10 +18,13 @@ public class CriteriaBuilderComponent extends Window {
     private final Table table = new Table();
 
     public CriteriaBuilderComponent(List<Criteria> criterias) {
+        if (criterias == null) {
+            criterias = new ArrayList<Criteria>();
+        }
 
-        criterias.add(new Criteria(Criteria.EntityType.Id, Criteria.Operator.Equals, "Id"));
-        criterias.add(new Criteria(Criteria.EntityType.Category, Criteria.Operator.Equals, "Category"));
-        criterias.add(new Criteria(Criteria.EntityType.Interfaces, Criteria.Operator.Equals, "Interfaces"));
+        if (criterias.size() == 0) {
+            criterias.add(new Criteria(Criteria.EntityType.Id, Criteria.Operator.Equals, "0"));
+        }
 
         for (Criteria criteria : criterias) {
             criteriaComponents.add(new CriteriaComponent(criteria));
