@@ -30,7 +30,7 @@ public class ApplicationStackUI extends UI {
         setContent(layout);
         setSizeFull();
 
-        final ApplicationStack stack = createDummyApplicationStack();
+        ApplicationStack stack = applicationStackProvider.loadApplicationStack();
         if (stack != null) {
             registerDummyNodes(stack);
             layout.addComponent(new ApplicationStackComponent().render(stack));

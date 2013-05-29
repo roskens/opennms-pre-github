@@ -2,7 +2,9 @@ package org.opennms.vaadin.applicationstack.model;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlRootElement;
+
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -80,7 +82,7 @@ public class ApplicationStack {
     public void setLabel(String label) {
         this.label = label;
     }
-    
+
     public void setLayers(List<ApplicationLayer> layers) {
         this.layers = layers;
     }

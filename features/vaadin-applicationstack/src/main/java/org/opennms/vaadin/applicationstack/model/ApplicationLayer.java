@@ -2,7 +2,9 @@ package org.opennms.vaadin.applicationstack.model;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlRootElement;
+
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -18,6 +20,7 @@ public class ApplicationLayer {
     private int row;
     private String label;
 //    private final List<NodeDummy> nodes = new ArrayList<NodeDummy>();
+    
     private List<Criteria> criterias = new ArrayList<Criteria>();
 
     public ApplicationLayer() {

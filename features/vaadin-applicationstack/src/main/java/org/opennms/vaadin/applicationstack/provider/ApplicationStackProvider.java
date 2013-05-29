@@ -4,6 +4,7 @@ import java.io.Closeable;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import org.apache.commons.io.IOUtils;
 import org.opennms.core.xml.JaxbUtils;
 import org.opennms.vaadin.applicationstack.model.ApplicationStack;
 
@@ -14,15 +15,6 @@ import org.opennms.vaadin.applicationstack.model.ApplicationStack;
  */
 public class ApplicationStackProvider {
 
-    private static void closeSilently(Closeable closeable) {
-        if (closeable == null) return;
-        try {
-            closeable.close();
-        } catch (IOException ioex) {
-            ; // TODO exception handling
-        }
-    }
-   
     private final File configFile;
 
     public ApplicationStackProvider(String configFile) {
@@ -48,7 +40,7 @@ public class ApplicationStackProvider {
         } catch (IOException ioEx) {
             ; //TODO exception handling
         } finally {
-            closeSilently(out);
+            IOUtils.closeQuietly(out);
         }
     }
 }
