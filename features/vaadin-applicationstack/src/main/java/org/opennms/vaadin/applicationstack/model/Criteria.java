@@ -2,98 +2,135 @@ package org.opennms.vaadin.applicationstack.model;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.opennms.core.criteria.restrictions.Restriction;
-import org.opennms.core.criteria.restrictions.Restrictions;
 
 import javax.xml.bind.annotation.XmlRootElement;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 @XmlRootElement
 public class Criteria {
 
-    private interface OperatorRestriction {
-        public Restriction getRestriction(EntityType entityType, String attribute, String value);
+    private interface SqlOperation {
+        public String operatorIn(String search);
+
+        public String operatorNotIn(String search);
+
+        public String operatorEquals(String search);
+
+        public String operatorNotEquals(String search);
     }
 
-    public enum EntityType {
-        Id(Integer.class, "id"),
-        Interfaces(String.class, "ipInterfacesAlias.ipAddress", "ipInterfacesAlias.ipHostName"),
-        Services(String.class, "serviceTypeAlias.name"),
-        Categories(String.class, "categoriesAlias.name");
-
-        String[] properties;
-        Class clazz;
-
-        EntityType(Class clazz, String... properties) {
-            this.clazz = clazz;
-            this.properties = properties;
-        }
-
-        public String[] getProperties() {
-            return properties;
-        }
-
-        public Object valueOfSearchString(String s) {
-            if (clazz.equals(String.class)) {
-                return s;
-            } else {
-                if (clazz.equals(Integer.class)) {
-                    Integer i = 0;
-                    try {
-                        i = Integer.parseInt(s);
-                    } catch (NumberFormatException numberFormatException) {
-                    }
-                    return i;
-                }
-
-                return null;
+    public enum EntityType implements SqlOperation {
+        Id() {
+            public String operatorIn(String search) {
+                return "SELECT DISTINCT nodeId FROM node WHERE CAST(nodeId AS TEXT) IN (" + toTextArray(search) + ")";
             }
-        }
 
-        public List<Object> valuesOfSearchString(String s) {
-            if (clazz.equals(String.class)) {
-                return Arrays.asList((Object[]) s.split(","));
-            } else {
-                if (clazz.equals(Integer.class)) {
-                    List<Object> intList = new ArrayList<Object>();
-                    String strArr[] = s.split(",");
-                    try {
-                        for (String v : strArr) {
-                            intList.add(Integer.parseInt(v));
-                        }
-                    } catch (NumberFormatException numberFormatException) {
-                    }
-                    return intList;
-                }
-
-                return null;
+            public String operatorNotIn(String search) {
+                return "SELECT DISTINCT nodeId FROM node WHERE NOT CAST(nodeId AS TEXT) IN (" + toTextArray(search) + ")";
             }
-        }
-    }
 
-    public enum Operator implements OperatorRestriction {
-        Equals("=") {
-            public Restriction getRestriction(EntityType entityType, String attribute, String value) {
-                return Restrictions.eq(attribute, entityType.valueOfSearchString(value));
+            public String operatorEquals(String search) {
+                return "SELECT DISTINCT nodeId FROM node WHERE CAST(nodeId AS TEXT) LIKE " + toText(search);
+            }
+
+            public String operatorNotEquals(String search) {
+                return "SELECT DISTINCT nodeId FROM node WHERE NOT CAST(nodeId AS TEXT) LIKE " + toText(search);
             }
         },
-        NotEquals("\u2260") {
-            public Restriction getRestriction(EntityType entityType, String attribute, String value) {
-                return Restrictions.not(Restrictions.eq(attribute, entityType.valueOfSearchString(value)));
+
+        Interfaces() {
+            public String operatorIn(String search) {
+                return "SELECT DISTINCT node.nodeId FROM ipInterface LEFT JOIN node ON ipInterface.nodeId=node.nodeId WHERE ipAddr IN (" + toTextArray(search) + ")";
+            }
+
+            public String operatorNotIn(String search) {
+                return "SELECT DISTINCT node.nodeId FROM ipInterface LEFT JOIN node ON ipInterface.nodeId=node.nodeId WHERE NOT ipAddr IN (" + toTextArray(search) + ")";
+            }
+
+            public String operatorEquals(String search) {
+                return "SELECT DISTINCT node.nodeId FROM ipInterface LEFT JOIN node ON ipInterface.nodeId=node.nodeId WHERE ipAddr LIKE " + toText(search);
+            }
+
+            public String operatorNotEquals(String search) {
+                return "SELECT DISTINCT node.nodeId FROM ipInterface LEFT JOIN node ON ipInterface.nodeId=node.nodeId WHERE NOT ipAddr LIKE " + toText(search);
             }
         },
-        In("\u2208") {
-            public Restriction getRestriction(EntityType entityType, String attribute, String value) {
-                return Restrictions.in(attribute, entityType.valuesOfSearchString(value));
+
+        Services() {
+            public String operatorIn(String search) {
+                return "SELECT DISTINCT ifservices.nodeId FROM ifservices LEFT JOIN service ON ifservices.serviceId=service.serviceId WHERE serviceName IN (" + toTextArray(search) + ")";
+            }
+
+            public String operatorNotIn(String search) {
+                return "SELECT DISTINCT ifservices.nodeId FROM ifservices LEFT JOIN service ON ifservices.serviceId=service.serviceId WHERE NOT serviceName IN (" + toTextArray(search) + ")";
+            }
+
+            public String operatorEquals(String search) {
+                return "SELECT DISTINCT ifservices.nodeId FROM ifservices LEFT JOIN service ON ifservices.serviceId=service.serviceId WHERE serviceName LIKE " + toText(search);
+            }
+
+            public String operatorNotEquals(String search) {
+                return "SELECT DISTINCT ifservices.nodeId FROM ifservices LEFT JOIN service ON ifservices.serviceId=service.serviceId WHERE NOT serviceName LIKE " + toText(search);
             }
         },
-        NotIn("\u2209") {
-            public Restriction getRestriction(EntityType entityType, String attribute, String value) {
-                return Restrictions.not(Restrictions.in(attribute, entityType.valuesOfSearchString(value)));
+
+        Categories() {
+            public String operatorIn(String search) {
+                return "SELECT DISTINCT nodeId FROM category_node LEFT JOIN categories ON categories.categoryid=category_node.categoryid WHERE categoryName IN (" + toTextArray(search) + ")";
+            }
+
+            public String operatorNotIn(String search) {
+                return "SELECT DISTINCT nodeId FROM category_node LEFT JOIN categories ON categories.categoryid=category_node.categoryid WHERE NOT categoryName IN (" + toTextArray(search) + ")";
+            }
+
+            public String operatorEquals(String search) {
+                return "SELECT DISTINCT nodeId FROM category_node LEFT JOIN categories ON categories.categoryid=category_node.categoryid WHERE categoryName LIKE " + toText(search);
+            }
+
+            public String operatorNotEquals(String search) {
+                return "SELECT DISTINCT nodeId FROM category_node LEFT JOIN categories ON categories.categoryid=category_node.categoryid WHERE NOT categoryName LIKE " + toText(search);
             }
         };
+
+        EntityType() {
+        }
+
+        public String getSql(Operator operator, String s) {
+            switch (operator) {
+                case In:
+                    return operatorIn(s);
+                case NotIn:
+                    return operatorNotIn(s);
+                case Equals:
+                    return operatorEquals(s);
+                case NotEquals:
+                    return operatorNotEquals(s);
+                default:
+                    return null;
+            }
+        }
+
+        protected String toText(String search) {
+            return "'" + search + "'";
+        }
+
+        protected String toTextArray(String search) {
+            String arr[] = search.split(",");
+            String list = "";
+            for (String value : arr) {
+                if (!"".equals(list)) {
+                    list += ", ";
+                }
+                list += "'" + value + "'";
+            }
+            return list;
+        }
+    }
+
+    public enum Operator {
+        Equals("="),
+        NotEquals("\u2260"),
+        In("\u2208"),
+        NotIn("\u2209");
 
         private String title;
 

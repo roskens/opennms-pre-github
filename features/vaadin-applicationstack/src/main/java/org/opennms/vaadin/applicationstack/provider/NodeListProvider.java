@@ -1,8 +1,6 @@
 package org.opennms.vaadin.applicationstack.provider;
 
 import org.opennms.core.criteria.CriteriaBuilder;
-import org.opennms.core.criteria.restrictions.AnyRestriction;
-import org.opennms.core.criteria.restrictions.Restriction;
 import org.opennms.netmgt.dao.NodeDao;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.vaadin.applicationstack.model.Criteria;
@@ -17,6 +15,26 @@ public class NodeListProvider {
         this.nodeDao = nodeDao;
     }
 
+    public List<OnmsNode> getNodesForCriterias(List<Criteria> criterias) {
+        CriteriaBuilder criteriaBuilder = new CriteriaBuilder(OnmsNode.class);
+
+        String query = "";
+
+        for (Criteria criteria : criterias) {
+            if (!"".equals(query)) {
+                query += " INTERSECT ";
+            }
+            query += "(" + criteria.getEntityType().getSql(criteria.getOperator(), criteria.getSearch()) + ")";
+        }
+
+        criteriaBuilder.sql("{alias}.nodeId IN "+query);
+
+        criteriaBuilder.distinct();
+
+        return (List<OnmsNode>) nodeDao.findMatching(criteriaBuilder.toCriteria());
+    }
+
+    /*
     public List<OnmsNode> getNodesForCriterias(List<Criteria> criterias) {
         CriteriaBuilder criteriaBuilder = new CriteriaBuilder(OnmsNode.class);
         criteriaBuilder.alias("ipInterfaces", "ipInterfacesAlias");
@@ -45,4 +63,5 @@ public class NodeListProvider {
 
         return (List<OnmsNode>) nodeDao.findMatching(searchCriteria);
     }
+    */
 }
