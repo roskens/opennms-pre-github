@@ -1,11 +1,7 @@
 package org.opennms.vaadin.applicationstack.provider;
 
-import java.io.Closeable;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import org.apache.commons.io.IOUtils;
-import org.opennms.core.xml.JaxbUtils;
+import javax.xml.bind.JAXB;
 import org.opennms.vaadin.applicationstack.model.ApplicationStack;
 
 /**
@@ -29,18 +25,10 @@ public class ApplicationStackProvider {
         if (!configFile.exists()) {
             saveApplicationStack(new ApplicationStack()); // DEFAULT
         }
-        return JaxbUtils.unmarshal(ApplicationStack.class, configFile);
+        return JAXB.unmarshal(configFile, ApplicationStack.class);
     }
 
     public void saveApplicationStack(final ApplicationStack stack) {
-        FileWriter out = null;
-        try {
-            out = new FileWriter(configFile);
-            JaxbUtils.marshal(stack, out);
-        } catch (IOException ioEx) {
-            ; //TODO exception handling
-        } finally {
-            IOUtils.closeQuietly(out);
-        }
+        JAXB.marshal(stack, configFile);
     }
 }

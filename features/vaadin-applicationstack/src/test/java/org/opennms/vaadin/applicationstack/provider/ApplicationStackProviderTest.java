@@ -1,12 +1,11 @@
 package org.opennms.vaadin.applicationstack.provider;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import javax.xml.bind.JAXB;
 import org.junit.Assert;
 import org.junit.Test;
-import org.opennms.core.xml.JaxbUtils;
 import org.opennms.vaadin.applicationstack.model.ApplicationLayer;
 import org.opennms.vaadin.applicationstack.model.ApplicationStack;
 import org.opennms.vaadin.applicationstack.model.Criteria;
@@ -16,7 +15,6 @@ import org.opennms.vaadin.applicationstack.model.Criteria;
  * @author marskuh
  */
 public class ApplicationStackProviderTest {
-
 
     @Test
     public void testLoad() {
@@ -60,7 +58,7 @@ public class ApplicationStackProviderTest {
         Assert.assertTrue(configFile.exists());
         ApplicationStack stack = new ApplicationStackProvider(configFile).loadApplicationStack();
         Assert.assertTrue(!stack.getLayers().isEmpty());
-        Assert.assertEquals(stack, JaxbUtils.unmarshal(ApplicationStack.class, configFile));
+        Assert.assertEquals(stack, JAXB.unmarshal(configFile, ApplicationStack.class));
     }
     
      private static ApplicationStack createDummyApplicationStack() {

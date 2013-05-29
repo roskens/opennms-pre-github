@@ -70,7 +70,7 @@ public class ApplicationStack {
     }
 
     public List<ApplicationLayer> getLayers() {
-        return new ArrayList<ApplicationLayer>(layers);
+        return layers;
     }
 
     // TODO remove or change method to criteria and layer (layerId must go)
