@@ -4,9 +4,9 @@
     <layers>
         <column>0</column>
         <criterias>
-            <entityType>Category</entityType>
+            <entityType>Categories</entityType>
             <operator>Equals</operator>
-            <search>*</search>
+            <search>99</search>
         </criterias>
         <height>1</height>
         <label>Layer1</label>

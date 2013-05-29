@@ -110,7 +110,8 @@ public class Criteria {
         }
 
         protected String toText(String search) {
-            return "'" + search + "'";
+            String wildcardSearch = search.replace('*', '%').replace('?', '_');
+            return "'" + wildcardSearch + "'";
         }
 
         protected String toTextArray(String search) {
@@ -152,6 +153,15 @@ public class Criteria {
     private String search;
 
     public Criteria() {
+        this.operator = Operator.Equals;
+        this.entityType = EntityType.Id;
+        this.search = "1";
+    }
+
+    public Criteria(Criteria criteria) {
+        this.operator = criteria.operator;
+        this.entityType = criteria.entityType;
+        this.search = criteria.search;
     }
 
     public Criteria(EntityType entityType, Operator operator, String search) {

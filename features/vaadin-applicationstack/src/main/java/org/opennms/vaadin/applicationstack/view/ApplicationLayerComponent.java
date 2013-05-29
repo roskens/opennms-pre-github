@@ -4,9 +4,6 @@ import com.vaadin.ui.*;
 import com.vaadin.ui.themes.Reindeer;
 import org.opennms.vaadin.applicationstack.model.ApplicationLayer;
 import org.opennms.vaadin.applicationstack.model.ApplicationStack;
-import org.opennms.vaadin.applicationstack.model.Criteria;
-
-import java.util.ArrayList;
 
 /**
  * @author mvrueden
@@ -15,6 +12,7 @@ public class ApplicationLayerComponent extends CustomComponent {
     private boolean editable = true;
     private final HealthIndicator healthIndicator = new HealthIndicator();
     private final Label label = new Label();
+    private final CriteriaBuilderComponent criteriaBuilderComponent = new CriteriaBuilderComponent(null);
 
     public ApplicationLayerComponent() {
         setStyleName("applicationLayer");
@@ -33,7 +31,7 @@ public class ApplicationLayerComponent extends CustomComponent {
 
             editButton.addClickListener(new Button.ClickListener() {
                 public void buttonClick(Button.ClickEvent clickEvent) {
-                    UI.getCurrent().addWindow(new CriteriaBuilderComponent(new ArrayList<Criteria>()));
+                    UI.getCurrent().addWindow(criteriaBuilderComponent);
                 }
             });
 
@@ -61,6 +59,8 @@ public class ApplicationLayerComponent extends CustomComponent {
         setWidth(stack.computeColumnWidth() * layer.getWidth(), Unit.PIXELS);
         setHeight(stack.computeRowHeight() * layer.getHeight(), Unit.PIXELS);
         healthIndicator.render(layer);
+
+        criteriaBuilderComponent.setLayer(layer);
 
         return this;
     }

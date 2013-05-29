@@ -5,7 +5,6 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
-import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.vaadin.applicationstack.model.ApplicationLayer;
 import org.opennms.vaadin.applicationstack.model.ApplicationStack;
 import org.opennms.vaadin.applicationstack.model.Criteria;
@@ -14,7 +13,6 @@ import org.opennms.vaadin.applicationstack.provider.ApplicationStackProvider;
 import org.opennms.vaadin.applicationstack.provider.ApplicationStackProviderFactory;
 import org.opennms.vaadin.applicationstack.provider.NodeListProvider;
 
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -90,5 +88,9 @@ public class ApplicationStackUI extends UI {
 
     public void setNodeListProvider(NodeListProvider nodeListProvider) {
         this.nodeListProvider = nodeListProvider;
+    }
+
+    public NodeListProvider getNodeListProvider() {
+        return nodeListProvider;
     }
 }

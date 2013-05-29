@@ -5,7 +5,6 @@ import org.opennms.netmgt.dao.NodeDao;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.vaadin.applicationstack.model.Criteria;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class NodeListProvider {
@@ -27,7 +26,7 @@ public class NodeListProvider {
             query += "(" + criteria.getEntityType().getSql(criteria.getOperator(), criteria.getSearch()) + ")";
         }
 
-        criteriaBuilder.sql("{alias}.nodeId IN "+query);
+        criteriaBuilder.sql("{alias}.nodeId IN " + query);
 
         criteriaBuilder.distinct();
 
