@@ -41,10 +41,6 @@ public class CriteriaBuilderComponent extends Window {
         saveButton.addClickListener(new Button.ClickListener() {
             public void buttonClick(Button.ClickEvent clickEvent) {
                 CriteriaBuilderComponent.this.close();
-
-                for (Criteria criteria : getCriterias()) {
-                    System.out.println(criteria);
-                }
             }
         });
 
