@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model-import xmlns="http://xmlns.opennms.org/xsd/config/model-import" foreign-source="NMS-4951-2">
+        <node node-label="justanode" foreign-id="666">
+                <interface ip-addr="10.11.12.13" status="1" snmp-primary="N" descr="">
+                        <monitored-service service-name="ICMP"/>
+                </interface>
+                <category name="CatOne" />
+        </node>
+</model-import>
