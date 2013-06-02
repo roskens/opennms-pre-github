@@ -11,7 +11,7 @@
   <packaging>pom</packaging>
   <name>OpenNMS Jersey Dependencies</name>
   <properties>
-    <jerseyVersion>1.10</jerseyVersion>
+    <jerseyVersion>1.17.1</jerseyVersion>
   </properties>
   <dependencies>
     <dependency>

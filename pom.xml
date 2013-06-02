@@ -476,24 +476,24 @@
         </configuration>
       </plugin>
       <plugin>
-        <inherited>false</inherited>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-antrun-plugin</artifactId>
         <version>1.7</version>
         <executions>
           <execution>
             <phase>validate</phase>
+            <inherited>false</inherited>
             <configuration>
               <tasks>
                 <!-- I have to explicitly set Ant properties from Maven
                      properties. They aren't passed automatically, even
                      when inheritAll="true" is used with <ant />. -->
                 <ant target="java.check">
-                  <property name="java.vm.version" value="${java.vm.version}" />
-                  <property name="java.version" value="${java.version}" />
-                  <property name="java.home" value="${java.home}" />
+                  <property name="java.vm.version" value="${java.vm.version}"/>
+                  <property name="java.version" value="${java.version}"/>
+                  <property name="java.home" value="${java.home}"/>
                 </ant>
-                <echo message="update policy is ${updatePolicy}" />
+                <echo message="update policy is ${updatePolicy}"/>
               </tasks>
             </configuration>
             <goals>
@@ -596,6 +596,25 @@
           <rulesUri>file://${root.dir}/src/site/maven-version-rules.xml</rulesUri>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>com.soebes.maven.plugins</groupId>
+        <artifactId>maven-echo-plugin</artifactId>
+        <version>0.1</version>
+        <executions>
+          <execution>
+            <phase>compile</phase>
+            <goals>
+              <goal>echo</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <echos>
+            <echo>Build BaseDir: ${project.basedir}</echo>
+            <echo>Build Dir: ${project.build.directory}</echo>
+          </echos>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
   <reporting>
@@ -661,7 +680,7 @@
           <minimumTokens>100</minimumTokens>
         </configuration>
       </plugin>
-<!--
+      <!--
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
@@ -672,7 +691,7 @@
         <artifactId>maven-jxr-plugin</artifactId>
         <version>2.3</version>
       </plugin>
-<!--
+      <!--
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>taglist-maven-plugin</artifactId>
@@ -699,7 +718,7 @@
     <mock.db.driver>org.postgresql.Driver</mock.db.driver>
     <mock.db.url>jdbc:postgresql://localhost:5432/</mock.db.url>
     <mock.db.adminUser>postgres</mock.db.adminUser>
-    <mock.db.adminPassword />
+    <mock.db.adminPassword/>
     <mock.runSnmpTests>false</mock.runSnmpTests>
     <mock.snmpHost>localhost</mock.snmpHost>
     <install.version>${project.version}</install.version>
@@ -711,7 +730,7 @@
     <dist.dir>${root.dir}/target</dist.dir>
     <dist.name>opennms-${project.version}</dist.name>
     <!-- install.prefix: a prefix used for installation in or chroot -->
-    <install.prefix />
+    <install.prefix/>
     <install.dir>${opennms.home}</install.dir>
     <install.init.dir>${install.dir}/bin</install.init.dir>
     <install.webapps.dir>${install.dir}/webapps</install.webapps.dir>
@@ -730,7 +749,7 @@
     <install.database.user>opennms</install.database.user>
     <install.database.password>opennms</install.database.password>
     <install.database.admin.user>postgres</install.database.admin.user>
-    <install.database.admin.password />
+    <install.database.admin.password/>
     <install.database.driver>org.postgresql.Driver</install.database.driver>
     <install.database.bindir>/usr/bin</install.database.bindir>
     <install.rrdtool.bin>/usr/bin/rrdtool</install.rrdtool.bin>
@@ -743,7 +762,7 @@
     <rpm.sign>false</rpm.sign>
     <rpm.buildtests>false</rpm.buildtests>
     <rpm.database.user>opennms</rpm.database.user>
-    <rpm.additional.args />
+    <rpm.additional.args/>
     <rpm.database.name>opennms</rpm.database.name>
     <rpm.database.password>opennms</rpm.database.password>
     <!-- code signing properties - used in opennms-webstart -->
@@ -755,18 +774,18 @@
     <webstart.keystore.delete>true</webstart.keystore.delete>
     <webstart.keygen>true</webstart.keygen>
     <webstart.dnameCn>${user.name}</webstart.dnameCn>
-    <webstart.dnameL />
-    <webstart.dnameSt />
-    <webstart.dnameC />
+    <webstart.dnameL/>
+    <webstart.dnameSt/>
+    <webstart.dnameC/>
     <updatePolicy>daily</updatePolicy>
     <!-- dependency versions -->
     <activemqVersion>5.6.0</activemqVersion>
     <commonsBeanutilsVersion>1.8.3</commonsBeanutilsVersion>
-    <commonsCodecVersion>1.7</commonsCodecVersion>
+    <commonsCodecVersion>1.8</commonsCodecVersion>
     <commonsCollectionsVersion>3.2.1</commonsCollectionsVersion>
-    <commonsIoVersion>2.0.1</commonsIoVersion>
+    <commonsIoVersion>2.4</commonsIoVersion>
     <commonsLangVersion>2.6</commonsLangVersion>
-    <commonsLoggingVersion>1.1.1</commonsLoggingVersion>
+    <commonsLoggingVersion>1.1.3</commonsLoggingVersion>
     <commonsValidatorVersion>1.3.1</commonsValidatorVersion>
     <gwtVersion>2.3.0</gwtVersion>
     <gwtPluginVersion>2.3.0-1</gwtPluginVersion>
@@ -776,17 +795,17 @@
     <jettyVersion>7.6.10.v20130312</jettyVersion>
     <karafVersion>2.3.1</karafVersion>
     <felixVersion>2.2.0</felixVersion>
-    <liquibaseVersion>2.0.1</liquibaseVersion>
-    <log4jVersion>1.2.16</log4jVersion>
+    <liquibaseVersion>2.0.5</liquibaseVersion>
+    <log4jVersion>1.2.17</log4jVersion>
     <minaVersion>2.0.7</minaVersion>
     <paxExamVersion>2.6.0</paxExamVersion>
     <oroVersion>2.0.8</oroVersion>
     <osgiVersion>4.3.1</osgiVersion>
     <osgiEnterpriseVersion>4.2.0</osgiEnterpriseVersion>
-    <slf4jVersion>1.7.2</slf4jVersion>
+    <slf4jVersion>1.7.5</slf4jVersion>
     <springJaxbVersion>2.1.7</springJaxbVersion>
     <xalanVersion>2.7.1</xalanVersion>
-    <xercesVersion>2.9.1</xercesVersion>
+    <xercesVersion>2.11.0</xercesVersion>
     <xmlApisVersion>1.4.01</xmlApisVersion>
     <springVersion>3.0.7.RELEASE</springVersion>
     <!-- ALWAYS change aspectj to match the version referenced in the spring poms -->
@@ -796,7 +815,7 @@
     <springLdapVersion>3.1.0.RELEASE</springLdapVersion>
     <!-- moved here from topology features -->
     <jungVersion>2.0.1</jungVersion>
-    <vaadinVersion>6.8.2</vaadinVersion>
+    <vaadinVersion>6.8.11</vaadinVersion>
     <paxVaadinVersion>0.1.0-ONMS-20121218</paxVaadinVersion>
   </properties>
   <profiles>
@@ -984,7 +1003,7 @@
                         </goals>
                       </pluginExecutionFilter>
                       <action>
-                        <ignore />
+                        <ignore/>
                       </action>
                     </pluginExecution>
                     <pluginExecution>
@@ -998,7 +1017,7 @@
                         </goals>
                       </pluginExecutionFilter>
                       <action>
-                        <execute />
+                        <execute/>
                       </action>
                     </pluginExecution>
                     <pluginExecution>
@@ -1011,7 +1030,7 @@
                         </goals>
                       </pluginExecutionFilter>
                       <action>
-                        <ignore></ignore>
+                        <ignore/>
                       </action>
                     </pluginExecution>
                     <pluginExecution>
@@ -1024,7 +1043,7 @@
                         </goals>
                       </pluginExecutionFilter>
                       <action>
-                        <ignore></ignore>
+                        <ignore/>
                       </action>
                     </pluginExecution>
                     <pluginExecution>
@@ -1037,7 +1056,7 @@
                         </goals>
                       </pluginExecutionFilter>
                       <action>
-                        <ignore></ignore>
+                        <ignore/>
                       </action>
                     </pluginExecution>
                   </pluginExecutions>
@@ -2203,6 +2222,16 @@
         <version>${httpclientVersion}</version>
       </dependency>
       <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-classic</artifactId>
+        <version>1.0.13</version>
+      </dependency>
+      <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-core</artifactId>
+        <version>1.0.13</version>
+      </dependency>
+      <dependency>
         <groupId>commons-io</groupId>
         <artifactId>commons-io</artifactId>
         <version>${commonsIoVersion}</version>
@@ -2220,7 +2249,7 @@
       <dependency>
         <groupId>commons-net</groupId>
         <artifactId>commons-net</artifactId>
-        <version>3.0.1</version>
+        <version>3.2</version>
       </dependency>
       <dependency>
         <groupId>commons-pool</groupId>
@@ -2240,7 +2269,7 @@
       <dependency>
         <groupId>org.dbunit</groupId>
         <artifactId>dbunit</artifactId>
-        <version>2.4.8</version>
+        <version>2.4.9</version>
         <scope>test</scope>
       </dependency>
       <dependency>
@@ -2420,12 +2449,12 @@
       <dependency>
         <groupId>javax.mail</groupId>
         <artifactId>mail</artifactId>
-        <version>1.4.5</version>
+        <version>1.4.7</version>
       </dependency>
       <dependency>
         <groupId>javax.persistence</groupId>
         <artifactId>persistence-api</artifactId>
-        <version>1.0</version>
+        <version>1.0.2</version>
       </dependency>
       <dependency>
         <groupId>javax.samples.jnlp</groupId>
@@ -2566,7 +2595,7 @@
       <dependency>
         <groupId>joda-time</groupId>
         <artifactId>joda-time</artifactId>
-        <version>2.1</version>
+        <version>2.2</version>
       </dependency>
       <dependency>
         <groupId>junit</groupId>
@@ -2641,7 +2670,7 @@
       <dependency>
         <groupId>org.tuckey</groupId>
         <artifactId>urlrewritefilter</artifactId>
-        <version>4.0.3</version>
+        <version>4.0.4</version>
       </dependency>
       <dependency>
         <!-- Change back to org.smslib once our USSD changes are accepted upstream -->
@@ -2667,7 +2696,7 @@
       <dependency>
         <groupId>postgresql</groupId>
         <artifactId>postgresql</artifactId>
-        <version>9.1-901.jdbc4</version>
+        <version>9.2-1002.jdbc4</version>
       </dependency>
       <dependency>
         <groupId>rome</groupId>
@@ -2713,13 +2742,13 @@
       <dependency>
         <groupId>xmlunit</groupId>
         <artifactId>xmlunit</artifactId>
-        <version>1.3</version>
+        <version>1.4</version>
         <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.apache.commons</groupId>
         <artifactId>commons-jexl</artifactId>
-        <version>2.0.1</version>
+        <version>2.1.1</version>
       </dependency>
       <dependency>
         <groupId>org.codehaus.groovy</groupId>
