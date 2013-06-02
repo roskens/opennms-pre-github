@@ -11,7 +11,7 @@
   <name>OpenNMS Selenium Monitor</name>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <seleniumVersion>2.7.0</seleniumVersion>
+    <seleniumVersion>2.33.0</seleniumVersion>
   </properties>
   <packaging>bundle</packaging>
   <build>
