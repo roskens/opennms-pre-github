@@ -1,10 +1,5 @@
 package org.opennms.vaadin.applicationstack.model;
 
-import org.hibernate.criterion.Restrictions;
-import org.opennms.netmgt.model.OnmsCriteria;
-import org.opennms.netmgt.model.OnmsNode;
-import org.opennms.vaadin.applicationstack.provider.NodeListProvider;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +19,6 @@ public class ApplicationLayer {
     private int column;
     private int row;
     private String label;
-//    private final List<NodeDummy> nodes = new ArrayList<NodeDummy>();
     
     private List<Criteria> criterias = new ArrayList<Criteria>();
 
@@ -64,60 +58,9 @@ public class ApplicationLayer {
         return new Coordinates(column, row, column + width - 1, row + height - 1);
     }
 
-    // TODO remove this method
-    protected ApplicationLayer registerNode(NodeDummy node) {
-//        nodes.add(node);
-        return this;
-    }
-
-    // TODO implement computeGood
-    public float computeGood() {
-        int good = 0;
-        return 0;
-//        int sum = getSum();
-//        for (NodeDummy eachNode : nodes) {
-//            good += eachNode.getGood();
-//        }
-//        return good == 0 || sum == 0 ? 0 : (float) 100 / (float) sum * (float) good;
-    }
-
-    // TODO implement computeDeath
-    public float computeDeath() {
-        int death = 0;
-        return 0;
-//        int sum = getSum();
-//        for (NodeDummy eachNode : nodes) {
-//            death += eachNode.getDeath();
-//        }
-//        return death == 0 || sum == 0 ? 0 : (float) 100 / (float) sum * (float) death;
-    }
-
-    // TODO implement computeProblems
-    public float computeProblems() {
-        int problem = 0;
-        return 0;
-//        int sum = getSum();
-//        for (NodeDummy eachNode : nodes) {
-//            problem += eachNode.getProblems();
-//        }
-//        return problem == 0 || sum == 0 ? 0 : (float) 100 / (float) sum * (float) problem;
-    }
-
-    public int getSum() {
-        int sum = 0;
-//        for (NodeDummy eachNode : nodes) {
-//            sum += eachNode.getSum();
-//        }
-        return sum;
-    }
-
     public void setLabel(String label) {
         this.label = label;
     }
-
-//    public Iterable<NodeDummy> getNodes() {
-//        return new ArrayList<NodeDummy>(nodes);
-//    }
 
     public void setCriterias(List<Criteria> criterias) {
         this.criterias = criterias;

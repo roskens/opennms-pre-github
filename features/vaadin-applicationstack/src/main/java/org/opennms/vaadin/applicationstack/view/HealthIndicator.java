@@ -29,11 +29,12 @@ public class HealthIndicator extends HorizontalLayout {
         });
     }
     
+    // TODO fix rendering
     public void render(ApplicationLayer layer) {
         removeAllComponents();
-        float good = layer.computeGood();
-        final float problems = layer.computeProblems();
-        final float death = layer.computeDeath();
+        float good = 0; //layer.computeGood();
+        final float problems = 0; //layer.computeProblems();
+        final float death = 0; //layer.computeDeath();
         
         if (good == 0 && problems == 0 && death == 0) {
             good = 100;

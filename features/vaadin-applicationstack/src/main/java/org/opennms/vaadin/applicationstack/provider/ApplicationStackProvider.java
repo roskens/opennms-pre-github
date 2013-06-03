@@ -21,14 +21,14 @@ public class ApplicationStackProvider {
         this.configFile = configFile;
     }
 
-    public ApplicationStack loadApplicationStack() {
+    synchronized public ApplicationStack loadApplicationStack() {
         if (!configFile.exists()) {
             saveApplicationStack(new ApplicationStack()); // DEFAULT
         }
         return JAXB.unmarshal(configFile, ApplicationStack.class);
     }
 
-    public void saveApplicationStack(final ApplicationStack stack) {
+    synchronized public void saveApplicationStack(final ApplicationStack stack) {
         JAXB.marshal(stack, configFile);
     }
 }

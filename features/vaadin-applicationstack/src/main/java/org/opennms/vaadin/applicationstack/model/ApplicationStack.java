@@ -73,12 +73,6 @@ public class ApplicationStack {
         return layers;
     }
 
-    // TODO remove or change method to criteria and layer (layerId must go)
-    public ApplicationStack registerNode(final String layerId, NodeDummy node) {
-//        layers.get(lget(layerId).registerNode(node);
-        return this;
-    }
-
     public void setLabel(String label) {
         this.label = label;
     }
