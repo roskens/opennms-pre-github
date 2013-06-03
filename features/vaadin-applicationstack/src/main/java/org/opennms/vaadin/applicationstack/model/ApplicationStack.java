@@ -3,6 +3,9 @@ package org.opennms.vaadin.applicationstack.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -65,10 +68,13 @@ public class ApplicationStack {
         return 150;
     }
 
+    @XmlAttribute
     public String getLabel() {
         return label;
     }
-
+    
+    @XmlElement(name="layer")
+    @XmlElementWrapper(name="layers")
     public List<ApplicationLayer> getLayers() {
         return layers;
     }

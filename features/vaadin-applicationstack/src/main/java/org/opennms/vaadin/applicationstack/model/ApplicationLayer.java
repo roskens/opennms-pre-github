@@ -3,6 +3,9 @@ package org.opennms.vaadin.applicationstack.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -50,6 +53,7 @@ public class ApplicationLayer {
         return height;
     }
 
+    @XmlAttribute
     public String getLabel() {
         return label;
     }
@@ -79,6 +83,8 @@ public class ApplicationLayer {
         criterias.clear();
     }
 
+    @XmlElement(name="criteria")
+    @XmlElementWrapper(name="criterias")
     public List<Criteria> getCriterias() {
         return criterias;
     }
