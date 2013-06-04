@@ -45,9 +45,9 @@ public class ApplicationStacks {
 	}
 
 	public ApplicationStacks addStack(ApplicationStack stack) {
-		if (!stacks.contains(stack))
-			stacks.add(stack);
-		return this;
+            if (!stacks.contains(stack))
+                stacks.add(stack);
+            return this;
 	}
 
 	public ApplicationStack getFirst() {
@@ -63,4 +63,8 @@ public class ApplicationStacks {
 	public int hashCode() {
 		return HashCodeBuilder.reflectionHashCode(this);
 	};
+
+    public void removeStack(ApplicationStack stack) {
+        stacks.remove(stack);
+    }
 }

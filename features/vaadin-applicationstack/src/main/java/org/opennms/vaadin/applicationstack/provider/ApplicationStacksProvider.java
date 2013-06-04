@@ -48,4 +48,9 @@ public class ApplicationStacksProvider {
 		stacks = JAXB.unmarshal(stacksFile, ApplicationStacks.class);
 		return stacks;
 	}
+
+    synchronized public void removeApplicationStack(ApplicationStack stack) {
+        if (stacks == null) loadApplicationStacks();
+        stacks.removeStack(stack);
+    }
 }
