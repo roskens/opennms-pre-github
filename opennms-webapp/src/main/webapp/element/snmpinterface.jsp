@@ -37,7 +37,6 @@
 				org.opennms.netmgt.config.SnmpInterfacePollerConfig,
                 org.opennms.core.utils.SIUtils,
                 org.opennms.netmgt.model.OnmsResource,
-                org.opennms.web.api.Util,
                 org.opennms.web.springframework.security.Authentication,
                 org.opennms.web.element.*,
                 org.opennms.web.event.*,
@@ -47,6 +46,7 @@
                 org.springframework.web.context.support.WebApplicationContextUtils"
 %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib tagdir="/WEB-INF/tags/element" prefix="element" %>
 
 <%!
     private WebApplicationContext m_webAppContext;
@@ -204,7 +204,7 @@ function doDelete() {
               <% } %>
                 <tr> 
 	          	  <th>Last Snmp Table Scan</th>
-    	          <td><%=intf_db.getSnmpLastCapsdPoll()%></td>
+    	          <td><element:formatDate date="<%=intf_db.getSnmpLastCapsdPoll()%>"/></td>
         	  	</tr>
               
 				<tr>
@@ -213,7 +213,7 @@ function doDelete() {
 	            </tr>  
                 <tr> 
 	          	  <th>Last Snmp Poll</th>
-        	          <td><%=(intf_db.getSnmpLastSnmpPoll() == null) ? "&nbsp;" : intf_db.getSnmpLastSnmpPoll()%></td>
+        	          <td><element:formatDate date="<%=intf_db.getSnmpLastSnmpPoll()%>"/></td>
         	  	</tr>              
 
             </table>

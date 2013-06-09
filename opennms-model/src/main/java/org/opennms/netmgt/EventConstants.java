@@ -1204,22 +1204,6 @@ public class EventConstants {
     	return FORMATTER_LONG_GMT.get().format(date);
     }
 
-    /**
-     * A utility method to format a 'Date' into a string in the locale-specific
-     * default DateFormat style for both the date and time. This is used by the
-     * webui and a change here should get all time display in the webui changed.
-     *
-     * @see java.text.DateFormat
-     * @see org.opennms.web.Util.formatDateToUIString
-     * @deprecated This is no longer used by the UI. All WebUI-specific code
-     *             should under the org.opennms.web packages.
-     * @param date a {@link java.util.Date} object.
-     * @return a {@link java.lang.String} object.
-     */
-    public static final String formatToUIString(final Date date) {
-		return FORMATTER_DEFAULT.get().format(date);
-    }
-
     //
     // For Trapd
     //

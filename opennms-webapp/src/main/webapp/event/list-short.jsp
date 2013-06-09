@@ -63,6 +63,7 @@
 
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@taglib tagdir="/WEB-INF/tags/element" prefix="element" %>
 
 <%--
   This page is written to be the display (view) portion of the EventQueryServlet
@@ -306,9 +307,9 @@
             <% } %>
           </td>
           <td class="noWrap">
-	              <a href="<c:out value="<%=this.makeLink( parms, new AfterDateFilter(events[i].getTime()), true)%>"/>"  class="filterLink" title="Only show events occurring after this one"><%=addAfterDateFilterString%></a> 
-								<fmt:formatDate value="${event.time}" type="date" dateStyle="short"/>&nbsp;<fmt:formatDate value="${event.time}" type="time" pattern="HH:mm:ss"/>           
-              <a href="<c:out value="<%=this.makeLink( parms, new BeforeDateFilter(events[i].getTime()), true)%>"/>" class="filterLink" title="Only show events occurring before this one"><%=addBeforeDateFilterString%></a>
+            <a href="<c:out value="<%=this.makeLink( parms, new AfterDateFilter(events[i].getTime()), true)%>"/>"  class="filterLink" title="Only show events occurring after this one"><%=addAfterDateFilterString%></a> 
+            <element:formatDate date="${event.time}"/>
+            <a href="<c:out value="<%=this.makeLink( parms, new BeforeDateFilter(events[i].getTime()), true)%>"/>" class="filterLink" title="Only show events occurring before this one"><%=addBeforeDateFilterString%></a>
           </td>
           <td class="noWrap">
 	    <% if(events[i].getNodeId() != 0 && events[i].getNodeLabel()!= null ) { %>
@@ -368,13 +369,11 @@
                   <a href="<c:out value="<%=this.makeLink( parms, new NegativeAcknowledgedByFilter(events[i].getAcknowledgeUser()), true)%>"/>" class="filterLink" title="Do not show events acknowledgd by this user"><%=addNegativeFilterString%></a>
                 </nobr>
               <% } %>              
+              <element:formatDate date="${event.acknowledgeTime}"/>
+            <% } else { %>
+              &nbsp;
             <% } %>
-						<% if (events[i].isAcknowledged()) { %>
-						  <fmt:formatDate value="${event.acknowledgeTime}" type="date" dateStyle="short"/>&nbsp;<fmt:formatDate value="${event.acknowledgeTime}" type="time" pattern="HH:mm:ss"/>
-						<% } else { %>
-						  &nbsp;
-						<% } %>
-						</div>
+            </div>
           </td>
         </tr>
        

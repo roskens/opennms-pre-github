@@ -28,6 +28,7 @@
 
 package org.opennms.web.element;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,7 +48,7 @@ public class Vlan
     private final String m_vlanname;
     private final int m_vlantype;
     private final int m_vlanstatus;
-    private final String m_lastPollTime;
+    private final Date m_lastPollTime;
     private final char m_status;
 
     /**
@@ -100,7 +101,7 @@ public class Vlan
     }
 
     /* package-protected so only the NetworkElementFactory can instantiate */
-    Vlan(Integer nodeId, Integer vlanid, String vlanname, Integer vlantype, Integer vlanstatus, String lastpolltime, char status)
+    Vlan(Integer nodeId, Integer vlanid, String vlanname, Integer vlantype, Integer vlanstatus, Date lastpolltime, char status)
     {
         m_nodeId = nodeId;
         m_vlanId = vlanid;
@@ -129,9 +130,9 @@ public class Vlan
     /**
      * <p>getLastPollTime</p>
      *
-     * @return a {@link java.lang.String} object.
+     * @return a {@link java.util.Date} object.
      */
-    public String getLastPollTime() {
+    public Date getLastPollTime() {
         return m_lastPollTime;
     }
 

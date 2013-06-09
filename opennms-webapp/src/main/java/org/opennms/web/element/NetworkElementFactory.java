@@ -78,7 +78,6 @@ import org.opennms.netmgt.model.OnmsRestrictions;
 import org.opennms.netmgt.model.OnmsServiceType;
 import org.opennms.netmgt.model.OnmsSnmpInterface;
 import org.opennms.netmgt.model.PrimaryType;
-import org.opennms.web.api.Util;
 import org.opennms.web.svclayer.AggregateStatus;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -683,7 +682,7 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
         for (final OnmsArpInterface iface : onmsNode.getArpInterfaces()) {
             final String ifaceAddress = iface.getIpAddress();
             if (ifaceAddress != null && ifaceAddress.equals(ipAddr)) {
-                return new AtInterface(onmsNode.getId(), iface.getSourceNode().getId(), iface.getIfIndex(), iface.getIpAddress(), iface.getPhysAddr(), iface.getLastPoll().toString(), iface.getStatus().getCharCode());
+                return new AtInterface(onmsNode.getId(), iface.getSourceNode().getId(), iface.getIfIndex(), iface.getIpAddress(), iface.getPhysAddr(), iface.getLastPoll(), iface.getStatus().getCharCode());
             }
         }
         return null;
@@ -1090,7 +1089,7 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
 		Interface iface = getInterfaceForLink(nodeid, ifindex);
 		Interface linkedIface = getInterfaceForLink(linkedNodeid, linkedIfindex); 
     		
-    	return new LinkInterface(nodeid, ifindex, linkedNodeid, linkedIfindex, iface, linkedIface, Util.formatDateToUIString(dliface.getLastPollTime()), dliface.getStatus().charAt(0), dliface.getLinkTypeId());
+    	return new LinkInterface(nodeid, ifindex, linkedNodeid, linkedIfindex, iface, linkedIface, dliface.getLastPollTime(), dliface.getStatus().charAt(0), dliface.getLinkTypeId());
     }
 	
 	private Interface getInterfaceForLink(int nodeid, int ifindex) {
@@ -1210,8 +1209,7 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
 
             element = rs.getTimestamp("lastpolltime");
             if (element != null) {
-                ipRtIf.m_lastPollTime = Util.formatDateToUIString(new Date(
-                        ((Timestamp) element).getTime()));
+                ipRtIf.m_lastPollTime = new Date(((Timestamp) element).getTime());
             }
 
             element = Integer.valueOf(rs.getInt("routeifindex"));
@@ -1281,8 +1279,7 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
 
             element = rs.getTimestamp("lastpolltime");
             if (element != null) {
-                stpIf.m_lastPollTime = Util.formatDateToUIString(new Date(
-                        ((Timestamp) element).getTime()));
+                stpIf.m_lastPollTime = new Date(((Timestamp) element).getTime());
             }
 
             element = Integer.valueOf(rs.getInt("bridgeport"));
@@ -1375,8 +1372,7 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
 
             element = rs.getTimestamp("lastpolltime");
             if (element != null) {
-                stpNode.m_lastPollTime = Util.formatDateToUIString(new Date(
-                        ((Timestamp) element).getTime()));
+                stpNode.m_lastPollTime = new Date(((Timestamp) element).getTime());
             }
 
             element = Integer.valueOf(rs.getInt("basenumports"));
@@ -1461,8 +1457,7 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
 
             // Non-null field
             element = rs.getTimestamp("lastpolltime");
-            String lastpolltime = Util.formatDateToUIString(new Date(
-                        ((Timestamp) element).getTime()));
+            Date lastpolltime = new Date(((Timestamp) element).getTime());
 
             element = Integer.valueOf(rs.getInt("vlantype"));
             int vlantype = DbVlanEntry.VLAN_TYPE_UNKNOWN;
@@ -1678,9 +1673,7 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
             intf.m_ipAddr = InetAddressUtils.str(ipIface.getIpAddress());
             intf.m_isSnmpPrimary = ipIface.getIsSnmpPrimary().getCode();
             intf.m_isManaged = ipIface.getIsManaged().charAt(0);
-            if(ipIface.getIpLastCapsdPoll() != null) {
-                intf.m_ipLastCapsdPoll = Util.formatDateToUIString(ipIface.getIpLastCapsdPoll());
-            }
+            intf.m_ipLastCapsdPoll = ipIface.getIpLastCapsdPoll();
             
             
             return intf;
@@ -1726,15 +1719,8 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
                     intf.m_isSnmpPoll = ((String) element).charAt(0);
                 }
 
-                java.util.Date capsdPoll = snmpIface.getLastCapsdPoll();
-                if (capsdPoll != null) {
-                    intf.m_snmpLastCapsdPoll = Util.formatDateToUIString(new Date((capsdPoll).getTime()));
-                }
-
-                java.util.Date snmpPoll = snmpIface.getLastSnmpPoll();
-                if (snmpPoll != null) {
-                    intf.m_snmpLastSnmpPoll = Util.formatDateToUIString(new Date((snmpPoll).getTime()));
-                }
+                intf.m_snmpLastCapsdPoll = snmpIface.getLastCapsdPoll();
+                intf.m_snmpLastSnmpPoll = snmpIface.getLastSnmpPoll();
             }
             intfs.add(intf);
         }
@@ -1774,15 +1760,8 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
                 intf.m_isSnmpPoll = ((String) element).charAt(0);
             }
 
-            java.util.Date capsdPoll = snmpIface.getLastCapsdPoll();
-            if (capsdPoll != null) {
-                intf.m_snmpLastCapsdPoll = Util.formatDateToUIString(new Date((capsdPoll).getTime()));
-            }
-
-            java.util.Date snmpPoll = snmpIface.getLastSnmpPoll();
-            if (snmpPoll != null) {
-                intf.m_snmpLastSnmpPoll = Util.formatDateToUIString(new Date((snmpPoll).getTime()));
-            }
+            intf.m_snmpLastCapsdPoll = snmpIface.getLastCapsdPoll();
+            intf.m_snmpLastSnmpPoll = snmpIface.getLastSnmpPoll();
 
             return intf;
     }

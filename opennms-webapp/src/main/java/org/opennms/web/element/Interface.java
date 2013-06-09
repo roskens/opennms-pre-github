@@ -28,6 +28,7 @@
 
 package org.opennms.web.element;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -52,7 +53,7 @@ public class Interface {
 
     char m_isManaged;
 
-    String m_ipLastCapsdPoll;
+    Date m_ipLastCapsdPoll;
 
     String m_snmpIpAdEntNetMask;
 
@@ -78,9 +79,9 @@ public class Interface {
     
     char m_isSnmpPoll;
     
-    String m_snmpLastSnmpPoll;
+    Date m_snmpLastSnmpPoll;
 
-    String m_snmpLastCapsdPoll;
+    Date m_snmpLastCapsdPoll;
     	
     List<String> ipaddresses=null;
 
@@ -163,9 +164,9 @@ public class Interface {
     /**
      * <p>getLastCapsdPoll</p>
      *
-     * @return a {@link java.lang.String} object.
+     * @return a {@link java.util.Date} object.
      */
-    public String getLastCapsdPoll() {
+    public Date getLastCapsdPoll() {
         return m_ipLastCapsdPoll;
     }
 
@@ -262,18 +263,18 @@ public class Interface {
     /**
      * <p>getSnmpLastSnmpPoll</p>
      *
-     * @return a {@link java.lang.String} object.
+     * @return a {@link java.util.Date} object.
      */
-    public String getSnmpLastSnmpPoll() {
+    public Date getSnmpLastSnmpPoll() {
         return m_snmpLastSnmpPoll;
     }
 
     /**
      * <p>getSnmpLastCapsdPoll</p>
      *
-     * @return a {@link java.lang.String} object.
+     * @return a {@link java.util.Date} object.
      */
-    public String getSnmpLastCapsdPoll() {
+    public Date getSnmpLastCapsdPoll() {
         return m_snmpLastCapsdPoll;
     }
 

@@ -32,6 +32,7 @@
 <%@page language="java"	contentType="text/html"	session="true" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib tagdir="/WEB-INF/tags/element" prefix="element" %>
 
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.regex.Matcher"%>
@@ -123,7 +124,7 @@
         
         <tr  class="<%= event.getSeverity().getLabel() %>">
           <th>Time</th>
-          <td><%=org.opennms.web.api.Util.formatDateToUIString(event.getTime())%></td>
+          <td><element:formatDate date="<%=event.getTime()%>"/></td>
           <th>Interface</th>
           <td>
             <% if( event.getIpAddress() != null ) { %>
@@ -142,7 +143,7 @@
           </td>
           <% if ("true".equals(acknowledgeEvent)) { %>
           <th>Time&nbsp;Acknowledged</th>
-          <td><%=event.getAcknowledgeTime()!=null ? org.opennms.web.api.Util.formatDateToUIString(event.getAcknowledgeTime()) : "&nbsp;"%></td>
+          <td><element:formatDate date="<%=event.getAcknowledgeTime()%>"/></td>
           <% } else { %>
           <td colspan="2">&nbsp;</td>
           <% } %>

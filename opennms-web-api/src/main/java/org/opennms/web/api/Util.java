@@ -544,22 +544,6 @@ public abstract class Util extends Object {
     }
 
     /**
-     * An utility method to format a 'Date' into a string in the local specific
-     * DEFALUT DateFormat style for both the date and time. This is used by the
-     * webui and a change here should get all time display in the webui changed.
-     *
-     * @see java.text.DateFormat
-     * @param date a {@link java.util.Date} object.
-     * @return a {@link java.lang.String} object.
-     * @deprecated We should use the <code>fmt:formatDate</code> taglib at the JSP level 
-     *   instead of converting {@link Date} instances into {@link String} instances inside 
-     *   the model code.
-     */
-    public static final String formatDateToUIString(final Date date) {
-        return DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM).format(date);
-    }
-    
-    /**
      * <p>convertToJsSafeString</p>
      *
      * @param str a {@link java.lang.String} object.

@@ -38,6 +38,7 @@
 --%>
 
 <%@page language="java" contentType="text/html" session="true" import="org.opennms.web.element.*,org.opennms.netmgt.model.OnmsNode, org.opennms.core.utils.WebSecurityUtils" %>
+<%@taglib tagdir="/WEB-INF/tags/element" prefix="element" %>
 
 <%
     
@@ -113,7 +114,7 @@
 	</tr>
 	<tr>
         <td>Last Poll Time</td>
-        <td><%=stpifs[i].get_lastPollTime()%></td>
+        <td><element:formatDate date="<%=stpifs[i].get_lastPollTime()%>"/></td>
         </tr>
         <% } %>
 <% } %>

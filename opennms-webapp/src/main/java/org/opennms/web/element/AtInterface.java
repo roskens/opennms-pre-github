@@ -28,6 +28,7 @@
 
 package org.opennms.web.element;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,7 +46,7 @@ public class AtInterface
         private final int     m_ifindex;
         private final String  m_ipaddr;
         private final String  m_physaddr;
-        private final String  m_lastPollTime;
+        private final Date    m_lastPollTime;
         private final char    m_status;
 
         private static final Map<Character, String> statusMap = new HashMap<Character, String>();
@@ -60,15 +61,15 @@ public class AtInterface
         /* package-protected so only the NetworkElementFactory can instantiate */
         AtInterface(   int nodeId,
                 int sourcenodeid,
-				int ifindex,
+                int ifindex,
                 String ipaddr,
                 String physaddr,
-                String lastPollTime,
+                Date lastPollTime,
                 char status)
         {
                 m_nodeId = nodeId;
                 m_sourcenodeid = sourcenodeid;
-				m_ifindex = ifindex;
+                m_ifindex = ifindex;
                 m_ipaddr = ipaddr;
                 m_physaddr = physaddr;
                 m_lastPollTime = lastPollTime; 
@@ -112,7 +113,7 @@ public class AtInterface
 		 *
 		 * @return a {@link java.lang.String} object.
 		 */
-		public String get_lastPollTime() {
+		public Date get_lastPollTime() {
 			return m_lastPollTime;
 		}
 

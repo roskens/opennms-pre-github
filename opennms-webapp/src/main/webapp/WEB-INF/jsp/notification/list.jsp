@@ -47,6 +47,7 @@
 %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@taglib tagdir="/WEB-INF/tags/element" prefix="element" %>
 
 <%--
   This page is written to be the display (view) portion of the NotificationQueryServlet
@@ -239,7 +240,7 @@
             <% } %>
           </td>
           <td class="bright divider" rowspan="2"><%=eventSeverity%></td>
-          <td class="divider"><%=org.opennms.web.api.Util.formatDateToUIString(notification.getTimeSent())%></td>
+          <td class="divider"><element:formatDate date="<%=notification.getTimeSent()%>"/></td>
           <td class="divider">
           <% final String responder = notification.getResponder(); %>
           <% if (responder != null) { %>
@@ -249,12 +250,8 @@
                 <a href="<%=this.makeLink( parms, responderFilter, true)%>" class="filterLink" title="Show only notices with this responder">${addPositiveFilter}</a>
               <% } %>
             <% } %>
-            </td>
-          <td class="divider">
-            <%if (notification.getTimeReplied()!=null) { %>
-              <%=org.opennms.web.api.Util.formatDateToUIString(notification.getTimeReplied())%>
-            <% } %>
-					</td>
+          </td>
+          <td class="divider"><element:formatDate date="<%=notification.getTimeReplied()%>" blank=""/></td>
           <td class="divider">
             <% if(notification.getNodeId() != 0 ) { %>
               <% Filter nodeFilter = new NodeFilter(notification.getNodeId()); %>

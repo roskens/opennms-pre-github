@@ -28,6 +28,7 @@
 
 package org.opennms.web.element;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,7 +55,7 @@ public class IpRouteInterface
         String  m_routedest;
 		String  m_routemask;
 		String  m_routenexthop;
-        String  m_lastPollTime;
+        Date  m_lastPollTime;
         char    m_status;
 
         private static final Map<Character, String> statusMap = new HashMap<Character, String>();
@@ -84,7 +85,7 @@ public class IpRouteInterface
 	String  routedest,
 	String  routemask,
 	String  routenexthop,
-	String  lastPollTime,
+	Date    lastPollTime,
 	char    status
         )
         {
@@ -128,9 +129,9 @@ public class IpRouteInterface
 		/**
 		 * <p>get_lastPollTime</p>
 		 *
-		 * @return a {@link java.lang.String} object.
+		 * @return a {@link java.util.Date} object.
 		 */
-		public String get_lastPollTime() {
+		public Date get_lastPollTime() {
 			return m_lastPollTime;
 		}
 

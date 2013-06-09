@@ -28,6 +28,7 @@
 
 package org.opennms.web.element;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,7 +53,7 @@ public class StpNode
 		String  m_basevlanname;
         String  m_basebridgeaddress;
 		String  m_stpdesignatedroot;
-        String  m_lastPollTime;
+        Date  m_lastPollTime;
         char    m_status;
         int 	m_stprootnodeid;
 
@@ -115,7 +116,7 @@ public class StpNode
 	String  basevlanname,
 	String  basebridgeaddress,
 	String  stpdesignatedroot,
-	String  lastPollTime,
+	Date    lastPollTime,
 	char    status,
 	int		stprootnodeid
 )
@@ -201,9 +202,9 @@ public class StpNode
 		/**
 		 * <p>get_lastPollTime</p>
 		 *
-		 * @return a {@link java.lang.String} object.
+		 * @return a {@link java.util.Date} object.
 		 */
-		public String get_lastPollTime() {
+		public Date get_lastPollTime() {
 			return m_lastPollTime;
 		}
 

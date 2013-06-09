@@ -39,11 +39,7 @@
 	"
 %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-
-<%!
-    public static DateFormat DATE_FORMAT = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM);
-%>
+<%@taglib tagdir="/WEB-INF/tags/element" prefix="element" %>
 
 <%
 	Outage outage = (Outage)request.getAttribute("outage");
@@ -76,7 +72,7 @@
           </td>
           
           <td class="standardheader" width="10%">Lost&nbsp;Service&nbsp;Time:</td>
-          <td class="standard"><%=DATE_FORMAT.format(outage.getLostServiceTime())%></td>
+          <td class="standard"><element:formatDate date="<%=outage.getLostServiceTime()%>"/></td>
           
           <td class="standardheader" width="10%">Lost&nbsp;Service&nbsp;Event:</td>
           <td class="standard"><a href="event/detail.jsp?id=<%=outage.getLostServiceEventId()%>"><%=outage.getLostServiceEventId()%></a></td>          
@@ -102,14 +98,7 @@
           
           <td class="standardheader">Regained&nbsp;Service:</td>
           <td class="standard">
-            <% Date regainTime = outage.getRegainedServiceTime(); %>
-            
-            <% if(regainTime != null) { %>
-              <%=DATE_FORMAT.format(regainTime)%>
-            <% } else { %>
-              <% String label = OutageUtil.getStatusLabel(outage); %>              
-              <%=(label == null) ? "&nbsp;" : label %>
-            <% } %>
+            <element:formatDate date="<%=outage.getRegainedServiceTime()%>" blank="<%=OutageUtil.getStatusLabel(outage)%>"/>
           </td>
 
           <td class="standardheader">Regained&nbsp;Service&nbsp;Event:</td>

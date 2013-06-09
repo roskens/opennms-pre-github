@@ -70,7 +70,7 @@
   org.opennms.web.element.*,
   org.opennms.netmgt.model.OnmsNode
 "%>
-
+<%@taglib tagdir="/WEB-INF/tags/element" prefix="element" %>
 
 <%
     //required parameter node
@@ -137,7 +137,7 @@
                 <td><%=stpnodes[i].get_stppriority()%></td>
                 <td><%=stpnodes[i].get_stprootcost()%></td>
                 <td><%=stpnodes[i].get_stprootport()%></td>
-                <td><%=stpnodes[i].get_lastPollTime()%></td>
+                <td><element:formatDate date="<%=stpnodes[i].get_lastPollTime()%>"/></td>
               </tr>
               <% } %>
        <% } %>

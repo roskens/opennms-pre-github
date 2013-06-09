@@ -45,6 +45,7 @@
 
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@taglib tagdir="/WEB-INF/tags/element" prefix="element" %>
 
 <%
     //required parameter node
@@ -122,7 +123,7 @@
 				<% } %>
                 <td><%=stpifs[i].get_stpdesignatedport()%></td>
                 <td><%=stpifs[i].get_stpportdesignatedcost()%></td>
-                <td><%=stpifs[i].get_lastPollTime()%></td>
+                <td><element:formatDate date="<%=stpifs[i].get_lastPollTime()%>"/></td>
               </tr>
               <% } %>
        <% } %>

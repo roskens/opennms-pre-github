@@ -28,6 +28,7 @@
 
 package org.opennms.web.element;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,7 +41,7 @@ public class LinkInterface
 {
         private final Interface m_iface;
         private final Interface m_linkedInterface;
-        private final String  m_lastPollTime;
+        private final Date    m_lastPollTime;
         private final char    m_status;
         private final Integer m_linktypeid;
         
@@ -69,7 +70,7 @@ public class LinkInterface
         	linktypeMap.put(1777, "Summary Link");        	
         }
 
-        LinkInterface( Integer nodeid, Integer ifindex, Integer linkedNodeid, Integer linkedIfindex, Interface iface, Interface linkedIface, String lastPollTime,
+        LinkInterface( Integer nodeid, Integer ifindex, Integer linkedNodeid, Integer linkedIfindex, Interface iface, Interface linkedIface, Date lastPollTime,
                 char status, Integer linktypeid)
         {
         		m_nodeId = nodeid;
@@ -119,7 +120,7 @@ public class LinkInterface
 		 *
 		 * @return a {@link java.lang.String} object.
 		 */
-		public String getLastPollTime() {
+		public Date getLastPollTime() {
 			return m_lastPollTime;
 		}
 

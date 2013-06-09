@@ -47,6 +47,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@taglib tagdir="/WEB-INF/tags/form" prefix="form" %>
+<%@taglib tagdir="/WEB-INF/tags/element" prefix="element" %>
 
 <%@page import="org.opennms.web.servlet.XssRequestWrapper"%>
 <%@page import="org.opennms.web.alarm.Alarm" %>
@@ -127,7 +128,7 @@
     </tr>
     <tr class="<%=alarm.getSeverity().getLabel()%>">
         <th>Last&nbsp;Event</th>
-        <td><span title="Event <%= alarm.getLastEventID()%>"><a href="event/detail.jsp?id=<%= alarm.getLastEventID()%>"><fmt:formatDate value="<%=alarm.getLastEventTime()%>" type="BOTH" /></a></span></td>
+        <td><span title="Event <%= alarm.getLastEventID()%>"><a href="event/detail.jsp?id=<%= alarm.getLastEventID()%>"><element:formatDate date="<%=alarm.getLastEventTime()%>"/></a></span></td>
         <th>Interface</th>
         <td>
             <% if (alarm.getIpAddress() != null) {%>
@@ -147,7 +148,7 @@
     </tr>
     <tr class="<%=alarm.getSeverity().getLabel()%>">
         <th>First&nbsp;Event</th>
-        <td><fmt:formatDate value="<%=alarm.getFirstEventTime()%>" type="BOTH" /></td>
+        <td><element:formatDate date="<%=alarm.getFirstEventTime()%>"/></td>
         <th>Service</th>
         <td>
             <% if (alarm.getServiceName() != null) {%>
@@ -276,12 +277,12 @@
     </tr>
     <tr class="<%=alarm.getSeverity().getLabel()%>">
         <td><strong>Author:</strong>&nbsp;<%=alarm.getStickyMemo().getAuthor() != null ? alarm.getStickyMemo().getAuthor() : ""%></td>
-        <td><strong>Updated:</strong>&nbsp;<fmt:formatDate value="<%=alarm.getStickyMemo().getUpdated()%>" type="BOTH" /></td>
-        <td><strong>Created:</strong>&nbsp;<fmt:formatDate value="<%=alarm.getStickyMemo().getCreated()%>" type="BOTH" /></td>
+        <td><strong>Updated:</strong>&nbsp;<element:formatDate date="<%=alarm.getStickyMemo().getUpdated()%>"/></td>
+        <td><strong>Created:</strong>&nbsp;<element:formatDate date="<%=alarm.getStickyMemo().getCreated()%>"/></td>
         
         <td><strong>Author:&nbsp;</strong><%=alarm.getReductionKeyMemo().getAuthor() != null ? alarm.getReductionKeyMemo().getAuthor() : ""%></td>
-        <td><strong>Updated:</strong>&nbsp;<fmt:formatDate value="<%=alarm.getReductionKeyMemo().getUpdated()%>" type="BOTH" /></td>
-        <td><strong>Created:</strong>&nbsp;<fmt:formatDate value="<%=alarm.getReductionKeyMemo().getCreated()%>" type="BOTH" /></td>
+        <td><strong>Updated:</strong>&nbsp;<element:formatDate date="<%=alarm.getReductionKeyMemo().getUpdated()%>"/></td>
+        <td><strong>Created:</strong>&nbsp;<element:formatDate date="<%=alarm.getReductionKeyMemo().getCreated()%>"/></td>
     </tr>
 </tr>
 

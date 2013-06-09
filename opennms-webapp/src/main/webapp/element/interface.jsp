@@ -50,7 +50,7 @@
                 org.springframework.web.context.support.WebApplicationContextUtils"
 %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@taglib tagdir="/WEB-INF/tags/element" prefix="element" %>
 
 <%!protected int telnetServiceId;
     protected int httpServiceId;
@@ -290,7 +290,7 @@ function doDelete() {
               </tr>
               <tr> 
                 <th>Last Service Scan</th>
-                <td><%=(intf_db.getLastCapsdPoll() == null) ? "&nbsp;" : intf_db.getLastCapsdPoll()%></td>
+                <td><element:formatDate date="<%=intf_db.getLastCapsdPoll()%>"/></td>
               </tr>              
             </table>
             

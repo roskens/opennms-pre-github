@@ -42,6 +42,7 @@
 
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@taglib tagdir="/WEB-INF/tags/element" prefix="element" %>
 
 <%!
     NotificationModel model = new NotificationModel();
@@ -93,9 +94,9 @@
 <table>
   <tr class="<%=eventSeverity%>">
     <td width="15%">Notification Time</td>
-    <td width="17%"><%=org.opennms.web.api.Util.formatDateToUIString(notice.getTimeSent())%></td>
+    <td width="17%"><element:formatDate date="<%=notice.getTimeSent()%>"/></td>
     <td width="15%">Time&nbsp;Replied</td>
-    <td width="17%"><%=notice.getTimeReplied()!=null ? org.opennms.web.api.Util.formatDateToUIString(notice.getTimeReplied()) : "&nbsp;"%></td>
+    <td width="17%"><element:formatDate date="<%=notice.getTimeReplied()%>"/></td>
     <td width="15%">Responder</td>
     <td width="17%"><%=notice.getResponder()!=null ? notice.getResponder() : "&nbsp;"%></td>
   </tr>
@@ -194,7 +195,7 @@
     <tr class="<%=eventSeverity%>">
       <td><%=sentTo.getUserId()%></td>
 
-      <td><%=org.opennms.web.api.Util.formatDateToUIString(sentTo.getTime())%></td>
+      <td><element:formatDate date="<%=sentTo.getTime()%>"/></td>
 
       <td>
         <% if (sentTo.getMedia()!=null && !sentTo.getMedia().trim().equals("")) { %>

@@ -36,6 +36,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib tagdir="/WEB-INF/tags/element" prefix="element" %>
 
 <jsp:include page="/includes/header.jsp" flush="false" >
   <jsp:param name="title" value="Distributed Poller Status" />
@@ -84,16 +85,7 @@
       <td class="divider">${monitor.ipAddress}</td>
       <td class="divider bright"><spring:message code="distributed.status.value.${monitor.status}" text="${monitor.status}"/></td>
       <td class="divider">
-        <c:choose>
-          <c:when test="${!empty monitor.lastCheckInTime}">
-            <fmt:formatDate value="${monitor.lastCheckInTime}" type="date" dateStyle="short"/>
-            <fmt:formatDate value="${monitor.lastCheckInTime}" type="time" dateStyle="short"/>
-          </c:when>
-          
-          <c:otherwise>
-            Never
-          </c:otherwise>
-        </c:choose>
+        <element:formatDate date="${monitor.lastCheckInTime}" timeStyle="short" blank="Never" />
       </td>
     </tr> 
   </c:forEach>

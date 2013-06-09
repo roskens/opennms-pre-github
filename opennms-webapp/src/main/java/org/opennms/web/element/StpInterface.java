@@ -28,6 +28,7 @@
 
 package org.opennms.web.element;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,7 +53,7 @@ public class StpInterface
 		String  m_stpdesignatedroot;
         String  m_stpdesignatedbridge;
 		String  m_stpdesignatedport;
-        String  m_lastPollTime;
+        Date  m_lastPollTime;
         char    m_status;
         int		m_stprootnodeid;
         int		m_stpbridgenodeid;
@@ -104,7 +105,7 @@ public class StpInterface
 	String  stpdesignatedroot,
 	String  stpdesignatedbridge,
 	String  stpdesignatedport,
-	String  lastPollTime,
+	Date    lastPollTime,
 	char    status,
 	int		stprootnodeid,
 	int 	stpbridgenodeid
@@ -161,9 +162,9 @@ public class StpInterface
 		/**
 		 * <p>get_lastPollTime</p>
 		 *
-		 * @return a {@link java.lang.String} object.
+		 * @return a {@link java.util.Date} object.
 		 */
-		public String get_lastPollTime() {
+		public Date get_lastPollTime() {
 			return m_lastPollTime;
 		}
 
