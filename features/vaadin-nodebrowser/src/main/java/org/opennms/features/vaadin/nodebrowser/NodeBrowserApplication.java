@@ -1,82 +1,22 @@
 package org.opennms.features.vaadin.nodebrowser;
 
 import com.vaadin.Application;
-import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.*;
 import org.opennms.features.vaadin.nodebrowser.columns.NodeIdColumnGenerator;
 import org.opennms.features.vaadin.nodebrowser.columns.NodeLabelColumnGenerator;
 import org.opennms.features.vaadin.nodebrowser.columns.NodeStatusColumnGenerator;
+import org.opennms.features.vaadin.nodebrowser.search.NodeSearch;
+import org.opennms.features.vaadin.nodebrowser.search.SearchStrategy;
+import org.opennms.features.vaadin.nodebrowser.search.SqlSearchStrategy;
+import org.opennms.features.vaadin.nodebrowser.view.CriteriaBuilderComponent;
 import org.opennms.netmgt.dao.NodeDao;
-
-import java.util.ArrayList;
+import java.util.List;
+import org.opennms.features.vaadin.nodebrowser.model.Criteria;
 
 public class NodeBrowserApplication extends Application implements NodeSearch {
     private NodeDao nodeDao;
     private Table table;
     private SearchStrategy searchStrategy;
-    private ArrayList<SearchCriteria> searchCriterias = new ArrayList<SearchCriteria>();
-    private VerticalLayout searchCriteriaList = new VerticalLayout();
-
-    private void updateSearchCriterias() {
-        searchCriteriaList.removeAllComponents();
-        searchCriteriaList.setMargin(true);
-
-        boolean first = true;
-
-        for (final SearchCriteria searchCriteria : searchCriterias) {
-            HorizontalLayout horizontalLayout = searchCriteria.getHorizontalLayout();
-
-            if (first) {
-                first = false;
-                /*
-                final Button searchButton = new Button();
-                searchButton.setIcon(new ThemeResource("../runo/icons/16/arrow-right.png"));
-                searchButton.addListener(new Button.ClickListener() {
-                    public void buttonClick(Button.ClickEvent clickEvent) {
-                        searchStrategy.search(searchCriterias);
-                    }
-                });
-                */
-                final Button plusButton = new Button();
-                plusButton.setIcon(new ThemeResource("../runo/icons/16/document-add.png"));
-
-                final Button refreshButton = new Button();
-                refreshButton.setIcon(new ThemeResource("../runo/icons/16/reload.png"));
-
-                refreshButton.addListener(new Button.ClickListener() {
-                    @Override
-                    public void buttonClick(Button.ClickEvent clickEvent) {
-                        searchStrategy.refresh();
-                    }
-                });
-
-                plusButton.addListener(new Button.ClickListener() {
-                    public void buttonClick(Button.ClickEvent clickEvent) {
-                        searchCriterias.add(new SearchCriteria(NodeBrowserApplication.this, SearchCriteria.Key.NODE, SearchCriteria.Operator.LIKE, "*"));
-                        updateSearchCriterias();
-                    }
-                });
-
-                //horizontalLayout.addComponent(searchButton);
-                horizontalLayout.addComponent(plusButton);
-                horizontalLayout.addComponent(refreshButton);
-            } else {
-                final Button minusButton = new Button();
-                minusButton.setIcon(new ThemeResource("../runo/icons/16/document-delete.png"));
-
-                minusButton.addListener(new Button.ClickListener() {
-                    public void buttonClick(Button.ClickEvent clickEvent) {
-                        searchCriterias.remove(searchCriteria);
-                        searchStrategy.search(searchCriterias);
-                        updateSearchCriterias();
-                    }
-                });
-                horizontalLayout.addComponent(minusButton);
-            }
-
-            searchCriteriaList.addComponent(horizontalLayout);
-        }
-    }
 
     @Override
     public void init() {
@@ -91,24 +31,21 @@ public class NodeBrowserApplication extends Application implements NodeSearch {
         table.setImmediate(true);
         table.setSizeFull();
 
-        // setting up initial search criteria
-
-        searchCriterias.add(new SearchCriteria(this, SearchCriteria.Key.NODE, SearchCriteria.Operator.LIKE, "*"));
-
         // setting up the vertical layout
 
         final VerticalLayout verticalLayout = new VerticalLayout();
 
         verticalLayout.setMargin(true);
-        verticalLayout.addComponent(searchCriteriaList);
+
+        CriteriaBuilderComponent criteriaBuilderComponent = new CriteriaBuilderComponent(this, null);
+
+        verticalLayout.addComponent(criteriaBuilderComponent);
 
         verticalLayout.addComponent(table);
         verticalLayout.setSizeFull();
         verticalLayout.setExpandRatio(table, 1);
 
-        searchStrategy = new SimpleSearchStrategy(nodeDao);
-
-        updateSearchCriterias();
+        searchStrategy = new SqlSearchStrategy(nodeDao);
 
         table.setContainerDataSource(searchStrategy.getContainer());
 
@@ -131,7 +68,7 @@ public class NodeBrowserApplication extends Application implements NodeSearch {
     }
 
     @Override
-    public void search() {
-        searchStrategy.search(searchCriterias);
+    public void search(List<Criteria> criterias) {
+        searchStrategy.search(criterias);
     }
 }

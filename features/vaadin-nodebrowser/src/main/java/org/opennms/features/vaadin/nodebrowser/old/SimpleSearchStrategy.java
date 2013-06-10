@@ -1,14 +1,15 @@
-package org.opennms.features.vaadin.nodebrowser;
+package org.opennms.features.vaadin.nodebrowser.old;
 
 import com.vaadin.data.Container;
 import com.vaadin.data.util.BeanContainer;
 import com.vaadin.data.util.filter.Not;
+import org.opennms.features.vaadin.nodebrowser.search.NodeWrapper;
 import org.opennms.netmgt.dao.NodeDao;
 import org.opennms.netmgt.model.OnmsNode;
 
 import java.util.List;
 
-public class SimpleSearchStrategy implements SearchStrategy {
+public class SimpleSearchStrategy /*implements SearchStrategy*/ {
     private BeanContainer<Integer, NodeWrapper> beanContainer = new BeanContainer<Integer, NodeWrapper>(NodeWrapper.class);
     private NodeDao nodeDao;
 
@@ -31,6 +32,7 @@ public class SimpleSearchStrategy implements SearchStrategy {
     }
 
     public void search(List<SearchCriteria> searchCriterias) {
+        /*
         beanContainer.removeAllContainerFilters();
 
         for (SearchCriteria searchCriteria : searchCriterias) {
@@ -40,6 +42,7 @@ public class SimpleSearchStrategy implements SearchStrategy {
                 beanContainer.addContainerFilter(new Not(searchCriteria.getKey().getFilter(searchCriteria.getValue())));
             }
         }
+        */
     }
 
     public Container getContainer() {

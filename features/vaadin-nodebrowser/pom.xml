@@ -19,7 +19,6 @@
         <bundle.symbolicName>org.opennms.features.vaadin-nodebrowser</bundle.symbolicName>
         <bundle.namespace>org.opennms.features.vaadin</bundle.namespace>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <vaadin.hbncontainer.version>2.0.1</vaadin.hbncontainer.version>
     </properties>
 
     <build>

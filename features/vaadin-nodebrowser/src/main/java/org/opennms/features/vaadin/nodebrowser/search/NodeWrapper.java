@@ -1,4 +1,4 @@
-package org.opennms.features.vaadin.nodebrowser;
+package org.opennms.features.vaadin.nodebrowser.search;
 
 import org.opennms.netmgt.model.OnmsCategory;
 import org.opennms.netmgt.model.OnmsIpInterface;

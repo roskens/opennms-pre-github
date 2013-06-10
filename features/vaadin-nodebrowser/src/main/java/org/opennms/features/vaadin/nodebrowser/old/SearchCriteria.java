@@ -1,4 +1,4 @@
-package org.opennms.features.vaadin.nodebrowser;
+package org.opennms.features.vaadin.nodebrowser.old;
 
 import com.vaadin.data.Container;
 import com.vaadin.data.Property;
@@ -8,11 +8,13 @@ import com.vaadin.ui.AbstractSelect;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Select;
 import com.vaadin.ui.TextField;
+import org.opennms.features.vaadin.nodebrowser.search.NodeSearch;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SearchCriteria {
+    /*
     public static enum Operator {
         LIKE("like"),
         NOT_LIKE("not like");
@@ -149,4 +151,5 @@ public class SearchCriteria {
             return textField.getValue().toString();
         }
     }
+    */
 }
