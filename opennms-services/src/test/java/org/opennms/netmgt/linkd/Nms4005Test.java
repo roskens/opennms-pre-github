@@ -46,6 +46,7 @@ import org.opennms.core.test.db.annotations.JUnitTemporaryDatabase;
 import org.opennms.core.test.snmp.annotations.JUnitSnmpAgent;
 import org.opennms.core.test.snmp.annotations.JUnitSnmpAgents;
 import org.opennms.core.utils.BeanUtils;
+import org.opennms.netmgt.Nms4005NetworkBuilder;
 import org.opennms.netmgt.config.LinkdConfig;
 import org.opennms.netmgt.config.linkd.Package;
 import org.opennms.netmgt.dao.DataLinkInterfaceDao;
@@ -57,6 +58,7 @@ import org.opennms.test.JUnitConfigurationEnvironment;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
+import static org.opennms.netmgt.linkd.LinkdNetworkBuilderHelper.printLink;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations= {
@@ -155,7 +157,7 @@ public class Nms4005Test extends Nms4005NetworkBuilder implements InitializingBe
         
         final List<DataLinkInterface> ifaces = m_dataLinkInterfaceDao.findAll();
         for (final DataLinkInterface link: ifaces) {
-            printLink(link);
+            printLink(link,m_nodeDao,m_snmpInterfaceDao);
         }
         assertEquals("we should have found 4 data links", 4, ifaces.size());
         //Rerun collectionand discovery must be all the same...
@@ -262,7 +264,7 @@ public class Nms4005Test extends Nms4005NetworkBuilder implements InitializingBe
 
         final List<DataLinkInterface> ifaces = m_dataLinkInterfaceDao.findAll();
         for (final DataLinkInterface link: ifaces) {
-            printLink(link);
+            printLink(link,m_nodeDao,m_snmpInterfaceDao);
         }
         assertEquals("we should have found 4 data links", 4, ifaces.size());
     }

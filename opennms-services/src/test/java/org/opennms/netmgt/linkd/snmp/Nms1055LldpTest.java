@@ -39,8 +39,9 @@ import org.opennms.core.test.OpenNMSJUnit4ClassRunner;
 import org.opennms.core.test.snmp.annotations.JUnitSnmpAgent;
 import org.opennms.core.test.snmp.annotations.JUnitSnmpAgents;
 import org.opennms.core.utils.BeanUtils;
+import org.opennms.netmgt.Nms1055NetworkBuilder;
 import org.opennms.netmgt.config.SnmpPeerFactory;
-import org.opennms.netmgt.linkd.Nms1055NetworkBuilder;
+import org.opennms.netmgt.linkd.LinkdNetworkBuilderHelper;
 import org.opennms.netmgt.linkd.snmp.Dot1dBaseGroup;
 import org.opennms.netmgt.linkd.snmp.LldpLocTable;
 import org.opennms.netmgt.linkd.snmp.LldpLocTableEntry;
@@ -306,7 +307,7 @@ public class Nms1055LldpTest extends Nms1055NetworkBuilder implements Initializi
         final Integer lldpRemChassisidSubtype = lldpRemTableEntry.getLldpRemChassisidSubtype();
         String lldpRemPortid = lldpRemTableEntry.getLldpRemPortid();
         Integer lldpRemPortidSubtype = lldpRemTableEntry.getLldpRemPortidSubtype();
-        printLldpRemRow(lldpRemLocalPortNum, lldpRemSysname, lldpRemChassiid, lldpRemChassisidSubtype, lldpRemPortid, lldpRemPortidSubtype);
+        LinkdNetworkBuilderHelper.printLldpRemRow(lldpRemLocalPortNum, lldpRemSysname, lldpRemChassiid, lldpRemChassisidSubtype, lldpRemPortid, lldpRemPortidSubtype);
         assertEquals(4,lldpRemChassisidSubtype.intValue());
         assertEquals(7,lldpRemPortidSubtype.intValue());
         if (lldpRemLocalPortNum.intValue() == 574) {
@@ -334,7 +335,7 @@ public class Nms1055LldpTest extends Nms1055NetworkBuilder implements Initializi
         final Integer lldpLocPortNum = lldpLocTableEntry.getLldpLocPortNum();
         String lldpLocPortid = lldpLocTableEntry.getLldpLocPortid();
         Integer lldpLocPortidSubtype = lldpLocTableEntry.getLldpLocPortIdSubtype();
-        printLldpLocRow(lldpLocPortNum, lldpLocPortidSubtype, lldpLocPortid);
+        LinkdNetworkBuilderHelper.printLldpLocRow(lldpLocPortNum, lldpLocPortidSubtype, lldpLocPortid);
         assertEquals(7,lldpLocPortidSubtype.intValue());
 
         if (lldpLocPortNum.intValue() == 521) {

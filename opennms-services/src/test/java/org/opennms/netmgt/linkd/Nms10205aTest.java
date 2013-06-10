@@ -44,6 +44,7 @@ import org.opennms.core.test.db.annotations.JUnitTemporaryDatabase;
 import org.opennms.core.test.snmp.annotations.JUnitSnmpAgent;
 import org.opennms.core.test.snmp.annotations.JUnitSnmpAgents;
 import org.opennms.core.utils.BeanUtils;
+import org.opennms.netmgt.Nms10205aNetworkBuilder;
 import org.opennms.netmgt.config.LinkdConfig;
 import org.opennms.netmgt.config.linkd.Package;
 import org.opennms.netmgt.dao.DataLinkInterfaceDao;
@@ -222,29 +223,29 @@ public class Nms10205aTest extends Nms10205aNetworkBuilder implements Initializi
         // no routing entry and no bridge 
         // forwarding
         
-        int start = getStartPoint(links);
+        int start = LinkdNetworkBuilderHelper.getStartPoint(links);
         for (final DataLinkInterface datalinkinterface: links) {
             int id = datalinkinterface.getId().intValue();
             if (start == id ) {
-                checkLink(delhi, mumbai, 28503, 519, datalinkinterface);
+            	LinkdNetworkBuilderHelper.checkLink(delhi, mumbai, 28503, 519, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (start+1 == id ) {
-                checkLink(bangalore, mumbai, 2401, 507, datalinkinterface);
+            	LinkdNetworkBuilderHelper.checkLink(bangalore, mumbai, 2401, 507, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (start+2 == id ) {
-                checkLink(bagmane, mumbai, 534, 977, datalinkinterface);
+            	LinkdNetworkBuilderHelper.checkLink(bagmane, mumbai, 534, 977, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (start+3 == id ) {
-                checkLink(mysore, mumbai, 508, 978, datalinkinterface);
+            	LinkdNetworkBuilderHelper.checkLink(mysore, mumbai, 508, 978, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (start+4 == id ) {
-                checkLink(chennai, mumbai, 528, 520, datalinkinterface);
+            	LinkdNetworkBuilderHelper.checkLink(chennai, mumbai, 528, 520, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (start+5 == id ) {
-                checkLink(mysore, chennai, 505, 517, datalinkinterface);
+            	LinkdNetworkBuilderHelper.checkLink(mysore, chennai, 505, 517, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (start+6 == id ) {
-               checkLink(bangalore, delhi, 2397, 3674, datalinkinterface);
+            	LinkdNetworkBuilderHelper.checkLink(bangalore, delhi, 2397, 3674, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (start+7 == id ) {
-                checkLink(bagmane, bangalore, 1732, 2396, datalinkinterface);
+            	LinkdNetworkBuilderHelper.checkLink(bagmane, bangalore, 1732, 2396, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (start+8 == id ) {
-                checkLink(mysore, bagmane, 520, 654, datalinkinterface);
+            	LinkdNetworkBuilderHelper.checkLink(mysore, bagmane, 520, 654, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else {
-                checkLink(mumbai,mumbai,-1,-1,datalinkinterface);
+            	LinkdNetworkBuilderHelper.checkLink(mumbai,mumbai,-1,-1,datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             }
         }
     }
@@ -342,29 +343,29 @@ public class Nms10205aTest extends Nms10205aNetworkBuilder implements Initializi
         
         assertEquals(9, links.size());  
         
-        int start = getStartPoint(links);
+        int start = LinkdNetworkBuilderHelper.getStartPoint(links);
         for (final DataLinkInterface datalinkinterface: links) {
             int id = datalinkinterface.getId().intValue();
             if (start == id ) {
-                checkLink(chennai, mumbai, 528, 520, datalinkinterface);
+            	LinkdNetworkBuilderHelper.checkLink(chennai, mumbai, 528, 520, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (start+1 == id ) {
-                checkLink(delhi, mumbai, 28503, 519, datalinkinterface);
+            	LinkdNetworkBuilderHelper.checkLink(delhi, mumbai, 28503, 519, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (start+2 == id ) {
-                checkLink(bangalore, mumbai, 2401, 507, datalinkinterface);
+            	LinkdNetworkBuilderHelper.checkLink(bangalore, mumbai, 2401, 507, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (start+3 == id ) {
-                checkLink(bagmane, mumbai, 534, 977, datalinkinterface);
+            	LinkdNetworkBuilderHelper.checkLink(bagmane, mumbai, 534, 977, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (start+4 == id ) {
-                checkLink(mysore, mumbai, 508, 978, datalinkinterface);
+            	LinkdNetworkBuilderHelper.checkLink(mysore, mumbai, 508, 978, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (start+5 == id ) {
-                checkLink(mysore, chennai, 505, 517, datalinkinterface);
+            	LinkdNetworkBuilderHelper.checkLink(mysore, chennai, 505, 517, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (start+6 == id ) {
-               checkLink(bangalore, delhi, 2397, 3674, datalinkinterface);
+            	LinkdNetworkBuilderHelper.checkLink(bangalore, delhi, 2397, 3674, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (start+7 == id ) {
-                checkLink(bagmane, bangalore, 1732, 2396, datalinkinterface);
+            	LinkdNetworkBuilderHelper.checkLink(bagmane, bangalore, 1732, 2396, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (start+8 == id ) {
-                checkLink(mysore, bagmane, 520, 654, datalinkinterface);
+            	LinkdNetworkBuilderHelper.checkLink(mysore, bagmane, 520, 654, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else {
-                checkLink(mumbai,mumbai,-1,-1,datalinkinterface);
+            	LinkdNetworkBuilderHelper.checkLink(mumbai,mumbai,-1,-1,datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             }
         }
 

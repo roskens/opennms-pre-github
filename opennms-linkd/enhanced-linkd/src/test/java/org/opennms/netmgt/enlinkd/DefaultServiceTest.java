@@ -38,7 +38,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.opennms.core.test.MockLogAppender;
 import org.opennms.netmgt.dao.topology.TopologyDaoInMemoryImpl;
-import org.opennms.netmgt.linkd.LinkdNetworkBuilder;
 import org.opennms.netmgt.model.topology.BridgeDot1dTpFdbLink;
 import org.opennms.netmgt.model.topology.BridgeElementIdentifier;
 import org.opennms.netmgt.model.topology.BridgeEndPoint;
@@ -46,12 +45,14 @@ import org.opennms.netmgt.model.topology.Element;
 import org.opennms.netmgt.model.topology.MacAddrElementIdentifier;
 import org.opennms.netmgt.model.topology.MacAddrEndPoint;
 import org.opennms.netmgt.model.topology.NodeElementIdentifier;
-
+import static org.opennms.netmgt.enlinkd.EnhancedLinkdNetworkBuilderHelper.printEndPoint;
+import static org.opennms.netmgt.enlinkd.EnhancedLinkdNetworkBuilderHelper.printLinkTopology;
+import static org.opennms.netmgt.enlinkd.EnhancedLinkdNetworkBuilderHelper.printEndPointTopology;
 //@RunWith(OpenNMSJUnit4ClassRunner.class)
 //@ContextConfiguration(locations= {
 //})
 //@JUnitConfigurationEnvironment
-public class DefaultServiceTest extends LinkdNetworkBuilder {
+public class DefaultServiceTest {
     
 	TopologyDaoInMemoryImpl m_topologyDao;
 	EnhancedLinkdServiceImpl m_service;

@@ -48,7 +48,7 @@ import org.opennms.core.utils.BeanUtils;
 import org.opennms.netmgt.config.EnhancedLinkdConfig;
 import org.opennms.netmgt.dao.NodeDao;
 import org.opennms.netmgt.dao.TopologyDao;
-import org.opennms.netmgt.linkd.Nms17216NetworkBuilder;
+import org.opennms.netmgt.Nms17216NetworkBuilder;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.topology.Element;
 import org.opennms.netmgt.model.topology.EndPoint;
@@ -57,6 +57,8 @@ import org.opennms.test.JUnitConfigurationEnvironment;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
+import static org.opennms.netmgt.enlinkd.EnhancedLinkdNetworkBuilderHelper.printLinkTopology;
+import static org.opennms.netmgt.enlinkd.EnhancedLinkdNetworkBuilderHelper.printEndPointTopology;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations= {

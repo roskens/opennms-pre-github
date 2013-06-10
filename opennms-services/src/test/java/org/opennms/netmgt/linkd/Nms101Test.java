@@ -48,6 +48,7 @@ import org.opennms.core.test.snmp.annotations.JUnitSnmpAgent;
 import org.opennms.core.test.snmp.annotations.JUnitSnmpAgents;
 import org.opennms.core.utils.BeanUtils;
 import org.opennms.core.utils.LogUtils;
+import org.opennms.netmgt.Nms101NetworkBuilder;
 import org.opennms.netmgt.config.LinkdConfig;
 import org.opennms.netmgt.config.linkd.Package;
 import org.opennms.netmgt.dao.DataLinkInterfaceDao;
@@ -276,9 +277,9 @@ public class Nms101Test extends Nms101NetworkBuilder implements InitializingBean
 
         for (LinkableNode node: m_linkd.getLinkableNodes()) {
         	int nodeid = node.getNodeId();
-        	printNode(m_nodeDao.get(nodeid));
+        	LinkdNetworkBuilderHelper.printNode(m_nodeDao.get(nodeid));
         	for (RouterInterface route: node.getRouteInterfaces()) {
-        		printRouteInterface(nodeid, 
+        		LinkdNetworkBuilderHelper.printRouteInterface(nodeid, 
         				route.getIfindex(),
         				route.getNextHop(),
         				route.getNextHopNetmask(),
@@ -287,7 +288,7 @@ public class Nms101Test extends Nms101NetworkBuilder implements InitializingBean
         	}
         	
         	for (CdpInterface cdp: node.getCdpInterfaces()) {
-        		printCdpInterface(nodeid, 
+        		LinkdNetworkBuilderHelper.printCdpInterface(nodeid, 
         				cdp.getCdpIfIndex(),
         				cdp.getCdpTargetDeviceId(),
         				cdp.getCdpTargetNodeId(),
@@ -299,7 +300,7 @@ public class Nms101Test extends Nms101NetworkBuilder implements InitializingBean
         
         final List<DataLinkInterface> ifaces = m_dataLinkInterfaceDao.findAll();
         for (final DataLinkInterface link: ifaces) {
-            printLink(link);
+        	LinkdNetworkBuilderHelper.printLink(link,m_nodeDao,m_snmpInterfaceDao);
         }
         assertEquals("we should have found 1 data link", 1, ifaces.size());
     }
@@ -340,7 +341,7 @@ public class Nms101Test extends Nms101NetworkBuilder implements InitializingBean
         
         final List<DataLinkInterface> ifaces = m_dataLinkInterfaceDao.findAll();
         for (final DataLinkInterface link: ifaces) {
-            printLink(link);
+        	LinkdNetworkBuilderHelper.printLink(link,m_nodeDao,m_snmpInterfaceDao);
         }
 
         assertEquals("we should have found 1 data links", 1, ifaces.size());
@@ -382,7 +383,7 @@ public class Nms101Test extends Nms101NetworkBuilder implements InitializingBean
         
         final List<DataLinkInterface> ifaces = m_dataLinkInterfaceDao.findAll();
         for (final DataLinkInterface link: ifaces) {
-            printLink(link);
+        	LinkdNetworkBuilderHelper.printLink(link,m_nodeDao,m_snmpInterfaceDao);
         }
 
         assertEquals("we should have found 1 data links", 1, ifaces.size());
@@ -424,7 +425,7 @@ public class Nms101Test extends Nms101NetworkBuilder implements InitializingBean
         
         final List<DataLinkInterface> ifaces = m_dataLinkInterfaceDao.findAll();
         for (final DataLinkInterface link: ifaces) {
-            printLink(link);
+        	LinkdNetworkBuilderHelper.printLink(link,m_nodeDao,m_snmpInterfaceDao);
         }
 
         assertEquals("we should have found 1 data links", 1, ifaces.size());
@@ -494,7 +495,7 @@ public class Nms101Test extends Nms101NetworkBuilder implements InitializingBean
         
         final List<DataLinkInterface> ifaces = m_dataLinkInterfaceDao.findAll();
         for (final DataLinkInterface link: ifaces) {
-            printLink(link);
+        	LinkdNetworkBuilderHelper.printLink(link,m_nodeDao,m_snmpInterfaceDao);
         }
 
         assertEquals("we should have found 7 data links", 7, ifaces.size());
@@ -567,7 +568,7 @@ public class Nms101Test extends Nms101NetworkBuilder implements InitializingBean
         
         final List<DataLinkInterface> ifaces = m_dataLinkInterfaceDao.findAll();
         for (final DataLinkInterface link: ifaces) {
-            printLink(link);
+        	LinkdNetworkBuilderHelper.printLink(link,m_nodeDao,m_snmpInterfaceDao);
         }
 
         assertEquals("we should have found 1 data links", 1, ifaces.size());

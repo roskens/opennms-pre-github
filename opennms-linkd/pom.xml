@@ -11,5 +11,6 @@
   <name>OpenNMS Linkd</name>
   <modules>
     <module>enhanced-linkd</module>
+    <module>linkd</module>
   </modules>
 </project>

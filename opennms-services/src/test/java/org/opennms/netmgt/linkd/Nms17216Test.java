@@ -29,6 +29,7 @@
 package org.opennms.netmgt.linkd;
 
 import static org.junit.Assert.assertEquals;
+
 import static org.junit.Assert.assertTrue;
 
 import java.util.Collection;
@@ -45,6 +46,7 @@ import org.opennms.core.test.db.annotations.JUnitTemporaryDatabase;
 import org.opennms.core.test.snmp.annotations.JUnitSnmpAgent;
 import org.opennms.core.test.snmp.annotations.JUnitSnmpAgents;
 import org.opennms.core.utils.BeanUtils;
+import org.opennms.netmgt.Nms17216NetworkBuilder;
 import org.opennms.netmgt.config.LinkdConfig;
 import org.opennms.netmgt.config.linkd.Package;
 import org.opennms.netmgt.dao.DataLinkInterfaceDao;
@@ -56,7 +58,8 @@ import org.opennms.test.JUnitConfigurationEnvironment;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-
+import static org.opennms.netmgt.linkd.LinkdNetworkBuilderHelper.checkLink;
+import static org.opennms.netmgt.linkd.LinkdNetworkBuilderHelper.getStartPoint;
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations= {
         "classpath:/META-INF/opennms/applicationContext-soa.xml",
@@ -281,43 +284,43 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
             Integer linkid = datalinkinterface.getId();
             if ( linkid == start) {
                 // switch1 gi0/9 -> switch2 gi0/1 --lldp --cdp
-                checkLink(switch2, switch1, 10101, 10109, datalinkinterface);
+                checkLink(switch2, switch1, 10101, 10109, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (linkid == start+1 ) {
                 // switch1 gi0/10 -> switch2 gi0/2 --lldp --cdp
-                checkLink(switch2, switch1, 10102, 10110, datalinkinterface);
+                checkLink(switch2, switch1, 10102, 10110, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (linkid == start+2) {
                 // switch1 gi0/11 -> switch2 gi0/3 --lldp --cdp
-                checkLink(switch2, switch1, 10103, 10111, datalinkinterface);
+                checkLink(switch2, switch1, 10103, 10111, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (linkid == start+3) {
                 // switch1 gi0/12 -> switch2 gi0/4 --lldp --cdp
-                checkLink(switch2, switch1, 10104, 10112, datalinkinterface);
+                checkLink(switch2, switch1, 10104, 10112, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (linkid == start+4) {
                 // switch2 gi0/19 -> switch3 Fa0/19 --lldp --cdp
-                checkLink(switch3, switch2, 10019, 10119, datalinkinterface);
+                checkLink(switch3, switch2, 10019, 10119, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (linkid == start+5) {
                 // switch2 gi0/20 -> switch3 Fa0/20 --lldp --cdp
-                checkLink(switch3, switch2, 10020, 10120, datalinkinterface);
+                checkLink(switch3, switch2, 10020, 10120, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (linkid == start+6) {
                 // switch1 gi0/1 -> router1 Fa0/20 --cdp
-                checkLink(router1, switch1, 7, 10101, datalinkinterface);
+                checkLink(router1, switch1, 7, 10101, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (linkid == start+7) {
                 // switch3 Fa0/1 -> switch5 Fa0/23 --cdp
-                checkLink(switch5, switch3, 10001, 10023, datalinkinterface);
+                checkLink(switch5, switch3, 10001, 10023, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (linkid == start+8) {
                 // switch3 gi0/1 -> switch5 Fa0/20 --cdp
-                checkLink(switch5, switch3, 10013, 10024, datalinkinterface);
+                checkLink(switch5, switch3, 10013, 10024, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (linkid == start+9) {
                 //switch4 FastEthernet0/1    ----> router3   GigabitEthernet0/1
-                checkLink(router3, switch4, 9, 10001, datalinkinterface);
+                checkLink(router3, switch4, 9, 10001, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (linkid == start+10) {
-                checkLink(router2, router1, 12, 13, datalinkinterface);
+                checkLink(router2, router1, 12, 13, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (linkid == start+11) {
-                checkLink(router3, router2, 13, 13, datalinkinterface);
+                checkLink(router3, router2, 13, 13, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (linkid == start+12) {
-                checkLink(router4, router3, 3, 8, datalinkinterface);
+                checkLink(router4, router3, 3, 8, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else {
                 // error
-                checkLink(switch1,switch1,-1,-1,datalinkinterface);
+                checkLink(switch1,switch1,-1,-1,datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             }      
         }
     }
@@ -391,25 +394,25 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
             Integer linkid = link.getId();
             if ( linkid == startid) {
                 // switch1 gi0/9 -> switch2 gi0/1 --lldp
-                checkLink(switch2, switch1, 10101, 10109, link);
+                checkLink(switch2, switch1, 10101, 10109, link,m_nodeDao,m_snmpInterfaceDao);
             } else if (linkid == startid +1 ) {
                 // switch1 gi0/10 -> switch2 gi0/2 --lldp
-                checkLink(switch2, switch1, 10102, 10110, link);
+                checkLink(switch2, switch1, 10102, 10110, link,m_nodeDao,m_snmpInterfaceDao);
             } else if (linkid == startid+2) {
                 // switch1 gi0/11 -> switch2 gi0/3 --lldp
-                checkLink(switch2, switch1, 10103, 10111, link);
+                checkLink(switch2, switch1, 10103, 10111, link,m_nodeDao,m_snmpInterfaceDao);
             } else if (linkid == startid+3) {
                 // switch1 gi0/12 -> switch2 gi0/4 --lldp
-                checkLink(switch2, switch1, 10104, 10112, link);
+                checkLink(switch2, switch1, 10104, 10112, link,m_nodeDao,m_snmpInterfaceDao);
             } else if (linkid == startid+4) {
                 // switch2 gi0/19 -> switch3 Fa0/19 --lldp
-                checkLink(switch3, switch2, 10019, 10119, link);
+                checkLink(switch3, switch2, 10019, 10119, link,m_nodeDao,m_snmpInterfaceDao);
             } else if (linkid == startid+5) {
                 // switch2 gi0/20 -> switch3 Fa0/20 --lldp
-                checkLink(switch3, switch2, 10020, 10120, link);
+                checkLink(switch3, switch2, 10020, 10120, link,m_nodeDao,m_snmpInterfaceDao);
             } else {
                 // error
-                checkLink(switch1,switch1,-1,-1,link);
+                checkLink(switch1,switch1,-1,-1,link,m_nodeDao,m_snmpInterfaceDao);
             }   
         }
     }
@@ -467,7 +470,7 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
                 
         for (final DataLinkInterface datalinkinterface: datalinkinterfaces) {
 
-                checkLink(router3, switch4, 9, 10001, datalinkinterface);
+                checkLink(router3, switch4, 9, 10001, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
                
         }
     }

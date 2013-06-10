@@ -54,6 +54,7 @@ import org.opennms.core.test.db.annotations.JUnitTemporaryDatabase;
 import org.opennms.core.test.snmp.annotations.JUnitSnmpAgent;
 import org.opennms.core.test.snmp.annotations.JUnitSnmpAgents;
 import org.opennms.core.utils.BeanUtils;
+import org.opennms.netmgt.Nms7467NetworkBuilder;
 import org.opennms.netmgt.config.LinkdConfig;
 import org.opennms.netmgt.config.linkd.Package;
 import org.opennms.netmgt.dao.AtInterfaceDao;
@@ -880,7 +881,7 @@ public class Nms7467Test extends Nms7467NetworkBuilder implements InitializingBe
         
         final List<DataLinkInterface> links = m_dataLinkInterfaceDao.findAll();
         for (final DataLinkInterface link: links) {
-        	printLink(link);
+        	LinkdNetworkBuilderHelper.printLink(link,m_nodeDao,m_snmpInterfaceDao);
         }
         assertEquals(1,links.size());
         
@@ -1078,7 +1079,7 @@ public class Nms7467Test extends Nms7467NetworkBuilder implements InitializingBe
         
         final DataLinkInterface link = links.get(0);
         
-        printLink(link);
+        LinkdNetworkBuilderHelper.printLink(link,m_nodeDao,m_snmpInterfaceDao);
         
         assertEquals(ciscows.getId(), link.getNode().getId());
         assertEquals(52, link.getIfIndex().intValue());

@@ -44,6 +44,7 @@ import org.opennms.core.test.db.annotations.JUnitTemporaryDatabase;
 import org.opennms.core.test.snmp.annotations.JUnitSnmpAgent;
 import org.opennms.core.test.snmp.annotations.JUnitSnmpAgents;
 import org.opennms.core.utils.BeanUtils;
+import org.opennms.netmgt.Nms4930NetworkBuilder;
 import org.opennms.netmgt.config.LinkdConfig;
 import org.opennms.netmgt.config.linkd.Package;
 import org.opennms.netmgt.dao.DataLinkInterfaceDao;
@@ -153,7 +154,7 @@ public class Nms4930Test extends Nms4930NetworkBuilder implements InitializingBe
 
         final List<DataLinkInterface> ifaces = m_dataLinkInterfaceDao.findAll();
         for (final DataLinkInterface link: ifaces) {
-            printLink(link);
+            LinkdNetworkBuilderHelper.printLink(link,m_nodeDao,m_snmpInterfaceDao);
         }
         
         // Note By AR: I've inspected the snmp file, only the bridge mib are there
