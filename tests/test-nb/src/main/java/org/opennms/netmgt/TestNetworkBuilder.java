@@ -47,8 +47,96 @@ import org.opennms.netmgt.model.SnmpInterfaceBuilder;
  */
 
 public abstract class TestNetworkBuilder {
+    //NMS2295
+	protected static final String CORESWITCH_IP = "172.16.2.1";
+	protected static final String CORESWITCH_NAME = "Core-Switch";
+    protected static final String CORESWITCH_SYSOID = ".1.3.6.1.4.1.2636.1.1.1.2.59";
+	
+    protected static final Map<InetAddress,Integer> CORESWITCH_IP_IF_MAP =  new HashMap<InetAddress,Integer>();
+    protected static final Map<Integer,String> CORESWITCH_IF_IFNAME_MAP = new HashMap<Integer, String>();
+    protected static final Map<Integer,String> CORESWITCH_IF_IFDESCR_MAP = new HashMap<Integer, String>();
+    protected static final Map<Integer,String> CORESWITCH_IF_MAC_MAP = new HashMap<Integer, String>();
+    protected static final Map<Integer,String> CORESWITCH_IF_IFALIAS_MAP = new HashMap<Integer, String>();
+    protected static final Map<Integer,InetAddress> CORESWITCH_IF_NETMASK_MAP = new HashMap<Integer, InetAddress>();
 
-	// NMS101
+	protected static final String PRIMARY_IP = "172.16.2.11";
+	protected static final String PRIMARY_NAME = "Primary";
+    protected static final String PRIMARY_SYSOID = ".1.3.6.1.4.1.2636.1.1.1.2.35";
+	
+    protected static final Map<InetAddress,Integer> PRIMARY_IP_IF_MAP =  new HashMap<InetAddress,Integer>();
+    protected static final Map<Integer,String> PRIMARY_IF_IFNAME_MAP = new HashMap<Integer, String>();
+    protected static final Map<Integer,String> PRIMARY_IF_IFDESCR_MAP = new HashMap<Integer, String>();
+    protected static final Map<Integer,String> PRIMARY_IF_MAC_MAP = new HashMap<Integer, String>();
+    protected static final Map<Integer,String> PRIMARY_IF_IFALIAS_MAP = new HashMap<Integer, String>();
+    protected static final Map<Integer,InetAddress> PRIMARY_IF_NETMASK_MAP = new HashMap<Integer, InetAddress>();
+
+	protected static final String LC01_IP = "172.16.2.16";
+	protected static final String LC01_NAME = "LC01";
+    protected static final String LC01_SYSOID = ".1.3.6.1.4.1.2636.1.1.1.2.43";
+	
+    protected static final Map<InetAddress,Integer> LC01_IP_IF_MAP =  new HashMap<InetAddress,Integer>();
+    protected static final Map<Integer,String> LC01_IF_IFNAME_MAP = new HashMap<Integer, String>();
+    protected static final Map<Integer,String> LC01_IF_IFDESCR_MAP = new HashMap<Integer, String>();
+    protected static final Map<Integer,String> LC01_IF_MAC_MAP = new HashMap<Integer, String>();
+    protected static final Map<Integer,String> LC01_IF_IFALIAS_MAP = new HashMap<Integer, String>();
+    protected static final Map<Integer,InetAddress> LC01_IF_NETMASK_MAP = new HashMap<Integer, InetAddress>();
+
+	protected static final String TEST1_IP = "172.16.2.17";
+	protected static final String TEST1_NAME = "Test1";
+    protected static final String TEST1_SYSOID = ".1.3.6.1.4.1.2636.1.1.1.2.43";
+	
+    protected static final Map<InetAddress,Integer> TEST1_IP_IF_MAP =  new HashMap<InetAddress,Integer>();
+    protected static final Map<Integer,String> TEST1_IF_IFNAME_MAP = new HashMap<Integer, String>();
+    protected static final Map<Integer,String> TEST1_IF_IFDESCR_MAP = new HashMap<Integer, String>();
+    protected static final Map<Integer,String> TEST1_IF_MAC_MAP = new HashMap<Integer, String>();
+    protected static final Map<Integer,String> TEST1_IF_IFALIAS_MAP = new HashMap<Integer, String>();
+    protected static final Map<Integer,InetAddress> TEST1_IF_NETMASK_MAP = new HashMap<Integer, InetAddress>();
+
+	protected static final String SWITCH_4_IP = "172.16.2.19";
+	protected static final String SWITCH_4_NAME = "switch-4";
+    protected static final String SWITCH_4_SYSOID = ".1.3.6.1.4.1.2636.1.1.1.2.76";
+	
+    protected static final Map<InetAddress,Integer> SWITCH_4_IP_IF_MAP =  new HashMap<InetAddress,Integer>();
+    protected static final Map<Integer,String> SWITCH_4_IF_IFNAME_MAP = new HashMap<Integer, String>();
+    protected static final Map<Integer,String> SWITCH_4_IF_IFDESCR_MAP = new HashMap<Integer, String>();
+    protected static final Map<Integer,String> SWITCH_4_IF_MAC_MAP = new HashMap<Integer, String>();
+    protected static final Map<Integer,String> SWITCH_4_IF_IFALIAS_MAP = new HashMap<Integer, String>();
+    protected static final Map<Integer,InetAddress> SWITCH_4_IF_NETMASK_MAP = new HashMap<Integer, InetAddress>();
+
+	protected static final String TWDSWITCH1_IP = "172.16.2.20";
+	protected static final String TWDSWITCH1_NAME = "TWD-Switch-1";
+    protected static final String TWDSWITCH1_SYSOID = ".1.3.6.1.4.1.2636.1.1.1.2.43";
+	
+    protected static final Map<InetAddress,Integer> TWDSWITCH1_IP_IF_MAP =  new HashMap<InetAddress,Integer>();
+    protected static final Map<Integer,String> TWDSWITCH1_IF_IFNAME_MAP = new HashMap<Integer, String>();
+    protected static final Map<Integer,String> TWDSWITCH1_IF_IFDESCR_MAP = new HashMap<Integer, String>();
+    protected static final Map<Integer,String> TWDSWITCH1_IF_MAC_MAP = new HashMap<Integer, String>();
+    protected static final Map<Integer,String> TWDSWITCH1_IF_IFALIAS_MAP = new HashMap<Integer, String>();
+    protected static final Map<Integer,InetAddress> TWDSWITCH1_IF_NETMASK_MAP = new HashMap<Integer, InetAddress>();
+
+	protected static final String TWDSWITCH2_IP = "172.16.2.21";
+	protected static final String TWDSWITCH2_NAME = "TWD-Switch-2";
+    protected static final String TWDSWITCH2_SYSOID = ".1.3.6.1.4.1.2636.1.1.1.2.43";
+	
+    protected static final Map<InetAddress,Integer> TWDSWITCH2_IP_IF_MAP =  new HashMap<InetAddress,Integer>();
+    protected static final Map<Integer,String> TWDSWITCH2_IF_IFNAME_MAP = new HashMap<Integer, String>();
+    protected static final Map<Integer,String> TWDSWITCH2_IF_IFDESCR_MAP = new HashMap<Integer, String>();
+    protected static final Map<Integer,String> TWDSWITCH2_IF_MAC_MAP = new HashMap<Integer, String>();
+    protected static final Map<Integer,String> TWDSWITCH2_IF_IFALIAS_MAP = new HashMap<Integer, String>();
+    protected static final Map<Integer,InetAddress> TWDSWITCH2_IF_NETMASK_MAP = new HashMap<Integer, InetAddress>();
+
+	protected static final String CASINTERNALSWITCH_IP = "172.16.2.22";
+	protected static final String CASINTERNALSWITCH_NAME = "CAS-Internal-Switch";
+    protected static final String CASINTERNALSWITCH_SYSOID = ".1.3.6.1.4.1.2636.1.1.1.2.76";
+	
+    protected static final Map<InetAddress,Integer> CASINTERNALSWITCH_IP_IF_MAP =  new HashMap<InetAddress,Integer>();
+    protected static final Map<Integer,String> CASINTERNALSWITCH_IF_IFNAME_MAP = new HashMap<Integer, String>();
+    protected static final Map<Integer,String> CASINTERNALSWITCH_IF_IFDESCR_MAP = new HashMap<Integer, String>();
+    protected static final Map<Integer,String> CASINTERNALSWITCH_IF_MAC_MAP = new HashMap<Integer, String>();
+    protected static final Map<Integer,String> CASINTERNALSWITCH_IF_IFALIAS_MAP = new HashMap<Integer, String>();
+    protected static final Map<Integer,InetAddress> CASINTERNALSWITCH_IF_NETMASK_MAP = new HashMap<Integer, InetAddress>();
+
+    // NMS101
     protected static final String LAPTOP_IP = "10.1.1.2";
     protected static final String LAPTOP_NAME = "laptop";
     protected static final String LAPTOP_SYSOID = ".1.3.6.1.4.1.8072.3.2.255";
