@@ -15,6 +15,6 @@
     <module>test-nb</module>
     <module>linkd-nb</module>
     <module>enlinkd-nb</module>
-    <module>capsd-nb</module>
+    <!--module>capsd-nb</module-->
   </modules>
 </project>
