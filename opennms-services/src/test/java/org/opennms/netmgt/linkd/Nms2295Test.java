@@ -116,11 +116,11 @@ public class Nms2295Test extends Nms2295NetworkBuilder implements InitializingBe
     @Test
     @JUnitSnmpAgents(value={
             @JUnitSnmpAgent(host=CORESWITCH_IP, port=161, resource="classpath:linkd/nms2295/172.16.2.1-Core-snmpwalk.txt"),
-            @JUnitSnmpAgent(host=LC01_IP, port=161, resource="classpath:linkd/nms2295/172.16.2.16-snmpwalk.txt"),
-            @JUnitSnmpAgent(host=TEST1_IP, port=161, resource="classpath:linkd/nms2295/172.16.2.17-snmpwalk.txt"),
+            //@JUnitSnmpAgent(host=LC01_IP, port=161, resource="classpath:linkd/nms2295/172.16.2.16-snmpwalk.txt"),
+            //@JUnitSnmpAgent(host=TEST1_IP, port=161, resource="classpath:linkd/nms2295/172.16.2.17-snmpwalk.txt"),
             @JUnitSnmpAgent(host=SWITCH_4_IP, port=161, resource="classpath:linkd/nms2295/172.16.2.19-snmpwalk.txt"),
-            @JUnitSnmpAgent(host=TWDSWITCH1_IP, port=161, resource="classpath:linkd/nms2295/172.16.2.20-snmpwalk.txt"),
-            @JUnitSnmpAgent(host=TWDSWITCH2_IP, port=161, resource="classpath:linkd/nms2295/172.16.2.21-snmpwalk.txt"),
+            //@JUnitSnmpAgent(host=TWDSWITCH1_IP, port=161, resource="classpath:linkd/nms2295/172.16.2.20-snmpwalk.txt"),
+            //@JUnitSnmpAgent(host=TWDSWITCH2_IP, port=161, resource="classpath:linkd/nms2295/172.16.2.21-snmpwalk.txt"),
             @JUnitSnmpAgent(host=CASINTERNALSWITCH_IP, port=161, resource="classpath:linkd/nms2295/172.16.2.22-snmpwalk.txt"),
             @JUnitSnmpAgent(host=PRIMARY_IP, port=161, resource="classpath:linkd/nms2295/172.16.2.11-12-SRX-snmpwalk.txt")
     })
@@ -139,35 +139,39 @@ public class Nms2295Test extends Nms2295NetworkBuilder implements InitializingBe
 
         Package example1 = m_linkdConfig.getPackage("example1");
         assertEquals(false, example1.hasForceIpRouteDiscoveryOnEthernet());
-        example1.setUseBridgeDiscovery(false);
+        example1.setUseLldpDiscovery(true);
+        example1.setUseBridgeDiscovery(true);
         example1.setUseIpRouteDiscovery(false);
         example1.setEnableVlanDiscovery(false);
         example1.setUseOspfDiscovery(false);
-        
+        example1.setSaveRouteTable(false);
+        example1.setSaveStpInterfaceTable(false);
+        example1.setSaveStpNodeTable(false);
+
         final OnmsNode primary = m_nodeDao.findByForeignId("linkd", PRIMARY_NAME);
         final OnmsNode core = m_nodeDao.findByForeignId("linkd", CORESWITCH_NAME);
-        final OnmsNode lc01 = m_nodeDao.findByForeignId("linkd", LC01_NAME);
-        final OnmsNode test1 = m_nodeDao.findByForeignId("linkd", TEST1_NAME);
-        final OnmsNode twd1 = m_nodeDao.findByForeignId("linkd", TWDSWITCH1_NAME);
-        final OnmsNode twd2 = m_nodeDao.findByForeignId("linkd", TWDSWITCH2_NAME);
+//        final OnmsNode lc01 = m_nodeDao.findByForeignId("linkd", LC01_NAME);
+//        final OnmsNode test1 = m_nodeDao.findByForeignId("linkd", TEST1_NAME);
+//        final OnmsNode twd1 = m_nodeDao.findByForeignId("linkd", TWDSWITCH1_NAME);
+//        final OnmsNode twd2 = m_nodeDao.findByForeignId("linkd", TWDSWITCH2_NAME);
         final OnmsNode cas = m_nodeDao.findByForeignId("linkd", CASINTERNALSWITCH_NAME);
         final OnmsNode switch04 = m_nodeDao.findByForeignId("linkd", SWITCH_4_NAME);
         
         assertTrue(m_linkd.scheduleNodeCollection(primary.getId()));
         assertTrue(m_linkd.scheduleNodeCollection(core.getId()));
-        assertTrue(m_linkd.scheduleNodeCollection(lc01.getId()));
-        assertTrue(m_linkd.scheduleNodeCollection(test1.getId()));
-        assertTrue(m_linkd.scheduleNodeCollection(twd1.getId()));
-        assertTrue(m_linkd.scheduleNodeCollection(twd2.getId()));
+//        assertTrue(m_linkd.scheduleNodeCollection(lc01.getId()));
+//        assertTrue(m_linkd.scheduleNodeCollection(test1.getId()));
+//        assertTrue(m_linkd.scheduleNodeCollection(twd1.getId()));
+//        assertTrue(m_linkd.scheduleNodeCollection(twd2.getId()));
         assertTrue(m_linkd.scheduleNodeCollection(cas.getId()));
         assertTrue(m_linkd.scheduleNodeCollection(switch04.getId()));
 
         assertTrue(m_linkd.runSingleSnmpCollection(primary.getId()));
         assertTrue(m_linkd.runSingleSnmpCollection(core.getId()));
-        assertTrue(m_linkd.runSingleSnmpCollection(lc01.getId()));
-        assertTrue(m_linkd.runSingleSnmpCollection(test1.getId()));
-        assertTrue(m_linkd.runSingleSnmpCollection(twd1.getId()));
-        assertTrue(m_linkd.runSingleSnmpCollection(twd2.getId()));
+//        assertTrue(m_linkd.runSingleSnmpCollection(lc01.getId()));
+//        assertTrue(m_linkd.runSingleSnmpCollection(test1.getId()));
+//        assertTrue(m_linkd.runSingleSnmpCollection(twd1.getId()));
+//        assertTrue(m_linkd.runSingleSnmpCollection(twd2.getId()));
         assertTrue(m_linkd.runSingleSnmpCollection(cas.getId()));
         assertTrue(m_linkd.runSingleSnmpCollection(switch04.getId()));
        
@@ -175,35 +179,35 @@ public class Nms2295Test extends Nms2295NetworkBuilder implements InitializingBe
         
         final Collection<LinkableNode> nodes = m_linkd.getLinkableNodesOnPackage("example1");
 
-        assertEquals(8, nodes.size());
+        assertEquals(4, nodes.size());
         
         assertTrue(m_linkd.runSingleLinkDiscovery("example1"));
 
-        assertEquals(14,m_dataLinkInterfaceDao.countAll());
+//        assertEquals(14,m_dataLinkInterfaceDao.countAll());
         final List<DataLinkInterface> datalinkinterfaces = m_dataLinkInterfaceDao.findAll();
 
         for (final DataLinkInterface datalinkinterface: datalinkinterfaces) {
-        	LinkdNetworkBuilderHelper.printLink(datalinkinterface, m_nodeDao, m_snmpInterfaceDao);
+        	printLink(datalinkinterface, m_nodeDao, m_snmpInterfaceDao);
         }
     }
 
     @Test
     @JUnitSnmpAgents(value={
             @JUnitSnmpAgent(host=CORESWITCH_IP, port=161, resource="classpath:linkd/nms2295/172.16.2.1-Core-snmpwalk.txt"),
-            @JUnitSnmpAgent(host=LC01_IP, port=161, resource="classpath:linkd/nms2295/172.16.2.16-snmpwalk.txt"),
-            @JUnitSnmpAgent(host=TEST1_IP, port=161, resource="classpath:linkd/nms2295/172.16.2.17-snmpwalk.txt"),
+            //@JUnitSnmpAgent(host=LC01_IP, port=161, resource="classpath:linkd/nms2295/172.16.2.16-snmpwalk.txt"),
+            //@JUnitSnmpAgent(host=TEST1_IP, port=161, resource="classpath:linkd/nms2295/172.16.2.17-snmpwalk.txt"),
             @JUnitSnmpAgent(host=SWITCH_4_IP, port=161, resource="classpath:linkd/nms2295/172.16.2.19-snmpwalk.txt"),
-            @JUnitSnmpAgent(host=TWDSWITCH1_IP, port=161, resource="classpath:linkd/nms2295/172.16.2.20-snmpwalk.txt"),
-            @JUnitSnmpAgent(host=TWDSWITCH2_IP, port=161, resource="classpath:linkd/nms2295/172.16.2.21-snmpwalk.txt"),
+            //@JUnitSnmpAgent(host=TWDSWITCH1_IP, port=161, resource="classpath:linkd/nms2295/172.16.2.20-snmpwalk.txt"),
+            //@JUnitSnmpAgent(host=TWDSWITCH2_IP, port=161, resource="classpath:linkd/nms2295/172.16.2.21-snmpwalk.txt"),
             @JUnitSnmpAgent(host=CASINTERNALSWITCH_IP, port=161, resource="classpath:linkd/nms2295/172.16.2.22-snmpwalk.txt")
     })
     public void testNetwork2295LldpLinks() throws Exception {
         m_nodeDao.save(getCoreSwitch());
-        m_nodeDao.save(getLc01());
-        m_nodeDao.save(getTest1());
+        //m_nodeDao.save(getLc01());
+        //m_nodeDao.save(getTest1());
         m_nodeDao.save(getSwitch04());
-        m_nodeDao.save(getTwdSwitch1());
-        m_nodeDao.save(getTwdSwitch2());
+        //m_nodeDao.save(getTwdSwitch1());
+        //m_nodeDao.save(getTwdSwitch2());
         m_nodeDao.save(getCasInternalSwitch());
         m_nodeDao.flush();
 
@@ -214,31 +218,32 @@ public class Nms2295Test extends Nms2295NetworkBuilder implements InitializingBe
         example1.setUseIpRouteDiscovery(false);
         example1.setEnableVlanDiscovery(false);
         example1.setUseOspfDiscovery(false);
+        example1.setSaveRouteTable(false);
+        example1.setSaveStpInterfaceTable(false);
+        example1.setSaveStpNodeTable(false);
         
-        final OnmsNode primary = m_nodeDao.findByForeignId("linkd", PRIMARY_NAME);
         final OnmsNode core = m_nodeDao.findByForeignId("linkd", CORESWITCH_NAME);
-        final OnmsNode lc01 = m_nodeDao.findByForeignId("linkd", LC01_NAME);
-        final OnmsNode test1 = m_nodeDao.findByForeignId("linkd", TEST1_NAME);
-        final OnmsNode twd1 = m_nodeDao.findByForeignId("linkd", TWDSWITCH1_NAME);
-        final OnmsNode twd2 = m_nodeDao.findByForeignId("linkd", TWDSWITCH2_NAME);
+//        final OnmsNode lc01 = m_nodeDao.findByForeignId("linkd", LC01_NAME);
+//        final OnmsNode test1 = m_nodeDao.findByForeignId("linkd", TEST1_NAME);
+//        final OnmsNode twd1 = m_nodeDao.findByForeignId("linkd", TWDSWITCH1_NAME);
+//        final OnmsNode twd2 = m_nodeDao.findByForeignId("linkd", TWDSWITCH2_NAME);
         final OnmsNode cas = m_nodeDao.findByForeignId("linkd", CASINTERNALSWITCH_NAME);
         final OnmsNode switch04 = m_nodeDao.findByForeignId("linkd", SWITCH_4_NAME);
         
-        assertTrue(m_linkd.scheduleNodeCollection(primary.getId()));
+//        assertTrue(m_linkd.scheduleNodeCollection(primary.getId()));
         assertTrue(m_linkd.scheduleNodeCollection(core.getId()));
-        assertTrue(m_linkd.scheduleNodeCollection(lc01.getId()));
-        assertTrue(m_linkd.scheduleNodeCollection(test1.getId()));
-        assertTrue(m_linkd.scheduleNodeCollection(twd1.getId()));
-        assertTrue(m_linkd.scheduleNodeCollection(twd2.getId()));
+//        assertTrue(m_linkd.scheduleNodeCollection(lc01.getId()));
+//        assertTrue(m_linkd.scheduleNodeCollection(test1.getId()));
+//        assertTrue(m_linkd.scheduleNodeCollection(twd1.getId()));
+//        assertTrue(m_linkd.scheduleNodeCollection(twd2.getId()));
         assertTrue(m_linkd.scheduleNodeCollection(cas.getId()));
         assertTrue(m_linkd.scheduleNodeCollection(switch04.getId()));
 
-        assertTrue(m_linkd.runSingleSnmpCollection(primary.getId()));
         assertTrue(m_linkd.runSingleSnmpCollection(core.getId()));
-        assertTrue(m_linkd.runSingleSnmpCollection(lc01.getId()));
-        assertTrue(m_linkd.runSingleSnmpCollection(test1.getId()));
-        assertTrue(m_linkd.runSingleSnmpCollection(twd1.getId()));
-        assertTrue(m_linkd.runSingleSnmpCollection(twd2.getId()));
+  //      assertTrue(m_linkd.runSingleSnmpCollection(lc01.getId()));
+  //      assertTrue(m_linkd.runSingleSnmpCollection(test1.getId()));
+  //      assertTrue(m_linkd.runSingleSnmpCollection(twd1.getId()));
+  //      assertTrue(m_linkd.runSingleSnmpCollection(twd2.getId()));
         assertTrue(m_linkd.runSingleSnmpCollection(cas.getId()));
         assertTrue(m_linkd.runSingleSnmpCollection(switch04.getId()));
                
