@@ -13,7 +13,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 @Entity
 @DiscriminatorValue("LLDP")
 public final class LldpElementIdentifier extends ElementIdentifier {
-
+	
 	@Embeddable
 	public static class LldpChassisIdSubType extends AbstractType 
 	implements Serializable{
@@ -185,19 +185,6 @@ public final class LldpElementIdentifier extends ElementIdentifier {
 		m_lldpChassisIdSubType = lldpChassisIdSubType;
 	}
 
-	@Override
-	public boolean equals(ElementIdentifier elementIdentifier) {
-		if (elementIdentifier instanceof LldpElementIdentifier) {
-			LldpElementIdentifier a = (LldpElementIdentifier)elementIdentifier;
-			if (getLldpChassisId().equals(a.getLldpChassisId()) &&
-				getLldpChassisIdSubType().equals(a.getLldpChassisIdSubType()) &&
-				getLldpSysname().equals(a.getLldpSysname()))
-				return true;
-		}
-			
-		return false;
-	}
- 
 	/**
 	 * <p>toString</p>
 	 *

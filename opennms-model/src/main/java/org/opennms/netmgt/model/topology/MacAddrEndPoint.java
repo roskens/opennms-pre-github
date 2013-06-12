@@ -41,15 +41,6 @@ public class MacAddrEndPoint extends EndPoint {
 		m_macAddress = macAddress;
 	}
 
-	@Override
-	public boolean equals(EndPoint endPoint) {
-		if (endPoint instanceof MacAddrEndPoint) {
-			if ((getElement() != null && endPoint.getElement() != null && getElement().equals(endPoint.getElement()))) 
-				return m_macAddress.equals(((MacAddrEndPoint)endPoint).getMacAddress());
-		}
-		return false;
-	}
-	
 	/**
 	 * <p>toString</p>
 	 *

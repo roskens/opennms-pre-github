@@ -30,13 +30,6 @@ public final class InetElementIdentifier extends ElementIdentifier {
 		m_inet = inet;
 	}
 
-	@Override
-	public boolean equals(ElementIdentifier elementIdentifier) {
-		if (elementIdentifier instanceof InetElementIdentifier) 
-			return (m_inet.equals(((InetElementIdentifier)elementIdentifier).getInet()));
-		return false;
-	}
-	
 	/**
 	 * <p>toString</p>
 	 *

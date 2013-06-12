@@ -3,6 +3,7 @@ package org.opennms.netmgt.model.topology;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -55,7 +56,10 @@ public class Element {
 		m_endpoints = endpoints;
 	}
 	
-	@OneToMany
+    @OneToMany(mappedBy="element")
+    @org.hibernate.annotations.Cascade( {
+        org.hibernate.annotations.CascadeType.ALL,
+        org.hibernate.annotations.CascadeType.DELETE_ORPHAN })
 	public List<ElementIdentifier> getElementIdentifiers() {
 		return m_identifiers;
 	}

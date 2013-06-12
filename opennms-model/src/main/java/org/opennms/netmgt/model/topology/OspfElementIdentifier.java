@@ -30,13 +30,6 @@ public final class OspfElementIdentifier extends ElementIdentifier {
 		m_ospfRouterId = ospfRouterId;
 	}
 
-	@Override
-	public boolean equals(ElementIdentifier elementIdentifier) {
-		if (elementIdentifier instanceof OspfElementIdentifier) 
-			return (m_ospfRouterId.equals(((OspfElementIdentifier)elementIdentifier).getOspfRouterId()));
-		return false;
-	}
-	
 	/**
 	 * <p>toString</p>
 	 *

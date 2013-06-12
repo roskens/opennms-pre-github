@@ -64,18 +64,6 @@ public class OspfEndPoint extends EndPoint {
 		m_ospfAddressLessIndex = ospfAddressLessIndex;
 	}
 
-	@Override
-	public boolean equals(EndPoint endPoint) {
-		if (endPoint instanceof OspfEndPoint) {
-			OspfEndPoint a=(OspfEndPoint)endPoint;
-			if (
-		((getElement() != null && a.getElement() != null && getElement().equals(a.getElement()))) 
-					 && m_ospfIpAddr.equals(a.getOspfIpAddr()) && m_ospfAddressLessIndex == a.getOspfAddressLessIndex())
-				return true;
-		}
-		return false;
-	}
-	
 	/**
 	 * <p>toString</p>
 	 *
