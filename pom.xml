@@ -600,25 +600,6 @@
           <rulesUri>file://${root.dir}/src/site/maven-version-rules.xml</rulesUri>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>com.soebes.maven.plugins</groupId>
-        <artifactId>maven-echo-plugin</artifactId>
-        <version>0.1</version>
-        <executions>
-          <execution>
-            <phase>compile</phase>
-            <goals>
-              <goal>echo</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <echos>
-            <echo>Build BaseDir: ${project.basedir}</echo>
-            <echo>Build Dir: ${project.build.directory}</echo>
-          </echos>
-        </configuration>
-      </plugin>
     </plugins>
   </build>
   <reporting>
