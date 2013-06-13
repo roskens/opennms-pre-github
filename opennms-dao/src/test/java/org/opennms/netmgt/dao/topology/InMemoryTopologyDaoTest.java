@@ -82,23 +82,24 @@ public class InMemoryTopologyDaoTest {
         InetAddress ip1 = InetAddress.getByName("10.10.10.1");
         InetAddress ip2 = InetAddress.getByName("10.10.10.2");
 
+        assertEquals(0, m_topologyDao.getTopology().size());
+
         Element host1 = new Element();
         host1.addElementIdentifier(new MacAddrElementIdentifier("000daaaa0001", nodeB));
         host1.addElementIdentifier(new InetElementIdentifier(ip1, nodeB));
-        EndPoint mac1 = new MacAddrEndPoint("000daaaa0001", nodeB);
-        mac1.setElement(host1);
+        MacAddrEndPoint mac1 = new MacAddrEndPoint("000daaaa0001", nodeB);
+        mac1.setIpAddr(ip1);
         host1.addEndPoint(mac1);
-        
-        Element host2 = new Element();
-        host2.addElementIdentifier(new MacAddrElementIdentifier("000daaaa0002", nodeB));
-        host2.addElementIdentifier(new InetElementIdentifier(ip2, nodeB));
-        EndPoint mac2 = new MacAddrEndPoint("000daaaa0002", nodeB);
-        mac2.setElement(host2);
-        host2.addEndPoint(mac2);
-        
 
         m_topologyDao.saveOrUpdate(mac1);
         assertEquals(1, m_topologyDao.getTopology().size());
+
+        Element host2 = new Element();
+        host2.addElementIdentifier(new MacAddrElementIdentifier("000daaaa0002", nodeB));
+        host2.addElementIdentifier(new InetElementIdentifier(ip2, nodeB));
+        MacAddrEndPoint mac2 = new MacAddrEndPoint("000daaaa0002", nodeB);
+        mac2.setIpAddr(ip2);
+        host2.addEndPoint(mac2);
 
         m_topologyDao.saveOrUpdate(mac2);
         assertEquals(2, m_topologyDao.getTopology().size());
@@ -115,12 +116,9 @@ public class InMemoryTopologyDaoTest {
         Element rhost1 = new Element();
         rhost1.addElementIdentifier(new MacAddrElementIdentifier("000daaaa0001", nodeA));
         MacAddrEndPoint rmac1 = new MacAddrEndPoint("000daaaa0001", nodeA);
-        rmac1.setElement(rhost1);
         rhost1.addEndPoint(rmac1);
 
         BridgeDot1dTpFdbLink link1 = new BridgeDot1dTpFdbLink(bridgeport1, rmac1, nodeA);
-        bridgeport1.setLink(link1);
-        rmac1.setLink(link1);
         
         m_topologyDao.saveOrUpdate(link1);
 
@@ -132,7 +130,6 @@ public class InMemoryTopologyDaoTest {
         assertEquals(bridgeport1, dbbridgeport1);
         assertEquals(mac1, dbbridgeport1.getLink().getB());
 
-        
         Element dbelement = m_topologyDao.get(new InetElementIdentifier(ip1, -1));
         assertEquals(true, dbelement.hasElementIdentifier(new MacAddrElementIdentifier("000daaaa0001", nodeA)));
         assertEquals(1, dbelement.getEndpoints().size());
@@ -153,12 +150,9 @@ public class InMemoryTopologyDaoTest {
         Element rhost2 = new Element();
         rhost2.addElementIdentifier(new MacAddrElementIdentifier("000daaaa0002", nodeA));
         MacAddrEndPoint rmac2 = new MacAddrEndPoint("000daaaa0002", nodeA);
-        rmac2.setElement(rhost2);
         rhost2.addEndPoint(rmac2);
         
         BridgeDot1dTpFdbLink link2 = new BridgeDot1dTpFdbLink(bridgeport2, rmac2, nodeA);
-        bridgeport2.setLink(link2);
-        rmac2.setLink(link2);
         
         m_topologyDao.saveOrUpdate(link2);
         
