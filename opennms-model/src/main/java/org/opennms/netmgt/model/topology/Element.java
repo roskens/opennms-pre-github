@@ -94,8 +94,10 @@ public class Element {
 	}
 
 	public void addEndPoint(EndPoint endPoint) {
+		endPoint.setElement(this);
 		m_endpoints.add(endPoint);
 	}
+	
 	public boolean equals(Object o) {
 		if ( o instanceof Element) {
 			Element e = (Element) o;
