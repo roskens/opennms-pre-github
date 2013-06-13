@@ -73,6 +73,7 @@ public class Element {
 	}
 	
 	public void addElementIdentifier(ElementIdentifier elementidentifier) {
+		elementidentifier.setElement(this);
 		m_identifiers.add(elementidentifier);
 	}
 

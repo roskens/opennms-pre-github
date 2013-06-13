@@ -99,6 +99,8 @@ public abstract class ElementIdentifier extends Pollable {
 
 	private ElementIdentifierType m_identifier;
 	
+	private Element m_element;
+	
 	public ElementIdentifier(ElementIdentifierType identifier, Integer sourceNode) {
 		super(sourceNode);
 		m_identifier = identifier;
@@ -112,6 +114,15 @@ public abstract class ElementIdentifier extends Pollable {
 		m_identifier = identifier
 				;
 	}
+	
+	public void setElement(Element element) {
+		m_element = element;
+	}
+	
+	public Element getElement() {
+		return m_element;
+	}
+
 	public boolean equals (Object o) {
 		if (o instanceof ElementIdentifier) {
 			if (((ElementIdentifier)o).getType().equals(getType()))
