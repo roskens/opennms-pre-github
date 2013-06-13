@@ -116,9 +116,11 @@ public abstract class Link extends Pollable {
 	
 	private LinkType m_linkType;
 	
-	public Link(LinkType linkType, Integer sourceNode) {
+	public Link(EndPoint a, EndPoint b, LinkType linkType, Integer sourceNode) {
 		super(sourceNode);
 		m_linkType=linkType;
+		setA(a);
+		setB(b);
 	}
 	
 	@OneToOne
@@ -127,6 +129,7 @@ public abstract class Link extends Pollable {
 	}
 
 	public void setA(EndPoint a) {
+		a.setLink(this);
 		this.m_a = a;
 	}
 
@@ -136,6 +139,7 @@ public abstract class Link extends Pollable {
 	}
 
 	public void setB(EndPoint b) {
+		b.setLink(this);
 		this.m_b = b;
 	}
 	

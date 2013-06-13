@@ -8,8 +8,6 @@ import javax.persistence.Entity;
 public class BridgeDot1dTpFdbLink extends Link {
 
 	public BridgeDot1dTpFdbLink(BridgeEndPoint a, MacAddrEndPoint b, Integer sourceNode) {
-		super(LinkType.DOT1D_TP_FDB, sourceNode);
-		setA(a);
-		setB(b);
+		super(a,b,LinkType.DOT1D_TP_FDB, sourceNode);
 	}
 }

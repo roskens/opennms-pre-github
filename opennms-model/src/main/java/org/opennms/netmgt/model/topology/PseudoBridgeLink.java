@@ -8,8 +8,6 @@ import javax.persistence.Entity;
 public class PseudoBridgeLink extends Link {
 
 	public PseudoBridgeLink(PseudoBridgeEndPoint a, BridgeEndPoint b, Integer sourceNode) {
-		super(LinkType.PSEUDO_BRIDGE, sourceNode);
-		setA(a);
-		setB(b);
+		super(a,b,LinkType.PSEUDO_BRIDGE, sourceNode);
 	}
 }
