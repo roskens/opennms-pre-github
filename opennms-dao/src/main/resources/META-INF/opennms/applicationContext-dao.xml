@@ -78,9 +78,12 @@
 
   <onmsgi:service interface="org.opennms.netmgt.model.FilterManager" ref="filterManager" />
 
+<!-- 
   <bean id="topologyDao" class="org.opennms.netmgt.dao.topology.TopologyDaoHibernate">
     <property name="sessionFactory" ref="sessionFactory" />
   </bean>
+ -->
+  <bean id="topologyDao" class="org.opennms.netmgt.dao.topology.TopologyDaoInMemoryImpl"/>
   
   <onmsgi:service interface="org.opennms.netmgt.dao.TopologyDao" ref="topologyDao" />
   
