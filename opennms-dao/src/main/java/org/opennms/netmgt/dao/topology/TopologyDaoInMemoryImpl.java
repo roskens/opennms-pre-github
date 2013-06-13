@@ -68,7 +68,6 @@ public class TopologyDaoInMemoryImpl implements TopologyDao {
 			for (EndPoint ep: e.getEndpoints()) {
 				if (ep.hasLink() && (ep.equals(link.getA()) || ep.equals(link.getB()))) {
 					ep.setLink(null);
-					break;
 				}
 			}
 		}
