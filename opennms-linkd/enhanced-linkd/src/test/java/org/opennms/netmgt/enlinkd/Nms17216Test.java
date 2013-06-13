@@ -208,6 +208,20 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
         final OnmsNode router3 = m_nodeDao.findByForeignId("linkd", ROUTER3_NAME);
         final OnmsNode router4 = m_nodeDao.findByForeignId("linkd", ROUTER4_NAME);
         
+        m_linkdConfig.getConfiguration().setUseBridgeDiscovery(true);
+        m_linkdConfig.getConfiguration().setUseCdpDiscovery(true);
+        m_linkdConfig.getConfiguration().setUseOspfDiscovery(true);
+        m_linkdConfig.getConfiguration().setUseLldpDiscovery(true);
+
+        assertTrue(m_linkdConfig.useLldpDiscovery());
+        assertTrue(!m_linkdConfig.useCdpDiscovery());
+        assertTrue(!m_linkdConfig.useOspfDiscovery());
+        assertTrue(!m_linkdConfig.useBridgeDiscovery());
+
+        final List<Element> topologyA = m_topologyDao.getTopology();
+        List<EndPoint> endpoints = printEndPointTopology(topologyA);
+        List<Link> links = printLinkTopology(topologyA);
+ 
         assertTrue(m_linkd.scheduleNodeCollection(switch1.getId()));
         assertTrue(m_linkd.scheduleNodeCollection(switch2.getId()));
         assertTrue(m_linkd.scheduleNodeCollection(switch3.getId()));
@@ -227,98 +241,14 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
         assertTrue(m_linkd.runSingleSnmpCollection(router2.getId()));
         assertTrue(m_linkd.runSingleSnmpCollection(router3.getId()));
         assertTrue(m_linkd.runSingleSnmpCollection(router4.getId()));
+        endpoints = printEndPointTopology(topologyA);
+        links = printLinkTopology(topologyA);
+        assertEquals(4,topologyA.size());
+        assertEquals(6, endpoints.size());
+        assertEquals(3, links.size());
 
-        /*       
-        assertEquals(0,m_dataLinkInterfaceDao.countAll());
-        
-        final Collection<LinkableNode> nodes = m_linkd.getLinkableNodesOnPackage("example1");
 
-        assertEquals(9, nodes.size());
-        
-        for (LinkableNode node: nodes) {
-            switch(node.getNodeId()) {
-                case 1: assertEquals(5, node.getCdpInterfaces().size());
-                assertEquals(SWITCH1_NAME, node.getCdpDeviceId());
-                break;
-                case 2: assertEquals(6, node.getCdpInterfaces().size());
-                assertEquals(SWITCH2_NAME, node.getCdpDeviceId());
-                break;
-                case 3: assertEquals(4, node.getCdpInterfaces().size());
-                assertEquals(SWITCH3_NAME, node.getCdpDeviceId());
-                break;
-                case 4: assertEquals(1, node.getCdpInterfaces().size());
-                assertEquals(SWITCH4_NAME, node.getCdpDeviceId());
-                break;
-                case 5: assertEquals(2, node.getCdpInterfaces().size());
-                assertEquals(SWITCH5_NAME, node.getCdpDeviceId());
-                break;
-                case 6: assertEquals(2, node.getCdpInterfaces().size());
-                assertEquals(ROUTER1_NAME, node.getCdpDeviceId());
-                break;
-                case 7: assertEquals(2, node.getCdpInterfaces().size());
-                assertEquals(ROUTER2_NAME, node.getCdpDeviceId());
-                break;
-                case 8: assertEquals(3, node.getCdpInterfaces().size());
-                assertEquals(ROUTER3_NAME, node.getCdpDeviceId());
-                break;
-                case 9: assertEquals(1, node.getCdpInterfaces().size());
-                assertEquals(ROUTER4_NAME, node.getCdpDeviceId());
-                break;
-                default: assertEquals(-1, node.getNodeId());
-                break;
-            }
-        }        
-        
-        assertTrue(m_linkd.runSingleLinkDiscovery("example1"));
 
-        assertEquals(13,m_dataLinkInterfaceDao.countAll());
-        final List<DataLinkInterface> datalinkinterfaces = m_dataLinkInterfaceDao.findAll();
-
-        int start=getStartPoint(datalinkinterfaces);
-
-        for (final DataLinkInterface datalinkinterface: datalinkinterfaces) {
-            Integer linkid = datalinkinterface.getId();
-            if ( linkid == start) {
-                // switch1 gi0/9 -> switch2 gi0/1 --lldp --cdp
-                checkLink(switch2, switch1, 10101, 10109, datalinkinterface);
-            } else if (linkid == start+1 ) {
-                // switch1 gi0/10 -> switch2 gi0/2 --lldp --cdp
-                checkLink(switch2, switch1, 10102, 10110, datalinkinterface);
-            } else if (linkid == start+2) {
-                // switch1 gi0/11 -> switch2 gi0/3 --lldp --cdp
-                checkLink(switch2, switch1, 10103, 10111, datalinkinterface);
-            } else if (linkid == start+3) {
-                // switch1 gi0/12 -> switch2 gi0/4 --lldp --cdp
-                checkLink(switch2, switch1, 10104, 10112, datalinkinterface);
-            } else if (linkid == start+4) {
-                // switch2 gi0/19 -> switch3 Fa0/19 --lldp --cdp
-                checkLink(switch3, switch2, 10019, 10119, datalinkinterface);
-            } else if (linkid == start+5) {
-                // switch2 gi0/20 -> switch3 Fa0/20 --lldp --cdp
-                checkLink(switch3, switch2, 10020, 10120, datalinkinterface);
-            } else if (linkid == start+6) {
-                // switch1 gi0/1 -> router1 Fa0/20 --cdp
-                checkLink(router1, switch1, 7, 10101, datalinkinterface);
-            } else if (linkid == start+7) {
-                // switch3 Fa0/1 -> switch5 Fa0/23 --cdp
-                checkLink(switch5, switch3, 10001, 10023, datalinkinterface);
-            } else if (linkid == start+8) {
-                // switch3 gi0/1 -> switch5 Fa0/20 --cdp
-                checkLink(switch5, switch3, 10013, 10024, datalinkinterface);
-            } else if (linkid == start+9) {
-                //switch4 FastEthernet0/1    ----> router3   GigabitEthernet0/1
-                checkLink(router3, switch4, 9, 10001, datalinkinterface);
-            } else if (linkid == start+10) {
-                checkLink(router2, router1, 12, 13, datalinkinterface);
-            } else if (linkid == start+11) {
-                checkLink(router3, router2, 13, 13, datalinkinterface);
-            } else if (linkid == start+12) {
-                checkLink(router4, router3, 3, 8, datalinkinterface);
-            } else {
-                // error
-                checkLink(switch1,switch1,-1,-1,datalinkinterface);
-            }      
-        }*/
     }
 
     /*
@@ -451,20 +381,6 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
         assertEquals(6, endpoints.size());
         assertEquals(3, links.size());
         
-//        for (LinkableNode node: nodes) {
-  //          assertEquals(1, node.getCdpInterfaces().size());
-  //      }
-        
- //       assertTrue(m_linkd.runSingleLinkDiscovery("example1"));
-
- //       assertEquals(1,m_dataLinkInterfaceDao.countAll());
- //       final List<DataLinkInterface> datalinkinterfaces = m_dataLinkInterfaceDao.findAll();
-                
- //       for (final DataLinkInterface datalinkinterface: datalinkinterfaces) {
-
-//                checkLink(router3, switch4, 9, 10001, datalinkinterface);
-               
-//        }
     }
     
 }
