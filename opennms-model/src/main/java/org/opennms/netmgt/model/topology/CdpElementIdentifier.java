@@ -236,6 +236,13 @@ public final class CdpElementIdentifier extends ElementIdentifier {
 	public void setCdpAddress(String cdpAddress) {
 		m_cdpAddress = cdpAddress;
 	}
+	@Override
+	public boolean equals(ElementIdentifier elementIdentifier) {
+		if (elementIdentifier instanceof CdpElementIdentifier) 
+			return (m_cdpDeviceId.equals(((CdpElementIdentifier)elementIdentifier).getCdpDeviceId()));
+		return false;
+	}
+	
 	/**
 	 * <p>toString</p>
 	 *

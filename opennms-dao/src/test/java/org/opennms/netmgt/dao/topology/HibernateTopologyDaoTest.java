@@ -96,7 +96,6 @@ public class HibernateTopologyDaoTest {
         InetAddress ip2 = InetAddress.getByName("10.10.10.2");
 
         Element host1 = new Element();
-        // mac:000daaaa0001
         host1.addElementIdentifier(new MacAddrElementIdentifier("000daaaa0001", nodeB));
         host1.addElementIdentifier(new InetElementIdentifier(ip1, nodeB));
         EndPoint mac1 = new MacAddrEndPoint("000daaaa0001", nodeB);

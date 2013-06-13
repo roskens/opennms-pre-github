@@ -24,6 +24,17 @@ public final class NodeElementIdentifier extends ElementIdentifier {
 		m_nodeid = nodeid;
 	}
 
+	@Override
+	public boolean equals(ElementIdentifier elementIdentifier) {
+		if (elementIdentifier instanceof NodeElementIdentifier) {
+			NodeElementIdentifier nodeElementIdentifier = (NodeElementIdentifier)elementIdentifier;
+			if (m_nodeid.intValue() == nodeElementIdentifier.getNodeid().intValue()) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	/**
 	 * <p>toString</p>
 	 *

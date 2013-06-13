@@ -35,6 +35,15 @@ public class CdpEndPoint extends EndPoint {
 		m_cdpCacheDevicePort = cdpCacheDevicePort;
 	}
 
+	@Override
+	public boolean equals(EndPoint endPoint) {
+		if (endPoint instanceof CdpEndPoint) {
+			if ((getElement() != null && endPoint.getElement() != null && getElement().equals(endPoint.getElement()))) 
+				return getCdpCacheDevicePort().equals(((CdpEndPoint)endPoint).getCdpCacheDevicePort());
+		}
+		return false;
+	}
+	
 	/**
 	 * <p>toString</p>
 	 *

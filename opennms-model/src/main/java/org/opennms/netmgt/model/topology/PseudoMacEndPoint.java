@@ -24,7 +24,18 @@ public class PseudoMacEndPoint extends PseudoBridgeEndPoint {
 	public void setLinkedMacAddress(String linkedMacAddress) {
 		m_linkedMacAddress = linkedMacAddress;
 	}
-
+	
+	public boolean equals(PseudoMacEndPoint endPoint) {
+			if ((getElement() != null && endPoint.getElement() != null && getElement()
+					.equals(endPoint.getElement()))) {
+				if (m_linkedMacAddress != null
+						&& endPoint.getLinkedMacAddress() != null)
+					return m_linkedMacAddress.equals((endPoint
+							.getLinkedMacAddress()));
+		}
+		return false;
+	}
+	
 	/**
 	 * <p>toString</p>
 	 *

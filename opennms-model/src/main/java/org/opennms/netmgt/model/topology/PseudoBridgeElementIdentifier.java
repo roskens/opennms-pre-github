@@ -34,6 +34,17 @@ public final class PseudoBridgeElementIdentifier extends ElementIdentifier {
 		m_linkedBridgePort = port;
 	}
 
+	@Override
+	public boolean equals(ElementIdentifier elementIdentifier) {
+		if (elementIdentifier instanceof PseudoBridgeElementIdentifier)
+			return (m_linkedBridgeIdentifier
+					.equals(((PseudoBridgeElementIdentifier) elementIdentifier)
+							.getLinkedBridgeIdentifier()) && m_linkedBridgePort
+					.equals(((PseudoBridgeElementIdentifier) elementIdentifier)
+							.getLinkedBridgePort()));
+		return false;
+	}
+	
 	/**
 	 * <p>toString</p>
 	 *

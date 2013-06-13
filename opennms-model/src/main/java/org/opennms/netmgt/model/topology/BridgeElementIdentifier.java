@@ -24,6 +24,13 @@ public final class BridgeElementIdentifier extends ElementIdentifier {
 		m_bridgeAddress = bridgeAddress;
 	}
 
+	@Override
+	public boolean equals(ElementIdentifier elementIdentifier) {
+		if (elementIdentifier instanceof BridgeElementIdentifier) 
+			return (m_bridgeAddress.equals(((BridgeElementIdentifier)elementIdentifier).getBridgeAddress()));
+		return false;
+	}
+	
 	/**
 	 * <p>toString</p>
 	 *

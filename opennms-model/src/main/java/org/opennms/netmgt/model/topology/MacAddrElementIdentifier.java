@@ -15,7 +15,7 @@ public final class MacAddrElementIdentifier extends ElementIdentifier {
 		super(ElementIdentifierType.MAC,sourceNode);
 		m_macAddr = mac;
 	}
-	
+
 	public String getMacAddr() {
 		return m_macAddr;
 	}
@@ -24,6 +24,13 @@ public final class MacAddrElementIdentifier extends ElementIdentifier {
 		m_macAddr = macAddr;
 	}
 
+	@Override
+	public boolean equals(ElementIdentifier elementIdentifier) {
+		if (elementIdentifier instanceof MacAddrElementIdentifier) 
+			return (m_macAddr.equals(((MacAddrElementIdentifier)elementIdentifier).getMacAddr()));
+		return false;
+	}
+	
 	/**
 	 * <p>toString</p>
 	 *

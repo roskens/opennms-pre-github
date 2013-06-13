@@ -117,5 +117,15 @@ public abstract class EndPoint extends Pollable {
 		m_ifName = ifName;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof EndPoint) {
+			return equals((EndPoint)o);
+		}
+		return false;
+	}
+	
+	public abstract boolean equals(EndPoint endPoint);
+
 	public abstract void update(EndPoint endpoint);
 }

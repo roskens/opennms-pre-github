@@ -98,7 +98,6 @@ public abstract class ElementIdentifier extends Pollable {
 	}
 
 	private ElementIdentifierType m_identifier;
-	private Element m_element;
 	
 	public ElementIdentifier(ElementIdentifierType identifier, Integer sourceNode) {
 		super(sourceNode);
@@ -110,19 +109,22 @@ public abstract class ElementIdentifier extends Pollable {
 	}
 	
 	public void setType(ElementIdentifierType identifier) {
-		m_identifier = identifier;
+		m_identifier = identifier
+				;
 	}
-	
-	public Element getElement() {
-		return m_element;
+	public boolean equals (Object o) {
+		if (o instanceof ElementIdentifier) {
+			if (((ElementIdentifier)o).getType().equals(getType()))
+				return equals((ElementIdentifier)o);
+		}
+		return false;
 	}
-	
-	public void setElement(Element element) {
-		m_element = element;
-	}
+
+	public abstract boolean equals(ElementIdentifier elementIdentifier);
 	
 	public void update(ElementIdentifier elementidentifier) {
-		if (!equals(elementidentifier))	return;
+		if (!equals(elementidentifier))
+			return;
 		m_lastPoll = elementidentifier.getLastPoll();
 	}
 }

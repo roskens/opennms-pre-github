@@ -35,6 +35,30 @@ public class PseudoBridgeEndPoint extends EndPoint {
 	}
 
 
+	@Override
+	public boolean equals(EndPoint endPoint) {
+		if (endPoint instanceof PseudoMacEndPoint && (this instanceof PseudoMacEndPoint)) {
+			return ((PseudoMacEndPoint)this).equals((PseudoMacEndPoint)endPoint);
+		} else if (! (endPoint instanceof PseudoMacEndPoint) && (this instanceof PseudoMacEndPoint)) {
+			return false;
+		}else if ((endPoint instanceof PseudoMacEndPoint) && ! (this instanceof PseudoMacEndPoint)) {
+			return false;
+		}
+		if (endPoint instanceof PseudoBridgeEndPoint) {
+			PseudoBridgeEndPoint pseudoEndPoint = (PseudoBridgeEndPoint) endPoint;
+			if ((getElement() != null && endPoint.getElement() != null && getElement()
+					.equals(endPoint.getElement()))) {
+				if (m_linkedBridgeIdentifier != null
+						&& pseudoEndPoint.getLinkedBridgeIdentifier() != null
+						&& m_linkedBridgeIdentifier.equals(pseudoEndPoint
+								.getLinkedBridgeIdentifier()))
+					return m_linkedBridgePort.equals(pseudoEndPoint
+							.getLinkedBridgePort());
+			}
+		}
+		return false;
+	}
+	
 	/**
 	 * <p>toString</p>
 	 *
