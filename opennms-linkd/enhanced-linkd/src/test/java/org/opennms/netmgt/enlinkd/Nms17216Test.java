@@ -241,9 +241,9 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
         assertTrue(m_linkd.runSingleSnmpCollection(router4.getId()));
         endpoints = printEndPointTopology(topologyA);
         links = printLinkTopology(topologyA);
-        assertEquals(4,topologyA.size());
-        assertEquals(6, endpoints.size());
-        assertEquals(3, links.size());
+        assertEquals(31,topologyA.size());
+        assertEquals(38, endpoints.size());
+        assertEquals(19, links.size());
 
 
 

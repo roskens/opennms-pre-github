@@ -181,7 +181,6 @@ public class CdpCacheTableTracker extends TableTracker {
 
             CdpEndPoint endPointA = cdpInterfacePortNameGetter.get(getCdpCacheIfIndex(),nodeIdentifier.getNodeid());
             deviceA.addEndPoint(endPointA);
-    		endPointA.setElement(deviceA);
             LogUtils.infof(this, "processCdpCacheRow: row local port: %s", endPointA.getCdpCacheDevicePort());
     		
     		Element deviceB = new Element();
@@ -191,13 +190,9 @@ public class CdpCacheTableTracker extends TableTracker {
     		
     		CdpEndPoint endPointB = getCdpCacheEndPoint(nodeIdentifier.getNodeid());
     		deviceB.addEndPoint(endPointB);
-    		endPointB.setElement(deviceB);
             LogUtils.infof(this, "processCdpCacheRow: row cdp cache device port: %s", endPointB.getCdpCacheDevicePort());
     		
-    		CdpLink link = new CdpLink(endPointA, endPointB,nodeIdentifier.getNodeid());
-    		endPointA.setLink(link);
-    		endPointB.setLink(link);
-    		return link;
+    		return new CdpLink(endPointA, endPointB,nodeIdentifier.getNodeid());
 	    }
 
     }

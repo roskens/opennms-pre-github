@@ -20,7 +20,6 @@ public final class PseudoBridgeHelper {
 		Element elementA = new Element();
 		elementA.addElementIdentifier(bridgeA);
 		elementA.addEndPoint(portA);
-		portA.setElement(elementA);
 		return portA;
 	}
 	
@@ -44,11 +43,7 @@ public final class PseudoBridgeHelper {
 		PseudoMacEndPoint endPointA = new PseudoMacEndPoint(
 				mac.getMacAddress(), getPseudoBridgeElementIdentifier(port).getLinkedBridgeIdentifier(), port.getBridgePort(),port.getSourceNode());
 		elementA.addEndPoint(endPointA);
-		endPointA.setElement(elementA);
-		PseudoMacLink pseudoMacLink = new PseudoMacLink(endPointA, mac, port.getSourceNode());
-		endPointA.setLink(pseudoMacLink);
-		mac.setLink(pseudoMacLink);
-		return pseudoMacLink;
+		return new PseudoMacLink(endPointA, mac, port.getSourceNode());
 	}
 
 	public static PseudoBridgeLink getPseudoBridgeLink(
@@ -61,12 +56,9 @@ public final class PseudoBridgeHelper {
 		PseudoBridgeEndPoint endPointA = new PseudoBridgeEndPoint(pid.getLinkedBridgeIdentifier(),
 				pid.getLinkedBridgePort(), port.getSourceNode());
 		elementA.addEndPoint(endPointA);
-		endPointA.setElement(elementA);
-		PseudoBridgeLink pseudoBridgeLink = new PseudoBridgeLink(endPointA, (BridgeEndPoint) port,
+		
+		return new PseudoBridgeLink(endPointA, (BridgeEndPoint) port,
 				port.getSourceNode());
-		endPointA.setLink(pseudoBridgeLink);
-		port.setLink(pseudoBridgeLink);
-		return pseudoBridgeLink;
 	}
 }
 

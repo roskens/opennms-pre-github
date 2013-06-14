@@ -92,12 +92,8 @@ public class DefaultServiceTest {
 	private BridgeDot1dTpFdbLink getLink(Integer nodeid, String baseBridgeAddress, Integer port, String mac) {
  		
         BridgeEndPoint endPointA = getBridgeEndPoint(port, nodeid, baseBridgeAddress);
-		    		
 		MacAddrEndPoint endPointB = getMacAddressEndPoint(mac, nodeid);
-		
 		BridgeDot1dTpFdbLink link = new BridgeDot1dTpFdbLink(endPointA, endPointB,nodeid);
-		endPointA.setLink(link);
-		endPointB.setLink(link);
 		return link;
 	}
 
@@ -108,7 +104,6 @@ public class DefaultServiceTest {
 
         BridgeEndPoint endPointA = new BridgeEndPoint(port,nodeid);
         deviceA.addEndPoint(endPointA);
-		endPointA.setElement(deviceA);
 		return endPointA;
   	
 	}
@@ -119,7 +114,6 @@ public class DefaultServiceTest {
 		endPointB.setSourceNode(sourceNode);
 		deviceB.addElementIdentifier(new MacAddrElementIdentifier(endPointB.getMacAddress(),sourceNode));
 		deviceB.addEndPoint(endPointB);
-		endPointB.setElement(deviceB);
         return endPointB;
 	}
 		

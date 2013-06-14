@@ -99,14 +99,12 @@ public class HibernateTopologyDaoTest {
         host1.addElementIdentifier(new MacAddrElementIdentifier("000daaaa0001", nodeB));
         host1.addElementIdentifier(new InetElementIdentifier(ip1, nodeB));
         EndPoint mac1 = new MacAddrEndPoint("000daaaa0001", nodeB);
-        mac1.setElement(host1);
         host1.addEndPoint(mac1);
         
         Element host2 = new Element();
         host2.addElementIdentifier(new MacAddrElementIdentifier("000daaaa0002", nodeB));
         host2.addElementIdentifier(new InetElementIdentifier(ip2, nodeB));
         EndPoint mac2 = new MacAddrEndPoint("000daaaa0002", nodeB);
-        mac2.setElement(host2);
         host2.addEndPoint(mac2);
         
 
@@ -121,19 +119,15 @@ public class HibernateTopologyDaoTest {
         bridge.addElementIdentifier(new NodeElementIdentifier(nodeA));
         
         BridgeEndPoint bridgeport1 = new BridgeEndPoint(portA1, nodeA);
-        bridgeport1.setElement(bridge);
         bridge.addEndPoint(bridgeport1);
         assertEquals(null, m_topologyDao.get(bridgeport1));
 
         Element rhost1 = new Element();
         rhost1.addElementIdentifier(new MacAddrElementIdentifier("000daaaa0001", nodeA));
         MacAddrEndPoint rmac1 = new MacAddrEndPoint("000daaaa0001", nodeA);
-        rmac1.setElement(rhost1);
         rhost1.addEndPoint(rmac1);
 
         BridgeDot1dTpFdbLink link1 = new BridgeDot1dTpFdbLink(bridgeport1, rmac1, nodeA);
-        bridgeport1.setLink(link1);
-        rmac1.setLink(link1);
         
         m_topologyDao.saveOrUpdate(link1);
 
@@ -160,18 +154,14 @@ public class HibernateTopologyDaoTest {
         rbridge.addElementIdentifier(new NodeElementIdentifier(nodeA));
         
         BridgeEndPoint bridgeport2 = new BridgeEndPoint(portA2, nodeA);
-        bridgeport2.setElement(rbridge);
         rbridge.addEndPoint(bridgeport2);
         
         Element rhost2 = new Element();
         rhost2.addElementIdentifier(new MacAddrElementIdentifier("000daaaa0002", nodeA));
         MacAddrEndPoint rmac2 = new MacAddrEndPoint("000daaaa0002", nodeA);
-        rmac2.setElement(rhost2);
         rhost2.addEndPoint(rmac2);
         
         BridgeDot1dTpFdbLink link2 = new BridgeDot1dTpFdbLink(bridgeport2, rmac2, nodeA);
-        bridgeport2.setLink(link2);
-        rmac2.setLink(link2);
         
         m_topologyDao.saveOrUpdate(link2);
         

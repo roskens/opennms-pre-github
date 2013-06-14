@@ -69,6 +69,8 @@ public abstract class EnhancedLinkdNetworkBuilderHelper {
 
         for (final Element e: topology) {
         	System.err.println("---------- element --------");
+			if (e == null)
+				continue;
         	for (ElementIdentifier iden: e.getElementIdentifiers()) {
         		printElementIdentifier(iden);
         	}
@@ -89,6 +91,8 @@ public abstract class EnhancedLinkdNetworkBuilderHelper {
     	List<Link> links = new ArrayList<Link>();
 
         for (final Element e: topology) {
+			if (e == null)
+				continue;
         	for (EndPoint ep: e.getEndpoints()) {
         		if (ep.hasLink() && !links.contains(ep.getLink())) {
         			links.add(ep.getLink());

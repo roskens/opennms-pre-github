@@ -77,14 +77,12 @@ public class TopologyTest {
 
 		LldpEndPoint endPointA1 = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,103);
 		elementA.addEndPoint(endPointA1);
-		endPointA1.setElement(elementA);
 
 		Element elementB = new Element();
 		elementB.addElementIdentifier(new LldpElementIdentifier("0016caad4d80", "switch1", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS,103));
 		
 		LldpEndPoint endPointB1 = new LldpEndPoint("Ge0/0", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,103);
 		elementB.addEndPoint(endPointB1);
-		endPointB1.setElement(elementB);
 		
 		LldpLink link1 = new LldpLink(endPointA1, endPointB1,103);
 		LldpLink link2 = new LldpLink(endPointB1, endPointA1,113);

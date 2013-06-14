@@ -490,6 +490,8 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 		List<EndPoint> endpoints = new ArrayList<EndPoint>();
 		List<ElementIdentifier> elementidentifiers = new ArrayList<ElementIdentifier>();
 		for (Element e: m_topologyDao.getTopology()) {
+			if (e == null)
+				continue;
 			for (ElementIdentifier elemId: e.getElementIdentifiers()) {
 				if (nodeid == elemId.getSourceNode() && elemId.getLastPoll().before(now) && elemId instanceof CdpElementIdentifier)
 					elementidentifiers.add(elemId);
@@ -507,6 +509,8 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 		List<EndPoint> endpoints = new ArrayList<EndPoint>();
 		List<ElementIdentifier> elementidentifiers = new ArrayList<ElementIdentifier>();
 		for (Element e: m_topologyDao.getTopology()) {
+			if (e == null)
+				continue;
 			for (ElementIdentifier elemId: e.getElementIdentifiers()) {
 				if (nodeid == elemId.getSourceNode() && elemId.getLastPoll().before(now) && elemId instanceof OspfElementIdentifier)
 					elementidentifiers.add(elemId);
@@ -524,6 +528,8 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 		List<ElementIdentifier> elementidentifiers = new ArrayList<ElementIdentifier>();
 		List<EndPoint> endpoints = new ArrayList<EndPoint>();
 		for (Element e: m_topologyDao.getTopology()) {
+			if (e == null)
+				continue;
 			for (ElementIdentifier ei: e.getElementIdentifiers()) {
 				if (nodeid == ei.getSourceNode() && ei.getLastPoll().before(now)) {
 					if (ei instanceof MacAddrElementIdentifier) {
@@ -555,6 +561,8 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 		List<ElementIdentifier> elementidentifiers = new ArrayList<ElementIdentifier>();
 		List<EndPoint> endpoints = new ArrayList<EndPoint>();
 		for (Element e: m_topologyDao.getTopology()) {
+			if (e == null) 
+				continue;
 			for (ElementIdentifier ei: e.getElementIdentifiers()) {
 				if (nodeid == ei.getSourceNode() && ei.getLastPoll().before(now)) {
 					if (ei instanceof MacAddrElementIdentifier) {

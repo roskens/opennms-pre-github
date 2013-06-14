@@ -232,7 +232,6 @@ public class Dot1dStpPortTableTracker extends TableTracker {
 
             BridgeEndPoint endPointA = new BridgeEndPoint(getDot1dStpPort(),nodeIdentifier.getNodeid());
             deviceA.addEndPoint(endPointA);
-    		endPointA.setElement(deviceA);
             LogUtils.infof(this, "processStpPortRow: row local bridge port: %s", endPointA.getBridgePort());
     		
     		Element deviceB = new Element();
@@ -243,12 +242,9 @@ public class Dot1dStpPortTableTracker extends TableTracker {
     		BridgeEndPoint endPointB = getRemEndPoint(nodeIdentifier.getNodeid());
             LogUtils.infof(this, "processStpPortRow: row remote bridge port: %s", endPointB.getBridgePort());
     		deviceB.addEndPoint(endPointB);
-    		endPointB.setElement(deviceB);
     		
-    		BridgeStpLink link = new BridgeStpLink(endPointA, endPointB,nodeIdentifier.getNodeid());
-    		endPointA.setLink(link);
-    		endPointB.setLink(link);
-    		return link;
+    		return new BridgeStpLink(endPointA, endPointB,nodeIdentifier.getNodeid());
+
 		}
 
 		public BridgeEndPoint getRemEndPoint(Integer sourceNode) {

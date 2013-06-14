@@ -109,7 +109,6 @@ public class InMemoryTopologyDaoTest {
         bridge.addElementIdentifier(new NodeElementIdentifier(nodeA));
         
         BridgeEndPoint bridgeport1 = new BridgeEndPoint(portA1, nodeA);
-        bridgeport1.setElement(bridge);
         bridge.addEndPoint(bridgeport1);
         assertEquals(null, m_topologyDao.get(bridgeport1));
 
@@ -144,8 +143,6 @@ public class InMemoryTopologyDaoTest {
         rbridge.addElementIdentifier(new NodeElementIdentifier(nodeA));
         
         BridgeEndPoint bridgeport2 = new BridgeEndPoint(portA2, nodeA);
-        bridgeport2.setElement(rbridge);
-        rbridge.addEndPoint(bridgeport2);
         
         Element rhost2 = new Element();
         rhost2.addElementIdentifier(new MacAddrElementIdentifier("000daaaa0002", nodeA));
