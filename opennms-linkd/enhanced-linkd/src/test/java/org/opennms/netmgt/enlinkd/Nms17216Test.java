@@ -36,7 +36,6 @@ import java.util.Properties;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.opennms.core.test.MockLogAppender;
@@ -172,7 +171,6 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
      * 
      */
     @Test
-    @Ignore
     @JUnitSnmpAgents(value={
             @JUnitSnmpAgent(host=SWITCH1_IP, port=161, resource="classpath:linkd/nms17216/switch1-walk.txt"),
             @JUnitSnmpAgent(host=SWITCH2_IP, port=161, resource="classpath:linkd/nms17216/switch2-walk.txt"),
@@ -214,9 +212,9 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
         m_linkdConfig.getConfiguration().setUseLldpDiscovery(true);
 
         assertTrue(m_linkdConfig.useLldpDiscovery());
-        assertTrue(!m_linkdConfig.useCdpDiscovery());
-        assertTrue(!m_linkdConfig.useOspfDiscovery());
-        assertTrue(!m_linkdConfig.useBridgeDiscovery());
+        assertTrue(m_linkdConfig.useCdpDiscovery());
+        assertTrue(m_linkdConfig.useOspfDiscovery());
+        assertTrue(m_linkdConfig.useBridgeDiscovery());
 
         final List<Element> topologyA = m_topologyDao.getTopology();
         List<EndPoint> endpoints = printEndPointTopology(topologyA);
