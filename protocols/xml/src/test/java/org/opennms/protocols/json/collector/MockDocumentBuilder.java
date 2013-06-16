@@ -26,13 +26,13 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.protocols.xml.collector;
+package org.opennms.protocols.json.collector;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.FileInputStream;
 
-import org.junit.Assert;
-import org.w3c.dom.Document;
+import net.sf.json.JSONObject;
+
+import org.apache.commons.io.IOUtils;
 
 /**
  * The Mock Document Builder.
@@ -41,8 +41,8 @@ import org.w3c.dom.Document;
  */
 public class MockDocumentBuilder {
 
-    /** The XML file name. */
-    public static String m_xmlFileName;
+    /** The JSON file name. */
+    public static String m_jsonFileName;
 
     /**
      * Instantiates a new mock document builder.
@@ -50,25 +50,27 @@ public class MockDocumentBuilder {
     private MockDocumentBuilder() {}
 
     /**
-     * Gets the XML document.
+     * Gets the JSON document.
      *
-     * @return the XML document
+     * @return the JSON document
      */
-    public static Document getXmlDocument() {
-        if (m_xmlFileName == null)
+    public static JSONObject getJSONDocument() {
+        if (m_jsonFileName == null)
             return null;
-        Document doc = null;
+        JSONObject json = null;
+        
+        FileInputStream inputStream = null;
         try {
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            factory.setIgnoringComments(true);
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            doc = builder.parse(m_xmlFileName);
-            doc.getDocumentElement().normalize();
-            return doc;
+            inputStream = new FileInputStream(m_jsonFileName);
+            String everything = IOUtils.toString(inputStream);
+            json = JSONObject.fromObject(everything);
         } catch (Exception e) {
-            Assert.fail(e.getMessage());
+        } finally {
+            if (inputStream != null)
+            IOUtils.closeQuietly(inputStream);
         }
-        return doc;
+        
+        return json;
     }
 
     /**
@@ -76,8 +78,8 @@ public class MockDocumentBuilder {
      *
      * @param xmlFileName the new XML file name
      */
-    public static void setXmlFileName(String xmlFileName) {
-        m_xmlFileName = xmlFileName;
+    public static void setJSONFileName(String jsonFileName) {
+        m_jsonFileName = jsonFileName;
     }
 }
 

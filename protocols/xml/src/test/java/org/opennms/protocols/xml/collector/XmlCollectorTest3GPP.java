@@ -33,9 +33,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathFactory;
-
+import org.apache.commons.jxpath.JXPathContext;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -47,7 +45,7 @@ import org.junit.Test;
  * 
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
-public class XmlCollectorTest3GPP extends AbcstractXmlCollectorTest {
+public class XmlCollectorTest3GPP extends AbstractXmlCollectorTest {
 
     /* (non-Javadoc)
      * @see org.opennms.protocols.xml.collector.AbcstractXmlCollectorTest#getXmlConfigFileName()
@@ -81,8 +79,8 @@ public class XmlCollectorTest3GPP extends AbcstractXmlCollectorTest {
         Assert.assertEquals(expectedTimestamp, date.getTime());
 
         MockDefaultXmlCollectionHandler handler = new MockDefaultXmlCollectionHandler();
-        XPath xpath = XPathFactory.newInstance().newXPath();
-        date = handler.getTimeStamp(MockDocumentBuilder.getXmlDocument(), xpath, getConfigDao().getDataCollectionByName("3GPP").getXmlSources().get(0).getXmlGroups().get(0));
+        JXPathContext context = JXPathContext.newContext(MockDocumentBuilder.getXmlDocument());
+        date = handler.getTimeStamp(context, getConfigDao().getDataCollectionByName("3GPP").getXmlSources().get(0).getXmlGroups().get(0));
         Assert.assertEquals(expectedTimestamp, date.getTime());
     }
 

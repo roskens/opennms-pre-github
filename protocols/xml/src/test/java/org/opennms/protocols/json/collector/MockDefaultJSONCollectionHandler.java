@@ -26,40 +26,41 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.protocols.xml.collector;
+package org.opennms.protocols.json.collector;
 
-import java.util.Date;
+import net.sf.json.JSONObject;
 
-import org.apache.commons.jxpath.JXPathContext;
 import org.opennms.netmgt.collectd.CollectionAgent;
 import org.opennms.netmgt.collectd.PersistAllSelectorStrategy;
 import org.opennms.netmgt.config.datacollection.PersistenceSelectorStrategy;
 import org.opennms.netmgt.config.datacollection.ResourceType;
 import org.opennms.netmgt.config.datacollection.StorageStrategy;
-import org.opennms.protocols.xml.config.XmlGroup;
-import org.w3c.dom.Document;
+import org.opennms.protocols.json.collector.DefaultJSONCollectionHandler;
+import org.opennms.protocols.json.collector.MockDocumentBuilder;
+import org.opennms.protocols.xml.collector.XmlResourceType;
+import org.opennms.protocols.xml.collector.XmlStorageStrategy;
 
 /**
- * The Mock Class for Sftp3gppXmlCollectionHandler.
+ * The Mock Class for DefaultJSONCollectionHandler.
+ * <p>This file is created in order to avoid calling a real server to retrieve a valid file and  parse a provided sample file through MockDocumentBuilder</p>
  * 
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
-public class MockSftp3gppStrictCollectionHandler extends Sftp3gppXmlCollectionHandler {
+public class MockDefaultJSONCollectionHandler extends DefaultJSONCollectionHandler {
 
     /* (non-Javadoc)
      * @see org.opennms.protocols.xml.collector.AbstractXmlCollectionHandler#getXmlDocument(java.lang.String)
      */
     @Override
-    protected Document getXmlDocument(String urlString) {
-        return MockDocumentBuilder.getXmlDocument();
+    protected JSONObject getJSONObject(String urlString) {
+        return MockDocumentBuilder.getJSONDocument();
     }
 
     /* (non-Javadoc)
-     * @see org.opennms.protocols.xml.collector.Sftp3gppXmlCollectionHandler#parseUrl(java.lang.String, org.opennms.netmgt.collectd.CollectionAgent, java.lang.Integer, long)
+     * @see org.opennms.protocols.xml.collector.AbstractXmlCollectionHandler#parseUrl(java.lang.String, org.opennms.netmgt.collectd.CollectionAgent, java.lang.Integer)
      */
     @Override
-    protected String parseUrl(String unformattedUrl, CollectionAgent agent, Integer collectionStep, long currentTimestamp) throws IllegalArgumentException {
-        log().info("parseUrl: reference timestamp is " + new Date(currentTimestamp));
+    protected String parseUrl(String unformattedUrl, CollectionAgent agent, Integer collectionStep) {
         return null;
     }
 
@@ -68,24 +69,14 @@ public class MockSftp3gppStrictCollectionHandler extends Sftp3gppXmlCollectionHa
      */
     @Override
     protected XmlResourceType getXmlResourceType(CollectionAgent agent, String resourceType) {
-        ResourceType rt = new ResourceType();
+        ResourceType  rt = new ResourceType();
         rt.setName(resourceType);
         rt.setStorageStrategy(new StorageStrategy());
         rt.getStorageStrategy().setClazz(XmlStorageStrategy.class.getName());
         rt.setPersistenceSelectorStrategy(new PersistenceSelectorStrategy());
         rt.getPersistenceSelectorStrategy().setClazz(PersistAllSelectorStrategy.class.getName());
-        return new XmlResourceType(agent, rt);
+        XmlResourceType type = new XmlResourceType(agent, rt);
+        return type;
     }
-
-    /* (non-Javadoc)
-     * @see org.opennms.protocols.xml.collector.AbstractXmlCollectionHandler#getTimeStamp(org.w3c.dom.Document, javax.xml.xpath.XPath, org.opennms.protocols.xml.config.XmlGroup)
-     */
-    @Override
-    protected Date getTimeStamp(JXPathContext context, XmlGroup group) {
-        long ts = super.getTimeStamp(context, group).getTime();
-        long offset = System.currentTimeMillis() - ts;
-        return new Date(ts + offset + 900000);
-    }
-
 }
 

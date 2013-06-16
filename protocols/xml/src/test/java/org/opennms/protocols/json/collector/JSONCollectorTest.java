@@ -26,35 +26,34 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.protocols.xml.collector;
+package org.opennms.protocols.json.collector;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathFactory;
+import net.sf.json.JSONObject;
 
+import org.apache.commons.jxpath.JXPathContext;
+import org.apache.commons.jxpath.Pointer;
 import org.junit.Assert;
 import org.junit.Test;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.opennms.protocols.json.collector.AbstractJSONCollectorTest;
+import org.opennms.protocols.json.collector.MockDocumentBuilder;
 
 /**
  * The Test class for XML Collector for Solaris Zones Statistics
  * 
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
-public class XmlCollectorTestSolarisZones extends AbstractXmlCollectorTest {
+public class JSONCollectorTest extends AbstractJSONCollectorTest {
 
     /* (non-Javadoc)
      * @see org.opennms.protocols.xml.collector.AbcstractXmlCollectorTest#getXmlConfigFileName()
      */
     @Override
-    public String getXmlConfigFileName() {
+    public String getJSONConfigFileName() {
         return "src/test/resources/solaris-zones-datacollection-config.xml";
     }
     
@@ -62,8 +61,8 @@ public class XmlCollectorTestSolarisZones extends AbstractXmlCollectorTest {
      * @see org.opennms.protocols.xml.collector.AbcstractXmlCollectorTest#getXmlSampleFileName()
      */
     @Override
-    public String getXmlSampleFileName() {
-        return "src/test/resources/solaris-zones.xml";
+    public String getJSONSampleFileName() {
+        return "src/test/resources/solaris-zones.json";
     }
 
     /**
@@ -73,28 +72,29 @@ public class XmlCollectorTestSolarisZones extends AbstractXmlCollectorTest {
      */
     @Test
     public void testXpath() throws Exception {
-        XPath xpath = XPathFactory.newInstance().newXPath();
-        Document doc = MockDocumentBuilder.getXmlDocument();
-        NodeList resourceList = (NodeList) xpath.evaluate("/zones/zone", doc, XPathConstants.NODESET);
-        for (int j = 0; j < resourceList.getLength(); j++) {
-            Node resource = resourceList.item(j);
-            Node resourceName = (Node) xpath.evaluate("@name", resource, XPathConstants.NODE);
+        JSONObject json = MockDocumentBuilder.getJSONDocument();
+        JXPathContext context = JXPathContext.newContext(json);
+        Iterator<Pointer> itr = context.iteratePointers("/zones/zone");
+        while (itr.hasNext()) {
+            Pointer resPtr = itr.next();
+            JXPathContext relativeContext = context.getRelativeContext(resPtr);
+            String resourceName = (String) relativeContext.getValue("@name");
             Assert.assertNotNull(resourceName);
-            String value = (String) xpath.evaluate("parameter[@key='nproc']/@value", resource, XPathConstants.STRING);
+            String value = (String) relativeContext.getValue("parameter[@key='nproc']/@value");
             Assert.assertNotNull(Integer.valueOf(value));
         }
     }
 
     /**
-     * Test XML collector with Standard handler.
+     * Test JSON collector with Standard handler.
      *
      * @throws Exception the exception
      */
     @Test
-    public void testDefaultXmlCollector() throws Exception {
+    public void testDefaultJSONCollector() throws Exception {
         Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put("collection", "Solaris");
-        parameters.put("handler-class", "org.opennms.protocols.xml.collector.MockDefaultXmlCollectionHandler");
+        parameters.put("handler-class", "org.opennms.protocols.json.collector.MockDefaultJSONCollectionHandler");
         // Files expected: one JRB for each zone: global, zone1 and zone2 (3 in total)
         executeCollectorTest(parameters, 3);
         Assert.assertTrue(new File("target/snmp/1/solarisZoneStats/global/solaris-zone-stats.jrb").exists());
@@ -104,7 +104,7 @@ public class XmlCollectorTestSolarisZones extends AbstractXmlCollectorTest {
         File file = new File("target/snmp/1/solarisZoneStats/global/solaris-zone-stats.jrb");
         String[] dsnames = new String[] { "nproc", "nlwp", "pr_size", "pr_rssize", "pctmem", "pctcpu" };
         Double[] dsvalues = new Double[] { 245.0, 1455.0, 2646864.0, 1851072.0, 0.7, 0.24 };
-        validateJrb(file, dsnames, dsvalues);      
+        validateJrb(file, dsnames, dsvalues);
     }
 
 }

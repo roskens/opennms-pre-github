@@ -26,7 +26,7 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.protocols.xml.collector;
+package org.opennms.protocols.json.collector;
 
 import java.beans.PropertyDescriptor;
 import java.io.InputStream;
@@ -39,8 +39,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
+import net.sf.json.JSONObject;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.jxpath.JXPathContext;
@@ -62,13 +61,22 @@ import org.opennms.netmgt.config.datacollection.StorageStrategy;
 import org.opennms.netmgt.dao.NodeDao;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.RrdRepository;
+import org.opennms.protocols.xml.collector.ConstantTimeKeeper;
+import org.opennms.protocols.xml.collector.UrlFactory;
+import org.opennms.protocols.xml.collector.XmlCollectionAttributeType;
+import org.opennms.protocols.xml.collector.XmlCollectionHandler;
+import org.opennms.protocols.xml.collector.XmlCollectionResource;
+import org.opennms.protocols.xml.collector.XmlCollectionSet;
+import org.opennms.protocols.xml.collector.XmlCollectorException;
+import org.opennms.protocols.xml.collector.XmlMultiInstanceCollectionResource;
+import org.opennms.protocols.xml.collector.XmlResourceType;
+import org.opennms.protocols.xml.collector.XmlSingleInstanceCollectionResource;
+import org.opennms.protocols.xml.collector.XmlStorageStrategy;
 import org.opennms.protocols.xml.config.XmlGroup;
 import org.opennms.protocols.xml.config.XmlObject;
 import org.opennms.protocols.xml.config.XmlSource;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
-
-import org.w3c.dom.Document;
 
 /**
  * The Abstract Class XML Collection Handler.
@@ -76,7 +84,7 @@ import org.w3c.dom.Document;
  * 
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
-public abstract class AbstractXmlCollectionHandler implements XmlCollectionHandler {
+public abstract class AbstractJSONCollectionHandler implements XmlCollectionHandler {
 
     /** The Service Name associated with this Collection Handler. */
     private String m_serviceName;
@@ -129,13 +137,13 @@ public abstract class AbstractXmlCollectionHandler implements XmlCollectionHandl
      * @throws XPathExpressionException the x path expression exception
      * @throws ParseException the parse exception
      */
-    protected void fillCollectionSet(CollectionAgent agent, XmlCollectionSet collectionSet, XmlSource source, Document doc) throws ParseException {
-        JXPathContext context = JXPathContext.newContext(doc);
+    protected void fillCollectionSet(CollectionAgent agent, XmlCollectionSet collectionSet, XmlSource source, JSONObject json) throws ParseException {
+        JXPathContext context = JXPathContext.newContext(json);
         for (XmlGroup group : source.getXmlGroups()) {
             log().debug("fillCollectionSet: getting resources for XML group " + group.getName() + " using XPATH " + group.getResourceXpath());
             Date timestamp = getTimeStamp(context, group);
             Iterator<Pointer> itr = context.iteratePointers(group.getResourceXpath());
-            while(itr.hasNext()) {
+            while (itr.hasNext()) {
                 JXPathContext relativeContext = context.getRelativeContext(itr.next());
                 String resourceName = getResourceName(relativeContext, group);
                 log().debug("fillCollectionSet: processing XML resource " + resourceName);
@@ -146,7 +154,7 @@ public abstract class AbstractXmlCollectionHandler implements XmlCollectionHandl
                     XmlCollectionAttributeType attribType = new XmlCollectionAttributeType(object, attribGroupType);
                     collectionResource.setAttributeValue(attribType, value);
                 }
-                processXmlResource(collectionResource, attribGroupType);
+                processJSONResource(collectionResource, attribGroupType);
                 collectionSet.getCollectionResources().add(collectionResource);
             }
         }
@@ -167,8 +175,8 @@ public abstract class AbstractXmlCollectionHandler implements XmlCollectionHandl
             List<String> keys = new ArrayList<String>();
             for (String key : group.getXmlResourceKey().getKeyXpathList()) {
                 log().debug("getResourceName: getting key for resource's name using " + key);
-                String keyValue = (String)context.getValue(key);
-                keys.add(keyValue);
+                String keyName = (String)context.getValue(key);
+                keys.add(keyName);
             }
             return StringUtils.join(keys, "_");
         }
@@ -178,7 +186,8 @@ public abstract class AbstractXmlCollectionHandler implements XmlCollectionHandl
         }
         // Processing single-key resource name.
         log().debug("getResourceName: getting key for resource's name using " + group.getKeyXpath());
-        return (String)context.getValue(group.getKeyXpath());
+        String keyName = (String)context.getValue(group.getKeyXpath());
+        return keyName;
     }
 
     /**
@@ -187,7 +196,7 @@ public abstract class AbstractXmlCollectionHandler implements XmlCollectionHandl
      * @param collectionResource the collection resource
      * @param attribGroupType the attribute group type
      */
-    protected abstract void processXmlResource(XmlCollectionResource collectionResource, AttributeGroupType attribGroupType);
+    protected abstract void processJSONResource(XmlCollectionResource collectionResource, AttributeGroupType attribGroupType);
 
     /**
      * Gets the collection resource.
@@ -216,7 +225,7 @@ public abstract class AbstractXmlCollectionHandler implements XmlCollectionHandl
     /**
      * Gets the time stamp.
      * 
-     * @param doc the doc
+     * @param json the doc
      * @param xpath the xpath
      * @param group the group
      * @return the time stamp
@@ -228,13 +237,8 @@ public abstract class AbstractXmlCollectionHandler implements XmlCollectionHandl
         }
         String pattern = group.getTimestampFormat() == null ? "yyyy-MM-dd HH:mm:ss" : group.getTimestampFormat();
         log().debug("getTimeStamp: retrieving custom timestamp to be used when updating RRDs using XPATH " + group.getTimestampXpath() + " and pattern " + pattern);
-        Object tsNode = context.selectSingleNode(group.getTimestampXpath());
-        if (tsNode == null) {
-            log().warn("getTimeStamp: can't find the custom timestamp using XPATH " +  group.getTimestampXpath());
-            return null;
-        }
         Date date = null;
-        String value = tsNode.toString();
+        String value = (String)context.getValue(group.getTimestampXpath());
         try {
             DateTimeFormatter dtf = DateTimeFormat.forPattern(pattern);
             DateTime dateTime = dtf.parseDateTime(value);
@@ -297,18 +301,15 @@ public abstract class AbstractXmlCollectionHandler implements XmlCollectionHandl
      * @param urlString the URL string
      * @return the XML document
      */
-    protected Document getXmlDocument(String urlString) {
+    protected JSONObject getJSONObject(String urlString) {
         InputStream is = null;
         try {
             URL url = UrlFactory.getUrl(urlString);
             URLConnection c = url.openConnection();
             is = c.getInputStream();
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            factory.setIgnoringComments(true);
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            Document doc = builder.parse(is);
+            JSONObject jsonObject = JSONObject.fromObject( is.toString() );
             UrlFactory.disconnect(c);
-            return doc;
+            return jsonObject;
         } catch (Exception e) {
             throw new XmlCollectorException(e.getMessage(), e);
         } finally {
