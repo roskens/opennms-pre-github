@@ -55,41 +55,20 @@ public class AlarmDaoContainer extends OnmsDaoContainer<OnmsAlarm,Integer> {
 
 	private static final long serialVersionUID = -4026870931086916312L;
 
-	private Map<Object,Class<?>> m_properties;
-
 	public AlarmDaoContainer(AlarmDao dao) {
-		super(dao);
-		m_beanToHibernatePropertyMapping.put("nodeLabel", "node.label");
+		super(OnmsAlarm.class, dao);
+		addBeanToHibernatePropertyMapping("nodeLabel", "node.label");
 	}
 
-	@Override
-	public Class<OnmsAlarm> getItemClass() {
-		return OnmsAlarm.class;
-	}
+    @Override
+    protected void updateContainerPropertyIds(Map<Object, Class<?>> properties) {
+        // Causes problems because it is a map of values
+        properties.remove("details");
 
-	private synchronized void loadPropertiesIfNull() {
-		if (m_properties == null) {
-			m_properties = new TreeMap<Object,Class<?>>();
-			BeanItem<OnmsAlarm> item = new BeanItem<OnmsAlarm>(new OnmsAlarm());
-			for (Object key : item.getItemPropertyIds()) {
-				m_properties.put(key, item.getItemProperty(key).getType());
-			}
-		}
-
-		// Causes problems because it is a map of values 
-		m_properties.remove("details");
-
-		// Causes referential integrity problems
-		// @see http://issues.opennms.org/browse/NMS-5750
-		m_properties.remove("distPoller");
-	}
-
-	@Override
-	public Collection<?> getContainerPropertyIds() {
-		loadPropertiesIfNull();
-
-		return Collections.unmodifiableCollection(m_properties.keySet());
-	}
+        // Causes referential integrity problems
+        // @see http://issues.opennms.org/browse/NMS-5750
+        properties.remove("distPoller");
+    }
 
 	@Override
 	protected Integer getId(OnmsAlarm bean){
@@ -97,16 +76,9 @@ public class AlarmDaoContainer extends OnmsDaoContainer<OnmsAlarm,Integer> {
 	}
 
 	@Override
-	public Class<?> getType(Object propertyId) {
-		return m_properties.get(propertyId);
-	}
-
-	@Override
 	public Collection<?> getSortableContainerPropertyIds() {
-		loadPropertiesIfNull();
-
 		Collection<Object> propertyIds = new HashSet<Object>();
-		propertyIds.addAll(m_properties.keySet());
+		propertyIds.addAll(getContainerPropertyIds());
 
 		// This column is a checkbox so we can't sort on it either
 		propertyIds.remove("selection");
@@ -114,29 +86,25 @@ public class AlarmDaoContainer extends OnmsDaoContainer<OnmsAlarm,Integer> {
 		return Collections.unmodifiableCollection(propertyIds);
 	}
 
-	@Override
-	public void selectionChanged(SelectionContext selectionContext) {
-		Collection<Order> oldOrders = m_criteria.getOrders();
-		Set<Restriction> restrictions = new HashSet<Restriction>();
-		for (VertexRef ref : selectionContext.getSelectedVertexRefs()) {
-			if ("nodes".equals(ref.getNamespace())) {
-				try {
-					restrictions.add(new EqRestriction("node.id", Integer.valueOf(ref.getId())));
-				} catch (NumberFormatException e) {
-					LoggerFactory.getLogger(this.getClass()).warn("Cannot filter nodes with ID: {}", ref.getId());
-				}
-			}
-		}
+    @Override
+    protected void addAdditionalCriteriaOptions(Criteria criteria, Page page, boolean doOrder) {
+        criteria.setAliases(Arrays.asList(new Alias[] {
+                new Alias("node", "node", JoinType.LEFT_JOIN)
+        }));
+    }
 
-		m_criteria = new Criteria(getItemClass());
-		m_criteria.setAliases(Arrays.asList(new Alias[] {
-			new Alias("node", "node", JoinType.LEFT_JOIN)
-		}));
-		if (restrictions.size() > 0) {
-			AnyRestriction any = new AnyRestriction(restrictions.toArray(new Restriction[0]));
-			m_criteria.addRestriction(any);
-		}
-		m_criteria.setOrders(oldOrders);
-		fireItemSetChangedEvent();
+    @Override
+    // DO we really want to get the criteria and change stuff directly there?
+	public void selectionChanged(SelectionContext selectionContext) {
+//		for (VertexRef ref : selectionContext.getSelectedVertexRefs()) {
+//			if ("nodes".equals(ref.getNamespace())) {
+//				try {
+//					addRestriction(new EqRestriction("node.id", Integer.valueOf(ref.getId())));
+//				} catch (NumberFormatException e) {
+//					LoggerFactory.getLogger(this.getClass()).warn("Cannot filter nodes with ID: {}", ref.getId());
+//				}
+//			}
+//		}
+//		fireItemSetChangedEvent();
 	}
 }

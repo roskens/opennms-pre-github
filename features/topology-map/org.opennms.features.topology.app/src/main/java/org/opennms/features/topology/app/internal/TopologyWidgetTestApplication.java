@@ -146,6 +146,8 @@ public class TopologyWidgetTestApplication extends Application implements Comman
 	    m_window = new Window("OpenNMS Topology");
         m_window.setContent(m_rootLayout);
         setMainWindow(m_window);
+
+
         
         m_uriFragUtil = new UriFragmentUtility();
         m_window.addComponent(m_uriFragUtil);
