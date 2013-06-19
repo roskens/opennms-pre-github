@@ -400,10 +400,10 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
             @Override
             public Integer doInHibernate(final Session session) throws HibernateException, SQLException {
                 final Criteria attachedCrit = onmsCrit.getDetachedCriteria().getExecutableCriteria(session).setProjection(Projections.rowCount());
-                Integer retval = (Integer)attachedCrit.uniqueResult();
+                Long retval = (Long)attachedCrit.uniqueResult();
                 attachedCrit.setProjection(null);
                 attachedCrit.setResultTransformer(Criteria.ROOT_ENTITY);
-                return retval;
+                return retval.intValue();
             }
         };
         Integer retval = getHibernateTemplate().execute(callback);
