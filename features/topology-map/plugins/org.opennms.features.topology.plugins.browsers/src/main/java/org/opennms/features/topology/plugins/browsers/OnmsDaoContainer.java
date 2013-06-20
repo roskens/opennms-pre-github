@@ -375,7 +375,6 @@ public abstract class OnmsDaoContainer<T,K extends Serializable> implements Cont
                 }
             }
             cache.reload(page);
-            fireItemSetChangedEvent();
         }
 	}
 
@@ -413,8 +412,14 @@ public abstract class OnmsDaoContainer<T,K extends Serializable> implements Cont
 		}
 	}
 
-    public void addRestriction(Restriction restriction) {
-        m_restrictions.add(restriction);
+    public void setRestrictions(List<Restriction> newRestrictions) {
+        m_restrictions.clear();
+        if (newRestrictions == null) return;
+        m_restrictions.addAll(newRestrictions);
+    }
+
+    public List<Restriction> getRestrictions() {
+        return Collections.unmodifiableList(m_restrictions);
     }
 
 	@Override
@@ -550,7 +555,9 @@ public abstract class OnmsDaoContainer<T,K extends Serializable> implements Cont
         for (Restriction eachRestriction : m_restrictions) {
             tmpCriteria.addRestriction(eachRestriction);
         }
-        if (doOrder) tmpCriteria.setOrders(m_orders);
+        if (doOrder) {
+            tmpCriteria.setOrders(m_orders);
+        }
         if (page != null) {
             tmpCriteria.setOffset(page.offset);
             tmpCriteria.setLimit(page.length);

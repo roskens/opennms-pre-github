@@ -33,6 +33,7 @@ import org.opennms.core.criteria.Criteria;
 import org.opennms.core.criteria.CriteriaBuilder;
 import org.opennms.core.criteria.Fetch;
 import org.opennms.core.criteria.restrictions.EqRestriction;
+import org.opennms.core.criteria.restrictions.Restriction;
 import org.opennms.features.topology.api.SelectionContext;
 import org.opennms.features.topology.api.topo.VertexRef;
 import org.opennms.netmgt.dao.NodeDao;
@@ -73,16 +74,11 @@ public class NodeDaoContainer extends OnmsDaoContainer<OnmsNode,Integer> {
 
     @Override
 	public void selectionChanged(SelectionContext selectionContext) {
-//		for (VertexRef ref : selectionContext.getSelectedVertexRefs()) {
-//			if ("nodes".equals(ref.getNamespace())) {
-//				try {
-//                    addRestriction(new EqRestriction("id", Integer.valueOf(ref.getId())));
-//				} catch (NumberFormatException e) {
-//					LoggerFactory.getLogger(this.getClass()).warn("Cannot filter nodes with ID: {}", ref.getId());
-//				}
-//			}
-//		}
-//		fireItemSetChangedEvent();
+        List<Restriction> newRestrictions = new SelectionContextToRestrictionConverter().getRestrictions(selectionContext);
+        if (!getRestrictions().equals(newRestrictions)) { // selection really changed
+            setRestrictions(newRestrictions);
+            fireItemSetChangedEvent();
+        }
 	}
 }
 

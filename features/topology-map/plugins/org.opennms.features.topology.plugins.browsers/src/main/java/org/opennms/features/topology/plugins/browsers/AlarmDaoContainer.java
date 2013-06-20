@@ -28,28 +28,15 @@
 
 package org.opennms.features.topology.plugins.browsers;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 
 import org.opennms.core.criteria.Alias;
 import org.opennms.core.criteria.Criteria;
-import org.opennms.core.criteria.Order;
 import org.opennms.core.criteria.Alias.JoinType;
-import org.opennms.core.criteria.restrictions.AnyRestriction;
-import org.opennms.core.criteria.restrictions.EqRestriction;
 import org.opennms.core.criteria.restrictions.Restriction;
 import org.opennms.features.topology.api.SelectionContext;
-import org.opennms.features.topology.api.topo.VertexRef;
 import org.opennms.netmgt.dao.AlarmDao;
 import org.opennms.netmgt.model.OnmsAlarm;
-import org.slf4j.LoggerFactory;
-
-import com.vaadin.data.util.BeanItem;
 
 public class AlarmDaoContainer extends OnmsDaoContainer<OnmsAlarm,Integer> {
 
@@ -94,17 +81,12 @@ public class AlarmDaoContainer extends OnmsDaoContainer<OnmsAlarm,Integer> {
     }
 
     @Override
-    // DO we really want to get the criteria and change stuff directly there?
 	public void selectionChanged(SelectionContext selectionContext) {
-//		for (VertexRef ref : selectionContext.getSelectedVertexRefs()) {
-//			if ("nodes".equals(ref.getNamespace())) {
-//				try {
-//					addRestriction(new EqRestriction("node.id", Integer.valueOf(ref.getId())));
-//				} catch (NumberFormatException e) {
-//					LoggerFactory.getLogger(this.getClass()).warn("Cannot filter nodes with ID: {}", ref.getId());
-//				}
-//			}
-//		}
-//		fireItemSetChangedEvent();
+        List<Restriction> newRestrictions = new SelectionContextToRestrictionConverter().getRestrictions(selectionContext);
+        if (!getRestrictions().equals(newRestrictions)) { // selection really changed
+            setRestrictions(newRestrictions);
+            fireItemSetChangedEvent();
+        }
 	}
+
 }

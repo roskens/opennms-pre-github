@@ -116,7 +116,7 @@ public class TopologyWidgetTestApplication extends Application implements Comman
     private String m_headerHtml;
     private boolean m_showHeader = true;
 
-    public TopologyWidgetTestApplication(CommandManager commandManager, HistoryManager historyManager, GraphProvider topologyProvider, ProviderManager providerManager, IconRepositoryManager iconRepoManager, SelectionManager selectionManager, GraphContainer graphContainer) {
+    public TopologyWidgetTestApplication(CommandManager commandManager, HistoryManager historyManager, GraphContainer graphContainer, IconRepositoryManager iconRepoManager, SelectionManager selectionManager) {
         // Ensure that selection changes trigger a history save operation
         selectionManager.addSelectionListener(this);
 
