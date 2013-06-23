@@ -28,9 +28,9 @@
 
 package org.opennms.core.criteria.restrictions;
 
-public class LeRestriction extends AttributeValueRestriction {
+public class LeRestriction extends AttributeValueRestriction<Number> {
 
-    public LeRestriction(final String attribute, final Object value) {
+    public LeRestriction(final String attribute, final Number value) {
         super(RestrictionType.LE, attribute, value);
     }
 

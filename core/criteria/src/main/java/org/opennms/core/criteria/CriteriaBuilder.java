@@ -260,7 +260,9 @@ public class CriteriaBuilder {
         return this;
     }
 
-    public CriteriaBuilder sql(final Object sql) {
+    // TODO MVR javadoc etc...
+    @Deprecated
+    public final CriteriaBuilder sql(final Object sql) {
         if (sql instanceof String) {
             addRestriction(Restrictions.sql((String) sql));
         } else {

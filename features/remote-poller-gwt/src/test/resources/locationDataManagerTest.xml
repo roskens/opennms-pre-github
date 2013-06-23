@@ -24,7 +24,7 @@
 
   <bean id="monitoringLocationsConfiguration" class="org.opennms.features.poller.remote.gwt.server.TestMonitoringLocationsConfiguration" />
 
-  <bean id="locationMonitorDao" class="org.opennms.netmgt.dao.hibernate.LocationMonitorDaoHibernate">
+  <bean id="locationMonitorDao" class="LocationMonitorDaoHibernate">
     <property name="sessionFactory" ref="sessionFactory" />
     <property name="monitoringLocationsConfiguration" ref="monitoringLocationsConfiguration" />
   </bean>

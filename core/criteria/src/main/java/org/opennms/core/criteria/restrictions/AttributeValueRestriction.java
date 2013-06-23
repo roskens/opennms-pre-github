@@ -28,15 +28,15 @@
 
 package org.opennms.core.criteria.restrictions;
 
-public abstract class AttributeValueRestriction extends AttributeRestriction {
-    protected final Object m_value;
+public abstract class AttributeValueRestriction<T> extends AttributeRestriction {
+    protected final T m_value;
 
-    public AttributeValueRestriction(final RestrictionType type, final String attribute, final Object value) {
+    public AttributeValueRestriction(final RestrictionType type, final String attribute, final T value) {
         super(type, attribute);
         m_value = value;
     }
 
-    public Object getValue() {
+    public T getValue() {
         return m_value;
     }
 

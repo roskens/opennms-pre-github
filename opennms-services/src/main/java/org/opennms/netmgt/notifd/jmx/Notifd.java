@@ -39,7 +39,7 @@ import org.opennms.netmgt.config.NotificationFactory;
 import org.opennms.netmgt.config.PollOutagesConfigFactory;
 import org.opennms.netmgt.config.UserFactory;
 import org.opennms.netmgt.daemon.AbstractServiceDaemon;
-import org.opennms.netmgt.dao.hibernate.NodeDaoHibernate;
+import org.opennms.netmgt.dao.jpa.NodeDaoHibernate;
 import org.opennms.netmgt.eventd.EventIpcManagerFactory;
 
 /**

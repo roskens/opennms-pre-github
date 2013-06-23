@@ -28,9 +28,9 @@
 
 package org.opennms.core.criteria.restrictions;
 
-public class IlikeRestriction extends AttributeValueRestriction {
+public class IlikeRestriction extends AttributeValueRestriction<String> {
 
-    public IlikeRestriction(final String attribute, final Object value) {
+    public IlikeRestriction(final String attribute, final String value) {
         super(RestrictionType.ILIKE, attribute, value);
     }
 

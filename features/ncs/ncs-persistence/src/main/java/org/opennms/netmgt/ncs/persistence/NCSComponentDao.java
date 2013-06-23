@@ -30,7 +30,7 @@ package org.opennms.netmgt.ncs.persistence;
 
 import java.util.List;
 
-import org.opennms.netmgt.dao.hibernate.AbstractDaoHibernate;
+import org.opennms.netmgt.dao.jpa.AbstractDaoHibernate;
 import org.opennms.netmgt.model.ncs.NCSComponent;
 import org.opennms.netmgt.model.ncs.NCSComponentRepository;
 import org.springframework.dao.DataAccessException;

@@ -31,21 +31,21 @@ package org.opennms.core.criteria.restrictions;
 import java.util.Arrays;
 import java.util.List;
 
-public class BetweenRestriction extends AttributeValueRestriction {
+public class BetweenRestriction extends AttributeValueRestriction<List<Comparable>> {
 
-    public BetweenRestriction(final String attribute, final Object begin, final Object end) {
-        super(RestrictionType.BETWEEN, attribute, Arrays.asList(new Object[] { begin, end }));
+    public BetweenRestriction(final String attribute, final Comparable begin, final Comparable end) {
+        super(RestrictionType.BETWEEN, attribute, Arrays.asList(new Comparable[] { begin, end }));
     }
 
-    public Object getBegin() {
+    public Comparable getBegin() {
         @SuppressWarnings("unchecked")
-        final List<Object> value = (List<Object>) getValue();
+        final List<Comparable> value = getValue();
         return value.get(0);
     }
 
-    public Object getEnd() {
+    public Comparable getEnd() {
         @SuppressWarnings("unchecked")
-        final List<Object> value = (List<Object>) getValue();
+        final List<Comparable> value = getValue();
         return value.get(1);
     }
 

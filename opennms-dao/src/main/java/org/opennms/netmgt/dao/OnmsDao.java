@@ -52,7 +52,8 @@ public interface OnmsDao<T, K extends Serializable> {
      * @param <T> a T object.
      * @param <K> a K object.
      */
-    void initialize(Object obj);
+    void
+    initialize(Object obj);
 
     /**
      * <p>flush</p>

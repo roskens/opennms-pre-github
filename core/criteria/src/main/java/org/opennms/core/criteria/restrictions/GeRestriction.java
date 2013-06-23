@@ -28,9 +28,9 @@
 
 package org.opennms.core.criteria.restrictions;
 
-public class GeRestriction extends AttributeValueRestriction {
+public class GeRestriction extends AttributeValueRestriction<Number> {
 
-    public GeRestriction(final String attribute, final Object value) {
+    public GeRestriction(final String attribute, final Number value) {
         super(RestrictionType.GE, attribute, value);
     }
 
