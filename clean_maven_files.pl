@@ -3,7 +3,7 @@
 use File::Basename;
 use File::Spec;
 
-my $version = "1.11.91-SNAPSHOT";
+my $version = "1.11.93-SNAPSHOT";
 my %files = ();
 my @mavenfiles = qw( maven-metadata-local.xml _maven.repositories resolver-status.properties maven-metadata-archiva.default.xml maven-metadata-archiva.default.xml.sha1 );
 
