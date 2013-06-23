@@ -843,13 +843,13 @@
     <karafVersion>2.3.1</karafVersion>
     <felixVersion>2.2.0</felixVersion>
     <liquibaseVersion>2.0.1</liquibaseVersion>
-    <log4jVersion>1.2.16</log4jVersion>
+    <log4jVersion>1.2.17</log4jVersion>
     <minaVersion>2.0.7</minaVersion>
     <paxExamVersion>2.6.0</paxExamVersion>
     <oroVersion>2.0.8</oroVersion>
     <osgiVersion>4.3.1</osgiVersion>
     <osgiEnterpriseVersion>4.2.0</osgiEnterpriseVersion>
-    <slf4jVersion>1.7.2</slf4jVersion>
+    <slf4jVersion>1.7.5</slf4jVersion>
     <springJaxbVersion>2.1.7</springJaxbVersion>
     <xalanVersion>2.7.1</xalanVersion>
     <xercesVersion>2.9.1</xercesVersion>
