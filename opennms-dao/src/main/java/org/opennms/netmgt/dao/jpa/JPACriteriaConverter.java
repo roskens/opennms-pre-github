@@ -29,10 +29,10 @@
 package org.opennms.netmgt.dao.jpa;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
+import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
+import org.hibernate.FetchMode;
 import org.hibernate.criterion.Criterion;
 import org.opennms.core.criteria.AbstractCriteriaVisitor;
 import org.opennms.core.criteria.Alias;
@@ -63,10 +63,9 @@ import org.opennms.core.criteria.restrictions.SqlRestriction;
 import org.opennms.netmgt.dao.CriteriaConverter;
 
 import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.*;
 
 public class JPACriteriaConverter implements CriteriaConverter<CriteriaQuery> {
 
@@ -85,20 +84,9 @@ public class JPACriteriaConverter implements CriteriaConverter<CriteriaQuery> {
 
     @Override
     public CriteriaQuery convertForCount(final Criteria criteria) {
-        final JPACriteriaVisitor visitor = new JPACriteriaVisitor() {
-            @Override
-            public void visitOrder(final Order order) {
-                // skip order-by when converting for count
-            }
-        };
+        final JPACriteriaVisitor visitor = new CountJPACriteriaVisitor(entityManager);
         criteria.visit(visitor);
         return visitor.getCriteriaQuery();
-    }
-
-    public CriteriaQuery convertForCount(final Criteria criteria, final EntityManager em) {
-        final JPACriteriaVisitor visitor = new CountJPACriteriaVisitor();
-        criteria.visit(visitor);
-        return visitor.getCriteriaQuery(em);
     }
 
     private static class CountJPACriteriaVisitor extends JPACriteriaVisitor {
@@ -114,9 +102,9 @@ public class JPACriteriaConverter implements CriteriaConverter<CriteriaQuery> {
     }
 
     private static class JPACriteriaVisitor extends AbstractCriteriaVisitor {
-        private Set<javax.persistence.criteria.Order> m_orders = new LinkedHashSet<javax.persistence.criteria.Order>();
+        private List<javax.persistence.criteria.Order> m_orders = new ArrayList<javax.persistence.criteria.Order>();
 
-//        private Set<javax.persistence.criteria.Criterion> m_criterions = new LinkedHashSet<javax.persistence.criteria.Criterion>();             // TODO MVR remove hibernate
+        private List<javax.persistence.criteria.Predicate> m_criterions = new ArrayList<javax.persistence.criteria.Predicate>();
 
         private boolean m_distinct = false;
 
@@ -124,29 +112,26 @@ public class JPACriteriaConverter implements CriteriaConverter<CriteriaQuery> {
 
         private Integer m_offset;
 
-        private final ConverterContext<?> converterContext;
+        private final ConverterContext converterContext;
 
         private JPACriteriaVisitor(EntityManager entityManager) {
-            converterContext = new ConverterContext<Object>();
+            converterContext = new ConverterContext();
             converterContext.setEntityManager(entityManager);
         }
 
-        public CriteriaQuery getCriteriaQuery(final EntityManager em) {
-            final org.hibernate.Criteria hibernateCriteria = getCriteria(em).getExecutableCriteria(session);
-            if (m_limit != null)
-                hibernateCriteria.setMaxResults(m_limit);
-            if (m_offset != null)
-                hibernateCriteria.setFirstResult(m_offset);
-            return hibernateCriteria;
+        public Query getCriteriaQuery() {
+            final CriteriaQuery criteriaQuery = fillCriteriaQuery();
+            final TypedQuery query = converterContext.getEntityManager().createQuery(criteriaQuery);
+            if (m_limit != null) query.setMaxResults(m_limit);
+            if (m_offset != null) query.setFirstResult(m_offset);
+            return query;
         }
 
-        private CriteriaQuery getCriteriaQuery22() {
-            if (m_criteria == null) {
+        private CriteriaQuery fillCriteriaQuery() {
+            if (converterContext.getCriteriaQuery() == null) {
                 throw new IllegalStateException("Unable to determine Class<?> of this criteria!");
             }
-            for (final Criterion criterion : m_criterions) {
-                m_criteria.add(criterion);
-            }
+            converterContext.getCriteriaQuery().where(m_criterions.toArray(new javax.persistence.criteria.Predicate[m_criterions.size()]));
 
             if (m_distinct) {
                 m_criteria.setProjection(Projections.distinct(Projections.id()));
@@ -156,24 +141,27 @@ public class JPACriteriaConverter implements CriteriaConverter<CriteriaQuery> {
 
                 m_criteria = newCriteria;
             }
-
-            for (final javax.persistence.criteria.Order order : m_orders) {
-                m_criteria.getOrderList().add(order);
-            }
-
-            return m_criteria;
+            converterContext.getCriteriaQuery().orderBy(m_orders);
+            return converterContext.getCriteriaQuery();
         }
 
         @Override
         public void visitClass(final Class<?> clazz) {
-            converterContext.setCriteriaQuery(createCriteriaQuery(clazz));
-            converterContext.setClass(clazz);
-            converterContext.setRoot(converterContext.getCriteriaQuery().from(clazz));
+            // Initialize JPA stuff
+            CriteriaBuilder criteriaBuilder = converterContext.getEntityManager().getCriteriaBuilder();
+            CriteriaQuery criteriaQuery = criteriaBuilder.createQuery(clazz);
+            Root<?> root = criteriaQuery.from(clazz);
+
+            // set for later use
+            converterContext.setCriteriaBuilder(criteriaBuilder);
+            converterContext.setCriteriaQuery(criteriaQuery);
+            converterContext.setEntityClass(clazz);
+            converterContext.setRoot(root);
         }
 
         @Override
         public void visitOrder(final Order order) {
-            final JPAOrderVisitor visitor = new JPAOrderVisitor();
+            final JPAOrderVisitor visitor = new JPAOrderVisitor(converterContext);
             order.visit(visitor);
             // we hold onto these later because they need to be applied after
             // distinct projection
@@ -198,10 +186,11 @@ public class JPACriteriaConverter implements CriteriaConverter<CriteriaQuery> {
                 break;
             }
             if (alias.hasJoinCondition()) { // an additional condition for the join
-                final JPARestrictionVisitor visitor = new JPARestrictionVisitor();
+                final JPARestrictionVisitor visitor = new JPARestrictionVisitor(converterContext);
                 alias.getJoinCondition().visit(visitor);
-                m_criteria.createAlias(alias.getAssociationPath(), alias.getAlias(), aliasType, visitor.getCriterions().get(0));
+                m_criteria.createAlias(alias.getAssociationPath(), alias.getAlias(), aliasType, visitor.getPredicates().get(0));
             } else { // no additional condition for the join
+
                 m_criteria.createAlias(alias.getAssociationPath(), alias.getAlias(), aliasType);
             }
         }
@@ -228,7 +217,7 @@ public class JPACriteriaConverter implements CriteriaConverter<CriteriaQuery> {
         public void visitRestriction(final Restriction restriction) {
             final JPARestrictionVisitor visitor = new JPARestrictionVisitor();
             restriction.visit(visitor);
-            m_criterions.addAll(visitor.getCriterions());
+            m_criterions.addAll(visitor.getPredicates());
         }
 
         @Override
@@ -246,17 +235,14 @@ public class JPACriteriaConverter implements CriteriaConverter<CriteriaQuery> {
             m_offset = offset;
         }
 
-        private CriteriaQuery createCriteriaQuery(Class<?> clazz) {
-            return converterContext.getCriteriaBuilder().createQuery(clazz);
-        }
     }
 
     public static final class JPAOrderVisitor implements OrderVisitor {
+        private final ConverterContext context;
+
         private String m_attribute;
 
         private boolean m_ascending = true;
-
-        private final ConverterContext context;
 
         public JPAOrderVisitor(ConverterContext context) {
             this.context = context;
@@ -274,9 +260,9 @@ public class JPACriteriaConverter implements CriteriaConverter<CriteriaQuery> {
 
         public javax.persistence.criteria.Order getOrder() {
             if (m_ascending) {
-                return org.hibernate.criterion.Order.asc(m_attribute);
+                return context.getCriteriaBuilder().asc(context.getRoot().get(m_attribute));
             } else {
-                return org.hibernate.criterion.Order.desc(m_attribute);
+                return context.getCriteriaBuilder().desc(context.getRoot().get(m_attribute));
             }
         }
     }
@@ -321,37 +307,42 @@ public class JPACriteriaConverter implements CriteriaConverter<CriteriaQuery> {
 
         @Override
         public void visitGt(final GtRestriction restriction) {
+            // TODO MVR check if cast works
             predicateList.add(
                     context.getCriteriaBuilder()
-                            .gt(context.getRoot().get(restriction.getAttribute()), restriction.getValue()));
+                            .gt((Path<Number>)context.getRoot().get(restriction.getAttribute()), restriction.getValue()));
         }
 
         @Override
         public void visitGe(final GeRestriction restriction) {
+            // TODO MVR check if cast works
             predicateList.add(
                     context.getCriteriaBuilder()
-                            .ge(context.getRoot().get(restriction.getAttribute()), restriction.getValue()));
+                            .ge((Path<Number>)context.getRoot().get(restriction.getAttribute()), restriction.getValue()));
         }
 
         @Override
         public void visitLt(final LtRestriction restriction) {
+            // TODO MVR check if cast works
             predicateList.add(
                     context.getCriteriaBuilder()
-                            .lt(context.getRoot().get(restriction.getAttribute()), restriction.getValue()));
+                            .lt((Path<Number>)context.getRoot().get(restriction.getAttribute()), restriction.getValue()));
         }
 
         @Override
         public void visitLe(final LeRestriction restriction) {
+            // TODO MVR check if cast works
             predicateList.add(
                     context.getCriteriaBuilder()
-                            .le(context.getRoot().get(restriction.getAttribute()), restriction.getValue()));
+                            .le((Path<Number>)context.getRoot().get(restriction.getAttribute()), restriction.getValue()));
         }
 
         @Override
         public void visitLike(final LikeRestriction restriction) {
+            // TODO MVR check if cast works
             predicateList.add(
                     context.getCriteriaBuilder()
-                            .like(context.getRoot().get(restriction.getAttribute()), restriction.getValue()));
+                            .like((Path<String>)context.getRoot().get(restriction.getAttribute()), restriction.getValue()));
         }
 
         @Override
@@ -360,15 +351,15 @@ public class JPACriteriaConverter implements CriteriaConverter<CriteriaQuery> {
             final Root<?> root = context.getRoot();
             builder.like(
                     builder.lower(
-                            root.get(restriction.getAttribute())), // TODO MVR fix this issue here
-                    restriction.getValue()); // TODO MVR maybe we have to add "%" around
+                            (Path<String>)root.get(restriction.getAttribute())),
+                    ((String)restriction.getValue()).toLowerCase()); // TODO MVR maybe we have to add "%" around
         }
 
         @Override
         public void visitBetween(final BetweenRestriction restriction) {
             predicateList.add(
                     context.getCriteriaBuilder()
-                            .between(context.getRoot().get(restriction.getAttribute()), restriction.getBegin(), restriction.getEnd()));
+                            .between((Path<Comparable>)context.getRoot().get(restriction.getAttribute()), restriction.getBegin(), restriction.getEnd()));
         }
 
         @Override
@@ -430,13 +421,23 @@ public class JPACriteriaConverter implements CriteriaConverter<CriteriaQuery> {
             final Criterion criterion = m_criterions.remove(m_criterions.size() - 1);
             m_criterions.add(org.hibernate.criterion.Restrictions.not(criterion));
         }
+
+        public List<? extends Predicate> getPredicates() {
+            return predicateList;
+        }
     }
 
-    private static class ConverterContext<T> {
+    /**
+     * Is used to determine the query using the Criteria API.
+     * To do so the EntityManager, CriteriaBuilder, Root and entityClass is needed
+     * during the creation of the CriteriaQuery.
+     */
+    private static class ConverterContext {
         private EntityManager entityManager;
         private CriteriaBuilder criteriaBuilder;
         private CriteriaQuery criteriaQuery;
         private Root<?> root;
+        private Class<?> entityClass;
 
         private ConverterContext() {}
 
@@ -470,6 +471,14 @@ public class JPACriteriaConverter implements CriteriaConverter<CriteriaQuery> {
 
         private void setRoot(Root<?> root) {
             this.root = root;
+        }
+
+        private void setEntityClass(Class<?> entityClass) {
+            this.entityClass = entityClass;
+        }
+
+        private Class<?> getEntityClass() {
+            return entityClass;
         }
     }
 }
