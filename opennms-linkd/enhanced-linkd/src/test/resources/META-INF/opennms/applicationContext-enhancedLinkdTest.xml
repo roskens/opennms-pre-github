@@ -64,14 +64,14 @@
     <property name="sessionFactory" ref="sessionFactory" />
   </bean>
   
-  <!-- 
     <bean id="topologyDao" class="org.opennms.netmgt.dao.topology.TopologyDaoHibernate">
     <property name="sessionFactory" ref="sessionFactory" />
+  
   </bean>
-   -->
-  
+  <!-- 
   <bean id="topologyDao" class="org.opennms.netmgt.dao.topology.TopologyDaoInMemoryImpl" />
-  
+   -->
+   
     <bean id="queryManager" class="org.opennms.netmgt.enlinkd.EnhancedLinkdServiceImpl">
       <property name="nodeDao" ref="nodeDao" />
       <property name="topologyDao" ref="topologyDao" />
