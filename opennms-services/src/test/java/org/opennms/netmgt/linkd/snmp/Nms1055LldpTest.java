@@ -30,7 +30,6 @@ package org.opennms.netmgt.linkd.snmp;
 
 import static org.junit.Assert.assertEquals;
 
-import java.net.InetAddress;
 import java.util.Collection;
 
 import org.junit.Test;
@@ -48,6 +47,7 @@ import org.opennms.netmgt.linkd.snmp.LldpLocTableEntry;
 import org.opennms.netmgt.linkd.snmp.LldpLocalGroup;
 import org.opennms.netmgt.linkd.snmp.LldpRemTable;
 import org.opennms.netmgt.linkd.snmp.LldpRemTableEntry;
+import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.netmgt.snmp.CollectionTracker;
 import org.opennms.netmgt.snmp.SnmpAgentConfig;
 import org.opennms.netmgt.snmp.SnmpUtils;
@@ -75,10 +75,10 @@ public class Nms1055LldpTest extends Nms1055NetworkBuilder implements Initializi
     public void testNetwork1055PenroseLLDPLocalBaseCollection() throws Exception {
 
         String name = "lldpLocGroup";
-        LldpLocalGroup m_lLldpLocalGroup = new LldpLocalGroup(InetAddress.getByName(PENROSE_IP));
+        LldpLocalGroup m_lLldpLocalGroup = new LldpLocalGroup(InetAddressUtils.addr(PENROSE_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
         tracker = new CollectionTracker[] {m_lLldpLocalGroup};
-        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(PENROSE_IP));
+        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(PENROSE_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();
 
@@ -100,10 +100,10 @@ public class Nms1055LldpTest extends Nms1055NetworkBuilder implements Initializi
     public void testNetwork1055DelawareLLDPLocalBaseCollection() throws Exception {
 
         String name = "lldpLocGroup";
-        LldpLocalGroup m_lLldpLocalGroup = new LldpLocalGroup(InetAddress.getByName(DELAWARE_IP));
+        LldpLocalGroup m_lLldpLocalGroup = new LldpLocalGroup(InetAddressUtils.addr(DELAWARE_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
         tracker = new CollectionTracker[] {m_lLldpLocalGroup};
-        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(DELAWARE_IP));
+        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(DELAWARE_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();
 
@@ -125,10 +125,10 @@ public class Nms1055LldpTest extends Nms1055NetworkBuilder implements Initializi
     public void testNetwork1055PhoenixLLDPLocalBaseCollection() throws Exception {
 
         String name = "lldpLocGroup";
-        LldpLocalGroup m_lLldpLocalGroup = new LldpLocalGroup(InetAddress.getByName(PHOENIX_IP));
+        LldpLocalGroup m_lLldpLocalGroup = new LldpLocalGroup(InetAddressUtils.addr(PHOENIX_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
         tracker = new CollectionTracker[] {m_lLldpLocalGroup};
-        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(PHOENIX_IP));
+        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(PHOENIX_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();
 
@@ -150,10 +150,10 @@ public class Nms1055LldpTest extends Nms1055NetworkBuilder implements Initializi
     public void testNetwork1055AustinLLDPLocalBaseCollection() throws Exception {
 
         String name = "lldpLocGroup";
-        LldpLocalGroup m_lLldpLocalGroup = new LldpLocalGroup(InetAddress.getByName(AUSTIN_IP));
+        LldpLocalGroup m_lLldpLocalGroup = new LldpLocalGroup(InetAddressUtils.addr(AUSTIN_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
         tracker = new CollectionTracker[] {m_lLldpLocalGroup};
-        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(AUSTIN_IP));
+        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(AUSTIN_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();
 
@@ -175,10 +175,10 @@ public class Nms1055LldpTest extends Nms1055NetworkBuilder implements Initializi
     public void testNetwork1055SanjoseLLDPLocalBaseCollection() throws Exception {
 
         String name = "lldpLocGroup";
-        LldpLocalGroup m_lLldpLocalGroup = new LldpLocalGroup(InetAddress.getByName(SANJOSE_IP));
+        LldpLocalGroup m_lLldpLocalGroup = new LldpLocalGroup(InetAddressUtils.addr(SANJOSE_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
         tracker = new CollectionTracker[] {m_lLldpLocalGroup};
-        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(SANJOSE_IP));
+        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(SANJOSE_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();
 
@@ -200,10 +200,10 @@ public class Nms1055LldpTest extends Nms1055NetworkBuilder implements Initializi
     public void testNetwork1055RiovistaLLDPLocalBaseCollection() throws Exception {
 
         String name = "lldpLocGroup";
-        LldpLocalGroup m_lLldpLocalGroup = new LldpLocalGroup(InetAddress.getByName(RIOVISTA_IP));
+        LldpLocalGroup m_lLldpLocalGroup = new LldpLocalGroup(InetAddressUtils.addr(RIOVISTA_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
         tracker = new CollectionTracker[] {m_lLldpLocalGroup};
-        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(RIOVISTA_IP));
+        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(RIOVISTA_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();
 
@@ -227,10 +227,10 @@ public class Nms1055LldpTest extends Nms1055NetworkBuilder implements Initializi
     public void testNetwork1055Dot1dBaseCollection() throws Exception {
 
         String name = "dot1dbase";
-        Dot1dBaseGroup m_lLldpLocalGroup = new Dot1dBaseGroup(InetAddress.getByName(PENROSE_IP));
+        Dot1dBaseGroup m_lLldpLocalGroup = new Dot1dBaseGroup(InetAddressUtils.addr(PENROSE_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
         tracker = new CollectionTracker[] {m_lLldpLocalGroup};
-        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(PENROSE_IP));
+        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(PENROSE_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();
 
@@ -250,10 +250,10 @@ public class Nms1055LldpTest extends Nms1055NetworkBuilder implements Initializi
     public void testNetwork1055LldpLocTableCollection() throws Exception {
 
         String name = "lldpLocTable";
-        LldpLocTable m_lldpRemTable = new LldpLocTable(InetAddress.getByName(DELAWARE_IP));
+        LldpLocTable m_lldpRemTable = new LldpLocTable(InetAddressUtils.addr(DELAWARE_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
         tracker = new CollectionTracker[] {m_lldpRemTable};
-        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(DELAWARE_IP));
+        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(DELAWARE_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();
 
@@ -279,10 +279,10 @@ public class Nms1055LldpTest extends Nms1055NetworkBuilder implements Initializi
     public void testNetwork1055LldpRemTableCollection() throws Exception {
 
         String name = "lldpRemTable";
-        LldpRemTable m_lldpRemTable = new LldpRemTable(InetAddress.getByName(DELAWARE_IP));
+        LldpRemTable m_lldpRemTable = new LldpRemTable(InetAddressUtils.addr(DELAWARE_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
         tracker = new CollectionTracker[] {m_lldpRemTable};
-        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(DELAWARE_IP));
+        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(DELAWARE_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();
 

@@ -30,8 +30,6 @@ package org.opennms.netmgt.linkd.snmp;
 
 import static org.junit.Assert.assertEquals;
 
-import java.net.InetAddress;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.opennms.core.test.OpenNMSJUnit4ClassRunner;
@@ -42,6 +40,7 @@ import org.opennms.netmgt.Nms17216NetworkBuilder;
 import org.opennms.netmgt.config.SnmpPeerFactory;
 import org.opennms.netmgt.linkd.snmp.CdpCacheTable;
 import org.opennms.netmgt.linkd.snmp.CdpCacheTableEntry;
+import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.netmgt.snmp.CollectionTracker;
 import org.opennms.netmgt.snmp.SnmpAgentConfig;
 import org.opennms.netmgt.snmp.SnmpUtils;
@@ -69,10 +68,10 @@ public class Nms17216CdpTest extends Nms17216NetworkBuilder implements Initializ
     public void testNetwork17216Switch1CdpCacheTableCollection() throws Exception {
 
         String name = "cdpCacheTable";
-        CdpCacheTable m_cdpCacheTable = new CdpCacheTable(InetAddress.getByName(SWITCH1_IP));
+        CdpCacheTable m_cdpCacheTable = new CdpCacheTable(InetAddressUtils.addr(SWITCH1_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
         tracker = new CollectionTracker[] {m_cdpCacheTable};
-        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(SWITCH1_IP));
+        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(SWITCH1_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();
 
@@ -95,10 +94,10 @@ public class Nms17216CdpTest extends Nms17216NetworkBuilder implements Initializ
     public void testNetwork17216Switch2CdpCacheTableCollection() throws Exception {
 
         String name = "cdpCacheTable";
-        CdpCacheTable m_cdpCacheTable = new CdpCacheTable(InetAddress.getByName(SWITCH2_IP));
+        CdpCacheTable m_cdpCacheTable = new CdpCacheTable(InetAddressUtils.addr(SWITCH2_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
         tracker = new CollectionTracker[] {m_cdpCacheTable};
-        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(SWITCH2_IP));
+        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(SWITCH2_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();
 
@@ -121,10 +120,10 @@ public class Nms17216CdpTest extends Nms17216NetworkBuilder implements Initializ
     public void testNetwork17216Switch3CdpCacheTableCollection() throws Exception {
 
         String name = "cdpCacheTable";
-        CdpCacheTable m_cdpCacheTable = new CdpCacheTable(InetAddress.getByName(SWITCH3_IP));
+        CdpCacheTable m_cdpCacheTable = new CdpCacheTable(InetAddressUtils.addr(SWITCH3_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
         tracker = new CollectionTracker[] {m_cdpCacheTable};
-        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(SWITCH3_IP));
+        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(SWITCH3_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();
 
@@ -147,10 +146,10 @@ public class Nms17216CdpTest extends Nms17216NetworkBuilder implements Initializ
     public void testNetwork17216Switch4CdpCacheTableCollection() throws Exception {
 
         String name = "cdpCacheTable";
-        CdpCacheTable m_cdpCacheTable = new CdpCacheTable(InetAddress.getByName(SWITCH4_IP));
+        CdpCacheTable m_cdpCacheTable = new CdpCacheTable(InetAddressUtils.addr(SWITCH4_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
         tracker = new CollectionTracker[] {m_cdpCacheTable};
-        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(SWITCH4_IP));
+        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(SWITCH4_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();
 
@@ -173,10 +172,10 @@ public class Nms17216CdpTest extends Nms17216NetworkBuilder implements Initializ
     public void testNetwork17216Switch5CdpCacheTableCollection() throws Exception {
 
         String name = "cdpCacheTable";
-        CdpCacheTable m_cdpCacheTable = new CdpCacheTable(InetAddress.getByName(SWITCH5_IP));
+        CdpCacheTable m_cdpCacheTable = new CdpCacheTable(InetAddressUtils.addr(SWITCH5_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
         tracker = new CollectionTracker[] {m_cdpCacheTable};
-        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(SWITCH5_IP));
+        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(SWITCH5_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();
 
@@ -199,10 +198,10 @@ public class Nms17216CdpTest extends Nms17216NetworkBuilder implements Initializ
     public void testNetwork17216Router1CdpCacheTableCollection() throws Exception {
 
         String name = "cdpCacheTable";
-        CdpCacheTable m_cdpCacheTable = new CdpCacheTable(InetAddress.getByName(ROUTER1_IP));
+        CdpCacheTable m_cdpCacheTable = new CdpCacheTable(InetAddressUtils.addr(ROUTER1_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
         tracker = new CollectionTracker[] {m_cdpCacheTable};
-        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(ROUTER1_IP));
+        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(ROUTER1_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();
 
@@ -225,10 +224,10 @@ public class Nms17216CdpTest extends Nms17216NetworkBuilder implements Initializ
     public void testNetwork17216Router2CdpCacheTableCollection() throws Exception {
 
         String name = "cdpCacheTable";
-        CdpCacheTable m_cdpCacheTable = new CdpCacheTable(InetAddress.getByName(ROUTER2_IP));
+        CdpCacheTable m_cdpCacheTable = new CdpCacheTable(InetAddressUtils.addr(ROUTER2_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
         tracker = new CollectionTracker[] {m_cdpCacheTable};
-        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(ROUTER2_IP));
+        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(ROUTER2_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();
 
@@ -251,10 +250,10 @@ public class Nms17216CdpTest extends Nms17216NetworkBuilder implements Initializ
     public void testNetwork17216Router3CdpCacheTableCollection() throws Exception {
 
         String name = "cdpCacheTable";
-        CdpCacheTable m_cdpCacheTable = new CdpCacheTable(InetAddress.getByName(ROUTER3_IP));
+        CdpCacheTable m_cdpCacheTable = new CdpCacheTable(InetAddressUtils.addr(ROUTER3_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
         tracker = new CollectionTracker[] {m_cdpCacheTable};
-        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(ROUTER3_IP));
+        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(ROUTER3_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();
 
@@ -277,10 +276,10 @@ public class Nms17216CdpTest extends Nms17216NetworkBuilder implements Initializ
     public void testNetwork17216Router4CdpCacheTableCollection() throws Exception {
 
         String name = "cdpCacheTable";
-        CdpCacheTable m_cdpCacheTable = new CdpCacheTable(InetAddress.getByName(ROUTER4_IP));
+        CdpCacheTable m_cdpCacheTable = new CdpCacheTable(InetAddressUtils.addr(ROUTER4_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
         tracker = new CollectionTracker[] {m_cdpCacheTable};
-        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(ROUTER4_IP));
+        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(ROUTER4_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();
 

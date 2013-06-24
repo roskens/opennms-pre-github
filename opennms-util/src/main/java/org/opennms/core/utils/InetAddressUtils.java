@@ -56,6 +56,7 @@ abstract public class InetAddressUtils {
     private static final ByteArrayComparator s_BYTE_ARRAY_COMPARATOR = new ByteArrayComparator();
     public static final InetAddress UNPINGABLE_ADDRESS;
     public static final InetAddress UNPINGABLE_ADDRESS_IPV6;
+
 	public static final String INVALID_BRIDGE_ADDRESS;
 	public static final String INVALID_BRIDGE_ID;
 	public static final String INVALID_BRIDGE_DESIGNATED_PORT;
@@ -65,6 +66,10 @@ abstract public class InetAddressUtils {
 		INVALID_BRIDGE_ID      = "0000000000000000";
 		INVALID_BRIDGE_DESIGNATED_PORT = "0000";
 	}
+
+	public static final InetAddress ZEROS = addr("0.0.0.0");
+    public static final InetAddress TWO_FIFTY_FIVES = addr("255.255.255.255");
+    public static final InetAddress ONE_TWENTY_SEVEN = addr("127.0.0.1");
 
     static {
         try {
@@ -174,7 +179,7 @@ abstract public class InetAddressUtils {
      */
     public static InetAddress getInetAddress(final String dottedNotation) {
         try {
-            return InetAddress.getByName(dottedNotation);
+            return dottedNotation == null? null : InetAddress.getByName(dottedNotation);
         } catch (final UnknownHostException e) {
             throw new IllegalArgumentException("Invalid IPAddress " + dottedNotation);
         }
@@ -314,7 +319,7 @@ abstract public class InetAddressUtils {
             	if (addr6.getScopeId() != 0) {
             		sb.append("%").append(addr6.getScopeId());
             	}
-            	return sb.toString();
+            	return sb.toString().intern();
             } else {
                 throw new IllegalArgumentException("Unknown type of InetAddress: " + addr.getClass().getName());
             }
@@ -329,7 +334,7 @@ abstract public class InetAddressUtils {
      */
     public static String toIpAddrString(final byte[] addr) {
         if (addr.length == 4) {
-            return getInetAddress(addr).getHostAddress();
+            return getInetAddress(addr).getHostAddress().intern();
         } else if (addr.length == 16) {
             return String.format("%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x",
                                  addr[0],

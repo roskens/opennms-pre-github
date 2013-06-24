@@ -30,8 +30,6 @@ package org.opennms.netmgt.linkd.snmp;
 
 import static org.junit.Assert.assertEquals;
 
-import java.net.InetAddress;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.opennms.core.test.OpenNMSJUnit4ClassRunner;
@@ -40,6 +38,7 @@ import org.opennms.core.test.snmp.annotations.JUnitSnmpAgents;
 import org.opennms.core.utils.BeanUtils;
 import org.opennms.netmgt.Nms17216NetworkBuilder;
 import org.opennms.netmgt.linkd.snmp.SnmpStore;
+import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.netmgt.config.SnmpPeerFactory;
 import org.opennms.netmgt.snmp.CollectionTracker;
 import org.opennms.netmgt.snmp.SnmpAgentConfig;
@@ -68,10 +67,10 @@ public class Nms17216CiscoTest extends Nms17216NetworkBuilder implements Initial
     public void testNetwork17216CiscoVlanTable() throws Exception {
     	
         String name = "vlanTable";
-        CiscoVlanTable m_vlan = new CiscoVlanTable(InetAddress.getByName(SWITCH1_IP));
+        CiscoVlanTable m_vlan = new CiscoVlanTable(InetAddressUtils.addr(SWITCH1_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
         tracker = new CollectionTracker[] {m_vlan};
-        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(SWITCH1_IP));
+        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(SWITCH1_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();
 

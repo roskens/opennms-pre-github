@@ -30,7 +30,6 @@ package org.opennms.netmgt.linkd.snmp;
 
 import static org.junit.Assert.assertEquals;
 
-import java.net.InetAddress;
 import java.util.Collection;
 
 import org.junit.Test;
@@ -46,6 +45,7 @@ import org.opennms.netmgt.linkd.snmp.LldpLocTableEntry;
 import org.opennms.netmgt.linkd.snmp.LldpLocalGroup;
 import org.opennms.netmgt.linkd.snmp.LldpRemTable;
 import org.opennms.netmgt.linkd.snmp.LldpRemTableEntry;
+import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.netmgt.snmp.CollectionTracker;
 import org.opennms.netmgt.snmp.SnmpAgentConfig;
 import org.opennms.netmgt.snmp.SnmpUtils;
@@ -74,10 +74,10 @@ public class Nms17216LldpTest extends Nms17216NetworkBuilder implements Initiali
     public void testNetwork17216Switch1LLDPLocalBaseCollection() throws Exception {
 
         String name = "lldpLocGroup";
-        LldpLocalGroup m_lLldpLocalGroup = new LldpLocalGroup(InetAddress.getByName(SWITCH1_IP));
+        LldpLocalGroup m_lLldpLocalGroup = new LldpLocalGroup(InetAddressUtils.addr(SWITCH1_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
         tracker = new CollectionTracker[] {m_lLldpLocalGroup};
-        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(SWITCH1_IP));
+        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(SWITCH1_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();
 
@@ -99,10 +99,10 @@ public class Nms17216LldpTest extends Nms17216NetworkBuilder implements Initiali
     public void testNetwork17216Switch2LLDPLocalBaseCollection() throws Exception {
 
         String name = "lldpLocGroup";
-        LldpLocalGroup m_lLldpLocalGroup = new LldpLocalGroup(InetAddress.getByName(SWITCH2_IP));
+        LldpLocalGroup m_lLldpLocalGroup = new LldpLocalGroup(InetAddressUtils.addr(SWITCH2_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
         tracker = new CollectionTracker[] {m_lLldpLocalGroup};
-        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(SWITCH2_IP));
+        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(SWITCH2_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();
 
@@ -124,10 +124,10 @@ public class Nms17216LldpTest extends Nms17216NetworkBuilder implements Initiali
     public void testNetwork17216Switch3LLDPLocalBaseCollection() throws Exception {
 
         String name = "lldpLocGroup";
-        LldpLocalGroup m_lLldpLocalGroup = new LldpLocalGroup(InetAddress.getByName(SWITCH3_IP));
+        LldpLocalGroup m_lLldpLocalGroup = new LldpLocalGroup(InetAddressUtils.addr(SWITCH3_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
         tracker = new CollectionTracker[] {m_lLldpLocalGroup};
-        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(SWITCH3_IP));
+        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(SWITCH3_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();
 
@@ -149,10 +149,10 @@ public class Nms17216LldpTest extends Nms17216NetworkBuilder implements Initiali
     public void testNetwork17216Switch4LLDPLocalBaseCollection() throws Exception {
 
         String name = "lldpLocGroup";
-        LldpLocalGroup m_lLldpLocalGroup = new LldpLocalGroup(InetAddress.getByName(SWITCH4_IP));
+        LldpLocalGroup m_lLldpLocalGroup = new LldpLocalGroup(InetAddressUtils.addr(SWITCH4_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
         tracker = new CollectionTracker[] {m_lLldpLocalGroup};
-        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(SWITCH4_IP));
+        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(SWITCH4_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();
 
@@ -174,10 +174,10 @@ public class Nms17216LldpTest extends Nms17216NetworkBuilder implements Initiali
     public void testNetwork17216Switch5LLDPLocalBaseCollection() throws Exception {
 
         String name = "lldpLocGroup";
-        LldpLocalGroup m_lLldpLocalGroup = new LldpLocalGroup(InetAddress.getByName(SWITCH5_IP));
+        LldpLocalGroup m_lLldpLocalGroup = new LldpLocalGroup(InetAddressUtils.addr(SWITCH5_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
         tracker = new CollectionTracker[] {m_lLldpLocalGroup};
-        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(SWITCH5_IP));
+        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(SWITCH5_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();
 
@@ -199,10 +199,10 @@ public class Nms17216LldpTest extends Nms17216NetworkBuilder implements Initiali
     public void testNetwork17216Switch1LldpRemTableCollection() throws Exception {
 
         String name = "lldpRemTable";
-        LldpRemTable m_lldpRemTable = new LldpRemTable(InetAddress.getByName(SWITCH1_IP));
+        LldpRemTable m_lldpRemTable = new LldpRemTable(InetAddressUtils.addr(SWITCH1_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
         tracker = new CollectionTracker[] {m_lldpRemTable};
-        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(SWITCH1_IP));
+        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(SWITCH1_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();
 
@@ -227,10 +227,10 @@ public class Nms17216LldpTest extends Nms17216NetworkBuilder implements Initiali
     public void testNetwork17216Switch2LldpRemTableCollection() throws Exception {
 
         String name = "lldpRemTable";
-        LldpRemTable m_lldpRemTable = new LldpRemTable(InetAddress.getByName(SWITCH2_IP));
+        LldpRemTable m_lldpRemTable = new LldpRemTable(InetAddressUtils.addr(SWITCH2_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
         tracker = new CollectionTracker[] {m_lldpRemTable};
-        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(SWITCH2_IP));
+        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(SWITCH2_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();
 
@@ -255,10 +255,10 @@ public class Nms17216LldpTest extends Nms17216NetworkBuilder implements Initiali
     public void testNetwork17216Switch3LldpRemTableCollection() throws Exception {
 
         String name = "lldpRemTable";
-        LldpRemTable m_lldpRemTable = new LldpRemTable(InetAddress.getByName(SWITCH3_IP));
+        LldpRemTable m_lldpRemTable = new LldpRemTable(InetAddressUtils.addr(SWITCH3_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
         tracker = new CollectionTracker[] {m_lldpRemTable};
-        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(SWITCH3_IP));
+        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(SWITCH3_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();
 
@@ -283,10 +283,10 @@ public class Nms17216LldpTest extends Nms17216NetworkBuilder implements Initiali
     public void testNetwork17216Switch4LldpRemTableCollection() throws Exception {
 
         String name = "lldpRemTable";
-        LldpRemTable m_lldpRemTable = new LldpRemTable(InetAddress.getByName(SWITCH4_IP));
+        LldpRemTable m_lldpRemTable = new LldpRemTable(InetAddressUtils.addr(SWITCH4_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
         tracker = new CollectionTracker[] {m_lldpRemTable};
-        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(SWITCH4_IP));
+        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(SWITCH4_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();
 
@@ -307,10 +307,10 @@ public class Nms17216LldpTest extends Nms17216NetworkBuilder implements Initiali
     public void testNetwork17216Switch5LldpRemTableCollection() throws Exception {
 
         String name = "lldpRemTable";
-        LldpRemTable m_lldpRemTable = new LldpRemTable(InetAddress.getByName(SWITCH5_IP));
+        LldpRemTable m_lldpRemTable = new LldpRemTable(InetAddressUtils.addr(SWITCH5_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
         tracker = new CollectionTracker[] {m_lldpRemTable};
-        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(SWITCH5_IP));
+        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(SWITCH5_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();
 
@@ -429,10 +429,10 @@ public class Nms17216LldpTest extends Nms17216NetworkBuilder implements Initiali
     public void testNetwork17216Switch1LldpLocTableCollection() throws Exception {
 
         String name = "lldpLocTable";
-        LldpLocTable m_lldpLocTable = new LldpLocTable(InetAddress.getByName(SWITCH1_IP));
+        LldpLocTable m_lldpLocTable = new LldpLocTable(InetAddressUtils.addr(SWITCH1_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
         tracker = new CollectionTracker[] {m_lldpLocTable};
-        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(SWITCH1_IP));
+        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(SWITCH1_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();
 
@@ -457,10 +457,10 @@ public class Nms17216LldpTest extends Nms17216NetworkBuilder implements Initiali
     public void testNetwork17216Switch2LldpLocTableCollection() throws Exception {
 
         String name = "lldpLocTable";
-        LldpLocTable m_lldpLocTable = new LldpLocTable(InetAddress.getByName(SWITCH2_IP));
+        LldpLocTable m_lldpLocTable = new LldpLocTable(InetAddressUtils.addr(SWITCH2_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
         tracker = new CollectionTracker[] {m_lldpLocTable};
-        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(SWITCH2_IP));
+        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(SWITCH2_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();
 
@@ -485,10 +485,10 @@ public class Nms17216LldpTest extends Nms17216NetworkBuilder implements Initiali
     public void testNetwork17216Switch3LldpLocTableCollection() throws Exception {
 
         String name = "lldpLocTable";
-        LldpLocTable m_lldpLocTable = new LldpLocTable(InetAddress.getByName(SWITCH3_IP));
+        LldpLocTable m_lldpLocTable = new LldpLocTable(InetAddressUtils.addr(SWITCH3_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
         tracker = new CollectionTracker[] {m_lldpLocTable};
-        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(SWITCH3_IP));
+        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(SWITCH3_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();
 
@@ -513,10 +513,10 @@ public class Nms17216LldpTest extends Nms17216NetworkBuilder implements Initiali
     public void testNetwork17216Switch4LldpLocTableCollection() throws Exception {
 
         String name = "lldpLocTable";
-        LldpLocTable m_lldpLocTable = new LldpLocTable(InetAddress.getByName(SWITCH4_IP));
+        LldpLocTable m_lldpLocTable = new LldpLocTable(InetAddressUtils.addr(SWITCH4_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
         tracker = new CollectionTracker[] {m_lldpLocTable};
-        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(SWITCH4_IP));
+        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(SWITCH4_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();
 
@@ -541,10 +541,10 @@ public class Nms17216LldpTest extends Nms17216NetworkBuilder implements Initiali
     public void testNetwork17216Switch5LldpLocTableCollection() throws Exception {
 
         String name = "lldpLocTable";
-        LldpLocTable m_lldpLocTable = new LldpLocTable(InetAddress.getByName(SWITCH5_IP));
+        LldpLocTable m_lldpLocTable = new LldpLocTable(InetAddressUtils.addr(SWITCH5_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
         tracker = new CollectionTracker[] {m_lldpLocTable};
-        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddress.getByName(SWITCH5_IP));
+        SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(SWITCH5_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();
 
