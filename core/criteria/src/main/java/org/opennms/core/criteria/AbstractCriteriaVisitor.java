@@ -81,4 +81,8 @@ public class AbstractCriteriaVisitor implements CriteriaVisitor {
     public void visitOffset(final Integer offset) {
     }
 
+    public boolean isCount() {
+        return false;
+    }
+
 }

@@ -34,10 +34,8 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.opennms.core.criteria.Alias.JoinType;
-import org.opennms.core.criteria.Fetch.FetchType;
 import org.opennms.core.criteria.restrictions.Restriction;
 import org.opennms.core.criteria.restrictions.Restrictions;
-import org.opennms.core.utils.LogUtils;
 
 public class CriteriaBuilder {
     private Class<?> m_class;
@@ -95,11 +93,6 @@ public class CriteriaBuilder {
 
     public CriteriaBuilder fetch(final String attribute) {
         m_fetch.add(new Fetch(attribute));
-        return this;
-    }
-
-    public CriteriaBuilder fetch(final String attribute, final FetchType type) {
-        m_fetch.add(new Fetch(attribute, type));
         return this;
     }
 
@@ -210,33 +203,33 @@ public class CriteriaBuilder {
         return this;
     }
 
-    public CriteriaBuilder gt(final String attribute, final Object comparator) {
-        addRestriction(Restrictions.gt(attribute, comparator));
+    public CriteriaBuilder gt(final String attribute, final Comparable comparable) {
+        addRestriction(Restrictions.gt(attribute, comparable));
         return this;
     }
 
-    public CriteriaBuilder ge(final String attribute, final Object comparator) {
-        addRestriction(Restrictions.ge(attribute, comparator));
+    public CriteriaBuilder ge(final String attribute, final Comparable comparable) {
+        addRestriction(Restrictions.ge(attribute, comparable));
         return this;
     }
 
-    public CriteriaBuilder lt(final String attribute, final Object comparator) {
-        addRestriction(Restrictions.lt(attribute, comparator));
+    public CriteriaBuilder lt(final String attribute, final Comparable comparable) {
+        addRestriction(Restrictions.lt(attribute, comparable));
         return this;
     }
 
-    public CriteriaBuilder le(final String attribute, final Object comparator) {
-        addRestriction(Restrictions.le(attribute, comparator));
+    public CriteriaBuilder le(final String attribute, final Comparable comparable) {
+        addRestriction(Restrictions.le(attribute, comparable));
         return this;
     }
 
-    public CriteriaBuilder like(final String attribute, final Object comparator) {
-        addRestriction(Restrictions.like(attribute, comparator));
+    public CriteriaBuilder like(final String attribute, final String value) {
+        addRestriction(Restrictions.like(attribute, value));
         return this;
     }
 
-    public CriteriaBuilder ilike(final String attribute, final Object comparator) {
-        addRestriction(Restrictions.ilike(attribute, comparator));
+    public CriteriaBuilder ilike(final String attribute, final String value) {
+        addRestriction(Restrictions.ilike(attribute, value));
         return this;
     }
 
@@ -255,19 +248,8 @@ public class CriteriaBuilder {
         return this;
     }
 
-    public CriteriaBuilder between(final String attribute, final Object begin, final Object end) {
+    public CriteriaBuilder between(final String attribute, final Comparable begin, final Comparable end) {
         addRestriction(Restrictions.between(attribute, begin, end));
-        return this;
-    }
-
-    // TODO MVR javadoc etc...
-    @Deprecated
-    public final CriteriaBuilder sql(final Object sql) {
-        if (sql instanceof String) {
-            addRestriction(Restrictions.sql((String) sql));
-        } else {
-            LogUtils.warnf(this, "sql(): " + sql.getClass().getName() + " is not a string type, can't add");
-        }
         return this;
     }
 
@@ -286,5 +268,4 @@ public class CriteriaBuilder {
         addRestriction(restriction);
         return this;
     }
-
 }

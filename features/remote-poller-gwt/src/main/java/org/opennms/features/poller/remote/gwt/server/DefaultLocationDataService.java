@@ -280,7 +280,6 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
         state.setStatus(monitorStatus.getStatus());
         locationInfo.setStatusDetails(monitorStatus);
         
-        //LogUtils.debugf(this, "getLocationInfo(%s) returning %s", def.getName(), locationInfo.toString());
         return locationInfo;
     }
 
@@ -313,15 +312,13 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
     @Override
     public LocationInfo getLocationInfoForMonitor(Integer monitorId) {
         waitForGeocoding("getLocationInfoForMonitor");
-
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsLocationMonitor.class).add(Restrictions.eq("id", monitorId));
-        final List<OnmsLocationMonitor> monitors = m_locationDao.findMatching(criteria);
-        if (monitors == null) {
+        final OnmsLocationMonitor monitor = m_locationDao.get(monitorId);
+        if (monitor == null) {
             LogUtils.warnf(this, "unable to get location monitor list for monitor ID '%d'", monitorId);
             return null;
         }
 
-        final String definitionName = monitors.get(0).getDefinitionName();
+        final String definitionName = monitor.getDefinitionName();
         final OnmsMonitoringLocationDefinition def = m_locationDao.findMonitoringLocationDefinition(definitionName);
         if (def == null) {
             LogUtils.warnf(this, "unable to find monitoring location definition for '%s'", definitionName);
@@ -395,12 +392,6 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
     }
 
 
-    /**
-     * <p>getStatusDetailsForApplicationOld</p>
-     *
-     * @param app a {@link org.opennms.netmgt.model.OnmsApplication} object.
-     * @return a {@link org.opennms.features.poller.remote.gwt.client.StatusDetails} object.
-     */
     @Transactional
     public StatusDetails getStatusDetailsForApplicationOld(final OnmsApplication app) {
         waitForGeocoding("getStatusDetailsForApplication");
@@ -496,23 +487,9 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
         }
 
         final Set<ApplicationInfo> applications = new HashSet<ApplicationInfo>();
-//        final Map<String, Set<OnmsMonitoredService>> services = new HashMap<String, Set<OnmsMonitoredService>>();
-
         for (final OnmsApplication application : m_applicationDao.findAll()) {
             applications.add(transformApplication(m_monitoredServiceDao.findByApplication(application), application));
         }
-
-//        for (final OnmsMonitoredService service : m_monitoredServiceDao.findAll()) {
-//            for (final OnmsApplication app : service.getApplications()) {
-//                final String appName = app.getName();
-//                Set<OnmsMonitoredService> serv = services.get(appName);
-//                if (serv == null) {
-//                    serv = new HashSet<OnmsMonitoredService>();
-//                    services.put(appName, serv);
-//                }
-//                serv.add(service);
-//            }
-//        }
 
         final Date to = new Date();
         final Date from = new Date(to.getTime() - AVAILABILITY_MS);
@@ -537,12 +514,6 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
         return getApplicationDetails(app);
     }
 
-    /**
-     * <p>getApplicationDetails</p>
-     *
-     * @param app a {@link org.opennms.netmgt.model.OnmsApplication} object.
-     * @return a {@link org.opennms.features.poller.remote.gwt.client.ApplicationDetails} object.
-     */
     @Transactional
     @Override
     public ApplicationDetails getApplicationDetails(final OnmsApplication app) {

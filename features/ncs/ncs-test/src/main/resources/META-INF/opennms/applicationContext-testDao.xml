@@ -52,23 +52,23 @@
     <property name="transactionManager" ref="transactionManager" />
   </bean>
   
-  <bean id="distPollerDao" class="org.opennms.netmgt.dao.jpa.DistPollerDaoHibernate">
+  <bean id="distPollerDao" class="org.opennms.netmgt.dao.hibernate.DistPollerDaoHibernate">
     <property name="sessionFactory" ref="sessionFactory"/>
   </bean>
   
-  <bean id="nodeDao" class="org.opennms.netmgt.dao.jpa.NodeDaoHibernate">
+  <bean id="nodeDao" class="org.opennms.netmgt.dao.hibernate.NodeDaoHibernate">
     <property name="sessionFactory" ref="sessionFactory"/>
   </bean>
   
-  <bean id="eventDao" class="org.opennms.netmgt.dao.jpa.EventDaoHibernate">
+  <bean id="eventDao" class="org.opennms.netmgt.dao.hibernate.EventDaoHibernate">
     <property name="sessionFactory" ref="sessionFactory"/>
   </bean>
   
-  <bean id="alarmDao" class="org.opennms.netmgt.dao.jpa.AlarmDaoHibernate">
+  <bean id="alarmDao" class="org.opennms.netmgt.dao.hibernate.AlarmDaoHibernate">
     <property name="sessionFactory" ref="sessionFactory"/>
   </bean>
   
-  <bean id="ipInterfaceDao" class="org.opennms.netmgt.dao.jpa.IpInterfaceDaoHibernate">
+  <bean id="ipInterfaceDao" class="org.opennms.netmgt.dao.hibernate.IpInterfaceDaoHibernate">
     <property name="sessionFactory" ref="sessionFactory"/>
   </bean>
   

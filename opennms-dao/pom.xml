@@ -85,11 +85,11 @@
       <groupId>org.opennms.core</groupId>
       <artifactId>org.opennms.core.soa</artifactId>
     </dependency>
-    <dependency>
-      <groupId>org.opennms.dependencies</groupId>
-      <artifactId>hibernate-dependencies</artifactId>
-      <type>pom</type>
-    </dependency>
+    <!--<dependency>-->
+      <!--<groupId>org.opennms.dependencies</groupId>-->
+      <!--<artifactId>hibernate-dependencies</artifactId>-->
+      <!--<type>pom</type>-->
+    <!--</dependency>-->
     <dependency>
       <groupId>org.opennms.core</groupId>
       <artifactId>org.opennms.core.xml</artifactId>
@@ -161,7 +161,7 @@
     </dependency>
 <!--    <dependency>
       <groupId>org.hibernate.javax.persistence</groupId>
-      <artifactId>hibernate-jpa-2.0-api</artifactId>
+      <artifactId>hibernate-hibernate-2.0-api</artifactId>
     </dependency>
 -->
     <dependency>

@@ -37,7 +37,6 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 import org.opennms.core.criteria.Alias.JoinType;
-import org.opennms.core.criteria.Fetch.FetchType;
 import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.model.OnmsAlarm;
 import org.opennms.netmgt.model.OnmsIpInterface;
@@ -73,8 +72,8 @@ public class ConcreteObjectTest {
 		final CriteriaBuilder builder = new CriteriaBuilder(OnmsAlarm.class);
 		builder.distinct();
 
-		builder.fetch("firstEvent", FetchType.EAGER);
-        builder.fetch("lastEvent", FetchType.EAGER);
+		builder.fetch("firstEvent");
+        builder.fetch("lastEvent");
         
         builder.alias("node", "node", JoinType.LEFT_JOIN);
         builder.alias("node.snmpInterfaces", "snmpInterface", JoinType.LEFT_JOIN);

@@ -37,7 +37,6 @@ import org.apache.commons.lang.StringUtils;
 import org.opennms.core.criteria.Alias.JoinType;
 import org.opennms.core.criteria.Criteria;
 import org.opennms.core.criteria.CriteriaBuilder;
-import org.opennms.core.criteria.Fetch.FetchType;
 import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.model.OnmsAlarm;
 import org.opennms.netmgt.model.OnmsSeverity;
@@ -64,8 +63,8 @@ public class AlarmRestServiceBase extends OnmsRestService {
 
     	final CriteriaBuilder cb = new CriteriaBuilder(OnmsAlarm.class);
 
-    	cb.fetch("firstEvent", FetchType.EAGER);
-        cb.fetch("lastEvent", FetchType.EAGER);
+    	cb.fetch("firstEvent");
+        cb.fetch("lastEvent");
         
         cb.alias("node", "node", JoinType.LEFT_JOIN);
         cb.alias("node.snmpInterfaces", "snmpInterface", JoinType.LEFT_JOIN);

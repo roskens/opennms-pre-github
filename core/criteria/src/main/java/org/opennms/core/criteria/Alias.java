@@ -40,7 +40,7 @@ public class Alias {
     }
 
     public enum JoinType {
-        LEFT_JOIN, INNER_JOIN, FULL_JOIN
+        LEFT_JOIN, INNER_JOIN;
     }
 
     private final String m_associationPath;
@@ -49,17 +49,10 @@ public class Alias {
 
     private final JoinType m_type;
 
-    private final Restriction m_joinCondition;
-
-    public Alias(final String associationPath, final String alias, final JoinType type, final Restriction joinCondition) {
+    public Alias(final String associationPath, final String alias, final JoinType type) {
         m_alias = alias.intern();
         m_associationPath = associationPath.intern();
         m_type = type;
-        m_joinCondition = joinCondition;
-    }
-
-    public Alias(final String associationPath, final String alias, final JoinType type) {
-        this(associationPath, alias, type, null);
     }
 
     public String getAlias() {
@@ -74,14 +67,6 @@ public class Alias {
         return m_type;
     }
 
-    public boolean hasJoinCondition() {
-        return m_joinCondition != null;
-    }
-
-    public Restriction getJoinCondition() {
-        return m_joinCondition;
-    }
-
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -89,7 +74,6 @@ public class Alias {
         result = prime * result + ((m_alias == null) ? 0 : m_alias.hashCode());
         result = prime * result + ((m_associationPath == null) ? 0 : m_associationPath.hashCode());
         result = prime * result + ((m_type == null) ? 0 : m_type.hashCode());
-        result = prime * result + ((m_joinCondition == null) ? 0 : m_joinCondition.hashCode());
         return result;
     }
 
@@ -110,15 +94,12 @@ public class Alias {
             return false;
         }
         if (m_type != other.m_type) return false;
-        if (m_joinCondition == null && other.m_joinCondition != null) return false;
-        if (m_joinCondition != null && other.m_joinCondition == null) return false;
-        if (!m_joinCondition.equals(other.m_joinCondition)) return false;
         return true;
     }
 
     @Override
     public String toString() {
-        return "Alias [associationPath=" + m_associationPath + ", alias=" + m_alias + ", type=" + m_type + ", joinCondition=" + m_joinCondition + "]";
+        return "Alias [associationPath=" + m_associationPath + ", alias=" + m_alias + ", type=" + m_type + "]";
     }
 
 }

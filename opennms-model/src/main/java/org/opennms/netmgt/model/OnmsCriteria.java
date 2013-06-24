@@ -28,374 +28,84 @@
 
 package org.opennms.netmgt.model;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Order;
+import javax.persistence.criteria.Predicate;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.hibernate.Criteria;
-import org.hibernate.FetchMode;
-import org.hibernate.HibernateException;
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projection;
-import org.hibernate.impl.CriteriaImpl;
-import org.hibernate.transform.ResultTransformer;
-
-/**
- * <p>OnmsCriteria class.</p>
- *
- * @author ranger
- * @version $Id: $
- */
 public class OnmsCriteria implements Serializable {
-
     private static final long serialVersionUID = 232519716244370358L;
 
-    /** Constant <code>INNER_JOIN=Criteria.INNER_JOIN</code> */
-    public static final int INNER_JOIN = Criteria.INNER_JOIN;
-    /** Constant <code>LEFT_JOIN=Criteria.LEFT_JOIN</code> */
-    public static final int LEFT_JOIN = Criteria.LEFT_JOIN;
-    
-    private OnmsCriteria.OnmsDetachedCriteria m_criteria;
-    private String m_entityName;
-    private Integer m_firstResult = null;
-    private Integer m_maxResults = null;
-    
-    /**
-     * <p>Constructor for OnmsCriteria.</p>
-     *
-     * @param entityName a {@link java.lang.String} object.
-     */
-    public OnmsCriteria(String entityName) {
-        this(entityName, OnmsCriteria.OnmsDetachedCriteria.forEntityName(entityName));
-    }
-    
-    /**
-     * <p>Constructor for OnmsCriteria.</p>
-     *
-     * @param entityName a {@link java.lang.String} object.
-     * @param alias a {@link java.lang.String} object.
-     */
-    public OnmsCriteria(String entityName, String alias) {
-        this(entityName, OnmsCriteria.OnmsDetachedCriteria.forEntityName(entityName, alias));
-    }
-    
-    /**
-     * <p>Constructor for OnmsCriteria.</p>
-     *
-     * @param clazz a {@link java.lang.Class} object.
-     */
+    private final List<Predicate> predicateList = new ArrayList<Predicate>();
+    private final List<Order> orderList = new ArrayList<Order>();
+    private Class<?> m_entityClass;
+    private Integer m_firstResult;
+    private Integer m_maxResults;
+    private boolean count;
+
     public OnmsCriteria(Class<?> clazz) {
-        this(clazz.getName(), OnmsCriteria.OnmsDetachedCriteria.forClass(clazz));
+        m_entityClass = clazz;
     }
-    
-    /**
-     * <p>Constructor for OnmsCriteria.</p>
-     *
-     * @param clazz a {@link java.lang.Class} object.
-     * @param alias a {@link java.lang.String} object.
-     */
-    public OnmsCriteria(Class<?> clazz, String alias) {
-        this(clazz.getName(), OnmsCriteria.OnmsDetachedCriteria.forClass(clazz, alias));
-    }
-    
-    /**
-     * <p>Constructor for OnmsCriteria.</p>
-     *
-     * @param entityName a {@link java.lang.String} object.
-     * @param criteria a {@link org.opennms.netmgt.model.OnmsCriteria.OnmsDetachedCriteria} object.
-     */
-    protected OnmsCriteria(String entityName, OnmsCriteria.OnmsDetachedCriteria criteria) {
-        m_entityName = entityName;
-        m_criteria = criteria;
-    }
-    
-    /**
-     * <p>add</p>
-     *
-     * @param criterion a {@link org.hibernate.criterion.Criterion} object.
-     * @return a {@link org.opennms.netmgt.model.OnmsCriteria} object.
-     */
-    public OnmsCriteria add(Criterion criterion) {
-        m_criteria.add(criterion);
+
+    public OnmsCriteria add(Predicate predicate) {
+        predicateList.add(predicate);
         return this;
     }
 
-    /**
-     * <p>addOrder</p>
-     *
-     * @param order a {@link org.hibernate.criterion.Order} object.
-     * @return a {@link org.opennms.netmgt.model.OnmsCriteria} object.
-     */
     public OnmsCriteria addOrder(Order order) {
-        m_criteria.addOrder(order);
+        orderList.add(order);
         return this;
     }
 
-    /**
-     * <p>createAlias</p>
-     *
-     * @param associationPath a {@link java.lang.String} object.
-     * @param alias a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.model.OnmsCriteria} object.
-     * @throws org.hibernate.HibernateException if any.
-     */
-    public OnmsCriteria createAlias(String associationPath, String alias) throws HibernateException {
-        m_criteria.createAlias(associationPath, alias);
-        return this;
-    }
-    
-    /**
-     * <p>createAlias</p>
-     *
-     * @param associationPath a {@link java.lang.String} object.
-     * @param alias a {@link java.lang.String} object.
-     * @param joinType a int.
-     * @return a {@link org.opennms.netmgt.model.OnmsCriteria} object.
-     */
-    public OnmsCriteria createAlias(String associationPath, String alias, int joinType) {
-        m_criteria.createAlias(associationPath, alias, joinType);
-        return this;
+    public Query getQuery(EntityManager em) {
+        final CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        final CriteriaQuery criteriaQuery = criteriaBuilder.createQuery(m_entityClass);
+        criteriaQuery.orderBy(orderList);
+        criteriaQuery.where(predicateList.toArray(new Predicate[predicateList.size()]));
+
+        if (count) criteriaBuilder.count(criteriaQuery.from(m_entityClass));
+
+        final Query query = em.createQuery(criteriaQuery);
+        if (hasFirstResult()) query.setFirstResult(getFirstResult());
+        if (hasMaxResults()) query.setMaxResults(getMaxResults());
+        return query;
     }
 
-    /**
-     * <p>createCriteria</p>
-     *
-     * @param associationPath a {@link java.lang.String} object.
-     * @param alias a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.model.OnmsCriteria} object.
-     */
-    public OnmsCriteria createCriteria(String associationPath, String alias) {
-        return new OnmsCriteria(null, m_criteria.createCriteria(associationPath, alias));
+    private boolean hasFirstResult() {
+        return m_firstResult != null;
     }
 
-    /**
-     * <p>createCriteria</p>
-     *
-     * @param associationPath a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.model.OnmsCriteria} object.
-     */
-    public OnmsCriteria createCriteria(String associationPath) {
-        return new OnmsCriteria(null,  m_criteria.createCriteria(associationPath) );
+    private boolean hasMaxResults() {
+        return m_maxResults != null;
     }
 
-    /**
-     * <p>createCriteria</p>
-     *
-     * @param associationPath a {@link java.lang.String} object.
-     * @param joinType a int.
-     * @return a {@link org.opennms.netmgt.model.OnmsCriteria} object.
-     */
-    public OnmsCriteria createCriteria(String associationPath, int joinType) {
-        return new OnmsCriteria(null,  m_criteria.createCriteria(associationPath, joinType) );
-    }
-
-    /**
-     * <p>getAlias</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    public String getAlias() {
-        return m_criteria.getAlias();
-    }
-
-    /**
-     * <p>setFetchMode</p>
-     *
-     * @param associationPath a {@link java.lang.String} object.
-     * @param mode a {@link org.hibernate.FetchMode} object.
-     * @return a {@link org.opennms.netmgt.model.OnmsCriteria} object.
-     * @throws org.hibernate.HibernateException if any.
-     */
-    public OnmsCriteria setFetchMode(String associationPath, FetchMode mode) throws HibernateException {
-        m_criteria.setFetchMode(associationPath, mode);
-        return this;
-    }
-
-    /**
-     * <p>setProjection</p>
-     *
-     * @param projection a {@link org.hibernate.criterion.Projection} object.
-     * @return a {@link org.opennms.netmgt.model.OnmsCriteria} object.
-     */
-    public OnmsCriteria setProjection(Projection projection) {
-        m_criteria.setProjection(projection);
-        return this;
-    }
-
-    /**
-     * <p>setResultTransformer</p>
-     *
-     * @param resultTransformer a {@link org.hibernate.transform.ResultTransformer} object.
-     * @return a {@link org.opennms.netmgt.model.OnmsCriteria} object.
-     */
-    public OnmsCriteria setResultTransformer(ResultTransformer resultTransformer) {
-        m_criteria.setResultTransformer(resultTransformer);
-        return this;
-    }
-    
-    /**
-     * <p>getDetachedCriteria</p>
-     *
-     * @return a {@link org.opennms.netmgt.model.OnmsCriteria.OnmsDetachedCriteria} object.
-     */
-    public OnmsCriteria.OnmsDetachedCriteria getDetachedCriteria() {
-        return m_criteria;
-    }
-
-    /**
-     * <p>resultsOfType</p>
-     *
-     * @param clazz a {@link java.lang.Class} object.
-     * @return a boolean.
-     */
-    public boolean resultsOfType(Class<?> clazz) {
-        if (m_entityName == null) {
-            return true;
-        } else {
-            return clazz.getName().endsWith(m_entityName);
-        }
-    }
-    
-    /**
-     * <p>getFirstResult</p>
-     *
-     * @return a {@link java.lang.Integer} object.
-     */
-    public Integer getFirstResult() {
+    protected Integer getFirstResult() {
     	return m_firstResult;
     }
-    
-    /**
-     * <p>setFirstResult</p>
-     *
-     * @param offset a {@link java.lang.Integer} object.
-     */
+
     public void setFirstResult(Integer offset) {
     	m_firstResult = offset;
     }
-    
-    /**
-     * <p>getMaxResults</p>
-     *
-     * @return a {@link java.lang.Integer} object.
-     */
-    public Integer getMaxResults() {
+
+    protected Integer getMaxResults() {
     	return m_maxResults;
     }
-    
-    /**
-     * <p>setMaxResults</p>
-     *
-     * @param limit a {@link java.lang.Integer} object.
-     */
     public void setMaxResults(Integer limit) {
     	m_maxResults = limit;
+    }
+
+    protected void count() {
+        count = true;
     }
     
     /** {@inheritDoc} */
     @Override
     public String toString() {
-        return "OnmsCriteria( " + m_criteria + ") limit " + m_maxResults + " offset " + m_firstResult;
-    }
-
-    /**
-     * This function can be used to copy an OnmsCriteria object so that additional Criterion
-     * objects can be added to it without altering the original.
-     */
-    public OnmsCriteria doClone() {
-        try {
-            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-            ObjectOutputStream object = new ObjectOutputStream(bytes);
-            object.writeObject(this);
-            object.flush();
-            object.close();
-            OnmsCriteria copy = (OnmsCriteria)new ObjectInputStream(new ByteArrayInputStream(bytes.toByteArray())).readObject();
-            return copy;
-        } catch(Throwable t) {
-            throw new HibernateException(t);
-        }
-    }
-
-    /**
-     * This is a subclass of Hibernate's DetachedCriteria, providing a few
-     * more of the Criteria methods than are available in DetachedCriteria.
-     * We create our own CriteriaImpl and pass it to the constructor for our
-     * superclass, keeping a reference to the CriteriaImpl for ourselves so
-     * we can use it for feature that DetachedCriteria doesn't support.
-     * 
-     * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
-     */
-    public static class OnmsDetachedCriteria extends DetachedCriteria implements Cloneable {
-        /**
-         * 
-         */
-        private static final long serialVersionUID = -2016788794945601848L;
-        private CriteriaImpl m_impl;
-
-        protected OnmsDetachedCriteria(String entityName) {
-            this(new CriteriaImpl(entityName, null));
-        }
-        
-        protected OnmsDetachedCriteria(String entityName, String alias) {
-            this(new CriteriaImpl(entityName, alias, null));
-        }
-
-        protected OnmsDetachedCriteria(CriteriaImpl impl) {
-            super(impl, impl);
-            m_impl = impl;
-        }
-        
-        protected OnmsDetachedCriteria(CriteriaImpl impl, Criteria criteria) {
-            super(impl, criteria);
-            m_impl = impl;
-        }
-        
-        public static OnmsCriteria.OnmsDetachedCriteria forEntityName(String entityName) {
-            return new OnmsCriteria.OnmsDetachedCriteria(entityName);
-        }
-        
-        public static OnmsCriteria.OnmsDetachedCriteria forEntityName(String entityName, String alias) {
-            return new OnmsCriteria.OnmsDetachedCriteria(entityName, alias);
-        }
-        
-        @SuppressWarnings("unchecked") // Needs to have the same erasure as the Hibernate API
-        public static OnmsCriteria.OnmsDetachedCriteria forClass(Class clazz) {
-            return new OnmsCriteria.OnmsDetachedCriteria(clazz.getName());
-        }
-        
-        @SuppressWarnings("unchecked") // Needs to have the same erasure as the Hibernate API
-        public static OnmsCriteria.OnmsDetachedCriteria forClass(Class clazz, String alias) {
-            return new OnmsCriteria.OnmsDetachedCriteria(clazz.getName() , alias);
-        }
-        
-        @Override
-        public OnmsCriteria.OnmsDetachedCriteria createAlias(String associationPath, String alias, int joinType) {
-            m_impl.createAlias(associationPath, alias, joinType);
-            return this;
-        }
-
-        @Override
-        public OnmsCriteria.OnmsDetachedCriteria createCriteria(String associationPath, int joinType) {
-            return new OnmsCriteria.OnmsDetachedCriteria(m_impl, m_impl.createCriteria(associationPath, joinType));
-        }
-        
-        @Override
-        public OnmsCriteria.OnmsDetachedCriteria createCriteria(String associationPath, String alias) {
-            return new OnmsCriteria.OnmsDetachedCriteria(m_impl, m_impl.createCriteria(associationPath));
-        }
-
-        @Override
-        public OnmsCriteria.OnmsDetachedCriteria createCriteria(String associationPath, String alias, int joinType) {
-            return new OnmsCriteria.OnmsDetachedCriteria(m_impl, m_impl.createCriteria(associationPath, alias, joinType));
-        }
-
-        @Override
-        public OnmsCriteria.OnmsDetachedCriteria createCriteria(String associationPath) throws HibernateException {
-            return new OnmsCriteria.OnmsDetachedCriteria(m_impl, m_impl.createCriteria(associationPath));
-        }
+        return "OnmsCriteria( " + predicateList + ") limit " + m_maxResults + " offset " + m_firstResult;
     }
 }

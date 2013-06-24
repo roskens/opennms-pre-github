@@ -64,15 +64,6 @@ public interface OutageDao extends OnmsDao<OnmsOutage, Integer> {
     Collection<OnmsOutage> matchingCurrentOutages(ServiceSelector selector);
     
     /**
-     * <p>findAll</p>
-     *
-     * @param offset a {@link java.lang.Integer} object.
-     * @param limit a {@link java.lang.Integer} object.
-     * @return a {@link java.util.Collection} object.
-     */
-    Collection<OnmsOutage> findAll(Integer offset, Integer limit);
-
-    /**
      * Get the number of nodes with outages.
      * @return the number of nodes with outages.
      */

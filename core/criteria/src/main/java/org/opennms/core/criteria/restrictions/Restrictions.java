@@ -54,28 +54,28 @@ public class Restrictions {
         return new NeRestriction(attribute, comparator);
     }
 
-    public static GtRestriction gt(final String attribute, final Object comparator) {
-        return new GtRestriction(attribute, comparator);
+    public static GtRestriction gt(final String attribute, final Comparable comparable) {
+        return new GtRestriction(attribute, comparable);
     }
 
-    public static GeRestriction ge(final String attribute, final Object comparator) {
-        return new GeRestriction(attribute, comparator);
+    public static GeRestriction ge(final String attribute, final Comparable comparable) {
+        return new GeRestriction(attribute, comparable);
     }
 
-    public static LtRestriction lt(final String attribute, final Object comparator) {
-        return new LtRestriction(attribute, comparator);
+    public static LtRestriction lt(final String attribute, final Comparable comparable) {
+        return new LtRestriction(attribute, comparable);
     }
 
-    public static LeRestriction le(final String attribute, final Object comparator) {
-        return new LeRestriction(attribute, comparator);
+    public static LeRestriction le(final String attribute, final Comparable comparable) {
+        return new LeRestriction(attribute, comparable);
     }
 
-    public static LikeRestriction like(final String attribute, final Object comparator) {
-        return new LikeRestriction(attribute, comparator);
+    public static LikeRestriction like(final String attribute, final String value) {
+        return new LikeRestriction(attribute, value);
     }
 
-    public static IlikeRestriction ilike(final String attribute, final Object comparator) {
-        return new IlikeRestriction(attribute, comparator);
+    public static IlikeRestriction ilike(final String attribute, final String value) {
+        return new IlikeRestriction(attribute, value);
     }
 
     public static IplikeRestriction iplike(final String attribute, final Object comparator) {
@@ -86,7 +86,7 @@ public class Restrictions {
         return new InRestriction(attribute, collection);
     }
 
-    public static BetweenRestriction between(final String attribute, final Object begin, final Object end) {
+    public static BetweenRestriction between(final String attribute, final Comparable begin, final Comparable end) {
         return new BetweenRestriction(attribute, begin, end);
     }
 
@@ -117,9 +117,4 @@ public class Restrictions {
     public static AnyRestriction any(final Collection<Restriction> restrictions) {
         return new AnyRestriction(restrictions.toArray(EMPTY_RESTRICTION_ARRAY));
     }
-
-    public static AttributeRestriction sql(final String sql) {
-        return new SqlRestriction(sql);
-    }
-
 }

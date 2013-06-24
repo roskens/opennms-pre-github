@@ -59,8 +59,6 @@ public interface RestrictionVisitor {
     void visitNotComplete(final NotRestriction restriction);
     void visitBetween(final BetweenRestriction restriction);
     void visitBetweenComplete(final BetweenRestriction restriction);
-    void visitSql(final SqlRestriction restriction);
-    void visitSqlComplete(final SqlRestriction restriction);
     void visitIplike(final IplikeRestriction restriction);
     void visitIplikeComplete(final IplikeRestriction restriction);
 }

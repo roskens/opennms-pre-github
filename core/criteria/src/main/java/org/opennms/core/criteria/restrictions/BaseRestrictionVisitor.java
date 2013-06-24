@@ -60,8 +60,6 @@ public class BaseRestrictionVisitor implements RestrictionVisitor {
     @Override public void visitNotComplete(final NotRestriction restriction) {}
     @Override public void visitBetween(final BetweenRestriction restriction) {}
     @Override public void visitBetweenComplete(final BetweenRestriction restriction) {}
-    @Override public void visitSql(final SqlRestriction restriction) {}
-    @Override public void visitSqlComplete(final SqlRestriction restriction) {}
     @Override public void visitIplike(final IplikeRestriction restriction) {}
     @Override public void visitIplikeComplete(final IplikeRestriction restriction) {}
 

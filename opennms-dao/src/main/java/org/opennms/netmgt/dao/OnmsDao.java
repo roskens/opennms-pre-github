@@ -34,132 +34,47 @@ import java.util.List;
 import org.opennms.core.criteria.Criteria;
 import org.opennms.netmgt.model.OnmsCriteria;
 
-/**
- * <p>OnmsDao interface.</p>
- */
 public interface OnmsDao<T, K extends Serializable> {
     
     /**
-     * This is used to lock the table in order to implement upsert type operations
+     * This is used to lock the table in order to implement update/insert (upsert) type operations.
      */
     void lock();
 
-    
-    /**
-     * <p>initialize</p>
-     *
-     * @param obj a {@link java.lang.Object} object.
-     * @param <T> a T object.
-     * @param <K> a K object.
-     */
-    void
-    initialize(Object obj);
-
-    /**
-     * <p>flush</p>
-     */
     void flush();
 
-    /**
-     * <p>clear</p>
-     */
     void clear();
 
-    /**
-     * <p>countAll</p>
-     *
-     * @return a int.
-     */
     int countAll();
 
-    /**
-     * <p>delete</p>
-     *
-     * @param entity a T object.
-     */
     void delete(T entity);
 
-    /**
-     * <p>delete</p>
-     *
-     * @param key a K object.
-     */
     void delete(K key);
 
-    /**
-     * <p>findAll</p>
-     *
-     * @return a {@link java.util.List} object.
-     */
     List<T> findAll();
     
-    /**
-     * <p>findMatching</p>
-     *
-     * @param criteria a {@link org.opennms.core.criteria.Criteria} object.
-     * @return a {@link java.util.List} object.
-     */
     List<T> findMatching(Criteria criteria);
 
-    /**
-     * <p>findMatching</p>
-     *
-     * @param criteria a {@link org.opennms.netmgt.model.OnmsCriteria} object.
-     * @return a {@link java.util.List} object.
-     */
     List<T> findMatching(OnmsCriteria criteria);
 
-    /**
-     * <p>countMatching</p>
-     *
-     * @param onmsCrit a {@link org.opennms.core.criteria.Criteria} object.
-     * @return a int.
-     */
     int countMatching(final Criteria onmsCrit);
 
-    /**
-     * <p>countMatching</p>
-     *
-     * @param onmsCrit a {@link org.opennms.netmgt.model.OnmsCriteria} object.
-     * @return a int.
-     */
     int countMatching(final OnmsCriteria onmsCrit);
-    
-    /**
-     * <p>get</p>
-     *
-     * @param id a K object.
-     * @return a T object.
-     */
+
+    List<T> findAll(int limit, int offset);
+
     T get(K id);
 
     /**
-     * <p>load</p>
-     *
-     * @param id a K object.
-     * @return a T object.
+     * Use {@link #get(java.io.Serializable)} instead.
+     * @deprecated
      */
+    @Deprecated
     T load(K id);
 
-    /**
-     * <p>save</p>
-     *
-     * @param entity a T object.
-     */
     void save(T entity);
 
-    /**
-     * <p>saveOrUpdate</p>
-     *
-     * @param entity a T object.
-     */
     void saveOrUpdate(T entity);
 
-    /**
-     * <p>update</p>
-     *
-     * @param entity a T object.
-     */
     void update(T entity);
-
 }

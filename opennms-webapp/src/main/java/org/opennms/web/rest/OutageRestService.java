@@ -173,7 +173,6 @@ public class OutageRestService extends OnmsRestService {
             builder.alias("monitoredService.serviceType", "serviceType");
     
             applyQueryFilters(m_uriInfo.getQueryParameters(), builder);
-    
             builder.orderBy("id").desc();
     
             return new OnmsOutageCollection(m_outageDao.findMatching(builder.toCriteria()));

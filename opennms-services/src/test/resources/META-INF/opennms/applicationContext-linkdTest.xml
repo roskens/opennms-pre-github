@@ -66,39 +66,39 @@
     <property name="transactionManager" ref="transactionManager" />
   </bean>
 
-  <bean id="nodeDao" class="org.opennms.netmgt.dao.jpa.NodeDaoHibernate">
+  <bean id="nodeDao" class="org.opennms.netmgt.dao.hibernate.NodeDaoHibernate">
     <property name="sessionFactory" ref="sessionFactory" />
   </bean>
   
-  <bean id="ipInterfaceDao" class="org.opennms.netmgt.dao.jpa.IpInterfaceDaoHibernate">
+  <bean id="ipInterfaceDao" class="org.opennms.netmgt.dao.hibernate.IpInterfaceDaoHibernate">
     <property name="sessionFactory" ref="sessionFactory" />
   </bean>
 
-  <bean id="snmpInterfaceDao" class="org.opennms.netmgt.dao.jpa.SnmpInterfaceDaoHibernate">
+  <bean id="snmpInterfaceDao" class="org.opennms.netmgt.dao.hibernate.SnmpInterfaceDaoHibernate">
     <property name="sessionFactory" ref="sessionFactory" />
   </bean>
 
-  <bean id="atInterfaceDao" class="org.opennms.netmgt.dao.jpa.AtInterfaceDaoHibernate">
+  <bean id="atInterfaceDao" class="org.opennms.netmgt.dao.hibernate.AtInterfaceDaoHibernate">
     <property name="sessionFactory" ref="sessionFactory" />
   </bean>
 
-  <bean id="vlanDao" class="org.opennms.netmgt.dao.jpa.VlanDaoHibernate">
+  <bean id="vlanDao" class="org.opennms.netmgt.dao.hibernate.VlanDaoHibernate">
     <property name="sessionFactory" ref="sessionFactory" />
   </bean>
 
-  <bean id="stpNodeDao" class="org.opennms.netmgt.dao.jpa.StpNodeDaoHibernate">
+  <bean id="stpNodeDao" class="org.opennms.netmgt.dao.hibernate.StpNodeDaoHibernate">
     <property name="sessionFactory" ref="sessionFactory" />
   </bean>
 
-  <bean id="stpInterfaceDao" class="org.opennms.netmgt.dao.jpa.StpInterfaceDaoHibernate">
+  <bean id="stpInterfaceDao" class="org.opennms.netmgt.dao.hibernate.StpInterfaceDaoHibernate">
     <property name="sessionFactory" ref="sessionFactory" />
   </bean>
   
-    <bean id="ipRouteInterfaceDao" class="org.opennms.netmgt.dao.jpa.IpRouteInterfaceDaoHibernate">
+    <bean id="ipRouteInterfaceDao" class="org.opennms.netmgt.dao.hibernate.IpRouteInterfaceDaoHibernate">
     <property name="sessionFactory" ref="sessionFactory" />
   </bean>
   
-    <bean id="dataLinkInterfaceDao" class="org.opennms.netmgt.dao.jpa.DataLinkInterfaceDaoHibernate">
+    <bean id="dataLinkInterfaceDao" class="org.opennms.netmgt.dao.hibernate.DataLinkInterfaceDaoHibernate">
     <property name="sessionFactory" ref="sessionFactory" />
   </bean>
   

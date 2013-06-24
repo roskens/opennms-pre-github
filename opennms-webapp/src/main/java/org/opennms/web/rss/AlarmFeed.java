@@ -34,7 +34,7 @@ import javax.servlet.ServletContext;
 
 import org.opennms.core.utils.WebSecurityUtils;
 import org.opennms.netmgt.dao.AlarmRepository;
-import org.opennms.netmgt.dao.jpa.AlarmRepositoryHibernate;
+import org.opennms.netmgt.dao.hibernate.AlarmRepositoryHibernate;
 import org.opennms.netmgt.model.OnmsAlarm;
 import org.opennms.netmgt.model.OnmsCriteria;
 import org.opennms.netmgt.model.OnmsSeverity;

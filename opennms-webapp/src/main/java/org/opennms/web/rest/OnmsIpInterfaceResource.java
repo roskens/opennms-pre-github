@@ -111,10 +111,9 @@ public class OnmsIpInterfaceResource extends OnmsRestService {
             LogUtils.debugf(this, "getIpInterfaces: reading interfaces for node %s", nodeCriteria);
     
             final OnmsNode node = m_nodeDao.get(nodeCriteria);
-            
             final MultivaluedMap<String,String> params = m_uriInfo.getQueryParameters();
-            
             final CriteriaBuilder builder = new CriteriaBuilder(OnmsIpInterface.class);
+
             builder.ne("isManaged", "D");
             builder.limit(20);
             applyQueryFilters(params, builder);
@@ -122,7 +121,6 @@ public class OnmsIpInterfaceResource extends OnmsRestService {
             builder.eq("node.id", node.getId());
             
             final OnmsIpInterfaceList interfaceList = new OnmsIpInterfaceList(m_ipInterfaceDao.findMatching(builder.toCriteria()));
-    
             interfaceList.setTotalCount(m_ipInterfaceDao.countMatching(builder.count().toCriteria()));
             
             return interfaceList;

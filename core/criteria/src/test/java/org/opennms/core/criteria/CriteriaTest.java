@@ -42,7 +42,6 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.opennms.core.criteria.Alias.JoinType;
-import org.opennms.core.criteria.Fetch.FetchType;
 import org.opennms.core.criteria.restrictions.Restriction;
 import org.opennms.core.criteria.restrictions.Restrictions;
 import org.opennms.core.utils.LogUtils;
@@ -115,17 +114,6 @@ public class CriteriaTest {
 	}
 
 	@Test
-	public void testFetch() {
-		final CriteriaBuilder cb = new CriteriaBuilder(OnmsAlarm.class);
-
-		cb.fetch("firstEvent").fetch("lastEvent").fetch("distPoller", FetchType.LAZY);
-		final Iterator<Fetch> i = cb.toCriteria().getFetchTypes().iterator();
-		assertEquals(FetchType.DEFAULT, i.next().getFetchType());
-		i.next();
-		assertEquals(FetchType.LAZY, i.next().getFetchType());
-	}
-	
-	@Test
 	public void testAlias() {
 		CriteriaBuilder cb = new CriteriaBuilder(OnmsAlarm.class);
 		
@@ -133,10 +121,10 @@ public class CriteriaTest {
 		assertEquals(JoinType.LEFT_JOIN, cb.toCriteria().getAliases().iterator().next().getType());
 		assertEquals(3, cb.toCriteria().getAliases().size());
 
-		cb = new CriteriaBuilder(OnmsAlarm.class).join("monkey", "ook", JoinType.FULL_JOIN);
+		cb = new CriteriaBuilder(OnmsAlarm.class).join("monkey", "ook", JoinType.LEFT_JOIN);
 		assertEquals("monkey", cb.toCriteria().getAliases().iterator().next().getAssociationPath());
 		assertEquals("ook", cb.toCriteria().getAliases().iterator().next().getAlias());
-		assertEquals(JoinType.FULL_JOIN, cb.toCriteria().getAliases().iterator().next().getType());
+		assertEquals(JoinType.LEFT_JOIN, cb.toCriteria().getAliases().iterator().next().getType());
 	}
 	
 	@Test
