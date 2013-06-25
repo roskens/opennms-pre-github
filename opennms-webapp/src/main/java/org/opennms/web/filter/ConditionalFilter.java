@@ -72,16 +72,6 @@ public abstract class ConditionalFilter implements Filter {
     public Filter[] getFilters() {
         return m_filters;
     }
-    
-    /** {@inheritDoc} */
-    @Override
-    public int bindParam(PreparedStatement ps, int parameterIndex) throws SQLException {
-        int parametersBound = 0;
-        for (Filter mFilter : m_filters) {
-            parametersBound += mFilter.bindParam(ps, parameterIndex + parametersBound);
-        }
-        return parametersBound;
-    }
 
     /**
      * <p>getDescription</p>
@@ -102,29 +92,6 @@ public abstract class ConditionalFilter implements Filter {
             buf.append(filter.getDescription());
             buf.append(')');
         }
-        return buf.toString();
-    }
-
-    /**
-     * <p>getParamSql</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    @Override
-    public String getParamSql() {
-        if (m_filters.length == 1) {
-            return m_filters[0].getParamSql();
-        }
-        
-        StringBuilder buf = new StringBuilder("( ");
-        for(int i = 0; i < m_filters.length; i++){
-            if (i != 0) {
-                buf.append(m_conditionType);
-                buf.append(" ");
-            }
-            buf.append(m_filters[i].getParamSql());
-        }
-        buf.append(") ");
         return buf.toString();
     }
 

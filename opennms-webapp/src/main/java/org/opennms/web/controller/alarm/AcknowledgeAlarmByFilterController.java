@@ -29,17 +29,22 @@
 package org.opennms.web.controller.alarm;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
+import javax.annotation.Nullable;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.common.base.Function;
+import com.google.common.collect.Collections2;
+import org.apache.commons.collections.CollectionUtils;
+import org.opennms.netmgt.dao.AlarmDao;
 import org.opennms.netmgt.dao.AlarmRepository;
 import org.opennms.netmgt.model.OnmsCriteria;
 import org.opennms.web.alarm.AcknowledgeType;
 import org.opennms.web.alarm.AlarmUtil;
-import org.opennms.web.alarm.filter.AlarmCriteria;
 import org.opennms.web.filter.Filter;
 import org.opennms.web.servlet.MissingParameterException;
 import org.springframework.beans.factory.InitializingBean;
@@ -112,17 +117,18 @@ public class AcknowledgeAlarmByFilterController extends AbstractController imple
         }
 
         // handle the filter parameters
-        ArrayList<Filter> filterArray = new ArrayList<Filter>();
+        ArrayList<String> filterArray = new ArrayList<String>();
         for (String filterString : filterStrings) {
             Filter filter = AlarmUtil.getFilter(filterString, getServletContext());
             if (filter != null) {
-                filterArray.add(filter);
+                filterArray.add(filter.getSql());
             }
         }
+        AlarmDao.AlarmSearchParameter parameter = new AlarmDao.AlarmSearchParameter((String[]) filterArray.toArray());
 
-        Filter[] filters = filterArray.toArray(new Filter[filterArray.size()]);
-        
-        OnmsCriteria criteria = AlarmUtil.getOnmsCriteria(new AlarmCriteria(filters));
+
+
+        OnmsCriteria criteria = AlarmUtil.getOnmsCriteria(new AlarmDao.AlarmSearchParameter(filters));
 
         if (action.equals(AcknowledgeType.ACKNOWLEDGED.getShortName())) {
             m_webAlarmRepository.acknowledgeMatchingAlarms(request.getRemoteUser(), new Date(), criteria);

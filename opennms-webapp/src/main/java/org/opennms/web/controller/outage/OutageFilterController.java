@@ -76,19 +76,6 @@ public class OutageFilterController extends AbstractController implements Initia
     private WebOutageRepository m_webOutageRepository;
     
 
-
-    /**
-     * {@inheritDoc}
-     *
-     * Parses the query string to determine what types of filters to use
-     * (for example, what to filter on or sort by), then does the database query
-     * (through the OutageFactory) and then forwards the results to a JSP for
-     * display.
-     *
-     * <p>
-     * Sets request attributes for the forwardee JSP (or whatever gets called).
-     * </p>
-     */
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String display = request.getParameter("display");

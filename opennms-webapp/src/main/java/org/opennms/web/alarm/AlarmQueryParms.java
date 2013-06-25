@@ -30,6 +30,7 @@ package org.opennms.web.alarm;
 
 import java.util.List;
 
+import org.opennms.netmgt.dao.AlarmDao;
 import org.opennms.web.filter.Filter;
 
 /**
@@ -43,7 +44,7 @@ import org.opennms.web.filter.Filter;
  * @since 1.8.1
  */
 public class AlarmQueryParms extends Object {
-    public SortStyle sortStyle;
+    public AlarmDao.SortStyle sortStyle;
 
     public AcknowledgeType ackType;
 

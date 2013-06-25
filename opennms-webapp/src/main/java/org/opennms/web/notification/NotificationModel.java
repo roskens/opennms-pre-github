@@ -77,7 +77,7 @@ public class NotificationModel extends Object {
 
     private static final String EVENTID = "eventid";
 
-    private static final String SELECT = "SELECT textmsg, numericmsg, notifyid, pagetime, respondtime, answeredby, nodeid, interfaceid, serviceid, eventid from NOTIFICATIONS";
+    private static final String SELECT = "SELECT n.textmsg as textmsg, n.numericmsg as numericmsg, n.notifyid as notifyid, n.pagetime as pagetime, n.respondtime as respondtime, n.answeredby as answeredby, n.nodeid as nodeid, n.interfaceid as interfaceid, n.serviceid as serviceid, n.eventid as eventid, e.eventDisplay as eventDisplay from NOTIFICATIONS n left join events e on n.eventid = e.eventid";
 
     private static final String NOTICE_ID = "SELECT textmsg, numericmsg, notifyid, pagetime, respondtime, answeredby, nodeid, interfaceid, serviceid, eventid from NOTIFICATIONS where NOTIFYID = ?";
 
@@ -298,6 +298,7 @@ public class NotificationModel extends Object {
                 nbean.m_serviceId = rs.getInt(SERVICE);
                 nbean.m_eventId = rs.getInt(EVENTID);
                 nbean.m_serviceName = getServiceName(conn, nbean.m_serviceId);
+                nbean.m_eventDisplay = rs.getString("displayEvent");
                 vector.addElement(nbean);
             }
         } catch (SQLException e) {

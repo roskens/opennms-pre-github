@@ -20,16 +20,7 @@
 
     <custom-filter position="LAST" ref="authFilterEnabler"/>
   </http>
-  
-  <!-- Only use BASIC auth for the RSS URL -->
-  <http pattern="/rss.jsp*" access-denied-page="/accessDenied.jsp" realm="OpenNMS Realm">
-    <intercept-url pattern="/rss.jsp*" access="ROLE_REST,ROLE_ADMIN,ROLE_USER"/>
 
-    <http-basic />
-
-    <custom-filter position="LAST" ref="authFilterEnabler"/>
-  </http>
-  
   <!-- Allow anonymous access to the webstart portion of the app -->
   <http pattern="/webstart/**" security="none"/>
 

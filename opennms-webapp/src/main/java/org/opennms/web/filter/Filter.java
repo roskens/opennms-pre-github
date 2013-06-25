@@ -41,34 +41,6 @@ import org.hibernate.criterion.Criterion;
  * @since 1.8.1
  */
 public interface Filter {
-    
-    /**
-     * Returns an expression for a SQL where clause. Remember to include a
-     * trailing space, but no leading AND or OR.
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    public String getSql();
-    
-    /**
-     * Returns a parameterized SQL where clause.  Remember to include a
-     * trailing space, but no leading AND or OR.
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    public String getParamSql();
-    
-    /**
-     * Binds the parameter values corresponding to the ? tokens in the string
-     * returned from getParamSql() to a prepared statement.  Returns the number
-     * of parameters that were bound.
-     *
-     * @param ps a {@link java.sql.PreparedStatement} object.
-     * @param parameterIndex a int.
-     * @return a int.
-     * @throws java.sql.SQLException if any.
-     */
-    public int bindParam(PreparedStatement ps, int parameterIndex) throws SQLException;
 
     /**
      * Returns a terse string (including a "=") that describes this filter in

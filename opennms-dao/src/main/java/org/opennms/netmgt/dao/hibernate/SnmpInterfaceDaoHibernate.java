@@ -28,6 +28,7 @@
 
 package org.opennms.netmgt.dao.hibernate;
 
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.criterion.Restrictions;
 import org.opennms.netmgt.dao.SnmpInterfaceDao;
 import org.opennms.netmgt.model.OnmsCriteria;
@@ -98,6 +99,19 @@ public class SnmpInterfaceDaoHibernate extends
         return getJpaTemplate().getEntityManager()
                 .createQuery("from OnmsSnmpInterface left join node where node.id = :nodeId")
                 .setParameter("nodeId", nodeId)
+                .getResultList();
+    }
+
+    @Override
+    public List<OnmsSnmpInterface> findMatching(int nodeId, String pollerConfigFilterCriteria) {
+        String jql = "from OnmsSnmpInterface left join ipInterfaces where node.id = :nodeId and poll = :poll";
+        if (StringUtils.isNotEmpty(pollerConfigFilterCriteria)) {
+            jql += " AND (" + pollerConfigFilterCriteria + ")";
+        }
+        return getJpaTemplate().getEntityManager()
+                .createQuery(jql)
+                .setParameter("nodeId", nodeId)
+                .setParameter("poll", "P")
                 .getResultList();
     }
 }

@@ -86,7 +86,7 @@ public class UserFilter extends OneArgFilter<String> {
      */
     @Override
     public String toString() {
-        return ("<NoticeFactory.UserFilter: " + this.getDescription() + ">");
+        return ("<UserFilter: " + this.getDescription() + ">");
     }
 
     /**

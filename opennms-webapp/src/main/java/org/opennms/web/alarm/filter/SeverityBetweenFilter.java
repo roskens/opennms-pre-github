@@ -74,7 +74,7 @@ public class SeverityBetweenFilter extends BetweenFilter<OnmsSeverity> {
      */
     @Override
     public String toString() {
-        return ("<AlarmCriteria.SeverityBetweenFilter: " + this.getDescription() + ">");
+        return ("<AlarmSearchParameter.SeverityBetweenFilter: " + this.getDescription() + ">");
     }
 
 }

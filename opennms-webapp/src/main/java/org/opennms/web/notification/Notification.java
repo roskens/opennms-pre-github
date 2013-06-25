@@ -79,41 +79,12 @@ public class Notification {
     // ID of the event that triggered this notification
     public int m_eventId;
 
+    public String m_eventDisplay;
+
     /**
      * Default Constructor
      */
     public Notification() {
-    }
-
-    /**
-     * <p>Constructor for Notification.</p>
-     *
-     * @param sentToList a {@link java.util.List} object.
-     * @param notifyId a int.
-     * @param txtMsg a {@link java.lang.String} object.
-     * @param numMsg a {@link java.lang.String} object.
-     * @param timeSent a long.
-     * @param timeReply a long.
-     * @param responder a {@link java.lang.String} object.
-     * @param nodeid a int.
-     * @param interfaceID a {@link java.lang.String} object.
-     * @param svcId a int.
-     * @param svcName a {@link java.lang.String} object.
-     * @param eventid a int.
-     */
-    public Notification(List<NoticeSentTo> sentToList, int notifyId, String txtMsg, String numMsg, long timeSent, long timeReply, String responder, int nodeid, String interfaceID, int svcId, String svcName, int eventid) {
-        m_sentTo = sentToList;
-        m_notifyID = notifyId;
-        m_txtMsg = txtMsg;
-        m_numMsg = numMsg;
-        m_timeSent = timeSent;
-        m_timeReply = timeReply;
-        m_responder = responder;
-        m_nodeID = nodeid;
-        m_interfaceID = interfaceID;
-        m_serviceId = svcId;
-        m_serviceName = svcName;
-        m_eventId = eventid;
     }
 
     /**
@@ -238,15 +209,7 @@ public class Notification {
         return (this.m_eventId);
     }
 
-    /*
-     * public String toString() { StringBuffer str = new StringBuffer();
-     * str.append("Txt Msg " + m_txtMsg + " \n"); str.append("Num Msg " +
-     * m_numMsg + " \n"); str.append("time Sent " + this.getTimeSent() + " \n");
-     * str.append("Reply time " + getTimeReplied() + " \n");
-     * str.append("Responder " + this.getResponder() + " \n"); str.append("Node
-     * ID " + m_nodeID+ "\n"); str.append("Interface ID" + m_interfaceID +
-     * "\n"); str.append("Service ID : "+ m_serviceId + "\n" );
-     * str.append("Service Name : "+m_serviceName + "\n"); return
-     * str.toString(); }
-     */
+    public String getEventDisplay() {
+        return m_eventDisplay;
+    }
 }

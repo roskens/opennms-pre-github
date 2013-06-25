@@ -61,7 +61,9 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @since 1.8.1
  */
 public class EventFilterController extends AbstractController implements InitializingBean {
-    /** Constant <code>DEFAULT_MULTIPLE=0</code> */
+    /**
+     * Constant <code>DEFAULT_MULTIPLE=0</code>
+     */
     public static final int DEFAULT_MULTIPLE = 0;
 
     private String m_successView;
@@ -69,13 +71,13 @@ public class EventFilterController extends AbstractController implements Initial
     private Integer m_defaultShortLimit;
 
     private Integer m_defaultLongLimit;
-    
+
     private AcknowledgeType m_defaultEventType = AcknowledgeType.UNACKNOWLEDGED;
 
     private SortStyle m_defaultSortStyle = SortStyle.ID;
 
     private WebEventRepository m_webEventRepository;
-    
+
     private boolean m_showEventCount = false;
 
     /**
@@ -88,11 +90,11 @@ public class EventFilterController extends AbstractController implements Initial
 
     /**
      * {@inheritDoc}
-     *
+     * <p/>
      * Parses the query string to determine what types of event filters to use
      * (for example, what to filter on or sort by), then does the database query
      * and then forwards the results to a JSP for display.
-     *
+     * <p/>
      * <p>
      * Sets the <em>events</em> and <em>parms</em> request attributes for
      * the forwardee JSP (or whatever gets called).
@@ -166,23 +168,23 @@ public class EventFilterController extends AbstractController implements Initial
         }
 
         Filter[] filters = filterList.toArray(new Filter[0]);
-        
+
         EventQueryParms parms = new EventQueryParms();
         parms.ackType = ackType;
         parms.display = display;
         parms.filters = filterList;
         parms.limit = limit;
-        parms.multiple =  multiple;
+        parms.multiple = multiple;
         parms.sortStyle = sortStyle;
-        
+
         EventCriteria queryCriteria = new EventCriteria(filters, sortStyle, ackType, limit, limit * multiple);
 
         Event[] events = m_webEventRepository.getMatchingEvents(queryCriteria);
-        
+
         ModelAndView modelAndView = new ModelAndView(getSuccessView());
         modelAndView.addObject("events", events);
         modelAndView.addObject("parms", parms);
-        
+
         if (m_showEventCount) {
             EventCriteria countCriteria = new EventCriteria(ackType, filters);
             modelAndView.addObject("eventCount", m_webEventRepository.countMatchingEvents(countCriteria));
@@ -232,7 +234,7 @@ public class EventFilterController extends AbstractController implements Initial
     public void setSuccessView(String successView) {
         m_successView = successView;
     }
-    
+
     /**
      * <p>setWebEventRepository</p>
      *

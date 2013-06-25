@@ -68,7 +68,7 @@
         throw new NoticeIdNotFoundException("An notice with this id was not found.", String.valueOf(noticeID));
     }
 
-    if (NoticeFactory.canDisplayEvent(notice.getEventId())) {
+    if ( "Y".equals(notice.getEventDisplay()) ) {
 		Event event = EventFactory.getEvent(notice.getEventId());
 		eventSeverity = event.getSeverity().getLabel();
     } else {
@@ -85,7 +85,7 @@
 </jsp:include>
 
 <h3>Notice #<%=notice.getId()%> 
-  <% if ( NoticeFactory.canDisplayEvent(notice.getEventId()) ) { %>
+  <% if ( "Y".equals(notice.getEventDisplay()) ) { %>
     from event #<a href="event/detail.jsp?id=<%=notice.getEventId()%>"><%=notice.getEventId()%></a>
   <% } %>
 </h3>

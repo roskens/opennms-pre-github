@@ -64,7 +64,6 @@ public abstract class BaseFilter<T> implements Filter {
         m_propertyName = propertyName;
     }
 
-
     /**
      * <p>getSQLFieldName</p>
      *
@@ -139,26 +138,6 @@ public abstract class BaseFilter<T> implements Filter {
      */
     @Override
     public abstract Criterion getCriterion();
-
-    /** {@inheritDoc} */
-    @Override
-    public abstract int bindParam(PreparedStatement ps, int parameterIndex) throws SQLException;
-
-    /**
-     * <p>getParamSql</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    @Override
-    public abstract String getParamSql();
-
-    /**
-     * <p>getSql</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    @Override
-    public abstract String getSql();
 
     /**
      * <p>getTextDescription</p>

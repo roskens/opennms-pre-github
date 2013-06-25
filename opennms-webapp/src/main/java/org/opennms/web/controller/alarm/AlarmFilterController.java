@@ -35,13 +35,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.opennms.core.utils.WebSecurityUtils;
+import org.opennms.netmgt.dao.AlarmDao;
 import org.opennms.netmgt.dao.AlarmRepository;
 import org.opennms.netmgt.model.OnmsAlarm;
 import org.opennms.web.alarm.AcknowledgeType;
 import org.opennms.web.alarm.AlarmQueryParms;
 import org.opennms.web.alarm.AlarmUtil;
-import org.opennms.web.alarm.SortStyle;
-import org.opennms.web.alarm.filter.AlarmCriteria;
 import org.opennms.web.filter.Filter;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
@@ -67,7 +66,7 @@ public class AlarmFilterController extends AbstractController implements Initial
     
     private AcknowledgeType m_defaultAcknowledgeType = AcknowledgeType.UNACKNOWLEDGED;
 
-    private SortStyle m_defaultSortStyle = SortStyle.ID;
+    private AlarmDao.SortStyle m_defaultSortStyle = AlarmDao.SortStyle.ID;
 
     private AlarmRepository m_webAlarmRepository;
     
@@ -91,9 +90,9 @@ public class AlarmFilterController extends AbstractController implements Initial
 
         // handle the style sort parameter
         String sortStyleString = request.getParameter("sortby");
-        SortStyle sortStyle = m_defaultSortStyle;
+        AlarmDao.SortStyle sortStyle = m_defaultSortStyle;
         if (sortStyleString != null) {
-            SortStyle temp = SortStyle.getSortStyle(sortStyleString);
+            AlarmDao.SortStyle temp = AlarmDao.SortStyle.getSortStyle(sortStyleString);
             if (temp != null) {
                 sortStyle = temp;
             }
@@ -158,8 +157,8 @@ public class AlarmFilterController extends AbstractController implements Initial
         parms.multiple =  multiple;
         parms.sortStyle = sortStyle;
         
-        AlarmCriteria queryCriteria = new AlarmCriteria(filters, sortStyle, ackType, limit, limit * multiple);
-        AlarmCriteria countCriteria = new AlarmCriteria(ackType, filters);
+        AlarmDao.AlarmSearchParameter queryCriteria = new AlarmDao.AlarmSearchParameter(filters, sortStyle, ackType, limit, limit * multiple);
+        AlarmDao.AlarmSearchParameter countCriteria = new AlarmDao.AlarmSearchParameter(ackType, filters);
 
         OnmsAlarm[] alarms = m_webAlarmRepository.getMatchingAlarms(AlarmUtil.getOnmsCriteria(queryCriteria));
         
@@ -255,18 +254,18 @@ public class AlarmFilterController extends AbstractController implements Initial
     /**
      * <p>getDefaultSortStyle</p>
      *
-     * @return a {@link org.opennms.web.alarm.SortStyle} object.
+     * @return a {@link org.opennms.netmgt.dao.AlarmDao.SortStyle} object.
      */
-    public SortStyle getDefaultSortStyle() {
+    public AlarmDao.SortStyle getDefaultSortStyle() {
         return m_defaultSortStyle;
     }
 
     /**
      * <p>setDefaultSortStyle</p>
      *
-     * @param defaultSortStyle a {@link org.opennms.web.alarm.SortStyle} object.
+     * @param defaultSortStyle a {@link org.opennms.netmgt.dao.AlarmDao.SortStyle} object.
      */
-    public void setDefaultSortStyle(SortStyle defaultSortStyle) {
+    public void setDefaultSortStyle(AlarmDao.SortStyle defaultSortStyle) {
         m_defaultSortStyle = defaultSortStyle;
     }
 
