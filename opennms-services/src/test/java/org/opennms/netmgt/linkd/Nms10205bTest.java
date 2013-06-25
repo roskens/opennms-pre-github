@@ -313,35 +313,35 @@ Space_ex_sw1    ge-0/0/0.0      (1361)  ----> Space_ex_sw2     ge-0/0/0.0      (
 
          */
         
-        int start = LinkdNetworkBuilderHelper.getStartPoint(links);
+        int start = LinkdHelper.getStartPoint(links);
         for (final DataLinkInterface datalinkinterface: links) {
             int id = datalinkinterface.getId().intValue();
             if (start == id) {
-            	LinkdNetworkBuilderHelper.checkLink(delhi, mumbai, 28503, 519, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
+            	LinkdHelper.checkLink(delhi, mumbai, 28503, 519, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (start+1 == id ) {
-            	LinkdNetworkBuilderHelper.checkLink(bangalore, mumbai, 2401, 507, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
+            	LinkdHelper.checkLink(bangalore, mumbai, 2401, 507, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (start+2 == id ) {
-            	LinkdNetworkBuilderHelper.checkLink(bagmane, mumbai, 534, 977, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
+            	LinkdHelper.checkLink(bagmane, mumbai, 534, 977, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (start+3 == id ) {
-            	LinkdNetworkBuilderHelper.checkLink(mysore, mumbai, 508, 978, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
+            	LinkdHelper.checkLink(mysore, mumbai, 508, 978, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (start+4 == id ) {
-            	LinkdNetworkBuilderHelper.checkLink(bangalore, delhi, 2397, 3674, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
+            	LinkdHelper.checkLink(bangalore, delhi, 2397, 3674, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (start+5 == id ) {
-            	LinkdNetworkBuilderHelper.checkLink(spaceexsw1, delhi, 528, 28520, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
+            	LinkdHelper.checkLink(spaceexsw1, delhi, 528, 28520, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (start+6 == id ) {
-            	LinkdNetworkBuilderHelper.checkLink(spaceexsw2, bangalore, 551, 2398, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
+            	LinkdHelper.checkLink(spaceexsw2, bangalore, 551, 2398, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (start+7 == id ) {
-            	LinkdNetworkBuilderHelper.checkLink(bagmane, bangalore, 1732, 2396, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
+            	LinkdHelper.checkLink(bagmane, bangalore, 1732, 2396, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (start+8 == id ) {
-            	LinkdNetworkBuilderHelper.checkLink(mysore, bagmane, 520, 654, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
+            	LinkdHelper.checkLink(mysore, bagmane, 520, 654, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (start+9 == id ) {
-            	LinkdNetworkBuilderHelper.checkLink(j635042, bagmane, 549, 514, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
+            	LinkdHelper.checkLink(j635042, bagmane, 549, 514, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (start+10 == id ) {
-            	LinkdNetworkBuilderHelper.checkLink(spaceexsw2, spaceexsw1, 531, 1361, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
+            	LinkdHelper.checkLink(spaceexsw2, spaceexsw1, 531, 1361, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (start+11 == id ) {
-            	LinkdNetworkBuilderHelper.checkLink(bagmane, delhi, 513, 28519, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
+            	LinkdHelper.checkLink(bagmane, delhi, 513, 28519, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else  {
-            	LinkdNetworkBuilderHelper.checkLink(mumbai,mumbai,-1,-1,datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
+            	LinkdHelper.checkLink(mumbai,mumbai,-1,-1,datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             }
         }
     }
@@ -479,19 +479,19 @@ it has a link to Mysore that does not support LLDP
         //Delhi           ge-1/1/6        (28520) ----> Space-EX-SW1      ge-0/0/6.0      (528)   515     lldp
         //Bagmane         ge-1/0/2        (514)   ----> J6350-2           ge-0/0/2.0      (549)   516     lldp
         //Space-EX-SW1    ge-0/0/0.0      (1361)  ----> Space-EX-SW2      ge-0/0/0.0      (531)   517     lldp
-        int start = LinkdNetworkBuilderHelper.getStartPoint(links);
+        int start = LinkdHelper.getStartPoint(links);
         for (final DataLinkInterface datalinkinterface: links) {
             int id = datalinkinterface.getId().intValue();
             if (start == id) {
-            	LinkdNetworkBuilderHelper.checkLink(bagmane, delhi, 513, 28519, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
+            	LinkdHelper.checkLink(bagmane, delhi, 513, 28519, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (start+1 == id ) {
-            	LinkdNetworkBuilderHelper.checkLink(spaceexsw1, delhi, 528, 28520, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
+            	LinkdHelper.checkLink(spaceexsw1, delhi, 528, 28520, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (start+2 == id ) {
-            	LinkdNetworkBuilderHelper.checkLink(j635042, bagmane, 549, 514, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
+            	LinkdHelper.checkLink(j635042, bagmane, 549, 514, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (start+3 == id ) {
-            	LinkdNetworkBuilderHelper.checkLink(spaceexsw2, spaceexsw1, 531, 1361, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
+            	LinkdHelper.checkLink(spaceexsw2, spaceexsw1, 531, 1361, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else {
-            	LinkdNetworkBuilderHelper.checkLink(mumbai,mumbai,-1,-1,datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
+            	LinkdHelper.checkLink(mumbai,mumbai,-1,-1,datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             }
         }
     }
@@ -653,33 +653,33 @@ Space_ex_sw1    ge-0/0/0.0      (1361)  ----> Space_ex_sw2     ge-0/0/0.0      (
         
          */
         
-        int start = LinkdNetworkBuilderHelper.getStartPoint(links);
+        int start = LinkdHelper.getStartPoint(links);
         for (final DataLinkInterface datalinkinterface: links) {
             int id = datalinkinterface.getId().intValue();
             if (start == id ) {
-            	LinkdNetworkBuilderHelper.checkLink(delhi, mumbai, 28503, 519, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
+            	LinkdHelper.checkLink(delhi, mumbai, 28503, 519, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (start+1 == id) {
-            	LinkdNetworkBuilderHelper.checkLink(bangalore, mumbai, 2401, 507, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
+            	LinkdHelper.checkLink(bangalore, mumbai, 2401, 507, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (start+2 == id) {
-            	LinkdNetworkBuilderHelper.checkLink(bagmane, mumbai, 534, 977, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);            
+            	LinkdHelper.checkLink(bagmane, mumbai, 534, 977, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);            
             } else if (start+3 == id) {
-            	LinkdNetworkBuilderHelper.checkLink(mysore, mumbai, 508, 978, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
+            	LinkdHelper.checkLink(mysore, mumbai, 508, 978, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (start+4 == id) {
-            	LinkdNetworkBuilderHelper.checkLink(bangalore, delhi, 2397, 3674, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
+            	LinkdHelper.checkLink(bangalore, delhi, 2397, 3674, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (start+5 == id) {
-            	LinkdNetworkBuilderHelper.checkLink(spaceexsw1, delhi, 528, 17619, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
+            	LinkdHelper.checkLink(spaceexsw1, delhi, 528, 17619, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (start+6 == id ) {
-            	LinkdNetworkBuilderHelper.checkLink(bagmane, bangalore, 1732, 2396, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
+            	LinkdHelper.checkLink(bagmane, bangalore, 1732, 2396, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (start+7 == id) {
-            	LinkdNetworkBuilderHelper.checkLink(spaceexsw2, bangalore, 551, 2398, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
+            	LinkdHelper.checkLink(spaceexsw2, bangalore, 551, 2398, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (start+8 == id) {
-            	LinkdNetworkBuilderHelper.checkLink(mysore, bagmane, 520, 654, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
+            	LinkdHelper.checkLink(mysore, bagmane, 520, 654, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (start+9 == id) {
-            	LinkdNetworkBuilderHelper.checkLink(j635042, bagmane, 549, 540, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
+            	LinkdHelper.checkLink(j635042, bagmane, 549, 540, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (start+10 == id) {
-            	LinkdNetworkBuilderHelper.checkLink(spaceexsw2, spaceexsw1, 531, 1361, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
+            	LinkdHelper.checkLink(spaceexsw2, spaceexsw1, 531, 1361, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else {
-            	LinkdNetworkBuilderHelper.checkLink(mumbai,mumbai,-1,-1,datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
+            	LinkdHelper.checkLink(mumbai,mumbai,-1,-1,datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             }
         }
     }

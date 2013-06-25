@@ -45,9 +45,10 @@ import org.opennms.netmgt.model.topology.Element;
 import org.opennms.netmgt.model.topology.MacAddrElementIdentifier;
 import org.opennms.netmgt.model.topology.MacAddrEndPoint;
 import org.opennms.netmgt.model.topology.NodeElementIdentifier;
-import static org.opennms.netmgt.enlinkd.EnhancedLinkdNetworkBuilderHelper.printEndPoint;
-import static org.opennms.netmgt.enlinkd.EnhancedLinkdNetworkBuilderHelper.printLinkTopology;
-import static org.opennms.netmgt.enlinkd.EnhancedLinkdNetworkBuilderHelper.printEndPointTopology;
+
+import static org.opennms.netmgt.enlinkd.TopologyHelper.printEndPoint;
+import static org.opennms.netmgt.enlinkd.TopologyHelper.printEndPointTopology;
+import static org.opennms.netmgt.enlinkd.TopologyHelper.printLinkTopology;
 //@RunWith(OpenNMSJUnit4ClassRunner.class)
 //@ContextConfiguration(locations= {
 //})

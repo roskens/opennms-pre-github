@@ -53,8 +53,8 @@ import org.opennms.netmgt.snmp.SnmpWalker;
 import org.opennms.test.JUnitConfigurationEnvironment;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.test.context.ContextConfiguration;
-import static org.opennms.netmgt.linkd.LinkdNetworkBuilderHelper.printLldpLocRow;
-import static org.opennms.netmgt.linkd.LinkdNetworkBuilderHelper.printLldpRemRow;
+import static org.opennms.netmgt.linkd.LinkdHelper.printLldpLocRow;
+import static org.opennms.netmgt.linkd.LinkdHelper.printLldpRemRow;
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations= {
         "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml"

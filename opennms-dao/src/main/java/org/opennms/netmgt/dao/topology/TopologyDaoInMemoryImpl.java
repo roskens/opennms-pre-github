@@ -43,8 +43,6 @@ public class TopologyDaoInMemoryImpl implements TopologyDao {
 	@Override
 	public void saveOrUpdate(EndPoint endpoint) {
 		for (Element e: m_elements) {
-			if (e == null)
-				continue;
 			if (e.equals(endpoint.getElement())) {
 				endpoint.setElement(updateElementIdentifiers(endpoint.getElement(),e));
 				if (e.hasEndPoint(endpoint)) {
@@ -77,8 +75,6 @@ public class TopologyDaoInMemoryImpl implements TopologyDao {
 
 	@Override
 	public void delete(EndPoint endpoint) {
-//		if (endpoint.hasLink())
-//			delete(endpoint.getLink());
 		for (Element e: m_elements) {
 			if (e == null)
 				continue;
@@ -101,8 +97,6 @@ public class TopologyDaoInMemoryImpl implements TopologyDao {
 	@Override
 	public void delete(ElementIdentifier elementidentifier) {
 		for (Element e: m_elements) {
-			if (e == null)
-				continue;
 			if (e.hasElementIdentifier(elementidentifier)) {
 				e.removeElementIdentifier(elementidentifier);
 			}

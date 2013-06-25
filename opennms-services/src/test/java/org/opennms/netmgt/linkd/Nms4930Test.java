@@ -165,7 +165,7 @@ public class Nms4930Test extends Nms4930NetworkBuilder implements InitializingBe
 
         final List<DataLinkInterface> ifaces = m_dataLinkInterfaceDao.findAll();
         for (final DataLinkInterface link: ifaces) {
-            LinkdNetworkBuilderHelper.printLink(link,m_nodeDao,m_snmpInterfaceDao);
+            LinkdHelper.printLink(link,m_nodeDao,m_snmpInterfaceDao);
         }
         
         // Note By AR: I've inspected the snmp file, only the bridge mib are there

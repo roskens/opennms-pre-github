@@ -45,9 +45,13 @@ import org.opennms.netmgt.model.topology.BridgeEndPoint;
 import org.opennms.netmgt.model.topology.Element;
 import org.opennms.netmgt.model.topology.EndPoint;
 import org.opennms.netmgt.model.topology.InetElementIdentifier;
+import org.opennms.netmgt.model.topology.LldpElementIdentifier;
+import org.opennms.netmgt.model.topology.LldpEndPoint;
 import org.opennms.netmgt.model.topology.MacAddrElementIdentifier;
 import org.opennms.netmgt.model.topology.MacAddrEndPoint;
 import org.opennms.netmgt.model.topology.NodeElementIdentifier;
+import org.opennms.netmgt.model.topology.LldpElementIdentifier.LldpChassisIdSubType;
+import org.opennms.netmgt.model.topology.LldpEndPoint.LldpPortIdSubType;
 
 //@RunWith(OpenNMSJUnit4ClassRunner.class)
 //@ContextConfiguration(locations= {
@@ -70,9 +74,38 @@ public class InMemoryTopologyDaoTest {
         m_topologyDao = new TopologyDaoInMemoryImpl();
      }
 
-	
 	@Test
-	public void testSaveOrUpDate() throws UnknownHostException {
+	public void testSaveOrUpDateLldp() {
+		Element elementAF = new Element();
+		elementAF.addElementIdentifier(new LldpElementIdentifier("0016c8bd4d80", "switch3", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS,111));
+		elementAF.addElementIdentifier(new NodeElementIdentifier(111));
+		LldpEndPoint endPointA1A = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,111);
+		LldpEndPoint endPointA1B = new LldpEndPoint("Ge0/2", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,111);
+		LldpEndPoint endPointA1C = new LldpEndPoint("Ge0/3", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,111);
+		LldpEndPoint endPointA1D = new LldpEndPoint("Ge0/4", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,111);
+		elementAF.addEndPoint(endPointA1A);
+		elementAF.addEndPoint(endPointA1B);
+		elementAF.addEndPoint(endPointA1C);
+		elementAF.addEndPoint(endPointA1D);
+		
+		m_topologyDao.saveOrUpdate(endPointA1A);
+		m_topologyDao.saveOrUpdate(endPointA1B);
+		m_topologyDao.saveOrUpdate(endPointA1C);
+		m_topologyDao.saveOrUpdate(endPointA1D);
+		
+		assertEquals(1, m_topologyDao.getTopology().size());
+		
+		
+		Element elementA = new Element();
+		elementA.addElementIdentifier(new LldpElementIdentifier("0016c8bd4d80", "switch3", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS,101));
+		LldpEndPoint endPointA1 = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,101);
+		elementA.addEndPoint(endPointA1);
+		
+		
+	}
+    
+	@Test
+	public void testSaveOrUpDateBridge() throws UnknownHostException {
 		
 		Integer nodeA  = 10;
         Integer portA1 = 1;

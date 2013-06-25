@@ -61,7 +61,7 @@ import org.opennms.netmgt.model.topology.PseudoMacEndPoint;
  * @author <a href="mailto:alejandro@opennms.org">Alejandro Galue</a>
  */
 
-public abstract class EnhancedLinkdNetworkBuilderHelper {
+public abstract class TopologyHelper {
         
     protected static List<EndPoint> printEndPointTopology(final List<Element> topology) {
 

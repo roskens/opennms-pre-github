@@ -892,7 +892,7 @@ public class Nms7467Test extends Nms7467NetworkBuilder implements InitializingBe
         
         final List<DataLinkInterface> links = m_dataLinkInterfaceDao.findAll();
         for (final DataLinkInterface link: links) {
-        	LinkdNetworkBuilderHelper.printLink(link,m_nodeDao,m_snmpInterfaceDao);
+        	LinkdHelper.printLink(link,m_nodeDao,m_snmpInterfaceDao);
         }
         assertEquals(1,links.size());
         
@@ -1090,7 +1090,7 @@ public class Nms7467Test extends Nms7467NetworkBuilder implements InitializingBe
         
         final DataLinkInterface link = links.get(0);
         
-        LinkdNetworkBuilderHelper.printLink(link,m_nodeDao,m_snmpInterfaceDao);
+        LinkdHelper.printLink(link,m_nodeDao,m_snmpInterfaceDao);
         
         assertEquals(ciscows.getId(), link.getNode().getId());
         assertEquals(52, link.getIfIndex().intValue());

@@ -45,7 +45,7 @@ import org.opennms.netmgt.model.OnmsNode;
  * @author <a href="mailto:alejandro@opennms.org">Alejandro Galue</a>
  */
 
-public abstract class LinkdNetworkBuilderHelper {
+public abstract class LinkdHelper {
 
     protected static void printRouteInterface(int nodeid, int ifindex, 
     		InetAddress nexthop, InetAddress netmask, int nexthopnodeid, int nexthopifindex) {

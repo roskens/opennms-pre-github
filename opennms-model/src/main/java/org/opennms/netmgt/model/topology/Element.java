@@ -73,6 +73,8 @@ public class Element {
 	}
 	
 	public void addElementIdentifier(ElementIdentifier elementidentifier) {
+		if (hasElementIdentifier(elementidentifier))
+			return;
 		elementidentifier.setElement(this);
 		m_identifiers.add(elementidentifier);
 	}
@@ -95,6 +97,8 @@ public class Element {
 	}
 
 	public void addEndPoint(EndPoint endPoint) {
+		if (hasEndPoint(endPoint))
+			return;
 		endPoint.setElement(this);
 		m_endpoints.add(endPoint);
 	}
@@ -102,9 +106,6 @@ public class Element {
 	public boolean equals(Object o) {
 		if ( o instanceof Element) {
 			Element e = (Element) o;
-			if (e.getElementIdentifiers().size() == 0 && 
-					getElementIdentifiers().size() == 0)
-					return false;
 			for (ElementIdentifier localElementIdentifier : getElementIdentifiers()) {
 				for (ElementIdentifier oe: e.getElementIdentifiers()) {
 					if (oe.equals(localElementIdentifier))

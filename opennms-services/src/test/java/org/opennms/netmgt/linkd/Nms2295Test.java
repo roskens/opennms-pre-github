@@ -58,7 +58,7 @@ import org.opennms.test.JUnitConfigurationEnvironment;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import static org.opennms.netmgt.linkd.LinkdNetworkBuilderHelper.printLink;
+import static org.opennms.netmgt.linkd.LinkdHelper.printLink;
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations= {
         "classpath:/META-INF/opennms/applicationContext-soa.xml",

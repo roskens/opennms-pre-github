@@ -61,7 +61,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.test.context.ContextConfiguration;
-import static org.opennms.netmgt.linkd.LinkdNetworkBuilderHelper.printLink;
+import static org.opennms.netmgt.linkd.LinkdHelper.printLink;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations= {

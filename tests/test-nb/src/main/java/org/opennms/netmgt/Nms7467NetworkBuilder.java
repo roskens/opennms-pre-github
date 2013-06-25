@@ -29,7 +29,6 @@
 package org.opennms.netmgt;
 
 
-import java.net.InetAddress;
 import java.util.HashMap;
 
 import org.opennms.core.utils.InetAddressUtils;

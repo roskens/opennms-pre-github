@@ -39,7 +39,7 @@ public class TopologyTest {
 		elementA.addEndPoint(endPointA1);
 		
 		Element elementAF = new Element();
-		elementAF.addElementIdentifier(new LldpElementIdentifier("0016c8bd4d80", "switch3", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS,101));
+		elementAF.addElementIdentifier(new LldpElementIdentifier("0016c8bd4d80", "switch3", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS,111));
 		LldpEndPoint endPointA1F = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,111);
 		elementAF.addEndPoint(endPointA1F);
 		assertEquals(true, elementA.hasEndPoint(endPointA1F));

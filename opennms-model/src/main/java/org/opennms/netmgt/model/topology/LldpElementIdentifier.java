@@ -150,6 +150,7 @@ public final class LldpElementIdentifier extends ElementIdentifier {
 	private String m_lldpSysname;
     
     private String m_lldpChassisId;
+    
     private LldpChassisIdSubType m_lldpChassisIdSubType;
 
     public LldpElementIdentifier(String lldpChassisId, String sysname, Integer subtype, Integer sourceNode) {
