@@ -10,8 +10,6 @@ public class MockNCSComponentRepository implements NCSComponentRepository {
     @Override
     public void lock() {}
     @Override
-    public void initialize(Object obj) {}
-    @Override
     public void flush() {
         // TODO Auto-generated method stub
         

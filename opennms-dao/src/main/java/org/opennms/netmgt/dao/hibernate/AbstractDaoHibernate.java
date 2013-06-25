@@ -91,12 +91,6 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Jp
     public List<T> find(final String query, final Object... values) {
         return getJpaTemplate().find(query, values);
     }
-    
-    @SuppressWarnings("unchecked")
-    public <S> List<S> findObjects(final Class<S> clazz, final String query, final Object... values) {
-    	final List<S> notifs = getJpaTemplate().find(query, values);
-        return notifs;
-    }
 
     protected int queryInt(final String query) {
     	final JpaCallback<Number> callback = new JpaCallback<Number>() {

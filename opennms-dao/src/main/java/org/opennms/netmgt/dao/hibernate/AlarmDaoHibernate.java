@@ -32,6 +32,8 @@ import java.util.List;
 
 import org.opennms.netmgt.dao.AlarmDao;
 import org.opennms.netmgt.model.OnmsAlarm;
+import org.opennms.netmgt.model.OnmsCriteria;
+import org.opennms.netmgt.model.OnmsSeverity;
 import org.opennms.netmgt.model.alarm.AlarmSummary;
 
 /**
@@ -79,7 +81,24 @@ public class AlarmDaoHibernate extends AbstractDaoHibernate<OnmsAlarm, Integer> 
         }
         sql.append("GROUP BY node.id, node.label ");
         sql.append("ORDER BY min(alarm.lastEventTime) DESC, node.label ASC");
-        return findObjects(AlarmSummary.class, sql.toString());
+
+        return getJpaTemplate().getEntityManager().createQuery(sql.toString()).getResultList();
     }
 
+    @Override
+    public List<OnmsAlarm> findByEventParms(String... queryValues) {
+        String query = "from OnmsAlarm where 1=1 ";
+        for(String qv : queryValues) {
+            query += " and eventParms like '%" + qv + "%s'";
+        }
+        return getJpaTemplate().getEntityManager().createQuery(query).getResultList();
+    }
+
+    @Override
+    public List<OnmsAlarm> findUnclearedHyperic() {
+        return getJpaTemplate().getEntityManager()
+                .createQuery("from OnmsAlarm where uei = :uei and severity > :severity")
+                .setParameter("uei", "uei.opennms.org/external/hyperic/alert")
+                .setParameter("severity", OnmsSeverity.NORMAL).getResultList();
+    }
 }

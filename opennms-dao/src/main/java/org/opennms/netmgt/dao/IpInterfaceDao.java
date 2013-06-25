@@ -34,6 +34,7 @@ import java.util.Map;
 
 import org.opennms.netmgt.model.OnmsIpInterface;
 import org.opennms.netmgt.model.OnmsNode;
+import org.opennms.netmgt.model.PrimaryType;
 
 
 /**
@@ -113,5 +114,7 @@ public interface IpInterfaceDao extends OnmsDao<OnmsIpInterface, Integer> {
     Map<InetAddress, Integer> getInterfacesForNodes();
 
 	OnmsIpInterface findPrimaryInterfaceByNodeId(Integer nodeId);
+
+    List<OnmsIpInterface> get(PrimaryType primaryType);
 
 }

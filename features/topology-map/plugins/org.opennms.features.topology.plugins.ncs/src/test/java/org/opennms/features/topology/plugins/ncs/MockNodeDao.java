@@ -19,14 +19,8 @@ public class MockNodeDao implements NodeDao {
     @Override
     public void lock() {
         // TODO Auto-generated method stub
-
     }
 
-    @Override
-    public void initialize(Object obj) {
-        // TODO Auto-generated method stub
-
-    }
 
     @Override
     public void flush() {
@@ -80,6 +74,11 @@ public class MockNodeDao implements NodeDao {
     public int countMatching(OnmsCriteria onmsCrit) {
         // TODO Auto-generated method stub
         return 0;
+    }
+
+    @Override
+    public List<OnmsNode> findAll(int limit, int offset) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override

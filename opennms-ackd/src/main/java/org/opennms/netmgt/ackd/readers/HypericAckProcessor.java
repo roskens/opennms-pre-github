@@ -258,22 +258,8 @@ public class HypericAckProcessor implements AckProcessor {
      * @return a {@link java.util.List} object.
      */
     public List<OnmsAlarm> fetchUnclearedHypericAlarms() {
-        // Query for existing, unacknowledged alarms in OpenNMS that were generated based on Hyperic alerts
-        OnmsCriteria criteria = new OnmsCriteria(OnmsAlarm.class, "alarm");
-
-        // criteria.add(Restrictions.isNull("alarmAckUser"));
-
-        // Restrict to Hyperic alerts
-        criteria.add(Restrictions.eq("uei", "uei.opennms.org/external/hyperic/alert"));
-
-        // Only consider alarms that are above severity NORMAL
-        // {@see org.opennms.netmgt.model.OnmsSeverity}
-        criteria.add(Restrictions.gt("severity", OnmsSeverity.NORMAL));
-
-        // TODO Figure out how to query by parameters (maybe necessary)
-
         // Query list of outstanding alerts with remote platform identifiers
-        return m_alarmDao.findMatching(criteria);
+        return m_alarmDao.findUnclearedHyperic();
     }
 
     /**
@@ -477,7 +463,6 @@ public class HypericAckProcessor implements AckProcessor {
      * @param hypericUrl a {@link java.lang.String} object.
      * @param alertIds a {@link java.util.List} object.
      * @return a {@link java.util.List} object.
-     * @throws org.apache.commons.httpclient.HttpException if any.
      * @throws java.io.IOException if any.
      * @throws javax.xml.bind.JAXBException if any.
      * @throws javax.xml.stream.XMLStreamException if any.

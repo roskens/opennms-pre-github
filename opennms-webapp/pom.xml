@@ -699,5 +699,11 @@
       <version>1.0.2</version>
       <scope>test</scope>
     </dependency>
+
+      <!-- TODO MVR JPA is that okay?-->
+    <dependency>
+         <groupId>org.opennms.core</groupId>
+         <artifactId>org.opennms.core.db</artifactId>
+    </dependency>
   </dependencies>
 </project>

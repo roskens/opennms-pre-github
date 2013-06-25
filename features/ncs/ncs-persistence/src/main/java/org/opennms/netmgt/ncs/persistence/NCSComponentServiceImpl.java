@@ -28,11 +28,7 @@
 
 package org.opennms.netmgt.ncs.persistence;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response.Status;
@@ -306,21 +302,19 @@ public class NCSComponentServiceImpl implements NCSComponentService {
 	}
 
 	private void deleteAlarms(final String foreignSource, final String foreignId) {
-		final OnmsCriteria alarmCriteria = new OnmsCriteria(OnmsAlarm.class)
-        .add(Restrictions.like("eventParms", "%componentForeignSource=" + foreignSource +"%"))
-        .add(Restrictions.like("eventParms", "%componentForeignId=" + foreignId +"%"));
-
-        for(final OnmsAlarm alarm : m_alarmDao.findMatching(alarmCriteria)) {
+        final List<OnmsAlarm> byEventParms = m_alarmDao.findByEventParms(
+                "componentForeignSource=" + foreignSource,
+                "componentForeignId=" + foreignId);
+        for(final OnmsAlarm alarm : byEventParms) {
             m_alarmDao.delete(alarm);
         }
 	}
 
 	private void deleteEvents(final String foreignSource, final String foreignId) {
-		final OnmsCriteria eventCriteria = new OnmsCriteria(OnmsEvent.class)
-        .add(Restrictions.like("eventParms", "%componentForeignSource=" + foreignSource +"%"))
-        .add(Restrictions.like("eventParms", "%componentForeignId=" + foreignId +"%"));
-
-        for(final OnmsEvent event : m_eventDao.findMatching(eventCriteria)) {
+        final List<OnmsEvent> byEventParms = m_eventDao.findByEventParms(
+                "componentForeignSource=" + foreignSource,
+                "componentForeignId=" + foreignId);
+        for(final OnmsEvent event : byEventParms) {
             m_eventDao.delete(event);
         }
 	}

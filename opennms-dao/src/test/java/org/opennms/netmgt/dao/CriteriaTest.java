@@ -89,9 +89,8 @@ public class CriteriaTest implements InitializingBean {
 	@Transactional
 	public void testSimple() {
         OnmsCriteria crit = new OnmsCriteria(OnmsNode.class);
-        crit.add(Restrictions.eq("label", "node1"));
-        
-        Collection<OnmsNode> matching = m_nodeDao.findMatching(crit);
+
+        Collection<OnmsNode> matching = m_nodeDao.findByLabel("node1");
         
         assertEquals("Expect a single node with label node1", 1, matching.size());
         
@@ -103,6 +102,7 @@ public class CriteriaTest implements InitializingBean {
     @Test
 	@Transactional
 	public void testComplicated() {
+        m_nodeDao.findByForeignSourceAndIpAddress()
         OnmsCriteria crit = 
             new OnmsCriteria(OnmsNode.class)
             .createAlias("ipInterfaces", "iface")

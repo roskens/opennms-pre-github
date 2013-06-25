@@ -35,7 +35,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.opennms.core.criteria.CriteriaBuilder;
 import org.opennms.core.criteria.Alias.JoinType;
-import org.opennms.core.criteria.Fetch.FetchType;
 import org.opennms.core.test.MockLogAppender;
 import org.opennms.core.test.OpenNMSJUnit4ClassRunner;
 import org.opennms.core.test.db.annotations.JUnitTemporaryDatabase;
@@ -82,8 +81,8 @@ public class AlarmStatisticsServiceTest implements InitializingBean {
     public void testCount() {
     	final CriteriaBuilder cb = new CriteriaBuilder(OnmsAlarm.class);
 
-    	cb.fetch("firstEvent", FetchType.EAGER);
-    	cb.fetch("lastEvent", FetchType.EAGER);
+    	cb.fetch("firstEvent");
+    	cb.fetch("lastEvent");
 
         cb.alias("node", "node", JoinType.LEFT_JOIN);
         cb.alias("node.snmpInterfaces", "snmpInterface", JoinType.LEFT_JOIN);
@@ -100,8 +99,8 @@ public class AlarmStatisticsServiceTest implements InitializingBean {
     	final CriteriaBuilder cb = new CriteriaBuilder(OnmsAlarm.class);
     	cb.ge("severity", OnmsSeverity.NORMAL);
 
-    	cb.fetch("firstEvent", FetchType.EAGER);
-    	cb.fetch("lastEvent", FetchType.EAGER);
+    	cb.fetch("firstEvent");
+    	cb.fetch("lastEvent");
 
         cb.alias("node", "node", JoinType.LEFT_JOIN);
         cb.alias("node.snmpInterfaces", "snmpInterface", JoinType.LEFT_JOIN);

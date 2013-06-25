@@ -50,7 +50,6 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.opennms.core.criteria.Alias.JoinType;
 import org.opennms.core.criteria.Criteria;
 import org.opennms.core.criteria.CriteriaBuilder;
-import org.opennms.core.criteria.Fetch.FetchType;
 import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.dao.stats.AlarmStatisticsService;
 import org.opennms.netmgt.model.OnmsAlarm;
@@ -197,8 +196,8 @@ public class AlarmStatsRestService extends AlarmRestServiceBase {
             builder.eq("severity", severity);
         }
 
-        builder.fetch("firstEvent", FetchType.EAGER);
-        builder.fetch("lastEvent", FetchType.EAGER);
+        builder.fetch("firstEvent");
+        builder.fetch("lastEvent");
         
         builder.alias("node", "node", JoinType.LEFT_JOIN);
         builder.alias("node.snmpInterfaces", "snmpInterface", JoinType.LEFT_JOIN);
@@ -207,6 +206,7 @@ public class AlarmStatsRestService extends AlarmRestServiceBase {
         return builder;
     }
 
+    // TODO MVR what the hell!?!?
     @Entity
     @XmlRootElement(name = "severities")
     public static class AlarmStatisticsBySeverity {

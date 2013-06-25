@@ -39,14 +39,6 @@ public interface NCSComponentRepository {
      */
     void lock();
 
-    
-    /**
-     * <p>initialize</p>
-     *
-     * @param obj a {@link java.lang.Object} object.
-     */
-    void initialize(Object obj);
-
     /**
      * <p>flush</p>
      */

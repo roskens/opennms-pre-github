@@ -36,6 +36,7 @@ import java.util.Map;
 import org.opennms.netmgt.dao.IpInterfaceDao;
 import org.opennms.netmgt.model.OnmsIpInterface;
 import org.opennms.netmgt.model.OnmsNode;
+import org.opennms.netmgt.model.PrimaryType;
 import org.springframework.util.Assert;
 
 public class IpInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsIpInterface, Integer>  implements IpInterfaceDao {
@@ -163,5 +164,12 @@ public class IpInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsIpInterfac
             }
             return retval;
         }
+    }
+
+    @Override
+    public List<OnmsIpInterface> get(PrimaryType primaryType) {
+        return getJpaTemplate().getEntityManager()
+                .createQuery("from OnmsIpInterface where isSnmpPrimary = :sp")
+                .setParameter("sp", primaryType).getResultList();
     }
 }

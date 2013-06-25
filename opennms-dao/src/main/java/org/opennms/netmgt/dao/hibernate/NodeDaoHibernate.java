@@ -66,7 +66,7 @@ public class NodeDaoHibernate extends AbstractDaoHibernate<OnmsNode, Integer> im
         }
         return get(Integer.parseInt(lookupCriteria));
     }
-    
+
     /**
      * Test the ability to simply retrieve a String object (node label) without
      * having to return a bulky Node object.
@@ -74,6 +74,7 @@ public class NodeDaoHibernate extends AbstractDaoHibernate<OnmsNode, Integer> im
     @Override
     public String getLabelForId(Integer id) {
     	String label = null;
+        getJpaTemplate().getEntityManager().createQuery("select n.label from OnmsNode as n where n.id = :nodeId").setParameter("nodeId", id).getResultList().get()
     	label = findObjects(String.class, "select n.label from OnmsNode as n where n.id = ?", id).get(0);
     	return label;
     }

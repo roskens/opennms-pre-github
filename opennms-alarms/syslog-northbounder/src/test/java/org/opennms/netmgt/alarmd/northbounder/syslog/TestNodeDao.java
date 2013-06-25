@@ -60,10 +60,6 @@ public class TestNodeDao implements NodeDao {
 	}
 
 	@Override
-	public void initialize(Object obj) {
-	}
-
-	@Override
 	public void flush() {
 	}
 
@@ -104,7 +100,12 @@ public class TestNodeDao implements NodeDao {
 		return 0;
 	}
 
-	@Override
+    @Override
+    public List<OnmsNode> findAll(int limit, int offset) {
+        return null;
+    }
+
+    @Override
 	public void save(OnmsNode entity) {
 	}
 

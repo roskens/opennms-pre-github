@@ -22,15 +22,9 @@ import org.opennms.netmgt.config.accesspointmonitor.Package;
 import org.opennms.netmgt.dao.AccessPointDao;
 import org.opennms.netmgt.dao.NodeDao;
 import org.opennms.netmgt.dao.IpInterfaceDao;
+import org.opennms.netmgt.model.*;
 import org.opennms.netmgt.model.events.EventIpcManager;
 import org.opennms.netmgt.filter.FilterDaoFactory;
-import org.opennms.netmgt.model.AccessPointStatus;
-import org.opennms.netmgt.model.OnmsAccessPoint;
-import org.opennms.netmgt.model.OnmsAccessPointCollection;
-import org.opennms.netmgt.model.OnmsCriteria;
-import org.opennms.netmgt.model.OnmsIpInterface;
-import org.opennms.netmgt.model.OnmsIpInterfaceList;
-import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.events.EventBuilder;
 import org.opennms.netmgt.model.events.EventProxyException;
 import org.opennms.netmgt.scheduler.ReadyRunnable;
@@ -292,11 +286,7 @@ public class DefaultPollingContext implements PollingContext {
         List<InetAddress> ipList = FilterDaoFactory.getInstance().getActiveIPAddressList(filterRules.toString());
 
         OnmsIpInterfaceList ifaces = new OnmsIpInterfaceList();
-        // Only poll the primary interface
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsIpInterface.class);
-        criteria.add(Restrictions.sqlRestriction("issnmpprimary = 'P'"));
-
-        List<OnmsIpInterface> allValidIfaces = getIpInterfaceDao().findMatching(criteria);
+        List<OnmsIpInterface> allValidIfaces =  getIpInterfaceDao().get(PrimaryType.PRIMARY);
         for (OnmsIpInterface iface : allValidIfaces) {
             if (ipList.contains(iface.getIpAddress())) {
                 ifaces.add(iface);
@@ -310,10 +300,7 @@ public class DefaultPollingContext implements PollingContext {
      * Return the IP address of the first interface on the node
      */
     protected InetAddress getNodeIpAddress(OnmsNode node) {
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsIpInterface.class);
-        criteria.add(Restrictions.sqlRestriction("nodeid = " + node.getId()));
-        List<OnmsIpInterface> matchingIfaces = getIpInterfaceDao().findMatching(criteria);
-        return matchingIfaces.get(0).getIpAddress();
+        return getIpInterfaceDao().findByNodeId(node.getId()).get(0).getIpAddress();
     }
 
     protected Event createApStatusEvent(String physAddr, Integer nodeId, String status) {

@@ -68,9 +68,6 @@ public class NCSServiceContainerTest {
         public void lock() {}
 
         @Override
-        public void initialize(Object obj) {}
-
-        @Override
         public void flush() {}
 
         @Override

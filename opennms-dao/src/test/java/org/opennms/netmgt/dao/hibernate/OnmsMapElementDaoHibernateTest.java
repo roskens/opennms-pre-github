@@ -114,7 +114,7 @@ public class OnmsMapElementDaoHibernateTest implements InitializingBean {
         m_onmsMapElementDao.flush();
     	m_onmsMapElementDao.clear();
 
-        OnmsMapElement mapElement2 = m_onmsMapElementDao.findElementById(mapElement.getId());
+        OnmsMapElement mapElement2 = m_onmsMapElementDao.get(mapElement.getId());
     	assertNotSame(mapElement, mapElement2);
         assertEquals(mapElement.getMap().getId(), mapElement2.getMap().getId());
         assertEquals(mapElement.getElementId(), mapElement2.getElementId());
@@ -145,7 +145,7 @@ public class OnmsMapElementDaoHibernateTest implements InitializingBean {
         m_onmsMapElementDao.flush();
         m_onmsMapElementDao.clear();
 
-        OnmsMapElement mapElement2 = m_onmsMapElementDao.findElementById(mapElement.getId());
+        OnmsMapElement mapElement2 = m_onmsMapElementDao.get(mapElement.getId());
         assertNotSame(mapElement, mapElement2);
         assertEquals(mapElement.getMap().getId(), mapElement2.getMap().getId());
         assertEquals(mapElement.getElementId(), mapElement2.getElementId());
@@ -164,7 +164,7 @@ public class OnmsMapElementDaoHibernateTest implements InitializingBean {
         // before the creation of the map element object then this ID may change and this test
         // will fail.
         int id = 63;
-        OnmsMapElement mapElement = m_onmsMapElementDao.findElementById(id);
+        OnmsMapElement mapElement = m_onmsMapElementDao.get(id);
         if (mapElement == null) {
             List<OnmsMapElement> maps = m_onmsMapElementDao.findAll();
             StringBuffer ids = new StringBuffer();
@@ -320,14 +320,14 @@ public class OnmsMapElementDaoHibernateTest implements InitializingBean {
         assertEquals(1,elems.size());
         OnmsMapElement element = elems.iterator().next();
         m_onmsMapElementDao.delete(element);
-        assertNull(m_onmsMapElementDao.findElementById(59));
+        assertNull(m_onmsMapElementDao.get(59));
     }
     
 	@Test
 	@Transactional
     public void testDeleteElementsByElementIdAndType() {
         m_onmsMapElementDao.deleteElementsByElementIdAndType(1, OnmsMapElement.NODE_TYPE);
-        assertNull(m_onmsMapElementDao.findElementById(59));
+        assertNull(m_onmsMapElementDao.get(59));
     }
     
 	@Test

@@ -55,5 +55,8 @@ public interface AlarmDao extends OnmsDao<OnmsAlarm, Integer> {
      * @param nodeIds If you want to restrict the NodeAlarmSummaries to specific nodes (optional)
      */
     List<AlarmSummary> getNodeAlarmSummaries(Integer... nodeIds);
-    
+
+    List<OnmsAlarm> findByEventParms(String... s);
+
+    List<OnmsAlarm> findUnclearedHyperic();
 }

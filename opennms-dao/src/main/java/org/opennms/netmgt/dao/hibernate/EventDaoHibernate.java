@@ -35,6 +35,7 @@ import org.springframework.dao.DataAccessException;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import java.util.List;
 
 public class EventDaoHibernate extends AbstractDaoHibernate<OnmsEvent, Integer> implements EventDao {
 
@@ -56,4 +57,12 @@ public class EventDaoHibernate extends AbstractDaoHibernate<OnmsEvent, Integer> 
         return  query.executeUpdate();
     }
 
+    @Override
+    public List<OnmsEvent> findByEventParms(String... queryValues) {
+        String query = "from OnmsEvent where 1=1 ";
+        for(String qv : queryValues) {
+            query += " and eventParms like '%" + qv + "%s'";
+        }
+        return getJpaTemplate().getEntityManager().createQuery(query).getResultList();
+    }
 }

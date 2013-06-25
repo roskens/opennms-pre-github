@@ -30,6 +30,8 @@ package org.opennms.netmgt.dao;
 
 import org.opennms.netmgt.model.OnmsEvent;
 
+import java.util.List;
+
 /**
  * <p>EventDao interface.</p>
  */
@@ -43,4 +45,6 @@ public interface EventDao extends OnmsDao<OnmsEvent, Integer> {
      * @return a int.
      */
     int deletePreviousEventsForAlarm(final Integer id, final OnmsEvent e);
+
+    List<OnmsEvent> findByEventParms(String... queryValues);
 }
