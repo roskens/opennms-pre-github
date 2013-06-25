@@ -2445,8 +2445,8 @@ create table ElementIdentifier (
 create table topologyElement_ElementIdentifier (
     topologyElement_id integer not null, 
     elementIdentifiers_id integer not null, 
-    constraint FKE8CD06732EF5FEB2 foreign key (topologyElement_id) references topologyElement,
-    constraint FKE8CD0673E56F0EDA foreign key (elementIdentifiers_id) references ElementIdentifier
+    constraint FKE8CD06732EF5FEB2 foreign key (topologyElement_id) references topologyElement (id),
+    constraint FKE8CD0673E56F0EDA foreign key (elementIdentifiers_id) references ElementIdentifier (id)
 );
 
 create unique index topologyelement_elementidentifier_elementidentifiers_id_key on topologyElement_ElementIdentifier(elementIdentifiers_id);
@@ -2476,7 +2476,7 @@ create table EndPoint (
 	element_id integer, 
 	link_id integer, 
 	CONSTRAINT pk_endpoint_id primary key (id),
-	constraint FK69DE9195504D3B03 foreign key (element_id) references topologyElement
+	constraint FK69DE9195504D3B03 foreign key (element_id) references topologyElement (id)
 );
 
 create table Link (
@@ -2487,17 +2487,17 @@ create table Link (
     a_id integer, 
     b_id integer, 
     CONSTRAINT pk_link_id primary key (id),
-    constraint FK24241AF7DB89E4 foreign key (b_id) references EndPoint,
-    constraint FK24241AF7DB1585 foreign key (a_id) references EndPoint
+    constraint FK24241AF7DB89E4 foreign key (b_id) references EndPoint (id),
+    constraint FK24241AF7DB1585 foreign key (a_id) references EndPoint (id)
 );
 
-alter table endpoint add constraint FK69DE919558CD951 foreign key (link_id) references Link;
+alter table endpoint add constraint FK69DE919558CD951 foreign key (link_id) references Link (id);
 
 create table topologyElement_EndPoint (
     topologyElement_id integer not null, 
     endpoints_id integer not null, 
-    constraint FK4C3F0807C5078F48 foreign key (endpoints_id) references EndPoint,
-    constraint FK4C3F08072EF5FEB2 foreign key (topologyElement_id) references topologyElement
+    constraint FK4C3F0807C5078F48 foreign key (endpoints_id) references EndPoint (id),
+    constraint FK4C3F08072EF5FEB2 foreign key (topologyElement_id) references topologyElement (id)
 );
 
 create unique index topologyElement_EndPoint_endpoints_id_key on topologyElement_EndPoint(endpoints_id);
