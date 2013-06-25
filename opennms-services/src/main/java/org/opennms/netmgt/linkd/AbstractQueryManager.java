@@ -414,13 +414,8 @@ public abstract class AbstractQueryManager implements QueryManager {
         return null;
     }
 
-    protected Integer getFromSysnameIfName(String lldpRemSysname,
-            String lldpRemPortid) {
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsSnmpInterface.class);
-        criteria.createAlias("node", "node");
-        criteria.add(Restrictions.eq("node.sysName", lldpRemSysname));
-        criteria.add(Restrictions.eq("ifName", lldpRemPortid));
-        final List<OnmsSnmpInterface> interfaces = getSnmpInterfaceDao().findMatching(criteria);
+    protected Integer getFromSysnameIfName(String lldpRemSysname, String lldpRemPortid) {
+        final List<OnmsSnmpInterface> interfaces = getSnmpInterfaceDao().findBySysNameAndIfName(lldpRemSysname, lldpRemPortid);
         if (interfaces != null && !interfaces.isEmpty()) {
             return interfaces.get(0).getIfIndex();
         }
@@ -430,13 +425,8 @@ public abstract class AbstractQueryManager implements QueryManager {
     protected abstract Integer getFromSysnameIpAddress(String lldpRemSysname,
             InetAddress lldpRemIpAddr);
 
-    protected Integer getFromSysnameMacAddress(String lldpRemSysname,
-            String lldpRemPortid) {
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsSnmpInterface.class);
-        criteria.createAlias("node", "node");
-        criteria.add(Restrictions.eq("node.sysName", lldpRemSysname));
-        criteria.add(Restrictions.eq("physAddr", lldpRemPortid));
-        final List<OnmsSnmpInterface> interfaces = getSnmpInterfaceDao().findMatching(criteria);
+    protected Integer getFromSysnameMacAddress(String lldpRemSysname, String lldpRemPortid) {
+        final List<OnmsSnmpInterface> interfaces = getSnmpInterfaceDao().findBySysNameAndPhysAddress(lldpRemSysname, lldpRemPortid);
         if (interfaces != null && !interfaces.isEmpty()) {
             return interfaces.get(0).getIfIndex();
         }
@@ -449,13 +439,8 @@ public abstract class AbstractQueryManager implements QueryManager {
         return null;
     }
 
-    protected Integer getFromSysnameIfAlias(String lldpRemSysname,
-            String lldpRemPortid) {
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsSnmpInterface.class);
-        criteria.createAlias("node", "node");
-        criteria.add(Restrictions.eq("node.sysName", lldpRemSysname));
-        criteria.add(Restrictions.eq("ifAlias", lldpRemPortid));
-        final List<OnmsSnmpInterface> interfaces = getSnmpInterfaceDao().findMatching(criteria);
+    protected Integer getFromSysnameIfAlias(String lldpRemSysname, String lldpRemPortid) {
+        final List<OnmsSnmpInterface> interfaces = getSnmpInterfaceDao().findBySysNameAndIfAlias(lldpRemSysname, lldpRemPortid);
         if (interfaces != null && !interfaces.isEmpty()) {
             return interfaces.get(0).getIfIndex();
         }
@@ -556,9 +541,7 @@ public abstract class AbstractQueryManager implements QueryManager {
 
     private List<Integer> getNodeIdsFromSysName(String targetSysName) {
         List<Integer> nodeids = new ArrayList<Integer>();
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsNode.class);
-        criteria.add(Restrictions.eq("sysName", targetSysName));
-        final List<OnmsNode> nodes = getNodeDao().findMatching(criteria);
+        final List<OnmsNode> nodes = getNodeDao().findBySysName(targetSysName);
         for (final OnmsNode node: nodes) {
             nodeids.add(node.getId());
         }

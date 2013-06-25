@@ -35,6 +35,8 @@ import java.util.Collection;
 import org.hibernate.criterion.Restrictions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.opennms.core.criteria.Criteria;
+import org.opennms.core.criteria.CriteriaBuilder;
 import org.opennms.core.test.OpenNMSJUnit4ClassRunner;
 import org.opennms.core.test.db.annotations.JUnitTemporaryDatabase;
 import org.opennms.core.utils.BeanUtils;
@@ -102,19 +104,15 @@ public class CriteriaTest implements InitializingBean {
     @Test
 	@Transactional
 	public void testComplicated() {
-        m_nodeDao.findByForeignSourceAndIpAddress()
-        OnmsCriteria crit = 
-            new OnmsCriteria(OnmsNode.class)
-            .createAlias("ipInterfaces", "iface")
-            .add(Restrictions.eq("iface.ipAddress", "192.168.2.1"));
-        
+        final Criteria crit = new CriteriaBuilder(OnmsNode.class)
+                .alias("ipInterfaces", "iface")
+                .eq("iface.ipAddress", "192.168.2.1")
+                .toCriteria();
         Collection<OnmsNode> matching = m_nodeDao.findMatching(crit);
         
         assertEquals("Expect a single node with an interface 192.168.2.1", 1, matching.size());
-        
         OnmsNode node = matching.iterator().next();
         assertEquals("node2", node.getLabel());
         assertEquals(3, node.getIpInterfaces().size());
-            
     }
 }

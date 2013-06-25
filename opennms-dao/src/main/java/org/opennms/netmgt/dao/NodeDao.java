@@ -33,11 +33,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import org.opennms.netmgt.model.OnmsCategory;
-import org.opennms.netmgt.model.OnmsDistPoller;
-import org.opennms.netmgt.model.OnmsIpInterface;
-import org.opennms.netmgt.model.OnmsNode;
-import org.opennms.netmgt.model.SurveillanceStatus;
+import org.opennms.netmgt.model.*;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -87,4 +83,10 @@ public interface NodeDao extends OnmsDao<OnmsNode, Integer> {
     List<OnmsNode> findByForeignSourceAndIpAddress(String foreignSource, String ipAddress);
 
     SurveillanceStatus findSurveillanceStatusByCategoryLists(Collection<OnmsCategory> rowCategories, Collection<OnmsCategory> columnCategories);
+
+    List<OnmsNode> findBySysName(String sysName);
+
+    List<OnmsNode> findByTypeAndIsSnmpPrimary(String type, PrimaryType snmpPrimaryType);
+
+    List<OnmsNode> findByTypeAndIsSnmpPrimaryAndNodeId(String type, PrimaryType snmpPrimaryType, int nodeid);
 }

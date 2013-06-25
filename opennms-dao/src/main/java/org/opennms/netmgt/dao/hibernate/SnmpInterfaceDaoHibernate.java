@@ -28,22 +28,21 @@
 
 package org.opennms.netmgt.dao.hibernate;
 
+import org.hibernate.criterion.Restrictions;
 import org.opennms.netmgt.dao.SnmpInterfaceDao;
+import org.opennms.netmgt.model.OnmsCriteria;
 import org.opennms.netmgt.model.OnmsSnmpInterface;
 import org.springframework.util.Assert;
+
+import java.util.List;
 
 public class SnmpInterfaceDaoHibernate extends
 		AbstractDaoHibernate<OnmsSnmpInterface, Integer> implements
 		SnmpInterfaceDao {
 
-	/**
-	 * <p>Constructor for SnmpInterfaceDaoHibernate.</p>
-	 */
 	public SnmpInterfaceDaoHibernate() {
 		super(OnmsSnmpInterface.class);
 	}
-	
-
 
     /** {@inheritDoc} */
         @Override
@@ -53,10 +52,7 @@ public class SnmpInterfaceDaoHibernate extends
         return findUnique("select distinct snmpIf from OnmsSnmpInterface as snmpIf where snmpIf.node.id = ? and snmpIf.ifIndex = ?", 
                           nodeId, 
                           ifIndex);
-        
     }
-
-
 
     /** {@inheritDoc} */
         @Override
@@ -70,6 +66,38 @@ public class SnmpInterfaceDaoHibernate extends
                           ifIndex);
     }
 
-	
+    @Override
+    public List<OnmsSnmpInterface> findBySysNameAndIfName(String sysName, String ifName) {
+        return getJpaTemplate().getEntityManager()
+                .createQuery("from OnmsSnmpInterface where node.sysName = :sysName and ifName = :ifName")
+                .setParameter("sysName", sysName)
+                .setParameter("ifName", ifName)
+                .getResultList();
+    }
 
+    @Override
+    public List<OnmsSnmpInterface> findBySysNameAndPhysAddress(String sysName, String physAddress) {
+        return getJpaTemplate().getEntityManager()
+                .createQuery("from OnmsSnmpInterface where node.sysName = :sysName and physAddr = :physAddr")
+                .setParameter("sysName", sysName)
+                .setParameter("physAddr", physAddress)
+                .getResultList();
+    }
+
+    @Override
+    public List<OnmsSnmpInterface> findBySysNameAndIfAlias(String sysName, String ifAlias) {
+        return getJpaTemplate().getEntityManager()
+                .createQuery("from OnmsSnmpInterface where node.sysName = :sysName and ifAlias = :ifAlias")
+                .setParameter("sysName", sysName)
+                .setParameter("ifAlias", ifAlias)
+                .getResultList();
+    }
+
+    @Override
+    public List<OnmsSnmpInterface> findByNodeIdAndIfIndex(int nodeId) {
+        return getJpaTemplate().getEntityManager()
+                .createQuery("from OnmsSnmpInterface left join node where node.id = :nodeId")
+                .setParameter("nodeId", nodeId)
+                .getResultList();
+    }
 }

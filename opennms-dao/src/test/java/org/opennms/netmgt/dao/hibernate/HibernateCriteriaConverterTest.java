@@ -36,6 +36,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.opennms.core.criteria.Alias.JoinType;
+import org.opennms.core.criteria.Criteria;
 import org.opennms.core.criteria.CriteriaBuilder;
 import org.opennms.core.test.MockLogAppender;
 import org.opennms.core.test.OpenNMSJUnit4ClassRunner;
@@ -83,14 +84,6 @@ public class HibernateCriteriaConverterTest implements InitializingBean {
     @JUnitTemporaryDatabase
     public void testNodeQuery() throws Exception {
         List<OnmsNode> nodes;
-
-        // first, try with OnmsCriteria
-        final OnmsCriteria crit = new OnmsCriteria(OnmsNode.class);
-        crit.add(org.hibernate.criterion.Restrictions.isNotNull("id"));
-        nodes = m_nodeDao.findMatching(crit);
-        assertEquals(6, nodes.size());
-
-        // then the same with the builder
         final CriteriaBuilder cb = new CriteriaBuilder(OnmsNode.class);
         cb.isNotNull("id");
         nodes = m_nodeDao.findMatching(cb.toCriteria());

@@ -172,4 +172,13 @@ public class IpInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsIpInterfac
                 .createQuery("from OnmsIpInterface where isSnmpPrimary = :sp")
                 .setParameter("sp", primaryType).getResultList();
     }
+
+    @Override
+    public List<OnmsIpInterface> getBySysNameAndIpAddress(String sysName, InetAddress inetAddress) {
+        return getJpaTemplate().getEntityManager()
+                .createQuery("from OnmsIpInterface left join node where node.sysName = :sysName and ipAddress = :inetAddress")
+                .setParameter("sysName", sysName)
+                .setParameter("inetAddress", inetAddress)
+                .getResultList();
+    }
 }

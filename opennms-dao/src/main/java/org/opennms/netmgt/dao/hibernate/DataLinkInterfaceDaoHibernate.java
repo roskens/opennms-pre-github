@@ -131,12 +131,24 @@ public class DataLinkInterfaceDaoHibernate extends AbstractDaoHibernate<DataLink
         }
     }
 
+    public void setStatusForNode(int nodeId, int parentNodeId, StatusType action) {
+        List<DataLinkInterface> dataLinks = getJpaTemplate().getEntityManager()
+                .createQuery("from DataLinkInterface left join node where node.id = :nodeId and nodeParentId = :parentNodeId")
+                .setParameter("nodeId", nodeId)
+                .setParameter("parentNodeId", parentNodeId)
+                .getResultList();
+        for (final DataLinkInterface iface : dataLinks) {
+            iface.setStatus(action);
+            saveOrUpdate(iface);
+        }
+    }
 
     @Override
     public void setStatusForNode(final int nodeId, final StatusType action) {
         List<DataLinkInterface> dataLinks = getJpaTemplate().getEntityManager()
-                .createQuery("from DataLinkInterface where node.id = :nodeId or nodeParentId = :nodeId")
+                .createQuery("from DataLinkInterface where node.id = :nodeId or nodeParentId = :parentNodeId")
                 .setParameter("nodeId", nodeId)
+                .setParameter("parentNodeId", nodeId)
                 .getResultList();
         for (final DataLinkInterface iface : dataLinks) {
             iface.setStatus(action);
@@ -188,6 +200,24 @@ public class DataLinkInterfaceDaoHibernate extends AbstractDaoHibernate<DataLink
             iface.setStatus(action);
             saveOrUpdate(iface);
         }
+    }
+
+    @Override
+    public Collection<DataLinkInterface> findByNodeIdAndParentId(int nodeId, int nodeParentId) {
+        return getJpaTemplate().getEntityManager()
+                .createQuery("from DataLinkInterface left join node where node.id = :nodeId and nodeParentId = :nodeParentId")
+                .setParameter("nodeId", nodeId)
+                .setParameter("nodeParentId", nodeParentId)
+                .getResultList();
+    }
+
+    @Override
+    public Collection<DataLinkInterface> findByNodeIdOrParentId(int nodeId, int nodeParentId) {
+        return getJpaTemplate().getEntityManager()
+                .createQuery("from DataLinkInterface left join node where node.id = :nodeId or nodeParentId = :nodeParentId")
+                .setParameter("nodeId", nodeId)
+                .setParameter("nodeParentId", nodeParentId)
+                .getResultList();
     }
 
 }

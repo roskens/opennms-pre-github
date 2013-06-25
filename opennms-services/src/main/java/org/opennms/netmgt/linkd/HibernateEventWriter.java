@@ -37,8 +37,11 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-import org.hibernate.criterion.Restrictions;
-
+import org.opennms.core.criteria.Alias;
+import org.opennms.core.criteria.Criteria;
+import org.opennms.core.criteria.CriteriaBuilder;
+import org.opennms.core.criteria.restrictions.EqRestriction;
+import org.opennms.core.criteria.restrictions.Restrictions;
 import org.opennms.core.utils.BeanUtils;
 import org.opennms.core.utils.LogUtils;
 
@@ -107,12 +110,7 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
 	@Override
 	public List<LinkableNode> getSnmpNodeList() {
 		final List<LinkableNode> nodes = new ArrayList<LinkableNode>();
-		
-		final OnmsCriteria criteria = new OnmsCriteria(OnmsNode.class);
-        criteria.createAlias("ipInterfaces", "iface", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("type", "A"));
-        criteria.add(Restrictions.eq("iface.isSnmpPrimary", PrimaryType.PRIMARY));
-        for (final OnmsNode node : m_nodeDao.findMatching(criteria)) {
+        for (final OnmsNode node : m_nodeDao.findByTypeAndIsSnmpPrimary("A", PrimaryType.PRIMARY)) {
             final String sysObjectId = node.getSysObjectId();
             nodes.add(new LinkableNode(node.getId(), node.getPrimaryInterface().getIpAddress(), sysObjectId == null? "-1" : sysObjectId));
         }
@@ -123,12 +121,7 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
 	// SELECT nodesysoid, ipaddr FROM node LEFT JOIN ipinterface ON node.nodeid = ipinterface.nodeid WHERE node.nodeid = ? AND nodetype = 'A' AND issnmpprimary = 'P'
 	@Override
 	public LinkableNode getSnmpNode(final int nodeid) {
-		final OnmsCriteria criteria = new OnmsCriteria(OnmsNode.class);
-        criteria.createAlias("ipInterfaces", "iface", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("type", "A"));
-        criteria.add(Restrictions.eq("iface.isSnmpPrimary", PrimaryType.PRIMARY));
-        criteria.add(Restrictions.eq("id", nodeid));
-        final List<OnmsNode> nodes = m_nodeDao.findMatching(criteria);
+        final List<OnmsNode> nodes = m_nodeDao.findByTypeAndIsSnmpPrimaryAndNodeId("A", PrimaryType.PRIMARY, nodeid);
 
         if (nodes.size() > 0) {
         	final OnmsNode node = nodes.get(0);
@@ -361,12 +354,14 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
 	// SELECT snmpifindex FROM snmpinterface WHERE nodeid = ? AND (snmpifname = ? OR snmpifdescr = ?)
 	@Override
 	protected int getIfIndexByName(final int targetCdpNodeId, final String cdpTargetDevicePort) {
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsSnmpInterface.class);
-        criteria.createAlias("node", "node");
-        criteria.add(Restrictions.eq("node.id", targetCdpNodeId));
-        criteria.add(Restrictions.or(Restrictions.eq("ifName", cdpTargetDevicePort), Restrictions.eq("ifDescr", cdpTargetDevicePort)));
+        final Criteria criteria = new CriteriaBuilder(OnmsSnmpInterface.class)
+                .alias("node", "node")
+                .and(Restrictions.eq("node.id", targetCdpNodeId),
+                        Restrictions.or(
+                                Restrictions.eq("ifName", cdpTargetDevicePort),
+                                Restrictions.eq("ifDescr", cdpTargetDevicePort)))
+                .toCriteria();
         final List<OnmsSnmpInterface> interfaces = m_snmpInterfaceDao.findMatching(criteria);
-
         if (interfaces.isEmpty()) {
         	return -1;
         } else {
@@ -381,10 +376,11 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
 	@Override
 	protected List<Integer> getNodeidFromIp(final InetAddress cdpTargetIpAddr) {
         List<Integer> nodeids = new ArrayList<Integer>();
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsIpInterface.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("ipAddress", cdpTargetIpAddr));
-        criteria.add(Restrictions.eq("node.type", "A"));
+        final Criteria criteria = new CriteriaBuilder(OnmsIpInterface.class)
+                .alias("node", "node", Alias.JoinType.LEFT_JOIN)
+                .and(Restrictions.eq("ipAddress", cdpTargetIpAddr),
+                     Restrictions.eq("node.type", "A"))
+                .toCriteria();
         List<OnmsIpInterface> interfaces = m_ipInterfaceDao.findMatching(criteria);
         
         LogUtils.debugf(this, "getNodeidFromIp: Found %d nodeids matching " +
@@ -437,16 +433,10 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
 
     @Override
     protected List<String> getPhysAddrs(int nodeId) {
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsSnmpInterface.class);
-        criteria.createAlias("node", "node");
-        criteria.add(Restrictions.eq("node.id", nodeId));
-        
         final List<String> addrs = new ArrayList<String>();
-
-        for (final OnmsSnmpInterface snmpInterface : m_snmpInterfaceDao.findMatching(criteria)) {
+        for (final OnmsSnmpInterface snmpInterface : m_snmpInterfaceDao.findByNodeIdAndIfIndex(nodeId)) {
             addrs.add(snmpInterface.getPhysAddr());
         }
-
         return addrs;
     }
 
@@ -709,14 +699,9 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
     }
     
     @Transactional
-        @Override
-    public Integer getFromSysnameIpAddress(String lldpRemSysname,
-            InetAddress lldpRemPortid) {
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsIpInterface.class);
-        criteria.createAlias("node", "node");
-        criteria.add(Restrictions.eq("node.sysName", lldpRemSysname));
-        criteria.add(Restrictions.eq("ipAddress",lldpRemPortid));
-        final List<OnmsIpInterface> interfaces = getIpInterfaceDao().findMatching(criteria);
+    @Override
+    public Integer getFromSysnameIpAddress(String lldpRemSysname, InetAddress lldpRemPortid) {
+        final List<OnmsIpInterface> interfaces = getIpInterfaceDao().getBySysNameAndIpAddress(lldpRemSysname, lldpRemPortid);
         if (interfaces != null && !interfaces.isEmpty()) {
             return interfaces.get(0).getIfIndex();
         }

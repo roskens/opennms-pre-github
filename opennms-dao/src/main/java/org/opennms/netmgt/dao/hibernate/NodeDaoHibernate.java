@@ -37,13 +37,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.criterion.Restrictions;
 import org.opennms.netmgt.dao.NodeDao;
-import org.opennms.netmgt.model.OnmsCategory;
-import org.opennms.netmgt.model.OnmsDistPoller;
-import org.opennms.netmgt.model.OnmsIpInterface;
-import org.opennms.netmgt.model.OnmsNode;
-import org.opennms.netmgt.model.OnmsSnmpInterface;
-import org.opennms.netmgt.model.SurveillanceStatus;
+import org.opennms.netmgt.model.*;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.jpa.JpaCallback;
 import org.springframework.util.StringUtils;
@@ -266,6 +262,33 @@ public class NodeDaoHibernate extends AbstractDaoHibernate<OnmsNode, Integer> im
 //                        .getSingleResult();
             }
         });
+    }
+
+    @Override
+    public List<OnmsNode> findBySysName(String sysName) {
+        return getJpaTemplate().getEntityManager()
+                .createQuery("from OnmsNode where sysName = :sysName")
+                .setParameter("sysName", sysName)
+                .getResultList();
+    }
+
+    @Override
+    public List<OnmsNode> findByTypeAndIsSnmpPrimary(String type, PrimaryType snmpPrimaryType) {
+        return getJpaTemplate().getEntityManager()
+                .createQuery("from OnmsNode left join ipInterfaces where type = :type and ipInterfaces.isSnmpPrimary = :snmpPrimaryType")
+                .setParameter("type", type)
+                .setParameter("snmpPrimaryType", snmpPrimaryType)
+                .getResultList();
+    }
+
+    @Override
+    public List<OnmsNode> findByTypeAndIsSnmpPrimaryAndNodeId(String type, PrimaryType snmpPrimaryType, int nodeId) {
+        return getJpaTemplate().getEntityManager()
+                .createQuery("from OnmsNode left join ipInterfaces where type = :type and ipInterfaces.isSnmpPrimary = :snmpPrimaryType and id = :nodeId")
+                .setParameter("type", type)
+                .setParameter("snmpPrimaryType", snmpPrimaryType)
+                .setParameter("nodeId", nodeId)
+                .getResultList();
     }
 
     /** {@inheritDoc} */

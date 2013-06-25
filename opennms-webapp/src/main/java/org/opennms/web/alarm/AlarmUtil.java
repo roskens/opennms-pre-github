@@ -87,6 +87,8 @@ public abstract class AlarmUtil extends Object {
     public static final String ANY_RELATIVE_TIMES_OPTION = "Any";
 
     public static OnmsCriteria getOnmsCriteria(final AlarmCriteria alarmCriteria) {
+
+
         final OnmsCriteria criteria = new OnmsCriteria(OnmsAlarm.class);
         criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
         criteria.createAlias("serviceType", "serviceType", OnmsCriteria.LEFT_JOIN);

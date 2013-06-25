@@ -111,12 +111,7 @@ public class DefaultNodeLinkService implements NodeLinkService, InitializingBean
         final OnmsNode node = m_nodeDao.get(nodeId);
         Assert.notNull(node, "node with id: " + nodeId + " does not exist");
         
-        final OnmsCriteria criteria = new OnmsCriteria(DataLinkInterface.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("node.id", nodeId));
-        criteria.add(Restrictions.eq("nodeParentId", nodeParentId));
-        
-        final Collection<DataLinkInterface> dataLinkInterface = m_dataLinkDao.findMatching(criteria);
+        final Collection<DataLinkInterface> dataLinkInterface = m_dataLinkDao.findByNodeIdAndParentId(nodeId, nodeParentId);
         DataLinkInterface dli = null;
         
         if (dataLinkInterface.size() > 1) {
@@ -206,14 +201,7 @@ public class DefaultNodeLinkService implements NodeLinkService, InitializingBean
     @Transactional(readOnly=true)
     @Override
     public Collection<DataLinkInterface> getLinkContainingNodeId(int nodeId) {
-        OnmsCriteria criteria = new OnmsCriteria(DataLinkInterface.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.or(
-            Restrictions.eq("node.id", nodeId),
-            Restrictions.eq("nodeParentId", nodeId)
-        ));
-        
-        return m_dataLinkDao.findMatching(criteria);
+        return m_dataLinkDao.findByNodeIdOrParentId(nodeId, nodeId);
     }
 
     /** {@inheritDoc} */
@@ -227,20 +215,8 @@ public class DefaultNodeLinkService implements NodeLinkService, InitializingBean
     @Transactional
     @Override
     public void updateLinkStatus(int nodeParentId, int nodeId, String status) {
-        OnmsCriteria criteria = new OnmsCriteria(DataLinkInterface.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("node.id", nodeId));
-        criteria.add(Restrictions.eq("nodeParentId", nodeParentId));
-        
-        Collection<DataLinkInterface> dataLinkInterface = m_dataLinkDao.findMatching(criteria);
-        
-        if(dataLinkInterface.size() > 0){
-            DataLinkInterface dataLink = dataLinkInterface.iterator().next();
-            dataLink.setStatus(StatusType.get(status));
-            
-            m_dataLinkDao.update(dataLink);
-            m_dataLinkDao.flush();
-        }
+        m_dataLinkDao.setStatusForNode(nodeId, nodeParentId, StatusType.get(status));
+        m_dataLinkDao.flush();
     }
 
     /** {@inheritDoc} */

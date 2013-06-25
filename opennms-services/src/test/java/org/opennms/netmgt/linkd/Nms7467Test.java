@@ -47,6 +47,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.opennms.core.criteria.Criteria;
+import org.opennms.core.criteria.CriteriaBuilder;
 import org.opennms.core.test.MockLogAppender;
 import org.opennms.core.test.OpenNMSJUnit4ClassRunner;
 import org.opennms.core.test.db.annotations.JUnitTemporaryDatabase;
@@ -383,9 +385,10 @@ public class Nms7467Test extends Nms7467NetworkBuilder implements InitializingBe
         assertEquals(CISCO_WS_C2948_IP,at.getIpAddress().getHostAddress());
         assertEquals(3, at.getIfIndex().intValue());
         // Now Let's test the database
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsIpRouteInterface.class);
-        criteria.createAlias("node", "node");
-        criteria.add(Restrictions.eq("node.id", ciscosw.getId()));
+        final Criteria criteria = new CriteriaBuilder(OnmsIpRouteInterface.class)
+                .alias("node", "node")
+                .eq("node.id", ciscosw.getId())
+                .toCriteria();
 
         // 2 route entry in database
         assertEquals(2, m_ipRouteInterfaceDao.findMatching(criteria).size());
@@ -500,9 +503,10 @@ public class Nms7467Test extends Nms7467NetworkBuilder implements InitializingBe
         //0 atinterface in database
         assertEquals(4, m_atInterfaceDao.findAll().size());
 
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsIpRouteInterface.class);
-        criteria.createAlias("node", "node");
-        criteria.add(Restrictions.eq("node.id", ciscorouter.getId()));
+        final Criteria criteria = new CriteriaBuilder(OnmsIpRouteInterface.class)
+                .alias("node", "node")
+                .eq("node.id", ciscorouter.getId())
+                .toCriteria();
         final List<OnmsIpRouteInterface> iproutes = m_ipRouteInterfaceDao.findMatching(criteria);
         // 7 route entry in database
         for (OnmsIpRouteInterface iproute: iproutes) {
@@ -603,9 +607,10 @@ public class Nms7467Test extends Nms7467NetworkBuilder implements InitializingBe
         //1 atinterface in database: has itself in ipadress to media
         assertEquals(1, m_atInterfaceDao.findAll().size());
 
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsIpRouteInterface.class);
-        criteria.createAlias("node", "node");
-        criteria.add(Restrictions.eq("node.id", ngsw108.getId()));
+        final Criteria criteria = new CriteriaBuilder(OnmsIpRouteInterface.class)
+                .alias("node", "node")
+                .eq("node.id", ngsw108.getId())
+                .toCriteria();
         final List<OnmsIpRouteInterface> iproutes = m_ipRouteInterfaceDao.findMatching(criteria);
         // 7 route entry in database
         for (OnmsIpRouteInterface iproute: iproutes) {
@@ -692,9 +697,10 @@ public class Nms7467Test extends Nms7467NetworkBuilder implements InitializingBe
         //0 atinterface in database
         assertEquals(0, m_atInterfaceDao.findAll().size());
 
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsIpRouteInterface.class);
-        criteria.createAlias("node", "node");
-        criteria.add(Restrictions.eq("node.id", linux.getId()));
+        final Criteria criteria = new CriteriaBuilder(OnmsIpRouteInterface.class)
+                .alias("node", "node")
+                .eq("node.id", linux.getId())
+                .toCriteria();
         final List<OnmsIpRouteInterface> iproutes = m_ipRouteInterfaceDao.findMatching(criteria);
         // 4 route entry in database
         for (OnmsIpRouteInterface iproute: iproutes) {
@@ -779,9 +785,10 @@ public class Nms7467Test extends Nms7467NetworkBuilder implements InitializingBe
         //0 atinterface in database
         assertEquals(0, m_atInterfaceDao.findAll().size());
 
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsIpRouteInterface.class);
-        criteria.createAlias("node", "node");
-        criteria.add(Restrictions.eq("node.id", mac.getId()));
+        final Criteria criteria = new CriteriaBuilder(OnmsIpRouteInterface.class)
+                .alias("node", "node")
+                .eq("node.id", mac.getId())
+                .toCriteria();
         final List<OnmsIpRouteInterface> iproutes = m_ipRouteInterfaceDao.findMatching(criteria);
         // 4 route entry in database
         for (OnmsIpRouteInterface iproute: iproutes) {

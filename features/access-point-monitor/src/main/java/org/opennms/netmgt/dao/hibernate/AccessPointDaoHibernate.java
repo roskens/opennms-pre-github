@@ -38,6 +38,10 @@ import org.opennms.netmgt.dao.AccessPointDao;
 import org.opennms.netmgt.model.OnmsAccessPoint;
 import org.opennms.netmgt.model.OnmsAccessPointCollection;
 import org.springframework.orm.hibernate3.HibernateCallback;
+import org.springframework.orm.jpa.JpaCallback;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceException;
 
 /**
  * <p>
@@ -77,12 +81,14 @@ public class AccessPointDaoHibernate extends AbstractDaoHibernate<OnmsAccessPoin
     @SuppressWarnings("unchecked")
     @Override
     public List<String> findDistinctPackagesLike(final String pkg) {
-        final HibernateCallback<List<String>> callback = new HibernateCallback<List<String>>() {
+        return getJpaTemplate().execute(new JpaCallback<List<String>>() {
             @Override
-            public List<String> doInHibernate(final Session session) throws SQLException {
-                return session.createCriteria(OnmsAccessPoint.class).setProjection(Projections.groupProperty("pollingPackage")).add(Restrictions.like("pollingPackage", pkg)).list();
+            public List<String> doInJpa(EntityManager em) throws PersistenceException {
+                return em.createQuery("from OnmsAccessPoint where pollingPackage like :pkg group by pollingPackage")
+                        .setParameter("pkg", pkg)
+                        .getResultList();
+
             }
-        };
-        return getHibernateTemplate().executeFind(callback);
+        });
     }
 }

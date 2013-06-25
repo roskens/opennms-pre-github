@@ -101,12 +101,7 @@ public class AvailabilityDatabasePopulatorTest implements InitializingBean {
 	@Test
 	@Transactional
 	public void testAvailabilityDatabase() throws Exception {
-
 		List<OnmsNode> nodes = m_nodeDao.findAll();
-		for (OnmsNode node : nodes) {
-			m_nodeDao.initialize(node);
-			m_nodeDao.initialize(node.getDistPoller());
-		}
 		for (OnmsNode node : nodes) {
 			System.err.println("NODE "+ node.toString());
 		}
@@ -141,25 +136,5 @@ public class AvailabilityDatabasePopulatorTest implements InitializingBean {
 			LogUtils.errorf(this, e, "unable to execute SQL");
 			throw e;
 		}
-
-		/*
-		Assert.assertEquals("node DB count", 2, m_db.countRows("select * from node"));
-		Assert.assertEquals("service DB count", 3,
-				m_db.countRows("select * from service"));
-		Assert.assertEquals("ipinterface DB count", 3,
-				m_db.countRows("select * from ipinterface"));
-		Assert.assertEquals("interface services DB count", 3,
-				m_db.countRows("select * from ifservices"));
-		// Assert.assertEquals("outages DB count", 3, m_db.countRows("select * from
-		// outages"));
-		Assert.assertEquals(
-				"ip interface DB count where ipaddr = 192.168.100.1",
-				1,
-				m_db.countRows("select * from ipinterface where ipaddr = '192.168.100.1'"));
-		Assert.assertEquals(
-				"number of interfaces returned from IPLIKE",
-				3,
-				m_db.countRows("select * from ipinterface where iplike(ipaddr,'192.168.100.*')"));
-		 */
 	}
 }

@@ -49,6 +49,8 @@ import org.hibernate.criterion.Restrictions;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.opennms.core.criteria.Criteria;
+import org.opennms.core.criteria.CriteriaBuilder;
 import org.opennms.core.test.OpenNMSJUnit4ClassRunner;
 import org.opennms.core.test.db.annotations.JUnitTemporaryDatabase;
 import org.opennms.core.utils.BeanUtils;
@@ -134,20 +136,23 @@ public class IpInterfaceDaoTest implements InitializingBean {
 	@Test
 	@Transactional
     public void testCountMatchingInerfaces() {
-        OnmsCriteria crit = new OnmsCriteria(OnmsIpInterface.class);
-        crit.add(Restrictions.like("ipAddress", "192.168.1.%"));
+        Criteria crit = new CriteriaBuilder(OnmsIpInterface.class)
+                .like("ipAddress", "192.168.1.%")
+                .toCriteria();
         assertEquals(3, m_ipInterfaceDao.countMatching(crit));
         
-        crit = new OnmsCriteria(OnmsIpInterface.class);
-        crit.add(Restrictions.like("ipAddress", "fe80:%dddd\\%5"));
+        crit = new CriteriaBuilder(OnmsIpInterface.class)
+                .like("ipAddress", "fe80:%dddd\\%5")
+                .toCriteria();
         assertEquals(1, m_ipInterfaceDao.countMatching(crit));
     }
 
 	@Test
 	@Transactional
     public void testGetIPv6Interfaces() {
-        OnmsCriteria crit = new OnmsCriteria(OnmsIpInterface.class);
-        crit.add(Restrictions.like("ipAddress", "fe80:%dddd\\%5"));
+        final Criteria crit = new CriteriaBuilder(OnmsIpInterface.class)
+                .like("ipAddress", "fe80:%dddd\\%5")
+                .toCriteria();
         List<OnmsIpInterface> ifaces = m_ipInterfaceDao.findMatching(crit);
         assertEquals(1, ifaces.size());
         

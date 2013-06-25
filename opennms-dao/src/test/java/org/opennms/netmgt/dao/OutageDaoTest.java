@@ -41,6 +41,8 @@ import org.hibernate.criterion.Restrictions;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.opennms.core.criteria.Criteria;
+import org.opennms.core.criteria.CriteriaBuilder;
 import org.opennms.core.test.OpenNMSJUnit4ClassRunner;
 import org.opennms.core.test.db.TemporaryDatabase;
 import org.opennms.core.test.db.TemporaryDatabaseAware;
@@ -339,9 +341,10 @@ public class OutageDaoTest implements InitializingBean, TemporaryDatabaseAware<T
     }
 
     private OnmsMonitoredService getMonitoredService(OnmsIpInterface ipInterface, OnmsServiceType serviceType) {
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsMonitoredService.class)
-            .add(Restrictions.eq("ipInterface", ipInterface))
-            .add(Restrictions.eq("serviceType", serviceType));
+        final Criteria criteria = new CriteriaBuilder(OnmsMonitoredService.class)
+                .eq("ipInterface", ipInterface)
+                .eq("serviceType", serviceType)
+                .toCriteria();
         final List<OnmsMonitoredService> services = m_monitoredServiceDao.findMatching(criteria);
         OnmsMonitoredService monitoredService;
         if (services.size() > 0) {

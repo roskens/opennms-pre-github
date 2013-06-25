@@ -67,6 +67,7 @@ import org.opennms.netmgt.config.poller.Rrd;
 import org.opennms.netmgt.config.poller.Service;
 import org.opennms.netmgt.dao.LocationMonitorDao;
 import org.opennms.netmgt.dao.MonitoredServiceDao;
+import org.opennms.netmgt.dao.OnmsLocationSpecificStatusDao;
 import org.opennms.netmgt.model.NetworkBuilder;
 import org.opennms.netmgt.model.OnmsDistPoller;
 import org.opennms.netmgt.model.OnmsIpInterface;
@@ -162,6 +163,7 @@ public class PollerBackEndTest extends TestCase {
     private DefaultPollerBackEnd m_backEnd = new DefaultPollerBackEnd();
     // mock objects that the class will call
     private LocationMonitorDao m_locMonDao;
+    private OnmsLocationSpecificStatusDao m_locSpecStatusDao;
     private MonitoredServiceDao m_monSvcDao;
     private PollerConfig m_pollerConfig;
     private TimeKeeper m_timeKeeper;
@@ -336,6 +338,7 @@ public class PollerBackEndTest extends TestCase {
         System.setProperty("opennms.home", "src/test/test-configurations/PollerBackEndTest-home");
 
         m_locMonDao = m_mocks.createMock(LocationMonitorDao.class);
+        m_locSpecStatusDao = m_mocks.createMock(OnmsLocationSpecificStatusDao.class);
         m_monSvcDao = m_mocks.createMock(MonitoredServiceDao.class);
         m_pollerConfig = m_mocks.createMock(PollerConfig.class);
         m_timeKeeper = m_mocks.createMock(TimeKeeper.class);
@@ -617,7 +620,7 @@ public class PollerBackEndTest extends TestCase {
 
         m_eventIpcManager.sendNow(eq(eventBuilder.getEvent()));
 
-        m_locMonDao.saveStatusChange(isA(OnmsLocationSpecificStatus.class));
+        m_locSpecStatusDao.save(isA(OnmsLocationSpecificStatus.class));
         expectLastCall().andAnswer(new StatusChecker(expectedStatus));
 
         m_mocks.replayAll();
@@ -651,11 +654,9 @@ public class PollerBackEndTest extends TestCase {
 
         OnmsLocationSpecificStatus expectedStatus = new OnmsLocationSpecificStatus(m_locationMonitor, m_httpService, newStatus);
 
-        m_locMonDao.saveStatusChange(isA(OnmsLocationSpecificStatus.class));
+        m_locSpecStatusDao.save((isA(OnmsLocationSpecificStatus.class)));
         expectLastCall().andAnswer(new StatusChecker(expectedStatus));
-
         m_mocks.replayAll();
-
         m_backEnd.reportResult(1, 1, newStatus);
     }
 
@@ -686,7 +687,7 @@ public class PollerBackEndTest extends TestCase {
 
         OnmsLocationSpecificStatus expectedStatus = new OnmsLocationSpecificStatus(m_locationMonitor, m_dnsService, newStatus);
 
-        m_locMonDao.saveStatusChange(isA(OnmsLocationSpecificStatus.class));
+        m_locSpecStatusDao.save(isA(OnmsLocationSpecificStatus.class));
         expectLastCall().andAnswer(new StatusChecker(expectedStatus));
 
         // expect a status change if the node is now down and we didn't know before
@@ -719,7 +720,7 @@ public class PollerBackEndTest extends TestCase {
 
         OnmsLocationSpecificStatus expectedStatus = new OnmsLocationSpecificStatus(m_locationMonitor, m_dnsService, newStatus);
 
-        m_locMonDao.saveStatusChange(isA(OnmsLocationSpecificStatus.class));
+        m_locSpecStatusDao.save((isA(OnmsLocationSpecificStatus.class)));
         expectLastCall().andAnswer(new StatusChecker(expectedStatus));
 
         m_mocks.replayAll();

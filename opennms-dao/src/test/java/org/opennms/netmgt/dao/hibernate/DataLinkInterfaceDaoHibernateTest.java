@@ -40,6 +40,10 @@ import org.hibernate.criterion.Restrictions;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.opennms.core.criteria.Alias;
+import org.opennms.core.criteria.Criteria;
+import org.opennms.core.criteria.CriteriaBuilder;
+import org.opennms.core.criteria.restrictions.EqRestriction;
 import org.opennms.core.test.OpenNMSJUnit4ClassRunner;
 import org.opennms.core.test.db.annotations.JUnitTemporaryDatabase;
 import org.opennms.core.utils.BeanUtils;
@@ -99,7 +103,7 @@ public class DataLinkInterfaceDaoHibernateTest implements InitializingBean {
         // before the creation of this object then this ID may change and this test will fail.
         //
         int id = 64;
-        DataLinkInterface dli = m_dataLinkInterfaceDao.findById(id);
+        DataLinkInterface dli = m_dataLinkInterfaceDao.get(id);
         if (dli == null) {
             List<DataLinkInterface> dlis = m_dataLinkInterfaceDao.findAll();
             StringBuffer ids = new StringBuffer();
@@ -119,13 +123,12 @@ public class DataLinkInterfaceDaoHibernateTest implements InitializingBean {
 
     @Test
     public void testFindByCriteria() throws Exception {
-        OnmsCriteria criteria = new OnmsCriteria(DataLinkInterface.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.or(
-            Restrictions.eq("node.id", m_databasePopulator.getNode1().getId()),
-            Restrictions.eq("nodeParentId", m_databasePopulator.getNode1().getId())
-        ));
-        
+        Criteria criteria = new CriteriaBuilder(DataLinkInterface.class)
+                .alias("node", "node", Alias.JoinType.LEFT_JOIN)
+                .or(
+                        new EqRestriction("node.id", m_databasePopulator.getNode1().getId()),
+                        new EqRestriction("nodeParentId", m_databasePopulator.getNode1().getId()))
+                .toCriteria();
         final List<DataLinkInterface> dlis = m_dataLinkInterfaceDao.findMatching(criteria);
         for (final DataLinkInterface iface : dlis) {
             LogUtils.debugf(this, "dli = %s", iface);
@@ -135,9 +138,9 @@ public class DataLinkInterfaceDaoHibernateTest implements InitializingBean {
 
     @Test
     public void testFindByStatus() throws Exception {
-        OnmsCriteria criteria = new OnmsCriteria(DataLinkInterface.class);
-        criteria.add(Restrictions.eq("status", StatusType.ACTIVE));
-        
+        Criteria criteria = new CriteriaBuilder(DataLinkInterface.class)
+                .eq("status", StatusType.ACTIVE)
+                .toCriteria();
         final List<DataLinkInterface> dlis = m_dataLinkInterfaceDao.findMatching(criteria);
         for (final DataLinkInterface iface : dlis) {
             LogUtils.debugf(this, "dli = %s", iface);
@@ -156,7 +159,7 @@ public class DataLinkInterfaceDaoHibernateTest implements InitializingBean {
 
         assertNotNull(m_dataLinkInterfaceDao.get(dli.getId()));
 
-        DataLinkInterface dli2 = m_dataLinkInterfaceDao.findById(dli.getId());
+        DataLinkInterface dli2 = m_dataLinkInterfaceDao.get(dli.getId());
         assertSame(dli, dli2);
         assertEquals(dli.getId(), dli2.getId());
         assertEquals(dli.getNode().getId(), dli2.getNode().getId());
@@ -181,7 +184,7 @@ public class DataLinkInterfaceDaoHibernateTest implements InitializingBean {
 
         assertNotNull(m_dataLinkInterfaceDao.get(dli.getId()));
 
-        DataLinkInterface dli2 = m_dataLinkInterfaceDao.findById(dli.getId());
+        DataLinkInterface dli2 = m_dataLinkInterfaceDao.get(dli.getId());
         assertSame(dli, dli2);
         assertEquals(dli.getId(), dli2.getId());
         assertEquals(dli.getNode().getId(), dli2.getNode().getId());
@@ -208,7 +211,7 @@ public class DataLinkInterfaceDaoHibernateTest implements InitializingBean {
         
         assertNotNull(m_dataLinkInterfaceDao.get(dli.getId()));
 
-        DataLinkInterface dli2 = m_dataLinkInterfaceDao.findById(dli.getId());
+        DataLinkInterface dli2 = m_dataLinkInterfaceDao.get(dli.getId());
         assertSame(dli, dli2);
         assertEquals(dli.getId(), dli2.getId());
         assertEquals(dli.getNode().getId(), dli2.getNode().getId());
