@@ -29,7 +29,6 @@
 package org.opennms.web.notification.filter;
 
 import org.opennms.web.filter.EqualsFilter;
-import org.opennms.web.filter.SQLType;
 
 public class NodeFilter extends EqualsFilter<Integer> {
     public static final String TYPE = "node";

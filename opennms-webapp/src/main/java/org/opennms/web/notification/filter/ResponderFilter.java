@@ -29,7 +29,6 @@
 package org.opennms.web.notification.filter;
 
 import org.opennms.web.filter.EqualsFilter;
-import org.opennms.web.filter.SQLType;
 
 public class ResponderFilter extends EqualsFilter<String> {
     public static final String TYPE = "responder";

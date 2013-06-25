@@ -42,8 +42,8 @@ public abstract class OneArgFilter<T> extends BaseFilter<T> {
     
     private T m_value;
     
-    public OneArgFilter(String filterType, SQLType<T> sqlType, String fieldName, String propertyName, T value) {
-        super(filterType, sqlType, fieldName, propertyName);
+    public OneArgFilter(String filterType,String propertyName, T value) {
+        super(filterType, propertyName);
         m_value = value;
     }
     
@@ -54,27 +54,10 @@ public abstract class OneArgFilter<T> extends BaseFilter<T> {
      */
     final public T getValue() { return m_value; };
 
-    /**
-     * <p>getSQLTemplate</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    abstract public String getSQLTemplate();
-    
-    /**
-     * <p>getBoundValue</p>
-     *
-     * @param value a T object.
-     * @return a T object.
-     */
-    public T getBoundValue(T value) {
-        return value;
-    }
-
     /** {@inheritDoc} */
     @Override
     final public String getValueString() {
-        return getValueAsString(m_value);
+        return ValueStringRenderer.toString(getValue());
     }
     
     @Override

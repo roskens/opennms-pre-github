@@ -40,19 +40,9 @@ import org.hibernate.criterion.Restrictions;
  */
 public abstract class NotEqualOrNullFilter<T> extends OneArgFilter<T> {
     
-    
-    /**
-     * <p>Constructor for NotEqualOrNullFilter.</p>
-     *
-     * @param filterType a {@link java.lang.String} object.
-     * @param type a {@link org.opennms.web.filter.SQLType} object.
-     * @param fieldName a {@link java.lang.String} object.
-     * @param propertyName a {@link java.lang.String} object.
-     * @param value a T object.
-     * @param <T> a T object.
-     */
-    public NotEqualOrNullFilter(final String filterType, final SQLType<T> type, final String fieldName, final String propertyName, final T value) {
-        super(filterType, type, fieldName, propertyName, value);
+
+    public NotEqualOrNullFilter(final String filterType, final String propertyName, final T value) {
+        super(filterType, propertyName, value);
     }
 
     /**
@@ -64,11 +54,4 @@ public abstract class NotEqualOrNullFilter<T> extends OneArgFilter<T> {
     public Criterion getCriterion() {
         return Restrictions.or(Restrictions.ne(getPropertyName(), getValue()), Restrictions.isNull(getPropertyName()));
     }
-    
-    /** {@inheritDoc} */
-    @Override
-    public String getSQLTemplate() {
-        return " (" + getSQLFieldName() + "<> %s OR " + getSQLFieldName() + " IS NULL) ";
-    }
-
 }

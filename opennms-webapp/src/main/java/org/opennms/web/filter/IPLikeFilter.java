@@ -38,22 +38,8 @@ import org.hibernate.criterion.Restrictions;
  */
 public abstract class IPLikeFilter extends OneArgFilter<String> {
 
-    /**
-     * <p>Constructor for IPLikeFilter.</p>
-     *
-     * @param filterType a {@link java.lang.String} object.
-     * @param fieldName a {@link java.lang.String} object.
-     * @param propertyName a {@link java.lang.String} object.
-     * @param ipLikePattern a {@link java.lang.String} object.
-     */
-    public IPLikeFilter(final String filterType, final String fieldName, final String propertyName, final String ipLikePattern) {
-        super(filterType, SQLType.STRING, fieldName, propertyName, ipLikePattern);
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public String getSQLTemplate() {
-        return " IPLIKE(" + getSQLFieldName() + ", %s) ";
+    public IPLikeFilter(final String filterType, final String propertyName, final String ipLikePattern) {
+        super(filterType, propertyName, ipLikePattern);
     }
 
     /** {@inheritDoc} */

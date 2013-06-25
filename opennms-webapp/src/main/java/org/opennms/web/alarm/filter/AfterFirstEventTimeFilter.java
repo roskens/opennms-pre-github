@@ -31,7 +31,6 @@ package org.opennms.web.alarm.filter;
 import java.util.Date;
 
 import org.opennms.web.filter.GreaterThanFilter;
-import org.opennms.web.filter.SQLType;
 
 /**
  * <p>AfterFirstEventTimeFilter class.</p>

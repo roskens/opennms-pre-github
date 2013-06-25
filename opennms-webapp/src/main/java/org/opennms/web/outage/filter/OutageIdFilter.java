@@ -29,7 +29,6 @@
 package org.opennms.web.outage.filter;
 
 import org.opennms.web.filter.EqualsFilter;
-import org.opennms.web.filter.SQLType;
 
 /**
  * Encapsulates all node filtering functionality.
@@ -42,13 +41,8 @@ public class OutageIdFilter extends EqualsFilter<Integer> {
     /** Constant <code>TYPE="outage"</code> */
     public static final String TYPE = "outage";
 
-    /**
-     * <p>Constructor for OutageIdFilter.</p>
-     *
-     * @param outageId a int.
-     */
     public OutageIdFilter(int outageId) {
-        super(TYPE, SQLType.INT, "OUTAGES.OUTAGEID", "id", outageId);
+        super(TYPE, "id", outageId);
     }
 
     /**
@@ -59,15 +53,6 @@ public class OutageIdFilter extends EqualsFilter<Integer> {
     @Override
     public String toString() {
         return ("<OutageIdFilter: " + this.getDescription() + ">");
-    }
-
-    /**
-     * <p>getOutage</p>
-     *
-     * @return a int.
-     */
-    public int getOutage() {
-        return getValue();
     }
 
     /** {@inheritDoc} */

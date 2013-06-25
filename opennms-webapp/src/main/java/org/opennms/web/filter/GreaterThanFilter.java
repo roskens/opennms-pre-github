@@ -40,18 +40,8 @@ import org.hibernate.criterion.Restrictions;
  */
 public abstract class GreaterThanFilter<T> extends OneArgFilter<T> {
 
-    /**
-     * <p>Constructor for GreaterThanFilter.</p>
-     *
-     * @param filterType a {@link java.lang.String} object.
-     * @param type a {@link org.opennms.web.filter.SQLType} object.
-     * @param fieldName a {@link java.lang.String} object.
-     * @param propertyName a {@link java.lang.String} object.
-     * @param value a T object.
-     * @param <T> a T object.
-     */
-    public GreaterThanFilter(String filterType, SQLType<T> type, String fieldName, String propertyName, T value) {
-        super(filterType, type, fieldName, propertyName, value);
+    public GreaterThanFilter(String filterType, String propertyName, T value) {
+        super(filterType, propertyName, value);
     }
 
     /** {@inheritDoc} */
@@ -59,12 +49,4 @@ public abstract class GreaterThanFilter<T> extends OneArgFilter<T> {
     public Criterion getCriterion() {
         return Restrictions.gt(getPropertyName(), getValue());
     }
-    
-    /** {@inheritDoc} */
-    @Override
-    public String getSQLTemplate() {
-        return " " + getSQLFieldName() + " > %s ";
-    }
-
-
 }

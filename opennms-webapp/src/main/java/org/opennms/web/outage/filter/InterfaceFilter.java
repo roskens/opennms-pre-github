@@ -29,7 +29,6 @@
 package org.opennms.web.outage.filter;
 
 import org.opennms.web.filter.EqualsFilter;
-import org.opennms.web.filter.SQLType;
 
 /**
  * Encapsulates all interface filtering functionality.

@@ -40,18 +40,8 @@ import org.hibernate.criterion.Restrictions;
  */
 public abstract class LikeFilter<T> extends OneArgFilter<T> {
 
-    /**
-     * <p>Constructor for LikeFilter.</p>
-     *
-     * @param filterType a {@link java.lang.String} object.
-     * @param type a {@link org.opennms.web.filter.SQLType} object.
-     * @param fieldName a {@link java.lang.String} object.
-     * @param propertyName a {@link java.lang.String} object.
-     * @param value a T object.
-     * @param <T> a T object.
-     */
-    public LikeFilter(String filterType, SQLType<T> type, String fieldName, String propertyName, T value) {
-        super(filterType, type, fieldName, propertyName, value);
+    public LikeFilter(String filterType, String propertyName, T value) {
+        super(filterType, propertyName, value);
     }
 
     /** {@inheritDoc} */
@@ -59,11 +49,4 @@ public abstract class LikeFilter<T> extends OneArgFilter<T> {
     public Criterion getCriterion() {
         return Restrictions.like(getPropertyName(), getValue());
     }
-
-    /** {@inheritDoc} */
-    @Override
-    public String getSQLTemplate() {
-        return " " + getSQLFieldName() + " LIKE %s ";
-    }
-
 }

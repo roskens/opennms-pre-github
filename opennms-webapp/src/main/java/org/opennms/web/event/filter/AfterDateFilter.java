@@ -31,7 +31,6 @@ package org.opennms.web.event.filter;
 import java.util.Date;
 
 import org.opennms.web.filter.GreaterThanFilter;
-import org.opennms.web.filter.SQLType;
 
 /**
  * <p>AfterDateFilter class.</p>

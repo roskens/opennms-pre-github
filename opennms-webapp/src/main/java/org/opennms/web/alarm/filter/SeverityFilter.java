@@ -30,7 +30,6 @@ package org.opennms.web.alarm.filter;
 
 import org.opennms.netmgt.model.OnmsSeverity;
 import org.opennms.web.filter.EqualsFilter;
-import org.opennms.web.filter.SQLType;
 
 /**
  * Encapsulates severity filtering functionality.

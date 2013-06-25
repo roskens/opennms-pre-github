@@ -33,6 +33,10 @@ import java.sql.SQLException;
 
 import org.hibernate.criterion.Criterion;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
 /**
  * <p>Filter interface.</p>
  *
@@ -78,13 +82,4 @@ public interface Filter {
      * @return a {@link java.lang.String} object.
      */
     public String getTextDescription();
-    
-    /**
-     * Criterion used to construction an OnmsCritieria
-     *
-     * @return A Criterion that represents a criteria restriction
-     * imposed by this filter
-     */
-    public Criterion getCriterion();
-        
 }

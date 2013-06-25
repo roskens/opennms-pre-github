@@ -44,18 +44,8 @@ public abstract class MultiArgFilter<T> extends BaseFilter<T> {
 
     private T[] m_values;
     
-    /**
-     * <p>Constructor for MultiArgFilter.</p>
-     *
-     * @param filterType a {@link java.lang.String} object.
-     * @param sqlType a {@link org.opennms.web.filter.SQLType} object.
-     * @param fieldName a {@link java.lang.String} object.
-     * @param propertyName a {@link java.lang.String} object.
-     * @param values an array of T objects.
-     * @param <T> a T object.
-     */
-    public MultiArgFilter(String filterType, SQLType<T> sqlType, String fieldName, String propertyName, T[] values) {
-        super(filterType, sqlType, fieldName, propertyName);
+    public MultiArgFilter(String filterType, String propertyName, T... values) {
+        super(filterType, propertyName);
         m_values = values;
     }
     
@@ -77,21 +67,6 @@ public abstract class MultiArgFilter<T> extends BaseFilter<T> {
         return Arrays.asList(m_values);
     }
     
-    /**
-     * <p>getSQLTemplate</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    abstract public String getSQLTemplate();
-
-    /** {@inheritDoc} */
-    @Override
-    final public int bindParam(PreparedStatement ps, int parameterIndex) throws SQLException {
-        for(int i = 0; i < m_values.length; i++) {
-            bindValue(ps, parameterIndex+i, m_values[i]);
-        }
-        return m_values.length;
-    }
 
     /** {@inheritDoc} */
     @Override
@@ -101,33 +76,8 @@ public abstract class MultiArgFilter<T> extends BaseFilter<T> {
             if (i != 0) {
                 buf.append(',');
             }
-            buf.append(getValueAsString(m_values[i]));
+            buf.append(ValueStringRenderer.toString(m_values[i]));
         }
         return buf.toString();
     }
-    
-    /** {@inheritDoc} */
-    @Override
-    final public String getParamSql() {
-        Object[] qmarks = new String[m_values.length];
-
-        Arrays.fill(qmarks, "?");
-
-        return String.format(getSQLTemplate(), qmarks);
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    final public String getSql() {
-        Object[] formattedVals = new String[m_values.length];
-        
-        for(int i = 0; i < m_values.length; i++) {
-            formattedVals[i] = formatValue(m_values[i]);
-        }
-        return String.format(getSQLTemplate(), formattedVals);
-    }
-
-    
-
-
 }

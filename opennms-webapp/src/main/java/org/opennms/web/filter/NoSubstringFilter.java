@@ -41,25 +41,10 @@ import org.hibernate.criterion.Restrictions;
  */
 public abstract class NoSubstringFilter extends OneArgFilter<String> {
 
-    /**
-     * <p>Constructor for NoSubstringFilter.</p>
-     *
-     * @param filterType a {@link java.lang.String} object.
-     * @param fieldName a {@link java.lang.String} object.
-     * @param daoPropertyName a {@link java.lang.String} object.
-     * @param value a {@link java.lang.String} object.
-     */
-    public NoSubstringFilter(String filterType, String fieldName, String daoPropertyName, String value) {
-        super(filterType, SQLType.STRING, fieldName, daoPropertyName, value);
+    public NoSubstringFilter(String filterType, String daoPropertyName, String value) {
+        super(filterType, daoPropertyName, value);
 
     }
-    
-    /** {@inheritDoc} */
-    @Override
-    public String getSQLTemplate() {
-        return " " + getSQLFieldName() + " NOT ILIKE %s ";
-    }
-    
     /** {@inheritDoc} */
     @Override
     public Criterion getCriterion() {

@@ -38,21 +38,11 @@ import org.hibernate.criterion.Restrictions;
  * @version $Id: $
  * @since 1.8.1
  */
-public abstract class BetweenFilter<T> extends MultiArgFilter<T> {
+public abstract class BetweenFilter<T extends Comparable> extends MultiArgFilter<T> {
     
-    /**
-     * <p>Constructor for BetweenFilter.</p>
-     *
-     * @param filterType a {@link java.lang.String} object.
-     * @param type a {@link org.opennms.web.filter.SQLType} object.
-     * @param fieldName a {@link java.lang.String} object.
-     * @param propertyName a {@link java.lang.String} object.
-     * @param first a T object.
-     * @param last a T object.
-     * @param <T> a T object.
-     */
-    public BetweenFilter(String filterType, SQLType<T> type, String fieldName, String propertyName, T first, T last) {
-        super(filterType, type, fieldName, propertyName, type.createArray(first, last));
+
+    public BetweenFilter(String filterType, String propertyName, T first, T last) {
+        super(filterType, propertyName,  first, last);
     }
 
     /**
@@ -73,12 +63,5 @@ public abstract class BetweenFilter<T> extends MultiArgFilter<T> {
     public Criterion getCriterion() {
         return Restrictions.between(getPropertyName(), getFirst(), getLast());
     }
-    
-    /** {@inheritDoc} */
-    @Override
-    public String getSQLTemplate() {
-        return " "+getSQLFieldName() + " BETWEEN %s AND %s ";
-    }
 
-    
 }

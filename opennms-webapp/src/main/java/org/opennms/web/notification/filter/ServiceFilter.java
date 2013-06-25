@@ -32,7 +32,6 @@ import javax.servlet.ServletContext;
 
 import org.opennms.web.element.NetworkElementFactory;
 import org.opennms.web.filter.EqualsFilter;
-import org.opennms.web.filter.SQLType;
 
 /**
  * Encapsulates all service filtering functionality.
@@ -51,38 +50,18 @@ public class ServiceFilter extends EqualsFilter<Integer> {
      * @param serviceId a int.
      */
     public ServiceFilter(int serviceId) {
-        super(TYPE, SQLType.INT, "SERVICEID", "serviceType.id", serviceId);
+        super(TYPE, "serviceType.id", serviceId);
     }
     
-    /**
-     * <p>getTextDescription</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    public String getTextDescription(ServletContext servletContext) {
-        String serviceName = Integer.toString(getServiceId());
-        serviceName = NetworkElementFactory.getInstance(servletContext).getServiceNameFromId(getServiceId());
 
+    public String getTextDescription(ServletContext servletContext) {
+        String serviceName = NetworkElementFactory.getInstance(servletContext).getServiceNameFromId(getValue());
         return (TYPE + "=" + serviceName);
     }
 
-    /**
-     * <p>toString</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
     @Override
     public String toString() {
         return ("<WebNotificationRepository.ServiceFilter: " + this.getDescription() + ">");
-    }
-
-    /**
-     * <p>getServiceId</p>
-     *
-     * @return a int.
-     */
-    public int getServiceId() {
-        return getValue();
     }
 
     /** {@inheritDoc} */

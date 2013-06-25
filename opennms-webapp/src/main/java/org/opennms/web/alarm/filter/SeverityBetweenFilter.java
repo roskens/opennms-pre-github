@@ -30,7 +30,6 @@ package org.opennms.web.alarm.filter;
 
 import org.opennms.netmgt.model.OnmsSeverity;
 import org.opennms.web.filter.BetweenFilter;
-import org.opennms.web.filter.SQLType;
 
 /**
  * <p>SeverityBetweenFilter class.</p>
@@ -50,7 +49,7 @@ public class SeverityBetweenFilter extends BetweenFilter<OnmsSeverity> {
      * @param rangeEnd a {@link org.opennms.netmgt.model.OnmsSeverity} object.
      */
     public SeverityBetweenFilter(OnmsSeverity rangeBegin, OnmsSeverity rangeEnd){
-        super(TYPE, SQLType.SEVERITY, "SEVERITY", "severity", rangeBegin, rangeEnd);
+        super(TYPE, "severity", rangeBegin, rangeEnd);
     }
     
     /**

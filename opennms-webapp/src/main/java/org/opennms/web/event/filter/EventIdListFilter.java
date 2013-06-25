@@ -31,7 +31,6 @@ package org.opennms.web.event.filter;
 import java.util.Collection;
 
 import org.opennms.web.filter.InFilter;
-import org.opennms.web.filter.SQLType;
 
 /**
  * <p>EventIdListFilter class.</p>

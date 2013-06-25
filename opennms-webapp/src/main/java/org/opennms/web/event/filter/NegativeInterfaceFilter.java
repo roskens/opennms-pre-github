@@ -29,7 +29,6 @@
 package org.opennms.web.event.filter;
 
 import org.opennms.web.filter.NotEqualOrNullFilter;
-import org.opennms.web.filter.SQLType;
 
 /**
  * Encapsulates all interface filtering functionality.

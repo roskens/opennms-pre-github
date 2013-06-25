@@ -33,7 +33,6 @@ import javax.servlet.ServletContext;
 import org.opennms.web.element.NetworkElementFactory;
 import org.opennms.web.element.NetworkElementFactoryInterface;
 import org.opennms.web.filter.NotEqualOrNullFilter;
-import org.opennms.web.filter.SQLType;
 import org.springframework.context.ApplicationContext;
 
 /**

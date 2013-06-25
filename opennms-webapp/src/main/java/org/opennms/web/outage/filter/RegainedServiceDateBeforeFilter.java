@@ -31,7 +31,6 @@ package org.opennms.web.outage.filter;
 import java.util.Date;
 
 import org.opennms.web.filter.LessThanFilter;
-import org.opennms.web.filter.SQLType;
 
 /**
  * <p>RegainedServiceDateBeforeFilter class.</p>

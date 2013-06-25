@@ -36,7 +36,7 @@ public class EventParmLikeFilter extends SubstringFilter {
     public static final String TYPE = "parmmatchany";
     
     public EventParmLikeFilter(String parm) {
-        super(TYPE, "eventParms", "eventParms", parm + "(string,text)");
+        super(TYPE, "eventParms", parm + "(string,text)");
     }
 
     @Override
@@ -46,7 +46,6 @@ public class EventParmLikeFilter extends SubstringFilter {
         StringBuffer buffer = new StringBuffer(parms[0] + "=\"");
         buffer.append(parms[parms.length - 1]);
         buffer.append("\"");
-
         return buffer.toString();
     }
     
@@ -61,5 +60,4 @@ public class EventParmLikeFilter extends SubstringFilter {
         return TYPE + "=" + getValueString().replace("(string,text)", "");
         
     }
-
 }

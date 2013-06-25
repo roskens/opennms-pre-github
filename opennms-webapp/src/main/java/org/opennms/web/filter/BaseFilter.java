@@ -44,35 +44,13 @@ import org.hibernate.criterion.Criterion;
 public abstract class BaseFilter<T> implements Filter {
     
     protected String m_filterName;
-    protected SQLType<T> m_sqlType;
-    private String m_fieldName;
     private String m_propertyName;
     
-    /**
-     * <p>Constructor for BaseFilter.</p>
-     *
-     * @param filterType a {@link java.lang.String} object.
-     * @param sqlType a {@link org.opennms.web.filter.SQLType} object.
-     * @param fieldName a {@link java.lang.String} object.
-     * @param propertyName a {@link java.lang.String} object.
-     * @param <T> a T object.
-     */
-    public BaseFilter(String filterType, SQLType<T> sqlType, String fieldName, String propertyName) {
+    public BaseFilter(String filterType, String propertyName) {
         m_filterName = filterType;
-        m_sqlType = sqlType;
-        m_fieldName = fieldName;
         m_propertyName = propertyName;
     }
 
-    /**
-     * <p>getSQLFieldName</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    public String getSQLFieldName() {
-        return m_fieldName;
-    }
-    
     /**
      * <p>getPropertyName</p>
      *
@@ -91,61 +69,13 @@ public abstract class BaseFilter<T> implements Filter {
     public String getDescription() {
         return m_filterName+"="+getValueString();
     }
-    
-    /**
-     * <p>bindValue</p>
-     *
-     * @param ps a {@link java.sql.PreparedStatement} object.
-     * @param parameterIndex a int.
-     * @param value a T object.
-     * @throws java.sql.SQLException if any.
-     */
-    final public void bindValue(PreparedStatement ps, int parameterIndex, T value) throws SQLException {
-        m_sqlType.bindParam(ps, parameterIndex, value);
-    }
-    
-    /**
-     * <p>formatValue</p>
-     *
-     * @param value a T object.
-     * @return a {@link java.lang.String} object.
-     */
-    public String formatValue(T value) {
-        return m_sqlType.formatValue(value);
-    }
-    
-    /**
-     * <p>getValueAsString</p>
-     *
-     * @param value a T object.
-     * @return a {@link java.lang.String} object.
-     */
-    final public String getValueAsString(T value) {
-        return m_sqlType.getValueAsString(value);
-    }
-    
+
     /**
      * <p>getValueString</p>
      *
      * @return a {@link java.lang.String} object.
      */
     public abstract String getValueString();
-    
-    /**
-     * <p>getCriterion</p>
-     *
-     * @return a {@link org.hibernate.criterion.Criterion} object.
-     */
-    @Override
-    public abstract Criterion getCriterion();
-
-    /**
-     * <p>getTextDescription</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    @Override
-    public abstract String getTextDescription();
 
     /**
      * <p>toString</p>
@@ -157,7 +87,6 @@ public abstract class BaseFilter<T> implements Filter {
         return new ToStringBuilder(this)
             .append("description", getDescription())
             .append("text description", getTextDescription())
-            .append("SQL field name", getSQLFieldName())
             .append("property name", getPropertyName())
             .toString();
     }

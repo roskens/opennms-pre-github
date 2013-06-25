@@ -35,7 +35,6 @@ import java.util.GregorianCalendar;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.opennms.web.filter.OneArgFilter;
-import org.opennms.web.filter.SQLType;
 
 /**
  * <p>RecentOutagesFilter class.</p>
@@ -61,15 +60,9 @@ public class RecentOutagesFilter extends OneArgFilter<Date> {
      * @param since a {@link java.util.Date} object.
      */
     public RecentOutagesFilter(Date since) {
-        super(TYPE, SQLType.DATE, "OUTAGES.IFREGAINEDSERVICE", "ifRegainedService", since);
+        super(TYPE, "ifRegainedService", since);
     }
     
-    /** {@inheritDoc} */
-    @Override
-    public String getSQLTemplate() {
-        return " (" + getSQLFieldName() + " > %s OR " + getSQLFieldName() + " IS NULL) ";
-    }
-
     /** {@inheritDoc} */
     @Override
     public Criterion getCriterion() {

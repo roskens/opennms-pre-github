@@ -96,29 +96,6 @@ public abstract class ConditionalFilter implements Filter {
     }
 
     /**
-     * <p>getSql</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    @Override
-    public String getSql() {
-        if (m_filters.length == 1) {
-            return m_filters[0].getSql();
-        }
-        
-        StringBuilder buf = new StringBuilder("( ");
-        for(int i = 0; i < m_filters.length; i++){
-            if (i != 0) {
-                buf.append(m_conditionType);
-                buf.append(" ");
-            }
-            buf.append(m_filters[i].getSql());
-        }
-        buf.append(") ");
-        return buf.toString();
-    }
-
-    /**
      * <p>getTextDescription</p>
      *
      * @return a {@link java.lang.String} object.
@@ -141,30 +118,9 @@ public abstract class ConditionalFilter implements Filter {
         return buf.toString();
     }
 
-
-    /**
-     * <p>applyCriteria</p>
-     *
-     * @param criteria a {@link org.opennms.netmgt.model.OnmsCriteria} object.
-     */
-    public void applyCriteria(OnmsCriteria criteria) {
-        criteria.add(getCriterion());
-    }
-    
-    /**
-     * <p>getCriterion</p>
-     *
-     * @return a {@link org.hibernate.criterion.Criterion} object.
-     */
     @Override
     abstract public Criterion getCriterion();
 
-    
-    /**
-     * <p>toString</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
     @Override
     public String toString() {
         return new ToStringBuilder(this)

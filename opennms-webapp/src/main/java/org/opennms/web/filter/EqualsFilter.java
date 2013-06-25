@@ -31,20 +31,19 @@ package org.opennms.web.filter;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 
-public abstract class EqualsFilter<T> extends OneArgFilter<T> {
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
+public class EqualsFilter<T> extends OneArgFilter<T> {
     
-    public EqualsFilter(final String filterType, final SQLType<T> type, final String fieldName, final String propertyName, final T value){
-        super(filterType, type, fieldName, propertyName, value);
-    }
-    
-    @Override
-    public Criterion getCriterion() {
-        return Restrictions.eq(getPropertyName(), getValue());
+    public EqualsFilter(final String filterType, final String propertyName, final T value){
+        super(filterType, propertyName, value);
     }
 
     @Override
-    public String getSQLTemplate() {
-        return " " + getSQLFieldName() + " =  %s ";
+    public Predicate getPredicate(Root<X> root, CriteriaBuilder builder) {
+        return builder.equal(root.get(getPropertyName()), getValue());
     }
-
 }

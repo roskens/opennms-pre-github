@@ -50,12 +50,6 @@ public class NodeNameLikeFilter extends SubstringFilter {
         super(TYPE, "NODE.NODELABEL", "node.label", substring);
     }
 
-    /** {@inheritDoc} */
-    @Override
-    public String getSQLTemplate() {
-        return (" EVENTID IN (SELECT EVENTID FROM EVENTS JOIN NODE ON EVENTS.NODEID=NODE.NODEID WHERE NODE.NODELABEL ILIKE %s) ");
-    }
-
     /**
      * <p>getTextDescription</p>
      *
@@ -63,7 +57,7 @@ public class NodeNameLikeFilter extends SubstringFilter {
      */
     @Override
     public String getTextDescription() {
-        return ("node name containing \"" + getSubstring() + "\"");
+        return ("node name containing \"" + getValue() + "\"");
     }
 
     /**
@@ -74,15 +68,6 @@ public class NodeNameLikeFilter extends SubstringFilter {
     @Override
     public String toString() {
         return ("<WebEventRepository.NodeNameContainingFilter: " + getDescription() + ">");
-    }
-
-    /**
-     * <p>getSubstring</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    public String getSubstring() {
-        return getValue();
     }
 
     /** {@inheritDoc} */

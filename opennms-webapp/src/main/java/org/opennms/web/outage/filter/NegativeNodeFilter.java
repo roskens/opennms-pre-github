@@ -32,7 +32,6 @@ import javax.servlet.ServletContext;
 
 import org.opennms.web.element.NetworkElementFactory;
 import org.opennms.web.filter.NotEqualOrNullFilter;
-import org.opennms.web.filter.SQLType;
 
 /**
  * Encapsulates all node filtering functionality.

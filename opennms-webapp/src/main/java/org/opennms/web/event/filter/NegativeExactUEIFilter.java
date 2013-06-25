@@ -29,7 +29,6 @@
 package org.opennms.web.event.filter;
 
 import org.opennms.web.filter.NotEqualsFilter;
-import org.opennms.web.filter.SQLType;
 
 /**
  * Encapsulates filtering on exact unique event identifiers.

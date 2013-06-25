@@ -29,7 +29,6 @@
 package org.opennms.web.event.filter;
 
 import org.opennms.web.filter.EqualsFilter;
-import org.opennms.web.filter.SQLType;
 
 /**
  * <p>EventIdFilter class.</p>

@@ -50,12 +50,6 @@ public class NodeNameLikeFilter extends SubstringFilter {
         super(TYPE, "NODELABEL", "node.label", substring);
     }
     
-    /** {@inheritDoc} */
-    @Override
-    public String getSQLTemplate() {
-        return " ALARMID IN (SELECT ALARMID FROM ALARMS JOIN NODE ON ALARMS.NODEID=NODE.NODEID WHERE NODE.NODELABEL ILIKE %s) ";
-    }
-
     /**
      * <p>getTextDescription</p>
      *

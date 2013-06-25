@@ -33,18 +33,12 @@ import org.hibernate.criterion.Restrictions;
 
 public abstract class NotEqualsFilter<T> extends OneArgFilter<T> {
 
-    public NotEqualsFilter(final String filterType, final SQLType<T> type, final String fieldName, final String daoPropertyName, final T value) {
-        super(filterType, type, fieldName, daoPropertyName, value);
+    public NotEqualsFilter(final String filterType, final String daoPropertyName, final T value) {
+        super(filterType, daoPropertyName, value);
     }
 
     @Override
     public Criterion getCriterion() {
         return Restrictions.ne(getPropertyName(), getValue());
     }
-
-    @Override
-    public String getSQLTemplate() {
-        return " " + getSQLFieldName() + " <> %s ";
-    }
-
 }

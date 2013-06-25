@@ -29,7 +29,6 @@
 package org.opennms.web.notification.filter;
 
 import org.opennms.web.filter.InFilter;
-import org.opennms.web.filter.SQLType;
 
 /**
  * <p>NotificationIdListFilter class.</p>
