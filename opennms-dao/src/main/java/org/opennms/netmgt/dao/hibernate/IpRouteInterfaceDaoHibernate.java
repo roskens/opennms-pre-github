@@ -46,85 +46,123 @@ public class IpRouteInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsIpRou
 
 	@Override
 	public void markDeletedIfNodeDeleted() {
-		final OnmsCriteria criteria = new OnmsCriteria(OnmsIpRouteInterface.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("node.type", "D"));
-        
-        for (final OnmsIpRouteInterface ipRouteIface : findMatching(criteria)) {
+        List<OnmsIpRouteInterface> ipInterfaceList = getJpaTemplate().getEntityManager()
+                .createQuery("from OnmsIpRouteInterface left join node where node.type = :nodeType")
+                .setParameter("nodeType", "D")
+                .getResultList();
+
+        // TODO MVR JPA verify with Simon
+//		final OnmsCriteria criteria = new OnmsCriteria(OnmsIpRouteInterface.class);
+//        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
+//        criteria.add(Restrictions.eq("node.type", "D"));
+//
+        for (final OnmsIpRouteInterface ipRouteIface : ipInterfaceList) {
         	ipRouteIface.setStatus(StatusType.DELETED);
         	saveOrUpdate(ipRouteIface);
         }
 	}
 
     @Override
-    public void deactivateForNodeIdIfOlderThan(final int nodeid, final Date scanTime) {
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsIpRouteInterface.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("node.id", nodeid));
-        criteria.add(Restrictions.lt("lastPollTime", scanTime));
-        criteria.add(Restrictions.eq("status", StatusType.ACTIVE));
+    public void deactivateForNodeIdIfOlderThan(final int nodeId, final Date scanTime) {
+        List<OnmsIpRouteInterface> ipRouteInterfaceList = getJpaTemplate().getEntityManager()
+                .createQuery("from OnmsIpRouteInterface left join node where node.id = :nodeId and lastPollTime < :lastPollTime and status = :status")
+                .setParameter("nodeId", nodeId)
+                .setParameter("lastPollTime", scanTime)
+                .setParameter("status", StatusType.ACTIVE)
+                .getResultList();
+
+        // TODO MVR JPA verify with Simon
+//        final OnmsCriteria criteria = new OnmsCriteria(OnmsIpRouteInterface.class);
+//        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
+//        criteria.add(Restrictions.eq("node.id", nodeid));
+//        criteria.add(Restrictions.lt("lastPollTime", scanTime));
+//        criteria.add(Restrictions.eq("status", StatusType.ACTIVE));
         
-        for (final OnmsIpRouteInterface item : findMatching(criteria)) {
+        for (final OnmsIpRouteInterface item : ipRouteInterfaceList) {
             item.setStatus(StatusType.INACTIVE);
             saveOrUpdate(item);
         }
     }
 
     @Override
-    public void deleteForNodeIdIfOlderThan(final int nodeid, final Date scanTime) {
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsIpRouteInterface.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("node.id", nodeid));
-        criteria.add(Restrictions.lt("lastPollTime", scanTime));
-        criteria.add(Restrictions.not(Restrictions.eq("status", StatusType.ACTIVE)));
+    public void deleteForNodeIdIfOlderThan(final int nodeId, final Date scanTime) {
+        List<OnmsIpRouteInterface> ipInterfaceList = getJpaTemplate().getEntityManager()
+                .createQuery("from OnmsIpRouteInterface left join node where node.id = :nodeId and lastPollTime < :lastPollTime and status <> :status")
+                .setParameter("nodeId", nodeId)
+                .setParameter("lastPollTime", scanTime)
+                .setParameter("status", StatusType.ACTIVE)
+                .getResultList();
+
+        // TODO MVR JPA verify with Simon
+//        final OnmsCriteria criteria = new OnmsCriteria(OnmsIpRouteInterface.class);
+//        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
+//        criteria.add(Restrictions.eq("node.id", nodeid));
+//        criteria.add(Restrictions.lt("lastPollTime", scanTime));
+//        criteria.add(Restrictions.not(Restrictions.eq("status", StatusType.ACTIVE)));
         
-        for (final OnmsIpRouteInterface item : findMatching(criteria)) {
+        for (final OnmsIpRouteInterface item : ipInterfaceList) {
             delete(item);
         }
     }
 
 
     @Override
-    public void setStatusForNode(final Integer nodeid, final StatusType action) {
-        // UPDATE iprouteinterface set status = ? WHERE nodeid = ?
+    public void setStatusForNode(final Integer nodeId, final StatusType action) {
+        List<OnmsIpRouteInterface> ipRouteInterfaceList = getJpaTemplate().getEntityManager()
+                .createQuery("from OnmsIpRouteInterface left join node where node.id = :nodeId")
+                .setParameter("nodeId", nodeId)
+                .getResultList();
 
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsIpRouteInterface.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("node.id", nodeid));
+        // TODO MVR JPA verify with Simon
+//        final OnmsCriteria criteria = new OnmsCriteria(OnmsIpRouteInterface.class);
+//        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
+//        criteria.add(Restrictions.eq("node.id", nodeid));
         
-        for (final OnmsIpRouteInterface item : findMatching(criteria)) {
+        for (final OnmsIpRouteInterface item : ipRouteInterfaceList) {
             item.setStatus(action);
             saveOrUpdate(item);
         }
     }
 
     @Override
-    public void setStatusForNodeAndIfIndex(final Integer nodeid, final Integer ifIndex, final StatusType action) {
-        // UPDATE iprouteinterface set status = ? WHERE nodeid = ? AND routeifindex = ?
+    public void setStatusForNodeAndIfIndex(final Integer nodeId, final Integer ifIndex, final StatusType action) {
 
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsIpRouteInterface.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("node.id", nodeid));
-        criteria.add(Restrictions.eq("routeIfIndex", ifIndex));
+        List<OnmsIpRouteInterface> ipRouteInterfaceList = getJpaTemplate().getEntityManager()
+                .createQuery("from OnmsIpRouteInterface left join node where node.id = :nodeId and routeIfIndex = :ifIndex")
+                .setParameter("nodeId", nodeId)
+                .setParameter("ifIndex", ifIndex)
+                .getResultList();
+        // TODO MVR JPA verify with Simon
+//        final OnmsCriteria criteria = new OnmsCriteria(OnmsIpRouteInterface.class);
+//        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
+//        criteria.add(Restrictions.eq("node.id", nodeid));
+//        criteria.add(Restrictions.eq("routeIfIndex", ifIndex));
         
-        for (final OnmsIpRouteInterface item : findMatching(criteria)) {
+        for (final OnmsIpRouteInterface item : ipRouteInterfaceList) {
             item.setStatus(action);
             saveOrUpdate(item);
         }
     }
 
     @Override
-    public OnmsIpRouteInterface findByNodeAndDest(Integer id, String routeDest) {
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsIpRouteInterface.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("node.id", id));
-        criteria.add(Restrictions.eq("routeDest", routeDest));
+    public OnmsIpRouteInterface findByNodeAndDest(int nodeId, String routeDest) {
+        return (OnmsIpRouteInterface) getJpaTemplate().getEntityManager()
+                .createQuery("from OnmsIpRouteInterface left join node where node.id = :nodeId and routeDest : routeDest")
+                .setParameter("nodeId", nodeId)
+                .setParameter("routeDest", routeDest)
+                .setMaxResults(1)
+                .getSingleResult();
 
-        final List<OnmsIpRouteInterface> objects = findMatching(criteria);
-        if (objects != null && objects.size() > 0) {
-            return objects.get(0);
-        }
-        return null;
+        // TODO MVR JPA verify with Simon
+//        final OnmsCriteria criteria = new OnmsCriteria(OnmsIpRouteInterface.class);
+//        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
+//        criteria.add(Restrictions.eq("node.id", id));
+//        criteria.add(Restrictions.eq("routeDest", routeDest));
+//        final List<OnmsIpRouteInterface> objects = ipRouteInterfaceList);
+//        if (objects != null && objects.size() > 0) {
+//            return objects.get(0);
+//        }
+//        return null;
     }
 
 }

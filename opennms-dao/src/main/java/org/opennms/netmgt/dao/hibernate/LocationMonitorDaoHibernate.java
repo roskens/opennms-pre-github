@@ -285,15 +285,17 @@ public class LocationMonitorDaoHibernate extends AbstractDaoHibernate<OnmsLocati
      */
     @Override
     public Collection<OnmsLocationMonitor> findByApplication(final OnmsApplication application) {
-        
-        return findObjects(OnmsLocationMonitor.class, "select distinct l from OnmsLocationSpecificStatus as status " +
-        		"join status.monitoredService as m " +
-        		"join m.applications a " +
-        		"join status.locationMonitor as l " +
-        		"where a = ? and status.id in ( " +
-                    "select max(s.id) from OnmsLocationSpecificStatus as s " +
-                    "group by s.locationMonitor, s.monitoredService " +
-                ")", application);
+        return getJpaTemplate().getEntityManager()
+                .createQuery( "select distinct l from OnmsLocationSpecificStatus as status " +
+                        "join status.monitoredService as m " +
+                        "join m.applications a " +
+                        "join status.locationMonitor as l " +
+                        "where a = :application and status.id in ( " +
+                        "select max(s.id) from OnmsLocationSpecificStatus as s " +
+                        "group by s.locationMonitor, s.monitoredService " +
+                        ")")
+                .setParameter("application", application)
+                .getResultList();
     }
     
     /** {@inheritDoc} */
@@ -310,7 +312,8 @@ public class LocationMonitorDaoHibernate extends AbstractDaoHibernate<OnmsLocati
     /** {@inheritDoc} */
     @Override
     public Collection<OnmsLocationSpecificStatus> getAllStatusChangesAt(final Date timestamp) {
-        return findObjects(OnmsLocationSpecificStatus.class,
+        return getJpaTemplate().getEntityManager()
+                .createQuery(
                 "from OnmsLocationSpecificStatus as status " +
                 "left join fetch status.locationMonitor as l " +
                 "left join fetch status.monitoredService as m " +
@@ -318,59 +321,61 @@ public class LocationMonitorDaoHibernate extends AbstractDaoHibernate<OnmsLocati
                 "left join fetch m.ipInterface " +
                 "where status.id in (" +
                     "select max(s.id) from OnmsLocationSpecificStatus as s " +
-                    "where s.pollResult.timestamp <? " +
+                    "where s.pollResult.timestamp < :timestamp " +
                     "group by s.locationMonitor, s.monitoredService " +
-                    ")",
-                timestamp);
+                    ")")
+                .setParameter("timestamp", timestamp)
+                .getResultList();
     }
     
     /** {@inheritDoc} */
     @Override
     public Collection<OnmsLocationSpecificStatus> getStatusChangesBetween(final Date startDate, final Date endDate) {
-    	return findObjects(OnmsLocationSpecificStatus.class,
-    			"from OnmsLocationSpecificStatus as status " +
-    			"where ? <= status.pollResult.timestamp and status.pollResult.timestamp < ?",
-    			startDate, endDate
-    			);
+        return getJpaTemplate().getEntityManager()
+                .createQuery("from OnmsLocationSpecificStatus as status where :startDate <= status.pollResult.timestamp and status.pollResult.timestamp < :endDate")
+                .setParameter("startDate", startDate)
+                .setParameter("endDate", endDate)
+                .getResultList();
     }
 
     /** {@inheritDoc} */
     @Override
     public Collection<OnmsLocationSpecificStatus> getStatusChangesForLocationBetween(final Date startDate, final Date endDate, final String locationName) {
-        final Collection<OnmsLocationSpecificStatus> statuses = getMostRecentStatusChangesForDateAndLocation(startDate, locationName);
-        statuses.addAll(findObjects(OnmsLocationSpecificStatus.class,
-            "from OnmsLocationSpecificStatus as status " +
-            "where ? <= status.pollResult.timestamp " +
-            "and status.pollResult.timestamp < ? " +
-            "and status.locationMonitor.definitionName = ?",
-            startDate, endDate, locationName
-        ));
-        return statuses;
+        return getJpaTemplate().getEntityManager()
+                .createQuery( "from OnmsLocationSpecificStatus as status " +
+                        "where :startDate <= status.pollResult.timestamp " +
+                        "and status.pollResult.timestamp < :endDate " +
+                        "and status.locationMonitor.definitionName = :locationName")
+                .setParameter("startDate", startDate)
+                .setParameter("endDate", endDate)
+                .setParameter("locationName", locationName)
+                .getResultList();
     }
     
     /** {@inheritDoc} */
     @Override
     public Collection<OnmsLocationSpecificStatus> getStatusChangesForApplicationBetween(final Date startDate, final Date endDate, final String applicationName) {
-
-        return findObjects(OnmsLocationSpecificStatus.class, 
-                "from OnmsLocationSpecificStatus as status " +
-                "left join fetch status.monitoredService as m " +
-                "left join fetch m.applications as a " +
-                "left join fetch status.locationMonitor as lm " +
-                "where " +
-                "a.name = ? " +
-                "and " +
-                "( status.pollResult.timestamp between ? and ?" +
-                "  or" +
-                "  status.id in " +
-                "   (" +
-                "       select max(s.id) from OnmsLocationSpecificStatus as s " +
-                "       where s.pollResult.timestamp < ? " +
-                "       group by s.locationMonitor, s.monitoredService " +
-                "   )" +
-                ")",
-                applicationName, startDate, endDate, startDate);
-        
+        return getJpaTemplate().getEntityManager()
+                .createQuery( "from OnmsLocationSpecificStatus as status " +
+                        "left join fetch status.monitoredService as m " +
+                        "left join fetch m.applications as a " +
+                        "left join fetch status.locationMonitor as lm " +
+                        "where " +
+                        "a.name = :applicationName " +
+                        "and " +
+                        "( status.pollResult.timestamp between :startDate and :endDate" +
+                        "  or" +
+                        "  status.id in " +
+                        "   (" +
+                        "       select max(s.id) from OnmsLocationSpecificStatus as s " +
+                        "       where s.pollResult.timestamp < :startDate " +
+                        "       group by s.locationMonitor, s.monitoredService " +
+                        "   )" +
+                        ")")
+                .setParameter("startDate", startDate)
+                .setParameter("endDate", endDate)
+                .setParameter("applicationName", applicationName)
+                .getResultList();
     }
     
     @Override
@@ -414,21 +419,23 @@ public class LocationMonitorDaoHibernate extends AbstractDaoHibernate<OnmsLocati
     }
 
     private Collection<OnmsLocationSpecificStatus> getMostRecentStatusChangesForDateAndLocation(final Date date, final String locationName) {
-        return findObjects(OnmsLocationSpecificStatus.class,
-                           "from OnmsLocationSpecificStatus as status " +
-                           "left join fetch status.locationMonitor as l " +
-                           "left join fetch status.monitoredService as m " +
-                           "left join fetch m.serviceType " +
-                           "left join fetch m.ipInterface " +
-                           "where status.pollResult.timestamp = ( " +
-                           "    select max(recentStatus.pollResult.timestamp) " +
-                           "    from OnmsLocationSpecificStatus as recentStatus " +
-                           "    where recentStatus.pollResult.timestamp < ? " +
-                           "    group by recentStatus.locationMonitor, recentStatus.monitoredService " +
-                           "    having recentStatus.locationMonitor = status.locationMonitor " +
-                           "    and recentStatus.monitoredService = status.monitoredService " +
-                           ") and l.definitionName = ?",
-                           date, locationName); 
+        return getJpaTemplate().getEntityManager()
+                .createQuery("from OnmsLocationSpecificStatus as status " +
+                        "left join fetch status.locationMonitor as l " +
+                        "left join fetch status.monitoredService as m " +
+                        "left join fetch m.serviceType " +
+                        "left join fetch m.ipInterface " +
+                        "where status.pollResult.timestamp = ( " +
+                        "    select max(recentStatus.pollResult.timestamp) " +
+                        "    from OnmsLocationSpecificStatus as recentStatus " +
+                        "    where recentStatus.pollResult.timestamp < :date " +
+                        "    group by recentStatus.locationMonitor, recentStatus.monitoredService " +
+                        "    having recentStatus.locationMonitor = status.locationMonitor " +
+                        "    and recentStatus.monitoredService = status.monitoredService " +
+                        ") and l.definitionName = :locationName")
+                .setParameter("date", date)
+                .setParameter("locationName", locationName)
+                .getResultList();
     }
 
     /** {@inheritDoc} */

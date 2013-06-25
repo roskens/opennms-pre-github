@@ -60,117 +60,159 @@ public class AtInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsAtInterfac
 
 	@Override
 	public void markDeletedIfNodeDeleted() {
-	    final OnmsCriteria criteria = new OnmsCriteria(OnmsAtInterface.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("node.type", "D"));
+        List<OnmsAtInterface> interfaceList = getJpaTemplate().getEntityManager()
+                .createQuery("from OnmsAtInterface left join node where node.type = :nodeType")
+                .setParameter("nodeType", "D")
+                .getResultList();
+
+        // TODO MVR JPA verify with Simon
+//	    final OnmsCriteria criteria = new OnmsCriteria(OnmsAtInterface.class);
+//        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
+//        criteria.add(Restrictions.eq("node.type", "D"));
         
-        for (final OnmsAtInterface iface : findMatching(criteria)) {
+        for (final OnmsAtInterface iface : interfaceList) {
         	iface.setStatus(StatusType.DELETED);
         	saveOrUpdate(iface);
         }
 	}
 
     @Override
-    public void deactivateForSourceNodeIdIfOlderThan(final int nodeid, final Date scanTime) {
-        OnmsCriteria criteria = new OnmsCriteria(OnmsAtInterface.class);
-        criteria.add(Restrictions.eq("sourceNodeId", nodeid));
-        criteria.add(Restrictions.lt("lastPollTime", scanTime));
-        criteria.add(Restrictions.eq("status", StatusType.ACTIVE));
+    public void deactivateForSourceNodeIdIfOlderThan(final int nodeId, final Date scanTime) {
+        List<OnmsAtInterface> interfaceList = getJpaTemplate().getEntityManager()
+                .createQuery("from OnmsAtInterface where sourceNodId = :nodeId and lastPollTime < :lastPollTime and status = :status")
+                .setParameter("nodeId", nodeId)
+                .setParameter("lastPolltime", scanTime)
+                .setParameter("status", StatusType.ACTIVE)
+                .getResultList();
+
+        // TODO MVR JPA verify with Simon
+//        OnmsCriteria criteria = new OnmsCriteria(OnmsAtInterface.class);
+//        criteria.add(Restrictions.eq("sourceNodeId", nodeid));
+//        criteria.add(Restrictions.lt("lastPollTime", scanTime));
+//        criteria.add(Restrictions.eq("status", StatusType.ACTIVE));
         
-        for (final OnmsAtInterface iface : findMatching(criteria)) {
+        for (final OnmsAtInterface iface : interfaceList) {
             iface.setStatus(StatusType.INACTIVE);
             saveOrUpdate(iface);
         }
     }
 
     @Override
-    public void deleteForNodeSourceIdIfOlderThan(final int nodeid, final Date scanTime) {
-        OnmsCriteria criteria = new OnmsCriteria(OnmsAtInterface.class);
-        criteria.add(Restrictions.eq("sourceNodeId", nodeid));
-        criteria.add(Restrictions.lt("lastPollTime", scanTime));
-        criteria.add(Restrictions.not(Restrictions.eq("status", StatusType.ACTIVE)));
-        
-        for (final OnmsAtInterface iface : findMatching(criteria)) {
+    public void deleteForNodeSourceIdIfOlderThan(final int nodeId, final Date scanTime) {
+        List<OnmsAtInterface> interfaceList = getJpaTemplate().getEntityManager()
+                .createQuery("from OnmsAtInterface where sourceNodId = :nodeId and lastPollTime < :lastPollTime and status <> :status")
+                .setParameter("nodeId", nodeId)
+                .setParameter("lastPollTime", scanTime)
+                .setParameter("status", StatusType.ACTIVE)
+                .getResultList();
+
+        // TODO MVR JPA verify with Simon
+//        OnmsCriteria criteria = new OnmsCriteria(OnmsAtInterface.class);
+//        criteria.add(Restrictions.eq("sourceNodeId", nodeid));
+//        criteria.add(Restrictions.lt("lastPollTime", scanTime));
+//        criteria.add(Restrictions.not(Restrictions.eq("status", StatusType.ACTIVE)));
+//
+        for (final OnmsAtInterface iface : interfaceList) {
             delete(iface);
         }
     }
 
     @Override
     public Collection<OnmsAtInterface> findByMacAddress(final String macAddress) {
-        // SELECT atinterface.nodeid, atinterface.ipaddr, ipinterface.ifindex from atinterface left JOIN ipinterface ON atinterface.nodeid = ipinterface.nodeid AND atinterface.ipaddr = ipinterface.ipaddr WHERE atphysaddr = ? AND atinterface.status <> 'D'
+        return getJpaTemplate().getEntityManager()
+                .createQuery("from OnmsAtInterface left join node where macAddress = :macAddress and status <> :status")
+                .setParameter("macAddress", macAddress)
+                .setParameter("status", StatusType.DELETED)
+                .getResultList();
 
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsAtInterface.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("macAddress", macAddress));
-        criteria.add(Restrictions.ne("status", StatusType.DELETED));
-
-        return findMatching(criteria);
+        // TODO MVR JPA verify with Simon
+//        final OnmsCriteria criteria = new OnmsCriteria(OnmsAtInterface.class);
+//        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
+//        criteria.add(Restrictions.eq("macAddress", macAddress));
+//        criteria.add(Restrictions.ne("status", StatusType.DELETED));
+//        return findMatching(criteria);
     }
 
     @Override
-    public void setStatusForNode(Integer nodeid, StatusType action) {
-        // UPDATE atinterface set status = ?  WHERE sourcenodeid = ? OR nodeid = ?
+    public void setStatusForNode(int nodeId, StatusType action) {
+            List<OnmsAtInterface> interfaceList = getJpaTemplate().getEntityManager()
+                    .createQuery("from OnmsAtInterface where node.id = :nodeId or sourceNodeId = :nodeId")
+                    .setParameter("nodeId", nodeId)
+                    .getResultList();
 
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsAtInterface.class);
-        criteria.add(Restrictions.or(Restrictions.eq("node.id", nodeid), Restrictions.eq("sourceNodeId", nodeid)));
+        // TODO MVR JPA verify with Simon
+//        final OnmsCriteria criteria = new OnmsCriteria(OnmsAtInterface.class);
+//        criteria.add(Restrictions.or(Restrictions.eq("node.id", nodeid), Restrictions.eq("sourceNodeId", nodeid)));
         
-        for (final OnmsAtInterface iface : findMatching(criteria)) {
+        for (final OnmsAtInterface iface : interfaceList) {
             iface.setStatus(action);
             saveOrUpdate(iface);
         }
     }
 
     @Override
-    public void setStatusForNodeAndIp(final Integer nodeid, final String ipAddr, final StatusType action) {
-        // ps = dbConn.prepareStatement("UPDATE atinterface set status = ?  WHERE nodeid = ? AND ipaddr = ?");
+    public void setStatusForNodeAndIp(final int nodeId, final String ipAddr, final StatusType action) {
+        List<OnmsAtInterface> interfaceList = getJpaTemplate().getEntityManager()
+                .createQuery("from OnmsAtInterface left join node where node.id = :nodeId and ipAddress = :ipAddress")
+                .setParameter("nodeId", nodeId)
+                .setParameter("ipAddress", ipAddr)
+                .getResultList();
+
+        // TODO MVR JPA verify with Simon
+//        final OnmsCriteria criteria = new OnmsCriteria(OnmsAtInterface.class);
+//        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
+//        criteria.add(Restrictions.eq("node.id", nodeid));
+//        criteria.add(Restrictions.eq("ipAddress", ipAddr));
         
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsAtInterface.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("node.id", nodeid));
-        criteria.add(Restrictions.eq("ipAddress", ipAddr));
-        
-        for (final OnmsAtInterface iface : findMatching(criteria)) {
+        for (final OnmsAtInterface iface : interfaceList) {
             iface.setStatus(action);
             saveOrUpdate(iface);
         }
     }
 
     @Override
-    public void setStatusForNodeAndIfIndex(final Integer nodeid, final Integer ifIndex, final StatusType action) {
-        // UPDATE atinterface set status = ?  WHERE sourcenodeid = ? AND ifindex = ?
+    public void setStatusForNodeAndIfIndex(final int nodeId, final Integer ifIndex, final StatusType action) {
+        List<OnmsAtInterface> interfaceList = getJpaTemplate().getEntityManager()
+                .createQuery("from OnmsatInterface leftjoin node where node.id = :nodeId and ifIndex = :ifIndex")
+                .setParameter("nodeId", nodeId)
+                .setParameter("ifIndex", ifIndex)
+                .getResultList();
 
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsAtInterface.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("node.id", nodeid));
-        criteria.add(Restrictions.eq("ifIndex", ifIndex));
+        // TODO MVR JPA verify with Simon
+//        final OnmsCriteria criteria = new OnmsCriteria(OnmsAtInterface.class);
+//        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
+//        criteria.add(Restrictions.eq("node.id", nodeid));
+//        criteria.add(Restrictions.eq("ifIndex", ifIndex));
         
-        for (final OnmsAtInterface iface : findMatching(criteria)) {
+        for (final OnmsAtInterface iface : interfaceList) {
             iface.setStatus(action);
             saveOrUpdate(iface);
         }
     }
 
     @Override
-    public OnmsAtInterface findByNodeAndAddress(final Integer nodeId, final InetAddress ipAddress, final String macAddress) {
+    public OnmsAtInterface findByNodeAndAddress(final int nodeId, final InetAddress ipAddress, final String macAddress) {
         final String addressString = str(ipAddress);
         return 
         	findUnique("from OnmsAtInterface atInterface where atInterface.node.id = ? and atInterface.ipAddress = ? and atInterface.macAddress = ?", nodeId,addressString,macAddress);
     }
 
-    // SELECT node.nodeid,ipinterface.ifindex FROM node LEFT JOIN ipinterface ON node.nodeid = ipinterface.nodeid WHERE nodetype = 'A' AND ipaddr = ?
     @Override
     public Collection<OnmsAtInterface> getAtInterfaceForAddress(final InetAddress address) {
         final String addressString = str(address);
-
         if (address.isLoopbackAddress() || addressString.equals("0.0.0.0")) return null;
-
+        // TODO MVR JPA verify with Simon
         // See if we have an existing version of this OnmsAtInterface first
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsAtInterface.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("node.type", "A"));
-        criteria.add(Restrictions.eq("ipAddress", addressString));
+//        final OnmsCriteria criteria = new OnmsCriteria(OnmsAtInterface.class);
+//        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
+//        criteria.add(Restrictions.eq("node.type", "A"));
+//        criteria.add(Restrictions.eq("ipAddress", addressString));
 
-        List<OnmsAtInterface> interfaces = findMatching(criteria);
+        List<OnmsAtInterface> interfaces = getJpaTemplate().getEntityManager()
+                .createQuery("from OnmsAtInterface left join node where node.type = :nodeType and ipAddress = :ipAddress")
+                .setParameter("nodeType", "A")
+                .setParameter("ipAddress", addressString)
+                .getResultList();
 
         if (interfaces.isEmpty()) {
             LogUtils.debugf(this, "getAtInterfaceForAddress: No AtInterface matched address %s!", addressString);

@@ -224,15 +224,4 @@ public class TestNodeDao implements NodeDao {
 			Collection<OnmsCategory> columnCategories) {
 		return null;
 	}
-
-	@Override
-	public Integer getNextNodeId(Integer nodeId) {
-		return null;
-	}
-
-	@Override
-	public Integer getPreviousNodeId(Integer nodeId) {
-		return null;
-	}
-	
 }

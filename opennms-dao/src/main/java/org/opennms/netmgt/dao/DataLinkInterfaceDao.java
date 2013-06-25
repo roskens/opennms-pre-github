@@ -52,36 +52,36 @@ public interface DataLinkInterfaceDao extends OnmsDao<DataLinkInterface, Integer
      * @param id a {@link java.lang.Integer} object.
      * @return a {@link org.opennms.netmgt.model.DataLinkInterface} object.
      */
-    DataLinkInterface findById(Integer id);
+    DataLinkInterface findById(int id);
     /**
      * <p>findByNodeId</p>
      *
      * @param nodeId a {@link java.lang.Integer} object.
      * @return a {@link java.util.Collection} object.
      */
-    Collection<DataLinkInterface> findByNodeId(Integer nodeId);
+    Collection<DataLinkInterface> findByNodeId(int nodeId);
     /**
      * <p>findByNodeParentId</p>
      *
      * @param nodeParentId a {@link java.lang.Integer} object.
      * @return a {@link java.util.Collection} object.
      */
-    Collection<DataLinkInterface> findByNodeParentId(Integer nodeParentId);
+    Collection<DataLinkInterface> findByNodeParentId(int nodeParentId);
 
     void markDeletedIfNodeDeleted();
 
-    DataLinkInterface findByNodeIdAndIfIndex(Integer nodeId, Integer ifindex);
+    DataLinkInterface findByNodeIdAndIfIndex(int nodeId, int ifindex);
 
     void deactivateIfOlderThan(Date now, String source);
 
     void deleteIfOlderThan(Date now, String source);
 
-    void setStatusForNode(Integer nodeid, StatusType action);
+    void setStatusForNode(int nodeid, StatusType action);
 
-    void setStatusForNodeAndIfIndex(Integer nodeid, Integer ifIndex, StatusType action);
+    void setStatusForNodeAndIfIndex(int nodeid, int ifIndex, StatusType action);
     
-    void setStatusForNode(Integer nodeid, String source, StatusType action);
+    void setStatusForNode(int nodeid, String source, StatusType action);
 
-    void setStatusForNodeAndIfIndex(Integer nodeid, Integer ifIndex, String source, StatusType action);
+    void setStatusForNodeAndIfIndex(int nodeid, int ifIndex, String source, StatusType action);
 
 }

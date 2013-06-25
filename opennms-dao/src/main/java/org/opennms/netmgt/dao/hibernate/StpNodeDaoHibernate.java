@@ -31,7 +31,6 @@ package org.opennms.netmgt.dao.hibernate;
 import java.util.Date;
 import java.util.List;
 
-import org.hibernate.criterion.Restrictions;
 import org.opennms.netmgt.dao.StpNodeDao;
 import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
 import org.opennms.netmgt.model.OnmsCriteria;
@@ -45,53 +44,84 @@ public class StpNodeDaoHibernate extends AbstractDaoHibernate<OnmsStpNode, Integ
 
 	@Override
 	public void markDeletedIfNodeDeleted() {
-		final OnmsCriteria criteria = new OnmsCriteria(OnmsStpNode.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("node.type", "D"));
+        final String jql = "from OnmsStpNode left join node where node.type = :nodeType";
+        List<OnmsStpNode> stpNodeList = getJpaTemplate().getEntityManager()
+                .createQuery(jql)
+                .setParameter("nodeType", "D")
+                .getResultList();
+
+        // TODO MVR JPA verify with Simon
+//		final OnmsCriteria criteria = new OnmsCriteria(OnmsStpNode.class);
+//        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
+//        criteria.add(Restrictions.eq("node.type", "D"));
         
-        for (final OnmsStpNode stpNode : findMatching(criteria)) {
+        for (final OnmsStpNode stpNode : stpNodeList) {
         	stpNode.setStatus(StatusType.DELETED);
         	saveOrUpdate(stpNode);
         }
 	}
 
     @Override
-    public void deactivateForNodeIdIfOlderThan(final int nodeid, final Date scanTime) {
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsStpNode.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("node.id", nodeid));
-        criteria.add(Restrictions.lt("lastPollTime", scanTime));
-        criteria.add(Restrictions.eq("status", StatusType.ACTIVE));
+    public void deactivateForNodeIdIfOlderThan(final int nodeId, final Date scanTime) {
+        final String jql = "from OnmsStpNode left join node where node.id = :nodeId and lastPollTime < : scanTime and status = :status";
+        List<OnmsStpNode> stpNodeList = getJpaTemplate().getEntityManager()
+                .createQuery(jql)
+                .setParameter("nodeId", nodeId)
+                .setParameter("lastPollTime", scanTime)
+                .setParameter("status", StatusType.ACTIVE)
+                .getResultList();
+
+
+        // TODO MVR JPA verify with Simon
+//        final OnmsCriteria criteria = new OnmsCriteria(OnmsStpNode.class);
+//        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
+//        criteria.add(Restrictions.eq("node.id", nodeid));
+//        criteria.add(Restrictions.lt("lastPollTime", scanTime));
+//        criteria.add(Restrictions.eq("status", StatusType.ACTIVE));
         
-        for (final OnmsStpNode item : findMatching(criteria)) {
+        for (final OnmsStpNode item : stpNodeList) {
             item.setStatus(StatusType.INACTIVE);
             saveOrUpdate(item);
         }
     }
 
     @Override
-    public void deleteForNodeIdIfOlderThan(final int nodeid, final Date scanTime) {
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsStpNode.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("node.id", nodeid));
-        criteria.add(Restrictions.lt("lastPollTime", scanTime));
-        criteria.add(Restrictions.not(Restrictions.eq("status", StatusType.ACTIVE)));
+    public void deleteForNodeIdIfOlderThan(final int nodeId, final Date scanTime) {
+        final String jql = "from OnmsStpNode left join node where node.id = :nodeId and lastPollTime < : scanTime and status <> :status";
+        List<OnmsStpNode> stpNodeList = getJpaTemplate().getEntityManager()
+                .createQuery(jql)
+                .setParameter("nodeId", nodeId)
+                .setParameter("lastPollTime", scanTime)
+                .setParameter("status", StatusType.ACTIVE)
+                .getResultList();
+
+        // TODO MVR JPA verify with Simon
+//        final OnmsCriteria criteria = new OnmsCriteria(OnmsStpNode.class);
+//        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
+//        criteria.add(Restrictions.eq("node.id", nodeid));
+//        criteria.add(Restrictions.lt("lastPollTime", scanTime));
+//        criteria.add(Restrictions.not(Restrictions.eq("status", StatusType.ACTIVE)));
         
-        for (final OnmsStpNode item : findMatching(criteria)) {
+        for (final OnmsStpNode item : stpNodeList) {
             delete(item);
         }
     }
 
 
     @Override
-    public void setStatusForNode(final Integer nodeid, final StatusType action) {
-        // UPDATE stpnode set status = ?  WHERE nodeid = ?
+    public void setStatusForNode(final Integer nodeId, final StatusType action) {
+        final String jql = "fron OnmsStpNode left join node where node.id = :nodeId";
+        List<OnmsStpNode> stpNodes = getJpaTemplate().getEntityManager()
+                .createQuery(jql)
+                .setParameter("nodeId", nodeId)
+                .getResultList();
 
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsStpNode.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("node.id", nodeid));
+        // TODO MVR JPA verify with Simon
+//        final OnmsCriteria criteria = new OnmsCriteria(OnmsStpNode.class);
+//        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
+//        criteria.add(Restrictions.eq("node.id", nodeid));
         
-        for (final OnmsStpNode item : findMatching(criteria)) {
+        for (final OnmsStpNode item : stpNodes) {
             item.setStatus(action);
             saveOrUpdate(item);
         }
@@ -99,16 +129,24 @@ public class StpNodeDaoHibernate extends AbstractDaoHibernate<OnmsStpNode, Integ
 
     @Override
     public OnmsStpNode findByNodeAndVlan(final Integer nodeId, final Integer baseVlan) {
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsStpNode.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("node.id", nodeId));
-        criteria.add(Restrictions.eq("baseVlan", baseVlan));
-        
-        final List<OnmsStpNode> stpNodes = findMatching(criteria);
-        if (stpNodes != null && stpNodes.size() > 0) {
-            return stpNodes.get(0);
-        }
-        return null;
+        final String jql = "from OnmsStpNode left join node where node.id = :nodeId and baseVlan = :baseVlan";
+        return (OnmsStpNode) getJpaTemplate().getEntityManager()
+                .createQuery(jql)
+                .setParameter("nodeId", nodeId)
+                .setParameter("baseVlan", baseVlan)
+                .setMaxResults(1)
+                .getSingleResult();
 
+        // TODO MVR JPA verify with Simon
+//        final OnmsCriteria criteria = new OnmsCriteria(OnmsStpNode.class);
+//        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
+//        criteria.add(Restrictions.eq("node.id", nodeId));
+//        criteria.add(Restrictions.eq("baseVlan", baseVlan));
+//
+//        final List<OnmsStpNode> stpNodes = findMatching(criteria);
+//        if (stpNodes != null && stpNodes.size() > 0) {
+//            return stpNodes.get(0);
+//        }
+//        return null;
     }
 }

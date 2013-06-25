@@ -45,11 +45,12 @@ public class StpInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsStpInterf
 
 	@Override
 	public void markDeletedIfNodeDeleted() {
-		final OnmsCriteria criteria = new OnmsCriteria(OnmsStpInterface.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("node.type", "D"));
-        
-        for (final OnmsStpInterface stpIface : findMatching(criteria)) {
+
+        List<OnmsStpInterface> interfaceList = getJpaTemplate().getEntityManager()
+                .createQuery("from OnmsStpInterface left join node where node.type = :nodeType")
+                .setParameter("nodeType", "D")
+                .getResultList();
+        for (final OnmsStpInterface stpIface : interfaceList) {
         	stpIface.setStatus(StatusType.DELETED);
         	saveOrUpdate(stpIface);
         }
@@ -57,74 +58,66 @@ public class StpInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsStpInterf
 
 	
     @Override
-    public void deactivateForNodeIdIfOlderThan(final int nodeid, final Date scanTime) {
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsStpInterface.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("node.id", nodeid));
-        criteria.add(Restrictions.lt("lastPollTime", scanTime));
-        criteria.add(Restrictions.eq("status", StatusType.ACTIVE));
-        
-        for (final OnmsStpInterface item : findMatching(criteria)) {
+    public void deactivateForNodeIdIfOlderThan(final int nodeId, final Date scanTime) {
+        List<OnmsStpInterface> interfaceList = getJpaTemplate().getEntityManager()
+                .createQuery("from OnmsStpInterface left join node where node.id = :nodeId and lastPollTime < :lastPollTime and status = :status")
+                .setParameter("nodeId", nodeId)
+                .setParameter("lastPollTime", scanTime)
+                .setParameter("status", StatusType.ACTIVE)
+                .getResultList();
+        for (final OnmsStpInterface item : interfaceList) {
             item.setStatus(StatusType.INACTIVE);
             saveOrUpdate(item);
         }
     }
 
     @Override
-    public void deleteForNodeIdIfOlderThan(final int nodeid, final Date scanTime) {
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsStpInterface.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("node.id", nodeid));
-        criteria.add(Restrictions.lt("lastPollTime", scanTime));
-        criteria.add(Restrictions.not(Restrictions.eq("status", StatusType.ACTIVE)));
-        
-        for (final OnmsStpInterface item : findMatching(criteria)) {
+    public void deleteForNodeIdIfOlderThan(final int nodeId, final Date scanTime) {
+        List<OnmsStpInterface> interfaceList = getJpaTemplate().getEntityManager()
+                .createQuery("from OnmsStpInterface left join node where node.id = :nodeId and lastPollTime < :scanTime and status <> :status")
+                .setParameter("nodeId", nodeId)
+                .setParameter("scanTime", scanTime)
+                .setParameter("status", StatusType.ACTIVE)
+                .getResultList();
+        for (final OnmsStpInterface item : interfaceList) {
             delete(item);
         }
     }
 
     @Override
-    public void setStatusForNode(final Integer nodeid, final StatusType action) {
-        // UPDATE stpinterface set status = ? WHERE nodeid = ?
+    public void setStatusForNode(final int nodeId, final StatusType action) {
 
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsStpInterface.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("node.id", nodeid));
-
-        for (final OnmsStpInterface item : findMatching(criteria)) {
+        List<OnmsStpInterface> interfaceList = getJpaTemplate().getEntityManager()
+                .createQuery("from OnmsStpInterface left join node where node.id = :nodeId")
+                .setParameter("nodeId", nodeId)
+                .getResultList();
+        for (final OnmsStpInterface item : interfaceList) {
             item.setStatus(action);
             saveOrUpdate(item);
         }
     }
 
     @Override
-    public void setStatusForNodeAndIfIndex(final Integer nodeid, final Integer ifIndex, final StatusType action) {
-        // UPDATE stpinterface set status = ? WHERE nodeid = ? AND ifindex = ?
-
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsStpInterface.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("node.id", nodeid));
-        criteria.add(Restrictions.eq("ifIndex", ifIndex));
-
-        for (final OnmsStpInterface item : findMatching(criteria)) {
+    public void setStatusForNodeAndIfIndex(final int nodeId, final int ifIndex, final StatusType action) {
+        List<OnmsStpInterface> interfaceList = getJpaTemplate().getEntityManager()
+                .createQuery("from OnmsStpInterface left join node where node.id = :nodeId and ifIndex = :ifIndex")
+                .setParameter("nodeId", nodeId)
+                .setParameter("ifIndex", ifIndex)
+                .getResultList();
+        for (final OnmsStpInterface item : interfaceList) {
             item.setStatus(action);
             saveOrUpdate(item);
         }
     }
 
     @Override
-    public OnmsStpInterface findByNodeAndVlan(final Integer nodeId, final Integer bridgePort, final Integer vlan) {
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsStpInterface.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("node.id", nodeId));
-        criteria.add(Restrictions.eq("bridgePort", bridgePort));
-        criteria.add(Restrictions.eq("vlan", vlan));
-
-        final List<OnmsStpInterface> stpInterfaces = findMatching(criteria);
-        if (stpInterfaces != null && stpInterfaces.size() > 0) {
-            return stpInterfaces.get(0);
-        }
-        return null;
+    public OnmsStpInterface findByNodeAndVlan(final int nodeId, final int bridgePort, final int vlan) {
+        return (OnmsStpInterface) getJpaTemplate().getEntityManager()
+                .createQuery("from OnmsStpInterface left join node where node.id = :nodeId and bridgePort = :bridgePort and vlan = :vlan")
+                .setParameter("nodeId", nodeId)
+                .setParameter("bridgePort", bridgePort)
+                .setParameter("vlan", vlan)
+                .setMaxResults(1)
+                .getSingleResult();
     }
-
 }

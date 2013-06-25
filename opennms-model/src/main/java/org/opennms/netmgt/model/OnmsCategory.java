@@ -170,11 +170,6 @@ public class OnmsCategory implements Serializable, Comparable<OnmsCategory> {
 	    return m_authorizedGroups;
 	}
 	
-	/**
-	 * <p>setAuthorizedGroups</p>
-	 *
-	 * @param authorizedGroups a {@link java.util.Set} object.
-	 */
 	public void setAuthorizedGroups(Set<String> authorizedGroups) {
 	    m_authorizedGroups = authorizedGroups;
 	}

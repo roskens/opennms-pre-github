@@ -254,17 +254,4 @@ public class MockNodeDao implements NodeDao {
         // TODO Auto-generated method stub
         return null;
     }
-
-    @Override
-    public Integer getNextNodeId(Integer nodeId) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Integer getPreviousNodeId(Integer nodeId) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
 }

@@ -45,29 +45,23 @@ public interface AtInterfaceDao extends OnmsDao<OnmsAtInterface, Integer> {
 
     Collection<OnmsAtInterface> findByMacAddress(final String macAddress);
 
-    void setStatusForNode(Integer nodeid, StatusType action);
+    void setStatusForNode(int nodeId, StatusType action);
 
-    void setStatusForNodeAndIp(Integer nodeid, String ipAddr, StatusType action);
+    void setStatusForNodeAndIp(int nodeId, String ipAddr, StatusType action);
 
-    void setStatusForNodeAndIfIndex(Integer nodeid, Integer ifIndex, StatusType action);
+    void setStatusForNodeAndIfIndex(int nodeId, Integer ifIndex, StatusType action);
 
-    OnmsAtInterface findByNodeAndAddress(final Integer nodeId, final InetAddress ipAddress, final String macAddress);
+    OnmsAtInterface findByNodeAndAddress(final int nodeId, final InetAddress ipAddress, final String macAddress);
 
     /**
      * Get the {@link OnmsAtInterface} that goes with a given address and
      * node. If it does not exist, but the IP interface does exist, then
      * create it. If an equivalent IP interface does *not* exist, returns
      * null.
-     * 
-     * @param dbConn
-     *            the database connection, if necessary
-     * @param ipaddress
+     *
+     * @param address
      *            the IP address to look up
-     * @param node
-     *            the {@link LinkableNode} associated with the interface (if
-     *            known)
      * @return an {@link OnmsAtInterface}
-     * @throws SQLException
      */
     Collection<OnmsAtInterface> getAtInterfaceForAddress(final InetAddress address);
 }

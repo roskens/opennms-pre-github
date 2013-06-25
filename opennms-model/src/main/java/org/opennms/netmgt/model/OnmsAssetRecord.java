@@ -50,6 +50,8 @@ import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.PropertyAccessorFactory;
 import org.springframework.core.style.ToStringCreator;
@@ -1336,11 +1338,6 @@ public class OnmsAssetRecord implements Serializable {
         return m_rackunitheight;
     }
 
-    /**
-     * <p>setRackunitheight</p>
-     *
-     * @param snmpcommunity a {@link java.lang.String} object.
-     */
     public void setRackunitheight(String rackunitheight) {
         m_rackunitheight = rackunitheight;
     }
@@ -1872,35 +1869,14 @@ public class OnmsAssetRecord implements Serializable {
         .append("vmwareState", getVmwareState()).toString();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public boolean equals(Object obj) {
-        boolean equals = false;
+        return EqualsBuilder.reflectionEquals(this, obj);
+    }
 
-        if (this == obj) {
-            return true;
-        }
-
-        if (obj == null || obj.getClass() != this.getClass()) {
-            throw new IllegalArgumentException("the Operation Object passed is either null or of the wrong class");
-        }
-
-        OnmsAssetRecord cmpAsset = (OnmsAssetRecord) obj;
-
-        Integer newNodeId = cmpAsset.getNode().getId();
-
-        if (newNodeId == null) {
-            return false;
-        }
-
-        if (m_node.getId().equals(cmpAsset.getNode().getId())) {
-            equals = true;
-        }
-
-        return equals;
-
+    @Override
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this);
     }
 
     /**

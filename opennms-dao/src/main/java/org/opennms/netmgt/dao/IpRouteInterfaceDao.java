@@ -45,6 +45,6 @@ public interface IpRouteInterfaceDao extends OnmsDao<OnmsIpRouteInterface, Integ
 
     void setStatusForNodeAndIfIndex(Integer nodeid, Integer ifIndex, StatusType action);
 
-    OnmsIpRouteInterface findByNodeAndDest(Integer id, String routeDest);
+    OnmsIpRouteInterface findByNodeAndDest(int nodeId, String routeDest);
 
 }

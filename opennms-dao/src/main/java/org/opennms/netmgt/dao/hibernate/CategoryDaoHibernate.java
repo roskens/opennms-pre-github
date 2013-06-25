@@ -73,7 +73,9 @@ public class CategoryDaoHibernate extends AbstractCachingDaoHibernate<OnmsCatego
     
     @Override
     public List<String> getAllCategoryNames() {
-        return findObjects(String.class, "select category.name from OnmsCategory as category");
+        return getJpaTemplate().getEntityManager()
+                .createQuery("select distinct category.name from OnmsCategory as category")
+                .getResultList();
     }
 
     @Override
@@ -109,7 +111,6 @@ public class CategoryDaoHibernate extends AbstractCachingDaoHibernate<OnmsCatego
             String sql = "{alias}.nodeId in (select distinct cn.nodeId from category_node cn where cn.categoryId in (" + StringUtils.arrayToCommaDelimitedString(questionMarks) + "))";
             criteria.add(Restrictions.sqlRestriction(sql, categoryIds.toArray(new Integer[categoryIds.size()]), types));
         }
-
         return criteria;
     }
 
@@ -118,9 +119,10 @@ public class CategoryDaoHibernate extends AbstractCachingDaoHibernate<OnmsCatego
      */
     /** {@inheritDoc} */
     @Override
+    // TODO MVR JPA build test for this
     public List<OnmsCategory> getCategoriesWithAuthorizedGroup(String groupName) {
-        OnmsCriteria crit = new OnmsCriteria(OnmsCategory.class);
-        crit.add(Restrictions.sqlRestriction("{alias}.categoryId in (select cg.categoryId from category_group cg where cg.groupId = ?)", groupName, Hibernate.STRING));
-        return findMatching(crit);
+        return getJpaTemplate().getEntityManager()
+                .createQuery("from OnmsCategory where :groupName in (authorizedGroups)")
+                .setParameter("groupName", groupName).getResultList();
     }
 }

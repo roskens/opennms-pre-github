@@ -28,18 +28,12 @@
 
 package org.opennms.netmgt.dao.hibernate;
 
-import java.util.Date;
-import java.util.List;
-
-import org.hibernate.criterion.Restrictions;
 import org.opennms.netmgt.dao.VlanDao;
 import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
-import org.opennms.netmgt.model.OnmsCriteria;
 import org.opennms.netmgt.model.OnmsVlan;
-import org.springframework.orm.jpa.JpaCallback;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceException;
+import java.util.Date;
+import java.util.List;
 
 public class VlanDaoHibernate extends AbstractDaoHibernate<OnmsVlan, Integer>  implements VlanDao {
     
@@ -49,39 +43,63 @@ public class VlanDaoHibernate extends AbstractDaoHibernate<OnmsVlan, Integer>  i
 
 	@Override
 	public void markDeletedIfNodeDeleted() {
-		final OnmsCriteria criteria = new OnmsCriteria(OnmsVlan.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("node.type", "D"));
+        final String jql = "from OnmsVlan left join OnmsVlan.node where OnmsVlan.node.type = :nodeType";
+        List<OnmsVlan> vlanList = getJpaTemplate().getEntityManager()
+                .createQuery(jql)
+                .setParameter("nodeType", "D")
+                .getResultList();
 
-        for (final OnmsVlan vlan : findMatching(criteria)) {
+        // TODO MVR JPA verify with Simon
+//		final OnmsCriteria criteria = new OnmsCriteria(OnmsVlan.class);
+//        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
+//        criteria.add(Restrictions.eq("node.type", "D"));
+
+        for (final OnmsVlan vlan : vlanList) {
         	vlan.setStatus(StatusType.DELETED);
         	saveOrUpdate(vlan);
         }
 	}
 
     @Override
-    public void deactivateForNodeIdIfOlderThan(final int nodeid, final Date scanTime) {
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsVlan.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("node.id", nodeid));
-        criteria.add(Restrictions.lt("lastPollTime", scanTime));
-        criteria.add(Restrictions.eq("status", StatusType.ACTIVE));
+    public void deactivateForNodeIdIfOlderThan(final int nodeId, final Date scanTime) {
+
+        final String jql = "from OnmsVlan left join node where node.id : nodeId and lastPollTime < :scanTime and status = :status";
+        List<OnmsVlan> vlanList = getJpaTemplate().getEntityManager()
+                .createQuery(jql)
+                .setParameter("nodeId", nodeId)
+                .setParameter("scanTime", scanTime)
+                .setParameter("status", StatusType.ACTIVE).getResultList();
+
+        // TODO MVR JPA verify with Simon
+//        final OnmsCriteria criteria = new OnmsCriteria(OnmsVlan.class);
+//        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
+//        criteria.add(Restrictions.eq("node.id", nodeid));
+//        criteria.add(Restrictions.lt("lastPollTime", scanTime));
+//        criteria.add(Restrictions.eq("status", StatusType.ACTIVE));
         
-        for (final OnmsVlan item : findMatching(criteria)) {
-            item.setStatus(StatusType.INACTIVE);
-            saveOrUpdate(item);
+        for (final OnmsVlan vlan : vlanList) {
+            vlan.setStatus(StatusType.INACTIVE);
+            saveOrUpdate(vlan);
         }
     }
 
     @Override
-    public void deleteForNodeIdIfOlderThan(final int nodeid, final Date scanTime) {
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsVlan.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("node.id", nodeid));
-        criteria.add(Restrictions.lt("lastPollTime", scanTime));
-        criteria.add(Restrictions.not(Restrictions.eq("status", StatusType.ACTIVE)));
+    public void deleteForNodeIdIfOlderThan(final int nodeId, final Date scanTime) {
+        final String jql = "from OnmsVlan left join node where node.id = :nodeId and lastPollTime < :scanTime and status <> :status";
+        List<OnmsVlan> vlanList = getJpaTemplate().getEntityManager()
+                .createQuery(jql)
+                .setParameter("nodeId", nodeId)
+                .setParameter("scanTime", scanTime)
+                .setParameter("statuS", StatusType.ACTIVE)
+                .getResultList();
+        // TODO MVR JPA verify with Simon
+//        final OnmsCriteria criteria = new OnmsCriteria(OnmsVlan.class);
+//        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
+//        criteria.add(Restrictions.eq("node.id", nodeid));
+//        criteria.add(Restrictions.lt("lastPollTime", scanTime));
+//        criteria.add(Restrictions.not(Restrictions.eq("status", StatusType.ACTIVE)));
         
-        for (final OnmsVlan item : findMatching(criteria)) {
+        for (final OnmsVlan item : vlanList) {
             delete(item);
         }
     }
@@ -89,27 +107,41 @@ public class VlanDaoHibernate extends AbstractDaoHibernate<OnmsVlan, Integer>  i
 
     @Override
     public void setStatusForNode(final Integer nodeId, final StatusType action) {
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsVlan.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("node.id", nodeId));
+        final String jql = "from OnmsVlan left join node where node.id = :nodeId";
+        List<OnmsVlan> vlanList = getJpaTemplate().getEntityManager()
+                .createQuery(jql)
+                .setParameter("nodeId", nodeId)
+                .getResultList();
+        // TODO MVR JPA verify with Simon
+//        final OnmsCriteria criteria = new OnmsCriteria(OnmsVlan.class);
+//        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
+//        criteria.add(Restrictions.eq("node.id", nodeId));
         
-        for (final OnmsVlan item : findMatching(criteria)) {
-            item.setStatus(action);
-            saveOrUpdate(item);
+        for (final OnmsVlan vlan : vlanList) {
+            vlan.setStatus(action);
+            saveOrUpdate(vlan);
         }
     }
 
     @Override
     public OnmsVlan findByNodeAndVlan(final Integer nodeId, final Integer vlanId) {
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsVlan.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("node.id", nodeId));
-        criteria.add(Restrictions.eq("vlanId", vlanId));
+        final String jql = "from OnmsVlan left join node where node.id = :nodeId and vlanId = :vlanId";
+        return (OnmsVlan) getJpaTemplate().getEntityManager()
+                .createQuery(jql)
+                .setParameter("nodeId", nodeId)
+                .setParameter("vlanId", vlanId)
+                .setMaxResults(1)
+                .getSingleResult();
 
-        final List<OnmsVlan> objects = findMatching(criteria);
-        if (objects != null && objects.size() > 0) {
-            return objects.get(0);
-        }
-        return null;
+        // TODO MVR JPA verify with Simon
+//        final OnmsCriteria criteria = new OnmsCriteria(OnmsVlan.class);
+//        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
+//        criteria.add(Restrictions.eq("node.id", nodeId));
+//        criteria.add(Restrictions.eq("vlanId", vlanId));
+//        final List<OnmsVlan> objects = vlanList);
+//        if (objects != null && objects.size() > 0) {
+//            return objects.get(0);
+//        }
+//        return null;
     }
 }

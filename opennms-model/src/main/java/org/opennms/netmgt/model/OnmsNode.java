@@ -286,7 +286,6 @@ public class OnmsNode extends OnmsEntity implements Serializable,
      * - 'A' - active
      * - 'D' - deleted
      *
-     * TODO: Eventually this will be deprecated and deleted nodes will actually be deleted.
      *
      * @return a {@link java.lang.String} object.
      */

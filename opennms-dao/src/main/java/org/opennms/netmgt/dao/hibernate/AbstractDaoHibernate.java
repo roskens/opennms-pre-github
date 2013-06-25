@@ -136,8 +136,6 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Jp
             }
 
         };
-//      logger.debug(String.format("findUnique(%s, %s, %s) = %s", type, queryString, Arrays.toString(args), result));
-//      Assert.isTrue(result == null || type.isInstance(result), "Expected "+result+" to an instance of "+type+" but is "+(result == null ? null : result.getClass()));
         return getJpaTemplate().execute(callback);
     }
 

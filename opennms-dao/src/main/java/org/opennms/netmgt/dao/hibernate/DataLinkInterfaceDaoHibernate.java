@@ -42,9 +42,6 @@ import org.opennms.netmgt.model.OnmsCriteria;
 import org.springframework.orm.hibernate3.HibernateCallback;
 
 public class DataLinkInterfaceDaoHibernate extends AbstractDaoHibernate<DataLinkInterface, Integer> implements DataLinkInterfaceDao {
-    /**
-     * <p>Constructor for DataLinkInterfaceDaoHibernate.</p>
-     */
     public DataLinkInterfaceDaoHibernate() {
         super(DataLinkInterface.class);
     }
@@ -67,25 +64,19 @@ public class DataLinkInterfaceDaoHibernate extends AbstractDaoHibernate<DataLink
 
     /** {@inheritDoc} */
     @Override
-    public DataLinkInterface findById(final Integer id) {
-        return findUnique("from DataLinkInterface as dli where dli.id = ?", id);
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public Collection<DataLinkInterface> findByNodeId(final Integer nodeId) {
+    public Collection<DataLinkInterface> findByNodeId(final int nodeId) {
         return find("from DataLinkInterface as dli where dli.node.id = ?", nodeId);
     }
 
     /** {@inheritDoc} */
     @Override
-    public Collection<DataLinkInterface> findByNodeParentId(final Integer nodeParentId) {
+    public Collection<DataLinkInterface> findByNodeParentId(final int nodeParentId) {
         return find("from DataLinkInterface as dli where dli.nodeParentId = ?", nodeParentId);
     }
 
     /** {@inheritDoc} */
     @Override
-    public DataLinkInterface findByNodeIdAndIfIndex(final Integer nodeId, final Integer ifIndex) {
+    public DataLinkInterface findByNodeIdAndIfIndex(final int nodeId, final int ifIndex) {
         final OnmsCriteria criteria = new OnmsCriteria(DataLinkInterface.class);
         criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
         criteria.add(Restrictions.eq("node.id", nodeId));
@@ -141,7 +132,7 @@ public class DataLinkInterfaceDaoHibernate extends AbstractDaoHibernate<DataLink
 
 
     @Override
-    public void setStatusForNode(final Integer nodeid, final StatusType action) {
+    public void setStatusForNode(final int nodeid, final StatusType action) {
         // UPDATE datalinkinterface set status = ? WHERE nodeid = ? OR nodeparentid = ?
         
         final OnmsCriteria criteria = new OnmsCriteria(DataLinkInterface.class);
@@ -154,7 +145,7 @@ public class DataLinkInterfaceDaoHibernate extends AbstractDaoHibernate<DataLink
     }
 
     @Override
-    public void setStatusForNode(final Integer nodeid, String source, final StatusType action) {
+    public void setStatusForNode(final int nodeid, String source, final StatusType action) {
         // UPDATE datalinkinterface set status = ? WHERE (nodeid = ? OR nodeparentid = ?) and source = ?
         
         final OnmsCriteria criteria = new OnmsCriteria(DataLinkInterface.class);
@@ -168,7 +159,7 @@ public class DataLinkInterfaceDaoHibernate extends AbstractDaoHibernate<DataLink
     }
 
     @Override
-    public void setStatusForNodeAndIfIndex(final Integer nodeid, final Integer ifIndex, final StatusType action) {
+    public void setStatusForNodeAndIfIndex(final int nodeid, final int ifIndex, final StatusType action) {
         // UPDATE datalinkinterface set status = ? WHERE (nodeid = ? and ifindex = ?) OR (nodeparentid = ? AND parentifindex = ?)
 
         final OnmsCriteria criteria = new OnmsCriteria(DataLinkInterface.class);
@@ -193,7 +184,9 @@ public class DataLinkInterfaceDaoHibernate extends AbstractDaoHibernate<DataLink
     }
     
     @Override
-    public void setStatusForNodeAndIfIndex(final Integer nodeid, final Integer ifIndex, String source, final StatusType action) {
+    public void setStatusForNodeAndIfIndex(final int nodeid, final int ifIndex, String source, final StatusType action) {
+
+
         // UPDATE datalinkinterface set status = ? WHERE source = ? and ((nodeid = ? and ifindex = ?) OR (nodeparentid = ? AND parentifindex = ?))
 
         final OnmsCriteria criteria = new OnmsCriteria(DataLinkInterface.class);

@@ -42,10 +42,10 @@ public interface StpInterfaceDao extends OnmsDao<OnmsStpInterface, Integer> {
 
     void deleteForNodeIdIfOlderThan(int nodeid, Date scanTime);
 
-    void setStatusForNode(Integer nodeid, StatusType action);
+    void setStatusForNode(int nodeid, StatusType action);
 
-    void setStatusForNodeAndIfIndex(Integer nodeid, Integer ifIndex, StatusType action);
+    void setStatusForNodeAndIfIndex(int nodeid, int ifIndex, StatusType action);
 
-    OnmsStpInterface findByNodeAndVlan(Integer nodeId, Integer bridgePort, Integer vlan);
+    OnmsStpInterface findByNodeAndVlan(int nodeId, int bridgePort, int vlan);
 
 }

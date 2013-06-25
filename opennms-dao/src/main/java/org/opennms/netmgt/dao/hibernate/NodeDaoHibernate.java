@@ -73,10 +73,9 @@ public class NodeDaoHibernate extends AbstractDaoHibernate<OnmsNode, Integer> im
      */
     @Override
     public String getLabelForId(Integer id) {
-    	String label = null;
-        getJpaTemplate().getEntityManager().createQuery("select n.label from OnmsNode as n where n.id = :nodeId").setParameter("nodeId", id).getResultList().get()
-    	label = findObjects(String.class, "select n.label from OnmsNode as n where n.id = ?", id).get(0);
-    	return label;
+        OnmsNode node = get(id);
+        if (node == null) return null;
+        return node.getLabel();
     }
 
     /** {@inheritDoc} */
@@ -317,8 +316,12 @@ public class NodeDaoHibernate extends AbstractDaoHibernate<OnmsNode, Integer> im
     /** {@inheritDoc} */
     @Override
     public List<OnmsIpInterface> findObsoleteIpInterfaces(Integer nodeId, Date scanStamp) {
-    	// we exclude the primary interface from the obsolete list since the only way for them to be obsolete is when we have snmp
-        return findObjects(OnmsIpInterface.class, "from OnmsIpInterface ipInterface where ipInterface.node.id = ? and ipInterface.isSnmpPrimary != 'P' and (ipInterface.ipLastCapsdPoll is null or ipInterface.ipLastCapsdPoll < ?)", nodeId, scanStamp);
+        // we exclude the primary interface from the obsolete list since the only way for them to be obsolete is when we have snmp
+        return getJpaTemplate().getEntityManager()
+                .createQuery("from OnmsIpInterface ipInterface where ipInterface.node.id = :nodeId and ipInterface.isSnmpPrimary != 'P' and (ipInterface.ipLastCapsdPoll is null or ipInterface.ipLastCapsdPoll < :scanStamp)")
+                .setParameter("nodeId", nodeId)
+                .setParameter("scanStamp", scanStamp)
+                .getResultList();
     }
 
     /** {@inheritDoc} */
@@ -350,27 +353,24 @@ public class NodeDaoHibernate extends AbstractDaoHibernate<OnmsNode, Integer> im
         update(n);
     }
 
-    /**
-     * <p>getNodeIds</p>
-     *
-     * @return a {@link java.util.Collection} object.
-     */
     @Override
     public Collection<Integer> getNodeIds() {
-        return findObjects(Integer.class, "select distinct n.id from OnmsNode as n where n.type != 'D'");
+        return getJpaTemplate().getEntityManager()
+                .createQuery( "select distinct n.id from OnmsNode as n where n.type != 'D'")
+                .getResultList();
     }
 
-    @Override
-    public Integer getNextNodeId (Integer nodeId) {
-    	Integer nextNodeId = null;
-    	nextNodeId = findObjects(Integer.class, "select n.id from OnmsNode as n where n.id > ? and n.type != 'D' order by n.id asc limit 1", nodeId).get(0);
-    	return nextNodeId;
-    }
-    
-    @Override
-    public Integer getPreviousNodeId (Integer nodeId) {
-    	Integer nextNodeId = null;
-    	nextNodeId = findObjects(Integer.class, "select n.id from OnmsNode as n where n.id < ? and n.type != 'D' order by n.id desc limit 1", nodeId).get(0);
-    	return nextNodeId;
-    }
+//    @Override
+//    public Integer getNextNodeId (Integer nodeId) {
+//    	Integer nextNodeId = null;
+//    	nextNodeId = findObjects(Integer.class, "select n.id from OnmsNode as n where n.id > ? and n.type != 'D' order by n.id asc limit 1", nodeId).get(0);
+//    	return nextNodeId;
+//    }
+//
+//    @Override
+//    public Integer getPreviousNodeId (Integer nodeId) {
+//    	Integer nextNodeId = null;
+//    	nextNodeId = findObjects(Integer.class, "select n.id from OnmsNode as n where n.id < ? and n.type != 'D' order by n.id desc limit 1", nodeId).get(0);
+//    	return nextNodeId;
+//    }
 }

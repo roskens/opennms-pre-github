@@ -102,26 +102,27 @@ public class OutageDaoHibernate extends AbstractDaoHibernate<OnmsOutage, Integer
         return getNodeOutageSummaries(0).size();
     }
 
-    // final int nodeId, final String nodeLabel, final Date timeDown, final Date timeUp, final Date timeNow
     /** {@inheritDoc} */
     @Override
     public List<OutageSummary> getNodeOutageSummaries(final int rows) {
-        final List<OutageSummary> outages = findObjects(
-            OutageSummary.class,
-            "SELECT DISTINCT new org.opennms.netmgt.model.outage.OutageSummary(node.id, node.label, max(outage.ifLostService)) " +
-            "FROM OnmsOutage AS outage " +
-            "LEFT JOIN outage.monitoredService AS monitoredService " +
-            "LEFT JOIN monitoredService.ipInterface AS ipInterface " + 
-            "LEFT JOIN ipInterface.node AS node " +
-            "WHERE outage.ifRegainedService IS NULL " +
-            "GROUP BY node.id, node.label " +
-            "ORDER BY max(outage.ifLostService) DESC, node.label ASC, node.id ASC"
-        );
-        if (rows == 0 || outages.size() < rows) {
-            return outages;
-        } else {
-            return outages.subList(0, rows);
-        }
+        return getJpaTemplate().getEntityManager()
+                .createQuery(
+                    "SELECT DISTINCT new org.opennms.netmgt.model.outage.OutageSummary(node.id, node.label, max(outage.ifLostService)) " +
+                    "FROM OnmsOutage AS outage " +
+                    "LEFT JOIN outage.monitoredService AS monitoredService " +
+                    "LEFT JOIN monitoredService.ipInterface AS ipInterface " +
+                    "LEFT JOIN ipInterface.node AS node " +
+                    "WHERE outage.ifRegainedService IS NULL " +
+                    "GROUP BY node.id, node.label " +
+                    "ORDER BY max(outage.ifLostService) DESC, node.label ASC, node.id ASC")
+                .setMaxResults(rows)
+                .getResultList();
+        // TODO MVR JPA verify with Simon
+//        if (rows == 0 || outages.size() < rows) {
+//            return outages;
+//        } else {
+//            return outages.subList(0, rows);
+//        }
     }
 
 }
