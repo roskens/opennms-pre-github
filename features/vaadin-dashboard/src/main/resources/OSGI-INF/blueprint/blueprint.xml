@@ -1,22 +1,67 @@
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-xsi:schemaLocation="
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="
 	http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
 ">
-	<bean id="dashboardUI" class="org.opennms.features.vaadin.dashboard.DashboardUI" scope="prototype">
-	</bean>
 
-	<bean id="dashboardUIFactory" class="org.opennms.features.vaadin.dashboard.DashboardUIFactory" >
-		<!-- Blueprint container bean -->
-		<argument ref="blueprintContainer"/>
-		<!-- Bean id of the Vaadin application prototype -->
-		<argument value="dashboardUI"/>
-	</bean>
+    <bean id="dashletSelector" class="org.opennms.features.vaadin.dashboard.config.DashletSelector" scope="singleton"/>
 
-	<service id="dashboardService" interface="org.ops4j.pax.vaadin.ApplicationFactory" ref="dashboardUIFactory">
-		<service-properties>
-			<entry key="alias" value="/vaadin-dashboard" />
-			<entry key="widgetset" value="org.opennms.features.vaadin.dashboard.DashboardWidgetSet"/>
-		</service-properties>
-	</service>
+    <bean id="dashboardUI" class="org.opennms.features.vaadin.dashboard.ui.DashboardUI" scope="prototype">
+        <property name="dashletSelector" ref="dashletSelector"/>
+    </bean>
+
+    <reference-list interface="org.opennms.features.vaadin.dashboard.model.Sandwich" availability="optional">
+        <reference-listener bind-method="bind" unbind-method="unbind" ref="dashletSelector"/>
+    </reference-list>
+
+    <bean id="dashboardUIFactory" class="org.opennms.features.vaadin.dashboard.ui.DashboardUIFactory">
+        <!-- Blueprint container bean -->
+        <argument ref="blueprintContainer"/>
+        <!-- Bean id of the Vaadin application prototype -->
+        <argument value="dashboardUI"/>
+    </bean>
+
+    <service id="dashboardService" interface="org.ops4j.pax.vaadin.ApplicationFactory" ref="dashboardUIFactory">
+        <service-properties>
+            <entry key="alias" value="/vaadin-dashboard"/>
+            <entry key="widgetset" value="org.opennms.features.vaadin.dashboard.DashboardWidgetSet"/>
+        </service-properties>
+    </service>
+
+    <bean id="dashboardConfigUI" class="org.opennms.features.vaadin.dashboard.config.ui.DashboardConfigUI"
+          scope="prototype">
+        <property name="dashletSelector" ref="dashletSelector"/>
+    </bean>
+
+    <bean id="dashboardConfigUILink" class="org.opennms.features.vaadin.dashboard.config.ui.AdminPageNavEntry">
+        <property name="url" value="admin/dashboardConfig.jsp"/>
+        <property name="name" value="Dashboard Config Web UI"/>
+    </bean>
+
+    <bean id="dashboardConfigUIFactory"
+          class="org.opennms.features.vaadin.dashboard.config.ui.DashboardConfigUIFactory">
+        <!-- Blueprint container bean -->
+        <argument ref="blueprintContainer"/>
+        <!-- Bean id of the Vaadin application prototype -->
+        <argument value="dashboardConfigUI"/>
+    </bean>
+
+    <service interface="org.ops4j.pax.vaadin.ApplicationFactory" ref="dashboardConfigUIFactory">
+        <service-properties>
+            <entry key="alias" value="/dashboard-config"/>
+        </service-properties>
+    </service>
+
+    <service id="dashboardConfigService" interface="org.opennms.web.navigate.PageNavEntry" ref="dashboardConfigUILink">
+        <service-properties>
+            <entry key="Page" value="admin"/>
+            <entry key="Category" value="operations"/>
+            <entry key="registration.export" value="true"/>
+        </service-properties>
+    </service>
+
+    <bean id="undefinedDashlet" class="org.opennms.features.vaadin.dashboard.dashlets.UndefinedDashlet" scope="prototype"/>
+
+    <service ref="undefinedDashlet" interface="org.opennms.features.vaadin.dashboard.model.Sandwich"/>
+
 </blueprint>
