@@ -59,4 +59,6 @@ public interface AlarmDao extends OnmsDao<OnmsAlarm, Integer> {
     List<OnmsAlarm> findByEventParms(String... s);
 
     List<OnmsAlarm> findUnclearedHyperic();
+
+    List<OnmsAlarm> findById(int[] alarmId);
 }

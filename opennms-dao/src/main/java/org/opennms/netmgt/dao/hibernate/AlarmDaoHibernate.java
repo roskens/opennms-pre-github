@@ -101,4 +101,11 @@ public class AlarmDaoHibernate extends AbstractDaoHibernate<OnmsAlarm, Integer> 
                 .setParameter("uei", "uei.opennms.org/external/hyperic/alert")
                 .setParameter("severity", OnmsSeverity.NORMAL).getResultList();
     }
+
+    @Override
+    public List<OnmsAlarm> findById(int[] alarmIds) {
+        return getJpaTemplate().getEntityManager()
+                .createQuery("from OnmsAlarm where id in :ids")
+                .setParameter("ids", alarmIds).getResultList();
+    }
 }

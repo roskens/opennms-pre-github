@@ -117,25 +117,7 @@ public class AlarmRepositoryTest implements InitializingBean {
         alarms = m_alarmRepo.countMatchingAlarms(AlarmUtil.getOnmsCriteria(new AlarmCriteria(new AlarmIdFilter(2))));
         assertEquals(0, alarms);
     }
-    
-    @Test
-    @Transactional
-    @JUnitTemporaryDatabase
-    public void testCountMatchingAlarmsBySeverity(){
-        AlarmCriteria criteria = new AlarmCriteria();
-        int [] matchingAlarms = m_alarmRepo.countMatchingAlarmsBySeverity(AlarmUtil.getOnmsCriteria(criteria));
-        
-        assertEquals(8, matchingAlarms.length);
-        
-        //Make sure that the count is correct per severity
-        assertEquals(0, matchingAlarms[OnmsSeverity.CLEARED.getId()]);
-        assertEquals(0, matchingAlarms[OnmsSeverity.CRITICAL.getId()]);
-        assertEquals(0, matchingAlarms[OnmsSeverity.INDETERMINATE.getId()]);
-        assertEquals(0, matchingAlarms[OnmsSeverity.MINOR.getId()]);
-        assertEquals(1, matchingAlarms[OnmsSeverity.NORMAL.getId()]);
-        assertEquals(0, matchingAlarms[OnmsSeverity.WARNING.getId()]);
-        assertEquals(0, matchingAlarms[OnmsSeverity.MAJOR.getId()]);
-    }
+
     
     @Test
     @JUnitTemporaryDatabase
@@ -237,14 +219,6 @@ public class AlarmRepositoryTest implements InitializingBean {
         
         matchingAlarmCount = m_alarmRepo.countMatchingAlarms(AlarmUtil.getOnmsCriteria(new AlarmCriteria(new AcknowledgedByFilter(user))));
         assertEquals(0, matchingAlarmCount);
-    }
-    
-    @Test
-    @Transactional
-    @JUnitTemporaryDatabase
-    public void testCountMatchingBySeverity(){
-        int[] matchingAlarmCount = m_alarmRepo.countMatchingAlarmsBySeverity(AlarmUtil.getOnmsCriteria(new AlarmCriteria(new SeverityFilter(OnmsSeverity.NORMAL))));
-        assertEquals(8, matchingAlarmCount.length);
     }
     
     @Test

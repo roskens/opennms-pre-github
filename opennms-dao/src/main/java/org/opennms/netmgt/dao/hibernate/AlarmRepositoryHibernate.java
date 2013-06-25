@@ -80,9 +80,24 @@ public class AlarmRepositoryHibernate implements AlarmRepository, InitializingBe
 
     @Transactional
     public void acknowledgeAlarms(String user, Date timestamp, int[] alarmIds) {
-        OnmsCriteria criteria = new OnmsCriteria(OnmsAlarm.class);
-        criteria.add(Restrictions.in("id", Arrays.asList(ArrayUtils.toObject(alarmIds))));
-        acknowledgeMatchingAlarms(user, timestamp, criteria);
+        List<OnmsAlarm> onmsAlarmList = m_alarmDao.findById(alarmIds);
+        updateAndAcknowledgmentAlarms(user, timestamp, onmsAlarmList, AckAction.ACKNOWLEDGE);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    private void updateAndAcknowledgmentAlarms(String user, Date timestamp, List<OnmsAlarm> alarms, AckAction action) {
+
+        Iterator<OnmsAlarm> alarmsIt = alarms.iterator();
+        while (alarmsIt.hasNext()) {
+            OnmsAlarm alarm = alarmsIt.next();
+            OnmsAcknowledgment ack = new OnmsAcknowledgment(alarm, user);
+            ack.setAckTime(timestamp);
+            ack.setAckAction(action);
+            m_ackDao.processAck(ack);
+            m_alarmDao.update(alarm);
+        }
     }
 
     /**
@@ -93,14 +108,7 @@ public class AlarmRepositoryHibernate implements AlarmRepository, InitializingBe
     public void acknowledgeMatchingAlarms(String user, Date timestamp, OnmsCriteria criteria) {
         List<OnmsAlarm> alarms = m_alarmDao.findMatching(criteria);
 
-        Iterator<OnmsAlarm> alarmsIt = alarms.iterator();
-        while (alarmsIt.hasNext()) {
-            OnmsAlarm alarm = alarmsIt.next();
-            OnmsAcknowledgment ack = new OnmsAcknowledgment(alarm, user);
-            ack.setAckTime(timestamp);
-            ack.setAckAction(AckAction.ACKNOWLEDGE);
-            m_ackDao.processAck(ack);
-        }
+        updateAndAcknowledgmentAlarms(user, timestamp, alarms, AckAction.ACKNOWLEDGE);
     }
 
     /**
@@ -109,19 +117,9 @@ public class AlarmRepositoryHibernate implements AlarmRepository, InitializingBe
     @Transactional
     @Override
     public void clearAlarms(int[] alarmIds, String user, Date timestamp) {
-        OnmsCriteria criteria = new OnmsCriteria(OnmsAlarm.class);
-        criteria.add(Restrictions.in("id", Arrays.asList(ArrayUtils.toObject(alarmIds))));
-        List<OnmsAlarm> alarms = m_alarmDao.findMatching(criteria);
+        List<OnmsAlarm> onmsAlarmList = m_alarmDao.findById(alarmIds);
 
-        Iterator<OnmsAlarm> alarmsIt = alarms.iterator();
-        while (alarmsIt.hasNext()) {
-            OnmsAlarm alarm = alarmsIt.next();
-            OnmsAcknowledgment ack = new OnmsAcknowledgment(alarm, user);
-            ack.setAckTime(timestamp);
-            ack.setAckAction(AckAction.CLEAR);
-            m_ackDao.processAck(ack);
-            m_alarmDao.update(alarm);
-        }
+        updateAndAcknowledgmentAlarms(user, timestamp, onmsAlarmList, AckAction.CLEAR);
     }
 
     /**
@@ -138,32 +136,11 @@ public class AlarmRepositoryHibernate implements AlarmRepository, InitializingBe
      */
     @Transactional
     @Override
-    public int[] countMatchingAlarmsBySeverity(final OnmsCriteria criteria) {
-        final int[] alarmCounts = new int[8];
-        for (final OnmsSeverity value : OnmsSeverity.values()) {
-            alarmCounts[value.getId()] = m_alarmDao.countMatching(criteria.doClone().add(Restrictions.eq("severity", value)));
-        }
-        return alarmCounts;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Transactional
-    @Override
     public void escalateAlarms(int[] alarmIds, String user, Date timestamp) {
         OnmsCriteria criteria = new OnmsCriteria(OnmsAlarm.class);
-        criteria.add(Restrictions.in("id", Arrays.asList(ArrayUtils.toObject(alarmIds))));
-        List<OnmsAlarm> alarms = m_alarmDao.findMatching(criteria);
+        List<OnmsAlarm> alarms = m_alarmDao.findById(alarmIds);
 
-        Iterator<OnmsAlarm> alarmsIt = alarms.iterator();
-        while (alarmsIt.hasNext()) {
-            OnmsAlarm alarm = alarmsIt.next();
-            OnmsAcknowledgment ack = new OnmsAcknowledgment(alarm, user);
-            ack.setAckTime(timestamp);
-            ack.setAckAction(AckAction.ESCALATE);
-            m_ackDao.processAck(ack);
-        }
+        updateAndAcknowledgmentAlarms(user, timestamp, alarms, AckAction.ESCALATE);
     }
 
     /**
@@ -201,6 +178,12 @@ public class AlarmRepositoryHibernate implements AlarmRepository, InitializingBe
     public void unacknowledgeMatchingAlarms(OnmsCriteria criteria, String user) {
         List<OnmsAlarm> alarms = m_alarmDao.findMatching(criteria);
 
+        unacknowledgeAlarms(alarms, user);
+
+    }
+
+    private void unacknowledgeAlarms(List<OnmsAlarm> alarms, String user) {
+
         for (OnmsAlarm alarm : alarms) {
             OnmsAcknowledgment ack = new OnmsAcknowledgment(alarm, user);
             ack.setAckAction(AckAction.UNACKNOWLEDGE);
@@ -215,9 +198,7 @@ public class AlarmRepositoryHibernate implements AlarmRepository, InitializingBe
     @Transactional
     @Override
     public void acknowledgeAlarms(int[] alarmIds, String user, Date timestamp) {
-        OnmsCriteria criteria = new OnmsCriteria(OnmsAlarm.class);
-        criteria.add(Restrictions.in("id", Arrays.asList(ArrayUtils.toObject(alarmIds))));
-        acknowledgeMatchingAlarms(user, timestamp, criteria);
+        acknowledgeAlarms(user, timestamp, alarmIds);
     }
 
     /**
@@ -226,9 +207,8 @@ public class AlarmRepositoryHibernate implements AlarmRepository, InitializingBe
     @Transactional
     @Override
     public void unacknowledgeAlarms(int[] alarmIds, String user) {
-        OnmsCriteria criteria = new OnmsCriteria(OnmsAlarm.class);
-        criteria.add(Restrictions.in("id", Arrays.asList(ArrayUtils.toObject(alarmIds))));
-        unacknowledgeMatchingAlarms(criteria, user);
+        List<OnmsAlarm> onmsAlarmList = m_alarmDao.findById(alarmIds);
+        unacknowledgeAlarms(onmsAlarmList, user);
     }
 
     /**

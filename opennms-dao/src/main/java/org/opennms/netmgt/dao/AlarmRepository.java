@@ -50,14 +50,6 @@ public interface AlarmRepository {
     public abstract int countMatchingAlarms(OnmsCriteria criteria);
 
     /**
-     * Count alarms by severity matching a specific criteria.
-     *
-     * @param criteria the criteria
-     * @return an array with the amount of alarms per severity.
-     */
-    public abstract int[] countMatchingAlarmsBySeverity(OnmsCriteria criteria);
-
-    /**
      * Gets and alarm.
      *
      * @param alarmId the alarm id
