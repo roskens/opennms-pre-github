@@ -34,38 +34,11 @@ import java.util.Date;
 import org.opennms.netmgt.model.DataLinkInterface;
 import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
 
-/**
- * <p>DataLinkInterfaceDao interface.</p>
- */
 public interface DataLinkInterfaceDao extends OnmsDao<DataLinkInterface, Integer>{
-    /**
-     * <p>findAll</p>
-     *
-     * @param offset a {@link java.lang.Integer} object.
-     * @param limit a {@link java.lang.Integer} object.
-     * @return a {@link java.util.Collection} object.
-     */
     Collection<DataLinkInterface> findAll(Integer offset, Integer limit);
-    /**
-     * <p>findById</p>
-     *
-     * @param id a {@link java.lang.Integer} object.
-     * @return a {@link org.opennms.netmgt.model.DataLinkInterface} object.
-     */
-    DataLinkInterface findById(int id);
-    /**
-     * <p>findByNodeId</p>
-     *
-     * @param nodeId a {@link java.lang.Integer} object.
-     * @return a {@link java.util.Collection} object.
-     */
+
     Collection<DataLinkInterface> findByNodeId(int nodeId);
-    /**
-     * <p>findByNodeParentId</p>
-     *
-     * @param nodeParentId a {@link java.lang.Integer} object.
-     * @return a {@link java.util.Collection} object.
-     */
+
     Collection<DataLinkInterface> findByNodeParentId(int nodeParentId);
 
     void markDeletedIfNodeDeleted();
@@ -83,5 +56,4 @@ public interface DataLinkInterfaceDao extends OnmsDao<DataLinkInterface, Integer
     void setStatusForNode(int nodeid, String source, StatusType action);
 
     void setStatusForNodeAndIfIndex(int nodeid, int ifIndex, String source, StatusType action);
-
 }

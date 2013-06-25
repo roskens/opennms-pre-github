@@ -37,9 +37,14 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.opennms.netmgt.dao.DataLinkInterfaceDao;
 import org.opennms.netmgt.model.DataLinkInterface;
+import org.opennms.netmgt.model.OnmsArpInterface;
 import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
 import org.opennms.netmgt.model.OnmsCriteria;
 import org.springframework.orm.hibernate3.HibernateCallback;
+import org.springframework.orm.jpa.JpaCallback;
+
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaQuery;
 
 public class DataLinkInterfaceDaoHibernate extends AbstractDaoHibernate<DataLinkInterface, Integer> implements DataLinkInterfaceDao {
     public DataLinkInterfaceDaoHibernate() {
@@ -47,17 +52,16 @@ public class DataLinkInterfaceDaoHibernate extends AbstractDaoHibernate<DataLink
     }
 
     /** {@inheritDoc} */
-    @SuppressWarnings("unchecked")
     @Override
     public Collection<DataLinkInterface> findAll(final Integer offset, final Integer limit) {
-        return getHibernateTemplate().execute(new HibernateCallback<Collection<DataLinkInterface>>() {
+        return getJpaTemplate().execute(new JpaCallback<Collection<DataLinkInterface>>() {
 
             @Override
-            public Collection<DataLinkInterface> doInHibernate(Session session) throws HibernateException {
-                return session.createCriteria(DataLinkInterface.class)
-                .setFirstResult(offset)
-                .setMaxResults(limit)
-                .list();
+            public Collection<DataLinkInterface> doInJpa(EntityManager em) {
+            return em.createQuery(em.getCriteriaBuilder().createQuery(DataLinkInterface.class))
+                                .setFirstResult(offset)
+                                .setMaxResults(limit)
+                                .getResultList();
             }
         });
     }
@@ -65,7 +69,10 @@ public class DataLinkInterfaceDaoHibernate extends AbstractDaoHibernate<DataLink
     /** {@inheritDoc} */
     @Override
     public Collection<DataLinkInterface> findByNodeId(final int nodeId) {
-        return find("from DataLinkInterface as dli where dli.node.id = ?", nodeId);
+        return getJpaTemplate().getEntityManager()
+                .createQuery("from DataLinkInterface as dli where dli.node.id = :nodeId")
+                .setParameter("nodeId", nodeId)
+                .getResultList();
     }
 
     /** {@inheritDoc} */
@@ -77,25 +84,21 @@ public class DataLinkInterfaceDaoHibernate extends AbstractDaoHibernate<DataLink
     /** {@inheritDoc} */
     @Override
     public DataLinkInterface findByNodeIdAndIfIndex(final int nodeId, final int ifIndex) {
-        final OnmsCriteria criteria = new OnmsCriteria(DataLinkInterface.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("node.id", nodeId));
-        criteria.add(Restrictions.eq("ifIndex", ifIndex));
-
-        final List<DataLinkInterface> interfaces = findMatching(criteria);
-        if (interfaces.size() > 0) {
-            return interfaces.get(0);
-        }
-        return null;
+        return (DataLinkInterface) getJpaTemplate().getEntityManager()
+                .createQuery("from DataLinkInterface left join node where node.id = :nodeId and ifIndex = :ifIndex")
+                .setParameter("nodeId", nodeId)
+                .setParameter("ifIndex", ifIndex)
+                .setMaxResults(1)
+                .getSingleResult();
     }
 
     @Override
     public void markDeletedIfNodeDeleted() {
-	final OnmsCriteria criteria = new OnmsCriteria(DataLinkInterface.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("node.type", "D"));
-        
-        for (final DataLinkInterface dataLinkIface : findMatching(criteria)) {
+        List<DataLinkInterface> dataLinks = getJpaTemplate().getEntityManager()
+                .createQuery("from DataLinkInterface left join node where node.type = :nodeType")
+                .setParameter("nodeType", "D")
+                .getResultList();
+        for (final DataLinkInterface dataLinkIface : dataLinks) {
         	dataLinkIface.setStatus(StatusType.DELETED);
         	saveOrUpdate(dataLinkIface);
         }
@@ -103,14 +106,13 @@ public class DataLinkInterfaceDaoHibernate extends AbstractDaoHibernate<DataLink
 
     @Override
     public void deactivateIfOlderThan(final Date scanTime, String source) {
-        // UPDATE datalinkinterface set status = 'N'  WHERE lastpolltime < ? AND status = 'A'
-
-        final OnmsCriteria criteria = new OnmsCriteria(DataLinkInterface.class);
-        criteria.add(Restrictions.eq("source",source));
-        criteria.add(Restrictions.lt("lastPollTime", scanTime));
-        criteria.add(Restrictions.eq("status", StatusType.ACTIVE));
-
-        for (final DataLinkInterface iface : findMatching(criteria)) {
+        List<DataLinkInterface> dataLinkInterfaces = getJpaTemplate().getEntityManager()
+                .createQuery("from DataLinkInterface where source = :source and lastPollTime < :lastPollTime and status = :status")
+                .setParameter("source", source)
+                .setParameter("lastPollTime", scanTime)
+                .setParameter("status", StatusType.ACTIVE)
+                .getResultList();
+        for (final DataLinkInterface iface : dataLinkInterfaces) {
             iface.setStatus(StatusType.INACTIVE);
             saveOrUpdate(iface);
         }
@@ -118,93 +120,71 @@ public class DataLinkInterfaceDaoHibernate extends AbstractDaoHibernate<DataLink
 
     @Override
     public void deleteIfOlderThan(final Date scanTime, String source) {
-        // DELETE datalinkinterface WHERE lastpolltime < ? AND status <> 'A'
-
-        final OnmsCriteria criteria = new OnmsCriteria(DataLinkInterface.class);
-        criteria.add(Restrictions.eq("source",source));
-        criteria.add(Restrictions.lt("lastPollTime", scanTime));
-        criteria.add(Restrictions.not(Restrictions.eq("status", StatusType.DELETED)));
-
-        for (final DataLinkInterface iface : findMatching(criteria)) {
+        List<DataLinkInterface> dataLinks = getJpaTemplate().getEntityManager()
+                .createQuery("from DataLinkInterface where source = :source and lastPollTime < :scanTime and status = :status")
+                .setParameter("source", source)
+                .setParameter("scanTime", scanTime)
+                .setParameter("status", StatusType.DELETED)
+                .getResultList();
+        for (final DataLinkInterface iface : dataLinks) {
             delete(iface);
         }
     }
 
 
     @Override
-    public void setStatusForNode(final int nodeid, final StatusType action) {
-        // UPDATE datalinkinterface set status = ? WHERE nodeid = ? OR nodeparentid = ?
-        
-        final OnmsCriteria criteria = new OnmsCriteria(DataLinkInterface.class);
-        criteria.add(Restrictions.or(Restrictions.eq("node.id", nodeid), Restrictions.eq("nodeParentId", nodeid)));
-        
-        for (final DataLinkInterface iface : findMatching(criteria)) {
+    public void setStatusForNode(final int nodeId, final StatusType action) {
+        List<DataLinkInterface> dataLinks = getJpaTemplate().getEntityManager()
+                .createQuery("from DataLinkInterface where node.id = :nodeId or nodeParentId = :nodeId")
+                .setParameter("nodeId", nodeId)
+                .getResultList();
+        for (final DataLinkInterface iface : dataLinks) {
             iface.setStatus(action);
             saveOrUpdate(iface);
         }
     }
 
     @Override
-    public void setStatusForNode(final int nodeid, String source, final StatusType action) {
-        // UPDATE datalinkinterface set status = ? WHERE (nodeid = ? OR nodeparentid = ?) and source = ?
-        
-        final OnmsCriteria criteria = new OnmsCriteria(DataLinkInterface.class);
-        criteria.add(Restrictions.and(Restrictions.eq("source",source),
-        		Restrictions.or(Restrictions.eq("node.id", nodeid), Restrictions.eq("nodeParentId", nodeid))));
-        
-        for (final DataLinkInterface iface : findMatching(criteria)) {
+    public void setStatusForNode(final int nodeId, String source, final StatusType action) {
+        List<DataLinkInterface> dataLinks = getJpaTemplate().getEntityManager()
+                .createQuery("from DataLinkInterface where (" +
+                        "source = :source and (" +
+                        "   node.id = :nodeId or nodeParentId = :nodeId)" +
+                        ")")
+                .setParameter("source", source)
+                .setParameter("nodeId", nodeId)
+                .getResultList();
+        for (final DataLinkInterface iface : dataLinks) {
             iface.setStatus(action);
             saveOrUpdate(iface);
         }
     }
 
     @Override
-    public void setStatusForNodeAndIfIndex(final int nodeid, final int ifIndex, final StatusType action) {
-        // UPDATE datalinkinterface set status = ? WHERE (nodeid = ? and ifindex = ?) OR (nodeparentid = ? AND parentifindex = ?)
-
-        final OnmsCriteria criteria = new OnmsCriteria(DataLinkInterface.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(
-            Restrictions.or(
-                Restrictions.and(
-                    Restrictions.eq("node.id", nodeid),
-                    Restrictions.eq("ifIndex", ifIndex)
-                ),
-                Restrictions.and(
-                    Restrictions.eq("nodeParentId", nodeid),
-                    Restrictions.eq("parentIfIndex", ifIndex)
-                )
-            )
-        );
-        
-        for (final DataLinkInterface iface : findMatching(criteria)) {
+    public void setStatusForNodeAndIfIndex(final int nodeId, final int ifIndex, final StatusType action) {
+        List<DataLinkInterface> dataLinks = getJpaTemplate().getEntityManager()
+                .createQuery("from DataLinkInterface left join node where" +
+                        "(node.id = :nodeId and ifIndex = :ifIndex) or (nodeParentId = :nodeId and parentIfIndex = :ifIndex)")
+                .setParameter("nodeId", nodeId)
+                .setParameter("ifIndex", ifIndex)
+                .getResultList();
+        for (final DataLinkInterface iface : dataLinks) {
             iface.setStatus(action);
             saveOrUpdate(iface);
         }
     }
     
     @Override
-    public void setStatusForNodeAndIfIndex(final int nodeid, final int ifIndex, String source, final StatusType action) {
-
-
-        // UPDATE datalinkinterface set status = ? WHERE source = ? and ((nodeid = ? and ifindex = ?) OR (nodeparentid = ? AND parentifindex = ?))
-
-        final OnmsCriteria criteria = new OnmsCriteria(DataLinkInterface.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.and(Restrictions.eq("source",source),
-            Restrictions.or(
-                Restrictions.and(
-                    Restrictions.eq("node.id", nodeid),
-                    Restrictions.eq("ifIndex", ifIndex)
-                ),
-                Restrictions.and(
-                    Restrictions.eq("nodeParentId", nodeid),
-                    Restrictions.eq("parentIfIndex", ifIndex)
-                )
-            )
-        ));
-        
-        for (final DataLinkInterface iface : findMatching(criteria)) {
+    public void setStatusForNodeAndIfIndex(final int nodeId, final int ifIndex, String source, final StatusType action) {
+        List<DataLinkInterface> dataLinks = getJpaTemplate().getEntityManager()
+                .createQuery("from DataLinkInterface left join node where " +
+                        "source = :source and (" +
+                        "(node.id = :nodeId and ifIndex = :ifIndex) or (nodeParentId = :nodeId and parentIfIndex = :ifIndex))")
+                .setParameter("nodeId", nodeId)
+                .setParameter("ifIndex", ifIndex)
+                .setParameter("source", source)
+                .getResultList();
+        for (final DataLinkInterface iface : dataLinks) {
             iface.setStatus(action);
             saveOrUpdate(iface);
         }
