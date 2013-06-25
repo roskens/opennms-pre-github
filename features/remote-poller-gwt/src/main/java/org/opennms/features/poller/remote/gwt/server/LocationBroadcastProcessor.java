@@ -28,12 +28,11 @@
 
 package org.opennms.features.poller.remote.gwt.server;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 import org.hibernate.criterion.Restrictions;
+import org.opennms.core.criteria.Criteria;
+import org.opennms.core.criteria.CriteriaBuilder;
 import org.opennms.core.utils.BeanUtils;
 import org.opennms.core.utils.LogUtils;
 import org.opennms.features.poller.remote.gwt.client.ApplicationInfo;
@@ -110,9 +109,10 @@ public class LocationBroadcastProcessor implements InitializingBean, DisposableB
             @Override
             public void run() {
                 final Date now = new Date();
-                final OnmsCriteria criteria = new OnmsCriteria(OnmsEvent.class)
-                    .add(Restrictions.between("eventTime", m_lastRun, now))
-                    .add(Restrictions.in("eventUei", m_events));
+
+                Criteria criteria = new CriteriaBuilder(OnmsEvent.class)
+                        .between("eventTime", m_lastRun, now)
+                        .in("eventUei", Arrays.asList(m_events)).toCriteria();
                 for (final OnmsEvent e : m_eventDao.findMatching(criteria)) {
                     handleLocationEvent(e);
                 }

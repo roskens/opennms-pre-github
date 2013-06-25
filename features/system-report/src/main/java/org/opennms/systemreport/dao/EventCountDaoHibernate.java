@@ -40,6 +40,10 @@ import org.opennms.netmgt.dao.hibernate.AbstractDaoHibernate;
 import org.opennms.netmgt.model.OnmsEvent;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.SessionFactoryUtils;
+import org.springframework.orm.jpa.JpaCallback;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceException;
 
 public class EventCountDaoHibernate extends AbstractDaoHibernate<OnmsEvent, Integer> implements EventCountDao {
 
@@ -49,23 +53,25 @@ public class EventCountDaoHibernate extends AbstractDaoHibernate<OnmsEvent, Inte
 
     @Override
     public Set<CountedObject<String>> getUeiCounts(final Integer limit) {
-        Set<CountedObject<String>> ueis = new TreeSet<CountedObject<String>>();
-        JpaCallback<List<CountedObject<String>>> hc = new HibernateCallback<List<CountedObject<String>>>() {
+        final Set<CountedObject<String>> ueis = new TreeSet<CountedObject<String>>();
+        new JpaCallback<Void>() {
+
             @Override
-            public List<CountedObject<String>> doInHibernate(Session session) throws HibernateException {
-                Query queryObject = session.createQuery("SELECT event.eventUei, COUNT(event.eventUei) FROM OnmsEvent event GROUP BY event.eventUei ORDER BY COUNT(event.eventUei) desc");
-                queryObject.setMaxResults(limit);
-                SessionFactoryUtils.applyTransactionTimeout(queryObject, getSessionFactory());
-                List<CountedObject<String>> ueis = new ArrayList<CountedObject<String>>();
-                @SuppressWarnings("unchecked")
-                final List<Object[]> l = queryObject.list();
-                for (final Object[] o : l) {
+            public Void doInJpa(EntityManager em) throws PersistenceException {
+                // FIXME MVR JPA there was a timeout here
+                // SessionFactoryUtils.applyTransactionTimeout(queryObject, getSessionFactory());
+                List<Object[]> resultList = em.createQuery("SELECT event.eventUei, COUNT(event.eventUei) "
+                        + "FROM OnmsEvent event "
+                        + "GROUP BY event.eventUei ORDER BY COUNT(event.eventUei) desc")
+                        .setMaxResults(limit).getResultList();
+
+                for (final Object[] o : resultList) {
                     ueis.add(new CountedObject<String>((String)o[0], (Long)o[1]));
                 }
-                return ueis;
+                return null;
             }
         };
-        ueis.addAll((List<CountedObject<String>>)getHibernateTemplate().executeWithNativeSession(hc));
+        //ueis.addAll((List<CountedObject<String>>)getHibernateTemplate().executeWithNativeSession(hc));
         return ueis;
     }
 

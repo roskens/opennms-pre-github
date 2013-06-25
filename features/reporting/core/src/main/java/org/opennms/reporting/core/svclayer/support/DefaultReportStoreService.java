@@ -32,6 +32,8 @@ import org.hibernate.criterion.Order;
 import org.opennms.api.reporting.ReportException;
 import org.opennms.api.reporting.ReportFormat;
 import org.opennms.api.reporting.ReportService;
+import org.opennms.core.criteria.Criteria;
+import org.opennms.core.criteria.CriteriaBuilder;
 import org.opennms.core.utils.ThreadCategory;
 import org.opennms.features.reporting.model.basicreport.BasicReportDefinition;
 import org.opennms.features.reporting.repository.global.GlobalReportRepository;
@@ -108,9 +110,8 @@ public class DefaultReportStoreService implements ReportStoreService {
      */
     @Override
     public List<ReportCatalogEntry> getAll() {
-        OnmsCriteria onmsCrit = new OnmsCriteria(ReportCatalogEntry.class);
-        onmsCrit.addOrder(Order.desc("date"));
-        return m_reportCatalogDao.findMatching(onmsCrit);
+        Criteria criteria = new CriteriaBuilder(ReportCatalogEntry.class).orderBy("date").toCriteria();
+        return m_reportCatalogDao.findMatching(criteria);
     }
     
     /**
