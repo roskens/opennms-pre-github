@@ -263,6 +263,12 @@
  
   <onmsgi:service interface="org.opennms.netmgt.dao.LocationMonitorDao" ref="locationMonitorDao" />
 
+  <bean id="locationSpecificStatusDao" class="org.opennms.netmgt.dao.hibernate.OnmsLocationSpecificStatusDaoJpa">
+     <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <onmsgi:service interface="org.opennms.netmgt.dao.OnmsLocationSpecificStatusDao" ref="locationSpecificStatusDao" />
+
   <bean id="surveillanceViewConfigResourceLocation" class="java.lang.String">
     <constructor-arg value="file:${opennms.home}/etc/surveillance-views.xml" />
   </bean>

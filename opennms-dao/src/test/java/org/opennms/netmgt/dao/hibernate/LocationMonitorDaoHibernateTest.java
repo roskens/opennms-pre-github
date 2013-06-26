@@ -50,6 +50,7 @@ import org.opennms.core.xml.MarshallingResourceFailureException;
 import org.opennms.netmgt.dao.DatabasePopulator;
 import org.opennms.netmgt.dao.LocationMonitorDao;
 import org.opennms.netmgt.dao.NodeDao;
+import org.opennms.netmgt.dao.OnmsLocationSpecificStatusDao;
 import org.opennms.netmgt.model.LocationMonitorIpInterface;
 import org.opennms.netmgt.model.OnmsLocationMonitor;
 import org.opennms.netmgt.model.OnmsLocationSpecificStatus;
@@ -79,7 +80,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class LocationMonitorDaoHibernateTest implements InitializingBean {
 	@Autowired
 	private LocationMonitorDao m_locationMonitorDao;
-	
+
+    private OnmsLocationSpecificStatusDao m_locStatusDao;
+
 	@Autowired
 	private NodeDao m_nodeDao;
 
@@ -231,7 +234,7 @@ public class LocationMonitorDaoHibernateTest implements InitializingBean {
             status.setLocationMonitor(monitor);
             status.setMonitoredService(service);
             status.setPollResult(PollStatus.available());
-            m_locationMonitorDao.saveStatusChange(status);
+            m_locStatusDao.save(status);
             //System.err.println("Adding status for " + status.getMonitoredService() + " from " + status.getLocationMonitor().getId());
         }
     }
