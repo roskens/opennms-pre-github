@@ -29,6 +29,7 @@
 package org.opennms.netmgt.dao;
 
 import org.opennms.netmgt.model.OnmsApplication;
+import org.opennms.netmgt.model.OnmsMonitoredService;
 
 /**
  * <p>ApplicationDao interface.</p>

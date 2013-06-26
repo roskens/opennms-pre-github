@@ -86,7 +86,12 @@ public class MonitoredServiceDaoHibernate extends AbstractDaoHibernate<OnmsMonit
 	                     nodeId, PrimaryType.PRIMARY, svcName);
 	}
 
-	/** {@inheritDoc} */
+    @Override
+    public void fetchInterfaceAndNode(OnmsMonitoredService service) {
+        service.getIpInterface().getNode();
+    }
+
+    /** {@inheritDoc} */
 	@Override
 	public OnmsMonitoredService get(Integer nodeId, String ipAddr, Integer ifIndex, Integer serviceId) {
 		return findUnique("from OnmsMonitoredService as svc " +
@@ -130,12 +135,6 @@ public class MonitoredServiceDaoHibernate extends AbstractDaoHibernate<OnmsMonit
         		"left join fetch ip.node as node " +
         		"left join fetch node.assetRecord " +
         		"where (svc.status is null or svc.status not in ('F','U','D'))");
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public Set<OnmsMonitoredService> findByApplication(OnmsApplication application) {
-        return application.getMonitoredServices();
     }
 
 }
