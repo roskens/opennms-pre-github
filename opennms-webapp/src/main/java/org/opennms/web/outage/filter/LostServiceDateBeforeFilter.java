@@ -49,7 +49,7 @@ public class LostServiceDateBeforeFilter extends LessThanFilter<Date> {
      * @param date a java$util$Date object.
      */
     public LostServiceDateBeforeFilter(Date date) {
-        super(TYPE, SQLType.DATE, "OUTAGES.IFLOSTSERVICE", "ifLostService", date);
+        super(TYPE, "ifLostService", date);
     }
 
     /**

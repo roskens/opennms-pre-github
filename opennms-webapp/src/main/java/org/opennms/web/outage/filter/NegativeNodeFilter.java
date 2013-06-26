@@ -54,7 +54,7 @@ public class NegativeNodeFilter extends NotEqualOrNullFilter<Integer> {
      * @param nodeId a int.
      */
     public NegativeNodeFilter(int nodeId, ServletContext servletContext) {
-        super(TYPE, SQLType.INT, "OUTAGES.NODEID", "node.id", nodeId);
+        super(TYPE, "node.id", nodeId);
         m_servletContext = servletContext;
     }
 

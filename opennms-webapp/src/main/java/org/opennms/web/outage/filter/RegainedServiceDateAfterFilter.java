@@ -49,7 +49,7 @@ public class RegainedServiceDateAfterFilter extends GreaterThanFilter<Date> {
      * @param date a {@link java.util.Date} object.
      */
     public RegainedServiceDateAfterFilter(Date date) {
-        super(TYPE, SQLType.DATE, "OUTAGES.IFREGAINEDSERVICE", "ifRegainedService", date);
+        super(TYPE, "ifRegainedService", date);
     }
 
     /**

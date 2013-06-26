@@ -51,7 +51,7 @@ public class NodeFilter extends EqualsFilter<Integer> {
      * @param nodeId a int.
      */
     public NodeFilter(int nodeId, ServletContext servletContext) {
-        super(TYPE, SQLType.INT, "OUTAGES.NODEID", "node.id", nodeId);
+        super(TYPE, "node.id", nodeId);
         m_servletContext = servletContext;
     }
 

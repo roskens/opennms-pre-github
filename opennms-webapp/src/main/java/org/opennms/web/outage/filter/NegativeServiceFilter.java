@@ -50,7 +50,7 @@ public class NegativeServiceFilter extends NotEqualOrNullFilter<Integer> {
      * @param serviceId a int.
      */
     public NegativeServiceFilter(int serviceId) {
-        super(TYPE, SQLType.INT, "OUTAGES.SERVICEID", "serviceType.id", serviceId);
+        super(TYPE, "serviceType.id", serviceId);
     }
 
     /**

@@ -83,5 +83,11 @@ public class Whatever {
 //        return Restrictions.ilike(getPropertyName(), getValue(), MatchMode.ANYWHERE);
 //    }
 
+     // RecentOutageFilter
+    /** {@inheritDoc} */
+    //@Override
+    //public Criterion getCriterion() {
+    //    return Restrictions.or(Restrictions.gt(getPropertyName(), getValue()), Restrictions.isNull(getPropertyName()));
+    //}
 
 }

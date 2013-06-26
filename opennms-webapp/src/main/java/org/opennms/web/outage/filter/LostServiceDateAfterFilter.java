@@ -43,13 +43,8 @@ public class LostServiceDateAfterFilter extends GreaterThanFilter<Date> {
     /** Constant <code>TYPE="lostafter"</code> */
     public static final String TYPE = "lostafter";
 
-    /**
-     * <p>Constructor for LostServiceDateAfterFilter.</p>
-     *
-     * @param date a java$util$Date object.
-     */
     public LostServiceDateAfterFilter(Date date) {
-        super(TYPE, SQLType.DATE, "OUTAGES.IFLOSTSERVICE", "ifLostService", date);
+        super(TYPE, "ifLostService", date);
     }
 
     /**
@@ -79,15 +74,6 @@ public class LostServiceDateAfterFilter extends GreaterThanFilter<Date> {
     @Override
     public String toString() {
         return ("<Lost Service Date After Filter: " + this.getDescription() + ">");
-    }
-
-    /**
-     * <p>getDate</p>
-     *
-     * @return a java$util$Date object.
-     */
-    public Date getDate() {
-        return getValue();
     }
 
     /** {@inheritDoc} */

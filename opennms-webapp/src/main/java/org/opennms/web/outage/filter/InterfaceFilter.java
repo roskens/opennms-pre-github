@@ -41,13 +41,8 @@ public class InterfaceFilter extends EqualsFilter<String> {
     /** Constant <code>TYPE="intf"</code> */
     public static final String TYPE = "intf";
 
-    /**
-     * <p>Constructor for InterfaceFilter.</p>
-     *
-     * @param ipAddress a {@link java.lang.String} object.
-     */
     public InterfaceFilter(String ipAddress) {
-        super(TYPE, SQLType.STRING, "OUTAGES.IPADDR", "ipInterface.ipAddress", ipAddress);
+        super(TYPE, "ipInterface.ipAddress", ipAddress);
     }
 
     /**
@@ -58,15 +53,6 @@ public class InterfaceFilter extends EqualsFilter<String> {
     @Override
     public String toString() {
         return ("<InterfaceFilter: " + this.getDescription() + ">");
-    }
-
-    /**
-     * <p>getIpAddress</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    public String getIpAddress() {
-        return getValue();
     }
 
     /** {@inheritDoc} */

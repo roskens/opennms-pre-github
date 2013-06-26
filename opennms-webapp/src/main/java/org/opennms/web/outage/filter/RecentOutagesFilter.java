@@ -62,17 +62,11 @@ public class RecentOutagesFilter extends OneArgFilter<Date> {
     public RecentOutagesFilter(Date since) {
         super(TYPE, "ifRegainedService", since);
     }
-    
-    /** {@inheritDoc} */
-    @Override
-    public Criterion getCriterion() {
-        return Restrictions.or(Restrictions.gt(getPropertyName(), getValue()), Restrictions.isNull(getPropertyName()));
-    }
 
     /** {@inheritDoc} */
     @Override
     public String getTextDescription() {
-        return "outage since " + getValueAsString(getValue());
+        return "outage since " + getValue();
     }
     
     /**
