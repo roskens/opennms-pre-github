@@ -28,8 +28,8 @@
 
 package org.opennms.web.outage;
 
+import org.opennms.core.criteria.Criteria;
 import org.opennms.netmgt.model.outage.OutageSummary;
-import org.opennms.web.filter.outage.OutageCriteria;
 
 /**
  * <p>WebOutageRepository interface.</p>
@@ -46,7 +46,7 @@ public interface WebOutageRepository {
      * @param criteria a {@link org.opennms.web.filter.outage.OutageCriteria} object.
      * @return a int.
      */
-    public abstract int countMatchingOutages(OutageCriteria criteria);
+    public abstract int countMatchingOutages(Criteria criteria);
 
     /**
      * <p>getOutage</p>
@@ -62,7 +62,7 @@ public interface WebOutageRepository {
      * @param criteria a {@link org.opennms.web.filter.outage.OutageCriteria} object.
      * @return an array of {@link org.opennms.web.outage.Outage} objects.
      */
-    public abstract Outage[] getMatchingOutages(OutageCriteria criteria);
+    public abstract Outage[] getMatchingOutages(Criteria criteria);
 
     /**
      * <p>countMatchingOutageSummaries</p>
@@ -70,7 +70,7 @@ public interface WebOutageRepository {
      * @param criteria a {@link org.opennms.web.filter.outage.OutageCriteria} object.
      * @return a int.
      */
-    public abstract int countMatchingOutageSummaries(OutageCriteria criteria);
+    public abstract int countMatchingOutageSummaries(Criteria criteria);
 
     /**
      * <p>getMatchingOutageSummaries</p>
@@ -78,7 +78,7 @@ public interface WebOutageRepository {
      * @param criteria a {@link org.opennms.web.filter.outage.OutageCriteria} object.
      * @return an array of {@link org.opennms.netmgt.model.outage.OutageSummary} objects.
      */
-    public abstract OutageSummary[] getMatchingOutageSummaries(OutageCriteria criteria);
+    public abstract OutageSummary[] getMatchingOutageSummaries(Criteria criteria);
 
     /**
      * Count the current number of nodes with outages.

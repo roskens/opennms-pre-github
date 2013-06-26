@@ -78,6 +78,7 @@ public class InterfaceOutagesController extends AbstractController implements In
             filters.add(new NodeFilter(nodeId, getServletContext()));
             filters.add(new RecentOutagesFilter());
 
+
             OutageCriteria criteria = new OutageCriteria(filters.toArray(new Filter[0]), SortStyle.ID, null, -1, -1);
             outages = m_webOutageRepository.getMatchingOutages(criteria);
         }

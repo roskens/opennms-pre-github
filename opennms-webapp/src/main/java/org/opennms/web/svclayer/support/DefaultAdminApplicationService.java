@@ -47,8 +47,7 @@ import org.opennms.web.svclayer.AdminApplicationService;
  * @version $Id: $
  * @since 1.8.1
  */
-public class DefaultAdminApplicationService implements
-        AdminApplicationService {
+public class DefaultAdminApplicationService implements AdminApplicationService {
     
     private ApplicationDao m_applicationDao;
     private MonitoredServiceDao m_monitoredServiceDao;

@@ -38,20 +38,18 @@ import java.util.StringTokenizer;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
+import org.opennms.core.criteria.Alias;
 import org.opennms.core.utils.WebSecurityUtils;
+import org.opennms.netmgt.model.OnmsCriteria;
+import org.opennms.netmgt.model.OnmsOutage;
 import org.opennms.web.api.Util;
 import org.opennms.web.filter.Filter;
-import org.opennms.web.filter.outage.InterfaceFilter;
-import org.opennms.web.filter.outage.LostServiceDateAfterFilter;
-import org.opennms.web.filter.outage.LostServiceDateBeforeFilter;
-import org.opennms.web.filter.outage.NegativeInterfaceFilter;
-import org.opennms.web.filter.outage.NegativeNodeFilter;
-import org.opennms.web.filter.outage.NegativeServiceFilter;
-import org.opennms.web.filter.outage.NodeFilter;
-import org.opennms.web.filter.outage.OutageIdFilter;
-import org.opennms.web.filter.outage.RegainedServiceDateAfterFilter;
-import org.opennms.web.filter.outage.RegainedServiceDateBeforeFilter;
-import org.opennms.web.filter.outage.ServiceFilter;
+import org.opennms.web.filter.NotNullFilter;
+import org.opennms.web.filter.NullFilter;
+import org.opennms.web.filter.SearchParameter;
+import org.opennms.web.filter.outage.*;
 
 /**
  * <p>Abstract OutageUtil class.</p>
@@ -66,6 +64,20 @@ public abstract class OutageUtil extends Object {
 
     /** Constant <code>FILTER_SERVLET_URL_BASE="outage/list.htm"</code> */
     public static final String FILTER_SERVLET_URL_BASE = "outage/list.htm";
+
+
+    public static SearchParameter getSearchParameter(Filter[] filters, OutageType outageType) {
+        SearchParameter parameter = new SearchParameter(OnmsOutage.class, filters);
+        parameter.addAlias("monitoredService", "monitoredService", Alias.JoinType.LEFT_JOIN);
+        parameter.addAlias("monitoredService.ipInterface", "ipInterface", Alias.JoinType.LEFT_JOIN);
+        parameter.addAlias("monitoredService.ipInterface.node", "node", Alias.JoinType.LEFT_JOIN);
+        parameter.addAlias("monitoredService.serviceType", "serviceType", Alias.JoinType.LEFT_JOIN);
+
+        if (OutageType.CURRENT.equals(outageType)) parameter.addFilter(new NullFilter("ifRegainedService"));
+        if (OutageType.RESOLVED.equals(outageType)) parameter.addFilter(new NotNullFilter("ifRegainedService"));
+
+        return parameter;
+    }
 
     /**
      * <p>getFilter</p>
