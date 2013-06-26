@@ -39,6 +39,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import javax.persistence.NoResultException;
 import javax.servlet.ServletContext;
 
 import org.hibernate.Criteria;
@@ -178,16 +179,10 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
 	 */
     @Override
     public String getNodeLabel(int nodeId) {
-        OnmsCriteria criteria = new OnmsCriteria(OnmsNode.class);
-        criteria.add(Restrictions.eq("id", nodeId));
-        List<OnmsNode> nodes = m_nodeDao.findMatching(criteria);
-        
-        if(nodes.size() > 0) {
-            OnmsNode node = nodes.get(0);
-            return node.getLabel();
-        }else {
-            return null;
-        }
+        OnmsNode onmsNode = getNode(nodeId);
+        if(onmsNode != null)
+            return onmsNode.getLabel();
+        return null;
     }
 
     /* (non-Javadoc)
@@ -196,7 +191,9 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
     @Override
     public String getIpPrimaryAddress(int nodeId) {
         OnmsCriteria criteria = new OnmsCriteria(OnmsIpInterface.class);
-        criteria.add(Restrictions.and(Restrictions.eq("node.id", nodeId), Restrictions.eq("isSnmpPrimary", PrimaryType.PRIMARY)));
+        criteria.add(Restrictions.and(
+                Restrictions.eq("node.id", nodeId),
+                Restrictions.eq("isSnmpPrimary", PrimaryType.PRIMARY)));
         
         List<OnmsIpInterface> ifaces = m_ipInterfaceDao.findMatching(criteria);
         
@@ -213,14 +210,9 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
 	 */
     @Override
     public OnmsNode getNode(int nodeId) {
-        OnmsCriteria criteria = new OnmsCriteria(OnmsNode.class);
-        criteria.add(Restrictions.eq("id",nodeId));
-        
-        List<OnmsNode> nodes = m_nodeDao.findMatching(criteria);
-        if(nodes.size() > 0 ) {
-            OnmsNode onmsNode = nodes.get(0);
-            return onmsNode;
-        }else {
+        try {
+            return m_nodeDao.get(nodeId);
+        } catch (NoResultException e) {
             return null;
         }
 
@@ -239,19 +231,6 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
     }
     
     /* (non-Javadoc)
-	 * @see org.opennms.web.element.NetworkElementFactoryInterface#getNodesLike(java.lang.String)
-	 */
-    @Override
-    public List<OnmsNode> getNodesLike(String nodeLabel) {
-        OnmsCriteria criteria = new OnmsCriteria(OnmsNode.class);
-        criteria.createAlias("assetRecord", "assetRecord");
-        criteria.add(Restrictions.and(Restrictions.ilike("label", nodeLabel, MatchMode.ANYWHERE), Restrictions.or(Restrictions.isNull("type"), Restrictions.ne("type", "D"))));
-        criteria.addOrder(Order.asc("label"));
-        
-        return m_nodeDao.findMatching(criteria);
-    }
-
-    /* (non-Javadoc)
 	 * @see org.opennms.web.element.NetworkElementFactoryInterface#getNodesWithIpLike(java.lang.String)
 	 */
     @Override
@@ -269,106 +248,6 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
         
         
         return m_nodeDao.findMatching(nodeCrit);
-    }
-
-    /* (non-Javadoc)
-	 * @see org.opennms.web.element.NetworkElementFactoryInterface#getNodesWithService(int)
-	 */
-    @Override
-    public List<OnmsNode> getNodesWithService(int serviceId) {
-        OnmsCriteria criteria = new OnmsCriteria(OnmsNode.class);
-        criteria.createAlias("assetRecord", "assetRecord");
-        criteria.createAlias("ipInterfaces", "iface");
-        criteria.createAlias("iface.monitoredServices", "svc");
-        criteria.createAlias("svc.serviceType", "svcType").add(Restrictions.eq("svcType.id", serviceId));
-        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-        
-        return m_nodeDao.findMatching(criteria);
-    }
-
-    /* (non-Javadoc)
-	 * @see org.opennms.web.element.NetworkElementFactoryInterface#getNodesWithPhysAddr(java.lang.String)
-	 */
-    @Override
-    public List<OnmsNode> getNodesWithPhysAddr(String macAddr) {
-        OnmsCriteria criteria = new OnmsCriteria(OnmsNode.class);
-        criteria.createAlias("assetRecord", "assetRecord");
-        criteria.createAlias("snmpInterfaces", "snmpIfaces", OnmsCriteria.LEFT_JOIN);
-        criteria.createAlias("arpInterfaces", "arpIfaces", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.ne("type", "D"));
-        criteria.add(
-                Restrictions.or(
-                        Restrictions.ilike("snmpIfaces.physAddr", macAddr, MatchMode.ANYWHERE),
-                        Restrictions.ilike("arpIfaces.physAddr", macAddr, MatchMode.ANYWHERE))
-                );
-        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-        criteria.addOrder(Order.asc("label"));
-        
-        return m_nodeDao.findMatching(criteria);
-    }
-
-    /* (non-Javadoc)
-	 * @see org.opennms.web.element.NetworkElementFactoryInterface#getNodesWithPhysAddrAtInterface(java.lang.String)
-	 */
-    @Override
-    public List<OnmsNode> getNodesWithPhysAddrAtInterface(String macAddr) {
-        OnmsCriteria criteria = new OnmsCriteria(OnmsNode.class);
-        criteria.createAlias("arpInterfaces", "arpIfaces");
-        criteria.add(Restrictions.ne("type", "D"));
-        criteria.add(Restrictions.ilike("arpIfaces.physAddr", macAddr, MatchMode.ANYWHERE));
-        criteria.addOrder(Order.asc("label"));
-        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-        
-        return m_nodeDao.findMatching(criteria);
-    }
-
-    /* (non-Javadoc)
-	 * @see org.opennms.web.element.NetworkElementFactoryInterface#getNodesWithPhysAddrFromSnmpInterface(java.lang.String)
-	 */
-    @Override
-    public List<OnmsNode> getNodesWithPhysAddrFromSnmpInterface(String macAddr) {
-        OnmsCriteria criteria = new OnmsCriteria(OnmsNode.class);
-        criteria.createAlias("snmpInterfaces", "snmpIface");
-        criteria.add(Restrictions.ne("type", "D"));
-        criteria.add(Restrictions.ilike("snmpIface.physAddr", macAddr, MatchMode.ANYWHERE));
-        criteria.addOrder(Order.asc("label"));
-        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-        
-        return m_nodeDao.findMatching(criteria);
-    }
-
-    /* (non-Javadoc)
-	 * @see org.opennms.web.element.NetworkElementFactoryInterface#getNodesWithIfAlias(java.lang.String)
-	 */
-    @Override
-    public List<OnmsNode> getNodesWithIfAlias(String ifAlias) {
-        OnmsCriteria criteria = new OnmsCriteria(OnmsNode.class);
-        criteria.createAlias("snmpInterfaces", "snmpIface");
-        criteria.add(Restrictions.ne("type", "D"));
-        criteria.add(Restrictions.ilike("snmpIface.ifAlias", ifAlias, MatchMode.ANYWHERE));
-        criteria.addOrder(Order.asc("label"));
-        
-        return m_nodeDao.findMatching(criteria);
-    }
-
-    /* (non-Javadoc)
-	 * @see org.opennms.web.element.NetworkElementFactoryInterface#getHostname(java.lang.String)
-	 */
-    @Override
-    public String getHostname(String ipAddress) {
-        OnmsCriteria criteria = new OnmsCriteria(OnmsIpInterface.class);
-        criteria.add(Restrictions.eq("ipAddress", InetAddressUtils.addr(ipAddress)));
-        criteria.add(Restrictions.isNotNull("ipHostName"));
-        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-        
-        List<OnmsIpInterface> ipIfaces = m_ipInterfaceDao.findMatching(criteria);
-        
-        if(ipIfaces.size() > 0) {
-            OnmsIpInterface iface = ipIfaces.get(0);
-            return iface.getIpHostName();
-        }
-        
-        return null;
     }
 
     @Override
@@ -421,37 +300,11 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
     }
 
     /* (non-Javadoc)
-	 * @see org.opennms.web.element.NetworkElementFactoryInterface#getInterface(int, java.lang.String, int)
-	 */
-    @Override
-    public Interface getInterface(int nodeId, String ipAddress, int ifIndex) {
-        OnmsCriteria criteria = new OnmsCriteria(OnmsIpInterface.class);
-        criteria.createAlias("node", "node");
-        criteria.createAlias("snmpInterface", "snmpIface");
-        criteria.add(Restrictions.eq("node.id", nodeId));
-        criteria.add(Restrictions.eq("ipAddress", InetAddressUtils.addr(ipAddress)));
-        criteria.add(Restrictions.eq("snmpIface.ifIndex", ifIndex));
-
-        List<OnmsIpInterface> ifaces = m_ipInterfaceDao.findMatching(criteria);
-        
-        return ifaces.size() > 0 ? new Interface(ifaces.get(0)) : null;
-    }
-
-    /* (non-Javadoc)
 	 * @see org.opennms.web.element.NetworkElementFactoryInterface#getSnmpInterface(int, int)
 	 */
     @Override
     public Interface getSnmpInterface(int nodeId, int ifIndex) {
-        OnmsCriteria criteria  = new OnmsCriteria(OnmsSnmpInterface.class);
-        criteria.createAlias("node", "node");
-        criteria.add(Restrictions.eq("node.id", nodeId));
-        criteria.add(Restrictions.eq("ifIndex", ifIndex));
-        
-        List<OnmsSnmpInterface> snmpIfaces = m_snmpInterfaceDao.findMatching(criteria);
-        if(snmpIfaces.size() > 0) {
-            return new Interface(snmpIfaces.get(0));
-        }
-        return null;
+        return new Interface(m_snmpInterfaceDao.findByNodeIdAndIfIndex(nodeId, ifIndex));
     }
     
 
@@ -463,67 +316,10 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
         OnmsCriteria criteria = new OnmsCriteria(OnmsIpInterface.class);
         criteria.createAlias("snmpInterface", "snmpInterface", OnmsCriteria.LEFT_JOIN);
         criteria.add(Restrictions.eq("ipAddress", InetAddressUtils.addr(ipAddress)));
-        
+
         return getInterfaceArray(m_ipInterfaceDao.findMatching(criteria));
     }
 
-    
-
-    /* (non-Javadoc)
-	 * @see org.opennms.web.element.NetworkElementFactoryInterface#getInterfacesWithIfAlias(int, java.lang.String)
-	 */
-    @Override
-    public Interface[] getInterfacesWithIfAlias(int nodeId, String ifAlias) {
-        
-        OnmsCriteria criteria = new OnmsCriteria(OnmsIpInterface.class);
-        criteria.createAlias("node", "node");
-        criteria.createAlias("snmpInterface", "snmpIface");
-        criteria.createAlias("node.assetRecord", "assetRecord");
-        criteria.add(Restrictions.eq("node.id", nodeId));
-        criteria.add(Restrictions.ilike("snmpIface.ifAlias", ifAlias, MatchMode.ANYWHERE));
-        criteria.add(Restrictions.ne("isManaged", "D"));
-        
-        return getInterfaceArray(m_ipInterfaceDao.findMatching(criteria));
-    }
-
-    /* (non-Javadoc)
-	 * @see org.opennms.web.element.NetworkElementFactoryInterface#getAllInterfacesOnNode(int)
-	 */
-    @Override
-    public Interface[] getAllInterfacesOnNode(int nodeId) {
-        OnmsCriteria criteria = new OnmsCriteria(OnmsIpInterface.class);
-        criteria.createAlias("node", "node");
-        criteria.createAlias("snmpInterface", "snmpIface");
-        criteria.createAlias("node.assetRecord", "assetRecord");
-        criteria.add(Restrictions.eq("node.id", nodeId));
-        
-        return getInterfaceArray(m_ipInterfaceDao.findMatching(criteria));
-    }
-
-    /* (non-Javadoc)
-	 * @see org.opennms.web.element.NetworkElementFactoryInterface#getAllSnmpInterfacesOnNode(int)
-	 */
-    @Override
-    public Interface[] getAllSnmpInterfacesOnNode(int nodeId) {
-        OnmsCriteria criteria = new OnmsCriteria(OnmsSnmpInterface.class);
-        criteria.createAlias("node", "node");
-        criteria.add(Restrictions.eq("node.id", nodeId));
-        criteria.addOrder(Order.asc("ifIndex"));
-        
-        return onmsSnmpInterfaces2InterfaceArray(m_snmpInterfaceDao.findMatching(criteria));
-    }
-
-    private Interface[] onmsSnmpInterfaces2InterfaceArray(
-            List<OnmsSnmpInterface> snmpIfaces) {
-        List<Interface> intfs = new LinkedList<Interface>();
-        
-        for(OnmsSnmpInterface snmpIface : snmpIfaces) {
-            intfs.add(new Interface(snmpIface));
-        }
-        
-        return intfs.toArray(new Interface[intfs.size()]);
-    }
-    
     /* (non-Javadoc)
 	 * @see org.opennms.web.element.NetworkElementFactoryInterface#getActiveInterfacesOnNode(int)
 	 */
@@ -533,19 +329,8 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
         criteria.createAlias("node", "node");
         criteria.add(Restrictions.eq("node.id", nodeId));
         criteria.add(Restrictions.ne("isManaged", "D"));
-        
-        return getInterfaceArray(m_ipInterfaceDao.findMatching(criteria));
-    }
 
-    /*
-     * Returns all interfaces, including their SNMP information
-     */
-    /* (non-Javadoc)
-	 * @see org.opennms.web.element.NetworkElementFactoryInterface#getAllInterfaces()
-	 */
-    @Override
-    public Interface[] getAllInterfaces() {
-        return getAllInterfaces(true);
+        return getInterfaceArray(m_ipInterfaceDao.findMatching(criteria));
     }
 
     /*
@@ -641,17 +426,6 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
         
         
     }
-    
-
-    /* (non-Javadoc)
-	 * @see org.opennms.web.element.NetworkElementFactoryInterface#getAllServices()
-	 */
-    @Override
-    public Service[] getAllServices() {
-        return getServiceArray(m_monSvcDao.findAll());
-    }
-
-    
 
     /* (non-Javadoc)
 	 * @see org.opennms.web.element.NetworkElementFactoryInterface#getServicesOnInterface(int, java.lang.String)
@@ -749,18 +523,6 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
     }
 
     /* (non-Javadoc)
-	 * @see org.opennms.web.element.NetworkElementFactoryInterface#getServiceIdToNameMap()
-	 */
-    @Override
-    public Map<Integer, String> getServiceIdToNameMap(){
-        Map<Integer,String> serviceMap = new HashMap<Integer,String>();
-        for (OnmsServiceType type : m_serviceTypeDao.findAll()) {
-            serviceMap.put(type.getId(), type.getName());
-        }
-        return serviceMap;
-    }
-
-    /* (non-Javadoc)
 	 * @see org.opennms.web.element.NetworkElementFactoryInterface#getServiceNameToIdMap()
 	 */
     @Override
@@ -770,72 +532,6 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
             serviceMap.put(type.getName(), type.getId());
         }
         return serviceMap;
-    }
-
-    /* (non-Javadoc)
-	 * @see org.opennms.web.element.NetworkElementFactoryInterface#getNodesLikeAndIpLike(java.lang.String, java.lang.String, int)
-	 */
-    @Override
-    public List<OnmsNode> getNodesLikeAndIpLike(String nodeLabel, String iplike, int serviceId) {
-        if (nodeLabel == null) {
-            throw new IllegalArgumentException("Cannot take null parameters.");
-        }
-        OnmsCriteria nodeCrit = new OnmsCriteria(OnmsNode.class);
-        nodeCrit.createAlias("assetRecord", "assetRecord");
-        nodeCrit.add(Restrictions.ilike("label", nodeLabel));
-        nodeCrit.createCriteria("ipInterfaces")
-            .add(OnmsRestrictions.ipLike(iplike))
-            .createAlias("monitoredServices", "monSvcs")
-            .createAlias("monSvcs.serviceType", "serviceType")
-            .add(Restrictions.eq("serviceType.id", serviceId));
-        nodeCrit.addOrder(Order.asc("label"));
-        
-        return m_nodeDao.findMatching(nodeCrit);
-    }
-
-    /* (non-Javadoc)
-	 * @see org.opennms.web.element.NetworkElementFactoryInterface#getNodesLike(java.lang.String, int)
-	 */
-    @Override
-    public List<OnmsNode> getNodesLike(String nodeLabel, int serviceId) {
-        if (nodeLabel == null) {
-            throw new IllegalArgumentException("Cannot take null parameters.");
-        }
-        OnmsCriteria criteria = new OnmsCriteria(OnmsNode.class);
-        criteria.createAlias("assetRecord", "assetRecord");
-        criteria.createAlias("ipInterfaces", "iface");
-        criteria.createAlias("iface.monitoredServices", "monSvcs");
-        criteria.createAlias("monSvcs.serviceType", "serviceType");
-        criteria.add(Restrictions.ilike("label", nodeLabel, MatchMode.ANYWHERE));
-        criteria.add(Restrictions.eq("serviceType.id", serviceId));
-        criteria.add(Restrictions.ne("type", "D"));
-        criteria.addOrder(Order.asc("label"));
-        
-        return m_nodeDao.findMatching(criteria);
-    }
-
-    /* (non-Javadoc)
-	 * @see org.opennms.web.element.NetworkElementFactoryInterface#getNodesWithIpLike(java.lang.String, int)
-	 */
-    @Override
-    public List<OnmsNode> getNodesWithIpLike(String iplike, int serviceId) {
-        if (iplike == null) {
-            throw new IllegalArgumentException("Cannot take null parameters.");
-        }
-
-        OnmsCriteria nodeCrit = new OnmsCriteria(OnmsNode.class);
-        nodeCrit.createAlias("assetRecord", "assetRecord");
-        nodeCrit.createCriteria("ipInterfaces", "iface")
-            .createAlias("monitoredServices", "monSvcs")
-            .createAlias("monSvcs.serviceType", "serviceType")
-            .add(OnmsRestrictions.ipLike(iplike))
-            .add(Restrictions.eq("serviceType.id", serviceId));
-        nodeCrit.add(Restrictions.ne("type", "D"));
-        nodeCrit.addOrder(Order.asc("label"));
-        nodeCrit.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-        
-        
-        return m_nodeDao.findMatching(nodeCrit);
     }
 
     /* (non-Javadoc)
@@ -908,7 +604,10 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
     @Override
     public IpRouteInterface[] getIpRoute(int nodeID) {
         OnmsCriteria criteria = new OnmsCriteria(OnmsIpRouteInterface.class);
-        criteria.add(Restrictions.and(Restrictions.eq("node.id", nodeID), Restrictions.ne("status", StatusType.DELETED)));
+        criteria.add(
+                Restrictions.and(
+                        Restrictions.eq("node.id", nodeID),
+                        Restrictions.ne("status", StatusType.DELETED)));
         List<IpRouteInterface> nodes = getIpRouteInterfaceArray(m_ipRouteInterfaceDao.findMatching(criteria));
         return nodes.toArray(new IpRouteInterface[nodes.size()]);
     }
@@ -919,21 +618,6 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
             routes.add(new IpRouteInterface(iproute));
         }
         return routes;
-    }
-
-    /* (non-Javadoc)
-	 * @see org.opennms.web.element.NetworkElementFactoryInterface#isParentNode(int)
-	 */
-    @Override
-    public boolean isParentNode(int nodeId) {
-        OnmsCriteria criteria = new OnmsCriteria(DataLinkInterface.class);
-        criteria.add(Restrictions.eq("nodeParentId", nodeId));
-        criteria.add(Restrictions.ne("status", StatusType.DELETED));
-        
-        int count = m_dataLinkInterfaceDao.countMatching(criteria);
-        
-        return (count > 0);
-        
     }
 
     /**
@@ -1114,30 +798,30 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
     }
 	
     private Interface getInterfaceForLink(int nodeid, int ifindex) {
-	Interface iface = null;
-	if (ifindex > 0 ) {
-	    iface = getSnmpInterface(nodeid, ifindex);	
-	    OnmsCriteria criteria = new OnmsCriteria(OnmsIpInterface.class); 
-	    criteria.add(Restrictions.sqlRestriction("nodeid = " + nodeid + " and ifindex = " + ifindex ));
-	    List<String> addresses = new ArrayList<String>();
-			
-	    for (OnmsIpInterface onmsIpInterface : m_ipInterfaceDao.findMatching(criteria)) {
-	        addresses.add(onmsIpInterface.getIpAddress().getHostAddress());
-	    }
-			
-	    if (addresses.size() > 0 ) {
-		if (iface ==  null) {
-		    iface = new Interface();
-		    iface.m_nodeId = nodeid;
-		    iface.m_ifIndex = ifindex;
-		}
-		iface.setIpaddresses(addresses);
-	    } else {
-	        if (iface != null)
-	            iface.setIpaddresses(addresses);					
-	    }
-	} 
-	return iface;
+        Interface iface = null;
+        if (ifindex > 0 ) {
+            iface = getSnmpInterface(nodeid, ifindex);
+            OnmsCriteria criteria = new OnmsCriteria(OnmsIpInterface.class);
+            criteria.add(Restrictions.sqlRestriction("nodeid = " + nodeid + " and ifindex = " + ifindex ));
+            List<String> addresses = new ArrayList<String>();
+
+            for (OnmsIpInterface onmsIpInterface : m_ipInterfaceDao.findMatching(criteria)) {
+                addresses.add(onmsIpInterface.getIpAddress().getHostAddress());
+            }
+
+            if (addresses.size() > 0 ) {
+            if (iface ==  null) {
+                iface = new Interface();
+                iface.m_nodeId = nodeid;
+                iface.m_ifIndex = ifindex;
+            }
+            iface.setIpaddresses(addresses);
+            } else {
+                if (iface != null)
+                    iface.setIpaddresses(addresses);
+            }
+        }
+        return iface;
     }
     
     /**
@@ -1294,26 +978,6 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
         return stpNode;
     }
 
-    /**
-     * <p>getIpAddress</p>
-     *
-     * @param nodeid a int.
-     * @param ifindex a int.
-     * @return a {@link java.lang.String} object.
-     * @throws java.sql.SQLException if any.
-     */
-    @Transactional
-    private String getIpAddress(int nodeid, int ifindex)
-            {
-    	String retval = null;
-    	OnmsSnmpInterface snmpinterface = m_snmpInterfaceDao.findByNodeIdAndIfIndex(nodeid, ifindex);
-    	for (OnmsIpInterface ipinterface: snmpinterface.getIpInterfaces() ) {
-    		retval = ipinterface.getIpAddress().getHostAddress();
-    	}
-
-        return retval;
-    }
-
     /* (non-Javadoc)
 	 * @see org.opennms.web.element.NetworkElementFactoryInterface#getNodeIdsWithIpLike(java.lang.String)
 	 */
@@ -1336,105 +1000,8 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
         
         return nodeIds;
     }
-    
-
-
-    /* (non-Javadoc)
-	 * @see org.opennms.web.element.NetworkElementFactoryInterface#getNodesWithCategories(org.springframework.transaction.support.TransactionTemplate, java.lang.String[], boolean)
-	 */
-    @Override
-    public List<OnmsNode> getNodesWithCategories(TransactionTemplate transTemplate, final String[] categories1, final boolean onlyNodesWithDownAggregateStatus) {
-        return transTemplate.execute(new TransactionCallback<List<OnmsNode>>() {
-
-            @Override
-            public List<OnmsNode> doInTransaction(TransactionStatus arg0) {
-                return getNodesWithCategories(categories1, onlyNodesWithDownAggregateStatus);
-            }
-            
-        });
-    }
-    
-    /* (non-Javadoc)
-	 * @see org.opennms.web.element.NetworkElementFactoryInterface#getNodesWithCategories(java.lang.String[], boolean)
-	 */
-    @Override
-    public List<OnmsNode> getNodesWithCategories(String[] categories, boolean onlyNodesWithDownAggregateStatus) {
-        List<OnmsNode> ourNodes = getNodesInCategories(categories);
-        
-        if(onlyNodesWithDownAggregateStatus) {
-            AggregateStatus as = new AggregateStatus(new HashSet<OnmsNode>(ourNodes));
-            ourNodes = as.getDownNodes();
-        }
-        return ourNodes;
-    }
 
     
-    private List<OnmsNode> getNodesInCategories(String[] categoryStrings){
-        List<OnmsCategory> categories = new ArrayList<OnmsCategory>();
-        for(String categoryString : categoryStrings) {
-            OnmsCategory category = m_categoryDao.findByName(categoryString);
-            if(category != null) {
-                categories.add(category);
-            }else {
-                throw new IllegalArgumentException("The Category " + categoryString + " does not exist");
-            }
-        }
-        
-        return m_nodeDao.findAllByCategoryList(categories);
-    }
-
-    /* (non-Javadoc)
-	 * @see org.opennms.web.element.NetworkElementFactoryInterface#getNodesWithCategories(org.springframework.transaction.support.TransactionTemplate, java.lang.String[], java.lang.String[], boolean)
-	 */
-    @Override
-    public List<OnmsNode> getNodesWithCategories(TransactionTemplate transTemplate, final String[] categories1, final String[] categories2, final boolean onlyNodesWithDownAggregateStatus) {
-        return transTemplate.execute(new TransactionCallback<List<OnmsNode>>() {
-
-            @Override
-            public List<OnmsNode> doInTransaction(TransactionStatus status) {
-                return getNodesWithCategories(categories1, categories2, onlyNodesWithDownAggregateStatus);
-            }
-            
-        });
-    }
-    
-    /* (non-Javadoc)
-	 * @see org.opennms.web.element.NetworkElementFactoryInterface#getNodesWithCategories(java.lang.String[], java.lang.String[], boolean)
-	 */
-    @Override
-    public List<OnmsNode> getNodesWithCategories(String[] categories1, String[] categories2, boolean onlyNodesWithDownAggregateStatus) {
-        ArrayList<OnmsCategory> c1 = new ArrayList<OnmsCategory>(categories1.length);
-        for (String category : categories1) {
-                c1.add(m_categoryDao.findByName(category));
-        }
-        ArrayList<OnmsCategory> c2 = new ArrayList<OnmsCategory>(categories2.length);
-        for (String category : categories2) {
-                c2.add(m_categoryDao.findByName(category));
-        }
-        
-        List<OnmsNode> ourNodes1 = getNodesInCategories(categories1);
-        List<OnmsNode> ourNodes2 = getNodesInCategories(categories2);
-        
-        Set<Integer> n2id = new HashSet<Integer>(ourNodes2.size());
-        for (OnmsNode n2 : ourNodes2) {
-            n2id.add(n2.getId()); 
-        }
-
-        List<OnmsNode> ourNodes = new ArrayList<OnmsNode>();
-        for (OnmsNode n1 : ourNodes1) {
-            if (n2id.contains(n1.getId())) {
-                ourNodes.add(n1);
-            }
-        }
-        
-        if (onlyNodesWithDownAggregateStatus) {
-            AggregateStatus as = new AggregateStatus(ourNodes);
-            ourNodes = as.getDownNodes();
-        }
-
-        return ourNodes;
-    }
-        
     private Interface[] getInterfaceArray(List<OnmsIpInterface> ipIfaces) {
         List<Interface> intfs = new LinkedList<Interface>();
         for(OnmsIpInterface iface : ipIfaces) {

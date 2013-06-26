@@ -223,7 +223,7 @@
           {
                 
                 ManagedNode curNode = (ManagedNode)nodes.get(i);
-                String nodelabel = NetworkElementFactory.getInstance(getServletContext()).getNodeLabel(curNode.getNodeID());
+                String nodelabel = curNode.getNodeLabel();
 		int nodeid = curNode.getNodeID();
                  
           row.append("<tr>\n");
