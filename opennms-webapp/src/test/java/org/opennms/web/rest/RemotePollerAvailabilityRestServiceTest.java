@@ -47,10 +47,7 @@ import org.opennms.core.db.DataSourceFactory;
 import org.opennms.core.test.MockLogAppender;
 import org.opennms.core.test.db.MockDatabase;
 import org.opennms.core.test.db.TemporaryDatabase;
-import org.opennms.netmgt.dao.ApplicationDao;
-import org.opennms.netmgt.dao.DatabasePopulator;
-import org.opennms.netmgt.dao.LocationMonitorDao;
-import org.opennms.netmgt.dao.MonitoredServiceDao;
+import org.opennms.netmgt.dao.*;
 import org.opennms.netmgt.model.OnmsApplication;
 import org.opennms.netmgt.model.OnmsLocationMonitor;
 import org.opennms.netmgt.model.OnmsLocationSpecificStatus;
@@ -81,6 +78,9 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
     
     @Autowired
     LocationMonitorDao m_locationMonitorDao;
+
+    @Autowired
+    OnmsLocationSpecificStatusDao m_locStatusDao;
     
     @Autowired
     MonitoredServiceDao m_monServiceDao;
@@ -167,6 +167,7 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
         
         m_applicationDao = getBean("applicationDao", ApplicationDao.class);
         m_locationMonitorDao = getBean("locationMonitorDao", LocationMonitorDao.class);
+        m_locStatusDao = getBean("locationSpecificStatusDao", OnmsLocationSpecificStatusDao.class);
         m_monServiceDao = getBean("monitoredServiceDao", MonitoredServiceDao.class);
         
         if(!USE_EXISTING) {
@@ -364,7 +365,7 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
                     statusChange.setLocationMonitor(locMon);
                     statusChange.setPollResult(PollStatus.available());
                     statusChange.setMonitoredService(service);
-                    m_locationMonitorDao.saveStatusChange(statusChange);
+                    m_locStatusDao.save(statusChange);
                 }
                 
                 System.err.println("======= End createLocationMonitors() ======");
@@ -386,8 +387,8 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
                     statusChange.setLocationMonitor(locMon);
                     statusChange.setPollResult(PollStatus.unavailable());
                     statusChange.setMonitoredService(service);
-                
-                    m_locationMonitorDao.saveStatusChange(statusChange);
+
+                    m_locStatusDao.save(statusChange);
                 }
             }
         });
@@ -406,8 +407,8 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
                     statusChange.setLocationMonitor(locMon);
                     statusChange.setPollResult(PollStatus.available());
                     statusChange.setMonitoredService(service);
-                
-                    m_locationMonitorDao.saveStatusChange(statusChange);
+
+                    m_locStatusDao.save(statusChange);
                 }
             }
         });

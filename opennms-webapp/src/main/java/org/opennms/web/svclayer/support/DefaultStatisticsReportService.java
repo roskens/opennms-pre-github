@@ -77,14 +77,10 @@ public class DefaultStatisticsReportService implements StatisticsReportService, 
         
         Assert.notNull(command.getId(), "id property on command object cannot be null");
         
-        StatisticsReport report = m_statisticsReportDao.load(command.getId());
+        StatisticsReport report = m_statisticsReportDao.fetch(command.getId());
         model.setReport(report);
         
-        m_statisticsReportDao.initialize(report);
-        final Set<StatisticsReportData> data = report.getData();
-        m_statisticsReportDao.initialize(data);
-        
-        for (StatisticsReportData reportDatum : data) {
+        for (StatisticsReportData reportDatum : report.getData()) {
             Datum d = new Datum();
             d.setValue(reportDatum.getValue());
             OnmsResource resource = m_resourceDao.getResourceById(reportDatum.getResourceId());

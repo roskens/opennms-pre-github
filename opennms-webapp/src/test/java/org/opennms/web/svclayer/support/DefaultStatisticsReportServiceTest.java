@@ -111,9 +111,7 @@ public class DefaultStatisticsReportServiceTest {
         
         BindException errors = new BindException(command, "");
         
-        expect(m_statisticsReportDao.load(report.getId())).andReturn(report);
-        m_statisticsReportDao.initialize(report);
-        m_statisticsReportDao.initialize(report.getData());
+        expect(m_statisticsReportDao.fetch(report.getId())).andReturn(report);
         expect(m_resourceDao.getResourceById(resourceRef.getResourceId())).andReturn(null);
         
         m_mocks.replayAll();

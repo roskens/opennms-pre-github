@@ -33,6 +33,6 @@ import org.opennms.web.filter.EqualsFilter;
 public class ResponderFilter extends EqualsFilter<String> {
     public static final String TYPE = "responder";
     public ResponderFilter(String responder) {
-        super(TYPE, SQLType.STRING, "ANSWEREDBY", "answeredBy", responder);
+        super(TYPE, "answeredBy", responder);
     }
 }
