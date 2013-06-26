@@ -183,15 +183,15 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
     }
 
     private void addCriteriaForNodename(CriteriaBuilder criteria, String nodeName) {
-        criteria.add(Restrictions.ilike("node.label", nodeName, MatchMode.ANYWHERE));
+        criteria.ilike("node.label", nodeName, MatchMode.ANYWHERE));
     }
     
     private void addCriteriaForNodeId(CriteriaBuilder criteria, int nodeId) {
-        criteria.add(Restrictions.idEq(nodeId));
+        criteria.eq("node.id",nodeId);
     }
     
     private void addCriteriaForForeignSource(CriteriaBuilder criteria, String foreignSource) {
-        criteria.add(Restrictions.ilike("node.foreignSource", foreignSource, MatchMode.ANYWHERE));
+        criteria.ilike("node.foreignSource", foreignSource, MatchMode.ANYWHERE));
     }
 
     private void addCriteriaForIpLike(CriteriaBuilder criteria, String iplike) {
@@ -203,20 +203,20 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
     
 
     private void addCriteriaForService(CriteriaBuilder criteria, int serviceId) {
-        criteria.createAlias("node.ipInterfaces", "ipInterface");
-        criteria.add(Restrictions.ne("ipInterface.isManaged", "D"));
+        criteria.alias("node.ipInterfaces", "ipInterface");
+        criteria.ne("ipInterface.isManaged", "D");
 
-        criteria.createAlias("node.ipInterfaces.monitoredServices", "monitoredService");
-        criteria.createAlias("node.ipInterfaces.monitoredServices.serviceType", "serviceType");
-        criteria.add(Restrictions.eq("serviceType.id", serviceId));
-        criteria.add(Restrictions.ne("monitoredService.status", "D"));
+        criteria.alias("node.ipInterfaces.monitoredServices", "monitoredService");
+        criteria.alias("node.ipInterfaces.monitoredServices.serviceType", "serviceType");
+        criteria.eq("serviceType.id", serviceId);
+        criteria.ne("monitoredService.status", "D");
     }
 
     private void addCriteriaForMaclike(CriteriaBuilder criteria, String macLike) {
         String macLikeStripped = macLike.replaceAll("[:-]", "");
         
-        criteria.createAlias("node.snmpInterfaces", "snmpInterface", OnmsCriteria.LEFT_JOIN);
-        criteria.createAlias("node.arpInterfaces", "arpInterface", OnmsCriteria.LEFT_JOIN);
+        criteria.alias("node.snmpInterfaces", "snmpInterface");
+        criteria.alias("node.arpInterfaces", "arpInterface");
         Disjunction physAddrDisjunction = Restrictions.disjunction();
         physAddrDisjunction.add(Restrictions.ilike("snmpInterface.physAddr", macLikeStripped, MatchMode.ANYWHERE));
         physAddrDisjunction.add(Restrictions.ilike("arpInterface.physAddr", macLikeStripped, MatchMode.ANYWHERE));
@@ -274,7 +274,7 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
         addCriteriaForCategories(criteria, categoryNames.toArray(new String[categoryNames.size()]));
         
         String sql = "{alias}.nodeId in (select nodeId from assets where " + view.getColumnName() + " = ?)";
-        criteria.add(Restrictions.sqlRestriction(sql, statusSite, new StringType()));
+        criteria.sql(sql, statusSite, new StringType()));
     }
     
 
