@@ -45,10 +45,7 @@ import org.opennms.core.utils.WebSecurityUtils;
 import org.opennms.netmgt.model.OnmsCriteria;
 import org.opennms.netmgt.model.OnmsOutage;
 import org.opennms.web.api.Util;
-import org.opennms.web.filter.Filter;
-import org.opennms.web.filter.NotNullFilter;
-import org.opennms.web.filter.NullFilter;
-import org.opennms.web.filter.SearchParameter;
+import org.opennms.web.filter.*;
 import org.opennms.web.filter.outage.*;
 
 /**
@@ -66,8 +63,16 @@ public abstract class OutageUtil extends Object {
     public static final String FILTER_SERVLET_URL_BASE = "outage/list.htm";
 
 
-    public static SearchParameter getSearchParameter(Filter[] filters, OutageType outageType) {
-        SearchParameter parameter = new SearchParameter(OnmsOutage.class, filters);
+    public static SearchParameter getSearchParameter(Filter[] filters, SortRule rule) {
+        return getSearchParameter(filters, null, rule);
+    }
+
+    public static SearchParameter getSearchParameter(Filter[] filters, OutageType outageType, SortRule sortRule) {
+        return getSearchParameter(filters, sortRule, outageType, null, null);
+    }
+
+    public static SearchParameter getSearchParameter(Filter[] filters, SortRule sortRule, OutageType outageType, Integer limit, Integer offset) {
+        SearchParameter parameter = new SearchParameter(OnmsOutage.class, filters, sortRule, null, null);
         parameter.addAlias("monitoredService", "monitoredService", Alias.JoinType.LEFT_JOIN);
         parameter.addAlias("monitoredService.ipInterface", "ipInterface", Alias.JoinType.LEFT_JOIN);
         parameter.addAlias("monitoredService.ipInterface.node", "node", Alias.JoinType.LEFT_JOIN);
@@ -77,6 +82,7 @@ public abstract class OutageUtil extends Object {
         if (OutageType.RESOLVED.equals(outageType)) parameter.addFilter(new NotNullFilter("ifRegainedService"));
 
         return parameter;
+
     }
 
     /**
@@ -435,5 +441,4 @@ public abstract class OutageUtil extends Object {
 
         return makeHiddenTags(request, parms.sortStyle, parms.outageType, newList, parms.limit);
     }
-
 }
