@@ -30,8 +30,6 @@ package org.opennms.netmgt.dao.filter.alarm;
 
 import org.opennms.netmgt.dao.filter.EqualsFilter;
 
-import javax.servlet.ServletContext;
-
 /**
  * Encapsulates all service filtering functionality.
  *
@@ -43,25 +41,23 @@ public class ServiceFilter extends EqualsFilter<Integer> {
     /** Constant <code>TYPE="service"</code> */
     public static final String TYPE = "service";
 
+    private final String m_serviceName;
+
     /**
      * <p>Constructor for ServiceFilter.</p>
-     *
+//     *
      * @param serviceId a int.
      */
-    public ServiceFilter(int serviceId) {
+    public ServiceFilter(int serviceId, String serviceName) {
         super(TYPE, "serviceType.id", serviceId);
+        m_serviceName = serviceName;
     }
 
-    /**
-     * <p>getTextDescription</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    public String getTextDescription(ServletContext servletContext) {
+    @Override
+    public String getTextDescription() {
         String serviceName = Integer.toString(getValue());
-            serviceName = NetworkElementFactory.getInstance(servletContext).getServiceNameFromId(getValue());
-
-        return (TYPE + "=" + serviceName);
+//            serviceName = NetworkElementFactory.getInstance(servletContext).getServiceNameFromId(getValue());
+        return (TYPE + "=" + m_serviceName);
     }
 
     /**

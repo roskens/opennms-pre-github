@@ -28,10 +28,6 @@
 
 package org.opennms.netmgt.dao.filter.notification;
 
-import org.opennms.netmgt.dao.NotificationDao;
-import org.opennms.netmgt.dao.filter.Filter;
-import org.opennms.web.notification.AcknowledgeType;
-
 /**
  * <p>NotificationCriteria class.</p>
  *

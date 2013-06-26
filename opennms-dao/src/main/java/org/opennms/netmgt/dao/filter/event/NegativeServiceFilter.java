@@ -28,12 +28,7 @@
 
 package org.opennms.netmgt.dao.filter.event;
 
-import javax.servlet.ServletContext;
-
-import org.opennms.web.element.NetworkElementFactory;
-import org.opennms.web.element.NetworkElementFactoryInterface;
 import org.opennms.netmgt.dao.filter.NotEqualOrNullFilter;
-import org.springframework.context.ApplicationContext;
 
 /**
  * Encapsulates all service filtering functionality.
@@ -45,44 +40,21 @@ import org.springframework.context.ApplicationContext;
 public class NegativeServiceFilter extends NotEqualOrNullFilter<Integer> {
     /** Constant <code>TYPE="servicenot"</code> */
     public static final String TYPE = "servicenot";
-    private ServletContext m_servletContext;
-    private ApplicationContext m_appContext;
+    private final String m_serviceName;
 
     protected int serviceId;
 
-    /**
-     * <p>Constructor for NegativeServiceFilter.</p>
-     *
-     * @param serviceId a int.
-     * @param servletContext
-     */
-    public NegativeServiceFilter(int serviceId, ServletContext servletContext) {
+    public NegativeServiceFilter(int serviceId, String serviceName) {
         super(TYPE, "serviceType.id", serviceId);
-        m_servletContext = servletContext;
+        m_serviceName = serviceName;
     }
 
-    /**
-     * <p>Constructor for NegativeServiceFilter.</p>
-     *
-     * @param serviceId a int.
-     * @param appContext
-     */
-    public NegativeServiceFilter(int serviceId, ApplicationContext appContext) {
-        super(TYPE, "serviceType.id", serviceId);
-        m_appContext = appContext;
-    }
-
-    /**
-     * <p>getTextDescription</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
     @Override
     public String getTextDescription() {
-        NetworkElementFactoryInterface factory = (m_servletContext == null ? NetworkElementFactory.getInstance(m_appContext) : NetworkElementFactory.getInstance(m_servletContext));
-        String serviceName = factory.getServiceNameFromId(getValue());
+//        NetworkElementFactoryInterface factory = (m_servletContext == null ? NetworkElementFactory.getInstance(m_appContext) : NetworkElementFactory.getInstance(m_servletContext));
+//        String serviceName = factory.getServiceNameFromId(getValue());
 
-        return ("service is not " + serviceName);
+        return ("service is not " + m_serviceName);
     }
 
     /**

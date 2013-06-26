@@ -41,24 +41,21 @@ public class NegativeServiceFilter extends NotEqualOrNullFilter<Integer> {
     /** Constant <code>TYPE="servicenot"</code> */
     public static final String TYPE = "servicenot";
 
+    private final String m_serviceName;
+
     /**
      * <p>Constructor for NegativeServiceFilter.</p>
      *
      * @param serviceId a int.
      */
-    public NegativeServiceFilter(int serviceId) {
+    public NegativeServiceFilter(int serviceId, String serviceName) {
         super(TYPE, "serviceType.id", serviceId);
+        m_serviceName = serviceName;
     }
 
-    /**
-     * <p>getTextDescription</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    public String getTextDescription(ServletContext servletContext) {
-        String serviceName = Integer.toString(getValue());
-        serviceName = NetworkElementFactory.getInstance(servletContext).getServiceNameFromId(getValue());
-        return ("service is not " + serviceName);
+    @Override
+    public String getTextDescription() {
+        return ("service is not " + m_serviceName);
     }
 
     /**
@@ -71,14 +68,6 @@ public class NegativeServiceFilter extends NotEqualOrNullFilter<Integer> {
         return ("<AlarmFactory.NegativeServiceFilter: " + this.getDescription() + ">");
     }
 
-    /**
-     * <p>getServiceId</p>
-     *
-     * @return a int.
-     */
-    public int getServiceId() {
-        return getValue();
-    }
 
     /** {@inheritDoc} */
     @Override

@@ -28,12 +28,7 @@
 
 package org.opennms.netmgt.dao.filter.event;
 
-import javax.servlet.ServletContext;
-
-import org.opennms.web.element.NetworkElementFactory;
-import org.opennms.web.element.NetworkElementFactoryInterface;
 import org.opennms.netmgt.dao.filter.EqualsFilter;
-import org.springframework.context.ApplicationContext;
 
 /**
  * Encapsulates all service filtering functionality.
@@ -45,29 +40,11 @@ import org.springframework.context.ApplicationContext;
 public class ServiceFilter extends EqualsFilter<Integer> {
     /** Constant <code>TYPE="service"</code> */
     public static final String TYPE = "service";
-    private ServletContext m_servletContext;
-    private ApplicationContext m_appContext;
+    private final String m_serviceName;
 
-    /**
-     * <p>Constructor for ServiceFilter.</p>
-     *
-     * @param serviceId a int.
-     * @param servletContext
-     */
-    public ServiceFilter(int serviceId, ServletContext servletContext) {
+    public ServiceFilter(int serviceId, String serviceName) {
         super(TYPE, "serviceType.id", serviceId);
-        m_servletContext = servletContext;
-    }
-
-    /**
-     * <p>Constructor for ServiceFilter.</p>
-     *
-     * @param serviceId a int.
-     * @param appContext
-     */
-    public ServiceFilter(int serviceId, ApplicationContext appContext) {
-        super(TYPE, "serviceType.id", serviceId);
-        m_appContext = appContext;
+        m_serviceName = serviceName;
     }
 
     /**
@@ -77,10 +54,9 @@ public class ServiceFilter extends EqualsFilter<Integer> {
      */
     @Override
     public String getTextDescription() {
-        NetworkElementFactoryInterface factory = (m_servletContext == null ? NetworkElementFactory.getInstance(m_appContext) : NetworkElementFactory.getInstance(m_servletContext));
-        String serviceName = factory.getServiceNameFromId(getValue());
-
-        return (TYPE + " is " + serviceName);
+//        NetworkElementFactoryInterface factory = (m_servletContext == null ? NetworkElementFactory.getInstance(m_appContext) : NetworkElementFactory.getInstance(m_servletContext));
+//        String serviceName = factory.getServiceNameFromId(getValue());
+        return (TYPE + " is " + m_serviceName);
     }
 
     /**
@@ -92,8 +68,6 @@ public class ServiceFilter extends EqualsFilter<Integer> {
     public String toString() {
         return ("<WebEventRepository.ServiceFilter: " + this.getDescription() + ">");
     }
-
-
 
     /** {@inheritDoc} */
     @Override

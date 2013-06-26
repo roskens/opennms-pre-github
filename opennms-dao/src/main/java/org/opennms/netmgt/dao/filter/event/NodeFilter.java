@@ -28,11 +28,7 @@
 
 package org.opennms.netmgt.dao.filter.event;
 
-import javax.servlet.ServletContext;
-
-import org.opennms.web.element.NetworkElementFactory;
 import org.opennms.netmgt.dao.filter.EqualsFilter;
-import org.springframework.context.ApplicationContext;
 
 /**
  * Encapsulates all node filtering functionality.
@@ -44,22 +40,16 @@ import org.springframework.context.ApplicationContext;
 public class NodeFilter extends EqualsFilter<Integer> {
     /** Constant <code>TYPE="node"</code> */
     public static final String TYPE = "node";
-    private ServletContext m_servletContext;
-    private ApplicationContext m_appContext;
+    private final String m_nodeName;
 
     /**
      * <p>Constructor for NodeFilter.</p>
      *
      * @param nodeId a int.
      */
-    public NodeFilter(int nodeId, ServletContext servletContext) {
+    public NodeFilter(int nodeId, String nodeName) {
         super(TYPE, "node.id", nodeId);
-        m_servletContext = servletContext;
-    }
-    
-    public NodeFilter(int nodeId, ApplicationContext appContext) {
-        super(TYPE, "node.id", nodeId);
-        m_appContext = appContext;
+        m_nodeName = nodeName;
     }
 
     /**
@@ -79,7 +69,8 @@ public class NodeFilter extends EqualsFilter<Integer> {
     }
 
     private String getNodeLabel() {
-        return m_servletContext != null ? NetworkElementFactory.getInstance(m_servletContext).getNodeLabel(getValue()) : NetworkElementFactory.getInstance(m_appContext).getNodeLabel(getValue());
+        return m_nodeName;
+//        return m_servletContext != null ? NetworkElementFactory.getInstance(m_servletContext).getNodeLabel(getValue()) : NetworkElementFactory.getInstance(m_appContext).getNodeLabel(getValue());
     }
 
     /**

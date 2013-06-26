@@ -40,16 +40,16 @@ import org.opennms.netmgt.dao.filter.EqualsFilter;
 public class NodeFilter extends EqualsFilter<Integer> {
     /** Constant <code>TYPE="node"</code> */
     public static final String TYPE = "node";
-    private ServletContext m_servletContext;
+    private final String m_nodeName;
 
     /**
      * <p>Constructor for NodeFilter.</p>
      *
      * @param nodeId a int.
      */
-    public NodeFilter(int nodeId, ServletContext servletContext) {
+    public NodeFilter(int nodeId, String nodeName) {
         super(TYPE, "node.id", nodeId);
-        m_servletContext = servletContext;
+        m_nodeName = nodeName;
     }
 
     /**
@@ -59,8 +59,8 @@ public class NodeFilter extends EqualsFilter<Integer> {
      */
     @Override
     public String getTextDescription() {
-        String nodeName = NetworkElementFactory.getInstance(m_servletContext).getNodeLabel(getValue());
-        
+        String nodeName = m_nodeName;
+
         if(nodeName == null) {
             nodeName = Integer.toString(getValue());
         }

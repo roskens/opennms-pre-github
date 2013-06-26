@@ -28,14 +28,6 @@
 
 package org.opennms.netmgt.dao.filter.event;
 
-import java.util.Arrays;
-
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.opennms.netmgt.dao.NotificationDao;
-import org.opennms.web.event.AcknowledgeType;
-import org.opennms.web.event.SortStyle;
-import org.opennms.netmgt.dao.filter.Filter;
-
 /**
  * <p>EventCriteria class.</p>
  *

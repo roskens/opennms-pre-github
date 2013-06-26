@@ -28,11 +28,7 @@
 
 package org.opennms.netmgt.dao.filter.event;
 
-import javax.servlet.ServletContext;
-
-import org.opennms.web.element.NetworkElementFactory;
 import org.opennms.netmgt.dao.filter.NotEqualOrNullFilter;
-import org.springframework.context.ApplicationContext;
 
 /**
  * Encapsulates all node filtering functionality.
@@ -44,23 +40,18 @@ import org.springframework.context.ApplicationContext;
 public class NegativeNodeFilter extends NotEqualOrNullFilter<Integer> {
     /** Constant <code>TYPE="nodenot"</code> */
     public static final String TYPE = "nodenot";
-    private ServletContext m_servletContext;
-    private ApplicationContext m_appContext;
+    private final String m_nodeName;
 
     /**
      * <p>Constructor for NegativeNodeFilter.</p>
      *
      * @param nodeId a int.
      */
-    public NegativeNodeFilter(int nodeId, ServletContext servletContext) {
+    public NegativeNodeFilter(int nodeId, String nodeName) {
         super(TYPE, "node.id", nodeId);
-        m_servletContext = servletContext;
+        m_nodeName = nodeName;
     }
     
-    public NegativeNodeFilter(int nodeId, ApplicationContext appContext) {
-        super(TYPE, "node.id", nodeId);
-        m_appContext = appContext;
-    }
 
     /**
      * <p>getTextDescription</p>
@@ -79,7 +70,8 @@ public class NegativeNodeFilter extends NotEqualOrNullFilter<Integer> {
     }
 
     private String getNodeLabel() {
-        return m_servletContext != null ? NetworkElementFactory.getInstance(m_servletContext).getNodeLabel(getValue()) : NetworkElementFactory.getInstance(m_appContext).getNodeLabel(getValue());
+        return m_nodeName;
+//        return m_servletContext != null ? NetworkElementFactory.getInstance(m_servletContext).getNodeLabel(getValue()) : NetworkElementFactory.getInstance(m_appContext).getNodeLabel(getValue());
     }
 
     /**

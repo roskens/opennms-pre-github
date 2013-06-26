@@ -28,9 +28,6 @@
 
 package org.opennms.netmgt.dao.filter.notification;
 
-import javax.servlet.ServletContext;
-
-import org.opennms.web.element.NetworkElementFactory;
 import org.opennms.netmgt.dao.filter.EqualsFilter;
 
 /**
@@ -43,20 +40,22 @@ import org.opennms.netmgt.dao.filter.EqualsFilter;
 public class ServiceFilter extends EqualsFilter<Integer> {
     /** Constant <code>TYPE="service"</code> */
     public static final String TYPE = "service";
+    private final String m_serviceName;
 
     /**
      * <p>Constructor for ServiceFilter.</p>
      *
      * @param serviceId a int.
      */
-    public ServiceFilter(int serviceId) {
+    public ServiceFilter(int serviceId, String serviceName) {
         super(TYPE, "serviceType.id", serviceId);
+        m_serviceName = serviceName;
     }
     
-
-    public String getTextDescription(ServletContext servletContext) {
-        String serviceName = NetworkElementFactory.getInstance(servletContext).getServiceNameFromId(getValue());
-        return (TYPE + "=" + serviceName);
+    @Override
+    public String getTextDescription() {
+//        String serviceName = NetworkElementFactory.getInstance(servletContext).getServiceNameFromId(getValue());
+        return (TYPE + "=" + m_serviceName);
     }
 
     @Override

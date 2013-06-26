@@ -30,7 +30,7 @@ package org.opennms.netmgt.dao.filter.alarm;
 
 import org.opennms.netmgt.dao.filter.NotEqualsFilter;
 import org.opennms.netmgt.model.OnmsSeverity;
-import org.opennms.web.filter.NotEqualsFilter;
+import org.opennms.netmgt.dao.filter.NotEqualsFilter;
 
 /**
  * Encapsulates negative severity filtering functionality, that is filtering OUT

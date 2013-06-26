@@ -28,9 +28,6 @@
 
 package org.opennms.netmgt.dao.filter.notification;
 
-import javax.servlet.ServletContext;
-
-import org.opennms.web.element.NetworkElementFactory;
 import org.opennms.netmgt.dao.filter.NotEqualOrNullFilter;
 
 /**
@@ -43,16 +40,16 @@ import org.opennms.netmgt.dao.filter.NotEqualOrNullFilter;
 public class NegativeNodeFilter extends NotEqualOrNullFilter<Integer> {
     /** Constant <code>TYPE="nodenot"</code> */
     public static final String TYPE = "nodenot";
-    private ServletContext m_servletContext;
+    private final String m_nodeName;
 
     /**
      * <p>Constructor for NegativeNodeFilter.</p>
      *
      * @param nodeId a int.
      */
-    public NegativeNodeFilter(int nodeId, ServletContext servletContext) {
+    public NegativeNodeFilter(int nodeId, String nodeName) {
         super(TYPE, "node.id", nodeId);
-        m_servletContext = servletContext;
+        m_nodeName = nodeName;
     }
 
     /**
@@ -63,7 +60,8 @@ public class NegativeNodeFilter extends NotEqualOrNullFilter<Integer> {
     @Override
     public String getTextDescription() {
         
-        String nodeName = NetworkElementFactory.getInstance(m_servletContext).getNodeLabel(getValue());
+//        String nodeName = NetworkElementFactory.getInstance(m_servletContext).getNodeLabel(getValue());
+        String nodeName = m_nodeName;
         
         if(nodeName == null) {
             nodeName = Integer.toString(getValue());
