@@ -31,6 +31,8 @@ package org.opennms.netmgt.dao;
 import java.util.Date;
 import java.util.List;
 
+import org.opennms.core.criteria.Criteria;
+import org.opennms.core.criteria.CriteriaBuilder;
 import org.opennms.netmgt.model.OnmsAcknowledgment;
 import org.opennms.netmgt.model.OnmsAlarm;
 import org.opennms.netmgt.model.OnmsCriteria;
@@ -179,4 +181,7 @@ public interface AlarmRepository {
      */
     public abstract List<AlarmSummary> getCurrentNodeAlarmSummaries();
 
+    int countMatchingAlarms(Criteria criteria);
+
+    List<OnmsAlarm> findMatchingAlarms(Criteria criteria);
 }

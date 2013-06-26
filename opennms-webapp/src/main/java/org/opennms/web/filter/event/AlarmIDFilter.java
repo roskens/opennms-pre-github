@@ -26,42 +26,53 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.netmgt.dao;
+package org.opennms.web.filter.event;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.opennms.netmgt.model.OnmsAlarm;
-import org.opennms.netmgt.model.alarm.AlarmSummary;
-import org.springframework.util.Assert;
+import org.opennms.web.filter.EqualsFilter;
 
 /**
- * <p>AlarmDao interface.</p>
+ * Encapsulates all node filtering functionality.
+ *
+ * @author ranger
+ * @version $Id: $
+ * @since 1.8.1
  */
-public interface AlarmDao extends OnmsDao<OnmsAlarm, Integer> {
+public class AlarmIDFilter extends EqualsFilter<Integer> {
+    /** Constant <code>TYPE="alarm"</code> */
+    public static final String TYPE = "alarm";
 
     /**
-     * <p>findByReductionKey</p>
+     * <p>Constructor for AlarmIDFilter.</p>
      *
-     * @param reductionKey a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.model.OnmsAlarm} object.
+     * @param alarmId a int.
      */
-    OnmsAlarm findByReductionKey(String reductionKey);
+    public AlarmIDFilter(int alarmId) {
+        super(TYPE, "alarm.id", alarmId);
+    }
 
     /**
-     * <p>Get the list of current alarms per node with severity greater than normal,
-     * reflecting the max severity, the minimum last event time and alarm count;
-     * ordered by the oldest.</p>
-     * 
-     * @return A list of alarm summaries.
-     * @param nodeIds If you want to restrict the NodeAlarmSummaries to specific nodes (optional)
+     * <p>getTextDescription</p>
+     *
+     * @return a {@link java.lang.String} object.
      */
-    List<AlarmSummary> getNodeAlarmSummaries(Integer... nodeIds);
+    @Override
+    public String getTextDescription() {
+        return ("event reduced by alarmID: " + getValue());
+    }
 
-    List<OnmsAlarm> findByEventParms(String... s);
+    /**
+     * <p>toString</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    @Override
+    public String toString() {
+        return ("<WebEventRepository.AlarmIDFilter: " + this.getDescription() + ">");
+    }
 
-    List<OnmsAlarm> findUnclearedHyperic();
-
-    List<OnmsAlarm> findById(int[] alarmId);
+    /** {@inheritDoc} */
+    @Override
+    public boolean equals(Object obj) {
+        return (this.toString().equals(obj.toString()));
+    }
 }

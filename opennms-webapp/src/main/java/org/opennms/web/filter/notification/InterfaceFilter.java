@@ -1,7 +1,7 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2009-2012 The OpenNMS Group, Inc.
  * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
@@ -26,42 +26,44 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.netmgt.dao;
+package org.opennms.web.filter.notification;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import org.opennms.web.filter.EqualsFilter;
 
-import org.opennms.netmgt.model.OnmsAlarm;
-import org.opennms.netmgt.model.alarm.AlarmSummary;
-import org.springframework.util.Assert;
 
 /**
- * <p>AlarmDao interface.</p>
+ * Encapsulates all interface filtering functionality.
+ *
+ * @author ranger
+ * @version $Id: $
+ * @since 1.8.1
  */
-public interface AlarmDao extends OnmsDao<OnmsAlarm, Integer> {
+public class InterfaceFilter extends EqualsFilter<String> {
+    /** Constant <code>TYPE="interface"</code> */
+    public static final String TYPE = "interface";
 
     /**
-     * <p>findByReductionKey</p>
+     * <p>Constructor for InterfaceFilter.</p>
      *
-     * @param reductionKey a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.model.OnmsAlarm} object.
+     * @param ipAddress a {@link java.lang.String} object.
      */
-    OnmsAlarm findByReductionKey(String reductionKey);
-
+    public InterfaceFilter(String ipAddress) {
+        super(TYPE, "ipAddress", ipAddress);
+    }
+    
     /**
-     * <p>Get the list of current alarms per node with severity greater than normal,
-     * reflecting the max severity, the minimum last event time and alarm count;
-     * ordered by the oldest.</p>
-     * 
-     * @return A list of alarm summaries.
-     * @param nodeIds If you want to restrict the NodeAlarmSummaries to specific nodes (optional)
+     * <p>toString</p>
+     *
+     * @return a {@link java.lang.String} object.
      */
-    List<AlarmSummary> getNodeAlarmSummaries(Integer... nodeIds);
+    @Override
+    public String toString() {
+        return ("<WebNotificationRepository.InterfaceFilter: " + this.getDescription() + ">");
+    }
 
-    List<OnmsAlarm> findByEventParms(String... s);
-
-    List<OnmsAlarm> findUnclearedHyperic();
-
-    List<OnmsAlarm> findById(int[] alarmId);
+    /** {@inheritDoc} */
+    @Override
+    public boolean equals(Object obj) {
+        return (this.toString().equals(obj.toString()));
+    }
 }

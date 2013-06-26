@@ -26,42 +26,54 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.netmgt.dao;
+package org.opennms.web.filter.alarm;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.opennms.netmgt.model.OnmsAlarm;
-import org.opennms.netmgt.model.alarm.AlarmSummary;
-import org.springframework.util.Assert;
+import org.opennms.web.filter.SubstringFilter;
 
 /**
- * <p>AlarmDao interface.</p>
+ * Encapsulates all node filtering functionality.
+ *
+ * @author ranger
+ * @version $Id: $
+ * @since 1.8.1
  */
-public interface AlarmDao extends OnmsDao<OnmsAlarm, Integer> {
+public class NodeNameLikeFilter extends SubstringFilter {
+    /** Constant <code>TYPE="nodenamelike"</code> */
+    public static final String TYPE = "nodenamelike";
 
     /**
-     * <p>findByReductionKey</p>
+     * <p>Constructor for NodeNameLikeFilter.</p>
      *
-     * @param reductionKey a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.model.OnmsAlarm} object.
+     * @param substring a {@link java.lang.String} object.
      */
-    OnmsAlarm findByReductionKey(String reductionKey);
+    public NodeNameLikeFilter(String substring) {
+        super(TYPE, "node.label", substring);
+    }
+    
+    /**
+     * <p>getTextDescription</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    @Override
+    public String getTextDescription() {
+        return ("node name containing \"" + getValue() + "\"");
+    }
 
     /**
-     * <p>Get the list of current alarms per node with severity greater than normal,
-     * reflecting the max severity, the minimum last event time and alarm count;
-     * ordered by the oldest.</p>
-     * 
-     * @return A list of alarm summaries.
-     * @param nodeIds If you want to restrict the NodeAlarmSummaries to specific nodes (optional)
+     * <p>toString</p>
+     *
+     * @return a {@link java.lang.String} object.
      */
-    List<AlarmSummary> getNodeAlarmSummaries(Integer... nodeIds);
+    @Override
+    public String toString() {
+        return ("<AlarmFactory.NodeNameContainingFilter: " + this.getDescription() + ">");
+    }
 
-    List<OnmsAlarm> findByEventParms(String... s);
-
-    List<OnmsAlarm> findUnclearedHyperic();
-
-    List<OnmsAlarm> findById(int[] alarmId);
+    /** {@inheritDoc} */
+    @Override
+    public boolean equals(Object obj) {
+        return (this.toString().equals(obj.toString()));
+    }
+    
 }

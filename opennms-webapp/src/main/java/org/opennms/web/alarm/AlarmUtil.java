@@ -34,15 +34,14 @@ import java.util.NoSuchElementException;
 import javax.servlet.ServletContext;
 
 import org.apache.commons.lang.ArrayUtils;
-import org.hibernate.criterion.Restrictions;
+import org.opennms.core.criteria.Alias;
 import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.core.utils.WebSecurityUtils;
-import org.opennms.netmgt.dao.AlarmDao;
-import org.opennms.netmgt.dao.filter.alarm.*;
-import org.opennms.netmgt.model.OnmsAlarm;
-import org.opennms.netmgt.model.OnmsCriteria;
+import org.opennms.web.element.NetworkElementFactory;
+import org.opennms.web.filter.*;
+import org.opennms.web.filter.alarm.*;
 import org.opennms.netmgt.model.OnmsSeverity;
-import org.opennms.netmgt.dao.filter.Filter;
+import org.opennms.web.filter.Filter;
 
 /**
  * <p>Abstract AlarmUtil class.</p>
@@ -61,48 +60,31 @@ public abstract class AlarmUtil extends Object {
     /** Constant <code>ANY_RELATIVE_TIMES_OPTION="Any"</code> */
     public static final String ANY_RELATIVE_TIMES_OPTION = "Any";
 
-    public static OnmsCriteria getOnmsCriteria(final AlarmDao.AlarmSearchParameter alarmCriteria) {
 
+    public static SearchParameter getSearchParameter(Filter[] filters, SortRule sortRule, AcknowledgeType ackType, Integer limit, Integer offset) {
+        SearchParameter searchParameter = new SearchParameter(filters, sortRule, limit, offset);
+        searchParameter.addAlias("node", "node", Alias.JoinType.LEFT_JOIN);
+        searchParameter.addAlias("serviceType", "serviceType", Alias.JoinType.LEFT_JOIN);
+        switch (ackType) {
+            case ACKNOWLEDGED:
+                searchParameter.addFilter(new NotNullFilter("alarmackuser"));
+                break;
+            case UNACKNOWLEDGED:
+                searchParameter.addFilter(new NullFilter("alarmackuser"));
+                break;
+        }
+        return searchParameter;
+    }
 
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsAlarm.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.createAlias("serviceType", "serviceType", OnmsCriteria.LEFT_JOIN);
-
-        alarmCriteria.visit(new AlarmCriteriaVisitor<RuntimeException>() {
-
-            @Override
-            public void visitAckType(AcknowledgeType ackType) throws RuntimeException {
-                if (ackType == AcknowledgeType.ACKNOWLEDGED) {
-                    criteria.add(Restrictions.isNotNull("alarmAckUser"));
-                } else if (ackType == AcknowledgeType.UNACKNOWLEDGED) {
-                    criteria.add(Restrictions.isNull("alarmAckUser"));
-                }
-            }
-
-            @Override
-            public void visitFilter(Filter filter) throws RuntimeException {
-                criteria.add(filter.getCriterion());
-            }
-
-            @Override
-            public void visitLimit(int limit, int offset) throws RuntimeException {
-                criteria.setMaxResults(limit);
-                criteria.setFirstResult(offset);
-            }
-
-            @Override
-            public void visitSortStyle(AlarmDao.SortStyle sortStyle) throws RuntimeException {
-            }
-        });
-
-        return criteria;
+    public static SearchParameter getSearchParameter(Filter[] filters, AcknowledgeType ackType) {
+        return getSearchParameter(filters, null, ackType, null, null);
     }
 
     /**
      * <p>getFilter</p>
      *
      * @param filterString a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.dao.filter.Filter} object.
+     * @return a {@link org.opennms.web.filter.Filter) object.
      */
     public static Filter getFilter(String filterString, ServletContext servletContext) {
         if (filterString == null) {
@@ -125,13 +107,17 @@ public abstract class AlarmUtil extends Object {
         if (type.equals(SeverityFilter.TYPE)) {
             filter = new SeverityFilter(OnmsSeverity.get(WebSecurityUtils.safeParseInt(value)));
         } else if (type.equals(NodeFilter.TYPE)) {
-            filter = new NodeFilter(WebSecurityUtils.safeParseInt(value), servletContext);
+            int nodeId = WebSecurityUtils.safeParseInt(value);
+            String nodeLabel = NetworkElementFactory.getInstance(servletContext).getNodeLabel(nodeId);
+            filter = new NodeFilter(nodeId, nodeLabel);
         } else if (type.equals(NodeNameLikeFilter.TYPE)) {
             filter = new NodeNameLikeFilter(value);
         } else if (type.equals(InterfaceFilter.TYPE)) {
             filter = new InterfaceFilter(InetAddressUtils.addr(value));
         } else if (type.equals(ServiceFilter.TYPE)) {
-            filter = new ServiceFilter(WebSecurityUtils.safeParseInt(value));
+            int serviceId =   WebSecurityUtils.safeParseInt(value);
+            String serviceName = NetworkElementFactory.getInstance(servletContext).getServiceNameFromId(serviceId);
+            filter = new ServiceFilter(serviceId, serviceName);
         } else if (type.equals(PartialUEIFilter.TYPE)) {
             filter = new PartialUEIFilter(value);
         } else if (type.equals(ExactUEIFilter.TYPE)) {
@@ -141,11 +127,15 @@ public abstract class AlarmUtil extends Object {
         } else if (type.equals(NegativeSeverityFilter.TYPE)) {
             filter = new NegativeSeverityFilter(OnmsSeverity.get(WebSecurityUtils.safeParseInt(value)));
         } else if (type.equals(NegativeNodeFilter.TYPE)) {
-            filter = new NegativeNodeFilter(WebSecurityUtils.safeParseInt(value), servletContext);
+            int nodeId = WebSecurityUtils.safeParseInt(value);
+            String nodeLabel = NetworkElementFactory.getInstance(servletContext).getNodeLabel(nodeId);
+            filter = new NegativeNodeFilter(nodeId, nodeLabel);
         } else if (type.equals(NegativeInterfaceFilter.TYPE)) {
             filter = new NegativeInterfaceFilter(InetAddressUtils.addr(value));
         } else if (type.equals(NegativeServiceFilter.TYPE)) {
-            filter = new NegativeServiceFilter(WebSecurityUtils.safeParseInt(value));
+            int serviceId =  WebSecurityUtils.safeParseInt(value);
+            String serviceName = NetworkElementFactory.getInstance(servletContext).getServiceNameFromId(serviceId);
+            filter = new NegativeServiceFilter(serviceId, serviceName);
         } else if (type.equals(NegativePartialUEIFilter.TYPE)) {
             filter = new NegativePartialUEIFilter(value);
         } else if (type.equals(NegativeExactUEIFilter.TYPE)) {
@@ -178,7 +168,7 @@ public abstract class AlarmUtil extends Object {
     /**
      * <p>getFilterString</p>
      *
-     * @param filter a {@link org.opennms.netmgt.dao.filter.Filter} object.
+     * @param filter a {@link org.opennms.web.filter.Filter} object.
      * @return a {@link java.lang.String} object.
      */
     public static String getFilterString(Filter filter) {
@@ -213,7 +203,7 @@ public abstract class AlarmUtil extends Object {
      * <p>getRelativeTimeFilter</p>
      *
      * @param relativeTime a int.
-     * @return a {@link org.opennms.netmgt.dao.filter.Filter} object.
+     * @return a {@link org.opennms.web.filter.Filter} object.
      */
     public static Filter getRelativeTimeFilter(int relativeTime) {
         Filter filter = null;

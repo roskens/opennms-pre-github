@@ -1,7 +1,7 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2009-2012 The OpenNMS Group, Inc.
  * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
@@ -26,42 +26,56 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.netmgt.dao;
+package org.opennms.web.filter;
 
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-
-import org.opennms.netmgt.model.OnmsAlarm;
-import org.opennms.netmgt.model.alarm.AlarmSummary;
-import org.springframework.util.Assert;
 
 /**
- * <p>AlarmDao interface.</p>
+ * TwoArgFilter
+ *
+ * @author brozow
+ * @version $Id: $
+ * @since 1.8.1
  */
-public interface AlarmDao extends OnmsDao<OnmsAlarm, Integer> {
+public abstract class MultiArgFilter<T> extends BaseFilter<T> {
 
+    private T[] m_values;
+    
+    public MultiArgFilter(String filterType, String propertyName, T... values) {
+        super(filterType, propertyName);
+        m_values = values;
+    }
+    
     /**
-     * <p>findByReductionKey</p>
+     * <p>getValues</p>
      *
-     * @param reductionKey a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.model.OnmsAlarm} object.
+     * @return an array of T objects.
      */
-    OnmsAlarm findByReductionKey(String reductionKey);
-
+    public T[] getValues() {
+        return m_values;
+    }
+    
     /**
-     * <p>Get the list of current alarms per node with severity greater than normal,
-     * reflecting the max severity, the minimum last event time and alarm count;
-     * ordered by the oldest.</p>
-     * 
-     * @return A list of alarm summaries.
-     * @param nodeIds If you want to restrict the NodeAlarmSummaries to specific nodes (optional)
+     * <p>getValuesAsList</p>
+     *
+     * @return a {@link java.util.List} object.
      */
-    List<AlarmSummary> getNodeAlarmSummaries(Integer... nodeIds);
+    public List<T> getValuesAsList() {
+        return Arrays.asList(m_values);
+    }
+    
 
-    List<OnmsAlarm> findByEventParms(String... s);
-
-    List<OnmsAlarm> findUnclearedHyperic();
-
-    List<OnmsAlarm> findById(int[] alarmId);
+    /** {@inheritDoc} */
+    @Override
+    final public String getValueString() {
+        StringBuilder buf = new StringBuilder();
+        for(int i = 0; i < m_values.length; i++) {
+            if (i != 0) {
+                buf.append(',');
+            }
+            buf.append(ValueStringRenderer.toString(m_values[i]));
+        }
+        return buf.toString();
+    }
 }

@@ -26,42 +26,53 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.netmgt.dao;
+package org.opennms.web.filter.event;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.opennms.netmgt.model.OnmsAlarm;
-import org.opennms.netmgt.model.alarm.AlarmSummary;
-import org.springframework.util.Assert;
+import org.opennms.web.filter.NotEqualsFilter;
 
 /**
- * <p>AlarmDao interface.</p>
+ * Encapsulates filtering on exact unique event identifiers.
+ *
+ * @author ranger
+ * @version $Id: $
+ * @since 1.8.1
  */
-public interface AlarmDao extends OnmsDao<OnmsAlarm, Integer> {
+public class NegativeExactUEIFilter extends NotEqualsFilter<String> {
+    /** Constant <code>TYPE="exactUeiNot"</code> */
+    public static final String TYPE = "exactUeiNot";
 
     /**
-     * <p>findByReductionKey</p>
+     * <p>Constructor for NegativeExactUEIFilter.</p>
      *
-     * @param reductionKey a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.model.OnmsAlarm} object.
+     * @param uei a {@link java.lang.String} object.
      */
-    OnmsAlarm findByReductionKey(String reductionKey);
+    public NegativeExactUEIFilter(String uei) {
+        super(TYPE, "eventUei", uei);
+    }
 
     /**
-     * <p>Get the list of current alarms per node with severity greater than normal,
-     * reflecting the max severity, the minimum last event time and alarm count;
-     * ordered by the oldest.</p>
-     * 
-     * @return A list of alarm summaries.
-     * @param nodeIds If you want to restrict the NodeAlarmSummaries to specific nodes (optional)
+     * <p>getTextDescription</p>
+     *
+     * @return a {@link java.lang.String} object.
      */
-    List<AlarmSummary> getNodeAlarmSummaries(Integer... nodeIds);
+    @Override
+    public String getTextDescription() {
+        return ("UEI is not " + getValue());
+    }
 
-    List<OnmsAlarm> findByEventParms(String... s);
+    /**
+     * <p>toString</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    @Override
+    public String toString() {
+        return ("<WebEventRepository.NegativeExactUEIFilter: " + this.getDescription() + ">");
+    }
 
-    List<OnmsAlarm> findUnclearedHyperic();
-
-    List<OnmsAlarm> findById(int[] alarmId);
+    /** {@inheritDoc} */
+    @Override
+    public boolean equals(Object obj) {
+        return (this.toString().equals(obj.toString()));
+    }
 }

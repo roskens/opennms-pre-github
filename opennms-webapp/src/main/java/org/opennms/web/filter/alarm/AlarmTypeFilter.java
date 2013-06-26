@@ -1,7 +1,7 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2009-2012 The OpenNMS Group, Inc.
  * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
@@ -26,42 +26,48 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.netmgt.dao;
+package org.opennms.web.filter.alarm;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.opennms.netmgt.model.OnmsAlarm;
-import org.opennms.netmgt.model.alarm.AlarmSummary;
-import org.springframework.util.Assert;
+import org.opennms.web.filter.EqualsFilter;
 
 /**
- * <p>AlarmDao interface.</p>
+ * <p>AlarmTypeFilter class.</p>
+ *
+ * @author ranger
+ * @version $Id: $
+ * @since 1.8.1
  */
-public interface AlarmDao extends OnmsDao<OnmsAlarm, Integer> {
-
+public class AlarmTypeFilter extends EqualsFilter<Integer> {
+    /** Constant <code>TYPE="alarmTypeFilter"</code> */
+    public static final String TYPE = "alarmTypeFilter";    
+    
     /**
-     * <p>findByReductionKey</p>
+     * <p>Constructor for AlarmTypeFilter.</p>
      *
-     * @param reductionKey a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.model.OnmsAlarm} object.
+     * @param alarmType a int.
      */
-    OnmsAlarm findByReductionKey(String reductionKey);
-
+    public AlarmTypeFilter(int alarmType){
+        super(TYPE, "alarmType", alarmType);
+    }
+    
     /**
-     * <p>Get the list of current alarms per node with severity greater than normal,
-     * reflecting the max severity, the minimum last event time and alarm count;
-     * ordered by the oldest.</p>
-     * 
-     * @return A list of alarm summaries.
-     * @param nodeIds If you want to restrict the NodeAlarmSummaries to specific nodes (optional)
+     * <p>getTextDescription</p>
+     *
+     * @return a {@link java.lang.String} object.
      */
-    List<AlarmSummary> getNodeAlarmSummaries(Integer... nodeIds);
+    @Override
+    public String getTextDescription() {
+        return TYPE + " = " + getAlarmTypeLabel(getValue());
+    }
+    
+    private String getAlarmTypeLabel(int alarmType){
+        if(alarmType == 1){
+            return "PROBLEM_TYPE";
+        }else if(alarmType == 2){
+            return "RESOLUTION_TYPE";
+        }else{
+            return null;
+        }
+    }
 
-    List<OnmsAlarm> findByEventParms(String... s);
-
-    List<OnmsAlarm> findUnclearedHyperic();
-
-    List<OnmsAlarm> findById(int[] alarmId);
 }

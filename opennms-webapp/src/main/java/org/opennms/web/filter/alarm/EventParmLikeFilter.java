@@ -1,7 +1,7 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2011-2012 The OpenNMS Group, Inc.
  * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
@@ -26,43 +26,38 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.web.alarm;
+package org.opennms.web.filter.alarm;
 
-import java.util.List;
+import org.opennms.web.filter.SubstringFilter;
 
-import org.opennms.web.filter.Filter;
-import org.opennms.web.filter.alarm.SortStyle;
+public class EventParmLikeFilter extends SubstringFilter {
 
-/**
- * Convenience data structure for holding the arguments to an event query.
- *
- * @author <A HREF="mailto:larry@opennms.org">Lawrence Karnowski </A>
- * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
- * @author <A HREF="mailto:larry@opennms.org">Lawrence Karnowski </A>
- * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
- * @version $Id: $
- * @since 1.8.1
- */
-public class AlarmQueryParms extends Object {
-    public SortStyle sortStyle;
-
-    public AcknowledgeType ackType;
-
-    public List<Filter> filters;
-
-    public int limit;
-
-    public int multiple;
+    /** Constant <code>TYPE="parmmatchany"</code> */
+    public static final String TYPE = "parmmatchany";
     
-    public String display;
+    public EventParmLikeFilter(String parm) {
+        super(TYPE, "eventParms", parm + "(string,text)");
+    }
 
-    /**
-     * Convert the internal (and useful) ArrayList filters object into an array
-     * of Filter instances.
-     *
-     * @return an array of org$opennms$web$filter$Filter objects.
-     */
-    public Filter[] getFilters() {
-        return this.filters.toArray(new Filter[this.filters.size()]);
+    @Override
+    public String getTextDescription() {
+        String strippedType = getValue().replace("(string,text)", "");
+        String[] parms = strippedType.split("=");
+        StringBuffer buffer = new StringBuffer(parms[0] + "=\"");
+        buffer.append(parms[parms.length - 1]);
+        buffer.append("\"");
+        return buffer.toString();
+    }
+    
+    /** {@inheritDoc} */
+    @Override
+    public boolean equals(Object obj) {
+        return this.toString().equals(obj.toString());
+    }
+    
+    @Override
+    public String getDescription() {
+        return TYPE + "=" + getValueString().replace("(string,text)", "");
+        
     }
 }

@@ -26,43 +26,56 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.web.alarm;
+package org.opennms.web.filter.alarm;
 
-import java.util.List;
+import org.opennms.core.utils.InetAddressUtils;
+import org.opennms.web.filter.NotEqualOrNullFilter;
 
-import org.opennms.web.filter.Filter;
-import org.opennms.web.filter.alarm.SortStyle;
+import java.net.InetAddress;
 
 /**
- * Convenience data structure for holding the arguments to an event query.
+ * Encapsulates all interface filtering functionality.
  *
- * @author <A HREF="mailto:larry@opennms.org">Lawrence Karnowski </A>
- * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
- * @author <A HREF="mailto:larry@opennms.org">Lawrence Karnowski </A>
- * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
+ * @author ranger
  * @version $Id: $
  * @since 1.8.1
  */
-public class AlarmQueryParms extends Object {
-    public SortStyle sortStyle;
-
-    public AcknowledgeType ackType;
-
-    public List<Filter> filters;
-
-    public int limit;
-
-    public int multiple;
-    
-    public String display;
+public class NegativeInterfaceFilter extends NotEqualOrNullFilter<String> {
+    /** Constant <code>TYPE="interfacenot"</code> */
+    public static final String TYPE = "interfacenot";
 
     /**
-     * Convert the internal (and useful) ArrayList filters object into an array
-     * of Filter instances.
+     * <p>Constructor for NegativeInterfaceFilter.</p>
      *
-     * @return an array of org$opennms$web$filter$Filter objects.
+     * @param ipAddress a {@link java.lang.String} object.
      */
-    public Filter[] getFilters() {
-        return this.filters.toArray(new Filter[this.filters.size()]);
+    public NegativeInterfaceFilter(InetAddress ipAddress) {
+        super(TYPE, "ipAddr", InetAddressUtils.str(ipAddress));
+    }
+
+    /**
+     * <p>getTextDescription</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    @Override
+    public String getTextDescription() {
+        return ("interface is not " + getValue());
+    }
+
+    /**
+     * <p>toString</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    @Override
+    public String toString() {
+        return ("<AlarmFactory.NegativeInterfaceFilter: " + this.getDescription() + ">");
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public boolean equals(Object obj) {
+        return (this.toString().equals(obj.toString()));
     }
 }

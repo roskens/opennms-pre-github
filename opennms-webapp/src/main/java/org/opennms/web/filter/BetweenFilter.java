@@ -1,7 +1,7 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2009-2012 The OpenNMS Group, Inc.
  * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
@@ -26,43 +26,16 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.web.alarm;
+package org.opennms.web.filter;
 
-import java.util.List;
-
-import org.opennms.web.filter.Filter;
-import org.opennms.web.filter.alarm.SortStyle;
-
-/**
- * Convenience data structure for holding the arguments to an event query.
- *
- * @author <A HREF="mailto:larry@opennms.org">Lawrence Karnowski </A>
- * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
- * @author <A HREF="mailto:larry@opennms.org">Lawrence Karnowski </A>
- * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
- * @version $Id: $
- * @since 1.8.1
- */
-public class AlarmQueryParms extends Object {
-    public SortStyle sortStyle;
-
-    public AcknowledgeType ackType;
-
-    public List<Filter> filters;
-
-    public int limit;
-
-    public int multiple;
+public abstract class BetweenFilter<T extends Comparable> extends MultiArgFilter<T> {
     
-    public String display;
 
-    /**
-     * Convert the internal (and useful) ArrayList filters object into an array
-     * of Filter instances.
-     *
-     * @return an array of org$opennms$web$filter$Filter objects.
-     */
-    public Filter[] getFilters() {
-        return this.filters.toArray(new Filter[this.filters.size()]);
+    public BetweenFilter(String filterType, String propertyName, T first, T last) {
+        super(filterType, propertyName,  first, last);
     }
+
+    public T getFirst() { return getValues()[0]; }
+
+    public T getLast() { return getValues()[1]; }
 }

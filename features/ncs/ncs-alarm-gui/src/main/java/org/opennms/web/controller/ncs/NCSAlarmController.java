@@ -36,8 +36,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.opennms.core.utils.WebSecurityUtils;
-import org.opennms.netmgt.dao.AlarmDao;
 import org.opennms.netmgt.dao.AlarmRepository;
+import org.opennms.web.filter.SearchParameter;
+import org.opennms.web.filter.alarm.SortStyle;
 import org.opennms.netmgt.model.OnmsAlarm;
 import org.opennms.web.alarm.AcknowledgeType;
 import org.opennms.web.alarm.AlarmQueryParms;
@@ -59,7 +60,7 @@ public class NCSAlarmController {
     private Integer m_defaultShortLimit = 1000;
     private Integer m_defaultLongLimit = 2000;
     private AcknowledgeType m_defaultAcknowledgeType = AcknowledgeType.UNACKNOWLEDGED;
-    private AlarmDao.SortStyle m_defaultSortStyle = AlarmDao.SortStyle.ID;
+    private SortStyle m_defaultSortStyle = SortStyle.ID;
     
     @Autowired
     AlarmRepository m_webAlarmRepository;
@@ -73,9 +74,9 @@ public class NCSAlarmController {
 
         // handle the style sort parameter
         String sortStyleString = request.getParameter("sortby");
-        AlarmDao.SortStyle sortStyle = m_defaultSortStyle;
+        SortStyle sortStyle = m_defaultSortStyle;
         if (sortStyleString != null) {
-            AlarmDao.SortStyle temp = AlarmDao.SortStyle.getSortStyle(sortStyleString);
+            SortStyle temp = SortStyle.getSortStyle(sortStyleString);
             if (temp != null) {
                 sortStyle = temp;
             }
@@ -142,8 +143,8 @@ public class NCSAlarmController {
         parms.multiple =  multiple; 
         parms.sortStyle = sortStyle;
         
-        AlarmDao.AlarmSearchParameter queryCriteria = new AlarmDao.AlarmSearchParameter(filters, sortStyle, ackType, limit, limit * multiple);
-        AlarmDao.AlarmSearchParameter countCriteria = new AlarmDao.AlarmSearchParameter(ackType, filters);
+        SearchParameter queryCriteria = new SearchParameter(filters, sortStyle, ackType, limit, limit * multiple);
+        SearchParameter countCriteria = new SearchParameter(ackType, filters);
 
         OnmsAlarm[] alarms = m_webAlarmRepository.getMatchingAlarms(AlarmUtil.getOnmsCriteria(queryCriteria));
         

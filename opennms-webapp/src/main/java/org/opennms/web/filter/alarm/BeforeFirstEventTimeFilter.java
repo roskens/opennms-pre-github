@@ -26,42 +26,37 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.netmgt.dao;
+package org.opennms.web.filter.alarm;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import org.opennms.web.filter.LessThanFilter;
 
-import org.opennms.netmgt.model.OnmsAlarm;
-import org.opennms.netmgt.model.alarm.AlarmSummary;
-import org.springframework.util.Assert;
+import java.util.Date;
 
-/**
- * <p>AlarmDao interface.</p>
- */
-public interface AlarmDao extends OnmsDao<OnmsAlarm, Integer> {
+public class BeforeFirstEventTimeFilter extends LessThanFilter<Date> {
+    /** Constant <code>TYPE="beforefirsteventtime"</code> */
+    public static final String TYPE = "beforefirsteventtime";
 
-    /**
-     * <p>findByReductionKey</p>
-     *
-     * @param reductionKey a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.model.OnmsAlarm} object.
-     */
-    OnmsAlarm findByReductionKey(String reductionKey);
+    public BeforeFirstEventTimeFilter(Date date) {
+        super(TYPE, "firstEventTime", date);
+    }
 
-    /**
-     * <p>Get the list of current alarms per node with severity greater than normal,
-     * reflecting the max severity, the minimum last event time and alarm count;
-     * ordered by the oldest.</p>
-     * 
-     * @return A list of alarm summaries.
-     * @param nodeIds If you want to restrict the NodeAlarmSummaries to specific nodes (optional)
-     */
-    List<AlarmSummary> getNodeAlarmSummaries(Integer... nodeIds);
+    public BeforeFirstEventTimeFilter(long epochTime) {
+        this(new Date(epochTime));
+    }
 
-    List<OnmsAlarm> findByEventParms(String... s);
+    @Override
+    public String getTextDescription() {
+        return ("time of first event before \"" + getValue() + "\"");
+    }
 
-    List<OnmsAlarm> findUnclearedHyperic();
+    @Override
+    public String toString() {
+        return ("<BeforeFirstEventTimeFilter: " + this.getDescription() + ">");
+    }
 
-    List<OnmsAlarm> findById(int[] alarmId);
+    /** {@inheritDoc} */
+    @Override
+    public boolean equals(Object obj) {
+        return (this.toString().equals(obj.toString()));
+    }
 }

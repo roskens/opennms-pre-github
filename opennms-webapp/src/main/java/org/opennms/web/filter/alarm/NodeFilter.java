@@ -26,43 +26,61 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.web.alarm;
+package org.opennms.web.filter.alarm;
 
-import java.util.List;
-
-import org.opennms.web.filter.Filter;
-import org.opennms.web.filter.alarm.SortStyle;
+import org.opennms.web.filter.EqualsFilter;
 
 /**
- * Convenience data structure for holding the arguments to an event query.
+ * Encapsulates all node filtering functionality.
  *
- * @author <A HREF="mailto:larry@opennms.org">Lawrence Karnowski </A>
- * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
- * @author <A HREF="mailto:larry@opennms.org">Lawrence Karnowski </A>
- * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
+ * @author ranger
  * @version $Id: $
  * @since 1.8.1
  */
-public class AlarmQueryParms extends Object {
-    public SortStyle sortStyle;
-
-    public AcknowledgeType ackType;
-
-    public List<Filter> filters;
-
-    public int limit;
-
-    public int multiple;
-    
-    public String display;
+public class NodeFilter extends EqualsFilter<Integer> {
+    /** Constant <code>TYPE="node"</code> */
+    public static final String TYPE = "node";
+    private final String m_nodeName;
 
     /**
-     * Convert the internal (and useful) ArrayList filters object into an array
-     * of Filter instances.
+     * <p>Constructor for NodeFilter.</p>
      *
-     * @return an array of org$opennms$web$filter$Filter objects.
+     * @param nodeId a int.
      */
-    public Filter[] getFilters() {
-        return this.filters.toArray(new Filter[this.filters.size()]);
+    public NodeFilter(int nodeId, String nodeName) {
+        super(TYPE, "node.id", nodeId);
+        m_nodeName = nodeName;
+    }
+
+    /**
+     * <p>getTextDescription</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    @Override
+    public String getTextDescription() {
+        String nodeName = m_nodeName;
+
+        if(nodeName == null) {
+            nodeName = Integer.toString(getValue());
+        }
+            
+        return (TYPE + "=" + nodeName);
+    }
+
+    /**
+     * <p>toString</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    @Override
+    public String toString() {
+        return ("<AlarmFactory.NodeFilter: " + this.getDescription() + ">");
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public boolean equals(Object obj) {
+        return (this.toString().equals(obj.toString()));
     }
 }

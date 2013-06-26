@@ -26,42 +26,52 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.netmgt.dao;
+package org.opennms.web.filter.alarm;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.opennms.netmgt.model.OnmsAlarm;
-import org.opennms.netmgt.model.alarm.AlarmSummary;
-import org.springframework.util.Assert;
+import org.opennms.web.filter.EqualsFilter;
 
 /**
- * <p>AlarmDao interface.</p>
+ * Encapsulates filtering on exact unique event identifiers.
+ *
+ * @author ranger
+ * @version $Id: $
+ * @since 1.8.1
  */
-public interface AlarmDao extends OnmsDao<OnmsAlarm, Integer> {
+public class ExactUEIFilter extends EqualsFilter<String> {
+    /** Constant <code>TYPE="exactUei"</code> */
+    public static final String TYPE = "exactUei";
 
     /**
-     * <p>findByReductionKey</p>
+     * <p>Constructor for ExactUEIFilter.</p>
      *
-     * @param reductionKey a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.model.OnmsAlarm} object.
+     * @param uei a {@link java.lang.String} object.
      */
-    OnmsAlarm findByReductionKey(String reductionKey);
+    public ExactUEIFilter(String uei) {
+        super(TYPE, "uei", uei);
+    }
 
     /**
-     * <p>Get the list of current alarms per node with severity greater than normal,
-     * reflecting the max severity, the minimum last event time and alarm count;
-     * ordered by the oldest.</p>
-     * 
-     * @return A list of alarm summaries.
-     * @param nodeIds If you want to restrict the NodeAlarmSummaries to specific nodes (optional)
+     * <p>toString</p>
+     *
+     * @return a {@link java.lang.String} object.
      */
-    List<AlarmSummary> getNodeAlarmSummaries(Integer... nodeIds);
+    @Override
+    public String toString() {
+        return ("<AlarmFactory.ExactUEIFilter: " + this.getDescription() + ">");
+    }
 
-    List<OnmsAlarm> findByEventParms(String... s);
+    /**
+     * <p>getUEI</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String getUEI() {
+        return getValue();
+    }
 
-    List<OnmsAlarm> findUnclearedHyperic();
-
-    List<OnmsAlarm> findById(int[] alarmId);
+    /** {@inheritDoc} */
+    @Override
+    public boolean equals(Object obj) {
+        return (this.toString().equals(obj.toString()));
+    }
 }

@@ -1,7 +1,7 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2009-2012 The OpenNMS Group, Inc.
  * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
@@ -26,42 +26,50 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.netmgt.dao;
+package org.opennms.web.filter.alarm;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import org.opennms.web.filter.InFilter;
 
-import org.opennms.netmgt.model.OnmsAlarm;
-import org.opennms.netmgt.model.alarm.AlarmSummary;
-import org.springframework.util.Assert;
 
 /**
- * <p>AlarmDao interface.</p>
+ * <p>AlarmIdListFilter class.</p>
+ *
+ * @author ranger
+ * @version $Id: $
+ * @since 1.8.1
  */
-public interface AlarmDao extends OnmsDao<OnmsAlarm, Integer> {
-
+public class AlarmIdListFilter extends InFilter<Integer> {
+    /** Constant <code>TYPE="alarmIdList"</code> */
+    public static final String TYPE = "alarmIdList";
+    
+    private static Integer[] box(int[] values) {
+        if (values == null) return null;
+        
+        Integer[] boxed = new Integer[values.length];
+        for(int i = 0; i < values.length; i++) {
+            boxed[i] = values[i];
+        }
+        
+        return boxed;
+    }
+    
     /**
-     * <p>findByReductionKey</p>
+     * <p>Constructor for AlarmIdListFilter.</p>
      *
-     * @param reductionKey a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.model.OnmsAlarm} object.
+     * @param alarmIds an array of int.
      */
-    OnmsAlarm findByReductionKey(String reductionKey);
+    public AlarmIdListFilter(int[] alarmIds) {
+        super(TYPE, "id", box(alarmIds));
+    }
 
     /**
-     * <p>Get the list of current alarms per node with severity greater than normal,
-     * reflecting the max severity, the minimum last event time and alarm count;
-     * ordered by the oldest.</p>
-     * 
-     * @return A list of alarm summaries.
-     * @param nodeIds If you want to restrict the NodeAlarmSummaries to specific nodes (optional)
+     * <p>getTextDescription</p>
+     *
+     * @return a {@link java.lang.String} object.
      */
-    List<AlarmSummary> getNodeAlarmSummaries(Integer... nodeIds);
-
-    List<OnmsAlarm> findByEventParms(String... s);
-
-    List<OnmsAlarm> findUnclearedHyperic();
-
-    List<OnmsAlarm> findById(int[] alarmId);
+    @Override
+    public String getTextDescription() {
+        return String.format("alarmId in (%s)", getValueString());
+    }
+    
 }

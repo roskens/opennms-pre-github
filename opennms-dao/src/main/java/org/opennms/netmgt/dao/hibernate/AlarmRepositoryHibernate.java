@@ -34,6 +34,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.opennms.core.criteria.Criteria;
 import org.opennms.core.criteria.CriteriaBuilder;
 import org.opennms.core.utils.BeanUtils;
 import org.opennms.netmgt.dao.AcknowledgmentDao;
@@ -293,4 +294,13 @@ public class AlarmRepositoryHibernate implements AlarmRepository, InitializingBe
         return m_alarmDao.getNodeAlarmSummaries();
     }
 
+    @Override
+    public int countMatchingAlarms(Criteria criteria) {
+        return m_alarmDao.countMatching(criteria);
+    }
+
+    @Override
+    public List<OnmsAlarm> findMatchingAlarms(Criteria criteria) {
+        return m_alarmDao.findMatching(criteria);
+    }
 }

@@ -26,43 +26,64 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.web.alarm;
+package org.opennms.web.filter.event;
 
-import java.util.List;
+import java.util.Date;
 
-import org.opennms.web.filter.Filter;
-import org.opennms.web.filter.alarm.SortStyle;
+import org.opennms.web.filter.LessThanFilter;
 
 /**
- * Convenience data structure for holding the arguments to an event query.
+ * <p>BeforeDateFilter class.</p>
  *
- * @author <A HREF="mailto:larry@opennms.org">Lawrence Karnowski </A>
- * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
- * @author <A HREF="mailto:larry@opennms.org">Lawrence Karnowski </A>
- * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
+ * @author ranger
  * @version $Id: $
  * @since 1.8.1
  */
-public class AlarmQueryParms extends Object {
-    public SortStyle sortStyle;
-
-    public AcknowledgeType ackType;
-
-    public List<Filter> filters;
-
-    public int limit;
-
-    public int multiple;
-    
-    public String display;
+public class BeforeDateFilter extends LessThanFilter<Date> {
+    /** Constant <code>TYPE="beforedate"</code> */
+    public static final String TYPE = "beforedate";
 
     /**
-     * Convert the internal (and useful) ArrayList filters object into an array
-     * of Filter instances.
+     * <p>Constructor for BeforeDateFilter.</p>
      *
-     * @return an array of org$opennms$web$filter$Filter objects.
+     * @param date a java$util$Date object.
      */
-    public Filter[] getFilters() {
-        return this.filters.toArray(new Filter[this.filters.size()]);
+    public BeforeDateFilter(Date date) {
+        super(TYPE, "eventTime", date);
+    }
+
+    /**
+     * <p>Constructor for BeforeDateFilter.</p>
+     *
+     * @param epochTime a long.
+     */
+    public BeforeDateFilter(long epochTime) {
+        this(new Date(epochTime));
+    }
+
+    /**
+     * <p>getTextDescription</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    @Override
+    public String getTextDescription() {
+        return ("date before \"" + getValue() + "\"");
+    }
+
+    /**
+     * <p>toString</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    @Override
+    public String toString() {
+        return ("<BeforeTimeFilter: " + this.getDescription() + ">");
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public boolean equals(Object obj) {
+        return (this.toString().equals(obj.toString()));
     }
 }

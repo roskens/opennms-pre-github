@@ -26,42 +26,38 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.netmgt.dao;
+package org.opennms.web.filter.alarm;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.opennms.netmgt.model.OnmsAlarm;
-import org.opennms.netmgt.model.alarm.AlarmSummary;
-import org.springframework.util.Assert;
+import org.opennms.web.filter.EqualsFilter;
+import org.opennms.netmgt.model.OnmsSeverity;
 
 /**
- * <p>AlarmDao interface.</p>
+ * Encapsulates severity filtering functionality.
+ *
  */
-public interface AlarmDao extends OnmsDao<OnmsAlarm, Integer> {
+public class SeverityFilter extends EqualsFilter<OnmsSeverity> {
+    public static final String TYPE = "severity";
 
-    /**
-     * <p>findByReductionKey</p>
-     *
-     * @param reductionKey a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.model.OnmsAlarm} object.
-     */
-    OnmsAlarm findByReductionKey(String reductionKey);
+    public SeverityFilter(final OnmsSeverity severity) {
+        super(TYPE, "severity", severity);
+    }
 
-    /**
-     * <p>Get the list of current alarms per node with severity greater than normal,
-     * reflecting the max severity, the minimum last event time and alarm count;
-     * ordered by the oldest.</p>
-     * 
-     * @return A list of alarm summaries.
-     * @param nodeIds If you want to restrict the NodeAlarmSummaries to specific nodes (optional)
-     */
-    List<AlarmSummary> getNodeAlarmSummaries(Integer... nodeIds);
+    @Override
+    public String getTextDescription() {
+        return (TYPE + " is " + getValue().getLabel());
+    }
 
-    List<OnmsAlarm> findByEventParms(String... s);
+    @Override
+    public String toString() {
+        return ("<AlarmFactory.SeverityFilter: " + this.getDescription() + ">");
+    }
 
-    List<OnmsAlarm> findUnclearedHyperic();
+    public int getSeverity() {
+        return getValue().getId();
+    }
 
-    List<OnmsAlarm> findById(int[] alarmId);
+    @Override
+    public boolean equals(final Object obj) {
+        return (this.toString().equals(obj.toString()));
+    }
 }

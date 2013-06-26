@@ -1,7 +1,7 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2009-2012 The OpenNMS Group, Inc.
  * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
@@ -26,43 +26,46 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.web.alarm;
+package org.opennms.web.filter.notification;
 
-import java.util.List;
-
-import org.opennms.web.filter.Filter;
-import org.opennms.web.filter.alarm.SortStyle;
+import org.opennms.web.filter.EqualsFilter;
 
 /**
- * Convenience data structure for holding the arguments to an event query.
+ * Encapsulates all service filtering functionality.
  *
- * @author <A HREF="mailto:larry@opennms.org">Lawrence Karnowski </A>
- * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
- * @author <A HREF="mailto:larry@opennms.org">Lawrence Karnowski </A>
- * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
+ * @author ranger
  * @version $Id: $
  * @since 1.8.1
  */
-public class AlarmQueryParms extends Object {
-    public SortStyle sortStyle;
-
-    public AcknowledgeType ackType;
-
-    public List<Filter> filters;
-
-    public int limit;
-
-    public int multiple;
-    
-    public String display;
+public class ServiceFilter extends EqualsFilter<Integer> {
+    /** Constant <code>TYPE="service"</code> */
+    public static final String TYPE = "service";
+    private final String m_serviceName;
 
     /**
-     * Convert the internal (and useful) ArrayList filters object into an array
-     * of Filter instances.
+     * <p>Constructor for ServiceFilter.</p>
      *
-     * @return an array of org$opennms$web$filter$Filter objects.
+     * @param serviceId a int.
      */
-    public Filter[] getFilters() {
-        return this.filters.toArray(new Filter[this.filters.size()]);
+    public ServiceFilter(int serviceId, String serviceName) {
+        super(TYPE, "serviceType.id", serviceId);
+        m_serviceName = serviceName;
+    }
+    
+    @Override
+    public String getTextDescription() {
+//        String serviceName = NetworkElementFactory.getInstance(servletContext).getServiceNameFromId(getValue());
+        return (TYPE + "=" + m_serviceName);
+    }
+
+    @Override
+    public String toString() {
+        return ("<WebNotificationRepository.ServiceFilter: " + this.getDescription() + ">");
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public boolean equals(Object obj) {
+        return (this.toString().equals(obj.toString()));
     }
 }

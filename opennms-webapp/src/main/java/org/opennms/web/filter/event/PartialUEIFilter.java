@@ -26,42 +26,55 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.netmgt.dao;
+package org.opennms.web.filter.event;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.opennms.netmgt.model.OnmsAlarm;
-import org.opennms.netmgt.model.alarm.AlarmSummary;
-import org.springframework.util.Assert;
+import org.opennms.web.filter.SubstringFilter;
 
 /**
- * <p>AlarmDao interface.</p>
+ * Encapsulates filtering on partial unique event identifiers.
+ *
+ * @author ranger
+ * @version $Id: $
+ * @since 1.8.1
  */
-public interface AlarmDao extends OnmsDao<OnmsAlarm, Integer> {
+public class PartialUEIFilter extends SubstringFilter {
+    /** Constant <code>TYPE="partialUei"</code> */
+    public static final String TYPE = "partialUei";
 
     /**
-     * <p>findByReductionKey</p>
+     * <p>Constructor for PartialUEIFilter.</p>
      *
-     * @param reductionKey a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.model.OnmsAlarm} object.
+     * @param uei a {@link java.lang.String} object.
      */
-    OnmsAlarm findByReductionKey(String reductionKey);
+    public PartialUEIFilter(String uei) {
+        super(TYPE, "eventUei", uei);
+    }
 
     /**
-     * <p>Get the list of current alarms per node with severity greater than normal,
-     * reflecting the max severity, the minimum last event time and alarm count;
-     * ordered by the oldest.</p>
-     * 
-     * @return A list of alarm summaries.
-     * @param nodeIds If you want to restrict the NodeAlarmSummaries to specific nodes (optional)
+     * <p>getTextDescription</p>
+     *
+     * @return a {@link String} object.
      */
-    List<AlarmSummary> getNodeAlarmSummaries(Integer... nodeIds);
+    @Override
+    public String getTextDescription() {
+        return "uei contains " + getValue();
+    }
 
-    List<OnmsAlarm> findByEventParms(String... s);
+    /**
+     * <p>toString</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    @Override
+    public String toString() {
+        return ("<WebEventRepository.PartialUEIFilter: " + this.getDescription() + ">");
+    }
 
-    List<OnmsAlarm> findUnclearedHyperic();
 
-    List<OnmsAlarm> findById(int[] alarmId);
+
+    /** {@inheritDoc} */
+    @Override
+    public boolean equals(Object obj) {
+        return (this.toString().equals(obj.toString()));
+    }
 }
