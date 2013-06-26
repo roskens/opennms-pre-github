@@ -31,7 +31,7 @@ package org.opennms.web.alarm;
 import java.util.List;
 
 import org.opennms.netmgt.dao.AlarmDao;
-import org.opennms.web.filter.Filter;
+import org.opennms.netmgt.dao.filter.Filter;
 
 /**
  * Convenience data structure for holding the arguments to an event query.

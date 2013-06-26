@@ -31,7 +31,7 @@ package org.opennms.web.notification;
 import java.util.List;
 
 import org.opennms.netmgt.dao.NotificationDao;
-import org.opennms.web.filter.Filter;
+import org.opennms.netmgt.dao.filter.Filter;
 
 /**
  * Convenience data structure for holding the arguments to an notice query.

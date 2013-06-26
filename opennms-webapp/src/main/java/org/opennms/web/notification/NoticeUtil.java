@@ -33,15 +33,15 @@ import java.util.StringTokenizer;
 import javax.servlet.ServletContext;
 
 import org.opennms.core.utils.WebSecurityUtils;
-import org.opennms.web.filter.Filter;
-import org.opennms.web.notification.filter.AcknowledgedByFilter;
-import org.opennms.web.notification.filter.InterfaceFilter;
-import org.opennms.web.notification.filter.NegativeNodeFilter;
-import org.opennms.web.notification.filter.NodeFilter;
-import org.opennms.web.notification.filter.NotificationIdFilter;
-import org.opennms.web.notification.filter.ResponderFilter;
-import org.opennms.web.notification.filter.ServiceFilter;
-import org.opennms.web.notification.filter.UserFilter;
+import org.opennms.netmgt.dao.filter.Filter;
+import org.opennms.netmgt.dao.filter.notification.AcknowledgedByFilter;
+import org.opennms.netmgt.dao.filter.notification.InterfaceFilter;
+import org.opennms.netmgt.dao.filter.notification.NegativeNodeFilter;
+import org.opennms.netmgt.dao.filter.notification.NodeFilter;
+import org.opennms.netmgt.dao.filter.notification.NotificationIdFilter;
+import org.opennms.netmgt.dao.filter.notification.ResponderFilter;
+import org.opennms.netmgt.dao.filter.notification.ServiceFilter;
+import org.opennms.netmgt.dao.filter.notification.UserFilter;
 
 /**
  * <p>Abstract NoticeUtil class.</p>
@@ -58,7 +58,7 @@ public abstract class NoticeUtil extends Object {
      * @param filterString a {@link java.lang.String} object.
      * @return a org$opennms$web$filter$Filter object.
      */
-    public static org.opennms.web.filter.Filter getFilter(String filterString, ServletContext servletContext) {
+    public static Filter getFilter(String filterString, ServletContext servletContext) {
         Filter filter = null;
 
         StringTokenizer tokens = new StringTokenizer(filterString, "=");

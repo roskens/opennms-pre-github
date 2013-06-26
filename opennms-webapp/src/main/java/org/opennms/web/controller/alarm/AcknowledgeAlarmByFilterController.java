@@ -29,23 +29,18 @@
 package org.opennms.web.controller.alarm;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 
-import javax.annotation.Nullable;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.common.base.Function;
-import com.google.common.collect.Collections2;
-import org.apache.commons.collections.CollectionUtils;
 import org.opennms.netmgt.dao.AlarmDao;
 import org.opennms.netmgt.dao.AlarmRepository;
 import org.opennms.netmgt.model.OnmsCriteria;
 import org.opennms.web.alarm.AcknowledgeType;
 import org.opennms.web.alarm.AlarmUtil;
-import org.opennms.web.filter.Filter;
+import org.opennms.netmgt.dao.filter.Filter;
 import org.opennms.web.servlet.MissingParameterException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;

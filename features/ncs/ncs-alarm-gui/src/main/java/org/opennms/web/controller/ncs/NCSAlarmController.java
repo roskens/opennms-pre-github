@@ -42,7 +42,7 @@ import org.opennms.netmgt.model.OnmsAlarm;
 import org.opennms.web.alarm.AcknowledgeType;
 import org.opennms.web.alarm.AlarmQueryParms;
 import org.opennms.web.alarm.AlarmUtil;
-import org.opennms.web.filter.Filter;
+import org.opennms.netmgt.dao.filter.Filter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

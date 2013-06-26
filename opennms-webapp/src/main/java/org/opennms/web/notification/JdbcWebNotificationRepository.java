@@ -38,10 +38,11 @@ import java.util.List;
 import org.opennms.core.utils.BeanUtils;
 import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.dao.NotificationDao;
-import org.opennms.web.notification.filter.NotificationCriteria;
-import org.opennms.web.notification.filter.NotificationIdFilter;
-import org.opennms.web.notification.filter.NotificationCriteria.BaseNotificationCriteriaVisitor;
-import org.opennms.web.notification.filter.NotificationCriteria.NotificationCriteriaVisitor;
+import org.opennms.netmgt.dao.filter.Filter;
+import org.opennms.netmgt.dao.filter.notification.NotificationCriteria;
+import org.opennms.netmgt.dao.filter.notification.NotificationIdFilter;
+import org.opennms.netmgt.dao.filter.notification.NotificationCriteria.BaseNotificationCriteriaVisitor;
+import org.opennms.netmgt.dao.filter.notification.NotificationCriteria.NotificationCriteriaVisitor;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -94,7 +95,7 @@ public class JdbcWebNotificationRepository implements WebNotificationRepository,
             }
 
             @Override
-            public void visitFilter(org.opennms.web.filter.Filter filter) throws RuntimeException {
+            public void visitFilter(Filter filter) throws RuntimeException {
                 and(buf);
                 buf.append(filter.getParamSql());
             }
@@ -127,7 +128,7 @@ public class JdbcWebNotificationRepository implements WebNotificationRepository,
                 }
                 criteria.visit(new BaseNotificationCriteriaVisitor<SQLException>(){
                     @Override
-                    public void visitFilter(org.opennms.web.filter.Filter filter) throws SQLException{
+                    public void visitFilter(Filter filter) throws SQLException{
                         LogUtils.infof(this, "filter sql: " + filter.getSql());
                         paramIndex += filter.bindParam(ps, paramIndex);
                     }

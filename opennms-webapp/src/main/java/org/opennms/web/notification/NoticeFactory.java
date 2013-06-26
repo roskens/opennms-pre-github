@@ -42,8 +42,8 @@ import org.opennms.core.resource.Vault;
 import org.opennms.core.utils.ThreadCategory;
 import org.opennms.netmgt.dao.NotificationDao;
 import org.opennms.web.element.NetworkElementFactory;
-import org.opennms.web.filter.Filter;
-import org.opennms.web.notification.filter.NodeFilter;
+import org.opennms.netmgt.dao.filter.Filter;
+import org.opennms.netmgt.dao.filter.notification.NodeFilter;
 
 /**
  * Encapsulates all querying functionality for notices
@@ -236,7 +236,7 @@ public class NoticeFactory {
      * @throws java.sql.SQLException if any.
      */
     public static Notification[] getNotices(NotificationDao.SortStyle sortStyle, AcknowledgeType ackType, ServletContext servletContext) throws SQLException {
-        return (NoticeFactory.getNotices(sortStyle, ackType, new org.opennms.web.filter.Filter[0], servletContext));
+        return (NoticeFactory.getNotices(sortStyle, ackType, new Filter[0], servletContext));
     }
 
     /**
@@ -249,7 +249,7 @@ public class NoticeFactory {
      * @return an array of {@link org.opennms.web.notification.Notification} objects.
      * @throws java.sql.SQLException if any.
      */
-    public static Notification[] getNotices(NotificationDao.SortStyle sortStyle, AcknowledgeType ackType, org.opennms.web.filter.Filter[] filters, ServletContext servletContext) throws SQLException {
+    public static Notification[] getNotices(NotificationDao.SortStyle sortStyle, AcknowledgeType ackType, Filter[] filters, ServletContext servletContext) throws SQLException {
         return (NoticeFactory.getNotices(sortStyle, ackType, filters, -1, -1, servletContext));
     }
 
@@ -274,7 +274,7 @@ public class NoticeFactory {
      * @return an array of {@link org.opennms.web.notification.Notification} objects.
      * @throws java.sql.SQLException if any.
      */
-    public static Notification[] getNotices(NotificationDao.SortStyle sortStyle, AcknowledgeType ackType, org.opennms.web.filter.Filter[] filters, int limit, int offset, ServletContext servletContext) throws SQLException {
+    public static Notification[] getNotices(NotificationDao.SortStyle sortStyle, AcknowledgeType ackType, Filter[] filters, int limit, int offset, ServletContext servletContext) throws SQLException {
         if (sortStyle == null || ackType == null || filters == null) {
             throw new IllegalArgumentException("Cannot take null parameters.");
         }
@@ -372,7 +372,7 @@ public class NoticeFactory {
             throw new IllegalArgumentException("Cannot take null parameters.");
         }
 
-        org.opennms.web.filter.Filter[] filters = new org.opennms.web.filter.Filter[] { new NodeFilter(nodeId) };
+        Filter[] filters = new Filter[] { new NodeFilter(nodeId) };
         return (NoticeFactory.getNotices(sortStyle, ackType, filters, servletContext));
     }
 

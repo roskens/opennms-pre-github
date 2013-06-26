@@ -35,7 +35,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.opennms.core.utils.WebSecurityUtils;
-import org.opennms.web.filter.Filter;
+import org.opennms.netmgt.dao.filter.Filter;
 import org.opennms.web.outage.Outage;
 import org.opennms.web.outage.SortStyle;
 import org.opennms.web.outage.WebOutageRepository;

@@ -31,7 +31,7 @@ package org.opennms.web.outage.filter;
 import javax.servlet.ServletContext;
 
 import org.opennms.web.element.NetworkElementFactory;
-import org.opennms.web.filter.NotEqualOrNullFilter;
+import org.opennms.netmgt.dao.filter.NotEqualOrNullFilter;
 
 /**
  * Encapsulates all node filtering functionality.

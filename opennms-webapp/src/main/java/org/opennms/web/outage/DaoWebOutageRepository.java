@@ -46,7 +46,7 @@ import org.opennms.netmgt.dao.OutageDao;
 import org.opennms.netmgt.model.OnmsCriteria;
 import org.opennms.netmgt.model.OnmsOutage;
 import org.opennms.netmgt.model.outage.OutageSummary;
-import org.opennms.web.filter.Filter;
+import org.opennms.netmgt.dao.filter.Filter;
 import org.opennms.web.outage.filter.OutageCriteria;
 import org.opennms.web.outage.filter.OutageCriteria.OutageCriteriaVisitor;
 import org.springframework.beans.factory.InitializingBean;

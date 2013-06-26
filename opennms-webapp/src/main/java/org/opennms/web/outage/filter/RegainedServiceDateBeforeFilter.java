@@ -30,7 +30,7 @@ package org.opennms.web.outage.filter;
 
 import java.util.Date;
 
-import org.opennms.web.filter.LessThanFilter;
+import org.opennms.netmgt.dao.filter.LessThanFilter;
 
 /**
  * <p>RegainedServiceDateBeforeFilter class.</p>

@@ -36,11 +36,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.opennms.core.utils.WebSecurityUtils;
-import org.opennms.web.filter.Filter;
+import org.opennms.netmgt.dao.filter.Filter;
 import org.opennms.web.notification.Notification;
 import org.opennms.web.notification.WebNotificationRepository;
-import org.opennms.web.notification.filter.NotificationCriteria;
-import org.opennms.web.notification.filter.NotificationIdListFilter;
+import org.opennms.netmgt.dao.filter.notification.NotificationCriteria;
+import org.opennms.netmgt.dao.filter.notification.NotificationIdListFilter;
 import org.opennms.web.servlet.MissingParameterException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;

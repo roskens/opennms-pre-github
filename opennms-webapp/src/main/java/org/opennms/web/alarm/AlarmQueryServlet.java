@@ -44,18 +44,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.opennms.core.utils.WebSecurityUtils;
 import org.opennms.netmgt.model.OnmsSeverity;
-import org.opennms.web.alarm.filter.AfterFirstEventTimeFilter;
-import org.opennms.web.alarm.filter.AfterLastEventTimeFilter;
-import org.opennms.web.alarm.filter.BeforeFirstEventTimeFilter;
-import org.opennms.web.alarm.filter.BeforeLastEventTimeFilter;
-import org.opennms.web.alarm.filter.IPAddrLikeFilter;
-import org.opennms.web.alarm.filter.LogMessageMatchesAnyFilter;
-import org.opennms.web.alarm.filter.LogMessageSubstringFilter;
-import org.opennms.web.alarm.filter.NodeNameLikeFilter;
-import org.opennms.web.alarm.filter.ServiceFilter;
-import org.opennms.web.alarm.filter.SeverityFilter;
+import org.opennms.netmgt.dao.filter.alarm.AfterFirstEventTimeFilter;
+import org.opennms.netmgt.dao.filter.alarm.AfterLastEventTimeFilter;
+import org.opennms.netmgt.dao.filter.alarm.BeforeFirstEventTimeFilter;
+import org.opennms.netmgt.dao.filter.alarm.BeforeLastEventTimeFilter;
+import org.opennms.netmgt.dao.filter.alarm.IPAddrLikeFilter;
+import org.opennms.netmgt.dao.filter.alarm.LogMessageMatchesAnyFilter;
+import org.opennms.netmgt.dao.filter.alarm.LogMessageSubstringFilter;
+import org.opennms.netmgt.dao.filter.alarm.NodeNameLikeFilter;
+import org.opennms.netmgt.dao.filter.alarm.ServiceFilter;
+import org.opennms.netmgt.dao.filter.alarm.SeverityFilter;
 import org.opennms.web.api.Util;
-import org.opennms.web.filter.Filter;
+import org.opennms.netmgt.dao.filter.Filter;
 import org.opennms.web.servlet.MissingParameterException;
 
 /**
@@ -232,7 +232,7 @@ public class AlarmQueryServlet extends HttpServlet {
      * <p>getBeforeFirstEventTimeFilter</p>
      *
      * @param request a {@link javax.servlet.http.HttpServletRequest} object.
-     * @return a {@link org.opennms.web.alarm.filter.BeforeFirstEventTimeFilter} object.
+     * @return a {@link org.opennms.netmgt.dao.filter.alarm.BeforeFirstEventTimeFilter} object.
      */
     protected BeforeFirstEventTimeFilter getBeforeFirstEventTimeFilter(HttpServletRequest request) {
         Date beforeFirstEventDate = this.getDateFromRequest(request, "beforefirsteventtime");
@@ -243,7 +243,7 @@ public class AlarmQueryServlet extends HttpServlet {
      * <p>getAfterFirstEventTimeFilter</p>
      *
      * @param request a {@link javax.servlet.http.HttpServletRequest} object.
-     * @return a {@link org.opennms.web.alarm.filter.AfterFirstEventTimeFilter} object.
+     * @return a {@link org.opennms.netmgt.dao.filter.alarm.AfterFirstEventTimeFilter} object.
      */
     protected AfterFirstEventTimeFilter getAfterFirstEventTimeFilter(HttpServletRequest request) {
         Date afterFirstEventDate = this.getDateFromRequest(request, "afterfirsteventtime");
@@ -254,7 +254,7 @@ public class AlarmQueryServlet extends HttpServlet {
      * <p>getBeforeLastEventTimeFilter</p>
      *
      * @param request a {@link javax.servlet.http.HttpServletRequest} object.
-     * @return a {@link org.opennms.web.alarm.filter.BeforeLastEventTimeFilter} object.
+     * @return a {@link org.opennms.netmgt.dao.filter.alarm.BeforeLastEventTimeFilter} object.
      */
     protected BeforeLastEventTimeFilter getBeforeLastEventTimeFilter(HttpServletRequest request) {
         Date beforeLastEventDate = this.getDateFromRequest(request, "beforelasteventtime");
@@ -265,7 +265,7 @@ public class AlarmQueryServlet extends HttpServlet {
      * <p>getAfterLastEventTimeFilter</p>
      *
      * @param request a {@link javax.servlet.http.HttpServletRequest} object.
-     * @return a {@link org.opennms.web.alarm.filter.AfterLastEventTimeFilter} object.
+     * @return a {@link org.opennms.netmgt.dao.filter.alarm.AfterLastEventTimeFilter} object.
      */
     protected AfterLastEventTimeFilter getAfterLastEventTimeFilter(HttpServletRequest request) {
         Date afterLastEventDate = this.getDateFromRequest(request, "afterlasteventtime");

@@ -32,9 +32,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Restrictions;
-import org.opennms.web.filter.OneArgFilter;
+import org.opennms.netmgt.dao.filter.OneArgFilter;
 
 /**
  * <p>RecentOutagesFilter class.</p>

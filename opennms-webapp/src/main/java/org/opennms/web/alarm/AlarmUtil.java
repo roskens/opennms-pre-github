@@ -38,11 +38,11 @@ import org.hibernate.criterion.Restrictions;
 import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.core.utils.WebSecurityUtils;
 import org.opennms.netmgt.dao.AlarmDao;
+import org.opennms.netmgt.dao.filter.alarm.*;
 import org.opennms.netmgt.model.OnmsAlarm;
 import org.opennms.netmgt.model.OnmsCriteria;
 import org.opennms.netmgt.model.OnmsSeverity;
-import org.opennms.web.alarm.filter.*;
-import org.opennms.web.filter.Filter;
+import org.opennms.netmgt.dao.filter.Filter;
 
 /**
  * <p>Abstract AlarmUtil class.</p>
@@ -102,7 +102,7 @@ public abstract class AlarmUtil extends Object {
      * <p>getFilter</p>
      *
      * @param filterString a {@link java.lang.String} object.
-     * @return a {@link org.opennms.web.filter.Filter} object.
+     * @return a {@link org.opennms.netmgt.dao.filter.Filter} object.
      */
     public static Filter getFilter(String filterString, ServletContext servletContext) {
         if (filterString == null) {
@@ -178,14 +178,13 @@ public abstract class AlarmUtil extends Object {
     /**
      * <p>getFilterString</p>
      *
-     * @param filter a {@link org.opennms.web.filter.Filter} object.
+     * @param filter a {@link org.opennms.netmgt.dao.filter.Filter} object.
      * @return a {@link java.lang.String} object.
      */
     public static String getFilterString(Filter filter) {
         if (filter == null) {
             throw new IllegalArgumentException("Cannot take null parameters.");
         }
-
         return filter.getDescription();
     }
 
@@ -214,7 +213,7 @@ public abstract class AlarmUtil extends Object {
      * <p>getRelativeTimeFilter</p>
      *
      * @param relativeTime a int.
-     * @return a {@link org.opennms.web.filter.Filter} object.
+     * @return a {@link org.opennms.netmgt.dao.filter.Filter} object.
      */
     public static Filter getRelativeTimeFilter(int relativeTime) {
         Filter filter = null;

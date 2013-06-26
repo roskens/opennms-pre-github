@@ -28,7 +28,7 @@
 
 package org.opennms.web.outage.filter;
 
-import org.opennms.web.filter.EqualsFilter;
+import org.opennms.netmgt.dao.filter.EqualsFilter;
 
 /**
  * Encapsulates all interface filtering functionality.

@@ -30,7 +30,7 @@ package org.opennms.web.event;
 
 import java.util.List;
 
-import org.opennms.web.filter.Filter;
+import org.opennms.netmgt.dao.filter.Filter;
 
 /**
  * Convenience data structure for holding the arguments to an event query.

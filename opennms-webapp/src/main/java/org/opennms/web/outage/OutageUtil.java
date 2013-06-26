@@ -40,7 +40,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.opennms.core.utils.WebSecurityUtils;
 import org.opennms.web.api.Util;
-import org.opennms.web.filter.Filter;
+import org.opennms.netmgt.dao.filter.Filter;
 import org.opennms.web.outage.filter.InterfaceFilter;
 import org.opennms.web.outage.filter.LostServiceDateAfterFilter;
 import org.opennms.web.outage.filter.LostServiceDateBeforeFilter;

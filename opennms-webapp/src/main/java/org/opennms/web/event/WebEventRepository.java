@@ -30,7 +30,7 @@ package org.opennms.web.event;
 
 import java.util.Date;
 
-import org.opennms.web.event.filter.EventCriteria;
+import org.opennms.netmgt.dao.filter.event.EventCriteria;
 
 /**
  * <p>WebEventRepository interface.</p>
@@ -44,7 +44,7 @@ public interface WebEventRepository {
     /**
      * <p>countMatchingEvents</p>
      *
-     * @param criteria a {@link org.opennms.web.event.filter.EventCriteria} object.
+     * @param criteria a {@link org.opennms.netmgt.dao.filter.event.EventCriteria} object.
      * @return a int.
      */
     public abstract int countMatchingEvents(EventCriteria criteria);
@@ -52,7 +52,7 @@ public interface WebEventRepository {
     /**
      * <p>countMatchingEventsBySeverity</p>
      *
-     * @param criteria a {@link org.opennms.web.event.filter.EventCriteria} object.
+     * @param criteria a {@link org.opennms.netmgt.dao.filter.event.EventCriteria} object.
      * @return an array of int.
      */
     public abstract int[] countMatchingEventsBySeverity(EventCriteria criteria);
@@ -68,7 +68,7 @@ public interface WebEventRepository {
     /**
      * <p>getMatchingEvents</p>
      *
-     * @param criteria a {@link org.opennms.web.event.filter.EventCriteria} object.
+     * @param criteria a {@link org.opennms.netmgt.dao.filter.event.EventCriteria} object.
      * @return an array of {@link org.opennms.web.event.Event} objects.
      */
     public abstract Event[] getMatchingEvents(EventCriteria criteria);
@@ -78,7 +78,7 @@ public interface WebEventRepository {
      *
      * @param user a {@link java.lang.String} object.
      * @param timestamp a java$util$Date object.
-     * @param criteria a {@link org.opennms.web.event.filter.EventCriteria} object.
+     * @param criteria a {@link org.opennms.netmgt.dao.filter.event.EventCriteria} object.
      */
     public abstract void acknowledgeMatchingEvents(String user, Date timestamp, EventCriteria criteria);
     
@@ -93,7 +93,7 @@ public interface WebEventRepository {
     /**
      * <p>unacknowledgeMatchingEvents</p>
      *
-     * @param criteria a {@link org.opennms.web.event.filter.EventCriteria} object.
+     * @param criteria a {@link org.opennms.netmgt.dao.filter.event.EventCriteria} object.
      */
     public abstract void unacknowledgeMatchingEvents(EventCriteria criteria);
     
