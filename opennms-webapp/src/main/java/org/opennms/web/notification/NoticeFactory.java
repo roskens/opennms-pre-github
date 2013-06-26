@@ -40,7 +40,6 @@ import javax.servlet.ServletContext;
 
 import org.opennms.core.resource.Vault;
 import org.opennms.core.utils.ThreadCategory;
-import org.opennms.netmgt.dao.NotificationDao;
 import org.opennms.web.element.NetworkElementFactory;
 import org.opennms.netmgt.dao.filter.Filter;
 import org.opennms.netmgt.dao.filter.notification.NodeFilter;
@@ -185,7 +184,7 @@ public class NoticeFactory {
      * @throws java.sql.SQLException if any.
      */
     public static Notification[] getNotices(ServletContext servletContext) throws SQLException {
-        return (NoticeFactory.getNotices(NotificationDao.SortStyle.ID, AcknowledgeType.UNACKNOWLEDGED, servletContext));
+        return (NoticeFactory.getNotices(SortStyle.ID, AcknowledgeType.UNACKNOWLEDGED, servletContext));
     }
 
     /**
@@ -196,17 +195,17 @@ public class NoticeFactory {
      * @throws java.sql.SQLException if any.
      */
     public static Notification[] getNotices(AcknowledgeType ackType, ServletContext servletContext) throws SQLException {
-        return (NoticeFactory.getNotices(NotificationDao.SortStyle.ID, ackType, servletContext));
+        return (NoticeFactory.getNotices(SortStyle.ID, ackType, servletContext));
     }
 
     /**
      * Return all unacknowledged notices sorted by the given sort style.
      *
-     * @param sortStyle a {@link org.opennms.netmgt.dao.NotificationDao.SortStyle} object.
+     * @param sortStyle a {@link SortStyle} object.
      * @return an array of {@link org.opennms.web.notification.Notification} objects.
      * @throws java.sql.SQLException if any.
      */
-    public static Notification[] getNotices(NotificationDao.SortStyle sortStyle, ServletContext servletContext) throws SQLException {
+    public static Notification[] getNotices(SortStyle sortStyle, ServletContext servletContext) throws SQLException {
         return (NoticeFactory.getNotices(sortStyle, AcknowledgeType.UNACKNOWLEDGED, servletContext));
     }
 
@@ -216,12 +215,12 @@ public class NoticeFactory {
      *
      * @deprecated Replaced by
      *             {@link " #getNotices(SortStyle,AcknowledgeType) getNotices( SortStyle, AcknowledgeType )"}
-     * @param sortStyle a {@link org.opennms.netmgt.dao.NotificationDao.SortStyle} object.
+     * @param sortStyle a {@link SortStyle} object.
      * @param includeAcknowledged a boolean.
      * @return an array of {@link org.opennms.web.notification.Notification} objects.
      * @throws java.sql.SQLException if any.
      */
-    public static Notification[] getNotices(NotificationDao.SortStyle sortStyle, boolean includeAcknowledged, ServletContext servletContext) throws SQLException {
+    public static Notification[] getNotices(SortStyle sortStyle, boolean includeAcknowledged, ServletContext servletContext) throws SQLException {
         AcknowledgeType ackType = (includeAcknowledged) ? AcknowledgeType.BOTH : AcknowledgeType.UNACKNOWLEDGED;
         return (NoticeFactory.getNotices(sortStyle, ackType, servletContext));
     }
@@ -230,12 +229,12 @@ public class NoticeFactory {
      * Return all notices (optionally only unacknowledged notices) sorted by the
      * given sort style.
      *
-     * @param sortStyle a {@link org.opennms.netmgt.dao.NotificationDao.SortStyle} object.
+     * @param sortStyle a {@link SortStyle} object.
      * @param ackType a {@link org.opennms.web.notification.AcknowledgeType} object.
      * @return an array of {@link org.opennms.web.notification.Notification} objects.
      * @throws java.sql.SQLException if any.
      */
-    public static Notification[] getNotices(NotificationDao.SortStyle sortStyle, AcknowledgeType ackType, ServletContext servletContext) throws SQLException {
+    public static Notification[] getNotices(SortStyle sortStyle, AcknowledgeType ackType, ServletContext servletContext) throws SQLException {
         return (NoticeFactory.getNotices(sortStyle, ackType, new Filter[0], servletContext));
     }
 
@@ -243,13 +242,13 @@ public class NoticeFactory {
      * Return all notices (optionally only unacknowledged notices) sorted by the
      * given sort style.
      *
-     * @param sortStyle a {@link org.opennms.netmgt.dao.NotificationDao.SortStyle} object.
+     * @param sortStyle a {@link SortStyle} object.
      * @param ackType a {@link org.opennms.web.notification.AcknowledgeType} object.
      * @param filters an array of org$opennms$web$filter$Filter objects.
      * @return an array of {@link org.opennms.web.notification.Notification} objects.
      * @throws java.sql.SQLException if any.
      */
-    public static Notification[] getNotices(NotificationDao.SortStyle sortStyle, AcknowledgeType ackType, Filter[] filters, ServletContext servletContext) throws SQLException {
+    public static Notification[] getNotices(SortStyle sortStyle, AcknowledgeType ackType, Filter[] filters, ServletContext servletContext) throws SQLException {
         return (NoticeFactory.getNotices(sortStyle, ackType, filters, -1, -1, servletContext));
     }
 
@@ -268,13 +267,13 @@ public class NoticeFactory {
      *            if -1 or zero, no limit or offset is used
      * @param offset
      *            if -1, no limit or offset if used
-     * @param sortStyle a {@link org.opennms.netmgt.dao.NotificationDao.SortStyle} object.
+     * @param sortStyle a {@link SortStyle} object.
      * @param ackType a {@link org.opennms.web.notification.AcknowledgeType} object.
      * @param filters an array of org$opennms$web$filter$Filter objects.
      * @return an array of {@link org.opennms.web.notification.Notification} objects.
      * @throws java.sql.SQLException if any.
      */
-    public static Notification[] getNotices(NotificationDao.SortStyle sortStyle, AcknowledgeType ackType, Filter[] filters, int limit, int offset, ServletContext servletContext) throws SQLException {
+    public static Notification[] getNotices(SortStyle sortStyle, AcknowledgeType ackType, Filter[] filters, int limit, int offset, ServletContext servletContext) throws SQLException {
         if (sortStyle == null || ackType == null || filters == null) {
             throw new IllegalArgumentException("Cannot take null parameters.");
         }
@@ -338,7 +337,7 @@ public class NoticeFactory {
      * @throws java.sql.SQLException if any.
      */
     public static Notification[] getNoticesForNode(int nodeId, ServletContext servletContext) throws SQLException {
-        return (getNoticesForNode(nodeId, NotificationDao.SortStyle.ID, AcknowledgeType.UNACKNOWLEDGED, servletContext));
+        return (getNoticesForNode(nodeId, SortStyle.ID, AcknowledgeType.UNACKNOWLEDGED, servletContext));
     }
 
     /**
@@ -354,7 +353,7 @@ public class NoticeFactory {
      */
     public static Notification[] getNoticesForNode(int nodeId, boolean includeAcknowledged, ServletContext servletContext) throws SQLException {
         AcknowledgeType ackType = (includeAcknowledged) ? AcknowledgeType.BOTH : AcknowledgeType.UNACKNOWLEDGED;
-        return (getNoticesForNode(nodeId, NotificationDao.SortStyle.ID, ackType, servletContext));
+        return (getNoticesForNode(nodeId, SortStyle.ID, ackType, servletContext));
     }
 
     /**
@@ -362,12 +361,12 @@ public class NoticeFactory {
      * given sort style for the given node.
      *
      * @param nodeId a int.
-     * @param sortStyle a {@link org.opennms.netmgt.dao.NotificationDao.SortStyle} object.
+     * @param sortStyle a {@link SortStyle} object.
      * @param ackType a {@link org.opennms.web.notification.AcknowledgeType} object.
      * @return an array of {@link org.opennms.web.notification.Notification} objects.
      * @throws java.sql.SQLException if any.
      */
-    public static Notification[] getNoticesForNode(int nodeId, NotificationDao.SortStyle sortStyle, AcknowledgeType ackType, ServletContext servletContext) throws SQLException {
+    public static Notification[] getNoticesForNode(int nodeId, SortStyle sortStyle, AcknowledgeType ackType, ServletContext servletContext) throws SQLException {
         if (sortStyle == null || ackType == null) {
             throw new IllegalArgumentException("Cannot take null parameters.");
         }

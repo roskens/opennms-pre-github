@@ -3,9 +3,6 @@ package org.opennms.web.filter;
 import org.opennms.core.criteria.Alias;
 import org.opennms.core.criteria.Criteria;
 import org.opennms.core.criteria.CriteriaBuilder;
-import org.opennms.netmgt.dao.AlarmDao;
-import org.opennms.netmgt.model.OnmsCriteria;
-import org.opennms.web.filter.alarm.SortStyle;
 
 import java.util.ArrayList;
 import java.util.Arrays;

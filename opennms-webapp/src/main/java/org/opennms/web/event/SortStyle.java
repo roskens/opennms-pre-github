@@ -31,6 +31,7 @@ package org.opennms.web.event;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.opennms.web.filter.SortRule;
 import org.springframework.util.Assert;
 
 /**
@@ -41,24 +42,26 @@ import org.springframework.util.Assert;
  * @since 1.8.1
  */
 public enum SortStyle {
-    SEVERITY("severity"),
-    TIME("time"),
-    NODE("node"),
-    INTERFACE("interface"),
-    SERVICE("service"),
-    POLLER("poller"),
-    ID("id"),
-    REVERSE_SEVERITY("rev_severity"),
-    REVERSE_TIME("rev_time"),
-    REVERSE_NODE("rev_node"),
-    REVERSE_INTERFACE("rev_interface"),
-    REVERSE_SERVICE("rev_service"),
-    REVERSE_POLLER("rev_poller"),
-    REVERSE_ID("rev_id");
+    ID("id", "id", true),
+    SEVERITY("severity", "eventSeverity", true),
+    TIME("time", "eventTime", true),
+    NODE("node", "node.label", true),
+    INTERFACE("interface", "ipAddr", true),
+    SERVICE("service", "serviceType.name", true),
+    POLLER("poller", "distPoller", true),
+    REVERSE_SEVERITY("rev_severity", "eventSeverity", false),
+    REVERSE_TIME("rev_time", "eventTime", false),
+    REVERSE_NODE("rev_node", "node.label", false),
+    REVERSE_INTERFACE("rev_interface", "ipAddr", false),
+    REVERSE_SERVICE("rev_service", "serviceType.name", false),
+    REVERSE_POLLER("rev_poller", "distPoller", false),
+    REVERSE_ID("rev_id", "id", false);
 
     /** Constant <code>m_sortStylesString</code> */
     private static final Map<String, SortStyle> m_sortStylesString;
-    
+    private final boolean m_desc;
+    private final String m_beanPropertyName;
+
     private String m_shortName;
     
     static {
@@ -69,8 +72,10 @@ public enum SortStyle {
         }
     }
     
-    private SortStyle(String shortName) {
+    private SortStyle(String shortName, String beanPropertyName, boolean desc) {
         m_shortName = shortName;
+        m_beanPropertyName = beanPropertyName;
+        m_desc = desc;
     }
 
     /**
@@ -113,76 +118,7 @@ public enum SortStyle {
         return m_sortStylesString.get(sortStyleString.toLowerCase());
     }
 
-    /**
-     * Convenience method for getting the SQL <em>ORDER BY</em> clause related
-     * to a given sort style.
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    protected String getOrderByClause() {
-        String clause = null;
-    
-        switch (this) {
-        case SEVERITY:
-            clause = " ORDER BY EVENTSEVERITY DESC";
-            break;
-    
-        case REVERSE_SEVERITY:
-            clause = " ORDER BY EVENTSEVERITY ASC";
-            break;
-    
-        case TIME:
-            clause = " ORDER BY EVENTTIME DESC";
-            break;
-    
-        case REVERSE_TIME:
-            clause = " ORDER BY EVENTTIME ASC";
-            break;
-    
-        case NODE:
-            clause = " ORDER BY NODELABEL ASC";
-            break;
-    
-        case REVERSE_NODE:
-            clause = " ORDER BY NODELABEL DESC";
-            break;
-    
-        case INTERFACE:
-            clause = " ORDER BY IPADDR ASC";
-            break;
-    
-        case REVERSE_INTERFACE:
-            clause = " ORDER BY IPADDR DESC";
-            break;
-    
-        case SERVICE:
-            clause = " ORDER BY SERVICENAME ASC";
-            break;
-    
-        case REVERSE_SERVICE:
-            clause = " ORDER BY SERVICENAME DESC";
-            break;
-    
-        case POLLER:
-            clause = " ORDER BY EVENTDPNAME ASC";
-            break;
-    
-        case REVERSE_POLLER:
-            clause = " ORDER BY EVENTDPNAME DESC";
-            break;
-    
-        case ID:
-            clause = " ORDER BY EVENTID DESC";
-            break;
-    
-        case REVERSE_ID:
-            clause = " ORDER BY EVENTID ASC";
-            break;
-    
-        default:
-            throw new IllegalArgumentException("Unknown SortStyle: " + this);
-        }
-    
-        return clause;
+    public SortRule toSortRule() {
+        return new SortRule(m_beanPropertyName, m_desc);
     }
 }

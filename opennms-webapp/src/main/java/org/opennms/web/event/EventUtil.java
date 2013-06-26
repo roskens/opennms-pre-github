@@ -34,30 +34,18 @@ import java.util.StringTokenizer;
 
 import javax.servlet.ServletContext;
 
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
+import org.opennms.core.criteria.Alias;
 import org.opennms.core.utils.WebSecurityUtils;
-import org.opennms.netmgt.dao.filter.event.AcknowledgedByFilter;
-import org.opennms.netmgt.dao.filter.event.AfterDateFilter;
-import org.opennms.netmgt.dao.filter.event.AlarmIDFilter;
-import org.opennms.netmgt.dao.filter.event.BeforeDateFilter;
-import org.opennms.netmgt.dao.filter.event.ExactUEIFilter;
-import org.opennms.netmgt.dao.filter.event.IPAddrLikeFilter;
-import org.opennms.netmgt.dao.filter.event.IfIndexFilter;
-import org.opennms.netmgt.dao.filter.event.InterfaceFilter;
-import org.opennms.netmgt.dao.filter.event.LogMessageMatchesAnyFilter;
-import org.opennms.netmgt.dao.filter.event.LogMessageSubstringFilter;
-import org.opennms.netmgt.dao.filter.event.NegativeAcknowledgedByFilter;
-import org.opennms.netmgt.dao.filter.event.NegativeExactUEIFilter;
-import org.opennms.netmgt.dao.filter.event.NegativeInterfaceFilter;
-import org.opennms.netmgt.dao.filter.event.NegativeNodeFilter;
-import org.opennms.netmgt.dao.filter.event.NegativePartialUEIFilter;
-import org.opennms.netmgt.dao.filter.event.NegativeServiceFilter;
-import org.opennms.netmgt.dao.filter.event.NegativeSeverityFilter;
-import org.opennms.netmgt.dao.filter.event.NodeFilter;
-import org.opennms.netmgt.dao.filter.event.NodeNameLikeFilter;
-import org.opennms.netmgt.dao.filter.event.PartialUEIFilter;
-import org.opennms.netmgt.dao.filter.event.ServiceFilter;
-import org.opennms.netmgt.dao.filter.event.SeverityFilter;
-import org.opennms.netmgt.dao.filter.Filter;
+import org.opennms.netmgt.model.OnmsCriteria;
+import org.opennms.netmgt.model.OnmsEvent;
+import org.opennms.web.element.NetworkElementFactory;
+import org.opennms.web.filter.NotNullFilter;
+import org.opennms.web.filter.NullFilter;
+import org.opennms.web.filter.SearchParameter;
+import org.opennms.web.filter.event.*;
+import org.opennms.web.filter.Filter;
 
 /**
  * <p>Abstract EventUtil class.</p>
@@ -67,6 +55,23 @@ import org.opennms.netmgt.dao.filter.Filter;
  * @since 1.8.1
  */
 public abstract class EventUtil {
+
+    public static SearchParameter getSearchParameter(Filter[] filters, SortStyle sortStyle, AcknowledgeType ackType) {
+        return getSearchParameter(filters, sortStyle, ackType, null, null);
+    }
+
+    public static SearchParameter getSearchParameter(Filter[] filters, SortStyle sortStyle, AcknowledgeType ackType, Integer limit, Integer offset) {
+        SearchParameter parameter = new SearchParameter(OnmsEvent.class, filters, sortStyle.toSortRule(), null, null);
+        parameter.addAlias("alarm", "alarm", Alias.JoinType.LEFT_JOIN);
+        parameter.addAlias("node", "node", Alias.JoinType.LEFT_JOIN);
+        parameter.addAlias("serviceType", "serviceType", Alias.JoinType.LEFT_JOIN);
+        parameter.addFilter(new EventDisplayFilter("Y"));
+
+        if (AcknowledgeType.ACKNOWLEDGED.equals(ackType)) parameter.addFilter(new NotNullFilter("eventAckUser"));
+        if (AcknowledgeType.UNACKNOWLEDGED.equals(ackType)) parameter.addFilter(new NullFilter("eventAckUser"));
+
+        return parameter;
+    }
 
     /**
      * <p>getFilter</p>
@@ -94,13 +99,13 @@ public abstract class EventUtil {
         if (type.equals(SeverityFilter.TYPE)) {
             filter = new SeverityFilter(WebSecurityUtils.safeParseInt(value));
         } else if (type.equals(NodeFilter.TYPE)) {
-            filter = new NodeFilter(WebSecurityUtils.safeParseInt(value), servletContext);
+            filter = new NodeFilter(getNodeId(value), getNodeLabel(servletContext, value));
         } else if (type.equals(NodeNameLikeFilter.TYPE)) {
             filter = new NodeNameLikeFilter(value);
         } else if (type.equals(InterfaceFilter.TYPE)) {
             filter = new InterfaceFilter(value);
         } else if (type.equals(ServiceFilter.TYPE)) {
-            filter = new ServiceFilter(WebSecurityUtils.safeParseInt(value), servletContext);
+            filter = new ServiceFilter(getServiceId(value), getServiceName(servletContext, value));
         } else if (type.equals(IfIndexFilter.TYPE)) {
             filter = new IfIndexFilter(WebSecurityUtils.safeParseInt(value));
         } else if (type.equals(PartialUEIFilter.TYPE)) {
@@ -112,11 +117,11 @@ public abstract class EventUtil {
         } else if (type.equals(NegativeSeverityFilter.TYPE)) {
             filter = new NegativeSeverityFilter(WebSecurityUtils.safeParseInt(value));
         } else if (type.equals(NegativeNodeFilter.TYPE)) {
-            filter = new NegativeNodeFilter(WebSecurityUtils.safeParseInt(value), servletContext);
+            filter = new NegativeNodeFilter(getNodeId(value), getNodeLabel(servletContext, value));
         } else if (type.equals(NegativeInterfaceFilter.TYPE)) {
             filter = new NegativeInterfaceFilter(value);
         } else if (type.equals(NegativeServiceFilter.TYPE)) {
-            filter = new NegativeServiceFilter(WebSecurityUtils.safeParseInt(value), servletContext);
+            filter = new NegativeServiceFilter(getServiceId(value), getServiceName(servletContext, value));
         } else if (type.equals(NegativePartialUEIFilter.TYPE)) {
             filter = new NegativePartialUEIFilter(value);
         } else if (type.equals(NegativeExactUEIFilter.TYPE)) {
@@ -140,6 +145,22 @@ public abstract class EventUtil {
         return filter;
     }
 
+    private static int getServiceId(String value) {
+        return WebSecurityUtils.safeParseInt(value);
+    }
+
+    private static String getServiceName(ServletContext context, String value) {
+        return NetworkElementFactory.getInstance(context).getServiceNameFromId(getServiceId(value));
+    }
+
+    private static int getNodeId(String value) {
+        return WebSecurityUtils.safeParseInt(value);
+    }
+
+    private static String getNodeLabel(ServletContext context, String value) {
+        return NetworkElementFactory.getInstance(context).getNodeLabel(getNodeId(value));
+    }
+
     /**
      * <p>getFilterString</p>
      *
@@ -150,7 +171,6 @@ public abstract class EventUtil {
         if (filter == null) {
             throw new IllegalArgumentException("Cannot take null parameters.");
         }
-
         return filter.getDescription();
     }
 

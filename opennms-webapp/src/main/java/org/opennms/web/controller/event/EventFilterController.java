@@ -41,9 +41,9 @@ import org.opennms.web.event.EventQueryParms;
 import org.opennms.web.event.EventUtil;
 import org.opennms.web.event.SortStyle;
 import org.opennms.web.event.WebEventRepository;
-import org.opennms.netmgt.dao.filter.event.EventCriteria;
-import org.opennms.netmgt.dao.filter.event.EventIdFilter;
-import org.opennms.netmgt.dao.filter.Filter;
+import org.opennms.web.filter.Filter;
+import org.opennms.web.filter.SearchParameter;
+import org.opennms.web.filter.event.EventIdFilter;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 import org.springframework.web.servlet.ModelAndView;
@@ -177,17 +177,17 @@ public class EventFilterController extends AbstractController implements Initial
         parms.multiple = multiple;
         parms.sortStyle = sortStyle;
 
-        EventCriteria queryCriteria = new EventCriteria(filters, sortStyle, ackType, limit, limit * multiple);
+        SearchParameter parameter = EventUtil.getSearchParameter(filters, sortStyle, ackType, limit, limit * multiple);
 
-        Event[] events = m_webEventRepository.getMatchingEvents(queryCriteria);
+        Event[] events = m_webEventRepository.getMatchingEvents(parameter.toCriteria());
 
         ModelAndView modelAndView = new ModelAndView(getSuccessView());
         modelAndView.addObject("events", events);
         modelAndView.addObject("parms", parms);
 
         if (m_showEventCount) {
-            EventCriteria countCriteria = new EventCriteria(ackType, filters);
-            modelAndView.addObject("eventCount", m_webEventRepository.countMatchingEvents(countCriteria));
+
+            modelAndView.addObject("eventCount", m_webEventRepository.countMatchingEvents(EventUtil.getSearchParameter(filters, null, ackType).setCount(true).toCriteria()));
         } else {
             modelAndView.addObject("eventCount", Integer.valueOf(-1));
         }

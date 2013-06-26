@@ -1,4 +1,4 @@
-package org.opennms.web.filter.alarm;
+package org.opennms.web.alarm;
 
 import org.opennms.web.filter.SortRule;
 import org.springframework.util.Assert;

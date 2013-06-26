@@ -37,7 +37,6 @@ import java.util.List;
 
 import org.opennms.core.utils.BeanUtils;
 import org.opennms.core.utils.LogUtils;
-import org.opennms.netmgt.dao.NotificationDao;
 import org.opennms.netmgt.dao.filter.Filter;
 import org.opennms.netmgt.dao.filter.notification.NotificationCriteria;
 import org.opennms.netmgt.dao.filter.notification.NotificationIdFilter;
@@ -107,7 +106,7 @@ public class JdbcWebNotificationRepository implements WebNotificationRepository,
             }
 
             @Override
-            public void visitSortStyle(NotificationDao.SortStyle sortStyle) throws RuntimeException {
+            public void visitSortStyle(SortStyle sortStyle) throws RuntimeException {
                 buf.append(" ");
                 buf.append(sortStyle.getOrderByClause());
             }

@@ -32,16 +32,22 @@ import java.util.StringTokenizer;
 
 import javax.servlet.ServletContext;
 
+import org.opennms.core.criteria.Alias;
 import org.opennms.core.utils.WebSecurityUtils;
-import org.opennms.netmgt.dao.filter.Filter;
-import org.opennms.netmgt.dao.filter.notification.AcknowledgedByFilter;
-import org.opennms.netmgt.dao.filter.notification.InterfaceFilter;
-import org.opennms.netmgt.dao.filter.notification.NegativeNodeFilter;
-import org.opennms.netmgt.dao.filter.notification.NodeFilter;
-import org.opennms.netmgt.dao.filter.notification.NotificationIdFilter;
-import org.opennms.netmgt.dao.filter.notification.ResponderFilter;
-import org.opennms.netmgt.dao.filter.notification.ServiceFilter;
-import org.opennms.netmgt.dao.filter.notification.UserFilter;
+import org.opennms.web.element.NetworkElementFactory;
+import org.opennms.web.filter.Filter;
+import org.opennms.web.filter.NotNullFilter;
+import org.opennms.web.filter.NullFilter;
+import org.opennms.web.filter.notification.AcknowledgedByFilter;
+import org.opennms.web.filter.notification.InterfaceFilter;
+import org.opennms.web.filter.notification.NegativeNodeFilter;
+import org.opennms.web.filter.notification.NodeFilter;
+import org.opennms.web.filter.notification.NotificationIdFilter;
+import org.opennms.web.filter.notification.ResponderFilter;
+import org.opennms.web.filter.notification.ServiceFilter;
+import org.opennms.web.filter.notification.UserFilter;
+import org.opennms.netmgt.model.OnmsNotification;
+import org.opennms.web.filter.SearchParameter;
 
 /**
  * <p>Abstract NoticeUtil class.</p>
@@ -51,6 +57,25 @@ import org.opennms.netmgt.dao.filter.notification.UserFilter;
  * @since 1.8.1
  */
 public abstract class NoticeUtil extends Object {
+
+    public static SearchParameter getSearchParameter(Filter[] filters, AcknowledgeType ackType) {
+        return getSearchParameter(filters, null, ackType, null, null);
+    }
+
+    public static SearchParameter getSearchParameter(Filter[] filters, SortStyle sortStyle, AcknowledgeType ackType) {
+        return getSearchParameter(filters, sortStyle, ackType, null, null);
+    }
+
+    public static SearchParameter getSearchParameter(Filter[] filters, SortStyle sortStyle, AcknowledgeType ackType, Integer limit, Integer offset) {
+        SearchParameter parameter = new SearchParameter(OnmsNotification.class, filters, sortStyle == null ? null : sortStyle.toSortRule(), null, null);
+        parameter.addAlias("node", "node", Alias.JoinType.LEFT_JOIN);
+        parameter.addAlias("serviceType", "serviceType", Alias.JoinType.LEFT_JOIN);
+
+        if (AcknowledgeType.ACKNOWLEDGED.equals(ackType)) parameter.addFilter(new NotNullFilter("answeredBy"));
+        if (AcknowledgeType.UNACKNOWLEDGED.equals(ackType)) parameter.addFilter(new NullFilter("answeredBy"));
+
+        return parameter;
+    }
 
     /**
      * <p>getFilter</p>
@@ -70,20 +95,32 @@ public abstract class NoticeUtil extends Object {
         } else if (type.equals(InterfaceFilter.TYPE)) {
             filter = new InterfaceFilter(value);
         } else if (type.equals(NodeFilter.TYPE)) {
-            filter = new NodeFilter(WebSecurityUtils.safeParseInt(value));
+            filter = new NodeFilter(getId(value));
         } else if(type.equals(NegativeNodeFilter.TYPE)) {
-        	filter = new NegativeNodeFilter(WebSecurityUtils.safeParseInt(value), servletContext);
+        	filter = new NegativeNodeFilter(getId(value), getNodeLabel(servletContext, value));
         } else if (type.equals(NotificationIdFilter.TYPE)) {
-            filter = new NotificationIdFilter(WebSecurityUtils.safeParseInt(value));
+            filter = new NotificationIdFilter(getId(value));
         } else if (type.equals(ResponderFilter.TYPE)) {
             filter = new ResponderFilter(value);
         } else if (type.equals(ServiceFilter.TYPE)) {
-            filter = new ServiceFilter(WebSecurityUtils.safeParseInt(value));
+            filter = new ServiceFilter(getId(value), getServiceName(servletContext, value));
         } else if (type.equals(UserFilter.TYPE)) {
             filter = new UserFilter(value);
         }
 
         return filter;
+    }
+
+    private static String getNodeLabel(ServletContext context, String value) {
+        return NetworkElementFactory.getInstance(context).getNodeLabel(getId(value));
+    }
+
+    private static String getServiceName(ServletContext context, String value) {
+        return NetworkElementFactory.getInstance(context).getServiceNameFromId(getId(value));
+    }
+
+    private static int getId(String value) {
+        return WebSecurityUtils.safeParseInt(value);
     }
 
 }

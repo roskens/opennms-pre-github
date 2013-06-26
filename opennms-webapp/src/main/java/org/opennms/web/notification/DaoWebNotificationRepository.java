@@ -68,44 +68,6 @@ public class DaoWebNotificationRepository implements WebNotificationRepository, 
         BeanUtils.assertAutowiring(this);
     }
 
-    private static final OnmsCriteria getOnmsCriteria(final NotificationCriteria notificationCriteria){
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsNotification.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.createAlias("serviceType", "serviceType", OnmsCriteria.LEFT_JOIN);
-        
-        notificationCriteria.visit(new NotificationCriteriaVisitor<RuntimeException>(){
-
-            @Override
-            public void visitAckType(AcknowledgeType ackType) throws RuntimeException {
-                if(ackType == AcknowledgeType.ACKNOWLEDGED) {
-                    criteria.add(Restrictions.isNotNull("answeredBy"));
-                } else if (ackType == AcknowledgeType.UNACKNOWLEDGED) {
-                   criteria.add(Restrictions.isNull("answeredBy")); 
-                }
-                // AcknowledgeType.BOTH just adds no restriction
-            }
-
-            @Override
-            public void visitFilter(Filter filter) throws RuntimeException {
-                criteria.add(filter.getCriterion());
-                
-            }
-
-            @Override
-            public void visitLimit(int limit, int offset) throws RuntimeException {
-                criteria.setMaxResults(limit);
-                criteria.setFirstResult(offset);                
-            }
-
-            @Override
-            public void visitSortStyle(NotificationDao.SortStyle sortStyle) throws RuntimeException {
-                // TODO MVR JPA
-            }
-            
-        });
-        
-        return criteria;
-    }
 
     private Notification mapOnmsNotificationToNotification(OnmsNotification onmsNotification){
         if(onmsNotification != null){

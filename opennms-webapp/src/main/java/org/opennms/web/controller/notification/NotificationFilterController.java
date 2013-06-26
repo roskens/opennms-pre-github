@@ -40,19 +40,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.opennms.core.utils.WebSecurityUtils;
 import org.opennms.netmgt.dao.NodeDao;
-import org.opennms.netmgt.dao.NotificationDao;
+import org.opennms.web.event.EventUtil;
+import org.opennms.web.filter.SearchParameter;
+import org.opennms.web.filter.event.EventIdListFilter;
+import org.opennms.web.notification.SortStyle;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.web.event.Event;
 import org.opennms.web.event.WebEventRepository;
-import org.opennms.netmgt.dao.filter.event.EventCriteria;
-import org.opennms.netmgt.dao.filter.event.EventIdListFilter;
-import org.opennms.netmgt.dao.filter.Filter;
+import org.opennms.web.filter.Filter;
 import org.opennms.web.notification.AcknowledgeType;
 import org.opennms.web.notification.NoticeQueryParms;
 import org.opennms.web.notification.NoticeUtil;
 import org.opennms.web.notification.Notification;
 import org.opennms.web.notification.WebNotificationRepository;
-import org.opennms.netmgt.dao.filter.notification.NotificationCriteria;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 import org.springframework.web.servlet.ModelAndView;
@@ -73,7 +73,7 @@ public class NotificationFilterController extends AbstractController implements 
     private String m_successView;
     private Integer m_defaultShortLimit;
     private Integer m_defaultLongLimit;
-    private NotificationDao.SortStyle m_defaultSortStyle = NotificationDao.SortStyle.ID;
+    private SortStyle m_defaultSortStyle = SortStyle.ID;
     private AcknowledgeType m_defaultAckType = AcknowledgeType.UNACKNOWLEDGED;
 
     private WebEventRepository m_webEventRepository;
@@ -93,9 +93,9 @@ public class NotificationFilterController extends AbstractController implements 
 
         // handle the style sort parameter
         String sortStyleString = request.getParameter("sortby");
-        NotificationDao.SortStyle sortStyle = m_defaultSortStyle;
+        SortStyle sortStyle = m_defaultSortStyle;
         if (sortStyleString != null) {
-            NotificationDao.SortStyle temp = NotificationDao.SortStyle.getSortStyle(sortStyleString);
+            SortStyle temp = SortStyle.getSortStyle(sortStyleString);
             if (temp != null) {
                 sortStyle = temp;
             }
@@ -168,11 +168,11 @@ public class NotificationFilterController extends AbstractController implements 
         parms.multiple =  multiple;
         parms.sortStyle = sortStyle;
 
-        NotificationCriteria queryCriteria = new NotificationCriteria(filters, sortStyle, ackType, limit, limit * multiple);
-        NotificationCriteria countCriteria = new NotificationCriteria(ackType, filters);
+        SearchParameter queryCriteria = NoticeUtil.getSearchParameter(filters, sortStyle, ackType, limit, limit * multiple);
+        SearchParameter countCriteria = NoticeUtil.getSearchParameter(filters, ackType).setCount(true);
 
-        Notification[] notices = m_webNotificationRepository.getMatchingNotifications(queryCriteria);
-        int noticeCount = m_webNotificationRepository.countMatchingNotifications(countCriteria);
+        Notification[] notices = m_webNotificationRepository.getMatchingNotifications(queryCriteria.toCriteria());
+        int noticeCount = m_webNotificationRepository.countMatchingNotifications(countCriteria.toCriteria());
         Map<Integer,String[]> nodeLabels = new HashMap<Integer,String[]>();
         Set<Integer> eventIds = new TreeSet<Integer>();
         
@@ -201,7 +201,8 @@ public class NotificationFilterController extends AbstractController implements 
         
         Map<Integer,Event> events = new HashMap<Integer,Event>();
         if (eventIds.size() > 0) {
-            for (Event e : m_webEventRepository.getMatchingEvents(new EventCriteria(new EventIdListFilter(eventIds)))) {
+            Filter[] abc = new Filter[]{new EventIdListFilter(eventIds)};
+            for (Event e : m_webEventRepository.getMatchingEvents(EventUtil.getSearchParameter(abc, null, null).toCriteria())) {
                 events.put(e.getId(), e);
             }
         }
@@ -236,9 +237,9 @@ public class NotificationFilterController extends AbstractController implements 
     /**
      * <p>setDefaultSortStyle</p>
      *
-     * @param sortStyle a {@link org.opennms.netmgt.dao.NotificationDao.SortStyle} object.
+     * @param sortStyle a {@link org.opennms.web.notification.SortStyle} object.
      */
-    public void setDefaultSortStyle(NotificationDao.SortStyle sortStyle) {
+    public void setDefaultSortStyle(SortStyle sortStyle) {
         m_defaultSortStyle = sortStyle;
     }
 

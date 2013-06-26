@@ -64,7 +64,7 @@ import org.opennms.netmgt.xml.event.Value;
  * @version $Id: $
  */
 public abstract class EventUtils {
-    
+
     /**
      * <p>createNodeAddedEvent</p>
      *

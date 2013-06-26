@@ -54,7 +54,6 @@ public class ServiceFilter extends EqualsFilter<Integer> {
     
     @Override
     public String getTextDescription() {
-//        String serviceName = NetworkElementFactory.getInstance(servletContext).getServiceNameFromId(getValue());
         return (TYPE + "=" + m_serviceName);
     }
 

@@ -28,16 +28,15 @@
 
 package org.opennms.web.controller.ksc;
 
-import java.io.Serializable;
-
-import javax.servlet.http.HttpSession;
-
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
 import org.opennms.core.xml.CastorUtils;
 import org.opennms.netmgt.config.KSC_PerformanceReportFactory;
 import org.opennms.netmgt.config.kscReports.Graph;
 import org.opennms.netmgt.config.kscReports.Report;
+
+import javax.servlet.http.HttpSession;
+import java.io.Serializable;
 
 /**
  * <p>KscReportEditor class.</p>

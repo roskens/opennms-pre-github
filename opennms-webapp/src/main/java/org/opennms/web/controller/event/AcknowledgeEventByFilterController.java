@@ -36,10 +36,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.opennms.web.event.AcknowledgeType;
+import org.opennms.web.event.Event;
 import org.opennms.web.event.EventUtil;
 import org.opennms.web.event.WebEventRepository;
-import org.opennms.netmgt.dao.filter.event.EventCriteria;
-import org.opennms.netmgt.dao.filter.Filter;
+import org.opennms.web.filter.Filter;
+import org.opennms.web.filter.SearchParameter;
 import org.opennms.web.servlet.MissingParameterException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
@@ -117,13 +118,12 @@ public class AcknowledgeEventByFilterController extends AbstractController imple
         }
 
         Filter[] filters = filterArray.toArray(new Filter[filterArray.size()]);
-        
-        EventCriteria criteria = new EventCriteria(filters);
+        SearchParameter parameter = EventUtil.getSearchParameter(filters, null, AcknowledgeType.getAcknowledgeType(action));
 
         if (action.equals(AcknowledgeType.ACKNOWLEDGED.getShortName())) {
-            m_webEventRepository.acknowledgeMatchingEvents(request.getRemoteUser(), new Date(), criteria);
+            m_webEventRepository.acknowledgeMatchingEvents(request.getRemoteUser(), new Date(), parameter.toCriteria());
         } else if (action.equals(AcknowledgeType.UNACKNOWLEDGED.getShortName())) {
-            m_webEventRepository.unacknowledgeMatchingEvents(criteria);
+            m_webEventRepository.unacknowledgeMatchingEvents(parameter.toCriteria());
         } else {
             throw new ServletException("Unknown acknowledge action: " + action);
         }

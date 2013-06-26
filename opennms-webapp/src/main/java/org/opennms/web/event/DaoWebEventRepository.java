@@ -75,9 +75,9 @@ public class DaoWebEventRepository implements WebEventRepository, InitializingBe
         criteria.createAlias("alarm", "alarm", OnmsCriteria.LEFT_JOIN);
         criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
         criteria.createAlias("serviceType", "serviceType", OnmsCriteria.LEFT_JOIN);
-        
+
         criteria.add(new EventDisplayFilter("Y").getCriterion());
-        
+
         eventCriteria.visit(new EventCriteriaVisitor<RuntimeException>(){
 
             @Override
@@ -98,7 +98,7 @@ public class DaoWebEventRepository implements WebEventRepository, InitializingBe
             public void visitLimit(int limit, int offset) throws RuntimeException {
                 criteria.setMaxResults(limit);
                 criteria.setFirstResult(offset);
-                
+
             }
 
             @Override
@@ -146,15 +146,15 @@ public class DaoWebEventRepository implements WebEventRepository, InitializingBe
                 case REVERSE_TIME:
                     criteria.addOrder(Order.asc("eventTime"));
                     break;
-                
+
                 }
             }
-            
+
         });
-        
+
         return criteria;
     }
-    
+
     private Event mapOnmsEventToEvent(OnmsEvent onmsEvent){
         log().debug("Mapping OnmsEvent to WebEvent for event with database id " + onmsEvent.getId());
         Event event = new Event();

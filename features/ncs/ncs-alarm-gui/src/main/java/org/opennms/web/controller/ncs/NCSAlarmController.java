@@ -38,7 +38,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.opennms.core.utils.WebSecurityUtils;
 import org.opennms.netmgt.dao.AlarmRepository;
 import org.opennms.web.filter.SearchParameter;
-import org.opennms.web.filter.alarm.SortStyle;
+import org.opennms.web.alarm.SortStyle;
 import org.opennms.netmgt.model.OnmsAlarm;
 import org.opennms.web.alarm.AcknowledgeType;
 import org.opennms.web.alarm.AlarmQueryParms;

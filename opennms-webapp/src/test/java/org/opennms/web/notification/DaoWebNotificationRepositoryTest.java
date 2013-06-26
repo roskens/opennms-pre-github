@@ -42,7 +42,6 @@ import org.opennms.core.test.OpenNMSJUnit4ClassRunner;
 import org.opennms.core.test.db.annotations.JUnitTemporaryDatabase;
 import org.opennms.core.utils.BeanUtils;
 import org.opennms.netmgt.dao.DatabasePopulator;
-import org.opennms.netmgt.dao.NotificationDao;
 import org.opennms.test.JUnitConfigurationEnvironment;
 import org.opennms.netmgt.dao.filter.Filter;
 import org.opennms.netmgt.dao.filter.notification.AcknowledgedByFilter;
@@ -97,7 +96,7 @@ public class DaoWebNotificationRepositoryTest implements InitializingBean {
         int limit = 10;
         int multiple = 0;
         AcknowledgeType ackType = AcknowledgeType.UNACKNOWLEDGED;
-        NotificationDao.SortStyle sortStyle = NotificationDao.SortStyle.DEFAULT_SORT_STYLE;
+        SortStyle sortStyle = SortStyle.DEFAULT_SORT_STYLE;
         Filter[] filters = filterList.toArray(new Filter[0]);
         Notification[] notices = m_daoNotificationRepo.getMatchingNotifications(new NotificationCriteria(filters, sortStyle, ackType, limit, limit * multiple));
         assertEquals(1, notices.length);

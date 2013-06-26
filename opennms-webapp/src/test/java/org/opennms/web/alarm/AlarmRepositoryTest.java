@@ -44,7 +44,6 @@ import org.opennms.core.test.db.annotations.JUnitTemporaryDatabase;
 import org.opennms.core.utils.BeanUtils;
 import org.opennms.netmgt.dao.AlarmDao;
 import org.opennms.web.filter.SearchParameter;
-import org.opennms.web.filter.alarm.SortStyle;
 import org.opennms.netmgt.dao.DatabasePopulator;
 import org.opennms.netmgt.dao.AlarmRepository;
 import org.opennms.netmgt.model.OnmsAcknowledgment;

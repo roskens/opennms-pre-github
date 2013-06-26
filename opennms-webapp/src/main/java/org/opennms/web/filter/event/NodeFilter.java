@@ -70,7 +70,6 @@ public class NodeFilter extends EqualsFilter<Integer> {
 
     private String getNodeLabel() {
         return m_nodeName;
-//        return m_servletContext != null ? NetworkElementFactory.getInstance(m_servletContext).getNodeLabel(getValue()) : NetworkElementFactory.getInstance(m_appContext).getNodeLabel(getValue());
     }
 
     /**

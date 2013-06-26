@@ -38,7 +38,7 @@ import org.opennms.core.utils.WebSecurityUtils;
 import org.opennms.netmgt.dao.AlarmRepository;
 import org.opennms.web.filter.Filter;
 import org.opennms.web.filter.SearchParameter;
-import org.opennms.web.filter.alarm.SortStyle;
+import org.opennms.web.alarm.SortStyle;
 import org.opennms.netmgt.model.OnmsAlarm;
 import org.opennms.web.alarm.AcknowledgeType;
 import org.opennms.web.alarm.AlarmQueryParms;
@@ -253,7 +253,7 @@ public class AlarmFilterController extends AbstractController implements Initial
     /**
      * <p>getDefaultSortStyle</p>
      *
-     * @return a {@link org.opennms.web.filter.alarm.SortStyle} object.
+     * @return a {@link org.opennms.web.alarm.SortStyle} object.
      */
     public SortStyle getDefaultSortStyle() {
         return m_defaultSortStyle;
@@ -262,7 +262,7 @@ public class AlarmFilterController extends AbstractController implements Initial
     /**
      * <p>setDefaultSortStyle</p>
      *
-     * @param defaultSortStyle a {@link org.opennms.web.filter.alarm.SortStyle} object.
+     * @param defaultSortStyle a {@link org.opennms.web.alarm.SortStyle} object.
      */
     public void setDefaultSortStyle(SortStyle defaultSortStyle) {
         m_defaultSortStyle = defaultSortStyle;

@@ -39,10 +39,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.opennms.core.utils.LogUtils;
 import org.opennms.core.utils.WebSecurityUtils;
 import org.opennms.web.event.AcknowledgeType;
+import org.opennms.web.event.Event;
+import org.opennms.web.event.EventUtil;
 import org.opennms.web.event.WebEventRepository;
-import org.opennms.netmgt.dao.filter.event.EventCriteria;
-import org.opennms.netmgt.dao.filter.event.EventIdListFilter;
-import org.opennms.netmgt.dao.filter.Filter;
+import org.opennms.web.filter.Filter;
+import org.opennms.web.filter.SearchParameter;
+import org.opennms.web.filter.event.EventIdListFilter;
 import org.opennms.web.servlet.MissingParameterException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
@@ -113,16 +115,15 @@ public class AcknowledgeEventController extends AbstractController implements In
         if (action == null) {
             throw new MissingParameterException("actionCode", new String[] { "event", "actionCode" });
         }
-        
-        List<Filter> filters = new ArrayList<Filter>();
-        filters.add(new EventIdListFilter(WebSecurityUtils.safeParseInt(eventIdStrings)));
-        EventCriteria criteria = new EventCriteria(filters.toArray(new Filter[0]));
 
-        LogUtils.debugf(this, "criteria = %s, action = %s", criteria, action);
+        List<Filter> filterList = new ArrayList<Filter>();
+        filterList.add(new EventIdListFilter(WebSecurityUtils.safeParseInt(eventIdStrings)));
+        SearchParameter parameter = EventUtil.getSearchParameter(filterList.toArray(new Filter[0]), null, AcknowledgeType.getAcknowledgeType(action));
+
         if (action.equals(AcknowledgeType.ACKNOWLEDGED.getShortName())) {
-            m_webEventRepository.acknowledgeMatchingEvents(request.getRemoteUser(), new Date(), criteria);
+            m_webEventRepository.acknowledgeMatchingEvents(request.getRemoteUser(), new Date(), parameter.toCriteria());
         } else if (action.equals(AcknowledgeType.UNACKNOWLEDGED.getShortName())) {
-            m_webEventRepository.unacknowledgeMatchingEvents(criteria);
+            m_webEventRepository.unacknowledgeMatchingEvents(parameter.toCriteria());
         } else {
             throw new ServletException("Unknown acknowledge action: " + action);
         }

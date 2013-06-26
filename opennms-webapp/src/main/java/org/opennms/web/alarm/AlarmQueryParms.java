@@ -31,7 +31,6 @@ package org.opennms.web.alarm;
 import java.util.List;
 
 import org.opennms.web.filter.Filter;
-import org.opennms.web.filter.alarm.SortStyle;
 
 /**
  * Convenience data structure for holding the arguments to an event query.
