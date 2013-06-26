@@ -19,12 +19,13 @@ public class SearchParameter {
     private Integer m_offset;
     private List<Alias> m_alias = new ArrayList<Alias>();
     private boolean count;
+    private Class<?> m_class;
 
-    public SearchParameter(Filter... filter) {
-        this(filter, null, null, null);
+    public SearchParameter(Class<?> clazz, Filter... filter) {
+        this(clazz, filter, null, null, null);
     }
 
-    public SearchParameter(Filter[] filter, SortRule sortRule, Integer limit, Integer offset) {
+    public SearchParameter(Class<?> clazz, Filter[] filter, SortRule sortRule, Integer limit, Integer offset) {
         m_filter = Arrays.asList(filter);
         m_sortRule = sortRule;
         m_limit = limit;
@@ -46,15 +47,16 @@ public class SearchParameter {
         return this;
     }
 
-    public OnmsCriteria toCriteria() {
-        CriteriaBuilder builder = new CriteriaBuilder(getEntityClass());
-        for(Alias eachAlias : m_alias) {
-        }
+    public Criteria toCriteria() {
+        CriteriaBuilder builder = new CriteriaBuilder(m_class);
+        if (count) builder.count();
+        if (m_limit != null) builder.limit(m_limit);
+        if (m_offset != null) builder.offset(m_offset);
+        if (m_sortRule != null) builder.orderBy(m_sortRule.getBeanProperty(), m_sortRule.isAsc());
+
         Criteria criteria = builder.toCriteria();
-        criteria.setAl
-
-        builder.toCriteria().set()
-
-
+        criteria.setAliases(m_alias);
+        criteria.setRestrictions(Whatever.convert(m_filter));
+        return criteria;
     }
 }

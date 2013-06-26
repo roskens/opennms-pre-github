@@ -36,11 +36,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.opennms.netmgt.dao.AlarmRepository;
+import org.opennms.netmgt.model.OnmsAlarm;
+import org.opennms.web.filter.Filter;
 import org.opennms.web.filter.SearchParameter;
 import org.opennms.netmgt.model.OnmsCriteria;
 import org.opennms.web.alarm.AcknowledgeType;
 import org.opennms.web.alarm.AlarmUtil;
-import org.opennms.netmgt.dao.filter.Filter;
 import org.opennms.web.servlet.MissingParameterException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
@@ -112,23 +113,18 @@ public class AcknowledgeAlarmByFilterController extends AbstractController imple
         }
 
         // handle the filter parameters
-        ArrayList<String> filterArray = new ArrayList<String>();
+        ArrayList<Filter> filterArray = new ArrayList<Filter>();
         for (String filterString : filterStrings) {
             Filter filter = AlarmUtil.getFilter(filterString, getServletContext());
             if (filter != null) {
-                filterArray.add(filter.getSql());
+                filterArray.add(filter);
             }
         }
-        SearchParameter parameter = new SearchParameter((String[]) filterArray.toArray());
-
-
-
-        OnmsCriteria criteria = AlarmUtil.getOnmsCriteria(new SearchParameter(filters));
-
+        SearchParameter parameter = AlarmUtil.getSearchParameter(filterArray.toArray(new Filter[filterArray.size()]));
         if (action.equals(AcknowledgeType.ACKNOWLEDGED.getShortName())) {
-            m_webAlarmRepository.acknowledgeMatchingAlarms(request.getRemoteUser(), new Date(), criteria);
+            m_webAlarmRepository.acknowledgeMatchingAlarms(request.getRemoteUser(), new Date(), parameter.toCriteria());
         } else if (action.equals(AcknowledgeType.UNACKNOWLEDGED.getShortName())) {
-            m_webAlarmRepository.unacknowledgeMatchingAlarms(criteria, request.getRemoteUser());
+            m_webAlarmRepository.unacknowledgeMatchingAlarms(parameter.toCriteria(), request.getRemoteUser());
         } else {
             throw new ServletException("Unknown acknowledge action: " + action);
         }

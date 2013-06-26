@@ -9,4 +9,12 @@ public class SortRule {
         this.desc = desc;
         this.beanProperty = beanProperty;
     }
+
+    public String getBeanProperty() {
+        return beanProperty;
+    }
+
+    public boolean isAsc() {
+        return !desc;
+    }
 }

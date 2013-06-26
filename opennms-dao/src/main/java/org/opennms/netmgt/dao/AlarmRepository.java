@@ -75,7 +75,7 @@ public interface AlarmRepository {
      * @param criteria the criteria
      */
     public abstract void acknowledgeMatchingAlarms(String user,
-            Date timestamp, OnmsCriteria criteria);
+            Date timestamp, Criteria criteria);
 
     /**
      * Acknowledge Alarms.
@@ -100,7 +100,7 @@ public interface AlarmRepository {
      * @param criteria the criteria
      * @param user the user
      */
-    public abstract void unacknowledgeMatchingAlarms(OnmsCriteria criteria, String user);
+    public abstract void unacknowledgeMatchingAlarms(Criteria criteria, String user);
 
     /**
      * Unacknowledge Alarms

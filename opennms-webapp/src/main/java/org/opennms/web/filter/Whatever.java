@@ -2,12 +2,18 @@ package org.opennms.web.filter;
 
 import org.hibernate.Hibernate;
 import org.hibernate.criterion.*;
+import org.opennms.core.criteria.restrictions.Restriction;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.util.Collection;
+import java.util.List;
 
 public class Whatever {
+    public static Collection<? extends Restriction> convert(List<Filter> m_filter) {
+        return null;  //To change body of created methods use File | Settings | File Templates.
+    }
 
 //    // EqualsFilter
 //    public Predicate getPredicate(Root<X> root, CriteriaBuilder builder) {

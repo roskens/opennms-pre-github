@@ -43,7 +43,6 @@ import org.opennms.netmgt.model.OnmsAlarm;
 import org.opennms.web.alarm.AcknowledgeType;
 import org.opennms.web.alarm.AlarmQueryParms;
 import org.opennms.web.alarm.AlarmUtil;
-import org.opennms.netmgt.dao.filter.Filter;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 import org.springframework.web.servlet.ModelAndView;
@@ -162,9 +161,7 @@ public class AlarmFilterController extends AbstractController implements Initial
         SearchParameter findParameter = AlarmUtil.getSearchParameter(filters, sortStyle.toSortRule(), ackType, limit, limit * multiple);
         SearchParameter countParameter = AlarmUtil.getSearchParameter(filters, ackType).setCount(true);
 
-        OnmsAlarm[] alarms = m_webAlarmRepository.getMatchingAlarms(findParameter.toCriteria());
-        
-        // get the total alarm count
+        List<OnmsAlarm> alarms = m_webAlarmRepository.findMatchingAlarms(findParameter.toCriteria());
         int alarmCount = m_webAlarmRepository.countMatchingAlarms(countParameter.toCriteria());
         
         ModelAndView modelAndView = new ModelAndView(getSuccessView());

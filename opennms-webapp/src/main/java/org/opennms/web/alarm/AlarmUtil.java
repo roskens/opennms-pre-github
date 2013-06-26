@@ -37,6 +37,7 @@ import org.apache.commons.lang.ArrayUtils;
 import org.opennms.core.criteria.Alias;
 import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.core.utils.WebSecurityUtils;
+import org.opennms.netmgt.model.OnmsAlarm;
 import org.opennms.web.element.NetworkElementFactory;
 import org.opennms.web.filter.*;
 import org.opennms.web.filter.alarm.*;
@@ -62,22 +63,28 @@ public abstract class AlarmUtil extends Object {
 
 
     public static SearchParameter getSearchParameter(Filter[] filters, SortRule sortRule, AcknowledgeType ackType, Integer limit, Integer offset) {
-        SearchParameter searchParameter = new SearchParameter(filters, sortRule, limit, offset);
+        SearchParameter searchParameter = new SearchParameter(OnmsAlarm.class, filters, sortRule, limit, offset);
         searchParameter.addAlias("node", "node", Alias.JoinType.LEFT_JOIN);
         searchParameter.addAlias("serviceType", "serviceType", Alias.JoinType.LEFT_JOIN);
-        switch (ackType) {
-            case ACKNOWLEDGED:
-                searchParameter.addFilter(new NotNullFilter("alarmackuser"));
-                break;
-            case UNACKNOWLEDGED:
-                searchParameter.addFilter(new NullFilter("alarmackuser"));
-                break;
+        if (ackType != null) {
+            switch (ackType) {
+                case ACKNOWLEDGED:
+                    searchParameter.addFilter(new NotNullFilter("alarmackuser"));
+                    break;
+                case UNACKNOWLEDGED:
+                    searchParameter.addFilter(new NullFilter("alarmackuser"));
+                    break;
+            }
         }
         return searchParameter;
     }
 
     public static SearchParameter getSearchParameter(Filter[] filters, AcknowledgeType ackType) {
         return getSearchParameter(filters, null, ackType, null, null);
+    }
+
+    public static SearchParameter getSearchParameter(Filter[] filters) {
+        return getSearchParameter(filters, null, null, null, null);
     }
 
     /**
@@ -246,4 +253,5 @@ public abstract class AlarmUtil extends Object {
 
         return filter;
     }
+
 }
