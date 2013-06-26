@@ -28,25 +28,19 @@
 
 package org.opennms.web.controller.outage;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.opennms.core.utils.WebSecurityUtils;
-import org.opennms.netmgt.dao.filter.Filter;
-import org.opennms.web.outage.Outage;
-import org.opennms.web.outage.OutageQueryParms;
-import org.opennms.web.outage.OutageType;
-import org.opennms.web.outage.OutageUtil;
-import org.opennms.web.outage.SortStyle;
-import org.opennms.web.outage.WebOutageRepository;
+import org.opennms.web.filter.Filter;
 import org.opennms.web.filter.outage.OutageCriteria;
+import org.opennms.web.outage.*;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A controller that handles querying the outages table by using filters to create an
