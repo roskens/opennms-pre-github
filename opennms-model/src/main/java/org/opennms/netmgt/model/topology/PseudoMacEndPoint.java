@@ -26,8 +26,7 @@ public class PseudoMacEndPoint extends PseudoBridgeEndPoint {
 	}
 	
 	public boolean equals(PseudoMacEndPoint endPoint) {
-			if ((getElement() != null && endPoint.getElement() != null && getElement()
-					.equals(endPoint.getElement()))) {
+		if ((getTopologyElement() != null && endPoint.getTopologyElement() != null && getTopologyElement().equals(endPoint.getTopologyElement()))) {
 				if (m_linkedMacAddress != null
 						&& endPoint.getLinkedMacAddress() != null)
 					return m_linkedMacAddress.equals((endPoint

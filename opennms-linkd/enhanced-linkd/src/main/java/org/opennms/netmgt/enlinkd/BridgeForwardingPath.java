@@ -110,11 +110,11 @@ public class BridgeForwardingPath {
 	}
 	
 	public boolean isComparable(BridgeForwardingPath bfp) {
-		return ( m_port1.getElement().equals(bfp.getPort1().getElement()) );
+		return ( m_port1.getTopologyElement().equals(bfp.getPort1().getTopologyElement()) );
 	}
 
 	public boolean hasSameBridgeElementOrder(BridgeForwardingPath bfp) {
-		return (m_port1.getElement().equals(bfp.getPort1().getElement()) && m_port2.getElement().equals(bfp.getPort2().getElement()));
+		return (m_port1.getTopologyElement().equals(bfp.getPort1().getTopologyElement()) && m_port2.getTopologyElement().equals(bfp.getPort2().getTopologyElement()));
 	}
 
 	public boolean hasSameMacAddress(BridgeForwardingPath bfp) {
@@ -140,7 +140,7 @@ public class BridgeForwardingPath {
 				m_compatibleorders.remove(Order.JOIN);
 			}
 		} else if (m_port1.equals(bfp.getPort1()) && !hasSameMacAddress(bfp) 
-				&& !m_mac.getLink().getA().getElement().equals(bfp.getMac().getLink().getA().getElement())) {
+				&& !m_mac.getLink().getA().getTopologyElement().equals(bfp.getMac().getLink().getA().getTopologyElement())) {
 			bfp.removeOrder(Order.DIRECT);
 			m_compatibleorders.remove(Order.DIRECT);
 		} 

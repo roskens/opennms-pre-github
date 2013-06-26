@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
@@ -90,6 +91,9 @@ public final class LldpElementIdentifier extends ElementIdentifier {
 	    public static LldpChassisIdSubType INTERFACENAME = new LldpChassisIdSubType(LLDP_CHASSISID_SUBTYPE_INTERFACENAME);
 	    public static LldpChassisIdSubType LOCAL = new LldpChassisIdSubType(LLDP_CHASSISID_SUBTYPE_LOCAL);
 
+	    public LldpChassisIdSubType() {
+	    	super();
+	    }
 	    
 	    public LldpChassisIdSubType(Integer chassisIdsubtype) {
 	    	super(chassisIdsubtype);
@@ -143,7 +147,16 @@ public final class LldpElementIdentifier extends ElementIdentifier {
             default:
                 throw new IllegalArgumentException("Cannot create LldpChassisIdSubType from code "+code);
             }
-        }		
+        }
+        
+        @Column(name="lldpchassissubtypeid")
+        public Integer getLldpChassisIdSubType() {
+        	return m_type;
+        }
+        
+        public void setLldpChassisIdSubType(Integer type) {
+        	m_type=type;
+        }
 
 	}
 
@@ -158,6 +171,7 @@ public final class LldpElementIdentifier extends ElementIdentifier {
 		m_lldpChassisId=lldpChassisId;
 		m_lldpSysname=sysname;
 		m_lldpChassisIdSubType=LldpChassisIdSubType.get(subtype);
+		setId(m_lldpChassisId+"-"+m_lldpChassisIdSubType);
 	}
 
 	public LldpChassisIdSubType getLldpChassisIdSubType() {
@@ -174,15 +188,15 @@ public final class LldpElementIdentifier extends ElementIdentifier {
 		return m_lldpChassisId;
 	}
 
-	public void setLldpSysname(String lldpSysname) {
+	protected void setLldpSysname(String lldpSysname) {
 		m_lldpSysname = lldpSysname;
 	}
 
-	public void setLldpChassisId(String lldpChassisId) {
+	protected void setLldpChassisId(String lldpChassisId) {
 		m_lldpChassisId = lldpChassisId;
 	}
 
-	public void setLldpChassisIdSubType(LldpChassisIdSubType lldpChassisIdSubType) {
+	protected void setLldpChassisIdSubType(LldpChassisIdSubType lldpChassisIdSubType) {
 		m_lldpChassisIdSubType = lldpChassisIdSubType;
 	}
 

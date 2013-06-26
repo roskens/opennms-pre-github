@@ -35,7 +35,7 @@ import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.model.topology.BridgeDot1qTpFdbLink;
 import org.opennms.netmgt.model.topology.BridgeElementIdentifier;
 import org.opennms.netmgt.model.topology.BridgeEndPoint;
-import org.opennms.netmgt.model.topology.Element;
+import org.opennms.netmgt.model.topology.TopologyElement;
 import org.opennms.netmgt.model.topology.MacAddrElementIdentifier;
 import org.opennms.netmgt.model.topology.MacAddrEndPoint;
 import org.opennms.netmgt.model.topology.NodeElementIdentifier;
@@ -186,7 +186,7 @@ public class Dot1qTpFdbTableTracker extends TableTracker {
             if (!isValid()) {
 				return null;
 			}
-			Element deviceA = new Element();
+			TopologyElement deviceA = new TopologyElement();
             deviceA.addElementIdentifier(nodeIdentifier);
             deviceA.addElementIdentifier(bridgeIdentifier);
             LogUtils.infof(this, "processDot1qTpFdbRow: row local bridge identifier: %s", bridgeIdentifier.getBridgeAddress());
@@ -195,7 +195,7 @@ public class Dot1qTpFdbTableTracker extends TableTracker {
             deviceA.addEndPoint(endPointA);
             LogUtils.infof(this, "processDot1qTpFdbRow: row local bridge port: %s", endPointA.getBridgePort());
     		    		
-            Element deviceB = new Element();
+            TopologyElement deviceB = new TopologyElement();
     		MacAddrEndPoint endPointB = getRemEndPoint(nodeIdentifier.getNodeid());
     		endPointB.setSourceNode(nodeIdentifier.getNodeid());
     		deviceB.addElementIdentifier(new MacAddrElementIdentifier(endPointB.getMacAddress(),nodeIdentifier.getNodeid()));

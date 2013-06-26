@@ -49,7 +49,7 @@ import org.opennms.netmgt.dao.NodeDao;
 import org.opennms.netmgt.dao.TopologyDao;
 import org.opennms.netmgt.Nms17216NetworkBuilder;
 import org.opennms.netmgt.model.OnmsNode;
-import org.opennms.netmgt.model.topology.Element;
+import org.opennms.netmgt.model.topology.TopologyElement;
 import org.opennms.netmgt.model.topology.EndPoint;
 import org.opennms.netmgt.model.topology.Link;
 import org.opennms.test.JUnitConfigurationEnvironment;
@@ -217,7 +217,7 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
         assertTrue(m_linkdConfig.useOspfDiscovery());
         assertTrue(m_linkdConfig.useBridgeDiscovery());
 
-        final List<Element> topologyA = m_topologyDao.getTopology();
+        final List<TopologyElement> topologyA = m_topologyDao.getTopology();
         List<EndPoint> endpoints = printEndPointTopology(topologyA);
         List<Link> links = printLinkTopology(topologyA);
  
@@ -303,7 +303,7 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
         assertTrue(m_linkd.scheduleNodeCollection(switch2.getId()));
         assertTrue(m_linkd.scheduleNodeCollection(switch3.getId()));
  
-        final List<Element> topologyA = m_topologyDao.getTopology();
+        final List<TopologyElement> topologyA = m_topologyDao.getTopology();
         List<EndPoint> endpoints = printEndPointTopology(topologyA);
         List<Link> links = printLinkTopology(topologyA);
         assertEquals(0,topologyA.size());
@@ -359,7 +359,7 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
         assertTrue(m_linkd.scheduleNodeCollection(switch4.getId()));
         assertTrue(m_linkd.scheduleNodeCollection(router3.getId()));
 
-        final List<Element> topologyA = m_topologyDao.getTopology();
+        final List<TopologyElement> topologyA = m_topologyDao.getTopology();
         List<EndPoint> endpoints = printEndPointTopology(topologyA);
         List<Link> links = printLinkTopology(topologyA);
         assertEquals(0,topologyA.size());

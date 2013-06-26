@@ -31,7 +31,7 @@ package org.opennms.netmgt.enlinkd;
 import java.net.InetAddress;
 
 import org.opennms.core.utils.LogUtils;
-import org.opennms.netmgt.model.topology.Element;
+import org.opennms.netmgt.model.topology.TopologyElement;
 import org.opennms.netmgt.model.topology.OspfElementIdentifier;
 import org.opennms.netmgt.model.topology.OspfEndPoint;
 import org.opennms.netmgt.snmp.RowCallback;
@@ -103,7 +103,7 @@ public class OspfNbrTableTracker extends TableTracker {
 
 		public OspfEndPoint getEndPoint(Integer sourceNode) {
             LogUtils.infof(this, "processOspfNbrRow: row count: %d", getColumnCount());
-			Element device = new Element();
+			TopologyElement device = new TopologyElement();
 			device.addElementIdentifier(new OspfElementIdentifier(getOspfNbrRouterId(),sourceNode));
             LogUtils.infof(this, "processOspfNbrRow: row ospf nbr router id: %s", str(getOspfNbrRouterId()));
 

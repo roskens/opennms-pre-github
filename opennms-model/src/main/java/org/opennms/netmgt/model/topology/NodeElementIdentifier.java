@@ -14,6 +14,7 @@ public final class NodeElementIdentifier extends ElementIdentifier {
 	public NodeElementIdentifier(Integer nodeid) {
 		super(ElementIdentifierType.NODE,nodeid);
 		m_nodeid = Integer.valueOf(nodeid);
+		setId(m_nodeid.toString());
 	}
 
 	public Integer getNodeid() {

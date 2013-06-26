@@ -33,7 +33,7 @@ import static org.opennms.core.utils.InetAddressUtils.normalizeMacAddress;
 import java.net.InetAddress;
 
 import org.opennms.core.utils.LogUtils;
-import org.opennms.netmgt.model.topology.Element;
+import org.opennms.netmgt.model.topology.TopologyElement;
 import org.opennms.netmgt.model.topology.InetElementIdentifier;
 import org.opennms.netmgt.model.topology.MacAddrElementIdentifier;
 import org.opennms.netmgt.model.topology.MacAddrEndPoint;
@@ -179,7 +179,7 @@ public class IpNetToMediaTableTracker extends TableTracker
 			if (getIpNetToMediatype() == IPNETTOMEDIA_TYPE_DYNAMIC || getIpNetToMediatype() == IPNETTOMEDIA_TYPE_STATIC) {
 				macep = new MacAddrEndPoint(getIpNetToMediaPhysAddress(),sourceNodeid);
 				macep.setIpAddr(getIpNetToMediaNetAddress());
-				Element e = new Element();
+				TopologyElement e = new TopologyElement();
 				e.addElementIdentifier(new InetElementIdentifier(getIpNetToMediaNetAddress(),sourceNodeid));
 				e.addElementIdentifier(new MacAddrElementIdentifier(getIpNetToMediaPhysAddress(),sourceNodeid));
 				e.addEndPoint(macep);

@@ -38,7 +38,7 @@ import org.opennms.netmgt.model.OnmsStpInterface.StpPortStatus;
 import org.opennms.netmgt.model.topology.BridgeElementIdentifier;
 import org.opennms.netmgt.model.topology.BridgeEndPoint;
 import org.opennms.netmgt.model.topology.BridgeStpLink;
-import org.opennms.netmgt.model.topology.Element;
+import org.opennms.netmgt.model.topology.TopologyElement;
 import org.opennms.netmgt.model.topology.NodeElementIdentifier;
 import org.opennms.netmgt.snmp.RowCallback;
 import org.opennms.netmgt.snmp.SnmpInstId;
@@ -225,7 +225,7 @@ public class Dot1dStpPortTableTracker extends TableTracker {
 	            LogUtils.infof(this, "processStpPortRow: designated bridge on port %d  is bridge identifier: %s", getDot1dStpPort(),bridgeIdentifier.getBridgeAddress());
 				return null;
 			}
-			Element deviceA = new Element();
+			TopologyElement deviceA = new TopologyElement();
             deviceA.addElementIdentifier(nodeIdentifier);
             deviceA.addElementIdentifier(bridgeIdentifier);
             LogUtils.infof(this, "processStpPortRow: row local bridge identifier: %s", bridgeIdentifier.getBridgeAddress());
@@ -234,7 +234,7 @@ public class Dot1dStpPortTableTracker extends TableTracker {
             deviceA.addEndPoint(endPointA);
             LogUtils.infof(this, "processStpPortRow: row local bridge port: %s", endPointA.getBridgePort());
     		
-    		Element deviceB = new Element();
+    		TopologyElement deviceB = new TopologyElement();
             BridgeElementIdentifier remBridgeElementIdentifier = getRemElementIdentifier(nodeIdentifier.getNodeid());
             LogUtils.infof(this, "processStpPortRow: row remote bridge identifier: %s", remBridgeElementIdentifier.getBridgeAddress());
             deviceB.addElementIdentifier(remBridgeElementIdentifier);

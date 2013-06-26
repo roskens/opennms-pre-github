@@ -41,7 +41,7 @@ import org.opennms.netmgt.dao.topology.TopologyDaoInMemoryImpl;
 import org.opennms.netmgt.model.topology.BridgeDot1dTpFdbLink;
 import org.opennms.netmgt.model.topology.BridgeElementIdentifier;
 import org.opennms.netmgt.model.topology.BridgeEndPoint;
-import org.opennms.netmgt.model.topology.Element;
+import org.opennms.netmgt.model.topology.TopologyElement;
 import org.opennms.netmgt.model.topology.MacAddrElementIdentifier;
 import org.opennms.netmgt.model.topology.MacAddrEndPoint;
 import org.opennms.netmgt.model.topology.NodeElementIdentifier;
@@ -99,7 +99,7 @@ public class DefaultServiceTest {
 	}
 
 	private BridgeEndPoint getBridgeEndPoint(Integer port, Integer nodeid, String baseBridgeAddress) {
- 		Element deviceA = new Element();
+ 		TopologyElement deviceA = new TopologyElement();
         deviceA.addElementIdentifier(new NodeElementIdentifier(nodeid));
         deviceA.addElementIdentifier(new BridgeElementIdentifier(baseBridgeAddress, nodeid));
 
@@ -110,7 +110,7 @@ public class DefaultServiceTest {
 	}
 	
 	private MacAddrEndPoint getMacAddressEndPoint(String mac, Integer sourceNode) {
-        Element deviceB = new Element();
+        TopologyElement deviceB = new TopologyElement();
 		MacAddrEndPoint endPointB = new MacAddrEndPoint(mac, sourceNode);
 		endPointB.setSourceNode(sourceNode);
 		deviceB.addElementIdentifier(new MacAddrElementIdentifier(endPointB.getMacAddress(),sourceNode));

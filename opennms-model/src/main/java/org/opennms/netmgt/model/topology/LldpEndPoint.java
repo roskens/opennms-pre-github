@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
@@ -18,6 +19,8 @@ public class LldpEndPoint extends EndPoint {
 	public static class LldpPortIdSubType extends AbstractType 
 	implements Serializable{
 	
+		public LldpPortIdSubType() {
+		}
 	    /**
 		 * 
 		 */
@@ -138,7 +141,16 @@ public class LldpEndPoint extends EndPoint {
             default:
                 throw new IllegalArgumentException("Cannot create LldpPortIdSubType from code "+code);
             }
-        }		
+        }
+        
+        @Column(name="lldpportidsubtype")
+        public Integer getLldpPortIdSubType() {
+        	return m_type;
+        }
+        
+        public void setLldpPortIdSubType(Integer type) {
+        	m_type=type;
+        }
 
 	}
 
@@ -151,8 +163,15 @@ public class LldpEndPoint extends EndPoint {
 		m_lldpPortIdSubType = LldpPortIdSubType.get(lldpPortidSubType);
 		if (lldpPortidSubType.equals(LldpPortIdSubType.INTERFACENAME))
 			setIfName(lldpPortId);
-		else if (lldpPortidSubType.equals(LldpPortIdSubType.LOCAL))
-			setIfIndex(Integer.getInteger(lldpPortId));
+		else if (lldpPortidSubType.equals(LldpPortIdSubType.LOCAL)) {
+			// this must be checked with exception
+			try {
+				setIfIndex(Integer.getInteger(lldpPortId));
+			} catch (Exception e) {
+				setIfName(lldpPortId);
+			}
+		}
+		setId(m_lldpPortId+"-"+m_lldpPortIdSubType);
 	}
 	
 	public LldpPortIdSubType getLldpPortIdSubType() {
@@ -174,7 +193,7 @@ public class LldpEndPoint extends EndPoint {
 	@Override
 	public boolean equals(EndPoint endPoint) {
 		if (endPoint instanceof LldpEndPoint) {
-			if ((getElement() != null && endPoint.getElement() != null && getElement().equals(endPoint.getElement()))) {
+			if ((getTopologyElement() != null && endPoint.getTopologyElement() != null && getTopologyElement().equals(endPoint.getTopologyElement()))) {
 				LldpEndPoint a=(LldpEndPoint)endPoint;
 				return getLldpPortId().equals(a.getLldpPortId()) && getLldpPortIdSubType().equals(a.getLldpPortIdSubType());
 			}
@@ -198,9 +217,6 @@ public class LldpEndPoint extends EndPoint {
 
 	@Override
 	public void update(EndPoint endpoint) {
-		if (!equals(endpoint)) {
-			return;
-		}
 		m_lastPoll = endpoint.getLastPoll();
 		m_sourceNode = endpoint.getSourceNode();
 		if (endpoint.hasLink()) {
@@ -211,6 +227,6 @@ public class LldpEndPoint extends EndPoint {
 				link.setB(this);
 			setLink(link);
 		}
-	}
+	}		
 
 }

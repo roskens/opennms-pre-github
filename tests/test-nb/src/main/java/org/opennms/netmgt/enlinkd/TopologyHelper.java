@@ -37,7 +37,7 @@ import org.opennms.netmgt.model.topology.BridgeElementIdentifier;
 import org.opennms.netmgt.model.topology.BridgeEndPoint;
 import org.opennms.netmgt.model.topology.CdpElementIdentifier;
 import org.opennms.netmgt.model.topology.CdpEndPoint;
-import org.opennms.netmgt.model.topology.Element;
+import org.opennms.netmgt.model.topology.TopologyElement;
 import org.opennms.netmgt.model.topology.ElementIdentifier;
 import org.opennms.netmgt.model.topology.EndPoint;
 import org.opennms.netmgt.model.topology.InetElementIdentifier;
@@ -63,11 +63,11 @@ import org.opennms.netmgt.model.topology.PseudoMacEndPoint;
 
 public abstract class TopologyHelper {
         
-    protected static List<EndPoint> printEndPointTopology(final List<Element> topology) {
+    protected static List<EndPoint> printEndPointTopology(final List<TopologyElement> topology) {
 
     	List<EndPoint> endpoints = new ArrayList<EndPoint>();
 
-        for (final Element e: topology) {
+        for (final TopologyElement e: topology) {
         	System.err.println("---------- element --------");
 			if (e == null)
 				continue;
@@ -86,11 +86,11 @@ public abstract class TopologyHelper {
 	
     }
     
-    protected static List<Link> printLinkTopology(final List<Element> topology) {
+    protected static List<Link> printLinkTopology(final List<TopologyElement> topology) {
 
     	List<Link> links = new ArrayList<Link>();
 
-        for (final Element e: topology) {
+        for (final TopologyElement e: topology) {
 			if (e == null)
 				continue;
         	for (EndPoint ep: e.getEndpoints()) {
@@ -139,7 +139,7 @@ public abstract class TopologyHelper {
 			CdpEndPoint cdpep = (CdpEndPoint) ep;
 			System.err.println("Cdp Endpoint Port/IfIndex: "
 					+ cdpep.getCdpCacheDevicePort() + "/"
-					+ cdpep.getCdpCacheIfindex() + " " + ep.getLastPoll());
+					+ cdpep.getIfIndex() + " " + ep.getLastPoll());
 		} else if (ep instanceof OspfEndPoint) {
 			OspfEndPoint ospfep = (OspfEndPoint) ep;
 			System.err
@@ -174,13 +174,13 @@ public abstract class TopologyHelper {
     	System.err.println("----------link "+ LinkType.getTypeString(link.getLinkType().getIntCode())+"--------");
     	System.err.println("Last Poll :" + link.getLastPoll());
     	System.err.println("----------A--------");
-    	for (ElementIdentifier iden: link.getA().getElement().getElementIdentifiers()) {
+    	for (ElementIdentifier iden: link.getA().getTopologyElement().getElementIdentifiers()) {
     		printElementIdentifier(iden);
     	}
     	printEndPoint(link.getA());
     	
     	System.err.println("----------B--------");
-    	for (ElementIdentifier iden: link.getB().getElement().getElementIdentifiers()) {
+    	for (ElementIdentifier iden: link.getB().getTopologyElement().getElementIdentifiers()) {
     		printElementIdentifier(iden);
     	}
     	printEndPoint(link.getB());

@@ -29,7 +29,7 @@ public class CdpInterfacePortNameGetter extends TableTracker {
 		if (val == null || val.length != 1 || val[0] == null)
 			return null;
 		CdpEndPoint endPoint = new CdpEndPoint(val[0].toDisplayString(),sourceNode);
-		endPoint.setCdpCacheIfindex(cdpInterfaceIndex);
+		endPoint.setIfIndex(cdpInterfaceIndex);
 		return endPoint;
 	}
 

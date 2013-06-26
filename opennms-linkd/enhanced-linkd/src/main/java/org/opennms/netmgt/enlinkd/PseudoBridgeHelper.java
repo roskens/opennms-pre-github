@@ -2,7 +2,7 @@ package org.opennms.netmgt.enlinkd;
 
 import org.opennms.netmgt.model.topology.BridgeElementIdentifier;
 import org.opennms.netmgt.model.topology.BridgeEndPoint;
-import org.opennms.netmgt.model.topology.Element;
+import org.opennms.netmgt.model.topology.TopologyElement;
 import org.opennms.netmgt.model.topology.ElementIdentifier;
 import org.opennms.netmgt.model.topology.MacAddrEndPoint;
 import org.opennms.netmgt.model.topology.PseudoBridgeElementIdentifier;
@@ -17,7 +17,7 @@ public final class PseudoBridgeHelper {
 	public static BridgeEndPoint getBridgeEndPoint(PseudoBridgeElementIdentifier eiA) {
 		BridgeElementIdentifier bridgeA = new BridgeElementIdentifier(eiA.getLinkedBridgeIdentifier(), eiA.getSourceNode());
 		BridgeEndPoint portA = new BridgeEndPoint(eiA.getLinkedBridgePort(), eiA.getSourceNode());
-		Element elementA = new Element();
+		TopologyElement elementA = new TopologyElement();
 		elementA.addElementIdentifier(bridgeA);
 		elementA.addEndPoint(portA);
 		return portA;
@@ -25,7 +25,7 @@ public final class PseudoBridgeHelper {
 	
 	public static PseudoBridgeElementIdentifier getPseudoBridgeElementIdentifier(BridgeEndPoint port) {
 		String baseBridgeAddress = "";
-		for (ElementIdentifier ei: port.getElement().getElementIdentifiers()) {
+		for (ElementIdentifier ei: port.getTopologyElement().getElementIdentifiers()) {
 			if (ei instanceof BridgeElementIdentifier) {
 				baseBridgeAddress = ((BridgeElementIdentifier)ei).getBridgeAddress();
 				break;
@@ -37,7 +37,7 @@ public final class PseudoBridgeHelper {
 
 	public static PseudoMacLink getPseudoMacLink(BridgeEndPoint port,
 			MacAddrEndPoint mac) {
-		Element elementA = new Element();
+		TopologyElement elementA = new TopologyElement();
 		elementA.addElementIdentifier(getPseudoBridgeElementIdentifier(port));
 
 		PseudoMacEndPoint endPointA = new PseudoMacEndPoint(
@@ -49,7 +49,7 @@ public final class PseudoBridgeHelper {
 	public static PseudoBridgeLink getPseudoBridgeLink(
 			BridgeEndPoint port) {
 		
-		Element elementA = new Element();
+		TopologyElement elementA = new TopologyElement();
 		PseudoBridgeElementIdentifier pid = getPseudoBridgeElementIdentifier(port);
 		elementA.addElementIdentifier(pid);
 

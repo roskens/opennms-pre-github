@@ -258,7 +258,7 @@ public class Nms17216SnmpTest extends Nms17216NetworkBuilder implements Initiali
 		CdpEndPoint epA = cdpLocPort.get(10104,100);
 
 		assertEquals("GigabitEthernet0/4", epA.getCdpCacheDevicePort());
-		assertEquals(10104, epA.getCdpCacheIfindex().intValue());
+		assertEquals(10104, epA.getIfIndex().intValue());
 		
     }
 

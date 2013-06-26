@@ -30,7 +30,7 @@ package org.opennms.netmgt.enlinkd;
 
 
 import org.opennms.core.utils.LogUtils;
-import org.opennms.netmgt.model.topology.Element;
+import org.opennms.netmgt.model.topology.TopologyElement;
 import org.opennms.netmgt.model.topology.LldpElementIdentifier;
 import org.opennms.netmgt.model.topology.LldpEndPoint;
 import org.opennms.netmgt.model.topology.LldpLink;
@@ -139,7 +139,7 @@ public class LldpRemTableTracker extends TableTracker {
 	    }
 	    
 	    public LldpLink getLink(LldpElementIdentifier lldpIdentifier, NodeElementIdentifier nodeIdentifier, LldpLocPortGetter lldpLocPort) {
-            Element deviceA = new Element();
+            TopologyElement deviceA = new TopologyElement();
             deviceA.addElementIdentifier(nodeIdentifier);
             deviceA.addElementIdentifier(lldpIdentifier);
             LogUtils.infof(this, "processLldpRemRow: row count: %d", getColumnCount());
@@ -150,7 +150,7 @@ public class LldpRemTableTracker extends TableTracker {
             LogUtils.infof(this, "processLldpRemRow: row local port id: %s", endPointA.getLldpPortId());
             LogUtils.infof(this, "processLldpRemRow: row local port subtype: %s", endPointA.getLldpPortIdSubType());
     		
-    		Element deviceB = new Element();
+    		TopologyElement deviceB = new TopologyElement();
             LldpElementIdentifier lldpRemElementIdentifier = getRemElementIdentifier(nodeIdentifier.getNodeid());
             LogUtils.infof(this, "processLldpRemRow: row rem lldp identifier: %s", lldpRemElementIdentifier);
             deviceB.addElementIdentifier(lldpRemElementIdentifier);

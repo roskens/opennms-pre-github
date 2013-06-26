@@ -32,13 +32,13 @@ public class TopologyTest {
 
 	@Test
 	public void testHasEndPoint() {
-		Element elementA = new Element();
+		TopologyElement elementA = new TopologyElement();
 		elementA.addElementIdentifier(new LldpElementIdentifier("0016c8bd4d80", "switch3", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS,101));
 		elementA.addElementIdentifier(new NodeElementIdentifier(101));
 		LldpEndPoint endPointA1 = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,101);
 		elementA.addEndPoint(endPointA1);
 		
-		Element elementAF = new Element();
+		TopologyElement elementAF = new TopologyElement();
 		elementAF.addElementIdentifier(new LldpElementIdentifier("0016c8bd4d80", "switch3", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS,111));
 		LldpEndPoint endPointA1F = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,111);
 		elementAF.addEndPoint(endPointA1F);
@@ -47,7 +47,7 @@ public class TopologyTest {
 
 	@Test
 	public void testHasEndPointWithDelay() {
-		Element elementA = new Element();
+		TopologyElement elementA = new TopologyElement();
 		elementA.addElementIdentifier(new LldpElementIdentifier("0016c8bd4d80", "switch3", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS,102));
 		elementA.addElementIdentifier(new NodeElementIdentifier(1));
 		LldpEndPoint endPointA1 = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,102);
@@ -62,7 +62,7 @@ public class TopologyTest {
 			e.printStackTrace();
 		}
 		
-		Element elementAF = new Element();
+		TopologyElement elementAF = new TopologyElement();
 		elementAF.addElementIdentifier(new LldpElementIdentifier("0016c8bd4d80", "switch3", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS,101));
 		LldpEndPoint endPointA1F = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,110);
 		elementAF.addEndPoint(endPointA1F);
@@ -71,14 +71,14 @@ public class TopologyTest {
 
 	@Test 
 	public void testLink() {
-		Element elementA = new Element();
+		TopologyElement elementA = new TopologyElement();
 		elementA.addElementIdentifier(new LldpElementIdentifier("0016c8bd4d80", "switch3", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS,103));
 		elementA.addElementIdentifier(new NodeElementIdentifier(1));
 
 		LldpEndPoint endPointA1 = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,103);
 		elementA.addEndPoint(endPointA1);
 
-		Element elementB = new Element();
+		TopologyElement elementB = new TopologyElement();
 		elementB.addElementIdentifier(new LldpElementIdentifier("0016caad4d80", "switch1", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS,103));
 		
 		LldpEndPoint endPointB1 = new LldpEndPoint("Ge0/0", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,103);
@@ -92,14 +92,14 @@ public class TopologyTest {
 	
 	@Test
 	public void testTopology() {
-		Element elementA = new Element();
+		TopologyElement elementA = new TopologyElement();
 		elementA.addElementIdentifier(new LldpElementIdentifier("0016c8bd4d80", "switch3", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS,104));
 		elementA.addElementIdentifier(new NodeElementIdentifier(1));
 
-		Element elementB = new Element();
+		TopologyElement elementB = new TopologyElement();
 		elementB.addElementIdentifier(new LldpElementIdentifier("0016caad4d80", "switch1", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS,104));
 
-		Element elementC = new Element();
+		TopologyElement elementC = new TopologyElement();
 		elementC.addElementIdentifier(new LldpElementIdentifier("0016c8bd4d80", "switch3", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS,104));
 
 		assertTrue(!elementA.equals(elementB));
@@ -118,7 +118,7 @@ public class TopologyTest {
 		elementA.addEndPoint(endPointA3);
 		elementA.addEndPoint(endPointA4);
 		
-		Element elementAF = new Element();
+		TopologyElement elementAF = new TopologyElement();
 		elementAF.addElementIdentifier(new LldpElementIdentifier("0016c8bd4d80", "switch3", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS,101));
 		LldpEndPoint endPointA1F = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,120);
 		elementAF.addEndPoint(endPointA1F);

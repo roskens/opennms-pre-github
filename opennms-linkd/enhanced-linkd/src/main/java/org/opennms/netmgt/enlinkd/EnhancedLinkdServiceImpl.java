@@ -23,7 +23,7 @@ import org.opennms.netmgt.model.topology.BridgeStpLink;
 import org.opennms.netmgt.model.topology.CdpElementIdentifier;
 import org.opennms.netmgt.model.topology.CdpEndPoint;
 import org.opennms.netmgt.model.topology.CdpLink;
-import org.opennms.netmgt.model.topology.Element;
+import org.opennms.netmgt.model.topology.TopologyElement;
 import org.opennms.netmgt.model.topology.ElementIdentifier;
 import org.opennms.netmgt.model.topology.EndPoint;
 import org.opennms.netmgt.model.topology.InetElementIdentifier;
@@ -51,7 +51,7 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 
 	//This is the pseudo element cntaining the discovering bridge....must be unique
 	//
-	private Element m_pseudoBridge = null;
+	private TopologyElement m_pseudoBridge = null;
 	
 	private List<Link> m_pendinglinks = new ArrayList<Link>();
 	
@@ -91,7 +91,7 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
     	return m_pendinglinks;
     }
 	
-    protected Element getPseudoBridge() {
+    protected TopologyElement getPseudoBridge() {
     	return m_pseudoBridge;
     }
 
@@ -134,7 +134,7 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 		Collection<Integer> nodeIds = m_nodeDao.getNodeIds();
 		List<EndPoint> endpoints = new ArrayList<EndPoint>();
 		List<ElementIdentifier> elementidentifiers = new ArrayList<ElementIdentifier>();
-		for (Element e: m_topologyDao.getTopology()) {
+		for (TopologyElement e: m_topologyDao.getTopology()) {
 			for (ElementIdentifier elemId: e.getElementIdentifiers()) {
 				if (!nodeIds.contains(elemId.getSourceNode()))
 					elementidentifiers.add(elemId);
@@ -151,7 +151,7 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 	public void reconcile(int nodeid) {
 		List<EndPoint> endpoints = new ArrayList<EndPoint>();
 		List<ElementIdentifier> elementidentifiers = new ArrayList<ElementIdentifier>();
-		for (Element e: m_topologyDao.getTopology()) {
+		for (TopologyElement e: m_topologyDao.getTopology()) {
 			for (ElementIdentifier elemId: e.getElementIdentifiers()) {
 				if (nodeid == elemId.getSourceNode())
 					elementidentifiers.add(elemId);
@@ -248,7 +248,7 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 		if (dblink instanceof BridgeDot1qTpFdbLink || dblink instanceof BridgeDot1dTpFdbLink) {
 			checkBridgeTopology(new BridgeForwardingPath(
 					getBridgeEndPoint((PseudoBridgeElementIdentifier) link
-							.getA().getElement().getElementIdentifiers().iterator().next()),
+							.getA().getTopologyElement().getElementIdentifiers().iterator().next()),
 					(BridgeEndPoint) dblink.getA(), dbMacEndPoint,
 					Order.REVERSED));
 		} else if (dblink instanceof PseudoMacLink) {
@@ -258,8 +258,8 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 				m_topologyDao.saveOrUpdate(link);
 			} else {
 				//FIXME use the m_pseudo bridge if not null and mac address contained...then remove the pseudo device and save link!
-				BridgeEndPoint port1 = getBridgeEndPoint((PseudoBridgeElementIdentifier)link.getA().getElement().getElementIdentifiers().iterator().next());
-				for (ElementIdentifier ei: dblink.getA().getElement().getElementIdentifiers()) {
+				BridgeEndPoint port1 = getBridgeEndPoint((PseudoBridgeElementIdentifier)link.getA().getTopologyElement().getElementIdentifiers().iterator().next());
+				for (ElementIdentifier ei: dblink.getA().getTopologyElement().getElementIdentifiers()) {
 					LogUtils.debugf(this,
 			                "store:PseudoBridge->Mac: topology: check path with: %s", ei);
 					BridgeForwardingPath path = checkBridgeTopology(new BridgeForwardingPath(
@@ -319,7 +319,7 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 		LogUtils.debugf(this, "store:Bridge->Mac: found db Link: %s", dblink);
 
 		if (dbMacEndPoint.getLink() instanceof PseudoMacLink) {
-			for (ElementIdentifier ei : dbMacEndPoint.getLink().getA().getElement()
+			for (ElementIdentifier ei : dbMacEndPoint.getLink().getA().getTopologyElement()
 					.getElementIdentifiers()) {
 					checkBridgeTopology(new BridgeForwardingPath(
 							(BridgeEndPoint) link.getA(),
@@ -396,7 +396,7 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 		
 		BridgeEndPoint topologyBridgeEndPoint = (BridgeEndPoint) dbendpoint;
 		if (topologyBridgeEndPoint.hasLink() && topologyBridgeEndPoint.getLink() instanceof PseudoBridgeLink) {
-			m_topologyDao.delete(topologyBridgeEndPoint.getLink().getA().getElement());
+			m_topologyDao.delete(topologyBridgeEndPoint.getLink().getA().getTopologyElement());
 		}	
 		LogUtils.infof(this,
                 "store:BridgeStp SaveOrUpdate Link %s", link);					
@@ -470,7 +470,7 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 
 		List<EndPoint> endpoints = new ArrayList<EndPoint>();
 		List<ElementIdentifier> elementidentifiers = new ArrayList<ElementIdentifier>();
-		for (Element e: m_topologyDao.getTopology()) {
+		for (TopologyElement e: m_topologyDao.getTopology()) {
 			for (ElementIdentifier elemId: e.getElementIdentifiers()) {
 				if (nodeid == elemId.getSourceNode() && elemId.getLastPoll().before(now) && elemId instanceof LldpElementIdentifier)
 					elementidentifiers.add(elemId);
@@ -489,7 +489,7 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 	public void reconcileCdp(int nodeid, Date now) {
 		List<EndPoint> endpoints = new ArrayList<EndPoint>();
 		List<ElementIdentifier> elementidentifiers = new ArrayList<ElementIdentifier>();
-		for (Element e: m_topologyDao.getTopology()) {
+		for (TopologyElement e: m_topologyDao.getTopology()) {
 			if (e == null)
 				continue;
 			for (ElementIdentifier elemId: e.getElementIdentifiers()) {
@@ -508,7 +508,7 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 	public void reconcileOspf(int nodeid, Date now) {
 		List<EndPoint> endpoints = new ArrayList<EndPoint>();
 		List<ElementIdentifier> elementidentifiers = new ArrayList<ElementIdentifier>();
-		for (Element e: m_topologyDao.getTopology()) {
+		for (TopologyElement e: m_topologyDao.getTopology()) {
 			if (e == null)
 				continue;
 			for (ElementIdentifier elemId: e.getElementIdentifiers()) {
@@ -527,7 +527,7 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 	public void reconcileIpNetToMedia(int nodeid, Date now) {
 		List<ElementIdentifier> elementidentifiers = new ArrayList<ElementIdentifier>();
 		List<EndPoint> endpoints = new ArrayList<EndPoint>();
-		for (Element e: m_topologyDao.getTopology()) {
+		for (TopologyElement e: m_topologyDao.getTopology()) {
 			if (e == null)
 				continue;
 			for (ElementIdentifier ei: e.getElementIdentifiers()) {
@@ -560,7 +560,7 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 
 		List<ElementIdentifier> elementidentifiers = new ArrayList<ElementIdentifier>();
 		List<EndPoint> endpoints = new ArrayList<EndPoint>();
-		for (Element e: m_topologyDao.getTopology()) {
+		for (TopologyElement e: m_topologyDao.getTopology()) {
 			if (e == null) 
 				continue;
 			for (ElementIdentifier ei: e.getElementIdentifiers()) {
@@ -654,14 +654,14 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 				if (path.getPath().equals(Order.DIRECT) && storedpath.getPath().equals(Order.REVERSED)) {
 					addJoinedPath(new BridgeForwardingPath(storedpath.getPort1(), path.getPort2(), storedpath.getMac(), Order.JOIN));
 					if (m_pseudoBridge == null) {
-						m_pseudoBridge = path.getMac().getLink().getA().getElement();
+						m_pseudoBridge = path.getMac().getLink().getA().getTopologyElement();
 						LogUtils.debugf(this,
 				                "checkBridgeTopology: found pseudo device: %s", m_pseudoBridge);
 					}
 				} else if (path.getPath().equals(Order.REVERSED) && storedpath.getPath().equals(Order.DIRECT)) {
 					addJoinedPath(new BridgeForwardingPath(path.getPort1(), storedpath.getPort2(), storedpath.getMac(), Order.JOIN));
 					if (m_pseudoBridge == null) {
-						m_pseudoBridge = path.getMac().getLink().getA().getElement();
+						m_pseudoBridge = path.getMac().getLink().getA().getTopologyElement();
 						LogUtils.debugf(this,
 				                "checkBridgeTopology: found pseudo device: %s", m_pseudoBridge);
 					}
@@ -671,12 +671,12 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 				}
 			} else if (m_pseudoBridge == null && path.isPath() && path.getPath().equals(Order.JOIN)) {
 				addJoinedPath(path);
-				m_pseudoBridge = path.getMac().getLink().getA().getElement();
+				m_pseudoBridge = path.getMac().getLink().getA().getTopologyElement();
 				LogUtils.debugf(this,
 		                "checkBridgeTopology: found pseudo device: %s", m_pseudoBridge);
 			} else if (m_pseudoBridge == null && storedpath.isPath() && storedpath.getPath().equals(Order.JOIN)) {
 				addJoinedPath(storedpath);
-				m_pseudoBridge = path.getMac().getLink().getA().getElement();
+				m_pseudoBridge = path.getMac().getLink().getA().getTopologyElement();
 				LogUtils.debugf(this,
 		                "checkBridgeTopology: found pseudo device: %s", m_pseudoBridge);
 			} else {
@@ -793,7 +793,7 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 		LogUtils.debugf(this,
 				"mergePseudoElements: merging joined path: %s", joinedpath);
 
-		Element element1 = m_topologyDao.get(PseudoBridgeHelper
+		TopologyElement element1 = m_topologyDao.get(PseudoBridgeHelper
 				.getPseudoBridgeElementIdentifier(joinedpath
 						.getPort1()));
 					
@@ -806,7 +806,7 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 							.getPort1()));
 		}
 
-		Element element2 = m_topologyDao.get(PseudoBridgeHelper
+		TopologyElement element2 = m_topologyDao.get(PseudoBridgeHelper
 				.getPseudoBridgeElementIdentifier(joinedpath
 						.getPort2()));
 		
@@ -819,7 +819,7 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 							.getPort2()));
 		}
 
-		Element e = new Element();
+		TopologyElement e = new TopologyElement();
 		for (ElementIdentifier ei: element1.getElementIdentifiers()) {
 			e.addElementIdentifier(ei);
 		}
@@ -831,12 +831,12 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
 		m_topologyDao.delete(element2);
 
 		for (EndPoint ep: element1.getEndpoints()) {
-			ep.setElement(e);
+			ep.setTopologyElement(e);
 			e.addEndPoint(ep);
 			m_topologyDao.saveOrUpdate(ep.getLink());
 		}
 		for (EndPoint ep: element2.getEndpoints()) {
-			ep.setElement(e);
+			ep.setTopologyElement(e);
 			e.addEndPoint(ep);
 			if (ep.hasLink())
 				m_topologyDao.saveOrUpdate(ep.getLink());

@@ -44,12 +44,17 @@ import org.opennms.netmgt.dao.TopologyDao;
 import org.opennms.netmgt.model.topology.BridgeDot1dTpFdbLink;
 import org.opennms.netmgt.model.topology.BridgeElementIdentifier;
 import org.opennms.netmgt.model.topology.BridgeEndPoint;
-import org.opennms.netmgt.model.topology.Element;
+import org.opennms.netmgt.model.topology.LldpLink;
+import org.opennms.netmgt.model.topology.TopologyElement;
 import org.opennms.netmgt.model.topology.EndPoint;
 import org.opennms.netmgt.model.topology.InetElementIdentifier;
+import org.opennms.netmgt.model.topology.LldpElementIdentifier;
+import org.opennms.netmgt.model.topology.LldpEndPoint;
 import org.opennms.netmgt.model.topology.MacAddrElementIdentifier;
 import org.opennms.netmgt.model.topology.MacAddrEndPoint;
 import org.opennms.netmgt.model.topology.NodeElementIdentifier;
+import org.opennms.netmgt.model.topology.LldpElementIdentifier.LldpChassisIdSubType;
+import org.opennms.netmgt.model.topology.LldpEndPoint.LldpPortIdSubType;
 import org.opennms.test.JUnitConfigurationEnvironment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -75,16 +80,96 @@ public class HibernateTopologyDaoTest {
 	@Before
     public void setUp() throws Exception {
         Properties p = new Properties();
-        p.setProperty("log4j.logger.org.hibernate", "DEBUG");
-        p.setProperty("log4j.logger.org.opennms.netmgt", "DEBUG");
-        p.setProperty("log4j.logger.org.springframework","DEBUG");
-        p.setProperty("log4j.logger.com.mchange.v2.resourcepool", "DEBUG");
+        p.setProperty("log4j.logger", "WARN");
+//        p.setProperty("log4j.logger.org.hibernate", "WARN");
+//        p.setProperty("log4j.logger.org.opennms.netmgt", "WARN");
+//        p.setProperty("log4j.logger.org.springframework","WARN");
+//        p.setProperty("log4j.logger.com.mchange.v2.resourcepool", "WARN");
         MockLogAppender.setupLogging(p);
      }
 
 	
 	@Test
 	@Transactional
+	public void testSaveOrUpDateLldp() {
+		TopologyElement elementAF = new TopologyElement();
+		elementAF.addElementIdentifier(new LldpElementIdentifier("0016c8bd4d80", "switch3", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS,111));
+		elementAF.addElementIdentifier(new NodeElementIdentifier(111));
+		LldpEndPoint endPointA1A = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,111);
+		LldpEndPoint endPointA1B = new LldpEndPoint("Ge0/2", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,111);
+		LldpEndPoint endPointA1C = new LldpEndPoint("Ge0/3", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,111);
+		LldpEndPoint endPointA1D = new LldpEndPoint("Ge0/4", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,111);
+		elementAF.addEndPoint(endPointA1A);
+		elementAF.addEndPoint(endPointA1B);
+		elementAF.addEndPoint(endPointA1C);
+		elementAF.addEndPoint(endPointA1D);
+		
+		m_topologyDao.saveOrUpdate(endPointA1A);
+		m_topologyDao.saveOrUpdate(endPointA1B);
+		m_topologyDao.saveOrUpdate(endPointA1C);
+		m_topologyDao.saveOrUpdate(endPointA1D);
+		assertEquals(1, m_topologyDao.getTopology().size());
+		
+		TopologyElement elementA = new TopologyElement();
+		elementA.addElementIdentifier(new LldpElementIdentifier("0016c8bd4d80", "switch3", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS,101));
+		LldpEndPoint endPointA1 = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,101);
+		elementA.addEndPoint(endPointA1);
+		
+		m_topologyDao.saveOrUpdate(endPointA1);
+		assertEquals(1, m_topologyDao.getTopology().size());
+
+		final TopologyElement e = m_topologyDao.get(new LldpElementIdentifier("0016c8bd4d80", "switch3", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS,101));
+		
+		System.err.println(e);
+		assertEquals(2, e.getElementIdentifiers().size());
+		assertEquals(4, e.getEndpoints().size());
+	
+	}
+
+	@Test
+	@Transactional
+	public void testSaveOrUpDateLldpLink() {
+
+		
+		TopologyElement elementA = new TopologyElement();
+		elementA.addElementIdentifier(new LldpElementIdentifier("0016c8bd4d80", "switch3", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS,111));
+		elementA.addElementIdentifier(new NodeElementIdentifier(111));
+		LldpEndPoint endPointA = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,111);
+		elementA.addEndPoint(endPointA);
+
+		TopologyElement elementB = new TopologyElement();
+		elementB.addElementIdentifier(new LldpElementIdentifier("0016c8bd4d90", "switch4", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS,111));
+		LldpEndPoint endPointB = new LldpEndPoint("Ge1/10", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,111);
+		elementB.addEndPoint(endPointB);
+
+		m_topologyDao.saveOrUpdate(new LldpLink(endPointA, endPointB, 111));
+		
+		assertEquals(2, m_topologyDao.getTopology().size());
+		
+		for (TopologyElement e: m_topologyDao.getTopology())
+			System.out.println(e);
+		
+		TopologyElement elementB1 = new TopologyElement();
+		elementB1.addElementIdentifier(new LldpElementIdentifier("0016c8bd4d90", "switch4", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS,101));
+		elementB1.addElementIdentifier(new NodeElementIdentifier(101));
+		LldpEndPoint endPointB1 = new LldpEndPoint("Ge1/10", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,101);
+		elementB1.addEndPoint(endPointB1);
+
+		TopologyElement elementA1 = new TopologyElement();
+		elementA1.addElementIdentifier(new LldpElementIdentifier("0016c8bd4d80", "switch3", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS,101));
+		LldpEndPoint endPointA1 = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,101);
+		elementA1.addEndPoint(endPointA1);
+		
+		m_topologyDao.saveOrUpdate(new LldpLink(endPointB1, endPointA1, 101));
+		
+		assertEquals(2, m_topologyDao.getTopology().size());
+		
+		for (TopologyElement e: m_topologyDao.getTopology())
+			System.out.println(e);
+		
+	}
+
+	@Test
 	public void testSaveOrUpDate() throws UnknownHostException {
 		
 		Integer nodeA  = 10;
@@ -95,13 +180,13 @@ public class HibernateTopologyDaoTest {
         InetAddress ip1 = InetAddress.getByName("10.10.10.1");
         InetAddress ip2 = InetAddress.getByName("10.10.10.2");
 
-        Element host1 = new Element();
+        TopologyElement host1 = new TopologyElement();
         host1.addElementIdentifier(new MacAddrElementIdentifier("000daaaa0001", nodeB));
         host1.addElementIdentifier(new InetElementIdentifier(ip1, nodeB));
         EndPoint mac1 = new MacAddrEndPoint("000daaaa0001", nodeB);
         host1.addEndPoint(mac1);
         
-        Element host2 = new Element();
+        TopologyElement host2 = new TopologyElement();
         host2.addElementIdentifier(new MacAddrElementIdentifier("000daaaa0002", nodeB));
         host2.addElementIdentifier(new InetElementIdentifier(ip2, nodeB));
         EndPoint mac2 = new MacAddrEndPoint("000daaaa0002", nodeB);
@@ -114,7 +199,7 @@ public class HibernateTopologyDaoTest {
         m_topologyDao.saveOrUpdate(mac2);
         assertEquals(2, m_topologyDao.getTopology().size());
 
-        Element bridge = new Element();
+        TopologyElement bridge = new TopologyElement();
         bridge.addElementIdentifier(new BridgeElementIdentifier("000a00000010", nodeA));
         bridge.addElementIdentifier(new NodeElementIdentifier(nodeA));
         
@@ -122,7 +207,7 @@ public class HibernateTopologyDaoTest {
         bridge.addEndPoint(bridgeport1);
         assertEquals(null, m_topologyDao.get(bridgeport1));
 
-        Element rhost1 = new Element();
+        TopologyElement rhost1 = new TopologyElement();
         rhost1.addElementIdentifier(new MacAddrElementIdentifier("000daaaa0001", nodeA));
         MacAddrEndPoint rmac1 = new MacAddrEndPoint("000daaaa0001", nodeA);
         rhost1.addEndPoint(rmac1);
@@ -134,29 +219,29 @@ public class HibernateTopologyDaoTest {
         assertEquals(3, m_topologyDao.getTopology().size());
 
         EndPoint dbbridgeport1 = m_topologyDao.get(bridgeport1);
-        assertEquals(bridge, dbbridgeport1.getElement());
-        assertEquals(1, dbbridgeport1.getElement().getEndpoints().size());
+        assertEquals(bridge, dbbridgeport1.getTopologyElement());
+        assertEquals(1, dbbridgeport1.getTopologyElement().getEndpoints().size());
         assertEquals(bridgeport1, dbbridgeport1);
         assertEquals(mac1, dbbridgeport1.getLink().getB());
 
         
-        Element dbelement = m_topologyDao.get(new InetElementIdentifier(ip1, -1));
+        TopologyElement dbelement = m_topologyDao.get(new InetElementIdentifier(ip1, -1));
         assertEquals(true, dbelement.hasElementIdentifier(new MacAddrElementIdentifier("000daaaa0001", nodeA)));
         assertEquals(1, dbelement.getEndpoints().size());
 
         assertEquals(null, m_topologyDao.get(new MacAddrElementIdentifier("000a00000010", nodeA)));
         
         EndPoint dbmac = m_topologyDao.get(mac2);
-        assertEquals(2, dbmac.getElement().getElementIdentifiers().size());
+        assertEquals(2, dbmac.getTopologyElement().getElementIdentifiers().size());
 
-        Element rbridge = new Element();
+        TopologyElement rbridge = new TopologyElement();
         rbridge.addElementIdentifier(new BridgeElementIdentifier("000a00000010", nodeA));
         rbridge.addElementIdentifier(new NodeElementIdentifier(nodeA));
         
         BridgeEndPoint bridgeport2 = new BridgeEndPoint(portA2, nodeA);
         rbridge.addEndPoint(bridgeport2);
         
-        Element rhost2 = new Element();
+        TopologyElement rhost2 = new TopologyElement();
         rhost2.addElementIdentifier(new MacAddrElementIdentifier("000daaaa0002", nodeA));
         MacAddrEndPoint rmac2 = new MacAddrEndPoint("000daaaa0002", nodeA);
         rhost2.addEndPoint(rmac2);
@@ -168,8 +253,8 @@ public class HibernateTopologyDaoTest {
         assertEquals(3, m_topologyDao.getTopology().size());
 
         EndPoint dbbridgeport2 = m_topologyDao.get(bridgeport2);
-        assertEquals(bridge, dbbridgeport2.getElement());
-        assertEquals(2, dbbridgeport2.getElement().getEndpoints().size());
+        assertEquals(bridge, dbbridgeport2.getTopologyElement());
+        assertEquals(2, dbbridgeport2.getTopologyElement().getEndpoints().size());
         assertEquals(bridgeport2, dbbridgeport2);
         assertEquals(mac2, dbbridgeport2.getLink().getB());
 

@@ -3,6 +3,9 @@ package org.opennms.netmgt.model.topology;
 public abstract class AbstractType {
 	protected Integer m_type;
 	
+	public AbstractType() {
+	}
+	
     public AbstractType(Integer type) {
 		m_type=type;
 	}

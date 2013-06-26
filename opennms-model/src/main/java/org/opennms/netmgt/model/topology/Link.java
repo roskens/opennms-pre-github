@@ -4,11 +4,15 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
@@ -116,6 +120,8 @@ public abstract class Link extends Pollable {
 	
 	private LinkType m_linkType;
 	
+	private Integer m_id;
+	
 	public Link(EndPoint a, EndPoint b, LinkType linkType, Integer sourceNode) {
 		super(sourceNode);
 		m_linkType=linkType;
@@ -123,7 +129,18 @@ public abstract class Link extends Pollable {
 		setB(b);
 	}
 	
-	@OneToOne
+	@Id
+    @SequenceGenerator(name="opennmsSequence", sequenceName="opennmsNxtId")
+    @GeneratedValue(generator="opennmsSequence")
+	public int getId() {
+		return m_id;
+	}
+
+	public void setId(int id) {
+		m_id = id;
+	}
+
+	@OneToOne(cascade=CascadeType.ALL)
 	public EndPoint getA() {
 		return m_a;
 	}
@@ -133,7 +150,7 @@ public abstract class Link extends Pollable {
 		this.m_a = a;
 	}
 
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	public EndPoint getB() {
 		return m_b;
 	}
@@ -173,5 +190,9 @@ public abstract class Link extends Pollable {
 		.append("lastPoll", m_lastPoll)
 		.append("sourceNode", m_sourceNode)
 		.toString();
+	}
+	
+	public String queryString() {
+		return null;
 	}
 }

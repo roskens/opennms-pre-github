@@ -36,7 +36,7 @@ import java.util.List;
 import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.core.utils.LogUtils;
 
-import org.opennms.netmgt.model.topology.Element;
+import org.opennms.netmgt.model.topology.TopologyElement;
 import org.opennms.netmgt.model.topology.NodeElementIdentifier;
 import org.opennms.netmgt.model.topology.OspfElementIdentifier;
 import org.opennms.netmgt.model.topology.OspfEndPoint;
@@ -97,7 +97,7 @@ public class OspfIfTableTracker extends TableTracker {
 				NodeElementIdentifier nodeElementIdentifier,
 				IpAddrTableGetter ipAddrTableGetter,
 				List<OspfEndPoint> nbrEndPoints) {
-			Element elementA = new Element();
+			TopologyElement elementA = new TopologyElement();
 			elementA.addElementIdentifier(nodeElementIdentifier);
 			elementA.addElementIdentifier(ospfGenralElementIdentifier);
 		

@@ -1,8 +1,12 @@
 package org.opennms.netmgt.model.topology;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
@@ -27,7 +31,7 @@ public abstract class EndPoint extends Pollable {
 	 * belongs
 	 *  
 	 */
-	private Element m_device;
+	private TopologyElement m_device;
 
 	/**
 	 * Only one Link for End Point is allowed
@@ -59,12 +63,25 @@ public abstract class EndPoint extends Pollable {
 	 */
 	private String m_ifAlias;
 	
-	@ManyToOne
-	public Element getElement() {
+	String m_id;
+
+	@Id
+	public String getId() {
+		return m_id;
+	}
+
+	protected void setId(String id) {
+		m_id = id;
+	}
+
+
+    @ManyToOne(optional=false, fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+    @JoinColumn(name="element_id")
+	public TopologyElement getTopologyElement() {
 		return m_device;
 	}
 
-	public void setElement(Element device) {
+	public void setTopologyElement(TopologyElement device) {
 		m_device = device;
 	}
 	
@@ -128,4 +145,5 @@ public abstract class EndPoint extends Pollable {
 	public abstract boolean equals(EndPoint endPoint);
 
 	public abstract void update(EndPoint endpoint);
+	
 }

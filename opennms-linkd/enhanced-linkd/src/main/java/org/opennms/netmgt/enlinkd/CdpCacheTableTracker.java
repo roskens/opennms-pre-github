@@ -38,7 +38,7 @@ import org.opennms.netmgt.model.topology.CdpElementIdentifier;
 import org.opennms.netmgt.model.topology.CdpElementIdentifier.CiscoNetworkProtocolType;
 import org.opennms.netmgt.model.topology.CdpEndPoint;
 import org.opennms.netmgt.model.topology.CdpLink;
-import org.opennms.netmgt.model.topology.Element;
+import org.opennms.netmgt.model.topology.TopologyElement;
 import org.opennms.netmgt.model.topology.NodeElementIdentifier;
 import org.opennms.netmgt.snmp.RowCallback;
 import org.opennms.netmgt.snmp.SnmpInstId;
@@ -173,7 +173,7 @@ public class CdpCacheTableTracker extends TableTracker {
 		}
 		
 	    public CdpLink getLink(CdpElementIdentifier cdpIdentifier, NodeElementIdentifier nodeIdentifier, CdpInterfacePortNameGetter cdpInterfacePortNameGetter) {
-            Element deviceA = new Element();
+            TopologyElement deviceA = new TopologyElement();
             deviceA.addElementIdentifier(nodeIdentifier);
             deviceA.addElementIdentifier(cdpIdentifier);
             LogUtils.infof(this, "processCdpCacheRow: row count: %d", getColumnCount());
@@ -183,7 +183,7 @@ public class CdpCacheTableTracker extends TableTracker {
             deviceA.addEndPoint(endPointA);
             LogUtils.infof(this, "processCdpCacheRow: row local port: %s", endPointA.getCdpCacheDevicePort());
     		
-    		Element deviceB = new Element();
+    		TopologyElement deviceB = new TopologyElement();
             CdpElementIdentifier cdpCacheElementIdentifier = getCdpCacheElementIdentifier(nodeIdentifier.getNodeid());
             LogUtils.infof(this, "processCdpCacheRow: row cdp cache identifier: %s", cdpCacheElementIdentifier);
             deviceB.addElementIdentifier(cdpCacheElementIdentifier);

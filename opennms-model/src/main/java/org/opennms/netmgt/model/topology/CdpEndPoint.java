@@ -10,7 +10,6 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class CdpEndPoint extends EndPoint {
 
 	private String m_cdpCacheDevicePort;
-	private Integer m_cdpCacheIfindex;
 	
 	public CdpEndPoint(String  cdpCacheDevicePort,Integer sourceNode) {
 		super(sourceNode);
@@ -18,15 +17,6 @@ public class CdpEndPoint extends EndPoint {
 		setIfName(cdpCacheDevicePort);
 	}
 		
-	public Integer getCdpCacheIfindex() {
-		return m_cdpCacheIfindex;
-	}
-
-	public void setCdpCacheIfindex(Integer cdpCacheIfindex) {
-		m_cdpCacheIfindex = cdpCacheIfindex;
-		setIfIndex(cdpCacheIfindex);
-	}
-
 	public String getCdpCacheDevicePort() {
 		return m_cdpCacheDevicePort;
 	}
@@ -38,7 +28,7 @@ public class CdpEndPoint extends EndPoint {
 	@Override
 	public boolean equals(EndPoint endPoint) {
 		if (endPoint instanceof CdpEndPoint) {
-			if ((getElement() != null && endPoint.getElement() != null && getElement().equals(endPoint.getElement()))) 
+			if ((getTopologyElement() != null && endPoint.getTopologyElement() != null && getTopologyElement().equals(endPoint.getTopologyElement()))) 
 				return getCdpCacheDevicePort().equals(((CdpEndPoint)endPoint).getCdpCacheDevicePort());
 		}
 		return false;
@@ -52,7 +42,6 @@ public class CdpEndPoint extends EndPoint {
 	public String toString() {
 		return new ToStringBuilder(this)
 			.append("cdpCacheDevicePort", m_cdpCacheDevicePort)
-			.append("cdpCacheIfindex", m_cdpCacheIfindex)
 			.append("lastPoll", m_lastPoll)
 			.append("sourceNode", m_sourceNode)
 			.toString();
@@ -66,8 +55,8 @@ public class CdpEndPoint extends EndPoint {
 		m_lastPoll = endpoint.getLastPoll();
 		m_sourceNode = endpoint.getSourceNode();
 		CdpEndPoint cdpendpoint = (CdpEndPoint) endpoint;
-		if (cdpendpoint.getCdpCacheIfindex() != null)
-			setCdpCacheIfindex(cdpendpoint.getCdpCacheIfindex());
+		if (cdpendpoint.getIfIndex() != null)
+			setIfIndex(cdpendpoint.getIfIndex());
 		if (endpoint.hasLink()) {
 			Link link = endpoint.getLink(); 
 			if (equals(link.getA())) 

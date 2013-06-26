@@ -46,8 +46,7 @@ public class PseudoBridgeEndPoint extends EndPoint {
 		}
 		if (endPoint instanceof PseudoBridgeEndPoint) {
 			PseudoBridgeEndPoint pseudoEndPoint = (PseudoBridgeEndPoint) endPoint;
-			if ((getElement() != null && endPoint.getElement() != null && getElement()
-					.equals(endPoint.getElement()))) {
+			if ((getTopologyElement() != null && endPoint.getTopologyElement() != null && getTopologyElement().equals(endPoint.getTopologyElement()))) {
 				if (m_linkedBridgeIdentifier != null
 						&& pseudoEndPoint.getLinkedBridgeIdentifier() != null
 						&& m_linkedBridgeIdentifier.equals(pseudoEndPoint

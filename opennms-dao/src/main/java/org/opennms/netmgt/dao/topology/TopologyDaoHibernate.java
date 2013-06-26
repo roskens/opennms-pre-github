@@ -7,7 +7,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.opennms.netmgt.dao.TopologyDao;
-import org.opennms.netmgt.model.topology.Element;
+import org.opennms.netmgt.model.topology.TopologyElement;
 import org.opennms.netmgt.model.topology.ElementIdentifier;
 import org.opennms.netmgt.model.topology.EndPoint;
 import org.opennms.netmgt.model.topology.Link;
@@ -16,14 +16,26 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 public class TopologyDaoHibernate extends HibernateDaoSupport implements TopologyDao {
 
+	public TopologyDaoHibernate() {
+	}
+
+	public void flush() {
+		getHibernateTemplate().flush();
+	}
 	@Override
 	public void saveOrUpdate(Link link) {
-		getHibernateTemplate().save(link);
+		getHibernateTemplate().saveOrUpdate(link);
 	}
 
 	@Override
 	public void saveOrUpdate(EndPoint endpoint) {
-		getHibernateTemplate().save(endpoint);
+		EndPoint dbendpoint = get(endpoint);
+		if (dbendpoint == null)
+			getHibernateTemplate().save(endpoint);
+		else {
+			dbendpoint.update(endpoint);
+			getHibernateTemplate().update(dbendpoint);
+		}
 	}
 
 	@Override
@@ -32,7 +44,7 @@ public class TopologyDaoHibernate extends HibernateDaoSupport implements Topolog
 	}
 
 	@Override
-	public void delete(Element element) {
+	public void delete(TopologyElement element) {
 		getHibernateTemplate().delete(element);
 	}
 
@@ -47,8 +59,8 @@ public class TopologyDaoHibernate extends HibernateDaoSupport implements Topolog
 	}
 
 	@Override
-	public Element get(ElementIdentifier elementIdentifier) {
-		return findUnique(Element.class, "from Element where element.elementIdentifier = ?", elementIdentifier);
+	public TopologyElement get(ElementIdentifier elementIdentifier) {
+		return findUnique(TopologyElement.class, "from TopologyElement where ? in elements(elementIdentifiers)", elementIdentifier);
 	}
 	
     protected <S> S findUnique(final Class <? extends S> type, final String queryString, final Object... args) {
@@ -70,12 +82,12 @@ public class TopologyDaoHibernate extends HibernateDaoSupport implements Topolog
 
 	@Override
 	public EndPoint get(EndPoint endpoint) {
-		return findUnique(EndPoint.class, "from EndPoint where endpoint = ?", endpoint);
+		return findUnique(EndPoint.class, "from EndPoint where id = ?", endpoint.getId());
 	}
 
 	@Override
     @SuppressWarnings("unchecked")
-	public List<Element> getTopology() {
-		return getHibernateTemplate().find("from Element");
+	public List<TopologyElement> getTopology() {
+		return getHibernateTemplate().find("from TopologyElement");
 	}
 }

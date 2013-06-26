@@ -3,6 +3,7 @@ package org.opennms.netmgt.model.topology;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -22,7 +23,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 @Entity
 @Table(name="topologyElement")
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-public class Element {
+public class TopologyElement {
 	
 	private int m_id;
 
@@ -30,7 +31,7 @@ public class Element {
 
 	private List<ElementIdentifier> m_identifiers;
 
-	public Element() {
+	public TopologyElement() {
 		m_endpoints = new ArrayList<EndPoint>();
 		m_identifiers = new ArrayList<ElementIdentifier>();
 	}
@@ -42,11 +43,11 @@ public class Element {
 		return m_id;
 	}
 
-	public void setId(int m_id) {
-		this.m_id = m_id;
+	public void setId(int id) {
+		m_id = id;
 	}
 
-	@OneToMany
+    @OneToMany(mappedBy="topologyElement",cascade=CascadeType.ALL)
 	public List<EndPoint> getEndpoints() {
 		return m_endpoints;
 	}
@@ -55,7 +56,7 @@ public class Element {
 		m_endpoints = endpoints;
 	}
 	
-	@OneToMany
+    @OneToMany(mappedBy="topologyElement",cascade=CascadeType.ALL)
 	public List<ElementIdentifier> getElementIdentifiers() {
 		return m_identifiers;
 	}
@@ -75,7 +76,7 @@ public class Element {
 	public void addElementIdentifier(ElementIdentifier elementidentifier) {
 		if (hasElementIdentifier(elementidentifier))
 			return;
-		elementidentifier.setElement(this);
+		elementidentifier.setTopologyElement(this);
 		m_identifiers.add(elementidentifier);
 	}
 
@@ -99,13 +100,13 @@ public class Element {
 	public void addEndPoint(EndPoint endPoint) {
 		if (hasEndPoint(endPoint))
 			return;
-		endPoint.setElement(this);
+		endPoint.setTopologyElement(this);
 		m_endpoints.add(endPoint);
 	}
 	
 	public boolean equals(Object o) {
-		if ( o instanceof Element) {
-			Element e = (Element) o;
+		if ( o instanceof TopologyElement) {
+			TopologyElement e = (TopologyElement) o;
 			for (ElementIdentifier localElementIdentifier : getElementIdentifiers()) {
 				for (ElementIdentifier oe: e.getElementIdentifiers()) {
 					if (oe.equals(localElementIdentifier))
