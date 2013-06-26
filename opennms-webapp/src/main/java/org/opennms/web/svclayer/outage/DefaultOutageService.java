@@ -30,11 +30,10 @@ package org.opennms.web.svclayer.outage;
 
 import java.util.Collection;
 import java.util.Date;
-import org.hibernate.FetchMode;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projections;
+
+import org.opennms.core.criteria.Alias;
+import org.opennms.core.criteria.Criteria;
 import org.opennms.netmgt.dao.OutageDao;
-import org.opennms.netmgt.model.OnmsCriteria;
 import org.opennms.netmgt.model.OnmsOutage;
 
 /**
@@ -94,14 +93,11 @@ public class DefaultOutageService implements OutageService {
     
     /** {@inheritDoc} */
     @Override
-    public Integer getOutageCount(OnmsCriteria criteria) {
-        criteria.createAlias("monitoredService", "monitoredService");
-        criteria.createAlias("monitoredService.ipInterface", "ipInterface");
-        criteria.createAlias("monitoredService.serviceType", "serviceType");
-        criteria.createAlias("ipInterface.node", "node");
-
-        criteria.setProjection(Projections.rowCount());
-        
+    public Integer getOutageCount(Criteria criteria) {
+        criteria.addAlias("monitoredService", "monitoredService", Alias.JoinType.LEFT_JOIN);
+        criteria.addAlias("monitoredService.ipInterface", "ipInterface", Alias.JoinType.LEFT_JOIN);
+        criteria.addAlias("monitoredService.serviceType", "serviceType", Alias.JoinType.LEFT_JOIN);
+        criteria.addAlias("ipInterface.node", "node", Alias.JoinType.LEFT_JOIN);
         return m_dao.countMatching(criteria);
     }
 
@@ -237,35 +233,35 @@ public class DefaultOutageService implements OutageService {
 
     /** {@inheritDoc} */
     @Override
-    public Collection<OnmsOutage> getOutagesByRange(Integer offset, Integer limit, String orderProperty, String direction, OnmsCriteria criteria) {
-        criteria.setFirstResult(offset);
-        criteria.setMaxResults(limit);
+    public Collection<OnmsOutage> getOutagesByRange(Integer offset, Integer limit, String orderProperty, String direction, Criteria criteria) {
+        criteria.setOffset(offset);
+        criteria.setLimit(limit);
 
-        criteria.createAlias("monitoredService", "monitoredService");
-        criteria.setFetchMode("monitoredService", FetchMode.JOIN);
+        criteria.addAlias("monitoredService", "monitoredService", Alias.JoinType.LEFT_JOIN);
+        criteria.addFetch("monitoredService");
 
-        criteria.createAlias("monitoredService.ipInterface", "ipInterface");
-        criteria.setFetchMode("ipInterface", FetchMode.JOIN);
+        criteria.addAlias("monitoredService.ipInterface", "ipInterface", Alias.JoinType.LEFT_JOIN);
+        criteria.addFetch("ipInterface");
 
-        criteria.createAlias("monitoredService.serviceType", "serviceType");
-        criteria.setFetchMode("serviceType", FetchMode.JOIN);
+        criteria.addAlias("monitoredService.serviceType", "serviceType", Alias.JoinType.LEFT_JOIN);
+        criteria.addFetch("serviceType");
 
-        criteria.createAlias("ipInterface.node", "node");
-        criteria.setFetchMode("node", FetchMode.JOIN);
+        criteria.addAlias("ipInterface.node", "node", Alias.JoinType.LEFT_JOIN);
+        criteria.addFetch("node");
 
-        Order hibernateOrder = getHibernateOrder(orderProperty, direction);
+        org.opennms.core.criteria.Order hibernateOrder = getHibernateOrder(orderProperty, direction);
         if (hibernateOrder != null) {
             criteria.addOrder(hibernateOrder);
         }
-        criteria.addOrder(Order.asc("node.label"));
-        criteria.addOrder(Order.asc("ipInterface.ipAddress"));
-        criteria.addOrder(Order.asc("serviceType.name"));
+        criteria.addOrder(org.opennms.core.criteria.Order.asc("node.label"));
+        criteria.addOrder(org.opennms.core.criteria.Order.asc("ipInterface.ipAddress"));
+        criteria.addOrder(org.opennms.core.criteria.Order.asc("serviceType.name"));
 
         return m_dao.findMatching(criteria);
     }
 
 
-    private Order getHibernateOrder(String orderProperty, String direction) {
+    private org.opennms.core.criteria.Order getHibernateOrder(String orderProperty, String direction) {
         if (orderProperty == null) {
             return null;
         }
@@ -288,9 +284,9 @@ public class DefaultOutageService implements OutageService {
         }
 
         if ("asc".equals(direction)) {
-            return Order.asc(hibernateOrderProperty);
+            return org.opennms.core.criteria.Order.asc(hibernateOrderProperty);
         } else if ("desc".equals(direction)) {
-            return Order.desc(hibernateOrderProperty);
+            return org.opennms.core.criteria.Order.desc(hibernateOrderProperty);
         } else {
             throw new IllegalArgumentException("Do not support direction='" + direction + "'");
         }

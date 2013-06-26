@@ -31,7 +31,7 @@ package org.opennms.web.svclayer.outage;
 import java.util.Collection;
 import java.util.Date;
 
-import org.opennms.netmgt.model.OnmsCriteria;
+import org.opennms.core.criteria.Criteria;
 import org.opennms.netmgt.model.OnmsOutage;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -62,7 +62,7 @@ public interface OutageService {
      * @param criteria a {@link org.opennms.netmgt.model.OnmsCriteria} object.
      * @return a {@link java.util.Collection} object.
      */
-    Collection<OnmsOutage> getOutagesByRange(Integer offset, Integer limit, String orderProperty, String direction, OnmsCriteria criteria);
+    Collection<OnmsOutage> getOutagesByRange(Integer offset, Integer limit, String orderProperty, String direction, Criteria criteria);
 
     /**
      * <p>getOutagesByRange</p>
@@ -107,7 +107,7 @@ public interface OutageService {
      * @param criteria a {@link org.opennms.netmgt.model.OnmsCriteria} object.
      * @return a {@link java.lang.Integer} object.
      */
-    Integer getOutageCount(OnmsCriteria criteria);
+    Integer getOutageCount(Criteria criteria);
 
     /**
      * <p>getSuppressedOutageCount</p>
@@ -246,12 +246,4 @@ public interface OutageService {
      * @return a {@link java.lang.Integer} object.
      */
     Integer outageResolvedCountFiltered(String searchFilter);
-	
-    // This we may have to define 
-    /*
-    OutageSummary[] getCurrentOutageSummaries() ;
-
-    OutageSummary[] getCurrentSDSOutageSummaries() ;
-    */
-    
 }

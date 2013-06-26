@@ -48,6 +48,7 @@ import java.util.regex.Pattern;
 import org.opennms.core.criteria.restrictions.Restriction;
 
 public class Criteria implements Cloneable {
+
     public static interface CriteriaVisitor {
         public void visitClass(final Class<?> clazz);
 
@@ -197,6 +198,21 @@ public class Criteria implements Cloneable {
 
     public void setOffset(final Integer offset) {
         m_offset = offset;
+    }
+
+    public Criteria addAlias(String path, String alias, Alias.JoinType joinType) {
+        m_aliases.add(new Alias(path, alias, joinType));
+        return this;
+    }
+
+    public Criteria addFetch(String attribute) {
+        m_fetchTypes.add(new Fetch(attribute));
+        return this;
+    }
+
+    public Criteria addOrder(Order order) {
+        m_orders.add(order);
+        return this;
     }
 
     public Class<?> getType(final String path) throws IntrospectionException {

@@ -35,8 +35,9 @@ import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Restrictions;
+import org.opennms.core.criteria.Alias;
+import org.opennms.core.criteria.Criteria;
+import org.opennms.core.criteria.restrictions.Restrictions;
 import org.opennms.core.utils.WebSecurityUtils;
 import org.opennms.netmgt.dao.CategoryDao;
 import org.opennms.netmgt.model.OnmsCriteria;
@@ -148,64 +149,64 @@ public class OutagesFilteringView {
      * @param request a {@link javax.servlet.http.HttpServletRequest} object.
      * @return a {@link org.opennms.netmgt.model.OnmsCriteria} object.
      */
-    public OnmsCriteria buildCriteria(HttpServletRequest request) {
-        OnmsCriteria criteria = new OnmsCriteria(OnmsOutage.class);
+    public Criteria buildCriteria(HttpServletRequest request) {
+        Criteria criteria = new Criteria(OnmsOutage.class);
 
         if (request.getParameter("nodeid") != null && request.getParameter("nodeid").length() > 0) {
-            criteria.add(Restrictions.eq("node.id", WebSecurityUtils.safeParseInt(request.getParameter("nodeid"))));
+            criteria.addRestriction(Restrictions.eq("node.id", WebSecurityUtils.safeParseInt(request.getParameter("nodeid"))));
         }
 
         if (request.getParameter("not_nodeid") != null && request.getParameter("not_nodeid").length() > 0) {
-            criteria.add(Restrictions.ne("node.id", WebSecurityUtils.safeParseInt(request.getParameter("not_nodeid"))));
+            criteria.addRestriction(Restrictions.ne("node.id", WebSecurityUtils.safeParseInt(request.getParameter("not_nodeid"))));
         }
 
         if (request.getParameter("ipinterfaceid") != null  && request.getParameter("ipinterfaceid").length() > 0) {
-            criteria.add(Restrictions.eq("ipInterface.id", WebSecurityUtils.safeParseInt(request.getParameter("ipinterfaceid"))));
+            criteria.addRestriction(Restrictions.eq("ipInterface.id", WebSecurityUtils.safeParseInt(request.getParameter("ipinterfaceid"))));
         }
 
         if (request.getParameter("not_ipinterfaceid") != null && request.getParameter("not_ipinterfaceid").length() > 0) {
-            criteria.add(Restrictions.ne("ipInterface.id", WebSecurityUtils.safeParseInt(request.getParameter("not_ipinterfaceid"))));
+            criteria.addRestriction(Restrictions.ne("ipInterface.id", WebSecurityUtils.safeParseInt(request.getParameter("not_ipinterfaceid"))));
         }
 
         if (request.getParameter("serviceid") != null && request.getParameter("serviceid").length() > 0) {
-            criteria.add(Restrictions.eq("monitoredService.serviceType.id", WebSecurityUtils.safeParseInt(request.getParameter("serviceid"))));
+            criteria.addRestriction(Restrictions.eq("monitoredService.serviceType.id", WebSecurityUtils.safeParseInt(request.getParameter("serviceid"))));
         }
 
         if (request.getParameter("not_serviceid") != null && request.getParameter("not_serviceid").length() > 0) {
-            criteria.add(Restrictions.ne("monitoredService.serviceType.id", WebSecurityUtils.safeParseInt(request.getParameter("not_serviceid"))));
+            criteria.addRestriction(Restrictions.ne("monitoredService.serviceType.id", WebSecurityUtils.safeParseInt(request.getParameter("not_serviceid"))));
         }
         
         if (request.getParameter("ifserviceid") != null && request.getParameter("ifserviceid").length() > 0) {
-            criteria.add(Restrictions.eq("monitoredService.id", WebSecurityUtils.safeParseInt(request.getParameter("ifserviceid"))));
+            criteria.addRestriction(Restrictions.eq("monitoredService.id", WebSecurityUtils.safeParseInt(request.getParameter("ifserviceid"))));
         }
 
         if (request.getParameter("not_ifserviceid") != null && request.getParameter("not_ifserviceid").length() > 0) {
-            criteria.add(Restrictions.ne("monitoredService.id", WebSecurityUtils.safeParseInt(request.getParameter("not_ifserviceid"))));
+            criteria.addRestriction(Restrictions.ne("monitoredService.id", WebSecurityUtils.safeParseInt(request.getParameter("not_ifserviceid"))));
         }
 
         if (request.getParameter("smaller_iflostservice") != null && request.getParameter("smaller_iflostservice").length() > 0) {
             Date date = new Date(WebSecurityUtils.safeParseLong(request.getParameter("smaller_iflostservice")));
-            criteria.add(Restrictions.lt("ifLostService", date));
+            criteria.addRestriction(Restrictions.lt("ifLostService", date));
         }
 
         if (request.getParameter("bigger_iflostservice") != null && request.getParameter("bigger_iflostservice").length() > 0) {
             Date date = new Date(WebSecurityUtils.safeParseLong(request.getParameter("bigger_iflostservice")));
-            criteria.add(Restrictions.gt("ifLostService", date));
+            criteria.addRestriction(Restrictions.gt("ifLostService", date));
         }
 
         if (request.getParameter("smaller_ifregainedservice") != null && request.getParameter("smaller_ifregainedservice").length() > 0) {
             Date date = new Date(WebSecurityUtils.safeParseLong(request.getParameter("smaller_ifregainedservice")));
-            criteria.add(Restrictions.lt("ifRegainedService", date));
+            criteria.addRestriction(Restrictions.lt("ifRegainedService", date));
         }
 
         if (request.getParameter("bigger_ifregainedservice") != null && request.getParameter("bigger_ifregainedservice").length() > 0) {
             Date date = new Date(WebSecurityUtils.safeParseLong(request.getParameter("bigger_ifregainedservice")));
-            criteria.add(Restrictions.gt("ifRegainedService", date));
+            criteria.addRestriction(Restrictions.gt("ifRegainedService", date));
         }
 
         if (request.getParameter("building") != null && request.getParameter("building").length() > 0) {
-            criteria.createAlias("node.assetRecord", "assetRecord");
-            criteria.add(Restrictions.eq("assetRecord.building", request.getParameter("building")));
+            criteria.addAlias("node.assetRecord", "assetRecord", Alias.JoinType.LEFT_JOIN);
+            criteria.addRestriction(Restrictions.eq("assetRecord.building", request.getParameter("building")));
         }
         
         if (request.getParameter("category1") != null && request.getParameter("category1").length() > 0 && request.getParameter("category2") != null && request.getParameter("category2").length() > 0) {
@@ -219,13 +220,11 @@ public class OutagesFilteringView {
         }
 
         if ("true".equals(request.getParameter("currentOutages"))) {
-            criteria.add(Restrictions.isNull("ifRegainedService"));
+            criteria.addRestriction(Restrictions.isNull("ifRegainedService"));
         }
-
         if ("true".equals(request.getParameter("resolvedOutages"))) {
-            criteria.add(Restrictions.isNotNull("ifRegainedService"));
+            criteria.addRestriction(Restrictions.isNotNull("ifRegainedService"));
         }
-
         return criteria;
     }
 

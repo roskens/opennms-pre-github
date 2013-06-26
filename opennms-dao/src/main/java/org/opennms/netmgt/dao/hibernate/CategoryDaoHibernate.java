@@ -32,11 +32,8 @@ package org.opennms.netmgt.dao.hibernate;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.Hibernate;
-import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.type.IntegerType;
-import org.hibernate.type.Type;
+import org.opennms.core.criteria.Criteria;
 import org.opennms.netmgt.dao.CategoryDao;
 import org.opennms.netmgt.model.OnmsCategory;
 import org.opennms.netmgt.model.OnmsCriteria;
@@ -79,7 +76,7 @@ public class CategoryDaoHibernate extends AbstractCachingDaoHibernate<OnmsCatego
     }
 
     @Override
-    public List<Criterion> getCriterionForCategorySetsUnion(String[]... categories) {
+    public List<Criteria> getCriterionForCategorySetsUnion(String[]... categories) {
         Assert.notNull(categories, "categories argument must not be null");
         Assert.isTrue(categories.length >= 1, "categories must have at least one set of categories");
 
@@ -97,7 +94,7 @@ public class CategoryDaoHibernate extends AbstractCachingDaoHibernate<OnmsCatego
             categoryIdsList.add(categoryIds);
         }
 
-        List<Criterion> criteria = new ArrayList<Criterion>(categoryIdsList.size());
+        List<Restriction> criteria = new ArrayList<Criteria>(categoryIdsList.size());
 
         for (List<Integer> categoryIds : categoryIdsList) {
             Type[] types = new Type[categoryIds.size()];

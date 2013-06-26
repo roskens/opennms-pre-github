@@ -41,6 +41,7 @@ import org.extremecomponents.table.limit.Limit;
 import org.extremecomponents.table.limit.LimitFactory;
 import org.extremecomponents.table.limit.TableLimit;
 import org.extremecomponents.table.limit.TableLimitFactory;
+import org.opennms.core.criteria.Criteria;
 import org.opennms.netmgt.model.OnmsCriteria;
 import org.opennms.netmgt.model.OnmsOutage;
 import org.opennms.web.svclayer.outage.OutageListBuilder;
@@ -122,8 +123,8 @@ public class OutageListController extends AbstractController implements Initiali
 //        myModel.put("begin", rowstart);
 //        myModel.put("end", rowend);
 
-        OnmsCriteria criteria = m_filterView.buildCriteria(request);
-        OnmsCriteria countCriteria = m_filterView.buildCriteria(request);
+        Criteria criteria = m_filterView.buildCriteria(request);
+        Criteria countCriteria = m_filterView.buildCriteria(request);
         
         String orderProperty;
         String sortOrder;

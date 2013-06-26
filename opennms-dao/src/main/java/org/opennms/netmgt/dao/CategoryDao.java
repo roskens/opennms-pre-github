@@ -30,7 +30,7 @@ package org.opennms.netmgt.dao;
 
 import java.util.List;
 
-import org.hibernate.criterion.Criterion;
+import org.opennms.core.criteria.Criteria;
 import org.opennms.netmgt.model.OnmsCategory;
 
 /**
@@ -68,7 +68,7 @@ public interface CategoryDao extends OnmsDao<OnmsCategory, Integer> {
      * @param categories an array of {@link java.lang.String} objects.
      * @return a {@link java.util.List} object.
      */
-    List<Criterion> getCriterionForCategorySetsUnion(String[]... categories);
+    List<Criteria> getCriterionForCategorySetsUnion(String[]... categories);
     
     /**
      * <p>getCategoriesWithAuthorizedGroup</p>
