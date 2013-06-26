@@ -51,7 +51,7 @@ public class NegativeNodeFilter extends NotEqualOrNullFilter<Integer> {
      * @param nodeId a int.
      */
     public NegativeNodeFilter(int nodeId, ServletContext servletContext) {
-        super(TYPE, SQLType.INT, "NODEID", "node.id", nodeId);
+        super(TYPE, "node.id", nodeId);
         m_servletContext = servletContext;
     }
 
@@ -70,15 +70,6 @@ public class NegativeNodeFilter extends NotEqualOrNullFilter<Integer> {
         }
 
         return ("node is not " + nodeName);
-    }
-
-    /**
-     * <p>getNodeId</p>
-     *
-     * @return a int.
-     */
-    public int getNodeId() {
-        return getValue();
     }
 
     /** {@inheritDoc} */

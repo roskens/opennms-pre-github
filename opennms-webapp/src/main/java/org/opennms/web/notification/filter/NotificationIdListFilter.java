@@ -61,7 +61,7 @@ public class NotificationIdListFilter extends InFilter<Integer> {
      * @param notificationIds an array of {@link java.lang.Integer} objects.
      */
     public NotificationIdListFilter(Integer[] notificationIds) {
-        super(TYPE, SQLType.INT, "NOTIFICATIONS.NOTIFYID", "notifyId", notificationIds);
+        super(TYPE, "notifyId", notificationIds);
     }
 
     /**
@@ -70,7 +70,7 @@ public class NotificationIdListFilter extends InFilter<Integer> {
      * @param notificationIds an array of int.
      */
     public NotificationIdListFilter(int[] notificationIds){
-        super(TYPE, SQLType.INT, "NOTIFICATIONS.NOTIFYID", "notifyId", box(notificationIds));
+        super(TYPE, "notifyId", box(notificationIds));
     }
 
     /** {@inheritDoc} */

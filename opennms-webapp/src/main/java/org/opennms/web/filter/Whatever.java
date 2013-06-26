@@ -83,5 +83,10 @@ public class Whatever {
 //        return Restrictions.ilike(getPropertyName(), getValue(), MatchMode.ANYWHERE);
 //    }
 
+    // UserFilter
+//    public Criterion getCriterion() {
+//        return Restrictions.sqlRestriction(" {alias}.notifyId in (SELECT DISTINCT usersnotified.notifyid FROM usersnotified WHERE usersnotified.userid=?)", getValue(), Hibernate.STRING);
+//    }
+
 
 }

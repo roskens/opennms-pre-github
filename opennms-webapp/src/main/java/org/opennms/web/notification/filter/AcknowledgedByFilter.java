@@ -49,10 +49,7 @@ public class AcknowledgedByFilter extends EqualsFilter<String> {
      * @param user a {@link java.lang.String} object.
      */
     public AcknowledgedByFilter(String user){
-        super(TYPE, SQLType.STRING, "ANSWEREDBY", "answeredBy", user);
-        if(user == null){
-            throw new IllegalArgumentException("Cannot take null parameters");
-        }
+        super(TYPE, "answeredBy", user);
         m_user = user;
     }
 }

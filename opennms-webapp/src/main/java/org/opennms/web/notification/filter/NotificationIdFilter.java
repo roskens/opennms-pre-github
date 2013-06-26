@@ -45,7 +45,7 @@ public class NotificationIdFilter extends EqualsFilter<Integer> {
      * @param notificationId a int.
      */
     public NotificationIdFilter(int notificationId){
-        super(TYPE, SQLType.INT, "NOTIFICATIONS.NOTIFYID", "notifyId", Integer.valueOf(notificationId));
+        super(TYPE, "notifyId", Integer.valueOf(notificationId));
     }
 
 }

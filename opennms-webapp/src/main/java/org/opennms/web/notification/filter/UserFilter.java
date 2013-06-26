@@ -57,12 +57,6 @@ public class UserFilter extends OneArgFilter<String> {
 
     /** {@inheritDoc} */
     @Override
-    public Criterion getCriterion() {
-        return Restrictions.sqlRestriction(" {alias}.notifyId in (SELECT DISTINCT usersnotified.notifyid FROM usersnotified WHERE usersnotified.userid=?)", getValue(), Hibernate.STRING);
-    }
-
-    /** {@inheritDoc} */
-    @Override
     public String getTextDescription() {
         return getValue() + " was notified";
     }
