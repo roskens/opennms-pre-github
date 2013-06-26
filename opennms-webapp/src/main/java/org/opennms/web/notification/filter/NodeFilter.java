@@ -34,6 +34,6 @@ public class NodeFilter extends EqualsFilter<Integer> {
     public static final String TYPE = "node";
 
     public NodeFilter(int nodeId) {
-        super(TYPE, SQLType.INT, "NODEID", "node.id", nodeId);
+        super(TYPE, "node.id", nodeId);
     }
 }

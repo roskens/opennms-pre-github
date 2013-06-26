@@ -48,7 +48,7 @@ public class InterfaceFilter extends EqualsFilter<String> {
      * @param ipAddress a {@link java.lang.String} object.
      */
     public InterfaceFilter(String ipAddress) {
-        super(TYPE, SQLType.STRING, "INTERFACEID", "ipAddress", ipAddress);
+        super(TYPE, "ipAddress", ipAddress);
     }
     
     /**
@@ -59,15 +59,6 @@ public class InterfaceFilter extends EqualsFilter<String> {
     @Override
     public String toString() {
         return ("<WebNotificationRepository.InterfaceFilter: " + this.getDescription() + ">");
-    }
-
-    /**
-     * <p>getIpAddress</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    public String getIpAddress() {
-        return getValue();
     }
 
     /** {@inheritDoc} */
