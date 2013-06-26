@@ -47,7 +47,7 @@ public class NegativeExactUEIFilter extends NotEqualsFilter<String> {
      * @param uei a {@link java.lang.String} object.
      */
     public NegativeExactUEIFilter(String uei) {
-        super(TYPE, SQLType.STRING, "EVENTUEI", "eventUei", uei);
+        super(TYPE, "eventUei", uei);
     }
 
     /**
@@ -68,15 +68,6 @@ public class NegativeExactUEIFilter extends NotEqualsFilter<String> {
     @Override
     public String toString() {
         return ("<WebEventRepository.NegativeExactUEIFilter: " + this.getDescription() + ">");
-    }
-
-    /**
-     * <p>getUEI</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    public String getUEI() {
-        return getValue();
     }
 
     /** {@inheritDoc} */

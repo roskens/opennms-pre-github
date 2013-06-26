@@ -47,7 +47,7 @@ public class NegativeAcknowledgedByFilter extends NotEqualOrNullFilter<String> {
      * @param user a {@link java.lang.String} object.
      */
     public NegativeAcknowledgedByFilter(String user) {
-        super(TYPE, SQLType.STRING, "EVENTACKUSER", "eventAckUser", user);
+        super(TYPE, "eventAckUser", user);
     }
 
     /**
@@ -68,15 +68,6 @@ public class NegativeAcknowledgedByFilter extends NotEqualOrNullFilter<String> {
     @Override
     public String toString() {
         return ("<WebEventRepository.NegativeAcknowledgedByFilter: " + this.getDescription() + ">");
-    }
-
-    /**
-     * <p>getAcknowledgedByFilter</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    public String getAcknowledgedByFilter() {
-        return getValue();
     }
 
     /** {@inheritDoc} */

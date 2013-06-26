@@ -70,7 +70,7 @@ public class IPAddrLikeFilter extends IPLikeFilter {
         return ("<IPLikeFilter: " + this.getDescription() + ">");
     }
 
-    /** {@inheritDoc} */
+       /** {@inheritDoc} */
     @Override
     public boolean equals(Object obj) {
         return (this.toString().equals(obj.toString()));

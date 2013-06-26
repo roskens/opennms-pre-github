@@ -48,7 +48,7 @@ public class LogMessageMatchesAnyFilter extends SubstringFilter {
      *            a space-delimited list of search substrings
      */
     public LogMessageMatchesAnyFilter(String substring) {
-        super(TYPE, "EVENTLOGMSG", "eventLogMsg", substring);
+        super(TYPE, "eventLogMsg", substring);
     }
 
     /**

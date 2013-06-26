@@ -47,7 +47,7 @@ public class LogMessageSubstringFilter extends SubstringFilter {
      * @param substring a {@link java.lang.String} object.
      */
     public LogMessageSubstringFilter(String substring) {
-        super(TYPE, "EVENTLOGMSG", "eventLogMsg", substring);
+        super(TYPE, "eventLogMsg", substring);
     }
 
     /**
@@ -68,15 +68,6 @@ public class LogMessageSubstringFilter extends SubstringFilter {
     @Override
     public String toString() {
         return ("<LogMessageSubstringFilter: " + this.getDescription() + ">");
-    }
-
-    /**
-     * <p>getSubstring</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    public String getSubstring() {
-        return getValue();
     }
 
     /** {@inheritDoc} */
