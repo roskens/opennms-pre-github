@@ -47,7 +47,7 @@ public class ExactUEIFilter extends EqualsFilter<String> {
      * @param uei a {@link java.lang.String} object.
      */
     public ExactUEIFilter(String uei) {
-        super(TYPE, SQLType.STRING, "EVENTUEI", "eventUei", uei);
+        super(TYPE, "eventUei", uei);
     }
 
     /**
@@ -58,15 +58,6 @@ public class ExactUEIFilter extends EqualsFilter<String> {
     @Override
     public String toString() {
         return ("<WebEventRepository.ExactUEIFilter: " + this.getDescription() + ">");
-    }
-
-    /**
-     * <p>getUEI</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    public String getUEI() {
-        return getValue();
     }
 
     /** {@inheritDoc} */

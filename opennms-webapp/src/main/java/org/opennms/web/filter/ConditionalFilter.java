@@ -119,9 +119,6 @@ public abstract class ConditionalFilter implements Filter {
     }
 
     @Override
-    abstract public Criterion getCriterion();
-
-    @Override
     public String toString() {
         return new ToStringBuilder(this)
             .append("description", getDescription())

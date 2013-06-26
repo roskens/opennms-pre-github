@@ -39,7 +39,7 @@ public class SeverityFilter extends EqualsFilter<OnmsSeverity> {
     public static final String TYPE = "severity";
 
     public SeverityFilter(final OnmsSeverity severity) {
-        super(TYPE, SQLType.SEVERITY, "ALARMS.SEVERITY", "severity", severity);
+        super(TYPE, "severity", severity);
     }
 
     @Override

@@ -50,16 +50,6 @@ public class OrFilter extends ConditionalFilter {
         super("OR", filters);
     }
 
-    /** {@inheritDoc} */
-    @Override
-    public Criterion getCriterion() {
-        Disjunction disjunction = Restrictions.disjunction();
-        
-        for(Filter filter : getFilters()) {
-            disjunction.add(filter.getCriterion());
-        }
-        
-        return disjunction;
-    }
+
 
 }

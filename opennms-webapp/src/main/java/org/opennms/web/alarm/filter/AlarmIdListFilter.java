@@ -59,7 +59,7 @@ public class AlarmIdListFilter extends InFilter<Integer> {
      * @param alarmIds an array of int.
      */
     public AlarmIdListFilter(int[] alarmIds) {
-        super(TYPE, SQLType.INT, "ALARMID", "id", box(alarmIds));
+        super(TYPE, "id", box(alarmIds));
     }
 
     /**

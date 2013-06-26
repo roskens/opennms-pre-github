@@ -47,7 +47,7 @@ public class AcknowledgedByFilter extends EqualsFilter<String> {
      * @param user a {@link java.lang.String} object.
      */
     public AcknowledgedByFilter(String user) {
-        super(TYPE, SQLType.STRING, "EVENTACKUSER", "eventAckUser", user);
+        super(TYPE, "eventAckUser", user);
     }
 
     /**

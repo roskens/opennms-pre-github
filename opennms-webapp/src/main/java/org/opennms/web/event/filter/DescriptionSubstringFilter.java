@@ -47,7 +47,7 @@ public class DescriptionSubstringFilter extends SubstringFilter {
      * @param substring a {@link java.lang.String} object.
      */
     public DescriptionSubstringFilter(String substring) {
-        super(TYPE, "EVENTDESCR", "eventDescr", substring);
+        super(TYPE, "eventDescr", substring);
     }
 
     /**
@@ -68,15 +68,6 @@ public class DescriptionSubstringFilter extends SubstringFilter {
     @Override
     public String toString() {
         return ("<DescriptionSubstringFilter: " + this.getDescription() + ">");
-    }
-
-    /**
-     * <p>getSubstring</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    public String getSubstring() {
-        return getValue();
     }
 
     /** {@inheritDoc} */

@@ -50,7 +50,7 @@ public class NegativeServiceFilter extends NotEqualOrNullFilter<Integer> {
      * @param serviceId a int.
      */
     public NegativeServiceFilter(int serviceId) {
-        super(TYPE, SQLType.INT, "SERVICEID", "serviceType.id", serviceId);
+        super(TYPE, "serviceType.id", serviceId);
     }
 
     /**
@@ -61,7 +61,6 @@ public class NegativeServiceFilter extends NotEqualOrNullFilter<Integer> {
     public String getTextDescription(ServletContext servletContext) {
         String serviceName = Integer.toString(getValue());
         serviceName = NetworkElementFactory.getInstance(servletContext).getServiceNameFromId(getValue());
-
         return ("service is not " + serviceName);
     }
 
@@ -88,11 +87,5 @@ public class NegativeServiceFilter extends NotEqualOrNullFilter<Integer> {
     @Override
     public boolean equals(Object obj) {
         return (this.toString().equals(obj.toString()));
-    }
-
-    @Override
-    public String getTextDescription() {
-        // TODO Auto-generated method stub
-        return null;
     }
 }

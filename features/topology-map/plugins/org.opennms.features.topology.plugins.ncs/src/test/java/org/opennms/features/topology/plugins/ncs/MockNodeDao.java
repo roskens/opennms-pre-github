@@ -7,72 +7,67 @@ import java.util.Map;
 
 import org.opennms.core.criteria.Criteria;
 import org.opennms.netmgt.dao.NodeDao;
-import org.opennms.netmgt.model.OnmsCategory;
-import org.opennms.netmgt.model.OnmsCriteria;
-import org.opennms.netmgt.model.OnmsDistPoller;
-import org.opennms.netmgt.model.OnmsIpInterface;
-import org.opennms.netmgt.model.OnmsNode;
-import org.opennms.netmgt.model.SurveillanceStatus;
+import org.opennms.netmgt.model.*;
 
 public class MockNodeDao implements NodeDao {
 
     @Override
     public void lock() {
-        // TODO Auto-generated method stub
+       
     }
 
 
     @Override
     public void flush() {
-        // TODO Auto-generated method stub
+       
 
     }
 
     @Override
     public void clear() {
-        // TODO Auto-generated method stub
+       
 
     }
 
     @Override
     public int countAll() {
-        // TODO Auto-generated method stub
+       
         return 0;
     }
 
     @Override
     public void delete(OnmsNode entity) {
-        // TODO Auto-generated method stub
+       
 
     }
 
     @Override
     public void delete(Integer key) {
-        // TODO Auto-generated method stub
+       
 
     }
 
     @Override
     public List<OnmsNode> findMatching(Criteria criteria) {
-        // TODO Auto-generated method stub
+       
         return null;
     }
 
     @Override
     public List<OnmsNode> findMatching(OnmsCriteria criteria) {
-        // TODO Auto-generated method stub
+       
         return null;
     }
 
     @Override
     public int countMatching(Criteria onmsCrit) {
-        // TODO Auto-generated method stub
+       
         return 0;
     }
 
     @Override
     public int countMatching(OnmsCriteria onmsCrit) {
-        // TODO Auto-generated method stub
+       
         return 0;
     }
 
@@ -83,74 +78,74 @@ public class MockNodeDao implements NodeDao {
 
     @Override
     public OnmsNode get(Integer id) {
-        // TODO Auto-generated method stub
+       
         return null;
     }
 
     @Override
     public OnmsNode load(Integer id) {
-        // TODO Auto-generated method stub
+       
         return null;
     }
 
     @Override
     public void save(OnmsNode entity) {
-        // TODO Auto-generated method stub
+       
 
     }
 
     @Override
     public void saveOrUpdate(OnmsNode entity) {
-        // TODO Auto-generated method stub
+       
 
     }
 
     @Override
     public void update(OnmsNode entity) {
-        // TODO Auto-generated method stub
+       
 
     }
 
     @Override
     public OnmsNode get(String lookupCriteria) {
-        // TODO Auto-generated method stub
+       
         return null;
     }
 
     @Override
     public String getLabelForId(Integer id) {
-        // TODO Auto-generated method stub
+       
         return null;
     }
 
     @Override
     public List<OnmsNode> findByLabel(String label) {
-        // TODO Auto-generated method stub
+       
         return null;
     }
 
     @Override
     public List<OnmsNode> findNodes(OnmsDistPoller dp) {
-        // TODO Auto-generated method stub
+       
         return null;
     }
 
     @Override
     public OnmsNode getHierarchy(Integer id) {
-        // TODO Auto-generated method stub
+       
         return null;
     }
 
     @Override
     public Map<String, Integer> getForeignIdToNodeIdMap(String foreignSource) {
-        // TODO Auto-generated method stub
+       
         return null;
     }
 
     @Override
     public List<OnmsNode> findAllByVarCharAssetColumn(String columnName,
             String columnValue) {
-        // TODO Auto-generated method stub
+       
         return null;
     }
 
@@ -158,20 +153,20 @@ public class MockNodeDao implements NodeDao {
     public List<OnmsNode> findAllByVarCharAssetColumnCategoryList(
             String columnName, String columnValue,
             Collection<OnmsCategory> categories) {
-        // TODO Auto-generated method stub
+       
         return null;
     }
 
     @Override
     public List<OnmsNode> findByCategory(OnmsCategory category) {
-        // TODO Auto-generated method stub
+       
         return null;
     }
 
     @Override
     public List<OnmsNode> findAllByCategoryList(
             Collection<OnmsCategory> categories) {
-        // TODO Auto-generated method stub
+       
         return null;
     }
 
@@ -179,19 +174,19 @@ public class MockNodeDao implements NodeDao {
     public List<OnmsNode> findAllByCategoryLists(
             Collection<OnmsCategory> rowCatNames,
             Collection<OnmsCategory> colCatNames) {
-        // TODO Auto-generated method stub
+       
         return null;
     }
 
     @Override
     public List<OnmsNode> findAll() {
-        // TODO Auto-generated method stub
+       
         return null;
     }
 
     @Override
     public List<OnmsNode> findByForeignSource(String foreignSource) {
-        // TODO Auto-generated method stub
+       
         return null;
     }
 
@@ -205,45 +200,45 @@ public class MockNodeDao implements NodeDao {
 
     @Override
     public int getNodeCountForForeignSource(String groupName) {
-        // TODO Auto-generated method stub
+       
         return 0;
     }
 
     @Override
     public List<OnmsNode> findAllProvisionedNodes() {
-        // TODO Auto-generated method stub
+       
         return null;
     }
 
     @Override
     public List<OnmsIpInterface> findObsoleteIpInterfaces(Integer nodeId,
             Date scanStamp) {
-        // TODO Auto-generated method stub
+       
         return null;
     }
 
     @Override
     public void deleteObsoleteInterfaces(Integer nodeId, Date scanStamp) {
-        // TODO Auto-generated method stub
+       
 
     }
 
     @Override
     public void updateNodeScanStamp(Integer nodeId, Date scanStamp) {
-        // TODO Auto-generated method stub
+       
 
     }
 
     @Override
     public Collection<Integer> getNodeIds() {
-        // TODO Auto-generated method stub
+       
         return null;
     }
 
     @Override
     public List<OnmsNode> findByForeignSourceAndIpAddress(String foreignSource,
             String ipAddress) {
-        // TODO Auto-generated method stub
+       
         return null;
     }
 
@@ -251,7 +246,22 @@ public class MockNodeDao implements NodeDao {
     public SurveillanceStatus findSurveillanceStatusByCategoryLists(
             Collection<OnmsCategory> rowCategories,
             Collection<OnmsCategory> columnCategories) {
-        // TODO Auto-generated method stub
+       
+        return null;
+    }
+
+    @Override
+    public List<OnmsNode> findBySysName(String sysName) {
+        return null;
+    }
+
+    @Override
+    public List<OnmsNode> findByTypeAndIsSnmpPrimary(String type, PrimaryType snmpPrimaryType) {
+        return null;
+    }
+
+    @Override
+    public List<OnmsNode> findByTypeAndIsSnmpPrimaryAndNodeId(String type, PrimaryType snmpPrimaryType, int nodeid) {
         return null;
     }
 }

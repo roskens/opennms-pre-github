@@ -50,7 +50,7 @@ public class ServiceFilter extends EqualsFilter<Integer> {
      * @param serviceId a int.
      */
     public ServiceFilter(int serviceId) {
-        super(TYPE, SQLType.INT, "SERVICEID", "serviceType.id", serviceId);
+        super(TYPE, "serviceType.id", serviceId);
     }
 
     /**
@@ -59,8 +59,8 @@ public class ServiceFilter extends EqualsFilter<Integer> {
      * @return a {@link java.lang.String} object.
      */
     public String getTextDescription(ServletContext servletContext) {
-        String serviceName = Integer.toString(getServiceId());
-            serviceName = NetworkElementFactory.getInstance(servletContext).getServiceNameFromId(getServiceId());
+        String serviceName = Integer.toString(getValue());
+            serviceName = NetworkElementFactory.getInstance(servletContext).getServiceNameFromId(getValue());
 
         return (TYPE + "=" + serviceName);
     }
@@ -73,15 +73,6 @@ public class ServiceFilter extends EqualsFilter<Integer> {
     @Override
     public String toString() {
         return ("<AlarmFactory.ServiceFilter: " + this.getDescription() + ">");
-    }
-
-    /**
-     * <p>getServiceId</p>
-     *
-     * @return a int.
-     */
-    public int getServiceId() {
-        return getValue();
     }
 
     /** {@inheritDoc} */

@@ -32,35 +32,23 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
-/**
- * <p>Abstract SubstringFilter class.</p>
- *
- * @author ranger
- * @version $Id: $
- * @since 1.8.1
- */
-public abstract class SubstringFilter extends OneArgFilter<String> {
+public class SubstringFilter extends OneArgFilter<String> {
 
     public SubstringFilter(String filterType, String propertyName, String value) {
         super(filterType, propertyName, value);
     }
 
-    /** {@inheritDoc} */
-    @Override
-    public Criterion getCriterion() {
-        return Restrictions.ilike(getPropertyName(), getValue(), MatchMode.ANYWHERE);
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public String getBoundValue(String value) {
-        return '%' + value + '%';
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public String formatValue(String value) {
-        return super.formatValue('%'+value+'%');
-    }
+    // TODO MVR JPA FILTER
+//    /** {@inheritDoc} */
+//    @Override
+//    public String getBoundValue(String value) {
+//        return '%' + value + '%';
+//    }
+//
+//    /** {@inheritDoc} */
+//    @Override
+//    public String formatValue(String value) {
+//        return super.formatValue('%'+value+'%');
+//    }
 
 }

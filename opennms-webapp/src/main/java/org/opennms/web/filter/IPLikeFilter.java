@@ -42,12 +42,4 @@ public abstract class IPLikeFilter extends OneArgFilter<String> {
         super(filterType, propertyName, ipLikePattern);
     }
 
-    /** {@inheritDoc} */
-    @Override
-    public Criterion getCriterion() {
-        return Restrictions.sqlRestriction("iplike( {alias}."+getPropertyName()+", ?)", getValue(), Hibernate.STRING);
-    }
-    
-    
-
 }

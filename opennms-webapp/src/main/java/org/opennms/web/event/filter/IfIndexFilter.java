@@ -47,7 +47,7 @@ public class IfIndexFilter extends EqualsFilter<Integer> {
      * @param ifIndex a int.
      */
     public IfIndexFilter(int ifIndex) {
-        super(TYPE, SQLType.INT, "ifIndex", "ifIndex", ifIndex);
+        super(TYPE, "ifIndex", ifIndex);
     }
 
     /**
@@ -58,15 +58,6 @@ public class IfIndexFilter extends EqualsFilter<Integer> {
     @Override
     public String toString() {
         return ("<WebEventRepository.InterfaceFilter: " + this.getDescription() + ">");
-    }
-
-    /**
-     * <p>getIfIndex</p>
-     *
-     * @return a int.
-     */
-    public int getIfIndex() {
-        return getValue();
     }
 
     /** {@inheritDoc} */

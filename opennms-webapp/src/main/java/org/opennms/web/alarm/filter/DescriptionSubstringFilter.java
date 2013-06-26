@@ -47,7 +47,7 @@ public class DescriptionSubstringFilter extends SubstringFilter {
      * @param substring a {@link java.lang.String} object.
      */
     public DescriptionSubstringFilter(String substring) {
-        super(TYPE, "DESCRIPTION", "description", substring);
+        super(TYPE, "description", substring);
     }
 
     /**

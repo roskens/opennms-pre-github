@@ -49,7 +49,7 @@ public class BeforeDateFilter extends LessThanFilter<Date> {
      * @param date a java$util$Date object.
      */
     public BeforeDateFilter(Date date) {
-        super(TYPE, SQLType.DATE, "EVENTTIME", "eventTime", date);
+        super(TYPE, "eventTime", date);
     }
 
     /**
@@ -79,15 +79,6 @@ public class BeforeDateFilter extends LessThanFilter<Date> {
     @Override
     public String toString() {
         return ("<BeforeTimeFilter: " + this.getDescription() + ">");
-    }
-
-    /**
-     * <p>getDate</p>
-     *
-     * @return a java$util$Date object.
-     */
-    public Date getDate() {
-        return getValue();
     }
 
     /** {@inheritDoc} */

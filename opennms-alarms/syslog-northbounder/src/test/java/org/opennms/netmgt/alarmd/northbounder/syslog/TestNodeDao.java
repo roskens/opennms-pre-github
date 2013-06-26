@@ -8,12 +8,7 @@ import java.util.Map;
 
 import org.opennms.core.criteria.Criteria;
 import org.opennms.netmgt.dao.NodeDao;
-import org.opennms.netmgt.model.OnmsCategory;
-import org.opennms.netmgt.model.OnmsCriteria;
-import org.opennms.netmgt.model.OnmsDistPoller;
-import org.opennms.netmgt.model.OnmsIpInterface;
-import org.opennms.netmgt.model.OnmsNode;
-import org.opennms.netmgt.model.SurveillanceStatus;
+import org.opennms.netmgt.model.*;
 
 public class TestNodeDao implements NodeDao {
 
@@ -224,4 +219,19 @@ public class TestNodeDao implements NodeDao {
 			Collection<OnmsCategory> columnCategories) {
 		return null;
 	}
+
+    @Override
+    public List<OnmsNode> findBySysName(String sysName) {
+        return null;  
+    }
+
+    @Override
+    public List<OnmsNode> findByTypeAndIsSnmpPrimary(String type, PrimaryType snmpPrimaryType) {
+        return null;  
+    }
+
+    @Override
+    public List<OnmsNode> findByTypeAndIsSnmpPrimaryAndNodeId(String type, PrimaryType snmpPrimaryType, int nodeid) {
+        return null;  
+    }
 }

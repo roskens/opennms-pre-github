@@ -47,7 +47,7 @@ public class NegativePartialUEIFilter extends NoSubstringFilter {
      * @param uei a {@link java.lang.String} object.
      */
     public NegativePartialUEIFilter(String uei) {
-        super(TYPE, "EVENTUEI", "uei", uei);
+        super(TYPE, "uei", uei);
     }
     
     /**
@@ -68,15 +68,6 @@ public class NegativePartialUEIFilter extends NoSubstringFilter {
     @Override
     public String toString() {
         return ("<AlarmFactory.NegativePartialUEIFilter: " + this.getDescription() + ">");
-    }
-
-    /**
-     * <p>getUEI</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    public String getUEI() {
-        return getValue();
     }
 
     /** {@inheritDoc} */

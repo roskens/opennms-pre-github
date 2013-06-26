@@ -31,27 +31,9 @@ package org.opennms.web.filter;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 
-/**
- * <p>Abstract NotEqualOrNullFilter class.</p>
- *
- * @author ranger
- * @version $Id: $
- * @since 1.8.1
- */
 public abstract class NotEqualOrNullFilter<T> extends OneArgFilter<T> {
-    
 
     public NotEqualOrNullFilter(final String filterType, final String propertyName, final T value) {
         super(filterType, propertyName, value);
-    }
-
-    /**
-     * <p>getCriterion</p>
-     *
-     * @return a {@link org.hibernate.criterion.Criterion} object.
-     */
-    @Override
-    public Criterion getCriterion() {
-        return Restrictions.or(Restrictions.ne(getPropertyName(), getValue()), Restrictions.isNull(getPropertyName()));
     }
 }

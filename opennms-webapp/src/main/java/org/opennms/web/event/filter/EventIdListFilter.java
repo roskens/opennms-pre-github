@@ -62,7 +62,7 @@ public class EventIdListFilter extends InFilter<Integer> {
      * @param eventIds an array of int.
      */
     public EventIdListFilter(int[] eventIds) {
-        super(TYPE, SQLType.INT, "EVENTID", "id", box(eventIds));
+        super(TYPE, "id", box(eventIds));
     }
     
     /**
@@ -71,7 +71,7 @@ public class EventIdListFilter extends InFilter<Integer> {
      * @param eventIds a {@link java.util.Collection} object.
      */
     public EventIdListFilter(Collection<Integer> eventIds) {
-        super(TYPE, SQLType.INT, "EVENTID", "id", eventIds.toArray(new Integer[0]));
+        super(TYPE, "id", eventIds.toArray(new Integer[0]));
     }
 
     /**

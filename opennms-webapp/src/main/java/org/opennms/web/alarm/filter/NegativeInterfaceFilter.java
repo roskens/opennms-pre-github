@@ -50,7 +50,7 @@ public class NegativeInterfaceFilter extends NotEqualOrNullFilter<String> {
      * @param ipAddress a {@link java.lang.String} object.
      */
     public NegativeInterfaceFilter(InetAddress ipAddress) {
-        super(TYPE, SQLType.STRING, "IPADDR", "ipAddr", InetAddressUtils.str(ipAddress));
+        super(TYPE, "ipAddr", InetAddressUtils.str(ipAddress));
     }
 
     /**
@@ -71,15 +71,6 @@ public class NegativeInterfaceFilter extends NotEqualOrNullFilter<String> {
     @Override
     public String toString() {
         return ("<AlarmFactory.NegativeInterfaceFilter: " + this.getDescription() + ">");
-    }
-
-    /**
-     * <p>getIpAddress</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    public String getIpAddress() {
-        return getValue();
     }
 
     /** {@inheritDoc} */

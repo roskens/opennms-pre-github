@@ -47,7 +47,7 @@ public class EventIdFilter extends EqualsFilter<Integer> {
      * @param eventId a int.
      */
     public EventIdFilter(int eventId){
-        super(TYPE, SQLType.INT, "EVENTID", "id", eventId);
+        super(TYPE, "id", eventId);
     }
     
 }

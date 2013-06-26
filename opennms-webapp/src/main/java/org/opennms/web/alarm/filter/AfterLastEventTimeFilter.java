@@ -49,7 +49,7 @@ public class AfterLastEventTimeFilter extends GreaterThanFilter<Date> {
      * @param date a {@link java.util.Date} object.
      */
     public AfterLastEventTimeFilter(Date date) {
-        super(TYPE, SQLType.DATE, "LASTEVENTTIME", "lastEventTime", date);
+        super(TYPE, "lastEventTime", date);
     }
 
     /**
@@ -79,15 +79,6 @@ public class AfterLastEventTimeFilter extends GreaterThanFilter<Date> {
     @Override
     public String toString() {
         return ("<AfterLastEventTimeFilter: " + this.getDescription() + ">");
-    }
-
-    /**
-     * <p>getDate</p>
-     *
-     * @return a {@link java.util.Date} object.
-     */
-    public Date getDate() {
-        return getValue();
     }
 
     /** {@inheritDoc} */

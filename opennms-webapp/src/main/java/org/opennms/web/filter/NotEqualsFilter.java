@@ -37,8 +37,5 @@ public abstract class NotEqualsFilter<T> extends OneArgFilter<T> {
         super(filterType, daoPropertyName, value);
     }
 
-    @Override
-    public Criterion getCriterion() {
-        return Restrictions.ne(getPropertyName(), getValue());
-    }
+
 }

@@ -31,35 +31,10 @@ package org.opennms.web.filter;
 import org.hibernate.criterion.Conjunction;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
-
-/**
- * AndFilter
- *
- * @author brozow
- * @version $Id: $
- * @since 1.8.1
- */
 public class AndFilter extends ConditionalFilter {
     
-    /**
-     * <p>Constructor for AndFilter.</p>
-     *
-     * @param filters a {@link org.opennms.web.filter.Filter} object.
-     */
     public AndFilter(Filter...filters) {
         super("AND", filters);
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public Criterion getCriterion() {
-        Conjunction conjunction = Restrictions.conjunction();
-        
-        for(Filter filter : getFilters()) {
-            conjunction.add(filter.getCriterion());
-        }
-        
-        return conjunction;
     }
 
 }

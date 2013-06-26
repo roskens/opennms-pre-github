@@ -39,9 +39,5 @@ public abstract class InFilter<T> extends MultiArgFilter<T> {
         super(filterType, propertyName, values);
     }
     
-    /** {@inheritDoc} */
-    @Override
-    public Criterion getCriterion() {
-        return Restrictions.in(getPropertyName(), getValuesAsList());
-    }
+
 }

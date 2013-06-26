@@ -47,7 +47,7 @@ public class PartialUEIFilter extends SubstringFilter {
      * @param uei a {@link java.lang.String} object.
      */
     public PartialUEIFilter(String uei) {
-        super(TYPE, "EVENTUEI", "uei", uei);
+        super(TYPE, "uei", uei);
     }
 
     /**
@@ -68,15 +68,6 @@ public class PartialUEIFilter extends SubstringFilter {
     @Override
     public String toString() {
         return ("<AlarmFactory.PartialUEIFilter: " + this.getDescription() + ">");
-    }
-
-    /**
-     * <p>getUEI</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    public String getUEI() {
-        return getValue();
     }
 
     /** {@inheritDoc} */

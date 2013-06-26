@@ -41,9 +41,4 @@ public class EqualsFilter<T> extends OneArgFilter<T> {
     public EqualsFilter(final String filterType, final String propertyName, final T value){
         super(filterType, propertyName, value);
     }
-
-    @Override
-    public Predicate getPredicate(Root<X> root, CriteriaBuilder builder) {
-        return builder.equal(root.get(getPropertyName()), getValue());
-    }
 }

@@ -32,36 +32,23 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
-/**
- * <p>Abstract NoSubstringFilter class.</p>
- *
- * @author ranger
- * @version $Id: $
- * @since 1.8.1
- */
-public abstract class NoSubstringFilter extends OneArgFilter<String> {
+public class NoSubstringFilter extends OneArgFilter<String> {
 
     public NoSubstringFilter(String filterType, String daoPropertyName, String value) {
         super(filterType, daoPropertyName, value);
 
     }
-    /** {@inheritDoc} */
-    @Override
-    public Criterion getCriterion() {
-        return Restrictions.not(Restrictions.ilike(getPropertyName(), getValue(), MatchMode.ANYWHERE));
-    }
-    
-    /** {@inheritDoc} */
-    @Override
-    public String getBoundValue(String value) {
-        return '%' + value + '%';
-    }
-    
-    /** {@inheritDoc} */
-    @Override
-    public String formatValue(String value) {
-        return super.formatValue('%'+value+'%');
-    }
 
-
+    // TODO MVR JPA FILTER
+//    /** {@inheritDoc} */
+//    @Override
+//    public String getBoundValue(String value) {
+//        return '%' + value + '%';
+//    }
+//
+//    /** {@inheritDoc} */
+//    @Override
+//    public String formatValue(String value) {
+//        return super.formatValue('%'+value+'%');
+//    }
 }

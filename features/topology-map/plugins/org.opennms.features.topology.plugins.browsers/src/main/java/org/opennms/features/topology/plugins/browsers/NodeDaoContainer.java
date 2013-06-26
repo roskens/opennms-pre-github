@@ -62,9 +62,10 @@ public class NodeDaoContainer extends OnmsDaoContainer<OnmsNode,Integer> {
     @Override
     protected void addAdditionalCriteriaOptions(Criteria criteria, Page page, boolean doOrder) {
         if (!doOrder) return;
-        criteria.setAliases(Arrays.asList(new Alias[] {
-                new Alias("ipInterfaces", "ipInterfaces", Alias.JoinType.LEFT_JOIN, new EqRestriction("ipInterfaces.isSnmpPrimary", PrimaryType.PRIMARY))
-        }));
+        // TODO MVR JPA refactor me
+//        criteria.setAliases(Arrays.asList(new Alias[] {
+//                new Alias("ipInterfaces", "ipInterfaces", Alias.JoinType.LEFT_JOIN, new EqRestriction("ipInterfaces.isSnmpPrimary", PrimaryType.PRIMARY))
+//        }));
     }
 
     @Override

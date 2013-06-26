@@ -39,7 +39,7 @@ public class NegativeSeverityFilter extends NotEqualsFilter<OnmsSeverity> {
     public static final String TYPE = "severitynot";
 
     public NegativeSeverityFilter(final OnmsSeverity severity) {
-        super(TYPE, SQLType.SEVERITY, "ALARMS.SEVERITY", "severity", severity);
+        super(TYPE, "severity", severity);
     }
 
     @Override

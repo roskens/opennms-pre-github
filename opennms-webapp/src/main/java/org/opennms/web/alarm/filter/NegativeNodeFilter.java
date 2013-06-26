@@ -55,12 +55,12 @@ public class NegativeNodeFilter extends NotEqualOrNullFilter<Integer> {
      * @param nodeId a int.
      */
     public NegativeNodeFilter(int nodeId, ServletContext servletContext) {
-        super(TYPE, SQLType.INT, "NODEID", "node.id", nodeId);
+        super(TYPE, "node.id", nodeId);
         m_servletContext = servletContext;
     }
     
     public NegativeNodeFilter(int nodeId, ApplicationContext appContext) {
-        super(TYPE, SQLType.INT, "NODEID", "node.id", nodeId);
+        super(TYPE, "node.id", nodeId);
         m_appContext = appContext;
     }
 
@@ -92,15 +92,6 @@ public class NegativeNodeFilter extends NotEqualOrNullFilter<Integer> {
     @Override
     public String toString() {
         return ("<AlarmFactory.NegativeNodeFilter: " + this.getDescription() + ">");
-    }
-
-    /**
-     * <p>getNodeId</p>
-     *
-     * @return a int.
-     */
-    public int getNodeId() {
-        return getValue();
     }
 
     /** {@inheritDoc} */

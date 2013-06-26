@@ -47,7 +47,7 @@ public class AlarmIDFilter extends EqualsFilter<Integer> {
      * @param alarmId a int.
      */
     public AlarmIDFilter(int alarmId) {
-        super(TYPE, SQLType.INT, "ALARMID", "alarm.id", alarmId);
+        super(TYPE, "alarm.id", alarmId);
     }
 
     /**
@@ -68,15 +68,6 @@ public class AlarmIDFilter extends EqualsFilter<Integer> {
     @Override
     public String toString() {
         return ("<WebEventRepository.AlarmIDFilter: " + this.getDescription() + ">");
-    }
-
-    /**
-     * <p>getAlarmId</p>
-     *
-     * @return a int.
-     */
-    public int getAlarmId() {
-        return getValue();
     }
 
     /** {@inheritDoc} */

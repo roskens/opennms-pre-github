@@ -49,7 +49,7 @@ public class AfterFirstEventTimeFilter extends GreaterThanFilter<Date> {
      * @param date a java$util$Date object.
      */
     public AfterFirstEventTimeFilter(Date date) {
-        super(TYPE, SQLType.DATE, "FIRSTEVENTTIME", "firstEventTime", date);
+        super(TYPE, "firstEventTime", date);
     }
 
     /**
@@ -79,15 +79,6 @@ public class AfterFirstEventTimeFilter extends GreaterThanFilter<Date> {
     @Override
     public String toString() {
         return ("<AfterFirstEventTimeFilter: " + this.getDescription() + ">");
-    }
-
-    /**
-     * <p>getDate</p>
-     *
-     * @return a java$util$Date object.
-     */
-    public Date getDate() {
-        return getValue();
     }
 
     /** {@inheritDoc} */

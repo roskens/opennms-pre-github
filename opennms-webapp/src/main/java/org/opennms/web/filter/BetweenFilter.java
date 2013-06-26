@@ -31,13 +31,6 @@ package org.opennms.web.filter;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 
-/**
- * <p>Abstract BetweenFilter class.</p>
- *
- * @author ranger
- * @version $Id: $
- * @since 1.8.1
- */
 public abstract class BetweenFilter<T extends Comparable> extends MultiArgFilter<T> {
     
 
@@ -45,23 +38,7 @@ public abstract class BetweenFilter<T extends Comparable> extends MultiArgFilter
         super(filterType, propertyName,  first, last);
     }
 
-    /**
-     * <p>getFirst</p>
-     *
-     * @return a T object.
-     */
     public T getFirst() { return getValues()[0]; }
-    /**
-     * <p>getLast</p>
-     *
-     * @return a T object.
-     */
-    public T getLast() { return getValues()[1]; }
-    
-    /** {@inheritDoc} */
-    @Override
-    public Criterion getCriterion() {
-        return Restrictions.between(getPropertyName(), getFirst(), getLast());
-    }
 
+    public T getLast() { return getValues()[1]; }
 }

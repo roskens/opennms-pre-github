@@ -47,7 +47,7 @@ public class AlarmTypeFilter extends EqualsFilter<Integer> {
      * @param alarmType a int.
      */
     public AlarmTypeFilter(int alarmType){
-        super(TYPE, SQLType.INT, "ALARMTYPE", "alarmType", alarmType);
+        super(TYPE, "alarmType", alarmType);
     }
     
     /**

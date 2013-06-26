@@ -47,7 +47,7 @@ public class ExactUEIFilter extends EqualsFilter<String> {
      * @param uei a {@link java.lang.String} object.
      */
     public ExactUEIFilter(String uei) {
-        super(TYPE, SQLType.STRING, "EVENTUEI", "uei", uei);
+        super(TYPE, "uei", uei);
     }
 
     /**

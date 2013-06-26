@@ -49,7 +49,7 @@ public class AfterDateFilter extends GreaterThanFilter<Date> {
      * @param date a java$util$Date object.
      */
     public AfterDateFilter(java.util.Date date) {
-        super(TYPE, SQLType.DATE, "EVENTTIME", "eventTime", date);
+        super(TYPE, "eventTime", date);
     }
 
     /**
@@ -78,15 +78,6 @@ public class AfterDateFilter extends GreaterThanFilter<Date> {
     @Override
     public String toString() {
         return ("<AfterTimeFilter: " + this.getDescription() + ">");
-    }
-
-    /**
-     * <p>getDate</p>
-     *
-     * @return a java$util$Date object.
-     */
-    public Date getDate() {
-        return getValue();
     }
 
     /** {@inheritDoc} */

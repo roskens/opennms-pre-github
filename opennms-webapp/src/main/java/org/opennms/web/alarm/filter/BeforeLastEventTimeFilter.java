@@ -32,62 +32,26 @@ import java.util.Date;
 
 import org.opennms.web.filter.LessThanFilter;
 
-/**
- * <p>BeforeLastEventTimeFilter class.</p>
- *
- * @author ranger
- * @version $Id: $
- * @since 1.8.1
- */
 public class BeforeLastEventTimeFilter extends LessThanFilter<Date> {
     /** Constant <code>TYPE="beforelasteventtime"</code> */
     public static final String TYPE = "beforelasteventtime";
 
-    /**
-     * <p>Constructor for BeforeLastEventTimeFilter.</p>
-     *
-     * @param date a {@link java.util.Date} object.
-     */
     public BeforeLastEventTimeFilter(Date date) {
-        super(TYPE, SQLType.DATE, "LASTEVENTTIME", "lastEventTime", date);
+        super(TYPE, "lastEventTime", date);
     }
 
-    /**
-     * <p>Constructor for BeforeLastEventTimeFilter.</p>
-     *
-     * @param epochTime a long.
-     */
     public BeforeLastEventTimeFilter(long epochTime) {
         this(new Date(epochTime));
     }
 
-    /**
-     * <p>getTextDescription</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
     @Override
     public String getTextDescription() {
         return ("time of last event before \"" + getValue() + "\"");
     }
 
-    /**
-     * <p>toString</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
     @Override
     public String toString() {
         return ("<BeforeLastEventTimeFilter: " + this.getDescription() + ">");
-    }
-
-    /**
-     * <p>getDate</p>
-     *
-     * @return a {@link java.util.Date} object.
-     */
-    public Date getDate() {
-        return getValue();
     }
 
     /** {@inheritDoc} */

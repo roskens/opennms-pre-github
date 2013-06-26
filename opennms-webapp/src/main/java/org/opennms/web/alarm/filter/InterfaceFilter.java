@@ -50,7 +50,7 @@ public class InterfaceFilter extends EqualsFilter<String> {
      * @param ipAddress a {@link java.lang.String} object.
      */
     public InterfaceFilter(InetAddress ipAddress) {
-        super(TYPE, SQLType.STRING, "IPADDR", "ipAddr", InetAddressUtils.str(ipAddress));
+        super(TYPE, "ipAddr", InetAddressUtils.str(ipAddress));
     }
 
     /**

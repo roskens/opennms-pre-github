@@ -51,7 +51,7 @@ public class NodeFilter extends EqualsFilter<Integer> {
      * @param nodeId a int.
      */
     public NodeFilter(int nodeId, ServletContext servletContext) {
-        super(TYPE, SQLType.INT, "NODEID", "node.id", nodeId);
+        super(TYPE, "node.id", nodeId);
         m_servletContext = servletContext;
     }
 
@@ -79,15 +79,6 @@ public class NodeFilter extends EqualsFilter<Integer> {
     @Override
     public String toString() {
         return ("<AlarmFactory.NodeFilter: " + this.getDescription() + ">");
-    }
-
-    /**
-     * <p>getNodeId</p>
-     *
-     * @return a int.
-     */
-    public int getNodeId() {
-        return getValue();
     }
 
     /** {@inheritDoc} */

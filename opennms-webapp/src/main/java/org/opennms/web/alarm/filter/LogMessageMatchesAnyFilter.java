@@ -47,7 +47,7 @@ public class LogMessageMatchesAnyFilter extends SubstringFilter {
      * @param substring a {@link java.lang.String} object.
      */
     public LogMessageMatchesAnyFilter(String substring) {
-        super(TYPE, "logMsg", "logMsg", substring);
+        super(TYPE, "logMsg", substring);
     }
 
     /**

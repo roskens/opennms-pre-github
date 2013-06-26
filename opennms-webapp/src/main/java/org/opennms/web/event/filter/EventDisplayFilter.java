@@ -47,7 +47,7 @@ public class EventDisplayFilter extends EqualsFilter<String> {
      * @param displayType a {@link java.lang.String} object.
      */
     public EventDisplayFilter(String displayType){
-        super(TYPE, SQLType.STRING, "EVENTDISPLAY", "eventDisplay", displayType);
+        super(TYPE, "eventDisplay", displayType);
     }
 
 }

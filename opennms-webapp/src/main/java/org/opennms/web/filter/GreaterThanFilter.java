@@ -43,10 +43,4 @@ public abstract class GreaterThanFilter<T> extends OneArgFilter<T> {
     public GreaterThanFilter(String filterType, String propertyName, T value) {
         super(filterType, propertyName, value);
     }
-
-    /** {@inheritDoc} */
-    @Override
-    public Criterion getCriterion() {
-        return Restrictions.gt(getPropertyName(), getValue());
-    }
 }

@@ -35,7 +35,7 @@ public class NegativeEventParmLikeFilter extends NoSubstringFilter {
     public static final String TYPE = "noparmmatchany";
     
     public NegativeEventParmLikeFilter(String value) {
-        super(TYPE, "eventParms", "eventParms", value + "(string,text)");
+        super(TYPE, "eventParms", value + "(string,text)");
     }
 
     @Override

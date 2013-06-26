@@ -45,9 +45,5 @@ public abstract class LessThanFilter<T> extends OneArgFilter<T> {
         super(filterType, daoPropertyName, value);
     }
     
-    /** {@inheritDoc} */
-    @Override
-    public Criterion getCriterion() {
-        return Restrictions.le(getPropertyName(), getValue());
-    }
+
 }

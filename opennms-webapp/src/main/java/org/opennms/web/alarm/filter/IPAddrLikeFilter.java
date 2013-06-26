@@ -47,7 +47,7 @@ public class IPAddrLikeFilter extends IPLikeFilter {
      * @param ipLikePattern a {@link java.lang.String} object.
      */
     public IPAddrLikeFilter(String ipLikePattern) {
-        super(TYPE, "IPADDR", "ipAddr", ipLikePattern);
+        super(TYPE, "ipAddr", ipLikePattern);
     }
 
     /**
@@ -68,15 +68,6 @@ public class IPAddrLikeFilter extends IPLikeFilter {
     @Override
     public String toString() {
         return ("<IPLikeFilter: " + this.getDescription() + ">");
-    }
-
-    /**
-     * <p>getIpLikePattern</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    public String getIpLikePattern() {
-        return getValue();
     }
 
     /** {@inheritDoc} */

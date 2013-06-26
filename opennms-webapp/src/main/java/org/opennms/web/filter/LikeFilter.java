@@ -31,22 +31,9 @@ package org.opennms.web.filter;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 
-/**
- * <p>Abstract LikeFilter class.</p>
- *
- * @author ranger
- * @version $Id: $
- * @since 1.8.1
- */
-public abstract class LikeFilter<T> extends OneArgFilter<T> {
+public class LikeFilter<T> extends OneArgFilter<T> {
 
     public LikeFilter(String filterType, String propertyName, T value) {
         super(filterType, propertyName, value);
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public Criterion getCriterion() {
-        return Restrictions.like(getPropertyName(), getValue());
     }
 }
