@@ -99,53 +99,8 @@ public class DaoWebNotificationRepository implements WebNotificationRepository, 
             }
 
             @Override
-            public void visitSortStyle(SortStyle sortStyle) throws RuntimeException {
-                switch(sortStyle){
-                    case RESPONDER:
-                        criteria.addOrder(Order.desc("answeredBy"));        
-                        break;
-                    case PAGETIME:
-                        criteria.addOrder(Order.desc("pageTime"));
-                        break;
-                    case RESPONDTIME:
-                        criteria.addOrder(Order.desc("respondTime"));
-                        break;
-                    case NODE:
-                        criteria.addOrder(Order.desc("node.label"));
-                        break;
-                    case INTERFACE:
-                        criteria.addOrder(Order.desc("ipAddress"));
-                        break;
-                    case SERVICE:
-                        criteria.addOrder(Order.desc("serviceType.name"));
-                        break;
-                    case ID:
-                        criteria.addOrder(Order.desc("notifyId"));
-                        break;
-                    case REVERSE_RESPONDER:
-                        criteria.addOrder(Order.asc("answeredBy"));            
-                        break;
-                    case REVERSE_PAGETIME:
-                        criteria.addOrder(Order.asc("pageTime"));
-                        break;
-                    case REVERSE_RESPONDTIME:
-                        criteria.addOrder(Order.asc("respondTime"));
-                        break;
-                    case REVERSE_NODE:
-                        criteria.addOrder(Order.asc("node.label"));
-                        break;
-                    case REVERSE_INTERFACE:
-                        criteria.addOrder(Order.asc("ipAddress"));
-                        break;
-                    case REVERSE_SERVICE:
-                        criteria.addOrder(Order.asc("serviceType.name"));
-                        break;
-                    case REVERSE_ID:
-                        criteria.addOrder(Order.asc("notifyId"));
-                        break;
-                    
-                }
-                
+            public void visitSortStyle(NotificationDao.SortStyle sortStyle) throws RuntimeException {
+                // TODO MVR JPA
             }
             
         });

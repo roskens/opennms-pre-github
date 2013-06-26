@@ -30,6 +30,7 @@ package org.opennms.web.notification;
 
 import java.util.List;
 
+import org.opennms.netmgt.dao.NotificationDao;
 import org.opennms.web.filter.Filter;
 
 /**
@@ -43,7 +44,7 @@ import org.opennms.web.filter.Filter;
  * @since 1.8.1
  */
 public class NoticeQueryParms extends Object {
-    public SortStyle sortStyle;
+    public NotificationDao.SortStyle sortStyle;
 
     public AcknowledgeType ackType;
 

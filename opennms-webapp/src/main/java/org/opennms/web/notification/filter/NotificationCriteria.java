@@ -28,9 +28,9 @@
 
 package org.opennms.web.notification.filter;
 
+import org.opennms.netmgt.dao.NotificationDao;
 import org.opennms.web.filter.Filter;
 import org.opennms.web.notification.AcknowledgeType;
-import org.opennms.web.notification.SortStyle;
 
 /**
  * <p>NotificationCriteria class.</p>
@@ -44,7 +44,7 @@ public class NotificationCriteria {
     public static interface NotificationCriteriaVisitor<E extends Exception>{
         public void visitAckType(AcknowledgeType ackType) throws E;
         public void visitFilter(Filter filter) throws E;
-        public void visitSortStyle(SortStyle sortStyle) throws E;
+        public void visitSortStyle(NotificationDao.SortStyle sortStyle) throws E;
         public void visitLimit(int limit, int offset) throws E;
     }
     
@@ -56,11 +56,11 @@ public class NotificationCriteria {
         @Override
         public void visitLimit(int limit, int offset) throws E { }
         @Override
-        public void visitSortStyle(SortStyle sortStyle) throws E { }
+        public void visitSortStyle(NotificationDao.SortStyle sortStyle) throws E { }
     }
     
     Filter[] m_filters = null;
-    SortStyle m_sortStyle = SortStyle.ID;
+    NotificationDao.SortStyle m_sortStyle = NotificationDao.SortStyle.ID;
     AcknowledgeType m_ackType = AcknowledgeType.UNACKNOWLEDGED;
     int m_limit = -1;
     int m_offset = -1;
@@ -78,12 +78,12 @@ public class NotificationCriteria {
      * <p>Constructor for NotificationCriteria.</p>
      *
      * @param filters an array of org$opennms$web$filter$Filter objects.
-     * @param sortStyle a {@link org.opennms.web.notification.SortStyle} object.
+     * @param sortStyle a {@link org.opennms.netmgt.dao.NotificationDao.SortStyle} object.
      * @param ackType a {@link org.opennms.web.notification.AcknowledgeType} object.
      * @param limit a int.
      * @param offset a int.
      */
-    public NotificationCriteria(Filter[] filters, SortStyle sortStyle, AcknowledgeType ackType, int limit, int offset){
+    public NotificationCriteria(Filter[] filters, NotificationDao.SortStyle sortStyle, AcknowledgeType ackType, int limit, int offset){
         m_filters = filters;
         m_sortStyle = sortStyle;
         m_ackType = ackType;

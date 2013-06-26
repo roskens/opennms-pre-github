@@ -40,6 +40,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.opennms.core.utils.WebSecurityUtils;
 import org.opennms.netmgt.dao.NodeDao;
+import org.opennms.netmgt.dao.NotificationDao;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.web.event.Event;
 import org.opennms.web.event.WebEventRepository;
@@ -50,7 +51,6 @@ import org.opennms.web.notification.AcknowledgeType;
 import org.opennms.web.notification.NoticeQueryParms;
 import org.opennms.web.notification.NoticeUtil;
 import org.opennms.web.notification.Notification;
-import org.opennms.web.notification.SortStyle;
 import org.opennms.web.notification.WebNotificationRepository;
 import org.opennms.web.notification.filter.NotificationCriteria;
 import org.springframework.beans.factory.InitializingBean;
@@ -73,7 +73,7 @@ public class NotificationFilterController extends AbstractController implements 
     private String m_successView;
     private Integer m_defaultShortLimit;
     private Integer m_defaultLongLimit;
-    private SortStyle m_defaultSortStyle = SortStyle.ID;
+    private NotificationDao.SortStyle m_defaultSortStyle = NotificationDao.SortStyle.ID;
     private AcknowledgeType m_defaultAckType = AcknowledgeType.UNACKNOWLEDGED;
 
     private WebEventRepository m_webEventRepository;
@@ -93,9 +93,9 @@ public class NotificationFilterController extends AbstractController implements 
 
         // handle the style sort parameter
         String sortStyleString = request.getParameter("sortby");
-        SortStyle sortStyle = m_defaultSortStyle;
+        NotificationDao.SortStyle sortStyle = m_defaultSortStyle;
         if (sortStyleString != null) {
-            SortStyle temp = SortStyle.getSortStyle(sortStyleString);
+            NotificationDao.SortStyle temp = NotificationDao.SortStyle.getSortStyle(sortStyleString);
             if (temp != null) {
                 sortStyle = temp;
             }
@@ -236,9 +236,9 @@ public class NotificationFilterController extends AbstractController implements 
     /**
      * <p>setDefaultSortStyle</p>
      *
-     * @param sortStyle a {@link org.opennms.web.notification.SortStyle} object.
+     * @param sortStyle a {@link org.opennms.netmgt.dao.NotificationDao.SortStyle} object.
      */
-    public void setDefaultSortStyle(SortStyle sortStyle) {
+    public void setDefaultSortStyle(NotificationDao.SortStyle sortStyle) {
         m_defaultSortStyle = sortStyle;
     }
 
