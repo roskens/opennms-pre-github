@@ -56,7 +56,8 @@ import org.opennms.netmgt.config.opennmsDataSources.DataSourceConfiguration;
 import org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy;
 
 /**
- * <p>
+ * <p>                                              import org.opennms.netmgt.dao.filter.Filter;
+
  * This is the singleton class used to load the OpenNMS database configuration
  * from the opennms-database.xml. This provides convenience methods to create
  * database connections to the database configured in this default xml

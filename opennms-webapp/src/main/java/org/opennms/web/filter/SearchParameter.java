@@ -26,7 +26,7 @@ public class SearchParameter {
     }
 
     public SearchParameter(Class<?> clazz, Filter[] filter, SortRule sortRule, Integer limit, Integer offset) {
-        m_filter = Arrays.asList(filter);
+        m_filter = filter == null ? new ArrayList<Filter>() : Arrays.asList(filter);
         m_sortRule = sortRule;
         m_limit = limit;
         m_offset = offset;
