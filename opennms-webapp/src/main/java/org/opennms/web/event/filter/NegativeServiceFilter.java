@@ -57,7 +57,7 @@ public class NegativeServiceFilter extends NotEqualOrNullFilter<Integer> {
      * @param servletContext
      */
     public NegativeServiceFilter(int serviceId, ServletContext servletContext) {
-        super(TYPE, SQLType.INT, "EVENTS.SERVICEID", "serviceType.id", serviceId);
+        super(TYPE, "serviceType.id", serviceId);
         m_servletContext = servletContext;
     }
 
@@ -68,7 +68,7 @@ public class NegativeServiceFilter extends NotEqualOrNullFilter<Integer> {
      * @param appContext
      */
     public NegativeServiceFilter(int serviceId, ApplicationContext appContext) {
-        super(TYPE, SQLType.INT, "EVENTS.SERVICEID", "serviceType.id", serviceId);
+        super(TYPE, "serviceType.id", serviceId);
         m_appContext = appContext;
     }
 
@@ -80,7 +80,7 @@ public class NegativeServiceFilter extends NotEqualOrNullFilter<Integer> {
     @Override
     public String getTextDescription() {
         NetworkElementFactoryInterface factory = (m_servletContext == null ? NetworkElementFactory.getInstance(m_appContext) : NetworkElementFactory.getInstance(m_servletContext));
-        String serviceName = factory.getServiceNameFromId(getServiceId());
+        String serviceName = factory.getServiceNameFromId(getValue());
 
         return ("service is not " + serviceName);
     }
@@ -95,14 +95,7 @@ public class NegativeServiceFilter extends NotEqualOrNullFilter<Integer> {
         return ("<WebEventRepository.NegativeServiceFilter: " + this.getDescription() + ">");
     }
 
-    /**
-     * <p>Getter for the field <code>serviceId</code>.</p>
-     *
-     * @return a int.
-     */
-    public int getServiceId() {
-        return getValue();
-    }
+
 
     /** {@inheritDoc} */
     @Override

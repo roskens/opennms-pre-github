@@ -47,17 +47,17 @@ public class PartialUEIFilter extends SubstringFilter {
      * @param uei a {@link java.lang.String} object.
      */
     public PartialUEIFilter(String uei) {
-        super(TYPE, "EVENTUEI", "eventUei", uei);
+        super(TYPE, "eventUei", uei);
     }
 
     /**
      * <p>getTextDescription</p>
      *
-     * @return a {@link java.lang.String} object.
+     * @return a {@link String} object.
      */
     @Override
     public String getTextDescription() {
-        return "uei contains " + getUEI(); 
+        return "uei contains " + getValue();
     }
 
     /**
@@ -70,14 +70,7 @@ public class PartialUEIFilter extends SubstringFilter {
         return ("<WebEventRepository.PartialUEIFilter: " + this.getDescription() + ">");
     }
 
-    /**
-     * <p>getUEI</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    public String getUEI() {
-        return getValue();
-    }
+
 
     /** {@inheritDoc} */
     @Override

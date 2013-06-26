@@ -47,7 +47,7 @@ public class NodeNameLikeFilter extends SubstringFilter {
      * @param substring a {@link java.lang.String} object.
      */
     public NodeNameLikeFilter(String substring) {
-        super(TYPE, "NODE.NODELABEL", "node.label", substring);
+        super(TYPE, "node.label", substring);
     }
 
     /**

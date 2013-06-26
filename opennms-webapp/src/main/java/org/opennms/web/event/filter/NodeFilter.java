@@ -53,33 +53,33 @@ public class NodeFilter extends EqualsFilter<Integer> {
      * @param nodeId a int.
      */
     public NodeFilter(int nodeId, ServletContext servletContext) {
-        super(TYPE, SQLType.INT, "EVENTS.NODEID", "node.id", nodeId);
+        super(TYPE, "node.id", nodeId);
         m_servletContext = servletContext;
     }
     
     public NodeFilter(int nodeId, ApplicationContext appContext) {
-        super(TYPE, SQLType.INT, "EVENTS.NODEID", "node.id", nodeId);
+        super(TYPE, "node.id", nodeId);
         m_appContext = appContext;
     }
 
     /**
      * <p>getTextDescription</p>
      *
-     * @return a {@link java.lang.String} object.
+     * @return a {@link String} object.
      */
     @Override
     public String getTextDescription() {
         String nodeName = getNodeLabel();
         
         if(nodeName == null) {
-            nodeName = Integer.toString(getNodeId());
+            nodeName = Integer.toString(getValue());
         }
             
         return (TYPE + "=" + nodeName);
     }
 
     private String getNodeLabel() {
-        return m_servletContext != null ? NetworkElementFactory.getInstance(m_servletContext).getNodeLabel(getNodeId()) : NetworkElementFactory.getInstance(m_appContext).getNodeLabel(getNodeId());
+        return m_servletContext != null ? NetworkElementFactory.getInstance(m_servletContext).getNodeLabel(getValue()) : NetworkElementFactory.getInstance(m_appContext).getNodeLabel(getValue());
     }
 
     /**
@@ -90,15 +90,6 @@ public class NodeFilter extends EqualsFilter<Integer> {
     @Override
     public String toString() {
         return ("<WebEventRepository.NodeFilter: " + getDescription() + ">");
-    }
-
-    /**
-     * <p>getNodeId</p>
-     *
-     * @return a int.
-     */
-    public int getNodeId() {
-        return getValue();
     }
 
     /** {@inheritDoc} */

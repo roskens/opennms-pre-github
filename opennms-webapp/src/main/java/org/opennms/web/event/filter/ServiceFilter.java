@@ -55,7 +55,7 @@ public class ServiceFilter extends EqualsFilter<Integer> {
      * @param servletContext
      */
     public ServiceFilter(int serviceId, ServletContext servletContext) {
-        super(TYPE, SQLType.INT, "EVENTS.SERVICEID", "serviceType.id", serviceId);
+        super(TYPE, "serviceType.id", serviceId);
         m_servletContext = servletContext;
     }
 
@@ -66,19 +66,19 @@ public class ServiceFilter extends EqualsFilter<Integer> {
      * @param appContext
      */
     public ServiceFilter(int serviceId, ApplicationContext appContext) {
-        super(TYPE, SQLType.INT, "EVENTS.SERVICEID", "serviceType.id", serviceId);
+        super(TYPE, "serviceType.id", serviceId);
         m_appContext = appContext;
     }
 
     /**
      * <p>getTextDescription</p>
      *
-     * @return a {@link java.lang.String} object.
+     * @return a {@link String} object.
      */
     @Override
     public String getTextDescription() {
         NetworkElementFactoryInterface factory = (m_servletContext == null ? NetworkElementFactory.getInstance(m_appContext) : NetworkElementFactory.getInstance(m_servletContext));
-        String serviceName = factory.getServiceNameFromId(getServiceId());
+        String serviceName = factory.getServiceNameFromId(getValue());
 
         return (TYPE + " is " + serviceName);
     }
@@ -93,14 +93,7 @@ public class ServiceFilter extends EqualsFilter<Integer> {
         return ("<WebEventRepository.ServiceFilter: " + this.getDescription() + ">");
     }
 
-    /**
-     * <p>getServiceId</p>
-     *
-     * @return a int.
-     */
-    public int getServiceId() {
-        return getValue();
-    }
+
 
     /** {@inheritDoc} */
     @Override

@@ -49,7 +49,7 @@ public class SeverityFilter extends EqualsFilter<Integer> {
      * @param severity a int.
      */
     public SeverityFilter(int severity) {
-        super(TYPE, SQLType.INT, "EVENTSEVERITY", "eventSeverity", severity);
+        super(TYPE, "eventSeverity", severity);
     }
 
     /**
@@ -64,11 +64,11 @@ public class SeverityFilter extends EqualsFilter<Integer> {
     /**
      * <p>getTextDescription</p>
      *
-     * @return a {@link java.lang.String} object.
+     * @return a {@link String} object.
      */
     @Override
     public String getTextDescription() {
-        return (TYPE + "=" + OnmsSeverity.get(getSeverity()).getLabel());
+        return (TYPE + "=" + OnmsSeverity.get(getValue()).getLabel());
     }
 
     /**
@@ -81,14 +81,6 @@ public class SeverityFilter extends EqualsFilter<Integer> {
         return ("<WebEventRepository.SeverityFilter: " + getDescription() + ">");
     }
 
-    /**
-     * <p>getSeverity</p>
-     *
-     * @return a int.
-     */
-    public int getSeverity() {
-        return getValue();
-    }
 
     /** {@inheritDoc} */
     @Override

@@ -49,7 +49,7 @@ public class NegativeSeverityFilter extends NotEqualsFilter<Integer> {
      * @param severity a int.
      */
     public NegativeSeverityFilter(int severity) {
-        super(TYPE, SQLType.INT, "EVENTSEVERITY", "eventSeverity", severity);
+        super(TYPE, "eventSeverity", severity);
     }
 
     /**
@@ -68,7 +68,7 @@ public class NegativeSeverityFilter extends NotEqualsFilter<Integer> {
      */
     @Override
     public String getTextDescription() {
-        return ("severity is not " + OnmsSeverity.get(getSeverity()).getLabel());
+        return ("severity is not " + OnmsSeverity.get(getValue()).getLabel());
     }
 
     /**
@@ -81,14 +81,7 @@ public class NegativeSeverityFilter extends NotEqualsFilter<Integer> {
         return ("<WebEventRepository.NegativeSeverityFilter: " + getDescription() + ">");
     }
 
-    /**
-     * <p>getSeverity</p>
-     *
-     * @return a int.
-     */
-    public int getSeverity() {
-        return getValue();
-    }
+
 
     /** {@inheritDoc} */
     @Override
