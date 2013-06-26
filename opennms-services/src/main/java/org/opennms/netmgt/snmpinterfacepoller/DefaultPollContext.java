@@ -220,12 +220,8 @@ public class DefaultPollContext implements PollContext {
 
     /** {@inheritDoc} */
     @Override
-    public List<OnmsSnmpInterface> get(int nodeId, String criteria) {
-        CriteriaBuilder builder = new CriteriaBuilder(OnmsSnmpInterface.class);
-        builder.sql(criteria).eq("node.id", nodeId).eq("poll", "P");
-        builder.alias("ipInterfaces", "ipInterface", JoinType.LEFT_JOIN);
-        return getSnmpInterfaceDao().findMatching(builder.toCriteria());
-
+    public List<OnmsSnmpInterface> get(int nodeId, String pollerConfigFilterCriteria) {
+        return getSnmpInterfaceDao().findMatching(nodeId, pollerConfigFilterCriteria);
     }
 
     /** {@inheritDoc} */

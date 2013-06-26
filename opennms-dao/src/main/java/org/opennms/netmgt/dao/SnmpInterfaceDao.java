@@ -40,4 +40,5 @@ public interface SnmpInterfaceDao extends OnmsDao<OnmsSnmpInterface, Integer> {
     List<OnmsSnmpInterface> findBySysNameAndPhysAddress(String sysName, String physAddress);
     List<OnmsSnmpInterface> findBySysNameAndIfAlias(String sysName, String ifAlias);
     List<OnmsSnmpInterface> findByNodeIdAndIfIndex(int nodeId);
+    List<OnmsSnmpInterface> findMatching(int nodeId, String pollerConfigFilterCriteria);
 }

@@ -368,12 +368,13 @@ public interface ProvisionService {
     /**
      * <p>setIsPrimaryFlag</p>
      *
-     * @param nodeId a {@link java.lang.Integer} object.
-     * @param ipAddress a {@link java.lang.String} object.
+     *
+     * @param nodeId a {@link Integer} object.
+     * @param ipAddress a {@link String} object.
      * @return a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
      */
     @Transactional
-    OnmsIpInterface setIsPrimaryFlag(Integer nodeId, String ipAddress);
+    void setIsPrimaryFlag(Integer nodeId, String ipAddress);
 
     /**
      * <p>getPrimaryInterfaceForNode</p>

@@ -18,6 +18,7 @@
 
   <bean name="daemon" class="org.opennms.netmgt.poller.remote.support.DefaultPollerBackEnd">
     <property name="locationMonitorDao" ref="locationMonitorDao" />
+    <property name="locSpecStatusDao" ref="locationSpecificStatusDao" />
     <property name="monitoredServiceDao" ref="monitoredServiceDao" />
     <property name="pollerConfig" ref="pollerConfig" />
     <property name="timeKeeper" ref="timeKeeper" />

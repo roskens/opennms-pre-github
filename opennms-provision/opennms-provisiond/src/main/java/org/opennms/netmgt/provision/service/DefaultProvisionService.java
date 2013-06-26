@@ -1057,19 +1057,18 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
     /** {@inheritDoc} */
     @Transactional
     @Override
-    public OnmsIpInterface setIsPrimaryFlag(final Integer nodeId, final String ipAddress) {
-        // TODO upsert? not sure if this needs one.. leave the todo here in case
+    public void setIsPrimaryFlag(final Integer nodeId, final String ipAddress) {
         if (nodeId == null) {
             LogUtils.debugf(this, "nodeId is null!");
-            return null;
+            return;
         } else if (ipAddress == null) {
             LogUtils.debugf(this, "ipAddress is null!");
-            return null;
+            return;
         }
         final OnmsIpInterface svcIface = m_ipInterfaceDao.findByNodeIdAndIpAddress(nodeId, ipAddress);
         if (svcIface == null) {
             LogUtils.infof(this, "unable to find IPInterface for nodeId=%s, ipAddress=%s", nodeId, ipAddress);
-            return null;
+            return;
         }
         OnmsIpInterface primaryIface = null;
         if (svcIface.isPrimary()) {
@@ -1085,9 +1084,7 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
             m_ipInterfaceDao.saveOrUpdate(svcIface);
             m_ipInterfaceDao.flush();
         }
-        
-        m_ipInterfaceDao.initialize(primaryIface);
-        return primaryIface;
+
     }
 
     /** {@inheritDoc} */
@@ -1101,8 +1098,8 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
         else {
         	final OnmsIpInterface primaryIface = dbNode.getPrimaryInterface();
             if (primaryIface != null) {
-                m_ipInterfaceDao.initialize(primaryIface);
-                m_ipInterfaceDao.initialize(primaryIface.getMonitoredServices());
+                // access this to force loading from Database
+                primaryIface.getMonitoredServices();
             }
             return primaryIface;
         }
@@ -1173,9 +1170,9 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
     @Override
     public OnmsNode getNode(final Integer nodeId) {
     	final OnmsNode node = m_nodeDao.get(nodeId);
-        m_nodeDao.initialize(node);
-        m_nodeDao.initialize(node.getCategories());
-        m_nodeDao.initialize(node.getIpInterfaces());
+        // access this to force loading from Database
+        node.getCategories();
+        node.getIpInterfaces();
         return node;
     }
     
@@ -1184,8 +1181,9 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
     @Override
     public OnmsNode getDbNodeInitCat(final Integer nodeId) {
     	final OnmsNode node = m_nodeDao.get(nodeId);
-        m_nodeDao.initialize(node.getCategories());
-        m_nodeDao.initialize(node.getDistPoller());
+        // access this to force loading from Database
+        node.getCategories();
+        node.getDistPoller();
         return node;
     }
 }

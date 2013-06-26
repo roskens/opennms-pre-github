@@ -54,6 +54,7 @@ import org.opennms.netmgt.config.poller.Service;
 import org.opennms.netmgt.daemon.SpringServiceDaemon;
 import org.opennms.netmgt.dao.LocationMonitorDao;
 import org.opennms.netmgt.dao.MonitoredServiceDao;
+import org.opennms.netmgt.dao.OnmsLocationSpecificStatusDao;
 import org.opennms.netmgt.model.OnmsLocationMonitor;
 import org.opennms.netmgt.model.OnmsLocationSpecificStatus;
 import org.opennms.netmgt.model.OnmsMonitoredService;
@@ -122,6 +123,7 @@ public class DefaultPollerBackEnd implements PollerBackEnd, SpringServiceDaemon 
         }
     }
     private LocationMonitorDao m_locMonDao;
+    private OnmsLocationSpecificStatusDao m_locSpecStatusDao;
     private MonitoredServiceDao m_monSvcDao;
     private EventIpcManager m_eventIpcManager;
     private PollerConfig m_pollerConfig;
@@ -444,7 +446,7 @@ public class DefaultPollerBackEnd implements PollerBackEnd, SpringServiceDaemon 
 
     private void processStatusChange(final OnmsLocationSpecificStatus currentStatus, final OnmsLocationSpecificStatus newStatus) {
         if (databaseStatusChanged(currentStatus, newStatus)) {
-            m_locMonDao.saveStatusChange(newStatus);
+            m_locSpecStatusDao.save(newStatus);
 
             final PollStatus pollResult = newStatus.getPollResult();
 

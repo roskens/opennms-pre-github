@@ -52,18 +52,9 @@ public class DefaultNCSCorrelationService implements NCSCorrelationService {
 
 	@Override
 	public List<NCSComponent> findComponentsThatDependOn(Long componentId) {
-		
 		NCSComponent comp = m_componentRepo.get(componentId);
-		
 		List<NCSComponent> parents = m_componentRepo.findComponentsThatDependOn(comp);
-		
-		for(NCSComponent parent : parents) {
-			m_componentRepo.initialize(parent);
-			
-		}
-		
 		return parents;
-
 	}
 	
     @Override
@@ -106,19 +97,9 @@ public class DefaultNCSCorrelationService implements NCSCorrelationService {
 
     @Override
     public List<NCSComponent> findSubComponents(Long componentId) {
-
-                 
             NCSComponent comp = m_componentRepo.get(componentId);
-            
             Set<NCSComponent> subcomponents = comp.getSubcomponents();
-            
-            for(NCSComponent subcomponent : subcomponents) {
-                m_componentRepo.initialize(subcomponent);
-                
-            }
-            
             return new ArrayList<NCSComponent>(subcomponents);
-
     }
 
     @Override
