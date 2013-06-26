@@ -26,36 +26,34 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.web.outage.filter;
+package org.opennms.web.filter.outage;
 
-import javax.servlet.ServletContext;
+import java.util.Date;
 
-import org.opennms.web.element.NetworkElementFactory;
-import org.opennms.netmgt.dao.filter.NotEqualOrNullFilter;
+import org.opennms.web.filter.GreaterThanFilter;
 
 /**
- * Encapsulates all node filtering functionality.
+ * <p>LostServiceDateAfterFilter class.</p>
  *
  * @author ranger
  * @version $Id: $
  * @since 1.8.1
  */
-public class NegativeNodeFilter extends NotEqualOrNullFilter<Integer> {
-    /** Constant <code>TYPE="nodenot"</code> */
-    public static final String TYPE = "nodenot";
+public class LostServiceDateAfterFilter extends GreaterThanFilter<Date> {
+    /** Constant <code>TYPE="lostafter"</code> */
+    public static final String TYPE = "lostafter";
 
-    protected int nodeId;
-
-    private ServletContext m_servletContext;
+    public LostServiceDateAfterFilter(Date date) {
+        super(TYPE, "ifLostService", date);
+    }
 
     /**
-     * <p>Constructor for NegativeNodeFilter.</p>
+     * <p>Constructor for LostServiceDateAfterFilter.</p>
      *
-     * @param nodeId a int.
+     * @param epochTime a long.
      */
-    public NegativeNodeFilter(int nodeId, ServletContext servletContext) {
-        super(TYPE, "node.id", nodeId);
-        m_servletContext = servletContext;
+    public LostServiceDateAfterFilter(long epochTime) {
+        this(new Date(epochTime));
     }
 
     /**
@@ -65,13 +63,7 @@ public class NegativeNodeFilter extends NotEqualOrNullFilter<Integer> {
      */
     @Override
     public String getTextDescription() {
-        
-        String nodeName = NetworkElementFactory.getInstance(m_servletContext).getNodeLabel(getNode());
-        if(nodeName == null) {
-            nodeName = Integer.toString(getNode());
-        }
-
-        return ("node is not " + nodeName);
+        return ("lost service date after \"" + getValue() + "\"");
     }
 
     /**
@@ -81,16 +73,7 @@ public class NegativeNodeFilter extends NotEqualOrNullFilter<Integer> {
      */
     @Override
     public String toString() {
-        return ("<NegativeNodeFilter: " + this.getDescription() + ">");
-    }
-
-    /**
-     * <p>getNode</p>
-     *
-     * @return a int.
-     */
-    public int getNode() {
-        return getValue();
+        return ("<Lost Service Date After Filter: " + this.getDescription() + ">");
     }
 
     /** {@inheritDoc} */

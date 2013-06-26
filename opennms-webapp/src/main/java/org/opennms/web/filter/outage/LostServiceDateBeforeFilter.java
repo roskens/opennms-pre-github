@@ -26,28 +26,39 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.web.outage.filter;
+package org.opennms.web.filter.outage;
 
-import org.opennms.netmgt.dao.filter.NotEqualOrNullFilter;
+import java.util.Date;
+
+import org.opennms.web.filter.LessThanFilter;
 
 /**
- * Encapsulates all interface filtering functionality.
+ * <p>LostServiceDateBeforeFilter class.</p>
  *
  * @author ranger
  * @version $Id: $
  * @since 1.8.1
  */
-public class NegativeInterfaceFilter extends NotEqualOrNullFilter<String> {
-    /** Constant <code>TYPE="intfnot"</code> */
-    public static final String TYPE = "intfnot";
+public class LostServiceDateBeforeFilter extends LessThanFilter<Date> {
+    /** Constant <code>TYPE="lostbefore"</code> */
+    public static final String TYPE = "lostbefore";
 
     /**
-     * <p>Constructor for NegativeInterfaceFilter.</p>
+     * <p>Constructor for LostServiceDateBeforeFilter.</p>
      *
-     * @param ipAddress a {@link java.lang.String} object.
+     * @param date a java$util$Date object.
      */
-    public NegativeInterfaceFilter(String ipAddress) {
-        super(TYPE, "ipInterface.ipAddress", ipAddress);
+    public LostServiceDateBeforeFilter(Date date) {
+        super(TYPE, "ifLostService", date);
+    }
+
+    /**
+     * <p>Constructor for LostServiceDateBeforeFilter.</p>
+     *
+     * @param epochTime a long.
+     */
+    public LostServiceDateBeforeFilter(long epochTime) {
+        this(new Date(epochTime));
     }
 
     /**
@@ -57,7 +68,7 @@ public class NegativeInterfaceFilter extends NotEqualOrNullFilter<String> {
      */
     @Override
     public String getTextDescription() {
-        return ("interface is not " + getIpAddress());
+        return ("lost service date before \"" + getValue() + "\"");
     }
 
     /**
@@ -67,15 +78,15 @@ public class NegativeInterfaceFilter extends NotEqualOrNullFilter<String> {
      */
     @Override
     public String toString() {
-        return ("<NegativeInterfaceFilter: " + this.getDescription() + ">");
+        return ("<Lost Service Date Before Filter: " + this.getDescription() + ">");
     }
 
     /**
-     * <p>getIpAddress</p>
+     * <p>getDate</p>
      *
-     * @return a {@link java.lang.String} object.
+     * @return a java$util$Date object.
      */
-    public String getIpAddress() {
+    public Date getDate() {
         return getValue();
     }
 

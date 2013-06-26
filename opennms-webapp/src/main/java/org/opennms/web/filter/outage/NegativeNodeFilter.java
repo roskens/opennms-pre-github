@@ -26,23 +26,52 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.web.outage.filter;
+package org.opennms.web.filter.outage;
 
-import org.opennms.netmgt.dao.filter.EqualsFilter;
+import javax.servlet.ServletContext;
+
+import org.opennms.web.element.NetworkElementFactory;
+import org.opennms.web.filter.NotEqualOrNullFilter;
 
 /**
- * Encapsulates all interface filtering functionality.
+ * Encapsulates all node filtering functionality.
  *
  * @author ranger
  * @version $Id: $
  * @since 1.8.1
  */
-public class InterfaceFilter extends EqualsFilter<String> {
-    /** Constant <code>TYPE="intf"</code> */
-    public static final String TYPE = "intf";
+public class NegativeNodeFilter extends NotEqualOrNullFilter<Integer> {
+    /** Constant <code>TYPE="nodenot"</code> */
+    public static final String TYPE = "nodenot";
 
-    public InterfaceFilter(String ipAddress) {
-        super(TYPE, "ipInterface.ipAddress", ipAddress);
+    protected int nodeId;
+
+    private ServletContext m_servletContext;
+
+    /**
+     * <p>Constructor for NegativeNodeFilter.</p>
+     *
+     * @param nodeId a int.
+     */
+    public NegativeNodeFilter(int nodeId, ServletContext servletContext) {
+        super(TYPE, "node.id", nodeId);
+        m_servletContext = servletContext;
+    }
+
+    /**
+     * <p>getTextDescription</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    @Override
+    public String getTextDescription() {
+        
+        String nodeName = NetworkElementFactory.getInstance(m_servletContext).getNodeLabel(getNode());
+        if(nodeName == null) {
+            nodeName = Integer.toString(getNode());
+        }
+
+        return ("node is not " + nodeName);
     }
 
     /**
@@ -52,7 +81,16 @@ public class InterfaceFilter extends EqualsFilter<String> {
      */
     @Override
     public String toString() {
-        return ("<InterfaceFilter: " + this.getDescription() + ">");
+        return ("<NegativeNodeFilter: " + this.getDescription() + ">");
+    }
+
+    /**
+     * <p>getNode</p>
+     *
+     * @return a int.
+     */
+    public int getNode() {
+        return getValue();
     }
 
     /** {@inheritDoc} */

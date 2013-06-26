@@ -1,7 +1,7 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2009-2012 The OpenNMS Group, Inc.
  * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
@@ -26,49 +26,23 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.web.outage.filter;
+package org.opennms.web.filter.outage;
 
-import java.util.Date;
-
-import org.opennms.netmgt.dao.filter.LessThanFilter;
+import org.opennms.web.filter.EqualsFilter;
 
 /**
- * <p>RegainedServiceDateBeforeFilter class.</p>
+ * Encapsulates all node filtering functionality.
  *
  * @author ranger
  * @version $Id: $
  * @since 1.8.1
  */
-public class RegainedServiceDateBeforeFilter extends LessThanFilter<Date> {
-    /** Constant <code>TYPE="regainedbefore"</code> */
-    public static final String TYPE = "regainedbefore";
+public class OutageIdFilter extends EqualsFilter<Integer> {
+    /** Constant <code>TYPE="outage"</code> */
+    public static final String TYPE = "outage";
 
-    /**
-     * <p>Constructor for RegainedServiceDateBeforeFilter.</p>
-     *
-     * @param date a java$util$Date object.
-     */
-    public RegainedServiceDateBeforeFilter(Date date) {
-        super(TYPE, "ifRegainedService", date);
-    }
-
-    /**
-     * <p>Constructor for RegainedServiceDateBeforeFilter.</p>
-     *
-     * @param epochTime a long.
-     */
-    public RegainedServiceDateBeforeFilter(long epochTime) {
-        this(new Date(epochTime));
-    }
-
-    /**
-     * <p>getTextDescription</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    @Override
-    public String getTextDescription() {
-        return ("regained service date before \"" + getValue() + "\"");
+    public OutageIdFilter(int outageId) {
+        super(TYPE, "id", outageId);
     }
 
     /**
@@ -78,16 +52,7 @@ public class RegainedServiceDateBeforeFilter extends LessThanFilter<Date> {
      */
     @Override
     public String toString() {
-        return ("<Regained Service Date Before Filter: " + this.getDescription() + ">");
-    }
-
-    /**
-     * <p>getDate</p>
-     *
-     * @return a java$util$Date object.
-     */
-    public Date getDate() {
-        return getValue();
+        return ("<OutageIdFilter: " + this.getDescription() + ">");
     }
 
     /** {@inheritDoc} */

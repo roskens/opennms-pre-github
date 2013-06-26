@@ -26,31 +26,39 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.web.outage.filter;
+package org.opennms.web.filter.outage;
 
-import javax.servlet.ServletContext;
+import java.util.Date;
 
-import org.opennms.web.element.NetworkElementFactory;
-import org.opennms.netmgt.dao.filter.NotEqualOrNullFilter;
+import org.opennms.web.filter.LessThanFilter;
 
 /**
- * Encapsulates all service filtering functionality.
+ * <p>RegainedServiceDateBeforeFilter class.</p>
  *
  * @author ranger
  * @version $Id: $
  * @since 1.8.1
  */
-public class NegativeServiceFilter extends NotEqualOrNullFilter<Integer> {
-    /** Constant <code>TYPE="servicenot"</code> */
-    public static final String TYPE = "servicenot";
+public class RegainedServiceDateBeforeFilter extends LessThanFilter<Date> {
+    /** Constant <code>TYPE="regainedbefore"</code> */
+    public static final String TYPE = "regainedbefore";
 
     /**
-     * <p>Constructor for NegativeServiceFilter.</p>
+     * <p>Constructor for RegainedServiceDateBeforeFilter.</p>
      *
-     * @param serviceId a int.
+     * @param date a java$util$Date object.
      */
-    public NegativeServiceFilter(int serviceId) {
-        super(TYPE, "serviceType.id", serviceId);
+    public RegainedServiceDateBeforeFilter(Date date) {
+        super(TYPE, "ifRegainedService", date);
+    }
+
+    /**
+     * <p>Constructor for RegainedServiceDateBeforeFilter.</p>
+     *
+     * @param epochTime a long.
+     */
+    public RegainedServiceDateBeforeFilter(long epochTime) {
+        this(new Date(epochTime));
     }
 
     /**
@@ -58,13 +66,9 @@ public class NegativeServiceFilter extends NotEqualOrNullFilter<Integer> {
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getTextDescription(ServletContext servletContext) {
-        int serviceId = getServiceId();
-        String serviceName = Integer.toString(serviceId);
-
-        serviceName = NetworkElementFactory.getInstance(servletContext).getServiceNameFromId(serviceId);
-
-        return ("service is not " + serviceName);
+    @Override
+    public String getTextDescription() {
+        return ("regained service date before \"" + getValue() + "\"");
     }
 
     /**
@@ -74,15 +78,15 @@ public class NegativeServiceFilter extends NotEqualOrNullFilter<Integer> {
      */
     @Override
     public String toString() {
-        return ("<NegativeServiceFilter: " + this.getDescription() + ">");
+        return ("<Regained Service Date Before Filter: " + this.getDescription() + ">");
     }
 
     /**
-     * <p>getServiceId</p>
+     * <p>getDate</p>
      *
-     * @return a int.
+     * @return a java$util$Date object.
      */
-    public int getServiceId() {
+    public Date getDate() {
         return getValue();
     }
 
@@ -90,11 +94,5 @@ public class NegativeServiceFilter extends NotEqualOrNullFilter<Integer> {
     @Override
     public boolean equals(Object obj) {
         return (this.toString().equals(obj.toString()));
-    }
-
-    @Override
-    public String getTextDescription() {
-        // TODO Auto-generated method stub
-        return null;
     }
 }

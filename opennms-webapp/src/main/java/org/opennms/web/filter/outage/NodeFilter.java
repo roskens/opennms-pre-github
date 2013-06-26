@@ -26,12 +26,12 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.web.outage.filter;
+package org.opennms.web.filter.outage;
 
 import javax.servlet.ServletContext;
 
 import org.opennms.web.element.NetworkElementFactory;
-import org.opennms.netmgt.dao.filter.EqualsFilter;
+import org.opennms.web.filter.EqualsFilter;
 
 /**
  * Encapsulates all node filtering functionality.

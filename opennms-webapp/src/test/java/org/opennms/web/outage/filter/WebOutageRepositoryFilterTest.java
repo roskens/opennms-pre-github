@@ -50,6 +50,7 @@ import org.opennms.netmgt.model.OnmsEvent;
 import org.opennms.netmgt.model.OnmsMonitoredService;
 import org.opennms.netmgt.model.OnmsOutage;
 import org.opennms.test.JUnitConfigurationEnvironment;
+import org.opennms.web.filter.outage.*;
 import org.opennms.web.outage.Outage;
 import org.opennms.web.outage.WebOutageRepository;
 import org.springframework.beans.factory.InitializingBean;

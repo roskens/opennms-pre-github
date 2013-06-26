@@ -26,34 +26,31 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.web.outage.filter;
+package org.opennms.web.filter.outage;
 
-import java.util.Date;
+import javax.servlet.ServletContext;
 
-import org.opennms.netmgt.dao.filter.GreaterThanFilter;
+import org.opennms.web.element.NetworkElementFactory;
+import org.opennms.web.filter.NotEqualOrNullFilter;
 
 /**
- * <p>LostServiceDateAfterFilter class.</p>
+ * Encapsulates all service filtering functionality.
  *
  * @author ranger
  * @version $Id: $
  * @since 1.8.1
  */
-public class LostServiceDateAfterFilter extends GreaterThanFilter<Date> {
-    /** Constant <code>TYPE="lostafter"</code> */
-    public static final String TYPE = "lostafter";
-
-    public LostServiceDateAfterFilter(Date date) {
-        super(TYPE, "ifLostService", date);
-    }
+public class NegativeServiceFilter extends NotEqualOrNullFilter<Integer> {
+    /** Constant <code>TYPE="servicenot"</code> */
+    public static final String TYPE = "servicenot";
 
     /**
-     * <p>Constructor for LostServiceDateAfterFilter.</p>
+     * <p>Constructor for NegativeServiceFilter.</p>
      *
-     * @param epochTime a long.
+     * @param serviceId a int.
      */
-    public LostServiceDateAfterFilter(long epochTime) {
-        this(new Date(epochTime));
+    public NegativeServiceFilter(int serviceId) {
+        super(TYPE, "serviceType.id", serviceId);
     }
 
     /**
@@ -61,9 +58,13 @@ public class LostServiceDateAfterFilter extends GreaterThanFilter<Date> {
      *
      * @return a {@link java.lang.String} object.
      */
-    @Override
-    public String getTextDescription() {
-        return ("lost service date after \"" + getValue() + "\"");
+    public String getTextDescription(ServletContext servletContext) {
+        int serviceId = getServiceId();
+        String serviceName = Integer.toString(serviceId);
+
+        serviceName = NetworkElementFactory.getInstance(servletContext).getServiceNameFromId(serviceId);
+
+        return ("service is not " + serviceName);
     }
 
     /**
@@ -73,12 +74,27 @@ public class LostServiceDateAfterFilter extends GreaterThanFilter<Date> {
      */
     @Override
     public String toString() {
-        return ("<Lost Service Date After Filter: " + this.getDescription() + ">");
+        return ("<NegativeServiceFilter: " + this.getDescription() + ">");
+    }
+
+    /**
+     * <p>getServiceId</p>
+     *
+     * @return a int.
+     */
+    public int getServiceId() {
+        return getValue();
     }
 
     /** {@inheritDoc} */
     @Override
     public boolean equals(Object obj) {
         return (this.toString().equals(obj.toString()));
+    }
+
+    @Override
+    public String getTextDescription() {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

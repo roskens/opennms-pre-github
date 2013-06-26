@@ -26,38 +26,38 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.web.outage.filter;
+package org.opennms.web.filter.outage;
 
 import java.util.Date;
 
-import org.opennms.netmgt.dao.filter.LessThanFilter;
+import org.opennms.web.filter.GreaterThanFilter;
 
 /**
- * <p>LostServiceDateBeforeFilter class.</p>
+ * <p>RegainedServiceDateAfterFilter class.</p>
  *
  * @author ranger
  * @version $Id: $
  * @since 1.8.1
  */
-public class LostServiceDateBeforeFilter extends LessThanFilter<Date> {
-    /** Constant <code>TYPE="lostbefore"</code> */
-    public static final String TYPE = "lostbefore";
+public class RegainedServiceDateAfterFilter extends GreaterThanFilter<Date> {
+    /** Constant <code>TYPE="regainedafter"</code> */
+    public static final String TYPE = "regainedafter";
 
     /**
-     * <p>Constructor for LostServiceDateBeforeFilter.</p>
+     * <p>Constructor for RegainedServiceDateAfterFilter.</p>
      *
-     * @param date a java$util$Date object.
+     * @param date a {@link java.util.Date} object.
      */
-    public LostServiceDateBeforeFilter(Date date) {
-        super(TYPE, "ifLostService", date);
+    public RegainedServiceDateAfterFilter(Date date) {
+        super(TYPE, "ifRegainedService", date);
     }
 
     /**
-     * <p>Constructor for LostServiceDateBeforeFilter.</p>
+     * <p>Constructor for RegainedServiceDateAfterFilter.</p>
      *
      * @param epochTime a long.
      */
-    public LostServiceDateBeforeFilter(long epochTime) {
+    public RegainedServiceDateAfterFilter(long epochTime) {
         this(new Date(epochTime));
     }
 
@@ -68,7 +68,7 @@ public class LostServiceDateBeforeFilter extends LessThanFilter<Date> {
      */
     @Override
     public String getTextDescription() {
-        return ("lost service date before \"" + getValue() + "\"");
+        return ("regained service date after \"" + getValue() + "\"");
     }
 
     /**
@@ -78,13 +78,13 @@ public class LostServiceDateBeforeFilter extends LessThanFilter<Date> {
      */
     @Override
     public String toString() {
-        return ("<Lost Service Date Before Filter: " + this.getDescription() + ">");
+        return ("<Regained Service Date After Filter: " + this.getDescription() + ">");
     }
 
     /**
      * <p>getDate</p>
      *
-     * @return a java$util$Date object.
+     * @return a {@link java.util.Date} object.
      */
     public Date getDate() {
         return getValue();

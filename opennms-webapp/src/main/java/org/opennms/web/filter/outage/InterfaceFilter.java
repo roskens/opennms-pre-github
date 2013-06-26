@@ -26,41 +26,33 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.web.outage.filter;
+package org.opennms.web.filter.outage;
 
-import javax.servlet.ServletContext;
-
-import org.opennms.web.element.NetworkElementFactory;
-import org.opennms.netmgt.dao.filter.EqualsFilter;
+import org.opennms.web.filter.EqualsFilter;
 
 /**
- * Encapsulates all service filtering functionality.
+ * Encapsulates all interface filtering functionality.
  *
  * @author ranger
  * @version $Id: $
  * @since 1.8.1
  */
-public class ServiceFilter extends EqualsFilter<Integer> {
-    /** Constant <code>TYPE="service"</code> */
-    public static final String TYPE = "service";
+public class InterfaceFilter extends EqualsFilter<String> {
+    /** Constant <code>TYPE="intf"</code> */
+    public static final String TYPE = "intf";
 
-    public ServiceFilter(int serviceId) {
-        super(TYPE, "serviceType.id", serviceId);
+    public InterfaceFilter(String ipAddress) {
+        super(TYPE, "ipInterface.ipAddress", ipAddress);
     }
 
     /**
-     * <p>getTextDescription</p>
+     * <p>toString</p>
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getTextDescription(ServletContext servletContext) {
-        String serviceName = NetworkElementFactory.getInstance(servletContext).getServiceNameFromId(getValue());
-        return (TYPE + " is " + serviceName);
-    }
-
     @Override
     public String toString() {
-        return ("<ServiceFilter: " + this.getDescription() + ">");
+        return ("<InterfaceFilter: " + this.getDescription() + ">");
     }
 
     /** {@inheritDoc} */

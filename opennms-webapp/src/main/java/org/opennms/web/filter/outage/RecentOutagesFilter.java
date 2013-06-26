@@ -26,38 +26,56 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.web.outage.filter;
+package org.opennms.web.filter.outage;
 
-import org.opennms.netmgt.dao.filter.EqualsFilter;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
+import org.opennms.web.filter.OneArgFilter;
 
 /**
- * Encapsulates all node filtering functionality.
+ * <p>RecentOutagesFilter class.</p>
  *
- * @author ranger
+ * @author brozow
  * @version $Id: $
  * @since 1.8.1
  */
-public class OutageIdFilter extends EqualsFilter<Integer> {
-    /** Constant <code>TYPE="outage"</code> */
-    public static final String TYPE = "outage";
-
-    public OutageIdFilter(int outageId) {
-        super(TYPE, "id", outageId);
-    }
-
+public class RecentOutagesFilter extends OneArgFilter<Date> {
+    /** Constant <code>TYPE="recent"</code> */
+    public static final String TYPE = "recent";
+    
     /**
-     * <p>toString</p>
-     *
-     * @return a {@link java.lang.String} object.
+     * <p>Constructor for RecentOutagesFilter.</p>
      */
-    @Override
-    public String toString() {
-        return ("<OutageIdFilter: " + this.getDescription() + ">");
+    public RecentOutagesFilter() {
+        this(yesterday());
+    }
+    
+    /**
+     * <p>Constructor for RecentOutagesFilter.</p>
+     *
+     * @param since a {@link java.util.Date} object.
+     */
+    public RecentOutagesFilter(Date since) {
+        super(TYPE, "ifRegainedService", since);
     }
 
     /** {@inheritDoc} */
     @Override
-    public boolean equals(Object obj) {
-        return (this.toString().equals(obj.toString()));
+    public String getTextDescription() {
+        return "outage since " + getValue();
     }
+    
+    /**
+     * <p>yesterday</p>
+     *
+     * @return a {@link java.util.Date} object.
+     */
+    public static Date yesterday() {
+        Calendar cal = new GregorianCalendar();
+        cal.add( Calendar.DATE, -1 );
+        return cal.getTime();
+    }
+
 }

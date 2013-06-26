@@ -41,17 +41,17 @@ import javax.servlet.http.HttpServletRequest;
 import org.opennms.core.utils.WebSecurityUtils;
 import org.opennms.web.api.Util;
 import org.opennms.netmgt.dao.filter.Filter;
-import org.opennms.web.outage.filter.InterfaceFilter;
-import org.opennms.web.outage.filter.LostServiceDateAfterFilter;
-import org.opennms.web.outage.filter.LostServiceDateBeforeFilter;
-import org.opennms.web.outage.filter.NegativeInterfaceFilter;
-import org.opennms.web.outage.filter.NegativeNodeFilter;
-import org.opennms.web.outage.filter.NegativeServiceFilter;
-import org.opennms.web.outage.filter.NodeFilter;
-import org.opennms.web.outage.filter.OutageIdFilter;
-import org.opennms.web.outage.filter.RegainedServiceDateAfterFilter;
-import org.opennms.web.outage.filter.RegainedServiceDateBeforeFilter;
-import org.opennms.web.outage.filter.ServiceFilter;
+import org.opennms.web.filter.outage.InterfaceFilter;
+import org.opennms.web.filter.outage.LostServiceDateAfterFilter;
+import org.opennms.web.filter.outage.LostServiceDateBeforeFilter;
+import org.opennms.web.filter.outage.NegativeInterfaceFilter;
+import org.opennms.web.filter.outage.NegativeNodeFilter;
+import org.opennms.web.filter.outage.NegativeServiceFilter;
+import org.opennms.web.filter.outage.NodeFilter;
+import org.opennms.web.filter.outage.OutageIdFilter;
+import org.opennms.web.filter.outage.RegainedServiceDateAfterFilter;
+import org.opennms.web.filter.outage.RegainedServiceDateBeforeFilter;
+import org.opennms.web.filter.outage.ServiceFilter;
 
 /**
  * <p>Abstract OutageUtil class.</p>

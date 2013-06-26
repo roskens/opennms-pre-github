@@ -26,39 +26,28 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.web.outage.filter;
+package org.opennms.web.filter.outage;
 
-import java.util.Date;
-
-import org.opennms.netmgt.dao.filter.GreaterThanFilter;
+import org.opennms.web.filter.NotEqualOrNullFilter;
 
 /**
- * <p>RegainedServiceDateAfterFilter class.</p>
+ * Encapsulates all interface filtering functionality.
  *
  * @author ranger
  * @version $Id: $
  * @since 1.8.1
  */
-public class RegainedServiceDateAfterFilter extends GreaterThanFilter<Date> {
-    /** Constant <code>TYPE="regainedafter"</code> */
-    public static final String TYPE = "regainedafter";
+public class NegativeInterfaceFilter extends NotEqualOrNullFilter<String> {
+    /** Constant <code>TYPE="intfnot"</code> */
+    public static final String TYPE = "intfnot";
 
     /**
-     * <p>Constructor for RegainedServiceDateAfterFilter.</p>
+     * <p>Constructor for NegativeInterfaceFilter.</p>
      *
-     * @param date a {@link java.util.Date} object.
+     * @param ipAddress a {@link java.lang.String} object.
      */
-    public RegainedServiceDateAfterFilter(Date date) {
-        super(TYPE, "ifRegainedService", date);
-    }
-
-    /**
-     * <p>Constructor for RegainedServiceDateAfterFilter.</p>
-     *
-     * @param epochTime a long.
-     */
-    public RegainedServiceDateAfterFilter(long epochTime) {
-        this(new Date(epochTime));
+    public NegativeInterfaceFilter(String ipAddress) {
+        super(TYPE, "ipInterface.ipAddress", ipAddress);
     }
 
     /**
@@ -68,7 +57,7 @@ public class RegainedServiceDateAfterFilter extends GreaterThanFilter<Date> {
      */
     @Override
     public String getTextDescription() {
-        return ("regained service date after \"" + getValue() + "\"");
+        return ("interface is not " + getIpAddress());
     }
 
     /**
@@ -78,15 +67,15 @@ public class RegainedServiceDateAfterFilter extends GreaterThanFilter<Date> {
      */
     @Override
     public String toString() {
-        return ("<Regained Service Date After Filter: " + this.getDescription() + ">");
+        return ("<NegativeInterfaceFilter: " + this.getDescription() + ">");
     }
 
     /**
-     * <p>getDate</p>
+     * <p>getIpAddress</p>
      *
-     * @return a {@link java.util.Date} object.
+     * @return a {@link java.lang.String} object.
      */
-    public Date getDate() {
+    public String getIpAddress() {
         return getValue();
     }
 
