@@ -28,7 +28,6 @@
 
 package org.opennms.web.element;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -59,68 +58,8 @@ public interface NetworkElementFactoryInterface {
 	 */
 	List<OnmsNode> getAllNodes();
 
-	/**
-	 * Returns all non-deleted nodes that have the given nodeLabel substring
-	 * somewhere in their nodeLabel.
-	 *
-	 * @param nodeLabel a {@link java.lang.String} object.
-	 * @return an array of {@link OnmsNode} objects.
-	 */
-	List<OnmsNode> getNodesLike(String nodeLabel);
-
 	List<OnmsNode> getNodesWithIpLike(String iplike);
 
-	/**
-	 * Returns all non-deleted nodes that have the given service.
-	 *
-	 * @param serviceId a int.
-	 * @return an array of {@link OnmsNode} objects.
-	 */
-	List<OnmsNode> getNodesWithService(int serviceId);
-
-	/**
-	 * Returns all non-deleted nodes that have the given mac.
-	 *
-	 * @param macAddr a {@link java.lang.String} object.
-	 * @return an array of {@link OnmsNode} objects.
-	 */
-	List<OnmsNode> getNodesWithPhysAddr(String macAddr);
-
-	/**
-	 * Returns all non-deleted nodes with a MAC address like the rule given from AtInterface.
-	 *
-	 * @param macAddr a {@link java.lang.String} object.
-	 * @return an array of {@link OnmsNode} objects.
-	 */
-	List<OnmsNode> getNodesWithPhysAddrAtInterface(String macAddr);
-
-	/**
-	 * Returns all non-deleted nodes with a MAC address like the rule given from SnmpInterface.
-	 *
-	 * @param macAddr a {@link java.lang.String} object.
-	 * @return an array of {@link OnmsNode} objects.
-	 */
-	List<OnmsNode> getNodesWithPhysAddrFromSnmpInterface(String macAddr);
-
-	/**
-	 * Returns all non-deleted nodes that contain the given string in an ifAlias
-	 *
-	 * @Param ifAlias
-	 *               the ifAlias string we are looking for
-	 * @return nodes
-	 *               the nodes with a matching ifAlias on one or more interfaces
-	 * @param ifAlias a {@link java.lang.String} object.
-	 */
-	List<OnmsNode> getNodesWithIfAlias(String ifAlias);
-
-	/**
-	 * Resolve an IP address to a DNS hostname via the database. If no hostname
-	 * can be found, the given IP address is returned.
-	 *
-	 * @param ipAddress a {@link java.lang.String} object.
-	 * @return a {@link java.lang.String} object.
-	 */
-	String getHostname(String ipAddress);
 
 	/**
 	 * <p>getInterface</p>
@@ -140,17 +79,6 @@ public interface NetworkElementFactoryInterface {
 	Interface getInterface(int nodeId, String ipAddress);
 
 	/**
-	 * <p>getInterface</p>
-	 *
-	 * @param nodeId a int.
-	 * @param ipAddress a {@link java.lang.String} object.
-	 * @param ifindex a int.
-	 * @return a {@link org.opennms.web.element.Interface} object.
-	 */
-	Interface getInterface(int nodeId, String ipAddress,
-			int ifIndex);
-
-	/**
 	 * Get interface from snmpinterface table. Intended for use with non-ip interfaces.
 	 *
 	 * @return Interface
@@ -167,27 +95,6 @@ public interface NetworkElementFactoryInterface {
 	 */
 	Interface[] getInterfacesWithIpAddress(String ipAddress);
 
-	Interface[] getInterfacesWithIfAlias(int nodeId,
-			String ifAlias);
-
-	/**
-	 * <p>getAllInterfacesOnNode</p>
-	 *
-	 * @param nodeId a int.
-	 * @return an array of {@link org.opennms.web.element.Interface} objects.
-	 */
-	Interface[] getAllInterfacesOnNode(int nodeId);
-
-	/**
-	 * Returns all SNMP interfaces on a node
-	 *
-	 * @Param int nodeId
-	 *               The nodeId of the node we are looking at
-	 * @return Interface[]
-	 * @param nodeId a int.
-	 */
-	Interface[] getAllSnmpInterfacesOnNode(int nodeId);
-
 	/**
 	 * <p>getActiveInterfacesOnNode</p>
 	 *
@@ -196,16 +103,6 @@ public interface NetworkElementFactoryInterface {
 	 */
 
 	Interface[] getActiveInterfacesOnNode(int nodeId);
-
-	/*
-	 * Returns all interfaces, including their SNMP information
-	 */
-	/**
-	 * <p>getAllInterfaces</p>
-	 *
-	 * @return an array of {@link org.opennms.web.element.Interface} objects.
-	 */
-	Interface[] getAllInterfaces();
 
 	/*
 	 * Returns all interfaces, but only includes SNMP data if includeSNMP is true
@@ -259,13 +156,6 @@ public interface NetworkElementFactoryInterface {
 	 * @return a {@link org.opennms.web.element.Service} object.
 	 */
 	Service getService(int ifServiceId);
-
-	/**
-	 * <p>getAllServices</p>
-	 *
-	 * @return an array of {@link org.opennms.web.element.Service} objects.
-	 */
-	Service[] getAllServices();
 
 	/**
 	 * <p>getServicesOnInterface</p>
@@ -322,47 +212,11 @@ public interface NetworkElementFactoryInterface {
 	int getServiceIdFromName(String serviceName);
 
 	/**
-	 * <p>getServiceIdToNameMap</p>
-	 *
-	 * @return a java$util$Map object.
-	 */
-	Map<Integer, String> getServiceIdToNameMap();
-
-	/**
 	 * <p>getServiceNameToIdMap</p>
 	 *
 	 * @return a java$util$Map object.
 	 */
 	Map<String, Integer> getServiceNameToIdMap();
-
-	/**
-	 * <p>getNodesLikeAndIpLike</p>
-	 *
-	 * @param nodeLabel a {@link java.lang.String} object.
-	 * @param iplike a {@link java.lang.String} object.
-	 * @param serviceId a int.
-	 * @return an array of {@link OnmsNode} objects.
-	 */
-	List<OnmsNode> getNodesLikeAndIpLike(String nodeLabel,
-			String iplike, int serviceId);
-
-	/**
-	 * <p>getNodesLike</p>
-	 *
-	 * @param nodeLabel a {@link java.lang.String} object.
-	 * @param serviceId a int.
-	 * @return an array of {@link OnmsNode} objects.
-	 */
-	List<OnmsNode> getNodesLike(String nodeLabel, int serviceId);
-
-	/**
-	 * <p>getNodesWithIpLike</p>
-	 *
-	 * @param iplike a {@link java.lang.String} object.
-	 * @param serviceId a int.
-	 * @return an array of {@link OnmsNode} objects.
-	 */
-	List<OnmsNode> getNodesWithIpLike(String iplike, int serviceId);
 
 	/**
 	 * <p>getAllNodes</p>
@@ -385,19 +239,10 @@ public interface NetworkElementFactoryInterface {
     IpRouteInterface[] getIpRoute(int nodeId);
 
 	/**
-	 * <p>isParentNode</p>
-	 *
-	 * @param nodeID a int.
-	 * @return a boolean.
-	 */
-	boolean isParentNode(int nodeId);
-
-	/**
 	 * <p>getDataLinksOnNode</p>
 	 *
 	 * @param nodeID a int.
 	 * @return an list of {@link org.opennms.web.element.LinkInterface} objects.
-	 * @throws java.sql.SQLException if any.
 	 */
 	List<LinkInterface> getDataLinksOnNode(int nodeID);
 
@@ -414,7 +259,7 @@ public interface NetworkElementFactoryInterface {
 	/**
 	 * <p>getDataLinksOnInterface</p>
 	 *
-	 * @param ID a int identifier for interface.
+	 * @param id a int identifier for interface.
 	 * @return an array of {@link org.opennms.web.element.LinkInterface} objects.
 	 */
 	List<LinkInterface> getDataLinksOnInterface(int id);
@@ -437,74 +282,19 @@ public interface NetworkElementFactoryInterface {
 	 */
 	List<Integer> getNodeIdsWithIpLike(String iplike);
 
-	/**
-	 * <p>getNodesWithCategories</p>
-	 *
-	 * @param transTemplate a {@link org.springframework.transaction.support.TransactionTemplate} object.
-	 * @param nodeDao a {@link org.opennms.netmgt.dao.NodeDao} object.
-	 * @param categoryDao a {@link org.opennms.netmgt.dao.CategoryDao} object.
-	 * @param categories1 an array of {@link java.lang.String} objects.
-	 * @param onlyNodesWithDownAggregateStatus a boolean.
-	 * @return an array of {@link OnmsNode} objects.
-	 */
-	List<OnmsNode> getNodesWithCategories(
-			TransactionTemplate transTemplate, final String[] categories1,
-			final boolean onlyNodesWithDownAggregateStatus);
+    Set<Integer> getLinkedNodeIdOnNode(int safeParseInt);
 
-	/**
-	 * <p>getNodesWithCategories</p>
-	 *
-	 * @param nodeDao a {@link org.opennms.netmgt.dao.NodeDao} object.
-	 * @param categoryDao a {@link org.opennms.netmgt.dao.CategoryDao} object.
-	 * @param categories1 an array of {@link java.lang.String} objects.
-	 * @param onlyNodesWithDownAggregateStatus a boolean.
-	 * @return an array of {@link OnmsNode} objects.
-	 */
-	List<OnmsNode> getNodesWithCategories(String[] categories,
-			boolean onlyNodesWithDownAggregateStatus);
+    boolean isRouteInfoNode(int nodeId);
 
-	/**
-	 * <p>getNodesWithCategories</p>
-	 *
-	 * @param transTemplate a {@link org.springframework.transaction.support.TransactionTemplate} object.
-	 * @param nodeDao a {@link org.opennms.netmgt.dao.NodeDao} object.
-	 * @param categoryDao a {@link org.opennms.netmgt.dao.CategoryDao} object.
-	 * @param categories1 an array of {@link java.lang.String} objects.
-	 * @param categories2 an array of {@link java.lang.String} objects.
-	 * @param onlyNodesWithDownAggregateStatus a boolean.
-	 * @return an array of {@link OnmsNode} objects.
-	 */
-	List<OnmsNode> getNodesWithCategories(
-			TransactionTemplate transTemplate, final String[] categories1,
-			final String[] categories2,
-			final boolean onlyNodesWithDownAggregateStatus);
+    boolean isBridgeNode(int nodeId);
 
-	/**
-	 * <p>getNodesWithCategories</p>
-	 *
-	 * @param nodeDao a {@link org.opennms.netmgt.dao.NodeDao} object.
-	 * @param categoryDao a {@link org.opennms.netmgt.dao.CategoryDao} object.
-	 * @param categories1 an array of {@link java.lang.String} objects.
-	 * @param categories2 an array of {@link java.lang.String} objects.
-	 * @param onlyNodesWithDownAggregateStatus a boolean.
-	 * @return an array of {@link OnmsNode} objects.
-	 */
-	List<OnmsNode> getNodesWithCategories(String[] categories1,
-			String[] categories2, boolean onlyNodesWithDownAggregateStatus);
+    StpNode[] getStpNode(int nodeId);
 
-    Set<Integer> getLinkedNodeIdOnNode(int safeParseInt) throws SQLException;
+    StpInterface[] getStpInterface(int nodeId);
 
-    boolean isRouteInfoNode(int nodeId) throws SQLException;
+    StpInterface[] getStpInterface(int nodeId, int ifIndex);
 
-    boolean isBridgeNode(int nodeId) throws SQLException;
-
-    StpNode[] getStpNode(int nodeId) throws SQLException;
-
-    StpInterface[] getStpInterface(int nodeId) throws SQLException;
-
-    StpInterface[] getStpInterface(int nodeId, int ifIndex) throws SQLException;
-
-    Vlan[] getVlansOnNode(int nodeID) throws SQLException;
+    Vlan[] getVlansOnNode(int nodeID);
     
     Integer getIfIndex(int ipinterfaceid);
     
