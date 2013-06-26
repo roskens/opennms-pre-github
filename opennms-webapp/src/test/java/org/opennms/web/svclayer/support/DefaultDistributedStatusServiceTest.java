@@ -789,11 +789,12 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         monitors.add(m_locationMonitor2_1);
         monitors.add(m_locationMonitor2_2);
         expect(m_locationMonitorDao.findByLocationDefinition(m_locationDefinition2)).andReturn(monitors);
-        
-        for (OnmsMonitoredService service : m_applicationServices2) {
-            m_locationMonitorDao.initialize(service.getIpInterface());
-            m_locationMonitorDao.initialize(service.getIpInterface().getNode());
-        }
+
+        // TODO MVR JPA should not be needed
+//        for (OnmsMonitoredService service : m_applicationServices2) {
+//            m_locationMonitorDao.initialize(service.getIpInterface());
+//            m_locationMonitorDao.initialize(service.getIpInterface().getNode());
+//        }
         
         String locationName = m_locationDefinition2.getName();
         String applicationName = m_application2.getName();
@@ -869,11 +870,12 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         List<OnmsLocationMonitor> monitors = new ArrayList<OnmsLocationMonitor>();
         monitors.add(m_locationMonitor1_1);
         expect(m_locationMonitorDao.findByLocationDefinition(m_locationDefinition1)).andReturn(monitors);
-        
-        for (OnmsMonitoredService service : m_applicationServices2) {
-            m_locationMonitorDao.initialize(service.getIpInterface());
-            m_locationMonitorDao.initialize(service.getIpInterface().getNode());
-        }
+
+        // TODO MVR JPA should not be needed
+//        for (OnmsMonitoredService service : m_applicationServices2) {
+//            m_locationMonitorDao.initialize(service.getIpInterface());
+//            m_locationMonitorDao.initialize(service.getIpInterface().getNode());
+//        }
 
         String locationName = "Raleigh-bad";
         String applicationName = m_application2.getName();
@@ -937,10 +939,11 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         monitors.add(m_locationMonitor2_2);
         expect(m_locationMonitorDao.findByLocationDefinition(m_locationDefinition2)).andReturn(monitors);
 
-        for (OnmsMonitoredService service : m_applicationServices1) {
-            m_locationMonitorDao.initialize(service.getIpInterface());
-            m_locationMonitorDao.initialize(service.getIpInterface().getNode());
-        }
+        // TODO MVR JPA should not be needed
+//        for (OnmsMonitoredService service : m_applicationServices1) {
+//            m_locationMonitorDao.initialize(service.getIpInterface());
+//            m_locationMonitorDao.initialize(service.getIpInterface().getNode());
+//        }
 
         String locationName = m_locationDefinition2.getName();
         String applicationName = "Big Bad Voodoo Daddy Application";

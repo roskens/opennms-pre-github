@@ -30,6 +30,7 @@ package org.opennms.netmgt.dao.hibernate;
 
 import org.opennms.netmgt.dao.StatisticsReportDao;
 import org.opennms.netmgt.model.StatisticsReport;
+import org.opennms.netmgt.model.StatisticsReportData;
 
 /**
  * DAO implementation for accessing StatisticsReport objects.
@@ -48,4 +49,13 @@ public class StatisticsReportDaoHibernate extends AbstractDaoHibernate<Statistic
 	}
 
 
+    @Override
+    public StatisticsReport fetch(Integer key) {
+        StatisticsReport statisticsReport = get(key);
+        for(StatisticsReportData data : statisticsReport.getData()) {
+            data.getReport();
+            data.getResource();
+        }
+        return statisticsReport;
+    }
 }

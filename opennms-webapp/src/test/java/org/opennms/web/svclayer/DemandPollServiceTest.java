@@ -158,12 +158,6 @@ public class DemandPollServiceTest extends TestCase {
 		}
 
                 @Override
-		public void initialize(Object obj) {
-			// TODO Auto-generated method stub
-			
-		}
-
-                @Override
                 public void lock() {
 		}
 
@@ -186,9 +180,14 @@ public class DemandPollServiceTest extends TestCase {
         public int countMatching(OnmsCriteria criteria) {
             throw new UnsupportedOperationException("not yet implemented");
         }
-		
-		
-	}
+
+        @Override
+        public List<DemandPoll> findAll(int limit, int offset) {
+            throw new UnsupportedOperationException("not yet implemented");
+        }
+
+
+    }
 	
 	public void testPollMonitoredService() throws EventProxyException {
 		

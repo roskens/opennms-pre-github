@@ -39,4 +39,6 @@ import org.opennms.netmgt.model.StatisticsReport;
  */
 public interface StatisticsReportDao extends OnmsDao<StatisticsReport, Integer> {
 
+    StatisticsReport fetch(Integer key);
+
 }
