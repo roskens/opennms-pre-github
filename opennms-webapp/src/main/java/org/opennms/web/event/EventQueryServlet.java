@@ -44,15 +44,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.opennms.core.utils.WebSecurityUtils;
 import org.opennms.web.api.Util;
-import org.opennms.netmgt.dao.filter.event.AfterDateFilter;
-import org.opennms.netmgt.dao.filter.event.BeforeDateFilter;
-import org.opennms.netmgt.dao.filter.event.IPAddrLikeFilter;
-import org.opennms.netmgt.dao.filter.event.LogMessageMatchesAnyFilter;
-import org.opennms.netmgt.dao.filter.event.LogMessageSubstringFilter;
-import org.opennms.netmgt.dao.filter.event.NodeNameLikeFilter;
-import org.opennms.netmgt.dao.filter.event.ServiceFilter;
-import org.opennms.netmgt.dao.filter.event.SeverityFilter;
-import org.opennms.netmgt.dao.filter.Filter;
+import org.opennms.web.element.NetworkElementFactory;
+import org.opennms.web.filter.event.AfterDateFilter;
+import org.opennms.web.filter.event.BeforeDateFilter;
+import org.opennms.web.filter.event.IPAddrLikeFilter;
+import org.opennms.web.filter.event.LogMessageMatchesAnyFilter;
+import org.opennms.web.filter.event.LogMessageSubstringFilter;
+import org.opennms.web.filter.event.NodeNameLikeFilter;
+import org.opennms.web.filter.event.ServiceFilter;
+import org.opennms.web.filter.event.SeverityFilter;
+import org.opennms.web.filter.Filter;
 import org.opennms.web.servlet.MissingParameterException;
 
 /**
@@ -132,7 +133,7 @@ public class EventQueryServlet extends HttpServlet {
         // convenient syntax for ServiceFilter
         String service = WebSecurityUtils.sanitizeString(request.getParameter("service"));
         if (service != null && !service.equalsIgnoreCase("any")) {
-            filterArray.add(new ServiceFilter(WebSecurityUtils.safeParseInt(service), this.getServletContext()));
+            filterArray.add(new ServiceFilter(WebSecurityUtils.safeParseInt(service), NetworkElementFactory.getInstance(getServletContext()).getServiceNameFromId(WebSecurityUtils.safeParseInt(service))));
         }
 
         // convenient syntax for IPLikeFilter
@@ -207,7 +208,7 @@ public class EventQueryServlet extends HttpServlet {
      * <p>getBeforeDateFilter</p>
      *
      * @param request a {@link javax.servlet.http.HttpServletRequest} object.
-     * @return a {@link org.opennms.netmgt.dao.filter.event.BeforeDateFilter} object.
+     * @return a {@link org.opennms.web.filter.event.BeforeDateFilter} object.
      */
     protected BeforeDateFilter getBeforeDateFilter(HttpServletRequest request) {
         Date beforeDate = this.getDateFromRequest(request, "before");
@@ -218,7 +219,7 @@ public class EventQueryServlet extends HttpServlet {
      * <p>getAfterDateFilter</p>
      *
      * @param request a {@link javax.servlet.http.HttpServletRequest} object.
-     * @return a {@link org.opennms.netmgt.dao.filter.event.AfterDateFilter} object.
+     * @return a {@link org.opennms.web.filter.event.AfterDateFilter} object.
      */
     protected AfterDateFilter getAfterDateFilter(HttpServletRequest request) {
         Date afterDate = this.getDateFromRequest(request, "after");

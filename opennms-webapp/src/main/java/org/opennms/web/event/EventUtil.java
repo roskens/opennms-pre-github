@@ -37,6 +37,7 @@ import javax.servlet.ServletContext;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.opennms.core.criteria.Alias;
+import org.opennms.core.criteria.Criteria;
 import org.opennms.core.utils.WebSecurityUtils;
 import org.opennms.netmgt.model.OnmsCriteria;
 import org.opennms.netmgt.model.OnmsEvent;
@@ -55,6 +56,10 @@ import org.opennms.web.filter.Filter;
  * @since 1.8.1
  */
 public abstract class EventUtil {
+
+    public static SearchParameter getSearchParameter() {
+        return getSearchParameter(new Filter[0], null, null);
+    }
 
     public static SearchParameter getSearchParameter(Filter[] filters, SortStyle sortStyle, AcknowledgeType ackType) {
         return getSearchParameter(filters, sortStyle, ackType, null, null);
@@ -242,4 +247,6 @@ public abstract class EventUtil {
 
         return filter;
     }
+
+
 }

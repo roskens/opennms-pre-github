@@ -33,19 +33,14 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
+import org.opennms.core.criteria.Criteria;
+import org.opennms.core.criteria.restrictions.Restrictions;
 import org.opennms.core.utils.BeanUtils;
 import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.core.utils.ThreadCategory;
 import org.opennms.netmgt.dao.EventDao;
-import org.opennms.netmgt.model.OnmsCriteria;
 import org.opennms.netmgt.model.OnmsEvent;
 import org.opennms.netmgt.model.OnmsSeverity;
-import org.opennms.netmgt.dao.filter.event.EventCriteria;
-import org.opennms.netmgt.dao.filter.event.EventDisplayFilter;
-import org.opennms.netmgt.dao.filter.event.EventCriteria.EventCriteriaVisitor;
-import org.opennms.netmgt.dao.filter.Filter;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -68,91 +63,6 @@ public class DaoWebEventRepository implements WebEventRepository, InitializingBe
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
-    }
-
-    private OnmsCriteria getOnmsCriteria(final EventCriteria eventCriteria){
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsEvent.class);
-        criteria.createAlias("alarm", "alarm", OnmsCriteria.LEFT_JOIN);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.createAlias("serviceType", "serviceType", OnmsCriteria.LEFT_JOIN);
-
-        criteria.add(new EventDisplayFilter("Y").getCriterion());
-
-        eventCriteria.visit(new EventCriteriaVisitor<RuntimeException>(){
-
-            @Override
-            public void visitAckType(AcknowledgeType ackType) throws RuntimeException {
-                if(ackType == AcknowledgeType.ACKNOWLEDGED){
-                    criteria.add(Restrictions.isNotNull("eventAckUser"));
-                }else if(ackType == AcknowledgeType.UNACKNOWLEDGED){
-                    criteria.add(Restrictions.isNull("eventAckUser"));
-                }
-            }
-
-            @Override
-            public void visitFilter(Filter filter) throws RuntimeException {
-                criteria.add(filter.getCriterion());
-            }
-
-            @Override
-            public void visitLimit(int limit, int offset) throws RuntimeException {
-                criteria.setMaxResults(limit);
-                criteria.setFirstResult(offset);
-
-            }
-
-            @Override
-            public void visitSortStyle(SortStyle sortStyle) throws RuntimeException {
-                switch(sortStyle){
-                case ID:
-                    criteria.addOrder(Order.desc("id"));
-                     break;
-                case INTERFACE:
-                    criteria.addOrder(Order.desc("ipAddr"));
-                    break;
-                case NODE:
-                    criteria.addOrder(Order.desc("node.label"));
-                    break;
-                case POLLER:
-                    criteria.addOrder(Order.desc("distPoller"));
-                    break;
-                case SERVICE:
-                    criteria.addOrder(Order.desc("serviceType.name"));
-                    break;
-                case SEVERITY:
-                    criteria.addOrder(Order.desc("eventSeverity"));
-                    break;
-                case TIME:
-                    criteria.addOrder(Order.desc("eventTime"));
-                    break;
-                case REVERSE_ID:
-                    criteria.addOrder(Order.asc("id"));
-                    break;
-                case REVERSE_INTERFACE:
-                    criteria.addOrder(Order.asc("ipAddr"));
-                    break;
-                case REVERSE_NODE:
-                    criteria.addOrder(Order.asc("node.label"));
-                    break;
-                case REVERSE_POLLER:
-                    criteria.addOrder(Order.asc("distPoller"));
-                    break;
-                case REVERSE_SERVICE:
-                    criteria.addOrder(Order.desc("serviceType.name"));
-                    break;
-                case REVERSE_SEVERITY:
-                    criteria.addOrder(Order.asc("eventSeverity"));
-                    break;
-                case REVERSE_TIME:
-                    criteria.addOrder(Order.asc("eventTime"));
-                    break;
-
-                }
-            }
-
-        });
-
-        return criteria;
     }
 
     private Event mapOnmsEventToEvent(OnmsEvent onmsEvent){
@@ -221,14 +131,14 @@ public class DaoWebEventRepository implements WebEventRepository, InitializingBe
     @Transactional
     @Override
     public void acknowledgeAll(String user, Date timestamp) {
-        acknowledgeMatchingEvents(user, timestamp, new EventCriteria());
+        acknowledgeMatchingEvents(user, timestamp, EventUtil.getSearchParameter().toCriteria());
     }
     
     /** {@inheritDoc} */
     @Transactional
     @Override
-    public void acknowledgeMatchingEvents(String user, Date timestamp, EventCriteria criteria) {
-        List<OnmsEvent> events = m_eventDao.findMatching(getOnmsCriteria(criteria));
+    public void acknowledgeMatchingEvents(String user, Date timestamp, Criteria criteria) {
+        List<OnmsEvent> events = m_eventDao.findMatching(criteria);
         
         Iterator<OnmsEvent> eventsIt = events.iterator();
         while(eventsIt.hasNext()){
@@ -242,24 +152,24 @@ public class DaoWebEventRepository implements WebEventRepository, InitializingBe
     /** {@inheritDoc} */
     @Transactional
     @Override
-    public int countMatchingEvents(EventCriteria criteria) {
-        return m_eventDao.countMatching(getOnmsCriteria(criteria));
+    public int countMatchingEvents(Criteria criteria) {
+        return m_eventDao.countMatching(criteria);
     }
     
     /** {@inheritDoc} */
     @Transactional
     @Override
-    public int[] countMatchingEventsBySeverity(EventCriteria criteria) {
+    public int[] countMatchingEventsBySeverity(Criteria criteria) {
         //OnmsCriteria crit = getOnmsCriteria(criteria).setProjection(Projections.groupProperty("severityId"));
-        
+
         int[] eventCounts = new int[8];
-        eventCounts[OnmsSeverity.CLEARED.getId()] = m_eventDao.countMatching(getOnmsCriteria(criteria).add(Restrictions.eq("eventSeverity", OnmsSeverity.CLEARED.getId())));
-        eventCounts[OnmsSeverity.CRITICAL.getId()] = m_eventDao.countMatching(getOnmsCriteria(criteria).add(Restrictions.eq("eventSeverity", OnmsSeverity.CRITICAL.getId())));
-        eventCounts[OnmsSeverity.INDETERMINATE.getId()] = m_eventDao.countMatching(getOnmsCriteria(criteria).add(Restrictions.eq("eventSeverity", OnmsSeverity.INDETERMINATE.getId())));
-        eventCounts[OnmsSeverity.MAJOR.getId()] = m_eventDao.countMatching(getOnmsCriteria(criteria).add(Restrictions.eq("eventSeverity", OnmsSeverity.MAJOR.getId())));
-        eventCounts[OnmsSeverity.MINOR.getId()] = m_eventDao.countMatching(getOnmsCriteria(criteria).add(Restrictions.eq("eventSeverity", OnmsSeverity.MINOR.getId())));
-        eventCounts[OnmsSeverity.NORMAL.getId()] = m_eventDao.countMatching(getOnmsCriteria(criteria).add(Restrictions.eq("eventSeverity", OnmsSeverity.NORMAL.getId())));
-        eventCounts[OnmsSeverity.WARNING.getId()] = m_eventDao.countMatching(getOnmsCriteria(criteria).add(Restrictions.eq("eventSeverity", OnmsSeverity.WARNING.getId())));
+        eventCounts[OnmsSeverity.CLEARED.getId()] = m_eventDao.countMatching(criteria.addRestriction(Restrictions.eq("eventSeverity", OnmsSeverity.CLEARED.getId())));
+        eventCounts[OnmsSeverity.CRITICAL.getId()] = m_eventDao.countMatching(criteria.addRestriction(Restrictions.eq("eventSeverity", OnmsSeverity.CRITICAL.getId())));
+        eventCounts[OnmsSeverity.INDETERMINATE.getId()] = m_eventDao.countMatching(criteria.addRestriction(Restrictions.eq("eventSeverity", OnmsSeverity.INDETERMINATE.getId())));
+        eventCounts[OnmsSeverity.MAJOR.getId()] = m_eventDao.countMatching(criteria.addRestriction(Restrictions.eq("eventSeverity", OnmsSeverity.MAJOR.getId())));
+        eventCounts[OnmsSeverity.MINOR.getId()] = m_eventDao.countMatching(criteria.addRestriction(Restrictions.eq("eventSeverity", OnmsSeverity.MINOR.getId())));
+        eventCounts[OnmsSeverity.NORMAL.getId()] = m_eventDao.countMatching(criteria.addRestriction(Restrictions.eq("eventSeverity", OnmsSeverity.NORMAL.getId())));
+        eventCounts[OnmsSeverity.WARNING.getId()] = m_eventDao.countMatching(criteria.addRestriction(Restrictions.eq("eventSeverity", OnmsSeverity.WARNING.getId())));
         return eventCounts;
     }
     
@@ -273,10 +183,10 @@ public class DaoWebEventRepository implements WebEventRepository, InitializingBe
     /** {@inheritDoc} */
     @Transactional
     @Override
-    public Event[] getMatchingEvents(EventCriteria criteria) {
+    public Event[] getMatchingEvents(Criteria criteria) {
         List<Event> events = new ArrayList<Event>();
         log().debug("getMatchingEvents: try to get events for Criteria: " + criteria.toString());
-        List<OnmsEvent> onmsEvents = m_eventDao.findMatching(getOnmsCriteria(criteria));
+        List<OnmsEvent> onmsEvents = m_eventDao.findMatching(criteria);
 
         log().debug("getMatchingEvents: found " + onmsEvents.size() + " events");
 
@@ -297,14 +207,14 @@ public class DaoWebEventRepository implements WebEventRepository, InitializingBe
     @Transactional
     @Override
     public void unacknowledgeAll() {
-        unacknowledgeMatchingEvents(new EventCriteria());
+        unacknowledgeMatchingEvents(EventUtil.getSearchParameter().toCriteria());
     }
     
     /** {@inheritDoc} */
     @Transactional
     @Override
-    public void unacknowledgeMatchingEvents(EventCriteria criteria) {
-        List<OnmsEvent> events = m_eventDao.findMatching(getOnmsCriteria(criteria));
+    public void unacknowledgeMatchingEvents(Criteria criteria) {
+        List<OnmsEvent> events = m_eventDao.findMatching(criteria);
         
         for(OnmsEvent event : events) {
             event.setEventAckUser(null);

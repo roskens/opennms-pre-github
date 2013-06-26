@@ -41,8 +41,9 @@ import javax.servlet.ServletContext;
 import org.opennms.core.resource.Vault;
 import org.opennms.core.utils.ThreadCategory;
 import org.opennms.web.element.NetworkElementFactory;
-import org.opennms.netmgt.dao.filter.Filter;
-import org.opennms.netmgt.dao.filter.notification.NodeFilter;
+import org.opennms.web.filter.Filter;
+import org.opennms.web.filter.outage.NodeFilter;
+import org.opennms.web.filter.Filter;
 
 /**
  * Encapsulates all querying functionality for notices

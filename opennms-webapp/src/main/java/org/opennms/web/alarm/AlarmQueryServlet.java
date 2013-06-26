@@ -44,24 +44,25 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.opennms.core.utils.WebSecurityUtils;
 import org.opennms.netmgt.model.OnmsSeverity;
-import org.opennms.netmgt.dao.filter.alarm.AfterFirstEventTimeFilter;
-import org.opennms.netmgt.dao.filter.alarm.AfterLastEventTimeFilter;
-import org.opennms.netmgt.dao.filter.alarm.BeforeFirstEventTimeFilter;
-import org.opennms.netmgt.dao.filter.alarm.BeforeLastEventTimeFilter;
-import org.opennms.netmgt.dao.filter.alarm.IPAddrLikeFilter;
-import org.opennms.netmgt.dao.filter.alarm.LogMessageMatchesAnyFilter;
-import org.opennms.netmgt.dao.filter.alarm.LogMessageSubstringFilter;
-import org.opennms.netmgt.dao.filter.alarm.NodeNameLikeFilter;
-import org.opennms.netmgt.dao.filter.alarm.ServiceFilter;
-import org.opennms.netmgt.dao.filter.alarm.SeverityFilter;
+import org.opennms.web.element.NetworkElementFactory;
+import org.opennms.web.filter.alarm.AfterFirstEventTimeFilter;
+import org.opennms.web.filter.alarm.AfterLastEventTimeFilter;
+import org.opennms.web.filter.alarm.BeforeFirstEventTimeFilter;
+import org.opennms.web.filter.alarm.BeforeLastEventTimeFilter;
+import org.opennms.web.filter.alarm.IPAddrLikeFilter;
+import org.opennms.web.filter.alarm.LogMessageMatchesAnyFilter;
+import org.opennms.web.filter.alarm.LogMessageSubstringFilter;
+import org.opennms.web.filter.alarm.NodeNameLikeFilter;
+import org.opennms.web.filter.alarm.ServiceFilter;
+import org.opennms.web.filter.alarm.SeverityFilter;
 import org.opennms.web.api.Util;
-import org.opennms.netmgt.dao.filter.Filter;
+import org.opennms.web.filter.Filter;
 import org.opennms.web.servlet.MissingParameterException;
 
 /**
  * This servlet takes a large and specific request parameter set and maps it to
  * the more robust "filter" parameter set of the
- * {@link AlarmFilterController AlarmFilterController}via a redirect.
+ * {@link org.opennms.web.controller.alarm.AlarmFilterController AlarmFilterController}via a redirect.
  *
  * @author <A HREF="mailto:larry@opennms.org">Lawrence Karnowski </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
@@ -76,12 +77,12 @@ public class AlarmQueryServlet extends HttpServlet {
 
     /**
      * The list of parameters that are extracted by this servlet and not passed
-     * on to the {@link AlarmFilterController AlarmFilterController}.
+     * on to the {@link org.opennms.web.controller.alarm.AlarmFilterController AlarmFilterController}.
      */
     protected static String[] IGNORE_LIST = new String[] { "msgsub", "msgmatchany", "nodenamelike", "service", "iplike", "severity", "relativetime", "usebeforetime", "beforehour", "beforeminute", "beforeampm", "beforedate", "beforemonth", "beforeyear", "useaftertime", "afterhour", "afterminute", "afterampm", "afterdate", "aftermonth", "afteryear" };
 
     /**
-     * The URL for the {@link AlarmFilterController AlarmFilterController}. The
+     * The URL for the {@link org.opennms.web.controller.alarm.AlarmFilterController AlarmFilterController}. The
      * default is "list." This URL is a sibling URL, so it is relative to the
      * URL directory that was used to call this servlet (usually "alarm/").
      */
@@ -106,7 +107,7 @@ public class AlarmQueryServlet extends HttpServlet {
      *
      * Extracts the key parameters from the parameter set, translates them into
      * filter-based parameters, and then passes the modified parameter set to
-     * the {@link AlarmFilterController AlarmFilterController}.
+     * the {@link org.opennms.web.controller.alarm.AlarmFilterController AlarmFilterController}.
      */
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -133,7 +134,7 @@ public class AlarmQueryServlet extends HttpServlet {
         // convenient syntax for ServiceFilter
         String service = request.getParameter("service");
         if (service != null && !service.equals(AlarmUtil.ANY_SERVICES_OPTION)) {
-            filterArray.add(new ServiceFilter(WebSecurityUtils.safeParseInt(service)));
+            filterArray.add(new ServiceFilter(WebSecurityUtils.safeParseInt(service), NetworkElementFactory.getInstance(getServletContext()).getServiceNameFromId(WebSecurityUtils.safeParseInt(service))));
         }
 
         // convenient syntax for IPLikeFilter
@@ -232,7 +233,7 @@ public class AlarmQueryServlet extends HttpServlet {
      * <p>getBeforeFirstEventTimeFilter</p>
      *
      * @param request a {@link javax.servlet.http.HttpServletRequest} object.
-     * @return a {@link org.opennms.netmgt.dao.filter.alarm.BeforeFirstEventTimeFilter} object.
+     * @return a {@link org.opennms.web.filter.alarm.BeforeFirstEventTimeFilter} object.
      */
     protected BeforeFirstEventTimeFilter getBeforeFirstEventTimeFilter(HttpServletRequest request) {
         Date beforeFirstEventDate = this.getDateFromRequest(request, "beforefirsteventtime");
@@ -243,7 +244,7 @@ public class AlarmQueryServlet extends HttpServlet {
      * <p>getAfterFirstEventTimeFilter</p>
      *
      * @param request a {@link javax.servlet.http.HttpServletRequest} object.
-     * @return a {@link org.opennms.netmgt.dao.filter.alarm.AfterFirstEventTimeFilter} object.
+     * @return a {@link org.opennms.web.filter.alarm.AfterFirstEventTimeFilter} object.
      */
     protected AfterFirstEventTimeFilter getAfterFirstEventTimeFilter(HttpServletRequest request) {
         Date afterFirstEventDate = this.getDateFromRequest(request, "afterfirsteventtime");
@@ -254,7 +255,7 @@ public class AlarmQueryServlet extends HttpServlet {
      * <p>getBeforeLastEventTimeFilter</p>
      *
      * @param request a {@link javax.servlet.http.HttpServletRequest} object.
-     * @return a {@link org.opennms.netmgt.dao.filter.alarm.BeforeLastEventTimeFilter} object.
+     * @return a {@link org.opennms.web.filter.alarm.BeforeLastEventTimeFilter} object.
      */
     protected BeforeLastEventTimeFilter getBeforeLastEventTimeFilter(HttpServletRequest request) {
         Date beforeLastEventDate = this.getDateFromRequest(request, "beforelasteventtime");
@@ -265,7 +266,7 @@ public class AlarmQueryServlet extends HttpServlet {
      * <p>getAfterLastEventTimeFilter</p>
      *
      * @param request a {@link javax.servlet.http.HttpServletRequest} object.
-     * @return a {@link org.opennms.netmgt.dao.filter.alarm.AfterLastEventTimeFilter} object.
+     * @return a {@link org.opennms.web.filter.alarm.AfterLastEventTimeFilter} object.
      */
     protected AfterLastEventTimeFilter getAfterLastEventTimeFilter(HttpServletRequest request) {
         Date afterLastEventDate = this.getDateFromRequest(request, "afterlasteventtime");

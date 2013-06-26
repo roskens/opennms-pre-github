@@ -170,8 +170,9 @@ public class Criteria implements Cloneable {
         m_restrictions.addAll(restrictions);
     }
 
-    public void addRestriction(final Restriction restriction) {
+    public Criteria addRestriction(final Restriction restriction) {
         m_restrictions.add(restriction);
+        return this;
     }
 
     public boolean isDistinct() {

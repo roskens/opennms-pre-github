@@ -28,25 +28,21 @@
 
 package org.opennms.web.notification;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import org.hibernate.criterion.Restrictions;
+import org.opennms.core.criteria.Criteria;
 import org.opennms.core.utils.BeanUtils;
 import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.netmgt.dao.AcknowledgmentDao;
 import org.opennms.netmgt.dao.NotificationDao;
 import org.opennms.netmgt.model.AckAction;
 import org.opennms.netmgt.model.OnmsAcknowledgment;
-import org.opennms.netmgt.model.OnmsCriteria;
 import org.opennms.netmgt.model.OnmsNotification;
-import org.opennms.netmgt.dao.filter.Filter;
-import org.opennms.netmgt.dao.filter.notification.NotificationCriteria;
-import org.opennms.netmgt.dao.filter.notification.NotificationCriteria.NotificationCriteriaVisitor;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * <p>DaoWebNotificationRepository class.</p>
@@ -93,8 +89,8 @@ public class DaoWebNotificationRepository implements WebNotificationRepository, 
     /** {@inheritDoc} */
     @Transactional
     @Override
-    public void acknowledgeMatchingNotification(String user, Date timestamp, NotificationCriteria criteria) {
-        List<OnmsNotification> notifs = m_notificationDao.findMatching(getOnmsCriteria(criteria));
+    public void acknowledgeMatchingNotification(String user, Date timestamp, Criteria criteria) {
+        List<OnmsNotification> notifs = m_notificationDao.findMatching(criteria);
         
         for (OnmsNotification notif : notifs) {
             
@@ -108,16 +104,16 @@ public class DaoWebNotificationRepository implements WebNotificationRepository, 
     /** {@inheritDoc} */
     @Transactional
     @Override
-    public int countMatchingNotifications(NotificationCriteria criteria) {
-        return queryForInt(getOnmsCriteria(criteria));
+    public int countMatchingNotifications(Criteria criteria) {
+        return queryForInt(criteria);
     }
 
     /** {@inheritDoc} */
     @Transactional
     @Override
-    public Notification[] getMatchingNotifications(NotificationCriteria criteria) {
+    public Notification[] getMatchingNotifications(Criteria criteria) {
         List<Notification> notifications = new ArrayList<Notification>();
-        List<OnmsNotification> onmsNotifs = m_notificationDao.findMatching(getOnmsCriteria(criteria));
+        List<OnmsNotification> onmsNotifs = m_notificationDao.findMatching(criteria);
 
         for (OnmsNotification notif : onmsNotifs) {
             notifications.add(mapOnmsNotificationToNotification(notif));
@@ -133,7 +129,7 @@ public class DaoWebNotificationRepository implements WebNotificationRepository, 
         return mapOnmsNotificationToNotification(m_notificationDao.get(noticeId));
     }
     
-    private int queryForInt(OnmsCriteria onmsCriteria) {
+    private int queryForInt(Criteria onmsCriteria) {
         return m_notificationDao.countMatching(onmsCriteria);
     }
 
