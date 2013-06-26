@@ -28,15 +28,12 @@
 
 package org.opennms.netmgt.dao.hibernate;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.opennms.netmgt.dao.AlarmDao;
 import org.opennms.netmgt.model.OnmsAlarm;
 import org.opennms.netmgt.model.OnmsSeverity;
 import org.opennms.netmgt.model.alarm.AlarmSummary;
-import org.springframework.util.Assert;
 
 /**
  * <p>AlarmDaoHibernate class.</p>
@@ -69,7 +66,7 @@ public class AlarmDaoHibernate extends AbstractDaoHibernate<OnmsAlarm, Integer> 
         sql.append("WHERE node.id IS NOT NULL AND alarm.alarmAckTime IS NULL AND alarm.severity > 3 ");
 
         // optional
-        if (nodeIds != null) {
+        if (nodeIds != null && nodeIds.length > 0) {
             if (nodeIds.length == 1) {
                 sql.append("AND node.id = " + nodeIds[0] + " ");
             } else {
@@ -78,7 +75,7 @@ public class AlarmDaoHibernate extends AbstractDaoHibernate<OnmsAlarm, Integer> 
                     sql.append(nodeIds[i]);
                     if (i < nodeIds.length -1) sql.append(",");
                 }
-                sql.append(")");
+                sql.append(") ");
             }
         }
         sql.append("GROUP BY node.id, node.label ");
