@@ -30,8 +30,8 @@ package org.opennms.web.alarm;
 
 import java.util.List;
 
-import org.opennms.netmgt.dao.AlarmDao;
-import org.opennms.netmgt.dao.filter.Filter;
+import org.opennms.web.filter.Filter;
+import org.opennms.web.filter.alarm.SortStyle;
 
 /**
  * Convenience data structure for holding the arguments to an event query.
@@ -44,7 +44,7 @@ import org.opennms.netmgt.dao.filter.Filter;
  * @since 1.8.1
  */
 public class AlarmQueryParms extends Object {
-    public AlarmDao.SortStyle sortStyle;
+    public SortStyle sortStyle;
 
     public AcknowledgeType ackType;
 

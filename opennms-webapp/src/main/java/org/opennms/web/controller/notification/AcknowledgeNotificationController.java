@@ -36,11 +36,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.opennms.core.utils.WebSecurityUtils;
-import org.opennms.netmgt.dao.filter.Filter;
+import org.opennms.web.filter.SearchParameter;
+import org.opennms.web.filter.notification.NotificationIdListFilter;
 import org.opennms.web.notification.Notification;
 import org.opennms.web.notification.WebNotificationRepository;
-import org.opennms.netmgt.dao.filter.notification.NotificationCriteria;
-import org.opennms.netmgt.dao.filter.notification.NotificationIdListFilter;
 import org.opennms.web.servlet.MissingParameterException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
@@ -114,12 +113,11 @@ public class AcknowledgeNotificationController extends AbstractController implem
         for (String noticeIdString : noticeIdStrings) {
             noticeIds.add(WebSecurityUtils.safeParseInt(noticeIdString));
         }
-        List<Filter> filters = new ArrayList<Filter>();
-        filters.add(new NotificationIdListFilter(noticeIds.toArray(new Integer[0])));
-        NotificationCriteria criteria = new NotificationCriteria(filters.toArray(new Filter[0]));
-        m_webNotificationRepository.acknowledgeMatchingNotification(currentUser, new Date(), criteria);
+        SearchParameter searchParameter = new SearchParameter(Notification.class)
+            .addFilter(new NotificationIdListFilter(noticeIds.toArray(new Integer[noticeIds.size()])));
+        m_webNotificationRepository.acknowledgeMatchingNotification(currentUser, new Date(), searchParameter.toCriteria());
 
-        Notification[] notices = m_webNotificationRepository.getMatchingNotifications(criteria);
+        Notification[] notices = m_webNotificationRepository.getMatchingNotifications(searchParameter.toCriteria());
         request.setAttribute("notices", notices);
 
         String redirectParms = request.getParameter("redirectParms");

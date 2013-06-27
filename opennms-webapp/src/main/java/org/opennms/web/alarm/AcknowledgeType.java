@@ -35,9 +35,9 @@ import org.opennms.netmgt.dao.AlarmDao;
 import org.springframework.util.Assert;
 
 public enum AcknowledgeType {
-    ACKNOWLEDGED("ack", AlarmDao.AcknowledgeFlag.acknowledge),
-    UNACKNOWLEDGED("unack", AlarmDao.AcknowledgeFlag.unacknowlege),
-    BOTH("both", AlarmDao.AcknowledgeFlag.both);
+    ACKNOWLEDGED("ack"),
+    UNACKNOWLEDGED("unack"),
+    BOTH("both");
 
     /** Constant <code>s_ackTypesString</code> */
     private static final Map<String, AcknowledgeType> s_ackTypesString;
@@ -49,17 +49,10 @@ public enum AcknowledgeType {
         }
     }
 
-    private final AlarmDao.AcknowledgeFlag m_flag;
-
     private String m_shortName;
 
-    private AcknowledgeType(String shortName, AlarmDao.AcknowledgeFlag flag) {
+    private AcknowledgeType(String shortName) {
         m_shortName = shortName;
-        m_flag = flag;
-    }
-
-    public AlarmDao.AcknowledgeFlag toFlag() {
-        return m_flag;
     }
 
     @Override

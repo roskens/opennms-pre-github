@@ -33,7 +33,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.commons.lang.ArrayUtils;
+import org.opennms.core.criteria.Criteria;
 import org.opennms.core.criteria.CriteriaBuilder;
 import org.opennms.core.utils.BeanUtils;
 import org.opennms.netmgt.dao.AcknowledgmentDao;
@@ -75,7 +75,7 @@ public class AlarmRepositoryHibernate implements AlarmRepository, InitializingBe
     @Transactional
     @Override
     public void acknowledgeAll(String user, Date timestamp) {
-        acknowledgeMatchingAlarms(user, timestamp, new OnmsCriteria(OnmsAlarm.class));
+        acknowledgeMatchingAlarms(user, timestamp, new Criteria(OnmsAlarm.class));
     }
 
     @Transactional
@@ -105,9 +105,8 @@ public class AlarmRepositoryHibernate implements AlarmRepository, InitializingBe
      */
     @Transactional
     @Override
-    public void acknowledgeMatchingAlarms(String user, Date timestamp, OnmsCriteria criteria) {
+    public void acknowledgeMatchingAlarms(String user, Date timestamp, Criteria criteria) {
         List<OnmsAlarm> alarms = m_alarmDao.findMatching(criteria);
-
         updateAndAcknowledgmentAlarms(user, timestamp, alarms, AckAction.ACKNOWLEDGE);
     }
 
@@ -118,7 +117,6 @@ public class AlarmRepositoryHibernate implements AlarmRepository, InitializingBe
     @Override
     public void clearAlarms(int[] alarmIds, String user, Date timestamp) {
         List<OnmsAlarm> onmsAlarmList = m_alarmDao.findById(alarmIds);
-
         updateAndAcknowledgmentAlarms(user, timestamp, onmsAlarmList, AckAction.CLEAR);
     }
 
@@ -167,7 +165,7 @@ public class AlarmRepositoryHibernate implements AlarmRepository, InitializingBe
     @Transactional
     @Override
     public void unacknowledgeAll(String user) {
-        unacknowledgeMatchingAlarms(new OnmsCriteria(OnmsAlarm.class), user);
+        unacknowledgeMatchingAlarms(new Criteria(OnmsAlarm.class), user);
     }
 
     /**
@@ -175,7 +173,7 @@ public class AlarmRepositoryHibernate implements AlarmRepository, InitializingBe
      */
     @Transactional
     @Override
-    public void unacknowledgeMatchingAlarms(OnmsCriteria criteria, String user) {
+    public void unacknowledgeMatchingAlarms(Criteria criteria, String user) {
         List<OnmsAlarm> alarms = m_alarmDao.findMatching(criteria);
 
         unacknowledgeAlarms(alarms, user);
@@ -293,4 +291,13 @@ public class AlarmRepositoryHibernate implements AlarmRepository, InitializingBe
         return m_alarmDao.getNodeAlarmSummaries();
     }
 
+    @Override
+    public int countMatchingAlarms(Criteria criteria) {
+        return m_alarmDao.countMatching(criteria);
+    }
+
+    @Override
+    public List<OnmsAlarm> findMatchingAlarms(Criteria criteria) {
+        return m_alarmDao.findMatching(criteria);
+    }
 }

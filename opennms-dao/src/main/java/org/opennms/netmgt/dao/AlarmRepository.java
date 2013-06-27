@@ -31,6 +31,8 @@ package org.opennms.netmgt.dao;
 import java.util.Date;
 import java.util.List;
 
+import org.opennms.core.criteria.Criteria;
+import org.opennms.core.criteria.CriteriaBuilder;
 import org.opennms.netmgt.model.OnmsAcknowledgment;
 import org.opennms.netmgt.model.OnmsAlarm;
 import org.opennms.netmgt.model.OnmsCriteria;
@@ -73,7 +75,7 @@ public interface AlarmRepository {
      * @param criteria the criteria
      */
     public abstract void acknowledgeMatchingAlarms(String user,
-            Date timestamp, OnmsCriteria criteria);
+            Date timestamp, Criteria criteria);
 
     /**
      * Acknowledge Alarms.
@@ -98,7 +100,7 @@ public interface AlarmRepository {
      * @param criteria the criteria
      * @param user the user
      */
-    public abstract void unacknowledgeMatchingAlarms(OnmsCriteria criteria, String user);
+    public abstract void unacknowledgeMatchingAlarms(Criteria criteria, String user);
 
     /**
      * Unacknowledge Alarms
@@ -179,4 +181,7 @@ public interface AlarmRepository {
      */
     public abstract List<AlarmSummary> getCurrentNodeAlarmSummaries();
 
+    int countMatchingAlarms(Criteria criteria);
+
+    List<OnmsAlarm> findMatchingAlarms(Criteria criteria);
 }
