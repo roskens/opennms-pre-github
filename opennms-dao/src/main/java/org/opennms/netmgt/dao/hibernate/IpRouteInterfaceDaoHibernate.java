@@ -147,7 +147,7 @@ public class IpRouteInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsIpRou
     @Override
     public OnmsIpRouteInterface findByNodeAndDest(int nodeId, String routeDest) {
         return (OnmsIpRouteInterface) getJpaTemplate().getEntityManager()
-                .createQuery("from OnmsIpRouteInterface left join node where node.id = :nodeId and routeDest : routeDest")
+                .createQuery("from OnmsIpRouteInterface left join node where node.id = :nodeId and routeDest :routeDest")
                 .setParameter("nodeId", nodeId)
                 .setParameter("routeDest", routeDest)
                 .setMaxResults(1)
@@ -163,6 +163,15 @@ public class IpRouteInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsIpRou
 //            return objects.get(0);
 //        }
 //        return null;
+    }
+
+    @Override
+    public List<OnmsIpRouteInterface> findByNode(int nodeID) {
+        return getJpaTemplate().getEntityManager()
+                .createQuery("from OnmsIpRouteInterface left join node where node.id = :nodeId and status not :status")
+                .setParameter("nodeId", nodeID)
+                .setParameter("status", StatusType.DELETED)
+                .getResultList();
     }
 
 }

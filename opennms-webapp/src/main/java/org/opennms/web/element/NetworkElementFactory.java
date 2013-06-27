@@ -32,7 +32,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -42,12 +41,10 @@ import java.util.TreeSet;
 import javax.persistence.NoResultException;
 import javax.servlet.ServletContext;
 
-import org.hibernate.Criteria;
-import org.hibernate.FetchMode;
-import org.hibernate.criterion.MatchMode;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
-
+import org.opennms.core.criteria.CriteriaBuilder;
+import org.opennms.core.criteria.restrictions.Restriction;
+import org.opennms.core.criteria.restrictions.RestrictionVisitor;
+import org.opennms.core.criteria.restrictions.Restrictions;
 import org.opennms.core.utils.BeanUtils;
 import org.opennms.core.utils.InetAddressComparator;
 import org.opennms.core.utils.InetAddressUtils;
@@ -67,7 +64,6 @@ import org.opennms.netmgt.dao.VlanDao;
 import org.opennms.netmgt.model.DataLinkInterface;
 import org.opennms.netmgt.model.OnmsArpInterface;
 import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
-import org.opennms.netmgt.model.OnmsCategory;
 import org.opennms.netmgt.model.OnmsCriteria;
 import org.opennms.netmgt.model.OnmsIpInterface;
 import org.opennms.netmgt.model.OnmsIpRouteInterface;
@@ -81,16 +77,11 @@ import org.opennms.netmgt.model.OnmsStpNode;
 import org.opennms.netmgt.model.OnmsVlan;
 import org.opennms.netmgt.model.PrimaryType;
 
-import org.opennms.web.svclayer.AggregateStatus;
-
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.support.TransactionCallback;
-import org.springframework.transaction.support.TransactionTemplate;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
@@ -190,12 +181,14 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
 	 */
     @Override
     public String getIpPrimaryAddress(int nodeId) {
-        OnmsCriteria criteria = new OnmsCriteria(OnmsIpInterface.class);
-        criteria.add(Restrictions.and(
+
+        CriteriaBuilder criteriaBuilder = new CriteriaBuilder(OnmsIpInterface.class);
+        criteriaBuilder.join("node","node");
+        criteriaBuilder.and(
                 Restrictions.eq("node.id", nodeId),
-                Restrictions.eq("isSnmpPrimary", PrimaryType.PRIMARY)));
+                Restrictions.ne("isSnmpPrimary", PrimaryType.PRIMARY));
         
-        List<OnmsIpInterface> ifaces = m_ipInterfaceDao.findMatching(criteria);
+        List<OnmsIpInterface> ifaces = m_ipInterfaceDao.findMatching(criteriaBuilder.toCriteria());
         
         if(ifaces.size() > 0) {
             OnmsIpInterface iface = ifaces.get(0);
@@ -224,8 +217,12 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
     @Override
     public List<OnmsNode> getAllNodes() {
         OnmsCriteria criteria =  new OnmsCriteria(OnmsNode.class);
-        criteria.add(Restrictions.or(Restrictions.isNull("type"), Restrictions.ne("type", "D")));
-        criteria.addOrder(Order.asc("label"));
+
+        CriteriaBuilder criteriaBuilder = new CriteriaBuilder(OnmsNode.class);
+        criteriaBuilder.or(
+                Restrictions.isNull("type"),
+                Restrictions.ne("type", "D"));
+        criteriaBuilder.orderBy("label").asc();
         
         return m_nodeDao.findMatching(criteria);
     }
@@ -245,7 +242,7 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
         nodeCrit.add(Restrictions.ne("type", "D"));
         nodeCrit.addOrder(Order.asc("label"));
         nodeCrit.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-        
+
         
         return m_nodeDao.findMatching(nodeCrit);
     }
@@ -271,11 +268,11 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
 	 */
     @Override
     public Interface getInterface(int ipInterfaceId) {
-        OnmsCriteria criteria = new OnmsCriteria(OnmsIpInterface.class);
-        criteria.add(Restrictions.eq("id", ipInterfaceId));
-        criteria.setFetchMode("snmpInterface", FetchMode.JOIN);
+        CriteriaBuilder criteriaBuilder = new CriteriaBuilder(OnmsIpInterface.class);
+        criteriaBuilder.eq("id", ipInterfaceId);
+        criteriaBuilder.fetch("snmpInterface");
         
-        List<OnmsIpInterface> ifaces = m_ipInterfaceDao.findMatching(criteria);
+        List<OnmsIpInterface> ifaces = m_ipInterfaceDao.findMatching(criteriaBuilder.toCriteria());
         
         if(ifaces.size() > 0) {
             return new Interface(ifaces.get(0));
@@ -289,13 +286,14 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
 	 */
     @Override
     public Interface getInterface(int nodeId, String ipAddress) {
-        OnmsCriteria criteria = new OnmsCriteria(OnmsIpInterface.class);
-        criteria.createAlias("node", "node");
-        criteria.add(Restrictions.eq("node.id", nodeId));
-        criteria.add(Restrictions.eq("ipAddress", InetAddressUtils.addr(ipAddress)));
-        criteria.setFetchMode("snmpInterface", FetchMode.JOIN);
-        
-        List<OnmsIpInterface> ifaces = m_ipInterfaceDao.findMatching(criteria);
+
+        CriteriaBuilder criteriaBuilder = new CriteriaBuilder(OnmsIpInterface.class);
+        criteriaBuilder.join("node", "node");
+        criteriaBuilder.eq("node.id", nodeId);
+        criteriaBuilder.eq("ipAddress", InetAddressUtils.addr(ipAddress));
+        criteriaBuilder.fetch("snmpInterface");
+
+        List<OnmsIpInterface> ifaces = m_ipInterfaceDao.findMatching(criteriaBuilder.toCriteria());
         return ifaces.size() > 0 ? new Interface(ifaces.get(0)) : null;
     }
 
@@ -313,11 +311,12 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
 	 */
     @Override
     public Interface[] getInterfacesWithIpAddress(String ipAddress) {
-        OnmsCriteria criteria = new OnmsCriteria(OnmsIpInterface.class);
-        criteria.createAlias("snmpInterface", "snmpInterface", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("ipAddress", InetAddressUtils.addr(ipAddress)));
 
-        return getInterfaceArray(m_ipInterfaceDao.findMatching(criteria));
+        CriteriaBuilder criteriaBuilder = new CriteriaBuilder(OnmsIpInterface.class);
+        criteriaBuilder.eq("ipAddress", InetAddressUtils.addr(ipAddress));
+        criteriaBuilder.fetch("snmpInterface");
+
+        return getInterfaceArray(m_ipInterfaceDao.findMatching(criteriaBuilder.toCriteria()));
     }
 
     /* (non-Javadoc)
@@ -325,12 +324,13 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
 	 */
     @Override
     public Interface[] getActiveInterfacesOnNode(int nodeId) {
-        OnmsCriteria criteria = new OnmsCriteria(OnmsIpInterface.class);
-        criteria.createAlias("node", "node");
-        criteria.add(Restrictions.eq("node.id", nodeId));
-        criteria.add(Restrictions.ne("isManaged", "D"));
 
-        return getInterfaceArray(m_ipInterfaceDao.findMatching(criteria));
+        CriteriaBuilder criteriaBuilder = new CriteriaBuilder(OnmsIpInterface.class);
+        criteriaBuilder.alias("node", "node");
+        criteriaBuilder.eq("node.id", nodeId);
+        criteriaBuilder.ne("isManaged", "D");
+
+        return getInterfaceArray(m_ipInterfaceDao.findMatching(criteriaBuilder.toCriteria()));
     }
 
     /*
@@ -346,12 +346,13 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
 	 */
     @Override
     public Interface[] getAllInterfaces(boolean includeSnmp) {
-        OnmsCriteria criteria = new OnmsCriteria(OnmsIpInterface.class);
-        criteria.createAlias("snmpInterface", "snmpInterface", OnmsCriteria.LEFT_JOIN);
+        CriteriaBuilder criteriaBuilder = new CriteriaBuilder(OnmsIpInterface.class);
+        criteriaBuilder.alias("snmpInterface", "snmpInterface");
+
         if(!includeSnmp) {
-            return getInterfaceArray(m_ipInterfaceDao.findMatching(criteria));
+            return getInterfaceArray(m_ipInterfaceDao.findMatching(criteriaBuilder.toCriteria()));
         }else {
-            return getInterfaceArrayWithSnmpData(m_ipInterfaceDao.findMatching(criteria));
+            return getInterfaceArrayWithSnmpData(m_ipInterfaceDao.findMatching(criteriaBuilder.toCriteria()));
         }
     }
 
@@ -361,20 +362,19 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
 	 */
     @Override
     public Interface[] getAllManagedIpInterfaces(boolean includeSNMP) {
-        OnmsCriteria criteria = new OnmsCriteria(OnmsIpInterface.class);
-        criteria.createAlias("snmpInterface", "snmpInterface", OnmsCriteria.LEFT_JOIN);
-        criteria.createAlias("node", "node");
-        criteria.add(Restrictions.ne("isManaged", "D"));
-        criteria.add(Restrictions.ne("ipAddress", InetAddressUtils.addr("0.0.0.0")));
-        criteria.add(Restrictions.isNotNull("ipAddress"));
-        criteria.addOrder(Order.asc("ipHostName"));
-        criteria.addOrder(Order.asc("node.id"));
-        criteria.addOrder(Order.asc("ipAddress"));
-        
+
+        CriteriaBuilder criteriaBuilder = new CriteriaBuilder(OnmsMonitoredService.class);
+        criteriaBuilder.alias("snmpInterface", "snmpIface");
+        criteriaBuilder.alias("node", "node");
+        criteriaBuilder.eq("isManaged", "D");
+        criteriaBuilder.eq("ipAddress", InetAddressUtils.addr("0.0.0.0"));
+        criteriaBuilder.isNotNull("ipAddress");
+        criteriaBuilder.orderBy("ipHostName").orderBy("node.id").orderBy("ipAddress").asc();
+
         if(!includeSNMP) {
-            return getInterfaceArray(m_ipInterfaceDao.findMatching(criteria));
+            return getInterfaceArray(m_ipInterfaceDao.findMatching(criteriaBuilder.toCriteria()));
         }else {
-            return getInterfaceArrayWithSnmpData(m_ipInterfaceDao.findMatching(criteria));
+            return getInterfaceArrayWithSnmpData(m_ipInterfaceDao.findMatching(criteriaBuilder.toCriteria()));
         }
     }
 
@@ -386,16 +386,17 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
         if (ipAddress == null) {
             throw new IllegalArgumentException("Cannot take null parameters.");
         }
-        OnmsCriteria criteria = new OnmsCriteria(OnmsMonitoredService.class);
-        criteria.createAlias("ipInterface", "ipInterface", OnmsCriteria.LEFT_JOIN);
-        criteria.createAlias("ipInterface.node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.createAlias("serviceType", "serviceType", OnmsCriteria.LEFT_JOIN);
-        criteria.createAlias("ipInterface.snmpInterface", "snmpIface", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("node.id", nodeId));
-        criteria.add(Restrictions.eq("ipInterface.ipAddress", InetAddressUtils.addr(ipAddress)));
-        criteria.add(Restrictions.eq("serviceType.id", serviceId));
-        
-        List<OnmsMonitoredService> monSvcs = m_monSvcDao.findMatching(criteria);
+
+        CriteriaBuilder criteriaBuilder = new CriteriaBuilder(OnmsMonitoredService.class);
+        criteriaBuilder.alias("ipInterface", "ipInterface");
+        criteriaBuilder.alias("ipInterface.snmpInterface", "snmpIface");
+        criteriaBuilder.alias("ipInterface.node", "node");
+        criteriaBuilder.alias("serviceType", "serviceType");
+        criteriaBuilder.eq("node.id", nodeId);
+        criteriaBuilder.eq("ipInterface.ipAddress", InetAddressUtils.addr(ipAddress));
+        criteriaBuilder.eq("serviceType.id", serviceId);
+
+        List<OnmsMonitoredService> monSvcs = m_monSvcDao.findMatching(criteriaBuilder.toCriteria());
         if(monSvcs.size() > 0) {
             return new Service(monSvcs.get(0));
         }else {
@@ -409,14 +410,16 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
 	 */
     @Override
     public Service getService(int ifServiceId) {
-        OnmsCriteria criteria = new OnmsCriteria(OnmsMonitoredService.class);
-        criteria.createAlias("ipInterface", "ipInterface", OnmsCriteria.LEFT_JOIN);
-        criteria.createAlias("ipInterface.node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.createAlias("ipInterface.snmpInterface", "snmpIface",  OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("id", ifServiceId));
-        criteria.addOrder(Order.asc("status"));
-        
-        List<OnmsMonitoredService> monSvcs = m_monSvcDao.findMatching(criteria);
+
+        CriteriaBuilder criteriaBuilder = new CriteriaBuilder(OnmsMonitoredService.class);
+        criteriaBuilder.alias("ipInterface", "ipInterface");
+        criteriaBuilder.alias("ipInterface.snmpInterface", "snmpIface");
+        criteriaBuilder.alias("ipInterface.node", "node");
+        criteriaBuilder.alias("serviceType", "serviceType");
+        criteriaBuilder.eq("id", ifServiceId);
+        criteriaBuilder.orderBy("status").asc();
+
+        List<OnmsMonitoredService> monSvcs = m_monSvcDao.findMatching(criteriaBuilder.toCriteria());
         
         if(monSvcs.size() > 0) {
             return new Service(monSvcs.get(0));
@@ -443,18 +446,19 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
         if (ipAddress == null) {
             throw new IllegalArgumentException("Cannot take null parameters.");
         }
-        
-        OnmsCriteria criteria = new OnmsCriteria(OnmsMonitoredService.class);
-        criteria.createAlias("ipInterface", "ipInterface");
-        criteria.createAlias("ipInterface.node", "node");
-        criteria.add(Restrictions.eq("node.id", nodeId));
-        criteria.add(Restrictions.eq("ipInterface.ipAddress", InetAddressUtils.addr(ipAddress)));
+
+        CriteriaBuilder criteriaBuilder = new CriteriaBuilder(OnmsMonitoredService.class);
+        criteriaBuilder.join("ipInterface","ipInterface");
+        criteriaBuilder.join("ipInterface.node","node");
+        criteriaBuilder.and(
+                Restrictions.eq("ipInterface.node", nodeId),
+                Restrictions.ne("ipInterface.ipAddress", InetAddressUtils.addr(ipAddress)));
         
         if(!includeDeletions) {
-            criteria.add(Restrictions.ne("status", "D"));
+            criteriaBuilder.ne("status", "D");
         }
         
-        return getServiceArray(m_monSvcDao.findMatching(criteria));
+        return getServiceArray(m_monSvcDao.findMatching(criteriaBuilder.toCriteria()));
     }
 
     /* (non-Javadoc)
@@ -462,14 +466,15 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
 	 */
     @Override
     public Service[] getServicesOnNode(int nodeId) {
-        OnmsCriteria criteria = new OnmsCriteria(OnmsMonitoredService.class);
-        criteria.createAlias("ipInterface", "ipInterface");
-        criteria.createAlias("ipInterface.snmpInterface", "snmpIface", OnmsCriteria.LEFT_JOIN);
-        criteria.createAlias("ipInterface.node", "node");
-        criteria.createAlias("serviceType", "serviceType");
-        criteria.add(Restrictions.eq("node.id", nodeId));
-        
-        return getServiceArray(m_monSvcDao.findMatching(criteria));
+
+        CriteriaBuilder criteriaBuilder = new CriteriaBuilder(OnmsMonitoredService.class);
+        criteriaBuilder.alias("ipInterface", "ipInterface");
+        criteriaBuilder.alias("ipInterface.snmpInterface", "snmpIface");
+        criteriaBuilder.alias("ipInterface.node", "node");
+        criteriaBuilder.alias("serviceType", "serviceType");
+        criteriaBuilder.eq("node.id", nodeId);
+
+        return getServiceArray(m_monSvcDao.findMatching(criteriaBuilder.toCriteria()));
     }
 
     /* (non-Javadoc)
@@ -477,15 +482,16 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
 	 */
     @Override
     public Service[] getServicesOnNode(int nodeId, int serviceId) {
-        OnmsCriteria criteria = new OnmsCriteria(OnmsMonitoredService.class);
-        criteria.createAlias("ipInterface", "ipInterface");
-        criteria.createAlias("ipInterface.node", "node");
-        criteria.createAlias("ipInterface.snmpInterface", "snmpInterface", OnmsCriteria.LEFT_JOIN);
-        criteria.createAlias("serviceType", "serviceType");
-        criteria.add(Restrictions.eq("node.id", nodeId));
-        criteria.add(Restrictions.eq("serviceType.id", serviceId));
-        
-        return getServiceArray(m_monSvcDao.findMatching(criteria));
+
+        CriteriaBuilder criteriaBuilder = new CriteriaBuilder(OnmsMonitoredService.class);
+        criteriaBuilder.alias("ipInterface", "ipInterface");
+        criteriaBuilder.alias("ipInterface.snmpInterface", "snmpIface");
+        criteriaBuilder.alias("ipInterface.node", "node");
+        criteriaBuilder.alias("serviceType", "serviceType");
+        criteriaBuilder.eq("node.id", nodeId);
+        criteriaBuilder.eq("serviceType.id", serviceId);
+
+        return getServiceArray(m_monSvcDao.findMatching(criteriaBuilder.toCriteria()));
     }
 
     private static Service[] getServiceArray(List<OnmsMonitoredService> monSvcs) {
@@ -569,14 +575,6 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
     }
     
 
-    /**
-     * <p>getAtInterface</p>
-     *
-     * @param nodeID a int.
-     * @param ipaddr a {@link java.lang.String} object.
-     * @return a {@link org.opennms.web.element.AtInterface} object.
-     * @throws java.sql.SQLException if any.
-     */
     @Override
     public AtInterface getAtInterface(int nodeId, String ipAddr) {
         return getAtInterfaceForOnmsNode(m_nodeDao.get(nodeId), ipAddr);
@@ -599,16 +597,11 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
      *
      * @param nodeID a int.
      * @return an array of {@link org.opennms.web.element.IpRouteInterface} objects.
-     * @throws java.sql.SQLException if any.
      */
     @Override
     public IpRouteInterface[] getIpRoute(int nodeID) {
-        OnmsCriteria criteria = new OnmsCriteria(OnmsIpRouteInterface.class);
-        criteria.add(
-                Restrictions.and(
-                        Restrictions.eq("node.id", nodeID),
-                        Restrictions.ne("status", StatusType.DELETED)));
-        List<IpRouteInterface> nodes = getIpRouteInterfaceArray(m_ipRouteInterfaceDao.findMatching(criteria));
+        List<OnmsIpRouteInterface> byNode = m_ipRouteInterfaceDao.findByNode(nodeID);
+        List<IpRouteInterface> nodes = getIpRouteInterfaceArray(byNode);
         return nodes.toArray(new IpRouteInterface[nodes.size()]);
     }
 
@@ -625,16 +618,18 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
      *
      * @param nodeID a int.
      * @return a boolean.
-     * @throws java.sql.SQLException if any.
+     * 
      */
     @Override
     public boolean isBridgeNode(int nodeID) {
-        OnmsCriteria criteria = new OnmsCriteria(OnmsStpNode.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("node.id", nodeID));
-        criteria.add(Restrictions.ne("status", StatusType.DELETED));
-        
-        int count = m_stpNodeDao.countMatching(criteria);
+
+        CriteriaBuilder criteriaBuilder = new CriteriaBuilder(OnmsStpNode.class);
+        criteriaBuilder.join("node","node");
+        criteriaBuilder.and(
+                Restrictions.eq("node.id", nodeID),
+                Restrictions.ne("status", StatusType.DELETED));
+
+        int count = m_stpNodeDao.countMatching(criteriaBuilder.toCriteria());
         return (count > 0);
     }
 
@@ -643,15 +638,18 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
      *
      * @param nodeID a int.
      * @return a boolean.
-     * @throws java.sql.SQLException if any.
+     * 
      */
     @Override
     public boolean isRouteInfoNode(int nodeID) {
-        OnmsCriteria criteria = new OnmsCriteria(OnmsIpRouteInterface.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("node.id", nodeID));
-        criteria.add(Restrictions.ne("status", StatusType.DELETED));
-        int count = m_ipRouteInterfaceDao.countMatching(criteria);
+
+        CriteriaBuilder criteriaBuilder = new CriteriaBuilder(OnmsIpRouteInterface.class);
+        criteriaBuilder.join("node","node");
+        criteriaBuilder.and(
+                Restrictions.eq("node.id", nodeID),
+                Restrictions.ne("status", StatusType.DELETED)).orderBy("ifIndex").asc();
+
+        int count = m_ipRouteInterfaceDao.countMatching(criteriaBuilder.toCriteria());
         //        m_jdbcTemplate.queryForInt("SELECT COUNT(*) FROM IPROUTEINTERFACE WHERE NODEID = ? AND STATUS != 'D'", nodeID);
         return (count > 0);
     }
@@ -661,7 +659,7 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
      *
      * @param nodeID a int.
      * @return a {@link java.util.Set} object.
-     * @throws java.sql.SQLException if any.
+     * 
      */
     @Override
     public Set<Integer> getLinkedNodeIdOnNode(int nodeID) {
@@ -690,19 +688,21 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
 	 */
     @Override
     public List<LinkInterface> getDataLinksOnNode(int nodeId) {
-        OnmsCriteria criteria = new OnmsCriteria(org.opennms.netmgt.model.DataLinkInterface.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("node.id", nodeId));
-        criteria.add(Restrictions.ne("status", StatusType.DELETED));
-        criteria.addOrder(Order.asc("ifIndex"));
 
-        List<LinkInterface> ifaces = getDataLinkInterface(m_dataLinkInterfaceDao.findMatching(criteria),nodeId);
+        CriteriaBuilder criteriaBuilder = new CriteriaBuilder(DataLinkInterface.class);
+        criteriaBuilder.join("node","node");
+        criteriaBuilder.and(
+                Restrictions.eq("node.id", nodeId),
+                Restrictions.ne("status", StatusType.DELETED)).orderBy("ifIndex").asc();
 
-        criteria = new OnmsCriteria(org.opennms.netmgt.model.DataLinkInterface.class);
-        criteria.add(Restrictions.eq("nodeParentId", nodeId));
-        criteria.add(Restrictions.ne("status", StatusType.DELETED));
+        List<LinkInterface> ifaces = getDataLinkInterface(m_dataLinkInterfaceDao.findMatching(criteriaBuilder.toCriteria()),nodeId);
 
-        ifaces.addAll(getDataLinkInterface(m_dataLinkInterfaceDao.findMatching(criteria),nodeId));
+        criteriaBuilder = new CriteriaBuilder(DataLinkInterface.class);
+        criteriaBuilder.and(
+                Restrictions.eq("nodeParentId", nodeId),
+                Restrictions.ne("status", StatusType.DELETED));
+
+        ifaces.addAll(getDataLinkInterface(m_dataLinkInterfaceDao.findMatching(criteriaBuilder.toCriteria()),nodeId));
         
         return ifaces;
     	
@@ -732,21 +732,26 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
 	 */
     @Override
     public List<LinkInterface> getDataLinksOnInterface(int nodeId, int ifIndex){
-        OnmsCriteria criteria = new OnmsCriteria(org.opennms.netmgt.model.DataLinkInterface.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("node.id", nodeId));
-        criteria.add(Restrictions.eq("ifIndex", ifIndex));
-        criteria.add(Restrictions.ne("status", StatusType.DELETED));
 
-        List<LinkInterface> ifaces = getDataLinkInterface(m_dataLinkInterfaceDao.findMatching(criteria),nodeId);
+        CriteriaBuilder criteriaBuilder = new CriteriaBuilder(DataLinkInterface.class);
+        criteriaBuilder.join("node","node");
+        criteriaBuilder.and(
+                Restrictions.eq("node.id", nodeId),
+                Restrictions.and(
+                        Restrictions.ne("status", StatusType.DELETED),
+                        Restrictions.eq("ifIndex", ifIndex)));
 
-        criteria = new OnmsCriteria(org.opennms.netmgt.model.DataLinkInterface.class);
-        criteria.add(Restrictions.eq("nodeParentId", nodeId));
-        criteria.add(Restrictions.eq("parentIfIndex", ifIndex));
-        criteria.add(Restrictions.ne("status", StatusType.DELETED));
-        criteria.addOrder(Order.asc("parentIfIndex"));
+        List<LinkInterface> ifaces = getDataLinkInterface(m_dataLinkInterfaceDao.findMatching(criteriaBuilder.toCriteria()),nodeId);
 
-        ifaces.addAll(getDataLinkInterface(m_dataLinkInterfaceDao.findMatching(criteria),nodeId));
+        criteriaBuilder = new CriteriaBuilder(DataLinkInterface.class);
+        criteriaBuilder.and(
+                Restrictions.eq("nodeParentId", nodeId),
+                Restrictions.and(
+                        Restrictions.ne("parentIfIndex", ifIndex),
+                        Restrictions.eq("status", StatusType.DELETED))).orderBy("parentIfIndex").asc();
+
+
+        ifaces.addAll(getDataLinkInterface(m_dataLinkInterfaceDao.findMatching(criteriaBuilder.toCriteria()),nodeId));
         
         return ifaces;
     	
@@ -801,11 +806,14 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
         Interface iface = null;
         if (ifindex > 0 ) {
             iface = getSnmpInterface(nodeid, ifindex);
-            OnmsCriteria criteria = new OnmsCriteria(OnmsIpInterface.class);
-            criteria.add(Restrictions.sqlRestriction("nodeid = " + nodeid + " and ifindex = " + ifindex ));
-            List<String> addresses = new ArrayList<String>();
 
-            for (OnmsIpInterface onmsIpInterface : m_ipInterfaceDao.findMatching(criteria)) {
+            CriteriaBuilder criteriaBuilder = new CriteriaBuilder(OnmsIpInterface.class);
+            criteriaBuilder.and(
+                    Restrictions.eq("nodeid", nodeid),
+                    Restrictions.ne("ifindex", ifindex));
+
+            List<String> addresses = new ArrayList<String>();
+            for (OnmsIpInterface onmsIpInterface : m_ipInterfaceDao.findMatching(criteriaBuilder.toCriteria())) {
                 addresses.add(onmsIpInterface.getIpAddress().getHostAddress());
             }
 
@@ -829,19 +837,20 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
      *
      * @param nodeID a int.
      * @return an array of {@link org.opennms.web.element.Vlan} objects.
-     * @throws java.sql.SQLException if any.
+     * 
      */
     @Override
     public Vlan[] getVlansOnNode(int nodeID) {
         //String sqlQuery = "SELECT * from vlan WHERE status != 'D' AND nodeid = ? order by vlanid;";
         //m_jdbcTemplate.query(sqlQuery, new VlanRowMapper(), nodeID);
-        
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsVlan.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("node.id", nodeID));
-        criteria.add(Restrictions.ne("status", StatusType.DELETED));
 
-        List<Vlan> vlans = getVlans(m_vlanDao.findMatching(criteria));
+        CriteriaBuilder criteriaBuilder = new CriteriaBuilder(OnmsVlan.class);
+        criteriaBuilder.join("node","node");
+        criteriaBuilder.and(
+                Restrictions.eq("node.id", nodeID),
+                Restrictions.ne("status", StatusType.DELETED));
+
+        List<Vlan> vlans = getVlans(m_vlanDao.findMatching(criteriaBuilder.toCriteria()));
         return vlans.toArray(new Vlan[vlans.size()]);
     }
 
@@ -857,17 +866,19 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
      *
      * @param nodeID a int.
      * @return an array of {@link org.opennms.web.element.StpInterface} objects.
-     * @throws java.sql.SQLException if any.
+     * 
      */
     @Override
     public StpInterface[] getStpInterface(int nodeID) {
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsStpInterface.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("node.id", nodeID));
-        criteria.add(Restrictions.ne("status", StatusType.DELETED));
+
+        CriteriaBuilder criteriaBuilder = new CriteriaBuilder(OnmsStpInterface.class);
+        criteriaBuilder.join("node","node");
+        criteriaBuilder.and(
+                Restrictions.eq("node.id", nodeID),
+                Restrictions.ne("status", StatusType.DELETED));
 
         List<StpInterface> stpinterfaces = new ArrayList<StpInterface>();
-    	for (OnmsStpInterface onmsStpInterface: m_stpInterfaceDao.findMatching(criteria)) {
+    	for (OnmsStpInterface onmsStpInterface: m_stpInterfaceDao.findMatching(criteriaBuilder.toCriteria())) {
     		stpinterfaces.add(getStpInterface(onmsStpInterface));
     	}
     	/*
@@ -889,7 +900,7 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
      * @param nodeID a int.
      * @param ifindex a int.
      * @return an array of {@link org.opennms.web.element.StpInterface} objects.
-     * @throws java.sql.SQLException if any.
+     * 
      */
     @Override
     public StpInterface[] getStpInterface(int nodeID, int ifindex) {
@@ -903,14 +914,16 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
         List<StpInterface> nodes = m_jdbcTemplate.query(sqlQuery, new StpInterfaceRowMapper(), nodeID, ifindex);
         */
 
-    	final OnmsCriteria criteria = new OnmsCriteria(OnmsStpInterface.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("node.id", nodeID));
-        criteria.add(Restrictions.eq("ifIndex", ifindex));
-        criteria.add(Restrictions.ne("status", StatusType.DELETED));
+        CriteriaBuilder criteriaBuilder = new CriteriaBuilder(OnmsStpNode.class);
+        criteriaBuilder.join("node","node");
+        criteriaBuilder.and(
+                Restrictions.eq("node.id", nodeID),
+                Restrictions.and(
+                        Restrictions.eq("ifIndex", ifindex),
+                        Restrictions.ne("status", StatusType.DELETED)));
 
         List<StpInterface> stpinterfaces = new ArrayList<StpInterface>();
-    	for (OnmsStpInterface onmsStpInterface: m_stpInterfaceDao.findMatching(criteria)) {
+    	for (OnmsStpInterface onmsStpInterface: m_stpInterfaceDao.findMatching(criteriaBuilder.toCriteria())) {
     		stpinterfaces.add(getStpInterface(onmsStpInterface));
     	}
         return stpinterfaces.toArray(new StpInterface[stpinterfaces.size()]);
@@ -921,33 +934,31 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
      *
      * @param nodeID a int.
      * @return an array of {@link org.opennms.web.element.StpNode} objects.
-     * @throws java.sql.SQLException if any.
+     * 
      */
     @Override
     public StpNode[] getStpNode(int nodeID) {
-    	/*
+
+                    	/*
         String sqlQuery = "select distinct(e2.nodeid) as stpdesignatedrootnodeid, e1.* from (stpnode e1 left join stpnode e2 on substr(e1.stpdesignatedroot, 5, 16) = e2.basebridgeaddress) where e1.nodeid = ? AND e1.status != 'D' ORDER BY e1.basevlan";
         List<StpNode> nodes = m_jdbcTemplate.query(sqlQuery, new StpNodeRowMapper(), nodeID);
 		*/
-    	final OnmsCriteria criteria = new OnmsCriteria(OnmsStpNode.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("node.id", nodeID));
-        criteria.add(Restrictions.ne("status", StatusType.DELETED));
 
+        CriteriaBuilder criteriaBuilder = new CriteriaBuilder(OnmsStpNode.class);
+        criteriaBuilder.join("node","node");
+        criteriaBuilder.and(
+                Restrictions.eq("node.id", nodeID),
+                Restrictions.ne("status", StatusType.DELETED));
     	List<StpNode> nodes = new ArrayList<StpNode>();
-    	
-    	for (OnmsStpNode onmsstpnode: m_stpNodeDao.findMatching(criteria)) {
+
+    	for (OnmsStpNode onmsstpnode: m_stpNodeDao.findMatching(criteriaBuilder.toCriteria())) {
     		nodes.add(getStpNode(onmsstpnode));
     	}
         return nodes.toArray(new StpNode[nodes.size()]);
     }
 
     private Integer getStpNodeFromStpRootIdentifier(String baseaddress) {
-    	
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsStpNode.class);
-        criteria.add(Restrictions.eq("baseBridgeAddress", baseaddress.substring(5,16)));
-
-        List<OnmsStpNode> stpnodes = m_stpNodeDao.findMatching(criteria);
+        List<OnmsStpNode> stpnodes = m_stpNodeDao.findByBaseBridgeAddress(baseaddress.substring(5,16));
         if (stpnodes.size() == 1)
         	return stpnodes.get(0).getId();
         return null;

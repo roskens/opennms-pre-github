@@ -29,6 +29,7 @@
 package org.opennms.netmgt.dao;
 
 import java.util.Date;
+import java.util.List;
 
 import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
 import org.opennms.netmgt.model.OnmsIpRouteInterface;
@@ -47,4 +48,5 @@ public interface IpRouteInterfaceDao extends OnmsDao<OnmsIpRouteInterface, Integ
 
     OnmsIpRouteInterface findByNodeAndDest(int nodeId, String routeDest);
 
+    List<OnmsIpRouteInterface> findByNode(int nodeID);
 }

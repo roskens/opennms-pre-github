@@ -29,7 +29,9 @@
 package org.opennms.netmgt.dao;
 
 import java.util.Date;
+import java.util.List;
 
+import org.opennms.netmgt.model.OnmsArpInterface;
 import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
 import org.opennms.netmgt.model.OnmsStpNode;
 
@@ -45,4 +47,5 @@ public interface StpNodeDao extends OnmsDao<OnmsStpNode, Integer> {
 
     OnmsStpNode findByNodeAndVlan(Integer nodeId, Integer baseVlan);
 
+    List<OnmsStpNode> findByBaseBridgeAddress(String baseBindBridgeAddress);
 }

@@ -32,6 +32,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.opennms.netmgt.dao.StpNodeDao;
+import org.opennms.netmgt.model.OnmsArpInterface;
 import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
 import org.opennms.netmgt.model.OnmsCriteria;
 import org.opennms.netmgt.model.OnmsStpNode;
@@ -149,4 +150,14 @@ public class StpNodeDaoHibernate extends AbstractDaoHibernate<OnmsStpNode, Integ
 //        }
 //        return null;
     }
+
+    @Override
+    public List<OnmsStpNode> findByBaseBridgeAddress(String baseBindBridgeAddress) {
+        final String jql = "from OnmsStpNode where baseBindBridgeAddress :baseBindBridgeAddress";
+        return getJpaTemplate().getEntityManager()
+                .createQuery(jql)
+                .setParameter("baseBindBridgeAddress", baseBindBridgeAddress)
+                .getResultList();
+    }
+
 }
