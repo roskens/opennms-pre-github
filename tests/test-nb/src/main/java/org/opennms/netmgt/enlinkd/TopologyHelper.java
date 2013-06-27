@@ -42,13 +42,11 @@ import org.opennms.netmgt.model.topology.ElementIdentifier;
 import org.opennms.netmgt.model.topology.EndPoint;
 import org.opennms.netmgt.model.topology.InetElementIdentifier;
 import org.opennms.netmgt.model.topology.Link;
-import org.opennms.netmgt.model.topology.Link.LinkType;
 import org.opennms.netmgt.model.topology.LldpElementIdentifier;
 import org.opennms.netmgt.model.topology.LldpEndPoint;
 import org.opennms.netmgt.model.topology.MacAddrElementIdentifier;
 import org.opennms.netmgt.model.topology.MacAddrEndPoint;
 import org.opennms.netmgt.model.topology.NodeElementIdentifier;
-import org.opennms.netmgt.model.topology.ElementIdentifier.ElementIdentifierType;
 import org.opennms.netmgt.model.topology.OspfElementIdentifier;
 import org.opennms.netmgt.model.topology.OspfEndPoint;
 import org.opennms.netmgt.model.topology.PseudoBridgeElementIdentifier;
@@ -106,21 +104,21 @@ public abstract class TopologyHelper {
     }
 
     protected static void printElementIdentifier(ElementIdentifier iden) {
-    	if (iden.getType().equals(ElementIdentifierType.NODE)) 
+    	if (iden instanceof NodeElementIdentifier) 
 			System.err.println("node: " + ((NodeElementIdentifier)iden).getNodeid()+" " + iden.getLastPoll());
-		else if (iden.getType().equals(ElementIdentifierType.LLDP))
+		else if (iden instanceof LldpElementIdentifier)
 			System.err.println("lldp: " + ((LldpElementIdentifier)iden).getLldpChassisId()+" " + iden.getLastPoll());
-		else if (iden.getType().equals(ElementIdentifierType.CDP))
+		else if (iden instanceof CdpElementIdentifier)
 			System.err.println("cdp: " + ((CdpElementIdentifier)iden).getCdpDeviceId()+" " + iden.getLastPoll());
-		else if (iden.getType().equals(ElementIdentifierType.OSPF))
+		else if (iden instanceof OspfElementIdentifier)
 			System.err.println("ospf: " + str(((OspfElementIdentifier)iden).getOspfRouterId())+" " + iden.getLastPoll());    	
-		else if (iden.getType().equals(ElementIdentifierType.BRIDGE))
+		else if (iden instanceof BridgeElementIdentifier)
 			System.err.println("bridge: " + ((BridgeElementIdentifier)iden).getBridgeAddress()+" " + iden.getLastPoll());    	
-		else if (iden.getType().equals(ElementIdentifierType.MAC))
+		else if (iden instanceof MacAddrElementIdentifier)
 			System.err.println("mac: " + ((MacAddrElementIdentifier)iden).getMacAddr()+" " + iden.getLastPoll());    	
-		else if (iden.getType().equals(ElementIdentifierType.INET))
+		else if (iden instanceof InetElementIdentifier)
 			System.err.println("inet: " + str(((InetElementIdentifier)iden).getInet())+" " + iden.getLastPoll());    	
-		else if (iden.getType().equals(ElementIdentifierType.PSEUDO)) {
+		else if (iden instanceof PseudoBridgeElementIdentifier) {
 			System.err.println("pseudo linked bridge/port: "
 					+ ((PseudoBridgeElementIdentifier) iden)
 							.getLinkedBridgeIdentifier()
@@ -171,7 +169,7 @@ public abstract class TopologyHelper {
     }
     
     private static void printLink(Link link) {
-    	System.err.println("----------link "+ LinkType.getTypeString(link.getLinkType().getIntCode())+"--------");
+    	System.err.println("----------link "+ link.displayLinkType()+"--------");
     	System.err.println("Last Poll :" + link.getLastPoll());
     	System.err.println("----------A--------");
     	for (ElementIdentifier iden: link.getA().getTopologyElement().getElementIdentifiers()) {
