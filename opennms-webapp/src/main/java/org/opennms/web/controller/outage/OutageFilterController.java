@@ -30,6 +30,7 @@ package org.opennms.web.controller.outage;
 
 import org.opennms.core.utils.WebSecurityUtils;
 import org.opennms.web.filter.Filter;
+import org.opennms.web.filter.SearchParameter;
 import org.opennms.web.filter.outage.OutageCriteria;
 import org.opennms.web.outage.*;
 import org.springframework.beans.factory.InitializingBean;
@@ -149,14 +150,14 @@ public class OutageFilterController extends AbstractController implements Initia
         parms.limit = limit;
         parms.multiple =  multiple;
         parms.sortStyle = sortStyle;
-        
-        OutageCriteria queryCriteria = new OutageCriteria(filters, sortStyle, outageType, limit, limit * multiple);
-        OutageCriteria countCriteria = new OutageCriteria(outageType, filters);
 
-        Outage[] outages = m_webOutageRepository.getMatchingOutages(queryCriteria);
+        SearchParameter queryCriteria = OutageUtil.getSearchParameter(filters, sortStyle == null ? null : sortStyle.toSortRule(), outageType, limit, limit * multiple);
+        SearchParameter countCriteria = OutageUtil.getSearchParameter(filters, outageType, null).setCount(true);
+
+        Outage[] outages = m_webOutageRepository.getMatchingOutages(queryCriteria.toCriteria());
         
         // get the total outage count
-        int outageCount = m_webOutageRepository.countMatchingOutages(countCriteria);
+        int outageCount = m_webOutageRepository.countMatchingOutages(countCriteria.toCriteria());
         
         ModelAndView modelAndView = new ModelAndView(getSuccessView());
         modelAndView.addObject("outages", outages);

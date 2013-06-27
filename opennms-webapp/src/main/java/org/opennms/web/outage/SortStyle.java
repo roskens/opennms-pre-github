@@ -31,6 +31,7 @@ package org.opennms.web.outage;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.opennms.web.filter.SortRule;
 import org.springframework.util.Assert;
 
 /**
@@ -41,23 +42,25 @@ import org.springframework.util.Assert;
  * @since 1.8.1
  */
 public enum SortStyle {
-    NODE("node"),
-    INTERFACE("interface"),
-    SERVICE("service"),
-    IFLOSTSERVICE("iflostservice"),
-    IFREGAINEDSERVICE("ifregainedservice"),
-    ID("id"),
-    REVERSE_NODE("rev_node"),
-    REVERSE_INTERFACE("rev_interface"),
-    REVERSE_SERVICE("rev_service"),
-    REVERSE_IFLOSTSERVICE("rev_iflostservice"),
-    REVERSE_IFREGAINEDSERVICE("rev_ifregainedservice"),
-    REVERSE_ID("rev_id");
+    NODE("node", "node.label", true),
+    INTERFACE("interface", "ipInterface.ipAddress", true),
+    SERVICE("service", "serviceType.name", true),
+    IFLOSTSERVICE("iflostservice", "ifLostService", true),
+    IFREGAINEDSERVICE("ifegainedservice", "ifRegainedService", true),
+    ID("id", "id", true),
+    REVERSE_NODE("rev_node", "node.label", false),
+    REVERSE_INTERFACE("rev_interface", "ipInterface.ipAddress", false),
+    REVERSE_SERVICE("rev_service", "serviceType.name", false),
+    REVERSE_IFLOSTSERVICE("rev_iflostservice", "ifLostService", false),
+    REVERSE_IFREGAINEDSERVICE("rev_ifregainedservice", "ifRegainedService", false),
+    REVERSE_ID("rev_id", "id", false);
 
     /** Constant <code>DEFAULT_SORT_STYLE</code> */
     public static final SortStyle DEFAULT_SORT_STYLE = SortStyle.ID;
 
     private static final Map<String, SortStyle> m_sortStylesString;
+    private final String m_beanPropertyName;
+    private final boolean m_desc;
 
     private String m_shortName;
 
@@ -69,9 +72,13 @@ public enum SortStyle {
         }
     }
 
-    private SortStyle(String shortName) {
+    private SortStyle(String shortName, String beanPropertyName, boolean desc) {
         m_shortName = shortName;
+        m_beanPropertyName = beanPropertyName;
+        m_desc = desc;
     }
+
+
 
     /**
      * <p>toString</p>
@@ -113,55 +120,7 @@ public enum SortStyle {
         return m_sortStylesString.get(sortStyleString.toLowerCase());
     }
 
-    /**
-     * Convenience method for getting the SQL <em>ORDER BY</em> clause related
-     * to a given sort style.
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    protected String getOrderByClause() {
-        String clause = null;
-
-        switch (this) {
-        case NODE:
-            clause = " ORDER BY NODELABEL ASC";
-            break;
-        case REVERSE_NODE:
-            clause = " ORDER BY NODELABEL DESC";
-            break;
-        case INTERFACE:
-            clause = " ORDER BY IPADDR ASC";
-            break;
-        case REVERSE_INTERFACE:
-            clause = " ORDER BY IPADDR DESC";
-            break;
-        case SERVICE:
-            clause = " ORDER BY SERVICENAME ASC";
-            break;
-        case REVERSE_SERVICE:
-            clause = " ORDER BY SERVICENAME DESC";
-            break;
-        case IFLOSTSERVICE:
-            clause = " ORDER BY IFLOSTSERVICE DESC";
-            break;
-        case REVERSE_IFLOSTSERVICE:
-            clause = " ORDER BY IFLOSTSERVICE ASC";
-            break;
-        case IFREGAINEDSERVICE:
-            clause = " ORDER BY IFREGAINEDSERVICE DESC";
-            break;
-        case REVERSE_IFREGAINEDSERVICE:
-            clause = " ORDER BY IFREGAINEDSERVICE ASC";
-            break;
-        case ID:
-            clause = " ORDER BY OUTAGEID DESC";
-            break;
-        case REVERSE_ID:
-            clause = " ORDER BY OUTAGEID ASC";
-            break;
-        default:
-            throw new IllegalArgumentException("Unknown SortStyle: " + this);
-        }
-        return clause;
+    public SortRule toSortRule() {
+        return new SortRule(m_beanPropertyName, m_desc);
     }
 }

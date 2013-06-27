@@ -40,15 +40,14 @@ import java.util.Map;
 
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.opennms.core.criteria.Criteria;
 import org.opennms.core.utils.BeanUtils;
 import org.opennms.netmgt.dao.NodeDao;
 import org.opennms.netmgt.dao.OutageDao;
 import org.opennms.netmgt.model.OnmsCriteria;
 import org.opennms.netmgt.model.OnmsOutage;
 import org.opennms.netmgt.model.outage.OutageSummary;
-import org.opennms.netmgt.dao.filter.Filter;
-import org.opennms.web.filter.outage.OutageCriteria;
-import org.opennms.web.filter.outage.OutageCriteria.OutageCriteriaVisitor;
+import org.opennms.web.filter.Filter;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -73,99 +72,6 @@ public class DaoWebOutageRepository implements WebOutageRepository, Initializing
         BeanUtils.assertAutowiring(this);
     }
 
-    /*
-     * NOTE: Criteria building for Outages must included the following aliases"
-     * 
-     * monitoredService as monitoredService
-     * monitoredService.ipInterface as ipInterface
-     * monitoredService.ipInterface.node as node
-     * monitoredService.serviceType as serviceType
-     * 
-     */
-    
-    private OnmsCriteria getOnmsCriteria(final OutageCriteria outageCriteria) {
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsOutage.class);
-        criteria.createAlias("monitoredService", "monitoredService");
-        criteria.createAlias("monitoredService.ipInterface", "ipInterface");
-        criteria.createAlias("monitoredService.ipInterface.node", "node");
-        criteria.createAlias("monitoredService.serviceType", "serviceType");
-        
-        outageCriteria.visit(new OutageCriteriaVisitor<RuntimeException>(){
-
-            @Override
-            public void visitOutageType(OutageType ackType) throws RuntimeException {
-                if (ackType == OutageType.CURRENT) {
-                    criteria.add(Restrictions.isNull("ifRegainedService"));
-                } else if (ackType == OutageType.RESOLVED) {
-                    criteria.add(Restrictions.isNotNull("ifRegainedService"));
-                }
-            }
-
-            @Override
-            public void visitFilter(Filter filter) throws RuntimeException {
-                criteria.add(filter.getCriterion());
-            }
-
-            @Override
-            public void visitGroupBy() throws RuntimeException {
-                
-            }
-            
-            @Override
-            public void visitLimit(int limit, int offset) throws RuntimeException {
-                criteria.setMaxResults(limit);
-                criteria.setFirstResult(offset);
-            }
-
-            @Override
-            public void visitSortStyle(SortStyle sortStyle) throws RuntimeException {
-                switch (sortStyle) {
-                case NODE:
-                    criteria.addOrder(Order.desc("node.label"));
-                    break;
-                case INTERFACE:
-                    criteria.addOrder(Order.desc("ipInterface.ipAddress"));
-                    break;
-                case SERVICE:
-                    criteria.addOrder(Order.desc("serviceType.name"));
-                    break;
-                case IFLOSTSERVICE:
-                    criteria.addOrder(Order.desc("ifLostService"));
-                    break;
-                case IFREGAINEDSERVICE:
-                    criteria.addOrder(Order.desc("ifRegainedService"));
-                    break;
-                case ID:
-                    criteria.addOrder(Order.desc("id"));
-                    break;
-                case REVERSE_NODE:
-                    criteria.addOrder(Order.asc("node.label"));
-                    break;
-                case REVERSE_INTERFACE:
-                    criteria.addOrder(Order.asc("ipInterface.ipAddress"));
-                    break;
-                case REVERSE_SERVICE:
-                    criteria.addOrder(Order.asc("serviceType.name"));
-                    break;
-                case REVERSE_IFLOSTSERVICE:
-                    criteria.addOrder(Order.asc("ifLostService"));
-                    break;
-                case REVERSE_IFREGAINEDSERVICE:
-                    criteria.addOrder(Order.asc("ifRegainedService"));
-                    break;
-                case REVERSE_ID:
-                    criteria.addOrder(Order.asc("id"));
-                    break;
-                default:
-                    throw new IllegalArgumentException("Unknown SortStyle: " + sortStyle);
-                }
-            }
-
-        });
-        
-        return criteria;
-    }
-    
     private Outage mapOnmsOutageToOutage(OnmsOutage onmsOutage) {
         if(onmsOutage != null){
             Outage outage = new Outage();    
@@ -208,7 +114,7 @@ public class DaoWebOutageRepository implements WebOutageRepository, Initializing
     /** {@inheritDoc} */
     @Transactional
     @Override
-    public int countMatchingOutageSummaries(final OutageCriteria criteria) {
+    public int countMatchingOutageSummaries(final Criteria criteria) {
         return getMatchingOutageSummaries(criteria).length;
     }
 
@@ -218,8 +124,8 @@ public class DaoWebOutageRepository implements WebOutageRepository, Initializing
     /** {@inheritDoc} */
     @Transactional
     @Override
-    public int countMatchingOutages(OutageCriteria criteria) {
-        return m_outageDao.countMatching(getOnmsCriteria(criteria));
+    public int countMatchingOutages(Criteria criteria) {
+        return m_outageDao.countMatching(criteria);
     }
 
     /* (non-Javadoc)
@@ -228,10 +134,8 @@ public class DaoWebOutageRepository implements WebOutageRepository, Initializing
     /** {@inheritDoc} */
     @Transactional
     @Override
-    public OutageSummary[] getMatchingOutageSummaries(final OutageCriteria criteria) {
-        
-        
-        List<OnmsOutage> onmsOutages = m_outageDao.findMatching(getOnmsCriteria(criteria));
+    public OutageSummary[] getMatchingOutageSummaries(final Criteria criteria) {
+        List<OnmsOutage> onmsOutages = m_outageDao.findMatching(criteria);
         
         return getOutageSummary(onmsOutages).toArray(new OutageSummary[0]);
     }
@@ -274,9 +178,9 @@ public class DaoWebOutageRepository implements WebOutageRepository, Initializing
     /** {@inheritDoc} */
     @Transactional
     @Override
-    public Outage[] getMatchingOutages(final OutageCriteria criteria) {
+    public Outage[] getMatchingOutages(final Criteria criteria) {
         final List<Outage> outages = new ArrayList<Outage>();
-        final List<OnmsOutage> onmsOutages = m_outageDao.findMatching(getOnmsCriteria(criteria));
+        final List<OnmsOutage> onmsOutages = m_outageDao.findMatching(criteria);
         
         for (final OnmsOutage outage : onmsOutages) {
             outages.add(mapOnmsOutageToOutage(outage));
