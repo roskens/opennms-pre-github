@@ -335,7 +335,7 @@ public class DefaultDistributedStatusService implements DistributedStatusService
         List<OnmsLocationMonitor> sortedLocationMonitors = new ArrayList<OnmsLocationMonitor>(locationMonitors);
         Collections.sort(sortedLocationMonitors);
         
-        Collection<OnmsMonitoredService> services = m_monitoredServiceDao.findByApplication(application);
+        Collection<OnmsMonitoredService> services = application.getMonitoredServices();
         
         List<OnmsMonitoredService> sortedServices = new ArrayList<OnmsMonitoredService>(services);
         Collections.sort(sortedServices);
@@ -398,7 +398,7 @@ public class DefaultDistributedStatusService implements DistributedStatusService
             table.addCell(locationDefinition.getName(), "");
             
             for (OnmsApplication application : sortedApplications) {
-                Collection<OnmsMonitoredService> memberServices = m_monitoredServiceDao.findByApplication(application);
+                Collection<OnmsMonitoredService> memberServices = application.getMonitoredServices();
                 Severity status = calculateCurrentStatus(monitors, memberServices, mostRecentStatuses);
             
                 Set<OnmsLocationSpecificStatus> selectedStatuses = filterStatus(statusesPeriod, monitors, memberServices);
@@ -787,13 +787,12 @@ public class DefaultDistributedStatusService implements DistributedStatusService
          * a LazyInitializationException later when the JSP page is pulling
          * data out of the model object.
          */
-        Collection<OnmsMonitoredService> memberServices = m_monitoredServiceDao.findByApplication(application);
+        Collection<OnmsMonitoredService> memberServices = application.getMonitoredServices();
         for (OnmsMonitoredService service : memberServices) {
-            m_locationMonitorDao.initialize(service.getIpInterface());
-            m_locationMonitorDao.initialize(service.getIpInterface().getNode());
+            m_monitoredServiceDao.fetchInterfaceAndNode(service);
         }
 
-        Collection<OnmsMonitoredService> applicationMemberServices = m_monitoredServiceDao.findByApplication(application);
+        Collection<OnmsMonitoredService> applicationMemberServices = application.getMonitoredServices();
         if (applicationMemberServices.isEmpty()) {
             errors.add("There are no services in the application '" + applicationName + "'");
         }

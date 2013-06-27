@@ -44,6 +44,7 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.type.StringType;
+import org.opennms.core.criteria.CriteriaBuilder;
 import org.opennms.core.utils.ByteArrayComparator;
 import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.netmgt.config.siteStatusViews.Category;
@@ -97,15 +98,16 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
          * added in muliple places to ensure we don't add the same alias
          * multiple times.
          */
-        OnmsCriteria criteria = new OnmsCriteria(OnmsNode.class, "node");
-        criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
-        criteria.add(Restrictions.ne("node.type", "D"));
+        CriteriaBuilder criteriaBuilder = new CriteriaBuilder(OnmsNode.class);
+        criteriaBuilder.alias("node", "node");
+        criteriaBuilder.ne("node.type","D");
+        criteriaBuilder.distinct();
 
         // Add additional criteria based on the command object
-        addCriteriaForCommand(criteria, command);
-            
-        criteria.addOrder(Order.asc("node.label"));
-        onmsNodes = m_nodeDao.findMatching(criteria);
+        addCriteriaForCommand(criteriaBuilder, command);
+
+        criteriaBuilder.orderBy("node.label").asc();
+        onmsNodes = m_nodeDao.findMatching(criteriaBuilder.toCriteria());
 
         if (command.getNodesWithDownAggregateStatus()) {
             AggregateStatus as = new AggregateStatus(onmsNodes);
@@ -115,7 +117,7 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
         return createModelForNodes(command, onmsNodes);
     }
 
-    private void addCriteriaForCommand(OnmsCriteria criteria, NodeListCommand command) {
+    private void addCriteriaForCommand(CriteriaBuilder criteria, NodeListCommand command) {
         if (command.hasNodename()) {
             addCriteriaForNodename(criteria, command.getNodename());
         } else if (command.hasNodeId()) {
@@ -146,22 +148,22 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
     }
 
 
-    private void addCriteriaForSnmpParm(OnmsCriteria criteria,
+    private void addCriteriaForSnmpParm(CriteriaBuilder criteria,
             String snmpParm, String snmpParmValue, String snmpParmMatchType) {
-        criteria.createAlias("node.ipInterfaces", "ipInterface");
-        criteria.add(Restrictions.ne("ipInterface.isManaged", "D"));
+        criteria.alias("node.ipInterfaces", "ipInterface");
+        criteria.ne("ipInterface.isManaged", "D");
 
-        criteria.createAlias("node.snmpInterfaces", "snmpInterface");
-        criteria.add(Restrictions.ne("snmpInterface.collect", "D"));
+        criteria.alias("node.snmpInterfaces", "snmpInterface");
+        criteria.ne("snmpInterface.collect", "D");
         if(snmpParmMatchType.equals("contains")) {
-            criteria.add(Restrictions.ilike("snmpInterface.".concat(snmpParm), snmpParmValue, MatchMode.ANYWHERE));
+            criteria.ilike("snmpInterface.".concat(snmpParm), snmpParmValue, MatchMode.ANYWHERE));
         } else if(snmpParmMatchType.equals("equals")) {
             snmpParmValue = snmpParmValue.toLowerCase();
             criteria.add(Restrictions.sqlRestriction("{alias}.nodeid in (select nodeid from snmpinterface where snmpcollect != 'D' and lower(snmp" + snmpParm + ") = '" + snmpParmValue + "')"));
         }
     }
 
-    private void addCriteriaForCurrentOutages(OnmsCriteria criteria) {
+    private void addCriteriaForCurrentOutages(CriteriaBuilder criteria) {
         /*
          * This doesn't work properly if ipInterfaces and/or
          * monitoredServices have other restrictions.  If we are
@@ -180,27 +182,27 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
         criteria.add(Restrictions.sqlRestriction("{alias}.nodeId in (select o.nodeId from outages o where o.ifregainedservice is null and o.suppresstime is null or o.suppresstime < now())"));
     }
 
-    private void addCriteriaForNodename(OnmsCriteria criteria, String nodeName) {
+    private void addCriteriaForNodename(CriteriaBuilder criteria, String nodeName) {
         criteria.add(Restrictions.ilike("node.label", nodeName, MatchMode.ANYWHERE));
     }
     
-    private void addCriteriaForNodeId(OnmsCriteria criteria, int nodeId) {
+    private void addCriteriaForNodeId(CriteriaBuilder criteria, int nodeId) {
         criteria.add(Restrictions.idEq(nodeId));
     }
     
-    private void addCriteriaForForeignSource(OnmsCriteria criteria, String foreignSource) {
+    private void addCriteriaForForeignSource(CriteriaBuilder criteria, String foreignSource) {
         criteria.add(Restrictions.ilike("node.foreignSource", foreignSource, MatchMode.ANYWHERE));
     }
 
-    private void addCriteriaForIpLike(OnmsCriteria criteria, String iplike) {
-        OnmsCriteria ipInterface = criteria.createCriteria("node.ipInterfaces", "ipInterface");
-        ipInterface.add(Restrictions.ne("isManaged", "D"));
+    private void addCriteriaForIpLike(CriteriaBuilder criteria, String iplike) {
+        criteria.join("node.ipInterfaces", "ipInterface");
+        criteria.ne("ipInterface.isManaged", "D");
         
-        ipInterface.add(OnmsRestrictions.ipLike(iplike));
+        criteria.ipLike(iplike);
     }
     
 
-    private void addCriteriaForService(OnmsCriteria criteria, int serviceId) {
+    private void addCriteriaForService(CriteriaBuilder criteria, int serviceId) {
         criteria.createAlias("node.ipInterfaces", "ipInterface");
         criteria.add(Restrictions.ne("ipInterface.isManaged", "D"));
 
@@ -210,7 +212,7 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
         criteria.add(Restrictions.ne("monitoredService.status", "D"));
     }
 
-    private void addCriteriaForMaclike(OnmsCriteria criteria, String macLike) {
+    private void addCriteriaForMaclike(CriteriaBuilder criteria, String macLike) {
         String macLikeStripped = macLike.replaceAll("[:-]", "");
         
         criteria.createAlias("node.snmpInterfaces", "snmpInterface", OnmsCriteria.LEFT_JOIN);
@@ -256,7 +258,7 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
     }
     */
     
-    private void addCriteriaForCategories(OnmsCriteria criteria, String[]... categories) {
+    private void addCriteriaForCategories(CriteriaBuilder criteria, String[]... categories) {
         Assert.notNull(criteria, "criteria argument must not be null");
         
         for (Criterion criterion : m_categoryDao.getCriterionForCategorySetsUnion(categories)) {
@@ -264,7 +266,7 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
         }
     }
         
-    private void addCriteriaForSiteStatusView(OnmsCriteria criteria, String statusViewName, String statusSite, String rowLabel) {
+    private void addCriteriaForSiteStatusView(CriteriaBuilder criteria, String statusViewName, String statusSite, String rowLabel) {
         View view = m_siteStatusViewConfigDao.getView(statusViewName);
         RowDef rowDef = getRowDef(view, rowLabel);
         Set<String> categoryNames = getCategoryNamesForRowDef(rowDef);
