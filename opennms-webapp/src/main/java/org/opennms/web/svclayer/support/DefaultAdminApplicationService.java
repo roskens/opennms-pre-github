@@ -28,10 +28,7 @@
 
 package org.opennms.web.svclayer.support;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import org.opennms.core.utils.WebSecurityUtils;
 import org.opennms.netmgt.dao.ApplicationDao;
@@ -61,15 +58,12 @@ public class DefaultAdminApplicationService implements
         }
 
         OnmsApplication application = findApplication(applicationIdString);
-        
-        Collection<OnmsMonitoredService> memberServices =
-            m_monitoredServiceDao.findByApplication(application);
-        for (OnmsMonitoredService service : memberServices) {
-            m_applicationDao.initialize(service.getIpInterface());
-            m_applicationDao.initialize(service.getIpInterface().getNode());
+        Set<OnmsMonitoredService> monitoredServices = application.getMonitoredServices();
+        for (OnmsMonitoredService service : monitoredServices) {
+            m_monitoredServiceDao.fetchInterfaceAndNode(service);
         }
         
-        return new ApplicationAndMemberServices(application, memberServices);
+        return new ApplicationAndMemberServices(application, monitoredServices);
     }
 
     /**
@@ -375,10 +369,9 @@ public class DefaultAdminApplicationService implements
 
         OnmsMonitoredService service = findService(ifServiceIdString);
         List<OnmsApplication> applications = findAllApplications();
-        
-        m_monitoredServiceDao.initialize(service.getIpInterface());
-        m_monitoredServiceDao.initialize(service.getIpInterface().getNode());
-        
+
+        m_monitoredServiceDao.fetchInterfaceAndNode(service);
+
         return new ServiceEditModel(service, applications);
     }
 
@@ -407,7 +400,7 @@ public class DefaultAdminApplicationService implements
                                                + applicationId);
         }
         return application;
-        }
+    }
 
 
 

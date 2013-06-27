@@ -105,14 +105,6 @@ public interface MonitoredServiceDao extends OnmsDao<OnmsMonitoredService, Integ
      * @return a {@link java.util.Collection} object.
      */
     List<OnmsMonitoredService> findMatchingServices(ServiceSelector serviceSelector);
-
-    /**
-     * <p>findByApplication</p>
-     *
-     * @param application a {@link org.opennms.netmgt.model.OnmsApplication} object.
-     * @return a {@link java.util.Collection} object.
-     */
-    Set<OnmsMonitoredService> findByApplication(OnmsApplication application);
     
     /**
      * <p>getPrimaryService</p>
@@ -123,4 +115,9 @@ public interface MonitoredServiceDao extends OnmsDao<OnmsMonitoredService, Integ
      */
     OnmsMonitoredService getPrimaryService(Integer nodeId, String svcName);
 
+    /**
+     * Fetches the interface and it's node inside a transaction
+     * @param service
+     */
+    void fetchInterfaceAndNode(OnmsMonitoredService service);
 }
