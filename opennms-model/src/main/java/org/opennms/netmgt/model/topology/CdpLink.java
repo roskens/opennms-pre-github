@@ -8,6 +8,13 @@ import javax.persistence.Entity;
 public class CdpLink extends Link {
 
 	public CdpLink(CdpEndPoint a, CdpEndPoint b,Integer sourceNode) {
-		super(a,b,LinkType.CDP,sourceNode);
+		super(a,b,sourceNode);
 	}
+	
+	@Override
+	public String displayLinkType() {
+		return CDP_LINK_DISPLAY;
+	}
+	
+
 }

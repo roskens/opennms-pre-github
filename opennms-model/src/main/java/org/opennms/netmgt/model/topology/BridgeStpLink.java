@@ -8,6 +8,13 @@ import javax.persistence.Entity;
 public class BridgeStpLink extends Link {
 
 	public BridgeStpLink(BridgeEndPoint a, BridgeEndPoint b, Integer sourceNode) {
-		super(a,b,LinkType.DOT1D_STP, sourceNode);
+		super(a,b,sourceNode);
 	}
+	
+	@Override
+	public String displayLinkType() {
+		return STP_LINK_DISPLAY;
+	}
+	
+
 }

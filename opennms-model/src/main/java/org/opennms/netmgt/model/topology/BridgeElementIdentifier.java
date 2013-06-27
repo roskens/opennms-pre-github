@@ -9,10 +9,12 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 @DiscriminatorValue("BRIDGE")
 public final class BridgeElementIdentifier extends ElementIdentifier {
 
+	public final static String BRIDGE_IDENTIFIER_DISPLAY = "bridge address";
 	private String m_bridgeAddress;
 
+	
 	public BridgeElementIdentifier(String bridgeAddress, Integer sourceNode) {
-		super(ElementIdentifierType.BRIDGE, sourceNode);
+		super(sourceNode);
 		m_bridgeAddress= bridgeAddress;
 	}
 
@@ -42,6 +44,11 @@ public final class BridgeElementIdentifier extends ElementIdentifier {
 			.append("source", m_sourceNode)
 			.append("lastPoll", m_lastPoll)
 			.toString();
+	}
+
+	@Override
+	public String displayElementidentifierType() {
+		return BRIDGE_IDENTIFIER_DISPLAY;
 	}
 
 }

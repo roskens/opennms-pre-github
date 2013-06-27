@@ -9,10 +9,11 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 @DiscriminatorValue("NODE")
 public final class NodeElementIdentifier extends ElementIdentifier {
 
+	public final static String NODE_IDENTIFIER_DISPLAY = "OpenNMS node";
 	private Integer m_nodeid; 
 
 	public NodeElementIdentifier(Integer nodeid) {
-		super(ElementIdentifierType.NODE,nodeid);
+		super(nodeid);
 		m_nodeid = Integer.valueOf(nodeid);
 		setId(m_nodeid.toString());
 	}
@@ -47,6 +48,11 @@ public final class NodeElementIdentifier extends ElementIdentifier {
 			.append("lastPoll", m_lastPoll)
 			.append("sourceNode", m_sourceNode)
 			.toString();
+	}
+
+	@Override
+	public String displayElementidentifierType() {
+		return NODE_IDENTIFIER_DISPLAY;
 	}
 
 }

@@ -9,10 +9,11 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 @DiscriminatorValue("MAC")
 public final class MacAddrElementIdentifier extends ElementIdentifier {
 
+	public final static String MAC_IDENTIFIER_DISPLAY = "mac address";
 	private String m_macAddr; 
 
 	public MacAddrElementIdentifier(String mac, Integer sourceNode) {
-		super(ElementIdentifierType.MAC,sourceNode);
+		super(sourceNode);
 		m_macAddr = mac;
 	}
 
@@ -42,6 +43,11 @@ public final class MacAddrElementIdentifier extends ElementIdentifier {
 			.append("lastPoll", m_lastPoll)
 			.append("sourceNode", m_sourceNode)
 			.toString();
+	}
+
+	@Override
+	public String displayElementidentifierType() {
+		return MAC_IDENTIFIER_DISPLAY;
 	}
 
 }

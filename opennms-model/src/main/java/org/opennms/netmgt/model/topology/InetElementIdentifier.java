@@ -14,10 +14,11 @@ import static org.opennms.core.utils.InetAddressUtils.str;
 @DiscriminatorValue("INET")
 public final class InetElementIdentifier extends ElementIdentifier {
 
+	public final static String INET_IDENTIFIER_DISPLAY = "inet address";
 	private InetAddress m_inet;
 
 	public InetElementIdentifier(InetAddress inet,Integer sourceNode) {
-		super(ElementIdentifierType.INET,sourceNode);
+		super(sourceNode);
 		m_inet = inet;
 	}
 
@@ -48,5 +49,10 @@ public final class InetElementIdentifier extends ElementIdentifier {
 			.append("lastPoll", m_lastPoll)
 			.append("sourceNode", m_sourceNode)
 			.toString();
+	}
+
+	@Override
+	public String displayElementidentifierType() {
+		return INET_IDENTIFIER_DISPLAY;
 	}
 }

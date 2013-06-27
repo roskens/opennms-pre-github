@@ -8,6 +8,13 @@ import javax.persistence.Entity;
 public class OspfLink extends Link {
 
 	public OspfLink(OspfEndPoint a, OspfEndPoint b,Integer sourceNode) {
-		super(a,b,LinkType.OSPF,sourceNode);
+		super(a,b,sourceNode);
 	}
+	
+	@Override
+	public String displayLinkType() {
+		return OSPF_LINK_DISPLAY;
+	}
+	
+
 }

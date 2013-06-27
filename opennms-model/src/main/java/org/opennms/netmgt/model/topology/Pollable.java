@@ -2,7 +2,6 @@ package org.opennms.netmgt.model.topology;
 
 import java.util.Date;
 
-import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass

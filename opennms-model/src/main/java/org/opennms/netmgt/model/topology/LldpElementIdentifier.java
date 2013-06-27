@@ -15,6 +15,8 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 @DiscriminatorValue("LLDP")
 public final class LldpElementIdentifier extends ElementIdentifier {
 
+	public static final String LLDP_IDENTIFIER_DISPLAY = "link layer discovery protocol";
+
 	@Embeddable
 	public static class LldpChassisIdSubType extends AbstractType 
 	implements Serializable{
@@ -167,7 +169,7 @@ public final class LldpElementIdentifier extends ElementIdentifier {
     private LldpChassisIdSubType m_lldpChassisIdSubType;
 
     public LldpElementIdentifier(String lldpChassisId, String sysname, Integer subtype, Integer sourceNode) {
-		super(ElementIdentifierType.LLDP,sourceNode);
+		super(sourceNode);
 		m_lldpChassisId=lldpChassisId;
 		m_lldpSysname=sysname;
 		m_lldpChassisIdSubType=LldpChassisIdSubType.get(subtype);
@@ -226,6 +228,11 @@ public final class LldpElementIdentifier extends ElementIdentifier {
 			.append("lastPoll", m_lastPoll)
 			.append("sourceNode", m_sourceNode)
 			.toString();
+	}
+
+	@Override
+	public String displayElementidentifierType() {
+		return LLDP_IDENTIFIER_DISPLAY;
 	}
 
 }

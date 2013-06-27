@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
@@ -14,6 +15,8 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 @DiscriminatorValue("CDP")
 public final class CdpElementIdentifier extends ElementIdentifier {
 
+	public final static String CDP_IDENTIFIER_DISPLAY = "cisco discovery protocol";
+	
 	@Embeddable
 	public static class CiscoNetworkProtocolType extends AbstractType implements 
 	Serializable {
@@ -195,6 +198,15 @@ public final class CdpElementIdentifier extends ElementIdentifier {
             }
         }		
 
+        @Column(name="cisconetworkprotocol")
+        public Integer getCiscoNetworkProtocolType() {
+        	return m_type;
+        }
+        
+        public void setCiscoNetworkProtocolType(Integer type) {
+        	m_type=type;
+        }
+
 	}
 	
 	private String m_cdpDeviceId; 
@@ -202,12 +214,12 @@ public final class CdpElementIdentifier extends ElementIdentifier {
 	private String m_cdpAddress;
 
 	public CdpElementIdentifier(String cdpDeviceId,Integer sourceNode) {
-		super(ElementIdentifierType.CDP,sourceNode);
+		super(sourceNode);
 		m_cdpDeviceId = cdpDeviceId;
 	}
 
 	public CdpElementIdentifier(String cdpDeviceId, String cdpAddress, CiscoNetworkProtocolType type,Integer sourceNode) {
-		super(ElementIdentifierType.CDP,sourceNode);
+		super(sourceNode);
 		m_cdpDeviceId = cdpDeviceId;
 		m_cdpAddress = cdpAddress;
 		m_cdpAddressType = type;
@@ -236,6 +248,7 @@ public final class CdpElementIdentifier extends ElementIdentifier {
 	public void setCdpAddress(String cdpAddress) {
 		m_cdpAddress = cdpAddress;
 	}
+	
 	@Override
 	public boolean equals(ElementIdentifier elementIdentifier) {
 		if (elementIdentifier instanceof CdpElementIdentifier) 
@@ -269,6 +282,11 @@ public final class CdpElementIdentifier extends ElementIdentifier {
 			m_cdpAddress = cdp.getCdpAddress();
 			m_cdpAddressType = cdp.getCdpAddressType();
 		}
+	}
+
+	@Override
+	public String displayElementidentifierType() {
+		return CDP_IDENTIFIER_DISPLAY;
 	}
 
 }

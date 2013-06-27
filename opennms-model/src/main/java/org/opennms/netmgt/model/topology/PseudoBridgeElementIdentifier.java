@@ -9,11 +9,12 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 @DiscriminatorValue("PSEUDOBRIDGE")
 public final class PseudoBridgeElementIdentifier extends ElementIdentifier {
 
+	public final static String PSEUDOBRIDGE_IDENTIFIER_DISPLAY = "pseudobridge";
 	private  String m_linkedBridgeIdentifier; 
 	private  Integer m_linkedBridgePort;
 
 	public PseudoBridgeElementIdentifier(String linkedBridgedIdentifier, Integer linkedBridgePort, Integer sourceNode) {
-		super(ElementIdentifierType.PSEUDO,sourceNode);
+		super(sourceNode);
 		m_linkedBridgeIdentifier = linkedBridgedIdentifier;
 		m_linkedBridgePort = linkedBridgePort;
 	}
@@ -57,6 +58,11 @@ public final class PseudoBridgeElementIdentifier extends ElementIdentifier {
 			.append("lastPoll", m_lastPoll)
 			.append("sourceNode", m_sourceNode)
 			.toString();
+	}
+
+	@Override
+	public String displayElementidentifierType() {
+		return PSEUDOBRIDGE_IDENTIFIER_DISPLAY;
 	}
 
 }

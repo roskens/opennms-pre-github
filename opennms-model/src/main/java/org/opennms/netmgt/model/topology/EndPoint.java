@@ -8,7 +8,6 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 /**
  * This class represents a destination in the network such as
@@ -85,7 +84,8 @@ public abstract class EndPoint extends Pollable {
 		m_device = device;
 	}
 	
-	@OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "link_id")
 	public Link getLink() {
 		return m_link;
 	}

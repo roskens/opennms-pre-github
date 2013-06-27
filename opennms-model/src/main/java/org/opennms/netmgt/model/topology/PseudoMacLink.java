@@ -8,6 +8,12 @@ import javax.persistence.Entity;
 public class PseudoMacLink extends Link {
 
 	public PseudoMacLink(PseudoMacEndPoint a, MacAddrEndPoint b, Integer sourceNode) {
-		super(a,b,LinkType.PSEUDO_MAC, sourceNode);
+		super(a,b,sourceNode);
 	}
+	
+	@Override
+	public String displayLinkType() {
+		return PSEUDOMAC_LINK_DISPLAY;
+	}
+	
 }

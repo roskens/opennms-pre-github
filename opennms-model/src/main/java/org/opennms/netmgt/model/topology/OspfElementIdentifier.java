@@ -14,10 +14,11 @@ import static org.opennms.core.utils.InetAddressUtils.str;
 @DiscriminatorValue("OSPF")
 public final class OspfElementIdentifier extends ElementIdentifier {
 
+	public final static String OSPF_IDENTIFIER_DISPLAY = "open short path first";
 	private InetAddress m_ospfRouterId; 
 
 	public OspfElementIdentifier(InetAddress ospfRouterid,Integer sourceNode) {
-		super(ElementIdentifierType.OSPF,sourceNode);
+		super(sourceNode);
 		m_ospfRouterId= ospfRouterid;
 	}
 
@@ -48,6 +49,11 @@ public final class OspfElementIdentifier extends ElementIdentifier {
 			.append("lastPoll", m_lastPoll)
 			.append("sourceNode", m_sourceNode)
 			.toString();
+	}
+
+	@Override
+	public String displayElementidentifierType() {
+		return OSPF_IDENTIFIER_DISPLAY;
 	}
 
 }

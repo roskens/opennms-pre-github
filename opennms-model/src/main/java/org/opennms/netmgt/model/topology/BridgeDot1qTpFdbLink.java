@@ -8,6 +8,13 @@ import javax.persistence.Entity;
 public class BridgeDot1qTpFdbLink extends Link {
 
 	public BridgeDot1qTpFdbLink(BridgeEndPoint a, MacAddrEndPoint b, Integer sourceNode) {
-		super(a,b,LinkType.DOT1Q_TP_FDB,sourceNode);
+		super(a,b,sourceNode);
 	}
+	
+	@Override
+	public String displayLinkType() {
+		return DOT1QTPFDB_LINK_DISPLAY;
+	}
+	
+
 }

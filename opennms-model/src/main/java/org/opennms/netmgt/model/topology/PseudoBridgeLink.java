@@ -8,6 +8,13 @@ import javax.persistence.Entity;
 public class PseudoBridgeLink extends Link {
 
 	public PseudoBridgeLink(PseudoBridgeEndPoint a, BridgeEndPoint b, Integer sourceNode) {
-		super(a,b,LinkType.PSEUDO_BRIDGE, sourceNode);
+		super(a,b,sourceNode);
 	}
+	
+	@Override
+	public String displayLinkType() {
+		return PSEUDOBRIDGE_LINK_DISPLAY;
+	}
+	
+
 }

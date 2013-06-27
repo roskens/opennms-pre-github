@@ -2475,7 +2475,7 @@ create table EndPoint (
 );
 
 create table Link (
-    id integer not null, 
+    id integer default nextval('opennmsnxtid') not null, 
     DTYPE varchar(31) not null, 
     lastPoll timestamp, 
     sourceNode integer, 
@@ -2488,3 +2488,4 @@ create table Link (
 
 
 --# End Topology
+
