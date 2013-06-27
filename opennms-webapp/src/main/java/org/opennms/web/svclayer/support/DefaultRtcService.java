@@ -33,12 +33,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.hibernate.criterion.Disjunction;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
+import org.opennms.core.criteria.CriteriaBuilder;
 import org.opennms.netmgt.dao.MonitoredServiceDao;
 import org.opennms.netmgt.dao.OutageDao;
-import org.opennms.netmgt.model.OnmsCriteria;
 import org.opennms.netmgt.model.OnmsMonitoredService;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.OnmsOutage;
@@ -65,19 +62,19 @@ public class DefaultRtcService implements RtcService, InitializingBean {
      */
     @Override
     public RtcNodeModel getNodeList() {
-        OnmsCriteria serviceCriteria = createServiceCriteria();
-        OnmsCriteria outageCriteria = createOutageCriteria();
+        CriteriaBuilder serviceCriteria = createServiceCriteria();
+        CriteriaBuilder outageCriteria = createOutageCriteria();
         
         return getNodeListForCriteria(serviceCriteria, outageCriteria);
     }
     
     /** {@inheritDoc} */
     @Override
-    public RtcNodeModel getNodeListForCriteria(OnmsCriteria serviceCriteria, OnmsCriteria outageCriteria) {
-        serviceCriteria.addOrder(Order.asc("node.label"));
-        serviceCriteria.addOrder(Order.asc("node.id"));
-        serviceCriteria.addOrder(Order.asc("ipInterface.ipAddress"));
-        serviceCriteria.addOrder(Order.asc("serviceType.name"));
+    public RtcNodeModel getNodeListForCriteria(CriteriaBuilder serviceCriteria, CriteriaBuilder outageCriteria) {
+        serviceCriteria.orderBy("node.label").asc();
+        serviceCriteria.orderBy("node.id").asc();
+        serviceCriteria.orderBy("ipInterface.ipAddress").asc();
+        serviceCriteria.orderBy("serviceType.name").asc();
 
         Date periodEnd = new Date(System.currentTimeMillis());
         Date periodStart = new Date(periodEnd.getTime() - (24 * 60 * 60 * 1000));
@@ -88,11 +85,11 @@ public class DefaultRtcService implements RtcService, InitializingBean {
         disjunction.add(Restrictions.ge("ifRegainedService", periodStart));
         outageCriteria.add(disjunction);
         
-        outageCriteria.addOrder(Order.asc("monitoredService"));
-        outageCriteria.addOrder(Order.asc("ifLostService"));
+        outageCriteria.orderBy("monitoredService").asc();
+        outageCriteria.orderBy("ifLostService").asc();
         
-        List<OnmsMonitoredService> services = m_monitoredServiceDao.findMatching(serviceCriteria);
-        List<OnmsOutage> outages = m_outageDao.findMatching(outageCriteria);
+        List<OnmsMonitoredService> services = m_monitoredServiceDao.findMatching(serviceCriteria.toCriteria());
+        List<OnmsOutage> outages = m_outageDao.findMatching(outageCriteria.toCriteria());
         
         Map<OnmsMonitoredService, Long> serviceDownTime = calculateServiceDownTime(periodEnd, periodStart, outages);
         
@@ -140,17 +137,18 @@ public class DefaultRtcService implements RtcService, InitializingBean {
      * @return a {@link org.opennms.netmgt.model.OnmsCriteria} object.
      */
     @Override
-    public OnmsCriteria createOutageCriteria() {
-        OnmsCriteria outageCriteria = new OnmsCriteria(OnmsOutage.class, "outage");
+    public CriteriaBuilder createOutageCriteria() {
+        CriteriaBuilder criteriaBuilder = new CriteriaBuilder(OnmsOutage.class);
+        criteriaBuilder.alias("this", "outage");
 
-        outageCriteria.createAlias("monitoredService", "monitoredService", OnmsCriteria.INNER_JOIN);
-        outageCriteria.add(Restrictions.eq("monitoredService.status", "A"));
-        outageCriteria.createAlias("monitoredService.ipInterface", "ipInterface", OnmsCriteria.INNER_JOIN);
-        outageCriteria.add(Restrictions.ne("ipInterface.isManaged", "D"));
-        outageCriteria.createAlias("monitoredService.ipInterface.node", "node", OnmsCriteria.INNER_JOIN);
-        outageCriteria.add(Restrictions.ne("node.type", "D"));
+        criteriaBuilder.alias("monitoredService", "monitoredService");
+        criteriaBuilder.eq("monitoredService.status", "A");
+        criteriaBuilder.alias("monitoredService.ipInterface", "ipInterface");
+        criteriaBuilder.ne("ipInterface.isManaged", "D");
+        criteriaBuilder.alias("monitoredService.ipInterface.node", "node");
+        criteriaBuilder.ne("node.type", "D");
         
-        return outageCriteria;
+        return criteriaBuilder;
     }
 
     /**
@@ -159,18 +157,18 @@ public class DefaultRtcService implements RtcService, InitializingBean {
      * @return a {@link org.opennms.netmgt.model.OnmsCriteria} object.
      */
     @Override
-    public OnmsCriteria createServiceCriteria() {
-        OnmsCriteria serviceCriteria = new OnmsCriteria(OnmsMonitoredService.class, "monitoredService");
+    public CriteriaBuilder createServiceCriteria() {
+        CriteriaBuilder criteriaBuilder = new CriteriaBuilder(OnmsMonitoredService.class);
+        criteriaBuilder.alias("this", "monitoredService");
+        criteriaBuilder.eq("monitoredService.status", "A");
+        criteriaBuilder.alias("ipInterface", "ipInterface");
+        criteriaBuilder.ne("ipInterface.isManaged", "D");
+        criteriaBuilder.alias("ipInterface.node", "node");
+        criteriaBuilder.ne("node.type", "D");
+        criteriaBuilder.alias("serviceType", "serviceType");
+        criteriaBuilder.alias("currentOutages", "currentOutages");
 
-        serviceCriteria.add(Restrictions.eq("monitoredService.status", "A"));
-        serviceCriteria.createAlias("ipInterface", "ipInterface", OnmsCriteria.INNER_JOIN);
-        serviceCriteria.add(Restrictions.ne("ipInterface.isManaged", "D"));
-        serviceCriteria.createAlias("ipInterface.node", "node", OnmsCriteria.INNER_JOIN);
-        serviceCriteria.add(Restrictions.ne("node.type", "D"));
-        serviceCriteria.createAlias("serviceType", "serviceType", OnmsCriteria.INNER_JOIN);
-        serviceCriteria.createAlias("currentOutages", "currentOutages", OnmsCriteria.INNER_JOIN);
-        
-        return serviceCriteria;
+        return criteriaBuilder;
     }
 
     private Map<OnmsMonitoredService, Long> calculateServiceDownTime(Date periodEnd, Date periodStart, List<OnmsOutage> outages) {

@@ -28,6 +28,7 @@
 
 package org.opennms.web.svclayer;
 
+import org.opennms.core.criteria.CriteriaBuilder;
 import org.opennms.netmgt.model.OnmsCriteria;
 import org.opennms.web.svclayer.support.RtcNodeModel;
 import org.springframework.transaction.annotation.Transactional;
@@ -54,17 +55,17 @@ public interface RtcService {
      * @param outageCriteria a {@link org.opennms.netmgt.model.OnmsCriteria} object.
      * @return a {@link org.opennms.web.svclayer.support.RtcNodeModel} object.
      */
-    public RtcNodeModel getNodeListForCriteria(OnmsCriteria serviceCriteria, OnmsCriteria outageCriteria);
+    public RtcNodeModel getNodeListForCriteria(CriteriaBuilder serviceCriteria, CriteriaBuilder outageCriteria);
     /**
      * <p>createServiceCriteria</p>
      *
      * @return a {@link org.opennms.netmgt.model.OnmsCriteria} object.
      */
-    public OnmsCriteria createServiceCriteria();
+    public CriteriaBuilder createServiceCriteria();
     /**
      * <p>createOutageCriteria</p>
      *
      * @return a {@link org.opennms.netmgt.model.OnmsCriteria} object.
      */
-    public OnmsCriteria createOutageCriteria();
+    public CriteriaBuilder createOutageCriteria();
 }
