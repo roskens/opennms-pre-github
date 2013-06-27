@@ -1,21 +1,21 @@
 package org.opennms.features.vaadin.dashboard.config;
 
-import org.opennms.features.vaadin.dashboard.dashlets.UndefinedDashlet;
-import org.opennms.features.vaadin.dashboard.model.Sandwich;
+import org.opennms.features.vaadin.dashboard.model.DashletFactory;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class DashletSelector implements BundleActivator {
-    //List<Sandwich> serviceInterfaceList = new ArrayList<Sandwich>();
-    List<ServiceListChangedListener> serviceListChangedListeners = new ArrayList<ServiceListChangedListener>();
-    Map<String, Sandwich> serviceInterfaceMap = new TreeMap<String, Sandwich>();
-    private UndefinedDashlet sandwichNotFound = new UndefinedDashlet();
+    List<ServiceListChangedListener> m_serviceListChangedListeners = new ArrayList<ServiceListChangedListener>();
+    Map<String, DashletFactory> m_serviceInterfaceMap = new TreeMap<String, DashletFactory>();
 
     public interface ServiceListChangedListener {
-        public void serviceListChanged(List<Sandwich> serviceList);
+        public void serviceListChanged(List<DashletFactory> factoryList);
     }
 
     public void start(final BundleContext context) throws Exception {
@@ -26,12 +26,12 @@ public class DashletSelector implements BundleActivator {
         System.out.println("stop() called");
     }
 
-    public void bind(Sandwich sandwich) {
-        if (sandwich != null) {
-            System.out.println("bind service " + sandwich.getClass().getName());
-            LoggerFactory.getLogger(DashletSelector.class).warn("bind service " + sandwich.getClass().getName());
+    public void bind(DashletFactory dashletFactory) {
+        if (dashletFactory != null) {
+            System.out.println("bind service " + dashletFactory.getClass().getName());
+            LoggerFactory.getLogger(DashletSelector.class).warn("bind service " + dashletFactory.getClass().getName());
 
-            serviceInterfaceMap.put(sandwich.getName(), sandwich);
+            m_serviceInterfaceMap.put(dashletFactory.getName(), dashletFactory);
             fireServiceListChangedListeners();
         } else {
             System.out.println("service is null");
@@ -39,12 +39,12 @@ public class DashletSelector implements BundleActivator {
         }
     }
 
-    public void unbind(Sandwich sandwich) {
-        if (sandwich != null) {
-            System.out.println("unbind service " + sandwich.getClass().getName());
-            LoggerFactory.getLogger(DashletSelector.class).warn("unbind service " + sandwich.getClass().getName());
+    public void unbind(DashletFactory dashletFactory) {
+        if (dashletFactory != null) {
+            System.out.println("unbind service " + dashletFactory.getClass().getName());
+            LoggerFactory.getLogger(DashletSelector.class).warn("unbind service " + dashletFactory.getClass().getName());
 
-            serviceInterfaceMap.remove(sandwich.getName());
+            m_serviceInterfaceMap.remove(dashletFactory.getName());
             fireServiceListChangedListeners();
         } else {
             System.out.println("service is null");
@@ -53,33 +53,33 @@ public class DashletSelector implements BundleActivator {
     }
 
     public void addServiceListChangedListener(ServiceListChangedListener serviceListChangedListener) {
-        serviceListChangedListeners.add(serviceListChangedListener);
+        m_serviceListChangedListeners.add(serviceListChangedListener);
     }
 
     public void removeServiceListChangedListener(ServiceListChangedListener serviceListChangedListener) {
-        serviceListChangedListeners.remove(serviceListChangedListener);
+        m_serviceListChangedListeners.remove(serviceListChangedListener);
     }
 
     private void fireServiceListChangedListeners() {
-        List<Sandwich> sandwichList = new ArrayList<Sandwich>();
-        sandwichList.addAll(serviceInterfaceMap.values());
+        List<DashletFactory> factoryList = new ArrayList<DashletFactory>();
+        factoryList.addAll(m_serviceInterfaceMap.values());
 
-        for (ServiceListChangedListener serviceListChangedListener : serviceListChangedListeners) {
-            serviceListChangedListener.serviceListChanged(sandwichList);
+        for (ServiceListChangedListener serviceListChangedListener : m_serviceListChangedListeners) {
+            serviceListChangedListener.serviceListChanged(factoryList);
         }
     }
 
-    public List<Sandwich> getSandwichList() {
-        List<Sandwich> sandwichList = new ArrayList<Sandwich>();
-        sandwichList.addAll(serviceInterfaceMap.values());
-        return sandwichList;
+    public List<DashletFactory> getDashletList() {
+        List<DashletFactory> factoryList = new ArrayList<DashletFactory>();
+        factoryList.addAll(m_serviceInterfaceMap.values());
+        return factoryList;
     }
 
-    public Sandwich getSandwichForName(String name) {
-        if (serviceInterfaceMap.containsKey(name)) {
-            return serviceInterfaceMap.get(name);
+    public DashletFactory getFactoryForName(String name) {
+        if (m_serviceInterfaceMap.containsKey(name)) {
+            return m_serviceInterfaceMap.get(name);
         } else {
-            return serviceInterfaceMap.get("Undefined");
+            return m_serviceInterfaceMap.get("Undefined");
         }
     }
 

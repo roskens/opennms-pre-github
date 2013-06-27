@@ -5,9 +5,8 @@ import com.vaadin.ui.Component;
 /**
  * @author Marcus Hellberg (marcus@vaadin.com)
  */
-public interface Sandwich extends Component {
-
-    public boolean allowAdvance();
-
+public interface Dashlet extends Component {
     public String getName();
+
+    public boolean isBoosted();
 }

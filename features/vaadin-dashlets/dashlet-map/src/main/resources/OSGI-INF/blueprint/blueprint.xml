@@ -4,8 +4,8 @@
 	http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
 ">
 
-    <bean id="mapDashlet" class="org.opennms.features.vaadin.dashboard.dashlets.MapDashlet" scope="prototype"/>
+    <bean id="mapDashletFactory" class="org.opennms.features.vaadin.dashboard.dashlets.MapDashletFactory" scope="singleton"/>
 
-    <service ref="mapDashlet" interface="org.opennms.features.vaadin.dashboard.model.Sandwich"/>
+    <service ref="mapDashletFactory" interface="org.opennms.features.vaadin.dashboard.model.DashletFactory"/>
 
 </blueprint>

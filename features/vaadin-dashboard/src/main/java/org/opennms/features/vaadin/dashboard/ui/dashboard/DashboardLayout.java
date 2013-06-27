@@ -1,9 +1,14 @@
 package org.opennms.features.vaadin.dashboard.ui.dashboard;
 
-import org.opennms.features.vaadin.dashboard.dashlets.AlertListDashlet;
-import org.opennms.features.vaadin.dashboard.dashlets.MapDashlet;
+import org.opennms.features.vaadin.dashboard.config.DashletSelector;
+import org.opennms.features.vaadin.dashboard.model.Dashlet;
+import org.opennms.features.vaadin.dashboard.model.DashletSelectorAccess;
+import org.opennms.features.vaadin.dashboard.model.DashletSpec;
+import org.opennms.features.vaadin.dashboard.ui.WallboardUI;
 import org.vaadin.addon.portallayout.container.PortalColumns;
 import org.vaadin.addon.portallayout.portal.StackPortalLayout;
+
+import java.util.List;
 
 /**
  * @author Marcus Hellberg (marcus@vaadin.com)
@@ -11,39 +16,38 @@ import org.vaadin.addon.portallayout.portal.StackPortalLayout;
 public class DashboardLayout extends PortalColumns {
 
 
-    private StackPortalLayout column1;
-    private StackPortalLayout column2;
-    private StackPortalLayout column3;
+    private StackPortalLayout[] columns = new StackPortalLayout[3];
 
     public DashboardLayout() {
         setSizeFull();
 
-        createLayouts();
-
-        column1.portletFor(new DemoDashlet("OpenNMS Dashboard playground"));
-        column2.portletFor(new MapDashlet());
-        column3.portletFor(new AlertListDashlet());
+        for (int i = 0; i < columns.length; i++) {
+            columns[i] = new StackPortalLayout();
+            columns[i].setSizeFull();
+            columns[i].setMargin(true);
+            columns[i].setSpacing(true);
+            appendPortal(columns[i]);
+        }
     }
 
-    private void createLayouts() {
-        column1 = new StackPortalLayout();
-        column2 = new StackPortalLayout();
-        column3 = new StackPortalLayout();
+    private Dashlet getDashletInstance(DashletSpec dashletSpec) {
+        DashletSelector dashletSelector = ((DashletSelectorAccess) getUI()).getDashletSelector();
+        return dashletSelector.getFactoryForName(dashletSpec.getDashletName()).newDashletInstance(dashletSpec);
+    }
 
-        column1.setSizeFull();
-        column2.setSizeFull();
-        column3.setSizeFull();
+    public void setDashletSpecs(List<DashletSpec> dashletSpecs) {
 
-        column1.setSpacing(true);
-        column2.setSpacing(true);
-        column3.setSpacing(true);
+        int c = 0;
+        int i = 0;
 
-        column1.setMargin(true);
-        column2.setMargin(true);
-        column3.setMargin(true);
+        for (DashletSpec dashletSpec : dashletSpecs) {
+            columns[i].portletFor(getDashletInstance(dashletSpec));
+            i++;
 
-        appendPortal(column1);
-        appendPortal(column2);
-        appendPortal(column3);
+            if (i % 3 == 0) {
+                c++;
+                i = 0;
+            }
+        }
     }
 }

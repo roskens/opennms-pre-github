@@ -5,25 +5,25 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.TabSheet;
 
-public abstract class DashboardTabSheet extends TabSheet {
-    private CssLayout plusTab;
-    private Component lastTab;
+public abstract class WallboardTabSheet extends TabSheet {
+    private CssLayout m_plusTab;
+    private Component m_lastTab;
 
     protected abstract void addNewTabComponent();
 
-    public DashboardTabSheet() {
-        plusTab = new CssLayout();
-        plusTab.setCaption("+");
-        addTab(plusTab).setClosable(false);
+    public WallboardTabSheet() {
+        m_plusTab = new CssLayout();
+        m_plusTab.setCaption("+");
+        addTab(m_plusTab).setClosable(false);
         addSelectedTabChangeListener(new TabSheet.SelectedTabChangeListener() {
 
             public void selectedTabChange(TabSheet.SelectedTabChangeEvent event) {
                 Component selectedTab = getSelectedTab();
                 if (selectedTab.getCaption() != null && selectedTab.getCaption().equals("+")) {
-                    setSelectedTab((lastTab != null ? lastTab : getComponentIterator().next()));
+                    setSelectedTab((m_lastTab != null ? m_lastTab : getComponentIterator().next()));
                     addNewTabComponent();
                 } else {
-                    lastTab = selectedTab;
+                    m_lastTab = selectedTab;
                 }
             }
         });
@@ -31,9 +31,9 @@ public abstract class DashboardTabSheet extends TabSheet {
 
     @Override
     public TabSheet.Tab addTab(Component c, String caption, Resource icon) {
-        removeComponent(plusTab);
+        removeComponent(m_plusTab);
         TabSheet.Tab tab = super.addTab(c, caption, icon);
-        super.addTab(plusTab, plusTab.getCaption(), null);
+        super.addTab(m_plusTab, m_plusTab.getCaption(), null);
         return tab;
     }
 }

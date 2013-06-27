@@ -18,6 +18,7 @@
         <module>dashlet-alerts</module>
         <module>dashlet-map</module>
         <module>dashlet-hello</module>
+        <module>dashlet-ulf</module>
         <module>dashlet-features</module>
     </modules>
 </project>

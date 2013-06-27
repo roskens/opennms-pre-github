@@ -18,10 +18,10 @@
 -->
 
     <groupId>org.opennms.features.vaadin-dashlets</groupId>
-    <artifactId>dashlet-map</artifactId>
+    <artifactId>dashlet-ulf</artifactId>
 
     <properties>
-        <bundle.symbolicName>org.opennms.features.vaadin-dashlets.dashlet-map</bundle.symbolicName>
+        <bundle.symbolicName>org.opennms.features.vaadin-dashlets.dashlet-ulf</bundle.symbolicName>
         <bundle.namespace>org.opennms.features.vaadin.dashboard.dashlets</bundle.namespace>
     </properties>
 

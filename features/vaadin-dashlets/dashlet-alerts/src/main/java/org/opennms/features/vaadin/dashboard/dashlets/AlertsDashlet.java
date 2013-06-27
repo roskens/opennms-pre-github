@@ -2,22 +2,26 @@ package org.opennms.features.vaadin.dashboard.dashlets;
 
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
-import org.opennms.features.vaadin.dashboard.model.Sandwich;
+import org.opennms.features.vaadin.dashboard.model.Dashlet;
+import org.opennms.features.vaadin.dashboard.model.DashletSpec;
 
-public class AlertsDashlet extends VerticalLayout implements Sandwich {
+public class AlertsDashlet extends VerticalLayout implements Dashlet {
 
     int tries = 0;
 
-    public AlertsDashlet() {
-        setMargin(true);
-        setCaption("Nodes with pending problems");
-
+    public AlertsDashlet(DashletSpec dashletSpec) {
+        setCaption(getName());
         setWidth("100%");
         addNodes();
     }
 
     public String getName() {
         return "Alerts";
+    }
+
+    @Override
+    public boolean isBoosted() {
+        return false;
     }
 
     private void addNodes() {
@@ -39,15 +43,6 @@ public class AlertsDashlet extends VerticalLayout implements Sandwich {
         addComponent(new NodeLabel("ncstate.internal.opennms.com has 2 alarms (2 hours)", Severity.WARNING));
         addComponent(new NodeLabel("timmy.internal.opennms.com has 3 alarms (1 day)", Severity.SEVERE));
         addComponent(new NodeLabel("stanford.internal.opennms.com has 2 alarms (3 days)", Severity.SEVERE));
-    }
-
-    @Override
-    public boolean allowAdvance() {
-        if (tries++ % 3 == 0) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
     public enum Severity {

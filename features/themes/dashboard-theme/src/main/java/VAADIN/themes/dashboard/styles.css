@@ -60,12 +60,12 @@
     border-left: 5px solid yellow;
 }
 
-.dashboard .sandwhich-board .node-label {
+.dashboard .wallboard-board .node-label {
     font-size: 36px;
     padding: 20px 20px;
 }
 
-.dashboard .sandwhich-board .progress-paused {
+.dashboard .wallboard-board .progress-paused {
     font-size: 24px;
     font-weight: bold;
     background: orange;

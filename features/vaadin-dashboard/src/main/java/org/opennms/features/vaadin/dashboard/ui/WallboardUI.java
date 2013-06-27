@@ -7,9 +7,9 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import org.opennms.features.vaadin.dashboard.config.DashletSelector;
-import org.opennms.features.vaadin.dashboard.ui.HeaderLayout;
+import org.opennms.features.vaadin.dashboard.model.DashletSelectorAccess;
 import org.opennms.features.vaadin.dashboard.ui.dashboard.DashboardView;
-import org.opennms.features.vaadin.dashboard.ui.sandwich.SandwichBoardView;
+import org.opennms.features.vaadin.dashboard.ui.wallboard.WallboardView;
 
 /**
  * The Application's "main" class
@@ -17,11 +17,15 @@ import org.opennms.features.vaadin.dashboard.ui.sandwich.SandwichBoardView;
 @SuppressWarnings("serial")
 @Theme("dashboard")
 @Title("OpenNMS Dashboard")
-public class DashboardUI extends UI {
+public class WallboardUI extends UI implements DashletSelectorAccess {
     DashletSelector dashletSelector;
 
     public void setDashletSelector(DashletSelector dashletSelector) {
         this.dashletSelector = dashletSelector;
+    }
+
+    public DashletSelector getDashletSelector() {
+        return dashletSelector;
     }
 
     @Override
@@ -29,8 +33,8 @@ public class DashboardUI extends UI {
         VerticalLayout rootLayout = new VerticalLayout();
         rootLayout.setSizeFull();
         rootLayout.setSpacing(true);
-
-        rootLayout.addComponent(new HeaderLayout());
+        HeaderLayout headerLayout = new HeaderLayout();
+        rootLayout.addComponent(headerLayout);
 
         VerticalLayout portalWrapper = new VerticalLayout();
         portalWrapper.setSizeFull();
@@ -40,12 +44,12 @@ public class DashboardUI extends UI {
         rootLayout.setExpandRatio(portalWrapper, 1);
         setContent(rootLayout);
 
-
         Navigator navigator = new Navigator(this, portalWrapper);
-        navigator.addView("dashboard", DashboardView.class);
-        navigator.addView("sandwichboard", SandwichBoardView.class);
 
-        navigator.navigateTo("sandwichboard");
+        navigator.addView("dashboard", DashboardView.class);
+        navigator.addView("wallboard", WallboardView.class);
+
+        navigator.navigateTo("wallboard");
     }
 
 }

@@ -6,15 +6,15 @@
 
     <bean id="dashletSelector" class="org.opennms.features.vaadin.dashboard.config.DashletSelector" scope="singleton"/>
 
-    <bean id="dashboardUI" class="org.opennms.features.vaadin.dashboard.ui.DashboardUI" scope="prototype">
+    <bean id="dashboardUI" class="org.opennms.features.vaadin.dashboard.ui.WallboardUI" scope="prototype">
         <property name="dashletSelector" ref="dashletSelector"/>
     </bean>
 
-    <reference-list interface="org.opennms.features.vaadin.dashboard.model.Sandwich" availability="optional">
+    <reference-list interface="org.opennms.features.vaadin.dashboard.model.DashletFactory" availability="optional">
         <reference-listener bind-method="bind" unbind-method="unbind" ref="dashletSelector"/>
     </reference-list>
 
-    <bean id="dashboardUIFactory" class="org.opennms.features.vaadin.dashboard.ui.DashboardUIFactory">
+    <bean id="dashboardUIFactory" class="org.opennms.features.vaadin.dashboard.ui.WallboardUIFactory">
         <!-- Blueprint container bean -->
         <argument ref="blueprintContainer"/>
         <!-- Bean id of the Vaadin application prototype -->
@@ -28,7 +28,7 @@
         </service-properties>
     </service>
 
-    <bean id="dashboardConfigUI" class="org.opennms.features.vaadin.dashboard.config.ui.DashboardConfigUI"
+    <bean id="dashboardConfigUI" class="org.opennms.features.vaadin.dashboard.config.ui.WallboardConfigUI"
           scope="prototype">
         <property name="dashletSelector" ref="dashletSelector"/>
     </bean>
@@ -39,7 +39,7 @@
     </bean>
 
     <bean id="dashboardConfigUIFactory"
-          class="org.opennms.features.vaadin.dashboard.config.ui.DashboardConfigUIFactory">
+          class="org.opennms.features.vaadin.dashboard.config.ui.WallboardConfigUIFactory">
         <!-- Blueprint container bean -->
         <argument ref="blueprintContainer"/>
         <!-- Bean id of the Vaadin application prototype -->
@@ -60,8 +60,9 @@
         </service-properties>
     </service>
 
-    <bean id="undefinedDashlet" class="org.opennms.features.vaadin.dashboard.dashlets.UndefinedDashlet" scope="prototype"/>
+    <bean id="undefinedDashletFactory" class="org.opennms.features.vaadin.dashboard.dashlets.UndefinedDashletFactory"
+          scope="singleton"/>
 
-    <service ref="undefinedDashlet" interface="org.opennms.features.vaadin.dashboard.model.Sandwich"/>
+    <service ref="undefinedDashletFactory" interface="org.opennms.features.vaadin.dashboard.model.DashletFactory"/>
 
 </blueprint>

@@ -1,14 +1,17 @@
-package org.opennms.features.vaadin.dashboard.config.ui;
+package org.opennms.features.vaadin.dashboard.ui;
 
 import com.vaadin.ui.UI;
 import org.ops4j.pax.vaadin.AbstractApplicationFactory;
 import org.osgi.service.blueprint.container.BlueprintContainer;
 
-public class DashboardConfigUIFactory extends AbstractApplicationFactory {
+/**
+ * @author Marcus Hellberg (marcus@vaadin.com)
+ */
+public class WallboardUIFactory extends AbstractApplicationFactory {
     private final BlueprintContainer m_blueprintContainer;
     private final String m_beanName;
 
-    public DashboardConfigUIFactory(BlueprintContainer container, String beanName) {
+    public WallboardUIFactory(BlueprintContainer container, String beanName) {
         m_blueprintContainer = container;
         m_beanName = beanName;
     }
@@ -20,6 +23,6 @@ public class DashboardConfigUIFactory extends AbstractApplicationFactory {
 
     @Override
     public Class<? extends UI> getUIClass() {
-        return DashboardConfigUI.class;
+        return WallboardUI.class;
     }
 }

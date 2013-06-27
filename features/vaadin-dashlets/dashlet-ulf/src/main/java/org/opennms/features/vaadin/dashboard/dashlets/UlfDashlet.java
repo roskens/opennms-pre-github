@@ -5,10 +5,10 @@ import com.vaadin.ui.Image;
 import org.opennms.features.vaadin.dashboard.model.Dashlet;
 import org.opennms.features.vaadin.dashboard.model.DashletSpec;
 
-public class MapDashlet extends Image implements Dashlet {
+public class UlfDashlet extends Image implements Dashlet {
 
-    public MapDashlet(DashletSpec dashletSpec) {
-        super(null, new ThemeResource("img/map.png"));
+    public UlfDashlet(DashletSpec dashletSpec) {
+        super(null, new ThemeResource("img/ulf.png"));
         setCaption(getName());
         setSizeFull();
     }
@@ -18,12 +18,11 @@ public class MapDashlet extends Image implements Dashlet {
     }
 
     public String getName() {
-        return "Map";
+        return "Ulf";
     }
 
     @Override
     public boolean isBoosted() {
         return false;
     }
-
 }
