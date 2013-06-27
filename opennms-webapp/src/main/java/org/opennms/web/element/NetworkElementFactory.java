@@ -545,15 +545,15 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
 	 */
     @Override
     public List<OnmsNode> getAllNodes(int serviceId) {
-        OnmsCriteria criteria = new OnmsCriteria(OnmsNode.class);
-        criteria.createAlias("ipInterfaces", "ipInterfaces");
-        criteria.createAlias("ipInterfaces.monitoredServices", "monSvcs");
-        criteria.add(Restrictions.ne("type", "D"));
-        criteria.add(Restrictions.eq("monSvcs.serviceType.id", serviceId));
-        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+
+        CriteriaBuilder criteriaBuilder = new CriteriaBuilder(OnmsNode.class);
+        criteriaBuilder.alias("ipInterfaces", "ipInterfaces");
+        criteriaBuilder.alias("ipInterfaces.monitoredServices", "monSvcs");
+        criteriaBuilder.ne("type", "D");
+        criteriaBuilder.eq("monSvcs.serviceType.id", serviceId);
+        criteriaBuilder.distinct();
         
-        
-        return m_nodeDao.findMatching(criteria);
+        return m_nodeDao.findMatching(criteriaBuilder.toCriteria());
     }
 
     /* (non-Javadoc)
@@ -999,10 +999,11 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
         }
         
         OnmsCriteria nodeCrit = new OnmsCriteria(OnmsNode.class);
-        nodeCrit.createCriteria("ipInterfaces", "iface").add(OnmsRestrictions.ipLike(iplike));
+        nodeCrit.createCriteria("ipInterfaces", "iface");
+        nodeCrit.add(OnmsRestrictions.ipLike(iplike));
         nodeCrit.add(Restrictions.ne("type", "D"));
         nodeCrit.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-        
+
         List<Integer> nodeIds = new ArrayList<Integer>();
         List<OnmsNode> nodes = m_nodeDao.findMatching(nodeCrit);
         for(OnmsNode node : nodes) {
