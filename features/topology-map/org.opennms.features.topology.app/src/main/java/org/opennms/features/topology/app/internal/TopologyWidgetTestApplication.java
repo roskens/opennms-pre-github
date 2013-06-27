@@ -28,23 +28,24 @@
 
 package org.opennms.features.topology.app.internal;
 
-import java.util.Iterator;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.opennms.features.topology.api.GraphContainer;
-import org.opennms.features.topology.api.HasExtraComponents;
-import org.opennms.features.topology.api.HistoryManager;
-import org.opennms.features.topology.api.IViewContribution;
-import org.opennms.features.topology.api.MapViewManager;
-import org.opennms.features.topology.api.MapViewManagerListener;
-import org.opennms.features.topology.api.SelectionContext;
-import org.opennms.features.topology.api.SelectionListener;
-import org.opennms.features.topology.api.SelectionManager;
-import org.opennms.features.topology.api.SelectionNotifier;
-import org.opennms.features.topology.api.WidgetContext;
-import org.opennms.features.topology.api.topo.GraphProvider;
+import com.vaadin.annotations.JavaScript;
+import com.vaadin.annotations.PreserveOnRefresh;
+import com.vaadin.annotations.Theme;
+import com.vaadin.data.Property;
+import com.vaadin.server.Page;
+import com.vaadin.server.Page.UriFragmentChangedEvent;
+import com.vaadin.server.Page.UriFragmentChangedListener;
+import com.vaadin.server.ThemeResource;
+import com.vaadin.server.VaadinRequest;
+import com.vaadin.shared.ui.slider.SliderOrientation;
+import com.vaadin.ui.*;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.Layout;
+import com.vaadin.ui.MenuBar.MenuItem;
+import com.vaadin.ui.TabSheet.SelectedTabChangeEvent;
+import com.vaadin.ui.TabSheet.SelectedTabChangeListener;
+import org.opennms.features.topology.api.*;
 import org.opennms.features.topology.app.internal.TopoContextMenu.TopoContextMenuItem;
 import org.opennms.features.topology.app.internal.TopologyComponent.VertexUpdateListener;
 import org.opennms.features.topology.app.internal.jung.FRLayoutAlgorithm;
@@ -52,37 +53,9 @@ import org.opennms.features.topology.app.internal.support.IconRepositoryManager;
 import org.opennms.web.api.OnmsHeaderProvider;
 import org.slf4j.LoggerFactory;
 
-import com.vaadin.annotations.JavaScript;
-import com.vaadin.annotations.PreserveOnRefresh;
-import com.vaadin.annotations.Theme;
-import com.vaadin.data.Property;
-import com.vaadin.server.Page;
-import com.vaadin.server.ThemeResource;
-import com.vaadin.server.VaadinRequest;
-import com.vaadin.server.Page.UriFragmentChangedEvent;
-import com.vaadin.server.Page.UriFragmentChangedListener;
-import com.vaadin.shared.ui.slider.SliderOrientation;
-import com.vaadin.ui.AbsoluteLayout;
-import com.vaadin.ui.Accordion;
-import com.vaadin.ui.Alignment;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.Component;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.HorizontalSplitPanel;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.Layout;
-import com.vaadin.ui.MenuBar;
-import com.vaadin.ui.Slider;
-import com.vaadin.ui.TabSheet;
-import com.vaadin.ui.TextField;
-import com.vaadin.ui.UI;
-import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.VerticalSplitPanel;
-import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.MenuBar.MenuItem;
-import com.vaadin.ui.TabSheet.SelectedTabChangeEvent;
-import com.vaadin.ui.TabSheet.SelectedTabChangeListener;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Iterator;
+import java.util.List;
 
 @SuppressWarnings("serial")
 @Theme("topo_default")
@@ -115,23 +88,6 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
     private boolean m_showHeader = true;
     private OnmsHeaderProvider m_headerProvider = null;
     private String m_userName;
-    
-	public TopologyWidgetTestApplication(CommandManager commandManager, HistoryManager historyManager, GraphProvider topologyProvider, ProviderManager providerManager, IconRepositoryManager iconRepoManager, SelectionManager selectionManager) {
-
-		// Ensure that selection changes trigger a history save operation
-		selectionManager.addSelectionListener(this);
-
-		m_commandManager = commandManager;
-		m_commandManager.addMenuItemUpdateListener(this);
-		m_historyManager = historyManager;
-		m_iconRepositoryManager = iconRepoManager;
-
-		// Create a per-session GraphContainer instance
-		m_graphContainer = new VEProviderGraphContainer(topologyProvider, providerManager);
-		m_graphContainer.setSelectionManager(selectionManager);
-		m_graphContainer.addChangeListener(this);
-		m_graphContainer.getMapViewManager().addListener(this);
-	}
 
     private String getHeader(HttpServletRequest request) {
         if(m_headerProvider == null) {
@@ -140,12 +96,29 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
             return m_headerProvider.getHeaderHtml(request);
         }
     }
+    
+    public TopologyWidgetTestApplication(CommandManager commandManager, HistoryManager historyManager, GraphContainer graphContainer, IconRepositoryManager iconRepoManager, SelectionManager selectionManager) {
+        // Ensure that selection changes trigger a history save operation
+        selectionManager.addSelectionListener(this);
+
+        m_commandManager = commandManager;
+        m_commandManager.addMenuItemUpdateListener(this);
+        m_historyManager = historyManager;
+        m_iconRepositoryManager = iconRepoManager;
+
+        // Create a per-session GraphContainer instance
+        m_graphContainer = graphContainer;
+        m_graphContainer.setSelectionManager(selectionManager);
+        m_graphContainer.addChangeListener(this);
+        m_graphContainer.getMapViewManager().addListener(this);
+    }
 
 	@Override
     protected void init(VaadinRequest request) {
         m_headerHtml =  getHeader(new HttpServletRequestVaadinImpl(request));
         m_userName = request.getRemoteUser();
         m_graphContainer.setUserName(m_userName);
+        m_graphContainer.setSessionId(request.getWrappedSession().getId());
 
         // See if the history manager has an existing fragment stored for
         // this user. Do this before laying out the UI because the history
@@ -165,7 +138,7 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
         m_layout = new AbsoluteLayout();
         m_layout.setSizeFull();
         // Set expand ratio so that all extra space is allocated to this vertical component
-        m_rootLayout.addComponent(m_layout, 1);
+        m_rootLayout.addComponent(m_layout);
         m_rootLayout.setExpandRatio(m_layout, 1);
         
         //Refresher refresher = new Refresher();
@@ -498,7 +471,6 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
 	@Override
 	public void updateMenuItems() {
 		updateMenuItems(m_menuBar.getItems());
-		m_menuBar.requestRepaint();
 	}
 
 	private void updateContextMenuItems(Object target, List<TopoContextMenuItem> items) {
@@ -530,14 +502,12 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
 
 		if(m_contextMenu != null) {
 			m_contextMenu.detach();
-
 		}
 
 		m_menuBar = commandManager.getMenuBar(m_graphContainer, this);
 		m_menuBar.setWidth(100, Unit.PERCENTAGE);
 		// Set expand ratio so that extra space is not allocated to this vertical component
-		m_rootLayout.addComponent(m_menuBar, 1);
-		m_rootLayout.setExpandRatio(m_menuBar, 0);
+		m_rootLayout.addComponent(m_menuBar, 0);
 
 		m_contextMenu = commandManager.getContextMenu(m_graphContainer, this);
 		m_contextMenu.setAsContextMenuOf(this);
@@ -678,4 +648,5 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
     public void selectionChanged(SelectionContext selectionManager) {
         saveHistory();
     }
+    
 }

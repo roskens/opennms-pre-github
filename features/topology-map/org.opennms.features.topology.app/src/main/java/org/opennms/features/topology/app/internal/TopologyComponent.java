@@ -28,23 +28,13 @@
 
 package org.opennms.features.topology.app.internal;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.CopyOnWriteArraySet;
-
-import org.opennms.features.topology.api.BoundingBox;
-import org.opennms.features.topology.api.Graph;
-import org.opennms.features.topology.api.GraphContainer;
-import org.opennms.features.topology.api.GraphVisitor;
-import org.opennms.features.topology.api.MapViewManager;
-import org.opennms.features.topology.api.MapViewManagerListener;
-import org.opennms.features.topology.api.Point;
-import org.opennms.features.topology.api.SelectionContext;
-import org.opennms.features.topology.api.SelectionListener;
+import com.vaadin.annotations.JavaScript;
+import com.vaadin.data.Property;
+import com.vaadin.data.Property.ValueChangeEvent;
+import com.vaadin.data.Property.ValueChangeListener;
+import com.vaadin.shared.MouseEventDetails;
+import com.vaadin.ui.AbstractComponent;
+import org.opennms.features.topology.api.*;
 import org.opennms.features.topology.api.GraphContainer.ChangeListener;
 import org.opennms.features.topology.api.topo.Edge;
 import org.opennms.features.topology.api.topo.Vertex;
@@ -53,12 +43,8 @@ import org.opennms.features.topology.app.internal.gwt.client.TopologyComponentSe
 import org.opennms.features.topology.app.internal.gwt.client.TopologyComponentState;
 import org.opennms.features.topology.app.internal.support.IconRepositoryManager;
 
-import com.vaadin.annotations.JavaScript;
-import com.vaadin.data.Property;
-import com.vaadin.data.Property.ValueChangeEvent;
-import com.vaadin.data.Property.ValueChangeListener;
-import com.vaadin.shared.MouseEventDetails;
-import com.vaadin.ui.AbstractComponent;
+import java.util.*;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 @JavaScript({"gwt/public/topologywidget/js/d3.v3.js", "gwt/public/topologywidget/js/d3.interpolate-zoom.v0.js"})
 public class TopologyComponent extends AbstractComponent implements ChangeListener, ValueChangeListener, MapViewManagerListener {
@@ -103,11 +89,7 @@ public class TopologyComponent extends AbstractComponent implements ChangeListen
 
         @Override
         public void marqueeSelection(String[] vertexKeys, MouseEventDetails eventDetails) {
-            if(eventDetails.isShiftKey()) {
-                addVerticesToSelection(vertexKeys);
-            } else {
-                selectVertices(vertexKeys);
-            }
+            selectVertices(eventDetails.isShiftKey(), eventDetails.isCtrlKey(), vertexKeys);
         }
 
         @Override
@@ -138,13 +120,7 @@ public class TopologyComponent extends AbstractComponent implements ChangeListen
 
         @Override
         public void vertexClicked(String vertexId, MouseEventDetails eventDetails, String platform) {
-              if((eventDetails.isShiftKey()) 
-                      || eventDetails.isMetaKey()
-                      || (eventDetails.isCtrlKey()  && !(platform.indexOf("Mac") > 0)  )) {
-                addVerticesToSelection(vertexId);
-            }else {
-                selectVertices(vertexId);
-            }
+              selectVertices(eventDetails.isShiftKey(), eventDetails.isCtrlKey(), vertexId);
             
         }
 
@@ -174,6 +150,8 @@ public class TopologyComponent extends AbstractComponent implements ChangeListen
     private final ContextMenuHandler m_contextMenuHandler;
     private final IconRepositoryManager m_iconRepoManager;
     private String m_activeTool = "pan";
+    private boolean blockSelectionEvents = false;
+    transient final Object changeVariableProcessingLock = new String("LOCK");
 
     private Set<VertexUpdateListener> m_vertexUpdateListeners = new CopyOnWriteArraySet<VertexUpdateListener>();
 
@@ -187,12 +165,14 @@ public class TopologyComponent extends AbstractComponent implements ChangeListen
 	    setGraph(m_graphContainer.getGraph());
 		
 		m_graphContainer.getSelectionManager().addSelectionListener(new SelectionListener() {
-			
+
 			@Override
 			public void selectionChanged(SelectionContext selectionContext) {
-			    computeBoundsForSelected(selectionContext);
-			}
-			
+                if (!blockSelectionEvents) {
+                    computeBoundsForSelected(selectionContext);
+                }
+                requestRepaint();
+            }
 		});
 		
 		m_graphContainer.getMapViewManager().addListener(this);
@@ -241,27 +221,24 @@ public class TopologyComponent extends AbstractComponent implements ChangeListen
         return getViewManager().getCurrentBoundingBox();
     }
 
-	private void selectVertices(String... vertexKeys) {
-		List<VertexRef> vertexRefs = new ArrayList<VertexRef>(vertexKeys.length);
-		
-		for(String vertexKey : vertexKeys) {
-			vertexRefs.add(getGraph().getVertexByKey(vertexKey));
-		}
-
-		Collection<VertexRef> vertexTrees = m_graphContainer.getVertexRefForest(vertexRefs);
-	    m_graphContainer.getSelectionManager().setSelectedVertexRefs(vertexTrees);
-	}
-
-	private void addVerticesToSelection(String... vertexKeys) {
-		List<VertexRef> vertexRefs = new ArrayList<VertexRef>(vertexKeys.length);
-		
-		for(String vertexKey : vertexKeys) {
-			vertexRefs.add(getGraph().getVertexByKey(vertexKey));
-		}
-
-		Collection<VertexRef> vertexTrees = m_graphContainer.getVertexRefForest(vertexRefs);
-		
-		m_graphContainer.getSelectionManager().selectVertexRefs(vertexTrees);
+    private void selectVertices(boolean shiftModifierPressed, boolean ctrlModifierPressed, String... vertexKeys) {
+        List<VertexRef> vertexRefsToSelect = new ArrayList<VertexRef>(vertexKeys.length);
+        List<VertexRef> vertexRefsToDeselect = new ArrayList<VertexRef>();
+        boolean add = shiftModifierPressed || ctrlModifierPressed;
+        for (String eachVertexKey : vertexKeys) {
+            if (ctrlModifierPressed
+                    && m_graphContainer.getSelectionManager().isVertexRefSelected(m_graph.getVertexByKey(eachVertexKey))) {
+                vertexRefsToDeselect.add(getGraph().getVertexByKey(eachVertexKey)); //we want it to be unselected
+            } else {
+                vertexRefsToSelect.add(getGraph().getVertexByKey(eachVertexKey));
+            }
+        }
+        if (add) { // we want to add, so add the already selected ones (except the explicit removed ones)
+            vertexRefsToSelect.addAll(m_graphContainer.getSelectionManager().getSelectedVertexRefs());
+            vertexRefsToSelect.removeAll(vertexRefsToDeselect);
+        }
+        m_graphContainer.getSelectionManager().deselectAll();
+        m_graphContainer.getSelectionManager().selectVertexRefs( m_graphContainer.getVertexRefForest(vertexRefsToSelect) );
     }
     
 	private void selectEdge(String edgeKey) {
@@ -342,7 +319,7 @@ public class TopologyComponent extends AbstractComponent implements ChangeListen
         if(!m_activeTool.equals(toolname)) {
             m_activeTool = toolname;
             getState().setActiveTool(toolname);
-            requestRepaint();
+            updateGraph();
         }
     }
 
@@ -367,7 +344,7 @@ public class TopologyComponent extends AbstractComponent implements ChangeListen
     @Override
     public void boundingBoxChanged(MapViewManager viewManager) {
         setScale(viewManager.getScale());
-        requestRepaint();
+        updateGraph();
     }
     
     public MapViewManager getViewManager() {
