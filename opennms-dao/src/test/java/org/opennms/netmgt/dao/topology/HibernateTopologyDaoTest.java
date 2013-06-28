@@ -128,6 +128,33 @@ public class HibernateTopologyDaoTest {
 
 	@Test
 	@Transactional
+	public void testLldpEndPointIdentification() {
+		TopologyElement elementAF = new TopologyElement();
+		elementAF.addElementIdentifier(new LldpElementIdentifier("0016c8bd4d80", "switch3", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS,111));
+		elementAF.addElementIdentifier(new NodeElementIdentifier(111));
+		LldpEndPoint endPointA1A = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,111);
+		elementAF.addEndPoint(endPointA1A);
+		
+		m_topologyDao.saveOrUpdate(endPointA1A);
+		assertEquals(1, m_topologyDao.getTopology().size());
+		
+		TopologyElement elementA = new TopologyElement();
+		elementA.addElementIdentifier(new LldpElementIdentifier("0016c8bd4d90", "switch4", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS,101));
+		elementA.addElementIdentifier(new NodeElementIdentifier(101));
+		LldpEndPoint endPointA1 = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,101);
+		elementA.addEndPoint(endPointA1);
+		
+		m_topologyDao.saveOrUpdate(endPointA1);
+		for (TopologyElement e : m_topologyDao.getTopology())
+			System.err.println(e);
+		assertEquals(2, m_topologyDao.getTopology().size());
+
+	
+	}
+
+
+	@Test
+	@Transactional
 	public void testSaveOrUpDateLldpLink() {
 
 		

@@ -1,7 +1,9 @@
 package org.opennms.netmgt.dao.topology;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.opennms.netmgt.dao.TopologyDao;
 import org.opennms.netmgt.model.topology.TopologyElement;
@@ -78,7 +80,7 @@ public class TopologyDaoInMemoryImpl implements TopologyDao {
 		for (TopologyElement e: m_elements) {
 			if (e == null)
 				continue;
-			List<EndPoint> newendpoints = new ArrayList<EndPoint>(); 
+			Set<EndPoint> newendpoints = new LinkedHashSet<EndPoint>(); 
 			for (EndPoint ep: e.getEndpoints()) {
 				if (ep.equals(endpoint)) {
 					continue;

@@ -1,17 +1,15 @@
 package org.opennms.netmgt.model.topology;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
@@ -21,19 +19,22 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * can be either a physical or virtual node/device/subnetwork/etc.
  */
 @Entity
-@Table(name="topologyElement")
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-public class TopologyElement {
+public class TopologyElement implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6449630426786533107L;
+
 	private int m_id;
 
-	private List<EndPoint> m_endpoints;
+	private Set<EndPoint> m_endpoints;
 
-	private List<ElementIdentifier> m_identifiers;
+	private Set<ElementIdentifier> m_identifiers;
 
 	public TopologyElement() {
-		m_endpoints = new ArrayList<EndPoint>();
-		m_identifiers = new ArrayList<ElementIdentifier>();
+		m_endpoints = new LinkedHashSet<EndPoint>();
+		m_identifiers = new LinkedHashSet<ElementIdentifier>();
 	}
 	
 	@Id
@@ -48,20 +49,20 @@ public class TopologyElement {
 	}
 
     @OneToMany(mappedBy="topologyElement",cascade=CascadeType.ALL)
-	public List<EndPoint> getEndpoints() {
+	public Set<EndPoint> getEndpoints() {
 		return m_endpoints;
 	}
 
-	public void setEndpoints(List<EndPoint> endpoints) {
+	public void setEndpoints(Set<EndPoint> endpoints) {
 		m_endpoints = endpoints;
 	}
 	
     @OneToMany(mappedBy="topologyElement",cascade=CascadeType.ALL)
-	public List<ElementIdentifier> getElementIdentifiers() {
+	public Set<ElementIdentifier> getElementIdentifiers() {
 		return m_identifiers;
 	}
 
-	public void setElementIdentifiers(List<ElementIdentifier> identifiers) {
+	public void setElementIdentifiers(Set<ElementIdentifier> identifiers) {
 		m_identifiers = identifiers;
 	}
 
@@ -74,8 +75,6 @@ public class TopologyElement {
 	}
 	
 	public void addElementIdentifier(ElementIdentifier elementidentifier) {
-		if (hasElementIdentifier(elementidentifier))
-			return;
 		elementidentifier.setTopologyElement(this);
 		m_identifiers.add(elementidentifier);
 	}
