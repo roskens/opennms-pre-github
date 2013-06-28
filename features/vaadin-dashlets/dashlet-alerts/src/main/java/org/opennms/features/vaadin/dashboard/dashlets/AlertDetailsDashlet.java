@@ -29,6 +29,7 @@ public class AlertDetailsDashlet extends VerticalLayout implements Dashlet {
         m_nodeDao = nodeDao;
         setCaption(getName());
         setWidth("100%");
+        //setSizeFull();
     }
 
     private boolean updateAlarms() {
@@ -153,6 +154,8 @@ public class AlertDetailsDashlet extends VerticalLayout implements Dashlet {
         nodeId.setCaption("Node Id");
         if (onmsNode != null) {
             nodeId.setValue(onmsNode.getNodeId());
+        } else {
+            nodeId.setValue("-");
         }
 
         Label nodeLabel = new Label();
@@ -161,6 +164,8 @@ public class AlertDetailsDashlet extends VerticalLayout implements Dashlet {
         nodeLabel.setCaption("Node Label");
         if (onmsNode != null) {
             nodeLabel.setValue(onmsNode.getLabel());
+        } else {
+            nodeLabel.setValue("-");
         }
 
         verticalLayout2.addComponent(nodeId);

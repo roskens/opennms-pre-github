@@ -7,8 +7,6 @@ import org.opennms.features.vaadin.dashboard.model.DashletSpec;
 public class HelloDashletFactory extends AbstractDashletFactory {
     public HelloDashletFactory() {
         super("Hello");
-
-        addRequiredParameter("TEXT", "Hello World");
     }
 
     public Dashlet newDashletInstance(DashletSpec dashletSpec) {

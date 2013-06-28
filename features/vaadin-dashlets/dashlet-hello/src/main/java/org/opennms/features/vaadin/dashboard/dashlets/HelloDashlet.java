@@ -11,8 +11,8 @@ public class HelloDashlet extends VerticalLayout implements Dashlet {
     public HelloDashlet(DashletSpec dashletSpec) {
         setCaption(getName());
 
-        if (dashletSpec.getParameters().containsKey("TEXT")) {
-            addComponent(new Label(dashletSpec.getParameters().get("TEXT") + " #" + instanceCounter));
+        if (dashletSpec.getParameters().containsKey("text")) {
+            addComponent(new Label(dashletSpec.getParameters().get("text") + " #" + instanceCounter));
         }
 
         instanceCounter++;

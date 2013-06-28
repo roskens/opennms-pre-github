@@ -4,7 +4,6 @@ import org.opennms.features.vaadin.dashboard.config.DashletSelector;
 import org.opennms.features.vaadin.dashboard.model.Dashlet;
 import org.opennms.features.vaadin.dashboard.model.DashletSelectorAccess;
 import org.opennms.features.vaadin.dashboard.model.DashletSpec;
-import org.opennms.features.vaadin.dashboard.ui.WallboardUI;
 import org.vaadin.addon.portallayout.container.PortalColumns;
 import org.vaadin.addon.portallayout.portal.StackPortalLayout;
 
@@ -41,10 +40,14 @@ public class DashboardLayout extends PortalColumns {
         int i = 0;
 
         for (DashletSpec dashletSpec : dashletSpecs) {
-            columns[i].portletFor(getDashletInstance(dashletSpec));
+            Dashlet dashlet = getDashletInstance(dashletSpec);
+
+            boolean boosted = dashlet.isBoosted();
+            columns[i].portletFor(dashlet);
+
             i++;
 
-            if (i % 3 == 0) {
+            if (i % columns.length == 0) {
                 c++;
                 i = 0;
             }

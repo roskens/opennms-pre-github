@@ -128,6 +128,12 @@
     line-height: normal;
 }
 
+.node-font-black {
+    color: #3ba300;
+    font-size: 18px;
+    line-height: normal;
+}
+
 .dashboard .wallboard-board .node-label-black {
     color: #3ba300;
     padding: 5px 5px;

@@ -15,10 +15,6 @@ public class AlertDetailsDashletFactory extends AbstractDashletFactory {
 
         m_alarmDao = alarmDao;
         m_nodeDao = nodeDao;
-
-        addRequiredParameter("alarmsPerPage", "6");
-        addRequiredParameter("minimumSeverity", "4");
-        addRequiredParameter("boostSeverity", "6");
     }
 
     public Dashlet newDashletInstance(DashletSpec dashletSpec) {

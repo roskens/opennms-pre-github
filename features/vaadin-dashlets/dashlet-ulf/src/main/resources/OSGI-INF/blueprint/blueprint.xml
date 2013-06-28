@@ -4,8 +4,7 @@
 	http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
 ">
 
-    <bean id="ulfDashletFactory" class="org.opennms.features.vaadin.dashboard.dashlets.UlfDashletFactory"
-          scope="singleton"/>
+    <bean id="ulfDashletFactory" class="org.opennms.features.vaadin.dashboard.dashlets.UlfDashletFactory" scope="singleton"/>
 
     <service ref="ulfDashletFactory" interface="org.opennms.features.vaadin.dashboard.model.DashletFactory"/>
 

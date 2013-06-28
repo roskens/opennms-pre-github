@@ -5,6 +5,9 @@ import org.opennms.features.vaadin.dashboard.model.Dashlet;
 import org.opennms.features.vaadin.dashboard.model.DashletSpec;
 import org.opennms.netmgt.dao.AlarmDao;
 import org.opennms.netmgt.dao.NodeDao;
+import org.slf4j.LoggerFactory;
+
+import java.util.Map;
 
 public class AlertsDashletFactory extends AbstractDashletFactory {
     private AlarmDao m_alarmDao;
@@ -15,10 +18,6 @@ public class AlertsDashletFactory extends AbstractDashletFactory {
 
         m_alarmDao = alarmDao;
         m_nodeDao = nodeDao;
-
-        addRequiredParameter("alarmsPerPage", "12");
-        addRequiredParameter("minimumSeverity", "4");
-        addRequiredParameter("boostSeverity", "6");
     }
 
     public Dashlet newDashletInstance(DashletSpec dashletSpec) {

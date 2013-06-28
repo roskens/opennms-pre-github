@@ -22,14 +22,14 @@ public class HeaderLayout extends HorizontalLayout {
         nativeSelect.setContainerDataSource(WallboardProvider.getInstance().getBeanContainer());
         nativeSelect.setItemCaptionPropertyId("title");
         nativeSelect.setNullSelectionAllowed(false);
-
+        /*
         Button dashboardButton = new Button("Dashboard", new Button.ClickListener() {
             @Override
             public void buttonClick(Button.ClickEvent event) {
                 UI.getCurrent().getNavigator().navigateTo("dashboard/" + nativeSelect.getContainerProperty(nativeSelect.getValue(), "title"));
             }
         });
-
+        */
 
         Button wallboardButton = new Button("Wallboard", new Button.ClickListener() {
             @Override
@@ -40,7 +40,7 @@ public class HeaderLayout extends HorizontalLayout {
 
         addComponents(nativeSelect, /*dashboardButton,*/ wallboardButton);
         setComponentAlignment(nativeSelect, Alignment.MIDDLE_CENTER);
-        // setComponentAlignment(dashboardButton, Alignment.MIDDLE_CENTER);
+        //setComponentAlignment(dashboardButton, Alignment.MIDDLE_CENTER);
         setComponentAlignment(wallboardButton, Alignment.MIDDLE_CENTER);
     }
 }

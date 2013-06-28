@@ -8,16 +8,37 @@
     <reference id="nodeDao" interface="org.opennms.netmgt.dao.NodeDao" availability="mandatory"/>
 
     <bean id="alertsDashletFactory" class="org.opennms.features.vaadin.dashboard.dashlets.AlertsDashletFactory" scope="singleton">
+
         <argument ref="alarmDao"/>
         <argument ref="nodeDao"/>
+
+        <property name="requiredParameters">
+            <map>
+                <entry key="alarmsPerPage" value="12"/>
+                <entry key="minimumSeverity" value="4"/>
+                <entry key="boostSeverity" value="6"/>
+            </map>
+        </property>
+
     </bean>
 
     <bean id="alertDetailsDashletFactory" class="org.opennms.features.vaadin.dashboard.dashlets.AlertDetailsDashletFactory" scope="singleton">
+
         <argument ref="alarmDao"/>
         <argument ref="nodeDao"/>
+
+        <property name="requiredParameters">
+            <map>
+                <entry key="alarmsPerPage" value="6"/>
+                <entry key="minimumSeverity" value="4"/>
+                <entry key="boostSeverity" value="6"/>
+            </map>
+        </property>
+
     </bean>
 
     <service ref="alertsDashletFactory" interface="org.opennms.features.vaadin.dashboard.model.DashletFactory"/>
+
     <service ref="alertDetailsDashletFactory" interface="org.opennms.features.vaadin.dashboard.model.DashletFactory"/>
 
 </blueprint>

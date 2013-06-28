@@ -4,7 +4,14 @@
 	http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
 ">
 
-    <bean id="helloDashletFactory" class="org.opennms.features.vaadin.dashboard.dashlets.HelloDashletFactory" scope="singleton"/>
+    <bean id="helloDashletFactory" class="org.opennms.features.vaadin.dashboard.dashlets.HelloDashletFactory" scope="singleton">
+        <property name="requiredParameters">
+            <map>
+                <entry key="text" value="Hello World!"/>
+            </map>
+        </property>
+
+    </bean>
 
     <service ref="helloDashletFactory" interface="org.opennms.features.vaadin.dashboard.model.DashletFactory"/>
 
