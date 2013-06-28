@@ -51,9 +51,13 @@ import org.opennms.features.topology.app.internal.TopologyComponent.VertexUpdate
 import org.opennms.features.topology.app.internal.jung.FRLayoutAlgorithm;
 import org.opennms.features.topology.app.internal.support.IconRepositoryManager;
 import org.opennms.web.api.OnmsHeaderProvider;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Iterator;
 import java.util.List;
 
@@ -68,14 +72,16 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
 
 	private static final long serialVersionUID = 6837501987137310938L;
 
+    private Logger m_log = LoggerFactory.getLogger(getClass());
 	private static final String LABEL_PROPERTY = "label";
 	private TopologyComponent m_topologyComponent;
 	private VertexSelectionTree m_tree;
 	private final GraphContainer m_graphContainer;
-	private final CommandManager m_commandManager;
+    private SelectionManager m_selectionManager;
+    private final CommandManager m_commandManager;
 	private MenuBar m_menuBar;
 	private TopoContextMenu m_contextMenu;
-	private AbsoluteLayout m_layout;
+	private VerticalLayout m_layout;
 	private VerticalLayout m_rootLayout;
 	private final IconRepositoryManager m_iconRepositoryManager;
 	private WidgetManager m_widgetManager;
@@ -99,61 +105,103 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
     
     public TopologyWidgetTestApplication(CommandManager commandManager, HistoryManager historyManager, GraphContainer graphContainer, IconRepositoryManager iconRepoManager, SelectionManager selectionManager) {
         // Ensure that selection changes trigger a history save operation
-        selectionManager.addSelectionListener(this);
-
         m_commandManager = commandManager;
-        m_commandManager.addMenuItemUpdateListener(this);
         m_historyManager = historyManager;
         m_iconRepositoryManager = iconRepoManager;
 
         // Create a per-session GraphContainer instance
         m_graphContainer = graphContainer;
+        m_selectionManager = selectionManager;
         m_graphContainer.setSelectionManager(selectionManager);
-        m_graphContainer.addChangeListener(this);
-        m_graphContainer.getMapViewManager().addListener(this);
     }
 
 	@Override
     protected void init(VaadinRequest request) {
         m_headerHtml =  getHeader(new HttpServletRequestVaadinImpl(request));
-        m_userName = request.getRemoteUser();
-        m_graphContainer.setUserName(m_userName);
-        m_graphContainer.setSessionId(request.getWrappedSession().getId());
+        m_graphContainer.setLayoutAlgorithm(new FRLayoutAlgorithm());
 
-        // See if the history manager has an existing fragment stored for
-        // this user. Do this before laying out the UI because the history
-        // may change during layout.
-        String fragment = m_historyManager.getHistoryForUser(m_userName);
+        loadUserSettings(request);
+        setupListeners();
+        createLayouts();
 
+        //addExtension(new Refresher());
+    }
+
+    private void setupListeners() {
+        Page.getCurrent().addUriFragmentChangedListener(this);
+        m_selectionManager.addSelectionListener(this);
+        m_graphContainer.addChangeListener(this);
+        m_graphContainer.getMapViewManager().addListener(this);
+        m_commandManager.addMenuItemUpdateListener(this);
+        m_commandManager.addCommandUpdateListener(this);
+    }
+
+    private void createLayouts() {
         m_rootLayout = new VerticalLayout();
         m_rootLayout.setSizeFull();
         setContent(m_rootLayout);
 
-        Page.getCurrent().addUriFragmentChangedListener(this);
+        addHeader();
 
-        ///////////////////////////////////////////////////////////////////////////////////////
-        // TODO I think that the header layout code has gone missing from this init() method //
-        ///////////////////////////////////////////////////////////////////////////////////////
+        addContentLayout();
+    }
 
-        m_layout = new AbsoluteLayout();
+    private void addHeader() {
+        if (m_headerHtml != null) {
+            InputStream is = null;
+            try {
+                is = new ByteArrayInputStream(m_headerHtml.getBytes());
+                final CustomLayout headerLayout = new CustomLayout(is);
+                headerLayout.setWidth("100%");
+                headerLayout.addStyleName("onmsheader");
+                m_rootLayout.addComponent(headerLayout);
+            } catch (final IOException e) {
+                try {
+                    is.close();
+                } catch (final IOException closeE) {
+                    m_log.debug("failed to close HTML input stream", closeE);
+                }
+                m_log.debug("failed to get header layout data", e);
+            }
+        }
+    }
+
+    private void addContentLayout() {
+        m_layout = new VerticalLayout();
         m_layout.setSizeFull();
+
         // Set expand ratio so that all extra space is allocated to this vertical component
         m_rootLayout.addComponent(m_layout);
         m_rootLayout.setExpandRatio(m_layout, 1);
-        
-        //Refresher refresher = new Refresher();
-        //refresher.setRefreshInterval(5000);
-        //getMainWindow().addComponent(refresher);
 
-        m_graphContainer.setLayoutAlgorithm(new FRLayoutAlgorithm());
+        m_treeMapSplitPanel = new HorizontalSplitPanel();
+        m_treeMapSplitPanel.setFirstComponent(createWestLayout());
+        m_treeMapSplitPanel.setSecondComponent(createMapLayout());
+        m_treeMapSplitPanel.setSplitPosition(222, Unit.PIXELS);
+        m_treeMapSplitPanel.setSizeFull();
 
+
+
+        menuBarUpdated(m_commandManager);
+        if(m_widgetManager.widgetCount() != 0) {
+            updateWidgetView(m_widgetManager);
+        }else {
+            m_layout.addComponent(m_treeMapSplitPanel);
+        }
+
+        if(m_treeWidgetManager.widgetCount() != 0) {
+            updateAccordionView(m_treeWidgetManager);
+        }
+    }
+
+    private AbsoluteLayout createMapLayout() {
         final Property<Double> scale = m_graphContainer.getScaleProperty();
 
         m_topologyComponent = new TopologyComponent(m_graphContainer, m_iconRepositoryManager, this);
         m_topologyComponent.setSizeFull();
         m_topologyComponent.addMenuItemStateListener(this);
         m_topologyComponent.addVertexUpdateListener(this);
-        
+
         final Slider slider = new Slider(0, 1);
 
         slider.setPropertyDataSource(scale);
@@ -192,17 +240,17 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
                     m_graphContainer.setSemanticZoomLevel(szl);
                     setSemanticZoomLevel(szl);
                     saveHistory();
-                } 
-                
+                }
+
             }
         });
-        
-        
+
+
         final Button panBtn = new Button();
         panBtn.setIcon(new ThemeResource("images/cursor_drag_arrow.png"));
         panBtn.setDescription("Pan Tool");
         panBtn.setStyleName("toolbar-button down");
-        
+
         final Button selectBtn = new Button();
         selectBtn.setIcon(new ThemeResource("images/selection.png"));
         selectBtn.setDescription("Selection Tool");
@@ -216,7 +264,7 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
                 m_topologyComponent.setActiveTool("select");
             }
         });
-        
+
         panBtn.addClickListener(new ClickListener() {
 
             @Override
@@ -231,13 +279,14 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
         toolbar.setWidth("31px");
         toolbar.addComponent(panBtn);
         toolbar.addComponent(selectBtn);
-        
+
         HorizontalLayout semanticLayout = new HorizontalLayout();
+
         semanticLayout.addComponent(zoomInBtn);
         semanticLayout.addComponent(m_zoomLevelLabel);
         semanticLayout.addComponent(zoomOutBtn);
         semanticLayout.setComponentAlignment(m_zoomLevelLabel, Alignment.MIDDLE_CENTER);
-        
+
         AbsoluteLayout mapLayout = new AbsoluteLayout();
 
         mapLayout.addComponent(m_topologyComponent, "top:0px; left: 0px; right: 0px; bottom: 0px;");
@@ -246,24 +295,18 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
         mapLayout.addComponent(semanticLayout, "top: 380px; left: 2px;");
         mapLayout.setSizeFull();
 
-        m_treeMapSplitPanel = new HorizontalSplitPanel();
-        m_treeMapSplitPanel.setFirstComponent(createWestLayout());
-        m_treeMapSplitPanel.setSecondComponent(mapLayout);
-        m_treeMapSplitPanel.setSplitPosition(222, Unit.PIXELS);
-        m_treeMapSplitPanel.setSizeFull();
+        return mapLayout;
+    }
 
-        m_commandManager.addCommandUpdateListener(this);
+    private void loadUserSettings(VaadinRequest request) {
+        m_userName = request.getRemoteUser();
+        m_graphContainer.setUserName(m_userName);
+        m_graphContainer.setSessionId(request.getWrappedSession().getId());
 
-        menuBarUpdated(m_commandManager);
-        if(m_widgetManager.widgetCount() != 0) {
-            updateWidgetView(m_widgetManager);
-        }else {
-            m_layout.addComponent(m_treeMapSplitPanel);
-        }
-        
-        if(m_treeWidgetManager.widgetCount() != 0) {
-            updateAccordionView(m_treeWidgetManager);
-        }
+        // See if the history manager has an existing fragment stored for
+        // this user. Do this before laying out the UI because the history
+        // may change during layout.
+        String fragment = m_historyManager.getHistoryForUser(m_userName);
 
         // If there was existing history, then restore that history snapshot.
         if (fragment != null) {
@@ -395,7 +438,7 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
         }
 
         // Add the tabsheet to the layout
-        bottomLayout.addComponent(tabSheet);
+        bottomLayout.addComponent(tabSheet, "top: 0; left: 0; bottom: 0; right: 0;");
 
         return bottomLayout;
     }
@@ -507,7 +550,7 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
 		m_menuBar = commandManager.getMenuBar(m_graphContainer, this);
 		m_menuBar.setWidth(100, Unit.PERCENTAGE);
 		// Set expand ratio so that extra space is not allocated to this vertical component
-		m_rootLayout.addComponent(m_menuBar, 0);
+		m_rootLayout.addComponent(m_menuBar, 1);
 
 		m_contextMenu = commandManager.getContextMenu(m_graphContainer, this);
 		m_contextMenu.setAsContextMenuOf(this);
@@ -648,5 +691,13 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
     public void selectionChanged(SelectionContext selectionManager) {
         saveHistory();
     }
-    
+
+    @Override
+    public void detach() {
+        m_commandManager.removeCommandUpdateListener(this);
+        m_commandManager.removeMenuItemUpdateListener(this);
+        super.detach();    //To change body of overridden methods use File | Settings | File Templates.
+    }
+
+
 }
