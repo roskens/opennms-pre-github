@@ -6,22 +6,23 @@ import org.opennms.features.vaadin.dashboard.model.DashletSpec;
 import org.opennms.netmgt.dao.AlarmDao;
 import org.opennms.netmgt.dao.NodeDao;
 
-public class AlertsDashletFactory extends AbstractDashletFactory {
+public class AlertDetailsDashletFactory extends AbstractDashletFactory {
     private AlarmDao m_alarmDao;
     private NodeDao m_nodeDao;
 
-    public AlertsDashletFactory(AlarmDao alarmDao, NodeDao nodeDao) {
-        super("Alerts");
+    public AlertDetailsDashletFactory(AlarmDao alarmDao, NodeDao nodeDao) {
+        super("Alert Details");
 
         m_alarmDao = alarmDao;
         m_nodeDao = nodeDao;
 
-        addRequiredParameter("alarmsPerPage", "12");
+        addRequiredParameter("alarmsPerPage", "6");
         addRequiredParameter("minimumSeverity", "4");
         addRequiredParameter("boostSeverity", "6");
     }
 
     public Dashlet newDashletInstance(DashletSpec dashletSpec) {
-        return new AlertsDashlet(dashletSpec, m_alarmDao, m_nodeDao);
+        return new AlertDetailsDashlet(dashletSpec, m_alarmDao, m_nodeDao);
     }
+
 }

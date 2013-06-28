@@ -38,9 +38,9 @@ public class HeaderLayout extends HorizontalLayout {
             }
         });
 
-        addComponents(nativeSelect, dashboardButton, wallboardButton);
+        addComponents(nativeSelect, /*dashboardButton,*/ wallboardButton);
         setComponentAlignment(nativeSelect, Alignment.MIDDLE_CENTER);
-        setComponentAlignment(dashboardButton, Alignment.MIDDLE_CENTER);
+        // setComponentAlignment(dashboardButton, Alignment.MIDDLE_CENTER);
         setComponentAlignment(wallboardButton, Alignment.MIDDLE_CENTER);
     }
 }

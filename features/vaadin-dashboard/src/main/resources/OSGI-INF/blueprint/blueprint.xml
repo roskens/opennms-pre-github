@@ -35,7 +35,7 @@
 
     <bean id="dashboardConfigUILink" class="org.opennms.features.vaadin.dashboard.config.ui.AdminPageNavEntry">
         <property name="url" value="admin/dashboardConfig.jsp"/>
-        <property name="name" value="Dashboard Config Web UI"/>
+        <property name="name" value="Wallboard Config Web UI"/>
     </bean>
 
     <bean id="dashboardConfigUIFactory"

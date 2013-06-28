@@ -14,17 +14,16 @@ import org.opennms.netmgt.model.OnmsAlarm;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.OnmsSeverity;
 
-import java.util.Calendar;
 import java.util.List;
 
-public class AlertsDashlet extends VerticalLayout implements Dashlet {
+public class AlertDetailsDashlet extends VerticalLayout implements Dashlet {
     private AlarmDao m_alarmDao;
     private NodeDao m_nodeDao;
     private DashletSpec m_dashletSpec;
 
     int tries = 0;
 
-    public AlertsDashlet(DashletSpec dashletSpec, AlarmDao alarmDao, NodeDao nodeDao) {
+    public AlertDetailsDashlet(DashletSpec dashletSpec, AlarmDao alarmDao, NodeDao nodeDao) {
         m_dashletSpec = dashletSpec;
         m_alarmDao = alarmDao;
         m_nodeDao = nodeDao;
@@ -37,7 +36,7 @@ public class AlertsDashlet extends VerticalLayout implements Dashlet {
 
         int minimumSeverity = 4;
         int boostSeverity = 6;
-        int alarmsPerPage = 12;
+        int alarmsPerPage = 6;
 
         try {
             alarmsPerPage = Math.max(1, Integer.parseInt(m_dashletSpec.getParameters().get("alarmsPerPage")));
@@ -110,59 +109,81 @@ public class AlertsDashlet extends VerticalLayout implements Dashlet {
         String output = "";
 
         if (hours > 0) {
-            output = hours + "h, " + minutes + "m, " + seconds + "s";
+            output = hours + " h, " + minutes + " m, " + seconds + " s";
         } else {
             if (minutes > 0) {
-                output = minutes + "m, " + seconds + "s";
+                output = minutes + " m, " + seconds + " s";
             } else {
-                output = seconds + "s";
+                output = seconds + " s";
             }
         }
 
-        return output + " ago";
+        return output;
     }
 
     public Component createAlarmComponent(OnmsAlarm onmsAlarm, OnmsNode onmsNode) {
-
-        Calendar calendar = Calendar.getInstance();
-
-        String ago = getHumanReadableFormat((calendar.getTimeInMillis() / 1000) - (onmsAlarm.getLastEventTime().getTime() / 1000));
-
         HorizontalLayout horizontalLayout = new HorizontalLayout();
-        horizontalLayout.setWidth("100%");
-        horizontalLayout.addStyleName("node-label-black");
+        horizontalLayout.setSizeFull();
+        horizontalLayout.addStyleName("node-label");
+        horizontalLayout.addStyleName("node-font");
         horizontalLayout.addStyleName(onmsAlarm.getSeverity().name().toLowerCase());
 
-        Label labelAgo = new Label();
-        labelAgo.setSizeUndefined();
-        labelAgo.addStyleName("node-font");
-        labelAgo.setValue(ago);
+        VerticalLayout verticalLayout1 = new VerticalLayout();
+        Label lastEvent = new Label();
+        lastEvent.addStyleName("node-font");
+        lastEvent.setCaption("Last event");
+        lastEvent.setValue(onmsAlarm.getLastEventTime().toString());
 
-        Label labelId = new Label();
-        labelId.setSizeUndefined();
-        labelId.addStyleName("node-font");
+        Label firstEvent = new Label();
+        firstEvent.setSizeUndefined();
+        firstEvent.addStyleName("node-font");
+        firstEvent.setCaption("First event");
+        firstEvent.setValue(onmsAlarm.getFirstEventTime().toString());
+
+        verticalLayout1.addComponent(firstEvent);
+        verticalLayout1.addComponent(lastEvent);
+
+        horizontalLayout.addComponent(verticalLayout1);
+
+        VerticalLayout verticalLayout2 = new VerticalLayout();
+
+        Label nodeId = new Label();
+        nodeId.setSizeUndefined();
+        nodeId.addStyleName("node-font");
+        nodeId.setCaption("Node Id");
         if (onmsNode != null) {
-            labelId.setValue(onmsNode.getLabel() + "(" + onmsNode.getNodeId() + ")");
+            nodeId.setValue(onmsNode.getNodeId());
         }
 
-        Label labelUei = new Label();
-        labelUei.setSizeUndefined();
-        labelUei.addStyleName("node-font");
-        labelUei.setValue(onmsAlarm.getUei());
+        Label nodeLabel = new Label();
+        nodeLabel.setSizeUndefined();
+        nodeLabel.addStyleName("node-font");
+        nodeLabel.setCaption("Node Label");
+        if (onmsNode != null) {
+            nodeLabel.setValue(onmsNode.getLabel());
+        }
 
-        horizontalLayout.addComponent(labelAgo);
-        horizontalLayout.addComponent(labelId);
-        horizontalLayout.addComponent(labelUei);
+        verticalLayout2.addComponent(nodeId);
+        verticalLayout2.addComponent(nodeLabel);
 
-        horizontalLayout.setExpandRatio(labelAgo, 1.0f);
-        horizontalLayout.setExpandRatio(labelId, 2.0f);
-        horizontalLayout.setExpandRatio(labelUei, 4.0f);
+        horizontalLayout.addComponent(verticalLayout2);
+
+        Label logMessage = new Label();
+        logMessage.addStyleName("node-font");
+        logMessage.setSizeFull();
+        logMessage.setCaption("Log message");
+        logMessage.setValue(onmsAlarm.getLogMsg().replaceAll("<[^>]*>", ""));
+
+        horizontalLayout.addComponent(logMessage);
+        horizontalLayout.setExpandRatio(verticalLayout1, 1.0f);
+        horizontalLayout.setExpandRatio(verticalLayout2, 1.0f);
+        horizontalLayout.setExpandRatio(logMessage, 3.0f);
 
         return horizontalLayout;
     }
 
     public String getName() {
-        return "Alerts";
+        return "Alert Details";
     }
 
     @Override

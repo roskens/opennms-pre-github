@@ -126,8 +126,8 @@ public class DashletSpecEditor extends Panel {
 
         boostPriorityField.addValueChangeListener(new Property.ValueChangeListener() {
             public void valueChange(Property.ValueChangeEvent valueChangeEvent) {
-                if (priorityField.isValid()) {
-                    m_dashletSpec.setPriority(Integer.valueOf((String) valueChangeEvent.getProperty().getValue()));
+                if (boostPriorityField.isValid()) {
+                    m_dashletSpec.setBoostPriority(Integer.valueOf((String) valueChangeEvent.getProperty().getValue()));
                     WallboardProvider.getInstance().save();
                     ((WallboardConfigUI) getUI()).notifyMessage("Data saved", "Priority");
                 }
@@ -182,8 +182,8 @@ public class DashletSpecEditor extends Panel {
 
         boostDurationField.addValueChangeListener(new Property.ValueChangeListener() {
             public void valueChange(Property.ValueChangeEvent valueChangeEvent) {
-                if (durationField.isValid()) {
-                    m_dashletSpec.setDuration(Integer.valueOf((String) valueChangeEvent.getProperty().getValue()));
+                if (boostDurationField.isValid()) {
+                    m_dashletSpec.setBoostDuration(Integer.valueOf((String) valueChangeEvent.getProperty().getValue()));
                     WallboardProvider.getInstance().save();
                     ((WallboardConfigUI) getUI()).notifyMessage("Data saved", "Duration");
                 }

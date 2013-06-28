@@ -4,8 +4,20 @@
 	http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
 ">
 
-    <bean id="alertDashletFactory" class="org.opennms.features.vaadin.dashboard.dashlets.AlertsDashletFactory" scope="singleton"/>
+    <reference id="alarmDao" interface="org.opennms.netmgt.dao.AlarmDao" availability="mandatory"/>
+    <reference id="nodeDao" interface="org.opennms.netmgt.dao.NodeDao" availability="mandatory"/>
 
-    <service ref="alertDashletFactory" interface="org.opennms.features.vaadin.dashboard.model.DashletFactory"/>
+    <bean id="alertsDashletFactory" class="org.opennms.features.vaadin.dashboard.dashlets.AlertsDashletFactory" scope="singleton">
+        <argument ref="alarmDao"/>
+        <argument ref="nodeDao"/>
+    </bean>
+
+    <bean id="alertDetailsDashletFactory" class="org.opennms.features.vaadin.dashboard.dashlets.AlertDetailsDashletFactory" scope="singleton">
+        <argument ref="alarmDao"/>
+        <argument ref="nodeDao"/>
+    </bean>
+
+    <service ref="alertsDashletFactory" interface="org.opennms.features.vaadin.dashboard.model.DashletFactory"/>
+    <service ref="alertDetailsDashletFactory" interface="org.opennms.features.vaadin.dashboard.model.DashletFactory"/>
 
 </blueprint>

@@ -9,7 +9,6 @@ import org.opennms.features.vaadin.dashboard.config.DashletSelector;
 import org.opennms.features.vaadin.dashboard.model.Dashlet;
 import org.opennms.features.vaadin.dashboard.model.DashletSelectorAccess;
 import org.opennms.features.vaadin.dashboard.model.DashletSpec;
-import org.opennms.features.vaadin.dashboard.ui.WallboardUI;
 
 import java.util.*;
 
@@ -28,6 +27,7 @@ public class WallboardBody extends VerticalLayout {
     private final int DURATION_DECREASE = 1;
     private ProgressIndicator progressIndicator;
     private Label debugLabel = new Label("debug");
+    private boolean debugEnabled = false;
 
     public WallboardBody() {
         addStyleName("wallboard-board");
@@ -38,7 +38,9 @@ public class WallboardBody extends VerticalLayout {
         contentLayout.setSizeFull();
         contentLayout.addComponent(new Label("Nothing to display"));
 
-        addComponent(debugLabel);
+        if (debugEnabled) {
+            addComponent(debugLabel);
+        }
         addComponent(contentLayout);
         setExpandRatio(contentLayout, 1.0f);
 
@@ -91,6 +93,9 @@ public class WallboardBody extends VerticalLayout {
     }
 
     private void debug() {
+        if (!debugEnabled) {
+            return;
+        }
         String debug = "#" + iteration + ", i=" + index + ", w=" + waitFor;
         debugLabel.setValue(debug);
     }
@@ -134,8 +139,8 @@ public class WallboardBody extends VerticalLayout {
                 dashlets.put(index, dashlet);
 
                 if (dashlets.get(index).isBoosted()) {
-                    priorityMap.put(index, dashletSpecs.get(index).getBoostPriority());
-                    durationMap.put(index, dashletSpecs.get(index).getBoostDuration());
+                    priorityMap.put(index, Math.min(0, dashletSpecs.get(index).getPriority() + dashletSpecs.get(index).getBoostPriority()));
+                    durationMap.put(index, dashletSpecs.get(index).getDuration() + dashletSpecs.get(index).getBoostDuration());
                 } else {
                     priorityMap.put(index, dashletSpecs.get(index).getPriority());
                     durationMap.put(index, dashletSpecs.get(index).getDuration());
@@ -148,8 +153,8 @@ public class WallboardBody extends VerticalLayout {
             if (priorityMap.get(index) <= 0) {
 
                 if (dashlets.get(index).isBoosted()) {
-                    priorityMap.put(index, dashletSpecs.get(index).getBoostPriority());
-                    durationMap.put(index, dashletSpecs.get(index).getBoostDuration());
+                    priorityMap.put(index, Math.min(0, dashletSpecs.get(index).getPriority() - dashletSpecs.get(index).getBoostPriority()));
+                    durationMap.put(index, dashletSpecs.get(index).getDuration() + dashletSpecs.get(index).getBoostDuration());
                 } else {
                     priorityMap.put(index, Math.min(oldPriorityMap.get(index) + PRIORITY_DECREASE, dashletSpecs.get(index).getPriority()));
                     durationMap.put(index, Math.max(oldDurationMap.get(index) - DURATION_DECREASE, dashletSpecs.get(index).getDuration()));
@@ -200,7 +205,7 @@ public class WallboardBody extends VerticalLayout {
             progressIndicator.setVisible(false);
         }
 
-        if (index < dashletSpecs.size()) {
+        if (durationMap.containsKey(index)) {
             float x = 1 - ((float) waitFor / (float) (durationMap.get(index) * 1000));
             progressIndicator.setValue(x);
         }
