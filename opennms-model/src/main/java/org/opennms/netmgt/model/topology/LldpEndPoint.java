@@ -171,7 +171,6 @@ public class LldpEndPoint extends EndPoint {
 				setIfName(lldpPortId);
 			}
 		}
-		setId(m_lldpPortId+"-"+m_lldpPortIdSubType);
 	}
 	
 	public LldpPortIdSubType getLldpPortIdSubType() {
@@ -215,6 +214,15 @@ public class LldpEndPoint extends EndPoint {
 			.toString();
 	}
 
+	@Override
+	public void setTopologyElement(TopologyElement device) {
+		super.setTopologyElement(device);
+		for (ElementIdentifier ei: device.getElementIdentifiers()) {
+			if (ei instanceof LldpElementIdentifier) {
+				setId(ei.getId()+"-"+m_lldpPortId+"-"+m_lldpPortIdSubType);
+			}
+		}
+	}
 	@Override
 	public void update(EndPoint endpoint) {
 		m_lastPoll = endpoint.getLastPoll();
