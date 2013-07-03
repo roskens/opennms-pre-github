@@ -57,8 +57,7 @@ public class ResourceGraphsWindow extends Window {
 	 * main window. The sub-window contains an embedded browser which displays the Resource Graphs
 	 * page of the currently selected node
 	 * @param node Selected node
-	 * @param width Width of the main window
-	 * @param height Height of the main window
+	 * @param nodeURL Node URL
 	 * @throws MalformedURLException
 	 */
 	public ResourceGraphsWindow(final Node node, final URL nodeURL) throws MalformedURLException{
@@ -87,8 +86,8 @@ public class ResourceGraphsWindow extends Window {
 	public void attach() {
 		super.attach();
 		
-		int width = (int)getUI().getWidth();
-    	int height = (int)getUI().getHeight();
+		int width = getUI().getPage().getBrowserWindowWidth();
+    	int height = getUI().getPage().getBrowserWindowHeight();
     	
 		/*Sets the browser and window size based on the main window*/
 		int browserWidth = (int)(sizePercentage * width), browserHeight = (int)(sizePercentage * height);

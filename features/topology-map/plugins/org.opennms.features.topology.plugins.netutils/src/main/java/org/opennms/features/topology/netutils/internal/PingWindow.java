@@ -102,6 +102,7 @@ public class PingWindow extends Window{
 		setCaption("Ping" + caption);
 		setImmediate(true);
 		setResizable(false);
+        setSizeFull();
 
 		/*Initialize the header of the Sub-window with the name of the selected Node*/
 		String nodeName = "<div style=\"text-align: center; font-size: 18pt; font-weight:bold;\">" + label + "</div>";
@@ -112,6 +113,9 @@ public class PingWindow extends Window{
 		VerticalLayout mainLayout = new VerticalLayout();
 		mainLayout.setSizeFull();
 		vSplit = new VerticalSplitPanel();
+        vSplit.setWidth(800, Unit.PIXELS);
+        vSplit.setHeight(800, Unit.PIXELS);
+
 		topLayout = new VerticalLayout();
 		bottomLayout = new VerticalLayout();
 		VerticalLayout form = new VerticalLayout();
@@ -215,8 +219,8 @@ public class PingWindow extends Window{
 	public void attach() {
 		super.attach();
 
-		int width = (int)getUI().getWidth();
-		int height = (int)getUI().getHeight();
+		int width = (int)getUI().getPage().getBrowserWindowWidth();
+		int height = (int)getUI().getPage().getBrowserWindowHeight();
 
 		int windowWidth = (int)(sizePercentage * width), windowHeight = (int)(sizePercentage * height);
 		setWidth("" + windowWidth + "px");
