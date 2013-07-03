@@ -113,8 +113,9 @@ public class TopologyComponent extends AbstractComponent implements ChangeListen
 
         @Override
         public void vertexClicked(String vertexId, MouseEventDetails eventDetails, String platform) {
-              selectVertices(eventDetails.isShiftKey(), eventDetails.isCtrlKey(), vertexId);
-            
+            m_blockSelectionEvents = true;
+            selectVertices(eventDetails.isShiftKey(), eventDetails.isCtrlKey(), vertexId);
+            m_blockSelectionEvents = false;
         }
 
         @Override
@@ -148,7 +149,7 @@ public class TopologyComponent extends AbstractComponent implements ChangeListen
     private final ContextMenuHandler m_contextMenuHandler;
     private final IconRepositoryManager m_iconRepoManager;
     private String m_activeTool = "pan";
-    private boolean blockSelectionEvents = false;
+    private boolean m_blockSelectionEvents = false;
     transient final Object changeVariableProcessingLock = new String("LOCK");
 
     private Set<VertexUpdateListener> m_vertexUpdateListeners = new CopyOnWriteArraySet<VertexUpdateListener>();
@@ -166,10 +167,10 @@ public class TopologyComponent extends AbstractComponent implements ChangeListen
 
 			@Override
 			public void selectionChanged(SelectionContext selectionContext) {
-                if (!blockSelectionEvents) {
+                if (!m_blockSelectionEvents) {
                     computeBoundsForSelected(selectionContext);
                 }
-                requestRepaint();
+                updateGraph();
               }
 		});
 		
