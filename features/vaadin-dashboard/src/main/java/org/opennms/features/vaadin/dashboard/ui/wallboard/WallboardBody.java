@@ -87,7 +87,7 @@ public class WallboardBody extends VerticalLayout {
 
     public Dashlet getDashletInstance(DashletSpec dashletSpec) {
         DashletSelector dashletSelector = ((DashletSelectorAccess) getUI()).getDashletSelector();
-        Dashlet dashlet = dashletSelector.getFactoryForName(dashletSpec.getDashletName()).newDashletInstance(dashletSpec);
+        Dashlet dashlet = dashletSelector.getDashletFactoryForName(dashletSpec.getDashletName()).newDashletInstance(dashletSpec);
         dashlet.setCaption(null);
         return dashlet;
     }

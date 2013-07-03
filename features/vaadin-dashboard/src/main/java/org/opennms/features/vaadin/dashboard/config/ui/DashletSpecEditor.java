@@ -1,9 +1,34 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 package org.opennms.features.vaadin.dashboard.config.ui;
 
-import com.vaadin.data.Container;
 import com.vaadin.data.Property;
 import com.vaadin.data.validator.AbstractStringValidator;
-import com.vaadin.event.ShortcutAction;
 import com.vaadin.ui.*;
 import org.opennms.features.vaadin.dashboard.config.DashletSelector;
 import org.opennms.features.vaadin.dashboard.model.DashletFactory;
@@ -13,19 +38,60 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The editor component used for editing a single {@link DashletSpec} entry inside a {@link WallboardEditor}.
+ *
+ * @author Christian Pape
+ */
 public class DashletSpecEditor extends Panel {
+    /**
+     * The {@link DashletSpec} instance this editor component is associated with.
+     */
     private DashletSpec m_dashletSpec;
-    private WallboardEditor m_wallboardEditor;
-    private NativeSelect m_dashletSelect;
-    private boolean savingDisabled = false;
-    private DashletSelector m_dashletSelector;
-    private Button propertiesButton;
 
+    /**
+     * The {@link WallboardEditor} instance this component belongs to.
+     */
+    private WallboardEditor m_wallboardEditor;
+
+    /**
+     * The {@link NativeSelect} instance for selecting available dashlet factories.
+     */
+    private NativeSelect m_dashletSelect;
+
+    /**
+     * Helper variable for disabling saving of data.
+     */
+    private boolean m_savingDisabled = false;
+
+    /**
+     * The used {@link DashletSelector} used for querying available dashlet factories
+     */
+    private DashletSelector m_dashletSelector;
+
+    /**
+     * The button used for opening the properties window.
+     */
+    private Button m_propertiesButton;
+
+    /**
+     * Constructor for the DashletSpecEditor.
+     *
+     * @param wallboardEditor the {@link WallboardEditor} wallboard editor this editor belongs to
+     * @param dashletSelector the {@link DashletSelector} used to query available {@link DashletFactory} instances
+     * @param dashletSpec     the associated {@link DashletSpec} instance
+     */
     public DashletSpecEditor(WallboardEditor wallboardEditor, DashletSelector dashletSelector, DashletSpec dashletSpec) {
+        /**
+         * Setting the member fields
+         */
         this.m_wallboardEditor = wallboardEditor;
         this.m_dashletSpec = dashletSpec;
         this.m_dashletSelector = dashletSelector;
 
+        /**
+         * Setting up this component with size and layout
+         */
         setWidth(100.0f, Unit.PERCENTAGE);
 
         GridLayout gridLayout = new GridLayout();
@@ -35,13 +101,15 @@ public class DashletSpecEditor extends Panel {
         gridLayout.setSpacing(true);
         gridLayout.setMargin(true);
 
-        // Class selection
+        /**
+         * Setting up the dashlet selection
+         */
 
         m_dashletSelect = new NativeSelect();
 
         m_dashletSelect.setCaption("Dashlet");
 
-        updateDashletSelection(dashletSelector.getDashletList());
+        updateDashletSelection(dashletSelector.getDashletFactoryList());
 
         m_dashletSelect.setImmediate(true);
         m_dashletSelect.setNewItemsAllowed(false);
@@ -50,7 +118,7 @@ public class DashletSpecEditor extends Panel {
 
         m_dashletSelect.addValueChangeListener(new Property.ValueChangeListener() {
             public void valueChange(Property.ValueChangeEvent valueChangeEvent) {
-                if (savingDisabled) {
+                if (m_savingDisabled) {
                     return;
                 }
 
@@ -62,13 +130,13 @@ public class DashletSpecEditor extends Panel {
 
                 m_dashletSpec.getParameters().clear();
 
-                Map<String, String> requiredParameters = m_dashletSelector.getFactoryForName(m_dashletSpec.getDashletName()).getRequiredParameters();
+                Map<String, String> requiredParameters = m_dashletSelector.getDashletFactoryForName(m_dashletSpec.getDashletName()).getRequiredParameters();
 
                 for (Map.Entry<String, String> entry : requiredParameters.entrySet()) {
                     m_dashletSpec.getParameters().put(entry.getKey(), entry.getValue());
                 }
 
-                propertiesButton.setEnabled(requiredParameters.size() > 0);
+                m_propertiesButton.setEnabled(requiredParameters.size() > 0);
 
                 WallboardProvider.getInstance().save();
                 ((WallboardConfigUI) getUI()).notifyMessage("Data saved", "Dashlet");
@@ -78,8 +146,9 @@ public class DashletSpecEditor extends Panel {
         FormLayout f1 = new FormLayout();
         f1.addComponent(m_dashletSelect);
 
-        // priority fields
-
+        /**
+         * Priority field setup, layout and adding listener and validator
+         */
         final TextField priorityField = new TextField();
         priorityField.setValue(String.valueOf(dashletSpec.getPriority()));
         priorityField.setImmediate(true);
@@ -107,6 +176,9 @@ public class DashletSpecEditor extends Panel {
             }
         });
 
+        /**
+         * Boost priority field setup, layout and adding listener and validator
+         */
         final TextField boostPriorityField = new TextField();
         boostPriorityField.setValue(String.valueOf(dashletSpec.getPriority()));
         boostPriorityField.setImmediate(true);
@@ -135,7 +207,9 @@ public class DashletSpecEditor extends Panel {
         });
 
 
-        // duration field
+        /**
+         * Duration field setup, layout and adding listener and validator
+         */
         final TextField durationField = new TextField();
         durationField.setValue(String.valueOf(dashletSpec.getDuration()));
         durationField.setImmediate(true);
@@ -163,6 +237,9 @@ public class DashletSpecEditor extends Panel {
             }
         });
 
+        /**
+         * Boost duration field setup, layout and adding listener and validator
+         */
         final TextField boostDurationField = new TextField();
         boostDurationField.setValue(String.valueOf(dashletSpec.getDuration()));
         boostDurationField.setImmediate(true);
@@ -190,31 +267,38 @@ public class DashletSpecEditor extends Panel {
             }
         });
 
-        // adding to form layout
+        /**
+         * Adding the required input fields and buttons to several {@link FormLayout} instances for better layout.
+         */
         FormLayout f2 = new FormLayout();
         f2.addComponent(priorityField);
         f2.addComponent(durationField);
 
-        // adding to form layout
         FormLayout f3 = new FormLayout();
         f3.addComponent(boostPriorityField);
         f3.addComponent(boostDurationField);
 
-        propertiesButton = new Button("Properties");
+        /**
+         * Adding the properties button...
+         */
+        m_propertiesButton = new Button("Properties");
 
-        propertiesButton.addClickListener(new Button.ClickListener() {
+        m_propertiesButton.addClickListener(new Button.ClickListener() {
             @Override
             public void buttonClick(Button.ClickEvent clickEvent) {
-                editProperties();
+                getUI().addWindow(new PropertiesWindow(m_dashletSpec, m_dashletSelector));
             }
         });
 
-        propertiesButton.setEnabled(m_dashletSelector.getFactoryForName(m_dashletSpec.getDashletName()).getRequiredParameters().size() > 0);
+        m_propertiesButton.setEnabled(m_dashletSelector.getDashletFactoryForName(m_dashletSpec.getDashletName()).getRequiredParameters().size() > 0);
 
+        /**
+         * ...and the remove button
+         */
         Button removeButton = new Button("Remove");
 
         FormLayout f4 = new FormLayout();
-        f4.addComponent(propertiesButton);
+        f4.addComponent(m_propertiesButton);
         f4.addComponent(removeButton);
 
         removeButton.addClickListener(new Button.ClickListener() {
@@ -223,6 +307,9 @@ public class DashletSpecEditor extends Panel {
             }
         });
 
+        /**
+         * Adding the different {@link FormLayout} instances to a {@link GridLayout}
+         */
         gridLayout.addComponent(f1);
         gridLayout.addComponent(f2);
         gridLayout.addComponent(f3);
@@ -231,104 +318,13 @@ public class DashletSpecEditor extends Panel {
         setContent(gridLayout);
     }
 
-    protected void editProperties() {
-
-        final Map<String, String> requiredParameters = m_dashletSelector.getFactoryForName(m_dashletSpec.getDashletName()).getRequiredParameters();
-
-        final Window window = new Window("Properties");
-
-        window.setModal(true);
-        window.setClosable(false);
-        window.setResizable(false);
-        window.setWidth("60%");
-
-        getUI().addWindow(window);
-
-        window.setContent(new VerticalLayout() {
-            {
-                final Table table = new Table() {
-                    {
-                        setTableFieldFactory(new DefaultFieldFactory() {
-                            @Override
-                            public Field createField(Container container, Object itemId, Object propertyId, Component uiContext) {
-                                Field field = super.createField(container, itemId, propertyId, uiContext);
-                                if (propertyId.equals("Key")) {
-                                    field.setReadOnly(true);
-                                } else {
-                                    field.setSizeFull();
-                                }
-                                return field;
-                            }
-                        });
-                        setEditable(true);
-                        setSizeFull();
-                        setMargin(true);
-                        setImmediate(true);
-                        addContainerProperty("Key", String.class, "");
-                        addContainerProperty("Value", String.class, "");
-
-                        for (Map.Entry<String, String> entry : requiredParameters.entrySet()) {
-                            if (m_dashletSpec.getParameters().containsKey(entry.getKey())) {
-                                addItem(new Object[]{entry.getKey(), m_dashletSpec.getParameters().get(entry.getKey())}, entry.getKey());
-                            } else {
-                                addItem(new Object[]{entry.getKey(), entry.getValue()}, entry.getKey());
-                            }
-                        }
-
-                        setColumnWidth("Key", 100);
-                        setColumnWidth("Value", -1);
-                    }
-                };
-
-                addComponent(table);
-
-                addComponent(new HorizontalLayout() {
-                    {
-                        setMargin(true);
-                        setSpacing(true);
-                        setWidth("100%");
-
-                        Button cancel = new Button("Cancel");
-                        cancel.addClickListener(new Button.ClickListener() {
-                            @Override
-                            public void buttonClick(Button.ClickEvent event) {
-                                window.close();
-                            }
-                        });
-
-                        cancel.setClickShortcut(ShortcutAction.KeyCode.ESCAPE, null);
-                        addComponent(cancel);
-                        setExpandRatio(cancel, 1);
-                        setComponentAlignment(cancel, Alignment.TOP_RIGHT);
-
-                        Button ok = new Button("Save");
-
-                        ok.addClickListener(new Button.ClickListener() {
-                            @Override
-                            public void buttonClick(Button.ClickEvent event) {
-                                for (Map.Entry<String, String> entry : requiredParameters.entrySet()) {
-                                    String newValue = table.getItem(entry.getKey()).getItemProperty("Value").getValue().toString();
-                                    m_dashletSpec.getParameters().put(entry.getKey(), newValue);
-                                }
-
-                                WallboardProvider.getInstance().save();
-                                ((WallboardConfigUI) getUI()).notifyMessage("Data saved", "Duration");
-
-                                window.close();
-                            }
-                        });
-
-                        ok.setClickShortcut(ShortcutAction.KeyCode.ENTER, null);
-
-                        addComponent(ok);
-                    }
-                });
-            }
-        });
-    }
-
+    /**
+     * Method for updating the {@link NativeSelect} instance to display the available {@link DashletFactory} instances.
+     *
+     * @param factoryList the list of available {@link DashletFactory} instances
+     */
     public void updateDashletSelection(List<DashletFactory> factoryList) {
-        savingDisabled = true;
+        m_savingDisabled = true;
 
         String savedSelection = (m_dashletSelect.getValue() == null ? "Undefined" : m_dashletSelect.getValue().toString());
 
@@ -342,9 +338,14 @@ public class DashletSpecEditor extends Panel {
 
         m_dashletSelect.select(savedSelection);
 
-        savingDisabled = false;
+        m_savingDisabled = false;
     }
 
+    /**
+     * Returns the associated {@link DashletSpec} of this editor component.
+     *
+     * @return the {@link DashletSpec} instance
+     */
     public DashletSpec getDashletSpec() {
         return m_dashletSpec;
     }

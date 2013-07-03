@@ -48,99 +48,13 @@
     border-bottom: 2px solid #ccc;
 }
 
-.dashboard .node-label {
-    padding: 5px 10px;
-    border-bottom: 1px solid #ccc;
-}
-
-.dashboard .node-label.cleared {
-    background: #AAAAAA;
-    border-left: 15px solid #858585;
-}
-
-.dashboard .node-label.normal {
-    background: #AAAAAA;
-    border-left: 15px solid #336600;
-}
-
-.dashboard .node-label.indeterminate {
-    background: #AAAAAA;
-    border-left: 15px solid #999;
-}
-
-.dashboard .node-label.warning {
-    background: #AAAAAA;
-    border-left: 15px solid #FFCC00;
-}
-
-.dashboard .node-label.minor {
-    background: #AAAAAA;
-    border-left: 15px solid #FF9900;
-}
-
-.dashboard .node-label.major {
-    background: #AAAAAA;
-    border-left: 15px solid #FF3300;
-}
-
-.dashboard .node-label.critical {
-    background: #AAAAAA;
-    border-left: 15px solid #CC0000;
-}
-
-.dashboard .node-label-black.cleared {
-    background: #000000;
-    border-left: 15px solid #858585;
-}
-
-.dashboard .node-label-black.normal {
-    background: #000000;
-    border-left: 15px solid #336600;
-}
-
-.dashboard .node-label-black.indeterminate {
-    background: #000000;
-    border-left: 15px solid #999;
-}
-
-.dashboard .node-label-black.warning {
-    background: #000000;
-    border-left: 15px solid #FFCC00;
-}
-
-.dashboard .node-label-black.minor {
-    background: #000000;
-    border-left: 15px solid #FF9900;
-}
-
-.dashboard .node-label-black.major {
-    background: #000000;
-    border-left: 15px solid #FF3300;
-}
-
-.dashboard .node-label-black.critical {
-    background: #000000;
-    border-left: 15px solid #CC0000;
-}
-
-.node-font {
-    font-size: 18px;
-    line-height: normal;
-}
-
-.node-font-black {
-    color: #3ba300;
-    font-size: 18px;
-    line-height: normal;
-}
-
-.dashboard .wallboard-board .node-label-black {
+.dashboard .wallboard-board {
     color: #3ba300;
     padding: 5px 5px;
     margin: 1px;
 }
 
-.dashboard .wallboard-board .node-label {
+.dashboard .wallboard-board {
     font-size: 18px;
     padding: 5px 5px;
     margin: 1px;

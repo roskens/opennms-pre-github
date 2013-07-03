@@ -1,5 +1,33 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 package org.opennms.features.vaadin.dashboard.dashlets;
 
+import com.vaadin.server.Page;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
@@ -16,22 +44,51 @@ import org.opennms.netmgt.model.OnmsSeverity;
 
 import java.util.List;
 
+/**
+ * This class represents a Alert Dashlet with some details.
+ *
+ * @author Christian Pape
+ */
 public class AlertDetailsDashlet extends VerticalLayout implements Dashlet {
+    /**
+     * The {@link AlarmDao} used
+     */
     private AlarmDao m_alarmDao;
+    /**
+     * The {@link NodeDao} used
+     */
     private NodeDao m_nodeDao;
+    /**
+     * The {@link DashletSpec} for this instance
+     */
     private DashletSpec m_dashletSpec;
 
-    int tries = 0;
-
+    /**
+     * Constructor for instantiating new objects.
+     *
+     * @param dashletSpec the {@link DashletSpec} to be used
+     * @param alarmDao    the {@link AlarmDao} to be used
+     * @param nodeDao     the {@link NodeDao} to be used
+     */
     public AlertDetailsDashlet(DashletSpec dashletSpec, AlarmDao alarmDao, NodeDao nodeDao) {
+        /**
+         * Setting the member fields
+         */
         m_dashletSpec = dashletSpec;
         m_alarmDao = alarmDao;
         m_nodeDao = nodeDao;
+        /**
+         * Setting up the layout
+         */
         setCaption(getName());
         setWidth("100%");
-        //setSizeFull();
     }
 
+    /**
+     * Updates the alarm data using the associated {@link AlarmDao} and {@link NodeDao} instances.
+     *
+     * @return true, if boosted, false otherwise
+     */
     private boolean updateAlarms() {
         final CriteriaBuilder alarmCb = new CriteriaBuilder(OnmsAlarm.class);
 
@@ -44,6 +101,9 @@ public class AlertDetailsDashlet extends VerticalLayout implements Dashlet {
             minimumSeverity = Math.min(7, Math.max(1, Integer.parseInt(m_dashletSpec.getParameters().get("minimumSeverity"))));
             boostSeverity = Math.min(7, Math.max(1, Integer.parseInt(m_dashletSpec.getParameters().get("boostSeverity"))));
         } catch (NumberFormatException numberFormatException) {
+            /**
+             * just ignore
+             */
         }
 
         alarmCb.fetch("firstEvent", Fetch.FetchType.EAGER);
@@ -60,11 +120,13 @@ public class AlertDetailsDashlet extends VerticalLayout implements Dashlet {
         List<OnmsAlarm> alarms = m_alarmDao.findMatching(alarmCb.toCriteria());
         removeAllComponents();
 
+        injectStyles();
+
         boolean boosted = false;
 
         if (alarms.size() == 0) {
             Label label = new Label("No alarms found!");
-            label.addStyleName("node-font");
+            label.addStyleName("alert-details-noalarms-font");
             addComponent(label);
         } else {
             for (OnmsAlarm onmsAlarm : alarms) {
@@ -90,54 +152,45 @@ public class AlertDetailsDashlet extends VerticalLayout implements Dashlet {
         return boosted;
     }
 
-    public String getHumanReadableFormat(long secondsAll) {
-        long seconds = secondsAll;
-        long minutes = 0;
-        long hours = 0;
-
-        if (seconds / 60 > 0) {
-            long rest = seconds % 60;
-            minutes = seconds / 60;
-            seconds = rest;
-        }
-
-        if (minutes / 60 > 0) {
-            long rest = minutes % 60;
-            hours = minutes / 60;
-            minutes = rest;
-        }
-
-        String output = "";
-
-        if (hours > 0) {
-            output = hours + " h, " + minutes + " m, " + seconds + " s";
-        } else {
-            if (minutes > 0) {
-                output = minutes + " m, " + seconds + " s";
-            } else {
-                output = seconds + " s";
-            }
-        }
-
-        return output;
+    /**
+     * Injects CSS styles on current page for this dashlet
+     */
+    private void injectStyles() {
+        Page.getCurrent().getStyles().add(".alert-details.cleared { background: #AAAAAA; border-left: 15px solid #858585; }");
+        Page.getCurrent().getStyles().add(".alert-details.normal { background: #AAAAAA; border-left: 15px solid #336600; }");
+        Page.getCurrent().getStyles().add(".alert-details.indeterminate { background: #AAAAAA; border-left: 15px solid #999; }");
+        Page.getCurrent().getStyles().add(".alert-details.warning { background: #AAAAAA; border-left: 15px solid #FFCC00; }");
+        Page.getCurrent().getStyles().add(".alert-details.minor { background: #AAAAAA; border-left: 15px solid #FF9900; }");
+        Page.getCurrent().getStyles().add(".alert-details.major { background: #AAAAAA; border-left: 15px solid #FF3300; }");
+        Page.getCurrent().getStyles().add(".alert-details.critical { background: #AAAAAA; border-left: 15px solid #CC0000; }");
+        Page.getCurrent().getStyles().add(".alert-details-font {color: #000000; font-size: 18px; line-height: normal; }");
+        Page.getCurrent().getStyles().add(".alert-details-noalarms-font { font-size: 18px; line-height: normal; }");
+        Page.getCurrent().getStyles().add(".alert-details { padding: 5px 5px; margin: 1px; }");
     }
 
+    /**
+     * Returns the component for visualising the alarms data.
+     *
+     * @param onmsAlarm an {@link OnmsAlarm} instance
+     * @param onmsNode  an {@link OnmsNode} instance
+     * @return component for this alarm
+     */
     public Component createAlarmComponent(OnmsAlarm onmsAlarm, OnmsNode onmsNode) {
         HorizontalLayout horizontalLayout = new HorizontalLayout();
         horizontalLayout.setSizeFull();
-        horizontalLayout.addStyleName("node-label");
-        horizontalLayout.addStyleName("node-font");
+        horizontalLayout.addStyleName("alert-details");
+        horizontalLayout.addStyleName("alert-details-font");
         horizontalLayout.addStyleName(onmsAlarm.getSeverity().name().toLowerCase());
 
         VerticalLayout verticalLayout1 = new VerticalLayout();
         Label lastEvent = new Label();
-        lastEvent.addStyleName("node-font");
+        lastEvent.addStyleName("alert-details-font");
         lastEvent.setCaption("Last event");
         lastEvent.setValue(onmsAlarm.getLastEventTime().toString());
 
         Label firstEvent = new Label();
         firstEvent.setSizeUndefined();
-        firstEvent.addStyleName("node-font");
+        firstEvent.addStyleName("alert-details-font");
         firstEvent.setCaption("First event");
         firstEvent.setValue(onmsAlarm.getFirstEventTime().toString());
 
@@ -150,8 +203,9 @@ public class AlertDetailsDashlet extends VerticalLayout implements Dashlet {
 
         Label nodeId = new Label();
         nodeId.setSizeUndefined();
-        nodeId.addStyleName("node-font");
+        nodeId.addStyleName("alert-details-font");
         nodeId.setCaption("Node Id");
+
         if (onmsNode != null) {
             nodeId.setValue(onmsNode.getNodeId());
         } else {
@@ -160,7 +214,7 @@ public class AlertDetailsDashlet extends VerticalLayout implements Dashlet {
 
         Label nodeLabel = new Label();
         nodeLabel.setSizeUndefined();
-        nodeLabel.addStyleName("node-font");
+        nodeLabel.addStyleName("alert-details-font");
         nodeLabel.setCaption("Node Label");
         if (onmsNode != null) {
             nodeLabel.setValue(onmsNode.getLabel());
@@ -174,7 +228,7 @@ public class AlertDetailsDashlet extends VerticalLayout implements Dashlet {
         horizontalLayout.addComponent(verticalLayout2);
 
         Label logMessage = new Label();
-        logMessage.addStyleName("node-font");
+        logMessage.addStyleName("alert-details-font");
         logMessage.setSizeFull();
         logMessage.setCaption("Log message");
         logMessage.setValue(onmsAlarm.getLogMsg().replaceAll("<[^>]*>", ""));
@@ -187,6 +241,7 @@ public class AlertDetailsDashlet extends VerticalLayout implements Dashlet {
         return horizontalLayout;
     }
 
+    @Override
     public String getName() {
         return "Alert Details";
     }

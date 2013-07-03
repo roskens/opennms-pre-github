@@ -1,3 +1,30 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 package org.opennms.features.vaadin.dashboard.config.ui;
 
 import com.vaadin.data.Container;
@@ -13,16 +40,47 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This class represents the base editing component for {@link Wallboard} instances.
+ *
+ * @author Christian Pape
+ */
 public class WallboardConfigView extends HorizontalLayout implements TabSheet.CloseHandler, DashletSelector.ServiceListChangedListener {
+    /**
+     * The {@link TabSheet.Tab} holding the overview tab
+     */
     private TabSheet.Tab m_overviewTab;
+    /**
+     * The {@link TabSheet} for displaying the {@link WallboardEditor} components
+     */
     private WallboardTabSheet m_tabSheet;
+    /**
+     * The {@link DashletSelector} used for querying the configuration data
+     */
     private DashletSelector m_dashletSelector;
+    /**
+     * The {@link WallboardOverview} component
+     */
     private WallboardOverview m_dashboardOverview;
+    /**
+     * A map used to store {@link Wallboard} and {@link TabSheet.Tab} instances
+     */
     private Map<Wallboard, TabSheet.Tab> m_wallboardEditorMap = new HashMap<Wallboard, TabSheet.Tab>();
 
+    /**
+     * The constructor used for instantiating new objects.
+     *
+     * @param dashletSelector the {@link DashletSelector} to be used
+     */
     public WallboardConfigView(DashletSelector dashletSelector) {
+        /**
+         * Setting the member fields
+         */
         m_dashletSelector = dashletSelector;
 
+        /**
+         * Setting up the layout components and the {@link TabSheet}
+         */
         setSizeFull();
 
         m_tabSheet = new WallboardTabSheet() {
@@ -34,6 +92,9 @@ public class WallboardConfigView extends HorizontalLayout implements TabSheet.Cl
 
         m_tabSheet.setSizeFull();
 
+        /**
+         * Adding the {@link WallboardOverview}
+         */
         m_dashboardOverview = new WallboardOverview(this);
 
         m_overviewTab = m_tabSheet.addTab(m_dashboardOverview, "Overview");
@@ -47,6 +108,9 @@ public class WallboardConfigView extends HorizontalLayout implements TabSheet.Cl
 
         dashletSelector.addServiceListChangedListener(this);
 
+        /**
+         * Adding the listeners
+         */
         WallboardProvider.getInstance().getBeanContainer().addItemSetChangeListener(new Container.ItemSetChangeListener() {
             public void containerItemSetChange(Container.ItemSetChangeEvent itemSetChangeEvent) {
                 List<Wallboard> wallboardsToRemove = new ArrayList<Wallboard>();
@@ -68,6 +132,11 @@ public class WallboardConfigView extends HorizontalLayout implements TabSheet.Cl
         });
     }
 
+    /**
+     * This method opens a {@link WallboardEditor} for a given {@link Wallboard}.
+     *
+     * @param wallboard the wallboard to be edited
+     */
     public void openWallboardEditor(Wallboard wallboard) {
         if (m_wallboardEditorMap.containsKey(wallboard)) {
             m_tabSheet.setSelectedTab(m_wallboardEditorMap.get(wallboard));
@@ -84,6 +153,9 @@ public class WallboardConfigView extends HorizontalLayout implements TabSheet.Cl
         }
     }
 
+    /**
+     * This method is used to add a new {@link TabSheet.Tab} component. It creates a new window querying the user for the name of the new {@link Wallboard}.
+     */
     protected void addNewTabComponent() {
         final Window window = new Window("New Wallboard");
 
@@ -180,6 +252,11 @@ public class WallboardConfigView extends HorizontalLayout implements TabSheet.Cl
         });
     }
 
+    /**
+     * This method is used for updating the available {@link DashletFactory} instances.
+     *
+     * @param factoryList the available {@link DashletFactory} instances.
+     */
     public void serviceListChanged(List<DashletFactory> factoryList) {
         for (Map.Entry<Wallboard, TabSheet.Tab> entry : m_wallboardEditorMap.entrySet()) {
             WallboardEditor wallboardEditor = (WallboardEditor) entry.getValue().getComponent();
@@ -190,6 +267,12 @@ public class WallboardConfigView extends HorizontalLayout implements TabSheet.Cl
     }
 
 
+    /**
+     * Method to invoke when a {@link TabSheet.Tab} is closed.
+     *
+     * @param tabsheet
+     * @param tabContent
+     */
     public void onTabClose(final TabSheet tabsheet, final Component tabContent) {
         tabsheet.removeComponent(tabContent);
         m_wallboardEditorMap.remove(((WallboardEditor) tabContent).getWallboard());
