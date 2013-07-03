@@ -8,18 +8,12 @@
         <artifactId>compiled-bundle-settings</artifactId>
         <version>1.13.0-SNAPSHOT</version>
     </parent>
-    <!--
-        <parent>
-            <groupId>org.opennms.features</groupId>
-            <artifactId>vaadin-alerts</artifactId>
-            <version>1.13.0-SNAPSHOT</version>
-        </parent>
-    -->
+
     <groupId>org.opennms.features.vaadin-dashlets</groupId>
-    <artifactId>dashlet-alerts</artifactId>
+    <artifactId>dashlet-alarms</artifactId>
 
     <properties>
-        <bundle.symbolicName>org.opennms.features.vaadin-dashlets.dashlet-alerts</bundle.symbolicName>
+        <bundle.symbolicName>org.opennms.features.vaadin-dashlets.dashlet-alarms</bundle.symbolicName>
         <bundle.namespace>org.opennms.features.vaadin.dashboard.dashlets</bundle.namespace>
     </properties>
 

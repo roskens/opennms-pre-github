@@ -38,7 +38,7 @@ import org.opennms.netmgt.dao.NodeDao;
  *
  * @author Christian Pape
  */
-public class AlertsDashletFactory extends AbstractDashletFactory {
+public class AlarmsDashletFactory extends AbstractDashletFactory {
     /**
      * The {@link AlarmDao} used
      */
@@ -54,8 +54,8 @@ public class AlertsDashletFactory extends AbstractDashletFactory {
      * @param alarmDao the {@link AlarmDao} to be used
      * @param nodeDao  the {@link NodeDao} to be used
      */
-    public AlertsDashletFactory(AlarmDao alarmDao, NodeDao nodeDao) {
-        super("Alerts");
+    public AlarmsDashletFactory(AlarmDao alarmDao, NodeDao nodeDao) {
+        super("Alarms");
 
         m_alarmDao = alarmDao;
         m_nodeDao = nodeDao;
@@ -68,6 +68,6 @@ public class AlertsDashletFactory extends AbstractDashletFactory {
      * @return a new {@link Dashlet} instance
      */
     public Dashlet newDashletInstance(DashletSpec dashletSpec) {
-        return new AlertsDashlet(dashletSpec, m_alarmDao, m_nodeDao);
+        return new AlarmsDashlet(dashletSpec, m_alarmDao, m_nodeDao);
     }
 }

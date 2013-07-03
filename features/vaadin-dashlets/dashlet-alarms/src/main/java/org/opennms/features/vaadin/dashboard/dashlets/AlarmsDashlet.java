@@ -42,14 +42,15 @@ import org.opennms.netmgt.model.OnmsAlarm;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.OnmsSeverity;
 
+import java.util.Calendar;
 import java.util.List;
 
 /**
- * This class represents a Alert Dashlet with some details.
+ * This class represents a Alert Dashlet with minimum details.
  *
  * @author Christian Pape
  */
-public class AlertDetailsDashlet extends VerticalLayout implements Dashlet {
+public class AlarmsDashlet extends VerticalLayout implements Dashlet {
     /**
      * The {@link AlarmDao} used
      */
@@ -70,16 +71,10 @@ public class AlertDetailsDashlet extends VerticalLayout implements Dashlet {
      * @param alarmDao    the {@link AlarmDao} to be used
      * @param nodeDao     the {@link NodeDao} to be used
      */
-    public AlertDetailsDashlet(DashletSpec dashletSpec, AlarmDao alarmDao, NodeDao nodeDao) {
-        /**
-         * Setting the member fields
-         */
+    public AlarmsDashlet(DashletSpec dashletSpec, AlarmDao alarmDao, NodeDao nodeDao) {
         m_dashletSpec = dashletSpec;
         m_alarmDao = alarmDao;
         m_nodeDao = nodeDao;
-        /**
-         * Setting up the layout
-         */
         setCaption(getName());
         setWidth("100%");
     }
@@ -94,7 +89,7 @@ public class AlertDetailsDashlet extends VerticalLayout implements Dashlet {
 
         int minimumSeverity = 4;
         int boostSeverity = 6;
-        int alarmsPerPage = 6;
+        int alarmsPerPage = 12;
 
         try {
             alarmsPerPage = Math.max(1, Integer.parseInt(m_dashletSpec.getParameters().get("alarmsPerPage")));
@@ -102,7 +97,7 @@ public class AlertDetailsDashlet extends VerticalLayout implements Dashlet {
             boostSeverity = Math.min(7, Math.max(1, Integer.parseInt(m_dashletSpec.getParameters().get("boostSeverity"))));
         } catch (NumberFormatException numberFormatException) {
             /**
-             * just ignore
+             * Just ignore
              */
         }
 
@@ -118,6 +113,7 @@ public class AlertDetailsDashlet extends VerticalLayout implements Dashlet {
         alarmCb.distinct();
 
         List<OnmsAlarm> alarms = m_alarmDao.findMatching(alarmCb.toCriteria());
+
         removeAllComponents();
 
         injectStyles();
@@ -126,7 +122,7 @@ public class AlertDetailsDashlet extends VerticalLayout implements Dashlet {
 
         if (alarms.size() == 0) {
             Label label = new Label("No alarms found!");
-            label.addStyleName("alert-details-noalarms-font");
+            label.addStyleName("alerts-noalarms-font");
             addComponent(label);
         } else {
             for (OnmsAlarm onmsAlarm : alarms) {
@@ -153,19 +149,57 @@ public class AlertDetailsDashlet extends VerticalLayout implements Dashlet {
     }
 
     /**
+     * Returns a human-readable {@link String} representation of a timestamp in the past.
+     *
+     * @param secondsAll the timestamp to be used
+     * @return a human-readable representation
+     */
+    public String getHumanReadableFormat(long secondsAll) {
+        long seconds = secondsAll;
+        long minutes = 0;
+        long hours = 0;
+
+        if (seconds / 60 > 0) {
+            long rest = seconds % 60;
+            minutes = seconds / 60;
+            seconds = rest;
+        }
+
+        if (minutes / 60 > 0) {
+            long rest = minutes % 60;
+            hours = minutes / 60;
+            minutes = rest;
+        }
+
+        String output = "";
+
+        if (hours > 0) {
+            output = hours + "h, " + minutes + "m, " + seconds + "s";
+        } else {
+            if (minutes > 0) {
+                output = minutes + "m, " + seconds + "s";
+            } else {
+                output = seconds + "s";
+            }
+        }
+
+        return output + " ago";
+    }
+
+    /**
      * Injects CSS styles on current page for this dashlet
      */
     private void injectStyles() {
-        Page.getCurrent().getStyles().add(".alert-details.cleared { background: #AAAAAA; border-left: 15px solid #858585; }");
-        Page.getCurrent().getStyles().add(".alert-details.normal { background: #AAAAAA; border-left: 15px solid #336600; }");
-        Page.getCurrent().getStyles().add(".alert-details.indeterminate { background: #AAAAAA; border-left: 15px solid #999; }");
-        Page.getCurrent().getStyles().add(".alert-details.warning { background: #AAAAAA; border-left: 15px solid #FFCC00; }");
-        Page.getCurrent().getStyles().add(".alert-details.minor { background: #AAAAAA; border-left: 15px solid #FF9900; }");
-        Page.getCurrent().getStyles().add(".alert-details.major { background: #AAAAAA; border-left: 15px solid #FF3300; }");
-        Page.getCurrent().getStyles().add(".alert-details.critical { background: #AAAAAA; border-left: 15px solid #CC0000; }");
-        Page.getCurrent().getStyles().add(".alert-details-font {color: #000000; font-size: 18px; line-height: normal; }");
-        Page.getCurrent().getStyles().add(".alert-details-noalarms-font { font-size: 18px; line-height: normal; }");
-        Page.getCurrent().getStyles().add(".alert-details { padding: 5px 5px; margin: 1px; }");
+        Page.getCurrent().getStyles().add(".alerts.cleared { background: #000000; border-left: 15px solid #858585; }");
+        Page.getCurrent().getStyles().add(".alerts.normal { background: #000000; border-left: 15px solid #336600; }");
+        Page.getCurrent().getStyles().add(".alerts.indeterminate {  background: #000000; border-left: 15px solid #999; }");
+        Page.getCurrent().getStyles().add(".alerts.warning { background: #000000; border-left: 15px solid #FFCC00; }");
+        Page.getCurrent().getStyles().add(".alerts.minor { background: #000000;  border-left: 15px solid #FF9900; }");
+        Page.getCurrent().getStyles().add(".alerts.major { background: #000000; border-left: 15px solid #FF3300; }");
+        Page.getCurrent().getStyles().add(".alerts.critical { background: #000000; border-left: 15px solid #CC0000; }");
+        Page.getCurrent().getStyles().add(".alerts-font {color: #3ba300; font-size: 18px; line-height: normal; }");
+        Page.getCurrent().getStyles().add(".alerts-noalarms-font { font-size: 18px; line-height: normal; }");
+        Page.getCurrent().getStyles().add(".alerts { padding: 5px 5px; margin: 1px; }");
     }
 
     /**
@@ -176,74 +210,49 @@ public class AlertDetailsDashlet extends VerticalLayout implements Dashlet {
      * @return component for this alarm
      */
     public Component createAlarmComponent(OnmsAlarm onmsAlarm, OnmsNode onmsNode) {
+
+        Calendar calendar = Calendar.getInstance();
+
+        String ago = getHumanReadableFormat((calendar.getTimeInMillis() / 1000) - (onmsAlarm.getLastEventTime().getTime() / 1000));
+
         HorizontalLayout horizontalLayout = new HorizontalLayout();
-        horizontalLayout.setSizeFull();
-        horizontalLayout.addStyleName("alert-details");
-        horizontalLayout.addStyleName("alert-details-font");
+        horizontalLayout.setWidth("100%");
+        horizontalLayout.addStyleName("alerts");
         horizontalLayout.addStyleName(onmsAlarm.getSeverity().name().toLowerCase());
 
-        VerticalLayout verticalLayout1 = new VerticalLayout();
-        Label lastEvent = new Label();
-        lastEvent.addStyleName("alert-details-font");
-        lastEvent.setCaption("Last event");
-        lastEvent.setValue(onmsAlarm.getLastEventTime().toString());
+        Label labelAgo = new Label();
+        labelAgo.setSizeUndefined();
+        labelAgo.addStyleName("alerts-font");
+        labelAgo.setValue(ago);
 
-        Label firstEvent = new Label();
-        firstEvent.setSizeUndefined();
-        firstEvent.addStyleName("alert-details-font");
-        firstEvent.setCaption("First event");
-        firstEvent.setValue(onmsAlarm.getFirstEventTime().toString());
-
-        verticalLayout1.addComponent(firstEvent);
-        verticalLayout1.addComponent(lastEvent);
-
-        horizontalLayout.addComponent(verticalLayout1);
-
-        VerticalLayout verticalLayout2 = new VerticalLayout();
-
-        Label nodeId = new Label();
-        nodeId.setSizeUndefined();
-        nodeId.addStyleName("alert-details-font");
-        nodeId.setCaption("Node Id");
-
+        Label labelId = new Label();
+        labelId.setSizeUndefined();
+        labelId.addStyleName("alerts-font");
         if (onmsNode != null) {
-            nodeId.setValue(onmsNode.getNodeId());
+            labelId.setValue(onmsNode.getLabel() + " (" + onmsNode.getNodeId() + ")");
         } else {
-            nodeId.setValue("-");
+            labelId.setValue("-");
         }
 
-        Label nodeLabel = new Label();
-        nodeLabel.setSizeUndefined();
-        nodeLabel.addStyleName("alert-details-font");
-        nodeLabel.setCaption("Node Label");
-        if (onmsNode != null) {
-            nodeLabel.setValue(onmsNode.getLabel());
-        } else {
-            nodeLabel.setValue("-");
-        }
+        Label labelUei = new Label();
+        labelUei.setSizeUndefined();
+        labelUei.addStyleName("alerts-font");
+        labelUei.setValue(onmsAlarm.getUei());
 
-        verticalLayout2.addComponent(nodeId);
-        verticalLayout2.addComponent(nodeLabel);
+        horizontalLayout.addComponent(labelAgo);
+        horizontalLayout.addComponent(labelId);
+        horizontalLayout.addComponent(labelUei);
 
-        horizontalLayout.addComponent(verticalLayout2);
-
-        Label logMessage = new Label();
-        logMessage.addStyleName("alert-details-font");
-        logMessage.setSizeFull();
-        logMessage.setCaption("Log message");
-        logMessage.setValue(onmsAlarm.getLogMsg().replaceAll("<[^>]*>", ""));
-
-        horizontalLayout.addComponent(logMessage);
-        horizontalLayout.setExpandRatio(verticalLayout1, 1.0f);
-        horizontalLayout.setExpandRatio(verticalLayout2, 1.0f);
-        horizontalLayout.setExpandRatio(logMessage, 3.0f);
+        horizontalLayout.setExpandRatio(labelAgo, 1.0f);
+        horizontalLayout.setExpandRatio(labelId, 2.0f);
+        horizontalLayout.setExpandRatio(labelUei, 4.0f);
 
         return horizontalLayout;
     }
 
     @Override
     public String getName() {
-        return "Alert Details";
+        return "Alarms";
     }
 
     @Override

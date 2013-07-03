@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <features>
 
-    <feature name="dashlet-alerts" version="${pom.version}">
-        <bundle>mvn:org.opennms.features.vaadin-dashlets/dashlet-alerts/${pom.version}</bundle>
+    <feature name="dashlet-alarms" version="${pom.version}">
+        <bundle>mvn:org.opennms.features.vaadin-dashlets/dashlet-alarms/${pom.version}</bundle>
     </feature>
     <feature name="dashlet-hello" version="${pom.version}">
         <bundle>mvn:org.opennms.features.vaadin-dashlets/dashlet-hello/${pom.version}</bundle>

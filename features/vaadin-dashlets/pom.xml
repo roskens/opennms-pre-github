@@ -15,7 +15,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>dashlet-alerts</module>
+        <module>dashlet-alarms</module>
         <module>dashlet-map</module>
         <module>dashlet-hello</module>
         <module>dashlet-ulf</module>
