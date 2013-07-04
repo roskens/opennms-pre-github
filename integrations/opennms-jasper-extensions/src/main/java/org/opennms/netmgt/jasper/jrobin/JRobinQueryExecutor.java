@@ -28,18 +28,19 @@
 
 package org.opennms.netmgt.jasper.jrobin;
 
-import java.util.Date;
-import java.util.Map;
-
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRDataset;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRValueParameter;
 import net.sf.jasperreports.engine.query.JRAbstractQueryExecuter;
+
+import java.util.Date;
+import java.util.Map;
 
 public class JRobinQueryExecutor extends JRAbstractQueryExecuter {
 
-    protected JRobinQueryExecutor(JRDataset dataset, Map<?,?> parametersMap) {
-        super(dataset, parametersMap);
+    protected JRobinQueryExecutor(JRDataset dataset, Map parametersMap) {
+        super(dataset, (Map<String, ? extends JRValueParameter>) parametersMap);
         parseQuery();
     }
 

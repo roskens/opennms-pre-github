@@ -112,7 +112,7 @@ public class JasperReportService implements ReportService {
         try {
             jasperReport = JasperCompileManager.compileReport(m_globalReportRepository.getTemplateStream(reportId));
             defaultValues = JRParameterDefaultValuesEvaluator.evaluateParameterDefaultValues(jasperReport,
-                    null);
+                    new HashMap<String,Object>());
         } catch (JRException e) {
             LOG.error("unable to compile jasper report", e);
             throw new ReportException("unable to compile jasperReport", e);

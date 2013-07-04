@@ -28,31 +28,8 @@
 
 package org.opennms.netmgt.reporting.service;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.sql.Connection;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
-
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporterParameter;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.export.JRCsvExporter;
-
 import org.opennms.core.db.DataSourceFactory;
 import org.opennms.netmgt.config.reportd.Parameter;
 import org.opennms.netmgt.config.reportd.Report;
@@ -62,6 +39,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
+
+import java.io.*;
+import java.sql.Connection;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 /**
  * <p>DefaultReportService class.</p>
@@ -248,10 +232,9 @@ public class DefaultReportService implements ReportService,InitializingBean {
         asf.close();
         reportArchive.closeEntry();
     }
-    
-    
-    private Map<String,String> paramListToMap(List<Parameter> parameters){
-        Map<String,String> parmMap = new HashMap<String, String>();
+
+    private Map<String,Object> paramListToMap(List<Parameter> parameters){
+        Map<String,Object> parmMap = new HashMap <String, Object>();
 
         for(Parameter parm : parameters)
             parmMap.put(parm.getName(), parm.getValue());

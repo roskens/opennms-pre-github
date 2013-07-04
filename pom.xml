@@ -812,7 +812,7 @@
     <gwtPluginVersion>2.3.0-1</gwtPluginVersion>
     <httpcoreVersion>4.2.4</httpcoreVersion>
     <httpclientVersion>4.2.5</httpclientVersion>
-    <jasperreportsVersion>3.7.6</jasperreportsVersion>
+    <jasperreportsVersion>5.2.0</jasperreportsVersion>
     <jettyVersion>7.6.10.v20130312</jettyVersion>
     <karafVersion>2.3.1</karafVersion>
     <felixVersion>2.2.0</felixVersion>
