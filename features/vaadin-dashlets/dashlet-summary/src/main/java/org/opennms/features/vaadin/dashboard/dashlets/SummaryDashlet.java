@@ -231,7 +231,7 @@ public class SummaryDashlet extends VerticalLayout implements Dashlet {
 
         addComponent(verticalLayout, 0);
 
-        return false;
+        return (globalTrend > 2);
     }
 
     /**
