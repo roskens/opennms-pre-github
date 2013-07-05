@@ -52,8 +52,14 @@ public class SummaryDashlet extends VerticalLayout implements Dashlet {
      */
     private DashletSpec m_dashletSpec;
 
+    /**
+     * Timeslot to use
+     */
     private long timeslot = 3600;
 
+    /**
+     * Trend identifiers
+     */
     private static int TREND_NORTH = 4;
     private static int TREND_NORTHEAST = 3;
     private static int TREND_EAST = 2;
