@@ -42,7 +42,7 @@ import org.opennms.netmgt.model.OnmsSeverity;
  *
  * @author Christian Pape
  */
-public class SummaryDashlet extends VerticalLayout implements Dashlet {
+public class SummaryDashlet extends HorizontalLayout implements Dashlet {
     /**
      * The {@link AlarmDao} used
      */
@@ -51,12 +51,14 @@ public class SummaryDashlet extends VerticalLayout implements Dashlet {
      * The {@link DashletSpec} for this instance
      */
     private DashletSpec m_dashletSpec;
-
     /**
      * Timeslot to use
      */
     private long timeslot = 3600;
-
+    /**
+     * boosted value
+     */
+    private boolean boosted = false;
     /**
      * Trend identifiers
      */
@@ -165,29 +167,55 @@ public class SummaryDashlet extends VerticalLayout implements Dashlet {
         }
     }
 
+    private Component getLegend(String entity) {
+        HorizontalLayout horizontalLayout = new HorizontalLayout();
+
+        horizontalLayout.setSpacing(true);
+        horizontalLayout.addStyleName("summary");
+        horizontalLayout.addStyleName("global");
+
+        Label labelx = new Label(entity);
+        labelx.addStyleName("summary-font-legend");
+
+        Image ackdImage = new Image(null, new ThemeResource("img/acknowledged.png"));
+        ackdImage.setWidth(16, Unit.PIXELS);
+
+        Image unackdImage = new Image(null, new ThemeResource("img/unacknowledged.png"));
+        unackdImage.setWidth(16, Unit.PIXELS);
+
+        Label dummyLabel = new Label();
+        dummyLabel.setWidth(32, Unit.PIXELS);
+
+        horizontalLayout.addComponent(labelx);
+        horizontalLayout.addComponent(ackdImage);
+        horizontalLayout.addComponent(unackdImage);
+        horizontalLayout.addComponent(dummyLabel);
+
+        horizontalLayout.setComponentAlignment(ackdImage, Alignment.TOP_RIGHT);
+        horizontalLayout.setComponentAlignment(unackdImage, Alignment.TOP_RIGHT);
+
+        horizontalLayout.setExpandRatio(labelx, 4.0f);
+        horizontalLayout.setExpandRatio(ackdImage, 1.0f);
+        horizontalLayout.setExpandRatio(unackdImage, 1.0f);
+        horizontalLayout.setExpandRatio(dummyLabel, 1.0f);
+
+        horizontalLayout.setWidth(375, Unit.PIXELS);
+
+        return horizontalLayout;
+    }
 
     /**
-     * Updates the data and checks whether this dashlet is boosted.
+     * Returns the component showing the alarms and the trends by severity
      *
-     * @return true, if boosted, false otherwise
+     * @return the {@link Component}
      */
-    private boolean update() {
-        timeslot = 3600;
-
-        try {
-            timeslot = Math.max(1, Integer.parseInt(m_dashletSpec.getParameters().get("timeslot")));
-        } catch (NumberFormatException numberFormatException) {
-            /**
-             * Just ignore
-             */
-        }
-
-        removeAllComponents();
-
-        injectStyles();
+    private Component getComponentSeverity() {
+        VerticalLayout verticalLayout = new VerticalLayout();
 
         int overallSum = 0;
         int severitySum = 0;
+
+        verticalLayout.addComponent(getLegend("Severity"));
 
         for (OnmsSeverity onmsSeverity : OnmsSeverity.values()) {
             HorizontalLayout horizontalLayout = new HorizontalLayout();
@@ -218,12 +246,15 @@ public class SummaryDashlet extends VerticalLayout implements Dashlet {
             image.setWidth(32, Unit.PIXELS);
             horizontalLayout.addComponent(image);
 
-            horizontalLayout.setExpandRatio(labelSeverity, 3.0f);
+            horizontalLayout.setExpandRatio(labelSeverity, 4.0f);
             horizontalLayout.setExpandRatio(labelAcknowledge, 1.0f);
             horizontalLayout.setExpandRatio(labelNotAcknowledged, 1.0f);
+            horizontalLayout.setExpandRatio(image, 1.0f);
+
+            horizontalLayout.setComponentAlignment(image, Alignment.TOP_CENTER);
 
             horizontalLayout.setWidth(375, Unit.PIXELS);
-            addComponent(horizontalLayout);
+            verticalLayout.addComponent(horizontalLayout);
         }
 
         int globalTrend = (int) Math.max(0, Math.min(4, Math.round(((double) overallSum) / ((double) severitySum))));
@@ -231,29 +262,170 @@ public class SummaryDashlet extends VerticalLayout implements Dashlet {
         Image image = new Image(null, new ThemeResource("img/a" + globalTrend + ".png"));
         image.setWidth(256, Unit.PIXELS);
 
+        VerticalLayout globalTrendLayout = new VerticalLayout();
+        globalTrendLayout.setSpacing(true);
+        globalTrendLayout.addStyleName("summary");
+        globalTrendLayout.addStyleName("global");
+        globalTrendLayout.setSizeFull();
+
+        Label labelTitle = new Label("Alarms trend by severity");
+        labelTitle.addStyleName("summary-font");
+        labelTitle.setSizeUndefined();
+
+        Label labelTimeslot = new Label("(" + getHumanReadableFormat(timeslot) + ")");
+        labelTimeslot.addStyleName("summary-font");
+        labelTimeslot.setSizeUndefined();
+
+        globalTrendLayout.addComponent(labelTitle);
+        globalTrendLayout.addComponent(labelTimeslot);
+        globalTrendLayout.addComponent(image);
+
+        globalTrendLayout.setWidth(375, Unit.PIXELS);
+
+        globalTrendLayout.setComponentAlignment(labelTitle, Alignment.MIDDLE_CENTER);
+        globalTrendLayout.setComponentAlignment(labelTimeslot, Alignment.MIDDLE_CENTER);
+        globalTrendLayout.setComponentAlignment(image, Alignment.MIDDLE_CENTER);
+
+        globalTrendLayout.setExpandRatio(labelTitle, 1.0f);
+
+        verticalLayout.addComponent(globalTrendLayout, 0);
+
+        boosted = (globalTrend > 2);
+
+        return verticalLayout;
+    }
+
+    /**
+     * Returns the component showing the alarms and the trends by severity
+     *
+     * @return the {@link Component}
+     */
+    private Component getComponentUei() {
         VerticalLayout verticalLayout = new VerticalLayout();
-        verticalLayout.setSpacing(true);
-        verticalLayout.addStyleName("summary");
-        verticalLayout.addStyleName("global");
-        verticalLayout.setSizeFull();
 
-        Label label = new Label("Global trend (" + getHumanReadableFormat(timeslot) + ")");
-        label.addStyleName("summary-font");
-        label.setSizeUndefined();
+        int overallSum = 0;
+        int severitySum = 0;
 
-        verticalLayout.addComponent(label);
-        verticalLayout.addComponent(image);
+        verticalLayout.addComponent(getLegend("UEI"));
 
-        verticalLayout.setWidth(375, Unit.PIXELS);
+        String[] ueis = {"uei.opennms.org/nodes/nodeLostService", "uei.opennms.org/nodes/interfaceDown", "uei.opennms.org/nodes/nodeDown"};
 
-        verticalLayout.setComponentAlignment(label, Alignment.MIDDLE_CENTER);
-        verticalLayout.setComponentAlignment(image, Alignment.MIDDLE_CENTER);
+        for (int i = 0; i < ueis.length; i++) {
+            String uei = ueis[i];
+            HorizontalLayout horizontalLayout = new HorizontalLayout();
+            horizontalLayout.setSpacing(true);
+            horizontalLayout.addStyleName("summary");
 
-        verticalLayout.setExpandRatio(label, 1.0f);
+            if (i == 0) {
+                horizontalLayout.addStyleName(OnmsSeverity.MINOR.name().toLowerCase());
+            } else {
+                if (i == 1) {
+                    horizontalLayout.addStyleName(OnmsSeverity.MINOR.name().toLowerCase());
+                } else {
+                    horizontalLayout.addStyleName(OnmsSeverity.MAJOR.name().toLowerCase());
+                }
+            }
 
-        addComponent(verticalLayout, 0);
+            int acknowledged = countByUei(true, timeslot, uei);
+            int notAcknowledged = countByUei(false, timeslot, uei);
 
-        return (globalTrend > 2);
+            Label labelSeverity = new Label(uei.replace("uei.opennms.org/nodes/", ""));
+            labelSeverity.addStyleName("summary-font");
+            Label labelAcknowledge = new Label(String.valueOf(acknowledged));
+            labelAcknowledge.addStyleName("summary-font");
+            Label labelNotAcknowledged = new Label(String.valueOf(notAcknowledged));
+            labelNotAcknowledged.addStyleName("summary-font");
+
+            horizontalLayout.addComponent(labelSeverity);
+            horizontalLayout.addComponent(labelAcknowledge);
+            horizontalLayout.addComponent(labelNotAcknowledged);
+
+            int status = computeTrend(acknowledged, notAcknowledged);
+
+            severitySum += i;
+            overallSum += i * status;
+
+            Image image = new Image(null, new ThemeResource("img/a" + status + ".png"));
+            image.setWidth(32, Unit.PIXELS);
+            horizontalLayout.addComponent(image);
+
+            horizontalLayout.setExpandRatio(labelSeverity, 4.0f);
+            horizontalLayout.setExpandRatio(labelAcknowledge, 1.0f);
+            horizontalLayout.setExpandRatio(labelNotAcknowledged, 1.0f);
+            horizontalLayout.setExpandRatio(image, 1.0f);
+
+            horizontalLayout.setComponentAlignment(image, Alignment.TOP_CENTER);
+
+            horizontalLayout.setWidth(375, Unit.PIXELS);
+            verticalLayout.addComponent(horizontalLayout);
+        }
+
+        int globalTrend = (int) Math.max(0, Math.min(4, Math.round(((double) overallSum) / ((double) severitySum))));
+
+        Image image = new Image(null, new ThemeResource("img/a" + globalTrend + ".png"));
+        image.setWidth(256, Unit.PIXELS);
+
+        VerticalLayout globalTrendLayout = new VerticalLayout();
+        globalTrendLayout.setSpacing(true);
+        globalTrendLayout.addStyleName("summary");
+        globalTrendLayout.addStyleName("global");
+        globalTrendLayout.setSizeFull();
+
+        Label labelTitle = new Label("Alarms trend by UEI");
+        labelTitle.addStyleName("summary-font");
+        labelTitle.setSizeUndefined();
+
+        Label labelTimeslot = new Label("(" + getHumanReadableFormat(timeslot) + ")");
+        labelTimeslot.addStyleName("summary-font");
+        labelTimeslot.setSizeUndefined();
+
+        globalTrendLayout.addComponent(labelTitle);
+        globalTrendLayout.addComponent(labelTimeslot);
+        globalTrendLayout.addComponent(image);
+
+        globalTrendLayout.setWidth(375, Unit.PIXELS);
+
+        globalTrendLayout.setComponentAlignment(labelTitle, Alignment.MIDDLE_CENTER);
+        globalTrendLayout.setComponentAlignment(labelTimeslot, Alignment.MIDDLE_CENTER);
+        globalTrendLayout.setComponentAlignment(image, Alignment.MIDDLE_CENTER);
+
+        globalTrendLayout.setExpandRatio(labelTitle, 1.0f);
+
+        verticalLayout.addComponent(globalTrendLayout, 0);
+
+        boosted = (globalTrend > 2);
+
+        return verticalLayout;
+    }
+
+    /**
+     * Updates the data and checks whether this dashlet is boosted.
+     */
+    @Override
+    public void update() {
+        timeslot = 3600;
+
+        try {
+            timeslot = Math.max(1, Integer.parseInt(m_dashletSpec.getParameters().get("timeslot")));
+        } catch (NumberFormatException numberFormatException) {
+            /**
+             * Just ignore
+             */
+        }
+
+        removeAllComponents();
+
+        injectStyles();
+
+        Component severity = getComponentSeverity();
+        Component uei = getComponentUei();
+
+        addComponent(severity);
+        addComponent(uei);
+
+        setSizeFull();
+        setComponentAlignment(severity, Alignment.TOP_CENTER);
+        setComponentAlignment(uei, Alignment.TOP_CENTER);
     }
 
     /**
@@ -270,6 +442,7 @@ public class SummaryDashlet extends VerticalLayout implements Dashlet {
         Page.getCurrent().getStyles().add(".summary.global { background: #000000; border-left: 15px solid #000000; }");
         Page.getCurrent().getStyles().add(".summary { padding: 5px 5px; margin: 1px; }");
         Page.getCurrent().getStyles().add(".summary-font { font-size: 24px; line-height: normal; text-align: right; }");
+        Page.getCurrent().getStyles().add(".summary-font-legend { font-size: 16px; line-height: normal; text-align: right; }");
     }
 
     /**
@@ -296,6 +469,30 @@ public class SummaryDashlet extends VerticalLayout implements Dashlet {
         return m_alarmDao.countMatching(criteriaBuilder.toCriteria());
     }
 
+    /**
+     * Searches for alarms with the given criterias and returns the number found.
+     *
+     * @param acknowledged search for acknowledged or unacknowledged alarms
+     * @param age          the age of the alarms
+     * @param uei          search for alarms with the specified uei
+     * @return number of alarms found
+     */
+    public int countByUei(boolean acknowledged, long age, String uei) {
+        CriteriaBuilder criteriaBuilder = new CriteriaBuilder(OnmsAlarm.class);
+
+        if (acknowledged) {
+            criteriaBuilder.isNotNull("alarmAckUser");
+        } else {
+            criteriaBuilder.isNull("alarmAckUser");
+        }
+
+        criteriaBuilder.eq("uei", uei);
+
+        criteriaBuilder.sql("EXTRACT(EPOCH FROM CURRENT_TIMESTAMP - lastEventTime) < " + age);
+
+        return m_alarmDao.countMatching(criteriaBuilder.toCriteria());
+    }
+
     @Override
     public String getName() {
         return "Summary";
@@ -303,7 +500,7 @@ public class SummaryDashlet extends VerticalLayout implements Dashlet {
 
     @Override
     public boolean isBoosted() {
-        return update();
+        return boosted;
     }
 
 }

@@ -77,4 +77,14 @@ public class MapDashlet extends VerticalLayout implements Dashlet {
     public boolean isBoosted() {
         return false;
     }
+
+    /**
+     * Updates the dashlet contents and computes new boosted state
+     */
+    @Override
+    public void update() {
+        /**
+         * do nothing
+         */
+    }
 }

@@ -76,4 +76,13 @@ public class UndefinedDashlet extends VerticalLayout implements Dashlet {
         return false;
     }
 
+    /**
+     * Updates the dashlet contents and computes new boosted state
+     */
+    @Override
+    public void update() {
+        /**
+         * do nothing
+         */
+    }
 }

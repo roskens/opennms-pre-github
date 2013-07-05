@@ -138,6 +138,8 @@ public class WallboardBody extends VerticalLayout {
 
                 dashlets.put(index, dashlet);
 
+                dashlets.get(index).update();
+
                 if (dashlets.get(index).isBoosted()) {
                     priorityMap.put(index, Math.max(0, dashletSpecs.get(index).getPriority() - dashletSpecs.get(index).getBoostPriority()));
                     durationMap.put(index, dashletSpecs.get(index).getDuration() + dashletSpecs.get(index).getBoostDuration());
@@ -151,6 +153,8 @@ public class WallboardBody extends VerticalLayout {
             }
 
             if (priorityMap.get(index) <= 0) {
+
+                dashlets.get(index).update();
 
                 if (dashlets.get(index).isBoosted()) {
                     priorityMap.put(index, Math.max(0, dashletSpecs.get(index).getPriority() - dashletSpecs.get(index).getBoostPriority()));

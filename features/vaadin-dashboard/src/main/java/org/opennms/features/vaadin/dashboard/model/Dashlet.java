@@ -48,4 +48,9 @@ public interface Dashlet extends Component {
      * @return true, if boosted, false otherwise
      */
     public boolean isBoosted();
+
+    /**
+     * Updates the dashlet contents and computes new boosted state
+     */
+    public void update();
 }

@@ -62,6 +62,10 @@ public class AlarmDetailsDashlet extends VerticalLayout implements Dashlet {
      * The {@link DashletSpec} for this instance
      */
     private DashletSpec m_dashletSpec;
+    /**
+     * boosted value
+     */
+    private boolean boosted = false;
 
     /**
      * Constructor for instantiating new objects.
@@ -86,10 +90,9 @@ public class AlarmDetailsDashlet extends VerticalLayout implements Dashlet {
 
     /**
      * Updates the alarm data using the associated {@link AlarmDao} and {@link NodeDao} instances.
-     *
-     * @return true, if boosted, false otherwise
      */
-    private boolean updateAlarms() {
+    @Override
+    public void update() {
         final CriteriaBuilder alarmCb = new CriteriaBuilder(OnmsAlarm.class);
 
         int minimumSeverity = 4;
@@ -122,7 +125,7 @@ public class AlarmDetailsDashlet extends VerticalLayout implements Dashlet {
 
         injectStyles();
 
-        boolean boosted = false;
+        boosted = false;
 
         if (alarms.size() == 0) {
             Label label = new Label("No alarms found!");
@@ -149,7 +152,6 @@ public class AlarmDetailsDashlet extends VerticalLayout implements Dashlet {
                 }
             }
         }
-        return boosted;
     }
 
     /**
@@ -248,6 +250,6 @@ public class AlarmDetailsDashlet extends VerticalLayout implements Dashlet {
 
     @Override
     public boolean isBoosted() {
-        return updateAlarms();
+        return boosted;
     }
 }

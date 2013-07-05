@@ -87,6 +87,8 @@ public class DashboardLayout extends PortalColumns {
         for (DashletSpec dashletSpec : dashletSpecs) {
             Dashlet dashlet = getDashletInstance(dashletSpec);
 
+            dashlet.update();
+
             boolean boosted = dashlet.isBoosted();
 
             m_columns[i].portletFor(dashlet);
