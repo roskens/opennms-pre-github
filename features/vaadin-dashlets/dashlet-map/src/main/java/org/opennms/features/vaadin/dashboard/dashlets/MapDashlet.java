@@ -27,8 +27,9 @@
  *******************************************************************************/
 package org.opennms.features.vaadin.dashboard.dashlets;
 
-import com.vaadin.server.ThemeResource;
-import com.vaadin.ui.Image;
+import com.vaadin.server.ExternalResource;
+import com.vaadin.ui.BrowserFrame;
+import com.vaadin.ui.VerticalLayout;
 import org.opennms.features.vaadin.dashboard.model.Dashlet;
 import org.opennms.features.vaadin.dashboard.model.DashletSpec;
 
@@ -37,7 +38,11 @@ import org.opennms.features.vaadin.dashboard.model.DashletSpec;
  *
  * @author Christian Pape
  */
-public class MapDashlet extends Image implements Dashlet {
+public class MapDashlet extends VerticalLayout implements Dashlet {
+    /**
+     * The {@link DashletSpec} for this instance
+     */
+    private DashletSpec m_dashletSpec;
 
     /**
      * Constructor for instantiating new objects.
@@ -45,9 +50,22 @@ public class MapDashlet extends Image implements Dashlet {
      * @param dashletSpec the {@link DashletSpec} to be used
      */
     public MapDashlet(DashletSpec dashletSpec) {
-        super(null, new ThemeResource("img/map.png"));
+        m_dashletSpec = dashletSpec;
         setCaption(getName());
         setSizeFull();
+
+        String searchString = "";
+
+        if (m_dashletSpec.getParameters().containsKey("search")) {
+            searchString = m_dashletSpec.getParameters().get("search");
+        }
+
+        /**
+         * creating browser frame to display node-maps
+         */
+        BrowserFrame browserFrame = new BrowserFrame(null, new ExternalResource("/opennms/node-maps#search/" + searchString));
+        browserFrame.setSizeFull();
+        addComponent(browserFrame);
     }
 
     @Override

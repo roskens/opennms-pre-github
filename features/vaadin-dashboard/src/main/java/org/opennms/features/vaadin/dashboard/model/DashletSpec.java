@@ -52,11 +52,11 @@ public class DashletSpec {
     /**
      * The boost duration is used to increment the normal duration when the {@link Dashlet} is boosted
      */
-    private int m_boostDuration = 5;
+    private int m_boostDuration = 0;
     /**
      * The boost priority is used to decrement the normal priority when the {@link Dashlet} is boosted
      */
-    private int m_boostPriority = 5;
+    private int m_boostPriority = 0;
     /**
      * The name of the associated {@link Dashlet}
      */

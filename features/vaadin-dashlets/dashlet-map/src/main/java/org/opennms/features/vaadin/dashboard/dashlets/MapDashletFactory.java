@@ -37,7 +37,6 @@ import org.opennms.features.vaadin.dashboard.model.DashletSpec;
  * @author Christian Pape
  */
 public class MapDashletFactory extends AbstractDashletFactory {
-
     /**
      * Constructor for instantiating a new factory.
      */

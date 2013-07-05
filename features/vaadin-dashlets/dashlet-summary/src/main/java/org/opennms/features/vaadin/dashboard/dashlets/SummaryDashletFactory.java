@@ -30,18 +30,25 @@ package org.opennms.features.vaadin.dashboard.dashlets;
 import org.opennms.features.vaadin.dashboard.model.AbstractDashletFactory;
 import org.opennms.features.vaadin.dashboard.model.Dashlet;
 import org.opennms.features.vaadin.dashboard.model.DashletSpec;
+import org.opennms.netmgt.dao.AlarmDao;
 
 /**
  * This class implements a factory used for instantiating new dashlet instances.
  *
  * @author Christian Pape
  */
-public class HelloDashletFactory extends AbstractDashletFactory {
+public class SummaryDashletFactory extends AbstractDashletFactory {
+    /**
+     * The {@link AlarmDao} used
+     */
+    private AlarmDao m_alarmDao;
+
     /**
      * Constructor for instantiating a new factory.
      */
-    public HelloDashletFactory() {
-        super("Hello");
+    public SummaryDashletFactory(AlarmDao alarmDao) {
+        super("Summary");
+        m_alarmDao=alarmDao;
     }
 
     /**
@@ -51,6 +58,6 @@ public class HelloDashletFactory extends AbstractDashletFactory {
      * @return a new {@link Dashlet} instance
      */
     public Dashlet newDashletInstance(DashletSpec dashletSpec) {
-        return new HelloDashlet(dashletSpec);
+        return new SummaryDashlet(dashletSpec, m_alarmDao);
     }
 }

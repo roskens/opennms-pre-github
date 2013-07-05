@@ -10,10 +10,10 @@
     </parent>
 
     <groupId>org.opennms.features.vaadin-dashlets</groupId>
-    <artifactId>dashlet-hello</artifactId>
+    <artifactId>dashlet-summary</artifactId>
 
     <properties>
-        <bundle.symbolicName>org.opennms.features.vaadin-dashlets.dashlet-hello</bundle.symbolicName>
+        <bundle.symbolicName>org.opennms.features.vaadin-dashlets.dashlet-summary</bundle.symbolicName>
         <bundle.namespace>org.opennms.features.vaadin.dashboard.dashlets</bundle.namespace>
     </properties>
 
@@ -61,6 +61,12 @@
             <groupId>org.opennms.features.themes</groupId>
             <artifactId>dashboard-theme</artifactId>
             <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.opennms</groupId>
+            <artifactId>opennms-dao</artifactId>
+            <scope>provided</scope>
         </dependency>
 
     </dependencies>

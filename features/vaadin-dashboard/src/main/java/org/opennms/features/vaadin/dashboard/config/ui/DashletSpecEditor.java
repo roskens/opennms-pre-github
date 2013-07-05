@@ -180,7 +180,7 @@ public class DashletSpecEditor extends Panel {
          * Boost priority field setup, layout and adding listener and validator
          */
         final TextField boostPriorityField = new TextField();
-        boostPriorityField.setValue(String.valueOf(dashletSpec.getPriority()));
+        boostPriorityField.setValue(String.valueOf(dashletSpec.getBoostPriority()));
         boostPriorityField.setImmediate(true);
         boostPriorityField.setCaption("Boost-Priority");
 
@@ -241,7 +241,7 @@ public class DashletSpecEditor extends Panel {
          * Boost duration field setup, layout and adding listener and validator
          */
         final TextField boostDurationField = new TextField();
-        boostDurationField.setValue(String.valueOf(dashletSpec.getDuration()));
+        boostDurationField.setValue(String.valueOf(dashletSpec.getBoostDuration()));
         boostDurationField.setImmediate(true);
         boostDurationField.setCaption("Boost-Duration");
 
