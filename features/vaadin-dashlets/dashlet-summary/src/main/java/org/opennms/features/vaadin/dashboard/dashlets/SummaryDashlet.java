@@ -123,6 +123,44 @@ public class SummaryDashlet extends VerticalLayout implements Dashlet {
     }
 
     /**
+     * Computes the trend for acknowledged and not acknowledged alarms
+     *
+     * @param ack    number of acknowledged alarms
+     * @param notAck number of unacknowledged alarms
+     * @return the trend value
+     */
+    private int computeTrend(int ack, int notAck) {
+        if (ack == notAck) {
+            return TREND_EAST;
+        } else {
+            if (notAck == 0) {
+                return TREND_NORTH;
+            } else {
+                if (ack == 0) {
+                    return TREND_NORTH;
+                } else {
+                    double ratio = (double) ack / (double) notAck;
+
+                    if (ratio < 0.5) {
+                        return TREND_SOUTH;
+                    } else {
+                        if (ratio < 1) {
+                            return TREND_SOUTHEAST;
+                        } else {
+                            if (ratio > 2) {
+                                return TREND_NORTH;
+                            } else {
+                                return TREND_NORTHEAST;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    /**
      * Updates the data and checks whether this dashlet is boosted.
      *
      * @return true, if boosted, false otherwise
@@ -165,29 +203,7 @@ public class SummaryDashlet extends VerticalLayout implements Dashlet {
             horizontalLayout.addComponent(labelAcknowledge);
             horizontalLayout.addComponent(labelNotAcknowledged);
 
-            int status = TREND_EAST;
-
-            if (notAcknowledged == 0) {
-                if (acknowledged > 0) {
-                    status = TREND_SOUTH;
-                }
-            } else {
-                double ratio = (double) acknowledged / (double) notAcknowledged;
-
-                if (ratio < 0.5) {
-                    status = TREND_SOUTH;
-                } else {
-                    if (ratio < 1) {
-                        status = TREND_SOUTHEAST;
-                    } else {
-                        if (ratio > 2.0f) {
-                            status = TREND_NORTH;
-                        } else if (ratio > 1.0f) {
-                            status = TREND_NORTHEAST;
-                        }
-                    }
-                }
-            }
+            int status = computeTrend(acknowledged, notAcknowledged);
 
             severitySum += onmsSeverity.getId();
             overallSum += onmsSeverity.getId() * status;
