@@ -100,8 +100,8 @@ public class EventsAlarmsWindow extends Window {
 	public void attach() {
 		super.attach();
 		
-		int width = (int)getUI().getWidth();
-    	int height = (int)getUI().getHeight();
+		int width = (int)getUI().getPage().getBrowserWindowWidth();
+    	int height = (int)getUI().getPage().getBrowserWindowHeight();
     	
 		/*Sets the browser and window sizes based on the main window*/
 		int browserWidth = (int)(sizePercentage * width), browserHeight = (int)(sizePercentage * height);

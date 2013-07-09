@@ -81,8 +81,8 @@ public class InfoWindow extends Window {
     public void attach() {
     	super.attach();
     	
-    	int width = (int)getUI().getWindows().iterator().next().getWidth();
-    	int height = (int)getUI().getWindows().iterator().next().getHeight();
+    	int width = getUI().getPage().getBrowserWindowWidth();
+    	int height = getUI().getPage().getBrowserWindowHeight();
     	
     	/*Sets the browser and window sizes based on the main window*/
         int browserWidth = (int)(sizePercentage * width), browserHeight = (int)(sizePercentage * height);

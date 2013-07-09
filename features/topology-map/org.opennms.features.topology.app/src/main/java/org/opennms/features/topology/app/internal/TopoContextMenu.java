@@ -83,7 +83,7 @@ public class TopoContextMenu extends ContextMenu {
 
 		public void setSeparatorVisible(boolean b) {
 			// TODO: Figure out how to support this with the new ContextMenu API
-			//m_item.setSeparatorVisible(b);
+            m_item.setSeparatorVisible(b);
 		}
 
 	}

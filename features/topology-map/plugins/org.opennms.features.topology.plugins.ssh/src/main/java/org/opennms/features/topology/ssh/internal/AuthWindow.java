@@ -76,9 +76,8 @@ public class AuthWindow extends Window implements Button.ClickListener{
      * given port through SSH, and the terminal emulator this window
      * will be replaced by a terminal emulator. 
      * 
-     * @param app - The current application
-     * @param h - The host name to connect to 
-     * @param p - The port number to connect to
+     * @param host - The host name to connect to
+     * @param port - The port number to connect to
      */
     public AuthWindow(String host, int port) {
         super("Login");
@@ -154,8 +153,8 @@ public class AuthWindow extends Window implements Button.ClickListener{
     public void attach() {
         super.attach();
 
-        int posX = (int)(getUI().getWidth() - this.getWidth())/2;
-        int posY = (int)(getUI().getHeight() - this.getHeight())/2;
+        int posX = (int)(getUI().getPage().getBrowserWindowWidth() - this.getWidth())/2;
+        int posY = (int)(getUI().getPage().getBrowserWindowHeight() - this.getHeight())/2;
         setPositionX(posX);
         setPositionY(posY);
         if (showOptions) hostField.focus();
