@@ -29,6 +29,7 @@
     margin-right: 3px;
     border-radius: 3px;
 }
+
 .dashboard.v-app {
     background: #dfe0e1;
     background: -moz-linear-gradient(top, #d8d9da 0%, #e6e7e8 10%, #e0e1e2 100%);
@@ -47,25 +48,19 @@
     border-bottom: 2px solid #ccc;
 }
 
-.dashboard .node-label {
-    padding: 5px 10px;
-    border-bottom: 1px solid #ccc;
-}
-.dashboard .node-label.severe {
-    background: #FFEBCD;
-    border-left: 5px solid orange;
-}
-.dashboard .node-label.warning {
-    background: #FFF5CD;
-    border-left: 5px solid yellow;
+.dashboard .wallboard-board {
+    color: #3ba300;
+    padding: 5px 5px;
+    margin: 1px;
 }
 
-.dashboard .sandwhich-board .node-label {
-    font-size: 36px;
-    padding: 20px 20px;
+.dashboard .wallboard-board {
+    font-size: 18px;
+    padding: 5px 5px;
+    margin: 1px;
 }
 
-.dashboard .sandwhich-board .progress-paused {
+.dashboard .wallboard-board .progress-paused {
     font-size: 24px;
     font-weight: bold;
     background: orange;

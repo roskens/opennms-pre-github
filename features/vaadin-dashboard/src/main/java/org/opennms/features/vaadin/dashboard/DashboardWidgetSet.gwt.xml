@@ -44,7 +44,11 @@
 
     <inherits name="org.vaadin.addon.portallayout.gwt.PortalLayoutWidgetSet"/>
 
-    <inherits name="com.github.wolfie.refresher.RefresherWidgetset"/>
+    
+
+    
+
+    <inherits name="com.github.wolfie.refresher.RefresherWidgetset" />
 
     <inherits name="org.vaadin.peter.contextmenu.ContextmenuWidgetset" />
 </module>
