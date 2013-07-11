@@ -98,7 +98,6 @@ public class DashletSpecEditor extends Panel {
         gridLayout.setColumns(4);
         gridLayout.setRows(1);
 
-        gridLayout.setSpacing(true);
         gridLayout.setMargin(true);
 
         /**
@@ -292,6 +291,8 @@ public class DashletSpecEditor extends Panel {
 
         m_propertiesButton.setEnabled(m_dashletSelector.getDashletFactoryForName(m_dashletSpec.getDashletName()).getRequiredParameters().size() > 0);
 
+        m_propertiesButton.setStyleName("small");
+
         /**
          * ...and the remove button
          */
@@ -306,6 +307,8 @@ public class DashletSpecEditor extends Panel {
                 m_wallboardEditor.removeDashletSpecEditor(DashletSpecEditor.this);
             }
         });
+
+        removeButton.setStyleName("small");
 
         /**
          * Adding the different {@link FormLayout} instances to a {@link GridLayout}

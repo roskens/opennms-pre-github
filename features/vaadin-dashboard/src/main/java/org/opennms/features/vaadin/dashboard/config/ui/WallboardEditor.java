@@ -91,13 +91,29 @@ public class WallboardEditor extends VerticalLayout {
          */
         setMargin(true);
 
+        HorizontalLayout upperHorizontalLayout = new HorizontalLayout();
         Label label = new Label("Wallboard configuration");
         label.addStyleName("configuration-title");
-        addComponent(label);
+        upperHorizontalLayout.addComponent(label);
+
+        upperHorizontalLayout.addComponent(label);
+        Button helpButton = new Button("Help");
+        helpButton.setStyleName("small");
+        helpButton.addClickListener(new HelpClickListener(this, m_dashletSelector));
+
+        upperHorizontalLayout.addComponent(helpButton);
+        upperHorizontalLayout.setWidth(100, Unit.PERCENTAGE);
+
+        upperHorizontalLayout.setComponentAlignment(label, Alignment.MIDDLE_LEFT);
+        upperHorizontalLayout.setComponentAlignment(helpButton, Alignment.MIDDLE_RIGHT);
+
+        addComponent(upperHorizontalLayout);
 
         HorizontalLayout horizontalLayout = new HorizontalLayout();
 
         final Button addButton = new Button("Add dashlet");
+
+        addButton.setStyleName("small");
 
         addButton.addClickListener(new Button.ClickListener() {
             public void buttonClick(Button.ClickEvent clickEvent) {
@@ -131,6 +147,7 @@ public class WallboardEditor extends VerticalLayout {
         titleField.setCaption("Title");
 
         final Button previewButton = new Button("Preview");
+        previewButton.setStyleName("small");
         previewButton.addClickListener(new PreviewClickListener(this, m_wallboard));
 
         /**
