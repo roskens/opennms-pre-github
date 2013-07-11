@@ -33,7 +33,6 @@ import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.*;
 import org.opennms.features.vaadin.dashboard.model.DashletFactory;
 import org.opennms.features.vaadin.dashboard.model.Wallboard;
-import org.opennms.features.vaadin.dashboard.ui.wallboard.WallboardBody;
 
 import java.util.List;
 
@@ -75,7 +74,7 @@ public class WallboardOverview extends VerticalLayout {
         setMargin(true);
         setSpacing(true);
 
-        Label label = new Label("Configured Wallboards");
+        Label label = new Label("Overview");
         label.addStyleName("configuration-title");
 
         Button button = new Button("Help");
@@ -245,52 +244,7 @@ public class WallboardOverview extends VerticalLayout {
         m_table.addGeneratedColumn("Preview", new Table.ColumnGenerator() {
             public Object generateCell(Table source, final Object itemId, Object columnId) {
                 Button button = new Button("Preview");
-                button.addClickListener(new Button.ClickListener() {
-                    public void buttonClick(Button.ClickEvent clickEvent) {
-                        final Window window = new Window("Preview");
-
-                        window.setModal(true);
-                        window.setClosable(false);
-                        window.setResizable(false);
-
-                        window.setWidth("80%");
-                        window.setHeight("90%");
-
-                        getUI().addWindow(window);
-
-                        final WallboardBody wallboardBody = new WallboardBody();
-
-                        window.setContent(new VerticalLayout() {
-                            {
-                                setMargin(true);
-                                setSpacing(true);
-                                setSizeFull();
-
-                                addComponent(wallboardBody);
-                                setExpandRatio(wallboardBody, 1.0f);
-                                addComponent(new HorizontalLayout() {
-                                    {
-                                        setMargin(true);
-                                        setSpacing(true);
-                                        setWidth("100%");
-
-                                        Button closeButton = new Button("Close");
-
-                                        addComponent(closeButton);
-                                        setComponentAlignment(closeButton, Alignment.MIDDLE_RIGHT);
-                                        closeButton.addClickListener(new Button.ClickListener() {
-                                            @Override
-                                            public void buttonClick(Button.ClickEvent clickEvent) {
-                                                window.close();
-                                            }
-                                        });
-                                    }
-                                });
-                            }
-                        });
-                        wallboardBody.setDashletSpecs(((Wallboard) itemId).getDashletSpecs());
-                    }
-                });
+                button.addClickListener(new PreviewClickListener(WallboardOverview.this, (Wallboard) itemId));
                 return button;
             }
         });

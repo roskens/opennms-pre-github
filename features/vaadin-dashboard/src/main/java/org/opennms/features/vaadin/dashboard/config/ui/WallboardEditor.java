@@ -91,6 +91,10 @@ public class WallboardEditor extends VerticalLayout {
          */
         setMargin(true);
 
+        Label label = new Label("Wallboard configuration");
+        label.addStyleName("configuration-title");
+        addComponent(label);
+
         HorizontalLayout horizontalLayout = new HorizontalLayout();
 
         final Button addButton = new Button("Add dashlet");
@@ -124,6 +128,11 @@ public class WallboardEditor extends VerticalLayout {
             }
         });
 
+        titleField.setCaption("Title");
+
+        final Button previewButton = new Button("Preview");
+        previewButton.addClickListener(new PreviewClickListener(this, m_wallboard));
+
         /**
          * Adding the layout components to this component
          */
@@ -134,6 +143,10 @@ public class WallboardEditor extends VerticalLayout {
         FormLayout formLayout2 = new FormLayout();
         formLayout2.addComponent(addButton);
         horizontalLayout.addComponent(formLayout2);
+
+        FormLayout formLayout3 = new FormLayout();
+        formLayout3.addComponent(previewButton);
+        horizontalLayout.addComponent(formLayout3);
 
         addComponent(horizontalLayout);
         addComponent(m_verticalLayout);
