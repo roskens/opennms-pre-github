@@ -66,7 +66,7 @@ public class DashletSelector implements BundleActivator {
      * @throws Exception
      */
     public void start(final BundleContext context) throws Exception {
-        System.out.println("start() called");
+        // System.out.println("start() called");
     }
 
     /**
@@ -76,7 +76,7 @@ public class DashletSelector implements BundleActivator {
      * @throws Exception
      */
     public void stop(final BundleContext context) throws Exception {
-        System.out.println("stop() called");
+        // System.out.println("stop() called");
     }
 
     /**
@@ -86,13 +86,11 @@ public class DashletSelector implements BundleActivator {
      */
     public void bind(DashletFactory dashletFactory) {
         if (dashletFactory != null) {
-            System.out.println("bind service " + dashletFactory.getClass().getName());
             LoggerFactory.getLogger(DashletSelector.class).warn("bind service " + dashletFactory.getClass().getName());
 
             m_serviceInterfaceMap.put(dashletFactory.getName(), dashletFactory);
             fireServiceListChangedListeners();
         } else {
-            System.out.println("service is null");
             LoggerFactory.getLogger(DashletSelector.class).warn("service is null");
         }
     }
@@ -104,13 +102,11 @@ public class DashletSelector implements BundleActivator {
      */
     public void unbind(DashletFactory dashletFactory) {
         if (dashletFactory != null) {
-            System.out.println("unbind service " + dashletFactory.getClass().getName());
             LoggerFactory.getLogger(DashletSelector.class).warn("unbind service " + dashletFactory.getClass().getName());
 
             m_serviceInterfaceMap.remove(dashletFactory.getName());
             fireServiceListChangedListeners();
         } else {
-            System.out.println("service is null");
             LoggerFactory.getLogger(DashletSelector.class).warn("service is null");
         }
     }

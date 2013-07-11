@@ -40,6 +40,10 @@ import org.opennms.features.vaadin.dashboard.model.DashletSpec;
  */
 public class MapDashlet extends VerticalLayout implements Dashlet {
     /**
+     * the dashlet's name
+     */
+    private String m_name;
+    /**
      * The {@link DashletSpec} for this instance
      */
     private DashletSpec m_dashletSpec;
@@ -49,8 +53,16 @@ public class MapDashlet extends VerticalLayout implements Dashlet {
      *
      * @param dashletSpec the {@link DashletSpec} to be used
      */
-    public MapDashlet(DashletSpec dashletSpec) {
+    public MapDashlet(String name, DashletSpec dashletSpec) {
+        /**
+         * Setting the member fields
+         */
+        m_name = name;
         m_dashletSpec = dashletSpec;
+
+        /**
+         * Setting up the layout
+         */
         setCaption(getName());
         setSizeFull();
 
@@ -70,7 +82,7 @@ public class MapDashlet extends VerticalLayout implements Dashlet {
 
     @Override
     public String getName() {
-        return "Map";
+        return m_name;
     }
 
     @Override

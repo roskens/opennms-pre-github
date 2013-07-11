@@ -39,19 +39,22 @@ import org.opennms.features.vaadin.dashboard.model.DashletSpec;
 public class UlfDashletFactory extends AbstractDashletFactory {
 
     /**
-     * Constructor for instantiating a new factory.
-     */
-    public UlfDashletFactory() {
-        super("Ulf");
-    }
-
-    /**
      * Method for instatiating a new {@link Dashlet} instance.
      *
      * @param dashletSpec the {@link DashletSpec} to use
      * @return a new {@link Dashlet} instance
      */
     public Dashlet newDashletInstance(DashletSpec dashletSpec) {
-        return new UlfDashlet(dashletSpec);
+        return new UlfDashlet(getName(), dashletSpec);
+    }
+
+    /**
+     * Returns the help content {@link String}
+     *
+     * @return the help content
+     */
+    @Override
+    public String getHelpContentHTML() {
+        return "This Dashlet isn't configurable at all. It just displays an image of Ulf";
     }
 }

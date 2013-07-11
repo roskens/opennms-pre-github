@@ -72,3 +72,31 @@
     display: block;
 }
 
+.configuration-title {
+    font-size: 24px;
+    font-weight: bold;
+    line-height: normal;
+}
+
+.help-title {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: normal;
+}
+
+.help-content {
+    font-size: 14px;
+    line-height: normal;
+}
+
+.help-table {
+    font-size: 14px;
+    width: 100%;
+    border: 1px solid;
+    line-height: normal;
+    vertical-align: top;
+}
+
+.help-table-cell {
+    vertical-align: top;
+}

@@ -27,6 +27,8 @@
  *******************************************************************************/
 package org.opennms.features.vaadin.dashboard.model;
 
+import com.vaadin.ui.Component;
+
 import java.util.Map;
 
 /**
@@ -56,4 +58,19 @@ public interface DashletFactory {
      * @return the {@link Map} holding the requires parameters
      */
     public Map<String, String> getRequiredParameters();
+
+    /**
+     * Returns true, if the factory provides a help component for the {@link Dashlet}.
+     *
+     * @return true, if help component is provided, false otherwise
+     */
+    public boolean providesHelpComponent();
+
+    /**
+     * Returns the help component for the {@link Dashlet}.
+     *
+     * @return the help component
+     */
+    public Component getHelpComponent();
+
 }
