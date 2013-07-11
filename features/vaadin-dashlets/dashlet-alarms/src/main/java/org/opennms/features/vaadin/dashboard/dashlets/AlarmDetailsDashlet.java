@@ -51,6 +51,10 @@ import java.util.List;
  */
 public class AlarmDetailsDashlet extends VerticalLayout implements Dashlet {
     /**
+     * the dashlet's name
+     */
+    private String m_name;
+    /**
      * The {@link AlarmDao} used
      */
     private AlarmDao m_alarmDao;
@@ -74,13 +78,15 @@ public class AlarmDetailsDashlet extends VerticalLayout implements Dashlet {
      * @param alarmDao    the {@link AlarmDao} to be used
      * @param nodeDao     the {@link NodeDao} to be used
      */
-    public AlarmDetailsDashlet(DashletSpec dashletSpec, AlarmDao alarmDao, NodeDao nodeDao) {
+    public AlarmDetailsDashlet(String name, DashletSpec dashletSpec, AlarmDao alarmDao, NodeDao nodeDao) {
         /**
          * Setting the member fields
          */
+        m_name = name;
         m_dashletSpec = dashletSpec;
         m_alarmDao = alarmDao;
         m_nodeDao = nodeDao;
+
         /**
          * Setting up the layout
          */
@@ -245,7 +251,7 @@ public class AlarmDetailsDashlet extends VerticalLayout implements Dashlet {
 
     @Override
     public String getName() {
-        return "Alarm Details";
+        return m_name;
     }
 
     @Override

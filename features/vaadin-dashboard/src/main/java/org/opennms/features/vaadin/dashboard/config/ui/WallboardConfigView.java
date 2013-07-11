@@ -277,4 +277,13 @@ public class WallboardConfigView extends HorizontalLayout implements TabSheet.Cl
         tabsheet.removeComponent(tabContent);
         m_wallboardEditorMap.remove(((WallboardEditor) tabContent).getWallboard());
     }
+
+    /**
+     * Returns the associated {@link DashletSelector}.
+     *
+     * @return the associated {@link DashletSelector}
+     */
+    public DashletSelector getDashletSelector() {
+        return m_dashletSelector;
+    }
 }

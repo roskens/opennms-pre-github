@@ -38,19 +38,24 @@ import org.opennms.features.vaadin.dashboard.model.DashletSpec;
  */
 public class MapDashletFactory extends AbstractDashletFactory {
     /**
-     * Constructor for instantiating a new factory.
-     */
-    public MapDashletFactory() {
-        super("Map");
-    }
-
-    /**
      * Method for instatiating a new {@link Dashlet} instance.
      *
      * @param dashletSpec the {@link DashletSpec} to use
      * @return a new {@link Dashlet} instance
      */
     public Dashlet newDashletInstance(DashletSpec dashletSpec) {
-        return new MapDashlet(dashletSpec);
+        return new MapDashlet(getName(), dashletSpec);
+    }
+
+    /**
+     * Returns the help content {@link String}
+     *
+     * @return the help content
+     */
+    @Override
+    public String getHelpContentHTML() {
+        return "This Dashlet provides a view to the vaadin-node-maps page of OpenNMS included in an iFrame. \n" +
+                " The only configurable parameter is the \"search\" parameter that is passed to the \n" +
+                " iFrame's URL of the node map.";
     }
 }

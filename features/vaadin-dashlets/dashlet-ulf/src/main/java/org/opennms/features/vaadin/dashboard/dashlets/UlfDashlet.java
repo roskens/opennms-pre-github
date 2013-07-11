@@ -36,21 +36,34 @@ import org.opennms.features.vaadin.dashboard.model.DashletSpec;
  * This class implements a {@link Dashlet} for displaying an Ulf image.
  */
 public class UlfDashlet extends Image implements Dashlet {
+    /**
+     * the dashlet's name
+     */
+    private String m_name;
 
     /**
      * Constructor for instantiating new objects.
      *
      * @param dashletSpec the {@link DashletSpec} to be used
      */
-    public UlfDashlet(DashletSpec dashletSpec) {
+    public UlfDashlet(String name, DashletSpec dashletSpec) {
         super(null, new ThemeResource("img/ulf.png"));
+
+        /**
+         * Setting the member fields
+         */
+        m_name = name;
+
+        /**
+         * Setting up the layout
+         */
         setCaption(getName());
         setSizeFull();
     }
 
     @Override
     public String getName() {
-        return "Ulf";
+        return m_name;
     }
 
     @Override

@@ -55,8 +55,6 @@ public class AlarmsDashletFactory extends AbstractDashletFactory {
      * @param nodeDao  the {@link NodeDao} to be used
      */
     public AlarmsDashletFactory(AlarmDao alarmDao, NodeDao nodeDao) {
-        super("Alarms");
-
         m_alarmDao = alarmDao;
         m_nodeDao = nodeDao;
     }
@@ -68,6 +66,16 @@ public class AlarmsDashletFactory extends AbstractDashletFactory {
      * @return a new {@link Dashlet} instance
      */
     public Dashlet newDashletInstance(DashletSpec dashletSpec) {
-        return new AlarmsDashlet(dashletSpec, m_alarmDao, m_nodeDao);
+        return new AlarmsDashlet(getName(), dashletSpec, m_alarmDao, m_nodeDao);
+    }
+
+    /**
+     * Returns the help content {@link String}
+     *
+     * @return the help content
+     */
+    @Override
+    public String getHelpContentHTML() {
+        return "This Dashlet displays a alarm list with a minimum of details.";
     }
 }

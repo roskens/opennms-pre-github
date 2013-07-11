@@ -44,6 +44,11 @@ import org.opennms.netmgt.model.OnmsSeverity;
  */
 public class SummaryDashlet extends HorizontalLayout implements Dashlet {
     /**
+     * the dashlet's name
+     */
+    private String m_name;
+
+    /**
      * The {@link AlarmDao} used
      */
     private AlarmDao m_alarmDao;
@@ -73,9 +78,17 @@ public class SummaryDashlet extends HorizontalLayout implements Dashlet {
      *
      * @param dashletSpec the {@link DashletSpec} to be used
      */
-    public SummaryDashlet(DashletSpec dashletSpec, AlarmDao alarmDao) {
+    public SummaryDashlet(String name, DashletSpec dashletSpec, AlarmDao alarmDao) {
+        /**
+         * Setting the member fields
+         */
+        m_name = name;
         m_dashletSpec = dashletSpec;
         m_alarmDao = alarmDao;
+
+        /**
+         * Setting up the layout
+         */
         setCaption(getName());
         setWidth("100%");
 
@@ -495,7 +508,7 @@ public class SummaryDashlet extends HorizontalLayout implements Dashlet {
 
     @Override
     public String getName() {
-        return "Summary";
+        return m_name;
     }
 
     @Override

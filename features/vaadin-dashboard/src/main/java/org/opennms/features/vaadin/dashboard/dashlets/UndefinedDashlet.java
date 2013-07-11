@@ -40,13 +40,21 @@ import org.opennms.features.vaadin.dashboard.model.DashletSpec;
  * @author Christian Pape
  */
 public class UndefinedDashlet extends VerticalLayout implements Dashlet {
+    /**
+     * the dashlet's name
+     */
+    private String m_name;
 
     /**
      * Constructor for instantiating this {@link Dashlet}
      *
      * @param dashletSpec the {@link DashletSpec} to use
      */
-    public UndefinedDashlet(DashletSpec dashletSpec) {
+    public UndefinedDashlet(String name, DashletSpec dashletSpec) {
+        /**
+         * Setting the name
+         */
+        m_name = name;
         /**
          * Setting error message
          */
@@ -63,7 +71,7 @@ public class UndefinedDashlet extends VerticalLayout implements Dashlet {
      * @return the dashlet's name
      */
     public String getName() {
-        return "Undefined";
+        return m_name;
     }
 
     /**

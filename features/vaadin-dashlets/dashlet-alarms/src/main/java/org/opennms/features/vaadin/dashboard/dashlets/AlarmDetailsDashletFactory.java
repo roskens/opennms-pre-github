@@ -52,11 +52,9 @@ public class AlarmDetailsDashletFactory extends AbstractDashletFactory {
      * Constructor used for instantiating a new factory.
      *
      * @param alarmDao the {@link AlarmDao} to be used
-     * @param nodeDao the {@link NodeDao} to be used
+     * @param nodeDao  the {@link NodeDao} to be used
      */
     public AlarmDetailsDashletFactory(AlarmDao alarmDao, NodeDao nodeDao) {
-        super("Alarm Details");
-
         m_alarmDao = alarmDao;
         m_nodeDao = nodeDao;
     }
@@ -68,7 +66,16 @@ public class AlarmDetailsDashletFactory extends AbstractDashletFactory {
      * @return a new {@link Dashlet} instance
      */
     public Dashlet newDashletInstance(DashletSpec dashletSpec) {
-        return new AlarmDetailsDashlet(dashletSpec, m_alarmDao, m_nodeDao);
+        return new AlarmDetailsDashlet(getName(), dashletSpec, m_alarmDao, m_nodeDao);
     }
 
+    /**
+     * Returns the help content {@link String}
+     *
+     * @return the help content
+     */
+    @Override
+    public String getHelpContentHTML() {
+        return "This Dashlet displays a detailed alarm list.";
+    }
 }

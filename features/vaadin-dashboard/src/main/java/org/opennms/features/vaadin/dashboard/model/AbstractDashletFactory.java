@@ -27,6 +27,11 @@
  *******************************************************************************/
 package org.opennms.features.vaadin.dashboard.model;
 
+import com.vaadin.shared.ui.label.ContentMode;
+import com.vaadin.ui.Component;
+import com.vaadin.ui.Label;
+import com.vaadin.ui.VerticalLayout;
+
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -44,11 +49,21 @@ public abstract class AbstractDashletFactory implements DashletFactory {
      * A map holding the required parameters for the {@link Dashlet}
      */
     protected Map<String, String> m_requiredParameters = new TreeMap<String, String>();
+    /**
+     * A map holding the required parameter descriptions for the {@link Dashlet}
+     */
+    protected Map<String, String> m_requiredParameterDescriptions = new TreeMap<String, String>();
+
+    /**
+     * Constructor for instantiating a new factory.
+     */
+    public AbstractDashletFactory() {
+    }
 
     /**
      * Constructor for instantiating a new factory with the given name.
      *
-     * @param name the name to use
+     * @param name the dashlet's name
      */
     public AbstractDashletFactory(String name) {
         m_name = name;
@@ -74,6 +89,15 @@ public abstract class AbstractDashletFactory implements DashletFactory {
     }
 
     /**
+     * Sets the name of the {@link Dashlet} instances this object provides.
+     *
+     * @param name the name
+     */
+    public void setName(String name) {
+        m_name = name;
+    }
+
+    /**
      * Returns the {@link Map} with the required parameters and default values.
      *
      * @return the {@link Map} holding the requires parameters
@@ -83,11 +107,104 @@ public abstract class AbstractDashletFactory implements DashletFactory {
     }
 
     /**
-     * This methos sets the required parameters {@link Map}.
+     * Returns the {@link Map} with the required parameter descriptions.
+     *
+     * @return the {@link Map} holding the requires parameter descriptions
+     */
+    public Map<String, String> getRequiredParameterDescriptions() {
+        return m_requiredParameterDescriptions;
+    }
+
+    /**
+     * This method sets the required parameters {@link Map}.
      *
      * @param requiredParameters the parameter {@link Map} to be set
      */
     public void setRequiredParameters(Map<String, String> requiredParameters) {
         m_requiredParameters = requiredParameters;
+    }
+
+    /**
+     * This method sets the required parameter descriptions {@link Map}.
+     *
+     * @param requiredParameterDescriptions the parameter description {@link Map} to be set
+     */
+    public void setRequiredParameterDescriptions(Map<String, String> requiredParameterDescriptions) {
+        m_requiredParameterDescriptions = requiredParameterDescriptions;
+    }
+
+    /**
+     * Returns true, if the factory provides a help component for the {@link org.opennms.features.vaadin.dashboard.model.Dashlet}.
+     *
+     * @return true, if help component is provided, false otherwise
+     */
+    @Override
+    public boolean providesHelpComponent() {
+        return true;
+    }
+
+    /**
+     * Returns the help component for the {@link Dashlet}.
+     *
+     * @return the help component
+     */
+    @Override
+    public Component getHelpComponent() {
+        VerticalLayout verticalLayout = new VerticalLayout();
+
+        Label helpContent = new Label(getHelpContentHTML(), ContentMode.HTML);
+        helpContent.addStyleName("help-content");
+
+        Label helpParameters = new Label(getParameterDescriptionsHTML(), ContentMode.HTML);
+        helpParameters.addStyleName("help-content");
+
+        verticalLayout.addComponent(helpContent);
+        verticalLayout.addComponent(helpParameters);
+
+        return verticalLayout;
+    }
+
+    /**
+     * Returns the help content {@link String}
+     *
+     * @return the help content
+     */
+    public abstract String getHelpContentHTML();
+
+    /**
+     * Returns the parameter help HTML content.
+     *
+     * @return the parameter help content
+     */
+    private String getParameterDescriptionsHTML() {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        if (m_requiredParameters.size() == 0) {
+            return "";
+        }
+
+        stringBuilder.append("<br/><table class='help-table'>");
+        stringBuilder.append("<tr>");
+        stringBuilder.append("<th>Name</th>");
+        stringBuilder.append("<th>Default</th>");
+        stringBuilder.append("<th>Description</th>");
+        stringBuilder.append("</tr>");
+
+        for (Map.Entry<String, String> entry : m_requiredParameters.entrySet()) {
+            stringBuilder.append("<tr>");
+            stringBuilder.append("<td class='help-table-cell'>" + entry.getKey() + "</td>");
+            stringBuilder.append("<td class='help-table-cell'>'" + entry.getValue() + "'</td>");
+
+            if (getRequiredParameterDescriptions().containsKey(entry.getKey())) {
+                stringBuilder.append("<td class='help-table-cell'>" + getRequiredParameterDescriptions().get(entry.getKey()) + "</td>");
+            } else {
+                stringBuilder.append("<td class='help-table-cell'>-</td>");
+            }
+            stringBuilder.append("</tr>");
+        }
+
+        stringBuilder.append("</table>");
+
+        return stringBuilder.toString();
     }
 }
