@@ -37,7 +37,6 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.CustomLayout;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
-import org.opennms.core.utils.LogUtils;
 import org.opennms.web.api.OnmsHeaderProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -97,6 +96,7 @@ import java.io.InputStream;
         "gwt/public/node-maps.css"})
 public class NodeMapsApplication extends UI {
 
+    private static final Logger LOG = LoggerFactory.getLogger(NodeMapsApplication.class);
     private static final int REFRESH_INTERVAL = 5 * 60 * 1000;
     private VerticalLayout m_rootLayout;
 
@@ -152,7 +152,8 @@ public class NodeMapsApplication extends UI {
             try {
                 setHeaderHtml(m_headerProvider.getHeaderHtml(new HttpServletRequestVaadinImpl(request)));
             } catch (final Exception e) {
-                LogUtils.warnf(this, e, "failed to get header HTML for request " + request.getPathInfo());
+                LOG.warn("failed to get header HTML for request " + request.getPathInfo(), e.getCause());
+
             }
         }
         if (m_headerHtml != null) {

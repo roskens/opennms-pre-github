@@ -41,7 +41,7 @@ import com.vaadin.ui.UI;
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class NodeMapsApplicationFactory extends AbstractApplicationFactory {
-    
+
 	private final BlueprintContainer m_blueprintContainer;
 	private final String m_beanName;
 	

@@ -172,11 +172,6 @@
             <type>pom</type>
         </dependency>
 
-		<dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-        </dependency>
-        
 		 <dependency>
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>

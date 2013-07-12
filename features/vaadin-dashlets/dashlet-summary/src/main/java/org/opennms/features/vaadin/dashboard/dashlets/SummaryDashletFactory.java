@@ -30,7 +30,7 @@ package org.opennms.features.vaadin.dashboard.dashlets;
 import org.opennms.features.vaadin.dashboard.model.AbstractDashletFactory;
 import org.opennms.features.vaadin.dashboard.model.Dashlet;
 import org.opennms.features.vaadin.dashboard.model.DashletSpec;
-import org.opennms.netmgt.dao.AlarmDao;
+import org.opennms.netmgt.dao.api.AlarmDao;
 
 /**
  * This class implements a factory used for instantiating new dashlet instances.

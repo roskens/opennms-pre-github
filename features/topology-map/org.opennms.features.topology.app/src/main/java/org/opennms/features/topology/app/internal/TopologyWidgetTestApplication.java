@@ -125,6 +125,7 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
         createLayouts();
         setupErrorHandler();
         //addExtension(new Refresher());
+
     }
 
     private void setupListeners() {
@@ -308,6 +309,7 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
         mapLayout.setSizeFull();
 
         return mapLayout;
+
     }
 
     private void loadUserSettings(VaadinRequest request) {
