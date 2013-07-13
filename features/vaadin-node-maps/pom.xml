@@ -113,8 +113,7 @@
       <releases>
         <enabled>false</enabled>
       </releases>
-      <snapshots>
-      </snapshots>
+      <snapshots/>
     </repository>
     <repository>
       <id>vaadin-addons</id>
