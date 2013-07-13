@@ -10,14 +10,12 @@
   <artifactId>org.opennms.features.geocoder.api</artifactId>
   <packaging>bundle</packaging>
   <name>OpenNMS Geocoder API</name>
-
   <description>API for doing a geocoder lookup (turning an address into coordinates)</description>
   <properties>
     <bundle.symbolicName>org.opennms.features.geocoder.api</bundle.symbolicName>
     <bundle.namespace>org.opennms.features.geocoder</bundle.namespace>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-
   <build>
     <plugins>
       <plugin>
@@ -36,5 +34,4 @@
       </plugin>
     </plugins>
   </build>
-
 </project>

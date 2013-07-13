@@ -11,7 +11,7 @@
   <packaging>jar</packaging>
   <build>
     <plugins>
-<!--
+      <!--
       <plugin>
         <groupId>org.apache.felix</groupId>
         <artifactId>maven-bundle-plugin</artifactId>

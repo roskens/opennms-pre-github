@@ -20,17 +20,19 @@
           <execution>
             <id>copy-filtered-resources</id>
             <phase>process-resources</phase>
-            <goals><goal>copy-resources</goal></goals>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
             <configuration>
-               <encoding>UTF-8</encoding>
-               <escapeString>\</escapeString>
-               <outputDirectory>target/resources</outputDirectory>
-               <resources>
-                 <resource>
-                   <directory>src/main/filtered-resources</directory>
-                   <filtering>true</filtering>
-                 </resource>
-               </resources>
+              <encoding>UTF-8</encoding>
+              <escapeString>\</escapeString>
+              <outputDirectory>target/resources</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>src/main/filtered-resources</directory>
+                  <filtering>true</filtering>
+                </resource>
+              </resources>
             </configuration>
           </execution>
         </executions>

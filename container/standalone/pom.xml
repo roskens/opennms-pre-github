@@ -10,7 +10,6 @@
   <artifactId>standalone</artifactId>
   <packaging>pom</packaging>
   <name>OpenNMS OSGi Container - Standalone</name>
-
   <dependencies>
     <dependency>
       <groupId>org.apache.karaf</groupId>
@@ -38,7 +37,6 @@
       <version>${project.version}</version>
     </dependency>
   </dependencies>
-
   <build>
     <resources>
       <resource>
@@ -49,7 +47,6 @@
         </includes>
       </resource>
     </resources>
-
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -70,12 +67,12 @@
         <version>${karafVersion}</version>
         <executions>
           <execution>
-           <id>add-features-to-repo</id>
-           <phase>generate-resources</phase>
-           <goals>
-             <goal>add-features-to-repo</goal>
-           </goals>
-           <configuration>
+            <id>add-features-to-repo</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>add-features-to-repo</goal>
+            </goals>
+            <configuration>
               <descriptors>
                 <descriptor>mvn:org.apache.karaf.assemblies.features/standard/${karafVersion}/xml/features</descriptor>
                 <descriptor>file:${basedir}/target/classes/features.xml</descriptor>
@@ -84,11 +81,10 @@
                 <feature>http-whiteboard</feature>
               </features>
               <repository>target/features-repo</repository>
-           </configuration>
+            </configuration>
           </execution>
         </executions>
       </plugin>
-
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
@@ -100,17 +96,17 @@
               <goal>copy</goal>
             </goals>
             <configuration>
-               <!-- Define here the artifacts which should be considered in the assembly -->
-               <!-- For instance, the branding jar -->
-               <artifactItems>
-                 <artifactItem>
-                    <groupId>org.opennms.container</groupId>
-                    <artifactId>branding</artifactId>
-                    <version>${project.version}</version>
-                    <outputDirectory>target/dependencies</outputDirectory>
-                    <destFileName>opennms-branding.jar</destFileName>
-                 </artifactItem>
-               </artifactItems>
+              <!-- Define here the artifacts which should be considered in the assembly -->
+              <!-- For instance, the branding jar -->
+              <artifactItems>
+                <artifactItem>
+                  <groupId>org.opennms.container</groupId>
+                  <artifactId>branding</artifactId>
+                  <version>${project.version}</version>
+                  <outputDirectory>target/dependencies</outputDirectory>
+                  <destFileName>opennms-branding.jar</destFileName>
+                </artifactItem>
+              </artifactItems>
             </configuration>
           </execution>
           <execution>
@@ -155,5 +151,4 @@
       </plugin>
     </plugins>
   </build>
-
 </project>

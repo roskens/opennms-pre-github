@@ -10,14 +10,12 @@
   <artifactId>org.opennms.features.geocoder.google</artifactId>
   <packaging>bundle</packaging>
   <name>OpenNMS Google Geocoder</name>
-
   <description>Google Geocoder implementation</description>
   <properties>
     <bundle.symbolicName>org.opennms.features.geocoder.google</bundle.symbolicName>
     <bundle.namespace>org.opennms.features.geocoder.google</bundle.namespace>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-
   <build>
     <plugins>
       <plugin>
@@ -38,7 +36,6 @@
       </plugin>
     </plugins>
   </build>
-
   <dependencies>
     <dependency>
       <groupId>org.opennms.features.geocoder</groupId>
@@ -48,12 +45,12 @@
       <groupId>com.google.code.geocoder-java</groupId>
       <artifactId>geocoder-java</artifactId>
       <version>0.11</version>
-			<exclusions>
-			  <exclusion>
-			    <groupId>commons-logging</groupId>
-			    <artifactId>commons-logging</artifactId>
-			  </exclusion>
-			</exclusions>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
   </dependencies>
 </project>

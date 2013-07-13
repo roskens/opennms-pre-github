@@ -167,17 +167,19 @@
           <execution>
             <id>copy-filtered-resources</id>
             <phase>process-resources</phase>
-            <goals><goal>copy-resources</goal></goals>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
             <configuration>
-               <encoding>UTF-8</encoding>
-               <escapeString>\</escapeString>
-               <outputDirectory>target/resources</outputDirectory>
-               <resources>
-                 <resource>
-                   <directory>src/main/filtered-resources</directory>
-                   <filtering>true</filtering>
-                 </resource>
-               </resources>
+              <encoding>UTF-8</encoding>
+              <escapeString>\</escapeString>
+              <outputDirectory>target/resources</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>src/main/filtered-resources</directory>
+                  <filtering>true</filtering>
+                </resource>
+              </resources>
             </configuration>
           </execution>
         </executions>
@@ -186,7 +188,6 @@
         <groupId>org.apache.karaf.tooling</groupId>
         <artifactId>features-maven-plugin</artifactId>
         <version>${karafVersion}</version>
-
         <executions>
           <execution>
             <id>add-features-to-repo</id>
@@ -232,9 +233,7 @@
         </configuration>
       </plugin>
     </plugins>
-
   </build>
-
   <modules>
     <module>../container/features</module>
     <module>../core/build/keystore</module>
@@ -243,7 +242,6 @@
     <module>../opennms-doc</module>
     <module>../opennms-base-assembly</module>
   </modules>
-
   <dependencies>
     <dependency>
       <groupId>org.opennms.container</groupId>
@@ -507,12 +505,10 @@
       <classifier>features</classifier>
     </dependency>
   </dependencies>
-
   <repositories>
     <repository>
-       <id>vaadin-addons</id>
-       <url>http://maven.opennms.org/content/groups/vaadin.com-addons/</url>
+      <id>vaadin-addons</id>
+      <url>http://maven.opennms.org/content/groups/vaadin.com-addons/</url>
     </repository>
   </repositories>
-
 </project>

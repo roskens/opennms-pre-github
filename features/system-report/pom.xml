@@ -90,5 +90,5 @@
       <artifactId>opennms-dao-mock</artifactId>
       <scope>test</scope>
     </dependency>
-    </dependencies>
+  </dependencies>
 </project>

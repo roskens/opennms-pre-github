@@ -24,7 +24,7 @@
   <issueManagement>
     <system>Jira</system>
     <url>http://issues.opennms.org/</url>
- </issueManagement>
+  </issueManagement>
   <ciManagement>
     <system>Bamboo</system>
     <url>http://bamboo.internal.opennms.com:8085/</url>
@@ -59,7 +59,7 @@
       <timezone>-5</timezone>
     </developer>
   </developers>
- <mailingLists>
+  <mailingLists>
     <mailingList>
       <name>OpenNMS Discuss List</name>
       <subscribe>https://lists.sourceforge.net/lists/listinfo/opennms-discuss</subscribe>
@@ -104,7 +104,6 @@
     <module>protocols</module>
     <module>tests</module>
     <module>integration-tests</module>
-
     <!-- old structure -->
     <module>opennms-test</module>
     <module>opennms-util</module>
@@ -136,307 +135,309 @@
     <module>opennms-asterisk</module>
   </modules>
   <build>
-  <extensions>
-    <extension>
-      <groupId>org.apache.maven.wagon</groupId>
-      <artifactId>wagon-ssh-external</artifactId>
-      <version>1.0-beta-7</version>
-    </extension>
-  </extensions>
-  <pluginManagement>
-    <plugins>    
-<!--
+    <extensions>
+      <extension>
+        <groupId>org.apache.maven.wagon</groupId>
+        <artifactId>wagon-ssh-external</artifactId>
+        <version>1.0-beta-7</version>
+      </extension>
+    </extensions>
+    <pluginManagement>
+      <plugins>
+        <!--
       <plugin>
         <groupId>ch.elca.el4j.maven.plugins</groupId>
         <artifactId>maven-depgraph-plugin</artifactId>
         <version>1.9</version>
       </plugin>
 -->
-      <plugin>
-        <groupId>org.apache.servicemix.tooling</groupId>
-        <artifactId>depends-maven-plugin</artifactId>
-        <version>1.2</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>maven-bundle-plugin</artifactId>
-        <version>2.3.7</version>
-        <extensions>true</extensions>
-        <configuration>
-          <obrRepository>NONE</obrRepository>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>build-helper-maven-plugin</artifactId>
-        <version>1.7</version>
-      </plugin>
-      <plugin>
-        <groupId>org.dstovall</groupId>
-        <artifactId>onejar-maven-plugin</artifactId>
-        <version>1.4.4</version>
-        <executions>
-          <execution>
-            <configuration>
-              <onejarVersion>0.96</onejarVersion>
-              <attachToBuild>true</attachToBuild>
-            </configuration>
-            <phase>package</phase>
-            <goals>
-              <goal>one-jar</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.opennms.maven.plugins</groupId>
-        <artifactId>features-maven-plugin</artifactId>
-        <version>1.0.1</version>
-        <executions>
-          <execution>
-            <id>features.xml</id>
-            <phase>process-resources</phase>
-            <goals><goal>generate-features-xml</goal></goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.opennms.maven.plugins</groupId>
-        <artifactId>castor-maven-plugin</artifactId>
-        <version>1.0</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>generate</goal>
-            </goals>
-            <configuration>
-              <staleMillis>1000</staleMillis>
-            </configuration>
-          </execution>
-        </executions>
-        <dependencies>
-          <dependency>
-            <groupId>org.opennms.dependencies</groupId>
-            <artifactId>castor-dependencies</artifactId>
-            <version>${project.version}</version>
-            <scope>compile</scope>
-            <type>pom</type>
-            <exclusions>
-              <exclusion>
-                <groupId>javax.jms</groupId>
-                <artifactId>jms</artifactId>
-              </exclusion>
-              <exclusion>
-                <groupId>com.sun.jdmk</groupId>
-                <artifactId>jmxtools</artifactId>
-              </exclusion>
-              <exclusion>
-                <groupId>com.sun.jmx</groupId>
-                <artifactId>jmxri</artifactId>
-              </exclusion>
-              <exclusion>
-                <groupId>log4j</groupId>
-                <artifactId>log4j</artifactId>
-              </exclusion>
-              <exclusion>
-                <groupId>xerces</groupId>
-                <artifactId>xerces</artifactId>
-              </exclusion>
-            </exclusions>
-          </dependency>
-          <dependency>
-            <groupId>oro</groupId>
-            <artifactId>oro</artifactId>
-            <version>${oroVersion}</version>
-            <scope>runtime</scope>
-          </dependency>
-          <dependency>
-            <groupId>xerces</groupId>
-            <artifactId>xercesImpl</artifactId>
-            <version>${xercesVersion}</version>
-          </dependency>
-        </dependencies>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>gwt-maven-plugin</artifactId>
-        <version>${gwtPluginVersion}</version>
-        <dependencies>
-          <dependency>
-            <groupId>com.google.gwt</groupId>
-            <artifactId>gwt-user</artifactId>
-            <version>${gwtVersion}</version>
-          </dependency>
-          <dependency>
-            <groupId>com.google.gwt</groupId>
-            <artifactId>gwt-dev</artifactId>
-            <version>${gwtVersion}</version>
-          </dependency>
-        </dependencies>
-        <executions>
-          <execution>
-            <goals>
-              <goal>compile</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>test</id>
-            <phase>test</phase>
-            <goals>
-              <goal>test</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>axistools-maven-plugin</artifactId>
-        <version>1.4</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jxr-plugin</artifactId>
-        <version>2.3</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-deploy-plugin</artifactId>
-        <version>2.6</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <version>2.4</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.8</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <version>2.3.1</version>
-        <configuration>
-          <keystore>${webstart.keystore}</keystore>
-          <keypass>${webstart.keypass}</keypass>
-          <storepass>${webstart.storepass}</storepass>
-          <alias>${webstart.keyalias}</alias>
-          <dnameCn>${webstart.dnameCn}</dnameCn>
-          <dnameCn>${webstart.dnameCn}</dnameCn>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jarsigner-plugin</artifactId>
-        <version>1.2</version>
-        <configuration>
-          <keystore>${webstart.keystore}</keystore>
-          <keypass>${webstart.keypass}</keypass>
-          <storepass>${webstart.storepass}</storepass>
-          <alias>${webstart.keyalias}</alias>
-          <dnameCn>${webstart.dnameCn}</dnameCn>
-          <dnameCn>${webstart.dnameCn}</dnameCn>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-project-info-reports-plugin</artifactId>
-        <version>2.4</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <version>2.4</version>
-      </plugin>
+        <plugin>
+          <groupId>org.apache.servicemix.tooling</groupId>
+          <artifactId>depends-maven-plugin</artifactId>
+          <version>1.2</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.felix</groupId>
+          <artifactId>maven-bundle-plugin</artifactId>
+          <version>2.3.7</version>
+          <extensions>true</extensions>
+          <configuration>
+            <obrRepository>NONE</obrRepository>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>build-helper-maven-plugin</artifactId>
+          <version>1.7</version>
+        </plugin>
+        <plugin>
+          <groupId>org.dstovall</groupId>
+          <artifactId>onejar-maven-plugin</artifactId>
+          <version>1.4.4</version>
+          <executions>
+            <execution>
+              <configuration>
+                <onejarVersion>0.96</onejarVersion>
+                <attachToBuild>true</attachToBuild>
+              </configuration>
+              <phase>package</phase>
+              <goals>
+                <goal>one-jar</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.opennms.maven.plugins</groupId>
+          <artifactId>features-maven-plugin</artifactId>
+          <version>1.0.1</version>
+          <executions>
+            <execution>
+              <id>features.xml</id>
+              <phase>process-resources</phase>
+              <goals>
+                <goal>generate-features-xml</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.opennms.maven.plugins</groupId>
+          <artifactId>castor-maven-plugin</artifactId>
+          <version>1.0</version>
+          <executions>
+            <execution>
+              <goals>
+                <goal>generate</goal>
+              </goals>
+              <configuration>
+                <staleMillis>1000</staleMillis>
+              </configuration>
+            </execution>
+          </executions>
+          <dependencies>
+            <dependency>
+              <groupId>org.opennms.dependencies</groupId>
+              <artifactId>castor-dependencies</artifactId>
+              <version>${project.version}</version>
+              <scope>compile</scope>
+              <type>pom</type>
+              <exclusions>
+                <exclusion>
+                  <groupId>javax.jms</groupId>
+                  <artifactId>jms</artifactId>
+                </exclusion>
+                <exclusion>
+                  <groupId>com.sun.jdmk</groupId>
+                  <artifactId>jmxtools</artifactId>
+                </exclusion>
+                <exclusion>
+                  <groupId>com.sun.jmx</groupId>
+                  <artifactId>jmxri</artifactId>
+                </exclusion>
+                <exclusion>
+                  <groupId>log4j</groupId>
+                  <artifactId>log4j</artifactId>
+                </exclusion>
+                <exclusion>
+                  <groupId>xerces</groupId>
+                  <artifactId>xerces</artifactId>
+                </exclusion>
+              </exclusions>
+            </dependency>
+            <dependency>
+              <groupId>oro</groupId>
+              <artifactId>oro</artifactId>
+              <version>${oroVersion}</version>
+              <scope>runtime</scope>
+            </dependency>
+            <dependency>
+              <groupId>xerces</groupId>
+              <artifactId>xercesImpl</artifactId>
+              <version>${xercesVersion}</version>
+            </dependency>
+          </dependencies>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>gwt-maven-plugin</artifactId>
+          <version>${gwtPluginVersion}</version>
+          <dependencies>
+            <dependency>
+              <groupId>com.google.gwt</groupId>
+              <artifactId>gwt-user</artifactId>
+              <version>${gwtVersion}</version>
+            </dependency>
+            <dependency>
+              <groupId>com.google.gwt</groupId>
+              <artifactId>gwt-dev</artifactId>
+              <version>${gwtVersion}</version>
+            </dependency>
+          </dependencies>
+          <executions>
+            <execution>
+              <goals>
+                <goal>compile</goal>
+              </goals>
+            </execution>
+            <execution>
+              <id>test</id>
+              <phase>test</phase>
+              <goals>
+                <goal>test</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>axistools-maven-plugin</artifactId>
+          <version>1.4</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jxr-plugin</artifactId>
+          <version>2.3</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>2.6</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-dependency-plugin</artifactId>
+          <version>2.4</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>2.8</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>2.3.1</version>
+          <configuration>
+            <keystore>${webstart.keystore}</keystore>
+            <keypass>${webstart.keypass}</keypass>
+            <storepass>${webstart.storepass}</storepass>
+            <alias>${webstart.keyalias}</alias>
+            <dnameCn>${webstart.dnameCn}</dnameCn>
+            <dnameCn>${webstart.dnameCn}</dnameCn>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jarsigner-plugin</artifactId>
+          <version>1.2</version>
+          <configuration>
+            <keystore>${webstart.keystore}</keystore>
+            <keypass>${webstart.keypass}</keypass>
+            <storepass>${webstart.storepass}</storepass>
+            <alias>${webstart.keyalias}</alias>
+            <dnameCn>${webstart.dnameCn}</dnameCn>
+            <dnameCn>${webstart.dnameCn}</dnameCn>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-project-info-reports-plugin</artifactId>
+          <version>2.4</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-assembly-plugin</artifactId>
+          <version>2.4</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-eclipse-plugin</artifactId>
+          <version>${maven.eclipse.plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.ops4j</groupId>
+          <artifactId>maven-pax-plugin</artifactId>
+          <version>${maven.pax.plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>${maven.surefire.plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-war-plugin</artifactId>
+          <version>2.3</version>
+          <configuration>
+            <archiveClasses>true</archiveClasses>
+            <outputFileNameMapping>@{artifactId}@-@{baseVersion}@.@{extension}@</outputFileNameMapping>
+            <archive>
+              <manifest>
+                <addClasspath>true</addClasspath>
+                <classpathLayoutType>custom</classpathLayoutType>
+                <customClasspathLayout>WEB-INF/lib/$${artifact.groupIdPath}/$${artifact.artifactId}-$${artifact.baseVersion}$${dashClassifier?}.$${artifact.extension}</customClasspathLayout>
+              </manifest>
+            </archive>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.groovy.maven</groupId>
+          <artifactId>gmaven-plugin</artifactId>
+          <version>1.0</version>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>native-maven-plugin</artifactId>
+          <version>1.0-alpha-7</version>
+        </plugin>
+        <plugin>
+          <groupId>org.mortbay.jetty</groupId>
+          <artifactId>jetty-maven-plugin</artifactId>
+          <version>${jettyVersion}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.mortbay.jetty</groupId>
+          <artifactId>jetty-jspc-maven-plugin</artifactId>
+          <version>${jettyVersion}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>versions-maven-plugin</artifactId>
+          <version>2.0</version>
+          <configuration>
+            <rulesUri>file://${root.dir}/src/site/maven-version-rules.xml</rulesUri>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-eclipse-plugin</artifactId>
-        <version>${maven.eclipse.plugin.version}</version>
+        <configuration>
+          <additionalConfig>
+            <file>
+              <name>.settings/org.eclipse.jdt.core.prefs</name>
+              <url>https://opennms.svn.sourceforge.net/svnroot/opennms/opennms/trunk/src/main/eclipse/org.eclipse.jdt.core.prefs</url>
+            </file>
+          </additionalConfig>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>org.ops4j</groupId>
         <artifactId>maven-pax-plugin</artifactId>
-        <version>${maven.pax.plugin.version}</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>${maven.surefire.plugin.version}</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-war-plugin</artifactId>
-        <version>2.4</version>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>2.5</version>
         <configuration>
-          <archiveClasses>true</archiveClasses>
-          <outputFileNameMapping>@{artifactId}@-@{baseVersion}@.@{extension}@</outputFileNameMapping>
-          <archive>
-            <manifest>
-              <addClasspath>true</addClasspath>
-              <classpathLayoutType>custom</classpathLayoutType>
-              <customClasspathLayout>WEB-INF/lib/$${artifact.groupIdPath}/$${artifact.artifactId}-$${artifact.baseVersion}$${dashClassifier?}.$${artifact.extension}</customClasspathLayout>
-            </manifest>
-          </archive>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.groovy.maven</groupId>
-        <artifactId>gmaven-plugin</artifactId>
-        <version>1.0</version>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>native-maven-plugin</artifactId>
-        <version>1.0-alpha-7</version>
-      </plugin>
-      <plugin>
-        <groupId>org.mortbay.jetty</groupId>
-        <artifactId>jetty-maven-plugin</artifactId>
-        <version>${jettyVersion}</version>
-      </plugin>
-      <plugin>
-        <groupId>org.mortbay.jetty</groupId>
-        <artifactId>jetty-jspc-maven-plugin</artifactId>
-        <version>${jettyVersion}</version>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>versions-maven-plugin</artifactId>
-        <version>2.0</version>
-        <configuration>
-          <rulesUri>file://${root.dir}/src/site/maven-version-rules.xml</rulesUri>
-        </configuration>
-      </plugin>
-    </plugins>
-  </pluginManagement>
-   <plugins>
-     <plugin>
-       <groupId>org.apache.maven.plugins</groupId>
-       <artifactId>maven-eclipse-plugin</artifactId>
-       <configuration>
-         <additionalConfig>
-           <file>
-             <name>.settings/org.eclipse.jdt.core.prefs</name>
-             <url>https://opennms.svn.sourceforge.net/svnroot/opennms/opennms/trunk/src/main/eclipse/org.eclipse.jdt.core.prefs</url>
-           </file>
-         </additionalConfig>
-       </configuration>
-     </plugin>
-     <plugin>
-       <groupId>org.ops4j</groupId>
-       <artifactId>maven-pax-plugin</artifactId>
-     </plugin>
-     <plugin>
-       <groupId>org.apache.maven.plugins</groupId>
-       <artifactId>maven-resources-plugin</artifactId>
-       <version>2.5</version>
-       <configuration>
           <encoding>UTF-8</encoding>
           <escapeString>\</escapeString>
-       </configuration>
-     </plugin>
-     <plugin>
+        </configuration>
+      </plugin>
+      <plugin>
         <inherited>false</inherited>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-antrun-plugin</artifactId>
@@ -462,8 +463,8 @@
             </goals>
           </execution>
         </executions>
-     </plugin>
-     <plugin>
+      </plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.1</version>
@@ -519,7 +520,7 @@
           <argLine>-Xmx1024m</argLine>
           <includes>
             <include>**/*Test.java</include>
-          </includes>          
+          </includes>
         </configuration>
       </plugin>
       <plugin>
@@ -529,7 +530,9 @@
         <executions>
           <execution>
             <id>aggregate</id>
-            <goals><goal>aggregate</goal></goals>
+            <goals>
+              <goal>aggregate</goal>
+            </goals>
             <phase>site</phase>
             <configuration>
               <maxmemory>2g</maxmemory>
@@ -561,11 +564,9 @@
           <rulesUri>file://${root.dir}/src/site/maven-version-rules.xml</rulesUri>
         </configuration>
       </plugin>
-   </plugins>
+    </plugins>
   </build>
-
-
- <reporting>
+  <reporting>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -574,7 +575,7 @@
         <reportSets>
           <reportSet>
             <reports>
-               <report>report-only</report>
+              <report>report-only</report>
             </reports>
           </reportSet>
         </reportSets>
@@ -584,20 +585,20 @@
         <artifactId>maven-pmd-plugin</artifactId>
         <version>2.5</version>
         <configuration>
-            <targetJdk>1.6</targetJdk>
-            <rulesets>
-               <!--
+          <targetJdk>1.6</targetJdk>
+          <rulesets>
+            <!--
                <ruleset>/rulesets/basic-jsf.xml</ruleset>
                <ruleset>/rulesets/basic-jsp.xml</ruleset>
                -->
-               <ruleset>/rulesets/basic.xml</ruleset>
-               <!--
+            <ruleset>/rulesets/basic.xml</ruleset>
+            <!--
                <ruleset>/rulesets/braces.xml</ruleset>
                <ruleset>/rulesets/clone.xml</ruleset>
                <ruleset>/rulesets/codesize.xml</ruleset>
                -->
-               <ruleset>/rulesets/controversial.xml</ruleset>
-               <!--
+            <ruleset>/rulesets/controversial.xml</ruleset>
+            <!--
                <ruleset>/rulesets/coupling.xml</ruleset>
                <ruleset>/rulesets/design.xml</ruleset>
                <ruleset>/rulesets/favorites.xml</ruleset>
@@ -621,14 +622,14 @@
                <ruleset>/rulesets/typeresolution.xml</ruleset>
                <ruleset>/rulesets/unusedcode.xml</ruleset>
                -->
-            </rulesets>
-            <format>xml</format>
-            <linkXref>true</linkXref>
-            <sourceEncoding>utf-8</sourceEncoding>
-            <minimumTokens>100</minimumTokens>
-         </configuration>
+          </rulesets>
+          <format>xml</format>
+          <linkXref>true</linkXref>
+          <sourceEncoding>utf-8</sourceEncoding>
+          <minimumTokens>100</minimumTokens>
+        </configuration>
       </plugin>
-<!--
+      <!--
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
@@ -639,7 +640,7 @@
         <artifactId>maven-jxr-plugin</artifactId>
         <version>2.3</version>
       </plugin>
-<!--
+      <!--
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>taglist-maven-plugin</artifactId>
@@ -648,14 +649,9 @@
 -->
     </plugins>
   </reporting>
-
   <properties>
-
-    
-  
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
     <!-- maven surefire version added here so it could be overridden -->
     <maven.surefire.plugin.version>2.15</maven.surefire.plugin.version>
     <maven.surefire.report.plugin.version>2.15</maven.surefire.report.plugin.version>
@@ -683,7 +679,6 @@
     <root.dir>${project.basedir}</root.dir>
     <dist.dir>${root.dir}/target</dist.dir>
     <dist.name>opennms-${project.version}</dist.name>
-
     <!-- install.prefix: a prefix used for installation in or chroot -->
     <install.prefix/>
     <install.dir>${opennms.home}</install.dir>
@@ -696,20 +691,17 @@
     <install.etc.dir>${install.dir}/etc</install.etc.dir>
     <install.logs.dir>${install.dir}/logs</install.logs.dir>
     <install.pid.file>${install.logs.dir}/opennms.pid</install.pid.file>
-    
     <install.postgresql.service>postgresql</install.postgresql.service>
     <install.database.name>opennms</install.database.name>
     <install.database.user>opennms</install.database.user>
     <install.database.password>opennms</install.database.password>
     <install.database.admin.user>postgres</install.database.admin.user>
     <install.database.admin.password/>
-    <install.database.driver>org.postgresql.Driver</install.database.driver> 
+    <install.database.driver>org.postgresql.Driver</install.database.driver>
     <install.database.bindir>/usr/bin</install.database.bindir>
     <install.rrdtool.bin>/usr/bin/rrdtool</install.rrdtool.bin>
     <install.perl.bin>/usr/bin/perl</install.perl.bin>
-
     <runMailTests>true</runMailTests>
-  
     <!-- rpm specific -->
     <rpm.install.dir>/opt/OpenNMS</rpm.install.dir>
     <rpm.build.executable>rpmbuild</rpm.build.executable>
@@ -717,26 +709,22 @@
     <rpm.sign>false</rpm.sign>
     <rpm.buildtests>false</rpm.buildtests>
     <rpm.database.user>opennms</rpm.database.user>
-    <rpm.additional.args/> 
+    <rpm.additional.args/>
     <rpm.database.name>opennms</rpm.database.name>
     <rpm.database.password>opennms</rpm.database.password>
-
-
-   <!-- code signing properties - used in opennms-webstart -->
-   <!-- NOTE: because of maven property initialization, webstart.keystore must match the hardcoded activation in features/remote-poller/pom.xml -->
-   <webstart.keystore>${project.build.directory}/build-generated-keystore.ks</webstart.keystore>
-   <webstart.keypass>opennms</webstart.keypass>
-   <webstart.storepass>opennms</webstart.storepass>
-   <webstart.keyalias>opennms-webstart-key</webstart.keyalias>
-   <webstart.keystore.delete>true</webstart.keystore.delete>
-   <webstart.keygen>true</webstart.keygen>
-   <webstart.dnameCn>${user.name}</webstart.dnameCn>
-   <webstart.dnameL/>
-   <webstart.dnameSt/>
-   <webstart.dnameC/>
-
-   <updatePolicy>daily</updatePolicy>
-
+    <!-- code signing properties - used in opennms-webstart -->
+    <!-- NOTE: because of maven property initialization, webstart.keystore must match the hardcoded activation in features/remote-poller/pom.xml -->
+    <webstart.keystore>${project.build.directory}/build-generated-keystore.ks</webstart.keystore>
+    <webstart.keypass>opennms</webstart.keypass>
+    <webstart.storepass>opennms</webstart.storepass>
+    <webstart.keyalias>opennms-webstart-key</webstart.keyalias>
+    <webstart.keystore.delete>true</webstart.keystore.delete>
+    <webstart.keygen>true</webstart.keygen>
+    <webstart.dnameCn>${user.name}</webstart.dnameCn>
+    <webstart.dnameL/>
+    <webstart.dnameSt/>
+    <webstart.dnameC/>
+    <updatePolicy>daily</updatePolicy>
     <!-- dependency versions -->
     <activemqVersion>5.6.0</activemqVersion>
     <camelVersion>2.10.4</camelVersion>
@@ -776,7 +764,6 @@
     <springWebFlowVersion>2.3.0.RELEASE</springWebFlowVersion>
     <springSecurityVersion>3.1.0.RELEASE</springSecurityVersion>
     <springLdapVersion>3.1.0.RELEASE</springLdapVersion>
-
     <!-- moved here from topology features -->
     <jungVersion>2.0.1</jungVersion>
     <!--
@@ -786,75 +773,78 @@
     <vaadinVersion>7.1.0</vaadinVersion>
     <vaadin.plugin.version>${vaadinVersion}</vaadin.plugin.version>
     <paxVaadinVersion>0.3.0-SNAPSHOT</paxVaadinVersion>
-
   </properties>
-
   <profiles>
-
     <profile>
       <id>enable.snapshots</id>
       <activation>
-        <property><name>enable.snapshots</name><value>true</value></property>
+        <property>
+          <name>enable.snapshots</name>
+          <value>true</value>
+        </property>
       </activation>
       <repositories>
         <repository>
-          <snapshots><enabled>true</enabled><updatePolicy>${updatePolicy}</updatePolicy></snapshots>
-          <releases><enabled>false</enabled><updatePolicy>${updatePolicy}</updatePolicy></releases>
+          <snapshots>
+            <enabled>true</enabled>
+            <updatePolicy>${updatePolicy}</updatePolicy>
+          </snapshots>
+          <releases>
+            <enabled>false</enabled>
+            <updatePolicy>${updatePolicy}</updatePolicy>
+          </releases>
           <id>opennms-snapshots</id>
           <name>OpenNMS Snapshot Maven Repository</name>
           <url>http://maven.opennms.org/content/groups/opennms.org-snapshot</url>
         </repository>
       </repositories>
     </profile>
-
     <profile>
       <id>build.all</id>
       <activation>
-        <property><name>build</name><value>all</value></property>
+        <property>
+          <name>build</name>
+          <value>all</value>
+        </property>
       </activation>
       <modules>
         <module>extensions</module>
       </modules>
     </profile>
-
     <profile>
       <id>build.extensions</id>
       <activation>
-        <property><name>build</name><value>extensions</value></property>
+        <property>
+          <name>build</name>
+          <value>extensions</value>
+        </property>
       </activation>
       <modules>
         <module>extensions</module>
       </modules>
     </profile>
-
     <profile>
       <id>opt-local-rrdtool</id>
-      
       <activation>
         <file>
           <exists>/opt/local/bin/rrdtool</exists>
         </file>
       </activation>
-  
       <properties>
         <install.rrdtool.bin>/opt/local/bin/rrdtool</install.rrdtool.bin>
       </properties>
     </profile>
-
     <profile>
       <id>fink-rrdtool</id>
-
       <activation>
         <file>
           <exists>/sw/bin/rrdtool</exists>
         </file>
       </activation>
-
       <properties>
         <install.rrdtool.bin>/sw/bin/rrdtool</install.rrdtool.bin>
       </properties>
     </profile>
-
     <profile>
       <id>usr-bin-rrdtool</id>
       <activation>
@@ -862,12 +852,10 @@
           <exists>/usr/bin/rrdtool</exists>
         </file>
       </activation>
-
       <properties>
         <install.rrdtool.bin>/usr/bin/rrdtool</install.rrdtool.bin>
       </properties>
     </profile>
-
     <profile>
       <id>usr-local-bin-rrdtool</id>
       <activation>
@@ -875,12 +863,10 @@
           <exists>/usr/local/bin/rrdtool</exists>
         </file>
       </activation>
-
       <properties>
         <install.rrdtool.bin>/usr/local/bin/rrdtool</install.rrdtool.bin>
       </properties>
     </profile>
-
     <profile>
       <id>usr-local-rrdtool-bin-rrdtool</id>
       <activation>
@@ -888,12 +874,10 @@
           <exists>/usr/local/rrdtool/bin/rrdtool</exists>
         </file>
       </activation>
-
       <properties>
         <install.rrdtool.bin>/usr/local/rrdtool/bin/rrdtool</install.rrdtool.bin>
       </properties>
     </profile>
-
     <!--
          This is for the rrdtool package from Blastwave.org.
          See this for more information:
@@ -903,16 +887,14 @@
     <profile>
       <id>solaris-blastwave-rrdtool</id>
       <activation>
-      <file>
-        <exists>/opt/csw/bin/rrdtool</exists>
-      </file>
+        <file>
+          <exists>/opt/csw/bin/rrdtool</exists>
+        </file>
       </activation>
-
       <properties>
         <install.rrdtool.bin>/opt/csw/bin/rrdtool</install.rrdtool.bin>
       </properties>
     </profile>
-
     <profile>
       <id>build-tools</id>
       <activation>
@@ -925,7 +907,6 @@
         <module>opennms-tools</module>
       </modules>
     </profile>
-
     <profile>
       <id>jdk7+</id>
       <activation>
@@ -939,11 +920,11 @@
             <version>1.2</version>
             <dependencies>
               <dependency>
-              <groupId>com.sun</groupId>
-              <artifactId>tools</artifactId>
-              <version>1.7</version>
-              <scope>system</scope>
-              <systemPath>${java.home}/../lib/tools.jar</systemPath>
+                <groupId>com.sun</groupId>
+                <artifactId>tools</artifactId>
+                <version>1.7</version>
+                <scope>system</scope>
+                <systemPath>${java.home}/../lib/tools.jar</systemPath>
               </dependency>
             </dependencies>
           </plugin>
@@ -951,7 +932,6 @@
       </build>
     </profile>
   </profiles>
-
   <dependencyManagement>
     <dependencies>
       <!--  opennms dependencies that are outside of the opennms/trunk project -->
@@ -961,7 +941,6 @@
         <artifactId>opennms-provisioning</artifactId>
         <version>1.0.0</version>
       </dependency>
-
       <!--  opennms dependencies -->
       <!--  PLEASE KEEP THESE IN ALPHABETICAL ORDER -->
       <dependency>
@@ -1191,7 +1170,7 @@
         <groupId>org.opennms.features</groupId>
         <artifactId>org.opennms.features.instrumentationLogReader</artifactId>
         <version>${project.version}</version>
-      </dependency> 
+      </dependency>
       <dependency>
         <groupId>org.opennms.features</groupId>
         <artifactId>org.opennms.features.springframework-security</artifactId>
@@ -1992,7 +1971,6 @@
         <version>${project.version}</version>
         <type>pom</type>
       </dependency>
-
       <!--  external dependencies -->
       <!--  PLEASE KEEP THESE IN ALPHABETICAL ORDER -->
       <dependency>
@@ -2298,25 +2276,24 @@
       <!-- Vaadin -->
       <dependency>
         <groupId>com.vaadin</groupId>
-	<artifactId>vaadin-server</artifactId>
-	<version>${vaadinVersion}</version>
+        <artifactId>vaadin-server</artifactId>
+        <version>${vaadinVersion}</version>
       </dependency>
       <dependency>
         <groupId>com.vaadin</groupId>
-	<artifactId>vaadin-client-compiled</artifactId>
-	<version>${vaadinVersion}</version>
+        <artifactId>vaadin-client-compiled</artifactId>
+        <version>${vaadinVersion}</version>
       </dependency>
       <dependency>
         <groupId>com.vaadin</groupId>
-	<artifactId>vaadin-client</artifactId>
-	<version>${vaadinVersion}</version>
+        <artifactId>vaadin-client</artifactId>
+        <version>${vaadinVersion}</version>
       </dependency>
       <dependency>
         <groupId>com.vaadin</groupId>
-	<artifactId>vaadin-themes</artifactId>
-	<version>${vaadinVersion}</version>
+        <artifactId>vaadin-themes</artifactId>
+        <version>${vaadinVersion}</version>
       </dependency>
-
       <dependency>
         <groupId>org.ops4j.pax.vaadin</groupId>
         <artifactId>service</artifactId>
@@ -2789,12 +2766,18 @@
         <artifactId>groovy-all</artifactId>
         <version>1.7.5</version>
       </dependency>
-  </dependencies>
+    </dependencies>
   </dependencyManagement>
   <repositories>
     <repository>
-      <snapshots><enabled>false</enabled><updatePolicy>${updatePolicy}</updatePolicy></snapshots>
-      <releases><enabled>true</enabled><updatePolicy>${updatePolicy}</updatePolicy></releases>
+      <snapshots>
+        <enabled>false</enabled>
+        <updatePolicy>${updatePolicy}</updatePolicy>
+      </snapshots>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>${updatePolicy}</updatePolicy>
+      </releases>
       <id>opennms-repo</id>
       <name>OpenNMS Repository</name>
       <url>http://maven.opennms.org/content/groups/opennms.org-release</url>
@@ -2802,29 +2785,47 @@
   </repositories>
   <pluginRepositories>
     <pluginRepository>
-      <snapshots><enabled>false</enabled></snapshots>
-      <releases><enabled>true</enabled></releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
       <id>opennms-repo</id>
       <name>OpenNMS Repository</name>
       <url>http://maven.opennms.org/content/groups/opennms.org-release</url>
     </pluginRepository>
     <pluginRepository>
-      <snapshots><enabled>false</enabled><updatePolicy>${updatePolicy}</updatePolicy></snapshots>
-      <releases><enabled>true</enabled><updatePolicy>${updatePolicy}</updatePolicy></releases>
+      <snapshots>
+        <enabled>false</enabled>
+        <updatePolicy>${updatePolicy}</updatePolicy>
+      </snapshots>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>${updatePolicy}</updatePolicy>
+      </releases>
       <id>maven-repo</id>
       <name>Maven Central</name>
       <url>http://maven.opennms.org/content/groups/maven.org-release2</url>
     </pluginRepository>
     <pluginRepository>
-      <snapshots><enabled>true</enabled></snapshots>
-      <releases><enabled>false</enabled></releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
       <id>opennms-snapshots</id>
       <name>OpenNMS Snapshot Repository</name>
       <url>http://maven.opennms.org/content/groups/opennms.org-snapshot</url>
     </pluginRepository>
     <pluginRepository>
-      <snapshots><enabled>false</enabled></snapshots>
-      <releases><enabled>true</enabled></releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
       <id>java-net-repo</id>
       <name>Java.net Repository</name>
       <url>http://maven.opennms.org/content/groups/java.net-release</url>
