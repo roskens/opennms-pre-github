@@ -98,8 +98,7 @@
       <releases>
         <enabled>false</enabled>
       </releases>
-      <snapshots>
-            </snapshots>
+      <snapshots/>
     </repository>
     <repository>
       <id>vaadin-addons</id>
@@ -110,8 +109,7 @@
     <pluginRepository>
       <id>codehaus-snapshots</id>
       <url>http://nexus.codehaus.org/snapshots</url>
-      <snapshots>
-      </snapshots>
+      <snapshots/>
       <releases>
         <enabled>false</enabled>
       </releases>
@@ -119,8 +117,7 @@
     <pluginRepository>
       <id>vaadin-snapshots</id>
       <url>http://oss.sonatype.org/content/repositories/vaadin-snapshots/</url>
-      <snapshots>
-      </snapshots>
+      <snapshots/>
       <releases>
         <enabled>false</enabled>
       </releases>

@@ -9,6 +9,5 @@
   <artifactId>org.opennms.extensions</artifactId>
   <packaging>pom</packaging>
   <name>OpenNMS Extensions</name>
-  <modules>
-  </modules>
+  <modules/>
 </project>
