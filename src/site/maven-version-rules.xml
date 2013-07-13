@@ -13,5 +13,29 @@
     <ignoreVersion type="regex">^[0-9]{8}\.[0-9]{6}$</ignoreVersion>
     <ignoreVersion type="regex">.*\-does\-not\-exist$</ignoreVersion>
   </ignoreVersions>
-  <rules/>
+  <rules>
+    <rule groupId="org.apache.karaf.tooling" artifactId="features-maven-plugin" comparisonMethod="maven">
+      <ignoreVersions>
+        <ignoreVersion>2.3.2</ignoreVersion>
+      </ignoreVersions>
+    </rule>
+    <rule groupId="org.codehaus.mojo" artifactId="gwt-maven-plugin" comparisonMethod="maven">
+      <ignoreVersions>
+        <ignoreVersion type="regex">^2\.4\.[0-9]$</ignoreVersion>
+        <ignoreVersion type="regex">^2\.5\.[0-9]$</ignoreVersion>
+      </ignoreVersions>
+    </rule>
+    <rule groupId="org.mortbay.jetty" artifactId="jetty-jspc-maven-plugin" comparisonMethod="maven">
+      <ignoreVersions>
+        <ignoreVersion>7.6.11.v20130520</ignoreVersion>
+        <ignoreVersion type="regex">^8.*$</ignoreVersion>
+      </ignoreVersions>
+    </rule>
+    <rule groupId="org.mortbay.jetty" artifactId="jetty-maven-plugin" comparisonMethod="maven">
+      <ignoreVersions>
+        <ignoreVersion>7.6.11.v20130520</ignoreVersion>
+        <ignoreVersion type="regex">^8.*$</ignoreVersion>
+      </ignoreVersions>
+    </rule>
+  </rules>
 </ruleset>
