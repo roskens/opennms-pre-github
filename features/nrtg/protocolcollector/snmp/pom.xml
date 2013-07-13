@@ -17,7 +17,6 @@
   <description>
         Contains the SnmpProtocolCollector, it's able to request values for metrics (oids) from snmp agents on nodes.
     </description>
-
   <dependencies>
     <!-- OpenNMS NRTCollector -->
     <dependency>
@@ -45,9 +44,9 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-        <groupId>org.opennms.core.test-api</groupId>
-        <artifactId>org.opennms.core.test-api.snmp</artifactId>
-        <scope>test</scope>
+      <groupId>org.opennms.core.test-api</groupId>
+      <artifactId>org.opennms.core.test-api.snmp</artifactId>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.opennms.core.snmp</groupId>

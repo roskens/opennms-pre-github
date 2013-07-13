@@ -43,9 +43,13 @@
                     <groupId>org.apache.servicemix.tooling </groupId>
                     <artifactId>depends-maven-plugin</artifactId>
                     <versionRange>[1.2,)</versionRange>
-                    <goals><goal>generate-depends-file</goal></goals>
+                    <goals>
+                      <goal>generate-depends-file</goal>
+                    </goals>
                   </pluginExecutionFilter>
-                  <action><execute /></action>
+                  <action>
+                    <execute/>
+                  </action>
                 </pluginExecution>
               </pluginExecutions>
             </lifecycleMappingMetadata>
@@ -54,7 +58,6 @@
       </plugins>
     </pluginManagement>
   </build>
-
   <dependencies>
     <!-- Contains beans for ServiceConfigurationPublicConstructorTest -->
     <dependency>
@@ -67,7 +70,6 @@
       <artifactId>opennms-jetty</artifactId>
       <scope>test</scope>
     </dependency>
-
     <!-- Contains model code for the WillItUnmarshall test -->
     <dependency>
       <groupId>org.opennms</groupId>
@@ -105,7 +107,6 @@
       <artifactId>org.opennms.features.reporting.model</artifactId>
       <scope>test</scope>
     </dependency>
-
     <!-- OpenNMS Karaf container so that we can crank it up with the pax-exam-karaf unit test framework -->
     <dependency>
       <groupId>org.opennms.container</groupId>

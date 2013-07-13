@@ -15,7 +15,6 @@
     ProtocolCollectors are able to request values for metrics from agents
     on nodes.
   </description>
-
   <modules>
     <module>snmp</module>
     <module>tca</module>

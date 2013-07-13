@@ -30,7 +30,6 @@
     </plugins>
   </build>
   <dependencies>
-
     <dependency>
       <groupId>org.opennms.osgi.features.nrtg</groupId>
       <artifactId>osgi-nrtg-jms</artifactId>
@@ -39,7 +38,6 @@
       <type>xml</type>
       <scope>provided</scope>
     </dependency>
-
     <dependency>
       <groupId>org.opennms.osgi.features.nrtg</groupId>
       <artifactId>osgi-nrtg-local</artifactId>
@@ -48,6 +46,5 @@
       <type>xml</type>
       <scope>provided</scope>
     </dependency>
-
   </dependencies>
 </project>

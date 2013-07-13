@@ -32,7 +32,6 @@
     </plugins>
   </build>
   <dependencies>
-
     <dependency>
       <groupId>org.opennms.osgi.features.nrtg.protocolcollector</groupId>
       <artifactId>osgi-nrtg-protocolcollector-snmp</artifactId>
@@ -41,7 +40,6 @@
       <type>xml</type>
       <scope>provided</scope>
     </dependency>
-
     <dependency>
       <groupId>org.opennms.osgi.features.nrtg.protocolcollector</groupId>
       <artifactId>osgi-nrtg-protocolcollector-tca</artifactId>
@@ -50,7 +48,6 @@
       <type>xml</type>
       <scope>provided</scope>
     </dependency>
-
     <dependency>
       <groupId>org.opennms.osgi.features.nrtg</groupId>
       <artifactId>osgi-nrtg-web</artifactId>
@@ -59,7 +56,5 @@
       <type>xml</type>
       <scope>provided</scope>
     </dependency>
-
   </dependencies>
-
 </project>

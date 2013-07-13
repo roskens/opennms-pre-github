@@ -27,28 +27,21 @@
     <module>ticketing</module>
     <module>geocoder</module>
     <module>name-cutter</module>
-
     <!-- Jmx config generator -->
     <module>jmx-config-generator</module>
-    <module>jmx-config-generator-webui</module>   
- 
+    <module>jmx-config-generator-webui</module>
     <!-- SNMP MIB Parser and Event/Collection Configuration -->
     <module>vaadin-snmp-events-and-metrics</module>
-
     <!-- Near Real Time Graphing -->
     <module>nrtg</module>
-
     <!-- Topology Map -->
     <module>topology-map</module>
     <module>vaadin-node-maps</module>
-
     <!-- SMS monitoring -->
     <module>phonebook</module>
     <module>sms-reflector</module>
-
     <!-- webapps -->
     <module>root-webapp</module>
-
     <!-- GWT UI plugins -->
     <module>node-page-list</module>
     <module>opennms-gwt-theme</module>
@@ -58,17 +51,13 @@
     <module>gwt-graph-resource-list</module>
     <module>gwt-snmpselect-list</module>
     <module>gwt-tableresources</module>
-
     <!-- Notifications -->
     <module>notifications</module>
-
     <!-- Access point monitor -->
     <module>access-point-monitor</module>
-
     <!-- OpenNMS Vaadin Themes -->
     <module>themes</module>
-
-      <module>vaadin-dashboard</module>
-      <module>vaadin-dashlets</module>
+    <module>vaadin-dashboard</module>
+    <module>vaadin-dashlets</module>
   </modules>
 </project>

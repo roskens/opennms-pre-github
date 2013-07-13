@@ -14,7 +14,9 @@
     <resources>
       <resource>
         <directory>${project.build.directory}</directory>
-        <includes><include>*.ks</include></includes>
+        <includes>
+          <include>*.ks</include>
+        </includes>
       </resource>
     </resources>
     <plugins>
@@ -78,7 +80,7 @@
           <providerSelection>1.6</providerSelection>
         </configuration>
       </plugin>
-<!--
+      <!--
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <configuration>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <relativePath>../topology-map/poms/compiled/</relativePath>
@@ -21,14 +20,13 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <jsmiparser.version>0.13</jsmiparser.version>
   </properties>
-
   <build>
     <resources>
       <resource>
-       <directory>src/main/java</directory>
+        <directory>src/main/java</directory>
       </resource>
       <resource>
-       <directory>src/main/resources</directory>
+        <directory>src/main/resources</directory>
       </resource>
     </resources>
     <plugins>
@@ -46,7 +44,6 @@
       </plugin>
     </plugins>
   </build>
- 
   <repositories>
     <repository>
       <id>vaadin-snapshots</id>
@@ -83,89 +80,77 @@
       </releases>
     </pluginRepository>
   </pluginRepositories>
-
-    <dependencies>
-
-        <!-- OSGi Dependencies -->
-        <dependency>
-            <groupId>org.ops4j.pax.vaadin</groupId>
-            <artifactId>service</artifactId>
-        </dependency>
-        <dependency> <!-- Required by pax/vaadin -->
-            <groupId>org.opennms.dependencies</groupId>
-            <artifactId>servlet-dependencies</artifactId>
-            <type>pom</type>
-            <scope>provided</scope>
-        </dependency>
-
-
-        <!-- Vaadin Dependencies -->
-
-        <dependency>
-            <groupId>org.opennms.osgi.features.topology</groupId>
-            <artifactId>vaadin</artifactId>
-            <version>${project.version}</version>
-            <type>pom</type>
-        </dependency>
-
-        <!-- MIB Compiler Dependencies -->
-        <dependency>
-            <groupId>org.opennms.dependencies</groupId>
-            <artifactId>spring-dependencies</artifactId>
-            <scope>provided</scope>
-            <type>pom</type>
-        </dependency>
-        <dependency>
-            <groupId>org.opennms.core</groupId>
-            <artifactId>org.opennms.core.lib</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.opennms</groupId>
-            <artifactId>opennms-config</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.opennms</groupId>
-            <artifactId>opennms-dao</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.opennms</groupId>
-            <artifactId>opennms-web-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jsmiparser</groupId>
-            <artifactId>jsmiparser-api</artifactId>
-            <version>${jsmiparser.version}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.opennms.features</groupId>
-            <artifactId>org.opennms.features.name-cutter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-        </dependency>
-
-        <!-- JsmiParser Dependencie, to avoid Karaf loading problems -->
-
-        <dependency>
-            <groupId>commons-beanutils</groupId>
-            <artifactId>commons-beanutils</artifactId>
-        </dependency>
-
-        <!-- Tests Dependencies -->
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-    </dependencies>
-
+  <dependencies>
+    <!-- OSGi Dependencies -->
+    <dependency>
+      <groupId>org.ops4j.pax.vaadin</groupId>
+      <artifactId>service</artifactId>
+    </dependency>
+    <dependency>
+      <!-- Required by pax/vaadin -->
+      <groupId>org.opennms.dependencies</groupId>
+      <artifactId>servlet-dependencies</artifactId>
+      <type>pom</type>
+      <scope>provided</scope>
+    </dependency>
+    <!-- Vaadin Dependencies -->
+    <dependency>
+      <groupId>org.opennms.osgi.features.topology</groupId>
+      <artifactId>vaadin</artifactId>
+      <version>${project.version}</version>
+      <type>pom</type>
+    </dependency>
+    <!-- MIB Compiler Dependencies -->
+    <dependency>
+      <groupId>org.opennms.dependencies</groupId>
+      <artifactId>spring-dependencies</artifactId>
+      <scope>provided</scope>
+      <type>pom</type>
+    </dependency>
+    <dependency>
+      <groupId>org.opennms.core</groupId>
+      <artifactId>org.opennms.core.lib</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.opennms</groupId>
+      <artifactId>opennms-config</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.opennms</groupId>
+      <artifactId>opennms-dao</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.opennms</groupId>
+      <artifactId>opennms-web-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jsmiparser</groupId>
+      <artifactId>jsmiparser-api</artifactId>
+      <version>${jsmiparser.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.opennms.features</groupId>
+      <artifactId>org.opennms.features.name-cutter</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+    </dependency>
+    <!-- JsmiParser Dependencie, to avoid Karaf loading problems -->
+    <dependency>
+      <groupId>commons-beanutils</groupId>
+      <artifactId>commons-beanutils</artifactId>
+    </dependency>
+    <!-- Tests Dependencies -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 </project>

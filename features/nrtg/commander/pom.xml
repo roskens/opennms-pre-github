@@ -23,7 +23,6 @@
      generates corresponding CollectionJobs. The CollectionJobs would be 
      published in the same way this dummy implementation does.
   </description>
-
   <dependencies>
     <!-- OpenNMS NRTCollector -->
     <dependency>
@@ -62,13 +61,11 @@
       <version>${project.version}</version>
       <type>pom</type>
     </dependency>
-    
     <!-- CGLIB -->
     <dependency>
       <groupId>cglib</groupId>
       <artifactId>cglib-nodep</artifactId>
     </dependency>
-  
     <!-- Testing -->
     <dependency>
       <groupId>junit</groupId>
@@ -83,7 +80,7 @@
         <configuration>
           <archive>
             <manifest>
-	      <mainClass>org.opennms.nrtg.commander.internal.CollectionCommanderStarter</mainClass>
+              <mainClass>org.opennms.nrtg.commander.internal.CollectionCommanderStarter</mainClass>
             </manifest>
           </archive>
           <descriptorRefs>

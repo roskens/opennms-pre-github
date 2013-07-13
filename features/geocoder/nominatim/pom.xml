@@ -10,14 +10,12 @@
   <artifactId>org.opennms.features.geocoder.nominatim</artifactId>
   <packaging>bundle</packaging>
   <name>OpenNMS Nominatim Geocoder</name>
-
   <description>Nominatim Geocoder implementation</description>
   <properties>
     <bundle.symbolicName>org.opennms.features.geocoder.nominatim</bundle.symbolicName>
     <bundle.namespace>org.opennms.features.geocoder.nominatim</bundle.namespace>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-
   <build>
     <plugins>
       <plugin>
@@ -38,7 +36,6 @@
       </plugin>
     </plugins>
   </build>
-
   <dependencies>
     <dependency>
       <groupId>org.opennms.features.geocoder</groupId>

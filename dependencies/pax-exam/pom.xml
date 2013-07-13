@@ -10,7 +10,6 @@
   <artifactId>pax-exam-dependencies</artifactId>
   <packaging>pom</packaging>
   <name>OpenNMS Dependencies Apache Pax Exam</name>
-  
   <dependencies>
     <!--
     <dependency>

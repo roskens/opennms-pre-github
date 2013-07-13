@@ -13,7 +13,6 @@
     The ProctcolCollector module contains ProtocolCollectors. This
     ProtocolCollectors are able to request values for metrics from agents on nodes.
   </description>
-
   <packaging>pom</packaging>
   <modules>
     <module>snmp</module>

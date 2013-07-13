@@ -17,7 +17,6 @@
   <description>
     An NRT Broker implementation using JMS, Spring and ActiveMQ
   </description>
-
   <dependencies>
     <!-- OpenNMS NRTCollector -->
     <dependency>

@@ -1,49 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-
   <parent>
     <relativePath>../poms/compiled/</relativePath>
     <groupId>org.opennms.features.topology.build</groupId>
     <artifactId>compiled-bundle-settings</artifactId>
     <version>1.13.0-SNAPSHOT</version>
   </parent>
-
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.opennms.features.topology</groupId>
   <artifactId>app</artifactId>
-
   <name>${bundle.symbolicName}</name>
-
   <packaging>bundle</packaging>
-  
   <properties>
     <bundle.symbolicName>org.opennms.features.topology.app</bundle.symbolicName>
     <bundle.namespace>org.opennms.features.topology.app</bundle.namespace>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-  
   <build>
     <resources>
-        <resource>
-            <directory>src/main/java</directory>
-        </resource>
-        <resource>
-            <directory>src/main/resources</directory>
-        </resource>
+      <resource>
+        <directory>src/main/java</directory>
+      </resource>
+      <resource>
+        <directory>src/main/resources</directory>
+      </resource>
     </resources>
     <plugins>
-        <plugin>
-		    <artifactId>maven-surefire-plugin</artifactId>
-		    <configuration>
-		      <excludes>
-		        <exclude>**/*GwtTest.java</exclude>
-		      </excludes>
-		    </configuration>
-		</plugin>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>**/*GwtTest.java</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
-
-
   <dependencies>
     <dependency>
       <groupId>org.opennms.osgi.features.topology</groupId>
@@ -51,7 +43,8 @@
       <version>${project.version}</version>
       <type>pom</type>
     </dependency>
-    <dependency> <!-- Required by pax/vaadin -->
+    <dependency>
+      <!-- Required by pax/vaadin -->
       <groupId>org.opennms.dependencies</groupId>
       <artifactId>servlet-dependencies</artifactId>
       <type>pom</type>
@@ -72,7 +65,7 @@
       <groupId>org.opennms</groupId>
       <artifactId>opennms-dao</artifactId>
       <scope>compile</scope>
-     </dependency>
+    </dependency>
     <dependency>
       <groupId>net.sf.jung</groupId>
       <artifactId>jung-api</artifactId>
@@ -126,7 +119,6 @@
       <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
-
     <dependency>
       <groupId>org.osgi</groupId>
       <artifactId>org.osgi.core</artifactId>
@@ -137,7 +129,6 @@
       <artifactId>org.osgi.compendium</artifactId>
       <scope>provided</scope>
     </dependency>
-
     <dependency>
       <groupId>org.opennms</groupId>
       <artifactId>opennms-web-api</artifactId>

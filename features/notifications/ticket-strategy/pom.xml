@@ -28,7 +28,6 @@
       <artifactId>opennms-services</artifactId>
       <scope>compile</scope>
     </dependency>
-    
     <dependency>
       <groupId>org.opennms.tests</groupId>
       <artifactId>org.opennms.tests.mock-elements</artifactId>
