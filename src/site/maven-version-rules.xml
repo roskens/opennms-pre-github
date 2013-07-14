@@ -19,12 +19,6 @@
         <ignoreVersion>2.3.2</ignoreVersion>
       </ignoreVersions>
     </rule>
-    <rule groupId="org.codehaus.mojo" artifactId="gwt-maven-plugin" comparisonMethod="maven">
-      <ignoreVersions>
-        <ignoreVersion type="regex">^2\.4\.[0-9]$</ignoreVersion>
-        <ignoreVersion type="regex">^2\.5\.[0-9]$</ignoreVersion>
-      </ignoreVersions>
-    </rule>
     <rule groupId="org.mortbay.jetty" artifactId="jetty-jspc-maven-plugin" comparisonMethod="maven">
       <ignoreVersions>
         <ignoreVersion>7.6.11.v20130520</ignoreVersion>
