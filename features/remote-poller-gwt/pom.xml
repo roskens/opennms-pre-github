@@ -162,6 +162,10 @@
       <type>pom</type>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>com.vaadin</groupId>
+      <artifactId>vaadin-client</artifactId>
+    </dependency>
     <!-- map APIs -->
     <dependency>
       <groupId>com.google.gwt.google-apis</groupId>
