@@ -172,6 +172,10 @@
       <groupId>com.vaadin</groupId>
       <artifactId>vaadin-client</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.vaadin</groupId>
+      <artifactId>vaadin-client-compiler</artifactId>
+    </dependency>
     <!-- map APIs -->
     <dependency>
       <groupId>com.google.gwt.google-apis</groupId>
