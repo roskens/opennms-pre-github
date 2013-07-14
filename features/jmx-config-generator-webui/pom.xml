@@ -57,9 +57,9 @@
             correct line below. A remote debugger can then be connected to port 8998. Note that e.g. a Jetty server should be running 
             with the server side parts - use the goal jetty:run . -->
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>gwt-maven-plugin</artifactId>
-        <version>${gwtPluginVersion}</version>
+        <groupId>com.vaadin</groupId>
+        <artifactId>vaadin-maven-plugin</artifactId>
+        <version>${vaadin.plugin.version}</version>
         <configuration>
           <!-- if you don't specify any modules, the plugin will find them -->
           <webappDirectory>${project.build.directory}/${project.build.finalName}/VAADIN/widgetsets</webappDirectory>
@@ -79,24 +79,6 @@
             </goals>
           </execution>
         </executions>
-        <dependencies>
-          <dependency>
-            <groupId>com.vaadin</groupId>
-            <artifactId>vaadin-client-compiler</artifactId>
-            <version>${vaadinVersion}</version>
-            <exclusions>
-              <exclusion>
-                <groupId>commons-logging</groupId>
-                <artifactId>commons-logging</artifactId>
-              </exclusion>
-            </exclusions>
-          </dependency>
-          <dependency>
-            <groupId>com.vaadin</groupId>
-            <artifactId>vaadin-client</artifactId>
-            <version>${vaadinVersion}</version>
-          </dependency>
-        </dependencies>
       </plugin>
       <plugin>
         <groupId>com.vaadin</groupId>
@@ -167,7 +149,6 @@
       <version>${project.version}</version>
       <type>pom</type>
     </dependency>
-    <!-- This is also used by gwt-maven-plugin to deduce GWT version number. -->
     <dependency>
       <groupId>com.vaadin</groupId>
       <artifactId>vaadin-client</artifactId>
@@ -264,19 +245,6 @@
                         <versionRange>[1.0.2,)</versionRange>
                         <goals>
                           <goal>update-widgetset</goal>
-                        </goals>
-                      </pluginExecutionFilter>
-                      <action>
-                        <ignore/>
-                      </action>
-                    </pluginExecution>
-                    <pluginExecution>
-                      <pluginExecutionFilter>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>gwt-maven-plugin</artifactId>
-                        <versionRange>[2.2.0,)</versionRange>
-                        <goals>
-                          <goal>resources</goal>
                         </goals>
                       </pluginExecutionFilter>
                       <action>
