@@ -600,6 +600,20 @@
           <rulesUri>file://${root.dir}/src/site/maven-version-rules.xml</rulesUri>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>2.10</version>
+        <configuration>
+          <enableRulesSummary>false</enableRulesSummary>
+          <module name="LineLength">
+            <property name="max" value="120"/>
+          </module>
+          <module name="TreeWalker">
+            <property name="tabWidth" value="4"/>
+          </module>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
   <reporting>
@@ -650,6 +664,20 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jxr-plugin</artifactId>
         <version>2.3</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>2.10</version>
+        <configuration>
+          <enableRulesSummary>false</enableRulesSummary>
+          <module name="LineLength">
+            <property name="max" value="120"/>
+          </module>
+          <module name="TreeWalker">
+            <property name="tabWidth" value="4"/>
+          </module>
+        </configuration>
       </plugin>
       <!--
       <plugin>
