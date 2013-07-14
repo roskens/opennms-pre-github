@@ -14,7 +14,6 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <guava.version>10.0.1</guava.version>
-    <quartz.version>2.1.5</quartz.version>
   </properties>
   <build>
     <plugins>
@@ -38,7 +37,6 @@
           <bundles>
             <bundle>mvn:org.opennms.features/jmxconfiggenerator.webui/${project.version}</bundle>
             <bundle>wrap:mvn:com.google.guava/guava/${guava.version}</bundle>
-            <bundle>wrap:mvn:org.quartz-scheduler/quartz/${quartz.version}</bundle>
           </bundles>
           <features>
             <feature>vaadin</feature>
@@ -216,9 +214,9 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>org.quartz-scheduler</groupId>
-      <artifactId>quartz</artifactId>
-      <version>${quartz.version}</version>
+      <groupId>org.opennms.dependencies</groupId>
+      <artifactId>quartz-dependencies</artifactId>
+      <type>pom</type>
       <scope>provided</scope>
     </dependency>
     <dependency>
