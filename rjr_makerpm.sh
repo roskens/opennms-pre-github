@@ -28,7 +28,7 @@ echo "OpenNMS_BUILD_${MINOR}_micro=$micro" > target/.properties
 set -ex
 rm -fr target/rpm/BUILD/* target/rpm/BUILDROOT/opennms* target/rpm/tmp target/rpm/RPMS/noarch
 ./clean_maven_files.pl
-find /itch/maven/repository/org/opennms -depth |xargs rmdir 2>/dev/null || true
+find ~/.m2/repository/org/opennms -depth |xargs rmdir 2>/dev/null || true
 DATESTART=$(date)
 ./makerpm.sh -d -u ${micro} 2>&1 | tee makerpm.log
 DATEEND=$(date)
