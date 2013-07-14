@@ -57,9 +57,9 @@
             correct line below. A remote debugger can then be connected to port 8998. Note that e.g. a Jetty server should be running 
             with the server side parts - use the goal jetty:run . -->
       <plugin>
-        <groupId>com.vaadin</groupId>
-        <artifactId>vaadin-maven-plugin</artifactId>
-        <version>${vaadin.plugin.version}</version>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>gwt-maven-plugin</artifactId>
+        <version>${gwtPluginVersion}</version>
         <configuration>
           <!-- if you don't specify any modules, the plugin will find them -->
           <webappDirectory>${project.build.directory}/${project.build.finalName}/VAADIN/widgetsets</webappDirectory>
