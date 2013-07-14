@@ -667,13 +667,15 @@
       <artifactId>struts</artifactId>
       <scope>${onmsLibScope}</scope>
     </dependency>
-    <!-- test dependencies -->
     <dependency>
       <groupId>com.vaadin</groupId>
       <artifactId>vaadin-client</artifactId>
-      <version>${vaadinVersion}</version>
-      <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>com.vaadin</groupId>
+      <artifactId>vaadin-client-compiler</artifactId>
+    </dependency>
+    <!-- test dependencies -->
     <dependency>
       <groupId>org.opennms</groupId>
       <artifactId>opennms-dao</artifactId>
