@@ -41,9 +41,9 @@
 	                debugger can then be connected to port 8998. Note that e.g. a Jetty server 
 	                should be running with the server side parts - use the goal jetty:run . -->
           <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>gwt-maven-plugin</artifactId>
-            <version>${gwtPluginVersion}</version>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-maven-plugin</artifactId>
+            <version>${vaadin.maven.plugin}</version>
             <configuration>
               <webappDirectory>${project.build.directory}/${project.build.finalName}/VAADIN/widgetsets</webappDirectory>
               <extraJvmArgs>-Xmx1g -Xss1024k</extraJvmArgs>
@@ -58,24 +58,6 @@
                 </goals>
               </execution>
             </executions>
-            <dependencies>
-              <dependency>
-                <groupId>com.vaadin</groupId>
-                <artifactId>vaadin-client</artifactId>
-                <version>${vaadinVersion}</version>
-              </dependency>
-              <dependency>
-                <groupId>com.vaadin</groupId>
-                <artifactId>vaadin-client-compiler</artifactId>
-                <version>${vaadinVersion}</version>
-                <exclusions>
-                  <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                  </exclusion>
-                </exclusions>
-              </dependency>
-            </dependencies>
           </plugin>
           <plugin>
             <groupId>com.vaadin</groupId>

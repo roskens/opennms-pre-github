@@ -15,9 +15,9 @@
     <plugins>
       <!-- GWT Maven Plugin -->
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>gwt-maven-plugin</artifactId>
-        <version>${gwtPluginVersion}</version>
+        <groupId>com.vaadin</groupId>
+        <artifactId>vaadin-maven-plugin</artifactId>
+        <version>${vaadin.plugin.version}</version>
         <configuration>
           <cssFiles>
             <cssFile>gwt/theme/OpennmsTheme_rtl.css</cssFile>

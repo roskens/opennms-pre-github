@@ -19,8 +19,8 @@
     <!-- <outputDirectory>war/WEB-INF/classes</outputDirectory> -->
     <plugins>
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>gwt-maven-plugin</artifactId>
+        <groupId>com.vaadin</groupId>
+        <artifactId>vaadin-maven-plugin</artifactId>
         <executions>
           <execution>
             <goals>

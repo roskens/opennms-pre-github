@@ -262,31 +262,9 @@
           </dependencies>
         </plugin>
         <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>gwt-maven-plugin</artifactId>
-          <version>${gwtPluginVersion}</version>
-          <dependencies>
-            <dependency>
-              <groupId>com.vaadin</groupId>
-              <artifactId>vaadin-client</artifactId>
-              <version>${vaadinVersion}</version>
-            </dependency>
-            <dependency>
-              <groupId>com.vaadin</groupId>
-              <artifactId>vaadin-client-compiler</artifactId>
-              <version>${vaadinVersion}</version>
-            </dependency>
-          </dependencies>
-          <exclusions>
-            <exclusion>
-              <groupId>com.google.gwt</groupId>
-              <artifactId>gwt-dev</artifactId>
-            </exclusion>
-            <exclusion>
-              <groupId>com.google.gwt</groupId>
-              <artifactId>gwt-user</artifactId>
-            </exclusion>
-          </exclusions>
+          <groupId>com.vaadin</groupId>
+          <artifactId>vaadin-maven-plugin</artifactId>
+          <version>${vaadin.plugin.version}</version>
           <executions>
             <execution>
               <goals>
@@ -769,8 +747,6 @@
     <commonsLoggingVersion>99.99.99-use-jcl-over-slf4j</commonsLoggingVersion>
     <commonsValidatorVersion>1.4.0</commonsValidatorVersion>
     <ecjVersion>4.2.2</ecjVersion>
-    <gwtVersion>2.5.1</gwtVersion>
-    <gwtPluginVersion>2.5.1</gwtPluginVersion>
     <httpcoreVersion>4.2.4</httpcoreVersion>
     <httpclientVersion>4.2.5</httpclientVersion>
     <jasperreportsVersion>3.7.6</jasperreportsVersion>
