@@ -32,13 +32,13 @@ import java.io.ByteArrayOutputStream;
 import java.io.InterruptedIOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.lang.reflect.Method;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
-import java.util.Date;
 import java.util.LinkedList;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.opennms.protocols.snmp.asn1.ASN1;
 import org.opennms.protocols.snmp.asn1.AsnDecodingException;
@@ -56,7 +56,9 @@ import org.opennms.protocols.snmp.asn1.AsnEncoder;
  * @see SnmpTrapSession
  * @see java.net.DatagramSocket
  */
-public class SnmpPortal extends Object {
+public class SnmpPortal {
+    private static final Logger LOG = LoggerFactory.getLogger(SnmpPortal.class);
+
     /**
      * The packet handler that is used to process received SNMP packets and
      * invalid datagrams. The handler must also process any exceptions that
@@ -318,28 +320,7 @@ public class SnmpPortal extends Object {
                             continue;
                         } catch (Exception e) {
                             if (!m_isClosing) {
-                                boolean handled = true;
-                                try {
-                                    Class<?> loggerC = Class.forName("org.opennms.core.utils.ThreadCategory");
-
-                                    Class<?>[] methodParmList = { Class.class };
-                                    Method loggerM = loggerC.getMethod("getInstance", methodParmList);
-
-                                    Object[] parmList = { this.getClass() };
-                                    Object loggerI = loggerM.invoke(null, parmList);
-
-                                    methodParmList = new Class[] { Object.class, Throwable.class };
-                                    Method infoM = loggerC.getMethod("info", methodParmList);
-
-                                    parmList = new Object[] { "An unknown error occured decoding the packet", e };
-                                    infoM.invoke(loggerI, parmList);
-                                } catch (Throwable t) {
-                                    handled = false;
-                                }
-
-                                if (!handled) {
-                                    System.out.println(new Date() + " - Exception: " + e.getMessage());
-                                }
+                                LOG.info("An unknown error occured decoding the packet", e);
                                 m_handler.processException(e);
                             }
                         }
@@ -368,113 +349,25 @@ public class SnmpPortal extends Object {
                     }
                     handlePkt(pkt);
                 } catch (SnmpPduEncodingException err) {
-                    boolean handled = true;
-                    try {
-                        Class<?> loggerC = Class.forName("org.opennms.core.utils.ThreadCategory");
-
-                        Class<?>[] methodParmList = { Class.class };
-                        Method loggerM = loggerC.getMethod("getInstance", methodParmList);
-
-                        Object[] parmList = { this.getClass() };
-                        Object loggerI = loggerM.invoke(null, parmList);
-
-                        methodParmList = new Class[] { Object.class, Throwable.class };
-                        Method infoM = loggerC.getMethod("info", methodParmList);
-
-                        parmList = new Object[] { "An error occured decoding the protocol data unit", err };
-                        infoM.invoke(loggerI, parmList);
-
-                        methodParmList = new Class[0];
-                        Method debugEnabledM = loggerC.getMethod("isDebugEnabled", methodParmList);
-
-                        parmList = new Object[0];
-                        Boolean isEnabled = (Boolean) debugEnabledM.invoke(loggerI, parmList);
-
-                        if (isEnabled.booleanValue()) {
-                            methodParmList = new Class[] { Object.class };
-                            Method debugM = loggerC.getMethod("debug", methodParmList);
-
-                            OutputStream ostream = new ByteArrayOutputStream();
-                            SnmpUtil.dumpHex(new PrintStream(ostream), pkt.getData(), 0, pkt.getLength());
-
-                            parmList = new Object[] { ostream };
-                            debugM.invoke(loggerI, parmList);
-                        }
-                    } catch (Throwable t) {
-                        handled = false;
-                    }
-
-                    if (!handled) {
-                        System.out.println(new Date() + " - SnmpPortal.Receiver.run: SnmpPduEncodingException: " + err.getMessage());
-                        SnmpUtil.dumpHex(System.out, pkt.getData(), 0, pkt.getLength());
+                    LOG.info("An error occured decoding the protocol data unit", err);
+                    if (LOG.isDebugEnabled()) {
+                        OutputStream ostream = new ByteArrayOutputStream();
+                        SnmpUtil.dumpHex(new PrintStream(ostream), pkt.getData(), 0, pkt.getLength());
+                        LOG.debug("{}", ostream);
                     }
                     m_handler.processBadDatagram(pkt);
                 } catch (AsnDecodingException err) {
-                    boolean handled = true;
-                    try {
-                        Class<?> loggerC = Class.forName("org.opennms.core.utils.ThreadCategory");
-
-                        Class<?>[] methodParmList = { Class.class };
-                        Method loggerM = loggerC.getMethod("getInstance", methodParmList);
-
-                        Object[] parmList = { this.getClass() };
-                        Object loggerI = loggerM.invoke(null, parmList);
-
-                        methodParmList = new Class[] { Object.class, Throwable.class };
-                        Method infoM = loggerC.getMethod("info", methodParmList);
-
-                        parmList = new Object[] { "An ASN.1 error occured decoding the packet", err };
-                        infoM.invoke(loggerI, parmList);
-
-                        methodParmList = new Class[0];
-                        Method debugEnabledM = loggerC.getMethod("isDebugEnabled", methodParmList);
-
-                        parmList = new Object[0];
-                        Boolean isEnabled = (Boolean) debugEnabledM.invoke(loggerI, parmList);
-
-                        if (isEnabled.booleanValue()) {
-                            methodParmList = new Class[] { Object.class };
-                            Method debugM = loggerC.getMethod("debug", methodParmList);
-
-                            OutputStream ostream = new ByteArrayOutputStream();
-                            SnmpUtil.dumpHex(new PrintStream(ostream), pkt.getData(), 0, pkt.getLength());
-
-                            parmList = new Object[] { ostream };
-                            debugM.invoke(loggerI, parmList);
-                        }
-                    } catch (Throwable t) {
-                        handled = false;
-                    }
-
-                    if (!handled) {
-                        System.out.println(new Date() + " - SnmpPortal.Receiver.run: AsnEncodingException: " + err.getMessage());
-                        SnmpUtil.dumpHex(System.out, pkt.getData(), 0, pkt.getLength());
+                    LOG.info("An ASN.1 error occured decoding the packet", err);
+                    if (LOG.isDebugEnabled()) {
+                        OutputStream ostream = new ByteArrayOutputStream();
+                        SnmpUtil.dumpHex(new PrintStream(ostream), pkt.getData(), 0, pkt.getLength());
+                        LOG.debug("{}", ostream);
                     }
                     m_handler.processBadDatagram(pkt);
                 } catch (Exception e) {
                     if (!m_isClosing) {
                         boolean handled = true;
-                        try {
-                            Class<?> loggerC = Class.forName("org.opennms.core.utils.ThreadCategory");
-
-                            Class<?>[] methodParmList = { Class.class };
-                            Method loggerM = loggerC.getMethod("getInstance", methodParmList);
-
-                            Object[] parmList = { this.getClass() };
-                            Object loggerI = loggerM.invoke(null, parmList);
-
-                            methodParmList = new Class[] { Object.class, Throwable.class };
-                            Method infoM = loggerC.getMethod("info", methodParmList);
-
-                            parmList = new Object[] { "An unknown error occured decoding the packet", e };
-                            infoM.invoke(loggerI, parmList);
-                        } catch (Throwable t) {
-                            handled = false;
-                        }
-
-                        if (!handled) {
-                            System.out.println(new Date() + " - Exception: " + e.getMessage());
-                        }
+                        LOG.info("An unknown error occured decoding the packet", e);
                         m_handler.processException(e);
                     }
                 }
