@@ -191,6 +191,12 @@
       <groupId>org.gwtopenmaps.openlayers</groupId>
       <artifactId>gwt-openlayers-client</artifactId>
       <version>0.6-20101124</version>
+      <exclusions>
+        <exclusion>
+          <groupId>com.google.gwt</groupId>
+          <artifactId>gwt-user</artifactId>
+        </exclusion>
+      </exclusions>
       <scope>provided</scope>
     </dependency>
     <dependency>
