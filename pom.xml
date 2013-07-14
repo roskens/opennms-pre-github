@@ -267,14 +267,14 @@
           <version>${gwtPluginVersion}</version>
           <dependencies>
             <dependency>
-              <groupId>com.google.gwt</groupId>
-              <artifactId>gwt-user</artifactId>
-              <version>${gwtVersion}</version>
+              <groupId>com.vaadin</groupId>
+              <artifactId>vaadin-client</artifactId>
+              <version>${vaadinVersion}</version>
             </dependency>
             <dependency>
-              <groupId>com.google.gwt</groupId>
-              <artifactId>gwt-dev</artifactId>
-              <version>${gwtVersion}</version>
+              <groupId>com.vaadin</groupId>
+              <artifactId>vaadin-client-compiler</artifactId>
+              <version>${vaadinVersion}</version>
             </dependency>
           </dependencies>
           <executions>
@@ -790,10 +790,6 @@
     <springLdapVersion>3.1.0.RELEASE</springLdapVersion>
     <!-- moved here from topology features -->
     <jungVersion>2.0.1</jungVersion>
-    <!--
-    <vaadinVersion>6.8.2</vaadinVersion>
-    <vaadinVersion>7.0.0.rc2</vaadinVersion>
-    -->
     <vaadinVersion>7.1.0</vaadinVersion>
     <vaadin.plugin.version>${vaadinVersion}</vaadin.plugin.version>
     <paxVaadinVersion>0.3.0-SNAPSHOT</paxVaadinVersion>
@@ -2285,17 +2281,6 @@
         <groupId>com.google.guava</groupId>
         <artifactId>guava</artifactId>
         <version>10.0.1</version>
-      </dependency>
-      <dependency>
-        <groupId>com.google.gwt</groupId>
-        <artifactId>gwt-user</artifactId>
-        <version>${gwtVersion}</version>
-        <optional>true</optional>
-      </dependency>
-      <dependency>
-        <groupId>com.google.gwt</groupId>
-        <artifactId>gwt-dev</artifactId>
-        <version>${gwtVersion}</version>
       </dependency>
       <!-- Vaadin -->
       <dependency>

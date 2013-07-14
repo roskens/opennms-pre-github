@@ -674,9 +674,9 @@
     -->
     <!-- test dependencies -->
     <dependency>
-      <groupId>com.google.gwt</groupId>
-      <artifactId>gwt-user</artifactId>
-      <version>${gwtVersion}</version>
+      <groupId>com.vaadin</groupId>
+      <artifactId>vaadin-client</artifactId>
+      <version>${vaadinVersion}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
