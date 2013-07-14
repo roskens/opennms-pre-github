@@ -91,9 +91,9 @@
       <type>pom</type>
     </dependency>
     <dependency>
-      <groupId>com.google.gwt</groupId>
-      <artifactId>gwt-user</artifactId>
-      <version>${gwtVersion}</version>
+      <groupId>com.vaadin</groupId>
+      <artifactId>vaadin-client</artifactId>
+      <version>${vaadinVersion}</version>
       <scope>provided</scope>
     </dependency>
     <!--GWT visualization-->

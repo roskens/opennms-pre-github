@@ -16,9 +16,9 @@
   </description>
   <dependencies>
     <dependency>
-      <groupId>com.google.gwt</groupId>
-      <artifactId>gwt-servlet</artifactId>
-      <version>${gwtVersion}</version>
+      <groupId>com.vaadin</groupId>
+      <artifactId>vaadin-server</artifactId>
+      <version>${vaadinVersion}</version>
     </dependency>
     <dependency>
       <groupId>org.gwtwidgets</groupId>

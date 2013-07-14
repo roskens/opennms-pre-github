@@ -58,14 +58,14 @@
             </executions>
             <dependencies>
               <dependency>
-                <groupId>com.google.gwt</groupId>
-                <artifactId>gwt-dev</artifactId>
-                <version>${gwtVersion}</version>
+                <groupId>com.vaadin</groupId>
+                <artifactId>vaadin-client-compiler</artifactId>
+                <version>${vaadinVersion}</version>
               </dependency>
               <dependency>
-                <groupId>com.google.gwt</groupId>
-                <artifactId>gwt-user</artifactId>
-                <version>${gwtVersion}</version>
+                <groupId>com.vaadin</groupId>
+                <artifactId>vaadin-client</artifactId>
+                <version>${vaadinVersion}</version>
               </dependency>
             </dependencies>
           </plugin>
