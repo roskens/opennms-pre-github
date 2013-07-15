@@ -91,7 +91,7 @@
     <property name="message" value="Line has trailing spaces."/>
   </module>
   <module name="Header">
-    <property name="headerFile" value="/Users/roskens/Documents/itch2/opennms-devjam2013.git/src/site/checkstyle-header-java.txt"/>
+    <property name="headerFile" value="${root.dir}/src/site/checkstyle-header-java.txt"/>
     <property name="fileExtensions" value="java"/>
   </module>
 </module>

@@ -436,18 +436,8 @@
           <version>2.10</version>
           <configuration>
             <enableRulesSummary>false</enableRulesSummary>
-            <module name="Checker">
-              <module name="TreeWalker">
-                <property name="tabWidth" value="4"/>
-                <module name="LineLength">
-                  <property name="max" value="120"/>
-                </module>
-              </module>
-              <module name="Header">
-                <property name="headerFile" value="${root.dir}/src/site/checkstyle-header-java.txt"/>
-                <property name="fileExtensions" value="java"/>
-              </module>
-            </module>
+            <configLocation>${root.dir}/src/site/checkstyle.xml</configLocation>
+            <propertyExpansion>root.dir=${root.dir}</propertyExpansion>
           </configuration>
         </plugin>
       </plugins>
@@ -615,18 +605,8 @@
         <version>2.10</version>
         <configuration>
           <enableRulesSummary>false</enableRulesSummary>
-          <module name="Checker">
-            <module name="TreeWalker">
-              <property name="tabWidth" value="4"/>
-              <module name="LineLength">
-                <property name="max" value="120"/>
-              </module>
-            </module>
-            <module name="Header">
-              <property name="headerFile" value="${root.dir}/src/site/checkstyle-header-java.txt"/>
-              <property name="fileExtensions" value="java"/>
-            </module>
-          </module>
+          <configLocation>${root.dir}/src/site/checkstyle.xml</configLocation>
+          <propertyExpansion>root.dir=${root.dir}</propertyExpansion>
         </configuration>
       </plugin>
     </plugins>
@@ -686,18 +666,8 @@
         <version>2.10</version>
         <configuration>
           <enableRulesSummary>false</enableRulesSummary>
-          <module name="Checker">
-            <module name="TreeWalker">
-              <property name="tabWidth" value="4"/>
-              <module name="LineLength">
-                <property name="max" value="120"/>
-              </module>
-            </module>
-            <module name="Header">
-              <property name="headerFile" value="${root.dir}/src/site/checkstyle-header-java.txt"/>
-              <property name="fileExtensions" value="java"/>
-            </module>
-          </module>
+          <configLocation>${root.dir}/src/site/checkstyle.xml</configLocation>
+          <propertyExpansion>root.dir=${root.dir}</propertyExpansion>
         </configuration>
       </plugin>
       <!--
