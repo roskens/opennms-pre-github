@@ -43,7 +43,7 @@ case "$1" in
       echo "ERROR:Failed to stop standby OpenNMS instance; not failing over!"
       $SYNC_HOME/scripts/sync-state.sh on
       exit 1
-    fi 
+    fi
 
     echo "Changing the $OPENNMS_ETC symbolic link to $OPENNMS_ETC_FAILOVER..."
     rm $OPENNMS_ETC
@@ -94,7 +94,7 @@ case "$1" in
       echo "ERROR:Failed to stop failover OpenNMS instance; not failing over!"
       $SYNC_HOME/scripts/sync-state.sh off
       exit 1
-    fi 
+    fi
 
     echo "Changing the $OPENNMS_ETC symbolic link to $OPENNMS_ETC_STANDBY..."
     rm $OPENNMS_ETC

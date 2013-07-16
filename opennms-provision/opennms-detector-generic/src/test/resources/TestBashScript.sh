@@ -17,7 +17,7 @@
 # You should have received a copy of the GNU General Public License
 #     along with OpenNMS(R).  If not, see <http://www.gnu.org/licenses/>.
 #
-# For more information contact: 
+# For more information contact:
 #     OpenNMS(R) Licensing <license@opennms.org>
 #     http://www.opennms.org/
 #     http://www.opennms.com/

@@ -7,14 +7,14 @@ export PROV_GROUP=testGroup
 
 
 
-shuSetUp() 
+shuSetUp()
 {
     # verify that the server is up before we run tests
     curl --user ${REST_USER}:${REST_PASSWD} -sSf -X GET ${BASE_URL}/requisitions -o /dev/null
     shuAssert "Expected server to respond" $?
 }
 
-shuTearDown() 
+shuTearDown()
 {
     rm -rf /tmp/provisionTest.data.*
 }
@@ -22,7 +22,7 @@ shuTearDown()
 shuAssertStringEquals()
 {
     test "x${1}" = "x${2}"
-    shuAssert "Expected '${1}' but was '${2}'" $? 
+    shuAssert "Expected '${1}' but was '${2}'" $?
 }
 
 shuAssertRequisitionExists()
@@ -123,7 +123,7 @@ shuAssertNodeInDB()
 
     isNodeInDB $foreignSource $foreignId
     shuAssert "Expected to find node ${foreignSource}:${foreignId} in database" $?
-    
+
 }
 
 shuDenyNodeInDB()
@@ -208,7 +208,7 @@ TestAddNodeToRequisition()
     shuDenyNodeInRequisition ${foreignSource} 2
 
     shuAssertRequisitionEmpty ${foreignSource}
-    
+
 }
 
 TestAddNodeWithDuplicatedForeignIdToRequisition()
@@ -264,7 +264,7 @@ TestSyncRequisition()
     local foreignId=55
     local nodeLabel=uzbekistan
     local ip=192.168.39.1
-    
+
     createEmptyRequisition ${BASE_URL} ${foreignSource}
     shuAssert "Unexpected failure createing requisition ${foreignSource}" $?
 
@@ -300,7 +300,7 @@ shuAssertCommunityEquals()
 
     local community=$(perl xpath.pl ${config} "/snmp-info/community" | sed 's: *<community>\(.*\)</community>:\1:')
     shuAssert "Unable to find community string in configuration" $?
-    
+
     shuAssertStringEquals "$community" "$expectedCommunity"
 }
 
@@ -313,7 +313,7 @@ shuAssertTimeoutEquals()
     shuAssert "Unable to find port in configuration" $?
 
     shuAssertStringEquals "$timeout" "$expectedTimeout"
-}    
+}
 
 TestGetSnmpConfig()
 {

@@ -23,7 +23,7 @@ find_property_file () {
 	fi
 
 }
- 
+
 list_properties() {
 	for prop in `cat build.properties | grep -v -E '^#' | grep -v -E '^$' | awk '{print $1}'`; do
 		echo -e "$prop \c"

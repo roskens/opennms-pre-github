@@ -12,7 +12,7 @@ JAR_SEARCH_PATH="$OPENNMS_HOME/lib/updates $PREFIX/lib $OPENNMS_HOME/lib /usr/sh
 set_jarfile () {
 	local JARFILE="$1"
 	shift
- 
+
 	local UCASE=`echo ${JARFILE} | tr '[:lower:]' '[:upper:]'`
 	local JARLOC=`find_jarfile $JARFILE`
 	if [ -z "$JARLOC" ]; then

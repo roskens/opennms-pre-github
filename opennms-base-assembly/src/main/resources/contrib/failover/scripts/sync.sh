@@ -38,7 +38,7 @@ dbSync()
   if [ $? -eq 0 ]
   then
     echo "Dropping and recreating $FAILOVER_DB Database locally..."
-    psql -U opennms template1 -c "DROP DATABASE $FAILOVER_DB;" 
+    psql -U opennms template1 -c "DROP DATABASE $FAILOVER_DB;"
     psql -U opennms template1 -c "CREATE DATABASE $FAILOVER_DB ENCODING 'unicode';"
   else
     exit 1

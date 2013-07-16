@@ -11,7 +11,7 @@
 # OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
 #
 # Modifications:
-# 
+#
 # Created: September 3, 2009
 #
 # Copyright (C) 2009 The OpenNMS Group, Inc.  All rights reserved.

@@ -38,7 +38,7 @@ check_arg () {
 			;;
 	esac
 }
- 
+
 if echo "$1" | grep -- - >/dev/null 2>&1; then
 	for ARG
 	do

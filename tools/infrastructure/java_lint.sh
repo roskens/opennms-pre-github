@@ -58,7 +58,7 @@ java_lint () {
 			fi
 		fi
 	fi
- 
+
 	if [ -f "$JAVA_HOME/lib/tools.jar" ] || [ "`uname`" = "Darwin" ]; then
 		if [ -z "$CLASSPATH" ] ; then
 			CLASSPATH="$JAVA_HOME/lib/tools.jar" export CLASSPATH

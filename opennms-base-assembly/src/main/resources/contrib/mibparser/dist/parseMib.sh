@@ -90,7 +90,7 @@ javaCheck()
 	echo "    Checking Java version for 1.4+..."
 	ret=`$JP -version 2>&1`
 	echo "    Version is: $ret"
-	echo $ret | grep '1\.[456789]\.' 1>/dev/null 2>/dev/null 
+	echo $ret | grep '1\.[456789]\.' 1>/dev/null 2>/dev/null
 	if [ $? = 0 ]
 	then
 		return 0
@@ -186,7 +186,7 @@ javaHome()
 	if [ -z "$JAVA_HOME" ]
 	then
 		echo "    JAVA_HOME not set, trying to find it..."
-		
+
 		if [ $JP != "/usr/bin/java" ]
 		then
 			JAVA_HOME=`echo $JP | awk -F "/" '{ print substr($0,1,length($0) - length("/bin/java")) }'`

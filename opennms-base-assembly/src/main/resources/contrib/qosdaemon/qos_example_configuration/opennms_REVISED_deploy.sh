@@ -37,12 +37,12 @@ echo "              this is normally /opt/OpenNMS"
 # OSSbeans-qos-ear ear name
 #OSSBEANS_QOS_EAR_NAME=OSSbeans-qos-ear-$VERSION.ear
 #echo OSSbeans-qos-ear ear name set to: $OSSBEANS_QOS_EAR_NAME
-  
+
 echo Information: Setting up and checking copy locations:
 #################################
 # local directories to copy from
 #################################
-# QOS_BUILD_HOME - to be changed to where QosD is built on your machine 
+# QOS_BUILD_HOME - to be changed to where QosD is built on your machine
 #QOS_BUILD_HOME=./../..
 #echo Information: QOS_BUILD_HOME set to $QOS_BUILD_HOME
 
@@ -66,15 +66,15 @@ if [ -d "$OPEN_NMS_HOME" ]; then
     echo Information: $OPEN_NMS_HOME directory exists - using as home directory for opennms
 else
     echo Error: OPEN_NMS_HOME OpenNMS installation $OPEN_NMS_HOME does not exist
-    echo please install OpenNMS to $OPEN_NMS_HOME 
+    echo please install OpenNMS to $OPEN_NMS_HOME
     exit
-fi 
+fi
 if [ -w "$OPEN_NMS_HOME" ]; then  # test for write permissions for this user
-    echo Information: You have write permissions for $OPEN_NMS_HOME 
+    echo Information: You have write permissions for $OPEN_NMS_HOME
 else
-    echo Error: You do not have write permissions for $OPEN_NMS_HOME - suggest you run as sudo 
+    echo Error: You do not have write permissions for $OPEN_NMS_HOME - suggest you run as sudo
     exit
-fi 
+fi
 echo
 
 # check JBOSS_HOME directory
@@ -87,25 +87,25 @@ else
     JBOSS_HOME="/opt/jboss"  # Default location for jboss , if no JBOSS_HOME specificed.
     export JBOSS_HOME
     echo Information: JBOSS_HOME was not set so using default JBOSS_HOME: $JBOSS_HOME
-fi  
+fi
 if [ -d "$JBOSS_HOME" ]; then
     echo Information: $JBOSS_HOME directory exists - using as home directory for jboss
 else
     echo Error: JBOSS_HOME symbolic link to jboss at $JBOSS_HOME does not exist
-    echo please create symbolic link at $JBOSS_HOME to jboss 4 installation 
+    echo please create symbolic link at $JBOSS_HOME to jboss 4 installation
     exit
-fi 
+fi
 if [ -h "$JBOSS_HOME" ]; then
     echo Information: $JBOSS_HOME is a symbolic link
 else
     echo Information: $JBOSS_HOME is not a symbolic link
-fi 
+fi
 if [ -w "$JBOSS_HOME" ]; then  # test for write permissions for this user
-    echo Information: You have write permissions for $JBOSS_HOME 
+    echo Information: You have write permissions for $JBOSS_HOME
 else
-    echo Error: You do not have write permissions for $JBOSS_HOME - suggest you run as sudo 
+    echo Error: You do not have write permissions for $JBOSS_HOME - suggest you run as sudo
     exit
-fi 
+fi
 
 
 # echo following commands to prompt
@@ -122,7 +122,7 @@ set -x
 
 # files to copy to opennms to set up the log4j perameters for deamon and services file
 
-cp $OPEN_NMS_HOME/etc/rmi.policy $OPEN_NMS_HOME/etc/rmi.policy_back 
+cp $OPEN_NMS_HOME/etc/rmi.policy $OPEN_NMS_HOME/etc/rmi.policy_back
 cp $OPEN_NMS_CONFIG_HOME/opennms/rmi.policy                   $OPEN_NMS_HOME/etc
 
 cp $OPEN_NMS_HOME/etc/log4j.properties                        $OPEN_NMS_HOME/etc/log4j.properties_back
@@ -161,7 +161,7 @@ cp $OPEN_NMS_CONFIG_HOME/opennms/QoSDrxOssBeanRunnerSpringContext.xml	$OPEN_NMS_
 #####################################################
 echo
 echo vacuumd file is used to set up opennms automations to drive ossj interface
-cp $OPEN_NMS_HOME/etc/vacuumd-configuration.xml $OPEN_NMS_HOME/etc/vacuumd-configuration_back.xml 
+cp $OPEN_NMS_HOME/etc/vacuumd-configuration.xml $OPEN_NMS_HOME/etc/vacuumd-configuration_back.xml
 cp $OPEN_NMS_CONFIG_HOME/opennms_fault_config/vacuumd-configuration.xml     $OPEN_NMS_HOME/etc
 
 echo ossj_events.xml contains events specifically to drive opennms interface
@@ -172,13 +172,13 @@ echo
 echo note ossj_events.xml must be configured in eventconf.xml for ossj interface to work
 echo eventconf must reference the required trap handling configuration files in OPEN_NMS_HOME/etc/events
 cp $OPEN_NMS_HOME/etc/eventconf.xml $OPEN_NMS_HOME/etc/eventconf_back.xml
-cp $OPEN_NMS_CONFIG_HOME/opennms_fault_config/eventconf.xml                 $OPEN_NMS_HOME/etc 
+cp $OPEN_NMS_CONFIG_HOME/opennms_fault_config/eventconf.xml                 $OPEN_NMS_HOME/etc
 
 ###################################
 # set up opennms inventory importer
 ###################################
 cp $OPEN_NMS_HOME/etc/model-importer.properties $OPEN_NMS_HOME/etc/model-importer.properties_back
-cp $OPEN_NMS_CONFIG_HOME/opennms_fault_config/inventory/model-importer.properties        $OPEN_NMS_HOME/etc 
+cp $OPEN_NMS_CONFIG_HOME/opennms_fault_config/inventory/model-importer.properties        $OPEN_NMS_HOME/etc
 
 ########################################
 # FILES TO DEPLOY configuration on JBOSS

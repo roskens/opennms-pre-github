@@ -52,19 +52,19 @@ function runDbMaint() {
   runsql 'DELETE FROM events e WHERE e.eventid IN (SELECT o.svcregainedeventid FROM outages o WHERE o.svcregainedeventid IS NOT NULL AND  (ifregainedservice - iflostservice)::interval < interval \'35 seconds\');'
 
   runsql 'DELETE FROM notifications WHERE pagetime < now() - interval \'3 months\';'
-  runsql 'DELETE 
-            FROM events 
+  runsql 'DELETE
+            FROM events
             WHERE NOT EXISTS (
-           SELECT svclosteventid 
-             FROM outages 
+           SELECT svclosteventid
+             FROM outages
             WHERE svclosteventid = events.eventid
 	    UNION
-           SELECT svcregainedeventid 
-             FROM outages 
+           SELECT svcregainedeventid
+             FROM outages
             WHERE svcregainedeventid = events.eventid
             UNION
-           SELECT eventid 
-             FROM notifications 
+           SELECT eventid
+             FROM notifications
             WHERE eventid = events.eventid)
               AND eventtime < now() - interval \'6 weeks\');'
 
@@ -82,7 +82,7 @@ function doWork() {
   # DB info (Currently only Unix Domain Socket)
 
   # Get a transaction number
-  nextval=`psql -p $PG_PORT -U $PG_USER $PG_DB -c "select nextval('tx_ids')" | sed -n '3p'`; 
+  nextval=`psql -p $PG_PORT -U $PG_USER $PG_DB -c "select nextval('tx_ids')" | sed -n '3p'`;
   nextval=`echo $nextval`
   echo "Next Value: $nextval"
 

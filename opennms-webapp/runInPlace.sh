@@ -71,7 +71,7 @@ function clean() {
     removeGwtFiles
     rm -f src/main/webapp/WEB-INF/version.properties
     rm -f src/main/webapp/WEB-INF/configuration.properties
-	
+
 	if $OFFLINE; then
         OFFLINE_ARGS="-o"
     fi

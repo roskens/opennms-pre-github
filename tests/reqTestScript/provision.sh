@@ -125,7 +125,7 @@ deleteNodeFromRequisition()
     local foreignId=$3
 
     doCurl --user ${REST_USER}:${REST_PASSWD} -sSf -X DELETE "${baseUrl}/requisitions/${foreignSource}/nodes/${foreignId}" -o /dev/null
-    
+
 }
 
 synchRequisition()
@@ -168,5 +168,5 @@ setSnmpConfig()
     done
 
     doCurl --user ${REST_USER}:${REST_PASSWD} -sSf -X PUT $form_parms "${baseUrl}/snmpConfig/${ip}"
-    
+
 }

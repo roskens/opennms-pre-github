@@ -7,14 +7,14 @@ export PROV_GROUP=testGroup
 
 
 
-shuSetUp() 
+shuSetUp()
 {
     # verify that the server is up before we run tests
     curl --user ${REST_USER}:${REST_PASSWD} -sSf -X GET ${BASE_URL}/requisitions -o /dev/null
     shuAssert "Expected server to respond" $?
 }
 
-shuTearDown() 
+shuTearDown()
 {
     rm -rf /tmp/provisionTest.data.*
 }
@@ -22,7 +22,7 @@ shuTearDown()
 shuAssertStringEquals()
 {
     test "x${1}" = "x${2}"
-    shuAssert "Expected '${1}' but was '${2}'" $? 
+    shuAssert "Expected '${1}' but was '${2}'" $?
 }
 
 shuAssertRequisitionExists()
@@ -123,7 +123,7 @@ shuAssertNodeInDB()
 
     isNodeInDB $foreignSource $foreignId
     shuAssert "Expected to find node ${foreignSource}:${foreignId} in database" $?
-    
+
 }
 
 shuDenyNodeInDB()
@@ -142,7 +142,7 @@ shuAssertCommunityEquals()
 
     local community=$(perl xpath.pl ${config} "/snmp-info/community" | sed 's: *<community>\(.*\)</community>:\1:')
     shuAssert "Unable to find community string in configuration" $?
-    
+
     shuAssertStringEquals "$community" "$expectedCommunity"
 }
 
@@ -155,7 +155,7 @@ shuAssertTimeoutEquals()
     shuAssert "Unable to find port in configuration" $?
 
     shuAssertStringEquals "$timeout" "$expectedTimeout"
-}    
+}
 
 addSampleNodesToRequistion()
 {
@@ -194,12 +194,12 @@ addSampleNodesToRequistion()
 
     local -i end=$(date "+%s")
     local -i elapsed=end-start
-  
+
     echo
     echo "Added Batch ${foreignIdPrefix} - Elapsed Time = $elapsed s"
-    
 
-    
+
+
 }
 
 TestRequisition26000Nodes()
@@ -237,7 +237,7 @@ TestRequisition26000Nodes()
     echo
     echo
     echo "time to fetch req=$elapsed"
-    
+
 }
 
 PassedInTestSuite()

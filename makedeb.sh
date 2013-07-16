@@ -23,7 +23,7 @@ function run()
     else
         die "Command not found: $1"
     fi
-}    
+}
 
 function die()
 {

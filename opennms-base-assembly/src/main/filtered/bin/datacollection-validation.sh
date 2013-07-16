@@ -1,4 +1,4 @@
-#!/bin/sh - 
+#!/bin/sh -
 
 JAVA_OPTIONS="-Xmx256m"
 opennms_home="${install.dir}"
